@@ -2033,25 +2033,25 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasScrollPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctScrollPaneHorizontalValue0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneHorizontalValue0()));
+        method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneHorizontalValue0()), new FctScrollPaneHorizontalValue1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctScrollPaneVerticalValue0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneVerticalValue0()));
+        method_ = new StandardMethod(aliasScrollPaneVerticalValue, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneVerticalValue0()), new FctScrollPaneVerticalValue1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasScrollPaneGetView, params_,aliasComponent, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasScrollPaneGetView, params_,aliasComponent, false, MethodModifier.FINAL, new FctScrollPaneGetView());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasScrollPaneValidate, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasScrollPaneValidate, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctScrollPaneValidate());
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasScrollPaneSetView, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneSetView0()));
+        method_ = new StandardMethod(aliasScrollPaneSetView, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneSetView0()), new FctScrollPaneSetView());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -4170,39 +4170,6 @@ public final class GuiAliases {
                 return res_;
             }
             res_.setResult(strPan_.remove((CustComponentStruct) _args[0]));
-            return res_;
-        }
-        if (StringUtil.quickEq(type_,aliasScrollPane)) {
-            ScrollPaneStruct strPan_ = (ScrollPaneStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasScrollPaneHorizontalValue)) {
-                if (_method.getConstraints().getParametersTypesLength() == 1) {
-                    strPan_.setHorizontalValue(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(strPan_.getHorizontalValue());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasScrollPaneVerticalValue)) {
-                if (_method.getConstraints().getParametersTypesLength() == 1) {
-                    strPan_.setVerticalValue(_args[0]);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(strPan_.getVerticalValue());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasScrollPaneGetView)) {
-                res_.setResult(strPan_.getView());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasScrollPaneValidate)) {
-                strPan_.revalidate();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            strPan_.setViewportView(_args[0]);
-            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
