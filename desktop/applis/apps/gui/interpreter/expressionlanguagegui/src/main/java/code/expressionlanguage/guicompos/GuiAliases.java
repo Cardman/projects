@@ -851,20 +851,6 @@ public final class GuiAliases {
     private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
     private final StringMap<String> propertiesGui = MessCdmGuiGr.ms();
 
-    private static StringList newList(Struct _s) {
-        if (!(_s instanceof ArrayStruct)) {
-            return new StringList();
-        }
-        StringList l_ = new StringList();
-        for (Struct s: ((ArrayStruct)_s).list()) {
-            if (!(s instanceof StringStruct)) {
-                continue;
-            }
-            l_.add(((StringStruct)s).getInstance());
-        }
-        return l_;
-    }
-
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
         StringMap<String> stds_ = new StringMap<String>();
         String content_ = res("resources_lg_gui/action_event.txt");
