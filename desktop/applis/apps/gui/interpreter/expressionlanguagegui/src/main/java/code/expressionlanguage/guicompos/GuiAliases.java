@@ -2705,7 +2705,7 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasButtonGroup, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasRadio);
-        method_ = new StandardMethod(aliasButtonGroupAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButtonGroup0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasButtonGroupAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButtonGroup0TabbedPaneAdd0()), new FctButtonGroupAdd());
         methods_.add( method_);
         _content.getStandards().addEntry(aliasButtonGroup, stdcl_);
         methods_ = new CustList<StandardMethod>();
