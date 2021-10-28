@@ -2667,7 +2667,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasGrListClear, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctGrListClear());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasGrList0GrList0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasGrList0GrList0()), new FctGrList(_cust,_guiEx,aliasGrList));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasGrList, stdcl_);
 
@@ -3413,15 +3413,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new RenderStruct());
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasGrList)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,BooleanStruct.isTrue(_args[0])));
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
