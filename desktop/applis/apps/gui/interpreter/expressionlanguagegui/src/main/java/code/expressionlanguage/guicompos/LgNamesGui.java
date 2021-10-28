@@ -71,7 +71,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
                                          ClassMethodId _method, Struct... _args) {
-        return guiAliases.getOtherResult(getCustAliases(),_cont,_instance,_method, getExecutingBlocks(), _stack, _args);
+        return getCustAliases().getOtherResult(_cont,_instance,_method, getExecutingBlocks(), _stack, _args);
     }
 
     @Override

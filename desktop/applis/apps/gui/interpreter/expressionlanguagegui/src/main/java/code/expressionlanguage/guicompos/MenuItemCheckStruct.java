@@ -9,10 +9,10 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class MenuItemCheckStruct extends AbsMenuItemStruct {
     private AbsCheckBoxMenuItem menuItem;
-    MenuItemCheckStruct(AbsCompoFactory _compo) {
+    public MenuItemCheckStruct(AbsCompoFactory _compo) {
         menuItem = _compo.newCheckBoxMenuItem();
     }
-    MenuItemCheckStruct(Struct _str,AbsCompoFactory _compo) {
+    public MenuItemCheckStruct(Struct _str,AbsCompoFactory _compo) {
         menuItem = _compo.newCheckBoxMenuItem(getValue(_str));
     }
     public Struct isSelected() {

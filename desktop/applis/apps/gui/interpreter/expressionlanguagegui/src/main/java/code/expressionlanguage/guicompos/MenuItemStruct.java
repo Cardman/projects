@@ -8,10 +8,10 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class MenuItemStruct extends AbsMenuItemStruct {
     private AbsMenuItem menuItem;
-    MenuItemStruct(AbsCompoFactory _compo) {
+    public MenuItemStruct(AbsCompoFactory _compo) {
         menuItem = _compo.newMenuItem();
     }
-    MenuItemStruct(Struct _str,AbsCompoFactory _compo) {
+    public MenuItemStruct(Struct _str,AbsCompoFactory _compo) {
         menuItem = _compo.newMenuItem(getValue(_str));
     }
     @Override

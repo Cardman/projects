@@ -9,7 +9,6 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
@@ -19,7 +18,6 @@ import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.ExecutingBlocks;
 import code.gui.OtherConfirmDialog;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.scripts.messages.gui.MessCdmGuiGr;
@@ -2371,7 +2369,7 @@ public final class GuiAliases {
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasImage, stdcl_);
         buildInputs(_content,_guiEx);
-        buildMenus(_content);
+        buildMenus(_content,_cust,_guiEx);
     }
     private void buildEvents(LgNamesContent _content) {
         CustList<StandardMethod> methods_;
@@ -2476,7 +2474,7 @@ public final class GuiAliases {
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasKeyEvent, std_);
     }
-    private void buildMenus(LgNamesContent _content) {
+    private void buildMenus(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
         CustList<StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
         CustList<CstFieldInfo> fields_;
@@ -2544,10 +2542,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasMenuAddSeparator, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctMenuAddSeparator());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctMenu0(_cust,_guiEx));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenu0Menu0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenu0Menu0()), new FctMenu1(_cust,_guiEx));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasMenu, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2563,10 +2561,10 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMenuItem, fields_, constructors_, methods_, aliasAbsMenuItem, MethodModifier.FINAL);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctMenuItem0(_cust,_guiEx));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenuItem0MenuItem0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenuItem0MenuItem0()), new FctMenuItem1(_cust,_guiEx));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasMenuItem, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2580,10 +2578,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasMenuItemCheckIsSelected, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctMenuItemCheckIsSelected());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctMenuItemCheck0(_cust,_guiEx));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenuItemCheck0MenuItemCheck0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMenuItemCheck0MenuItemCheck0()), new FctMenuItemCheck1(_cust,_guiEx));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasMenuItemCheck, stdcl_);
 
@@ -3593,50 +3591,7 @@ public final class GuiAliases {
             r_.setResult(new MenuBarStruct(_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
-        if (StringUtil.quickEq(name_, aliasMenu)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new MenuStruct(_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            r_.setResult(new MenuStruct(_args[0],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasMenuItem)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new MenuItemStruct(_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            r_.setResult(new MenuItemStruct(_args[0],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasMenuItemCheck)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new MenuItemCheckStruct(_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            r_.setResult(new MenuItemCheckStruct(_args[0],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
-    }
-    public ResultErrorStd getOtherResult(CustAliases _custAliases, ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, ExecutingBlocks _execBlocks, StackCall _stackCall, Struct... _args) {
-        return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
     }
 
     private static void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {

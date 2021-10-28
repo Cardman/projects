@@ -14,10 +14,10 @@ import code.util.CustList;
 public final class MenuStruct extends AbsMenuStruct {
     private final AbsMenu menu;
     private final CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
-    MenuStruct(AbsCompoFactory _compo) {
+    public MenuStruct(AbsCompoFactory _compo) {
         menu = _compo.newMenu();
     }
-    MenuStruct(Struct _str,AbsCompoFactory _compo) {
+    public MenuStruct(Struct _str,AbsCompoFactory _compo) {
         menu = _compo.newMenu(getValue(_str));
     }
 
