@@ -1922,40 +1922,40 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasPanel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0TabbedPaneAdd0()),new FctPanelAddCompo0(_cust));
         methods_.add( method_);
         params_ = new StringList(aliasComponent,_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel1TabbedPaneAdd0(),guiAliasParameters.getAliasPanel1TabbedPaneAdd1()));
+        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel1TabbedPaneAdd0(),guiAliasParameters.getAliasPanel1TabbedPaneAdd1()),new FctPanelAddCompo1(_cust));
         methods_.add( method_);
         params_ = new StringList(aliasComponent);
-        method_ = new StandardMethod(aliasRemoveCompo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0RemoveCompo0()));
+        method_ = new StandardMethod(aliasRemoveCompo, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0RemoveCompo0()), new FctPanelRemove1(_cust));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasRemoveCompo, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel1RemoveCompo0()));
+        method_ = new StandardMethod(aliasRemoveCompo, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel1RemoveCompo0()), new FctPanelRemove0(_cust));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGetIndexCompo, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0TreeNodeGetUserObject0()));
+        method_ = new StandardMethod(aliasGetIndexCompo, params_, aliasComponent, false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0TreeNodeGetUserObject0()), new FctPanelGetIndexCompo(_cust));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasCount, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctPanelCount(_cust));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasPanelFlow, params_, aliasPanel, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasPanelFlow, params_, aliasPanel, false, MethodModifier.STATIC, new FctPanelFlow(_cust,_guiEx,aliasPanel));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasPanelAbsolute, params_, aliasPanel, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasPanelAbsolute, params_, aliasPanel, false, MethodModifier.STATIC, new FctPanelAbsolute(_cust,_guiEx,aliasPanel));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasPanelPageBox, params_, aliasPanel, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasPanelPageBox, params_, aliasPanel, false, MethodModifier.STATIC, new FctPanelPageBox(_cust,_guiEx,aliasPanel));
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasPanelGrid, params_, aliasPanel, false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasPanel0PanelGrid0(),guiAliasParameters.getAliasPanel0PanelGrid1()));
+        method_ = new StandardMethod(aliasPanelGrid, params_, aliasPanel, false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasPanel0PanelGrid0(),guiAliasParameters.getAliasPanel0PanelGrid1()), new FctPanelGrid(_cust,_guiEx,aliasPanel));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRemoveAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasRemoveAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctPanelRemoveAll(_cust));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasPanelValidate, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPanelValidate, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctPanelValidate(_cust));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -1968,7 +1968,7 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL);
         params_ = new StringList(aliasComponent,_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd0(),guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd1()));
+        method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd0(),guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd1()), new FctPanelBorder(_cust));
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -4023,83 +4023,6 @@ public final class GuiAliases {
                 return res_;
             }
             res_.setResult(inst_.getParentComponent());
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasPanel)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPanelAbsolute)) {
-                res_.setResult(PanelStruct.newAbsolute(aliasPanel,_guiEx.getWindow().getCompoFactory()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPanelFlow)) {
-                res_.setResult(PanelStruct.newFlow(aliasPanel, _guiEx.getWindow().getCompoFactory()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPanelGrid)) {
-                res_.setResult(PanelStruct.newGrid(aliasPanel,((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(), _guiEx.getWindow().getCompoFactory()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPanelPageBox)) {
-                res_.setResult(PanelStruct.newPageBox(aliasPanel, _guiEx.getWindow().getCompoFactory()));
-                return res_;
-            }
-            PanelStruct strPan_ = (PanelStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasCount)) {
-                res_.setResult(new IntStruct(strPan_.getComponentCount()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPanelValidate)) {
-                strPan_.validate();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRemoveAll)) {
-                strPan_.removeAll();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasAddCompo)) {
-                if (!(_args[0] instanceof CustComponentStruct)) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (_method.getConstraints().getParametersTypesLength() == 2) {
-                    strPan_.add((CustComponentStruct)_args[0],((NumberStruct)_args[1]).intStruct());
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                strPan_.add((CustComponentStruct)_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGetIndexCompo)) {
-                res_.setResult(strPan_.getComponent(((NumberStruct)_args[0]).intStruct()));
-                return res_;
-            }
-            if (StringUtil.quickEq(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger(),_method.getConstraints().getParametersType(0))) {
-                res_.setResult(strPan_.remove(((NumberStruct)_args[0]).intStruct()));
-                return res_;
-            }
-            res_.setResult(strPan_.remove(_args[0]));
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasPanelBorder)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (!(_args[0] instanceof CustComponentStruct)) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            PanelBorderStruct strPan_ = (PanelBorderStruct) _instance;
-            strPan_.add((CustComponentStruct)_args[0],_args[1]);
-            res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
