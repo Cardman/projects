@@ -12,7 +12,7 @@ import code.gui.initialize.AbsCompoFactory;
 public final class SpinnerStruct extends InputStruct {
     private AbsSpinner spinner;
 
-    protected SpinnerStruct(String _className, Struct _value, Struct _min, Struct _max, Struct _step, AbsCompoFactory _compoFactory) {
+    public SpinnerStruct(String _className, Struct _value, Struct _min, Struct _max, Struct _step, AbsCompoFactory _compoFactory) {
         super(_className);
         spinner = _compoFactory.newSpinner(((NumberStruct)_value).intStruct(),((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct(),((NumberStruct)_step).intStruct());
     }

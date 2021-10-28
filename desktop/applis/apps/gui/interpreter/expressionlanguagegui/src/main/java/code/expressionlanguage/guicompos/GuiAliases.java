@@ -2368,7 +2368,7 @@ public final class GuiAliases {
         ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImage0Image0(),guiAliasParameters.getAliasImage0Image1(),guiAliasParameters.getAliasImage0Image2()));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasImage, stdcl_);
-        buildInputs(_content,_guiEx);
+        buildInputs(_content,_cust,_guiEx);
         buildMenus(_content,_cust,_guiEx);
     }
     private void buildEvents(LgNamesContent _content) {
@@ -2586,7 +2586,7 @@ public final class GuiAliases {
         _content.getStandards().addEntry(aliasMenuItemCheck, stdcl_);
 
     }
-    private void buildInputs(LgNamesContent _content, GuiExecutingBlocks _guiEx) {
+    private void buildInputs(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
         CustList<StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
         CustList<CstFieldInfo> fields_;
@@ -2947,7 +2947,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSpinner0AddChange0()), new FctSpinnerAddChange());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSpinner0Spinner0(),guiAliasParameters.getAliasSpinner0Spinner1(),guiAliasParameters.getAliasSpinner0Spinner2(),guiAliasParameters.getAliasSpinner0Spinner3()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSpinner0Spinner0(),guiAliasParameters.getAliasSpinner0Spinner1(),guiAliasParameters.getAliasSpinner0Spinner2(),guiAliasParameters.getAliasSpinner0Spinner3()), new FctSpinner(_cust,_guiEx,aliasSpinner));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasSpinner, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2982,19 +2982,19 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasSlider0AddChange0()), new FctSliderAddChange());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctSlider0(_cust,_guiEx,aliasSlider));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider0Slider0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider0Slider0()), new FctSlider1(_cust,_guiEx,aliasSlider));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider1Slider0(),guiAliasParameters.getAliasSlider1Slider1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider1Slider0(),guiAliasParameters.getAliasSlider1Slider1()), new FctSlider2(_cust,_guiEx,aliasSlider));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider2Slider0(),guiAliasParameters.getAliasSlider2Slider1(),guiAliasParameters.getAliasSlider2Slider2()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider2Slider0(),guiAliasParameters.getAliasSlider2Slider1(),guiAliasParameters.getAliasSlider2Slider2()), new FctSlider3(_cust,_guiEx,aliasSlider));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider3Slider0(),guiAliasParameters.getAliasSlider3Slider1(),guiAliasParameters.getAliasSlider3Slider2(),guiAliasParameters.getAliasSlider3Slider3()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSlider3Slider0(),guiAliasParameters.getAliasSlider3Slider1(),guiAliasParameters.getAliasSlider3Slider2(),guiAliasParameters.getAliasSlider3Slider3()), new FctSlider4(_cust,_guiEx,aliasSlider));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasSlider, stdcl_);
     }
@@ -3546,40 +3546,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_args[2],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasSpinner)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new SpinnerStruct(aliasSpinner,_args[0],_args[1],_args[2],_args[3],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasSlider)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new SliderStruct(aliasSlider,_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new SliderStruct(aliasSlider,_args[0],_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 2) {
-                r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 3) {
-                r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2],_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2],_args[3],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);

@@ -10,7 +10,7 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
-public class FctButtonGroupAdd implements StdCaller {
+public final class FctButtonGroupAdd implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustButtonGroupStruct inst_ = (CustButtonGroupStruct) _instance;

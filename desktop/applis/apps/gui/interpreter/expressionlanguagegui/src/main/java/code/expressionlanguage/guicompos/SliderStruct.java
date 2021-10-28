@@ -11,23 +11,23 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class SliderStruct extends InputStruct {
     private final AbsSlider slider;
-    protected SliderStruct(String _className, AbsCompoFactory _comp) {
+    public SliderStruct(String _className, AbsCompoFactory _comp) {
         super(_className);
         slider = _comp.newAbsSlider();
     }
-    protected SliderStruct(String _className,Struct _o, AbsCompoFactory _comp) {
+    public SliderStruct(String _className,Struct _o, AbsCompoFactory _comp) {
         super(_className);
         slider = _comp.newAbsSlider(((NumberStruct)_o).intStruct());
     }
-    protected SliderStruct(String _className,Struct _min,Struct _max, AbsCompoFactory _comp) {
+    public SliderStruct(String _className,Struct _min,Struct _max, AbsCompoFactory _comp) {
         super(_className);
         slider = _comp.newAbsSlider(((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct());
     }
-    protected SliderStruct(String _className,Struct _min,Struct _max, Struct _value, AbsCompoFactory _comp) {
+    public SliderStruct(String _className,Struct _min,Struct _max, Struct _value, AbsCompoFactory _comp) {
         super(_className);
         slider = _comp.newAbsSlider(((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct(),((NumberStruct)_value).intStruct());
     }
-    protected SliderStruct(String _className,Struct _o,Struct _min,Struct _max, Struct _value, AbsCompoFactory _comp) {
+    public SliderStruct(String _className,Struct _o,Struct _min,Struct _max, Struct _value, AbsCompoFactory _comp) {
         super(_className);
         slider = _comp.newAbsSlider(((NumberStruct)_o).intStruct(),((NumberStruct)_min).intStruct(),((NumberStruct)_max).intStruct(),((NumberStruct)_value).intStruct());
     }
