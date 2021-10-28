@@ -9,21 +9,11 @@ import code.expressionlanguage.guicompos.PanelStruct;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.CustAliases;
 
 public final class FctPanelRemoveAll implements StdCaller {
-    private final CustAliases custAliases;
-
-    public FctPanelRemoveAll(CustAliases _custAliases) {
-        this.custAliases = _custAliases;
-    }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-            custAliases.processFailInit(_cont, _stackCall);
-            return new ArgumentWrapper(NullStruct.NULL_VALUE);
-        }
         PanelStruct strPan_ = (PanelStruct) _instance;
         strPan_.removeAll();
         return new ArgumentWrapper(NullStruct.NULL_VALUE);

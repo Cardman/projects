@@ -52,7 +52,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     public String getClassName(ContextEl _contextEl) {
         return className;
     }
-    protected Struct getParentComponent() {
+    public Struct getParentComponent() {
         return parentComponent;
     }
     protected void setParentComponent(CustComponentStruct _parent) {
@@ -300,11 +300,11 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         getComponent().setAutoscrolls(BooleanStruct.isTrue(_autoscrolls));
     }
 
-    protected Struct getPreferredSize() {
+    public Struct getPreferredSize() {
         return new DimensionStruct(getComponent().getPreferredSizeValue());
     }
 
-    protected void setPreferredSize(Struct _d) {
+    public void setPreferredSize(Struct _d) {
         if (!(_d instanceof DimensionStruct)) {
             setPreferredSize((MetaDimension)null);
             return;
@@ -313,7 +313,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         setPreferredSize(d_.getDimension());
     }
 
-    protected void setSize(Struct _d) {
+    public void setSize(Struct _d) {
         if (!(_d instanceof DimensionStruct)) {
             return;
         }
