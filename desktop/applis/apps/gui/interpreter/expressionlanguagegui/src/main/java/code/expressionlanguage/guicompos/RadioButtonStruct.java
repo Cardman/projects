@@ -10,11 +10,11 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class RadioButtonStruct extends InputStruct {
     private final AbsRadioButton radioButton;
-    protected RadioButtonStruct(String _className, AbsCompoFactory _compo) {
+    public RadioButtonStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
         radioButton = _compo.newRadioButton();
     }
-    protected RadioButtonStruct(String _className,Struct _text, AbsCompoFactory _compo) {
+    public RadioButtonStruct(String _className,Struct _text, AbsCompoFactory _compo) {
         super(_className);
         if (_text instanceof StringStruct) {
             radioButton = _compo.newRadioButton(((StringStruct)_text).getInstance());
@@ -22,7 +22,7 @@ public final class RadioButtonStruct extends InputStruct {
             radioButton = _compo.newRadioButton(null);
         }
     }
-    protected RadioButtonStruct(String _className, Struct _text, Struct _s, AbsCompoFactory _compo) {
+    public RadioButtonStruct(String _className, Struct _text, Struct _s, AbsCompoFactory _compo) {
         super(_className);
         if (_text instanceof StringStruct) {
             radioButton = _compo.newRadioButton(((StringStruct)_text).getInstance(),BooleanStruct.isTrue(_s));

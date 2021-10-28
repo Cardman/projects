@@ -11,17 +11,17 @@ import code.gui.initialize.AbsCompoFactory;
 public final class CheckBoxStruct extends InputStruct {
     private AbsCustCheckBox checkBox;
 
-    protected CheckBoxStruct(String _className, AbsCompoFactory _compo) {
+    public CheckBoxStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
         checkBox = _compo.newCustCheckBox();
     }
 
-    protected CheckBoxStruct(String _className, Struct _txt, AbsCompoFactory _compo) {
+    public CheckBoxStruct(String _className, Struct _txt, AbsCompoFactory _compo) {
         super(_className);
         checkBox = _compo.newCustCheckBox(getText(_txt));
     }
 
-    protected CheckBoxStruct(String _className, Struct _txt, Struct _sel, AbsCompoFactory _compo) {
+    public CheckBoxStruct(String _className, Struct _txt, Struct _sel, AbsCompoFactory _compo) {
         super(_className);
         checkBox = _compo.newCustCheckBox(getText(_txt),BooleanStruct.isTrue(_sel));
     }

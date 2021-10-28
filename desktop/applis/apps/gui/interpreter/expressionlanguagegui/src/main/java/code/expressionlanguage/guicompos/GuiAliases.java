@@ -2735,7 +2735,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasButtonGroup, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasButtonGroup, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new FctButtonGroup(_cust,_guiEx));
         params_ = new StringList(aliasRadio);
         method_ = new StandardMethod(aliasButtonGroupAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButtonGroup0TabbedPaneAdd0()), new FctButtonGroupAdd());
         methods_.add( method_);
@@ -2743,7 +2743,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasPopupMenu, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasPopupMenu, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new FctPopupMenu(_cust,_guiEx,aliasPopupMenu));
         params_ = new StringList(aliasComponent);
         method_ = new StandardMethod(aliasPopupMenuAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPopupMenu0TabbedPaneAdd0()), new FctPopupMenuAdd());
         methods_.add( method_);
@@ -2792,13 +2792,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasAddChange, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasRadio0AddChange0()), new FctRadioAddChange());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctRadio0(_cust,_guiEx,aliasRadio));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasRadio0Radio0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasRadio0Radio0()), new FctRadio1(_cust,_guiEx,aliasRadio));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasRadio1Radio0(),guiAliasParameters.getAliasRadio1Radio1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasRadio1Radio0(),guiAliasParameters.getAliasRadio1Radio1()), new FctRadio2(_cust,_guiEx,aliasRadio));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasRadio, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2818,13 +2818,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasCheckBoxSetText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasCheckBox0SetLabelText0()), new FctCheckBoxSetText());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctCheckBox0(_cust,_guiEx,aliasCheckBox));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasCheckBox0CheckBox0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasCheckBox0CheckBox0()), new FctCheckBox1(_cust,_guiEx,aliasCheckBox));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasCheckBox1CheckBox0(),guiAliasParameters.getAliasCheckBox1CheckBox1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasCheckBox1CheckBox0(),guiAliasParameters.getAliasCheckBox1CheckBox1()), new FctCheckBox2(_cust,_guiEx,aliasCheckBox));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasCheckBox, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -3452,58 +3452,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[1]), ((NumberStruct)_args[0]).intStruct(), _guiEx.getWindow().getCompoFactory())));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasButtonGroup)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new CustButtonGroupStruct());
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasRadio)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new RadioButtonStruct(aliasRadio,_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new RadioButtonStruct(aliasRadio,_args[0],_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            r_.setResult(new RadioButtonStruct(aliasRadio,_args[0],_args[1],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasCheckBox)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new CheckBoxStruct(aliasCheckBox, _guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0], _guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            r_.setResult(new CheckBoxStruct(aliasCheckBox,_args[0],_args[1], _guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasPopupMenu)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new PopupStruct(aliasPopupMenu,_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);

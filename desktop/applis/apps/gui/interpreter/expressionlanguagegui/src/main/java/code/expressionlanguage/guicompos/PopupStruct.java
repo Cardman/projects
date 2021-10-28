@@ -13,7 +13,7 @@ public final class PopupStruct extends CustComponentStruct {
     private final AbsPopupMenu popupMenu;
     private final CustList<CustComponentStruct> compo = new CustList<CustComponentStruct>();
     private final CustList<AbsMenuStruct> menus = new CustList<AbsMenuStruct>();
-    protected PopupStruct(String _className, AbsCompoFactory _compoFactory) {
+    public PopupStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
         popupMenu = _compoFactory.newAbsPopupMenu();
     }
