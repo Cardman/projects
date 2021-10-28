@@ -2723,13 +2723,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasComboRemoveAllItems, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctComboRemoveAllItems());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctCombo0(_cust,_guiEx,aliasCombo));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasCombo0Combo0()));
+        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasCombo0Combo0()), new FctCombo1(_cust,_guiEx,aliasCombo));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasCombo1Combo0(),guiAliasParameters.getAliasCombo1Combo1()));
+        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasCombo1Combo0(),guiAliasParameters.getAliasCombo1Combo1()), new FctCombo2(_cust,_guiEx,aliasCombo));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasCombo, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -3112,7 +3112,9 @@ public final class GuiAliases {
             return new Argument(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,true));
         }
         if (StringUtil.quickEq(_id,aliasCombo)) {
-            return new Argument(new GraphicComboStruct(aliasCombo));
+            GuiExecutingBlocks guiEx_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks();
+            AbstractGraphicComboBoxGenerator geneComboBox_ = guiEx_.getWindow().getFrames().getGeneComboBox();
+            return new Argument(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(guiEx_.getWindow().getImageFactory(),new StringList(),-1, guiEx_.getWindow().getCompoFactory())));
         }
         return arg_;
     }
@@ -3434,24 +3436,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,BooleanStruct.isTrue(_args[0])));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasCombo)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            AbstractGraphicComboBoxGenerator geneComboBox_ = _guiEx.getWindow().getFrames().getGeneComboBox();
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),new StringList(),-1, _guiEx.getWindow().getCompoFactory())));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[0]), 0, _guiEx.getWindow().getCompoFactory())));
-                return r_;
-            }
-            r_.setResult(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(_args[1]), ((NumberStruct)_args[0]).intStruct(), _guiEx.getWindow().getCompoFactory())));
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);

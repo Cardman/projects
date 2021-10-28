@@ -8,13 +8,9 @@ import code.util.CustList;
 
 
 public final class GraphicComboStruct extends InputStruct {
-    private GraphicComboGrInt graphicCombo;
+    private final GraphicComboGrInt graphicCombo;
 
-    GraphicComboStruct(String _className) {
-        super(_className);
-    }
-
-    GraphicComboStruct(String _className, GraphicComboGrInt _graphicCombo) {
+    public GraphicComboStruct(String _className, GraphicComboGrInt _graphicCombo) {
         super(_className);
         graphicCombo = _graphicCombo;
     }
