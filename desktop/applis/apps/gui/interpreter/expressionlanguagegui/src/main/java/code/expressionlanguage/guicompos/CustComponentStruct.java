@@ -264,6 +264,24 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     }
     protected abstract AbsCustComponent getComponent();
 
+    public void top(){
+        getComponent().top();
+    }
+    public void bottom(){
+        getComponent().bottom();
+    }
+    public void centerVert(){
+        getComponent().centerVert();
+    }
+    public void left(){
+        getComponent().left();
+    }
+    public void right(){
+        getComponent().right();
+    }
+    public void centerHoriz(){
+        getComponent().centerHoriz();
+    }
     public CustList<CustComponentStruct> getChildren() {
         return children;
     }

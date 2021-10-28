@@ -66,6 +66,12 @@ public final class GuiAliases {
     private static final String WINDOW_SET_REMOVE = "WindowSetRemove";
     private static final String WINDOW_SET_SNAPSHOT = "WindowSetSnapshot";
     private static final String COMP_BACK = "CompBack";
+    private static final String COMPO_REL_LEFT = "CompoRelLeft";
+    private static final String COMPO_REL_RIGHT = "CompoRelRight";
+    private static final String COMPO_REL_TOP = "CompoRelTop";
+    private static final String COMPO_REL_BOTTOM = "CompoRelBottom";
+    private static final String COMPO_REL_CENT_HORIZ = "CompoRelCentHoriz";
+    private static final String COMPO_REL_CENT_VERT = "CompoRelCentVert";
     private static final String PAINT = "Paint";
     private static final String COMP_LOC = "CompLoc";
     private static final String IMAGE_GET = "ImageGet";
@@ -528,6 +534,12 @@ public final class GuiAliases {
     private String aliasCompFocusable;
     private String aliasCompOpaque;
     private String aliasCompBack;
+    private String aliasCompoRelLeft;
+    private String aliasCompoRelRight;
+    private String aliasCompoRelTop;
+    private String aliasCompoRelBottom;
+    private String aliasCompoRelCentHoriz;
+    private String aliasCompoRelCentVert;
     private String aliasCompFore;
     private String aliasCompGetFirstPos;
     private String aliasCompGetSecondPos;
@@ -1717,6 +1729,24 @@ public final class GuiAliases {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasComponentGetWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctCompoGetWidth());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompoRelLeft, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoLeft());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompoRelRight, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoRight());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompoRelTop, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoTop());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompoRelBottom, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoBottom());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompoRelCentHoriz, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoCentHoriz());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCompoRelCentVert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoCentVert());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -3855,6 +3885,12 @@ public final class GuiAliases {
         setAliasWindowSetRemove(LgNamesContent.get(_util, _cust, WINDOW_SET_REMOVE));
         setAliasWindowSetSnapshot(LgNamesContent.get(_util, _cust, WINDOW_SET_SNAPSHOT));
         setAliasCompBack(LgNamesContent.get(_util, _cust, COMP_BACK));
+        setAliasCompoRelLeft(LgNamesContent.get(_util, _cust, COMPO_REL_LEFT));
+        setAliasCompoRelRight(LgNamesContent.get(_util, _cust, COMPO_REL_RIGHT));
+        setAliasCompoRelTop(LgNamesContent.get(_util, _cust, COMPO_REL_TOP));
+        setAliasCompoRelBottom(LgNamesContent.get(_util, _cust, COMPO_REL_BOTTOM));
+        setAliasCompoRelCentHoriz(LgNamesContent.get(_util, _cust, COMPO_REL_CENT_HORIZ));
+        setAliasCompoRelCentVert(LgNamesContent.get(_util, _cust, COMPO_REL_CENT_VERT));
         setAliasPaint(LgNamesContent.get(_util, _cust, PAINT));
         setAliasCompLoc(LgNamesContent.get(_util, _cust, COMP_LOC));
         setAliasImageGet(LgNamesContent.get(_util, _cust, IMAGE_GET));
@@ -4701,6 +4737,12 @@ public final class GuiAliases {
                 new KeyValueMemberName(GET_LISTENERS,getAliasGetListeners()),
                 new KeyValueMemberName(REQUEST_FOCUS,getAliasRequestFocus()),
                 new KeyValueMemberName(COMP_BACK,getAliasCompBack()),
+                new KeyValueMemberName(COMPO_REL_LEFT,getAliasCompoRelLeft()),
+                new KeyValueMemberName(COMPO_REL_RIGHT,getAliasCompoRelRight()),
+                new KeyValueMemberName(COMPO_REL_TOP,getAliasCompoRelTop()),
+                new KeyValueMemberName(COMPO_REL_BOTTOM,getAliasCompoRelBottom()),
+                new KeyValueMemberName(COMPO_REL_CENT_HORIZ,getAliasCompoRelCentHoriz()),
+                new KeyValueMemberName(COMPO_REL_CENT_VERT,getAliasCompoRelCentVert()),
                 new KeyValueMemberName(COMP_FOCUSABLE,getAliasCompFocusable()),
                 new KeyValueMemberName(COMP_FORE,getAliasCompFore()),
                 new KeyValueMemberName(COMP_GET_FIRST_POS,getAliasCompGetFirstPos()),
@@ -6771,6 +6813,54 @@ public final class GuiAliases {
 
     public void setAliasCompBack(String _v) {
         this.aliasCompBack = _v;
+    }
+
+    public String getAliasCompoRelLeft() {
+        return aliasCompoRelLeft;
+    }
+
+    public void setAliasCompoRelLeft(String _v) {
+        this.aliasCompoRelLeft = _v;
+    }
+
+    public String getAliasCompoRelRight() {
+        return aliasCompoRelRight;
+    }
+
+    public void setAliasCompoRelRight(String _v) {
+        this.aliasCompoRelRight = _v;
+    }
+
+    public String getAliasCompoRelTop() {
+        return aliasCompoRelTop;
+    }
+
+    public void setAliasCompoRelTop(String _v) {
+        this.aliasCompoRelTop = _v;
+    }
+
+    public String getAliasCompoRelBottom() {
+        return aliasCompoRelBottom;
+    }
+
+    public void setAliasCompoRelBottom(String _v) {
+        this.aliasCompoRelBottom = _v;
+    }
+
+    public String getAliasCompoRelCentHoriz() {
+        return aliasCompoRelCentHoriz;
+    }
+
+    public void setAliasCompoRelCentHoriz(String _v) {
+        this.aliasCompoRelCentHoriz = _v;
+    }
+
+    public String getAliasCompoRelCentVert() {
+        return aliasCompoRelCentVert;
+    }
+
+    public void setAliasCompoRelCentVert(String _v) {
+        this.aliasCompoRelCentVert = _v;
     }
 
     public String getAliasCompFore() {
