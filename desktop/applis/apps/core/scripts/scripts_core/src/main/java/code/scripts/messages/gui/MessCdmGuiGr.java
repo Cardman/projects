@@ -844,6 +844,7 @@ private static final String CODE_1_3_822="CompoRelTop=top\n";
 private static final String CODE_1_3_823="CompoRelBottom=bottom\n";
 private static final String CODE_1_3_824="CompoRelCentHoriz=centHoriz\n";
 private static final String CODE_1_3_825="CompoRelCentVert=centVert\n";
+private static final String CODE_1_3_826="WindowType0RemoveWindowListener0=a\n";
 private static final String CODE_1_4_0="SplitPaneIsContinuousLayout=estPositCont\n";
 private static final String CODE_1_4_1="SplitPaneSetDividerLocation=majSepPos\n";
 private static final String CODE_1_4_2="SplitPaneSetContinuousLayout=majPositCont\n";
@@ -1670,6 +1671,7 @@ private static final String CODE_1_4_822="CompoRelTop=tete\n";
 private static final String CODE_1_4_823="CompoRelBottom=pied\n";
 private static final String CODE_1_4_824="CompoRelCentHoriz=centHoriz\n";
 private static final String CODE_1_4_825="CompoRelCentVert=centVert\n";
+private static final String CODE_1_4_826="WindowType0RemoveWindowListener0=a\n";
 private static final String CODE_1_5_0="{public} {interface} {ChangeListener} '{'\n";
 private static final String CODE_1_5_1=" {public} {void} {stateChanged}();\n";
 private static final String CODE_1_5_2="'}'\n";
@@ -3003,6 +3005,7 @@ f+=CODE_1_3_822;
 f+=CODE_1_3_823;
 f+=CODE_1_3_824;
 f+=CODE_1_3_825;
+f+=CODE_1_3_826;
 return f;
 }
 static String resourcesLgGuiAliasesFrTypesgui(){
@@ -3832,6 +3835,7 @@ f+=CODE_1_4_822;
 f+=CODE_1_4_823;
 f+=CODE_1_4_824;
 f+=CODE_1_4_825;
+f+=CODE_1_4_826;
 return f;
 }
 static String resourcesLgGuiChangeEvent(){

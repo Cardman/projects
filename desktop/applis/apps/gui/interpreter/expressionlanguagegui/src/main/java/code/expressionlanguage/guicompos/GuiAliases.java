@@ -21,7 +21,6 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingBlocks;
 import code.gui.OtherConfirmDialog;
-import code.gui.events.AbsWindowListener;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.util.CustList;
@@ -1468,31 +1467,37 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasWindowType, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasPanel);
-        method_ = new StandardMethod(aliasSetContent, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0SetContent0()));
+        method_ = new StandardMethod(aliasSetContent, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0SetContent0()), new FctWindowContentPane());
         methods_.add( method_);
         params_ = new StringList(_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasWindowTypeRelative, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0WindowTypeRelative0()));
+        method_ = new StandardMethod(aliasWindowTypeRelative, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0WindowTypeRelative0()), new FctWindowRelative());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasPack, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasPack, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowPack());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsVisible, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsVisible, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctWindowIsVisible());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSetVisible, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0ComponentSetVisible0()));
+        method_ = new StandardMethod(aliasSetVisible, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0ComponentSetVisible0()), new FctWindowSetVisible());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetMenuBar, params_, aliasMenuBar, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetMenuBar, params_, aliasMenuBar, false, MethodModifier.FINAL, new FctWindowGetMenuBar());
         methods_.add( method_);
         params_ = new StringList(aliasMenuBar);
-        method_ = new StandardMethod(aliasSetMenuBar, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0SetMenuBar0()));
+        method_ = new StandardMethod(aliasSetMenuBar, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0SetMenuBar0()), new FctWindowSetMenuBar());
         methods_.add( method_);
         params_ = new StringList(aliasWindowListener);
-        method_ = new StandardMethod(aliasAddWindowListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0AddWindowListener0()));
+        method_ = new StandardMethod(aliasAddWindowListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0AddWindowListener0()), new FctWindowAddList(_guiEx));
+        methods_.add( method_);
+        params_ = new StringList(aliasWindowListener);
+        method_ = new StandardMethod(aliasRemoveWindowListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0RemoveWindowListener0()), new FctWindowRemoveList(_guiEx));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDispose, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetWindowListeners, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowGetList(aliasWindowListener));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDispose, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowDispose(_guiEx));
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasWindowType, std_);
@@ -3630,81 +3635,7 @@ public final class GuiAliases {
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
     }
     public ResultErrorStd getOtherResult(CustAliases _custAliases, ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, ExecutingBlocks _execBlocks, GuiExecutingBlocks _guiEx, StackCall _stackCall, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String type_ = _method.getClassName();
-        String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(type_, aliasWindowType)) {
-            WindowStruct inst_ = (WindowStruct) _instance;
-            if (StringUtil.quickEq(name_, aliasSetMenuBar)) {
-                inst_.setMenuBar(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGetMenuBar)) {
-                res_.setResult(inst_.getMenuBar());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasPack)) {
-                inst_.pack();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasWindowTypeRelative)) {
-                inst_.setLocationRelativeTo(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasAddWindowListener)) {
-                _guiEx.addWindowListener(inst_, _args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasRemoveWindowListener)) {
-                _guiEx.removeWindowListener(inst_, _args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasGetWindowListeners)) {
-                CustList<Struct> user_ = new CustList<Struct>();
-                for (AbsWindowListener w: inst_.getWindowListeners()) {
-                    if (w instanceof Struct) {
-                        user_.add((Struct)w);
-                    }
-                }
-                int len_ = user_.size();
-                ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasWindowListener));
-                for (int i = 0; i< len_; i++) {
-                    arr_.set(i, user_.get(i));
-                }
-                res_.setResult(arr_);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasIsVisible)) {
-                res_.setResult(BooleanStruct.of(inst_.isVisible()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasSetVisible)) {
-                inst_.setVisible(BooleanStruct.isTrue(_args[0]));
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_, aliasDispose)) {
-                if (inst_ instanceof FrameStruct && ((FrameStruct)inst_).getCommonFrame().isMainFrame()) {
-                    ((GuiContextEl)_cont).disposeAll(_guiEx, _stackCall);
-                } else {
-                    ((GuiContextEl)_cont).getGuiInit().getWindows().remove(inst_,false);
-                    inst_.dispose();
-                }
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (_args[0] instanceof PanelStruct) {
-                inst_.setContentPane(((PanelStruct)_args[0]).getPanel());
-            }
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
+                                         ClassMethodId _method, ExecutingBlocks _execBlocks, StackCall _stackCall, Struct... _args) {
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
     }
 

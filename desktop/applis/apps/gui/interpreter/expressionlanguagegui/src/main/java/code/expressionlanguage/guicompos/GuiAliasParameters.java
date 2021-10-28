@@ -52,6 +52,7 @@ public final class GuiAliasParameters {
     private static final String WINDOW_TYPE_0_COMPONENT_SET_VISIBLE_0="WindowType0ComponentSetVisible0";
     private static final String WINDOW_TYPE_0_SET_MENU_BAR_0="WindowType0SetMenuBar0";
     private static final String WINDOW_TYPE_0_ADD_WINDOW_LISTENER_0="WindowType0AddWindowListener0";
+    private static final String WINDOW_TYPE_0_REMOVE_WINDOW_LISTENER_0="WindowType0RemoveWindowListener0";
     private static final String CONFIRM_0_CONFIRM_FIELD_0="Confirm0ConfirmField0";
     private static final String CONFIRM_0_CONFIRM_FIELD_1="Confirm0ConfirmField1";
     private static final String CONFIRM_0_CONFIRM_FIELD_2="Confirm0ConfirmField2";
@@ -469,6 +470,7 @@ public final class GuiAliasParameters {
     private String aliasWindowType0ComponentSetVisible0;
     private String aliasWindowType0SetMenuBar0;
     private String aliasWindowType0AddWindowListener0;
+    private String aliasWindowType0RemoveWindowListener0;
     private String aliasConfirm0ConfirmField0;
     private String aliasConfirm0ConfirmField1;
     private String aliasConfirm0ConfirmField2;
@@ -885,6 +887,7 @@ public final class GuiAliasParameters {
         aliasWindowType0ComponentSetVisible0=LgNamesContent.get(_util,_cust, WINDOW_TYPE_0_COMPONENT_SET_VISIBLE_0);
         aliasWindowType0SetMenuBar0=LgNamesContent.get(_util,_cust, WINDOW_TYPE_0_SET_MENU_BAR_0);
         aliasWindowType0AddWindowListener0=LgNamesContent.get(_util,_cust, WINDOW_TYPE_0_ADD_WINDOW_LISTENER_0);
+        aliasWindowType0RemoveWindowListener0=LgNamesContent.get(_util,_cust, WINDOW_TYPE_0_REMOVE_WINDOW_LISTENER_0);
         aliasConfirm0ConfirmField0=LgNamesContent.get(_util,_cust, CONFIRM_0_CONFIRM_FIELD_0);
         aliasConfirm0ConfirmField1=LgNamesContent.get(_util,_cust, CONFIRM_0_CONFIRM_FIELD_1);
         aliasConfirm0ConfirmField2=LgNamesContent.get(_util,_cust, CONFIRM_0_CONFIRM_FIELD_2);
@@ -1291,6 +1294,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(WINDOW_TYPE_0_COMPONENT_SET_VISIBLE_0,aliasWindowType0ComponentSetVisible0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(WINDOW_TYPE_0_SET_MENU_BAR_0,aliasWindowType0SetMenuBar0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(WINDOW_TYPE_0_ADD_WINDOW_LISTENER_0,aliasWindowType0AddWindowListener0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(WINDOW_TYPE_0_REMOVE_WINDOW_LISTENER_0,aliasWindowType0RemoveWindowListener0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_0_CONFIRM_FIELD_0,aliasConfirm0ConfirmField0),new KeyValueMemberName(CONFIRM_0_CONFIRM_FIELD_1,aliasConfirm0ConfirmField1),new KeyValueMemberName(CONFIRM_0_CONFIRM_FIELD_2,aliasConfirm0ConfirmField2),new KeyValueMemberName(CONFIRM_0_CONFIRM_FIELD_3,aliasConfirm0ConfirmField3),new KeyValueMemberName(CONFIRM_0_CONFIRM_FIELD_4,aliasConfirm0ConfirmField4),new KeyValueMemberName(CONFIRM_0_CONFIRM_FIELD_5,aliasConfirm0ConfirmField5),new KeyValueMemberName(CONFIRM_0_CONFIRM_FIELD_6,aliasConfirm0ConfirmField6)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_1_CONFIRM_FIELD_0,aliasConfirm1ConfirmField0),new KeyValueMemberName(CONFIRM_1_CONFIRM_FIELD_1,aliasConfirm1ConfirmField1),new KeyValueMemberName(CONFIRM_1_CONFIRM_FIELD_2,aliasConfirm1ConfirmField2),new KeyValueMemberName(CONFIRM_1_CONFIRM_FIELD_3,aliasConfirm1ConfirmField3),new KeyValueMemberName(CONFIRM_1_CONFIRM_FIELD_4,aliasConfirm1ConfirmField4),new KeyValueMemberName(CONFIRM_1_CONFIRM_FIELD_5,aliasConfirm1ConfirmField5)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(CONFIRM_0_CONFIRM_FULL_0,aliasConfirm0ConfirmFull0),new KeyValueMemberName(CONFIRM_0_CONFIRM_FULL_1,aliasConfirm0ConfirmFull1),new KeyValueMemberName(CONFIRM_0_CONFIRM_FULL_2,aliasConfirm0ConfirmFull2),new KeyValueMemberName(CONFIRM_0_CONFIRM_FULL_3,aliasConfirm0ConfirmFull3),new KeyValueMemberName(CONFIRM_0_CONFIRM_FULL_4,aliasConfirm0ConfirmFull4),new KeyValueMemberName(CONFIRM_0_CONFIRM_FULL_5,aliasConfirm0ConfirmFull5),new KeyValueMemberName(CONFIRM_0_CONFIRM_FULL_6,aliasConfirm0ConfirmFull6)));
@@ -1687,6 +1691,10 @@ public final class GuiAliasParameters {
 
     public String getAliasWindowType0AddWindowListener0() {
         return aliasWindowType0AddWindowListener0;
+    }
+
+    public String getAliasWindowType0RemoveWindowListener0() {
+        return aliasWindowType0RemoveWindowListener0;
     }
 
     public String getAliasConfirm0ConfirmField0() {

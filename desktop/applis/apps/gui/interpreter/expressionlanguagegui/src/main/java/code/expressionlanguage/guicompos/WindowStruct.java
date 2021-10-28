@@ -23,7 +23,7 @@ public abstract class WindowStruct extends WithoutParentIdStruct {
     protected abstract WithListener getAbstractWindow();
 
     public abstract void pack();
-    void setLocationRelativeTo(Struct _c){
+    public void setLocationRelativeTo(Struct _c){
         if (_c instanceof CustComponentStruct) {
             getAbstractWindow().setLocationRelativeTo(((CustComponentStruct)_c).getComponent());
         } else if (_c instanceof DialogStruct) {
