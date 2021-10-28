@@ -1543,19 +1543,19 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasWindowSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList(aliasWindow);
-        method_ = new StandardMethod(aliasWindowSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TabbedPaneAdd0()));
+        method_ = new StandardMethod(aliasWindowSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TabbedPaneAdd0()), new FctWindowSetAdd());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasWindowSetAll, params_, aliasWindowSet, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasWindowSetAll, params_, aliasWindowSet, false, MethodModifier.STATIC, new FctWindowSetAll(_cust));
         methods_.add( method_);
         params_ = new StringList(aliasWindow);
-        method_ = new StandardMethod(aliasWindowSetContains, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0WindowSetContains0()));
+        method_ = new StandardMethod(aliasWindowSetContains, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0WindowSetContains0()), new FctWindowSetContains());
         methods_.add( method_);
         params_ = new StringList(aliasWindow);
-        method_ = new StandardMethod(aliasWindowSetRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TreeNodeRemove0()));
+        method_ = new StandardMethod(aliasWindowSetRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TreeNodeRemove0()), new FctWindowSetRemove());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasWindowSetSnapshot, params_, StringExpUtil.getPrettyArrayType(aliasWindowType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasWindowSetSnapshot, params_, StringExpUtil.getPrettyArrayType(aliasWindowType), false, MethodModifier.FINAL, new FctWindowSetArray());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasWindowSet, std_);
@@ -3703,56 +3703,6 @@ public final class GuiAliases {
                 inst_.setContentPane(((PanelStruct)_args[0]).getPanel());
             }
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(type_, aliasWindowSet)) {
-            if (StringUtil.quickEq(name_,aliasWindowSetAdd)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                WindowSetStruct ins_ = (WindowSetStruct)_instance;
-                ins_.add(_args[0],true);
-                if (!(_args[0] instanceof WindowStruct)) {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                } else {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                }
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasWindowSetAll)) {
-                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _custAliases, _stackCall);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(((GuiContextEl)_cont).getGuiInit().getWindows());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasWindowSetRemove)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                WindowSetStruct ins_ = (WindowSetStruct)_instance;
-                ins_.remove(_args[0],true);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasWindowSetContains)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                WindowSetStruct ins_ = (WindowSetStruct)_instance;
-                res_.setResult(ins_.contains(_args[0]));
-                return res_;
-            }
-            WindowSetStruct ins_ = (WindowSetStruct)_instance;
-            res_.setResult(ins_.toSnapshotArray(_cont, _stackCall));
             return res_;
         }
         return _custAliases.getOtherResult(_cont,_instance,_method, _execBlocks, _stackCall, _args);
