@@ -2485,7 +2485,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasMenuBar, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL,new FctMenuBar(_cust,_guiEx));
         params_ = new StringList(aliasMenu);
         method_ = new StandardMethod(aliasMenuBarAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasMenuBar0TabbedPaneAdd0()), new FctMenuBarAdd());
         methods_.add( method_);
@@ -3580,15 +3580,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new SliderStruct(aliasSlider,_args[0],_args[1],_args[2],_args[3],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasMenuBar)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new MenuBarStruct(_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
