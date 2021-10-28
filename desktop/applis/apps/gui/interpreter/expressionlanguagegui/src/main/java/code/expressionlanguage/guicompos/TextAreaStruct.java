@@ -7,19 +7,19 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class TextAreaStruct extends InputStruct {
     private final AbsTextArea textArea;
-    protected TextAreaStruct(String _className, AbsCompoFactory _compo) {
+    public TextAreaStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
         textArea = _compo.newTextArea();
     }
-    protected TextAreaStruct(String _className, Struct _txt, AbsCompoFactory _compo) {
+    public TextAreaStruct(String _className, Struct _txt, AbsCompoFactory _compo) {
         super(_className);
         textArea = _compo.newTextArea(getText(_txt));
     }
-    protected TextAreaStruct(String _className, Struct _rows, Struct _cols, AbsCompoFactory _compo) {
+    public TextAreaStruct(String _className, Struct _rows, Struct _cols, AbsCompoFactory _compo) {
         super(_className);
         textArea = _compo.newTextArea(((NumberStruct)_rows).intStruct(),((NumberStruct)_cols).intStruct());
     }
-    protected TextAreaStruct(String _className, Struct _txt, Struct _rows, Struct _cols, AbsCompoFactory _compo) {
+    public TextAreaStruct(String _className, Struct _txt, Struct _rows, Struct _cols, AbsCompoFactory _compo) {
         super(_className);
         textArea = _compo.newTextArea(getText(_txt),((NumberStruct)_rows).intStruct(),((NumberStruct)_cols).intStruct());
     }

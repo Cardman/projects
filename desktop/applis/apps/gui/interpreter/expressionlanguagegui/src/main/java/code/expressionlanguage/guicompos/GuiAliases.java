@@ -2841,16 +2841,16 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTextFieldAddAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextField0TextFieldAddAction0()), new FctTextFieldAddAction());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctTextField0(_cust,_guiEx,aliasTextField));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField0TextField0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField0TextField0()), new FctTextField1(_cust,_guiEx,aliasTextField));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField1TextField0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField1TextField0()), new FctTextField2(_cust,_guiEx,aliasTextField));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField2TextField0(),guiAliasParameters.getAliasTextField2TextField1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextField2TextField0(),guiAliasParameters.getAliasTextField2TextField1()), new FctTextField3(_cust,_guiEx,aliasTextField));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasTextField, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -2897,16 +2897,16 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTextAreaSelectAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTextAreaSelectAll());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctTextArea0(_cust,_guiEx,aliasTextArea));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea0TextArea0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea0TextArea0()), new FctTextArea1(_cust,_guiEx,aliasTextArea));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea1TextArea0(),guiAliasParameters.getAliasTextArea1TextArea1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea1TextArea0(),guiAliasParameters.getAliasTextArea1TextArea1()), new FctTextArea2(_cust,_guiEx,aliasTextArea));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea2TextArea0(),guiAliasParameters.getAliasTextArea2TextArea1(),guiAliasParameters.getAliasTextArea2TextArea2()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextArea2TextArea0(),guiAliasParameters.getAliasTextArea2TextArea1(),guiAliasParameters.getAliasTextArea2TextArea2()), new FctTextArea3(_cust,_guiEx,aliasTextArea));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasTextArea, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -3504,48 +3504,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new PopupStruct(aliasPopupMenu,_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasTextField)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new TextFieldStruct(aliasTextField,_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                if (!(_args[0] instanceof NumberStruct)) {
-                    r_.setResult(new TextFieldStruct(aliasTextField,_args[0],_guiEx.getWindow().getCompoFactory()));
-                    return r_;
-                }
-                r_.setResult(new TextFieldStruct(aliasTextField,(NumberStruct) _args[0],_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            r_.setResult(new TextFieldStruct(aliasTextField,_args[0],_args[1],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasTextArea)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new TextAreaStruct(aliasTextArea,_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 2) {
-                r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_guiEx.getWindow().getCompoFactory()));
-                return r_;
-            }
-            r_.setResult(new TextAreaStruct(aliasTextArea,_args[0],_args[1],_args[2],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
