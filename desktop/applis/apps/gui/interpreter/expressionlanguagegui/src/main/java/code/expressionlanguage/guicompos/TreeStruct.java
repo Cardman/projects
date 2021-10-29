@@ -7,7 +7,7 @@ import code.gui.*;
 
 public final class TreeStruct extends CustComponentStruct {
     private final AbsTreeGui tree;
-    protected TreeStruct(String _className, AbsTreeGui _tree) {
+    public TreeStruct(String _className, AbsTreeGui _tree) {
         super(_className);
         tree = _tree;
     }

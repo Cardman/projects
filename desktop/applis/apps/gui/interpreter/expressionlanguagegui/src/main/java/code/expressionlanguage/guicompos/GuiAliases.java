@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -1816,10 +1815,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTreeNodeEq, params_,_content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasTreeNode0TreeNodeEq0(),guiAliasParameters.getAliasTreeNode0TreeNodeEq1()), new FctTreeNodeEq());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctTreeNode0(_cust,_guiEx));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTreeNode0TreeNode0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTreeNode0TreeNode0()), new FctTreeNode1(_cust,_guiEx));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTreeNode, std_);
@@ -1847,7 +1846,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTreeReload, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTreeReload());
         methods_.add( method_);
         params_ = new StringList(aliasTreeNode);
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTree0Tree0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTree0Tree0()), new FctTree(_cust,_guiEx,aliasTree));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTree, std_);
@@ -1924,7 +1923,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasTableGetValue, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTableGui0TreeNodeGetUserObject0(),guiAliasParameters.getAliasTableGui0TreeNodeGetUserObject1()), new FctTableGetValue());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasTableGui0TableGui0()));
+        ctor_ = new StandardConstructor(params_,true,new StringList(guiAliasParameters.getAliasTableGui0TableGui0()), new FctTableGrid(_cust,_guiEx,aliasTableGui));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTableGui, std_);
@@ -2583,7 +2582,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new FctRender(_cust,_guiEx));
         String typeHeight_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",_content.getPrimTypes().getAliasPrimInteger(),","+_content.getPrimTypes().getAliasPrimInteger()+">");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL, new FctRenderGetHeight());
@@ -3369,50 +3368,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new DimensionStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasTreeNode)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new TreeNodeStruct(_guiEx.getWindow().getCompoFactory().newMutableTreeNode("")));
-                return r_;
-            }
-            r_.setResult(new TreeNodeStruct(_guiEx.getWindow().getCompoFactory().newMutableTreeNode(NumParsers.getString(_args[0]).getInstance())));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasTree)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (!(_args[0] instanceof TreeNodeStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                return r_;
-            }
-            r_.setResult(new TreeStruct(aliasTree, _guiEx.getWindow().getCompoFactory().newTreeGui(((TreeNodeStruct) _args[0]).getTreeNode())));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasTableGui)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new TableStruct(aliasTableGui, _args[0], _guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasRender)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new RenderStruct());
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);

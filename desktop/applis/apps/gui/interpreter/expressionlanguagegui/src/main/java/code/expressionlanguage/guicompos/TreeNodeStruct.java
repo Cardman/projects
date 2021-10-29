@@ -15,7 +15,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
     private final AbstractMutableTreeNode treeNode;
     private StringStruct userObject = new StringStruct("");
 
-    TreeNodeStruct(AbstractMutableTreeNode _str) {
+    public TreeNodeStruct(AbstractMutableTreeNode _str) {
         treeNode = _str;
     }
 
@@ -201,7 +201,7 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         userObject= NumParsers.getString(_struct);
     }
 
-    AbstractMutableTreeNode getTreeNode() {
+    public AbstractMutableTreeNode getTreeNode() {
         return treeNode;
     }
 

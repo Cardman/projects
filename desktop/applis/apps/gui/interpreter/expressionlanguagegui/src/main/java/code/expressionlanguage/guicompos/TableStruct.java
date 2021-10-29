@@ -11,7 +11,7 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class TableStruct extends CustComponentStruct {
     private final AbsTableGui table;
-    protected TableStruct(String _className, Struct _array, AbsCompoFactory _compoFactory) {
+    public TableStruct(String _className, Struct _array, AbsCompoFactory _compoFactory) {
         super(_className);
         table = _compoFactory.newTableGui(getColNames(_array));
     }
