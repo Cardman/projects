@@ -10,7 +10,7 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class ProgressBarStruct extends CustComponentStruct {
     private final AbsProgressBar progressBar;
-    protected ProgressBarStruct(String _className, AbsCompoFactory _compoFactory) {
+    public ProgressBarStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
         progressBar = _compoFactory.newAbsProgressBar();
     }

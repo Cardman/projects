@@ -9,11 +9,11 @@ import code.gui.initialize.AbsCompoFactory;
 public final class PreparedLabelStruct extends CustComponentStruct {
     private final AbsPreparedLabel textLabel;
 
-    protected PreparedLabelStruct(AbstractImageFactory _fact, String _className) {
+    public PreparedLabelStruct(AbstractImageFactory _fact, String _className) {
         super(_className);
         textLabel = FrameUtil.prep(_fact);
     }
-    protected PreparedLabelStruct(AbstractImageFactory _fact, AbsCompoFactory _comp, Struct _img, String _className) {
+    public PreparedLabelStruct(AbstractImageFactory _fact, AbsCompoFactory _comp, Struct _img, String _className) {
         super(_className);
         textLabel = _comp.newPreparedLabel(builImage(_img));
     }

@@ -9,11 +9,11 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class TextLabelStruct extends CustComponentStruct {
     private AbsPlainLabel textLabel;
-    protected TextLabelStruct(String _className, AbsCompoFactory _compo) {
+    public TextLabelStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
         textLabel = _compo.newPlainLabel("");
     }
-    protected TextLabelStruct(Struct _txt,String _className, AbsCompoFactory _compo) {
+    public TextLabelStruct(Struct _txt,String _className, AbsCompoFactory _compo) {
         super(_className);
         textLabel = _compo.newPlainLabel("");
         setText(_txt);

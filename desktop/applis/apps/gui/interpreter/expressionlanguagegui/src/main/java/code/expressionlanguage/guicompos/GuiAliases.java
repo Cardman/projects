@@ -2146,17 +2146,17 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0AddListener0()), new FctButtonAddAction());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctButton0(_cust,_guiEx,aliasButton));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasButton0Button0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasButton0Button0()), new FctButton1(_cust,_guiEx,aliasButton));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasButton, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasProgBar, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasProgBar, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new FctProgBar(_cust,_guiEx,aliasProgBar));
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasProgBarMin, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasProgBar0ProgBarMin0()), new FctProgBarMin1());
         methods_.add( method_);
@@ -2191,10 +2191,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasSetLabelText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextLabel0SetLabelText0()), new FctTextLabel());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctTextLabel0(_cust,_guiEx,aliasTextLabel));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextLabel0TextLabel0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasTextLabel0TextLabel0()), new FctTextLabel1(_cust,_guiEx,aliasTextLabel));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTextLabel, std_);
@@ -2207,10 +2207,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasSetLabelImage, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImageLabel0SetLabelImage0()), new FctImageLabel(_guiEx));
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctImageLabel0(_cust,_guiEx,aliasImageLabel));
         constructors_.add(ctor_);
         params_ = new StringList(aliasImage);
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImageLabel0ImageLabel0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImageLabel0ImageLabel0()), new FctImageLabel1(_cust,_guiEx,aliasImageLabel));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasImageLabel, std_);
@@ -3275,55 +3275,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new SplitPaneStruct(aliasSplitPane,_args[0],_args[1],_args[2],_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_, aliasProgBar)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new ProgressBarStruct(aliasProgBar,_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasButton)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new PlainButtonStruct(_args[0],aliasButton,_guiEx.getWindow().getCompoFactory()));
-            } else {
-                r_.setResult(new PlainButtonStruct(aliasButton,_guiEx.getWindow().getCompoFactory()));
-            }
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasTextLabel)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new TextLabelStruct(_args[0],aliasTextLabel,_guiEx.getWindow().getCompoFactory()));
-            } else {
-                r_.setResult(new TextLabelStruct(aliasTextLabel,_guiEx.getWindow().getCompoFactory()));
-            }
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasImageLabel)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new PreparedLabelStruct(window_.getImageFactory(),window_.getCompoFactory(),_args[0],aliasImageLabel));
-            } else {
-                r_.setResult(new PreparedLabelStruct(window_.getImageFactory(),aliasImageLabel));
-            }
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasFont)) {
