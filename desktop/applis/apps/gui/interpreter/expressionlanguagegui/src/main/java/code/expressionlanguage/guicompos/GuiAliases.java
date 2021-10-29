@@ -7,7 +7,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
@@ -1559,7 +1558,7 @@ public final class GuiAliases {
         methods_.add( method_);
         StandardConstructor ctor_;
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctFrame(_cust,_guiEx));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasFrame, std_);
@@ -1574,7 +1573,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasDialogSetModal, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasDialog0DialogSetModal0()), new FctDialogSetModal());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctDialog(_cust,_guiEx));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasDialog, std_);
@@ -1971,7 +1970,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasPanelValidate, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctPanelValidate());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctPanel(_cust,_guiEx,aliasPanel));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasPanel, std_);
@@ -1979,7 +1978,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL, new FctPanelBorderInst(_cust,_guiEx,aliasPanelBorder));
         params_ = new StringList(aliasComponent,_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd0(),guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd1()), new FctPanelBorder());
         methods_.add( method_);
@@ -2001,7 +2000,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasTabbedPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasTabbedPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new FctTabbedPane(_cust,_guiEx,aliasTabbedPane));
         params_ = new StringList(_content.getCharSeq().getAliasString(),aliasComponent);
         method_ = new StandardMethod(aliasTabbedPaneAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd1()), new FctTabbedPaneAdd());
         methods_.add( method_);
@@ -2067,10 +2066,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasScrollPaneSetView, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPaneSetView0()), new FctScrollPaneSetView());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctScrollPane0(_cust,_guiEx,aliasScrollPane));
         constructors_.add(ctor_);
         params_ = new StringList(aliasComponent);
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPane0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasScrollPane0ScrollPane0()), new FctScrollPane1(_cust,_guiEx,aliasScrollPane));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasScrollPane, std_);
@@ -2119,7 +2118,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasSplitPaneValidate, params_,_content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctSplitPaneValidate());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),aliasComponent,aliasComponent);
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSplitPane0SplitPane0(),guiAliasParameters.getAliasSplitPane0SplitPane1(),guiAliasParameters.getAliasSplitPane0SplitPane2()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasSplitPane0SplitPane0(),guiAliasParameters.getAliasSplitPane0SplitPane1(),guiAliasParameters.getAliasSplitPane0SplitPane2()), new FctSplitPane(_cust,_guiEx,aliasSplitPane));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasSplitPane, std_);
@@ -3182,99 +3181,6 @@ public final class GuiAliases {
             res_.setKeyChar(_args[3]);
             res_.setKeyCode(_args[4]);
             r_.setResult(res_);
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasFrame)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            FrameStruct fr_ = new FrameStruct(_guiEx.getWindow().getFrames().getFrameFactory().newOtherFrame());
-            ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
-            r_.setResult(fr_);
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasDialog)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            DialogStruct di_ = new DialogStruct(_guiEx.getWindow().getFrames().getFrameFactory().newOtherDialog());
-            ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
-            r_.setResult(di_);
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasPanel)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(PanelStruct.newFlow(aliasPanel, _guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasPanelBorder)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(PanelBorderStruct.newBorder(aliasPanelBorder, _guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasTabbedPane)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new TabbedPaneStruct(aliasTabbedPane,_guiEx.getWindow().getCompoFactory()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasScrollPane)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(ScrollPaneStruct.newScroll(_args[0], aliasScrollPane,_guiEx.getWindow().getCompoFactory()));
-            } else {
-                r_.setResult(ScrollPaneStruct.newScroll(aliasScrollPane,_guiEx.getWindow().getCompoFactory()));
-            }
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasSplitPane)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (!(_args[1] instanceof CustComponentStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (!(_args[2] instanceof CustComponentStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            CustComponentStruct first_ = (CustComponentStruct) _args[1];
-            CustComponentStruct second_ = (CustComponentStruct) _args[2];
-            if (first_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            if (second_.getParentComponent() != NullStruct.NULL_VALUE) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new SplitPaneStruct(aliasSplitPane,_args[0],_args[1],_args[2],_guiEx.getWindow().getCompoFactory()));
             return r_;
         }
         if (StringUtil.quickEq(name_,aliasFont)) {

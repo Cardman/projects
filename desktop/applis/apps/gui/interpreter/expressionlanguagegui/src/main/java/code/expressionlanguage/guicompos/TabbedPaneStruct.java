@@ -8,7 +8,7 @@ import code.util.CustList;
 
 public final class TabbedPaneStruct extends CustComponentStruct {
     private final AbsTabbedPane tabbedPane;
-    protected TabbedPaneStruct(String _className, AbsCompoFactory _compoFactory) {
+    public TabbedPaneStruct(String _className, AbsCompoFactory _compoFactory) {
         super(_className);
         tabbedPane = _compoFactory.newAbsTabbedPane();
     }

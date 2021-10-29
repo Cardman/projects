@@ -25,11 +25,11 @@ public final class ScrollPaneStruct extends CustComponentStruct {
         scrollPane = _compo.newAbsScrollPane(_cust.getComponent());
     }
 
-    static ScrollPaneStruct newScroll(String _className, AbsCompoFactory _compo) {
+    public static ScrollPaneStruct newScroll(String _className, AbsCompoFactory _compo) {
         return new ScrollPaneStruct(_className,_compo);
     }
 
-    static ScrollPaneStruct newScroll(Struct _str, String _className, AbsCompoFactory _compo) {
+    public static ScrollPaneStruct newScroll(Struct _str, String _className, AbsCompoFactory _compo) {
         if (!(_str instanceof CustComponentStruct)) {
             return new ScrollPaneStruct(_className,_compo);
         }

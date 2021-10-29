@@ -14,7 +14,7 @@ public final class SplitPaneStruct extends CustComponentStruct {
     private final AbsSplitPane splitPane;
     private Struct left;
     private Struct right;
-    protected SplitPaneStruct(String _className, Struct _orient, Struct _left, Struct _right, AbsCompoFactory _compoFactory) {
+    public SplitPaneStruct(String _className, Struct _orient, Struct _left, Struct _right, AbsCompoFactory _compoFactory) {
         super(_className);
         if (GuiConstants.toSplitOrientation(((NumberStruct)_orient).intStruct()) == GuiConstants.HORIZONTAL_SPLIT) {
             splitPane = _compoFactory.newHorizontalSplitPane(((CustComponentStruct)_left).getComponent(),((CustComponentStruct)_right).getComponent());
