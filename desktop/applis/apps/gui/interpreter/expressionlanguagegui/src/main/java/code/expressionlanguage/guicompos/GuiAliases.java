@@ -1750,10 +1750,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasDimensionGetWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctDimensionGetWidth());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasDimension0Dimension0(),guiAliasParameters.getAliasDimension0Dimension1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasDimension0Dimension0(),guiAliasParameters.getAliasDimension0Dimension1()), new FctDimension1());
         constructors_.add(ctor_);
         params_ = new StringList(aliasDimension);
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasDimension1Dimension0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasDimension1Dimension0()), new FctDimension0());
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasDimension, std_);
@@ -2237,13 +2237,13 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasFontStringWidth, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasFont1FontStringWidth0(),guiAliasParameters.getAliasFont1FontStringWidth1()), new FctFontStringWidth0(_guiEx));
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctFont0());
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont0Font0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont0Font0()), new FctFont1());
         constructors_.add(ctor_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont1Font0(),guiAliasParameters.getAliasFont1Font1(),guiAliasParameters.getAliasFont1Font2(),guiAliasParameters.getAliasFont1Font3()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasFont1Font0(),guiAliasParameters.getAliasFont1Font1(),guiAliasParameters.getAliasFont1Font2(),guiAliasParameters.getAliasFont1Font3()), new FctFont2());
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasFont, stdcl_);
 
@@ -2267,16 +2267,16 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasColorIsTransparent, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctColorTransparent());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor0Color0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor0Color0()),new FctColor0());
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor1Color0(),guiAliasParameters.getAliasColor1Color1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor1Color0(),guiAliasParameters.getAliasColor1Color1()), new FctColor1());
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor2Color0(),guiAliasParameters.getAliasColor2Color1(),guiAliasParameters.getAliasColor2Color2()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor2Color0(),guiAliasParameters.getAliasColor2Color1(),guiAliasParameters.getAliasColor2Color2()), new FctColor2());
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor3Color0(),guiAliasParameters.getAliasColor3Color1(),guiAliasParameters.getAliasColor3Color2(),guiAliasParameters.getAliasColor3Color3()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasColor3Color0(),guiAliasParameters.getAliasColor3Color1(),guiAliasParameters.getAliasColor3Color2(),guiAliasParameters.getAliasColor3Color3()), new FctColor3());
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasColor, stdcl_);
 
@@ -2349,7 +2349,7 @@ public final class GuiAliases {
         methods_.add( method_);
 
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImage0Image0(),guiAliasParameters.getAliasImage0Image1(),guiAliasParameters.getAliasImage0Image2()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasImage0Image0(),guiAliasParameters.getAliasImage0Image1(),guiAliasParameters.getAliasImage0Image2()), new FctImage(_guiEx));
         constructors_.add(ctor_);
         _content.getStandards().addEntry(aliasImage, stdcl_);
         buildInputs(_content,_cust,_guiEx);
@@ -3103,7 +3103,7 @@ public final class GuiAliases {
         return arg_;
     }
     public ResultErrorStd getOtherResult(CustAliases _custAliases, ContextEl _cont,
-                                         ConstructorId _method, GuiExecutingBlocks _guiEx, StackCall _stackCall, Struct... _args) {
+                                         ConstructorId _method, StackCall _stackCall, Struct... _args) {
         String name_ = _method.getName();
         ResultErrorStd r_ = new ResultErrorStd();
         if (StringUtil.quickEq(name_,aliasActionEvent)) {
@@ -3181,50 +3181,6 @@ public final class GuiAliases {
             res_.setKeyChar(_args[3]);
             res_.setKeyCode(_args[4]);
             r_.setResult(res_);
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasFont)) {
-            if (_method.getParametersTypesLength() == 0) {
-                r_.setResult(new FontStruct());
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new FontStruct(((NumberStruct)_args[0]).intStruct()));
-                return r_;
-            }
-            r_.setResult(new FontStruct(_args[0],BooleanStruct.isTrue(_args[1]),BooleanStruct.isTrue(_args[2]),((NumberStruct)_args[3]).intStruct()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasColor)) {
-            if (_method.getParametersTypesLength() == 1) {
-                r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct()));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 2) {
-                r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),BooleanStruct.isTrue(_args[1])));
-                return r_;
-            }
-            if (_method.getParametersTypesLength() == 3) {
-                r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct()));
-                return r_;
-            }
-            r_.setResult(new ColorStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),((NumberStruct)_args[2]).intStruct(),((NumberStruct)_args[3]).intStruct()));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasImage)) {
-            r_.setResult(new ImageStruct(_guiEx.getWindow().getImageFactory(),((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct(),BooleanStruct.isTrue(_args[2])));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasDimension)) {
-            if (_method.getParametersTypesLength() == 1) {
-                if (!(_args[0] instanceof DimensionStruct)) {
-                    r_.setResult(new DimensionStruct(0,0));
-                    return r_;
-                }
-                r_.setResult(new DimensionStruct((DimensionStruct)_args[0]));
-                return r_;
-            }
-            r_.setResult(new DimensionStruct(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct()));
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
