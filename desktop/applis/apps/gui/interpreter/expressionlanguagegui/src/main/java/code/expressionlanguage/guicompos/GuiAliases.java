@@ -1477,7 +1477,7 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasRemoveWindowListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0RemoveWindowListener0()), new FctWindowRemoveList(_guiEx));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetWindowListeners, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowGetList(aliasWindowListener));
+        method_ = new StandardMethod(aliasGetWindowListeners, params_, StringExpUtil.getPrettyArrayType(aliasWindowListener), false, MethodModifier.FINAL, new FctWindowGetList(aliasWindowListener));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasDispose, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowDispose(_guiEx));
