@@ -1978,12 +1978,12 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL, new FctPanelBorderInst(_cust,_guiEx,aliasPanelBorder));
+        stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL);
         params_ = new StringList(aliasComponent,_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd0(),guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd1()), new FctPanelBorder());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false, new FctPanelBorderInst(_cust,_guiEx,aliasPanelBorder));
         constructors_.add(ctor_);
         fields_.add(new CstFieldInfo(aliasPanelBorderNorth,_content.getCharSeq().getAliasString()));
         fields_.add(new CstFieldInfo(aliasPanelBorderSouth,_content.getCharSeq().getAliasString()));
