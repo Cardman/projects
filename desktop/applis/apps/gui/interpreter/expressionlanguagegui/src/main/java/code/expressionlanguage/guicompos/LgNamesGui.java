@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
@@ -8,12 +9,15 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.structs.AbstractFunctionalInstance;
+import code.expressionlanguage.structs.LambdaStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
@@ -64,14 +68,6 @@ public class LgNamesGui extends LgNamesUtils {
             return arg_;
         }
         return guiAliases.defaultInstance(getCustAliases(),_cont,_id, _stackCall);
-    }
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
-                                         ConstructorId _method, Struct... _args) {
-        return getCustAliases().getOtherResult(_cont,_method, _stack,_args);
-    }
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, Struct... _args) {
-        return getCustAliases().getOtherResult(_cont,_instance,_method, getExecutingBlocks(), _stack, _args);
     }
 
     @Override
