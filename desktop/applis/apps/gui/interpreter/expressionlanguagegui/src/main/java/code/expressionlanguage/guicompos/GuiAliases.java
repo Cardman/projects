@@ -7,14 +7,15 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.gui.OtherConfirmDialog;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
@@ -1734,9 +1735,6 @@ public final class GuiAliases {
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompoRelCentVert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoCentVert());
         methods_.add( method_);
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasComponent, std_);
         methods_ = new CustList<StandardMethod>();
@@ -2367,13 +2365,13 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new FctActionEvent(_cust,_guiEx,aliasActionEvent));
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasActionEvent, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasWindowEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasWindowEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new FctWindowEvent(_cust,_guiEx,aliasWindowEvent));
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasWindowEvent, std_);
         methods_ = new CustList<StandardMethod>();
@@ -3101,30 +3099,6 @@ public final class GuiAliases {
             return new Argument(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(guiEx_.getWindow().getImageFactory(),new StringList(),-1, guiEx_.getWindow().getCompoFactory())));
         }
         return arg_;
-    }
-    public ResultErrorStd getOtherResult(CustAliases _custAliases, ContextEl _cont,
-                                         ConstructorId _method, StackCall _stackCall, Struct... _args) {
-        String name_ = _method.getName();
-        ResultErrorStd r_ = new ResultErrorStd();
-        if (StringUtil.quickEq(name_,aliasActionEvent)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new ActionEventStruct(aliasActionEvent));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasWindowEvent)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            r_.setResult(new WindowEventStruct(aliasWindowEvent));
-            return r_;
-        }
-        return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
     }
 
     private static void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {
