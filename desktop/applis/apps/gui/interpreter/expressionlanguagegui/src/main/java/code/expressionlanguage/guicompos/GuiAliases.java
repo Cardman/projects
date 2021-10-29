@@ -1528,7 +1528,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasWindowSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasWindowSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL,new FctWindowSet(_cust));
         params_ = new StringList(aliasWindow);
         method_ = new StandardMethod(aliasWindowSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TabbedPaneAdd0()), new FctWindowSetAdd());
         methods_.add( method_);
@@ -1927,7 +1927,7 @@ public final class GuiAliases {
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTableGui, std_);
 
-        buildEvents(_content);
+        buildEvents(_content,_cust,_guiEx);
 
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -2355,7 +2355,7 @@ public final class GuiAliases {
         buildInputs(_content,_cust,_guiEx);
         buildMenus(_content,_cust,_guiEx);
     }
-    private void buildEvents(LgNamesContent _content) {
+    private void buildEvents(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {
         CustList<StandardMethod> methods_;
         CustList<StandardConstructor> constructors_;
         StandardConstructor ctor_;
@@ -2411,7 +2411,7 @@ public final class GuiAliases {
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMouseEvent0MouseEvent0(),guiAliasParameters.getAliasMouseEvent0MouseEvent1(),guiAliasParameters.getAliasMouseEvent0MouseEvent2(),guiAliasParameters.getAliasMouseEvent0MouseEvent3(),guiAliasParameters.getAliasMouseEvent0MouseEvent4(),guiAliasParameters.getAliasMouseEvent0MouseEvent5(),guiAliasParameters.getAliasMouseEvent0MouseEvent6(),guiAliasParameters.getAliasMouseEvent0MouseEvent7(),guiAliasParameters.getAliasMouseEvent0MouseEvent8()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasMouseEvent0MouseEvent0(),guiAliasParameters.getAliasMouseEvent0MouseEvent1(),guiAliasParameters.getAliasMouseEvent0MouseEvent2(),guiAliasParameters.getAliasMouseEvent0MouseEvent3(),guiAliasParameters.getAliasMouseEvent0MouseEvent4(),guiAliasParameters.getAliasMouseEvent0MouseEvent5(),guiAliasParameters.getAliasMouseEvent0MouseEvent6(),guiAliasParameters.getAliasMouseEvent0MouseEvent7(),guiAliasParameters.getAliasMouseEvent0MouseEvent8()), new FctMouseEvent(_cust,_guiEx,aliasMouseEvent));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasMouseEvent, std_);
@@ -2426,7 +2426,7 @@ public final class GuiAliases {
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasWheelEvent0WheelEvent0(),guiAliasParameters.getAliasWheelEvent0WheelEvent1(),guiAliasParameters.getAliasWheelEvent0WheelEvent2(),guiAliasParameters.getAliasWheelEvent0WheelEvent3(),guiAliasParameters.getAliasWheelEvent0WheelEvent4(),guiAliasParameters.getAliasWheelEvent0WheelEvent5(),guiAliasParameters.getAliasWheelEvent0WheelEvent6(),guiAliasParameters.getAliasWheelEvent0WheelEvent7(),guiAliasParameters.getAliasWheelEvent0WheelEvent8(),guiAliasParameters.getAliasWheelEvent0WheelEvent9()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasWheelEvent0WheelEvent0(),guiAliasParameters.getAliasWheelEvent0WheelEvent1(),guiAliasParameters.getAliasWheelEvent0WheelEvent2(),guiAliasParameters.getAliasWheelEvent0WheelEvent3(),guiAliasParameters.getAliasWheelEvent0WheelEvent4(),guiAliasParameters.getAliasWheelEvent0WheelEvent5(),guiAliasParameters.getAliasWheelEvent0WheelEvent6(),guiAliasParameters.getAliasWheelEvent0WheelEvent7(),guiAliasParameters.getAliasWheelEvent0WheelEvent8(),guiAliasParameters.getAliasWheelEvent0WheelEvent9()), new FctWheelEvent(_cust,_guiEx,aliasWheelEvent));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasWheelEvent, std_);
@@ -2452,7 +2452,7 @@ public final class GuiAliases {
         params_ = new StringList(
                 _content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),
                 _content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasKeyEvent0KeyEvent0(),guiAliasParameters.getAliasKeyEvent0KeyEvent1(),guiAliasParameters.getAliasKeyEvent0KeyEvent2(),guiAliasParameters.getAliasKeyEvent0KeyEvent3(),guiAliasParameters.getAliasKeyEvent0KeyEvent4()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(guiAliasParameters.getAliasKeyEvent0KeyEvent0(),guiAliasParameters.getAliasKeyEvent0KeyEvent1(),guiAliasParameters.getAliasKeyEvent0KeyEvent2(),guiAliasParameters.getAliasKeyEvent0KeyEvent3(),guiAliasParameters.getAliasKeyEvent0KeyEvent4()), new FctKeyEvent(_cust,_guiEx,aliasKeyEvent));
         constructors_.add(ctor_);
 
         std_ = stdcl_;
@@ -3115,11 +3115,6 @@ public final class GuiAliases {
             r_.setResult(new ActionEventStruct(aliasActionEvent));
             return r_;
         }
-        if (StringUtil.quickEq(name_,aliasWindowSet)) {
-            WindowSetStruct set_ = new WindowSetStruct(true,_custAliases.getInterceptor());
-            r_.setResult(set_);
-            return r_;
-        }
         if (StringUtil.quickEq(name_,aliasWindowEvent)) {
             if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _custAliases, _stackCall);
@@ -3127,60 +3122,6 @@ public final class GuiAliases {
                 return r_;
             }
             r_.setResult(new WindowEventStruct(aliasWindowEvent));
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasMouseEvent)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            MouseEventStruct res_ = new MouseEventStruct(aliasMouseEvent);
-            res_.setFirst(_args[0]);
-            res_.setSecond(_args[1]);
-            res_.setAlt(_args[2]);
-            res_.setCtrl(_args[3]);
-            res_.setShift(_args[4]);
-            res_.setLeft(_args[5]);
-            res_.setMiddle(_args[6]);
-            res_.setRight(_args[7]);
-            res_.setClicks(_args[8]);
-            r_.setResult(res_);
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasWheelEvent)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            MouseWheelEventStruct res_ = new MouseWheelEventStruct(aliasWheelEvent);
-            res_.setFirst(_args[0]);
-            res_.setSecond(_args[1]);
-            res_.setAlt(_args[2]);
-            res_.setCtrl(_args[3]);
-            res_.setShift(_args[4]);
-            res_.setLeft(_args[5]);
-            res_.setMiddle(_args[6]);
-            res_.setRight(_args[7]);
-            res_.setClicks(_args[8]);
-            res_.setRotated(_args[9]);
-            r_.setResult(res_);
-            return r_;
-        }
-        if (StringUtil.quickEq(name_,aliasKeyEvent)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _custAliases, _stackCall);
-                r_.setResult(NullStruct.NULL_VALUE);
-                return r_;
-            }
-            KeyEventStruct res_ = new KeyEventStruct(aliasKeyEvent);
-            res_.setAlt(_args[0]);
-            res_.setCtrl(_args[1]);
-            res_.setShift(_args[2]);
-            res_.setKeyChar(_args[3]);
-            res_.setKeyCode(_args[4]);
-            r_.setResult(res_);
             return r_;
         }
         return _custAliases.getOtherResult(_cont,_method, _stackCall,_args);
