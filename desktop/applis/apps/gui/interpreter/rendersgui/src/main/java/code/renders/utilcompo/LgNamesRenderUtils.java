@@ -66,7 +66,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public void buildOther() {
         getBeanAliases().buildOther(getContent());
-        custAliases.buildOther(getContent());
+        custAliases.buildOther(getContent(), getExecutingBlocks());
     }
     @Override
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {

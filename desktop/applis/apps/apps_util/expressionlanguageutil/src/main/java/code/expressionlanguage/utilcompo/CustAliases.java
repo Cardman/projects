@@ -17,14 +17,11 @@ import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
@@ -447,7 +444,7 @@ public final class CustAliases {
         return new RunnableFunctionalInstance(_className.getFormatted(),_functional,fs_,_contextEl, _named);
     }
 
-    public void buildOther(LgNamesContent _content) {
+    public void buildOther(LgNamesContent _content, ExecutingBlocks _executingBlocks) {
         CustList<CstFieldInfo> fields_;
         StringList params_;
         StandardMethod method_;
@@ -460,51 +457,51 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasThread, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
-        method_ = new StandardMethod(aliasStart, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasStart, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctThreadStart(aliasIllegalThreadStateException));
         methods_.add( method_);
-        method_ = new StandardMethod(aliasCurrentThread, params_, aliasThread, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasCurrentThread, params_, aliasThread, false, MethodModifier.STATIC,new FctThreadCurrent(this));
         methods_.add( method_);
-        method_ = new StandardMethod(aliasThreadCurrentTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasThreadCurrentTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new FctThreadMillis(this));
         methods_.add( method_);
-        method_ = new StandardMethod(aliasThreadCurrentNanoTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasThreadCurrentNanoTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new FctThreadNano(this));
         methods_.add( method_);
-        method_ = new StandardMethod(aliasJoin, params_, _content.getNbAlias().getAliasBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasJoin, params_, _content.getNbAlias().getAliasBoolean(), false, MethodModifier.FINAL,new FctThreadJoin());
         methods_.add( method_);
-        method_ = new StandardMethod(aliasJoinOthers, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasJoinOthers, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctThreadJoinOthers(this));
         methods_.add( method_);
-        method_ = new StandardMethod(aliasIsAlive, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsAlive, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctThreadIsAlive());
         methods_.add( method_);
-        method_ = new StandardMethod(aliasIsEnded, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsEnded, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctThreadIsEnded());
         methods_.add( method_);
-        method_ = new StandardMethod(aliasEnd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEnd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctThreadEnd());
         methods_.add( method_);
-        method_ = new StandardMethod(aliasGetId, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetId, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new FctThreadGetId());
         methods_.add( method_);
-        method_ = new StandardMethod(aliasGetPriority, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetPriority, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctThreadGetPrio());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSetPriority, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThread0SetPriority0()));
+        method_ = new StandardMethod(aliasSetPriority, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThread0SetPriority0()),new FctThreadSetPrio());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasSleep, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0Sleep0()));
+        method_ = new StandardMethod(aliasSleep, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0Sleep0()),new FctThreadSleep(this));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasYield, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasYield, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctThreadYield(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasPrint, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0Print0()));
+        method_ = new StandardMethod(aliasPrint, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0Print0()),new FctThreadPrint1(this,_executingBlocks,aliasFormatType));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasPrint, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread1Print0()));
+        method_ = new StandardMethod(aliasPrint, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread1Print0()),new FctThreadPrint0(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasPrint, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread2Print0(),custAliasParameters.getAliasThread2Print1()));
+        method_ = new StandardMethod(aliasPrint, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread2Print0(),custAliasParameters.getAliasThread2Print1()),new FctThreadPrint2(this,_executingBlocks,aliasFormatType));
         methods_.add( method_);
         params_ = new StringList(aliasThread);
-        method_ = new StandardMethod(aliasThreadExitHook, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0ThreadExitHook0()));
+        method_ = new StandardMethod(aliasThreadExitHook, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0ThreadExitHook0()),new FctThreadExitHook(this));
         methods_.add( method_);
         params_ = new StringList(aliasThread,aliasThread);
-        method_ = new StandardMethod(aliasThreadEq, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0ThreadEq0(),custAliasParameters.getAliasThread0ThreadEq1()));
+        method_ = new StandardMethod(aliasThreadEq, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0ThreadEq0(),custAliasParameters.getAliasThread0ThreadEq1()),new FctThreadEq(this));
         methods_.add( method_);
         StandardConstructor ctor_;
         params_ = new StringList(aliasRunnable);
@@ -2136,194 +2133,9 @@ public final class CustAliases {
             res_.setResult(ins_.toSnapshotArray(_cont, _stackCall));
             return res_;
         }
-        if (StringUtil.quickEq(className_,aliasThread)) {
-            String name_ = _method.getConstraints().getName();
-            if (StringUtil.quickEq(name_,aliasPrint)) {
-                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _stackCall);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                log((RunnableContextEl)_cont, _method, _execBlocks, _stackCall, _args);
-                ResultErrorStd out_ = new ResultErrorStd();
-                out_.setResult(NullStruct.NULL_VALUE);
-                return out_;
-            }
-            if (StringUtil.quickEq(name_,aliasStart)) {
-                if (((ThreadStruct) _instance).start()) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                } else {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, getAliasIllegalThreadStateException(), _stackCall)));
-                }
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasSleep)) {
-                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _stackCall);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (!(_args[0] instanceof NumberStruct)) {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                    return res_;
-                }
-                res_.setResult(BooleanStruct.of(ThreadUtil.sleep(((RunnableContextEl) _cont).getCurrentThreadFactory(),((NumberStruct)_args[0]).longStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasJoin)) {
-                AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
-                ThState state_ = thread_.join();
-                if (state_ == ThState.INTERRUPTED) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                } else {
-                    res_.setResult(BooleanStruct.of(state_ == ThState.ALIVE));
-                }
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasCurrentThread)) {
-                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _stackCall);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(((RunnableContextEl)_cont).getThread());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasThreadExitHook)) {
-                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _stackCall);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                if (!(_args[0] instanceof ThreadStruct)) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                ThreadStruct a_ = (ThreadStruct) _args[0];
-                ((RunnableContextEl)_cont).getCustInit().initHook(a_);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasJoinOthers)) {
-                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _stackCall);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                CustInitializer cust_ = ((RunnableContextEl)_cont).getCustInit();
-                cust_.joinOthers((RunnableContextEl) _cont, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasIsAlive)) {
-                AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
-                boolean alive_ = thread_.isAlive();
-                res_.setResult(BooleanStruct.of(alive_));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasIsEnded)) {
-                boolean alive_ = ((ThreadStruct) _instance).isEnded();
-                res_.setResult(BooleanStruct.of(alive_));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasEnd)) {
-                ((ThreadStruct) _instance).end();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetId)) {
-                AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
-                res_.setResult(new LongStruct(thread_.getId()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetPriority)) {
-                AbstractThread thread_ = ((ThreadStruct) _instance).getThread();
-                res_.setResult(new IntStruct(thread_.getPriority()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasSetPriority)) {
-                if (((ThreadStruct) _instance).setPriority(((NumberStruct)_args[0]).intStruct())) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                } else {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
-                }
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasYield)) {
-                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _stackCall);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                getInfos().getThreadFactory().yieldThread();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasThreadEq)) {
-                if (_args[0] instanceof ThreadStruct) {
-                    if (_args[1] instanceof ThreadStruct) {
-                        res_.setResult(BooleanStruct.of(((ThreadStruct)_args[0]).getThread().getThread() == ((ThreadStruct)_args[1]).getThread().getThread()));
-                        return res_;
-                    }
-                    res_.setResult(BooleanStruct.of(false));
-                    return res_;
-                }
-                res_.setResult(BooleanStruct.of(_args[0] == _args[1]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasThreadCurrentNanoTime)) {
-                res_.setResult(new LongStruct(((RunnableContextEl)_cont).getCurrentThreadFactory().nanos()));
-                return res_;
-            }
-            res_.setResult(new LongStruct(((RunnableContextEl)_cont).getCurrentThreadFactory().millis()));
-            return res_;
-        }
         return res_;
     }
 
-    private void log(RunnableContextEl _cont,
-                     ClassMethodId _method, ExecutingBlocks _execBlocks, StackCall _stackCall, Struct... _args) {
-        if (_method.getConstraints().getParametersTypesLength() == 1) {
-            String type_ = _method.getConstraints().getParametersType(0);
-            String aliasObject_ = _cont.getStandards().getContent().getCoreNames().getAliasObject();
-            if (StringUtil.quickEq(type_, aliasObject_)) {
-                String className_ = aliasFormatType;
-                Argument arg_ = new Argument(_args[0]);
-                ArgumentListCall argList_ = new ArgumentListCall(new CustList<Argument>(arg_));
-                ExecTypeFunction formatObjectPair_ = _execBlocks.getFormatObjectPair();
-                ExecTemplates.wrapAndCall(formatObjectPair_, new ExecFormattedRootBlock(formatObjectPair_.getType(), className_),Argument.createVoid(), _cont, _stackCall, argList_);
-                return;
-            }
-        }
-        if (_method.getConstraints().getParametersTypesLength() == 2) {
-            String className_ = aliasFormatType;
-            Argument arg_ = new Argument(_args[0]);
-            Argument argArr_ = new Argument(_args[1]);
-            ArgumentListCall argList_ = new ArgumentListCall(new CustList<Argument>(arg_,argArr_));
-            ExecTypeFunction formatObjectTwoPair_ = _execBlocks.getFormatObjectTwoPair();
-            ExecTemplates.wrapAndCall(formatObjectTwoPair_, new ExecFormattedRootBlock(formatObjectTwoPair_.getType(),className_),Argument.createVoid(), _cont, _stackCall, argList_);
-            return;
-        }
-        String stringAppFile_ = buildLog(_cont, _args);
-        stringAppFile_ = StringUtil.concat(getDateTimeText(_cont.getCurrentThreadFactory()),":",stringAppFile_);
-        log(stringAppFile_,_cont);
-    }
-    void log(String _content, RunnableContextEl _cont){
-        ExecutingOptions executingOptions_ = _cont.getExecutingOptions();
-        String folder_ = executingOptions_.getLogFolder();
-        CustInitializer cust_ = _cont.getCustInit();
-        String dtPart_ = cust_.getCurrentFileThread(_cont);
-        infos.getLogger().log(executingOptions_.getOutput()+folder_,dtPart_,_content+"\n",_cont);
-    }
-    private static String buildLog(ContextEl _cont,
-                                   Struct... _args) {
-        return getStandarString(_cont,_args[0]);
-    }
     public static String getStandarString(ContextEl _cont, Struct _struct) {
         if (_struct instanceof DisplayableStruct) {
             return ((DisplayableStruct)_struct).getDisplayedString(_cont).getInstance();
@@ -2337,7 +2149,7 @@ public final class CustAliases {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, aliasConcurrentError, _stackCall)));
         }
     }
-    static String getDateTimeText(AbstractThreadFactory _fact) {
+    public static String getDateTimeText(AbstractThreadFactory _fact) {
         AbstractDateFactory dateFactory_ = _fact.getDateFactory();
         AbstractDate date_ = dateFactory_.newDate(_fact.millis());
         return date_.format(dateFactory_,"yyyy_MM_dd_HH_mm_ss_SSS");

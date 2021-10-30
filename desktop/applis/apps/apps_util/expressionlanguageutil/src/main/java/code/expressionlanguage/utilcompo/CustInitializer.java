@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.stds.FctThreadPrint0;
 import code.threads.AbstractAtomicLong;
 import code.threads.AbstractThread;
 import code.util.CustList;
@@ -82,7 +83,7 @@ public class CustInitializer extends DefaultInitializer {
 
     private static void log(RunnableContextEl _cont, String _txt) {
         String text_ = StringUtil.concat(CustAliases.getDateTimeText(_cont.getCurrentThreadFactory()),":",_txt);
-        ((LgNamesWithNewAliases)_cont.getStandards()).getCustAliases().log(text_,_cont);
+        FctThreadPrint0.log(((LgNamesWithNewAliases)_cont.getStandards()).getCustAliases().getInfos(), text_,_cont);
     }
 
     public void removeThreadFromList(RunnableContextEl _ctx) {
@@ -99,7 +100,7 @@ public class CustInitializer extends DefaultInitializer {
     }
 
     /**This method must be called only before exit, by one (main) thread only*/
-    void joinOthers(RunnableContextEl _ctx, StackCall _stackCall) {
+    public void joinOthers(RunnableContextEl _ctx, StackCall _stackCall) {
         for (Struct s: threadSet.toSnapshotArray(_ctx, _stackCall).list()) {
             if (!(s instanceof ThreadStruct)) {
                 continue;

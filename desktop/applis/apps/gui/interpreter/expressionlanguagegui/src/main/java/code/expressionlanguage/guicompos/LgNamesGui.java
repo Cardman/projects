@@ -41,7 +41,7 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     public void buildOther() {
-        getCustAliases().buildOther(getContent());
+        getCustAliases().buildOther(getContent(), getExecutingBlocks());
         guiAliases.buildOther(getContent(),getCustAliases(),getGuiExecutingBlocks());
     }
 
