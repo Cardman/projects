@@ -80,7 +80,7 @@ public final class AnaApplyCoreMethodUtil {
         return calculateNumber(_method, _struct, _page, args_);
     }
 
-    public static Struct newAnalyzisInstanceStd(StandardType _standardType, StandardConstructor _constructor, ConstructorId _method, AnalyzedPageEl _page, Argument... _args) {
+    public static Struct newAnalyzisInstanceStd(StandardConstructor _constructor, ConstructorId _method, AnalyzedPageEl _page, Argument... _args) {
         Struct[] args_ = getObjects(_args);
         String type_ = _method.getName();
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
@@ -92,7 +92,7 @@ public final class AnaApplyCoreMethodUtil {
         String longType_ = _page.getNbAlias().getAliasLong();
         String floatType_ = _page.getNbAlias().getAliasFloat();
         String doubleType_ = _page.getNbAlias().getAliasDouble();
-        StdCaller stdCaller_ = StandardType.caller(_standardType, _constructor, null);
+        StdCaller stdCaller_ = StandardType.caller(_constructor, null);
         AnaStdCaller anaStdCaller_;
         if (stdCaller_ instanceof AnaStdCaller) {
             anaStdCaller_ = (AnaStdCaller)stdCaller_;

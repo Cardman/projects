@@ -45,7 +45,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
             argCtor_ = new InstanceParamChecker(pair_, array, "", -1).checkParams(res_, argument, null, _context, _stack);
         }
         if (metaInfo.getStandardType() != null) {
-            argCtor_ = ExecInvokingOperation.instancePrepareStd(_context,metaInfo.getStandardType(), metaInfo.getStandardConstructor(), mid_, array, _stack);
+            argCtor_ = ExecInvokingOperation.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, array, _stack);
         }
         return end(_context,_stack,argCtor_);
     }

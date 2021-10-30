@@ -9,12 +9,12 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.structs.*;
-import code.util.*;
+import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class ApplyCoreMethodUtil {
@@ -292,27 +292,6 @@ public final class ApplyCoreMethodUtil {
         return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
     }
 
-    public static Struct defaultMeta(ContextEl _conf, String _id, Struct[] _args) {
-        LgNames stds_ = _conf.getStandards();
-        String aliasField_ = stds_.getContent().getReflect().getAliasField();
-        String aliasMethod_ = stds_.getContent().getReflect().getAliasMethod();
-        String aliasConstructor_ = stds_.getContent().getReflect().getAliasConstructor();
-        Struct previous_ = NullStruct.NULL_VALUE;
-        if (_args.length > 0) {
-            previous_ = _args[0];
-        }
-        if (StringUtil.quickEq(_id,aliasMethod_)) {
-            return NumParsers.getMethod(previous_);
-        }
-        if (StringUtil.quickEq(_id,aliasConstructor_)) {
-            return NumParsers.getCtor(previous_);
-        }
-        if (StringUtil.quickEq(_id,aliasField_)) {
-            return NumParsers.getField(previous_);
-        }
-        return NumParsers.getClass(previous_);
-    }
-
     private static ResultErrorStd processResources(ContextEl _cont, ClassMethodId _method, Struct[] _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();
@@ -442,35 +421,6 @@ public final class ApplyCoreMethodUtil {
     public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, StackCall _stackCall, Argument... _args) {
         LgNames lgNames_ = _cont.getStandards();
         return lgNames_.instance(_stackCall, _cont,_method,_args);
-    }
-
-    public static Struct defaultInstance(ContextEl _conf, String _id, Struct[] _args, StackCall _stackCall) {
-        LgNames stds_ = _conf.getStandards();
-        Struct previous_ = NullStruct.NULL_VALUE;
-        if (_args.length > 0) {
-            previous_ = _args[0];
-        }
-        byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_id, stds_);
-        if (cast_ > 0) {
-            return NumParsers.convertToNumber(cast_,previous_);
-        }
-        String aliasBoolean_ = stds_.getContent().getNbAlias().getAliasBoolean();
-        if (StringUtil.quickEq(aliasBoolean_, _id)) {
-            return NumParsers.convertToBoolean(previous_);
-        }
-        String aliasString_ = stds_.getContent().getCharSeq().getAliasString();
-        String aliasStringBuilder_ = stds_.getContent().getCharSeq().getAliasStringBuilder();
-        if (StringUtil.quickEq(aliasString_, _id)) {
-            return NumParsers.getString(previous_);
-        }
-        if (StringUtil.quickEq(aliasStringBuilder_, _id)) {
-            return NumParsers.getStrBuilder(previous_);
-        }
-        String aliasRepl_ = stds_.getContent().getCharSeq().getAliasReplacement();
-        if (StringUtil.quickEq(aliasRepl_, _id)) {
-            return NumParsers.getReplacement(previous_);
-        }
-        return stds_.defaultInstance(_conf,_id, _stackCall).getStruct();
     }
 
     public static StringStruct getStringOfObjectBase(ContextEl _cont, Struct _arg) {

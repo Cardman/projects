@@ -53,11 +53,6 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     }
 
     @Override
-    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
-        return custAliases.defaultInstance(_cont,_id, _stackCall);
-    }
-
-    @Override
     protected ResultErrorStd instance(StackCall _stack, ContextEl _cont, ConstructorId _method, Argument... _args) {
         return custAliases.instance(_cont, _method, _stack, _args);
     }

@@ -442,6 +442,48 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     public void startsWithArobaseKeyWord9(){
         assertTrue(!StringExpUtil.startsWithArobaseKeyWord(" class",1,"class"));
     }
+
+    @Test
+    public void compareToIgnoreCase1() {
+        assertTrue(NumParsers.compareToIgnoreCase(""+(char)305,"i")==0);
+    }
+
+    @Test
+    public void compareToIgnoreCase2() {
+        assertTrue(NumParsers.compareToIgnoreCase(""+(char)304,"i")==0);
+    }
+
+    @Test
+    public void compareToIgnoreCase3() {
+        assertTrue(NumParsers.compareToIgnoreCase("I","i")==0);
+    }
+
+    @Test
+    public void compareToIgnoreCase4() {
+        assertTrue(NumParsers.compareToIgnoreCase("a","i")<0);
+    }
+
+
+    @Test
+    public void equalsIgnoreCase1() {
+        assertTrue(NumParsers.equalsIgnoreCase(""+(char)305,"i"));
+    }
+
+    @Test
+    public void equalsIgnoreCase2() {
+        assertTrue(NumParsers.equalsIgnoreCase(""+(char)304,"i"));
+    }
+
+    @Test
+    public void equalsIgnoreCase3() {
+        assertTrue(NumParsers.equalsIgnoreCase("I","i"));
+    }
+
+    @Test
+    public void equalsIgnoreCase4() {
+        assertTrue(!NumParsers.equalsIgnoreCase("a","i"));
+    }
+
     @Test
     public void toGeneHex1Test(){
         assertEq("0",StringExpUtil.toGeneHex(0));

@@ -73,10 +73,6 @@ public abstract class LgNames implements BuildableLgNames {
         return res_;
     }
 
-    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
-        return new Argument(new SimpleObjectStruct());
-    }
-
     protected ResultErrorStd instance(StackCall _stack, ContextEl _cont, ConstructorId _method, Argument... _args) {
         return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args, _stack);
     }

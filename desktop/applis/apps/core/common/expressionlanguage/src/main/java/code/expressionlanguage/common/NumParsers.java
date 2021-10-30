@@ -2085,10 +2085,16 @@ public final class NumParsers {
         for (int i = 0; i < min_; i++) {
             char cFirst_ = _instance.charAt(i);
             char cSecond_ = _other.charAt(i);
-            cFirst_ = StringDataUtil.toLowerCase(cFirst_);
-            cSecond_ = StringDataUtil.toLowerCase(cSecond_);
             if (cFirst_ != cSecond_) {
-                return NumberUtil.compareLg(cFirst_, cSecond_);
+                cFirst_ = StringDataUtil.toUpperCase(cFirst_);
+                cSecond_ = StringDataUtil.toUpperCase(cSecond_);
+                if (cFirst_ != cSecond_) {
+                    cFirst_ = StringDataUtil.toLowerCase(cFirst_);
+                    cSecond_ = StringDataUtil.toLowerCase(cSecond_);
+                    if (cFirst_ != cSecond_) {
+                        return NumberUtil.compareLg(cFirst_, cSecond_);
+                    }
+                }
             }
         }
         return NumberUtil.compareLg(_instance.length(), _other.length());
@@ -2130,8 +2136,14 @@ public final class NumParsers {
             return false;
         }
         while (len_ > 0) {
-            if (StringDataUtil.toLowerCase(_instance.charAt(to_)) != StringDataUtil.toLowerCase(_other.charAt(po_))) {
-                return false;
+            char inCh_ = _instance.charAt(to_);
+            char otCh_ = _other.charAt(po_);
+            if (inCh_ != otCh_) {
+                if (StringDataUtil.toUpperCase(inCh_) != StringDataUtil.toUpperCase(otCh_)) {
+                    if (StringDataUtil.toLowerCase(inCh_) != StringDataUtil.toLowerCase(otCh_)) {
+                        return false;
+                    }
+                }
             }
             len_--;
             to_++;

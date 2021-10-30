@@ -92,13 +92,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return intermediate;
     }
 
-    public static Argument instancePrepareStd(ContextEl _conf, StandardType _type, StandardConstructor _ctor, ConstructorId _constId,
-                                                 ArgumentListCall _arguments, StackCall _stackCall) {
+    public static Argument instancePrepareStd(ContextEl _conf, StandardConstructor _ctor, ConstructorId _constId,
+                                              ArgumentListCall _arguments, StackCall _stackCall) {
         CustList<Argument> args_ = _arguments.getArguments();
         if (ExecTemplates.okArgsSet(_constId, args_, _conf, _stackCall) != null) {
             return new Argument();
         }
-        StdCaller caller_ = StandardType.caller(_type,_ctor, null);
+        StdCaller caller_ = StandardType.caller(_ctor, null);
         if (caller_ != null) {
             NoExiting exit_ = new NoExiting();
             return _conf.getCaller().invoke(caller_, exit_,_conf,NullStruct.NULL_VALUE,_arguments,_stackCall).getValue();

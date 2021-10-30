@@ -29,6 +29,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.stds.*;
 import code.scripts.messages.gui.MessCdmBaseGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.*;
@@ -514,7 +515,7 @@ public final class CustAliases {
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
-        stdcl_ = new StandardClass(aliasThreadSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasThreadSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfThreadSet(getInterceptor()));
         params_ = new StringList(aliasThread);
         method_ = new StandardMethod(aliasThreadSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThreadSet0ThreadSetAdd0()));
         methods_.add( method_);
@@ -536,7 +537,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
-        stdcl_ = new StandardClass(aliasReentrantLock, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasReentrantLock, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfReentrantLock(getInfos(),aliasReentrantLock));
         method_ = new StandardMethod(aliasLock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         method_ = new StandardMethod(aliasUnlock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
@@ -555,7 +556,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
-        stdcl_ = new StandardClass(aliasAtomicBoolean, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasAtomicBoolean, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicBoolean(getInfos(),aliasAtomicBoolean));
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
@@ -582,7 +583,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
-        stdcl_ = new StandardClass(aliasAtomicInteger, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasAtomicInteger, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicInteger(getInfos(),aliasAtomicInteger));
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
@@ -627,7 +628,7 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
-        stdcl_ = new StandardClass(aliasAtomicLong, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasAtomicLong, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicLong(getInfos(),aliasAtomicLong));
         method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
@@ -1985,34 +1986,6 @@ public final class CustAliases {
     public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
         if (StringUtil.quickEq(_id, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
             return new Argument(new SimpleObjectStruct());
-        }
-        if (StringUtil.quickEq(_id,aliasThread)) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _id, _cont.getStandards().getContent().getCoreNames().getAliasIllegalType(), _stackCall)));
-            return Argument.createVoid();
-        }
-        if (StringUtil.quickEq(_id,aliasThreadSet)) {
-            ThreadSetStruct std_ = new ThreadSetStruct(getInterceptor());
-            return new Argument(std_);
-        }
-        if (StringUtil.quickEq(_id,aliasReentrantLock)) {
-            AbstractLock re_ = LockFactory.newLock(getInfos().getThreadFactory().newAtomicBoolean());
-            AbstractLockStruct std_ = new AbstractLockStruct(re_, aliasReentrantLock);
-            return new Argument(std_);
-        }
-        if (StringUtil.quickEq(_id,aliasAtomicBoolean)) {
-            AbstractAtomicBoolean at_ = getInfos().getThreadFactory().newAtomicBoolean();
-            AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
-            return new Argument(std_);
-        }
-        if (StringUtil.quickEq(_id,aliasAtomicInteger)) {
-            AbstractAtomicInteger at_ = getInfos().getThreadFactory().newAtomicInteger();
-            AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
-            return new Argument(std_);
-        }
-        if (StringUtil.quickEq(_id,aliasAtomicLong)) {
-            AbstractAtomicLong at_ = getInfos().getThreadFactory().newAtomicLong();
-            AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
-            return new Argument(std_);
         }
         return Argument.createVoid();
     }

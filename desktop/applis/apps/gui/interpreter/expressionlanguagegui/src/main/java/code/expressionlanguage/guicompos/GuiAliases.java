@@ -1,12 +1,9 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.guicompos.stds.*;
@@ -18,7 +15,6 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.gui.OtherConfirmDialog;
-import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.util.CustList;
 import code.util.StringList;
@@ -1530,7 +1526,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasWindowSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasWindowSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfWindowSet(_cust));
         params_ = new StringList(aliasWindow);
         method_ = new StandardMethod(aliasWindowSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowSet0TabbedPaneAdd0()), new FctWindowSetAdd());
         methods_.add( method_);
@@ -1554,7 +1550,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasFrame, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasFrame, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL, new DfFrame(_cust,_guiEx));
         params_ = new StringList();
         method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, new FctFrameWindow(_cust,_guiEx));
         methods_.add( method_);
@@ -1569,7 +1565,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasDialog, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasDialog, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL, new DfDialog(_cust,_guiEx));
         params_ = new StringList();
         method_ = new StandardMethod(aliasDialogIsModal, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctDialogIsModal());
         methods_.add( method_);
@@ -1933,7 +1929,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasPanel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasPanel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfPanel(_cust,_guiEx,aliasPanel));
         params_ = new StringList(aliasComponent);
         method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanel0TabbedPaneAdd0()),new FctPanelAddCompo0());
         methods_.add( method_);
@@ -1979,7 +1975,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasPanelBorder, fields_, constructors_, methods_, aliasPanel, MethodModifier.FINAL, new DfPanelBorder(_cust,_guiEx,aliasPanelBorder));
         params_ = new StringList(aliasComponent,_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasAddCompo, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd0(),guiAliasParameters.getAliasPanelBorder0TabbedPaneAdd1()), new FctPanelBorder());
         methods_.add( method_);
@@ -2001,7 +1997,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasTabbedPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasTabbedPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfTabbedPane(_cust,_guiEx,aliasTabbedPane));
         params_ = new StringList(_content.getCharSeq().getAliasString(),aliasComponent);
         method_ = new StandardMethod(aliasTabbedPaneAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd0(),guiAliasParameters.getAliasTabbedPane0TabbedPaneAdd1()), new FctTabbedPaneAdd());
         methods_.add( method_);
@@ -2047,7 +2043,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasScrollPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasScrollPane, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfScrollPane(_cust,_guiEx,aliasScrollPane));
         params_ = new StringList();
         method_ = new StandardMethod(aliasScrollPaneHorizontalValue, params_,_content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctScrollPaneHorizontalValue0());
         methods_.add( method_);
@@ -2144,7 +2140,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasButton, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfButton(_cust,_guiEx,aliasButton));
         params_ = new StringList(aliasActionListener);
         method_ = new StandardMethod(aliasAddListener, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasButton0AddListener0()), new FctButtonAddAction());
         methods_.add( method_);
@@ -2192,7 +2188,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasTextLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasTextLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfTextLabel(_cust,_guiEx,aliasTextLabel));
         params_ = new StringList(_content.getCharSeq().getAliasString());
         method_ = new StandardMethod(aliasSetLabelText, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasTextLabel0SetLabelText0()), new FctTextLabel());
         methods_.add( method_);
@@ -2208,7 +2204,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasImageLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasImageLabel, fields_, constructors_, methods_, aliasComponent, MethodModifier.FINAL, new DfImageLabel(_cust,_guiEx,aliasImageLabel));
         params_ = new StringList(aliasImage);
         method_ = new StandardMethod(aliasSetLabelImage, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasImageLabel0SetLabelImage0()), new FctImageLabel(_guiEx));
         methods_.add( method_);
@@ -2224,7 +2220,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasFont, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasFont, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfFont());
         params_ = new StringList();
         method_ = new StandardMethod(aliasFontGetName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctFontGetName());
         methods_.add( method_);
@@ -2597,7 +2593,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasRender, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfRender(_cust,_guiEx));
         String typeHeight_ = StringUtil.concat(_content.getReflect().getAliasFct(),"<",aliasGrList,",",_content.getCoreNames().getAliasObject(),",",_content.getPrimTypes().getAliasPrimInteger(),",",_content.getPrimTypes().getAliasPrimBoolean(),",",_content.getPrimTypes().getAliasPrimInteger(),","+_content.getPrimTypes().getAliasPrimInteger()+">");
         params_ = new StringList();
         method_ = new StandardMethod(aliasRenderGetHeight, params_, typeHeight_, false, MethodModifier.FINAL, new FctRenderGetHeight());
@@ -2628,7 +2624,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasGrList, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfGrList(_cust,_guiEx,aliasGrList));
         params_ = new StringList();
         method_ = new StandardMethod(aliasGrListGetRender, params_, aliasRender, false, MethodModifier.FINAL, new FctGrListGetRender());
         methods_.add( method_);
@@ -2691,7 +2687,7 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
-        stdcl_ = new StandardClass(aliasCombo, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL);
+        stdcl_ = new StandardClass(aliasCombo, fields_, constructors_, methods_, aliasInput, MethodModifier.FINAL, new DfCombo(_cust,_guiEx,aliasCombo));
         params_ = new StringList();
         method_ = new StandardMethod(aliasComboGetListeners, params_, StringExpUtil.getPrettyArrayType(aliasListSelection), false, MethodModifier.FINAL, new FctComboGetListeners());
         methods_.add( method_);
@@ -3059,77 +3055,6 @@ public final class GuiAliases {
             return new IntStruct(OtherConfirmDialog.NO_OPTION);
         }
         return new IntStruct(OtherConfirmDialog.CANCEL_OPTION);
-    }
-    public Argument defaultInstance(CustAliases _custAliases, ContextEl _cont, String _id, StackCall _stackCall) {
-        Argument arg_ = _custAliases.defaultInstance(_cont, _id, _stackCall);
-        if (!arg_.isNull() || _cont.callsOrException(_stackCall)) {
-            return arg_;
-        }
-        if (StringUtil.quickEq(_id,aliasFont)) {
-            return new Argument(new FontStruct());
-        }
-        if (StringUtil.quickEq(_id,aliasWindowSet)) {
-            WindowSetStruct set_ = new WindowSetStruct(true,_custAliases.getInterceptor());
-            return new Argument(set_);
-        }
-        if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-            processFailInit(_cont, _custAliases, _stackCall);
-            return new Argument();
-        }
-        if (StringUtil.quickEq(_id,aliasFrame)) {
-            FrameStruct fr_ = new FrameStruct(((LgNamesGui)_cont.getStandards()).getGuiExecutingBlocks().getWindow().getFrames().getFrameFactory().newOtherFrame());
-            ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
-            return new Argument(fr_);
-        }
-        if (StringUtil.quickEq(_id,aliasDialog)) {
-            DialogStruct di_ = new DialogStruct(((LgNamesGui)_cont.getStandards()).getGuiExecutingBlocks().getWindow().getFrames().getFrameFactory().newOtherDialog());
-            ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
-            return new Argument(di_);
-        }
-        if (StringUtil.quickEq(_id,aliasPanel)) {
-            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
-            return new Argument(PanelStruct.newFlow(aliasPanel, window_.getCompoFactory()));
-        }
-        if (StringUtil.quickEq(_id,aliasTabbedPane)) {
-            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
-            return new Argument(new TabbedPaneStruct(aliasTabbedPane, window_.getCompoFactory()));
-        }
-        if (StringUtil.quickEq(_id,aliasScrollPane)) {
-            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
-            return new Argument(ScrollPaneStruct.newScroll(aliasScrollPane, window_.getCompoFactory()));
-        }
-        if (StringUtil.quickEq(_id,aliasPanelBorder)) {
-            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
-            return new Argument(PanelBorderStruct.newBorder(aliasPanelBorder, window_.getCompoFactory()));
-        }
-        if (StringUtil.quickEq(_id,aliasButton)) {
-            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
-            return new Argument(new PlainButtonStruct(aliasButton,window_.getCompoFactory()));
-        }
-        if (StringUtil.quickEq(_id,aliasTextLabel)) {
-            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
-            return new Argument(new TextLabelStruct(aliasTextLabel,window_.getCompoFactory()));
-        }
-        if (StringUtil.quickEq(_id,aliasImageLabel)) {
-            WindowFull window_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks().getWindow();
-            return new Argument(new PreparedLabelStruct(window_.getImageFactory(),aliasImageLabel));
-        }
-        if (StringUtil.quickEq(_id,aliasRender)) {
-            return new Argument(new RenderStruct());
-        }
-        if (StringUtil.quickEq(_id,aliasGrList)) {
-            return new Argument(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,true));
-        }
-        if (StringUtil.quickEq(_id,aliasCombo)) {
-            GuiExecutingBlocks guiEx_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks();
-            AbstractGraphicComboBoxGenerator geneComboBox_ = guiEx_.getWindow().getFrames().getGeneComboBox();
-            return new Argument(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(guiEx_.getWindow().getImageFactory(),new StringList(),-1, guiEx_.getWindow().getCompoFactory())));
-        }
-        return arg_;
-    }
-
-    private static void processFailInit(ContextEl _cont, CustAliases _custAliases, StackCall _stackCall) {
-        _custAliases.processFailInit(_cont, _stackCall);
     }
 
     public void otherAliasGui(StringMap<String> _util, StringMap<String> _cust) {

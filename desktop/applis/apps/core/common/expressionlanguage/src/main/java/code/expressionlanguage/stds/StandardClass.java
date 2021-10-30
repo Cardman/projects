@@ -13,20 +13,27 @@ public final class StandardClass extends AbstractStandardClass implements WithCs
             CustList<StandardConstructor> _constructors,
                          CustList<StandardMethod> _methods,
             String _superClass, StdClassModifier _modifier) {
-        super(_name, _constructors, _methods, _superClass, _modifier,null);
+        super(_name, _constructors, _methods, _superClass, _modifier, null);
         fields = _fields;
     }
     public StandardClass(String _name,CustList<CstFieldInfo> _fields,
             CustList<StandardConstructor> _constructors,
                          CustList<StandardMethod> _methods,
             String _superClass, MethodModifier _modifier) {
-        super(_name, _constructors, _methods, _superClass, _modifier,null);
+        super(_name, _constructors, _methods, _superClass, _modifier, null);
         fields = _fields;
     }
     public StandardClass(String _name,CustList<CstFieldInfo> _fields,
             CustList<StandardConstructor> _constructors,
                          CustList<StandardMethod> _methods,
-            String _superClass, MethodModifier _modifier, StdCaller _caller) {
+            String _superClass, MethodModifier _modifier, DfInstancer _caller) {
+        super(_name, _constructors, _methods, _superClass, _modifier,_caller);
+        fields = _fields;
+    }
+    public StandardClass(String _name,CustList<CstFieldInfo> _fields,
+            CustList<StandardConstructor> _constructors,
+                         CustList<StandardMethod> _methods,
+            String _superClass, StdClassModifier _modifier, DfInstancer _caller) {
         super(_name, _constructors, _methods, _superClass, _modifier,_caller);
         fields = _fields;
     }

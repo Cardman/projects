@@ -12,4 +12,5 @@ public interface InnerTypeOrElement extends InfoBlock {
     int getFieldNameOffset();
     CustList<AnaResultPartType> getTypePartOffsets();
     CustList<OperationNode> getRoots();
+    boolean koType();
 }

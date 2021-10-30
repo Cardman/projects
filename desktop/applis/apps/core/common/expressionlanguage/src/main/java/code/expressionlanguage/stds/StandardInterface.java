@@ -13,7 +13,7 @@ public final class StandardInterface extends StandardType implements GeneInterfa
     public StandardInterface(String _name,
                              CustList<StandardMethod> _methods,
             StringList _superInterfaces) {
-        super(_name, new CustList<StandardConstructor>(), _methods, null);
+        super(_name, new CustList<StandardConstructor>(), _methods, (DfInstancer)null);
         superInterfaces = _superInterfaces;
     }
 

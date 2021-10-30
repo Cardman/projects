@@ -1,6 +1,5 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
@@ -61,13 +60,6 @@ public class LgNamesGui extends LgNamesUtils {
             }
         }
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
-    }
-    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
-        Argument arg_ = getCustAliases().defaultInstance(_cont, _id, _stackCall);
-        if (!arg_.isNull() || _cont.callsOrException(_stackCall)) {
-            return arg_;
-        }
-        return guiAliases.defaultInstance(getCustAliases(),_cont,_id, _stackCall);
     }
 
     @Override

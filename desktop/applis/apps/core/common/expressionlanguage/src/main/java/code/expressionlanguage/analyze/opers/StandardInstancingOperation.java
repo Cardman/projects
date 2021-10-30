@@ -296,6 +296,10 @@ public final class StandardInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
+        if (innerElt != null && innerElt.koType()) {
+            setResultClass(new AnaClassArgumentMatching(_realClassName));
+            return;
+        }
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructor(varargOnly_, new AnaClassArgumentMatching(_realClassName), g_, feed_, _paramVargArg, name_, _page);
         if (ctorRes_ == null) {
             buildCtorError(name_,_page,_realClassName);

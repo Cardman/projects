@@ -4678,6 +4678,26 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertEq("code.expressionlanguage.exceptions.AbstractTypeErr",err_.getClassName(cont_));
     }
     @Test
+    public void processEl455_Test() {
+        StringBuilder xml_;
+        StringMap<String> files_ = new StringMap<String>();
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public $static Object exmeth(){\n");
+        xml_.append("  $return $class(ExThree).defaultInstance();\n");
+        xml_.append(" }\n");
+        xml_.append(" $abstract $static $class ExThree{\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument arg_ = calculateError("pkg.ExTwo", id_, args_, cont_);
+        ErrorStruct err_ = (ErrorStruct) arg_.getStruct();
+        assertEq("code.expressionlanguage.exceptions.AbstractTypeErr",err_.getClassName(cont_));
+    }
+    @Test
     public void processEl456Test() {
         StringBuilder xml_;
         StringMap<String> files_ = new StringMap<String>();

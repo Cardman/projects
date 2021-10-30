@@ -72,7 +72,10 @@ public final class AliasCore {
         fields_ = new CustList<CstFieldInfo>();
         StandardType std_;
         StandardClass stdcl_;
-        stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL, new FctObj());
+        stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL, new DfObj());
+        params_ = new StringList();
+        StandardConstructor ctor_ = new StandardConstructor(params_, false, new FctObj());
+        constructors_.add(ctor_);
         std_ = stdcl_;
         standards_.addEntry(aliasObject, std_);
         methods_ = new CustList<StandardMethod>();
@@ -207,7 +210,7 @@ public final class AliasCore {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasRange, fields_, constructors_, methods_, aliasObject, MethodModifier.FINAL);
         params_ = new StringList(_lgNames.getPrimTypes().getAliasPrimInteger(),_lgNames.getPrimTypes().getAliasPrimInteger());
-        StandardConstructor ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange0Range0(),params.getAliasRange0Range1()));
+        ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange0Range0(),params.getAliasRange0Range1()));
         constructors_.add( ctor_);
         params_ = new StringList(_lgNames.getPrimTypes().getAliasPrimInteger());
         ctor_ = new StandardConstructor(params_, false, new StringList(params.getAliasRange1Range0()));

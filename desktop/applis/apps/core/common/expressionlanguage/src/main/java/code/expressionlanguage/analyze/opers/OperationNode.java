@@ -841,9 +841,6 @@ public abstract class OperationNode {
 
     protected static boolean noCtor(AnaGeneType _type) {
         boolean empty_ = false;
-        if (_type instanceof StandardType) {
-            empty_ = ((StandardType)_type).getConstructors().isEmpty();
-        }
         if (_type instanceof RootBlock){
             empty_ = ((RootBlock)_type).getConstructorBlocks().isEmpty();
         }

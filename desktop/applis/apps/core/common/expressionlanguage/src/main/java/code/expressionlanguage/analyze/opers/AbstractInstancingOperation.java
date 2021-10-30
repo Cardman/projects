@@ -548,7 +548,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
     protected void result(AnalyzedPageEl _page,String _realClassName, AnaGeneType _g, ConstrustorIdVarArg _ctorRes, NameParametersFilter _name) {
         setConstId(_ctorRes.getRealId());
         setConstructor(_ctorRes.getConstructor());
-        setStandardType(_ctorRes.getStandardType());
         setConstructor(_ctorRes.getPair());
         if (_g instanceof RootBlock) {
             setFormattedType(new AnaFormattedRootBlock((RootBlock) _g, _realClassName));
@@ -561,10 +560,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             setLastType(instancingCommonContent_.getConstId().getParametersType(nbParams_ - 1));
         }
         unwrapArgsFct(instancingCommonContent_.getConstId(), getNaturalVararg(), getLastType(), _name.getAll(), _page);
-    }
-
-    private void setStandardType(StandardType _standardType) {
-        instancingCommonContent.setStandardType(_standardType);
     }
 
 

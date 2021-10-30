@@ -262,7 +262,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
-                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
+                " <a title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
                 "The field name #ONE is not valid. It must be a word.\" class=\"e\">#ONE</a>{}\n" +
                 "}\n" +
@@ -279,7 +279,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyEnum</a> {\n" +
-                " <a name=\"m28\" title=\"The part #ONE in a type is not valid. It must be a word.\n" +
+                " <a title=\"The part #ONE in a type is not valid. It must be a word.\n" +
                 "\n" +
                 "The field name #ONE is not valid. It must be a word.\" class=\"e\">#ONE</a>{<a name=\"m33\">(</a>){}}\n" +
                 "}\n" +
@@ -1067,7 +1067,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
-                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\" class=\"e\">#ONE</a>\n" +
+                " <a title=\"The field name #ONE is not valid. It must be a word.\" class=\"e\">#ONE</a>\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
@@ -1082,7 +1082,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MySub</a> {\n" +
-                " <a name=\"m27\" title=\"The field name #ONE is not valid. It must be a word.\" class=\"e\">#ONE</a>;\n" +
+                " <a title=\"The field name #ONE is not valid. It must be a word.\" class=\"e\">#ONE</a>;\n" +
                 " <a name=\"m34\">$public MySub(</a>){}\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

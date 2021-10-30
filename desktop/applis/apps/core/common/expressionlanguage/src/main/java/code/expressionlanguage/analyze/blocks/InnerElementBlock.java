@@ -34,6 +34,8 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
+
+    private boolean koTy;
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
                              OffsetStringInfo _value, int _offset) {
@@ -169,7 +171,13 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         importedClassName = AnaInherits.check(errs_,parentEnum_,fullName_,j_,varsCt_, _page);
         for (String e: errs_) {
             addNameErrors(e);
+            koTy = true;
         }
+    }
+
+    @Override
+    public boolean koType() {
+        return koTy;
     }
 
     public ResultExpression getRes() {

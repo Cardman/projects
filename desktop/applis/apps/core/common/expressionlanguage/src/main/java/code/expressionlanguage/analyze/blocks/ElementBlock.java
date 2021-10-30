@@ -39,6 +39,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
 
+    private boolean koTy;
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
                         OffsetStringInfo _type,
                         OffsetStringInfo _value, int _offset) {
@@ -124,7 +125,13 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         importedClassName = AnaInherits.check(errs_,parentEnum_,fullName_,j_,varsCt_, _page);
         for (String e: errs_) {
             addNameErrors(e);
+            koTy = true;
         }
+    }
+
+    @Override
+    public boolean koType() {
+        return koTy;
     }
 
     @Override

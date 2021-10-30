@@ -72,13 +72,6 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
     }
-    @Override
-    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
-        if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_id)) {
-            return Argument.createVoid();
-        }
-        return custAliases.defaultInstance(_cont, _id, _stackCall);
-    }
 
     @Override
     protected ResultErrorStd instance(StackCall _stack, ContextEl _cont, ConstructorId _method, Argument... _args) {
