@@ -5,10 +5,10 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 
 public final class EntryTextStruct extends WithoutParentIdStruct implements Struct {
-    private StringStruct name;
-    private StringStruct text;
+    private final StringStruct name;
+    private final StringStruct text;
     private long time;
-    EntryTextStruct(Struct _name, Struct _text) {
+    public EntryTextStruct(Struct _name, Struct _text) {
         name = getString(_name);
         text = getString(_text);
     }

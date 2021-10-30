@@ -789,85 +789,85 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasFile, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.HYPER_ABSTRACT);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasRead, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0Read0()));
+        method_ = new StandardMethod(aliasRead, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0Read0()), new FctFileRead(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasWrite, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0Write0(),custAliasParameters.getAliasFile0Write1()));
+        method_ = new StandardMethod(aliasWrite, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0Write0(),custAliasParameters.getAliasFile0Write1()), new FctFileWrite(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileReadBin, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileReadBin0()));
+        method_ = new StandardMethod(aliasFileReadBin, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileReadBin0()), new FctFileReadBin(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()));
-        method_ = new StandardMethod(aliasFileWriteBin, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileWriteBin0(),custAliasParameters.getAliasFile0FileWriteBin1()));
+        method_ = new StandardMethod(aliasFileWriteBin, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileWriteBin0(),custAliasParameters.getAliasFile0FileWriteBin1()), new FctFileWriteBin(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileDelete, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0ThreadSetRemove0()));
+        method_ = new StandardMethod(aliasFileDelete, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0ThreadSetRemove0()), new FctFileDelete(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileRename, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileRename0(),custAliasParameters.getAliasFile0FileRename1()));
+        method_ = new StandardMethod(aliasFileRename, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileRename0(),custAliasParameters.getAliasFile0FileRename1()), new FctFileRename(this));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFileDir, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList());
+        method_ = new StandardMethod(aliasFileDir, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(), new FctFileDir0(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileDir, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileDir0()));
+        method_ = new StandardMethod(aliasFileDir, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileDir0()), new FctFileDir1(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasAppendToFile, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0AppendToFile0(),custAliasParameters.getAliasFile0AppendToFile1()));
+        method_ = new StandardMethod(aliasAppendToFile, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0AppendToFile0(),custAliasParameters.getAliasFile0AppendToFile1()), new FctFileAppendToFile(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileAbsolutePath, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileAbsolutePath0()));
+        method_ = new StandardMethod(aliasFileAbsolutePath, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileAbsolutePath0()), new FctFileAbsolutePath(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileGetName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileGetName0()));
+        method_ = new StandardMethod(aliasFileGetName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileGetName0()), new FctFileGetName(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileGetParentPath, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileGetParentPath0()));
+        method_ = new StandardMethod(aliasFileGetParentPath, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileGetParentPath0()), new FctFileGetParentPath(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileGetLength, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileGetLength0()));
+        method_ = new StandardMethod(aliasFileGetLength, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileGetLength0()), new FctFileGetLength(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileLastModif, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileLastModif0()));
+        method_ = new StandardMethod(aliasFileLastModif, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileLastModif0()), new FctFileLastModif(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileListDirectories, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileListDirectories0()));
+        method_ = new StandardMethod(aliasFileListDirectories, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileListDirectories0()), new FctFileListDirectories(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileListFiles, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileListFiles0()));
+        method_ = new StandardMethod(aliasFileListFiles, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileListFiles0()), new FctFileListFiles(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileIsDirectory, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileIsDirectory0()));
+        method_ = new StandardMethod(aliasFileIsDirectory, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileIsDirectory0()), new FctFileIsDirectory(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileIsFile, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileIsFile0()));
+        method_ = new StandardMethod(aliasFileIsFile, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileIsFile0()), new FctFileIsFile(this));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFileRoots, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasFileRoots, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC, new FctFileRoots(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileIsAbsolute, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileIsAbsolute0()));
+        method_ = new StandardMethod(aliasFileIsAbsolute, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileIsAbsolute0()), new FctFileIsAbsolute(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),aliasEntryBinary);
-        method_ = new StandardMethod(aliasFileZipBin, params_, _content.getPrimTypes().getAliasPrimBoolean(), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZipBin0(),custAliasParameters.getAliasFile0FileZipBin1()));
+        method_ = new StandardMethod(aliasFileZipBin, params_, _content.getPrimTypes().getAliasPrimBoolean(), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZipBin0(),custAliasParameters.getAliasFile0FileZipBin1()), new FctFileZipBin(this));
         methods_.add( method_);
         params_ = new StringList(aliasEntryBinary);
-        method_ = new StandardMethod(aliasFileZipBinArray, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZipBinArray0()));
+        method_ = new StandardMethod(aliasFileZipBinArray, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZipBinArray0()), new FctFileZipBinArray(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),aliasEntryText);
-        method_ = new StandardMethod(aliasFileZipText, params_, _content.getPrimTypes().getAliasPrimBoolean(), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZipText0(),custAliasParameters.getAliasFile0FileZipText1()));
+        method_ = new StandardMethod(aliasFileZipText, params_, _content.getPrimTypes().getAliasPrimBoolean(), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZipText0(),custAliasParameters.getAliasFile0FileZipText1()), new FctFileZipText(this, aliasEntryBinary));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileZippedBin, params_, StringExpUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZippedBin0()));
+        method_ = new StandardMethod(aliasFileZippedBin, params_, StringExpUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZippedBin0()), new FctFileZippedBin(this));
         methods_.add( method_);
         params_ = new StringList(StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()));
-        method_ = new StandardMethod(aliasFileZippedBinArray, params_, StringExpUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZippedBinArray0()));
+        method_ = new StandardMethod(aliasFileZippedBinArray, params_, StringExpUtil.getPrettyArrayType(aliasEntryBinary), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZippedBinArray0()), new FctFileZippedBinArray(this));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileZippedText, params_, StringExpUtil.getPrettyArrayType(aliasEntryText), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZippedText0()));
+        method_ = new StandardMethod(aliasFileZippedText, params_, StringExpUtil.getPrettyArrayType(aliasEntryText), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileZippedText0()), new FctFileZippedText(this,aliasEntryText));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasFileMakeDirs, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileMakeDirs0()));
+        method_ = new StandardMethod(aliasFileMakeDirs, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasFile0FileMakeDirs0()), new FctFileMkdirs(this));
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasFile, std_);
@@ -1983,12 +1983,7 @@ public final class CustAliases {
     public ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
         return interceptor.invoke(getAliasConcurrentError(),_cont,_method,_struct,_exit,_stackCall,_args);
     }
-    public Argument defaultInstance(ContextEl _cont, String _id, StackCall _stackCall) {
-        if (StringUtil.quickEq(_id, _cont.getStandards().getContent().getCoreNames().getAliasObject())) {
-            return new Argument(new SimpleObjectStruct());
-        }
-        return Argument.createVoid();
-    }
+
     public ResultErrorStd getOtherResult(ContextEl _cont,
                                          ConstructorId _method, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
@@ -2596,303 +2591,6 @@ public final class CustAliases {
             res_.setResult(bin_);
             return res_;
         }
-        if (StringUtil.quickEq(className_,aliasFile)) {
-            String name_ = _method.getConstraints().getName();
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileZipBinArray)) {
-                res_.setResult(ZipBinStructUtil.zipBinFiles(_args[0],(RunnableContextEl) _cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileZippedBinArray)) {
-                res_.setResult(ZipBinStructUtil.zippedBinaryFilesByteArray(_args[0], (RunnableContextEl) _cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileRoots)) {
-                StringList roots_ = infos.getFileSystem().getRoots((RunnableContextEl) _cont);
-                int len_ = roots_.size();
-                ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
-                for (int i = 0; i < len_; i++) {
-                    arr_.set(i, new StringStruct(roots_.get(i)));
-                }
-                res_.setResult(arr_);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileDir)) {
-                if (_args.length == 0) {
-                    res_.setResult(new StringStruct(infos.getFileSystem().currentDir((RunnableContextEl) _cont)));
-                    return res_;
-                }
-                if (!(_args[0] instanceof StringStruct)) {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                    return res_;
-                }
-                infos.getFileSystem().changeDir(((StringStruct)_args[0]).getInstance(), (RunnableContextEl) _cont);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (!(_args[0] instanceof StringStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasRead)) {
-                StringStruct str_ = (StringStruct)_args[0];
-                String read_ = infos.getFileSystem().contentsOfFile(str_.getInstance(), (RunnableContextEl) _cont);
-                if (read_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new StringStruct(read_));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasWrite)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                String txt_ = getStandarString(_cont,_args[1]);
-                res_.setResult(BooleanStruct.of(infos.getFileSystem().saveTextFile(file_, txt_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileReadBin)) {
-                StringStruct str_ = (StringStruct)_args[0];
-                byte[] read_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
-                if (read_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                int len_ = read_.length;
-                ArrayStruct bin_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getPrimTypes().getAliasPrimByte()));
-                for (int i = 0; i < len_; i++) {
-                    bin_.set(i, new ByteStruct(read_[i]));
-                }
-                res_.setResult(bin_);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileWriteBin)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                if (!(_args[1] instanceof ArrayStruct)) {
-                    res_.setResult(BooleanStruct.of(false));
-                    return res_;
-                }
-                ArrayStruct arr_ = (ArrayStruct) _args[1];
-                int len_ = arr_.getLength();
-                byte[] bin_ = new byte[len_];
-                for (int i = 0; i < len_; i++) {
-                    Struct byte_ = arr_.get(i);
-                    if (!(byte_ instanceof NumberStruct)) {
-                        continue;
-                    }
-                    bin_[i] = ((NumberStruct)byte_).byteStruct();
-                }
-                res_.setResult(BooleanStruct.of(infos.getFileSystem().writeFile(file_, bin_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileDelete)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(BooleanStruct.of(infos.getFileSystem().delete(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileRename)) {
-                if (!(_args[1] instanceof StringStruct)) {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                    return res_;
-                }
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                String dest_ = ((StringStruct)_args[1]).getInstance();
-                res_.setResult(BooleanStruct.of(infos.getFileSystem().rename(file_,dest_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasAppendToFile)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                String txt_ = getStandarString(_cont,_args[1]);
-                res_.setResult(BooleanStruct.of(infos.getFileSystem().logToFile(file_, txt_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileAbsolutePath)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new StringStruct(infos.getFileSystem().absolutePath(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileGetLength)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new LongStruct(infos.getFileSystem().length(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileGetName)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new StringStruct(infos.getFileSystem().getName(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileGetParentPath)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new StringStruct(infos.getFileSystem().getParentPath(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileIsDirectory)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(BooleanStruct.of(infos.getFileSystem().isDirectory(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileIsFile)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(BooleanStruct.of(infos.getFileSystem().isFile(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileLastModif)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(new LongStruct(infos.getFileSystem().lastModified(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileListFiles)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                StringList files_ = infos.getFileSystem().getFiles(file_, (RunnableContextEl) _cont);
-                if (files_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                int len_ = files_.size();
-                ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
-                for (int i = 0; i < len_; i++) {
-                    arr_.set(i, new StringStruct(files_.get(i)));
-                }
-                res_.setResult(arr_);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileListDirectories)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                StringList files_ = infos.getFileSystem().getFolders(file_, (RunnableContextEl) _cont);
-                if (files_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                int len_ = files_.size();
-                ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString()));
-                for (int i = 0; i < len_; i++) {
-                    arr_.set(i, new StringStruct(files_.get(i)));
-                }
-                res_.setResult(arr_);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileZipBin)) {
-                String fileName_ = ((StringStruct)_args[0]).getInstance();
-                Struct struct_ = ZipBinStructUtil.zipBinFiles(_args[1], (RunnableContextEl) _cont);
-                if (struct_ instanceof ArrayStruct) {
-                    int len_ = ((ArrayStruct)struct_).getLength();
-                    byte[] file_ = new byte[len_];
-                    for (int i = 0; i < len_; i++) {
-                        Struct byte_ = ((ArrayStruct)struct_).get(i);
-                        if (!(byte_ instanceof ByteStruct)) {
-                            continue;
-                        }
-                        file_[i] = ((ByteStruct)byte_).byteStruct();
-                    }
-                    res_.setResult(BooleanStruct.of(infos.getFileSystem().writeFile(fileName_,file_, (RunnableContextEl) _cont)));
-                } else {
-                    res_.setResult(BooleanStruct.of(false));
-                }
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileZipText)) {
-                CustList<EntryBinaryStruct> bins_ = new CustList<EntryBinaryStruct>();
-                if (_args[1] instanceof ArrayStruct) {
-                    ArrayStruct arr_ = (ArrayStruct) _args[1];
-                    for (Struct s: arr_.list()) {
-                        if (s instanceof EntryTextStruct) {
-                            EntryTextStruct cont_ = (EntryTextStruct)s;
-                            byte[] encoded_ = StringUtil.encode(cont_.getText().getInstance());
-                            String contType_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimByte();
-                            contType_ = StringExpUtil.getPrettyArrayType(contType_);
-                            int bLen_ = encoded_.length;
-                            ArrayStruct bs_ = new ArrayStruct(bLen_,contType_);
-                            for (int j = 0; j < bLen_; j++) {
-                                bs_.set(j, new ByteStruct(encoded_[j]));
-                            }
-                            EntryBinaryStruct bin_ = new EntryBinaryStruct(cont_.getName(), bs_);
-                            bin_.setLongTime(cont_.getLongTime());
-                            bins_.add(bin_);
-                        }
-                    }
-                }
-                int bLen_ = bins_.size();
-                String arrType_ = getAliasEntryBinary();
-                arrType_ = StringExpUtil.getPrettyArrayType(arrType_);
-                ArrayStruct bs_ = new ArrayStruct(bLen_,arrType_);
-                for (int j = 0; j < bLen_; j++) {
-                    bs_.set(j, bins_.get(j));
-                }
-                byte[] finalFile_ = ZipBinStructUtil.getZipBinFileAsArray(bs_,infos.getZipFact());
-                if (finalFile_ != null) {
-                    StringStruct str_ = (StringStruct)_args[0];
-                    res_.setResult(BooleanStruct.of(infos.getFileSystem().writeFile(str_.getInstance(),finalFile_, (RunnableContextEl) _cont)));
-                    return res_;
-                }
-                res_.setResult(BooleanStruct.of(false));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileZippedBin)) {
-                StringStruct str_ = (StringStruct)_args[0];
-                byte[] bytes_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
-                if (bytes_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                String cont_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimByte();
-                cont_ = StringExpUtil.getPrettyArrayType(cont_);
-                int bLen_ = bytes_.length;
-                ArrayStruct bs_ = new ArrayStruct(bLen_,cont_);
-                for (int j = 0; j < bLen_; j++) {
-                    bs_.set(j, new ByteStruct(bytes_[j]));
-                }
-                res_.setResult(ZipBinStructUtil.zippedBinaryFilesByteArray(bs_, (RunnableContextEl) _cont));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileZippedText)) {
-                StringStruct str_ = (StringStruct)_args[0];
-                byte[] bytes_ = infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
-                if (bytes_ == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                CustList<EntryBinaryStruct> arrList_ = ZipBinStructUtil.getEntryBinaryStructs(bytes_, (RunnableContextEl) _cont);
-                if (arrList_ != null) {
-                    String arrType_ = getAliasEntryText();
-                    arrType_ = StringExpUtil.getPrettyArrayType(arrType_);
-                    int len_ = arrList_.size();
-                    ArrayStruct filesOut_ = new ArrayStruct(len_,arrType_);
-                    for (int i = 0; i < len_; i++) {
-                        EntryBinaryStruct fileBin_ = arrList_.get(i);
-                        ArrayStruct bin_ = fileBin_.getBinary();
-                        int contLen_ = bin_.getLength();
-                        byte[] prim_ = new byte[contLen_];
-                        for (int j = 0; j < contLen_; j++) {
-                            prim_[j] = ((NumberStruct)bin_.get(j)).byteStruct();
-                        }
-                        String dec_ = StringUtil.decode(prim_);
-                        EntryTextStruct txt_;
-                        if (dec_ == null) {
-                            txt_ = new EntryTextStruct(fileBin_.getName(), NullStruct.NULL_VALUE);
-                        } else {
-                            txt_ = new EntryTextStruct(fileBin_.getName(), new StringStruct(dec_));
-                        }
-                        txt_.setLongTime(fileBin_.getLongTime());
-                        filesOut_.set(i, txt_);
-                    }
-                    res_.setResult(filesOut_);
-                    return res_;
-                }
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasFileIsAbsolute)) {
-                String file_ = ((StringStruct)_args[0]).getInstance();
-                res_.setResult(BooleanStruct.of(infos.getFileSystem().isAbsolute(file_, (RunnableContextEl) _cont)));
-                return res_;
-            }
-            String file_ = ((StringStruct)_args[0]).getInstance();
-            res_.setResult(BooleanStruct.of(infos.getFileSystem().mkdirs(file_, (RunnableContextEl) _cont)));
-            return res_;
-        }
         return res_;
     }
 
@@ -2934,7 +2632,7 @@ public final class CustAliases {
                                    Struct... _args) {
         return getStandarString(_cont,_args[0]);
     }
-    private static String getStandarString(ContextEl _cont, Struct _struct) {
+    public static String getStandarString(ContextEl _cont, Struct _struct) {
         if (_struct instanceof DisplayableStruct) {
             return ((DisplayableStruct)_struct).getDisplayedString(_cont).getInstance();
         }

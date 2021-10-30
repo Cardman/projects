@@ -5,14 +5,14 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 
 public final class EntryBinaryStruct extends WithoutParentIdStruct implements Struct {
-    private StringStruct name;
-    private ArrayStruct binary;
+    private final StringStruct name;
+    private final ArrayStruct binary;
     private long time;
-    EntryBinaryStruct(Struct _name, Struct _binary, String _arrType) {
+    public EntryBinaryStruct(Struct _name, Struct _binary, String _arrType) {
         name = getString(_name);
         binary = getArray(_binary,_arrType);
     }
-    EntryBinaryStruct(Struct _name, ArrayStruct _binary) {
+    public EntryBinaryStruct(Struct _name, ArrayStruct _binary) {
         name = getString(_name);
         binary = _binary;
     }
