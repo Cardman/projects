@@ -557,19 +557,19 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicBoolean, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicBoolean(getInfos(),aliasAtomicBoolean));
-        method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctAtomicBooleanGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasSetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0SetAtomic0()));
+        method_ = new StandardMethod(aliasSetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0SetAtomic0()),new FctAtomicBooleanSet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0CompareAndSetAtomic0(),custAliasParameters.getAliasAtomicBoolean0CompareAndSetAtomic1()));
+        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0CompareAndSetAtomic0(),custAliasParameters.getAliasAtomicBoolean0CompareAndSetAtomic1()),new FctAtomicBooleanCompare());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0GetAndSetAtomic0()));
+        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0GetAndSetAtomic0()),new FctAtomicBooleanGetSet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0LazySetAtomic0()));
+        method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0LazySetAtomic0()),new FctAtomicBooleanLazy());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -584,37 +584,37 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicInteger, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicInteger(getInfos(),aliasAtomicInteger));
-        method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasSetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0SetAtomic0()));
+        method_ = new StandardMethod(aliasSetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0SetAtomic0()),new FctAtomicIntegerSet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0CompareAndSetAtomic0(),custAliasParameters.getAliasAtomicInteger0CompareAndSetAtomic1()));
+        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0CompareAndSetAtomic0(),custAliasParameters.getAliasAtomicInteger0CompareAndSetAtomic1()),new FctAtomicIntegerCompare());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0GetAndSetAtomic0()));
+        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0GetAndSetAtomic0()),new FctAtomicIntegerGetSet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0LazySetAtomic0()));
+        method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0LazySetAtomic0()),new FctAtomicIntegerLazy());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasAddAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0AddAndGetAtomic0()));
+        method_ = new StandardMethod(aliasAddAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0AddAndGetAtomic0()),new FctAtomicIntegerAddGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        method_ = new StandardMethod(aliasGetAndAddAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0GetAndAddAtomic0()));
+        method_ = new StandardMethod(aliasGetAndAddAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicInteger0GetAndAddAtomic0()),new FctAtomicIntegerGetAdd());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIncrementAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIncrementAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerIncGet());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAndIncrementAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetAndIncrementAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerGetInc());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDecrementAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasDecrementAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerDecGet());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerGetDec());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -629,37 +629,37 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasAtomicLong, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfAtomicLong(getInfos(),aliasAtomicLong));
-        method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctAtomicLongGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasSetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0SetAtomic0()));
+        method_ = new StandardMethod(aliasSetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0SetAtomic0()),new FctAtomicLongSet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0CompareAndSetAtomic0(),custAliasParameters.getAliasAtomicLong0CompareAndSetAtomic1()));
+        method_ = new StandardMethod(aliasCompareAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0CompareAndSetAtomic0(),custAliasParameters.getAliasAtomicLong0CompareAndSetAtomic1()),new FctAtomicLongCompare());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0GetAndSetAtomic0()));
+        method_ = new StandardMethod(aliasGetAndSetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0GetAndSetAtomic0()),new FctAtomicLongGetSet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0LazySetAtomic0()));
+        method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0LazySetAtomic0()),new FctAtomicLongLazy());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasAddAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0AddAndGetAtomic0()));
+        method_ = new StandardMethod(aliasAddAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0AddAndGetAtomic0()),new FctAtomicLongAddGet());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasGetAndAddAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0GetAndAddAtomic0()));
+        method_ = new StandardMethod(aliasGetAndAddAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicLong0GetAndAddAtomic0()),new FctAtomicLongGetAdd());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIncrementAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIncrementAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new FctAtomicLongIncGet());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAndIncrementAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetAndIncrementAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new FctAtomicLongGetInc());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDecrementAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasDecrementAndGetAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new FctAtomicLongDecGet());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new FctAtomicLongGetDec());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -2306,168 +2306,6 @@ public final class CustAliases {
                 res_.setResult(BooleanStruct.of(held_));
                 return res_;
             }
-        }
-        if (StringUtil.quickEq(className_,aliasAtomicBoolean)) {
-            String name_ = _method.getConstraints().getName();
-            if (StringUtil.quickEq(name_,aliasGetAtomic)) {
-                AbstractAtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
-                boolean held_ = re_.get();
-                res_.setResult(BooleanStruct.of(held_));
-                return res_;
-            }
-            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                _stackCall.getInitializingTypeInfos().failInitEnums();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasSetAtomic)) {
-                AbstractAtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
-                re_.set(BooleanStruct.isTrue(_args[0]));
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AbstractAtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
-                res_.setResult(BooleanStruct.of(re_.compareAndSet(BooleanStruct.isTrue(_args[0]),BooleanStruct.isTrue(_args[1]))));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
-                AbstractAtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
-                res_.setResult(BooleanStruct.of(re_.getAndSet(BooleanStruct.isTrue(_args[0]))));
-                return res_;
-            }
-            AbstractAtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
-            re_.lazySet(BooleanStruct.isTrue(_args[0]));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(className_,aliasAtomicInteger)) {
-            String name_ = _method.getConstraints().getName();
-            if (StringUtil.quickEq(name_,aliasGetAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                int held_ = re_.get();
-                res_.setResult(new IntStruct(held_));
-                return res_;
-            }
-            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                _stackCall.getInitializingTypeInfos().failInitEnums();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasSetAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                re_.set(((NumberStruct)_args[0]).intStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).intStruct(),((NumberStruct)_args[1]).intStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.getAndSet(((NumberStruct)_args[0]).intStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndAddAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.getAndAdd(((NumberStruct)_args[0]).intStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasAddAndGetAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.addAndGet(((NumberStruct)_args[0]).intStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndIncrementAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.getAndIncrement()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasIncrementAndGetAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.incrementAndGet()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndDecrementAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.getAndDecrement()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasDecrementAndGetAtomic)) {
-                AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.decrementAndGet()));
-                return res_;
-            }
-            AbstractAtomicInteger re_ = ((AtomicIntegerStruct) _instance).getInstance();
-            re_.lazySet(((NumberStruct)_args[0]).intStruct());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(className_,aliasAtomicLong)) {
-            String name_ = _method.getConstraints().getName();
-            if (StringUtil.quickEq(name_,aliasGetAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                long held_ = re_.get();
-                res_.setResult(new LongStruct(held_));
-                return res_;
-            }
-            if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                _stackCall.getInitializingTypeInfos().failInitEnums();
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasSetAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                re_.set(((NumberStruct)_args[0]).longStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasCompareAndSetAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                res_.setResult(BooleanStruct.of(re_.compareAndSet(((NumberStruct)_args[0]).longStruct(),((NumberStruct)_args[1]).longStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndSetAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                res_.setResult(new LongStruct(re_.getAndSet(((NumberStruct)_args[0]).longStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndAddAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                res_.setResult(new LongStruct(re_.getAndAdd(((NumberStruct)_args[0]).longStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasAddAndGetAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                res_.setResult(new LongStruct(re_.addAndGet(((NumberStruct)_args[0]).longStruct())));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndIncrementAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                res_.setResult(new LongStruct(re_.getAndIncrement()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasIncrementAndGetAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                res_.setResult(new LongStruct(re_.incrementAndGet()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasGetAndDecrementAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                res_.setResult(new LongStruct(re_.getAndDecrement()));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasDecrementAndGetAtomic)) {
-                AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-                res_.setResult(new LongStruct(re_.decrementAndGet()));
-                return res_;
-            }
-            AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
-            re_.lazySet(((NumberStruct)_args[0]).longStruct());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
         }
         return res_;
     }

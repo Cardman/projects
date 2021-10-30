@@ -6,13 +6,16 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.StringMapStruct;
+import code.expressionlanguage.utilcompo.AtomicBooleanStruct;
+import code.threads.AbstractAtomicBoolean;
 
-public final class FctTastrRemove implements StdCaller {
+public final class FctAtomicBooleanGet implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        StringMapStruct inst_ = (StringMapStruct) _instance;
-        return new ArgumentWrapper(inst_.remove(_cont,_stackCall,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        AbstractAtomicBoolean re_ = ((AtomicBooleanStruct) _instance).getInstance();
+        boolean held_ = re_.get();
+        return new ArgumentWrapper(BooleanStruct.of(held_));
     }
 }
