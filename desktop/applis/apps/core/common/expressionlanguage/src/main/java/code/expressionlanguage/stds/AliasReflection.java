@@ -1,21 +1,24 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.AbstractExiting;
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.*;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.types.ExecPartTypeUtil;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
-import code.util.*;
+import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class AliasReflection {
@@ -254,10 +257,10 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasIsAssignableFrom, params_, aliasPrimBoolean_, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0IsAssignableFrom0()));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDefaultInstance, params_, aliasObject_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasDefaultInstance, params_, aliasObject_, false, MethodModifier.FINAL, new FctClassDefaultInstance0());
         methods_.add( method_);
         params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasDefaultInstance, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0DefaultInstance0()));
+        method_ = new StandardMethod(aliasDefaultInstance, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0DefaultInstance0()), new FctClassDefaultInstance1());
         methods_.add( method_);
         params_ = new StringList(aliasString_);
         method_ = new StandardMethod(aliasEnumValueOf, params_, aliasEnum_, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0EnumValueOf0()));
@@ -1135,9 +1138,6 @@ public final class AliasReflection {
         if (StringUtil.quickEq(aliasForName_, name_)) {
             return forName(_cont, _exit, _args, _stackCall);
         }
-        if (StringUtil.quickEq(aliasDefaultInstance_, name_)) {
-            return defaultInstance(_cont, _exit, _args, _stackCall, instanceClass_);
-        }
         if (StringUtil.quickEq(aliasInit_, name_)) {
             _exit.hasToExit(_stackCall, instanceClass_.getFormatted().getRootBlock());
             result_.setResult(NullStruct.NULL_VALUE);
@@ -1619,115 +1619,11 @@ public final class AliasReflection {
         return result_;
     }
 
-    private static ResultErrorStd defaultInstance(ContextEl _cont, AbstractExiting _exit, Struct[] _args, StackCall _stackCall, ClassMetaInfo _instanceClass) {
-        LgNames lgNames_ = _cont.getStandards();
-        ResultErrorStd result_ = new ResultErrorStd();
-        String className_ = _instanceClass.getFormatted().getFormatted();
-        String id_ = StringExpUtil.getIdFromAllTypes(className_);
-        GeneType type_ = _cont.getClassBody(id_);
-        if (type_ != null) {
-            String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_, _cont);
-            if (res_.isEmpty()) {
-                String null_ = lgNames_.getContent().getCoreNames().getAliasIllegalType();
-                _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
-                return result_;
-            }
-        }
-        if (type_ instanceof StandardType) {
-            StandardType stdType_ = (StandardType) type_;
-            ArgumentListCall argumentListCall_ = new ArgumentListCall();
-            CustList<ArgumentWrapper> wrap_ = argumentListCall_.getArgumentWrappers();
-            for (Struct s: _args) {
-                wrap_.add(new ArgumentWrapper(s));
-            }
-            DfInstancer instancer_ = stdType_.getInstancer();
-            if (instancer_ == null) {
-                String null_ = lgNames_.getContent().getCoreNames().getAliasAbstractTypeErr();
-                _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
-                return result_;
-            }
-            result_.setResult(instancer_.call(_exit,_cont,argumentListCall_,_stackCall).getValue().getStruct());
-            return result_;
-        }
-        if (type_ instanceof ExecRootBlock) {
-            if (MetaInfoUtil.isAbstractType(type_)) {
-                String null_ = lgNames_.getContent().getCoreNames().getAliasAbstractTypeErr();
-                _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
-                return result_;
-            }
-            ExecRootBlock root_ = (ExecRootBlock) type_;
-            CustList<ExecRootBlock> needRoot_ = root_.getSelfAndParentTypes();
-            ExecRootBlock firstType_ = needRoot_.first();
-            ExecFormattedRootBlock formType_ = new ExecFormattedRootBlock(root_, className_);
-            if (_args.length > 0) {
-                Struct par_ = _args[0];
-                if (root_.withoutInstance()) {
-                    if (_exit.hasToExit(_stackCall, firstType_)) {
-                        return result_;
-                    }
-                    par_ = NullStruct.NULL_VALUE;
-                } else {
-                    if (par_ == NullStruct.NULL_VALUE) {
-                        _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-                        return result_;
-                    }
-                    String argCl_ = par_.getClassName(_cont);
-                    //From analyze
-                    StringList inners_ = StringExpUtil.getAllPartInnerTypes(className_);
-                    String param_ = StringUtil.join(inners_.left(inners_.size() - 2), "");
-                    if (!ExecInherits.isCorrectExecute(argCl_, param_, _cont)) {
-                        String cast_ = lgNames_.getContent().getCoreNames().getAliasCastType();
-                        _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, StringUtil.concat(argCl_, "\n", param_, "\n"), cast_, _stackCall)));
-                        return result_;
-                    }
-                }
-                Initializer in_ = _cont.getInit();
-                String genStr_ = root_.getGenericString();
-                String form_ = ExecInherits.quickFormat(formType_, genStr_);
-                par_ = in_.processInit(_cont, par_, new ExecFormattedRootBlock(root_, form_), "", 0);
-                result_.setResult(par_);
-                return result_;
-            }
-            Struct parent_ = NullStruct.NULL_VALUE;
-            int start_ = 0;
-            if (root_.withoutInstance()) {
-                if (_exit.hasToExit(_stackCall, firstType_)) {
-                    return result_;
-                }
-            } else {
-                if (firstType_ instanceof ExecInnerElementBlock) {
-                    if (_exit.hasToExit(_stackCall, firstType_.getParentType())) {
-                        return result_;
-                    }
-                    ExecInnerElementBlock i_ = (ExecInnerElementBlock) firstType_;
-                    String classFieldName_ = i_.getRealImportedClassName();
-                    String idCl_ = StringExpUtil.getIdFromAllTypes(classFieldName_);
-                    String fieldName_ = i_.getUniqueFieldName();
-                    StringMap<StringMap<Struct>> staticFields_ = _cont.getClasses().getStaticFields();
-                    Struct staticField_ = NumParsers.getStaticField(new ClassField(idCl_, fieldName_), staticFields_);
-                    parent_ = Argument.getNull(staticField_);
-                    start_ = 1;
-                }
-            }
-            Initializer in_ = _cont.getInit();
-            for (ExecRootBlock r: needRoot_.mid(start_)) {
-                String genStr_ = r.getGenericString();
-                String form_ = ExecInherits.quickFormat(formType_, genStr_);
-                parent_ = in_.processInit(_cont, parent_, new ExecFormattedRootBlock(r,form_), "", 0);
-            }
-            result_.setResult(parent_);
-            return result_;
-        }
-        String null_ = lgNames_.getContent().getCoreNames().getAliasIllegalType();
-        _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
-        return result_;
-    }
-
-    private static ErrorStruct getNpe(ContextEl _cont, StackCall _stackCall) {
+    public static ErrorStruct getNpe(ContextEl _cont, StackCall _stackCall) {
         return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
     }
 
-    private static ErrorStruct getClassIssue(ContextEl _cont, String _clDyn, String _errorType, StackCall _stackCall) {
+    public static ErrorStruct getClassIssue(ContextEl _cont, String _clDyn, String _errorType, StackCall _stackCall) {
         return new ErrorStruct(_cont, _clDyn, _errorType, _stackCall);
     }
 
