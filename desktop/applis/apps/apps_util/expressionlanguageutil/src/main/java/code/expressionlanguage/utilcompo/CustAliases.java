@@ -505,7 +505,7 @@ public final class CustAliases {
         methods_.add( method_);
         StandardConstructor ctor_;
         params_ = new StringList(aliasRunnable);
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasThread0Thread0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasThread0Thread0()),new FctThread(this));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasThread, std_);
@@ -572,10 +572,10 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasLazySetAtomic, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasAtomicBoolean0LazySetAtomic0()),new FctAtomicBooleanLazy());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new FctAtomicBoolean0(infos,aliasAtomicBoolean));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicBoolean0AtomicBoolean0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicBoolean0AtomicBoolean0()),new FctAtomicBoolean1(infos,aliasAtomicBoolean));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasAtomicBoolean, std_);
@@ -617,10 +617,10 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctAtomicIntegerGetDec());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new FctAtomicInteger0(infos,aliasAtomicInteger));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicInteger0AtomicInteger0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicInteger0AtomicInteger0()),new FctAtomicInteger1(infos,aliasAtomicInteger));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasAtomicInteger, std_);
@@ -662,10 +662,10 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasGetAndDecrementAtomic, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL,new FctAtomicLongGetDec());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new FctAtomicLong0(infos,aliasAtomicLong));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicLong0AtomicLong0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasAtomicLong0AtomicLong0()),new FctAtomicLong1(infos,aliasAtomicLong));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasAtomicLong, std_);
@@ -761,7 +761,7 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasEntryTime, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryBinary0EntryTime0()), new FctEntryBinaryTime1());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(), StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()));
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasEntryBinary0EntryBinary0(),custAliasParameters.getAliasEntryBinary0EntryBinary1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasEntryBinary0EntryBinary0(),custAliasParameters.getAliasEntryBinary0EntryBinary1()),new FctEntryBinary());
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasEntryBinary, std_);
@@ -782,7 +782,7 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasEntryTime, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryText0EntryTime0()), new FctEntryTextTime1());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(), _content.getCharSeq().getAliasString());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasEntryText0EntryText0(),custAliasParameters.getAliasEntryText0EntryText1()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasEntryText0EntryText0(),custAliasParameters.getAliasEntryText0EntryText1()),new FctEntryText());
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasEntryText, std_);
@@ -1991,23 +1991,6 @@ public final class CustAliases {
                                          ConstructorId _method, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
-        if (StringUtil.quickEq(name_,aliasThread)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            Struct runnable_ = _args[0];
-            AbstractThread thread_;
-            if (runnable_ instanceof Runnable) {
-                thread_ = getInfos().getThreadFactory().newThread((Runnable) runnable_);
-            } else {
-                thread_ = getInfos().getThreadFactory().newThread(null);
-            }
-            ThreadStruct std_ = new ThreadStruct(thread_,getInfos().getThreadFactory().newAtomicBoolean());
-            res_.setResult(std_);
-            return res_;
-        }
         if (StringUtil.quickEq(name_,aliasReentrantLock)) {
             if (_method.getParametersTypesLength() == 0) {
                 AbstractLock re_ = LockFactory.newLock(getInfos().getThreadFactory().newAtomicBoolean());
@@ -2018,54 +2001,6 @@ public final class CustAliases {
             AbstractLock re_ = LockFactory.newLock(getInfos().getThreadFactory().newAtomicBoolean());
             re_.setSleep(((NumberStruct)_args[0]).longStruct());
             AbstractLockStruct std_ = new AbstractLockStruct(re_, aliasReentrantLock);
-            res_.setResult(std_);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_,aliasAtomicBoolean)) {
-            if (_method.getParametersTypesLength() == 0) {
-                AbstractAtomicBoolean at_ = getInfos().getThreadFactory().newAtomicBoolean();
-                AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
-                res_.setResult(std_);
-                return res_;
-            }
-            AbstractAtomicBoolean at_ = getInfos().getThreadFactory().newAtomicBoolean(BooleanStruct.isTrue(_args[0]));
-            AtomicBooleanStruct std_ = new AtomicBooleanStruct(at_, aliasAtomicBoolean);
-            res_.setResult(std_);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_,aliasAtomicInteger)) {
-            if (_method.getParametersTypesLength() == 0) {
-                AbstractAtomicInteger at_ = getInfos().getThreadFactory().newAtomicInteger();
-                AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
-                res_.setResult(std_);
-                return res_;
-            }
-            AbstractAtomicInteger at_ = getInfos().getThreadFactory().newAtomicInteger(((NumberStruct)_args[0]).intStruct());
-            AtomicIntegerStruct std_ = new AtomicIntegerStruct(at_, aliasAtomicInteger);
-            res_.setResult(std_);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_,aliasAtomicLong)) {
-            if (_method.getParametersTypesLength() == 0) {
-                AbstractAtomicLong at_ = getInfos().getThreadFactory().newAtomicLong();
-                AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
-                res_.setResult(std_);
-                return res_;
-            }
-            AbstractAtomicLong at_ = getInfos().getThreadFactory().newAtomicLong(((NumberStruct)_args[0]).longStruct());
-            AtomicLongStruct std_ = new AtomicLongStruct(at_, aliasAtomicLong);
-            res_.setResult(std_);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_,aliasEntryBinary)) {
-            String cont_ = _cont.getStandards().getContent().getPrimTypes().getAliasPrimByte();
-            cont_ = StringExpUtil.getPrettyArrayType(cont_);
-            EntryBinaryStruct std_ = new EntryBinaryStruct(_args[0],_args[1],cont_);
-            res_.setResult(std_);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_,aliasEntryText)) {
-            EntryTextStruct std_ = new EntryTextStruct(_args[0],_args[1]);
             res_.setResult(std_);
             return res_;
         }
