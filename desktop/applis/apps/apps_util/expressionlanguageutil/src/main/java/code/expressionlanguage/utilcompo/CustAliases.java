@@ -746,16 +746,16 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasEntryBinary, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
-        method_ = new StandardMethod(aliasEntryName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEntryName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctEntryBinaryName());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasEntryValue, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEntryValue, params_, StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()), false, MethodModifier.FINAL, new FctEntryBinaryValue());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasEntryTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEntryTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctEntryBinaryTime0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasEntryTime, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryBinary0EntryTime0()));
+        method_ = new StandardMethod(aliasEntryTime, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryBinary0EntryTime0()), new FctEntryBinaryTime1());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(), StringExpUtil.getPrettyArrayType(_content.getPrimTypes().getAliasPrimByte()));
         ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasEntryBinary0EntryBinary0(),custAliasParameters.getAliasEntryBinary0EntryBinary1()));
@@ -767,16 +767,16 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasEntryText, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
-        method_ = new StandardMethod(aliasEntryName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEntryName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctEntryTextName());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasEntryValue, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEntryValue, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new FctEntryTextValue());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasEntryTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasEntryTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.FINAL, new FctEntryTextTime0());
         methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        method_ = new StandardMethod(aliasEntryTime, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryText0EntryTime0()));
+        method_ = new StandardMethod(aliasEntryTime, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryText0EntryTime0()), new FctEntryTextTime1());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(), _content.getCharSeq().getAliasString());
         ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasEntryText0EntryText0(),custAliasParameters.getAliasEntryText0EntryText1()));
@@ -2469,25 +2469,6 @@ public final class CustAliases {
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
-        if (StringUtil.quickEq(className_,aliasEntryText)) {
-            String name_ = _method.getConstraints().getName();
-            EntryTextStruct inst_ = (EntryTextStruct) _instance;
-            if (StringUtil.quickEq(name_,aliasEntryName)) {
-                res_.setResult(inst_.getName());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasEntryTime)) {
-                if (_args.length == 0) {
-                    res_.setResult(inst_.getLongTime());
-                    return res_;
-                }
-                inst_.setLongTime(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            res_.setResult(inst_.getText());
-            return res_;
-        }
         if (StringUtil.quickEq(className_,aliasEntryStringObject)) {
             String name_ = _method.getConstraints().getName();
             EntryMapStringStruct inst_ = (EntryMapStringStruct) _instance;
@@ -2568,27 +2549,6 @@ public final class CustAliases {
             }
             inst_.clear(_stackCall);
             res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(className_,aliasEntryBinary)) {
-            String name_ = _method.getConstraints().getName();
-            EntryBinaryStruct inst_ = (EntryBinaryStruct) _instance;
-            if (StringUtil.quickEq(name_,aliasEntryName)) {
-                res_.setResult(inst_.getName());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasEntryTime)) {
-                if (_args.length == 0) {
-                    res_.setResult(inst_.getLongTime());
-                    return res_;
-                }
-                inst_.setLongTime(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            ArrayStruct bin_ = inst_.getBinary();
-            _stackCall.getInitializingTypeInfos().addSensibleField(inst_, bin_);
-            res_.setResult(bin_);
             return res_;
         }
         return res_;
