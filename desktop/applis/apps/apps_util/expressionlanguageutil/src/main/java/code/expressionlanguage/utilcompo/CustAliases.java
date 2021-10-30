@@ -538,11 +538,11 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasReentrantLock, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfReentrantLock(getInfos(),aliasReentrantLock));
-        method_ = new StandardMethod(aliasLock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasLock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctReentrantLock());
         methods_.add( method_);
-        method_ = new StandardMethod(aliasUnlock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasUnlock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctReentrantUnlock());
         methods_.add( method_);
-        method_ = new StandardMethod(aliasIsHeldByCurrentThread, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsHeldByCurrentThread, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctReentrantIsHeldByCurrentThread());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false);
@@ -2282,30 +2282,6 @@ public final class CustAliases {
             }
             res_.setResult(new LongStruct(((RunnableContextEl)_cont).getCurrentThreadFactory().millis()));
             return res_;
-        }
-        if (StringUtil.quickEq(className_,aliasReentrantLock)) {
-            if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                processFailInit(_cont, _stackCall);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            String name_ = _method.getConstraints().getName();
-            if (StringUtil.quickEq(name_,aliasLock)) {
-                AbstractLock re_ = ((AbstractLockStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.lock((RunnableContextEl)_cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasUnlock)) {
-                AbstractLock re_ = ((AbstractLockStruct) _instance).getInstance();
-                res_.setResult(new IntStruct(re_.unlock((RunnableContextEl)_cont)));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasIsHeldByCurrentThread)) {
-                AbstractLock re_ = ((AbstractLockStruct) _instance).getInstance();
-                boolean held_ = re_.heldLock((RunnableContextEl)_cont);
-                res_.setResult(BooleanStruct.of(held_));
-                return res_;
-            }
         }
         return res_;
     }
