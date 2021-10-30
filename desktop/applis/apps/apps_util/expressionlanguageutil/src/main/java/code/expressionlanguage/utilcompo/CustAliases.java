@@ -528,6 +528,9 @@ public final class CustAliases {
         params_ = new StringList();
         method_ = new StandardMethod(aliasThreadSetSnapshot, params_, StringExpUtil.getPrettyArrayType(aliasThread), false, MethodModifier.FINAL,new FctThreadsetSnap());
         methods_.add( method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,new FctThreadset(interceptor));
+        constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasThreadSet, std_);
         methods_ = new CustList<StandardMethod>();
@@ -735,6 +738,9 @@ public final class CustAliases {
         params_ = new StringList();
         method_ = new StandardMethod(aliasTableConcSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTastrSize());
         methods_.add( method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,new FctTastr(interceptor));
+        constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTableStringObject, std_);
 
@@ -1985,11 +1991,6 @@ public final class CustAliases {
                                          ConstructorId _method, StackCall _stackCall, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         String name_ = _method.getName();
-        if (StringUtil.quickEq(name_,aliasThreadSet)) {
-            ThreadSetStruct std_ = new ThreadSetStruct(getInterceptor());
-            res_.setResult(std_);
-            return res_;
-        }
         if (StringUtil.quickEq(name_,aliasThread)) {
             if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
                 processFailInit(_cont, _stackCall);
@@ -2066,10 +2067,6 @@ public final class CustAliases {
         if (StringUtil.quickEq(name_,aliasEntryText)) {
             EntryTextStruct std_ = new EntryTextStruct(_args[0],_args[1]);
             res_.setResult(std_);
-            return res_;
-        }
-        if (StringUtil.quickEq(name_,aliasTableStringObject)) {
-            res_.setResult(new StringMapStruct(getInterceptor()));
             return res_;
         }
         return res_;
