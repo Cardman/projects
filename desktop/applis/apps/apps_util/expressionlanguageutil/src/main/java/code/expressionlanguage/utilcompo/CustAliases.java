@@ -675,16 +675,16 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         params_ = new StringList();
         stdcl_ = new StandardClass(aliasEntryStringObject, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
-        method_ = new StandardMethod(aliasTableEntryKey, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableEntryKey, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new FctTrenteKey());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableEntryValue, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableEntryValue, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new FctTrenteValue0());
         methods_.add( method_);
         params_ = new StringList(_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasTableEntryValue, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryStringObject0TableEntryValue0()));
+        method_ = new StandardMethod(aliasTableEntryValue, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasEntryStringObject0TableEntryValue0()),new FctTrenteValue1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableEntryOwner, params_, aliasTableStringObject, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableEntryOwner, params_, aliasTableStringObject, false, MethodModifier.FINAL,new FctTrenteOwner());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasEntryStringObject, std_);
@@ -693,50 +693,50 @@ public final class CustAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasTableStringObject, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableConcKeys, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableConcKeys, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.FINAL, new FctTastrKeys0());
         methods_.add( method_);
         params_ = new StringList(_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasTableConcKeys, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0ConcKeys0()));
+        method_ = new StandardMethod(aliasTableConcKeys, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0ConcKeys0()), new FctTastrKeys1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableConcValues, params_, StringExpUtil.getPrettyArrayType(_content.getCoreNames().getAliasObject()), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableConcValues, params_, StringExpUtil.getPrettyArrayType(_content.getCoreNames().getAliasObject()), false, MethodModifier.FINAL, new FctTastrValues());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTableConcGet, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0Get0()));
+        method_ = new StandardMethod(aliasTableConcGet, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0Get0()), new FctTastrGet());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTableConcRemove, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0Remove0()));
+        method_ = new StandardMethod(aliasTableConcRemove, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0Remove0()), new FctTastrRemove());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasTableConcHasKey, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0ConcHasKey0()));
+        method_ = new StandardMethod(aliasTableConcHasKey, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0ConcHasKey0()), new FctTastrHasKey());
         methods_.add( method_);
         params_ = new StringList(_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasTableConcHasValue, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0ConcHasValue0()));
+        method_ = new StandardMethod(aliasTableConcHasValue, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0ConcHasValue0()), new FctTastrHasValue());
         methods_.add( method_);
         params_ = new StringList(aliasTableStringObject);
-        method_ = new StandardMethod(aliasTableConcPutAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0PutAll0()));
+        method_ = new StandardMethod(aliasTableConcPutAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0PutAll0()), new FctTastrPutAll());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasTableConcPut, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0Put0(),custAliasParameters.getAliasTableStringObject0Put1()));
+        method_ = new StandardMethod(aliasTableConcPut, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0Put0(),custAliasParameters.getAliasTableStringObject0Put1()), new FctTastrPut());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasTableConcPutAbs, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0PutAbs0(),custAliasParameters.getAliasTableStringObject0PutAbs1()));
+        method_ = new StandardMethod(aliasTableConcPutAbs, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0PutAbs0(),custAliasParameters.getAliasTableStringObject0PutAbs1()), new FctTastrPutAbs());
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCoreNames().getAliasObject());
-        method_ = new StandardMethod(aliasTableConcReplace, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0Replace0(),custAliasParameters.getAliasTableStringObject0Replace1()));
+        method_ = new StandardMethod(aliasTableConcReplace, params_, _content.getCoreNames().getAliasObject(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasTableStringObject0Replace0(),custAliasParameters.getAliasTableStringObject0Replace1()), new FctTastrReplace());
         methods_.add( method_);
 
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableConcClear, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableConcClear, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctTastrClear());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableConcPairs, params_, StringExpUtil.getPrettyArrayType(aliasEntryStringObject), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableConcPairs, params_, StringExpUtil.getPrettyArrayType(aliasEntryStringObject), false, MethodModifier.FINAL, new FctTastrPairs());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableConcEmpty, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableConcEmpty, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctTastrIsEmpty());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTableConcSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasTableConcSize, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctTastrSize());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasTableStringObject, std_);
@@ -2466,88 +2466,6 @@ public final class CustAliases {
             }
             AbstractAtomicLong re_ = ((AtomicLongStruct) _instance).getInstance();
             re_.lazySet(((NumberStruct)_args[0]).longStruct());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(className_,aliasEntryStringObject)) {
-            String name_ = _method.getConstraints().getName();
-            EntryMapStringStruct inst_ = (EntryMapStringStruct) _instance;
-            if (StringUtil.quickEq(name_,aliasTableEntryKey)) {
-                res_.setResult(inst_.key());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableEntryOwner)) {
-                res_.setResult(inst_.getOwner());
-                return res_;
-            }
-            if (_args.length == 0) {
-                res_.setResult(inst_.value(_stackCall));
-                return res_;
-            }
-            res_.setResult(inst_.value(_cont,_stackCall,_args[0]));
-            return res_;
-        }
-        if (StringUtil.quickEq(className_,aliasTableStringObject)) {
-            String name_ = _method.getConstraints().getName();
-            StringMapStruct inst_ = (StringMapStruct) _instance;
-            if (StringUtil.quickEq(name_,aliasTableConcPairs)) {
-                res_.setResult(inst_.toSnapshot(_cont,_stackCall));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcKeys)) {
-                if (_args.length == 0) {
-                    res_.setResult(inst_.toSnapshotKeys(_cont));
-                    return res_;
-                }
-                res_.setResult(inst_.toSnapshotKeys(_cont,_stackCall,_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcValues)) {
-                res_.setResult(inst_.toSnapshotValues(_cont,_stackCall));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcHasKey)) {
-                res_.setResult(inst_.containsKey(_cont,_stackCall,_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcHasValue)) {
-                res_.setResult(inst_.containsValue(_cont,_stackCall,_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcGet)) {
-                res_.setResult(inst_.get(_cont,_stackCall,_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcEmpty)) {
-                res_.setResult(inst_.isEmpty());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcSize)) {
-                res_.setResult(inst_.size());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcRemove)) {
-                res_.setResult(inst_.remove(_cont,_stackCall,_args[0]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcPut)) {
-                res_.setResult(inst_.put(_cont,_stackCall,_args[0],_args[1]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcPutAbs)) {
-                res_.setResult(inst_.putIfAbs(_cont,_stackCall,_args[0],_args[1]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcReplace)) {
-                res_.setResult(inst_.replace(_cont,_stackCall,_args[0],_args[1]));
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasTableConcPutAll)) {
-                inst_.putAll(_cont,_stackCall,_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            inst_.clear(_stackCall);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
