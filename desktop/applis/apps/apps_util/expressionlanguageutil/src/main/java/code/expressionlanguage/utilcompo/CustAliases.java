@@ -545,10 +545,10 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasIsHeldByCurrentThread, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctReentrantIsHeldByCurrentThread());
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
+        ctor_ = new StandardConstructor(params_,false,new FctReentrant0(infos,aliasReentrantLock));
         constructors_.add(ctor_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasReentrantLock0ReentrantLock0()));
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasReentrantLock0ReentrantLock0()),new FctReentrant1(infos,aliasReentrantLock));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasReentrantLock, std_);
@@ -1985,26 +1985,6 @@ public final class CustAliases {
     }
     public ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
         return interceptor.invoke(getAliasConcurrentError(),_cont,_method,_struct,_exit,_stackCall,_args);
-    }
-
-    public ResultErrorStd getOtherResult(ContextEl _cont,
-                                         ConstructorId _method, StackCall _stackCall, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String name_ = _method.getName();
-        if (StringUtil.quickEq(name_,aliasReentrantLock)) {
-            if (_method.getParametersTypesLength() == 0) {
-                AbstractLock re_ = LockFactory.newLock(getInfos().getThreadFactory().newAtomicBoolean());
-                AbstractLockStruct std_ = new AbstractLockStruct(re_, aliasReentrantLock);
-                res_.setResult(std_);
-                return res_;
-            }
-            AbstractLock re_ = LockFactory.newLock(getInfos().getThreadFactory().newAtomicBoolean());
-            re_.setSleep(((NumberStruct)_args[0]).longStruct());
-            AbstractLockStruct std_ = new AbstractLockStruct(re_, aliasReentrantLock);
-            res_.setResult(std_);
-            return res_;
-        }
-        return res_;
     }
 
     public static String getStandarString(ContextEl _cont, Struct _struct) {

@@ -85,7 +85,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             resultErrorStd_.setResult(NullStruct.NULL_VALUE);
             return resultErrorStd_;
         }
-        return custAliases.getOtherResult(_cont, _method, _stack, _args);
+        return new ResultErrorStd();
     }
 
     protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
