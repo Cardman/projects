@@ -514,19 +514,19 @@ public final class CustAliases {
         constructors_ = new CustList<StandardConstructor>();
         stdcl_ = new StandardClass(aliasThreadSet, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfThreadSet(getInterceptor()));
         params_ = new StringList(aliasThread);
-        method_ = new StandardMethod(aliasThreadSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThreadSet0ThreadSetAdd0()));
+        method_ = new StandardMethod(aliasThreadSetAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThreadSet0ThreadSetAdd0()),new FctThreadsetAdd());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasThreadSetAll, params_, aliasThreadSet, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasThreadSetAll, params_, aliasThreadSet, false, MethodModifier.STATIC,new FctThreadsetAll(this));
         methods_.add( method_);
         params_ = new StringList(aliasThread);
-        method_ = new StandardMethod(aliasThreadSetContains, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThreadSet0ThreadSetContains0()));
+        method_ = new StandardMethod(aliasThreadSetContains, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThreadSet0ThreadSetContains0()),new FctThreadsetContains());
         methods_.add( method_);
         params_ = new StringList(aliasThread);
-        method_ = new StandardMethod(aliasThreadSetRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThreadSet0ThreadSetRemove0()));
+        method_ = new StandardMethod(aliasThreadSetRemove, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasThreadSet0ThreadSetRemove0()),new FctThreadsetRemove());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasThreadSetSnapshot, params_, StringExpUtil.getPrettyArrayType(aliasThread), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasThreadSetSnapshot, params_, StringExpUtil.getPrettyArrayType(aliasThread), false, MethodModifier.FINAL,new FctThreadsetSnap());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasThreadSet, std_);
@@ -2070,67 +2070,6 @@ public final class CustAliases {
         }
         if (StringUtil.quickEq(name_,aliasTableStringObject)) {
             res_.setResult(new StringMapStruct(getInterceptor()));
-            return res_;
-        }
-        return res_;
-    }
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, ExecutingBlocks _execBlocks, StackCall _stackCall, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String className_ = _method.getClassName();
-//        String type_ = _method.getClassName();
-//        if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
-//            return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stackCall);
-//        }
-        if (StringUtil.quickEq(className_,aliasThreadSet)) {
-            String name_ = _method.getConstraints().getName();
-            if (StringUtil.quickEq(name_,aliasThreadSetAdd)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                ins_.add(_args[0]);
-                if (!(_args[0] instanceof ThreadStruct)) {
-                    _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
-                } else {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                }
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasThreadSetAll)) {
-                if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-                    processFailInit(_cont, _stackCall);
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(((RunnableContextEl)_cont).getCustInit().getThreadSet());
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasThreadSetRemove)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                ins_.remove(_args[0]);
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(name_,aliasThreadSetContains)) {
-                if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-                    _stackCall.getInitializingTypeInfos().failInitEnums();
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-                res_.setResult(ins_.contains(_args[0]));
-                return res_;
-            }
-            ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
-            res_.setResult(ins_.toSnapshotArray(_cont, _stackCall));
             return res_;
         }
         return res_;

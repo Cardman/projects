@@ -65,11 +65,7 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
         return custAliases.invoke(_cont, _method, _struct, _exit, _stack, _args);
     }
-    @Override
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, Struct... _args) {
-        return custAliases.getOtherResult(_cont,_instance,_method, executingBlocks, _stack, _args);
-    }
+
 
     @Override
     public AbstractInterceptor getInterceptor() {

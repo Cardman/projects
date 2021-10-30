@@ -97,7 +97,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_method.getClassName())) {
             return getBeanAliases().getOtherResult(_cont, _instance, _method, _stack, _args);
         }
-        return custAliases.getOtherResult(_cont, _instance, _method,executingBlocks, _stack, _args);
+        return new ResultErrorStd();
     }
 
     public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
