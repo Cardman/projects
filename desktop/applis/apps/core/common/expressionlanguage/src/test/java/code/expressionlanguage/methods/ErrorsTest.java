@@ -7845,6 +7845,20 @@ public final class ErrorsTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report414_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.MyCl<T> {\n");
+        xml_.append(" ONE{};\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $enum <a name=\"m14\">pkg.MyCl</a>&lt;<a name=\"m23\">T</a>&gt; {\n" +
+                " <a name=\"m29\" title=\"The type pkg.MyCl is not parameterized correctly.\" class=\"e\">ONE</a>{};\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void report415Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $enum pkg.MyCl<T> {\n");
