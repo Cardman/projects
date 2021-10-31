@@ -1,29 +1,45 @@
 package code.formathtml.util;
 
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
-import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.stds.PrimitiveTypes;
+import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
+import code.formathtml.ImportingPage;
+import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendBlock;
@@ -35,20 +51,12 @@ import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.formathtml.*;
-import code.formathtml.errors.RendAnalysisMessages;
-import code.formathtml.errors.RendKeyWords;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
-import code.util.*;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
@@ -517,11 +525,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public AbstractWrapper newWrapper(LocalVariable _local){
         return new VariableWrapper(_local);
-    }
-    @Override
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, Struct... _args) {
-        return beanAliases.getOtherResult(_cont, _instance, _method, _stack, _args);
     }
 
     @Override

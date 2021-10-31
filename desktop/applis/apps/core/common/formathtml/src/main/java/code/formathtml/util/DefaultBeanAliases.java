@@ -1,28 +1,20 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.MessageStruct;
+import code.formathtml.util.stds.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class DefaultBeanAliases {
     private static final String BEAN = "Bean";
@@ -476,19 +468,19 @@ public final class DefaultBeanAliases {
         fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasMessage, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC,new FctMessageNew0(aliasMessage));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC, new StringList(beanAliasParameters.getAliasMessage1NewMessage0()));
+        method_ = new StandardMethod(aliasNewMessage, params_, aliasMessage, false, MethodModifier.STATIC, new StringList(beanAliasParameters.getAliasMessage1NewMessage0()),new FctMessageNew1(aliasMessage));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMessageFormat, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasMessageFormat, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.NORMAL,new FctMessageFormat(aliasMessage));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMessageGetArgs, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasMessageGetArgs, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.NORMAL,new FctMessageGetArgs(aliasMessage));
         methods_.add( method_);
         params_ = new StringList(_content.getCharSeq().getAliasString());
-        method_ = new StandardMethod(aliasMessageSetArgs, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.NORMAL, new StringList(beanAliasParameters.getAliasMessage0SetArgs0()));
+        method_ = new StandardMethod(aliasMessageSetArgs, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.NORMAL, new StringList(beanAliasParameters.getAliasMessage0SetArgs0()),new FctMessageSetArgs(aliasMessage));
         methods_.add( method_);
         _content.getStandards().addEntry(aliasMessage, std_);
     }
@@ -608,54 +600,6 @@ public final class DefaultBeanAliases {
                         new KeyValueMemberName(DATA_BASE_FIELD,getAliasDataBaseField()),
                         new KeyValueMemberName(SCOPE,getAliasScope())));
         return fields_;
-    }
-    public ResultErrorStd getOtherResult(ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, StackCall _stackCall, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-//        String type_ = _method.getClassName();
-//        if (StringUtil.quickEq(type_, _cont.getStandards().getContent().getCoreNames().getAliasEnums())) {
-//            return ApplyCoreMethodUtil.getOtherResultBase(_cont, _method, _args, _stackCall);
-//        }
-        String name_ = _method.getConstraints().getName();
-        MessageStruct instance_ = getMessageStruct(_instance, aliasMessage);
-        if (StringUtil.quickEq(name_, aliasNewMessage)) {
-            if (_method.getConstraints().getParametersTypesLength() == 0) {
-                res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(),aliasMessage));
-            } else {
-                String value_ = NumParsers.getString(_args[0]).getInstance();
-                res_.setResult(MessageStruct.newInstance(Message.newStandardMessage(value_),aliasMessage));
-            }
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasMessageFormat)) {
-            res_.setResult(BeanLgNames.wrapStd(instance_.getMessage()));
-            return res_;
-        }
-        if (StringUtil.quickEq(name_, aliasMessageGetArgs)) {
-            StringList resArgs_ = instance_.getArgs();
-            String arrStr_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getCharSeq().getAliasString());
-            int len_ = resArgs_.size();
-            ArrayStruct arr_ = new ArrayStruct(len_,arrStr_);
-            for (int i = 0; i < len_; i++){
-                arr_.set(i, BeanLgNames.wrapStd(resArgs_.get(i)));
-            }
-            res_.setResult(arr_);
-            return res_;
-        }
-        ArrayStruct array_ = ExecArrayFieldOperation.getArray(_args[0], _cont);
-        int len_ = array_.getLength();
-        String[] resArgs_ = new String[len_];
-        for (int i = 0; i < len_; i++){
-            Struct argInst_ = array_.get(i);
-            if (argInst_ instanceof StringStruct) {
-                resArgs_[i] = ((StringStruct)argInst_).getInstance();
-            } else {
-                resArgs_[i] = _cont.getStandards().getDisplayedStrings().getNullString();
-            }
-        }
-        instance_.setArgs(resArgs_);
-        res_.setResult(NullStruct.NULL_VALUE);
-        return res_;
     }
     public static MessageStruct getMessageStruct(Struct _str, String _aliasMessage) {
         if (_str instanceof MessageStruct) {

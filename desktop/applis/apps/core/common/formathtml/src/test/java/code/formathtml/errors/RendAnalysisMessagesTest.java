@@ -7,6 +7,7 @@ import code.formathtml.BeanCustLgNamesImpl;
 import code.formathtml.EquallableRenderUtil;
 import code.formathtml.InitializationLgNamesRender;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DefaultBeanAliases;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -41,5 +42,6 @@ public final class RendAnalysisMessagesTest extends EquallableRenderUtil {
         RendAnalysisMessages lgNamesContent_ = new RendAnalysisMessages();
         lgNamesContent_.rendMessages(def_, cust_);
         assertEq("",lgNamesContent_.getEmptyAttr());
+        DefaultBeanAliases.getMessageStruct(null,"");
     }
 }

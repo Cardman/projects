@@ -77,27 +77,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     protected ResultErrorStd instance(StackCall _stack, ContextEl _cont, ConstructorId _method, Argument... _args) {
         return custAliases.instance(_cont, _method, _stack, _args);
     }
-    @Override
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont,
-                                         ConstructorId _method, Struct... _args) {
-        if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_method.getName())) {
-            ResultErrorStd resultErrorStd_ = new ResultErrorStd();
-            resultErrorStd_.setResult(NullStruct.NULL_VALUE);
-            return resultErrorStd_;
-        }
-        return new ResultErrorStd();
-    }
 
     protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
         return custAliases.invoke(_cont, _method, _struct, _exit, _stack, _args);
-    }
-    @Override
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance,
-                                         ClassMethodId _method, Struct... _args) {
-        if (StringUtil.contains(getBeanAliases().allRefTypes().values(),_method.getClassName())) {
-            return getBeanAliases().getOtherResult(_cont, _instance, _method, _stack, _args);
-        }
-        return new ResultErrorStd();
     }
 
     public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
