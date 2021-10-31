@@ -8,9 +8,7 @@ public final class StandardConstructor extends StandardNamedFunction {
     private static final String DEFAULT_NAME = "";
 
     private final StdCaller caller;
-    public StandardConstructor(StringList _parametersTypes, boolean _varargs) {
-        this(_parametersTypes, _varargs, new StringList(), null);
-    }
+
     public StandardConstructor(StringList _parametersTypes, boolean _varargs, StringList _paramNames) {
         this(_parametersTypes, _varargs,_paramNames, null);
     }

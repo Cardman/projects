@@ -106,9 +106,6 @@ public final class AnaApplyCoreMethodUtil {
             return range(args_);
         }
         if (StringUtil.quickEq(type_, stringType_)) {
-            if (_method.getParametersTypesLength() == 0) {
-                return new StringStruct("");
-            }
             return null;
         }
         if (StringUtil.quickEq(type_, booleanType_)

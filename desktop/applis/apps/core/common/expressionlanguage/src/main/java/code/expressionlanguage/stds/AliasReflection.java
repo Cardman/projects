@@ -1080,7 +1080,6 @@ public final class AliasReflection {
         String aliasForName_ = lgNames_.getContent().getReflect().getAliasForName();
         String aliasValueOf_ = lgNames_.getContent().getReflect().getAliasEnumValueOf();
         String aliasEnumsValues_ = lgNames_.getContent().getReflect().getAliasGetEnumConstants();
-        String aliasDefaultInstance_ = lgNames_.getContent().getReflect().getAliasDefaultInstance();
         String aliasInit_ = lgNames_.getContent().getReflect().getAliasInit();
         String aliasTryWrap_ = lgNames_.getContent().getReflect().getAliasTryWrap();
         ClassMetaInfo instanceClass_ = NumParsers.getClass(_struct);

@@ -244,10 +244,6 @@ public final class AliasCharSequenceType {
         int nbParams_ = _method.getParametersTypesLength();
         String bytePrimType_ = _stds.getContent().getPrimTypes().getAliasPrimByte();
         String charPrimType_ = _stds.getContent().getPrimTypes().getAliasPrimChar();
-        if (nbParams_ == 0) {
-            _res.setResult(new StringStruct(""));
-            return;
-        }
         if (nbParams_ == 1) {
             if (StringUtil.quickEq(_method.getParametersType(0), bytePrimType_)) {
                 newStringStructByByteArray(_args[0], _res, _context, _stackCall);
@@ -1440,7 +1436,7 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, true, MethodModifier.STATIC,new StringList(params.getAliasString9ValueOfMethod0(),params.getAliasString9ValueOfMethod1(),params.getAliasString9ValueOfMethod2()));
         methods_.add( method_);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_, false);
+        ctor_ = new StandardConstructor(params_, false, new FctString0());
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimByte_);
         ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString0String0()));

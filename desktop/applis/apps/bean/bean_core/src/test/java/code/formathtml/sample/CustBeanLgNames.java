@@ -551,8 +551,6 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     private void buildComposite() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -594,12 +592,6 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         params_ = new StringList("code.formathtml.util.ValueChangeEvent");
         method_ = new SpecNatMethod(UPDATE_VALUE,params_, getContent().getCoreNames().getAliasVoid(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
         cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStds().addEntry(TYPE_COMPOSITE, cl_);
     }
@@ -648,13 +640,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     private void buildGeneObjs() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
         StringList params_;
-        StandardConstructor ctor_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_GENE_OBJS, fields_, methods_, TYPE_LIST);
         params_ = new StringList(getAliasObject());
@@ -663,22 +652,11 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         params_ = new StringList(getContent().getPrimTypes().getAliasPrimInteger());
         method_ = new SpecNatMethod(GET,params_, getAliasObject(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
-        params_ = new StringList(TYPE_LIST);
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
-        params_ = new StringList(getAliasObject());
-        ctor_ = new StandardConstructor(params_,true);
-        constructors_.add(ctor_);
         getStds().addEntry(TYPE_GENE_OBJS, cl_);
     }
     private void buildGeneObjects() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -695,16 +673,11 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         params_ = new StringList();
         method_ = new SpecNatMethod(CLEAR,params_, getContent().getCoreNames().getAliasVoid(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
         getStds().addEntry(TYPE_GENE_OBJECTS, cl_);
     }
     private void buildPickableList() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -718,9 +691,6 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_LIST,params_,TYPE_GENE_OBJECTS, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
         getStds().addEntry(TYPE_PICKABLE_LIST, cl_);
     }
     private void buildEncapsFields() {
@@ -799,8 +769,6 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     private void buildRateEq() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -811,12 +779,6 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         params_ = new StringList(TYPE_RATE_EQ);
         method_ = new SpecNatMethod(EQ,params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(getAliasString());
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
-        params_ = new StringList(TYPE_RATE_EQ);
-        ctor_ = new StandardConstructor(params_,false);
-        constructors_.add(ctor_);
         cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStds().addEntry(TYPE_RATE_EQ, cl_);
     }
