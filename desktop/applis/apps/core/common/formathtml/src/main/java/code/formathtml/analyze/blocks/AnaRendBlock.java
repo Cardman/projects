@@ -476,7 +476,7 @@ public abstract class AnaRendBlock {
 
     public static String tryGetContent(String _loc, String _relative, StringMap<String> _files, AnalyzingDoc _anaDoc) {
         String folder_ = _anaDoc.getMessagesFolder();
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,_loc,_relative);
+        String fileName_ = folder_+'/'+_loc+'/'+_relative;
         return getContentFile(_files, fileName_);
     }
 

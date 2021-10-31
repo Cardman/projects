@@ -194,7 +194,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
     protected static void setup(String _folder, String _relative, AnalyzedTestConfiguration _conf) {
         setup(_folder, _conf);
-        _conf.getDual().getProperties().put("msg_example", _relative);
+        _conf.getDual().getProperties().put("msg_example", _relative+".properties");
     }
 
     private static void setup(String _folder, AnalyzedTestConfiguration _conf) {
