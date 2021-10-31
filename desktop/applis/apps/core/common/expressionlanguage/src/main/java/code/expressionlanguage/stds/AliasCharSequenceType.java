@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.StringUtil;

@@ -1,4 +1,4 @@
-package code.expressionlanguage.stds;
+package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;

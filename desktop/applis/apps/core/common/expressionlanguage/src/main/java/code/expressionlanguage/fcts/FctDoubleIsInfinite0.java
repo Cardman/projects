@@ -1,4 +1,4 @@
-package code.expressionlanguage.stds;
+package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
@@ -12,16 +12,16 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 
-public final class FctDoubleIsInfinite1 implements AnaStdCaller {
+public final class FctDoubleIsInfinite0 implements AnaStdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        NumberStruct instance_ = NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        NumberStruct instance_ = NumParsers.convertToNumber(_instance);
         return new ArgumentWrapper(BooleanStruct.of(Double.isInfinite(instance_.doubleStruct())));
     }
 
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        NumberStruct instance_ = NumParsers.convertToNumber(_args[0]);
+        NumberStruct instance_ = NumParsers.convertToNumber(_instance);
         return BooleanStruct.of(Double.isInfinite(instance_.doubleStruct()));
     }
 }

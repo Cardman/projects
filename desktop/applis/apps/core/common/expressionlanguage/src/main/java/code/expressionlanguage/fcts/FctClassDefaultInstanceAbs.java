@@ -1,4 +1,4 @@
-package code.expressionlanguage.stds;
+package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
