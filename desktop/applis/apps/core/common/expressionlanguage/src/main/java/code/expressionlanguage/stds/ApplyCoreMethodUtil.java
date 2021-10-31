@@ -149,7 +149,6 @@ public final class ApplyCoreMethodUtil {
         ResultErrorStd result_ = new ResultErrorStd();
         String booleanType_ = lgNames_.getContent().getNbAlias().getAliasBoolean();
         String charType_ = lgNames_.getContent().getNbAlias().getAliasCharacter();
-        String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
         String byteType_ = lgNames_.getContent().getNbAlias().getAliasByte();
         String shortType_ = lgNames_.getContent().getNbAlias().getAliasShort();
         String intType_ = lgNames_.getContent().getNbAlias().getAliasInteger();
@@ -160,10 +159,6 @@ public final class ApplyCoreMethodUtil {
         if (StringUtil.quickEq(type_, rangeType_)) {
             Argument range_ = range(_cont, _stackCall, args_);
             result_.setResult(range_.getStruct());
-            return result_;
-        }
-        if (StringUtil.quickEq(type_, stringType_)) {
-            AliasCharSequenceType.instantiateString(lgNames_, result_, _method, _cont, _stackCall, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, booleanType_)

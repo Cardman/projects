@@ -85,7 +85,6 @@ public final class AnaApplyCoreMethodUtil {
         String type_ = _method.getName();
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
         String charType_ = _page.getNbAlias().getAliasCharacter();
-        String stringType_ = _page.getCharSeq().getAliasString();
         String byteType_ = _page.getNbAlias().getAliasByte();
         String shortType_ = _page.getNbAlias().getAliasShort();
         String intType_ = _page.getNbAlias().getAliasInteger();
@@ -104,9 +103,6 @@ public final class AnaApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasRange())) {
             return range(args_);
-        }
-        if (StringUtil.quickEq(type_, stringType_)) {
-            return null;
         }
         if (StringUtil.quickEq(type_, booleanType_)
                 || StringUtil.quickEq(type_, charType_)

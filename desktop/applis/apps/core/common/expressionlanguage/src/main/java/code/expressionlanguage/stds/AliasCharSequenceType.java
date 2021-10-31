@@ -240,131 +240,6 @@ public final class AliasCharSequenceType {
         _res.setResult(new StringStruct(StringUtil.replaceMult(_st.getInstance(), seps_)));
     }
 
-    public static void instantiateString(LgNames _stds, ResultErrorStd _res, ConstructorId _method, ContextEl _context, StackCall _stackCall, Struct... _args) {
-        int nbParams_ = _method.getParametersTypesLength();
-        String bytePrimType_ = _stds.getContent().getPrimTypes().getAliasPrimByte();
-        String charPrimType_ = _stds.getContent().getPrimTypes().getAliasPrimChar();
-        if (nbParams_ == 1) {
-            if (StringUtil.quickEq(_method.getParametersType(0), bytePrimType_)) {
-                newStringStructByByteArray(_args[0], _res, _context, _stackCall);
-                return;
-            }
-            if (StringUtil.quickEq(_method.getParametersType(0), charPrimType_)) {
-                newStringStructByCharArray(_args[0], _res, _context, _stackCall);
-                return;
-            }
-            newStringBuilderStruct(_args[0], _res, _context, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(_method.getParametersType(2), bytePrimType_)) {
-            newStringStructByByteArray(_args[0], _args[1], _args[2], _res, _context, _stackCall);
-            return;
-        }
-        newStringStructByCharArray(_args[0], _args[1], _args[2], _res, _context, _stackCall);
-    }
-
-    private static void newStringStructByCharArray(Struct _arg, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_arg instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        ArrayStruct chArr_ = (ArrayStruct) _arg;
-        int len_ = chArr_.getLength();
-        char[] arr_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToChar(chArr_.get(i)).getChar();
-        }
-        _res.setResult(new StringStruct(String.valueOf(arr_)));
-    }
-
-    private static void newStringStructByCharArray(Struct _one, Struct _two, Struct _array, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_array instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        ArrayStruct chArr_ = (ArrayStruct) _array;
-        int len_ = chArr_.getLength();
-        int one_ = NumParsers.convertToNumber(_one).intStruct();
-        int two_ = NumParsers.convertToNumber(_two).intStruct();
-        if (one_ < 0 || two_ < 0 || one_ > len_ - two_) {
-            if (one_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(one_), _stackCall)));
-            } else if (two_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(two_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginEndMessage(len_, one_, two_), _stackCall)));
-            }
-            return;
-        }
-        char[] arr_ = new char[two_];
-        int until_ = one_ + two_;
-        for (int i = one_; i < until_; i++) {
-            arr_[i-one_] = NumParsers.convertToChar(chArr_.get(i)).getChar();
-        }
-        _res.setResult(new StringStruct(String.valueOf(arr_)));
-    }
-
-    private static void newStringStructByByteArray(Struct _arg, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_arg instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        ArrayStruct chArr_ = (ArrayStruct) _arg;
-        int len_ = chArr_.getLength();
-        byte[] arr_ = new byte[len_];
-        for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToNumber(chArr_.get(i)).byteStruct();
-        }
-        String chars_ = StringUtil.decode(arr_);
-        if (chars_ == null) {
-            int index_ = StringUtil.badDecode(arr_, 0, len_);
-            _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, Long.toString(index_), _stackCall)));
-            return;
-        }
-        _res.setResult(new StringStruct(chars_));
-    }
-
-    private static void newStringStructByByteArray(Struct _one, Struct _two, Struct _array, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_array instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        ArrayStruct chArr_ = (ArrayStruct) _array;
-        int len_ = chArr_.getLength();
-        byte[] arr_ = new byte[len_];
-        for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToNumber(chArr_.get(i)).byteStruct();
-        }
-        int one_ = NumParsers.convertToNumber(_one).intStruct();
-        int two_ = NumParsers.convertToNumber(_two).intStruct();
-        if (one_ < 0 || two_ < 0 || one_ > arr_.length - two_) {
-            if (one_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(one_), _stackCall)));
-            } else if (two_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(two_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginEndMessage(arr_.length, one_, two_), _stackCall)));
-            }
-            return;
-        }
-        String chars_ = StringUtil.decode(arr_, one_, two_);
-        if (chars_ == null) {
-            int index_ = StringUtil.badDecode(arr_, one_, two_);
-            _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, Long.toString(index_), _stackCall)));
-            return;
-        }
-        _res.setResult(new StringStruct(chars_));
-    }
-
-    private static void newStringBuilderStruct(Struct _arg, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_arg instanceof StringBuilderStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        StringBuilderStruct arg_ = NumParsers.getStrBuilder(_arg);
-        _res.setResult(new StringStruct(arg_.getInstance().toString()));
-    }
-
     private static void calculateStrBuilder(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, StackCall _stackCall, Struct... _args) {
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
@@ -1439,19 +1314,19 @@ public final class AliasCharSequenceType {
         ctor_ = new StandardConstructor(params_, false, new FctString0());
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimByte_);
-        ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString0String0()));
+        ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString0String0()),new FctString3());
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_, aliasPrimByte_);
-        ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString1String0(),params.getAliasString1String1(),params.getAliasString1String2()));
+        ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString1String0(),params.getAliasString1String1(),params.getAliasString1String2()),new FctString5());
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimChar_);
-        ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString2String0()));
+        ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString2String0()),new FctString2());
         constructors_.add(ctor_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_, aliasPrimChar_);
-        ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString3String0(),params.getAliasString3String1(),params.getAliasString3String2()));
+        ctor_ = new StandardConstructor(params_, true,new StringList(params.getAliasString3String0(),params.getAliasString3String1(),params.getAliasString3String2()),new FctString4());
         constructors_.add(ctor_);
         params_ = new StringList(aliasStringBuilder);
-        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasString4String0()));
+        ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasString4String0()),new FctString1());
         constructors_.add(ctor_);
         std_.getDirectInterfaces().add(aliasCharSequence);
         standards_.addEntry(aliasString, std_);
@@ -2017,15 +1892,15 @@ public final class AliasCharSequenceType {
         return params;
     }
 
-    private static String getEndMessage(int _end, String _s, int _length) {
+    public static String getEndMessage(int _end, String _s, int _length) {
         return StringUtil.concat(Long.toString(_end), _s, Long.toString(_length));
     }
 
-    private static String getBeginMessage(int _begin) {
+    public static String getBeginMessage(int _begin) {
         return StringUtil.concat(Long.toString(_begin), "<0");
     }
 
-    private static String getBeginEndMessage(int _len, long _one, int _two) {
+    public static String getBeginEndMessage(int _len, long _one, int _two) {
         return StringUtil.concat(Long.toString(_one + _two), ">", Long.toString(_len));
     }
 
