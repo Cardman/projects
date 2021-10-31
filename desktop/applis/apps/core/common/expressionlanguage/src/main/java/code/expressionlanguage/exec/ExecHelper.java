@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.Struct;
-import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.IndexConstants;
@@ -25,15 +24,6 @@ public final class ExecHelper {
         Struct[] classes_ = new Struct[len_];
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             classes_[i] = _args[i].getStruct();
-        }
-        return classes_;
-    }
-
-    public static CustList<Argument> getArgs(Struct... _args) {
-        int len_ = _args.length;
-        CustList<Argument> classes_ = new CustList<Argument>(new CollCapacity(len_));
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            classes_.add(new Argument(_args[i]));
         }
         return classes_;
     }

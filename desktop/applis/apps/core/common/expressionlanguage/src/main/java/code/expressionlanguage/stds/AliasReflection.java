@@ -611,95 +611,56 @@ public final class AliasReflection {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAnnotated, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetAnnotations, params_, StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetAnnotations, params_, StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new FctAnnotatedGetAnnotations0());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetAnnotationsParameters, params_,
                 StringExpUtil.getPrettyArrayType(StringExpUtil.getPrettyArrayType(aliasAnnotationType)), false,
-                MethodModifier.FINAL);
+                MethodModifier.FINAL,new FctAnnotatedGetAnnotationsParam0());
         methods_.add( method_);
         params_ = new StringList(aliasClassType);
         method_ = new StandardMethod(aliasGetAnnotations, params_,
-                StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotations0()));
+                StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotations0()),new FctAnnotatedGetAnnotations1());
         methods_.add( method_);
         params_ = new StringList(aliasClassType);
         method_ = new StandardMethod(aliasGetAnnotationsParameters, params_,
                 StringExpUtil.getPrettyArrayType(StringExpUtil.getPrettyArrayType(aliasAnnotationType)),
-                false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotationsParameters0()));
+                false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotationsParameters0()),new FctAnnotatedGetAnnotationsParam1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetFileName, params_, aliasString_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetFileName, params_, aliasString_, false, MethodModifier.FINAL,new FctAnnotatedGetFileName());
         methods_.add( method_);
         params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredAnonymousLambda0(),params.getAliasAnnotated0GetDeclaredAnonymousLambda1(),params.getAliasAnnotated0GetDeclaredAnonymousLambda2(),params.getAliasAnnotated0GetDeclaredAnonymousLambda3()));
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredAnonymousLambda0(),params.getAliasAnnotated0GetDeclaredAnonymousLambda1(),params.getAliasAnnotated0GetDeclaredAnonymousLambda2(),params.getAliasAnnotated0GetDeclaredAnonymousLambda3()),new FctAnnotatedGetDeclaredAnonymousLambda1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousLambda, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new FctAnnotatedGetDeclaredAnonymousLambda0());
         methods_.add( method_);
         params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredSwitchMethods0(),params.getAliasAnnotated0GetDeclaredSwitchMethods1(),params.getAliasAnnotated0GetDeclaredSwitchMethods2(),params.getAliasAnnotated0GetDeclaredSwitchMethods3()));
+        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetDeclaredSwitchMethods0(),params.getAliasAnnotated0GetDeclaredSwitchMethods1(),params.getAliasAnnotated0GetDeclaredSwitchMethods2(),params.getAliasAnnotated0GetDeclaredSwitchMethods3()),new FctAnnotatedGetDeclaredSwitchMethods1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new FctAnnotatedGetDeclaredSwitchMethods0());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasAnnotated, stdcl_);
     }
 
-    public static ResultErrorStd invokeAnnotated(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
-        LgNames lgNames_ = _cont.getStandards();
-        AliasReflection ref_ = lgNames_.getReflect();
-        String name_ = _method.getConstraints().getName();
-        ResultErrorStd result_ = new ResultErrorStd();
-        String aliasGetAnnotations_ = ref_.getAliasGetAnnotations();
-        String aliasGetAnnotationsParam_ = ref_.getAliasGetAnnotationsParameters();
-        String aliasGetDeclaredAnonymousLambda_ = ref_.getAliasGetDeclaredAnonymousLambda();
-        String aliasGetDeclaredSwitchMethods_ = ref_.getAliasGetDeclaredSwitchMethods();
-        AnnotatedStruct annotated_ = NumParsers.getAnnotated(_struct);
-        if (StringUtil.quickEq(aliasGetAnnotations_, name_)) {
-            _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION, annotated_, ExecHelper.getArgs(_args), false));
-            return result_;
-        }
-        if (StringUtil.quickEq(aliasGetAnnotationsParam_, name_)) {
-            _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION_PARAM, annotated_, ExecHelper.getArgs(_args), false));
-            return result_;
-        }
-        if (StringUtil.quickEq(aliasGetDeclaredAnonymousLambda_, name_)) {
-            result_.setResult(fetchAnonLambdaCallee(_cont,annotated_,_args));
-            return result_;
-        }
-        if (StringUtil.quickEq(aliasGetDeclaredSwitchMethods_, name_)) {
-            result_.setResult(fetchSwitchMethod(_cont,annotated_,_args));
-            return result_;
-        }
-        String fileName_ = annotated_.getFileName();
-        result_.setResult(new StringStruct(fileName_));
-        return result_;
-    }
-
-    private static ArrayStruct fetchAnonLambdaCallee(ContextEl _cont, AnnotatedStruct _annot, Struct... _args) {
+    public static CustList<MethodMetaInfo> listAnonLambda(ContextEl _cont, AnnotatedStruct _annot) {
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
         for (ExecAnonymousFunctionBlock f: _annot.getAnonymousLambda()) {
             MethodMetaInfo met_ = new MethodMetaInfo(_cont, f, _annot.getFormatted());
             methods_.add(met_);
         }
-        if (_args.length == 0) {
-            return getMethodsMeta(_cont, methods_);
-        }
-        CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, _args[0], _args[1], _args[2], _args[3]);
-        return getMethodsMeta(_cont, candidates_);
+        return methods_;
     }
 
-    private static ArrayStruct fetchSwitchMethod(ContextEl _cont, AnnotatedStruct _annot, Struct... _args) {
+    public static CustList<MethodMetaInfo> listSwitchMethod(ContextEl _cont, AnnotatedStruct _annot) {
         CustList<MethodMetaInfo> methods_ = new CustList<MethodMetaInfo>();
         for (ExecAbstractSwitchMethod f: _annot.getSwitchMethods()) {
             MethodMetaInfo met_ = new MethodMetaInfo(_cont, f, _annot.getFormatted());
             methods_.add(met_);
         }
-        if (_args.length == 0) {
-            return getMethodsMeta(_cont, methods_);
-        }
-        CustList<MethodMetaInfo> candidates_ = filterMethods(_cont, methods_, _args[0], _args[1], _args[2], _args[3]);
-        return getMethodsMeta(_cont, candidates_);
+        return methods_;
     }
 
     public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
@@ -1652,12 +1613,12 @@ public final class AliasReflection {
         return buildArrClass(_cont, list_);
     }
 
-    private static CustList<MethodMetaInfo> filterMethods(ContextEl _cont, CustList<MethodMetaInfo> _methods, Struct _name, Struct _static, Struct _vararg, Struct _params) {
+    public static CustList<MethodMetaInfo> filterMethods(ContextEl _cont, CustList<MethodMetaInfo> _methods, Struct _name, Struct _static, Struct _vararg, Struct _params) {
         AbstractMethodCriteria abs_ = _cont.getDefCriteria();
         return filterMethods(_methods, _name, _static, _vararg, _params, abs_);
     }
 
-    private static CustList<MethodMetaInfo> filterMethods(CustList<MethodMetaInfo> _methods, Struct _name, Struct _static, Struct _vararg, Struct _params, AbstractMethodCriteria _abs) {
+    public static CustList<MethodMetaInfo> filterMethods(CustList<MethodMetaInfo> _methods, Struct _name, Struct _static, Struct _vararg, Struct _params, AbstractMethodCriteria _abs) {
         CustList<MethodMetaInfo> candidates_ = new CustList<MethodMetaInfo>();
         for (MethodMetaInfo e : _methods) {
             MethodId id_ = e.getFid();
@@ -1709,7 +1670,7 @@ public final class AliasReflection {
         return str_;
     }
 
-    private static ArrayStruct getMethodsMeta(ContextEl _cont, CustList<MethodMetaInfo> _candidates) {
+    public static ArrayStruct getMethodsMeta(ContextEl _cont, CustList<MethodMetaInfo> _candidates) {
         LgNames lgNames_ = _cont.getStandards();
         AliasReflection ref_ = lgNames_.getReflect();
         String aliasClass_ = ref_.aliasMethod;

@@ -105,10 +105,6 @@ public final class ApplyCoreMethodUtil {
                     dis_.getExponent(),args_[0])));
             return result_;
         }
-        String aliasAnnotated_ = lgNames_.getContent().getReflect().getAliasAnnotated();
-        if (StringUtil.quickEq(aliasAnnotated_, type_)) {
-            return AliasReflection.invokeAnnotated(_cont, _method, _struct, args_, _stackCall);
-        }
         String aliasFct_ = lgNames_.getContent().getReflect().getAliasFct();
         if (StringUtil.quickEq(aliasFct_, type_)) {
             ResultErrorStd res_ = new ResultErrorStd();
