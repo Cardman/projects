@@ -607,7 +607,7 @@ public final class AliasMathType {
         return randomParam(_cont, result_, args_, _stackCall);
     }
 
-    private static ErrorStruct getDivideZero(ContextEl _cont, StackCall _stackCall) {
+    public static ErrorStruct getDivideZero(ContextEl _cont, StackCall _stackCall) {
         return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero(), _stackCall);
     }
 

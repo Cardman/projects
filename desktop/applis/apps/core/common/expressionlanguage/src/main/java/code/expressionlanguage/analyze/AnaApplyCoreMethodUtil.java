@@ -101,9 +101,6 @@ public final class AnaApplyCoreMethodUtil {
         if (anaStdCaller_ != null) {
             return anaStdCaller_.call(_page,NullStruct.NULL_VALUE,args_);
         }
-        if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasRange())) {
-            return range(args_);
-        }
         if (StringUtil.quickEq(type_, booleanType_)
                 || StringUtil.quickEq(type_, charType_)
                 || StringUtil.quickEq(type_, byteType_)
@@ -119,23 +116,23 @@ public final class AnaApplyCoreMethodUtil {
 
     public static Struct range(Struct... _args) {
         if (_args.length == 3) {
-            return rangeBoundsStep(_args);
+            return rangeBoundsStep(_args[0], _args[1], _args[2]);
         }
         if (_args.length == 2) {
-            return rangeBounds(_args);
+            return rangeBounds(_args[0], _args[1]);
         }
-        return rangeUnlimit(_args);
+        return rangeUnlimit(_args[0]);
     }
-    public static Struct rangeBoundsStep(Struct... _args) {
-        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+    public static Struct rangeBoundsStep(Struct _min, Struct _max, Struct _step) {
+        int lower_ = NumParsers.convertToNumber(_min).intStruct();
         if (lower_ < 0) {
             return null;
         }
-        int upper_ = NumParsers.convertToNumber(_args[1]).intStruct();
+        int upper_ = NumParsers.convertToNumber(_max).intStruct();
         if (upper_ < lower_) {
             return null;
         }
-        int step_ = NumParsers.convertToNumber(_args[2]).intStruct();
+        int step_ = NumParsers.convertToNumber(_step).intStruct();
         if (step_ == 0) {
             return null;
         }
@@ -152,19 +149,19 @@ public final class AnaApplyCoreMethodUtil {
         }
         return new RangeStruct(lower_, -1, step_);
     }
-    public static Struct rangeBounds(Struct... _args) {
-        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+    public static Struct rangeBounds(Struct _min, Struct _max) {
+        int lower_ = NumParsers.convertToNumber(_min).intStruct();
         if (lower_ < 0) {
             return null;
         }
-        int upper_ = NumParsers.convertToNumber(_args[1]).intStruct();
+        int upper_ = NumParsers.convertToNumber(_max).intStruct();
         if (upper_ < lower_) {
             return null;
         }
         return new RangeStruct(lower_, upper_);
     }
-    public static Struct rangeUnlimit(Struct... _args) {
-        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
+    public static Struct rangeUnlimit(Struct _arg) {
+        int lower_ = NumParsers.convertToNumber(_arg).intStruct();
         if (lower_ < 0) {
             return null;
         }

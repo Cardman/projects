@@ -11,6 +11,9 @@ import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.fcts.FctRange0;
+import code.expressionlanguage.fcts.FctRange1;
+import code.expressionlanguage.fcts.FctRange2;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.*;
@@ -155,12 +158,6 @@ public final class ApplyCoreMethodUtil {
         String longType_ = lgNames_.getContent().getNbAlias().getAliasLong();
         String floatType_ = lgNames_.getContent().getNbAlias().getAliasFloat();
         String doubleType_ = lgNames_.getContent().getNbAlias().getAliasDouble();
-        String rangeType_ = lgNames_.getContent().getCoreNames().getAliasRange();
-        if (StringUtil.quickEq(type_, rangeType_)) {
-            Argument range_ = range(_cont, _stackCall, args_);
-            result_.setResult(range_.getStruct());
-            return result_;
-        }
         if (StringUtil.quickEq(type_, booleanType_)
                 || StringUtil.quickEq(type_, charType_)
                 || StringUtil.quickEq(type_, byteType_)
@@ -178,30 +175,12 @@ public final class ApplyCoreMethodUtil {
 
     public static Argument range(ContextEl _conf, StackCall _stack, Struct... _args) {
         if (_args.length == 3) {
-            return rangeBoundsStep(_conf, _stack, _args);
+            return FctRange2.rangeBoundsStep(_conf, _stack, _args[0], _args[1], _args[2]).getValue();
         }
         if (_args.length == 2) {
-            return rangeBounds(_conf, _stack, _args);
+            return FctRange1.rangeBounds(_conf, _stack, _args[0], _args[1]).getValue();
         }
-        return rangeUnlimit(_conf, _stack, _args);
-    }
-    public static Argument rangeBoundsStep(ContextEl _conf, StackCall _stack, Struct... _args) {
-        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
-        if (lower_ < 0) {
-            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
-            return Argument.createVoid();
-        }
-        int upper_ = NumParsers.convertToNumber(_args[1]).intStruct();
-        if (upper_ < lower_) {
-            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getEndMessage(lower_, ">", upper_), _stack)));
-            return Argument.createVoid();
-        }
-        int step_ = NumParsers.convertToNumber(_args[2]).intStruct();
-        if (step_ == 0) {
-            _stack.setCallingState(new CustomFoundExc(getDivideZero(_conf, _stack)));
-            return Argument.createVoid();
-        }
-        return new Argument(new RangeStruct(lower_, upper_,step_));
+        return FctRange0.rangeUnlimit(_conf,_stack,_args[0]).getValue();
     }
 
     public static Argument rangeUnlimitStep(ContextEl _conf, StackCall _stack, Struct... _args) {
@@ -220,34 +199,9 @@ public final class ApplyCoreMethodUtil {
     private static ErrorStruct getDivideZero(ContextEl _cont, StackCall _stackCall) {
         return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero(), _stackCall);
     }
-    public static Argument rangeBounds(ContextEl _conf, StackCall _stack, Struct... _args) {
-        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
-        if (lower_ < 0) {
-            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
-            return Argument.createVoid();
-        }
-        int upper_ = NumParsers.convertToNumber(_args[1]).intStruct();
-        if (upper_ < lower_) {
-            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getEndMessage(lower_, ">", upper_), _stack)));
-            return Argument.createVoid();
-        }
-        return new Argument(new RangeStruct(lower_, upper_));
-    }
 
-    public static Argument rangeUnlimit(ContextEl _conf, StackCall _stack,Struct... _args) {
-        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
-        if (lower_ < 0) {
-            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
-            return Argument.createVoid();
-        }
-        return new Argument(new RangeStruct(lower_));
-    }
     private static ErrorStruct getBadIndex(ContextEl _context, String _message, StackCall _stackCall) {
         return new ErrorStruct(_context, _message, _context.getStandards().getContent().getCoreNames().getAliasBadIndex(), _stackCall);
-    }
-
-    private static String getEndMessage(int _end, String _s, int _length) {
-        return StringUtil.concat(Long.toString(_end), _s, Long.toString(_length));
     }
 
     private static String getBeginMessage(int _begin) {
