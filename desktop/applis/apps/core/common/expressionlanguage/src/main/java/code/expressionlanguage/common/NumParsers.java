@@ -12,12 +12,12 @@ import code.util.core.SortConstants;
 import code.util.core.StringUtil;
 
 public final class NumParsers {
+    public static final int DEFAULT_RADIX = 10;
     private static final long RATIO = 31L;
     private static final String LOWER_EQ = "<=";
     private static final String LOWER = "<";
     private static final String GREATER_EQ = ">=";
     private static final String GREATER = ">";
-    private static final int DEFAULT_RADIX = 10;
     private static final byte HEX_BASE = 16;
     private static final char DOT_VAR = '.';
     private static final char EXP_UPP = 'E';
@@ -1114,14 +1114,6 @@ public final class NumParsers {
 
     public static int compare(NumberStruct _nb1, NumberStruct _nb2) {
         return NumberUtil.compareLg(_nb1.longStruct(),_nb2.longStruct());
-    }
-
-    public static int getRadix(int _list, Struct[] _args) {
-        int radix_ = DEFAULT_RADIX;
-        if (_list != 1) {
-            radix_ = convertToNumber(_args[1]).intStruct();
-        }
-        return radix_;
     }
 
     public static IntStruct cmpBool(Struct _one, Struct _two) {

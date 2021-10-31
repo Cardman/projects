@@ -1980,9 +1980,7 @@ public final class CustAliases {
         ref_.addEntry(TABLE_STRING_OBJECT,getAliasTableStringObject());
         return ref_;
     }
-    public ResultErrorStd instance(ContextEl _cont, ConstructorId _method, StackCall _stackCall, Argument... _args) {
-        return interceptor.instance(getAliasConcurrentError(),_cont,_method,_stackCall,_args);
-    }
+
     public ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
         return interceptor.invoke(getAliasConcurrentError(),_cont,_method,_struct,_exit,_stackCall,_args);
     }

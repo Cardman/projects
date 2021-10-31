@@ -15,7 +15,6 @@ import code.expressionlanguage.fcts.FctRange0;
 import code.expressionlanguage.fcts.FctRange1;
 import code.expressionlanguage.fcts.FctRange2;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -77,7 +76,7 @@ public final class ApplyCoreMethodUtil {
                 || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasFloat())
                 || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasDouble())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumberType.processNumbers(_cont, result_, _method, _struct, type_, args_, _stackCall);
+            AliasNumberType.processNumbers(_cont, result_, _method, _struct, type_, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasNumber())) {
@@ -143,34 +142,6 @@ public final class ApplyCoreMethodUtil {
             return AliasReflection.invokeCtorInfo(_cont, _struct, _method,args_, _stackCall);
         }
         return lgNames_.getOtherResult(_stackCall, _cont, _struct, _method, args_);
-    }
-
-    public static ResultErrorStd instanceBase(ContextEl _cont, ConstructorId _method, Argument[] _args, StackCall _stackCall) {
-        Struct[] args_ = ExecHelper.getObjects(_args);
-        String type_ = _method.getName();
-        LgNames lgNames_ = _cont.getStandards();
-        ResultErrorStd result_ = new ResultErrorStd();
-        String booleanType_ = lgNames_.getContent().getNbAlias().getAliasBoolean();
-        String charType_ = lgNames_.getContent().getNbAlias().getAliasCharacter();
-        String byteType_ = lgNames_.getContent().getNbAlias().getAliasByte();
-        String shortType_ = lgNames_.getContent().getNbAlias().getAliasShort();
-        String intType_ = lgNames_.getContent().getNbAlias().getAliasInteger();
-        String longType_ = lgNames_.getContent().getNbAlias().getAliasLong();
-        String floatType_ = lgNames_.getContent().getNbAlias().getAliasFloat();
-        String doubleType_ = lgNames_.getContent().getNbAlias().getAliasDouble();
-        if (StringUtil.quickEq(type_, booleanType_)
-                || StringUtil.quickEq(type_, charType_)
-                || StringUtil.quickEq(type_, byteType_)
-                || StringUtil.quickEq(type_, shortType_)
-                || StringUtil.quickEq(type_, intType_)
-                || StringUtil.quickEq(type_, longType_)
-                || StringUtil.quickEq(type_, floatType_)
-                || StringUtil.quickEq(type_, doubleType_)) {
-            AliasNumberType.instantiateNumber(_cont, result_, _method, _stackCall, args_);
-            return result_;
-        }
-        result_ = lgNames_.getOtherResult(_stackCall, _cont, _method, args_);
-        return result_;
     }
 
     public static Argument range(ContextEl _conf, StackCall _stack, Struct... _args) {
@@ -361,11 +332,6 @@ public final class ApplyCoreMethodUtil {
         }
         String null_ = _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
         return new ErrorStruct(_cont,null_, _stackCall);
-    }
-
-    public static ResultErrorStd newInstance(ContextEl _cont, ConstructorId _method, StackCall _stackCall, Argument... _args) {
-        LgNames lgNames_ = _cont.getStandards();
-        return lgNames_.instance(_stackCall, _cont,_method,_args);
     }
 
     public static StringStruct getStringOfObjectBase(ContextEl _cont, Struct _arg) {

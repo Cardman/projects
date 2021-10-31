@@ -6,7 +6,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -20,16 +19,6 @@ public final class DefInterceptor implements AbstractInterceptor {
     @Override
     public AbstractInterceptorStdCaller newInterceptorStdCaller(String _cl) {
         return new DefInterceptorStdCaller(_cl);
-    }
-
-    @Override
-    public ResultErrorStd instance(String _cl,ContextEl _cont, ConstructorId _method, StackCall _stackCall, Argument... _args) {
-        try {
-            return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args, _stackCall);
-        } catch (RuntimeException e) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cl, _stackCall)));
-            return new ResultErrorStd();
-        }
     }
 
     @Override

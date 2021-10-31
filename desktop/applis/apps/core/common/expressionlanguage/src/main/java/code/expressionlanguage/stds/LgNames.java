@@ -1,6 +1,8 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.AbstractExiting;
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
@@ -11,10 +13,10 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringMap;
 
 public abstract class LgNames implements BuildableLgNames {
 
@@ -70,16 +72,6 @@ public abstract class LgNames implements BuildableLgNames {
     public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         res_.setResult(NullStruct.NULL_VALUE);
-        return res_;
-    }
-
-    protected ResultErrorStd instance(StackCall _stack, ContextEl _cont, ConstructorId _method, Argument... _args) {
-        return ApplyCoreMethodUtil.instanceBase(_cont, _method, _args, _stack);
-    }
-
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, ConstructorId _method, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        res_.setResult(new SimpleObjectStruct());
         return res_;
     }
 
