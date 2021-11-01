@@ -683,38 +683,6 @@ public final class AliasCharSequenceType {
             regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]), _res, _cont, _stackCall);
             return;
         }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasIndexOf())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                if (!(_args[0] instanceof NumberStruct)) {
-                    indexOfString(_charSequence, _args[0], _res, _cont, _stackCall);
-                    return;
-                }
-                indexOf(_charSequence, _args[0], _res);
-                return;
-            }
-            if (!(_args[0] instanceof NumberStruct)) {
-                indexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), _res, _cont, _stackCall);
-                return;
-            }
-            indexOf(_charSequence, _args[0], _args[1], _res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasLastIndexOf())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                if (!(_args[0] instanceof NumberStruct)) {
-                    lastIndexOfString(_charSequence, _args[0], _res, _cont, _stackCall);
-                    return;
-                }
-                lastIndexOf(_charSequence, _args[0], _res);
-                return;
-            }
-            if (!(_args[0] instanceof NumberStruct)) {
-                lastIndexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), _res, _cont, _stackCall);
-                return;
-            }
-            lastIndexOf(_charSequence, _args[0], _args[1], _res);
-            return;
-        }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSplit())) {
             if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof CharStruct)) {
@@ -782,63 +750,6 @@ public final class AliasCharSequenceType {
         int po_ = _ooffset.intStruct();
         int comLen_ = _len.intStruct();
         _res.setResult(BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_)));
-    }
-
-    private static void indexOf(CharSequenceStruct _charSequence, Struct _ch, ResultErrorStd _res) {
-        indexOf(_charSequence, _ch,new IntStruct(0),_res);
-    }
-
-    private static void indexOf(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
-        NumberStruct ch_ = NumParsers.convertToNumber(_ch);
-        int int_ = ch_.intStruct();
-        NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
-        int from_ = index_.intStruct();
-        _res.setResult(new IntStruct(_charSequence.toStringInstance().indexOf(int_, from_)));
-    }
-
-    private static void indexOfString(CharSequenceStruct _charSequence, Struct _str, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
-        _res.setResult(new IntStruct(_charSequence.toStringInstance().indexOf(str_.toStringInstance())));
-    }
-
-    private static void indexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        int from_ = _fromIndex.intStruct();
-        if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
-        _res.setResult(new IntStruct(_charSequence.toStringInstance().indexOf(str_.toStringInstance(), from_)));
-    }
-
-    private static void lastIndexOf(CharSequenceStruct _charSequence, Struct _ch, ResultErrorStd _res) {
-        lastIndexOf(_charSequence, _ch, new IntStruct(_charSequence.length()),_res);
-    }
-
-    private static void lastIndexOf(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex, ResultErrorStd _res) {
-        NumberStruct ch_ = NumParsers.convertToNumber(_ch);
-        int int_ = ch_.intStruct();
-        NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
-        int from_ = index_.intStruct();
-        _res.setResult(new IntStruct(_charSequence.toStringInstance().lastIndexOf(int_, from_)));
-    }
-
-    private static void lastIndexOfString(CharSequenceStruct _charSequence, Struct _str, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        lastIndexOfString(_charSequence, _str,new IntStruct(_charSequence.length()), _res, _context, _stackCall);
-    }
-
-    private static void lastIndexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
-        int from_ = _fromIndex.intStruct();
-        _res.setResult(new IntStruct(_charSequence.toStringInstance().lastIndexOf(str_.toStringInstance(), from_)));
     }
 
     private static void splitSingleChar(CharSequenceStruct _charSequence, CharStruct _sep, LgNames _stds, ResultErrorStd _res) {
@@ -1061,28 +972,28 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasEndsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0EndsWith0()),new FctCharSeqEndsWith());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0IndexOf0()));
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0IndexOf0()),new FctCharSeqIndexOf1());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1IndexOf0(),params.getAliasCharSequence1IndexOf1()));
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1IndexOf0(),params.getAliasCharSequence1IndexOf1()),new FctCharSeqIndexOf3());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence2IndexOf0()));
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence2IndexOf0()),new FctCharSeqIndexOf0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence3IndexOf0(),params.getAliasCharSequence3IndexOf1()));
+        method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence3IndexOf0(),params.getAliasCharSequence3IndexOf1()),new FctCharSeqIndexOf2());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0LastIndexOf0()));
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0LastIndexOf0()),new FctCharSeqLastIndexOf1());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1LastIndexOf0(),params.getAliasCharSequence1LastIndexOf1()));
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1LastIndexOf0(),params.getAliasCharSequence1LastIndexOf1()),new FctCharSeqLastIndexOf3());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence2LastIndexOf0()));
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence2LastIndexOf0()),new FctCharSeqLastIndexOf0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence3LastIndexOf0(),params.getAliasCharSequence3LastIndexOf1()));
+        method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence3LastIndexOf0(),params.getAliasCharSequence3LastIndexOf1()),new FctCharSeqLastIndexOf2());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new FctCharSeqIsEmpty());

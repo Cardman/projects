@@ -505,30 +505,6 @@ public final class AnaApplyCoreMethodUtil {
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasRegionMatches())) {
             return regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]));
         }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasIndexOf())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                if (!(_args[0] instanceof NumberStruct)) {
-                    return indexOfString(_charSequence, _args[0]);
-                }
-                return indexOf(_charSequence, _args[0]);
-            }
-            if (!(_args[0] instanceof NumberStruct)) {
-                return indexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
-            }
-            return indexOf(_charSequence, _args[0], _args[1]);
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasLastIndexOf())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                if (!(_args[0] instanceof NumberStruct)) {
-                    return lastIndexOfString(_charSequence, _args[0]);
-                }
-                return lastIndexOf(_charSequence, _args[0]);
-            }
-            if (!(_args[0] instanceof NumberStruct)) {
-                return lastIndexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
-            }
-            return lastIndexOf(_charSequence, _args[0], _args[1]);
-        }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasTrim())) {
             return trim(_charSequence);
         }
@@ -551,60 +527,6 @@ public final class AnaApplyCoreMethodUtil {
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
         return BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_));
-    }
-
-    private static Struct indexOf(CharSequenceStruct _charSequence, Struct _ch) {
-        return indexOf(_charSequence, _ch,new IntStruct(0));
-    }
-
-    private static Struct indexOf(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex) {
-        NumberStruct ch_ = NumParsers.convertToNumber(_ch);
-        int int_ = ch_.intStruct();
-        NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
-        int from_ = index_.intStruct();
-        return new IntStruct(_charSequence.toStringInstance().indexOf(int_, from_));
-    }
-
-    private static Struct indexOfString(CharSequenceStruct _charSequence, Struct _str) {
-        if (!(_str instanceof CharSequenceStruct)) {
-            return null;
-        }
-        CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
-        return new IntStruct(_charSequence.toStringInstance().indexOf(str_.toStringInstance()));
-    }
-
-    private static Struct indexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex) {
-        int from_ = _fromIndex.intStruct();
-        if (!(_str instanceof CharSequenceStruct)) {
-            return null;
-        }
-        CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
-        return new IntStruct(_charSequence.toStringInstance().indexOf(str_.toStringInstance(), from_));
-    }
-
-    private static Struct lastIndexOf(CharSequenceStruct _charSequence, Struct _ch) {
-        return lastIndexOf(_charSequence, _ch, new IntStruct(_charSequence.length()));
-    }
-
-    private static Struct lastIndexOf(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex) {
-        NumberStruct ch_ = NumParsers.convertToNumber(_ch);
-        int int_ = ch_.intStruct();
-        NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
-        int from_ = index_.intStruct();
-        return new IntStruct(_charSequence.toStringInstance().lastIndexOf(int_, from_));
-    }
-
-    private static Struct lastIndexOfString(CharSequenceStruct _charSequence, Struct _str) {
-        return lastIndexOfString(_charSequence, _str,new IntStruct(_charSequence.length()));
-    }
-
-    private static Struct lastIndexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex) {
-        if (!(_str instanceof CharSequenceStruct)) {
-            return null;
-        }
-        CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
-        int from_ = _fromIndex.intStruct();
-        return new IntStruct(_charSequence.toStringInstance().lastIndexOf(str_.toStringInstance(), from_));
     }
 
     private static Struct trim(CharSequenceStruct _charSequence) {
