@@ -156,7 +156,7 @@ public final class AnaApplyCoreMethodUtil {
         return classes_;
     }
 
-    private static AnaDisplayableStruct getAnaDisplayable(Struct _value) {
+    public static AnaDisplayableStruct getAnaDisplayable(Struct _value) {
         if (_value instanceof NumberStruct) {
             return (AnaDisplayableStruct) _value;
         }
@@ -345,7 +345,6 @@ public final class AnaApplyCoreMethodUtil {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         String charType_ = _page.getNbAlias().getAliasCharacter();
-        String nbType_ = _page.getNbAlias().getAliasNumber();
         if (StringUtil.quickEq(type_, charType_)) {
             if (_method.getConstraints().isStaticMethod()) {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
@@ -424,61 +423,6 @@ public final class AnaApplyCoreMethodUtil {
             char one_ = ch_.getChar();
             char two_ = ((CharStruct) _args[0]).getChar();
             return(new IntStruct(NumberUtil.compareLg(one_,two_)));
-        }
-        if (StringUtil.quickEq(type_, nbType_)) {
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                if (!(_args[0] instanceof  NumberStruct)) {
-                    return null;
-                }
-                if (!(_args[1] instanceof  NumberStruct)) {
-                    return null;
-                }
-                return(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                if (!(_args[0] instanceof  NumberStruct)) {
-                    return null;
-                }
-                return(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasEquals())) {
-                if (_method.getConstraints().getParametersTypesLength() > 1) {
-                    return(BooleanStruct.of(NumParsers.sameValue(_args[0],_args[1])));
-                }
-                return(BooleanStruct.of(NumParsers.sameValue(_struct,_args[0])));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasByteValue())) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(new ByteStruct(instance_.byteStruct()));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasShortValue())) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(new ShortStruct(instance_.shortStruct()));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIntValue())) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(new IntStruct(instance_.intStruct()));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasLongValue())) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(new LongStruct(instance_.longStruct()));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasFloatValue())) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(new FloatStruct(instance_.floatStruct()));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasDoubleValue())) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(new DoubleStruct(instance_.doubleStruct()));
-            }
-            if (_method.getConstraints().getParametersTypesLength() == 0) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(instance_.getDisplayedString(_page));
-            }
-            AnaDisplayableStruct instance_ = getAnaDisplayable(_args[0]);
-            return(instance_
-                    .getDisplayedString(_page));
         }
         return null;
     }

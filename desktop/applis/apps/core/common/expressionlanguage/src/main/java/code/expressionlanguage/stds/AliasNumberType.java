@@ -1,11 +1,9 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -80,77 +78,6 @@ public final class AliasNumberType {
     private String aliasToLowerCaseChar;
     private String aliasToUpperCaseChar;
     private final AliasParamNumber params = new AliasParamNumber();
-
-    public static void processNumber(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
-        String name_ = _method.getConstraints().getName();
-        LgNames lgNames_ = _cont.getStandards();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
-            if (!(_args[0] instanceof NumberStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-                return;
-            }
-            if (!(_args[1] instanceof  NumberStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-                return;
-            }
-            _res.setResult(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            if (!(_args[0] instanceof  NumberStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-                return;
-            }
-            _res.setResult(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasEquals())) {
-            if (_method.getConstraints().getParametersTypesLength() > 1) {
-                _res.setResult(BooleanStruct.of(NumParsers.sameValue(_args[0],_args[1])));
-                return;
-            }
-            _res.setResult(BooleanStruct.of(NumParsers.sameValue(_struct,_args[0])));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasByteValue())) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            _res.setResult(new ByteStruct(instance_.byteStruct()));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasShortValue())) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            _res.setResult(new ShortStruct(instance_.shortStruct()));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIntValue())) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            _res.setResult(new IntStruct(instance_.intStruct()));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasLongValue())) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            _res.setResult(new LongStruct(instance_.longStruct()));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasFloatValue())) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            _res.setResult(new FloatStruct(instance_.floatStruct()));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasDoubleValue())) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            _res.setResult(new DoubleStruct(instance_.doubleStruct()));
-            return;
-        }
-        if (_method.getConstraints().getParametersTypesLength() == 0) {
-            NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-            _res.setResult(instance_.getDisplayedString(_cont));
-            return;
-        }
-        StringStruct disp_ = ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont);
-        _res.setResult(disp_);
-    }
 
     public static void processCharacter(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
@@ -580,40 +507,40 @@ public final class AliasNumberType {
         StringList params_;
         StandardMethod method_;
         params_ = new StringList();
-        method_ = new StandardMethod(aliasByteValue, params_, aliasPrimByte_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasByteValue, params_, aliasPrimByte_, false, MethodModifier.NORMAL, new FctNbToByte());
         _methods.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasShortValue, params_, aliasPrimShort_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasShortValue, params_, aliasPrimShort_, false, MethodModifier.NORMAL, new FctNbToShort());
         _methods.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIntValue, params_, aliasPrimInteger_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasIntValue, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, new FctNbToInteger());
         _methods.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasLongValue, params_, aliasPrimLong_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasLongValue, params_, aliasPrimLong_, false, MethodModifier.NORMAL, new FctNbToLong());
         _methods.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasFloatValue, params_, aliasPrimFloat_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasFloatValue, params_, aliasPrimFloat_, false, MethodModifier.NORMAL, new FctNbToFloat());
         _methods.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDoubleValue, params_, aliasPrimDouble_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasDoubleValue, params_, aliasPrimDouble_, false, MethodModifier.NORMAL, new FctNbToDouble());
         _methods.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.NORMAL, new FctNbToStr0());
         _methods.add( method_);
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasNumber0ToStringMethod0()));
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasNumber0ToStringMethod0()), new FctNbToStr1());
         _methods.add( method_);
         params_ = new StringList(aliasNumber);
-        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasNumber0Equals0()));
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasNumber0Equals0()),new FctNbEqualsGene0());
         _methods.add( method_);
         params_ = new StringList(aliasNumber,aliasNumber);
-        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasNumber1Equals0(),params.getAliasNumber1Equals1()));
+        method_ = new StandardMethod(aliasEquals, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasNumber1Equals0(),params.getAliasNumber1Equals1()),new FctNbEqualsGene1());
         _methods.add( method_);
         params_ = new StringList(_owner);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasNumber0CompareTo0()));
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasNumber0CompareTo0()),new FctNbCompareToGene());
         _methods.add( method_);
         params_ = new StringList(_owner, _owner);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasNumber0Compare0(),params.getAliasNumber0Compare1()));
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasNumber0Compare0(),params.getAliasNumber0Compare1()),new FctNbCompareGene());
         _methods.add( method_);
     }
     public String getAliasCompareTo() {
