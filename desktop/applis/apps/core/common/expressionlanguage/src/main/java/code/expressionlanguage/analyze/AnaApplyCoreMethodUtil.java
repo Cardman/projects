@@ -483,18 +483,6 @@ public final class AnaApplyCoreMethodUtil {
                     NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                     return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
                 }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToBinString())) {
-                    byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
-                    return (new StringStruct(StringExpUtil.toByteGeneBin(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToOctString())) {
-                    byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
-                    return (new StringStruct(StringExpUtil.toByteGeneOct(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToHexString())) {
-                    byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
-                    return (new StringStruct(StringExpUtil.toByteGeneHex(one_)));
-                }
                 byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
                 return (new StringStruct(Long.toString(one_)));
             }
@@ -505,18 +493,6 @@ public final class AnaApplyCoreMethodUtil {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
                     NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                     return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToBinString())) {
-                    short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
-                    return (new StringStruct(StringExpUtil.toShortGeneBin(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToOctString())) {
-                    short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
-                    return (new StringStruct(StringExpUtil.toShortGeneOct(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToHexString())) {
-                    short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
-                    return (new StringStruct(StringExpUtil.toShortGeneHex(one_)));
                 }
                 short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
                 return (new StringStruct(Long.toString(one_)));
@@ -529,18 +505,6 @@ public final class AnaApplyCoreMethodUtil {
                     NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                     return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
                 }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToBinString())) {
-                    int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-                    return (new StringStruct(StringExpUtil.toGeneBin(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToOctString())) {
-                    int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-                    return (new StringStruct(StringExpUtil.toGeneOct(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToHexString())) {
-                    int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-                    return (new StringStruct(StringExpUtil.toGeneHex(one_)));
-                }
                 int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                 return (new StringStruct(Long.toString(one_)));
             }
@@ -551,18 +515,6 @@ public final class AnaApplyCoreMethodUtil {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
                     NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                     return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToBinString())) {
-                    long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
-                    return (new StringStruct(StringExpUtil.toLongGeneBin(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToOctString())) {
-                    long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
-                    return (new StringStruct(StringExpUtil.toLongGeneOct(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToHexString())) {
-                    long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
-                    return (new StringStruct(StringExpUtil.toLongGeneHex(one_)));
                 }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasSignum())) {
                     long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();

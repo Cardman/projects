@@ -170,21 +170,6 @@ public final class AliasNumberType {
                 _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
                 return;
             }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToBinString())) {
-                byte one_ = NumParsers.convertToNumber(_args[0]).byteStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toByteGeneBin(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToOctString())) {
-                byte one_ = NumParsers.convertToNumber(_args[0]).byteStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toByteGeneOct(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToHexString())) {
-                byte one_ = NumParsers.convertToNumber(_args[0]).byteStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toByteGeneHex(one_)));
-                return;
-            }
             byte one_ = NumParsers.convertToNumber(_args[0]).byteStruct();
             _res.setResult(new StringStruct(Long.toString(one_)));
             return;
@@ -199,21 +184,6 @@ public final class AliasNumberType {
                 _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
                 return;
             }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToBinString())) {
-                short one_ = NumParsers.convertToNumber(_args[0]).shortStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toShortGeneBin(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToOctString())) {
-                short one_ = NumParsers.convertToNumber(_args[0]).shortStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toShortGeneOct(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToHexString())) {
-                short one_ = NumParsers.convertToNumber(_args[0]).shortStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toShortGeneHex(one_)));
-                return;
-            }
             short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
             _res.setResult(new StringStruct(Long.toString(one_)));
             return;
@@ -226,21 +196,6 @@ public final class AliasNumberType {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompareTo())) {
                 NumberStruct instance_ = NumParsers.convertToNumber(_struct);
                 _res.setResult(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToBinString())) {
-                int one_ = NumParsers.convertToNumber(_args[0]).intStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toGeneBin(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToOctString())) {
-                int one_ = NumParsers.convertToNumber(_args[0]).intStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toGeneOct(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToHexString())) {
-                int one_ = NumParsers.convertToNumber(_args[0]).intStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toGeneHex(one_)));
                 return;
             }
             int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
@@ -260,21 +215,6 @@ public final class AliasNumberType {
             if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasSignum())) {
                 long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                 _res.setResult(new ByteStruct(NumberUtil.signum(nb_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToBinString())) {
-                long one_ = NumParsers.convertToNumber(_args[0]).longStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toLongGeneBin(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToOctString())) {
-                long one_ = NumParsers.convertToNumber(_args[0]).longStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toLongGeneOct(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToHexString())) {
-                long one_ = NumParsers.convertToNumber(_args[0]).longStruct();
-                _res.setResult(new StringStruct(StringExpUtil.toLongGeneHex(one_)));
                 return;
             }
             if (_method.getConstraints().getParametersTypesLength() == 2) {
@@ -547,7 +487,9 @@ public final class AliasNumberType {
         methods_.add(addToStrMeth(_lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToStringMethod0())));
         methods_.addAllElts(addParserMaths(_lgNames, aliasByte, aliasParseByte, new StringList(params.getAliasByte0ParseByte0()), new StringList(params.getAliasByte1ParseByte0(), params.getAliasByte1ParseByte1()), new FctByte(new DefRadix()), new FctByte(new ArgRadix())));
         methods_.addAllElts(addCompare(_lgNames, aliasPrimByte_, aliasByte, new StringList(params.getAliasByte0CompareTo0()), new StringList(params.getAliasByte0Compare0(),params.getAliasByte0Compare1())));
-        methods_.addAllElts(addBaseStr(_lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToBinString0()), new StringList(params.getAliasByte0ToOctString0()), new StringList(params.getAliasByte0ToHexString0())));
+        methods_.add(addSpecBaseStr(aliasToBinString, _lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToBinString0()),new FctByteStrBin()));
+        methods_.add(addSpecBaseStr(aliasToOctString, _lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToOctString0()),new FctByteStrOct()));
+        methods_.add(addSpecBaseStr(aliasToHexString, _lgNames, aliasPrimByte_, new StringList(params.getAliasByte0ToHexString0()),new FctByteStrHex()));
         methods_.addAllElts(addParserMaths(_lgNames, aliasByte, aliasParseByteOrNull, new StringList(params.getAliasByte0ParseByteOrNull0()), new StringList(params.getAliasByte1ParseByteOrNull0(),params.getAliasByte1ParseByteOrNull1()), new FctByteSafe(new DefRadix()), new FctByteSafe(new ArgRadix())));
         numbersValuesFields(fields_, aliasPrimByte_);
         standards_.addEntry(aliasByte, std_);
@@ -559,7 +501,9 @@ public final class AliasNumberType {
         methods_.add(addToStrMeth(_lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToStringMethod0())));
         methods_.addAllElts(addParserMaths(_lgNames, aliasShort, aliasParseShort, new StringList(params.getAliasShort0ParseShort0()), new StringList(params.getAliasShort1ParseShort0(), params.getAliasShort1ParseShort1()), new FctShort(new DefRadix()), new FctShort(new ArgRadix())));
         methods_.addAllElts(addCompare(_lgNames, aliasPrimShort_, aliasShort, new StringList(params.getAliasShort0CompareTo0()), new StringList(params.getAliasShort0Compare0(),params.getAliasShort0Compare1())));
-        methods_.addAllElts(addBaseStr(_lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToBinString0()), new StringList(params.getAliasShort0ToOctString0()), new StringList(params.getAliasShort0ToHexString0())));
+        methods_.add(addSpecBaseStr(aliasToBinString, _lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToBinString0()),new FctShortStrBin()));
+        methods_.add(addSpecBaseStr(aliasToOctString, _lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToOctString0()),new FctShortStrOct()));
+        methods_.add(addSpecBaseStr(aliasToHexString, _lgNames, aliasPrimShort_, new StringList(params.getAliasShort0ToHexString0()),new FctShortStrHex()));
         methods_.addAllElts(addParserMaths(_lgNames, aliasShort, aliasParseShortOrNull, new StringList(params.getAliasShort0ParseShortOrNull0()), new StringList(params.getAliasShort1ParseShortOrNull0(),params.getAliasShort1ParseShortOrNull1()), new FctShortSafe(new DefRadix()), new FctShortSafe(new ArgRadix())));
         numbersValuesFields(fields_, aliasPrimShort_);
         standards_.addEntry(aliasShort, std_);
@@ -571,7 +515,9 @@ public final class AliasNumberType {
         methods_.add(addToStrMeth(_lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToStringMethod0())));
         methods_.addAllElts(addParserMaths(_lgNames, aliasInteger, aliasParseInt, new StringList(params.getAliasInteger0ParseInt0()), new StringList(params.getAliasInteger1ParseInt0(), params.getAliasInteger1ParseInt1()), new FctInteger(new DefRadix()), new FctInteger(new ArgRadix())));
         methods_.addAllElts(addCompare(_lgNames, aliasPrimInteger_, aliasInteger, new StringList(params.getAliasInteger0CompareTo0()), new StringList(params.getAliasInteger0Compare0(),params.getAliasInteger0Compare1())));
-        methods_.addAllElts(addBaseStr(_lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToBinString0()), new StringList(params.getAliasInteger0ToOctString0()), new StringList(params.getAliasInteger0ToHexString0())));
+        methods_.add(addSpecBaseStr(aliasToBinString, _lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToBinString0()),new FctIntegerStrBin()));
+        methods_.add(addSpecBaseStr(aliasToOctString, _lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToOctString0()),new FctIntegerStrOct()));
+        methods_.add(addSpecBaseStr(aliasToHexString, _lgNames, aliasPrimInteger_, new StringList(params.getAliasInteger0ToHexString0()),new FctIntegerStrHex()));
         methods_.addAllElts(addParserMaths(_lgNames, aliasInteger, aliasParseIntOrNull, new StringList(params.getAliasInteger0ParseIntOrNull0()), new StringList(params.getAliasInteger1ParseIntOrNull0(),params.getAliasInteger1ParseIntOrNull1()), new FctIntegerSafe(new DefRadix()), new FctIntegerSafe(new ArgRadix())));
         numbersValuesFields(fields_, aliasPrimInteger_);
         standards_.addEntry(aliasInteger, std_);
@@ -583,7 +529,9 @@ public final class AliasNumberType {
         methods_.add(addToStrMeth(_lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToStringMethod0())));
         methods_.addAllElts(addParserMaths(_lgNames, aliasLong, aliasParseLong, new StringList(params.getAliasLong0ParseLong0()), new StringList(params.getAliasLong1ParseLong0(), params.getAliasLong1ParseLong1()), new FctLong(new DefRadix()), new FctLong(new ArgRadix())));
         methods_.addAllElts(addCompare(_lgNames, aliasPrimLong_, aliasLong, new StringList(params.getAliasLong0CompareTo0()), new StringList(params.getAliasLong0Compare0(),params.getAliasLong0Compare1())));
-        methods_.addAllElts(addBaseStr(_lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToBinString0()), new StringList(params.getAliasLong0ToOctString0()), new StringList(params.getAliasLong0ToHexString0())));
+        methods_.add(addSpecBaseStr(aliasToBinString, _lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToBinString0()),new FctLongStrBin()));
+        methods_.add(addSpecBaseStr(aliasToOctString, _lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToOctString0()),new FctLongStrOct()));
+        methods_.add(addSpecBaseStr(aliasToHexString, _lgNames, aliasPrimLong_, new StringList(params.getAliasLong0ToHexString0()),new FctLongStrHex()));
         methods_.addAllElts(addParserMaths(_lgNames, aliasLong, aliasParseLongOrNull, new StringList(params.getAliasLong0ParseLongOrNull0()), new StringList(params.getAliasLong1ParseLongOrNull0(),params.getAliasLong1ParseLongOrNull1()), new FctLongSafe(new DefRadix()), new FctLongSafe(new ArgRadix())));
         numbersValuesFields(fields_, aliasPrimLong_);
         params_ = new StringList(aliasPrimLong_,aliasPrimInteger_);
@@ -713,20 +661,9 @@ public final class AliasNumberType {
         return methods_;
     }
 
-    private CustList<StandardMethod> addBaseStr(LgNames _lgNames, String _primitive, StringList _sixth, StringList _seventh, StringList _eighth) {
-        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
-        StringList params_;
-        StandardMethod method_;
-        params_ = new StringList(_primitive);
-        method_ = new StandardMethod(aliasToBinString, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC, _sixth);
-        methods_.add( method_);
-        params_ = new StringList(_primitive);
-        method_ = new StandardMethod(aliasToOctString, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC, _seventh);
-        methods_.add( method_);
-        params_ = new StringList(_primitive);
-        method_ = new StandardMethod(aliasToHexString, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC, _eighth);
-        methods_.add( method_);
-        return methods_;
+    private static StandardMethod addSpecBaseStr(String _name, LgNames _lgNames, String _primitive, StringList _paramsNames, StdCaller _caller) {
+        StringList params_ = new StringList(_primitive);
+        return new StandardMethod(_name, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC, _paramsNames, _caller);
     }
 
     private StandardMethod addToStrMeth(LgNames _lgNames, String _primitive, StringList _first) {
@@ -734,12 +671,12 @@ public final class AliasNumberType {
         return new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC, _first);
     }
 
-    private CustList<StandardMethod> addCompare(LgNames _lgNames, String _primitive, String _aliasLong, StringList _fourth, StringList _fifth) {
+    private CustList<StandardMethod> addCompare(LgNames _lgNames, String _primitive, String _owner, StringList _fourth, StringList _fifth) {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         String aliasPrimInteger_ = _lgNames.getContent().getPrimTypes().getAliasPrimInteger();
         StringList params_;
         StandardMethod method_;
-        params_ = new StringList(_aliasLong);
+        params_ = new StringList(_owner);
         method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL, _fourth);
         methods_.add( method_);
         params_ = new StringList(_primitive, _primitive);
