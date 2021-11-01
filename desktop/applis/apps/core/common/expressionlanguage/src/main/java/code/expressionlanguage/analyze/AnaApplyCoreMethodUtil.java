@@ -502,9 +502,6 @@ public final class AnaApplyCoreMethodUtil {
 
     private static Struct calculateLocCharSeq(CharSequenceStruct _charSequence, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
         String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasCharSequenceCompareTo())) {
-            return compareTo(_charSequence, _args[0]);
-        }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasRegionMatches())) {
             return regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]));
         }
@@ -513,9 +510,6 @@ public final class AnaApplyCoreMethodUtil {
                 return startsWith(_charSequence, _args[0]);
             }
             return startsWith(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasEndsWith())) {
-            return endsWith(_charSequence, _args[0]);
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasIndexOf())) {
             if (_method.getConstraints().getParametersTypesLength() == 1) {
@@ -528,9 +522,6 @@ public final class AnaApplyCoreMethodUtil {
                 return indexOfString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
             }
             return indexOf(_charSequence, _args[0], _args[1]);
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasContains())) {
-            return contains(_charSequence, _args[0]);
         }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasLastIndexOf())) {
             if (_method.getConstraints().getParametersTypesLength() == 1) {
@@ -556,14 +547,6 @@ public final class AnaApplyCoreMethodUtil {
         return null;
     }
 
-    private static Struct compareTo(CharSequenceStruct _charSequence, Struct _anotherString) {
-        if (!(_anotherString instanceof CharSequenceStruct)) {
-            return null;
-        }
-        CharSequenceStruct st_ = NumParsers.getCharSeq(_anotherString);
-        return new IntStruct(StringUtil.compareStrings(_charSequence.toStringInstance(),st_.toStringInstance()));
-    }
-
     private static Struct regionMatches(CharSequenceStruct _charSequence, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
                                         NumberStruct _len) {
         if (!(_other instanceof CharSequenceStruct)) {
@@ -578,14 +561,6 @@ public final class AnaApplyCoreMethodUtil {
 
     private static Struct startsWith(CharSequenceStruct _charSequence, Struct _prefix) {
         return startsWith(_charSequence, _prefix,new IntStruct(0));
-    }
-
-    private static Struct endsWith(CharSequenceStruct _charSequence, Struct _suffix) {
-        if (!(_suffix instanceof CharSequenceStruct)) {
-            return null;
-        }
-        CharSequenceStruct suffix_ = NumParsers.getCharSeq(_suffix);
-        return BooleanStruct.of(_charSequence.toStringInstance().endsWith(suffix_.toStringInstance()));
     }
 
     private static Struct startsWith(CharSequenceStruct _charSequence, Struct _prefix, NumberStruct _toffset) {
@@ -607,14 +582,6 @@ public final class AnaApplyCoreMethodUtil {
         NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
         int from_ = index_.intStruct();
         return new IntStruct(_charSequence.toStringInstance().indexOf(int_, from_));
-    }
-
-    private static Struct contains(CharSequenceStruct _charSequence, Struct _str) {
-        if (!(_str instanceof CharSequenceStruct)) {
-            return null;
-        }
-        CharSequenceStruct arg_ = NumParsers.getCharSeq(_str);
-        return BooleanStruct.of(_charSequence.toStringInstance().contains(arg_.toStringInstance()));
     }
 
     private static Struct indexOfString(CharSequenceStruct _charSequence, Struct _str) {

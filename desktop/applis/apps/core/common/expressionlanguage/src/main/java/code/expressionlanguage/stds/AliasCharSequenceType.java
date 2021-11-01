@@ -675,10 +675,6 @@ public final class AliasCharSequenceType {
             getBytes(_charSequence, lgNames_, _res);
             return;
         }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasCharSequenceCompareTo())) {
-            compareTo(_charSequence, _args[0], _res, _cont, _stackCall);
-            return;
-        }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasRegionMatches())) {
             regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]), _res, _cont, _stackCall);
             return;
@@ -689,10 +685,6 @@ public final class AliasCharSequenceType {
                 return;
             }
             startsWith(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), _res, _cont, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasEndsWith())) {
-            endsWith(_charSequence, _args[0], _res, _cont, _stackCall);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasIndexOf())) {
@@ -709,10 +701,6 @@ public final class AliasCharSequenceType {
                 return;
             }
             indexOf(_charSequence, _args[0], _args[1], _res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasContains())) {
-            contains(_charSequence, _args[0], _res, _cont, _stackCall);
             return;
         }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasLastIndexOf())) {
@@ -787,15 +775,6 @@ public final class AliasCharSequenceType {
         _res.setResult(result_);
     }
 
-    private static void compareTo(CharSequenceStruct _charSequence, Struct _anotherString, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_anotherString instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        CharSequenceStruct st_ = NumParsers.getCharSeq(_anotherString);
-        _res.setResult(new IntStruct(StringUtil.compareStrings(_charSequence.toStringInstance(),st_.toStringInstance())));
-    }
-
     private static void regionMatches(CharSequenceStruct _charSequence, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
                                       NumberStruct _len, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
         if (!(_other instanceof CharSequenceStruct)) {
@@ -811,15 +790,6 @@ public final class AliasCharSequenceType {
 
     private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
         startsWith(_charSequence, _prefix,new IntStruct(0), _res, _context, _stackCall);
-    }
-
-    private static void endsWith(CharSequenceStruct _charSequence, Struct _suffix, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_suffix instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        CharSequenceStruct suffix_ = NumParsers.getCharSeq(_suffix);
-        _res.setResult(BooleanStruct.of(_charSequence.toStringInstance().endsWith(suffix_.toStringInstance())));
     }
 
     private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, NumberStruct _toffset, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
@@ -842,15 +812,6 @@ public final class AliasCharSequenceType {
         NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
         int from_ = index_.intStruct();
         _res.setResult(new IntStruct(_charSequence.toStringInstance().indexOf(int_, from_)));
-    }
-
-    private static void contains(CharSequenceStruct _charSequence, Struct _str, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        CharSequenceStruct arg_ = NumParsers.getCharSeq(_str);
-        _res.setResult(BooleanStruct.of(_charSequence.toStringInstance().contains(arg_.toStringInstance())));
     }
 
     private static void indexOfString(CharSequenceStruct _charSequence, Struct _str, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
@@ -1103,10 +1064,10 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1Substring0()),new FctCharSeqSubstring0());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasCharSequenceCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0CompareTo0()));
+        method_ = new StandardMethod(aliasCharSequenceCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0CompareTo0()),new FctCharSeqCompareTo());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasContains, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Contains0()));
+        method_ = new StandardMethod(aliasContains, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Contains0()),new FctCharSeqContains());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
         method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0StartsWith0()));
@@ -1115,7 +1076,7 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1StartsWith0(),params.getAliasCharSequence1StartsWith1()));
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasEndsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0EndsWith0()));
+        method_ = new StandardMethod(aliasEndsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0EndsWith0()),new FctCharSeqEndsWith());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
         method_ = new StandardMethod(aliasIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0IndexOf0()));
