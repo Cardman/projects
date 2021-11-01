@@ -476,46 +476,18 @@ public final class AnaApplyCoreMethodUtil {
                 || StringUtil.quickEq(type_, floatType_)
                 || StringUtil.quickEq(type_, doubleType_)) {
             if (StringUtil.quickEq(type_, byteType_)) {
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                    return(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                    NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                    return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
-                }
                 byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
                 return (new StringStruct(Long.toString(one_)));
             }
             if (StringUtil.quickEq(type_, shortType_)) {
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                    return(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                    NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                    return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
-                }
                 short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
                 return (new StringStruct(Long.toString(one_)));
             }
             if (StringUtil.quickEq(type_, intType_)) {
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                    return(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                    NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                    return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
-                }
                 int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
                 return (new StringStruct(Long.toString(one_)));
             }
             if (StringUtil.quickEq(type_, longType_)) {
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                    return(new IntStruct(NumParsers.compare(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                    NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                    return(new IntStruct(NumParsers.compare(instance_, NumParsers.convertToNumber(_args[0]))));
-                }
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasSignum())) {
                     long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
                     return new ByteStruct(NumberUtil.signum(nb_));
@@ -529,25 +501,11 @@ public final class AnaApplyCoreMethodUtil {
                 return (new StringStruct(Long.toString(one_)));
             }
             if (StringUtil.quickEq(type_, floatType_)) {
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                    return(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                    NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                    return(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
-                }
                 DisplayedStrings dis_ = _page.getDisplayedStrings();
                 NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
                 return NumParsers.getFloatString(nb_,dis_.getInfinity(),
                         dis_.getNan(),
                         dis_.getExponent());
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                return(new IntStruct(NumParsers.compareGene(NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]))));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                NumberStruct instance_ = NumParsers.convertToNumber(_struct);
-                return(new IntStruct(NumParsers.compareGene(instance_, NumParsers.convertToNumber(_args[0]))));
             }
             DisplayedStrings dis_ = _page.getDisplayedStrings();
             NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);

@@ -76,7 +76,7 @@ public final class ApplyCoreMethodUtil {
                 || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasFloat())
                 || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasDouble())) {
             ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumberType.processNumbers(_cont, result_, _method, _struct, type_, args_);
+            AliasNumberType.processNumbers(_cont, result_, _method, type_, args_);
             return result_;
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasNumber())) {
