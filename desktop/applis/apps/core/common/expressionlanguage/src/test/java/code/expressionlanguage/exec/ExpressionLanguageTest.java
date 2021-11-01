@@ -3955,6 +3955,12 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl784_Test() {
+        Argument arg_ = directCalculate("Float.parseFloat(\"-1\")");
+        assertEq(-1.0, getDouble(arg_));
+    }
+
+    @Test
     public void processEl785Test() {
         Argument arg_ = directCalculate("Double.parseDouble(\"1\")");
         assertEq(1.0, getDouble(arg_));

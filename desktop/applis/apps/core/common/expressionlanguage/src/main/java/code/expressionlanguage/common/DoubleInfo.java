@@ -23,7 +23,8 @@ public final class DoubleInfo {
     }
 
     public boolean outOfRange(double _min, double _max) {
-        return !isValid() || !zero&&(value < _min || value > _max);
+        double absValue_ = Math.abs(value);
+        return !isValid() || !zero&&(absValue_ < _min || absValue_ > _max);
     }
     public boolean isValid() {
         return valid;
