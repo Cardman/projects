@@ -4115,6 +4115,14 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl805_Test() {
+        Struct arg_ = directCalculateExc("Float.parseFloat(\"1e-100\")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat",err_.getClassName());
+        assertEq("1e-100",((StringStruct)err_.getMessage()).getInstance());
+    }
+
+    @Test
     public void processEl806Test() {
         Argument arg_ = directCalculate("((Number)1).compareTo(1)");
         assertEq(0, getNumber(arg_));
@@ -4220,6 +4228,14 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         ErrorStruct err_ = (ErrorStruct) arg_;
         assertEq("java.lang.badFormat",err_.getClassName());
         assertEq("-1e100",((StringStruct)err_.getMessage()).getInstance());
+    }
+
+    @Test
+    public void processEl820_Test() {
+        Struct arg_ = directCalculateExc("Float.parseFloat(\"-1e-100\")");
+        ErrorStruct err_ = (ErrorStruct) arg_;
+        assertEq("java.lang.badFormat",err_.getClassName());
+        assertEq("-1e-100",((StringStruct)err_.getMessage()).getInstance());
     }
 
     @Test
