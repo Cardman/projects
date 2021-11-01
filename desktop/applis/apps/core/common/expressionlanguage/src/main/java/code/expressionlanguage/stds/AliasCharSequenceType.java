@@ -10,10 +10,14 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fcts.*;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
-import code.util.*;
+import code.util.CustList;
+import code.util.Replacement;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AliasCharSequenceType {
@@ -679,14 +683,6 @@ public final class AliasCharSequenceType {
             regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]), _res, _cont, _stackCall);
             return;
         }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasStartsWith())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                startsWith(_charSequence, _args[0], _res, _cont, _stackCall);
-                return;
-            }
-            startsWith(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), _res, _cont, _stackCall);
-            return;
-        }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasIndexOf())) {
             if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
@@ -786,20 +782,6 @@ public final class AliasCharSequenceType {
         int po_ = _ooffset.intStruct();
         int comLen_ = _len.intStruct();
         _res.setResult(BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_)));
-    }
-
-    private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        startsWith(_charSequence, _prefix,new IntStruct(0), _res, _context, _stackCall);
-    }
-
-    private static void startsWith(CharSequenceStruct _charSequence, Struct _prefix, NumberStruct _toffset, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_prefix instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        CharSequenceStruct pref_ = NumParsers.getCharSeq(_prefix);
-        int to_ = _toffset.intStruct();
-        _res.setResult(BooleanStruct.of(_charSequence.toStringInstance().startsWith(pref_.toStringInstance(), to_)));
     }
 
     private static void indexOf(CharSequenceStruct _charSequence, Struct _ch, ResultErrorStd _res) {
@@ -1070,10 +1052,10 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasContains, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Contains0()),new FctCharSeqContains());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0StartsWith0()));
+        method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0StartsWith0()),new FctCharSeqStartsWith0());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1StartsWith0(),params.getAliasCharSequence1StartsWith1()));
+        method_ = new StandardMethod(aliasStartsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1StartsWith0(),params.getAliasCharSequence1StartsWith1()),new FctCharSeqStartsWith1());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
         method_ = new StandardMethod(aliasEndsWith, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0EndsWith0()),new FctCharSeqEndsWith());

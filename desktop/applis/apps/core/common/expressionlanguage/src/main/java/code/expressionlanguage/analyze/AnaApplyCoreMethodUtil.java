@@ -505,12 +505,6 @@ public final class AnaApplyCoreMethodUtil {
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasRegionMatches())) {
             return regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]));
         }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasStartsWith())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                return startsWith(_charSequence, _args[0]);
-            }
-            return startsWith(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]));
-        }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasIndexOf())) {
             if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof NumberStruct)) {
@@ -557,19 +551,6 @@ public final class AnaApplyCoreMethodUtil {
         int to_ = _toffset.intStruct();
         int po_ = _ooffset.intStruct();
         return BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_));
-    }
-
-    private static Struct startsWith(CharSequenceStruct _charSequence, Struct _prefix) {
-        return startsWith(_charSequence, _prefix,new IntStruct(0));
-    }
-
-    private static Struct startsWith(CharSequenceStruct _charSequence, Struct _prefix, NumberStruct _toffset) {
-        if (!(_prefix instanceof CharSequenceStruct)) {
-            return null;
-        }
-        CharSequenceStruct pref_ = NumParsers.getCharSeq(_prefix);
-        int to_ = _toffset.intStruct();
-        return BooleanStruct.of(_charSequence.toStringInstance().startsWith(pref_.toStringInstance(), to_));
     }
 
     private static Struct indexOf(CharSequenceStruct _charSequence, Struct _ch) {
