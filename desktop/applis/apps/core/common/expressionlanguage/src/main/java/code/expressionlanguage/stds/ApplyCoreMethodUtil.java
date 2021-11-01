@@ -59,11 +59,6 @@ public final class ApplyCoreMethodUtil {
         if (StringUtil.quickEq(type_, mathType_)) {
             return AliasMathType.invokeStdMethod(_cont, _method, _stackCall, _args);
         }
-        if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasBoolean())) {
-            ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumberType.processBoolean(_cont, result_, _method, _struct, args_);
-            return result_;
-        }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasCharacter())) {
             ResultErrorStd result_ = new ResultErrorStd();
             AliasNumberType.processCharacter(_cont, result_, _method, _struct, args_, _stackCall);

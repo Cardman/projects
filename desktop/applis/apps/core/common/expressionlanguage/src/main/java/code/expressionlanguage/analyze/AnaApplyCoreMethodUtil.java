@@ -344,46 +344,8 @@ public final class AnaApplyCoreMethodUtil {
     private static Struct calculateNumber(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
-        String booleanType_ = _page.getNbAlias().getAliasBoolean();
         String charType_ = _page.getNbAlias().getAliasCharacter();
         String nbType_ = _page.getNbAlias().getAliasNumber();
-        String booleanPrimType_ = _page.getAliasPrimBoolean();
-        if (StringUtil.quickEq(type_, booleanType_)) {
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasBooleanValue())) {
-                return _struct;
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                return NumParsers.cmpBool(_args[0],_args[1]);
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompareTo())) {
-                return NumParsers.cmpBool(_struct,_args[0]);
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasEquals())) {
-                return BooleanStruct.of(_struct.sameReference(_args[0]));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasParseBoolean())) {
-                StringStruct disp_ = NumParsers.getString(_args[0]);
-                if (StringUtil.quickEq(disp_.getInstance(),_page.getDisplayedStrings().getTrueString())) {
-                    return(BooleanStruct.of(true));
-                }
-                return(BooleanStruct.of(false));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToStringMethod())) {
-                if (_method.getConstraints().getParametersTypesLength() > 0) {
-                    return ((NumParsers.convertToBoolean(_args[0])).getDisplayedString(_page));
-                }
-                BooleanStruct instance_ = NumParsers.convertToBoolean(_struct);
-                return (instance_.getDisplayedString(_page));
-            }
-            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), booleanPrimType_)) {
-                return (_args[0]);
-            }
-            StringStruct disp_ = NumParsers.getString(_args[0]);
-            if (StringUtil.quickEq(disp_.getInstance(), _page.getDisplayedStrings().getTrueString())) {
-                return (BooleanStruct.of(true));
-            }
-            return (BooleanStruct.of(false));
-        }
         if (StringUtil.quickEq(type_, charType_)) {
             if (_method.getConstraints().isStaticMethod()) {
                 if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
