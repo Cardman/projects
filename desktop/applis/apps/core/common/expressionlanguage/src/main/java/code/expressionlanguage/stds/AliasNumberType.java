@@ -1,19 +1,15 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.*;
+import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.fcts.*;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
-import code.expressionlanguage.structs.*;
-import code.maths.litteralcom.MathExpUtil;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class AliasNumberType {
@@ -78,110 +74,6 @@ public final class AliasNumberType {
     private String aliasToLowerCaseChar;
     private String aliasToUpperCaseChar;
     private final AliasParamNumber params = new AliasParamNumber();
-
-    public static void processCharacter(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, Struct[] _args, StackCall _stackCall) {
-        LgNames lgNames_ = _cont.getStandards();
-        String name_ = _method.getConstraints().getName();
-        if (_method.getConstraints().isStaticMethod()) {
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCompare())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                char two_ = NumParsers.convertToChar(_args[1]).getChar();
-                _res.setResult(new IntStruct(NumberUtil.compareLg(one_,two_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasDigit())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                _res.setResult(new IntStruct(StringDataUtil.digit(one_, two_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasForDigit())) {
-                int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-                int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                _res.setResult(new CharStruct(StringDataUtil.forDigit(one_, two_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetDirectionality())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new ByteStruct(StringDataUtil.getDirectionality(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasGetCharType())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new IntStruct(StringDataUtil.getType(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsDigit())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringExpUtil.isDigit(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetter())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringDataLetterUtil.isLetter(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLetterOrDigit())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringDataUtil.isLetterOrDigit(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsLowerCase())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringDataUtil.isLowerCase(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsUpperCase())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringDataUtil.isUpperCase(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsSpace())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringUtil.isWhitespace(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWhitespace())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(StringUtil.isWhitespace(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasIsWordChar())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(BooleanStruct.of(MathExpUtil.isWordChar(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToLowerCaseChar())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new CharStruct(StringDataUtil.toLowerCase(one_)));
-                return;
-            }
-            if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasToUpperCaseChar())) {
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                _res.setResult(new CharStruct(StringDataUtil.toUpperCase(one_)));
-                return;
-            }
-            char one_ = NumParsers.convertToChar(_args[0]).getChar();
-            _res.setResult(new StringStruct(Character.toString(one_)));
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getNbAlias().getAliasCharValue())) {
-            _res.setResult(_struct);
-            return;
-        }
-        if (!(_args[0] instanceof CharStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-            return;
-        }
-        CharStruct ch_ = NumParsers.convertToChar(_struct);
-        char one_ = ch_.getChar();
-        char two_ = ((CharStruct) _args[0]).getChar();
-        _res.setResult(new IntStruct(NumberUtil.compareLg(one_,two_)));
-    }
-
-    private static ErrorStruct getNpe(ContextEl _context, StackCall _stackCall) {
-        return new ErrorStruct(_context, _context.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
-    }
 
     public static ErrorStruct getFormatError(ContextEl _context, String _text, StackCall _stackCall) {
         return new ErrorStruct(_context, _text, _context.getStandards().getContent().getCoreNames().getAliasNbFormat(), _stackCall);
@@ -355,58 +247,58 @@ public final class AliasNumberType {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasCharacter, fields_, constructors_, methods_, aliasInteger, MethodModifier.FINAL, new DfNb(aliasCharacter));
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCharValue, params_, aliasPrimChar_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasCharValue, params_, aliasPrimChar_, false, MethodModifier.NORMAL, new FctNbIdInst());
         methods_.add( method_);
         params_ = new StringList(aliasCharacter);
-        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharacter0CompareTo0()));
+        method_ = new StandardMethod(aliasCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharacter0CompareTo0()),new FctNbCompareToSpecRelCheck());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_, aliasPrimChar_);
-        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0Compare0(),params.getAliasCharacter0Compare1()));
+        method_ = new StandardMethod(aliasCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0Compare0(),params.getAliasCharacter0Compare1()),new FctNbCompareSpecRel());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasDigit, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0Digit0(),params.getAliasCharacter0Digit1()));
+        method_ = new StandardMethod(aliasDigit, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0Digit0(),params.getAliasCharacter0Digit1()),new FctCharDigit());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasForDigit, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ForDigit0(),params.getAliasCharacter0ForDigit1()));
+        method_ = new StandardMethod(aliasForDigit, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ForDigit0(),params.getAliasCharacter0ForDigit1()),new FctCharForDigit());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetDirectionality0()));
+        method_ = new StandardMethod(aliasGetDirectionality, params_, aliasPrimByte_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetDirectionality0()),new FctCharGetDirectionality());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasGetCharType, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetType0()));
+        method_ = new StandardMethod(aliasGetCharType, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0GetType0()), new FctCharGetCharType());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsDigit0()));
+        method_ = new StandardMethod(aliasIsDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsDigit0()),new FctCharIsDigit());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsLetter, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLetter0()));
+        method_ = new StandardMethod(aliasIsLetter, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLetter0()),new FctCharIsLetter());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsLetterOrDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLetterOrDigit0()));
+        method_ = new StandardMethod(aliasIsLetterOrDigit, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLetterOrDigit0()),new FctCharIsLetterOrDigit());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsWordChar, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsWordChar0()));
+        method_ = new StandardMethod(aliasIsWordChar, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsWordChar0()),new FctCharIsWordChar());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsWhitespace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsWhitespace0()));
+        method_ = new StandardMethod(aliasIsWhitespace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsWhitespace0()),new FctCharIsSpace());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsLowerCase, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLowerCase0()));
+        method_ = new StandardMethod(aliasIsLowerCase, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsLowerCase0()),new FctCharIsLowerCase());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsUpperCase, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsUpperCase0()));
+        method_ = new StandardMethod(aliasIsUpperCase, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsUpperCase0()),new FctCharIsUpperCase());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasIsSpace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsSpace0()));
+        method_ = new StandardMethod(aliasIsSpace, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0IsSpace0()),new FctCharIsSpace());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasToLowerCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToLowerCaseChar0()));
+        method_ = new StandardMethod(aliasToLowerCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToLowerCaseChar0()),new FctCharToLowerCase());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasToUpperCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToUpperCaseChar0()));
+        method_ = new StandardMethod(aliasToUpperCaseChar, params_, aliasPrimChar_, false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToUpperCaseChar0()),new FctCharToUpperCase());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToStringMethod0()));
+        method_ = new StandardMethod(aliasToStringMethod, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.STATIC,new StringList(params.getAliasCharacter0ToStringMethod0()),new FctCharToStr());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
         ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasCharacter0Character0()),new FctNbId());

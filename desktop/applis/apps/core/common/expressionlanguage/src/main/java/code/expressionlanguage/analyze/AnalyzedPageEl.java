@@ -210,9 +210,6 @@ public final class AnalyzedPageEl {
     public AliasCharSequenceType getCharSeq() {
         return content.getCharSeq();
     }
-    public AliasNumberType getNbAlias() {
-        return content.getNbAlias();
-    }
 
     public AliasCore getCoreNames() {
         return content.getCoreNames();

@@ -7,7 +7,6 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.maths.litteralcom.MathExpUtil;
 import code.util.Replacement;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -76,7 +75,7 @@ public final class AnaApplyCoreMethodUtil {
         if (StringUtil.quickEq(type_, mathType_)) {
             return invokeAnalyzisMathStdMethod(_method, _page, _args);
         }
-        return calculateNumber(_method, _struct, _page, args_);
+        return null;
     }
 
     public static Struct newAnalyzisInstanceStd(StandardConstructor _constructor, AnalyzedPageEl _page, Argument... _args) {
@@ -337,92 +336,6 @@ public final class AnaApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(name_, am_.getAliasRotateRight())) {
             return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
-        }
-        return null;
-    }
-
-    private static Struct calculateNumber(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
-        String type_ = _method.getClassName();
-        String name_ = _method.getConstraints().getName();
-        String charType_ = _page.getNbAlias().getAliasCharacter();
-        if (StringUtil.quickEq(type_, charType_)) {
-            if (_method.getConstraints().isStaticMethod()) {
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    char two_ = NumParsers.convertToChar(_args[1]).getChar();
-                    return(new IntStruct(NumberUtil.compareLg(one_,two_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasDigit())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                    return(new IntStruct(StringDataUtil.digit(one_, two_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasForDigit())) {
-                    int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-                    int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                    return(new CharStruct(StringDataUtil.forDigit(one_, two_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasGetDirectionality())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(new ByteStruct(StringDataUtil.getDirectionality(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasGetCharType())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(new IntStruct(StringDataUtil.getType(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsDigit())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringExpUtil.isDigit(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsLetter())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringDataLetterUtil.isLetter(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsLetterOrDigit())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringDataUtil.isLetterOrDigit(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsLowerCase())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringDataUtil.isLowerCase(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsUpperCase())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringDataUtil.isUpperCase(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsSpace())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringUtil.isWhitespace(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsWhitespace())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(StringUtil.isWhitespace(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasIsWordChar())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(BooleanStruct.of(MathExpUtil.isWordChar(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToLowerCaseChar())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(new CharStruct(StringDataUtil.toLowerCase(one_)));
-                }
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasToUpperCaseChar())) {
-                    char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                    return(new CharStruct(StringDataUtil.toUpperCase(one_)));
-                }
-                char one_ = NumParsers.convertToChar(_args[0]).getChar();
-                return(new StringStruct(Character.toString(one_)));
-            }
-            if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCharValue())) {
-                return _struct;
-            }
-            if (!(_args[0] instanceof CharStruct)) {
-                return null;
-            }
-            CharStruct ch_ = NumParsers.convertToChar(_struct);
-            char one_ = ch_.getChar();
-            char two_ = ((CharStruct) _args[0]).getChar();
-            return(new IntStruct(NumberUtil.compareLg(one_,two_)));
         }
         return null;
     }
