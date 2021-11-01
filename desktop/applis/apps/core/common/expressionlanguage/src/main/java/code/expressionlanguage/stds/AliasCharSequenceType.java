@@ -671,18 +671,6 @@ public final class AliasCharSequenceType {
     private static void calculateLocCharSeq(CharSequenceStruct _charSequence, ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, StackCall _stackCall, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasLength())) {
-            length(_charSequence, _res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasIsEmpty())) {
-            isEmpty(_charSequence, _res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasCharAt())) {
-            charAt(_charSequence, _args[0], _res, _cont, _stackCall);
-            return;
-        }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasGetBytes())) {
             getBytes(_charSequence, lgNames_, _res);
             return;
@@ -743,14 +731,6 @@ public final class AliasCharSequenceType {
             lastIndexOf(_charSequence, _args[0], _args[1], _res);
             return;
         }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSubstring()) || StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSubSequence())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                substring(_charSequence, NumParsers.convertToNumber(_args[0]), _res, _cont, _stackCall);
-                return;
-            }
-            substring(_charSequence, NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]), _res, _cont, _stackCall);
-            return;
-        }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSplit())) {
             if (_method.getConstraints().getParametersTypesLength() == 1) {
                 if (!(_args[0] instanceof CharStruct)) {
@@ -792,28 +772,6 @@ public final class AliasCharSequenceType {
             return;
         }
         _res.setResult(_charSequence.getDisplayedString(_cont));
-    }
-
-    private static void length(CharSequenceStruct _charSequence, ResultErrorStd _res) {
-        _res.setResult(new IntStruct(_charSequence.length()));
-    }
-
-    private static void isEmpty(CharSequenceStruct _charSequence, ResultErrorStd _res) {
-        _res.setResult(NumParsers.isEmpty(_charSequence));
-    }
-
-    private static void charAt(CharSequenceStruct _charSequence, Struct _index, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        NumberStruct nb_ = NumParsers.convertToNumber(_index);
-        int ind_ = nb_.intStruct();
-        if (NumParsers.isInvalidIndex(ind_, _charSequence)) {
-            if (ind_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(ind_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getEndMessage(ind_, ">=", _charSequence.length()), _stackCall)));
-            }
-            return;
-        }
-        _res.setResult(new CharStruct(_charSequence.charAt(ind_)));
     }
 
     private static void getBytes(CharSequenceStruct _charSequence, LgNames _stds, ResultErrorStd _res) {
@@ -938,26 +896,6 @@ public final class AliasCharSequenceType {
         CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
         int from_ = _fromIndex.intStruct();
         _res.setResult(new IntStruct(_charSequence.toStringInstance().lastIndexOf(str_.toStringInstance(), from_)));
-    }
-
-    private static void substring(CharSequenceStruct _charSequence, NumberStruct _beginIndex, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        substring(_charSequence, _beginIndex, new IntStruct(_charSequence.length()), _res, _context, _stackCall);
-    }
-
-    private static void substring(CharSequenceStruct _charSequence, NumberStruct _beginIndex, NumberStruct _endIndex, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        int begin_ = _beginIndex.intStruct();
-        int end_ = _endIndex.intStruct();
-        if (NumParsers.isIncorrectSub(begin_, end_, _charSequence)) {
-            if (begin_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getBeginMessage(begin_), _stackCall)));
-            } else if (end_ > _charSequence.length()) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getEndMessage(end_, ">", _charSequence.length()), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_context, getEndMessage(begin_, ">", end_), _stackCall)));
-            }
-            return;
-        }
-        _res.setResult(new StringStruct(_charSequence.substring(begin_, end_)));
     }
 
     private static void splitSingleChar(CharSequenceStruct _charSequence, CharStruct _sep, LgNames _stds, ResultErrorStd _res) {
@@ -1151,18 +1089,18 @@ public final class AliasCharSequenceType {
         String aliasPrimByte_ = _lgNames.getContent().getPrimTypes().getAliasPrimByte();
         String aliasObject_ = _lgNames.getContent().getCoreNames().getAliasObject();
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0SubSequence0(),params.getAliasCharSequence0SubSequence1()));
+        method_ = new StandardMethod(aliasSubSequence, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0SubSequence0(),params.getAliasCharSequence0SubSequence1()),new FctCharSeqSubstring1());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0CharAt0()));
+        method_ = new StandardMethod(aliasCharAt, params_, aliasPrimChar_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0CharAt0()),new FctCharSeqCharAt());
         methods_.add( method_);
-        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasLength, noTypes_, aliasPrimInteger_, false, MethodModifier.NORMAL,new FctCharSeqLength());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Substring0(),params.getAliasCharSequence0Substring1()));
+        method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Substring0(),params.getAliasCharSequence0Substring1()),new FctCharSeqSubstring1());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1Substring0()));
+        method_ = new StandardMethod(aliasSubstring, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1Substring0()),new FctCharSeqSubstring0());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
         method_ = new StandardMethod(aliasCharSequenceCompareTo, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0CompareTo0()));
@@ -1204,7 +1142,7 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasLastIndexOf, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence3LastIndexOf0(),params.getAliasCharSequence3LastIndexOf1()));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new FctCharSeqIsEmpty());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasToCharArray, params_, StringExpUtil.getPrettyArrayType(aliasPrimChar_), false, MethodModifier.NORMAL);
