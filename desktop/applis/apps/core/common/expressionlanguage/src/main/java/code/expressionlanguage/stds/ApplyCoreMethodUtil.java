@@ -69,16 +69,6 @@ public final class ApplyCoreMethodUtil {
             AliasNumberType.processCharacter(_cont, result_, _method, _struct, args_, _stackCall);
             return result_;
         }
-        if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasByte())
-                || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasShort())
-                || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasInteger())
-                || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasLong())
-                || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasFloat())
-                || StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasDouble())) {
-            ResultErrorStd result_ = new ResultErrorStd();
-            AliasNumberType.processNumbers(_cont, result_, _method, type_, args_);
-            return result_;
-        }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getNbAlias().getAliasNumber())) {
             ResultErrorStd result_ = new ResultErrorStd();
             AliasNumberType.processNumber(_cont, result_, _method, _struct, args_, _stackCall);

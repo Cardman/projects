@@ -9,26 +9,24 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.core.StringUtil;
 
-public final class FctBool implements AnaStdCaller {
+public final class FctNbDoubleToStr implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return common(_args[0], _page.getDisplayedStrings());
+        return str(_args[0], _page.getDisplayedStrings());
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(common(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont.getStandards().getDisplayedStrings()));
+        return new ArgumentWrapper(str(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont.getStandards().getDisplayedStrings()));
     }
 
-    private static Struct common(Struct _arg, DisplayedStrings _dis) {
-        String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
-        if (StringUtil.quickEq(one_, _dis.getTrueString())) {
-            return BooleanStruct.of(true);
-        }
-        return BooleanStruct.of(false);
+    private static Struct str(Struct _arg, DisplayedStrings _dis) {
+        NumberStruct nb_ = NumParsers.convertToNumber(_arg);
+        return NumParsers.getDoubleString(nb_,_dis.getInfinity(),
+                _dis.getNan(),
+                _dis.getExponent());
     }
 }

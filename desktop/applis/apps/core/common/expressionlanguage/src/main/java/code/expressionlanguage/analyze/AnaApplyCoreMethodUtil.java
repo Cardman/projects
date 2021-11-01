@@ -346,12 +346,6 @@ public final class AnaApplyCoreMethodUtil {
         String name_ = _method.getConstraints().getName();
         String booleanType_ = _page.getNbAlias().getAliasBoolean();
         String charType_ = _page.getNbAlias().getAliasCharacter();
-        String byteType_ = _page.getNbAlias().getAliasByte();
-        String shortType_ = _page.getNbAlias().getAliasShort();
-        String intType_ = _page.getNbAlias().getAliasInteger();
-        String longType_ = _page.getNbAlias().getAliasLong();
-        String floatType_ = _page.getNbAlias().getAliasFloat();
-        String doubleType_ = _page.getNbAlias().getAliasDouble();
         String nbType_ = _page.getNbAlias().getAliasNumber();
         String booleanPrimType_ = _page.getAliasPrimBoolean();
         if (StringUtil.quickEq(type_, booleanType_)) {
@@ -468,50 +462,6 @@ public final class AnaApplyCoreMethodUtil {
             char one_ = ch_.getChar();
             char two_ = ((CharStruct) _args[0]).getChar();
             return(new IntStruct(NumberUtil.compareLg(one_,two_)));
-        }
-        if (StringUtil.quickEq(type_, byteType_)
-                || StringUtil.quickEq(type_, shortType_)
-                || StringUtil.quickEq(type_, intType_)
-                || StringUtil.quickEq(type_, longType_)
-                || StringUtil.quickEq(type_, floatType_)
-                || StringUtil.quickEq(type_, doubleType_)) {
-            if (StringUtil.quickEq(type_, byteType_)) {
-                byte one_ = (NumParsers.convertToNumber(_args[0])).byteStruct();
-                return (new StringStruct(Long.toString(one_)));
-            }
-            if (StringUtil.quickEq(type_, shortType_)) {
-                short one_ = (NumParsers.convertToNumber(_args[0])).shortStruct();
-                return (new StringStruct(Long.toString(one_)));
-            }
-            if (StringUtil.quickEq(type_, intType_)) {
-                int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-                return (new StringStruct(Long.toString(one_)));
-            }
-            if (StringUtil.quickEq(type_, longType_)) {
-                if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasSignum())) {
-                    long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
-                    return new ByteStruct(NumberUtil.signum(nb_));
-                }
-                if (_method.getConstraints().getParametersTypesLength() == 2) {
-                    long nb_ = (NumParsers.convertToNumber(_args[0])).longStruct();
-                    int radix_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-                    return new StringStruct(StringExpUtil.toLongRadix(nb_,radix_));
-                }
-                long one_ = (NumParsers.convertToNumber(_args[0])).longStruct();
-                return (new StringStruct(Long.toString(one_)));
-            }
-            if (StringUtil.quickEq(type_, floatType_)) {
-                DisplayedStrings dis_ = _page.getDisplayedStrings();
-                NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
-                return NumParsers.getFloatString(nb_,dis_.getInfinity(),
-                        dis_.getNan(),
-                        dis_.getExponent());
-            }
-            DisplayedStrings dis_ = _page.getDisplayedStrings();
-            NumberStruct nb_ = NumParsers.convertToNumber(_args[0]);
-            return NumParsers.getDoubleString(nb_,dis_.getInfinity(),
-                    dis_.getNan(),
-                    dis_.getExponent());
         }
         if (StringUtil.quickEq(type_, nbType_)) {
             if (StringUtil.quickEq(name_, _page.getNbAlias().getAliasCompare())) {
