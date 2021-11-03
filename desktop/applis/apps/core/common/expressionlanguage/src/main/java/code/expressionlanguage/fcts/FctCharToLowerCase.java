@@ -15,15 +15,15 @@ import code.expressionlanguage.structs.Struct;
 public final class FctCharToLowerCase implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return toLower(_args[0]);
+        return toLowerChar(_args[0]);
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(toLower(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(toLowerChar(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
     }
 
-    private Struct toLower(Struct _arg) {
+    private static Struct toLowerChar(Struct _arg) {
         char one_ = NumParsers.convertToChar(_arg).getChar();
         return new CharStruct(StringDataUtil.toLowerCase(one_));
     }

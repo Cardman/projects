@@ -30,7 +30,6 @@ public final class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         String stringBuilderType_ = lgNames_.getContent().getCharSeq().getAliasStringBuilder();
         String mathType_ = lgNames_.getContent().getMathRef().getAliasMath();
-        String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
         String replType_ = lgNames_.getContent().getCharSeq().getAliasReplacement();
         if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasResources())) {
             return processResources(_cont, _method, args_);
@@ -46,8 +45,7 @@ public final class ApplyCoreMethodUtil {
             AliasCharSequenceType.calculate(_cont, result_, _method, _struct);
             return result_;
         }
-        if (StringUtil.quickEq(type_, stringType_)
-                || StringUtil.quickEq(type_, lgNames_.getContent().getCharSeq().getAliasCharSequence())) {
+        if (StringUtil.quickEq(type_, lgNames_.getContent().getCharSeq().getAliasCharSequence())) {
             return AliasCharSequenceType.invokeStdMethod(_cont, _method, _struct, _stackCall, _args);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getStackElt().getAliasStackTraceElement())) {

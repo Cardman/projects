@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringDataUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
@@ -15,7 +14,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.Replacement;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -73,97 +71,6 @@ public final class AliasCharSequenceType {
     private String aliasGetOldString;
     private String aliasGetNewString;
     private final AliasParamCharSequence params = new AliasParamCharSequence();
-
-    public static void calculateString(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, StackCall _stackCall, Struct... _args) {
-        StringStruct str_ = NumParsers.getString(_struct);
-        calculateLocString(str_,_cont, _res, _method, _stackCall, _args);
-    }
-
-    private static void calculateLocString(StringStruct _str, ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, StackCall _stackCall, Struct... _args) {
-        String name_ = _method.getConstraints().getName();
-        LgNames lgNames_ = _cont.getStandards();
-        String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasReplaceString())) {
-            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), stringType_)) {
-                replaceString(_str,_args[0], _args[1], _res);
-                return;
-            }
-            replace(_str, NumParsers.convertToChar(_args[0]), NumParsers.convertToChar(_args[1]), _res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasReplaceMultiple())) {
-            replaceMultiple(_str,_args[0], _res, _cont, _stackCall);
-            return;
-        }
-        String one_ = _str.getInstance();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasCompareToIgnoreCase())) {
-            Struct two_ = _args[0];
-            if (!(two_ instanceof StringStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-            } else {
-                StringStruct t_ = (StringStruct) two_;
-                _res.setResult(new IntStruct(NumParsers.compareToIgnoreCase(one_,t_.getInstance())));
-            }
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasEqualsIgnoreCase())) {
-            Struct two_ = _args[0];
-            if (!(two_ instanceof StringStruct)) {
-                _res.setResult(BooleanStruct.of(false));
-            } else {
-                StringStruct t_ = (StringStruct) two_;
-                _res.setResult(BooleanStruct.of(NumParsers.equalsIgnoreCase(one_,t_.getInstance())));
-            }
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasToLowerCase())) {
-            _res.setResult(new StringStruct(StringDataUtil.toLowerCase(one_)));
-            return;
-        }
-        _res.setResult(new StringStruct(StringDataUtil.toUpperCase(one_)));
-    }
-
-    private static void replace(StringStruct _str, CharStruct _oldChar, CharStruct _newChar, ResultErrorStd _res) {
-        char oldChar_ = _oldChar.getChar();
-        char newChar_ = _newChar.getChar();
-        _res.setResult(new StringStruct(_str.getInstance().replace(oldChar_, newChar_)));
-    }
-
-    private static void replaceString(StringStruct _str, Struct _oldChar, Struct _newChar, ResultErrorStd _res) {
-        String old_;
-        old_ = NumParsers.getStringValue(_oldChar);
-        String new_;
-        new_ = NumParsers.getStringValue(_newChar);
-        String out_ = StringUtil.replace(_str.getInstance(), old_, new_);
-        _res.setResult(new StringStruct(out_));
-    }
-
-    private static void replaceMultiple(StringStruct _st, Struct _seps, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_seps instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        int lenSeps_ = arrSep_.getLength();
-        Replacement[] seps_ = new Replacement[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrSep_.get(i);
-            if (!(curSep_ instanceof ReplacementStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-                return;
-            }
-            seps_[i] = NumParsers.getReplacement(curSep_).getInstance();
-            if (seps_[i].getNewString() == null) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-                return;
-            }
-            if (seps_[i].getOldString() == null) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-                return;
-            }
-        }
-        _res.setResult(new StringStruct(StringUtil.replaceMult(_st.getInstance(), seps_)));
-    }
 
     private static void calculateStrBuilder(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, StackCall _stackCall, Struct... _args) {
         LgNames lgNames_ = _cont.getStandards();
@@ -907,31 +814,31 @@ public final class AliasCharSequenceType {
         fields_ = new CustList<CstFieldInfo>();
         std_ = new StandardClass(aliasString, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL, new DfString());
         params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasEqualsIgnoreCase, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0EqualsIgnoreCase0()));
+        method_ = new StandardMethod(aliasEqualsIgnoreCase, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0EqualsIgnoreCase0()),new FctStringEqualsIgnoreCase());
         methods_.add( method_);
         params_ = new StringList(aliasString, aliasString);
         method_ = new StandardMethod(aliasStringCompare, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasString0Compare0(),params.getAliasString0Compare1()),new FctStringCompare());
         methods_.add( method_);
         params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasCompareToIgnoreCase, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0CompareToIgnoreCase0()));
+        method_ = new StandardMethod(aliasCompareToIgnoreCase, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0CompareToIgnoreCase0()),new FctStringCompareToIgnoreCase());
         methods_.add( method_);
         params_ = new StringList(aliasString, aliasString);
-        method_ = new StandardMethod(aliasReplaceString, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasString0ReplaceString0(),params.getAliasString0ReplaceString1()));
+        method_ = new StandardMethod(aliasReplaceString, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasString0ReplaceString0(),params.getAliasString0ReplaceString1()),new FctStringReplaceString1());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_, aliasPrimChar_);
-        method_ = new StandardMethod(aliasReplaceString, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasString1ReplaceString0(),params.getAliasString1ReplaceString1()));
+        method_ = new StandardMethod(aliasReplaceString, params_, aliasString, false, MethodModifier.NORMAL,new StringList(params.getAliasString1ReplaceString0(),params.getAliasString1ReplaceString1()),new FctStringReplaceString0());
         methods_.add( method_);
         params_ = new StringList(aliasReplacement);
-        method_ = new StandardMethod(aliasReplaceMultiple, params_, aliasString, true, MethodModifier.NORMAL,new StringList(params.getAliasString0ReplaceMultiple0()));
+        method_ = new StandardMethod(aliasReplaceMultiple, params_, aliasString, true, MethodModifier.NORMAL,new StringList(params.getAliasString0ReplaceMultiple0()),new FctStringReplaceMultiple());
         methods_.add( method_);
         params_ = new StringList(aliasPrimBoolean_, aliasPrimInteger_, aliasString, aliasPrimInteger_, aliasPrimInteger_);
         method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0RegionMatches0(),params.getAliasString0RegionMatches1(),params.getAliasString0RegionMatches2(),params.getAliasString0RegionMatches3(),params.getAliasString0RegionMatches4()),new FctStringRegionMatches());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToLowerCase, params_, aliasString, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasToLowerCase, params_, aliasString, false, MethodModifier.NORMAL, new FctStringToLowerCase());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToUpperCase, params_, aliasString, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasToUpperCase, params_, aliasString, false, MethodModifier.NORMAL, new FctStringToUpperCase());
         methods_.add( method_);
         params_ = new StringList(aliasPrimBoolean_);
         method_ = new StandardMethod(aliasStringValueOf, params_, aliasString, false, MethodModifier.STATIC,new StringList(params.getAliasString0ValueOfMethod0()),new FctNbToStr1());
@@ -1145,13 +1052,6 @@ public final class AliasCharSequenceType {
     static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, StackCall _stackCall, Argument... _args) {
         ResultErrorStd result_ = new ResultErrorStd();
         Struct[] args_ = ExecHelper.getObjects(_args);
-        LgNames lgNames_ = _cont.getStandards();
-        String type_ = _method.getClassName();
-        String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
-        if (StringUtil.quickEq(type_, stringType_)) {
-            calculateString(_cont, result_, _method, _struct, _stackCall, args_);
-            return result_;
-        }
         calculateCharSeq(_cont, result_, _method, _struct, _stackCall, args_);
         return result_;
     }

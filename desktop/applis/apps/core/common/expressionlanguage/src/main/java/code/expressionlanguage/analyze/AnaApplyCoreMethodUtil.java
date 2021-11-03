@@ -3,11 +3,10 @@ package code.expressionlanguage.analyze;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.stds.AnaStdCaller;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.common.*;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
-import code.util.Replacement;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -26,7 +25,6 @@ public final class AnaApplyCoreMethodUtil {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         String mathType_ = _page.getMathRef().getAliasMath();
-        String stringType_ = _page.getCharSeq().getAliasString();
         String replType_ = _page.getCharSeq().getAliasReplacement();
         if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasResources())) {
             if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasReadResourcesNamesLength())) {
@@ -66,11 +64,6 @@ public final class AnaApplyCoreMethodUtil {
         }
         if (StringUtil.quickEq(type_, replType_)) {
             return calculateReplacement(_method, _struct, _page);
-        }
-        if (StringUtil.quickEq(type_, stringType_)
-                || StringUtil.quickEq(type_, _page.getCharSeq().getAliasCharSequence())) {
-            result_ = invokeAnalyzisCharSequenceStdMethod(_method, _struct, _page, _args);
-            return result_;
         }
         if (StringUtil.quickEq(type_, mathType_)) {
             return invokeAnalyzisMathStdMethod(_method, _page, _args);
@@ -338,94 +331,6 @@ public final class AnaApplyCoreMethodUtil {
             return(NumParsers.calculateRotateRight(NumParsers.convertToNumber(args_[0]), NumParsers.convertToNumber(args_[1]), AnaClassArgumentMatching.getPrimitiveCast(_method.getConstraints().getParametersType(0), _page.getPrimTypes())));
         }
         return null;
-    }
-
-    private static Struct invokeAnalyzisCharSequenceStdMethod(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Argument... _args) {
-        Struct[] args_ = getObjects(_args);
-        String type_ = _method.getClassName();
-        String stringType_ = _page.getCharSeq().getAliasString();
-        if (StringUtil.quickEq(type_, stringType_)) {
-            return calculateString(_method, _struct, _page, args_);
-        }
-        return null;
-    }
-
-    private static Struct calculateString(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
-        StringStruct str_ = NumParsers.getString(_struct);
-        return calculateLocString(str_, _method, _page, _args);
-    }
-
-    private static Struct calculateLocString(StringStruct _str, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
-        String name_ = _method.getConstraints().getName();
-        String stringType_ = _page.getCharSeq().getAliasString();
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasReplaceString())) {
-            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), stringType_)) {
-                return replaceString(_str,_args[0], _args[1]);
-            }
-            return replace(_str, NumParsers.convertToChar(_args[0]), NumParsers.convertToChar(_args[1]));
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasReplaceMultiple())) {
-            return replaceMultiple(_str,_args[0]);
-        }
-        String one_ = _str.getInstance();
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasCompareToIgnoreCase())) {
-            Struct two_ = _args[0];
-            if (!(two_ instanceof StringStruct)) {
-                return null;
-            }
-            StringStruct t_ = (StringStruct) two_;
-            return new IntStruct(NumParsers.compareToIgnoreCase(one_,t_.getInstance()));
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasEqualsIgnoreCase())) {
-            Struct two_ = _args[0];
-            if (!(two_ instanceof StringStruct)) {
-                return BooleanStruct.of(false);
-            }
-            StringStruct t_ = (StringStruct) two_;
-            return BooleanStruct.of(NumParsers.equalsIgnoreCase(one_,t_.getInstance()));
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasToLowerCase())) {
-            return new StringStruct(StringDataUtil.toLowerCase(one_));
-        }
-        return new StringStruct(StringDataUtil.toUpperCase(one_));
-    }
-
-    private static Struct replace(StringStruct _str, CharStruct _oldChar, CharStruct _newChar) {
-        char oldChar_ = _oldChar.getChar();
-        char newChar_ = _newChar.getChar();
-        return new StringStruct(_str.getInstance().replace(oldChar_, newChar_));
-    }
-
-    private static Struct replaceString(StringStruct _str, Struct _oldChar, Struct _newChar) {
-        String old_;
-        old_ = NumParsers.getStringValue(_oldChar);
-        String new_;
-        new_ = NumParsers.getStringValue(_newChar);
-        String out_ = StringUtil.replace(_str.getInstance(), old_, new_);
-        return new StringStruct(out_);
-    }
-
-    private static Struct replaceMultiple(StringStruct _st, Struct _seps) {
-        if (!(_seps instanceof ArrayStruct)) {
-            return null;
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        int lenSeps_ = arrSep_.getLength();
-        Replacement[] seps_ = new Replacement[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrSep_.get(i);
-            if (!(curSep_ instanceof ReplacementStruct)) {
-                return null;
-            }
-            seps_[i] = NumParsers.getReplacement(curSep_).getInstance();
-            if (seps_[i].getNewString() == null) {
-                return null;
-            }
-            if (seps_[i].getOldString() == null) {
-                return null;
-            }
-        }
-        return new StringStruct(StringUtil.replaceMult(_st.getInstance(), seps_));
     }
 
     public static String getString(Argument _value, AnalyzedPageEl _page) {
