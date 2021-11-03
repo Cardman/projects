@@ -347,7 +347,7 @@ public final class AnaApplyCoreMethodUtil {
         if (StringUtil.quickEq(type_, stringType_)) {
             return calculateString(_method, _struct, _page, args_);
         }
-        return calculateCharSeq(_method, _struct, _page, args_);
+        return null;
     }
 
     private static Struct calculateString(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
@@ -488,66 +488,6 @@ public final class AnaApplyCoreMethodUtil {
             }
         }
         return new StringStruct(StringUtil.replaceMult(_st.getInstance(), seps_));
-    }
-
-    private static Struct calculateCharSeq(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
-        if (!_method.getConstraints().isStaticMethod()) {
-            return calculateLocCharSeq(NumParsers.getCharSeq(_struct), _method, _page, _args);
-        }
-        if (!(_args[0] instanceof CharSequenceStruct)) {
-            return BooleanStruct.of(_args[1] == NullStruct.NULL_VALUE);
-        }
-        return BooleanStruct.of(NumParsers.sameEq(NumParsers.getCharSeq(_args[0]),_args[1]));
-    }
-
-    private static Struct calculateLocCharSeq(CharSequenceStruct _charSequence, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
-        String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasRegionMatches())) {
-            return regionMatches(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]));
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasTrim())) {
-            return trim(_charSequence);
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasFormat())) {
-            return format(_charSequence, _args[0]);
-        }
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasCharSequenceToString())) {
-            return _charSequence;
-        }
-        return null;
-    }
-
-    private static Struct regionMatches(CharSequenceStruct _charSequence, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
-                                        NumberStruct _len) {
-        if (!(_other instanceof CharSequenceStruct)) {
-            return null;
-        }
-        CharSequenceStruct other_ = NumParsers.getCharSeq(_other);
-        int comLen_ = _len.intStruct();
-        int to_ = _toffset.intStruct();
-        int po_ = _ooffset.intStruct();
-        return BooleanStruct.of(NumParsers.regionMatches(_charSequence.toStringInstance(),to_, other_.toStringInstance(), po_, comLen_));
-    }
-
-    private static Struct trim(CharSequenceStruct _charSequence) {
-        return new StringStruct(_charSequence.toStringInstance().trim());
-    }
-
-    private static Struct format(CharSequenceStruct _charSequence, Struct _seps) {
-        if (!(_seps instanceof ArrayStruct)) {
-            return null;
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        int lenSeps_ = arrSep_.getLength();
-        String[] seps_ = new String[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrSep_.get(i);
-            if (!(curSep_ instanceof CharSequenceStruct)) {
-                return null;
-            }
-            seps_[i] = NumParsers.getCharSeq(curSep_).toStringInstance();
-        }
-        return new StringStruct(StringUtil.simpleStringsFormat(_charSequence.toStringInstance(), seps_));
     }
 
     public static String getString(Argument _value, AnalyzedPageEl _page) {

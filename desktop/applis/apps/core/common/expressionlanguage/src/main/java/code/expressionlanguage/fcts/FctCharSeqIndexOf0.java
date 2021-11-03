@@ -13,11 +13,11 @@ import code.expressionlanguage.structs.Struct;
 public final class FctCharSeqIndexOf0 implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return FctCharSeqIndexOf2.com((CharSequenceStruct) _instance, _args[0]);
+        return FctCharSeqIndexOf2.comFirst((CharSequenceStruct) _instance, _args[0]);
     }
 
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(FctCharSeqIndexOf2.com((CharSequenceStruct) _instance, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
+        return new ArgumentWrapper(FctCharSeqIndexOf2.comFirst((CharSequenceStruct) _instance, _firstArgs.getArgumentWrappers().get(0).getValue().getStruct()));
     }
 }

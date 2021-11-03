@@ -26,9 +26,6 @@ public final class FctBool implements AnaStdCaller {
 
     public static Struct common(Struct _arg, DisplayedStrings _dis) {
         String one_ = NumParsers.getCharSeq(_arg).toStringInstance();
-        if (StringUtil.quickEq(one_, _dis.getTrueString())) {
-            return BooleanStruct.of(true);
-        }
-        return BooleanStruct.of(false);
+        return BooleanStruct.of(StringUtil.quickEq(one_, _dis.getTrueString()));
     }
 }

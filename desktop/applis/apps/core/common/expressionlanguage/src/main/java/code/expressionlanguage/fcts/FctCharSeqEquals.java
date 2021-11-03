@@ -8,16 +8,16 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharSequenceStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class FctCharSeqLastIndexOf2 implements AnaStdCaller {
+public final class FctCharSeqEquals implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return comLast((CharSequenceStruct) _instance, _args[0], _args[1]);
+        return eq(_args[0], _args[1]);
     }
 
     @Override
@@ -25,17 +25,14 @@ public final class FctCharSeqLastIndexOf2 implements AnaStdCaller {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
         Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
-        return new ArgumentWrapper(comLast((CharSequenceStruct) _instance, one_, two_));
+        return new ArgumentWrapper(eq(one_,two_));
     }
 
-    public static IntStruct comLast(CharSequenceStruct _charSequence, Struct _ch) {
-        return comLast(_charSequence,_ch,new IntStruct(_charSequence.length()));
+    private static BooleanStruct eq(Struct _one, Struct _two) {
+        if (!(_one instanceof CharSequenceStruct)) {
+            return BooleanStruct.of(_two == NullStruct.NULL_VALUE);
+        }
+        return BooleanStruct.of(NumParsers.sameEq(NumParsers.getCharSeq(_one), _two));
     }
-    public static IntStruct comLast(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex) {
-        NumberStruct ch_ = NumParsers.convertToNumber(_ch);
-        int int_ = ch_.intStruct();
-        NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);
-        int from_ = index_.intStruct();
-        return new IntStruct(_charSequence.toStringInstance().lastIndexOf(int_, from_));
-    }
+
 }

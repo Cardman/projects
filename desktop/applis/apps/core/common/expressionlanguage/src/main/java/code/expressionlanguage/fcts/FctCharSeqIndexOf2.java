@@ -17,7 +17,7 @@ import code.util.CustList;
 public final class FctCharSeqIndexOf2 implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return com((CharSequenceStruct) _instance, _args[0], _args[1]);
+        return comFirst((CharSequenceStruct) _instance, _args[0], _args[1]);
     }
 
     @Override
@@ -25,13 +25,13 @@ public final class FctCharSeqIndexOf2 implements AnaStdCaller {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         Struct one_ = argumentWrappers_.get(0).getValue().getStruct();
         Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
-        return new ArgumentWrapper(com((CharSequenceStruct) _instance, one_, two_));
+        return new ArgumentWrapper(comFirst((CharSequenceStruct) _instance, one_, two_));
     }
 
-    public static IntStruct com(CharSequenceStruct _charSequence, Struct _ch) {
-        return com(_charSequence,_ch,new IntStruct(0));
+    public static IntStruct comFirst(CharSequenceStruct _charSequence, Struct _ch) {
+        return comFirst(_charSequence,_ch,new IntStruct(0));
     }
-    public static IntStruct com(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex) {
+    public static IntStruct comFirst(CharSequenceStruct _charSequence, Struct _ch, Struct _fromIndex) {
         NumberStruct ch_ = NumParsers.convertToNumber(_ch);
         int int_ = ch_.intStruct();
         NumberStruct index_ = NumParsers.convertToNumber(_fromIndex);

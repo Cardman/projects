@@ -9,7 +9,6 @@ import code.expressionlanguage.common.StringDataUtil;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.Struct;
 
