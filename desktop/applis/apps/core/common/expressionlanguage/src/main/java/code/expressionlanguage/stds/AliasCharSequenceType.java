@@ -675,20 +675,6 @@ public final class AliasCharSequenceType {
         return new ErrorStruct(_context, _context.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
     }
 
-    public static void calculate(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct) {
-        String name_ = _method.getConstraints().getName();
-        LgNames lgNames_ = _cont.getStandards();
-        ReplacementStruct rp_ = NumParsers.getReplacement(_struct);
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasGetNewString())) {
-            String newStr_ = rp_.getInstance().getNewString();
-            _res.setResult(Argument.wrapStr(newStr_));
-            return;
-        }
-        String oldStr_ = rp_.getInstance().getOldString();
-        _res.setResult(Argument.wrapStr(oldStr_));
-
-    }
-
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
         StringList params_;
@@ -1030,10 +1016,10 @@ public final class AliasCharSequenceType {
         constructors_ = new CustList<StandardConstructor>();
         std_ = new StandardClass(aliasReplacement, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL, new DfReplacement());
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetOldString, params_, aliasString, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasGetOldString, params_, aliasString, false, MethodModifier.NORMAL, new FctReplOld());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetNewString, params_, aliasString, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasGetNewString, params_, aliasString, false, MethodModifier.NORMAL, new FctReplNew());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence,aliasCharSequence);
         ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasReplacement0Replacement0(),params.getAliasReplacement0Replacement1()),new FctReplacement());

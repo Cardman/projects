@@ -25,7 +25,6 @@ public final class AnaApplyCoreMethodUtil {
         String type_ = _method.getClassName();
         String name_ = _method.getConstraints().getName();
         String mathType_ = _page.getMathRef().getAliasMath();
-        String replType_ = _page.getCharSeq().getAliasReplacement();
         if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasResources())) {
             if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasReadResourcesNamesLength())) {
                 return ResourcesStruct.getResourceNamesLength(_page);
@@ -61,9 +60,6 @@ public final class AnaApplyCoreMethodUtil {
                 result_ = arg_.getParent();
                 return result_;
             }
-        }
-        if (StringUtil.quickEq(type_, replType_)) {
-            return calculateReplacement(_method, _struct, _page);
         }
         if (StringUtil.quickEq(type_, mathType_)) {
             return invokeAnalyzisMathStdMethod(_method, _page, _args);
@@ -346,18 +342,6 @@ public final class AnaApplyCoreMethodUtil {
         str_.append(getString(_a, _page));
         str_.append(getString(_b, _page));
         return new Argument(new StringStruct(str_.toString()));
-    }
-
-    private static Struct calculateReplacement(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page) {
-        String name_ = _method.getConstraints().getName();
-        ReplacementStruct rp_ = NumParsers.getReplacement(_struct);
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasGetNewString())) {
-            String old_ = rp_.getInstance().getNewString();
-            return Argument.wrapStr(old_);
-        }
-        String new_ = rp_.getInstance().getOldString();
-        return Argument.wrapStr(new_);
-
     }
 
 }
