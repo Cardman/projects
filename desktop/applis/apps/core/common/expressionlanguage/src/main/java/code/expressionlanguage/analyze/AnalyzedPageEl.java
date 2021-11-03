@@ -211,10 +211,6 @@ public final class AnalyzedPageEl {
         return content.getCharSeq();
     }
 
-    public AliasCore getCoreNames() {
-        return content.getCoreNames();
-    }
-
     public String getAliasEnumPredValueOf() {
         return content.getPredefTypes().getAliasEnumPredValueOf();
     }

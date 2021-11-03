@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.fcts.FctRangeUnlimitedStep;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
@@ -657,7 +658,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (_arguments.size() == 2) {
             Struct lower_ = _arguments.get(0).getStruct();
             Struct step_ = _arguments.get(1).getStruct();
-            Argument range_ = ApplyCoreMethodUtil.rangeUnlimitStep(_conf, _stackCall, lower_, step_);
+            Argument range_ = FctRangeUnlimitedStep.rangeUnlimitStep(_conf, _stackCall, lower_, step_);
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
             }
@@ -665,7 +666,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         Struct lower_ = _arguments.get(_lastIndex).getStruct();
         Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
-        Argument range_ = ApplyCoreMethodUtil.range(_conf, _stackCall, lower_, upper_);
+        Argument range_ = FctRangeUnlimitedStep.range(_conf, _stackCall, lower_, upper_);
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }

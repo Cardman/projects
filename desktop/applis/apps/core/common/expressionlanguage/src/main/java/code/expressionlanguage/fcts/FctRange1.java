@@ -2,7 +2,6 @@ package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.stds.AnaStdCaller;
 import code.expressionlanguage.common.NumParsers;
@@ -18,7 +17,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctRange1 implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return AnaApplyCoreMethodUtil.rangeBounds(_args[0], _args[1]);
+        return FctRangeUnlimitedStep.rangeBounds(_args[0], _args[1]);
     }
 
     @Override

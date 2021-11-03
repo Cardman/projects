@@ -21,46 +21,8 @@ public final class AnaApplyCoreMethodUtil {
         if (caller_ instanceof AnaStdCaller) {
             return ((AnaStdCaller)caller_).call(_page,_struct,args_);
         }
-        Struct result_ = null;
         String type_ = _method.getClassName();
-        String name_ = _method.getConstraints().getName();
         String mathType_ = _page.getMathRef().getAliasMath();
-        if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasResources())) {
-            if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasReadResourcesNamesLength())) {
-                return ResourcesStruct.getResourceNamesLength(_page);
-            }
-            if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasReadResourcesIndex())) {
-                return ResourcesStruct.getResourceIndex(_page,args_[0]);
-            }
-            if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasReadResources())) {
-                result_ = ResourcesStruct.getResource(_page, NumParsers.getString(args_[0]));
-            }
-            return result_;
-        }
-        if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasRange())) {
-            RangeStruct rangeStruct_ = NumParsers.convertToRange(_struct);
-            if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeLower())) {
-                result_ = new IntStruct(rangeStruct_.getLower());
-            } else if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeUnlimitedStep())) {
-                result_ = rangeUnlimitStep(args_);
-            } else if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasRangeUpper())) {
-                result_ = new IntStruct(rangeStruct_.getUpper());
-            } else{
-                result_ = BooleanStruct.of(rangeStruct_.isUnlimited());
-            }
-            return result_;
-        }
-        if (StringUtil.quickEq(type_, _page.getCoreNames().getAliasObjectsUtil())) {
-            if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasSameRef())) {
-                result_= BooleanStruct.of(args_[0].sameReference(args_[1]));
-                return result_;
-            }
-            if (StringUtil.quickEq(name_, _page.getCoreNames().getAliasGetParent())) {
-                Struct arg_ = args_[0];
-                result_ = arg_.getParent();
-                return result_;
-            }
-        }
         if (StringUtil.quickEq(type_, mathType_)) {
             return invokeAnalyzisMathStdMethod(_method, _page, _args);
         }
@@ -82,59 +44,6 @@ public final class AnaApplyCoreMethodUtil {
         return null;
     }
 
-    public static Struct range(Struct... _args) {
-        if (_args.length == 3) {
-            return rangeBoundsStep(_args[0], _args[1], _args[2]);
-        }
-        if (_args.length == 2) {
-            return rangeBounds(_args[0], _args[1]);
-        }
-        return rangeUnlimit(_args[0]);
-    }
-    public static Struct rangeBoundsStep(Struct _min, Struct _max, Struct _step) {
-        int lower_ = NumParsers.convertToNumber(_min).intStruct();
-        if (lower_ < 0) {
-            return null;
-        }
-        int upper_ = NumParsers.convertToNumber(_max).intStruct();
-        if (upper_ < lower_) {
-            return null;
-        }
-        int step_ = NumParsers.convertToNumber(_step).intStruct();
-        if (step_ == 0) {
-            return null;
-        }
-        return new RangeStruct(lower_, upper_, step_);
-    }
-    public static Struct rangeUnlimitStep(Struct... _args) {
-        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
-        if (lower_ < 0) {
-            return null;
-        }
-        int step_ = NumParsers.convertToNumber(_args[1]).intStruct();
-        if (step_ == 0) {
-            return null;
-        }
-        return new RangeStruct(lower_, -1, step_);
-    }
-    public static Struct rangeBounds(Struct _min, Struct _max) {
-        int lower_ = NumParsers.convertToNumber(_min).intStruct();
-        if (lower_ < 0) {
-            return null;
-        }
-        int upper_ = NumParsers.convertToNumber(_max).intStruct();
-        if (upper_ < lower_) {
-            return null;
-        }
-        return new RangeStruct(lower_, upper_);
-    }
-    public static Struct rangeUnlimit(Struct _arg) {
-        int lower_ = NumParsers.convertToNumber(_arg).intStruct();
-        if (lower_ < 0) {
-            return null;
-        }
-        return new RangeStruct(lower_);
-    }
     private static Struct[] getObjects(Argument... _args) {
         int len_ = _args.length;
         Struct[] classes_ = new Struct[len_];

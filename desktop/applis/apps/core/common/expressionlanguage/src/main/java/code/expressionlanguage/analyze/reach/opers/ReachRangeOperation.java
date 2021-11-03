@@ -1,9 +1,9 @@
 package code.expressionlanguage.analyze.reach.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.RangeOperation;
+import code.expressionlanguage.fcts.FctRangeUnlimitedStep;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
@@ -35,9 +35,9 @@ public final class ReachRangeOperation extends ReachMethodOperation implements R
         }
         Struct range_;
         if (args_.length == 2 && implicitMiddle) {
-            range_ = AnaApplyCoreMethodUtil.rangeUnlimitStep(args_);
+            range_ = FctRangeUnlimitedStep.rangeUnlimitStep(args_);
         } else {
-            range_ = AnaApplyCoreMethodUtil.range(args_);
+            range_ = FctRangeUnlimitedStep.range(args_);
         }
         if (range_ != null) {
             setSimpleArgumentAna(new Argument(range_));

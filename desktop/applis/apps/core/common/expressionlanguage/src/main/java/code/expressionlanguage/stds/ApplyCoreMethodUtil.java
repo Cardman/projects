@@ -4,16 +4,12 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.fcts.FctRange0;
-import code.expressionlanguage.fcts.FctRange1;
-import code.expressionlanguage.fcts.FctRange2;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
@@ -30,14 +26,8 @@ public final class ApplyCoreMethodUtil {
         LgNames lgNames_ = _cont.getStandards();
         String stringBuilderType_ = lgNames_.getContent().getCharSeq().getAliasStringBuilder();
         String mathType_ = lgNames_.getContent().getMathRef().getAliasMath();
-        if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasResources())) {
-            return processResources(_cont, _method, args_);
-        }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasObjectsUtil())) {
             return processObjectsUtil(_cont, _method, args_, _stackCall);
-        }
-        if (StringUtil.quickEq(type_, lgNames_.getContent().getCoreNames().getAliasRange())) {
-            return processRange(_cont, _stackCall,_method,_struct,args_);
         }
         if (StringUtil.quickEq(type_, lgNames_.getContent().getCharSeq().getAliasCharSequence())) {
             return AliasCharSequenceType.invokeStdMethod(_cont, _method, _struct, _stackCall, _args);
@@ -111,41 +101,6 @@ public final class ApplyCoreMethodUtil {
         return lgNames_.getOtherResult(_stackCall, _cont, _struct, _method, args_);
     }
 
-    public static Argument range(ContextEl _conf, StackCall _stack, Struct... _args) {
-        if (_args.length == 3) {
-            return FctRange2.rangeBoundsStep(_conf, _stack, _args[0], _args[1], _args[2]).getValue();
-        }
-        if (_args.length == 2) {
-            return FctRange1.rangeBounds(_conf, _stack, _args[0], _args[1]).getValue();
-        }
-        return FctRange0.rangeUnlimit(_conf,_stack,_args[0]).getValue();
-    }
-
-    public static Argument rangeUnlimitStep(ContextEl _conf, StackCall _stack, Struct... _args) {
-        int lower_ = NumParsers.convertToNumber(_args[0]).intStruct();
-        if (lower_ < 0) {
-            _stack.setCallingState(new CustomFoundExc(getBadIndex(_conf, getBeginMessage(lower_), _stack)));
-            return Argument.createVoid();
-        }
-        int step_ = NumParsers.convertToNumber(_args[1]).intStruct();
-        if (step_ == 0) {
-            _stack.setCallingState(new CustomFoundExc(getDivideZero(_conf, _stack)));
-            return Argument.createVoid();
-        }
-        return new Argument(new RangeStruct(lower_, -1,step_));
-    }
-    private static ErrorStruct getDivideZero(ContextEl _cont, StackCall _stackCall) {
-        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero(), _stackCall);
-    }
-
-    private static ErrorStruct getBadIndex(ContextEl _context, String _message, StackCall _stackCall) {
-        return new ErrorStruct(_context, _message, _context.getStandards().getContent().getCoreNames().getAliasBadIndex(), _stackCall);
-    }
-
-    private static String getBeginMessage(int _begin) {
-        return StringUtil.concat(Long.toString(_begin), "<0");
-    }
-
 //    public static ResultErrorStd getOtherResultBase(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
 //        ResultErrorStd result_ = new ResultErrorStd();
 //
@@ -175,57 +130,10 @@ public final class ApplyCoreMethodUtil {
         return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
     }
 
-    private static ResultErrorStd processResources(ContextEl _cont, ClassMethodId _method, Struct[] _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        LgNames lgNames_ = _cont.getStandards();
-        String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesNamesLength())) {
-            result_.setResult(ResourcesStruct.getResourceNamesLength(_cont));
-        } else if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesIndex())) {
-            result_.setResult(ResourcesStruct.getResourceIndex(_cont,_args[0]));
-        } else if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasReadResourcesNames())) {
-            result_.setResult(ResourcesStruct.getResourceNames(_cont));
-        } else {
-            result_.setResult(ResourcesStruct.getResource(_cont, NumParsers.getString(_args[0])));
-        }
-        return result_;
-    }
-
-    private static ResultErrorStd processRange(ContextEl _cont,StackCall _stack, ClassMethodId _method, Struct _struct,Struct... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        LgNames lgNames_ = _cont.getStandards();
-        String name_ = _method.getConstraints().getName();
-        RangeStruct rangeStruct_ = NumParsers.convertToRange(_struct);
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasRangeLower())) {
-            result_.setResult(new IntStruct(rangeStruct_.getLower()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasRangeUpper())) {
-            result_.setResult(new IntStruct(rangeStruct_.getUpper()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasRangeUnlimitedStep())) {
-            result_.setResult(rangeUnlimitStep(_cont,_stack,_args).getStruct());
-            return result_;
-        }
-        result_.setResult(BooleanStruct.of(rangeStruct_.isUnlimited()));
-        return result_;
-    }
     private static ResultErrorStd processObjectsUtil(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
         ResultErrorStd result_ = new ResultErrorStd();
         LgNames lgNames_ = _cont.getStandards();
         String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasSameRef())) {
-            result_.setResult(BooleanStruct.of(_args[0].sameReference(_args[1])));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetParent())) {
-            Struct arg_ = _args[0];
-            Struct par_ = arg_.getParent();
-            _stackCall.getInitializingTypeInfos().addSensibleField(arg_, par_);
-            result_.setResult(par_);
-            return result_;
-        }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCoreNames().getAliasGetFct())) {
             Struct arg_ = _args[0];
             if (arg_ instanceof AbstractFunctionalInstance) {
