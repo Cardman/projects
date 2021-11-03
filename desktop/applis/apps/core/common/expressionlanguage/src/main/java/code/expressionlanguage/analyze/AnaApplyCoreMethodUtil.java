@@ -351,45 +351,8 @@ public final class AnaApplyCoreMethodUtil {
     }
 
     private static Struct calculateString(ClassMethodId _method, Struct _struct, AnalyzedPageEl _page, Struct... _args) {
-        if (!_method.getConstraints().isStaticMethod()) {
-            StringStruct str_ = NumParsers.getString(_struct);
-            return calculateLocString(str_, _method, _page, _args);
-        }
-        String name_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasStringCompare())) {
-            Struct arg_ = _args[0];
-            if (!(arg_ instanceof StringStruct)) {
-                return null;
-            }
-            StringStruct first_ = (StringStruct) arg_;
-            return compareToString(first_,_args[1]);
-        }
-        int nbParams_ = _method.getConstraints().getParametersTypesLength();
-        Struct arg_ = NumParsers.getArg(nbParams_, _args);
-        if (NumParsers.isDisplay(nbParams_, arg_)) {
-            return getAnaDisplayable(arg_).getDisplayedString(_page);
-        }
-        if (!(arg_ instanceof ArrayStruct)) {
-            return null;
-        }
-        return tryGetCharArray(nbParams_, (ArrayStruct) arg_, _args);
-    }
-
-    private static Struct tryGetCharArray(int _list, ArrayStruct _arg, Struct[] _args) {
-        int len_ = _arg.getLength();
-        char[] arr_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            arr_[i] = NumParsers.convertToChar(_arg.get(i)).getChar();
-        }
-        if (_list == 1) {
-            return new StringStruct(String.valueOf(arr_));
-        }
-        int one_ = (NumParsers.convertToNumber(_args[0])).intStruct();
-        int two_ = (NumParsers.convertToNumber(_args[1])).intStruct();
-        if (NumParsers.koArray(arr_, one_, two_)) {
-            return null;
-        }
-        return new StringStruct(String.valueOf(arr_,one_,two_));
+        StringStruct str_ = NumParsers.getString(_struct);
+        return calculateLocString(str_, _method, _page, _args);
     }
 
     private static Struct calculateLocString(StringStruct _str, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
@@ -425,14 +388,6 @@ public final class AnaApplyCoreMethodUtil {
             return new StringStruct(StringDataUtil.toLowerCase(one_));
         }
         return new StringStruct(StringDataUtil.toUpperCase(one_));
-    }
-
-    private static Struct compareToString(StringStruct _str, Struct _anotherString) {
-        if (!(_anotherString instanceof StringStruct)) {
-            return null;
-        }
-        StringStruct st_ = (StringStruct)_anotherString;
-        return new IntStruct(StringUtil.compareStrings(_str.getInstance(),st_.getInstance()));
     }
 
     private static Struct replace(StringStruct _str, CharStruct _oldChar, CharStruct _newChar) {

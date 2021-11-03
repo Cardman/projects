@@ -1199,20 +1199,6 @@ public final class NumParsers {
         return true;
     }
 
-    public static boolean isDisplay(int _list, Struct _arg) {
-        return _list == 1 && _arg instanceof DisplayableStruct;
-    }
-
-    public static Struct getArg(int _list, Struct[] _args) {
-        Struct arg_;
-        if (_list == 1) {
-            arg_ = _args[0];
-        } else {
-            arg_ = _args[2];
-        }
-        return arg_;
-    }
-
     public static boolean koArray(char[] _arr, int _one, int _two) {
         return _one < 0 || _two < 0 || _one + _two > _arr.length;
     }
