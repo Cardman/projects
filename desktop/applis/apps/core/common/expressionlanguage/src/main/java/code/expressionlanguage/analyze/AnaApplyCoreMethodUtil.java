@@ -395,10 +395,6 @@ public final class AnaApplyCoreMethodUtil {
     private static Struct calculateLocString(StringStruct _str, ClassMethodId _method, AnalyzedPageEl _page, Struct... _args) {
         String name_ = _method.getConstraints().getName();
         String stringType_ = _page.getCharSeq().getAliasString();
-        if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasRegionMatches())) {
-            return regionMatches(_str, NumParsers.convertToBoolean(_args[0]), NumParsers.convertToNumber(_args[1]), _args[2],
-                    NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]));
-        }
         if (StringUtil.quickEq(name_, _page.getCharSeq().getAliasReplaceString())) {
             if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), stringType_)) {
                 return replaceString(_str,_args[0], _args[1]);
@@ -437,19 +433,6 @@ public final class AnaApplyCoreMethodUtil {
         }
         StringStruct st_ = (StringStruct)_anotherString;
         return new IntStruct(StringUtil.compareStrings(_str.getInstance(),st_.getInstance()));
-    }
-
-    private static Struct regionMatches(StringStruct _str, BooleanStruct _case, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
-                                        NumberStruct _len) {
-        if (!(_other instanceof StringStruct)) {
-            return null;
-        }
-        boolean case_ = BooleanStruct.isTrue(_case);
-        StringStruct other_ = (StringStruct) _other;
-        int comLen_ = _len.intStruct();
-        int to_ = _toffset.intStruct();
-        int po_ = _ooffset.intStruct();
-        return BooleanStruct.of(NumParsers.regionMatches(_str.getInstance(),case_,to_, other_.getInstance(), po_, comLen_));
     }
 
     private static Struct replace(StringStruct _str, CharStruct _oldChar, CharStruct _newChar) {

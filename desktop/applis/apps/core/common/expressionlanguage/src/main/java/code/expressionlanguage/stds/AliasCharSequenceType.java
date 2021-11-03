@@ -134,11 +134,6 @@ public final class AliasCharSequenceType {
         String name_ = _method.getConstraints().getName();
         LgNames lgNames_ = _cont.getStandards();
         String stringType_ = lgNames_.getContent().getCharSeq().getAliasString();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasRegionMatches())) {
-            regionMatches(_str, NumParsers.convertToBoolean(_args[0]), NumParsers.convertToNumber(_args[1]), _args[2],
-                    NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]), _res, _cont, _stackCall);
-            return;
-        }
         if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasReplaceString())) {
             if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), stringType_)) {
                 replaceString(_str,_args[0], _args[1], _res);
@@ -186,20 +181,6 @@ public final class AliasCharSequenceType {
         }
         StringStruct st_ = (StringStruct)_anotherString;
         _res.setResult(new IntStruct(StringUtil.compareStrings(_str.getInstance(),st_.getInstance())));
-    }
-
-    private static void regionMatches(StringStruct _str, BooleanStruct _case, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
-                                      NumberStruct _len, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_other instanceof StringStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        boolean case_ = BooleanStruct.isTrue(_case);
-        int to_ = _toffset.intStruct();
-        StringStruct other_ = (StringStruct) _other;
-        int po_ = _ooffset.intStruct();
-        int comLen_ = _len.intStruct();
-        _res.setResult(BooleanStruct.of(NumParsers.regionMatches(_str.getInstance(),case_,to_, other_.getInstance(), po_, comLen_)));
     }
 
     private static void replace(StringStruct _str, CharStruct _oldChar, CharStruct _newChar, ResultErrorStd _res) {
@@ -1004,7 +985,7 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasReplaceMultiple, params_, aliasString, true, MethodModifier.NORMAL,new StringList(params.getAliasString0ReplaceMultiple0()));
         methods_.add( method_);
         params_ = new StringList(aliasPrimBoolean_, aliasPrimInteger_, aliasString, aliasPrimInteger_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0RegionMatches0(),params.getAliasString0RegionMatches1(),params.getAliasString0RegionMatches2(),params.getAliasString0RegionMatches3(),params.getAliasString0RegionMatches4()));
+        method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasString0RegionMatches0(),params.getAliasString0RegionMatches1(),params.getAliasString0RegionMatches2(),params.getAliasString0RegionMatches3(),params.getAliasString0RegionMatches4()),new FctStringRegionMatches());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasToLowerCase, params_, aliasString, false, MethodModifier.NORMAL);

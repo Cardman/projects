@@ -2131,10 +2131,10 @@ public final class NumParsers {
             char inCh_ = _instance.charAt(to_);
             char otCh_ = _other.charAt(po_);
             if (inCh_ != otCh_) {
-                if (StringDataUtil.toUpperCase(inCh_) != StringDataUtil.toUpperCase(otCh_)) {
-                    if (StringDataUtil.toLowerCase(inCh_) != StringDataUtil.toLowerCase(otCh_)) {
-                        return false;
-                    }
+                char inUp_ = StringDataUtil.toUpperCase(inCh_);
+                char otUp_ = StringDataUtil.toUpperCase(otCh_);
+                if (inUp_ != otUp_ && StringDataUtil.toLowerCase(inUp_) != StringDataUtil.toLowerCase(otUp_)) {
+                    return false;
                 }
             }
             len_--;
