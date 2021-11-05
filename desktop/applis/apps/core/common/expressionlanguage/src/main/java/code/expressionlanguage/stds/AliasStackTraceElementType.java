@@ -1,18 +1,14 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.MetaInfoUtil;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fcts.FctStackTraceCurrent;
+import code.expressionlanguage.fcts.FctStackTraceCurrentFull;
+import code.expressionlanguage.fcts.FctStackTraceToStr;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class AliasStackTraceElementType {
 
@@ -38,33 +34,17 @@ public final class AliasStackTraceElementType {
         String out_ = aliasStackTraceElement;
         out_ = StringExpUtil.getPrettyArrayType(out_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC,new FctStackTraceCurrent());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCurrentFullStack, params_, out_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasCurrentFullStack, params_, out_, false, MethodModifier.STATIC,new FctStackTraceCurrentFull());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasStackTraceElementToString, params_, aliasString_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasStackTraceElementToString, params_, aliasString_, false, MethodModifier.NORMAL,new FctStackTraceToStr());
         methods_.add( method_);
         _stds.getStandards().put(aliasStackTraceElement, stdcl_);
     }
 
-    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, StackCall _stackCall) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        String name_ = _method.getConstraints().getName();
-        LgNames lgNames_ = _cont.getStandards();
-        AliasStackTraceElementType ref_ = lgNames_.getStackElt();
-        if (StringUtil.quickEq(name_, ref_.aliasCurrentStack)) {
-            result_.setResult(MetaInfoUtil.newStackTraceElementArray(_cont, _stackCall));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasCurrentFullStack)) {
-            result_.setResult(MetaInfoUtil.newStackTraceElementArrayFull(_stackCall));
-            return result_;
-        }
-        result_.setResult(NumParsers.getStack(_struct).getDisplayedString(_cont));
-        return result_;
-    }
     public String getAliasStackTraceElement() {
         return aliasStackTraceElement;
     }

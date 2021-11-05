@@ -117,10 +117,6 @@ public abstract class LgNames implements BuildableLgNames {
         return content.getNbAlias();
     }
 
-    public AliasStackTraceElementType getStackElt() {
-        return content.getStackElt();
-    }
-
     public DisplayedStrings getDisplayedStrings() {
         return content.getDisplayedStrings();
     }

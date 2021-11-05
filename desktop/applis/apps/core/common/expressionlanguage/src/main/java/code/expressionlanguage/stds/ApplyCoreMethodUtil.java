@@ -23,9 +23,6 @@ public final class ApplyCoreMethodUtil {
         Struct[] args_ = ExecHelper.getObjects(_args);
         String type_ = _method.getClassName();
         LgNames lgNames_ = _cont.getStandards();
-        if (StringUtil.quickEq(type_, lgNames_.getContent().getStackElt().getAliasStackTraceElement())) {
-            return AliasStackTraceElementType.invokeMethod(_cont, _method, _struct, _stackCall);
-        }
         AliasReflection ref_ = lgNames_.getReflect();
         if (StringUtil.quickEq(type_, ref_.getAliasAnnotationType())) {
             ResultErrorStd result_ = new ResultErrorStd();
