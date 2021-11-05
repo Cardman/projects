@@ -16,21 +16,11 @@ import code.util.CustList;
 public final class FctStringRegionMatches implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return regionMatches((StringStruct)_instance, NumParsers.convertToBoolean(_args[0]), NumParsers.convertToNumber(_args[1]), _args[2],
-                NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]));
-    }
-
-    private static Struct regionMatches(StringStruct _str, BooleanStruct _case, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
-                                        NumberStruct _len) {
-        if (!(_other instanceof StringStruct)) {
+        Struct other_ = _args[2];
+        if (!(other_ instanceof StringStruct)) {
             return null;
         }
-        boolean case_ = BooleanStruct.isTrue(_case);
-        StringStruct other_ = (StringStruct) _other;
-        int comLen_ = _len.intStruct();
-        int to_ = _toffset.intStruct();
-        int po_ = _ooffset.intStruct();
-        return BooleanStruct.of(NumParsers.regionMatches(_str.getInstance(),case_,to_, other_.getInstance(), po_, comLen_));
+        return regMatches((StringStruct)_instance, NumParsers.convertToBoolean(_args[0]), NumParsers.convertToNumber(_args[1]), (StringStruct) other_, NumParsers.convertToNumber(_args[3]), NumParsers.convertToNumber(_args[4]));
     }
 
     @Override
@@ -41,20 +31,18 @@ public final class FctStringRegionMatches implements AnaStdCaller {
         Struct three_ = argumentWrappers_.get(2).getValue().getStruct();
         Struct four_ = argumentWrappers_.get(3).getValue().getStruct();
         Struct five_ = argumentWrappers_.get(4).getValue().getStruct();
-        return regionMatches((StringStruct)_instance, NumParsers.convertToBoolean(one_), NumParsers.convertToNumber(two_), three_, NumParsers.convertToNumber(four_), NumParsers.convertToNumber(five_), _cont, _stackCall);
-    }
-
-    private static ArgumentWrapper regionMatches(StringStruct _str, BooleanStruct _case, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
-                                      NumberStruct _len, ContextEl _context, StackCall _stackCall) {
-        if (!(_other instanceof StringStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+        if (!(three_ instanceof StringStruct)) {
+            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
+        return new ArgumentWrapper(regMatches((StringStruct)_instance, NumParsers.convertToBoolean(one_), NumParsers.convertToNumber(two_), (StringStruct) three_, NumParsers.convertToNumber(four_), NumParsers.convertToNumber(five_)));
+    }
+
+    private static BooleanStruct regMatches(StringStruct _str, BooleanStruct _case, NumberStruct _toffset, StringStruct _other, NumberStruct _ooffset, NumberStruct _len) {
         boolean case_ = BooleanStruct.isTrue(_case);
         int to_ = _toffset.intStruct();
-        StringStruct other_ = (StringStruct) _other;
         int po_ = _ooffset.intStruct();
         int comLen_ = _len.intStruct();
-        return new ArgumentWrapper(BooleanStruct.of(NumParsers.regionMatches(_str.getInstance(),case_,to_, other_.getInstance(), po_, comLen_)));
+        return BooleanStruct.of(NumParsers.regionMatches(_str.getInstance(), case_, to_, _other.getInstance(), po_, comLen_));
     }
 }

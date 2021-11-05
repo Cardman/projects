@@ -1,18 +1,12 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.fcts.*;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -72,607 +66,8 @@ public final class AliasCharSequenceType {
     private String aliasGetNewString;
     private final AliasParamCharSequence params = new AliasParamCharSequence();
 
-    private static void calculateStrBuilder(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, StackCall _stackCall, Struct... _args) {
-        LgNames lgNames_ = _cont.getStandards();
-        String name_ = _method.getConstraints().getName();
-        String aliasPrimChar_ = lgNames_.getContent().getPrimTypes().getAliasPrimChar();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSame())) {
-            _res.setResult(BooleanStruct.of(_args[0] == _args[1]));
-            return;
-        }
-        StringBuilderStruct one_ = NumParsers.getStrBuilder(_struct);
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasAppend())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1 && StringUtil.quickEq(_method.getConstraints().getParametersType(0), StringExpUtil.getPrettyArrayType(aliasPrimChar_))) {
-                appendChars(one_,_args[0], _cont, _res, _stackCall);
-                return;
-            }
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                append(one_,ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont), _res, _stackCall);
-                return;
-            }
-            if (StringUtil.quickEq(_method.getConstraints().getParametersType(0), StringExpUtil.getPrettyArrayType(lgNames_.getContent().getPrimTypes().getAliasPrimChar()))) {
-                appendChars(one_,_args[0], NumParsers.convertToNumber(_args[1]), NumParsers.convertToNumber(_args[2]), _cont, _res, _stackCall);
-                return;
-            }
-            append(one_,ExecCatOperation.getDisplayable(new Argument(_args[0]),_cont), NumParsers.convertToNumber(_args[1]), NumParsers.convertToNumber(_args[2]), _cont, _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasCapacity())) {
-            capacity(one_,_res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasClear())) {
-            clear(one_, _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasDelete())) {
-            delete(one_, NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]), _cont, _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasDeleteCharAt())) {
-            deleteCharAt(one_, NumParsers.convertToNumber(_args[0]), _cont, _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasEnsureCapacity())) {
-            ensureCapacity(one_, NumParsers.convertToNumber(_args[0]), _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasInsert())) {
-            if (_method.getConstraints().getParametersTypesLength() == 2 && StringUtil.quickEq(_method.getConstraints().getParametersType(1), StringExpUtil.getPrettyArrayType(aliasPrimChar_))) {
-                insertChars(one_, NumParsers.convertToNumber(_args[0]), _args[1], _cont, _res, _stackCall);
-                return;
-            }
-            if (_method.getConstraints().getParametersTypesLength() == 2) {
-                insert(one_, NumParsers.convertToNumber(_args[0]),
-                        ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont), _cont, _res, _stackCall);
-                return;
-            }
-            if (StringUtil.quickEq(_method.getConstraints().getParametersType(1), StringExpUtil.getPrettyArrayType(lgNames_.getContent().getPrimTypes().getAliasPrimChar()))) {
-                insertChars(one_, NumParsers.convertToNumber(_args[0]), _args[1], NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]), _cont, _res, _stackCall);
-                return;
-            }
-            insert(one_, NumParsers.convertToNumber(_args[0]),
-                    ExecCatOperation.getDisplayable(new Argument(_args[1]),_cont), NumParsers.convertToNumber(_args[2]), NumParsers.convertToNumber(_args[3]), _cont, _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasReplace())) {
-            replace(one_, NumParsers.convertToNumber(_args[0]), NumParsers.convertToNumber(_args[1]), _args[2], _cont, _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasReverse())) {
-            reverse(one_, _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSetCharAt())) {
-            setCharAt(one_, NumParsers.convertToNumber(_args[0]), NumParsers.convertToChar(_args[1]), _cont, _res, _stackCall);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSetLength())) {
-            setLength(one_, NumParsers.convertToNumber(_args[0]), _cont, _res, _stackCall);
-            return;
-        }
-        trimToSize(one_, _res, _stackCall);
-    }
-
-    private static void ensureCapacity(StringBuilderStruct _instance, NumberStruct _minimumCapacity, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        _instance.getInstance().ensureCapacity(_minimumCapacity.intStruct());
-        _out.setResult(_instance);
-    }
-
-    private static void trimToSize(StringBuilderStruct _instance, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        _instance.getInstance().trimToSize();
-        _out.setResult(_instance);
-    }
-
-    private static void setLength(StringBuilderStruct _instance, NumberStruct _newLength, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        int newLength_ = _newLength.intStruct();
-        if (newLength_ < 0) {
-            _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(newLength_), _stackCall)));
-            return;
-        }
-        _instance.getInstance().setLength(newLength_);
-        _out.setResult(_instance);
-    }
-
-    private static void append(StringBuilderStruct _instance, DisplayableStruct _s, NumberStruct _start, NumberStruct _end, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        String toApp_= _s.getDisplayedString(_an).getInstance();
-        int start_ = _start.intStruct();
-        int end_ = _end.intStruct();
-        if (start_ < 0 || start_ > end_ || end_ > toApp_.length()) {
-            if (start_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(start_), _stackCall)));
-            } else if (start_ > end_){
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", end_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(end_, ">", toApp_.length()), _stackCall)));
-            }
-            return;
-        }
-        _instance.getInstance().append(toApp_, start_, end_);
-        _out.setResult(_instance);
-    }
-
-    private static void appendChars(StringBuilderStruct _instance, Struct _str, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        if (!(_str instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_an, _stackCall)));
-            return;
-        }
-        int len_ =  ((ArrayStruct)_str).getLength();
-        char[] chars_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            chars_[i] = NumParsers.convertToChar(((ArrayStruct)_str).get(i)).getChar();
-        }
-        _instance.getInstance().append(chars_);
-        _out.setResult(_instance);
-    }
-
-    private static void appendChars(StringBuilderStruct _instance, Struct _str, NumberStruct _offset, NumberStruct _len, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        if (!(_str instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_an, _stackCall)));
-            return;
-        }
-        int offset_ = _offset.intStruct();
-        int len_ = _len.intStruct();
-        int lenChar_ = ((ArrayStruct)_str).getLength();
-        if (offset_ < 0 || len_ < 0 || offset_ + len_ > lenChar_) {
-            if (offset_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(offset_), _stackCall)));
-            } else if (len_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(len_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginEndMessage(lenChar_, offset_, len_), _stackCall)));
-            }
-            return;
-        }
-        char[] chars_ = new char[lenChar_];
-        for (int i = 0; i < lenChar_; i++) {
-            chars_[i] = NumParsers.convertToChar(((ArrayStruct)_str).get(i)).getChar();
-        }
-        _instance.getInstance().append(chars_, offset_, len_);
-        _out.setResult(_instance);
-    }
-
-    private static void append(StringBuilderStruct _instance, StringStruct _b, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        _instance.getInstance().append(_b.getInstance());
-        _out.setResult(_instance);
-    }
-
-    private static void delete(StringBuilderStruct _instance, NumberStruct _start, NumberStruct _end, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        int start_ = _start.intStruct();
-        int end_ = _end.intStruct();
-        if (start_ < 0 || start_ > _instance.getInstance().length() || start_ > end_) {
-            if (start_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(start_), _stackCall)));
-            } else if (start_ > _instance.getInstance().length()) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", _instance.getInstance().length()), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", end_), _stackCall)));
-            }
-            return;
-        }
-        _instance.getInstance().delete(start_, end_);
-        _out.setResult(_instance);
-    }
-
-    private static void deleteCharAt(StringBuilderStruct _instance, NumberStruct _index, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        int index_ = _index.intStruct();
-        if (index_ < 0 || index_ >= _instance.getInstance().length()) {
-            if (index_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">=", _instance.getInstance().length()), _stackCall)));
-            }
-            return;
-        }
-        _instance.getInstance().deleteCharAt(index_);
-        _out.setResult(_instance);
-    }
-
-    private static void replace(StringBuilderStruct _instance, NumberStruct _start, NumberStruct _end, Struct _str, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        int start_ = _start.intStruct();
-        int end_ = _end.intStruct();
-        if (start_ < 0 || start_ > _instance.getInstance().length() || start_ > end_) {
-            if (start_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(start_), _stackCall)));
-            } else if (start_ > _instance.getInstance().length()) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", _instance.getInstance().length()), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", end_), _stackCall)));
-            }
-            return;
-        }
-        if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_an, _stackCall)));
-            return;
-        }
-        CharSequenceStruct ch_ = NumParsers.getCharSeq(_str);
-        _instance.getInstance().replace(start_, end_, ch_.toStringInstance());
-        _out.setResult(_instance);
-    }
-
-    private static void insertChars(StringBuilderStruct _instance, NumberStruct _index, Struct _str, NumberStruct _offset, NumberStruct _len, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        int index_ = _index.intStruct();
-        if (index_ < 0 || index_ > _instance.getInstance().length()) {
-            if (index_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">", _instance.getInstance().length()), _stackCall)));
-            }
-            return;
-        }
-        if (!(_str instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_an, _stackCall)));
-            return;
-        }
-        int lenArr_ = ((ArrayStruct)_str).getLength();
-        char[] chars_ = new char[lenArr_];
-        for (int i = 0; i < lenArr_; i++) {
-            chars_[i] = NumParsers.convertToChar(((ArrayStruct)_str).get(i)).getChar();
-        }
-        int offset_ = _offset.intStruct();
-        int len_ = _len.intStruct();
-        if (offset_ < 0 || len_ < 0 || offset_ + len_ > chars_.length) {
-            if (offset_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(offset_), _stackCall)));
-            } else if (len_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(len_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginEndMessage(chars_.length, offset_, len_), _stackCall)));
-            }
-            return;
-        }
-        _instance.getInstance().insert(index_, chars_, offset_, len_);
-        _out.setResult(_instance);
-    }
-
-    private static void insertChars(StringBuilderStruct _instance, NumberStruct _offset, Struct _str, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        int index_ = _offset.intStruct();
-        if (index_ < 0 || index_ > _instance.getInstance().length()) {
-            if (index_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">", _instance.getInstance().length()), _stackCall)));
-            }
-            return;
-        }
-        if (!(_str instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_an, _stackCall)));
-            return;
-        }
-        int len_ = ((ArrayStruct) _str).getLength();
-        char[] chars_ = new char[len_];
-        for (int i = 0; i < len_; i++) {
-            chars_[i] = NumParsers.convertToChar(((ArrayStruct) _str).get(i)).getChar();
-        }
-        _instance.getInstance().insert(index_, chars_);
-        _out.setResult(_instance);
-    }
-
-    private static void insert(StringBuilderStruct _instance, NumberStruct _dstOffset, StringStruct _s, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        int index_ = _dstOffset.intStruct();
-        if (index_ < 0 || index_ > _instance.getInstance().length()) {
-            if (index_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">", _instance.getInstance().length()), _stackCall)));
-            }
-            return;
-        }
-        _instance.getInstance().insert(index_, _s.getInstance());
-        _out.setResult(_instance);
-    }
-
-    private static void insert(StringBuilderStruct _instance, NumberStruct _dstOffset, DisplayableStruct _s, NumberStruct _start,
-                               NumberStruct _end, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        String toApp_= _s.getDisplayedString(_an).getInstance();
-        int index_ = _dstOffset.intStruct();
-        if (index_ < 0 || index_ > _instance.getInstance().length()) {
-            if (index_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">", _instance.getInstance().length()), _stackCall)));
-            }
-            return;
-        }
-        int start_ = _start.intStruct();
-        int end_ = _end.intStruct();
-        if (start_ < 0 || end_ < 0 || start_ > end_ || end_ > toApp_.length()) {
-            if (start_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(start_), _stackCall)));
-            } else if (end_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(end_), _stackCall)));
-            } else if (start_ > end_) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(start_, ">", end_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(end_, ">", toApp_.length()), _stackCall)));
-            }
-            return;
-        }
-        _instance.getInstance().insert(index_, toApp_, start_, end_);
-        _out.setResult(_instance);
-    }
-
-    private static void clear(StringBuilderStruct _instance, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        _instance.getInstance().delete(0, _instance.getInstance().length());
-        _out.setResult(_instance);
-    }
-
-    private static void reverse(StringBuilderStruct _instance, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        _instance.getInstance().reverse();
-        _out.setResult(_instance);
-    }
-
-    private static void setCharAt(StringBuilderStruct _instance, NumberStruct _index, CharStruct _ch, ContextEl _an, ResultErrorStd _out, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return;
-        }
-        int index_ = _index.intStruct();
-        if (index_ < 0 || index_ >= _instance.getInstance().length()) {
-            if (index_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getBeginMessage(index_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(getBadIndex(_an, getEndMessage(index_, ">=", _instance.getInstance().length()), _stackCall)));
-            }
-            return;
-        }
-        _instance.getInstance().setCharAt(index_, _ch.getChar());
-        _out.setResult(_instance);
-    }
-
-    private static void capacity(StringBuilderStruct _instance, ResultErrorStd _out) {
-        _out.setResult(new IntStruct(_instance.getInstance().capacity()));
-    }
-
-    private static void calculateCharSeq(ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, Struct _struct, StackCall _stackCall, Struct... _args) {
-        calculateLocCharSeq(NumParsers.getCharSeq(_struct), _cont, _res, _method, _stackCall, _args);
-    }
-
-    private static void calculateLocCharSeq(CharSequenceStruct _charSequence, ContextEl _cont, ResultErrorStd _res, ClassMethodId _method, StackCall _stackCall, Struct... _args) {
-        String name_ = _method.getConstraints().getName();
-        LgNames lgNames_ = _cont.getStandards();
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasGetBytes())) {
-            getBytes(_charSequence, lgNames_, _res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSplit())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                if (!(_args[0] instanceof CharStruct)) {
-                    splitSingleString(_charSequence, _args[0], lgNames_, _res, _cont, _stackCall);
-                    return;
-                }
-                splitSingleChar(_charSequence, (CharStruct)_args[0], lgNames_, _res);
-                return;
-            }
-            if (!(_args[0] instanceof CharStruct)) {
-                splitSingleString(_charSequence, _args[0], NumParsers.convertToNumber(_args[1]), lgNames_, _res, _cont, _stackCall);
-                return;
-            }
-            splitSingleChar(_charSequence, (CharStruct)_args[0], NumParsers.convertToNumber(_args[1]), lgNames_, _res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasToCharArray())) {
-            toCharArray(_charSequence, lgNames_, _res);
-            return;
-        }
-        if (StringUtil.quickEq(name_, lgNames_.getContent().getCharSeq().getAliasSplitStrings())) {
-            if (_method.getConstraints().getParametersTypesLength() == 1) {
-                splitStrings(_charSequence, _args[0], lgNames_, _res, _cont, _stackCall);
-                return;
-            }
-            splitStrings(_charSequence, NumParsers.convertToNumber(_args[0]), _args[1], lgNames_, _res, _cont, _stackCall);
-            return;
-        }
-        splitChars(_charSequence, _args[0], lgNames_, _res, _cont, _stackCall);
-    }
-
-    private static void getBytes(CharSequenceStruct _charSequence, LgNames _stds, ResultErrorStd _res) {
-        String bytePrim_ = _stds.getContent().getPrimTypes().getAliasPrimByte();
-        String seq_ = _charSequence.toStringInstance();
-        byte[] list_ = StringUtil.encode(seq_);
-        bytePrim_ = StringExpUtil.getPrettyArrayType(bytePrim_);
-        int len_ = list_.length;
-        ArrayStruct result_ = new ArrayStruct(len_, bytePrim_);
-        for (int i = 0; i < len_; i++) {
-            result_.set(i, new ByteStruct(list_[i]));
-        }
-        _res.setResult(result_);
-    }
-
-    private static void splitSingleChar(CharSequenceStruct _charSequence, CharStruct _sep, LgNames _stds, ResultErrorStd _res) {
-        splitSingleChar(_charSequence, _sep, new IntStruct(-1), _stds, _res);
-    }
-
-    private static void splitSingleChar(CharSequenceStruct _charSequence, CharStruct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res) {
-        int lim_ = _lim.intStruct();
-        if (lim_ < -1) {
-            lim_ = -1;
-        }
-        char ch_ = _sep.getChar();
-        StringList parts_ = StringUtil.splitChars(_charSequence.toStringInstance(), ch_);
-        int lenArr_ = parts_.size();
-        if (lim_ >= 0) {
-            lenArr_ = Math.min(lim_,lenArr_);
-        }
-        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
-        aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
-        ArrayStruct result_ = new ArrayStruct(lenArr_, aliasString_);
-        for (int i = 0; i < lenArr_; i++) {
-            result_.set(i, new StringStruct(parts_.get(i)));
-        }
-        _res.setResult(result_);
-    }
-
-    private static void splitChars(CharSequenceStruct _charSequence, Struct _seps, LgNames _stds, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_seps instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        int lenSeps_ = arrSep_.getLength();
-        char[] seps_ = new char[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrSep_.get(i);
-            seps_[i] = NumParsers.convertToChar(curSep_).getChar();
-        }
-        StringList parts_ = StringUtil.splitChars(_charSequence.toStringInstance(), seps_);
-        int lenArr_ = parts_.size();
-        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
-        aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
-        ArrayStruct result_ = new ArrayStruct(lenArr_, aliasString_);
-        for (int i = 0; i < lenArr_; i++) {
-            result_.set(i, new StringStruct(parts_.get(i)));
-        }
-        _res.setResult(result_);
-    }
-
-    private static void splitSingleString(CharSequenceStruct _charSequence, Struct _sep, LgNames _stds, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        splitSingleString(_charSequence, _sep, new IntStruct(-1), _stds, _res, _context, _stackCall);
-    }
-
-    private static void splitStrings(CharSequenceStruct _charSequence, Struct _seps, LgNames _stds, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        splitStrings(_charSequence, new IntStruct(-1), _seps, _stds, _res, _context, _stackCall);
-    }
-
-    private static void splitStrings(CharSequenceStruct _charSequence, NumberStruct _lim, Struct _seps, LgNames _stds, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_seps instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        int lenSeps_ = arrSep_.getLength();
-        String[] seps_ = new String[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrSep_.get(i);
-            if (!(curSep_ instanceof CharSequenceStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-                return;
-            }
-            seps_[i] = NumParsers.getCharSeq(curSep_).toStringInstance();
-        }
-        int lim_ = _lim.intStruct();
-        if (lim_ < -1) {
-            lim_ = -1;
-        }
-        StringList parts_ = StringUtil.splitStrings(_charSequence.toStringInstance(), seps_);
-        int lenArr_ = parts_.size();
-        if (lim_ >= 0) {
-            lenArr_ = Math.min(lim_,lenArr_);
-        }
-        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
-        aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
-        ArrayStruct result_ = new ArrayStruct(lenArr_, aliasString_);
-        for (int i = 0; i < lenArr_; i++) {
-            result_.set(i, new StringStruct(parts_.get(i)));
-        }
-        _res.setResult(result_);
-    }
-
-    private static void splitSingleString(CharSequenceStruct _charSequence, Struct _sep, NumberStruct _lim, LgNames _stds, ResultErrorStd _res, ContextEl _context, StackCall _stackCall) {
-        if (!(_sep instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(getNpe(_context, _stackCall)));
-            return;
-        }
-        int lim_ = _lim.intStruct();
-        if (lim_ < -1) {
-            lim_ = -1;
-        }
-        CharSequenceStruct str_ = NumParsers.getCharSeq(_sep);
-        StringList parts_ = StringUtil.splitStrings(_charSequence.toStringInstance(), str_.toStringInstance());
-        int lenArr_ = parts_.size();
-        if (lim_ >= 0) {
-            lenArr_ = Math.min(lim_,lenArr_);
-        }
-        String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
-        aliasString_ = StringExpUtil.getPrettyArrayType(aliasString_);
-        ArrayStruct result_ = new ArrayStruct(lenArr_, aliasString_);
-        for (int i = 0; i < lenArr_; i++) {
-            result_.set(i, new StringStruct(parts_.get(i)));
-        }
-        _res.setResult(result_);
-    }
-
-    private static void toCharArray(CharSequenceStruct _charSequence, LgNames _stds, ResultErrorStd _res) {
-        String aliasChar_ = _stds.getContent().getPrimTypes().getAliasPrimChar();
-        aliasChar_ = StringExpUtil.getPrettyArrayType(aliasChar_);
-        int len_ = _charSequence.length();
-        ArrayStruct arr_ = new ArrayStruct(len_,aliasChar_);
-        for (int i = 0; i < len_; i++) {
-            arr_.set(i, new CharStruct(_charSequence.charAt(i)));
-        }
-        _res.setResult(arr_);
-    }
-
     public static ErrorStruct getBadIndex(ContextEl _context, String _message, StackCall _stackCall) {
         return new ErrorStruct(_context, _message, _context.getStandards().getContent().getCoreNames().getAliasBadIndex(), _stackCall);
-    }
-
-    private static ErrorStruct getNpe(ContextEl _context, StackCall _stackCall) {
-        return new ErrorStruct(_context, _context.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall);
     }
 
     public void build(LgNames _lgNames) {
@@ -753,34 +148,34 @@ public final class AliasCharSequenceType {
         method_ = new StandardMethod(aliasIsEmpty, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new FctCharSeqIsEmpty());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasToCharArray, params_, StringExpUtil.getPrettyArrayType(aliasPrimChar_), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasToCharArray, params_, StringExpUtil.getPrettyArrayType(aliasPrimChar_), false, MethodModifier.NORMAL,new FctCharSeqToCharArray());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetBytes, params_, StringExpUtil.getPrettyArrayType(aliasPrimByte_), false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasGetBytes, params_, StringExpUtil.getPrettyArrayType(aliasPrimByte_), false, MethodModifier.NORMAL,new FctCharSeqGetBytes());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
         method_ = new StandardMethod(aliasFormat, params_, aliasString, true, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Format0()),new FctCharSeqFormat());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Split0()));
+        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0Split0()),new FctCharSeqSplit1());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1Split0(),params.getAliasCharSequence1Split1()));
+        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1Split0(),params.getAliasCharSequence1Split1()),new FctCharSeqSplit3());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence2Split0()));
+        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence2Split0()),new FctCharSeqSplit0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence3Split0(),params.getAliasCharSequence3Split1()));
+        method_ = new StandardMethod(aliasSplit, params_, StringExpUtil.getPrettyArrayType(aliasString), false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence3Split0(),params.getAliasCharSequence3Split1()),new FctCharSeqSplit2());
         methods_.add( method_);
         params_ = new StringList(aliasCharSequence);
-        method_ = new StandardMethod(aliasSplitStrings, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0SplitStrings0()));
+        method_ = new StandardMethod(aliasSplitStrings, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0SplitStrings0()),new FctCharSeqSplitStrings0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasCharSequence);
-        method_ = new StandardMethod(aliasSplitStrings, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1SplitStrings0(),params.getAliasCharSequence1SplitStrings1()));
+        method_ = new StandardMethod(aliasSplitStrings, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence1SplitStrings0(),params.getAliasCharSequence1SplitStrings1()),new FctCharSeqSplitStrings1());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasSplitChars, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0SplitChars0()));
+        method_ = new StandardMethod(aliasSplitChars, params_, StringExpUtil.getPrettyArrayType(aliasString), true, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0SplitChars0()),new FctCharSeqSplitChars());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasCharSequence, aliasPrimInteger_, aliasPrimInteger_);
         method_ = new StandardMethod(aliasRegionMatches, params_, aliasPrimBoolean_, false, MethodModifier.NORMAL,new StringList(params.getAliasCharSequence0RegionMatches0(),params.getAliasCharSequence0RegionMatches1(),params.getAliasCharSequence0RegionMatches2(),params.getAliasCharSequence0RegionMatches3()),new FctCharSeqRegionMatches());
@@ -881,121 +276,121 @@ public final class AliasCharSequenceType {
         constructors_ = new CustList<StandardConstructor>();
         std_ = new StandardClass(aliasStringBuilder, fields_, constructors_, methods_, aliasObject_, MethodModifier.FINAL, new DfStringBuilder());
         params_ = new StringList(aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimByte_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder1Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder1Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimShort_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder2Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder2Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimChar_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder3Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder3Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder4Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder4Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimLong_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder5Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder5Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimFloat_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder6Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder6Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimDouble_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder7Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder7Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasString);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder8Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder8Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasString,aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder9Append0(),params.getAliasStringBuilder9Append1(),params.getAliasStringBuilder9Append2()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder9Append0(),params.getAliasStringBuilder9Append1(),params.getAliasStringBuilder9Append2()),new FctStringBuilderAppend2());
         methods_.add( method_);
         params_ = new StringList(aliasStringBuilder);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder10Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder10Append0()),new FctStringBuilderAppend0());
         methods_.add( method_);
         params_ = new StringList(aliasStringBuilder,aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder11Append0(),params.getAliasStringBuilder11Append1(),params.getAliasStringBuilder11Append2()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder11Append0(),params.getAliasStringBuilder11Append1(),params.getAliasStringBuilder11Append2()),new FctStringBuilderAppend2());
         methods_.add( method_);
         params_ = new StringList(StringExpUtil.getPrettyArrayType(aliasPrimChar_));
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder12Append0()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder12Append0()),new FctStringBuilderAppend1());
         methods_.add( method_);
         params_ = new StringList(StringExpUtil.getPrettyArrayType(aliasPrimChar_),aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder13Append0(),params.getAliasStringBuilder13Append1(),params.getAliasStringBuilder13Append2()));
+        method_ = new StandardMethod(aliasAppend, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder13Append0(),params.getAliasStringBuilder13Append1(),params.getAliasStringBuilder13Append2()),new FctStringBuilderAppend3());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasCapacity, params_, aliasPrimInteger_, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasCapacity, params_, aliasPrimInteger_, false, MethodModifier.NORMAL,new FctStringBuilderCapacity());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasDelete, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Delete0(),params.getAliasStringBuilder0Delete1()));
+        method_ = new StandardMethod(aliasDelete, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Delete0(),params.getAliasStringBuilder0Delete1()),new FctStringBuilderDelete());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasDeleteCharAt, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0DeleteCharAt0()));
+        method_ = new StandardMethod(aliasDeleteCharAt, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0DeleteCharAt0()),new FctStringBuilderDeleteCharAt());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasClear, params_, aliasStringBuilder, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasClear, params_, aliasStringBuilder, false, MethodModifier.NORMAL, new FctStringBuilderClear());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimBoolean_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Insert0(),params.getAliasStringBuilder0Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Insert0(),params.getAliasStringBuilder0Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimByte_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder1Insert0(),params.getAliasStringBuilder1Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder1Insert0(),params.getAliasStringBuilder1Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimShort_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder2Insert0(),params.getAliasStringBuilder2Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder2Insert0(),params.getAliasStringBuilder2Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimChar_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder3Insert0(),params.getAliasStringBuilder3Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder3Insert0(),params.getAliasStringBuilder3Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimInteger_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder4Insert0(),params.getAliasStringBuilder4Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder4Insert0(),params.getAliasStringBuilder4Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimLong_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder5Insert0(),params.getAliasStringBuilder5Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder5Insert0(),params.getAliasStringBuilder5Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimFloat_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder6Insert0(),params.getAliasStringBuilder6Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder6Insert0(),params.getAliasStringBuilder6Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasPrimDouble_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder7Insert0(),params.getAliasStringBuilder7Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder7Insert0(),params.getAliasStringBuilder7Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasString);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder8Insert0(),params.getAliasStringBuilder8Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder8Insert0(),params.getAliasStringBuilder8Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasString,aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder9Insert0(),params.getAliasStringBuilder9Insert1(),params.getAliasStringBuilder9Insert2(),params.getAliasStringBuilder9Insert3()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder9Insert0(),params.getAliasStringBuilder9Insert1(),params.getAliasStringBuilder9Insert2(),params.getAliasStringBuilder9Insert3()),new FctStringBuilderInsert2());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasStringBuilder);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder10Insert0(),params.getAliasStringBuilder10Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder10Insert0(),params.getAliasStringBuilder10Insert1()),new FctStringBuilderInsert0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, aliasStringBuilder,aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder11Insert0(),params.getAliasStringBuilder11Insert1(),params.getAliasStringBuilder11Insert2(),params.getAliasStringBuilder11Insert3()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder11Insert0(),params.getAliasStringBuilder11Insert1(),params.getAliasStringBuilder11Insert2(),params.getAliasStringBuilder11Insert3()),new FctStringBuilderInsert2());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, StringExpUtil.getPrettyArrayType(aliasPrimChar_));
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder12Insert0(),params.getAliasStringBuilder12Insert1()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder12Insert0(),params.getAliasStringBuilder12Insert1()),new FctStringBuilderInsert1());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_, StringExpUtil.getPrettyArrayType(aliasPrimChar_),aliasPrimInteger_,aliasPrimInteger_);
-        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder13Insert0(),params.getAliasStringBuilder13Insert1(),params.getAliasStringBuilder13Insert2(),params.getAliasStringBuilder13Insert3()));
+        method_ = new StandardMethod(aliasInsert, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder13Insert0(),params.getAliasStringBuilder13Insert1(),params.getAliasStringBuilder13Insert2(),params.getAliasStringBuilder13Insert3()),new FctStringBuilderInsert3());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasReverse, params_, aliasStringBuilder, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasReverse, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new FctStringBuilderReverse());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimInteger_,aliasCharSequence);
-        method_ = new StandardMethod(aliasReplace, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Replace0(),params.getAliasStringBuilder0Replace1(),params.getAliasStringBuilder0Replace2()));
+        method_ = new StandardMethod(aliasReplace, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0Replace0(),params.getAliasStringBuilder0Replace1(),params.getAliasStringBuilder0Replace2()),new FctStringBuilderReplace());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_,aliasPrimChar_);
-        method_ = new StandardMethod(aliasSetCharAt, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0SetCharAt0(),params.getAliasStringBuilder0SetCharAt1()));
+        method_ = new StandardMethod(aliasSetCharAt, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0SetCharAt0(),params.getAliasStringBuilder0SetCharAt1()),new FctStringBuilderSetCharAt());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasSetLength, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0SetLength0()));
+        method_ = new StandardMethod(aliasSetLength, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0SetLength0()),new FctStringBuilderSetLength());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasTrimToSize, params_, aliasStringBuilder, false, MethodModifier.NORMAL);
+        method_ = new StandardMethod(aliasTrimToSize, params_, aliasStringBuilder, false, MethodModifier.NORMAL, new FctStringBuilderTrimToSize());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasEnsureCapacity, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0EnsureCapacity0()));
+        method_ = new StandardMethod(aliasEnsureCapacity, params_, aliasStringBuilder, false, MethodModifier.NORMAL,new StringList(params.getAliasStringBuilder0EnsureCapacity0()),new FctStringBuilderEnsureCapacity());
         methods_.add( method_);
         params_ = new StringList(aliasStringBuilder,aliasStringBuilder);
-        method_ = new StandardMethod(aliasSame, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasStringBuilder0Same0(),params.getAliasStringBuilder0Same1()));
+        method_ = new StandardMethod(aliasSame, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasStringBuilder0Same0(),params.getAliasStringBuilder0Same1()),new FctStringBuilderSame());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_, false, new FctStringBuilder0());
@@ -1025,21 +420,6 @@ public final class AliasCharSequenceType {
         ctor_ = new StandardConstructor(params_, false,new StringList(params.getAliasReplacement0Replacement0(),params.getAliasReplacement0Replacement1()),new FctReplacement());
         constructors_.add(ctor_);
         standards_.addEntry(aliasReplacement, std_);
-    }
-
-    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, StackCall _stackCall, Argument... _args) {
-        ResultErrorStd result_;
-        result_ = new ResultErrorStd();
-        Struct[] args_ = ExecHelper.getObjects(_args);
-        calculateStrBuilder(_cont, result_, _method, _struct, _stackCall, args_);
-        return result_;
-    }
-
-    static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, StackCall _stackCall, Argument... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = ExecHelper.getObjects(_args);
-        calculateCharSeq(_cont, result_, _method, _struct, _stackCall, args_);
-        return result_;
     }
 
     public String getAliasCharSequence() {
