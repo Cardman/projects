@@ -204,9 +204,6 @@ public final class AnalyzedPageEl {
         return content.getDefaultPkg();
     }
 
-    public AliasMathType getMathRef() {
-        return content.getMathRef();
-    }
     public AliasCharSequenceType getCharSeq() {
         return content.getCharSeq();
     }

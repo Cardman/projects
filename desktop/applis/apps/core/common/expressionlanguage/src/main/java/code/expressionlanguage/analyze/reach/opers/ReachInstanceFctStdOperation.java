@@ -27,7 +27,7 @@ public final class ReachInstanceFctStdOperation extends ReachStdFctOption implem
         if (res_ == NullStruct.NULL_VALUE) {
             return;
         }
-        resultMethod(_page,res_, getClassMethodId());
+        resultMethod(_page,res_);
     }
 
     @Override

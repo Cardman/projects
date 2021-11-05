@@ -9,7 +9,6 @@ import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.analyze.reach.opers.util.*;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -32,9 +31,9 @@ public abstract class ReachInvokingOperation extends ReachMethodOperation implem
         lastType = _meta.getLastType();
     }
 
-    void resultMethod(AnalyzedPageEl _page, Struct _instance, ClassMethodId _classMethodId) {
+    void resultMethod(AnalyzedPageEl _page, Struct _instance) {
         CustList<Argument> firstArgs_ = getArguments();
-        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(standardMethod,_classMethodId, _instance, _page, Argument.toArgArray(firstArgs_));
+        Struct out_ = AnaApplyCoreMethodUtil.invokeAnalyzisStdMethod(standardMethod, _instance, _page, Argument.toArgArray(firstArgs_));
         if (out_ == null) {
             return;
         }

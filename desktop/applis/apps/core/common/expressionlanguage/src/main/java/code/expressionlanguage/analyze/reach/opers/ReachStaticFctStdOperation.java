@@ -16,6 +16,6 @@ public final class ReachStaticFctStdOperation extends ReachStdFctOption {
         if (!allAreDefined(this)) {
             return;
         }
-        resultMethod(_page,NullStruct.NULL_VALUE, getClassMethodId());
+        resultMethod(_page,NullStruct.NULL_VALUE);
     }
 }
