@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.*;
 import code.util.StringList;
@@ -23,7 +22,7 @@ public final class FctCharSeqSplitChars implements StdCaller {
 
     private static ArgumentWrapper splitChars(CharSequenceStruct _charSequence, Struct _seps, ContextEl _context, StackCall _stackCall) {
         if (!(_seps instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;

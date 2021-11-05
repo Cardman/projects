@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -35,7 +34,7 @@ public final class FctCharSeqContains implements AnaStdCaller {
 
     private static ArgumentWrapper contains(CharSequenceStruct _charSequence, Struct _str, ContextEl _context, StackCall _stackCall) {
         if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         CharSequenceStruct arg_ = NumParsers.getCharSeq(_str);

@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
@@ -45,7 +44,7 @@ public final class FctCharSeqRegionMatches implements AnaStdCaller {
     private static ArgumentWrapper regionMatches(CharSequenceStruct _charSequence, NumberStruct _toffset, Struct _other, NumberStruct _ooffset,
                                       NumberStruct _len, ContextEl _context, StackCall _stackCall) {
         if (!(_other instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         int to_ = _toffset.intStruct();

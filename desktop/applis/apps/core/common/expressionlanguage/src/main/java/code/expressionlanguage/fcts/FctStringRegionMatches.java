@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
@@ -32,7 +31,7 @@ public final class FctStringRegionMatches implements AnaStdCaller {
         Struct four_ = argumentWrappers_.get(3).getValue().getStruct();
         Struct five_ = argumentWrappers_.get(4).getValue().getStruct();
         if (!(three_ instanceof StringStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_cont, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return new ArgumentWrapper(regMatches((StringStruct)_instance, NumParsers.convertToBoolean(one_), NumParsers.convertToNumber(two_), (StringStruct) three_, NumParsers.convertToNumber(four_), NumParsers.convertToNumber(five_)));

@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -43,12 +42,12 @@ public final class FctStringCompare implements AnaStdCaller {
 
     private static ArgumentWrapper compareToString(Struct _str, Struct _anotherString, ContextEl _context, StackCall _stackCall) {
         if (!(_str instanceof StringStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         StringStruct first_ = (StringStruct) _str;
         if (!(_anotherString instanceof StringStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         StringStruct st_ = (StringStruct)_anotherString;

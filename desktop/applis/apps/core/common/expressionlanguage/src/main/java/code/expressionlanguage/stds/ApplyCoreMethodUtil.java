@@ -7,11 +7,11 @@ import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.structs.*;
-import code.util.CustList;
+import code.expressionlanguage.structs.EnumerableStruct;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.core.StringUtil;
 
 public final class ApplyCoreMethodUtil {
@@ -32,28 +32,6 @@ public final class ApplyCoreMethodUtil {
                     dis_.getNan(),
                     dis_.getExponent(),args_[0])));
             return result_;
-        }
-        String aliasFct_ = lgNames_.getContent().getReflect().getAliasFct();
-        if (StringUtil.quickEq(aliasFct_, type_)) {
-            ResultErrorStd res_ = new ResultErrorStd();
-            if (args_.length == 0) {
-                if (StringUtil.quickEq(_method.getConstraints().getName(), _cont.getStandards().getContent().getReflect().getAliasMetaInfo())) {
-                    res_.setResult(ExecInvokingOperation.getMetaInfo(new Argument(_struct), _cont, _stackCall).getStruct());
-                    return res_;
-                }
-                res_.setResult(ExecInvokingOperation.getInstanceCall(new Argument(_struct), _cont, _stackCall).getStruct());
-                return res_;
-            }
-            Argument instance_ = new Argument(args_[0]);
-            Struct inst_ = instance_.getStruct();
-            if (!(inst_ instanceof ArrayStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(getNpe(_cont, _stackCall)));
-                return res_;
-            }
-            ArrayStruct arr_ = (ArrayStruct) inst_;
-            CustList<Argument> ar_ = arr_.listArgs();
-            res_.setResult(ExecInvokingOperation.prepareCallDynReflect(new Argument(_struct), ar_, _cont, _stackCall).getStruct());
-            return res_;
         }
         if (StringUtil.quickEq(type_, ref_.getAliasField())) {
             return AliasReflection.invokeFieldInfo(_cont, _method, _struct,args_, _stackCall);

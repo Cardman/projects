@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AliasCharSequenceType;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
@@ -23,7 +22,7 @@ public final class FctString5 implements StdCaller {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         Struct argArrByte_ = argumentWrappers_.get(2).getValue().getStruct();
         if (!(argArrByte_ instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_cont, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ArrayStruct byteArr_ = (ArrayStruct) argArrByte_;

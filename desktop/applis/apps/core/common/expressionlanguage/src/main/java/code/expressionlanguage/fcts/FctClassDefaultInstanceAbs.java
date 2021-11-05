@@ -11,12 +11,14 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.*;
+import code.expressionlanguage.stds.DfInstancer;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.StandardType;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
-public abstract class FctClassDefaultInstanceAbs implements StdCaller {
+public abstract class FctClassDefaultInstanceAbs extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         LgNames lgNames_ = _cont.getStandards();
@@ -27,7 +29,7 @@ public abstract class FctClassDefaultInstanceAbs implements StdCaller {
             String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_, _cont);
             if (res_.isEmpty()) {
                 String null_ = lgNames_.getContent().getCoreNames().getAliasIllegalType();
-                _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getClassIssue(_cont, className_, null_, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, className_, null_, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
         }
@@ -36,19 +38,19 @@ public abstract class FctClassDefaultInstanceAbs implements StdCaller {
             DfInstancer instancer_ = stdType_.getInstancer();
             if (instancer_ == null) {
                 String null_ = lgNames_.getContent().getCoreNames().getAliasAbstractTypeErr();
-                _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getClassIssue(_cont, className_, null_, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, className_, null_, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             return instancer_.call(_exit,_cont,_firstArgs,_stackCall);
         }
         if (!(type_ instanceof ExecRootBlock)) {
             String null_ = lgNames_.getContent().getCoreNames().getAliasIllegalType();
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getClassIssue(_cont, className_, null_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, className_, null_, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         if (MetaInfoUtil.isAbstractType(type_)) {
             String null_ = lgNames_.getContent().getCoreNames().getAliasAbstractTypeErr();
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getClassIssue(_cont, className_, null_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, className_, null_, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return spec(_exit, _cont, _instance, _firstArgs, _stackCall);

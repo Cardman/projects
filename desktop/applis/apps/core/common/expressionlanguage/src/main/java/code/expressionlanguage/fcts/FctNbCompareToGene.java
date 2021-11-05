@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -27,7 +26,7 @@ public final class FctNbCompareToGene implements AnaStdCaller {
     public static Struct cmpNull(Struct _instance, Struct _other, ContextEl _cont, StackCall _stackCall) {
         IntStruct res_ = cmpNull(_instance, _other);
         if (res_ == null) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_cont, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
         return res_;

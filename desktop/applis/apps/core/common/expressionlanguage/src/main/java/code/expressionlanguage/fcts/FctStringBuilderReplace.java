@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AliasCharSequenceType;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -47,7 +46,7 @@ public final class FctStringBuilderReplace implements StdCaller {
             return;
         }
         if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_an, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_an, _stackCall)));
             return;
         }
         CharSequenceStruct ch_ = NumParsers.getCharSeq(_str);

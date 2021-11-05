@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.*;
 import code.util.core.StringUtil;
 
@@ -43,7 +42,7 @@ public final class FctCharSeqFormat implements AnaStdCaller {
 
     private static ArgumentWrapper format(CharSequenceStruct _charSequence, Struct _seps, ContextEl _context, StackCall _stackCall) {
         if (!(_seps instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
@@ -52,7 +51,7 @@ public final class FctCharSeqFormat implements AnaStdCaller {
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof CharSequenceStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             seps_[i] = NumParsers.getCharSeq(curSep_).toStringInstance();

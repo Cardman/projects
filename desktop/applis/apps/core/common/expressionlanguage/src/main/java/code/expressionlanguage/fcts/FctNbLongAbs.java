@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AliasNumberType;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -61,7 +60,7 @@ public abstract class FctNbLongAbs implements AnaStdCaller {
 
     private ArgumentWrapper parse(Struct _arg, Struct _radix, ContextEl _context, StackCall _stackCall) {
         if (!(_arg instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         String one_ = NumParsers.getCharSeq(_arg).toStringInstance();

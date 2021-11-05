@@ -1,21 +1,17 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.structs.AnnotatedStruct;
-import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 
-public final class FctAnnotatedGetDeclaredAnonymousLambda0 extends FctReflection {
+public final class FctLambdaInstance extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AnnotatedStruct annotated_ = NumParsers.getAnnotated(_instance);
-        CustList<MethodMetaInfo> methods_ = listAnonLambda(_cont, annotated_);
-        return new ArgumentWrapper(getMethodsMeta(_cont, methods_));
+        return new ArgumentWrapper(ExecInvokingOperation.getInstanceCall(new Argument(_instance), _cont, _stackCall).getStruct());
     }
 }

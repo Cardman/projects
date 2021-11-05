@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.*;
 
 public final class FctNbCompareToSpecRelCheck implements AnaStdCaller {
@@ -26,7 +25,7 @@ public final class FctNbCompareToSpecRelCheck implements AnaStdCaller {
     public static Struct cmp(Struct _instance, Struct _other, ContextEl _cont, StackCall _stackCall) {
         IntStruct cmp_ = cmp(_instance, _other);
         if (cmp_ == null) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_cont, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return NullStruct.NULL_VALUE;
         }
         return cmp_;

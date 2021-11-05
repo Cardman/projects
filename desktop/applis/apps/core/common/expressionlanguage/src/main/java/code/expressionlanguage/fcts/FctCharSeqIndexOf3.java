@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 
@@ -45,7 +44,7 @@ public final class FctCharSeqIndexOf3 implements AnaStdCaller {
 
     public static ArgumentWrapper indexOfString(CharSequenceStruct _charSequence, Struct _str, ContextEl _context, StackCall _stackCall) {
         if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         CharSequenceStruct str_ = NumParsers.getCharSeq(_str);
@@ -55,7 +54,7 @@ public final class FctCharSeqIndexOf3 implements AnaStdCaller {
     public static ArgumentWrapper indexOfString(CharSequenceStruct _charSequence, Struct _str, NumberStruct _fromIndex, ContextEl _context, StackCall _stackCall) {
         int from_ = _fromIndex.intStruct();
         if (!(_str instanceof CharSequenceStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         CharSequenceStruct str_ = NumParsers.getCharSeq(_str);

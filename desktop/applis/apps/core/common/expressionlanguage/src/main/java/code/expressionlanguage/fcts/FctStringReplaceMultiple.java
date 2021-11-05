@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.*;
 import code.util.Replacement;
 import code.util.core.StringUtil;
@@ -50,7 +49,7 @@ public final class FctStringReplaceMultiple implements AnaStdCaller {
 
     private static ArgumentWrapper replaceMultiple(StringStruct _st, Struct _seps, ContextEl _context, StackCall _stackCall) {
         if (!(_seps instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ArrayStruct arrSep_ = (ArrayStruct) _seps;
@@ -59,16 +58,16 @@ public final class FctStringReplaceMultiple implements AnaStdCaller {
         for (int i = 0; i < lenSeps_; i++) {
             Struct curSep_ = arrSep_.get(i);
             if (!(curSep_ instanceof ReplacementStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             seps_[i] = NumParsers.getReplacement(curSep_).getInstance();
             if (seps_[i].getNewString() == null) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             if (seps_[i].getOldString() == null) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_context, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
         }

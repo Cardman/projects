@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AliasCharSequenceType;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -38,7 +37,7 @@ public final class FctStringValueOf1 implements AnaStdCaller {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         Struct arr_ = argumentWrappers_.get(2).getValue().getStruct();
         if (!(arr_ instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_cont, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         char[] chars_ = toCharArr((ArrayStruct) arr_);

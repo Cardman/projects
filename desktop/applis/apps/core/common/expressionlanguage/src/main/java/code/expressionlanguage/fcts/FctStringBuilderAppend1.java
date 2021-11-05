@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
@@ -29,7 +28,7 @@ public final class FctStringBuilderAppend1 implements StdCaller {
             return;
         }
         if (!(_str instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_an, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_an, _stackCall)));
             return;
         }
         int len_ =  ((ArrayStruct)_str).getLength();

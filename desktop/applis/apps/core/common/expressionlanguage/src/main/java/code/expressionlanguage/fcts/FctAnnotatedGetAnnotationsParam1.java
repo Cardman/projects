@@ -9,13 +9,12 @@ import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomReflectAnnotations;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.AnnotatedStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class FctAnnotatedGetAnnotationsParam1 implements StdCaller {
+public final class FctAnnotatedGetAnnotationsParam1 extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AnnotatedStruct annotated_ = NumParsers.getAnnotated(_instance);

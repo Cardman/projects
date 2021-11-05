@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.stds.AliasReflection;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
@@ -41,7 +40,7 @@ public final class FctClassDefaultInstance1 extends FctClassDefaultInstanceAbs {
             par_ = NullStruct.NULL_VALUE;
         } else {
             if (par_ == NullStruct.NULL_VALUE) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getNpe(_cont, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             String argCl_ = par_.getClassName(_cont);
@@ -50,7 +49,7 @@ public final class FctClassDefaultInstance1 extends FctClassDefaultInstanceAbs {
             String param_ = StringUtil.join(inners_.left(inners_.size() - 2), "");
             if (!ExecInherits.isCorrectExecute(argCl_, param_, _cont)) {
                 String cast_ = lgNames_.getContent().getCoreNames().getAliasCastType();
-                _stackCall.setCallingState(new CustomFoundExc(AliasReflection.getClassIssue(_cont, StringUtil.concat(argCl_, "\n", param_, "\n"), cast_, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, StringUtil.concat(argCl_, "\n", param_, "\n"), cast_, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
         }
