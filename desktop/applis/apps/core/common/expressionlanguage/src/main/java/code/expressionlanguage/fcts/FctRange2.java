@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AliasCharSequenceType;
-import code.expressionlanguage.stds.AliasMathType;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.RangeStruct;
 import code.expressionlanguage.structs.Struct;
@@ -39,7 +38,7 @@ public final class FctRange2 implements AnaStdCaller {
         }
         int step_ = NumParsers.convertToNumber(_step).intStruct();
         if (step_ == 0) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasMathType.getDivideZero(_cont, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctMath.getDivideZero(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return new ArgumentWrapper(new RangeStruct(lower_, upper_,step_));

@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.AliasCharSequenceType;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.NumberStruct;

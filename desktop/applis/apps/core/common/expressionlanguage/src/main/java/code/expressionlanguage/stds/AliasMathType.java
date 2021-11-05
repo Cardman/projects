@@ -1,36 +1,14 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.ErrorType;
-import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fcts.*;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.structs.*;
-import code.maths.litteraladv.MaParser;
-import code.maths.montecarlo.AbstractGenerator;
-import code.maths.montecarlo.MonteCarloUtil;
+import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
-import code.util.Replacement;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class AliasMathType {
     private String aliasAbs;
@@ -312,212 +290,38 @@ public final class AliasMathType {
         method_ = new StandardMethod(aliasGt, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Gt0(),params.getAliasMath1Gt1()),new FctMathGt());
         methods_.add( method_);
         params_ = new StringList(aliasPrimLong_);
-        method_ = new StandardMethod(aliasRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Random0()));
+        method_ = new StandardMethod(aliasRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Random0()),new FctMathRandom1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new FctMathRandom0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimLong_);
-        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0NativeRandom0()));
+        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0NativeRandom0()),new FctMathNativeRandom1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasNativeRandom, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new FctMathNativeRandom0());
         methods_.add( method_);
         params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasSeed, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0Seed0()));
+        method_ = new StandardMethod(aliasSeed, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0Seed0()), new FctMathSeed1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSeed, params_, aliasObject_, false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasSeed, params_, aliasObject_, false, MethodModifier.STATIC, new FctMathSeed0());
         methods_.add( method_);
         params_ = new StringList(_stds.getContent().getPredefTypes().getAliasSeedGenerator());
-        method_ = new StandardMethod(aliasSeedSpecGenerator, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0SeedSpecGenerator0()));
+        method_ = new StandardMethod(aliasSeedSpecGenerator, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0SeedSpecGenerator0()),new FctMathSeedSpecGenerator1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSeedSpecGenerator, params_, _stds.getContent().getPredefTypes().getAliasSeedGenerator(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasSeedSpecGenerator, params_, _stds.getContent().getPredefTypes().getAliasSeedGenerator(), false, MethodModifier.STATIC,new FctMathSeedSpecGenerator0());
         methods_.add( method_);
         params_ = new StringList(_stds.getContent().getPredefTypes().getAliasSeedDoubleGenerator());
-        method_ = new StandardMethod(aliasSeedSpecDoubleGenerator, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0SeedSpecDoubleGenerator0()));
+        method_ = new StandardMethod(aliasSeedSpecDoubleGenerator, params_, _stds.getContent().getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(params.getAliasMath0SeedSpecDoubleGenerator0()),new FctMathSeedSpecDoubleGenerator1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSeedSpecDoubleGenerator, params_, _stds.getContent().getPredefTypes().getAliasSeedDoubleGenerator(), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasSeedSpecDoubleGenerator, params_, _stds.getContent().getPredefTypes().getAliasSeedDoubleGenerator(), false, MethodModifier.STATIC,new FctMathSeedSpecDoubleGenerator0());
         methods_.add( method_);
         params_ = new StringList(_stds.getContent().getCharSeq().getAliasString(),_stds.getContent().getCharSeq().getAliasReplacement());
-        method_ = new StandardMethod(aliasEval, params_, _stds.getContent().getCharSeq().getAliasString(), true, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasEval, params_, _stds.getContent().getCharSeq().getAliasString(), true, MethodModifier.STATIC,new FctMathEval());
         methods_.add( method_);
-    }
-    public static ResultErrorStd invokeStdMethod(ContextEl _cont, ClassMethodId _method, StackCall _stackCall, Argument... _args) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        Struct[] args_ = ExecHelper.getObjects(_args);
-//        StringList paramList_ = _method.getConstraints().getParametersTypes();
-        LgNames lgNames_ = _cont.getStandards();
-        if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
-            _stackCall.getInitializingTypeInfos().failInitEnums();
-            return result_;
-        }
-        if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasSeed())) {
-            if (_method.getConstraints().getParametersTypesLength() == 0) {
-                Struct seed_ = _stackCall.getSeed();
-                result_.setResult(seed_);
-                return result_;
-            }
-            _stackCall.setSeed(_args[0].getStruct());
-            result_.setResult(NullStruct.NULL_VALUE);
-            return result_;
-        }
-        if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasSeedSpecGenerator())) {
-            if (_method.getConstraints().getParametersTypesLength() == 0) {
-                Struct seed_ = _stackCall.getSeedSpecGenerator();
-                result_.setResult(seed_);
-                return result_;
-            }
-            _stackCall.setSeedSpecGenerator(_args[0].getStruct());
-            result_.setResult(NullStruct.NULL_VALUE);
-            return result_;
-        }
-        if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasSeedSpecDoubleGenerator())) {
-            if (_method.getConstraints().getParametersTypesLength() == 0) {
-                Struct seed_ = _stackCall.getSeedSpecDoubleGenerator();
-                result_.setResult(seed_);
-                return result_;
-            }
-            _stackCall.setSeedSpecDoubleGenerator(_args[0].getStruct());
-            result_.setResult(NullStruct.NULL_VALUE);
-            return result_;
-        }
-        if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasEval())) {
-            eval(args_[0],args_[1],result_,_cont);
-            return result_;
-        }
-        if (StringUtil.quickEq(_method.getConstraints().getName(), lgNames_.getContent().getMathRef().getAliasNativeRandom())) {
-            AbstractGenerator generator_ = lgNames_.getGenerator();
-            if (_method.getConstraints().getParametersTypesLength() == 0) {
-                result_.setResult(new DoubleStruct(generator_.pick()));
-                return result_;
-            }
-            result_.setResult(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(args_[0]).longStruct(),generator_)));
-            return result_;
-        }
-        if (_method.getConstraints().getParametersTypesLength() == 0) {
-            return random(_cont, result_, _stackCall);
-        }
-        return randomParam(_cont, result_, args_, _stackCall);
-    }
-
-    public static ErrorStruct getDivideZero(ContextEl _cont, StackCall _stackCall) {
-        return new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasDivisionZero(), _stackCall);
-    }
-
-    private static void eval(Struct _st, Struct _seps, ResultErrorStd _res, ContextEl _context) {
-        LgNames lgNames_ = _context.getStandards();
-        AbstractGenerator generator_ = lgNames_.getGenerator();
-        String val_ = NumParsers.getStringValue(_st);
-        CustList<Replacement> repls_ = NumParsers.getReplValue(_seps);
-        _res.setResult(new StringStruct(MaParser.processEl(generator_,val_,repls_)));
-    }
-    private static ResultErrorStd random(ContextEl _cont, ResultErrorStd _result, StackCall _stackCall) {
-        LgNames lgNames_ = _cont.getStandards();
-        Struct seedSpec_ = _stackCall.getSeedSpecDoubleGenerator();
-        Argument argSeedSpec_ = new Argument(seedSpec_);
-        ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock)null,null);
-        CustList<Argument> argsToPass_ = new CustList<Argument>();
-        ExecFormattedRootBlock cl_ = ExecFormattedRootBlock.defValue();
-        if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
-            String argClassName_ = seedSpec_.getClassName(_cont);
-            Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_,classes_.getSeedDoubleGeneratorPair());
-            p_ = polymorphMeth_.getPair();
-            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
-        }
-        if (p_.getFct() instanceof ExecOverridableBlock) {
-            ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
-            if (seedSpec_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seedSpec_).getNamed() == meth_) {
-                Argument fct_ = new Argument(((AbstractFunctionalInstance)seedSpec_).getFunctional());
-                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
-                return _result;
-            }
-            _stackCall.setCallingState(new CustomFoundMethod(argSeedSpec_,cl_, p_, new Parameters()));
-            return _result;
-        }
-        Struct seed_ = _stackCall.getSeed();
-        Argument argSeed_ = new Argument(seed_);
-        if (matchNotNull(_cont, seed_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
-            String argClassName_ = seed_.getClassName(_cont);
-            Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_,classes_.getSeedDoubleGeneratorPair());
-            p_ = polymorphMeth_.getPair();
-            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
-        }
-        if (p_.getFct() instanceof ExecOverridableBlock) {
-            ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
-            if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
-                Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
-                return _result;
-            }
-            _stackCall.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
-            return _result;
-        }
-        AbstractGenerator generator_ = lgNames_.getGenerator();
-        _result.setResult(new DoubleStruct(generator_.pick()));
-        return _result;
-    }
-
-    private static ResultErrorStd randomParam(ContextEl _cont, ResultErrorStd _result, Struct[] _args, StackCall _stackCall) {
-        LgNames lgNames_ = _cont.getStandards();
-        Struct seedSpec_ = _stackCall.getSeedSpecGenerator();
-        Argument argSeedSpec_ = new Argument(seedSpec_);
-        ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock)null,null);
-        CustList<Argument> argsToPass_ = new CustList<Argument>();
-        ExecFormattedRootBlock cl_ = new ExecFormattedRootBlock((ExecRootBlock) null,"");
-        if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
-            String argClassName_ = seedSpec_.getClassName(_cont);
-            Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seedSpec_, classes_.getSeedGeneratorPair());
-            p_ = polymorphMeth_.getPair();
-            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
-            argsToPass_.add(new Argument(_args[0]));
-        }
-        if (p_.getFct() instanceof ExecOverridableBlock) {
-            ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
-            if (seedSpec_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seedSpec_).getNamed() == meth_) {
-                Argument fct_ = new Argument(((AbstractFunctionalInstance)seedSpec_).getFunctional());
-                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
-                return _result;
-            }
-            ArgumentListCall argList_ = new ArgumentListCall(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_);
-            return _result;
-        }
-        argsToPass_.clear();
-        Struct seed_ = _stackCall.getSeed();
-        Argument argSeed_ = new Argument(seed_);
-        if (matchNotNull(_cont, seed_, lgNames_.getContent().getPredefTypes().getAliasSeedGenerator())) {
-            String argClassName_ = seed_.getClassName(_cont);
-            Classes classes_ = _cont.getClasses();
-            ExecOverrideInfo polymorphMeth_ = ExecInvokingOperation.polymorph(_cont, seed_, classes_.getSeedGeneratorPair());
-            p_ = polymorphMeth_.getPair();
-            cl_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMeth_.getClassName(), _cont);
-            argsToPass_.add(new Argument(_args[0]));
-        }
-        if (p_.getFct() instanceof ExecOverridableBlock) {
-            ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
-            if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
-                Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                _result.setResult(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
-                return _result;
-            }
-            ArgumentListCall argList_ = new ArgumentListCall(argsToPass_);
-            ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_);
-            return _result;
-        }
-        AbstractGenerator generator_ = lgNames_.getGenerator();
-        _result.setResult(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(_args[0]).longStruct(),generator_)));
-        return _result;
-    }
-
-    private static boolean matchNotNull(ContextEl _cont, Struct _seed, String _type) {
-        return _seed != NullStruct.NULL_VALUE
-                && ExecInherits.safeObject(_type, Argument.getNull(_seed).getClassName(_cont), _cont) == ErrorType.NOTHING;
     }
 
     public String getAliasAbs() {

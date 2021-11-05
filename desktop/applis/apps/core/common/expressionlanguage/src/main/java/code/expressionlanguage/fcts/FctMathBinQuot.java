@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasMathType;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -33,7 +32,7 @@ public final class FctMathBinQuot implements AnaStdCaller {
         Struct two_ = argumentWrappers_.get(1).getValue().getStruct();
         Struct res_ = binQuot(one_, two_);
         if (res_ == null) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasMathType.getDivideZero(_cont, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctMath.getDivideZero(_cont, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return new ArgumentWrapper(res_);
