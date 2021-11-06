@@ -1,21 +1,19 @@
 package code.renders.utilcompo;
 
-import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.AbstractFunctionalInstance;
+import code.expressionlanguage.structs.LambdaStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
@@ -71,10 +69,6 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
-    }
-
-    protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
-        return custAliases.invoke(_cont, _method, _struct, _exit, _stack, _args);
     }
 
     public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){

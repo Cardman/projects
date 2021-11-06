@@ -1,18 +1,14 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
@@ -59,21 +55,6 @@ public abstract class LgNames implements BuildableLgNames {
     }
 
     public abstract void buildOther();
-    public static ResultErrorStd invokeMethod(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
-        LgNames lgNames_ = _cont.getStandards();
-        return lgNames_.invoke(_stackCall, _cont,_method,_struct, _exit, _args);
-    }
-
-    protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
-        return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _args, _stack);
-    }
-
-    /**@param  _instance l'instance*/
-    public ResultErrorStd getOtherResult(StackCall _stack, ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        res_.setResult(NullStruct.NULL_VALUE);
-        return res_;
-    }
 
     public final Struct getSimpleResult(ClassField _classField) {
         return calculator.getInnerSimpleResult(_classField);

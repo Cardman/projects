@@ -4,11 +4,11 @@ import cards.president.ResultsPresident;
 import cards.president.RulesPresident;
 import code.bean.Bean;
 import code.bean.nat.*;
+import code.bean.nat.exec.opers.NatStdFctOperation;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -241,7 +241,7 @@ public final class PresidentStandards extends BeanNatLgNames {
     }
     protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
-        Struct[] args_ = ExecHelper.getObjects(Argument.toArgArray(new CustList<Argument>()));
+        Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));
         ResultErrorStd res_ = getOtherResultBean(_ctx, id_, args_);
         Struct strBean_ = res_.getResult();
         PresidentBeanStruct str_ = (PresidentBeanStruct) strBean_;

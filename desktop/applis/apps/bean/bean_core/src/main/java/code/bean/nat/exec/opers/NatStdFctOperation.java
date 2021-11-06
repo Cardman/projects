@@ -6,7 +6,6 @@ import code.bean.nat.SpecNatMethod;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -21,6 +20,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class NatStdFctOperation extends NatSettableCallFctOperation implements RendCalculableOperation {
@@ -36,13 +36,22 @@ public final class NatStdFctOperation extends NatSettableCallFctOperation implem
         classMethodId = new ClassMethodId(_stdFctContent.getFoundClass(), standardMethod.getId());
     }
 
+    public static Struct[] getObjects(Argument... _args) {
+        int len_ = _args.length;
+        Struct[] classes_ = new Struct[len_];
+        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
+            classes_[i] = _args[i].getStruct();
+        }
+        return classes_;
+    }
+
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
         CustList<Argument> firstArgs_ = RendDynOperationNode.getArguments(_nodes,this);
-        Struct[] args_ = ExecHelper.getObjects(Argument.toArgArray(firstArgs_));
+        Struct[] args_ = getObjects(Argument.toArgArray(firstArgs_));
         Struct instance_ = previous_.getStruct();
         if (instance_ instanceof ArrayStruct) {
             ArgumentWrapper argres_ = new ArgumentWrapper(new Argument(BooleanStruct.of(ExecArrayFieldOperation.getArray(instance_, _context).getLength()==0)), null);

@@ -5,7 +5,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.MethodMetaInfo;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class FctClassGetDeclaredStaticMethods0 extends FctClassGetDeclaredStaticMethods {

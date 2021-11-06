@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.AbsAnnotatedStruct;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 
 public final class FctAnnotatedIsPrivate extends FctReflection {

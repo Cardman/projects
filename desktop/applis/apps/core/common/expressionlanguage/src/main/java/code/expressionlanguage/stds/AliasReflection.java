@@ -589,7 +589,7 @@ public final class AliasReflection {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasAnnotationType, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
         params_ = new StringList(aliasAnnotationType);
-        method_ = new StandardMethod(aliasGetString, params_, aliasString_, false, MethodModifier.STATIC,new StringList(params.getAliasAnnotationType0GetString0()));
+        method_ = new StandardMethod(aliasGetString, params_, aliasString_, false, MethodModifier.STATIC,new StringList(params.getAliasAnnotationType0GetString0()),new FctAnnotationToStr());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasAnnotationType, stdcl_);
         methods_ = new CustList<StandardMethod>();

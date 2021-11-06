@@ -15,11 +15,6 @@ public final class StandardMethod extends StandardNamedFunction {
     }
 
     public StandardMethod(String _name, StringList _parametersTypes,
-                          String _returnType, boolean _varargs, MethodModifier _modifier, StringList _paramNames) {
-        this(_name, _parametersTypes, _returnType, _varargs,_modifier,_paramNames,null);
-    }
-
-    public StandardMethod(String _name, StringList _parametersTypes,
                           String _returnType, boolean _varargs, MethodModifier _modifier, StringList _paramNames ,StdCaller _caller) {
         super(_name, _parametersTypes, _returnType, _varargs,_paramNames);
         modifier = _modifier;

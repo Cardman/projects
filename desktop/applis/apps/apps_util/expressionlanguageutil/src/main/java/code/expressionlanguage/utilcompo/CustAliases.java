@@ -1,7 +1,5 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
@@ -18,8 +16,6 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.options.KeyWords;
@@ -29,7 +25,9 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.scripts.messages.gui.MessCdmBaseGr;
 import code.sml.util.ResourcesMessagesUtil;
-import code.threads.*;
+import code.threads.AbstractDate;
+import code.threads.AbstractDateFactory;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -1979,10 +1977,6 @@ public final class CustAliases {
         ref_.addEntry(ENTRY_STRING_OBJECT,getAliasEntryStringObject());
         ref_.addEntry(TABLE_STRING_OBJECT,getAliasTableStringObject());
         return ref_;
-    }
-
-    public ResultErrorStd invoke(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
-        return interceptor.invoke(getAliasConcurrentError(),_cont,_method,_struct,_exit,_stackCall,_args);
     }
 
     public static String getStandarString(ContextEl _cont, Struct _struct) {

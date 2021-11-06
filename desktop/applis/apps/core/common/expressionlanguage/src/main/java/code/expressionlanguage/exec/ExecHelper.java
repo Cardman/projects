@@ -6,10 +6,8 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.core.IndexConstants;
 
 public final class ExecHelper {
     private ExecHelper() {
@@ -17,15 +15,6 @@ public final class ExecHelper {
 
     public static void fwdWrapper(ArgumentsPair _to,ArgumentsPair _from) {
         _to.setWrapper(_from.getWrapper());
-    }
-
-    public static Struct[] getObjects(Argument... _args) {
-        int len_ = _args.length;
-        Struct[] classes_ = new Struct[len_];
-        for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            classes_[i] = _args[i].getStruct();
-        }
-        return classes_;
     }
 
     public static Argument getFirstArgument(CustList<Argument> _list) {

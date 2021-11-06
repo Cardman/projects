@@ -2,39 +2,16 @@ package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.core.StringUtil;
 
 public final class ApplyCoreMethodUtil {
 
     private ApplyCoreMethodUtil() {
     }
-
-    public static ResultErrorStd invokeBase(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument[] _args, StackCall _stackCall) {
-        Struct[] args_ = ExecHelper.getObjects(_args);
-        String type_ = _method.getClassName();
-        LgNames lgNames_ = _cont.getStandards();
-        AliasReflection ref_ = lgNames_.getReflect();
-        if (StringUtil.quickEq(type_, ref_.getAliasAnnotationType())) {
-            ResultErrorStd result_ = new ResultErrorStd();
-            DisplayedStrings dis_ = lgNames_.getDisplayedStrings();
-            result_.setResult(new StringStruct(ExportAnnotationUtil.exportAnnotation(
-                    dis_.getInfinity(),
-                    dis_.getNan(),
-                    dis_.getExponent(),args_[0])));
-            return result_;
-        }
-        return lgNames_.getOtherResult(_stackCall, _cont, _struct, _method, args_);
-    }
-
 //    public static ResultErrorStd getOtherResultBase(ContextEl _cont, ClassMethodId _method, Struct[] _args, StackCall _stackCall) {
 //        ResultErrorStd result_ = new ResultErrorStd();
 //

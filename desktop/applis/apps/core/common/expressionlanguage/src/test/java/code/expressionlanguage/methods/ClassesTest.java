@@ -53,9 +53,6 @@ public final class ClassesTest extends ProcessMethodCommon {
         ExecTemplates.trySetArgument(ctx_,new Argument(),new ArgumentsPair(), null);
         new ClassMethodId("",new MethodId(null,"",new StringList())).eq(new ClassMethodId(" ",new MethodId(null,"",new StringList())));
         AnaInherits.getOverridingFullTypeByBases(null,null);
-        String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(ctx_.getStandards().getCoreNames().getAliasEnums());
-        ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_,null);
-        LgNames.invokeMethod(ctx_, dyn_, null, null, null);
     }
 
     @Test

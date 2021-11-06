@@ -128,13 +128,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return Argument.createVoid();
         }
         StdCaller caller_ = _stdMeth.getCaller();
-        if (caller_ != null) {
-            return _cont.getCaller().invoke(caller_,_exit,_cont,_previous.getStruct(),_firstArgs,_stackCall).getValue();
-        }
-        String idClassNameFound_ = StringExpUtil.getIdFromAllTypes(_classNameFound.getClassName());
-        ClassMethodId dyn_ = new ClassMethodId(idClassNameFound_, _classNameFound.getConstraints());
-        ResultErrorStd res_ = LgNames.invokeMethod(_cont, dyn_, _previous.getStruct(), _exit, _stackCall, Argument.toArgArray(args_));
-        return new Argument(res_.getResult());
+        return _cont.getCaller().invoke(caller_,_exit,_cont,_previous.getStruct(),_firstArgs,_stackCall).getValue();
     }
 
     public static Argument tryGetEnumValues(AbstractExiting _exit, ContextEl _cont, ExecRootBlock _r, ClassCategory _category, StackCall _stackCall) {
