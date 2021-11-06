@@ -1,22 +1,12 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecInfoBlock;
-import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomReflectMethodDefVal;
 import code.expressionlanguage.fcts.*;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
-import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class AliasReflection {
     private String aliasAnnotationType;
@@ -230,19 +220,19 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasIsInterface, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctClassIsInterface());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctClassIsPackage());
+        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPackage());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsPrimitive, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctClassIsPrimitive());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctClassIsPrivate());
+        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPrivate());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctClassIsProtected());
+        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsProtected());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctClassIsPublic());
+        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPublic());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetActualTypeArguments, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctClassGetActualTypeArguments());
@@ -397,43 +387,43 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasNewInstance, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasConstructor0NewInstance0()),new FctConstructorNewInstance());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetParameterTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctCallerGetParameterTypes());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterNames, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetParameterNames, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctCallerGetParameterNames());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL,new FctAnnotatedGetDeclaring());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, new FctConstructorGetName());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetGenericReturnType());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetReturnType());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPackage());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPrivate());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsProtected());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPublic());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsVarargs, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsVarargs, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctCallerIsVararg());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctConstructorGetDeclaredAnonymousTypes());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctConstructorGetDeclaredLocalTypes());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasConstructor, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -447,37 +437,37 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasSetField, params_, aliasVoid_, false, MethodModifier.FINAL,new StringList(params.getAliasField0SetField0(),params.getAliasField0SetField1()),new FctFieldSetField());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, new FctFieldGetName());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetDeclaring());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPackage());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPrivate());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsProtected());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPublic());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsStatic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsStatic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctFieldIsStatic());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsFinal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsFinal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctFieldIsFinal());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetType, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetType, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetReturnType());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericType, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetGenericType, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetGenericReturnType());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctFieldGetDeclaredAnonymousTypes());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasField, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -491,61 +481,61 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasInvokeDirect, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasMethod0InvokeDirect0(),params.getAliasMethod0InvokeDirect1()),new FctMethodInvoke(true));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsAbstract, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsAbstract, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctMethodIsAbstract());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsNormal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsNormal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctMethodIsNormal());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsStatic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsStatic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctMethodIsStatic());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsStaticCall, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsStaticCall, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctMethodIsStaticCall());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsInstanceMethod, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsInstanceMethod, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctMethodIsInstance());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsFinal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsFinal, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctMethodIsFinal());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPackage());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPrivate, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPrivate());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsProtected, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsProtected());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPublic());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasIsVarargs, params_, aliasPrimBoolean_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasIsVarargs, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctCallerIsVararg());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetParameterTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctCallerGetParameterTypes());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetParameterNames, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetParameterNames, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctCallerGetParameterNames());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetDeclaring());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDefaultValue, params_, aliasObject_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDefaultValue, params_, aliasObject_, false, MethodModifier.FINAL, new FctMethodGetDefaultValue());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, new FctMethodGetName());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetGenericReturnType, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetGenericReturnType());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetReturnType, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetReturnType());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctMethodGetDeclaredAnonymousTypes());
         methods_.add( method_);
         params_ = new StringList(aliasString_);
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLocalVarsNb, params_, _stds.getContent().getNbAlias().getAliasLong(), false, MethodModifier.FINAL,new StringList(params.getAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0()),new FctMethodGetDeclaredAnonymousLambdaLocalVarsNb());
@@ -581,7 +571,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredAnonymousLambdaLoopVars, params_, StringExpUtil.getPrettyArrayType(aliasString_), false, MethodModifier.FINAL, new FctMethodGetDeclaredAnonymousLambdaLoopVars0());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctMethodGetDeclaredLocalTypes());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasMethod, stdcl_);
         methods_ = new CustList<StandardMethod>();
@@ -639,233 +629,6 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new FctAnnotatedGetDeclaredSwitchMethods0());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasAnnotated, stdcl_);
-    }
-
-    public static ResultErrorStd invokeFieldInfo(ContextEl _cont, ClassMethodId _method, Struct _struct) {
-        LgNames lgNames_ = _cont.getStandards();
-        AliasReflection ref_ = lgNames_.getReflect();
-        String name_ = _method.getConstraints().getName();
-        ResultErrorStd result_ = new ResultErrorStd();
-        FieldMetaInfo field_ = NumParsers.getField(_struct);
-        if (StringUtil.quickEq(name_, ref_.aliasIsStatic)) {
-            result_.setResult(BooleanStruct.of(field_.isStaticField()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsFinal)) {
-            result_.setResult(BooleanStruct.of(field_.isFinalField()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPackage)) {
-            result_.setResult(BooleanStruct.of(field_.isPackage()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPrivate)) {
-            result_.setResult(BooleanStruct.of(field_.isPrivate()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsProtected)) {
-            result_.setResult(BooleanStruct.of(field_.isProtected()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPublic)) {
-            result_.setResult(BooleanStruct.of(field_.isPublic()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetName)) {
-            result_.setResult(new StringStruct(field_.getName()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaringClass)) {
-            result_.setResult(ClassMetaInfo.getClassMetaInfo(_cont,field_));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetType)) {
-            result_.setResult(field_.getFormattedReturnType(_cont));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-            ExecInfoBlock annotableBlock_ = field_.getAnnotableBlock();
-            StringList methods_ = new StringList();
-            if (annotableBlock_ != null) {
-                for (ExecRootBlock c: annotableBlock_.getElementContent().getContainer().getAnonymous()) {
-                    methods_.add(c.getFullName());
-                }
-            }
-            ArrayStruct str_ = FctReflection.getTypes(_cont, methods_);
-            result_.setResult(str_);
-            return result_;
-        }
-        result_.setResult(field_.typeGene(_cont));
-        return result_;
-    }
-
-    public static ResultErrorStd invokeMethodInfo(ContextEl _cont, ClassMethodId _method, Struct _struct, StackCall _stackCall) {
-        LgNames lgNames_ = _cont.getStandards();
-        AliasReflection ref_ = lgNames_.getReflect();
-        String name_ = _method.getConstraints().getName();
-        ResultErrorStd result_ = new ResultErrorStd();
-        String aliasGetDefaultValue_ = lgNames_.getContent().getReflect().getAliasGetDefaultValue();
-        MethodMetaInfo method_ = NumParsers.getMethod(_struct);
-        if (StringUtil.quickEq(aliasGetDefaultValue_, name_)) {
-            _stackCall.setCallingState(new CustomReflectMethodDefVal(method_, false));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsAbstract)) {
-            result_.setResult(BooleanStruct.of(method_.isAbstract()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsFinal)) {
-            result_.setResult(BooleanStruct.of(method_.isFinal()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsStatic)) {
-            result_.setResult(BooleanStruct.of(method_.isStatic()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsStaticCall)) {
-            result_.setResult(BooleanStruct.of(method_.isStaticCall()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsInstanceMethod)) {
-            result_.setResult(BooleanStruct.of(method_.isInstanceMethod()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsNormal)) {
-            result_.setResult(BooleanStruct.of(method_.isNormal()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsVarargs)) {
-            result_.setResult(BooleanStruct.of(method_.isVararg()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPackage)) {
-            result_.setResult(BooleanStruct.of(method_.isPackage()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPrivate)) {
-            result_.setResult(BooleanStruct.of(method_.isPrivate()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsProtected)) {
-            result_.setResult(BooleanStruct.of(method_.isProtected()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPublic)) {
-            result_.setResult(BooleanStruct.of(method_.isPublic()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetParameterTypes)) {
-            result_.setResult(FctReflection.getFidParamsFct(_cont, method_));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetParameterNames)) {
-            result_.setResult(FctReflection.getRealIdParamsFct(_cont, method_));
-            return result_;
-        }
-        return invokeMethodInfoDef(_cont, _method, method_);
-    }
-
-    private static ResultErrorStd invokeMethodInfoDef(ContextEl _cont, ClassMethodId _id, MethodMetaInfo _method) {
-        ResultErrorStd result_ = new ResultErrorStd();
-        LgNames lgNames_ = _cont.getStandards();
-        AliasReflection ref_ = lgNames_.getReflect();
-        String name_ = _id.getConstraints().getName();
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-            StringList methods_ = new StringList();
-            ExecMemberCallingsBlock callee_ = _method.getCallee();
-            FctReflection.fetchAnonymous(methods_, callee_);
-            ArrayStruct str_ = FctReflection.getTypes(_cont, methods_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
-            StringList methods_ = new StringList();
-            ExecMemberCallingsBlock callee_ = _method.getCallee();
-            FctReflection.fetchLocalTypes(methods_, callee_);
-            ArrayStruct str_ = FctReflection.getTypes(_cont, methods_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetReturnType)) {
-            result_.setResult(_method.getFormattedReturnType(_cont));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetGenericReturnType)) {
-            result_.setResult(_method.typeGene(_cont));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetName)) {
-            result_.setResult(new StringStruct(_method.getName()));
-            return result_;
-        }
-        result_.setResult(ClassMetaInfo.getClassMetaInfo(_cont, _method));
-        return result_;
-    }
-
-    public static ResultErrorStd invokeCtorInfo(ContextEl _cont, Struct _struct, ClassMethodId _method) {
-        LgNames lgNames_ = _cont.getStandards();
-        String name_ = _method.getConstraints().getName();
-        AliasReflection ref_ = lgNames_.getReflect();
-        ResultErrorStd result_ = new ResultErrorStd();
-        ConstructorMetaInfo ctor_ = NumParsers.getCtor(_struct);
-        if (StringUtil.quickEq(name_, ref_.aliasIsVarargs)) {
-            result_.setResult(BooleanStruct.of(ctor_.isVararg()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPackage)) {
-            result_.setResult(BooleanStruct.of(ctor_.isPackage()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPrivate)) {
-            result_.setResult(BooleanStruct.of(ctor_.isPrivate()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsProtected)) {
-            result_.setResult(BooleanStruct.of(ctor_.isProtected()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasIsPublic)) {
-            result_.setResult(BooleanStruct.of(ctor_.isPublic()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetParameterTypes)) {
-            result_.setResult(FctReflection.getFidParamsFct(_cont, ctor_));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetParameterNames)) {
-            result_.setResult(FctReflection.getRealIdParamsFct(_cont, ctor_));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetReturnType)) {
-            result_.setResult(ctor_.getFormattedReturnType(_cont));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetGenericReturnType)) {
-            result_.setResult(ctor_.typeGene(_cont));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetName)) {
-            result_.setResult(new StringStruct(ctor_.getFormatted().getFormatted()));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-            StringList methods_ = new StringList();
-            ExecMemberCallingsBlock callee_ = ctor_.getPair().getFct();
-            FctReflection.fetchAnonymous(methods_, callee_);
-            ArrayStruct str_ = FctReflection.getTypes(_cont, methods_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredLocalTypes)) {
-            StringList methods_ = new StringList();
-            ExecMemberCallingsBlock callee_ = ctor_.getPair().getFct();
-            FctReflection.fetchLocalTypes(methods_, callee_);
-            ArrayStruct str_ = FctReflection.getTypes(_cont, methods_);
-            result_.setResult(str_);
-            return result_;
-        }
-        result_.setResult(ClassMetaInfo.getClassMetaInfo(_cont, ctor_));
-        return result_;
     }
 
     public String getAliasClassType() {

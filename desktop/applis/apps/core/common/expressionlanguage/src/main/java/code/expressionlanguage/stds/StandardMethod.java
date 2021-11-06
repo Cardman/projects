@@ -10,10 +10,6 @@ public final class StandardMethod extends StandardNamedFunction {
     private final StdCaller caller;
 
     public StandardMethod(String _name, StringList _parametersTypes,
-                          String _returnType, boolean _varargs, MethodModifier _modifier) {
-        this(_name, _parametersTypes, _returnType, _varargs,_modifier,new StringList());
-    }
-    public StandardMethod(String _name, StringList _parametersTypes,
                           String _returnType, boolean _varargs, MethodModifier _modifier ,StdCaller _caller) {
         this(_name, _parametersTypes, _returnType, _varargs,_modifier,new StringList(),_caller);
     }
