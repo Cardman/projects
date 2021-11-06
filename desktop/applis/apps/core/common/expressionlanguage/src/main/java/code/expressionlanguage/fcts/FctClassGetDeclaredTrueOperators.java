@@ -5,14 +5,18 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class FctClassGetDeclaredClasses extends FctReflection {
+public final class FctClassGetDeclaredTrueOperators extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        CustList<ClassMetaInfo> arr_ = ClassMetaInfo.getMembersMetaList(_cont, (ClassMetaInfo)_instance);
-        return new ArgumentWrapper(buildArrClass(_cont, arr_));
+        ClassMetaInfo instanceClass_ = (ClassMetaInfo) _instance;
+        CustList<MethodMetaInfo> methods_ = instanceClass_.getTruesInfos();
+        ArrayStruct str_ = getMethodsMeta(_cont, methods_);
+        return new ArgumentWrapper(str_);
     }
 }

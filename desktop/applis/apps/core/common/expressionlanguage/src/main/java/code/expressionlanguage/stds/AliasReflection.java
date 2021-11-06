@@ -6,7 +6,6 @@ import code.expressionlanguage.common.AbstractReplacingType;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.AbstractMethodCriteria;
 import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
@@ -16,7 +15,9 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fcts.*;
-import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodModifier;
+import code.expressionlanguage.functionid.StdClassModifier;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.Ints;
@@ -271,52 +272,52 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetEnumConstants, params_, StringExpUtil.getPrettyArrayType(aliasEnum_), false, MethodModifier.FINAL, new FctClassEnumValues());
         methods_.add( method_);
         params_ = new StringList(aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, StringExpUtil.getPrettyArrayType(aliasConstructor), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredConstructors0(),params.getAliasClassType0GetDeclaredConstructors1()));
+        method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, StringExpUtil.getPrettyArrayType(aliasConstructor), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredConstructors0(),params.getAliasClassType0GetDeclaredConstructors1()),new FctClassGetDeclaredConstructors1());
         methods_.add( method_);
         params_ = new StringList(aliasString_);
-        method_ = new StandardMethod(aliasGetDeclaredFields, params_, StringExpUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredFields0()));
+        method_ = new StandardMethod(aliasGetDeclaredFields, params_, StringExpUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredFields0()), new FctClassGetDeclaredFields1());
         methods_.add( method_);
         params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredStaticMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredStaticMethods0(),params.getAliasClassType0GetDeclaredStaticMethods1(),params.getAliasClassType0GetDeclaredStaticMethods2(),params.getAliasClassType0GetDeclaredStaticMethods3()));
+        method_ = new StandardMethod(aliasGetDeclaredStaticMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredStaticMethods0(),params.getAliasClassType0GetDeclaredStaticMethods1(),params.getAliasClassType0GetDeclaredStaticMethods2(),params.getAliasClassType0GetDeclaredStaticMethods3()),new FctClassGetDeclaredStaticMethods1());
         methods_.add( method_);
         params_ = new StringList(aliasString_,aliasBoolean_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredMethods0(),params.getAliasClassType0GetDeclaredMethods1(),params.getAliasClassType0GetDeclaredMethods2(),params.getAliasClassType0GetDeclaredMethods3()));
+        method_ = new StandardMethod(aliasGetDeclaredMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredMethods0(),params.getAliasClassType0GetDeclaredMethods1(),params.getAliasClassType0GetDeclaredMethods2(),params.getAliasClassType0GetDeclaredMethods3()), new FctClassGetDeclaredMethods1());
         methods_.add( method_);
         params_ = new StringList(aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredExplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredExplicits0()));
+        method_ = new StandardMethod(aliasGetDeclaredExplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredExplicits0()),new FctClassGetDeclaredExplicits1());
         methods_.add( method_);
         params_ = new StringList(aliasClassType);
-        method_ = new StandardMethod(aliasGetDeclaredImplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredImplicits0()));
+        method_ = new StandardMethod(aliasGetDeclaredImplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredImplicits0()),new FctClassGetDeclaredImplicits1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, StringExpUtil.getPrettyArrayType(aliasConstructor), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredConstructors, params_, StringExpUtil.getPrettyArrayType(aliasConstructor), false, MethodModifier.FINAL, new FctClassGetDeclaredConstructors0());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredFields, params_, StringExpUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredFields, params_, StringExpUtil.getPrettyArrayType(aliasField), false, MethodModifier.FINAL, new FctClassGetDeclaredFields0());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredStaticMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredStaticMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, new FctClassGetDeclaredStaticMethods0());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, new FctClassGetDeclaredMethods0());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredExplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredExplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, new FctClassGetDeclaredExplicits0());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredImplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredImplicits, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, new FctClassGetDeclaredImplicits0());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredTrueOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredTrueOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, new FctClassGetDeclaredTrueOperators());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredFalseOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredFalseOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, new FctClassGetDeclaredFalseOperators());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredBlocks, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredBlocks, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL, new FctClassGetDeclaredBlocks0());
         methods_.add( method_);
         params_ = new StringList(aliasString_,aliasBoolean_);
-        method_ = new StandardMethod(aliasGetDeclaredBlocks, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredBlocks0(),params.getAliasClassType0GetDeclaredBlocks1()));
+        method_ = new StandardMethod(aliasGetDeclaredBlocks, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new StringList(params.getAliasClassType0GetDeclaredBlocks0(),params.getAliasClassType0GetDeclaredBlocks1()), new FctClassGetDeclaredBlocks1());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetSuperClass, params_, aliasClassType, false, MethodModifier.FINAL);
@@ -370,10 +371,10 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetAllClasses, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.STATIC, new FctClassGetAllClasses());
         methods_.add( method_);
         params_ = new StringList(aliasString_,aliasBoolean_, aliasClassType);
-        method_ = new StandardMethod(aliasGetOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.STATIC,new StringList(params.getAliasClassType0GetOperators0(),params.getAliasClassType0GetOperators1(),params.getAliasClassType0GetOperators2()));
+        method_ = new StandardMethod(aliasGetOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), true, MethodModifier.STATIC,new StringList(params.getAliasClassType0GetOperators0(),params.getAliasClassType0GetOperators1(),params.getAliasClassType0GetOperators2()),new FctClassGetDeclaredOperators1());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.STATIC);
+        method_ = new StandardMethod(aliasGetOperators, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.STATIC,new FctClassGetDeclaredOperators0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimInt_);
         method_ = new StandardMethod(aliasArrayNewInstance, params_, StringExpUtil.getPrettyArrayType(aliasObject_), true, MethodModifier.FINAL,new StringList(params.getAliasClassType0ArrayNewInstance0()));
@@ -935,174 +936,6 @@ public final class AliasReflection {
         }
         if (StringUtil.quickEq(name_, ref_.aliasMakeWildCard)) {
             result_.setResult(ClassMetaInfo.makeWildCard(_cont, instanceClass_, _args[0]));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetOperators)) {
-            CustList<MethodMetaInfo> operators_ = new CustList<MethodMetaInfo>();
-            if (_args.length == 0) {
-                for (ExecOperatorBlock o: _cont.getClasses().getSortedOperators()) {
-                    MethodMetaInfo met_ = new MethodMetaInfo(o);
-                    operators_.add(met_);
-                }
-                ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, operators_);
-                result_.setResult(str_);
-                return result_;
-            }
-            AbstractMethodCriteria abs_ = _cont.getDefCriteria();
-            CustList<MethodMetaInfo> candidates_ = new CustList<MethodMetaInfo>();
-            for (ExecOperatorBlock o: _cont.getClasses().getSortedOperators()) {
-                MethodId id_ = o.getId();
-                if (FctReflection.eqStatic(id_, _args[0], NullStruct.NULL_VALUE, _args[1], _args[2], abs_.matches(id_))) {
-                    MethodMetaInfo met_ = new MethodMetaInfo(o);
-                    candidates_.add(met_);
-                }
-            }
-            ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, candidates_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredConstructors)) {
-            CustList<ConstructorMetaInfo> ctors_ = instanceClass_.getConstructorsInfos();
-            if (_args.length == 0) {
-                ArrayStruct str_ = FctReflection.getConstructorsMeta(_cont, ctors_);
-                result_.setResult(str_);
-                return result_;
-            }
-            CustList<ConstructorMetaInfo> candidates_;
-            candidates_ = new CustList<ConstructorMetaInfo>();
-            for (ConstructorMetaInfo e: ctors_) {
-                ConstructorId id_ = e.getFid();
-                if (FctReflection.eqStatic(id_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, _args[0], _args[1], BooleanStruct.of(false))) {
-                    candidates_.add(e);
-                }
-            }
-            ArrayStruct str_ = FctReflection.getConstructorsMeta(_cont, candidates_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredExplicits)) {
-            CustList<MethodMetaInfo> methods_ = instanceClass_.getExplicitsInfos();
-            if (_args.length == 0) {
-                ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, methods_);
-                result_.setResult(str_);
-                return result_;
-            }
-            CustList<MethodMetaInfo> candidates_ = FctReflection.filterMethods(_cont, methods_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, _args[0]);
-            ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, candidates_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredImplicits)) {
-            CustList<MethodMetaInfo> methods_ = instanceClass_.getImplicitsInfos();
-            if (_args.length == 0) {
-                ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, methods_);
-                result_.setResult(str_);
-                return result_;
-            }
-            CustList<MethodMetaInfo> candidates_ = FctReflection.filterMethods(_cont, methods_, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, NullStruct.NULL_VALUE, _args[0]);
-            ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, candidates_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredTrueOperators)) {
-            CustList<MethodMetaInfo> methods_ = instanceClass_.getTruesInfos();
-            ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, methods_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredFalseOperators)) {
-            CustList<MethodMetaInfo> methods_ = instanceClass_.getFalsesInfos();
-            ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, methods_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredMethods)) {
-            CustList<MethodMetaInfo> methods_ = instanceClass_.getMethodsInfos();
-            if (_args.length == 0) {
-                if (instanceClass_.isTypeArray()) {
-                    String instClassName_ = instanceClass_.getFormatted().getFormatted();
-                    MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getContent().getCoreNames().getAliasClone(), new StringList());
-                    String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
-                    String ret_ = FctReflection.getReturnTypeClone(_cont, instClassName_, idCl_);
-//                    str_.set(0, new MethodMetaInfo(_cont,instClassName_, id_, ret_));
-                    result_.setResult(FctReflection.getMethodsMeta(_cont,new CustList<MethodMetaInfo>(new MethodMetaInfo(_cont,ret_, id_, instClassName_))));
-                    return result_;
-                }
-                ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, methods_);
-                result_.setResult(str_);
-                return result_;
-            }
-            if (instanceClass_.isTypeArray()) {
-                MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, lgNames_.getContent().getCoreNames().getAliasClone(), new StringList());
-                AbstractMethodCriteria abs_ = _cont.getDefCriteria();
-                if (!FctReflection.eqStatic(id_, _args[0], _args[1], _args[2], _args[3], abs_.matches(id_))) {
-                    result_.setResult(FctReflection.getMethodsMeta(_cont,new CustList<MethodMetaInfo>()));
-                    return result_;
-                }
-                String instClassName_ = instanceClass_.getFormatted().getFormatted();
-                String idCl_ = StringExpUtil.getIdFromAllTypes(instClassName_);
-                String ret_ = FctReflection.getReturnTypeClone(_cont, instClassName_, idCl_);
-                result_.setResult(FctReflection.getMethodsMeta(_cont,new CustList<MethodMetaInfo>(new MethodMetaInfo(_cont,ret_, id_, instClassName_))));
-                return result_;
-            }
-            CustList<MethodMetaInfo> candidates_ = FctReflection.filterMethods(_cont, methods_, _args[0], _args[1], _args[2], _args[3]);
-            ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, candidates_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredStaticMethods)) {
-            CustList<MethodMetaInfo> methods_ = instanceClass_.getMethodsInfos();
-            if (instanceClass_.isTypeArray()) {
-                result_.setResult(FctReflection.getMethodsMeta(_cont,new CustList<MethodMetaInfo>()));
-                return result_;
-            }
-            CustList<MethodMetaInfo> stMethods_ = new CustList<MethodMetaInfo>();
-            for (MethodMetaInfo e: methods_) {
-                if (e.getKind() == MethodAccessKind.INSTANCE) {
-                    continue;
-                }
-                stMethods_.add(e);
-            }
-            if (_args.length == 0) {
-                ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, stMethods_);
-                result_.setResult(str_);
-                return result_;
-            }
-            AbstractMethodCriteria abs_ = _cont.getStaticCriteria();
-            CustList<MethodMetaInfo> candidates_ = FctReflection.filterMethods(stMethods_, _args[0], _args[1], _args[2], _args[3], abs_);
-            ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, candidates_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredBlocks)) {
-            CustList<MethodMetaInfo> methods_ = instanceClass_.getBlocsInfos();
-            if (_args.length == 0) {
-                ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, methods_);
-                result_.setResult(str_);
-                return result_;
-            }
-            CustList<MethodMetaInfo> candidates_ = FctReflection.filterMethods(_cont,methods_, _args[0],_args[1],NullStruct.NULL_VALUE,NullStruct.NULL_VALUE);
-            ArrayStruct str_ = FctReflection.getMethodsMeta(_cont, candidates_);
-            result_.setResult(str_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredFields)) {
-            CustList<FieldMetaInfo> fields_ = instanceClass_.getFieldsInfos();
-            if (_args.length == 0 || !(_args[0] instanceof StringStruct)) {
-                ArrayStruct str_ = FctReflection.buildArrFields(_cont,fields_);
-                result_.setResult(str_);
-                return result_;
-            }
-            String fieldName_ = ((StringStruct) _args[0]).getInstance();
-            CustList<FieldMetaInfo> filteredFields_ = new CustList<FieldMetaInfo>();
-            for (FieldMetaInfo e: fields_) {
-                if (StringUtil.quickEq(fieldName_, e.getName())) {
-                    filteredFields_.add(e);
-                    break;
-                }
-            }
-            ArrayStruct str_ = FctReflection.buildArrFields(_cont,filteredFields_);
-            result_.setResult(str_);
             return result_;
         }
         if (StringUtil.quickEq(name_, ref_.aliasGetSuperClass)) {

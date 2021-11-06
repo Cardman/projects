@@ -29,7 +29,7 @@ public abstract class FctClassDefaultInstanceAbs extends FctReflection {
             String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_, _cont);
             if (res_.isEmpty()) {
                 String null_ = lgNames_.getContent().getCoreNames().getAliasIllegalType();
-                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, className_, null_, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
         }
@@ -38,19 +38,19 @@ public abstract class FctClassDefaultInstanceAbs extends FctReflection {
             DfInstancer instancer_ = stdType_.getInstancer();
             if (instancer_ == null) {
                 String null_ = lgNames_.getContent().getCoreNames().getAliasAbstractTypeErr();
-                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, className_, null_, _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
                 return new ArgumentWrapper(NullStruct.NULL_VALUE);
             }
             return instancer_.call(_exit,_cont,_firstArgs,_stackCall);
         }
         if (!(type_ instanceof ExecRootBlock)) {
             String null_ = lgNames_.getContent().getCoreNames().getAliasIllegalType();
-            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, className_, null_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         if (MetaInfoUtil.isAbstractType(type_)) {
             String null_ = lgNames_.getContent().getCoreNames().getAliasAbstractTypeErr();
-            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getClassIssue(_cont, className_, null_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return spec(_exit, _cont, _instance, _firstArgs, _stackCall);

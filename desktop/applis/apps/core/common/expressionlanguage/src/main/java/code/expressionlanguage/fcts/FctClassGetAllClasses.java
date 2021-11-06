@@ -13,6 +13,6 @@ public final class FctClassGetAllClasses extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ClassMetaInfo> classes_ = ClassMetaInfo.addTypes(_cont);
-        return new ArgumentWrapper(FctReflection.buildArrClass(_cont, classes_));
+        return new ArgumentWrapper(buildArrClass(_cont, classes_));
     }
 }
