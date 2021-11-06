@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.blocks.ExecInfoBlock;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethodDefVal;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -246,7 +245,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasIsPublic, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctClassIsPublic());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetActualTypeArguments, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetActualTypeArguments, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctClassGetActualTypeArguments());
         methods_.add( method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasIsInstance, params_, aliasPrimBoolean_, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0IsInstance0()),new FctClassIsInstance());
@@ -321,22 +320,22 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetGenericSuperClass, params_, aliasClassType, false, MethodModifier.FINAL, new FctClassGetGenericSuperClass());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetInterfaces, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetInterfaces, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL,new FctClassGetInterfaces());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericInterfaces, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetGenericInterfaces, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctClassGetGenericInterfaces());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetUpperBounds, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetUpperBounds, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL,new FctClassGetUpperBounds());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetLowerBounds, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetLowerBounds, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL,new FctClassGetLowerBounds());
         methods_.add( method_);
         params_ = new StringList(aliasClassType);
         method_ = new StandardMethod(aliasMakeGeneric, params_, aliasClassType, true, MethodModifier.FINAL,new StringList(params.getAliasClassType0MakeGeneric0()),new FctClassMakeGeneric());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasMakeArray, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasMakeArray, params_, aliasClassType, false, MethodModifier.FINAL,new FctClassMakeArray());
         methods_.add( method_);
         params_ = new StringList(aliasPrimBoolean_);
         method_ = new StandardMethod(aliasMakeRef, params_, aliasClassType, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0MakeRef0()),new FctClassMakeRef());
@@ -345,22 +344,22 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasMakeWildCard, params_, aliasClassType, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0MakeWildCard0()),new FctClassMakeWildCard());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetComponentType, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetComponentType, params_, aliasClassType, false, MethodModifier.FINAL, new FctClassGetComponentType());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetVariableOwner, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetVariableOwner, params_, aliasClassType, false, MethodModifier.FINAL,new FctClassGetVariableOwner());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericVariableOwner, params_, aliasClassType, false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetGenericVariableOwner, params_, aliasClassType, false, MethodModifier.FINAL,new FctClassGetGenericVariableOwner());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetTypeParameters, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetTypeParameters, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctClassGetTypeParameters());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetBounds, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetBounds, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctClassGetBounds());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetGenericBounds, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetGenericBounds, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctClassGetGenericBounds());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetAllClasses, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.STATIC, new FctClassGetAllClasses());
@@ -384,7 +383,7 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasArraySet, params_, aliasVoid_, false, MethodModifier.STATIC,new StringList(params.getAliasClassType0ArraySet0(),params.getAliasClassType0ArraySet1(),params.getAliasClassType0ArraySet2()),new FctClassArraySet());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL);
+        method_ = new StandardMethod(aliasGetDeclaredAnonymousTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctClassGetDeclaredAnonymousTypes());
         methods_.add( method_);
         params_ = new StringList(aliasObject_);
         method_ = new StandardMethod(aliasTryWrap, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasClassType0TryWrap0()),new FctClassTryWrap());
@@ -800,76 +799,6 @@ public final class AliasReflection {
             return result_;
         }
         result_.setResult(ClassMetaInfo.getClassMetaInfo(_cont, _method));
-        return result_;
-    }
-
-    public static ResultErrorStd invokeClassInfo(ContextEl _cont, ClassMethodId _method, Struct _struct) {
-        LgNames lgNames_ = _cont.getStandards();
-        AliasReflection ref_ = lgNames_.getReflect();
-        String name_ = _method.getConstraints().getName();
-        ResultErrorStd result_ = new ResultErrorStd();
-        ClassMetaInfo instanceClass_ = NumParsers.getClass(_struct);
-        if (StringUtil.quickEq(name_, ref_.aliasGetInterfaces)) {
-            ExecFormattedRootBlock nameType_ = instanceClass_.getFormatted();
-            ArrayStruct arr_ = FctReflection.getFormattedClassesMeta(_cont, instanceClass_, nameType_);
-            result_.setResult(arr_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetGenericInterfaces)) {
-            ArrayStruct arr_ = FctReflection.getFormattedClassesMeta(_cont, instanceClass_, ExecFormattedRootBlock.defValue());
-            result_.setResult(arr_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetLowerBounds)) {
-            ArrayStruct arr_ = FctReflection.getLowerWildCardBounds(_cont, instanceClass_);
-            result_.setResult(arr_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetUpperBounds)) {
-            ArrayStruct arr_ = FctReflection.getUpperWildCardBounds(_cont, instanceClass_);
-            result_.setResult(arr_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasMakeArray)) {
-            result_.setResult(ClassMetaInfo.makeArray(_cont,instanceClass_));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetVariableOwner)) {
-            result_.setResult(instanceClass_.variableOwner(_cont));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetGenericVariableOwner)) {
-            result_.setResult(instanceClass_.variableOwnerId(_cont));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetTypeParameters)) {
-            CustList<ClassMetaInfo> list_ = instanceClass_.getTypeParameters();
-            result_.setResult(FctReflection.buildArrClass(_cont, list_));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetBounds)) {
-            ArrayStruct arr_ = FctReflection.fetchBoundsClassesMeta(_cont, instanceClass_);
-            result_.setResult(arr_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetGenericBounds)) {
-            ArrayStruct arr_ = FctReflection.fetchGenericBoundsClassesMeta(_cont, instanceClass_);
-            result_.setResult(arr_);
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetComponentType)) {
-            result_.setResult(ClassMetaInfo.getComponentType(_cont,instanceClass_));
-            return result_;
-        }
-        if (StringUtil.quickEq(name_, ref_.aliasGetDeclaredAnonymousTypes)) {
-            StringList methods_ = new StringList();
-            ExecRootBlock callee_ = instanceClass_.getFormatted().getRootBlock();
-            FctReflection.fetchAnonymous(methods_, callee_);
-            ArrayStruct str_ = FctReflection.getTypes(_cont, methods_);
-            result_.setResult(str_);
-            return result_;
-        }
-        result_.setResult(FctReflection.buildArrClass(_cont,ClassMetaInfo.getExtendedClassMetaInfoInit(_cont,instanceClass_)));
         return result_;
     }
 

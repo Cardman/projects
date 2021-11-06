@@ -38,9 +38,6 @@ public final class ApplyCoreMethodUtil {
         if (StringUtil.quickEq(type_, ref_.getAliasMethod())) {
             return AliasReflection.invokeMethodInfo(_cont, _method, _struct, _stackCall);
         }
-        if (StringUtil.quickEq(type_, ref_.getAliasClassType())) {
-            return AliasReflection.invokeClassInfo(_cont, _method, _struct);
-        }
         if (StringUtil.quickEq(type_, ref_.getAliasConstructor())) {
             return AliasReflection.invokeCtorInfo(_cont, _struct, _method);
         }
