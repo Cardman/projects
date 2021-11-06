@@ -24,7 +24,7 @@ public final class DefInterceptor implements AbstractInterceptor {
     @Override
     public ResultErrorStd invoke(String _cl,ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, StackCall _stackCall, Argument... _args) {
         try {
-            return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _exit, _args, _stackCall);
+            return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _args, _stackCall);
         } catch (RuntimeException e) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cl, _stackCall)));
             return new ResultErrorStd();

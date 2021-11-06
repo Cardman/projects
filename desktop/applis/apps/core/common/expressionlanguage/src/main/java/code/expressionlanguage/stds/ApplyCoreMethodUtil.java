@@ -1,6 +1,5 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.DisplayedStrings;
@@ -19,7 +18,7 @@ public final class ApplyCoreMethodUtil {
     private ApplyCoreMethodUtil() {
     }
 
-    public static ResultErrorStd invokeBase(ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument[] _args, StackCall _stackCall) {
+    public static ResultErrorStd invokeBase(ContextEl _cont, ClassMethodId _method, Struct _struct, Argument[] _args, StackCall _stackCall) {
         Struct[] args_ = ExecHelper.getObjects(_args);
         String type_ = _method.getClassName();
         LgNames lgNames_ = _cont.getStandards();
@@ -40,7 +39,7 @@ public final class ApplyCoreMethodUtil {
             return AliasReflection.invokeMethodInfo(_cont, _method, _struct, args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, ref_.getAliasClassType())) {
-            return AliasReflection.invokeClassInfo(_cont, _method, _struct, _exit, args_, _stackCall);
+            return AliasReflection.invokeClassInfo(_cont, _method, _struct, args_, _stackCall);
         }
         if (StringUtil.quickEq(type_, ref_.getAliasConstructor())) {
             return AliasReflection.invokeCtorInfo(_cont, _struct, _method,args_, _stackCall);

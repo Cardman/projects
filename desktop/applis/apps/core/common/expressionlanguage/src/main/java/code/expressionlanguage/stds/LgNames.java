@@ -65,7 +65,7 @@ public abstract class LgNames implements BuildableLgNames {
     }
 
     protected ResultErrorStd invoke(StackCall _stack, ContextEl _cont, ClassMethodId _method, Struct _struct, AbstractExiting _exit, Argument... _args) {
-        return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _exit, _args, _stack);
+        return ApplyCoreMethodUtil.invokeBase(_cont, _method, _struct, _args, _stack);
     }
 
     /**@param  _instance l'instance*/
