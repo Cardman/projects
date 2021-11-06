@@ -43,10 +43,6 @@ public abstract class FctReflection implements StdCaller {
         return methods_;
     }
 
-    public static boolean isInvoke(String _name, String _aliasInvoke, String _aliasInvokeDirect) {
-        return StringUtil.quickEq(_aliasInvoke, _name) || StringUtil.quickEq(_aliasInvokeDirect, _name);
-    }
-
     public static ErrorStruct getNonInvokableError(ContextEl _cont, AnnotatedStruct _instance, StackCall _stackCall) {
         return new ErrorStruct(_cont, _instance.getDisplayedString(_cont).getInstance(), _cont.getStandards().getContent().getCoreNames().getAliasNonInvokable(), _stackCall);
     }

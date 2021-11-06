@@ -502,13 +502,13 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
         return getExtendedClassMetaInfo(_cont, StringUtil.concat(StringExpUtil.SUP_TYPE,baseWildCard_), _instanceClass);
     }
 
-    public static Struct makeRef(ContextEl _cont, ClassMetaInfo _instanceClass, Struct[] _args) {
+    public static Struct makeRef(ContextEl _cont, ClassMetaInfo _instanceClass, Struct _ref) {
         if (_instanceClass.isTypeVoid()) {
             return NullStruct.NULL_VALUE;
         }
         String ext_ = extractName(_instanceClass.formatted.getFormatted());
         String cat_ = ext_;
-        if (BooleanStruct.isTrue(_args[0])) {
+        if (BooleanStruct.isTrue(_ref)) {
             cat_ = "~"+ext_;
         }
         return getExtendedClassMetaInfo(_cont, cat_, _instanceClass);
@@ -663,12 +663,12 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
         return ClassMetaInfo.getClassMetaInfo(_context,_inst.getClassName(_context));
     }
 
-    public static Struct getClassMetaInfo(ContextEl _context, ClassMetaInfo _base, Struct[] _paramTypes) {
+    public static Struct getClassMetaInfo(ContextEl _context, ClassMetaInfo _base, Struct _paramsTypes) {
         StringList classesNames_ = new StringList();
-        if (!(_paramTypes[0] instanceof ArrayStruct)) {
+        if (!(_paramsTypes instanceof ArrayStruct)) {
             return NullStruct.NULL_VALUE;
         }
-        for (Struct s: ((ArrayStruct)_paramTypes[0]).list()) {
+        for (Struct s: ((ArrayStruct) _paramsTypes).list()) {
             if (!(s instanceof ClassMetaInfo)) {
                 return NullStruct.NULL_VALUE;
             }

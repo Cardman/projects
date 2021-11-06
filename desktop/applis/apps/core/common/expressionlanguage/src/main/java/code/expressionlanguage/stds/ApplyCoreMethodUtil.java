@@ -33,16 +33,16 @@ public final class ApplyCoreMethodUtil {
             return result_;
         }
         if (StringUtil.quickEq(type_, ref_.getAliasField())) {
-            return AliasReflection.invokeFieldInfo(_cont, _method, _struct,args_, _stackCall);
+            return AliasReflection.invokeFieldInfo(_cont, _method, _struct);
         }
         if (StringUtil.quickEq(type_, ref_.getAliasMethod())) {
-            return AliasReflection.invokeMethodInfo(_cont, _method, _struct, args_, _stackCall);
+            return AliasReflection.invokeMethodInfo(_cont, _method, _struct, _stackCall);
         }
         if (StringUtil.quickEq(type_, ref_.getAliasClassType())) {
-            return AliasReflection.invokeClassInfo(_cont, _method, _struct, args_, _stackCall);
+            return AliasReflection.invokeClassInfo(_cont, _method, _struct);
         }
         if (StringUtil.quickEq(type_, ref_.getAliasConstructor())) {
-            return AliasReflection.invokeCtorInfo(_cont, _struct, _method,args_, _stackCall);
+            return AliasReflection.invokeCtorInfo(_cont, _struct, _method);
         }
         return lgNames_.getOtherResult(_stackCall, _cont, _struct, _method, args_);
     }
