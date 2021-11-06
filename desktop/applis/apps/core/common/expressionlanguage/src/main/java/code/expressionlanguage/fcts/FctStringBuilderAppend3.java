@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -42,11 +41,11 @@ public final class FctStringBuilderAppend3 implements StdCaller {
         int lenChar_ = ((ArrayStruct)_str).getLength();
         if (offset_ < 0 || len_ < 0 || offset_ + len_ > lenChar_) {
             if (offset_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getBeginMessage(offset_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getBeginMessage(offset_), _stackCall)));
             } else if (len_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getBeginMessage(len_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getBeginMessage(len_), _stackCall)));
             } else {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getBeginEndMessage(lenChar_, offset_, len_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getBeginEndMessage(lenChar_, offset_, len_), _stackCall)));
             }
             return;
         }

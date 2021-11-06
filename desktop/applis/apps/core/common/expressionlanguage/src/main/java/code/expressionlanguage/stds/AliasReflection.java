@@ -118,15 +118,9 @@ public final class AliasReflection {
     private final AliasParamReflection params = new AliasParamReflection();
 
     public void build(LgNames _stds) {
-        CustList<CstFieldInfo> fields_;
-        StringList params_;
-        StandardMethod method_;
-        CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        StandardClass stdcl_;
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
         String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
@@ -135,9 +129,9 @@ public final class AliasReflection {
         String aliasVoid_ = _stds.getContent().getCoreNames().getAliasVoid();
         String aliasError_ = _stds.getContent().getCoreNames().getAliasError();
         String aliasEnum_ = _stds.getContent().getPredefTypes().getAliasEnumType();
-        stdcl_ = new StandardClass(aliasFct, fields_, constructors_, methods_, aliasObject_ , StdClassModifier.ABSTRACT);
-        params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasFct0Call0()),new FctLambdaCall());
+        StandardClass stdcl_ = new StandardClass(aliasFct, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
+        StringList params_ = new StringList(aliasObject_);
+        StandardMethod method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0Call0()), new FctLambdaCall());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMetaInfo, params_, aliasAnnotated, false, MethodModifier.FINAL, new FctLambdaMetaInfo());

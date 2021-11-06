@@ -61,9 +61,9 @@ public final class ExecCastOperation extends ExecMethodOperation implements Atom
                 ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
                 AbstractFunctionalInstance struct_;
                 if (_full) {
-                    struct_ = _conf.getStandards().newFullFunctionalInstance(className_, r_, (LambdaStruct) _objArg, overridableBlock_, _conf);
+                    struct_ = _conf.getStandards().newFullFunctionalInstance(className_, (LambdaStruct) _objArg, overridableBlock_, _conf);
                 } else {
-                    struct_ = _conf.getStandards().newFunctionalInstance(className_, r_, (LambdaStruct) _objArg, overridableBlock_, _conf);
+                    struct_ = _conf.getStandards().newFunctionalInstance(className_, (LambdaStruct) _objArg, overridableBlock_, _conf);
                 }
                 return struct_;
             }

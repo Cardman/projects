@@ -1,16 +1,12 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.CstFieldInfo;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class AliasNumberType {
     private String aliasCompareTo;
@@ -74,14 +70,6 @@ public final class AliasNumberType {
     private String aliasToLowerCaseChar;
     private String aliasToUpperCaseChar;
     private final AliasParamNumber params = new AliasParamNumber();
-
-    public static ErrorStruct getFormatError(ContextEl _context, String _text, StackCall _stackCall) {
-        return new ErrorStruct(_context, _text, _context.getStandards().getContent().getCoreNames().getAliasNbFormat(), _stackCall);
-    }
-
-    public static String getNumberRadixMessage(String _nb, int _radix) {
-        return StringUtil.concat(_nb, ",", Long.toString(_radix));
-    }
 
     public void build(LgNames _lgNames) {
         CustList<CstFieldInfo> fields_;

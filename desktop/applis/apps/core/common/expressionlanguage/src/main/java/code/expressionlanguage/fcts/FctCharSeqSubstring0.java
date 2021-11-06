@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.structs.*;
 
 public final class FctCharSeqSubstring0 implements AnaStdCaller {
@@ -44,11 +43,11 @@ public final class FctCharSeqSubstring0 implements AnaStdCaller {
         int end_ = _endIndex.intStruct();
         if (NumParsers.isIncorrectSub(begin_, end_, _charSequence)) {
             if (begin_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_context, AliasCharSequenceType.getBeginMessage(begin_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_context, FctUtil.getBeginMessage(begin_), _stackCall)));
             } else if (end_ > _charSequence.length()) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_context, AliasCharSequenceType.getEndMessage(end_, ">", _charSequence.length()), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_context, FctUtil.getEndMessage(end_, ">", _charSequence.length()), _stackCall)));
             } else {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_context, AliasCharSequenceType.getEndMessage(begin_, ">", end_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_context, FctUtil.getEndMessage(begin_, ">", end_), _stackCall)));
             }
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasNumberType;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -67,7 +66,7 @@ public abstract class FctNbLongAbs implements AnaStdCaller {
         int radix_ = radix.radix(_radix);
         LongInfo lg_ = NumParsers.parseLong(one_, radix_);
         if (lg_.outOfRange(minValue, maxValue)) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasNumberType.getFormatError(_context, AliasNumberType.getNumberRadixMessage(one_, radix_), _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctUtil.getFormatError(_context, FctUtil.getNumberRadixMessage(one_, radix_), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return new ArgumentWrapper(build(lg_));

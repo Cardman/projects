@@ -59,13 +59,13 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         return infos;
     }
 
-    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
-        return CustAliases.newFunctional(_className, _rootBlock, _functional, _named, _contextEl);
+    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
+        return CustAliases.newFunctional(_className, _functional, _named, _contextEl);
     }
 
     @Override
-    public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        return CustAliases.newFunctional(_className, _rootBlock, _functional, _named, _contextEl);
+    public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+        return CustAliases.newFunctional(_className, _functional, _named, _contextEl);
     }
 
     public CustAliases getCustAliases() {

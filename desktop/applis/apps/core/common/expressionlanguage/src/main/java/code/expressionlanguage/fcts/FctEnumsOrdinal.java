@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.ApplyCoreMethodUtil;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.IntStruct;
@@ -17,7 +16,7 @@ public final class FctEnumsOrdinal implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Struct str_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
         if (!(str_ instanceof EnumerableStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(ApplyCoreMethodUtil.getNpe(_cont, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
             return new ArgumentWrapper(null);
         } else {
             EnumerableStruct en_ = (EnumerableStruct) str_;

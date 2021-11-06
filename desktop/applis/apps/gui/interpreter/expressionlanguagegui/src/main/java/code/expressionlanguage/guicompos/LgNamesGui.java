@@ -63,13 +63,13 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
-    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new EventFunctionalInstance(_className.getFormatted(),_functional,fs_, _contextEl, _named);
     }
 
     @Override
-    public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+    public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new EventFunctionalInstance(_className.getFormatted(),_functional,fs_, _contextEl, _named);
     }

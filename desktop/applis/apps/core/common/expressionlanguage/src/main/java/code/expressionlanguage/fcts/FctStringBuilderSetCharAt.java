@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -34,14 +33,18 @@ public final class FctStringBuilderSetCharAt implements StdCaller {
         }
         int index_ = _index.intStruct();
         if (index_ < 0 || index_ >= _instance.getInstance().length()) {
-            if (index_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getBeginMessage(index_), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getEndMessage(index_, ">=", _instance.getInstance().length()), _stackCall)));
-            }
+            exc(_instance, _an, _stackCall, index_);
             return;
         }
         _instance.getInstance().setCharAt(index_, _ch.getChar());
+    }
+
+    static void exc(StringBuilderStruct _instance, ContextEl _an, StackCall _stackCall, int _index) {
+        if (_index < 0) {
+            _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getBeginMessage(_index), _stackCall)));
+        } else {
+            _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getEndMessage(_index, ">=", _instance.getInstance().length()), _stackCall)));
+        }
     }
 
 }

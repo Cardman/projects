@@ -15,6 +15,7 @@ import code.expressionlanguage.exec.blocks.ExecInnerElementBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
@@ -434,10 +435,10 @@ public final class CustAliases {
                 return new StringStruct(_arg.getClassName(_cont));
             }
         }
-        return ApplyCoreMethodUtil.getStringOfObjectBase(_cont, _arg);
+        return ExecCatOperation.getStringOfObjectBase(_cont, _arg);
     }
 
-    public static AbstractFunctionalInstance newFunctional(ExecFormattedRootBlock _className, ExecRootBlock _rootBlock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+    public static AbstractFunctionalInstance newFunctional(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new RunnableFunctionalInstance(_className.getFormatted(),_functional,fs_,_contextEl, _named);
     }

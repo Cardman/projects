@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -45,11 +44,11 @@ public final class FctStringValueOf1 implements AnaStdCaller {
         int two_ = NumParsers.convertToNumber(argumentWrappers_.get(1).getValue().getStruct()).intStruct();
         if (NumParsers.koArray(chars_, one_, two_)) {
             if (one_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_cont, AliasCharSequenceType.getBeginMessage(one_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_cont, FctUtil.getBeginMessage(one_), _stackCall)));
             } else if (two_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_cont, AliasCharSequenceType.getBeginMessage(two_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_cont, FctUtil.getBeginMessage(two_), _stackCall)));
             } else {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_cont, AliasCharSequenceType.getBeginEndMessage(chars_.length, one_, two_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_cont, FctUtil.getBeginEndMessage(chars_.length, one_, two_), _stackCall)));
             }
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

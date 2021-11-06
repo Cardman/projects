@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.structs.*;
 
 public final class FctCharSeqCharAt implements AnaStdCaller {
@@ -36,9 +35,9 @@ public final class FctCharSeqCharAt implements AnaStdCaller {
         int ind_ = nb_.intStruct();
         if (NumParsers.isInvalidIndex(ind_, _charSequence)) {
             if (ind_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_context, AliasCharSequenceType.getBeginMessage(ind_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_context, FctUtil.getBeginMessage(ind_), _stackCall)));
             } else {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_context, AliasCharSequenceType.getEndMessage(ind_, ">=", _charSequence.length()), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_context, FctUtil.getEndMessage(ind_, ">=", _charSequence.length()), _stackCall)));
             }
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

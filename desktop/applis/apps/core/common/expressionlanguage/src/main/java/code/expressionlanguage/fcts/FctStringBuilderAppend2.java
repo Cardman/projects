@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -40,11 +39,11 @@ public final class FctStringBuilderAppend2 implements StdCaller {
         int end_ = _end.intStruct();
         if (start_ < 0 || start_ > end_ || end_ > toApp_.length()) {
             if (start_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getBeginMessage(start_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getBeginMessage(start_), _stackCall)));
             } else if (start_ > end_){
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getEndMessage(start_, ">", end_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getEndMessage(start_, ">", end_), _stackCall)));
             } else {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getEndMessage(end_, ">", toApp_.length()), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getEndMessage(end_, ">", toApp_.length()), _stackCall)));
             }
             return;
         }

@@ -63,21 +63,14 @@ public final class AliasCore {
 
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
-        CustList<CstFieldInfo> fields_;
-        StringList params_;
-        StandardMethod method_;
-        CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        StandardType std_;
-        StandardClass stdcl_;
-        stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL, new DfObj());
-        params_ = new StringList();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
+        StandardClass stdcl_ = new StandardClass(aliasObject, fields_, constructors_, methods_, EMPTY_STRING, MethodModifier.NORMAL, new DfObj());
+        StringList params_ = new StringList();
         StandardConstructor ctor_ = new StandardConstructor(params_, false, new FctObj());
         constructors_.add(ctor_);
-        std_ = stdcl_;
+        StandardType std_ = stdcl_;
         standards_.addEntry(aliasObject, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -86,7 +79,7 @@ public final class AliasCore {
         String stackElt_ = _lgNames.getContent().getStackElt().getAliasStackTraceElement();
         stackElt_ = StringExpUtil.getPrettyArrayType(stackElt_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasErrorCurrentStack, params_, stackElt_, false, MethodModifier.NORMAL,new FctErrorCurrentStack0());
+        StandardMethod method_ = new StandardMethod(aliasErrorCurrentStack, params_, stackElt_, false, MethodModifier.NORMAL, new FctErrorCurrentStack0());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasErrorToString, params_, _lgNames.getContent().getCharSeq().getAliasString(), false, MethodModifier.NORMAL,new FctErrorToString0());

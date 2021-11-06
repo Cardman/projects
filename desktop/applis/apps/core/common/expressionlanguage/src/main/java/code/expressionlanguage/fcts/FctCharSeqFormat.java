@@ -18,7 +18,17 @@ public final class FctCharSeqFormat implements AnaStdCaller {
         return format((CharSequenceStruct)_instance,_args[0]);
     }
 
-    private static Struct format(CharSequenceStruct _charSequence, Struct _seps) {
+    @Override
+    public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
+        Struct res_ = format((CharSequenceStruct)_instance,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        if (res_ == null) {
+            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_cont, _stackCall)));
+            return new ArgumentWrapper(NullStruct.NULL_VALUE);
+        }
+        return new ArgumentWrapper(res_);
+    }
+
+    static Struct format(CharSequenceStruct _charSequence, Struct _seps) {
         if (!(_seps instanceof ArrayStruct)) {
             return null;
         }
@@ -33,29 +43,5 @@ public final class FctCharSeqFormat implements AnaStdCaller {
             seps_[i] = NumParsers.getCharSeq(curSep_).toStringInstance();
         }
         return new StringStruct(StringUtil.simpleStringsFormat(_charSequence.toStringInstance(), seps_));
-    }
-
-    @Override
-    public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return format((CharSequenceStruct)_instance,_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_cont,_stackCall);
-    }
-
-    private static ArgumentWrapper format(CharSequenceStruct _charSequence, Struct _seps, ContextEl _context, StackCall _stackCall) {
-        if (!(_seps instanceof ArrayStruct)) {
-            _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
-            return new ArgumentWrapper(NullStruct.NULL_VALUE);
-        }
-        ArrayStruct arrSep_ = (ArrayStruct) _seps;
-        int lenSeps_ = arrSep_.getLength();
-        String[] seps_ = new String[lenSeps_];
-        for (int i = 0; i < lenSeps_; i++) {
-            Struct curSep_ = arrSep_.get(i);
-            if (!(curSep_ instanceof CharSequenceStruct)) {
-                _stackCall.setCallingState(new CustomFoundExc(FctReflection.getNpe(_context, _stackCall)));
-                return new ArgumentWrapper(NullStruct.NULL_VALUE);
-            }
-            seps_[i] = NumParsers.getCharSeq(curSep_).toStringInstance();
-        }
-        return new ArgumentWrapper(new StringStruct(StringUtil.simpleStringsFormat(_charSequence.toStringInstance(), seps_)));
     }
 }

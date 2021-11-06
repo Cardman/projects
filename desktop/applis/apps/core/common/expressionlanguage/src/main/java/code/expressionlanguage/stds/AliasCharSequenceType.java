@@ -1,16 +1,12 @@
 package code.expressionlanguage.stds;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.structs.ErrorStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class AliasCharSequenceType {
 
@@ -65,10 +61,6 @@ public final class AliasCharSequenceType {
     private String aliasGetOldString;
     private String aliasGetNewString;
     private final AliasParamCharSequence params = new AliasParamCharSequence();
-
-    public static ErrorStruct getBadIndex(ContextEl _context, String _message, StackCall _stackCall) {
-        return new ErrorStruct(_context, _message, _context.getStandards().getContent().getCoreNames().getAliasBadIndex(), _stackCall);
-    }
 
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
@@ -809,18 +801,6 @@ public final class AliasCharSequenceType {
 
     public AliasParamCharSequence getParams() {
         return params;
-    }
-
-    public static String getEndMessage(int _end, String _s, int _length) {
-        return StringUtil.concat(Long.toString(_end), _s, Long.toString(_length));
-    }
-
-    public static String getBeginMessage(int _begin) {
-        return StringUtil.concat(Long.toString(_begin), "<0");
-    }
-
-    public static String getBeginEndMessage(int _len, long _one, int _two) {
-        return StringUtil.concat(Long.toString(_one + _two), ">", Long.toString(_len));
     }
 
 }

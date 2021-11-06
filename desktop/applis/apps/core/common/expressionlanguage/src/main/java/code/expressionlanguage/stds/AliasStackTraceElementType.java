@@ -19,22 +19,16 @@ public final class AliasStackTraceElementType {
     private String aliasCurrentFullStack;
 
     public void build(LgNames _stds) {
-        CustList<CstFieldInfo> fields_;
-        StringList params_;
-        StandardMethod method_;
-        CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        StandardClass stdcl_;
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
         String aliasString_ = _stds.getContent().getCharSeq().getAliasString();
-        stdcl_ = new StandardClass(aliasStackTraceElement, fields_, constructors_, methods_, aliasObject_ , StdClassModifier.ABSTRACT);
+        StandardClass stdcl_ = new StandardClass(aliasStackTraceElement, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
         String out_ = aliasStackTraceElement;
         out_ = StringExpUtil.getPrettyArrayType(out_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC,new FctStackTraceCurrent());
+        StringList params_ = new StringList();
+        StandardMethod method_ = new StandardMethod(aliasCurrentStack, params_, out_, false, MethodModifier.STATIC, new FctStackTraceCurrent());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasCurrentFullStack, params_, out_, false, MethodModifier.STATIC,new FctStackTraceCurrentFull());

@@ -42,14 +42,9 @@ public final class AliasMathType {
     private String aliasSeedSpecDoubleGenerator;
     private final AliasParamMath params = new AliasParamMath();
     public void build(LgNames _stds) {
-        CustList<CstFieldInfo> fields_;
-        StringList params_;
-        StandardMethod method_;
-        CustList<StandardConstructor> constructors_;
-        CustList<StandardMethod> methods_;
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
+        CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
+        CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
+        CustList<CstFieldInfo> fields_ = new CustList<CstFieldInfo>();
         String aliasObject_ = _stds.getContent().getCoreNames().getAliasObject();
         String aliasPrimInteger_ = _stds.getContent().getPrimTypes().getAliasPrimInteger();
         String aliasPrimLong_ = _stds.getContent().getPrimTypes().getAliasPrimLong();
@@ -57,8 +52,8 @@ public final class AliasMathType {
         String aliasPrimDouble_ = _stds.getContent().getPrimTypes().getAliasPrimDouble();
         String aliasPrimBoolean_ = _stds.getContent().getPrimTypes().getAliasPrimBoolean();
         StandardClass std_ = new StandardClass(aliasMath, fields_, constructors_, methods_, aliasObject_, StdClassModifier.HYPER_ABSTRACT);
-        params_ = new StringList(aliasPrimInteger_);
-        method_ = new StandardMethod(aliasAbs, params_, aliasPrimInteger_, false, MethodModifier.STATIC,new StringList(params.getAliasMath0Abs0()),new FctMathAbs0());
+        StringList params_ = new StringList(aliasPrimInteger_);
+        StandardMethod method_ = new StandardMethod(aliasAbs, params_, aliasPrimInteger_, false, MethodModifier.STATIC, new StringList(params.getAliasMath0Abs0()), new FctMathAbs0());
         methods_.add( method_);
         params_ = new StringList(aliasPrimLong_);
         method_ = new StandardMethod(aliasAbs, params_, aliasPrimLong_, false, MethodModifier.STATIC,new StringList(params.getAliasMath1Abs0()),new FctMathAbs1());

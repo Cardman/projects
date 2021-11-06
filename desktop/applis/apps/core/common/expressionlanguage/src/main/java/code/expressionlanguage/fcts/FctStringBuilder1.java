@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.StringBuilderStruct;
 import code.expressionlanguage.structs.Struct;
@@ -21,7 +20,7 @@ public final class FctStringBuilder1 implements StdCaller {
     private static ArgumentWrapper newStringBuilderStructByNumber(Struct _arg, ContextEl _context, StackCall _stackCall) {
         int one_ = NumParsers.convertToNumber(_arg).intStruct();
         if (one_ < 0) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_context, Long.toString(one_), _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_context, Long.toString(one_), _stackCall)));
             return new ArgumentWrapper(null);
         }
         return new ArgumentWrapper(new StringBuilderStruct(new StringBuilder(one_)));

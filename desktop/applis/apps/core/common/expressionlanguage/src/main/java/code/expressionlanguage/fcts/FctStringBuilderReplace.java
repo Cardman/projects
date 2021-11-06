@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -36,13 +35,7 @@ public final class FctStringBuilderReplace implements StdCaller {
         int start_ = _start.intStruct();
         int end_ = _end.intStruct();
         if (start_ < 0 || start_ > _instance.getInstance().length() || start_ > end_) {
-            if (start_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getBeginMessage(start_), _stackCall)));
-            } else if (start_ > _instance.getInstance().length()) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getEndMessage(start_, ">", _instance.getInstance().length()), _stackCall)));
-            } else {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getEndMessage(start_, ">", end_), _stackCall)));
-            }
+            FctStringBuilderDelete.exc(_instance,_an,_stackCall,start_,end_);
             return;
         }
         if (!(_str instanceof CharSequenceStruct)) {

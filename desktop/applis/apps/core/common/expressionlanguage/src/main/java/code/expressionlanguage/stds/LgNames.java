@@ -7,7 +7,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
@@ -51,7 +51,7 @@ public abstract class LgNames implements BuildableLgNames {
     }
 
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
-        return ApplyCoreMethodUtil.getStringOfObjectBase(_cont, _arg);
+        return ExecCatOperation.getStringOfObjectBase(_cont, _arg);
     }
 
     public abstract void buildOther();
@@ -60,10 +60,10 @@ public abstract class LgNames implements BuildableLgNames {
         return calculator.getInnerSimpleResult(_classField);
     }
 
-    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         return new FunctionalInstance(_className.getFormatted(),_functional, _named);
     }
-    public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, ExecRootBlock _rootBock, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
+    public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new FullFunctionalInstance(_className.getFormatted(),_functional,fs_, _named);
     }

@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
@@ -30,7 +29,7 @@ public final class FctStringBuilderSetLength implements StdCaller {
         }
         int newLength_ = _newLength.intStruct();
         if (newLength_ < 0) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an,AliasCharSequenceType.getBeginMessage(newLength_), _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getBeginMessage(newLength_), _stackCall)));
             return;
         }
         _instance.getInstance().setLength(newLength_);

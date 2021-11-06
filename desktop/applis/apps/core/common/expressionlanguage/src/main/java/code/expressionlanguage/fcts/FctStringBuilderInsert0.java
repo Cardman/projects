@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasCharSequenceType;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringBuilderStruct;
@@ -37,9 +36,9 @@ public final class FctStringBuilderInsert0 implements StdCaller {
         int index_ = _dstOffset.intStruct();
         if (index_ < 0 || index_ > _instance.getInstance().length()) {
             if (index_ < 0) {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getBeginMessage(index_), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getBeginMessage(index_), _stackCall)));
             } else {
-                _stackCall.setCallingState(new CustomFoundExc(AliasCharSequenceType.getBadIndex(_an, AliasCharSequenceType.getEndMessage(index_, ">", _instance.getInstance().length()), _stackCall)));
+                _stackCall.setCallingState(new CustomFoundExc(FctUtil.getBadIndex(_an, FctUtil.getEndMessage(index_, ">", _instance.getInstance().length()), _stackCall)));
             }
             return;
         }

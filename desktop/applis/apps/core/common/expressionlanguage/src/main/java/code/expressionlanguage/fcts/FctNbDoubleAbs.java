@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.stds.AliasNumberType;
 import code.expressionlanguage.structs.CharSequenceStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.NumberStruct;
@@ -72,7 +71,7 @@ public abstract class FctNbDoubleAbs implements AnaStdCaller {
             valid_ = false;
         }
         if (!valid_) {
-            _stackCall.setCallingState(new CustomFoundExc(AliasNumberType.getFormatError(_context, one_, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(FctUtil.getFormatError(_context, one_, _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         return new ArgumentWrapper(build(v_));

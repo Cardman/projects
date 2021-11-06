@@ -5,6 +5,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.DisplayableStruct;
+import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
@@ -44,4 +45,15 @@ public final class ExecCatOperation extends ExecNumericOperation {
         }
         return _cont.getStandards().getStringOfObject(_cont,a_);
     }
+
+    public static StringStruct getStringOfObjectBase(ContextEl _cont, Struct _arg) {
+        String str_;
+        if (_arg instanceof EnumerableStruct) {
+            str_ = ((EnumerableStruct)_arg).getName();
+        } else {
+            str_ =  Argument.getNull(_arg).getClassName(_cont);
+        }
+        return new StringStruct(str_);
+    }
+
 }
