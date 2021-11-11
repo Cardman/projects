@@ -1,6 +1,8 @@
 package code.expressionlanguage.exec.inherits;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.AbstractExiting;
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
@@ -16,6 +18,7 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.Identifiable;
+import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.expressionlanguage.stds.LgNames;
@@ -278,14 +281,7 @@ public final class ExecTemplates {
 
     private static Struct okArgsEx(Identifiable _id, CustList<Argument> _firstArgs, ContextEl _conf, StackCall _stackCall) {
         StringList params_ = new StringList();
-        int len_ = _id.getParametersTypesLength();
-        for (int i = 0; i < len_; i++){
-            String c_ = _id.getParametersType(i);
-            if (i + 1 == len_ && _id.isVararg()) {
-                c_ = StringExpUtil.getPrettyArrayType(c_);
-            }
-            params_.add(c_);
-        }
+        IdentifiableUtil.appendLeftPart(0,params_,_id);
         if (_firstArgs.size() != params_.size()) {
             LgNames stds_ = _conf.getStandards();
             String cast_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();

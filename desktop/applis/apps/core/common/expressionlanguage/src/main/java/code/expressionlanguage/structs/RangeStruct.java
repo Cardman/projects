@@ -29,20 +29,15 @@ public final class RangeStruct extends WithoutParentStruct implements Displayabl
 
     @Override
     public StringStruct getDisplayedString(AnalyzedPageEl _an) {
-        if (step == 1) {
-            if (isUnlimited()) {
-                return new StringStruct(lower+"");
-            }
-            return new StringStruct(lower+";"+upper);
-        }
-        if (isUnlimited()) {
-            return new StringStruct(lower+";;"+step);
-        }
-        return new StringStruct(lower+";"+upper+";"+step);
+        return rg();
     }
 
     @Override
     public StringStruct getDisplayedString(ContextEl _an) {
+        return rg();
+    }
+
+    private StringStruct rg() {
         if (step == 1) {
             if (isUnlimited()) {
                 return new StringStruct(lower+"");

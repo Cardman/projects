@@ -32,7 +32,7 @@ public final class IdentifiableUtil {
         }
         return params_;
     }
-    public static void appendLeftPart(int _start,StringList _paramsReturn, MethodId _id) {
+    public static void appendLeftPart(int _start,StringList _paramsReturn, Identifiable _id) {
         int len_ = _id.getParametersTypesLength();
         for (int i = _start; i < len_; i++) {
             String p_ = _id.getParametersType(i);
