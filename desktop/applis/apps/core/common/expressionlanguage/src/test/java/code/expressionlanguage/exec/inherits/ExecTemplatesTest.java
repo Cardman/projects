@@ -702,6 +702,12 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         assertSame(NullStruct.NULL_VALUE, ExecTemplates.getElement(arr_, new StringStruct(""),cont_.getContext(), cont_.getStackCall()));
     }
     @Test
+    public void setErrorWhenRangeTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        AnalyzedTestContext cont_ = validated(files_);
+        assertSame(NullStruct.NULL_VALUE, ExecTemplates.setRange(new StringStruct(""), new RangeStruct(0), NullStruct.NULL_VALUE,cont_.getContext(), cont_.getStackCall()));
+    }
+    @Test
     public void getErrorWhenRange1Test() {
         StringMap<String> files_ = new StringMap<String>();
         AnalyzedTestContext cont_ = validated(files_);

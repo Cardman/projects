@@ -1,14 +1,17 @@
 package code.expressionlanguage.analyze.opers;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.linkage.ExportCst;
@@ -33,7 +36,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private MemberId memberIdSet = new MemberId();
     private AnaTypeFct functionGet;
     private AnaTypeFct functionSet;
-    private boolean errLeftValue;
     private final int lastOpOffset;
 
     public ArrOperation(int _index,
@@ -216,7 +218,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         AnaClassArgumentMatching indexClass_ = right_.getResultClass();
         if (indexClass_.matchClass(_page.getAliasRange())) {
-            errLeftValue = true;
             if (!class_.isArray()) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -309,7 +310,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     @Override
     public boolean isErrLeftValue() {
-        return errLeftValue;
+        return false;
     }
 
     public AnaArrContent getArrContent() {

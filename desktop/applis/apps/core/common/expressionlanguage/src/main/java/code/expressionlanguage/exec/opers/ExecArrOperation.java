@@ -128,9 +128,17 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         }
         Struct array_ = getPreviousArgument(_nodes, this).getStruct();
         Argument index_ = getLastArgument(_nodes, this);
-        Struct o_ = index_.getStruct();
-        ExecTemplates.setElement(array_, o_, _right.getStruct(), _conf, _stack);
+        setParts(_conf, _right, _stack, array_, index_);
         return _right;
+    }
+
+    public static void setParts(ContextEl _conf, Argument _right, StackCall _stack, Struct _array, Argument _index) {
+        Struct o_ = _index.getStruct();
+        if (o_ instanceof RangeStruct) {
+            ExecTemplates.setRange(_array, (RangeStruct) o_, _right.getStruct(), _conf, _stack);
+        } else {
+            ExecTemplates.setElement(_array, o_, _right.getStruct(), _conf, _stack);
+        }
     }
 
 }

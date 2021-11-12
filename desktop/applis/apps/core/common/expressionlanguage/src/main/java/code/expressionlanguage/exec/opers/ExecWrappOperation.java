@@ -8,6 +8,8 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
+import code.expressionlanguage.structs.RangeStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecWrappOperation extends ExecMethodOperation implements AtomicExecCalculableOperation {
@@ -43,7 +45,8 @@ public final class ExecWrappOperation extends ExecMethodOperation implements Ato
             Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
             ArgumentsPair pairIndex_ = ExecHelper.getArgumentPair(_nodes, ch_.getFirstChild());
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-            ArrayWrapper a_ = new ArrayWrapper(previousArgument_.getStruct(),pairIndex_.getArgument().getStruct());
+            Struct struct_ = pairIndex_.getArgument().getStruct();
+            AbstractWrapper a_ = buildArrWrapp(previousArgument_, struct_);
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, ch_).getArgument(),_conf,_nodes, _stack);
             return;
@@ -61,5 +64,15 @@ public final class ExecWrappOperation extends ExecMethodOperation implements Ato
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         ExecHelper.fwdWrapper(pair_,pairCh_);
         setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, getFirstChild()).getArgument(),_conf,_nodes, _stack);
+    }
+
+    public static AbstractWrapper buildArrWrapp(Argument _previous, Struct _struct) {
+        AbstractWrapper a_;
+        if (_struct instanceof RangeStruct) {
+            a_ = new ArrPartWrapper(_previous.getStruct(), (RangeStruct) _struct);
+        } else {
+            a_ = new ArrayWrapper(_previous.getStruct(), _struct);
+        }
+        return a_;
     }
 }

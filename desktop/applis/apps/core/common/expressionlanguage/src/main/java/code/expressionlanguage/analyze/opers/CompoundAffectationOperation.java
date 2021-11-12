@@ -2,22 +2,24 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class CompoundAffectationOperation extends MethodOperation {

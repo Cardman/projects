@@ -830,14 +830,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StringList a_ = cloneArrayBounds(str_);
             if (a_.onlyOneElt()) {
                 found(a_.first());
-                if (StringUtil.quickEq(name_,"[:]")) {
+                if (isRangeAccess(name_)) {
                     if (methodTypes_.isEmpty()) {
-                        initArrRange(_page, name_);
-                        setResultClass(new AnaClassArgumentMatching(buildFctRange(_page, a_, true)));
+                        initArrRange(_page, name_, a_.first());
+                        setResultClass(new AnaClassArgumentMatching(buildFctRange(_page, name_, a_, true)));
                         return;
                     }
-                    initArrRangeBound(_page, name_);
-                    setResultClass(new AnaClassArgumentMatching(buildFctRangeBound(_page, a_, true)));
+                    initArrRangeBound(_page, name_, a_.first());
+                    setResultClass(new AnaClassArgumentMatching(buildFctRangeBound(_page, name_,a_, true)));
                     return;
                 }
                 if (isAccess(name_)) {
@@ -1013,14 +1013,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         StringList a_ = cloneArrayBounds(bounds_);
         if (a_.onlyOneElt()) {
             found(a_.first());
-            if (StringUtil.quickEq(name_,"[:]")) {
+            if (isRangeAccess(name_)) {
                 if (methodTypes_.isEmpty()) {
-                    initArrRange(_page, name_);
-                    setResultClass(new AnaClassArgumentMatching(buildFctRange(_page, a_, false)));
+                    initArrRange(_page, name_, a_.first());
+                    setResultClass(new AnaClassArgumentMatching(buildFctRange(_page, name_, a_, false)));
                     return;
                 }
-                initArrRangeBound(_page, name_);
-                setResultClass(new AnaClassArgumentMatching(buildFctRangeBound(_page, a_, false)));
+                initArrRangeBound(_page, name_, a_.first());
+                setResultClass(new AnaClassArgumentMatching(buildFctRangeBound(_page, name_,a_, false)));
                 return;
             }
             if (isAccess(name_)) {
@@ -1072,6 +1072,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         processAbstract(staticChoiceMethod_, id_, _page);
     }
 
+    private static boolean isRangeAccess(String _name) {
+        return StringUtil.quickEq(_name,"[:]")||StringUtil.quickEq(_name,"[:]=");
+    }
+
     private StringBuilder buildFctLen(AnalyzedPageEl _page, String _name, StringList _list, boolean _shiftArgument) {
         prMethArr(_page, _name);
         lambdaCommonContent.setShiftArgument(_shiftArgument);
@@ -1088,7 +1092,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return fct_;
     }
 
-    private String buildFctRangeBound(AnalyzedPageEl _page, StringList _list, boolean _shiftArgument) {
+    private String buildFctRangeBound(AnalyzedPageEl _page, String _name, StringList _list, boolean _shiftArgument) {
         lambdaCommonContent.setShiftArgument(_shiftArgument);
         StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
         fct_.append(StringExpUtil.TEMPLATE_BEGIN);
@@ -1101,13 +1105,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fct_.append(StringExpUtil.TEMPLATE_SEP);
         fct_.append(_page.getAliasPrimInteger());
         fct_.append(StringExpUtil.TEMPLATE_SEP);
+        if (StringUtil.quickEq("[:]=",_name)) {
+            fct_.append(comp_);
+            fct_.append(StringExpUtil.TEMPLATE_SEP);
+        }
         fct_.append(comp_);
         fct_.append(StringExpUtil.TEMPLATE_END);
         lambdaCommonContent.setResult(fct_.toString());
         return fct_.toString();
     }
 
-    private String buildFctRange(AnalyzedPageEl _page, StringList _list, boolean _shiftArgument) {
+    private String buildFctRange(AnalyzedPageEl _page, String _name, StringList _list, boolean _shiftArgument) {
         lambdaCommonContent.setShiftArgument(_shiftArgument);
         StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
         fct_.append(StringExpUtil.TEMPLATE_BEGIN);
@@ -1118,24 +1126,34 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         fct_.append(_page.getAliasPrimInteger());
         fct_.append(StringExpUtil.TEMPLATE_SEP);
+        if (StringUtil.quickEq("[:]=",_name)) {
+            fct_.append(comp_);
+            fct_.append(StringExpUtil.TEMPLATE_SEP);
+        }
         fct_.append(comp_);
         fct_.append(StringExpUtil.TEMPLATE_END);
         lambdaCommonContent.setResult(fct_.toString());
         return fct_.toString();
     }
 
-    private void initArrRangeBound(AnalyzedPageEl _page, String _name) {
+    private void initArrRangeBound(AnalyzedPageEl _page, String _name, String _right) {
         StringList params_ = new StringList();
         params_.add(_page.getAliasPrimInteger());
         params_.add(_page.getAliasPrimInteger());
+        if (StringUtil.quickEq("[:]=",_name)) {
+            params_.add(_right);
+        }
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _name, params_);
         String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
         method = new ClassMethodId(foundClass_, id_);
     }
 
-    private void initArrRange(AnalyzedPageEl _page, String _name) {
+    private void initArrRange(AnalyzedPageEl _page, String _name, String _right) {
         StringList params_ = new StringList();
         params_.add(_page.getAliasPrimInteger());
+        if (StringUtil.quickEq("[:]=",_name)) {
+            params_.add(_right);
+        }
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE, _name, params_);
         String foundClass_ = StringExpUtil.getPrettyArrayType(_page.getAliasObject());
         method = new ClassMethodId(foundClass_, id_);

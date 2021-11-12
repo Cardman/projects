@@ -403,7 +403,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
         CustList<ArgumentWrapper> formal_;
         Argument right_;
-        if (StringUtil.quickEq(_ls.getMethodName(),"[]=")) {
+        if (StringUtil.quickEq(_ls.getMethodName(),"[]=")||StringUtil.quickEq(_ls.getMethodName(),"[:]=")) {
             formal_ = argumentWrappers_.left(argumentWrappers_.size()-1);
             right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));
         } else {
@@ -618,19 +618,32 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         if (StringUtil.quickEq(name_,"[:]")) {
             return rangeInts(_conf, _stackCall, arguments_, arr_, lastIndex_);
         }
+        if (StringUtil.quickEq(name_,"[:]=")) {
+            return rangeIntsSet(_conf, _stackCall, arguments_, arr_,Argument.getNullableValue(_call.getRight()).getStruct(), lastIndex_);
+        }
         Struct range_ = arguments_.get(lastIndex_).getStruct();
         if (range_ instanceof RangeStruct) {
+            Argument right_ = _call.getRight();
+            if (right_ != null) {
+                return new Argument(ExecTemplates.setRange(arr_,(RangeStruct) range_, right_.getStruct(),_conf,_stackCall));
+            }
             return new Argument(ExecTemplates.getRange(arr_,range_, _conf, _stackCall));
         }
-        if (StringUtil.quickEq(name_,"[]=")) {
+        return defArr(_conf, _call, _stackCall, name_, arguments_, arr_);
+    }
+
+    private static Argument defArr(ContextEl _conf, ArgumentListCall _call, StackCall _stackCall, String _name, CustList<Argument> _arguments, Struct _arrOrig) {
+        int lastIndex_ = _arguments.size() - 1;
+        Struct arr_ = _arrOrig;
+        if (StringUtil.quickEq(_name,"[]=")) {
             for (int i = 0; i < lastIndex_; i++) {
-                Struct ind_ = arguments_.get(i).getStruct();
+                Struct ind_ = _arguments.get(i).getStruct();
                 arr_ = ExecTemplates.getElement(arr_, ind_, _conf, _stackCall);
                 if (_conf.callsOrException(_stackCall)) {
                     return new Argument();
                 }
             }
-            Struct ind_ = arguments_.get(lastIndex_).getStruct();
+            Struct ind_ = _arguments.get(lastIndex_).getStruct();
             ExecTemplates.setElement(arr_,ind_, Argument.getNullableValue(_call.getRight()).getStruct(), _conf, _stackCall);
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
@@ -638,13 +651,13 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return _call.getRight();
         }
         for (int i = 0; i < lastIndex_; i++) {
-            Struct ind_ = arguments_.get(i).getStruct();
+            Struct ind_ = _arguments.get(i).getStruct();
             arr_ = ExecTemplates.getElement(arr_,ind_, _conf, _stackCall);
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
             }
         }
-        Struct ind_ = arguments_.get(lastIndex_).getStruct();
+        Struct ind_ = _arguments.get(lastIndex_).getStruct();
         return new Argument(ExecTemplates.getElement(arr_,ind_, _conf, _stackCall));
     }
 
@@ -665,6 +678,24 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         return new Argument(ExecTemplates.getRange(_arr,range_.getStruct(), _conf, _stackCall));
+    }
+    private static Argument rangeIntsSet(ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments, Struct _arr, Struct _right, int _lastIndex) {
+        if (_arguments.size() == 2) {
+            Struct lower_ = _arguments.get(0).getStruct();
+            Struct step_ = _arguments.get(1).getStruct();
+            Argument range_ = FctRangeUnlimitedStep.rangeUnlimitStep(_conf, _stackCall, lower_, step_);
+            if (_conf.callsOrException(_stackCall)) {
+                return new Argument();
+            }
+            return new Argument(ExecTemplates.setRange(_arr, (RangeStruct) range_.getStruct(),_right, _conf, _stackCall));
+        }
+        Struct lower_ = _arguments.get(_lastIndex).getStruct();
+        Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
+        Argument range_ = FctRangeUnlimitedStep.range(_conf, _stackCall, lower_, upper_);
+        if (_conf.callsOrException(_stackCall)) {
+            return new Argument();
+        }
+        return new Argument(ExecTemplates.setRange(_arr, (RangeStruct) range_.getStruct(),_right, _conf, _stackCall));
     }
 
     private static Argument getEnumValues(AbstractExiting _exit, ExecRootBlock _root, ContextEl _conf, StackCall _stackCall) {

@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecWrappOperation;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
@@ -44,7 +45,7 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
             Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
             ArgumentsPair pairIndex_ = getArgumentPair(_nodes, ch_.getFirstChild());
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-            ArrayWrapper a_ = new ArrayWrapper(previousArgument_.getStruct(),pairIndex_.getArgument().getStruct());
+            AbstractWrapper a_ = ExecWrappOperation.buildArrWrapp(previousArgument_,pairIndex_.getArgument().getStruct());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _rendStack);
             return;

@@ -1,10 +1,12 @@
 package code.formathtml.exec.opers;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.opers.ExecArrOperation;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.RangeStruct;
@@ -125,7 +127,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Struct array_ = getPreviousArgument(_nodes,this).getStruct();
         RendDynOperationNode lastElement_ = getLastNode(this);
         Argument index_ = getArgument(_nodes,lastElement_);
-        ExecTemplates.setElement(array_, index_.getStruct(), _right.getStruct(), _context, _stackCall.getStackCall());
+        ExecArrOperation.setParts(_context, _right, _stackCall.getStackCall(),array_,index_);
         return _right;
     }
 
