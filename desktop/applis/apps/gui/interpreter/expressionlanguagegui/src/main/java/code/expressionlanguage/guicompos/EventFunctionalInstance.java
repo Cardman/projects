@@ -15,7 +15,7 @@ import code.gui.events.*;
 import code.util.CustList;
 
 public final class EventFunctionalInstance extends AbstractFunctionalInstanceImpl implements
-        AbsActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
+        AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         AbsKeyListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener,FieldableStruct {
 
@@ -36,9 +36,9 @@ public final class EventFunctionalInstance extends AbstractFunctionalInstanceImp
     }
 
     @Override
-    public void action() {
+    public void action(AbsCtrlKeyState _state, String _command) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasActionEvent();
-        ActionEventStruct a_ = new ActionEventStruct(actEv_);
+        ActionEventStruct a_ = new ActionEventStruct(actEv_,_state,_command);
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }

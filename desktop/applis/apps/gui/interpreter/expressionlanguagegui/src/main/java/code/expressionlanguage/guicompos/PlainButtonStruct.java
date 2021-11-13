@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
 import code.gui.AbsPlainButton;
-import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class PlainButtonStruct extends InputStruct {
@@ -46,8 +46,8 @@ public final class PlainButtonStruct extends InputStruct {
         plainButton.setEnabled(BooleanStruct.isTrue(_b));
     }
     public void addActionListener(Struct _list) {
-        if (_list instanceof AbsActionListener) {
-            plainButton.addActionListener((AbsActionListener)_list);
+        if (_list instanceof AbsAdvActionListener) {
+            plainButton.addActionListener((AbsAdvActionListener)_list);
         }
     }
     @Override

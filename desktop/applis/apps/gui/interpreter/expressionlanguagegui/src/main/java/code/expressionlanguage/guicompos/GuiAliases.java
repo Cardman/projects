@@ -165,6 +165,10 @@ public final class GuiAliases {
     private static final String TREE_LISTENER_VALUE_CHANGED = "TreeListenerValueChanged";
     private static final String TREE_NODE_INSERT = "TreeNodeInsert";
     private static final String ACTION_EVENT = "ActionEvent";
+    private static final String ACTION_EVENT_IS_ALT = "ActionEventIsAlt";
+    private static final String ACTION_EVENT_IS_CTRL = "ActionEventIsCtrl";
+    private static final String ACTION_EVENT_IS_SHIFT = "ActionEventIsShift";
+    private static final String ACTION_EVENT_COMMAND = "ActionEventCommand";
     private static final String CHANGE_LISTENER = "ChangeListener";
     private static final String ACTION_LISTENER = "ActionListener";
     private static final String ACTION_PERFORMED = "ActionPerformed";
@@ -434,6 +438,10 @@ public final class GuiAliases {
     private String aliasActionListener;
     private String aliasActionPerformed;
     private String aliasActionEvent;
+    private String aliasActionEventIsAlt;
+    private String aliasActionEventIsCtrl;
+    private String aliasActionEventIsShift;
+    private String aliasActionEventCommand;
     private String aliasWheelListener;
     private String aliasWheelMove;
     private String aliasWheelEvent;
@@ -2372,7 +2380,19 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasActionEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false, new FctActionEvent(_cust,_guiEx,aliasActionEvent));
+        method_ = new StandardMethod(aliasActionEventIsAlt, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsAlt());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasActionEventIsCtrl, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsCtrl());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasActionEventIsShift, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEventIsShift());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasActionEventCommand, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctActionEventCommand());
+        methods_.add( method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getPrimTypes().getAliasPrimBoolean(),_content.getCharSeq().getAliasString());
+        ctor_ = new StandardConstructor(params_,false, new StringList(guiAliasParameters.getAliasActionEvent0ActionEvent0(),guiAliasParameters.getAliasActionEvent0ActionEvent1(),guiAliasParameters.getAliasActionEvent0ActionEvent2(),guiAliasParameters.getAliasActionEvent0ActionEvent3()), new FctActionEvent(_cust,_guiEx,aliasActionEvent));
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasActionEvent, std_);
@@ -3200,6 +3220,10 @@ public final class GuiAliases {
         setAliasTreeListenerValueChanged(LgNamesContent.get(_util, _cust, TREE_LISTENER_VALUE_CHANGED));
         setAliasTreeNodeInsert(LgNamesContent.get(_util, _cust, TREE_NODE_INSERT));
         setAliasActionEvent(LgNamesContent.get(_util, _cust, ACTION_EVENT));
+        setAliasActionEventIsAlt(LgNamesContent.get(_util, _cust, ACTION_EVENT_IS_ALT));
+        setAliasActionEventIsCtrl(LgNamesContent.get(_util, _cust, ACTION_EVENT_IS_CTRL));
+        setAliasActionEventIsShift(LgNamesContent.get(_util, _cust, ACTION_EVENT_IS_SHIFT));
+        setAliasActionEventCommand(LgNamesContent.get(_util, _cust, ACTION_EVENT_COMMAND));
         setAliasChangeListener(LgNamesContent.get(_util, _cust, CHANGE_LISTENER));
         setAliasActionListener(LgNamesContent.get(_util, _cust, ACTION_LISTENER));
         setAliasActionPerformed(LgNamesContent.get(_util, _cust, ACTION_PERFORMED));
@@ -3965,6 +3989,11 @@ public final class GuiAliases {
     }
 
     private void allEventTypes(StringMap<CustList<KeyValueMemberName>> _m) {
+        _m.addEntry(getAliasActionEvent(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(ACTION_EVENT_IS_ALT,getAliasActionEventIsAlt()),
+                new KeyValueMemberName(ACTION_EVENT_IS_SHIFT,getAliasActionEventIsShift()),
+                new KeyValueMemberName(ACTION_EVENT_IS_CTRL,getAliasActionEventIsCtrl()),
+                new KeyValueMemberName(ACTION_EVENT_COMMAND,getAliasActionEventCommand())));
         _m.addEntry(getAliasMouseEvent(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(MOUSE_EVENT_GET_FIRST,getAliasMouseEventGetFirst()),
                 new KeyValueMemberName(MOUSE_EVENT_GET_SECOND,getAliasMouseEventGetSecond()),
@@ -4140,6 +4169,38 @@ public final class GuiAliases {
 
     public void setAliasActionEvent(String _v) {
         this.aliasActionEvent = _v;
+    }
+
+    public String getAliasActionEventIsAlt() {
+        return aliasActionEventIsAlt;
+    }
+
+    public void setAliasActionEventIsAlt(String _v) {
+        this.aliasActionEventIsAlt = _v;
+    }
+
+    public String getAliasActionEventIsCtrl() {
+        return aliasActionEventIsCtrl;
+    }
+
+    public void setAliasActionEventIsCtrl(String _v) {
+        this.aliasActionEventIsCtrl = _v;
+    }
+
+    public String getAliasActionEventIsShift() {
+        return aliasActionEventIsShift;
+    }
+
+    public void setAliasActionEventIsShift(String _v) {
+        this.aliasActionEventIsShift = _v;
+    }
+
+    public String getAliasActionEventCommand() {
+        return aliasActionEventCommand;
+    }
+
+    public void setAliasActionEventCommand(String _v) {
+        this.aliasActionEventCommand = _v;
     }
 
     public String getAliasAddChange() {

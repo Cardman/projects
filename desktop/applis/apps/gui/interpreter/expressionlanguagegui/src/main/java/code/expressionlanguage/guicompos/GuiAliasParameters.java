@@ -176,6 +176,10 @@ public final class GuiAliasParameters {
     private static final String TABLE_GUI_0_TREE_NODE_GET_USER_OBJECT_0="TableGui0TreeNodeGetUserObject0";
     private static final String TABLE_GUI_0_TREE_NODE_GET_USER_OBJECT_1="TableGui0TreeNodeGetUserObject1";
     private static final String TABLE_GUI_0_TABLE_GUI_0="TableGui0TableGui0";
+    private static final String ACTION_EVENT_0_ACTION_EVENT_0="ActionEvent0ActionEvent0";
+    private static final String ACTION_EVENT_0_ACTION_EVENT_1="ActionEvent0ActionEvent1";
+    private static final String ACTION_EVENT_0_ACTION_EVENT_2="ActionEvent0ActionEvent2";
+    private static final String ACTION_EVENT_0_ACTION_EVENT_3="ActionEvent0ActionEvent3";
     private static final String MOUSE_EVENT_0_MOUSE_EVENT_0="MouseEvent0MouseEvent0";
     private static final String MOUSE_EVENT_0_MOUSE_EVENT_1="MouseEvent0MouseEvent1";
     private static final String MOUSE_EVENT_0_MOUSE_EVENT_2="MouseEvent0MouseEvent2";
@@ -594,6 +598,10 @@ public final class GuiAliasParameters {
     private String aliasTableGui0TreeNodeGetUserObject0;
     private String aliasTableGui0TreeNodeGetUserObject1;
     private String aliasTableGui0TableGui0;
+    private String aliasActionEvent0ActionEvent0;
+    private String aliasActionEvent0ActionEvent1;
+    private String aliasActionEvent0ActionEvent2;
+    private String aliasActionEvent0ActionEvent3;
     private String aliasMouseEvent0MouseEvent0;
     private String aliasMouseEvent0MouseEvent1;
     private String aliasMouseEvent0MouseEvent2;
@@ -1011,6 +1019,10 @@ public final class GuiAliasParameters {
         aliasTableGui0TreeNodeGetUserObject0=LgNamesContent.get(_util,_cust, TABLE_GUI_0_TREE_NODE_GET_USER_OBJECT_0);
         aliasTableGui0TreeNodeGetUserObject1=LgNamesContent.get(_util,_cust, TABLE_GUI_0_TREE_NODE_GET_USER_OBJECT_1);
         aliasTableGui0TableGui0=LgNamesContent.get(_util,_cust, TABLE_GUI_0_TABLE_GUI_0);
+        aliasActionEvent0ActionEvent0=LgNamesContent.get(_util,_cust, ACTION_EVENT_0_ACTION_EVENT_0);
+        aliasActionEvent0ActionEvent1=LgNamesContent.get(_util,_cust, ACTION_EVENT_0_ACTION_EVENT_1);
+        aliasActionEvent0ActionEvent2=LgNamesContent.get(_util,_cust, ACTION_EVENT_0_ACTION_EVENT_2);
+        aliasActionEvent0ActionEvent3=LgNamesContent.get(_util,_cust, ACTION_EVENT_0_ACTION_EVENT_3);
         aliasMouseEvent0MouseEvent0=LgNamesContent.get(_util,_cust, MOUSE_EVENT_0_MOUSE_EVENT_0);
         aliasMouseEvent0MouseEvent1=LgNamesContent.get(_util,_cust, MOUSE_EVENT_0_MOUSE_EVENT_1);
         aliasMouseEvent0MouseEvent2=LgNamesContent.get(_util,_cust, MOUSE_EVENT_0_MOUSE_EVENT_2);
@@ -1360,6 +1372,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_GUI_0_TREE_NODE_SET_USER_OBJECT_0,aliasTableGui0TreeNodeSetUserObject0),new KeyValueMemberName(TABLE_GUI_0_TREE_NODE_SET_USER_OBJECT_1,aliasTableGui0TreeNodeSetUserObject1),new KeyValueMemberName(TABLE_GUI_0_TREE_NODE_SET_USER_OBJECT_2,aliasTableGui0TreeNodeSetUserObject2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_GUI_0_TREE_NODE_GET_USER_OBJECT_0,aliasTableGui0TreeNodeGetUserObject0),new KeyValueMemberName(TABLE_GUI_0_TREE_NODE_GET_USER_OBJECT_1,aliasTableGui0TreeNodeGetUserObject1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_GUI_0_TABLE_GUI_0,aliasTableGui0TableGui0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ACTION_EVENT_0_ACTION_EVENT_0,aliasActionEvent0ActionEvent0),new KeyValueMemberName(ACTION_EVENT_0_ACTION_EVENT_1,aliasActionEvent0ActionEvent1),new KeyValueMemberName(ACTION_EVENT_0_ACTION_EVENT_2,aliasActionEvent0ActionEvent2),new KeyValueMemberName(ACTION_EVENT_0_ACTION_EVENT_3,aliasActionEvent0ActionEvent3)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_0,aliasMouseEvent0MouseEvent0),new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_1,aliasMouseEvent0MouseEvent1),new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_2,aliasMouseEvent0MouseEvent2),new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_3,aliasMouseEvent0MouseEvent3),new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_4,aliasMouseEvent0MouseEvent4),new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_5,aliasMouseEvent0MouseEvent5),new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_6,aliasMouseEvent0MouseEvent6),new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_7,aliasMouseEvent0MouseEvent7),new KeyValueMemberName(MOUSE_EVENT_0_MOUSE_EVENT_8,aliasMouseEvent0MouseEvent8)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_0,aliasWheelEvent0WheelEvent0),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_1,aliasWheelEvent0WheelEvent1),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_2,aliasWheelEvent0WheelEvent2),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_3,aliasWheelEvent0WheelEvent3),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_4,aliasWheelEvent0WheelEvent4),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_5,aliasWheelEvent0WheelEvent5),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_6,aliasWheelEvent0WheelEvent6),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_7,aliasWheelEvent0WheelEvent7),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_8,aliasWheelEvent0WheelEvent8),new KeyValueMemberName(WHEEL_EVENT_0_WHEEL_EVENT_9,aliasWheelEvent0WheelEvent9)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(KEY_EVENT_0_KEY_EVENT_0,aliasKeyEvent0KeyEvent0),new KeyValueMemberName(KEY_EVENT_0_KEY_EVENT_1,aliasKeyEvent0KeyEvent1),new KeyValueMemberName(KEY_EVENT_0_KEY_EVENT_2,aliasKeyEvent0KeyEvent2),new KeyValueMemberName(KEY_EVENT_0_KEY_EVENT_3,aliasKeyEvent0KeyEvent3),new KeyValueMemberName(KEY_EVENT_0_KEY_EVENT_4,aliasKeyEvent0KeyEvent4)));
@@ -2187,6 +2200,22 @@ public final class GuiAliasParameters {
 
     public String getAliasTableGui0TableGui0() {
         return aliasTableGui0TableGui0;
+    }
+
+    public String getAliasActionEvent0ActionEvent0() {
+        return aliasActionEvent0ActionEvent0;
+    }
+
+    public String getAliasActionEvent0ActionEvent1() {
+        return aliasActionEvent0ActionEvent1;
+    }
+
+    public String getAliasActionEvent0ActionEvent2() {
+        return aliasActionEvent0ActionEvent2;
+    }
+
+    public String getAliasActionEvent0ActionEvent3() {
+        return aliasActionEvent0ActionEvent3;
     }
 
     public String getAliasMouseEvent0MouseEvent0() {

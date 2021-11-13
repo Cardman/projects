@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
 import code.gui.AbsTextField;
-import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class TextFieldStruct extends InputStruct {
@@ -61,8 +61,8 @@ public final class TextFieldStruct extends InputStruct {
     }
 
     public void addActionListener(Struct _arg) {
-        if (_arg instanceof AbsActionListener) {
-            textField.addActionListener((AbsActionListener)_arg);
+        if (_arg instanceof AbsAdvActionListener) {
+            textField.addActionListener((AbsAdvActionListener)_arg);
         }
     }
 }

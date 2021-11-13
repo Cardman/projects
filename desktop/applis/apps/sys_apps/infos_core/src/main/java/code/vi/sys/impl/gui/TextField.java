@@ -2,8 +2,10 @@ package code.vi.sys.impl.gui;
 
 import code.gui.AbsTextField;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
 import code.gui.events.AbsAutoCompleteListener;
 import code.vi.sys.impl.gui.events.WrActionListener;
+import code.vi.sys.impl.gui.events.WrAdvActionListener;
 import code.vi.sys.impl.gui.events.WrAutoCompleteListener;
 
 import javax.swing.JComponent;
@@ -28,6 +30,11 @@ public final class TextField extends CustComponent implements AbsTextField {
 
     public void addActionListener(AbsActionListener _l) {
         field.addActionListener(new WrActionListener(_l));
+    }
+
+    @Override
+    public void addActionListener(AbsAdvActionListener _list) {
+        field.addActionListener(new WrAdvActionListener(_list));
     }
 
     public void addAutoComplete(AbsAutoCompleteListener _auto){

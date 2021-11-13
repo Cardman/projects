@@ -19,7 +19,7 @@ import code.gui.events.*;
 import code.util.CustList;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
-        AbsActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
+        AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
         AbsKeyListener,AbsChangeListener,AbsShortListTree,AbsListSelectionListener,
         AbsMouseMotionListener, AbsMouseWheelListener{
 
@@ -95,9 +95,9 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void action() {
+    public void action(AbsCtrlKeyState _state, String _command) {
         String actEv_ = ((LgNamesGui) executionInfos.getStandards()).getGuiAliases().getAliasActionEvent();
-        ActionEventStruct a_ = new ActionEventStruct(actEv_);
+        ActionEventStruct a_ = new ActionEventStruct(actEv_,_state,_command);
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>(new Argument(a_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getActionListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getActionPerformed(),args_);

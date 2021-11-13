@@ -2,14 +2,17 @@ package code.vi.sys.impl.gui;
 
 import code.gui.AbsPlainButton;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
 import code.vi.sys.impl.gui.events.WrActionListener;
 import code.util.IdMap;
+import code.vi.sys.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
 
 public final class PlainButton extends CustComponent implements AbsPlainButton {
     private final JButton button;
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
+    private final IdMap<AbsAdvActionListener,WrAdvActionListener> mapAdvAction = new IdMap<AbsAdvActionListener, WrAdvActionListener>();
     public PlainButton() {
         button = new JButton();
     }
@@ -37,6 +40,12 @@ public final class PlainButton extends CustComponent implements AbsPlainButton {
         WrActionListener wr_ = new WrActionListener(_l);
         button.addActionListener(wr_);
         mapAction.addEntry(_l,wr_);
+    }
+
+    public void addActionListener(AbsAdvActionListener _l) {
+        WrAdvActionListener wr_ = new WrAdvActionListener(_l);
+        button.addActionListener(wr_);
+        mapAdvAction.addEntry(_l,wr_);
     }
 
     public boolean isEnabled() {

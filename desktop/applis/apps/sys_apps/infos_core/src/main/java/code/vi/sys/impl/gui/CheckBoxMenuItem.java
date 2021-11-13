@@ -3,8 +3,10 @@ import code.gui.AbsCheckBoxMenuItem;
 import code.gui.AbsMenu;
 import code.gui.MenuItemUtils;
 import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
 import code.vi.sys.impl.gui.events.WrActionListener;
 import code.util.IdMap;
+import code.vi.sys.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
 
@@ -13,6 +15,7 @@ public class CheckBoxMenuItem implements AbsCheckBoxMenuItem {
     private AbsMenu parentMenu;
     private JCheckBoxMenuItem menu;
     private final IdMap<AbsActionListener,WrActionListener> mapAction = new IdMap<AbsActionListener, WrActionListener>();
+    private final IdMap<AbsAdvActionListener, WrAdvActionListener> mapAdvAction = new IdMap<AbsAdvActionListener, WrAdvActionListener>();
 
     public CheckBoxMenuItem() {
         menu = new JCheckBoxMenuItem();
@@ -86,6 +89,12 @@ public class CheckBoxMenuItem implements AbsCheckBoxMenuItem {
         WrActionListener wr_ = new WrActionListener(_pauseEvent);
         menu.addActionListener(wr_);
         mapAction.addEntry(_pauseEvent,wr_);
+    }
+
+    public void addActionListener(AbsAdvActionListener _pauseEvent) {
+        WrAdvActionListener wr_ = new WrAdvActionListener(_pauseEvent);
+        menu.addActionListener(wr_);
+        mapAdvAction.addEntry(_pauseEvent,wr_);
     }
 
     public void setAccelerator(char _a) {
