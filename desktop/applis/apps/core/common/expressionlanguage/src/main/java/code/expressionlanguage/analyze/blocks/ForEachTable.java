@@ -221,9 +221,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         }
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
-        MethodAccessKind static_ = f_.getStaticContext();
-//        _page.getCoverage().putBlockOperationsLoops(this);
-        return static_;
+        return f_.getStaticContext();
     }
 
     public void checkIterableCandidates(StringList _types, AnalyzedPageEl _page) {

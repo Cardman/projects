@@ -3,7 +3,6 @@ package code.formathtml.errors;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.errors.stds.ErrorCat;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.util.EntryCust;
@@ -499,7 +498,6 @@ public final class RendKeyWords {
             if (keyWordValue_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
-                err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
                 continue;
             }
@@ -507,7 +505,6 @@ public final class RendKeyWords {
                 if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
-                    err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                     _page.addStdError(err_);
                     break;
                 }
@@ -522,7 +519,6 @@ public final class RendKeyWords {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
-                err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
                 _page.addStdError(err_);
             }
         }
@@ -535,7 +531,6 @@ public final class RendKeyWords {
             if (keyWordValue_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
-                err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
                 continue;
             }
@@ -544,14 +539,12 @@ public final class RendKeyWords {
                 String v_ = e.getValue();
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateKeyWord(),v_));
-                err_.setErrCat(ErrorCat.DUPLICATE_KEY_WORD);
                 _page.addStdError(err_);
             }
             for (char c: keyWordValue_.toCharArray()) {
                 if (!StringExpUtil.isDollarWordChar(c)&&c!='-') {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
-                    err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                     _page.addStdError(err_);
                     break;
                 }
@@ -566,7 +559,6 @@ public final class RendKeyWords {
             if (keyWordValue_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
-                err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
             }
         }
@@ -582,7 +574,6 @@ public final class RendKeyWords {
             if (keyWordValue_.isEmpty()) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyWord(),key_));
-                err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
                 continue;
             }
@@ -590,7 +581,6 @@ public final class RendKeyWords {
                 if (!StringExpUtil.isDollarWordChar(c)) {
                     StdWordError err_ = new StdWordError();
                     err_.setMessage(StringUtil.simpleStringsFormat(a_.getNotWordChar(),keyWordValue_,Character.toString(c)));
-                    err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                     _page.addStdError(err_);
                     break;
                 }
@@ -598,7 +588,6 @@ public final class RendKeyWords {
             if (StringExpUtil.isDigit(keyWordValue_.charAt(0))) {
                 StdWordError err_ = new StdWordError();
                 err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirst(),keyWordValue_,Character.toString(keyWordValue_.charAt(0))));
-                err_.setErrCat(ErrorCat.WRITE_KEY_WORD);
                 _page.addStdError(err_);
             }
         }

@@ -6,7 +6,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.NullStruct;
 
-public final class ReachStaticFctStdOperation extends ReachStdFctOption {
+public final class ReachStaticFctStdOperation extends ReachInvokingOperation {
     ReachStaticFctStdOperation(StandardMethod _standardMethod, AbstractCallFctOperation _meta, OperationNode _info) {
         super(_standardMethod, _meta,_info);
     }

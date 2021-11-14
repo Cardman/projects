@@ -8,7 +8,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
-public final class ReachInstanceFctStdOperation extends ReachStdFctOption implements ReachPossibleIntermediateDotted {
+public final class ReachInstanceFctStdOperation extends ReachInvokingOperation implements ReachPossibleIntermediateDotted {
     private Argument previous;
     ReachInstanceFctStdOperation(StandardMethod _standardMethod, AbstractCallFctOperation _meta, OperationNode _info) {
         super(_standardMethod, _meta,_info);

@@ -203,27 +203,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     protected static void tryGetCtors(String _typeInfer, CustList<ConstructorInfo> _ctors, AnalyzedPageEl _page, AnaGeneType _anaGeneType) {
-        String base_ = StringExpUtil.getIdFromAllTypes(_typeInfer);
         _ctors.addAllElts(tryGetSignatures(_anaGeneType,_page,_typeInfer,""));
-//        if (_anaGeneType instanceof StandardType) {
-//            for (StandardConstructor e: ((StandardType)_anaGeneType).getConstructors()) {
-//                ConstructorInfo mloc_ = initCtorInfo(base_,(StandardType)_anaGeneType,_typeInfer,e);
-//                mloc_.setStCall("");
-//                mloc_.format(_page);
-//                _ctors.add(mloc_);
-//            }
-//        }
-//        if (_anaGeneType instanceof RootBlock) {
-//            for (ConstructorBlock e: ((RootBlock)_anaGeneType).getConstructorBlocks()) {
-//                if (excludeQuick((RootBlock) _anaGeneType, e, _page)) {
-//                    continue;
-//                }
-//                ConstructorInfo mloc_ = initCtorInfo(base_,(RootBlock) _anaGeneType,_typeInfer,e);
-//                mloc_.setStCall("");
-//                mloc_.format(_page);
-//                _ctors.add(mloc_);
-//            }
-//        }
 
     }
     protected static String tryParamFormat(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {

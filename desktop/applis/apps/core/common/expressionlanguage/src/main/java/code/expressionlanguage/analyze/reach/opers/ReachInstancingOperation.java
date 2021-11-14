@@ -4,18 +4,15 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnaApplyCoreMethodUtil;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
-import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ReachInstancingOperation extends ReachInvokingOperation {
     private final StandardConstructor constructor;
-    private ConstructorId constId;
 
     ReachInstancingOperation(StandardInstancingOperation _meta) {
         super(_meta);
-        constId = _meta.getInstancingCommonContent().getConstId();
         constructor = _meta.getInstancingCommonContent().getConstructor();
     }
 

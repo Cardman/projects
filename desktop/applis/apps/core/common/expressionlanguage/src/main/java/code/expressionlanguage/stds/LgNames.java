@@ -35,6 +35,10 @@ public abstract class LgNames implements BuildableLgNames {
 
     protected LgNames(AbstractGenerator _generator) {
         this.generator = _generator;
+        defCaluclator();
+    }
+
+    private void defCaluclator() {
         setCalculator(new DefaultExecConstantsCalculator(content.getNbAlias()));
     }
 
@@ -60,6 +64,7 @@ public abstract class LgNames implements BuildableLgNames {
         return calculator.getInnerSimpleResult(_classField);
     }
 
+    /**@param _contextEl context*/
     public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         return new FunctionalInstance(_className.getFormatted(),_functional, _named);
     }

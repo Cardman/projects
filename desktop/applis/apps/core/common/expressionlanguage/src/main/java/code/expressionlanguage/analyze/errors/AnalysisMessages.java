@@ -249,16 +249,16 @@ public final class AnalysisMessages {
     private String illegalFirstChar = "the key word number {0} starts with {1} that is illegal as first character";
 
     private String emptyPrimitive = "{0} has an empty primitive value.";
-    private String notWordCharPrimitive = "{0} contains a character {1} that is not a character of a word.";
+    private String notWordCharPrimitive = "{0} contains a character {1} that is not a character of a word (primitive).";
     private String primitiveKeyWord = "the primitive {0}:{1} is a duplicate string of a key word.";
-    private String digitFirstPrimitive = "{0} starts with {1} that is digit.";
+    private String digitFirstPrimitive = "{0} starts with {1} that is digit (primitive).";
 
     private String emptyRefType = "{0} has an empty reference type value.";
     private String emptyRefTypeIn = "{0} has an empty reference string between dots {1}.";
-    private String notWordCharRefType = "{0} contains a character {1} that is not a character of a word.";
+    private String notWordCharRefType = "{0} contains a character {1} that is not a character of a word (reference type).";
     private String refTypeKeyWord = "the reference type {0}:{1} contains a duplicate string of a key word.";
     private String refTypePrimitive = "the reference type {0}:{1} contains a duplicate string of a primitive.";
-    private String digitFirstRefType = "{0} starts with {1} that is digit.";
+    private String digitFirstRefType = "{0} starts with {1} that is digit (reference type).";
     private String emptyPkgRefType = "{0}:{1} does not belong to a package.";
     private String defaultPkgRefType = "{0} match the default package {1}.";
     private String defaultPkgNoMatch = "the default package {0} has no reference type.";

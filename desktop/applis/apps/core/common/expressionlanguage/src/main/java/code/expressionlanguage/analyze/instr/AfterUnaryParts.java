@@ -39,7 +39,6 @@ final class AfterUnaryParts {
     private static final char AND_CHAR = '&';
 
     private static final char OR_CHAR = '|';
-    private static final char XOR_CHAR = '^';
     private static final char NEG_BOOL = '~';
     private static final char BEGIN_TERNARY = '?';
     private static final char END_TERNARY = ':';
@@ -591,11 +590,7 @@ final class AfterUnaryParts {
     }
 
     private static boolean isAndOrChar(char _curChar) {
-        boolean andOr_ = false;
-        if (_curChar == AND_CHAR || _curChar == OR_CHAR) {
-            andOr_ = true;
-        }
-        return andOr_;
+        return _curChar == AND_CHAR || _curChar == OR_CHAR;
     }
 
     private static boolean isPairPositive(int _nb) {
@@ -617,8 +612,8 @@ final class AfterUnaryParts {
         index += _op.length();
     }
 
-    private int getSingleCharPrio(char _curChar) {
-        int prioOpMult_ = 0;
+    private static int getSingleCharPrio(char _curChar) {
+        int prioOpMult_;
         if (_curChar == MINUS_CHAR || _curChar == PLUS_CHAR) {
             prioOpMult_ = ElResolver.ADD_PRIO;
             return prioOpMult_;

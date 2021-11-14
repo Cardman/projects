@@ -441,52 +441,33 @@ public final class AnalyzedPageEl {
     }
 
     public void setupFctChars(NamedCalledFunctionBlock _fct) {
-        setImporting(null);
-        setImportingTypes(null);
-        ClassesUtil.globalType(this);
-        setCurrentPkg("");
-        setCurrentFile(null);
-        RootBlock c_ = _fct.getParentType();
-        if (c_ != null) {
-            setImporting(c_);
-            setImportingAcces(new TypeAccessor(c_.getFullName()));
-            setImportingTypes(c_);
-            ClassesUtil.globalType(this,c_);
-            setCurrentPkg(c_.getPackageName());
-            setCurrentFile(c_.getFile());
-        }
-        OperatorBlock operator_ = _fct.getOperator();
-        if (operator_ != null) {
-            setImporting(operator_);
-            setImportingAcces(new OperatorAccessor());
-            setImportingTypes(operator_);
-            setCurrentPkg(getDefaultPkg());
-            setCurrentFile(operator_.getFile());
-        }
+        setFctChars(_fct.getParentType(), _fct.getOperator());
     }
 
     public void setupFctChars(SwitchMethodBlock _fct) {
+        setFctChars(_fct.getParentType(), _fct.getOperator());
+    }
+
+    private void setFctChars(RootBlock _parentType, OperatorBlock _operator) {
         setImporting(null);
         setImportingTypes(null);
         ClassesUtil.globalType(this);
         setCurrentPkg("");
         setCurrentFile(null);
-        RootBlock c_ = _fct.getParentType();
-        if (c_ != null) {
-            setImporting(c_);
-            setImportingAcces(new TypeAccessor(c_.getFullName()));
-            setImportingTypes(c_);
-            ClassesUtil.globalType(this,c_);
-            setCurrentPkg(c_.getPackageName());
-            setCurrentFile(c_.getFile());
+        if (_parentType != null) {
+            setImporting(_parentType);
+            setImportingAcces(new TypeAccessor(_parentType.getFullName()));
+            setImportingTypes(_parentType);
+            ClassesUtil.globalType(this, _parentType);
+            setCurrentPkg(_parentType.getPackageName());
+            setCurrentFile(_parentType.getFile());
         }
-        OperatorBlock operator_ = _fct.getOperator();
-        if (operator_ != null) {
-            setImporting(operator_);
+        if (_operator != null) {
+            setImporting(_operator);
             setImportingAcces(new OperatorAccessor());
-            setImportingTypes(operator_);
+            setImportingTypes(_operator);
             setCurrentPkg(getDefaultPkg());
-            setCurrentFile(operator_.getFile());
+            setCurrentFile(_operator.getFile());
         }
     }
     public String getCurrentPkg() {

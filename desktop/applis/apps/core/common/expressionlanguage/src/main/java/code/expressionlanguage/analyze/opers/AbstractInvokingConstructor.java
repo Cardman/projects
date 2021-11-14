@@ -1,16 +1,17 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.ConstructorBlock;
+import code.expressionlanguage.analyze.blocks.Line;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaInvokingConstructorContent;
 import code.util.CustList;
@@ -78,9 +79,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             String idClass_ = id_.getClassName();
             feed_ = MethodId.to(idClass_, id_.getConstraints());
         }
-        String clCurName_ = from.getName();
         invokingConstructorContent.setFormattedType(type);
-        String id_ = StringExpUtil.getIdFromAllTypes(clCurName_);
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.getParameterFilterErr().isEmpty()) {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
