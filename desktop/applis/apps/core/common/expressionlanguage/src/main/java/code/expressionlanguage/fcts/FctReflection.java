@@ -241,13 +241,13 @@ public abstract class FctReflection implements StdCaller {
         return true;
     }
 
-    protected static ArgumentWrapper buildStrArr(ContextEl _cont, StringList localVars_) {
+    protected static ArgumentWrapper buildStrArr(ContextEl _cont, StringList _localVars) {
         String arrStr_ = _cont.getStandards().getContent().getCharSeq().getAliasString();
         arrStr_ = StringExpUtil.getPrettyArrayType(arrStr_);
-        int size_ = localVars_.size();
+        int size_ = _localVars.size();
         ArrayStruct array_ = new ArrayStruct(size_, arrStr_);
         for (int i = 0; i < size_; i++) {
-            array_.set(i, Argument.wrapStr(localVars_.get(i)));
+            array_.set(i, Argument.wrapStr(_localVars.get(i)));
         }
         return new ArgumentWrapper(array_);
     }

@@ -79,16 +79,16 @@ public final class FctMethodInvoke extends FctReflection {
         defInvoke(_stackCall, _method, _instance, _argsMethod);
     }
 
-    private static void invokeSpec(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod, ReflectingType cast, ReflectingType method) {
+    private static void invokeSpec(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod, ReflectingType _cast, ReflectingType _meth) {
         if (_method.isExpCast()) {
-            _stackCall.setCallingState(new CustomReflectMethod(cast, _method, new Argument(_instance), new Argument(_argsMethod), false));
+            _stackCall.setCallingState(new CustomReflectMethod(_cast, _method, new Argument(_instance), new Argument(_argsMethod), false));
             return;
         }
         if (_method.isStaticCall()) {
             _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, new Argument(_instance), new Argument(_argsMethod), false));
             return;
         }
-        _stackCall.setCallingState(new CustomReflectMethod(method, _method, new Argument(_instance), new Argument(_argsMethod), false));
+        _stackCall.setCallingState(new CustomReflectMethod(_meth, _method, new Argument(_instance), new Argument(_argsMethod), false));
     }
 
     private static void defInvoke(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod) {
