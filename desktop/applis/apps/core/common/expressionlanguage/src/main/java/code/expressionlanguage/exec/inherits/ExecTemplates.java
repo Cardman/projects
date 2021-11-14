@@ -534,21 +534,10 @@ public final class ExecTemplates {
     }
 
     private static WithoutParentIdStruct getRange(ContextEl _conf, StackCall _stackCall, RangeStruct _ind, ArrayStruct _arr) {
-        LgNames stds_ = _conf.getStandards();
-        if (_ind.isUnlimited()) {
-            if (_ind.getLower() > _arr.getLength()) {
-                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-                StringBuilder mess_ = indexMessCom(_arr,_ind.getLower());
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
-                return NullStruct.NULL_VALUE;
-            }
-        } else {
-            if (_ind.getUpper() > _arr.getLength()) {
-                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-                StringBuilder mess_ = indexMessCom(_arr,_ind.getUpper());
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
-                return NullStruct.NULL_VALUE;
-            }
+        Struct err_ = boundErr(_conf, _stackCall, _ind, _arr);
+        if (err_ != NullStruct.NULL_VALUE) {
+            _stackCall.setCallingState(new CustomFoundExc(err_));
+            return NullStruct.NULL_VALUE;
         }
         long lower_ = _ind.getLower();
         long step_ = _ind.getStep();
@@ -611,20 +600,10 @@ public final class ExecTemplates {
             _stackCall.getInitializingTypeInfos().failInitEnums();
             return NullStruct.NULL_VALUE;
         }
-        if (_ind.isUnlimited()) {
-            if (_ind.getLower() > _arr.getLength()) {
-                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-                StringBuilder mess_ = indexMessCom(_arr,_ind.getLower());
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
-                return NullStruct.NULL_VALUE;
-            }
-        } else {
-            if (_ind.getUpper() > _arr.getLength()) {
-                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
-                StringBuilder mess_ = indexMessCom(_arr,_ind.getUpper());
-                _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
-                return NullStruct.NULL_VALUE;
-            }
+        Struct err_ = boundErr(_conf, _stackCall, _ind, _arr);
+        if (err_ != NullStruct.NULL_VALUE) {
+            _stackCall.setCallingState(new CustomFoundExc(err_));
+            return NullStruct.NULL_VALUE;
         }
         long lower_ = _ind.getLower();
         long step_ = _ind.getStep();
@@ -635,6 +614,23 @@ public final class ExecTemplates {
         return posStep(_conf, _stackCall, _arr, _value, lower_, step_, upper_);
     }
 
+    private static Struct boundErr(ContextEl _conf, StackCall _stackCall, RangeStruct _ind, ArrayStruct _arr) {
+        LgNames stds_ = _conf.getStandards();
+        if (_ind.isUnlimited()) {
+            if (_ind.getLower() > _arr.getLength()) {
+                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
+                StringBuilder mess_ = indexMessCom(_arr,_ind.getLower());
+                return new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall);
+            }
+        } else {
+            if (_ind.getUpper() > _arr.getLength()) {
+                String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
+                StringBuilder mess_ = indexMessCom(_arr,_ind.getUpper());
+                return new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall);
+            }
+        }
+        return NullStruct.NULL_VALUE;
+    }
     private static WithoutParentIdStruct posStep(ContextEl _conf, StackCall _stackCall, ArrayStruct _arr, ArrayStruct _value, long _lower, long _step, long _upper) {
         LgNames stds_ = _conf.getStandards();
         int countCheck_ = countPosStep(_lower, _step, _upper);
