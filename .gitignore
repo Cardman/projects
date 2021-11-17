@@ -286,6 +286,7 @@
 !desktop/applis/main/other_main/pom.xml
 !desktop/applis/main/other_main/src
 !desktop/applis/main/other_main/src/**
+!desktop/applis/main/pom.xml
 !desktop/applis/main/standalones
 !desktop/applis/main/standalones/pom.xml
 !desktop/applis/main/standalones/standalones_cards
