@@ -239,11 +239,7 @@ public final class ExecHelperBlocks {
         boolean finished_ = _res == ConditionReturn.NO;
         l_.getContent().setFinished(finished_);
         ip_.addBlock(l_);
-        if (finished_) {
-            processBlockAndRemove(_cont, _execLoop, _stack);
-            return;
-        }
-        ip_.setBlock(_execLoop.getFirstChild());
+        visitOrFinish(l_,_execLoop, _cont, _stack, ip_);
     }
 
     public static void processLastElementLoopWhile(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecWhileCondition _loop, ExecOperationNodeListOff _condition) {
