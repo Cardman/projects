@@ -109,19 +109,6 @@ public final class ExecHelperBlocks {
 
     public static void processFinally(ContextEl _cont, ExecBracedBlock _block, StackCall _stackCall) {
         processEnt(_cont, _block, _stackCall);
-//        AbstractPageEl ip_ = _stackCall.getLastPage();
-//        TryBlockStack ts_ = ip_.getLastTry();
-//        if (ts_ == null) {
-//            ip_.setNullReadWrite();
-//            return;
-//        }
-//        ts_.setCurrentVisitedBlock(_block);
-//        if (ts_.isEntered()) {
-//            processBlockAndRemove(_cont, _block, _stackCall);
-//            return;
-//        }
-//        ts_.setEntered(true);
-//        ip_.setBlock(_block.getFirstChild());
     }
 
     public static void processEnt(ContextEl _cont, ExecBracedBlock _block, StackCall _stackCall) {
@@ -198,19 +185,6 @@ public final class ExecHelperBlocks {
 
     public static void processElse(ContextEl _cont, ExecBracedBlock _cond, StackCall _stackCall) {
         processEnt(_cont, _cond, _stackCall);
-//        AbstractPageEl ip_ = _stackCall.getLastPage();
-//        IfBlockStack if_ = ip_.getLastIf();
-//        if (if_ == null) {
-//            ip_.setNullReadWrite();
-//            return;
-//        }
-//        if_.setCurrentVisitedBlock(_cond);
-//        if (if_.isEntered()) {
-//            processBlockAndRemove(_cont, _cond, _stackCall);
-//            return;
-//        }
-//        if_.setEntered(true);
-//        ip_.setBlock(_cond.getFirstChild());
     }
 
     public static void processDoWhile(ContextEl _cont, ExecCondition _cond, StackCall _stackCall, ExecOperationNodeListOff _condition) {
@@ -391,17 +365,7 @@ public final class ExecHelperBlocks {
             last_.clearCurrentEls();
             return ConditionReturn.YES;
         }
-        last_.globalOffset(_list.getOffset());
-        Argument arg_ = tryToCalculate(_context, _index, _stackCall, _list.getList(), 0, _block);
-        if (_context.callsOrException(_stackCall)) {
-            return ConditionReturn.CALL_EX;
-        }
-        last_.clearCurrentEls();
-        _context.getCoverage().passConditionsForMutable(_block, arg_, _list.getList().last(), _stackCall);
-        if (BooleanStruct.isTrue(arg_.getStruct())) {
-            return ConditionReturn.YES;
-        }
-        return ConditionReturn.NO;
+        return evaluateConditionBas(_context,_index,_stackCall,_block,_list);
     }
 
     public static Argument tryToCalculate(ContextEl _context, int _index, StackCall _stackCall, CustList<ExecOperationNode> _list, int _offset, ExecBlock _coveredBlock) {
@@ -415,16 +379,19 @@ public final class ExecHelperBlocks {
         return ExpressionLanguage.tryToCalculatePair(_context, exp_, _offset, _stackCall);
     }
 
-    public static ConditionReturn evaluateConditionBas(ContextEl _context, StackCall _stackCall, ExecCondition _execCondition, ExecOperationNodeListOff _condition) {
+    private static ConditionReturn evaluateConditionBas(ContextEl _context, StackCall _stackCall, ExecBlock _execCondition, ExecOperationNodeListOff _condition) {
+        return evaluateConditionBas(_context, IndexConstants.FIRST_INDEX, _stackCall, _execCondition, _condition);
+    }
+    private static ConditionReturn evaluateConditionBas(ContextEl _context, int _index, StackCall _stackCall, ExecBlock _execCondition, ExecOperationNodeListOff _condition) {
         AbstractPageEl last_ = _stackCall.getLastPage();
         last_.globalOffset(_condition.getOffset());
-        Argument arg_ = tryToCalculate(_context, IndexConstants.FIRST_INDEX, _stackCall, _condition.getList(), 0, _execCondition);
+        Argument arg_ = tryToCalculate(_context, _index, _stackCall, _condition.getList(), 0, _execCondition);
         if (_context.callsOrException(_stackCall)) {
             return ConditionReturn.CALL_EX;
         }
         last_.clearCurrentEls();
         _context.getCoverage().passConditions(_execCondition, arg_, _condition.getList().last(), _stackCall);
-        if (BooleanStruct.isTrue(NumParsers.convertToBoolean(arg_.getStruct()))) {
+        if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;

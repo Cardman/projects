@@ -8,7 +8,6 @@ import code.util.core.BoolVal;
 
 public final class FunctionCoverageResult {
     private final IdMap<ExecBlock,AbstractCoverageResult> coversConditions = new IdMap<ExecBlock,AbstractCoverageResult>();
-    private final IdMap<ExecBlock,AbstractCoverageResult> coversConditionsForMutable = new IdMap<ExecBlock,AbstractCoverageResult>();
     private final CustList<BlockCoverageResult> blocks = new CustList<BlockCoverageResult>();
     private final IdMap<ExecBlock,AbstractCoverageResult> coverLoops = new IdMap<ExecBlock,AbstractCoverageResult>();
     private final IdMap<ExecBlock,SwitchCoverageResult> coverSwitchs = new IdMap<ExecBlock,SwitchCoverageResult>();
@@ -21,10 +20,6 @@ public final class FunctionCoverageResult {
 
     public IdMap<ExecBlock, AbstractCoverageResult> getCoversConditions() {
         return coversConditions;
-    }
-
-    public IdMap<ExecBlock, AbstractCoverageResult> getCoversConditionsForMutable() {
-        return coversConditionsForMutable;
     }
 
     public CustList<BlockCoverageResult> getBlocks() {

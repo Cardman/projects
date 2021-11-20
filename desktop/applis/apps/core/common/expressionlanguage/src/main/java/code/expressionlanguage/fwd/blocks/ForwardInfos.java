@@ -901,7 +901,7 @@ public final class ForwardInfos {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
             ExecCondition exec_ = new ExecIfCondition(((ConditionBlock) _en).getConditionOffset(), ((IfCondition) _en).getLabel(), opCondition_);
             exec_.setFile(_fileDest);
-            _coverage.putBlockOperationsConditions((ConditionBlock) _en, exec_);
+            _coverage.putBlockOperationsConditions(_en, (ConditionBlock) _en, exec_);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
         }
@@ -909,7 +909,7 @@ public final class ForwardInfos {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
             ExecCondition exec_ = new ExecElseIfCondition(((ConditionBlock) _en).getConditionOffset(), opCondition_);
             exec_.setFile(_fileDest);
-            _coverage.putBlockOperationsConditions((ConditionBlock) _en, exec_);
+            _coverage.putBlockOperationsConditions(_en, (ConditionBlock) _en, exec_);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
         }
@@ -917,7 +917,7 @@ public final class ForwardInfos {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
             ExecCondition exec_ = new ExecWhileCondition(((ConditionBlock) _en).getConditionOffset(), ((WhileCondition) _en).getLabel(), opCondition_);
             exec_.setFile(_fileDest);
-            _coverage.putBlockOperationsConditions((ConditionBlock) _en, exec_);
+            _coverage.putBlockOperationsConditions(_en, (ConditionBlock) _en, exec_);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
         }
@@ -929,7 +929,7 @@ public final class ForwardInfos {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
             ExecCondition exec_ = new ExecDoWhileCondition(((ConditionBlock) _en).getConditionOffset(), opCondition_);
             exec_.setFile(_fileDest);
-            _coverage.putBlockOperationsConditions((ConditionBlock) _en, exec_);
+            _coverage.putBlockOperationsConditions(_en, (ConditionBlock) _en, exec_);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
         }
@@ -1052,7 +1052,7 @@ public final class ForwardInfos {
             ExecForMutableIterativeLoop exec_ = new ExecForMutableIterativeLoop(((ForMutableIterativeLoop) _en).getLabel(), ((ForMutableIterativeLoop) _en).getImportedClassName(), ((ForMutableIterativeLoop) _en).getImportedClassIndexName(),
                     ((ForMutableIterativeLoop) _en).getVariableNames(),
                     new ExecOperationNodeListOff(init_, ((ForMutableIterativeLoop) _en).getInitOffset()), new ExecOperationNodeListOff(exp_, ((ForMutableIterativeLoop) _en).getExpressionOffset()), new ExecOperationNodeListOff(step_, ((ForMutableIterativeLoop) _en).getStepOffset()));
-            _coverage.putBlockOperationsConditionsForMutable((ForMutableIterativeLoop) _en, exec_);
+            _coverage.putBlockOperationsConditions(_en,(ForMutableIterativeLoop) _en, exec_);
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
             return exec_;

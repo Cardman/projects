@@ -290,7 +290,7 @@ public abstract class ExecOperationNode {
                 return;
             }
             before_ = pair_.argument(_argument);
-            pair_.argumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+            pair_.argumentTest(BooleanStruct.isTrue(_argument.getStruct()));
             ExecMethodOperation parent_ = getParent();
             if (isTestContext(parent_)) {
                 calcArg(_possiblePartial, _conf, _nodes, _argument, _stackCall);
@@ -337,10 +337,10 @@ public abstract class ExecOperationNode {
 
     public static void testpair(Argument _argument, ArgumentsPair _pair, CompoundedOperator _par) {
         if (andEq(_par)) {
-            _pair.argumentTest(BooleanStruct.isFalse(Argument.getNull(_argument.getStruct())));
+            _pair.argumentTest(BooleanStruct.isFalse(_argument.getStruct()));
         }
         if (orEq(_par)) {
-            _pair.argumentTest(BooleanStruct.isTrue(Argument.getNull(_argument.getStruct())));
+            _pair.argumentTest(BooleanStruct.isTrue(_argument.getStruct()));
         }
     }
 

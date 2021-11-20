@@ -27,7 +27,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public final class ForMutableIterativeLoop extends BracedBlock implements
-        Loop {
+        Loop,WithConditionPart {
 
     private final String label;
     private final int labelOffset;

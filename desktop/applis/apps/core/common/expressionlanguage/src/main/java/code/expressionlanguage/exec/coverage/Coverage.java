@@ -112,22 +112,13 @@ public final class Coverage {
         fctRes_.getCoverLoops().addEntry(_exec,new BooleanCoverageResult());
     }
 
-    public void putBlockOperationsConditions(ConditionBlock _block, ExecBlock _exec) {
+    public void putBlockOperationsConditions(AbsBk _block, WithConditionPart _bk, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctResBl(_block);
-        _block.setConditionNb(fctRes_.getCoversConditions().size());
+        _bk.setConditionNb(fctRes_.getCoversConditions().size());
         fctRes_.getCoversConditions().addEntry(_exec,new BooleanCoverageResult());
-    }
-
-    public void putBlockOperationsConditionsForMutable(ForMutableIterativeLoop _block, ExecBlock _exec) {
-        if (!isCovering()) {
-            return;
-        }
-        FunctionCoverageResult fctRes_ = getFctResBl(_block);
-        _block.setConditionNb(fctRes_.getCoversConditionsForMutable().size());
-        fctRes_.getCoversConditionsForMutable().addEntry(_exec,new BooleanCoverageResult());
     }
 
     public void putBlockOperationsSwitchs(SwitchBlock _block, ExecBlock _exec) {
@@ -421,15 +412,6 @@ public final class Coverage {
         covCond(_value, _exec, _stackCall, covTwo_);
     }
 
-    public void passConditionsForMutable(ExecBlock _condition, Argument _value, ExecOperationNode _exec, StackCall _stackCall) {
-        if (!isCovering()) {
-            return;
-        }
-        FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
-        AbstractCoverageResult covTwo_ = fctRes_.getCoversConditionsForMutable().getVal(_condition);
-        covCond(_value, _exec, _stackCall, covTwo_);
-    }
-
     private static void covCond(Argument _value, ExecOperationNode _exec, StackCall _stackCall, AbstractCoverageResult _result) {
         _result.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
         if (_exec.getArgument() != null) {
@@ -664,15 +646,11 @@ public final class Coverage {
         return fctRes_.getBlocks().get(_block.getBlockNb());
     }
 
-    public AbstractCoverageResult getCoversConditions(ConditionBlock _exec) {
-        FunctionCoverageResult fctRes_ = getFctResBl(_exec);
+    public AbstractCoverageResult getCoversConditions(AbsBk _bk ,WithConditionPart _exec) {
+        FunctionCoverageResult fctRes_ = getFctResBl(_bk);
         return fctRes_.getCoversConditions().getValue(_exec.getConditionNb());
     }
 
-    public AbstractCoverageResult getCoversConditionsForMutable(ForMutableIterativeLoop _exec) {
-        FunctionCoverageResult fctRes_ = getFctResBl(_exec);
-        return fctRes_.getCoversConditionsForMutable().getValue(_exec.getConditionNb());
-    }
     public CustList<AbstractCoverageResult> getCoverSwitchs(SwitchPartBlock _child) {
         SwitchBlock switchParent_ = _child.getSwitchParent();
         SwitchCoverageResult sw_;

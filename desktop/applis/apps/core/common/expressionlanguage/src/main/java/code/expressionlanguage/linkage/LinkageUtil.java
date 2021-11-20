@@ -741,7 +741,7 @@ public final class LinkageUtil {
 
     private static void processIfConditionReport(VariablesOffsets _vars, IfCondition _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
-            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
+            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond,_cond);
             String tag_ = headCoverage(result_);
             int off_ = _cond.getOffset();
             _vars.addPart(new PartOffset(tag_, off_));
@@ -764,7 +764,7 @@ public final class LinkageUtil {
     }
     private static void processElseIfConditionReport(VariablesOffsets _vars, ElseIfCondition _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
-            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
+            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond,_cond);
             String tag_ = headCoverage(result_);
             int off_ = _cond.getOffset();
             _vars.addPart(new PartOffset(tag_, off_));
@@ -775,7 +775,7 @@ public final class LinkageUtil {
     }
     private static void processWhileConditionReport(VariablesOffsets _vars, WhileCondition _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
-            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
+            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond,_cond);
             String tag_ = headCoverage(result_);
             int off_ = _cond.getOffset();
             _vars.addPart(new PartOffset(tag_, off_));
@@ -852,7 +852,7 @@ public final class LinkageUtil {
     private static void headForMutableReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, Coverage _cov, OperationNode _rootExp) {
         if (_vars.getLastStackElt().noVisited()) {
             if (_rootExp != null) {
-                AbstractCoverageResult result_ = _cov.getCoversConditionsForMutable(_cond);
+                AbstractCoverageResult result_ = _cov.getCoversConditions(_cond,_cond);
                 String tag_ = headCoverage(result_);
                 int off_ = _cond.getOffset();
                 _vars.addPart(new PartOffset(tag_, off_));
@@ -1119,7 +1119,7 @@ public final class LinkageUtil {
     }
     private static void processDoWhileConditionReport(VariablesOffsets _vars, DoWhileCondition _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
-            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond);
+            AbstractCoverageResult result_ = _cov.getCoversConditions(_cond,_cond);
             String tag_ = headCoverage(result_);
             int off_ = _cond.getOffset();
             _vars.addPart(new PartOffset(tag_, off_));

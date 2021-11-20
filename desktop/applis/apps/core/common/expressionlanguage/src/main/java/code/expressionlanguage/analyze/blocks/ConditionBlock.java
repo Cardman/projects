@@ -14,7 +14,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.core.StringUtil;
 
-public abstract class ConditionBlock extends BracedBlock implements BuildableElMethod {
+public abstract class ConditionBlock extends BracedBlock implements BuildableElMethod,WithConditionPart {
 
     private final String condition;
 
