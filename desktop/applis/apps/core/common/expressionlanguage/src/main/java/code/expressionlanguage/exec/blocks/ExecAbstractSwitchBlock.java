@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
+public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements WithEl {
     private final String label;
     private final String instanceTest;
 

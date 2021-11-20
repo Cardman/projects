@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.util.StringList;
 
-public abstract class ExecAbstractDeclareVariable extends ExecLeaf implements StackableBlock {
+public abstract class ExecAbstractDeclareVariable extends ExecLeaf implements WithEl {
 
     private final StringList variableNames;
     protected ExecAbstractDeclareVariable(StringList _variableNames) {

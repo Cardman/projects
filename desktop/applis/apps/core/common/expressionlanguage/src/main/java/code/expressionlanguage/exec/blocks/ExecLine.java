@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 
-public final class ExecLine extends ExecLeaf implements StackableBlock, WithNotEmptyEl {
+public final class ExecLine extends ExecLeaf implements WithEl {
 
     private final ExecOperationNodeListOff exp;
     private final boolean callSuper;

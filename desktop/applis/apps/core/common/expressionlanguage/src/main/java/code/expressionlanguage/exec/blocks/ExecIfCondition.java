@@ -5,7 +5,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
-public final class ExecIfCondition extends ExecCondition implements StackableBlock {
+public final class ExecIfCondition extends ExecCondition implements WithEl {
 
     private final String label;
 

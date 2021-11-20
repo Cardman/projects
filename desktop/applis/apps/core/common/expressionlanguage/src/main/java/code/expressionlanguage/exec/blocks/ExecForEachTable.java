@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.util.StringMap;
 
-public final class ExecForEachTable extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
+public final class ExecForEachTable extends ExecBracedBlock implements WithEl {
 
     private final String label;
 

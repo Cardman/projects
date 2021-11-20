@@ -9,11 +9,12 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
 
-public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
+public abstract class ExecAbstractForEachLoop extends ExecBracedBlock implements WithEl {
 
     private final String label;
 

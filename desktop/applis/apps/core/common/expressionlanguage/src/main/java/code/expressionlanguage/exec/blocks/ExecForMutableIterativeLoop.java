@@ -5,7 +5,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.util.StringList;
 
-public final class ExecForMutableIterativeLoop extends ExecBracedBlock implements StackableBlock, WithNotEmptyEl {
+public final class ExecForMutableIterativeLoop extends ExecBracedBlock implements WithEl {
 
     private final String label;
 

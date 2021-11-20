@@ -10,7 +10,8 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecForEachArray extends ExecAbstractForEachLoop {

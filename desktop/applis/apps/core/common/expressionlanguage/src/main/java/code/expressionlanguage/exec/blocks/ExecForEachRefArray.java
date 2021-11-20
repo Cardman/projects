@@ -9,7 +9,8 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.ArrayWrapper;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.LongStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ExecForEachRefArray extends ExecAbstractForEachLoop {

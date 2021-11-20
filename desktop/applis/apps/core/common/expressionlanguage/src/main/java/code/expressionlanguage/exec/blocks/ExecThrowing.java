@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
-public final class ExecThrowing extends ExecLeaf implements WithNotEmptyEl {
+public final class ExecThrowing extends ExecLeaf implements WithEl {
 
 
     private final ExecOperationNodeListOff exp;

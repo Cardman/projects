@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.blocks;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
-public abstract class ExecCondition extends ExecBracedBlock implements WithNotEmptyEl {
+public abstract class ExecCondition extends ExecBracedBlock implements WithEl {
 
 
     private final ExecOperationNodeListOff condition;
