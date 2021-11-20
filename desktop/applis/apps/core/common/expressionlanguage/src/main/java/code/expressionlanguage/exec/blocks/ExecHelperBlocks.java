@@ -92,6 +92,12 @@ public final class ExecHelperBlocks {
         return bl_;
     }
 
+    public static void setVisited(StackCall _stack, ExecBracedBlock _block) {
+        AbstractPageEl ip_ = _stack.getLastPage();
+        ip_.setBlock(_block.getFirstChild());
+        setVisited(ip_, _block);
+    }
+
     public static void setVisited(AbstractPageEl _ip, ExecBracedBlock _block) {
         AbstractStask abstractStask_ = _ip.tryGetLastStack();
         if (abstractStask_ == null) {
