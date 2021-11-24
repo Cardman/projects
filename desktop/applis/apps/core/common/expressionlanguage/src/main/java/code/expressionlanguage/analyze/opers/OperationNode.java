@@ -1741,8 +1741,9 @@ public abstract class OperationNode {
     }
 
     private static void fetchBinary(CustList<MethodInfo> _methods, String _first, String _second, AnalyzedPageEl _page) {
-        if (StringExpUtil.customCast(_first)) {
-            String di_ = StringExpUtil.getIdFromAllTypes(_first);
+        String compIdFirst_ = StringExpUtil.getQuickComponentBase(_first);
+        if (StringExpUtil.customCast(compIdFirst_)) {
+            String di_ = StringExpUtil.getIdFromAllTypes(compIdFirst_);
             RootBlock r_ = _page.getAnaClassBody(di_);
             if (r_ != null) {
                 CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_));
@@ -1757,8 +1758,9 @@ public abstract class OperationNode {
                 }
             }
         }
-        if (StringExpUtil.customCast(_second)) {
-            String di_ = StringExpUtil.getIdFromAllTypes(_second);
+        String compIdSecond_ = StringExpUtil.getQuickComponentBase(_second);
+        if (StringExpUtil.customCast(compIdSecond_)) {
+            String di_ = StringExpUtil.getIdFromAllTypes(compIdSecond_);
             RootBlock r_ = _page.getAnaClassBody(di_);
             if (r_ != null) {
                 CustList<AnaFormattedRootBlock> allClasses_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(r_));
@@ -1775,10 +1777,11 @@ public abstract class OperationNode {
         }
     }
     private static void fetchUnary(CustList<MethodInfo> _methods, String _id, AnalyzedPageEl _page) {
-        if (!StringExpUtil.customCast(_id)) {
+        String compId_ = StringExpUtil.getQuickComponentBase(_id);
+        if (!StringExpUtil.customCast(compId_)) {
             return;
         }
-        String di_ = StringExpUtil.getIdFromAllTypes(_id);
+        String di_ = StringExpUtil.getIdFromAllTypes(compId_);
         RootBlock r_ = _page.getAnaClassBody(di_);
         if (r_ == null) {
             return;

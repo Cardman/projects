@@ -613,20 +613,20 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (m_.getId().getKind() == MethodAccessKind.STATIC_CALL) {
                         if (m_.getParametersTypes().size() == 2) {
                             if (StringExpUtil.isBin(m_.getName())) {
-                                if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
-                                    if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
+                                if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(m_.getImportedParametersTypes().first()),getGenericString())) {
+                                    if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(m_.getImportedParametersTypes().last()),getGenericString())) {
                                         binaryAll_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     } else {
                                         binaryFirst_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                     }
-                                } else if (StringUtil.quickEq(m_.getImportedParametersTypes().last(),getGenericString())) {
+                                } else if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(m_.getImportedParametersTypes().last()),getGenericString())) {
                                     binarySecond_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }
                         }
                         if (m_.getParametersTypes().size() == 1) {
                             if (StringExpUtil.isUn(m_.getName())) {
-                                if (StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
+                                if (StringUtil.quickEq(StringExpUtil.getQuickComponentBase(m_.getImportedParametersTypes().first()),getGenericString())) {
                                     unary_.add(new MethodHeaderInfo(this, m_, m_.getId(), getNumberAll(), m_.getNameOverrideNumber(),m_.getImportedReturnType(), m_.getAccess()));
                                 }
                             }

@@ -849,6 +849,94 @@ public final class ProcessMethodInnerOperatorTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculateArgumentArr1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator+ $staticCall $int (pkg.Ex<T>[] a, pkg.Ex<T>[] b){\n");
+        xml_.append("  $return ($int)a[0].a+($int)b[0].a;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<$int>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<$int>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  $if ($new Ex<$int>[]{one} + $new Ex<$int>[]{two} != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgumentArr1_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator+ $staticCall pkg.Ex<T>[] (pkg.Ex<T>[] a, pkg.Ex<T>[] b){\n");
+        xml_.append("  Ex<T> one = $new Ex<>();\n");
+        xml_.append("  one.a = (T)(($int)a[0].a+($int)b[0].a);\n");
+        xml_.append("  $return {one};\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<$int>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex<$int> two = $new Ex<$int>();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  Ex<$int>[] v = $new Ex<$int>[]{one} + $new Ex<$int>[]{two};\n");
+        xml_.append("  $if (v[0].a != 8i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgumentArr2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator- $staticCall $int (pkg.Ex<T>[] a){\n");
+        xml_.append("  $return -($int)a[0].a;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex<$int> one = $new Ex<$int>();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  $if (-$new Ex<$int>[]{one} != -5i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+
+    @Test
     public void calculateArgument29Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T> {\n");
