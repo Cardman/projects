@@ -9,7 +9,7 @@ public final class MenuBar implements AbsMenuBar {
     private final JMenuBar meBar = new JMenuBar();
     private final CustList<AbsMenu> menus = new CustList<AbsMenu>();
 
-    JMenuBar getMeBar() {
+    public JMenuBar getMeBar() {
         return meBar;
     }
 
