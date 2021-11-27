@@ -98,21 +98,13 @@ public final class DefImage implements AbstractImage {
 
     @Override
     public MetaFont getMetaFont() {
-        try {
-            Font font_ = getFont();
-            return new MetaFont(font_.getFamily(),GuiConstants.fontStyle(font_.isBold(),font_.isItalic()),font_.getSize());
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public Font getFont() {
-        return graphics.getFont();
+        Font font_ = graphics.getFont();
+        return new MetaFont(font_.getFamily(),GuiConstants.fontStyle(font_.isBold(),font_.isItalic()),font_.getSize());
     }
 
     @Override
     public void setFont(MetaFont _font) {
-        setFont(new Font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()));
+        setFont(font(_font.getFontFamily(), _font.getFont(), _font.getRealSize()));
     }
 
     public void setFont(Font _font) {
@@ -121,7 +113,7 @@ public final class DefImage implements AbstractImage {
 
     @Override
     public void setFont(String _name, int _style, int _size) {
-        graphics.setFont(new Font(_name,_style,_size));
+        graphics.setFont(font(_name, _style, _size));
     }
 
     @Override
@@ -178,4 +170,9 @@ public final class DefImage implements AbstractImage {
     public void dispose() {
         graphics.dispose();
     }
+
+    private static Font font(String _fontFamily, int _font, int _realSize) {
+        return new Font(_fontFamily, _font, _realSize);
+    }
+
 }
