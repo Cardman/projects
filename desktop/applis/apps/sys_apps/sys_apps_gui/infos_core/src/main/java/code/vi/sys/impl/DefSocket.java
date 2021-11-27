@@ -2,6 +2,8 @@ package code.vi.sys.impl;
 
 import code.gui.initialize.AbstractBufferedReader;
 import code.gui.initialize.AbstractSocket;
+import code.vi.prot.impl.DefBufferedReader;
+import code.vi.prot.impl.StreamCoreUtil;
 
 import java.io.*;
 import java.net.Socket;

@@ -11,6 +11,8 @@ import cards.main.CardFactories;
 import cards.president.enumerations.CardPresident;
 import cards.tarot.enumerations.CardTarot;
 import code.expressionlanguage.guicompos.GuiFactroy;
+import code.vi.prot.impl.variant.DefAdvGraphicListGenerator;
+import code.vi.prot.impl.variant.DefAdvGraphicListGeneratorStr;
 
 public final class DefLaunchingApplicationsSysOther extends LaunchingApplications {
     public DefLaunchingApplicationsSysOther() {

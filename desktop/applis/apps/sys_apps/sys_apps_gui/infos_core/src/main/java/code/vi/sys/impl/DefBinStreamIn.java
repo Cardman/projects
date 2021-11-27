@@ -2,6 +2,7 @@ package code.vi.sys.impl;
 
 import code.stream.core.AbstractBinStreamIn;
 import code.util.core.StringUtil;
+import code.vi.prot.impl.StreamCoreUtil;
 
 import java.io.*;
 

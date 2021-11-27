@@ -3,6 +3,7 @@ package code.vi.sys.impl;
 import code.stream.AbstractFile;
 import code.stream.AbstractFileCoreStream;
 import code.stream.AbstractListRoot;
+import code.vi.prot.impl.DefaultFile;
 
 public final class DefaultFileCoreStream implements AbstractFileCoreStream {
 

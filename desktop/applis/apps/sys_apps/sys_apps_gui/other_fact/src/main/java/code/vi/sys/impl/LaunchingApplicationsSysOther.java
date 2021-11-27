@@ -4,6 +4,8 @@ import aiki.main.AikiFactory;
 import applications.main.LaunchingApplications;
 import cards.main.CardFactories;
 import code.expressionlanguage.guicompos.GuiFactroy;
+import code.vi.prot.impl.AdvGraphicListGenerator;
+import code.vi.prot.impl.AdvGraphicListGeneratorStr;
 
 public final class LaunchingApplicationsSysOther extends LaunchingApplications {
     public LaunchingApplicationsSysOther() {

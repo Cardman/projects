@@ -2,6 +2,7 @@ package code.vi.sys.impl;
 
 import code.stream.core.AbstractTextFactory;
 import code.stream.core.AbstractTextStreamIn;
+import code.vi.prot.impl.StreamCoreUtil;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;

@@ -5,6 +5,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThread;
+import code.vi.prot.impl.DefConcurrentMap;
 
 public final class DefInterceptor implements AbstractInterceptor {
     @Override

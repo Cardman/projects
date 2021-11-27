@@ -1,6 +1,7 @@
 package code.vi.sys.impl;
 import code.stream.AbsClipStream;
 import code.stream.LineShortListenable;
+import code.vi.prot.impl.StreamCoreUtil;
 
 import javax.sound.sampled.Clip;
 import java.io.Closeable;

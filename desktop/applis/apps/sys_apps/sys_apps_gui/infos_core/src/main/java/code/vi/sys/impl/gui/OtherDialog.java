@@ -2,6 +2,9 @@ package code.vi.sys.impl.gui;
 
 import code.gui.*;
 import code.gui.events.AbsWindowListener;
+import code.vi.prot.impl.gui.CustComponent;
+import code.vi.prot.impl.gui.Panel;
+import code.vi.prot.impl.gui.MenuBar;
 import code.vi.sys.impl.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;

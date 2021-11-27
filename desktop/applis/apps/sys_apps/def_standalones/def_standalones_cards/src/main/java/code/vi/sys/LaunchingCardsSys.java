@@ -7,7 +7,7 @@ import cards.main.LaunchingCards;
 import cards.president.enumerations.CardPresident;
 import cards.tarot.enumerations.CardTarot;
 import code.vi.sys.impl.variant.DefProgramInfos;
-import code.vi.sys.impl.variant.GraphicListGenerator;
+import code.vi.prot.impl.variant.GraphicListGenerator;
 
 public final class LaunchingCardsSys extends LaunchingCards {
     public LaunchingCardsSys() {

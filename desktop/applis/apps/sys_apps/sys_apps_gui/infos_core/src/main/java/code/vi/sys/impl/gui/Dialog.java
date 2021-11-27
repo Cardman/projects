@@ -2,12 +2,13 @@ package code.vi.sys.impl.gui;
 
 import code.gui.*;
 import code.gui.events.CrossClosingDialogEvent;
+import code.vi.prot.impl.gui.Panel;
 import code.vi.sys.impl.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaPoint;
-import code.vi.sys.impl.DefImage;
-import code.vi.sys.impl.DefImageFactory;
+import code.vi.prot.impl.DefImage;
+import code.vi.prot.impl.DefImageFactory;
 
 import javax.swing.*;
 import java.awt.*;

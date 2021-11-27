@@ -3,7 +3,7 @@ package code.vi.sys;
 import code.expressionlanguage.guicompos.GuiFactroy;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.vi.sys.impl.variant.DefProgramInfos;
-import code.vi.sys.impl.variant.GraphicListGeneratorStr;
+import code.vi.prot.impl.variant.GraphicListGeneratorStr;
 
 public final class LaunchingFullSys extends LaunchingFull {
     public LaunchingFullSys() {

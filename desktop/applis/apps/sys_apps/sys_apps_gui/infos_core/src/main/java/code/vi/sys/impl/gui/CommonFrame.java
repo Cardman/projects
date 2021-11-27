@@ -2,12 +2,15 @@ package code.vi.sys.impl.gui;
 
 import code.gui.*;
 import code.gui.events.AbsWindowListener;
+import code.vi.prot.impl.gui.CustComponent;
+import code.vi.prot.impl.gui.Panel;
+import code.vi.prot.impl.gui.MenuBar;
 import code.vi.sys.impl.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
-import code.vi.sys.impl.DefImage;
-import code.vi.sys.impl.DefImageFactory;
+import code.vi.prot.impl.DefImage;
+import code.vi.prot.impl.DefImageFactory;
 import code.util.CustList;
 import code.util.IdMap;
 

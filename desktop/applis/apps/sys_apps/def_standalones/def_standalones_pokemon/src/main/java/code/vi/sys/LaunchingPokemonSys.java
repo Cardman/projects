@@ -6,7 +6,7 @@ import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
 import aiki.map.pokemon.UsablePokemon;
 import code.vi.sys.impl.variant.DefProgramInfos;
-import code.vi.sys.impl.variant.GraphicListGenerator;
+import code.vi.prot.impl.variant.GraphicListGenerator;
 
 public final class LaunchingPokemonSys extends LaunchingPokemon {
     public LaunchingPokemonSys() {

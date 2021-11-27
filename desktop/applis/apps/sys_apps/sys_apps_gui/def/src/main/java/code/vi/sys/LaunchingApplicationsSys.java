@@ -12,8 +12,8 @@ import cards.president.enumerations.CardPresident;
 import cards.tarot.enumerations.CardTarot;
 import code.expressionlanguage.guicompos.GuiFactroy;
 import code.vi.sys.impl.variant.DefProgramInfos;
-import code.vi.sys.impl.variant.GraphicListGenerator;
-import code.vi.sys.impl.variant.GraphicListGeneratorStr;
+import code.vi.prot.impl.variant.GraphicListGenerator;
+import code.vi.prot.impl.variant.GraphicListGeneratorStr;
 
 public final class LaunchingApplicationsSys extends LaunchingApplications {
 

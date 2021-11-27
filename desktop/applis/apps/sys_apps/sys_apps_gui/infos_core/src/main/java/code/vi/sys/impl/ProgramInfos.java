@@ -4,6 +4,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.AbsGroupFrame;
+import code.vi.prot.impl.*;
 import code.vi.sys.impl.gui.DefFrameFactory;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
