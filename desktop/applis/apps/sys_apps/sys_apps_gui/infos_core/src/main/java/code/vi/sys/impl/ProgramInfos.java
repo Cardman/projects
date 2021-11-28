@@ -67,7 +67,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         fileCoreStream = new DefaultFileCoreStream();
         frameFactory = new DefFrameFactory();
         streams = new TechStreams(new DefBinFact(new DefBinFactory()),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
-        interceptor = new DefInterceptor();
+        interceptor = new DefInterceptor(new DefErrGenerator());
         socketFactory = new DefSocketFactory();
         compoFactory = new DefCompoFactory();
         imageFactory = new DefImageFactory();

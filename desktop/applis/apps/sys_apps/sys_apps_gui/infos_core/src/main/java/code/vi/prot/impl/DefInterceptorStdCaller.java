@@ -1,4 +1,4 @@
-package code.vi.sys.impl;
+package code.vi.prot.impl;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
@@ -14,8 +14,10 @@ import code.expressionlanguage.structs.Struct;
 
 public final class DefInterceptorStdCaller implements AbstractInterceptorStdCaller {
     private final String cl;
-    public DefInterceptorStdCaller(String _cl) {
-        cl = _cl;
+    private final AbsErrGenerator gene;
+    public DefInterceptorStdCaller(String _cl, AbsErrGenerator _gene) {
+        this.cl = _cl;
+        this.gene = _gene;
     }
 
     @Override
@@ -23,25 +25,25 @@ public final class DefInterceptorStdCaller implements AbstractInterceptorStdCall
         try {
             return tryStop(_init, _owner, _stackCall);
         } catch (OutOfMemoryError e) {
-            return true;
+            return tryThrowException(_owner, _stackCall);
         }
     }
 
     private boolean tryStop(DefaultInitializer _init, ContextEl _owner, StackCall _stackCall) {
         try {
-            return tryStop2(_init, _owner, _stackCall);
-        } catch (OutOfMemoryError e) {
+            return _init.stop(_owner, _stackCall);
+        } catch (Exception e) {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_owner, cl, _stackCall)));
             return false;
         }
     }
 
-    private boolean tryStop2(DefaultInitializer _init, ContextEl _owner, StackCall _stackCall) {
+    private boolean tryThrowException(ContextEl _owner, StackCall _stackCall) {
         try {
-            return _init.stop(_owner, _stackCall);
-        } catch (Exception e) {
-            _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_owner, cl, _stackCall)));
+            _stackCall.setCallingState(new CustomFoundExc(gene.generate(cl,_owner,_stackCall)));
             return false;
+        } catch (OutOfMemoryError e) {
+            return true;
         }
     }
 
