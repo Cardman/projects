@@ -18,6 +18,10 @@ public final class DefImageFactory implements AbstractImageFactory {
     }
 
     public static ImageIcon icon(DefImage _img) {
-        return new ImageIcon(_img.data());
+        try {
+            return new ImageIcon(_img.data());
+        } catch (Exception e) {
+            return new ImageIcon();
+        }
     }
 }
