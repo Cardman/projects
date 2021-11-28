@@ -1,9 +1,10 @@
 package code.gui;
 
-import code.gui.events.*;
+import code.gui.events.OtherAnswerEvent;
+import code.gui.events.OtherAnswerTextEvent;
+import code.gui.events.OtherClosingDialogEvent;
+import code.gui.events.OtherCrossClosingDialogEvent;
 import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class OtherConfirmDialog {
@@ -22,9 +23,9 @@ public final class OtherConfirmDialog {
     private String typedText;
     private final AbstractProgramInfos infos;
 
-    public OtherConfirmDialog(AbstractProgramInfos _infos,AbstractImageFactory _fact, AbsFrameFactory _frame) {
+    public OtherConfirmDialog(AbstractProgramInfos _infos) {
         infos = _infos;
-        dialog =_infos.getFrameFactory().newOtherDialog();
+        dialog =_infos.getLightFrameFactory().newOtherDialog();
         dialog.addWindowListener(new OtherCrossClosingDialogEvent(this));
     }
 

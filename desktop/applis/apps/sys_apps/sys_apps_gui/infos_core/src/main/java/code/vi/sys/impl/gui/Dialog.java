@@ -3,7 +3,7 @@ package code.vi.sys.impl.gui;
 import code.gui.*;
 import code.gui.events.CrossClosingDialogEvent;
 import code.vi.prot.impl.gui.Panel;
-import code.vi.sys.impl.gui.events.WrWindowListener;
+import code.vi.prot.impl.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaPoint;

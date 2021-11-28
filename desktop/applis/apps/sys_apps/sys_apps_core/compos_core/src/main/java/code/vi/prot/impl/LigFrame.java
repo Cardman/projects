@@ -1,27 +1,23 @@
-package code.vi.sys.impl.gui;
+package code.vi.prot.impl;
 
 import code.gui.*;
 import code.gui.events.AbsWindowListener;
-import code.vi.prot.impl.gui.CustComponent;
-import code.vi.prot.impl.gui.Panel;
-import code.vi.prot.impl.gui.MenuBar;
-import code.vi.prot.impl.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
 import code.util.CustList;
 import code.util.IdMap;
+import code.vi.prot.impl.gui.Panel;
+import code.vi.prot.impl.gui.events.WrWindowListener;
 
-import javax.swing.*;
-import java.awt.*;
 
-public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
-
-    private AbstractImage imageIconFrame;
+public final class LigFrame implements AbsOtherFrame, ChangeableTitle {
 
     private boolean mainFrame;
+    private boolean visible;
+    private String title="";
 
+    private AbsPanel pane = Panel.newLineBox();
     private Ownable owner;
-    private final JFrame frame = new JFrame();
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
 
     public void setMainFrame(boolean _mainFrame) {
@@ -30,17 +26,16 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
 
     @Override
     public MetaPoint getLocationOnScreen() {
-        Point pt_ = frame.getLocationOnScreen();
-        return new MetaPoint(pt_.x, pt_.y);
+        return new MetaPoint(0,0);
     }
     @Override
     public String getTitle() {
-        return frame.getTitle();
+        return title;
     }
 
     @Override
     public void setTitle(String _title) {
-        frame.setTitle(_title);
+        this.title = _title;
     }
     public void dispose() {
         setVisible(false);
@@ -52,28 +47,17 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
 
     @Override
     public AbstractImage getImageIconFrame() {
-        return imageIconFrame;
-    }
-
-    public void setFocusableWindowState(boolean _focusableWindowState) {
-        frame.setFocusableWindowState(_focusableWindowState);
-    }
-
-    public void setFocusable(boolean _focusable) {
-        frame.setFocusable(_focusable);
+        return null;
     }
 
     @Override
     public void addWindowListener(AbsWindowListener _l) {
         WrWindowListener wr_ = new WrWindowListener(_l);
         mapWindow.addEntry(_l,wr_);
-        frame.addWindowListener(wr_);
     }
 
     @Override
     public void removeWindowListener(AbsWindowListener _l) {
-        WrWindowListener wr_ = mapWindow.getVal(_l);
-        frame.removeWindowListener(wr_);
         mapWindow.removeKey(_l);
     }
 
@@ -84,49 +68,49 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
 
     @Override
     public void setDefaultCloseOperation(int _option) {
-        frame.setDefaultCloseOperation(_option);
+        //
     }
 
     @Override
     public void setVisible(boolean _v) {
-        frame.setVisible(_v);
+        visible = _v;
     }
     public void setJMenuBar(AbsMenuBar _menu) {
-        frame.setJMenuBar(((MenuBar) _menu).getMeBar());
+        //
     }
     @Override
     public void setContentPane(AbsPanel _p) {
-        frame.setContentPane(((Panel)_p).getNatComponent());
+        pane = _p;
     }
 
     @Override
     public void setLocationRelativeTo(AbsCustComponent _c) {
-        frame.setLocationRelativeTo(((CustComponent)_c).getNatComponent());
+        //
     }
 
     @Override
     public void setLocationRelativeTo(AbsOtherDialog _c) {
-        frame.setLocationRelativeTo(((OtherDialog)_c).getComponent());
+        //
     }
 
     @Override
     public void setLocationRelativeTo(AbsOtherFrame _c) {
-        frame.setLocationRelativeTo(((OtherFrame)_c).getComponent());
+        //
     }
 
     @Override
     public void setLocationRelativeToNull() {
-        frame.setLocationRelativeTo(null);
+        //
     }
 
     @Override
     public boolean isVisible() {
-        return frame.isVisible();
+        return visible;
     }
 
     @Override
     public void pack() {
-        frame.pack();
+        pane.validate();
     }
 
     @Override
@@ -139,31 +123,4 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
         owner = _owner;
     }
 
-    Window getComponent() {
-        return frame;
-    }
-
-    public void requestFocus() {
-        frame.requestFocus();
-    }
-
-    public Point getLocation() {
-        return frame.getLocation();
-    }
-
-    public void setLocation(int _x, int _y) {
-        frame.setLocation(_x, _y);
-    }
-
-    public void setLocation(Point _p) {
-        frame.setLocation(_p);
-    }
-
-    public int getWidth() {
-        return frame.getWidth();
-    }
-
-    public int getHeight() {
-        return frame.getHeight();
-    }
 }

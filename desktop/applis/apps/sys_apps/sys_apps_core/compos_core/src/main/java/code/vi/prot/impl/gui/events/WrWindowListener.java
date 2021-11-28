@@ -1,4 +1,4 @@
-package code.vi.sys.impl.gui.events;
+package code.vi.prot.impl.gui.events;
 
 import code.gui.events.AbsWindowListener;
 

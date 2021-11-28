@@ -61,11 +61,14 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     private final AbstractInterceptor interceptor;
     private final AbstractSocketFactory socketFactory;
     private final AbsFrameFactory frameFactory;
+    private final AbsLightFrameFactory lightFrameFactory;
 
     protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = new DefaultFileCoreStream();
-        frameFactory = new DefFrameFactory();
+        DefFrameFactory frameFactory_ = new DefFrameFactory();
+        this.frameFactory = frameFactory_;
+        this.lightFrameFactory = frameFactory_;
         streams = new TechStreams(new DefBinFact(new DefBinFactory()),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
         interceptor = new DefInterceptor(new DefErrGenerator());
         socketFactory = new DefSocketFactory();
@@ -171,6 +174,11 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbsFrameFactory getFrameFactory() {
         return frameFactory;
+    }
+
+    @Override
+    public AbsLightFrameFactory getLightFrameFactory() {
+        return lightFrameFactory;
     }
 
     public String getHomePath() {

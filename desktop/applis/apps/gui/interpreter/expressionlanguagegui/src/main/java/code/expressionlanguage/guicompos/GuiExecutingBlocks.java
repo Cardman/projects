@@ -69,11 +69,11 @@ public final class GuiExecutingBlocks {
         mainArgs = _mainArgs;
         window = _window;
         textLabel = _window.getCompoFactory().newPlainLabel("");
-        confirm = new OtherConfirmDialog(_window.getFrames(),_window.getImageFactory(),_window.getFrames().getFrameFactory());
+        confirm = new OtherConfirmDialog(_window.getFrames());
     }
     private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
         eventClose = new DefaultClosingMainWindow(this, _context);
-        AbsOtherFrame fr_ = window.getFrames().getFrameFactory().newOtherFrame();
+        AbsOtherFrame fr_ = window.getFrames().getLightFrameFactory().newOtherFrame();
         fr_.setMainFrame(true);
         fr_.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         frame = new FrameStruct(fr_);

@@ -19,6 +19,7 @@ public interface AbstractProgramInfos {
     String getTmpUserFolder();
     CustList<AbsGroupFrame> getFrames();
     AbsFrameFactory getFrameFactory();
+    AbsLightFrameFactory getLightFrameFactory();
     StringMap<AbstractAtomicInteger> getCounts();
     AbstractGenerator getGenerator();
     AbstractThreadFactory getThreadFactory();

@@ -7,6 +7,4 @@ public interface AbsFrameFactory {
     AbsCommonFrame newCommonFrame(String _languageKey, AbstractProgramInfos _frames, AbstractImage _imageIconFrame);
     AbsDialog newDialog(AbsCloseableDialog _closeable);
     AbsDialog newDialog();
-    AbsOtherDialog newOtherDialog();
-    AbsOtherFrame newOtherFrame();
 }
