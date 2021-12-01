@@ -24,6 +24,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         textField = _field;
         dictionary.addAllElts(_aDictionary);
         popup = _abs.getCompoFactory().newAbsPopupMenu();
+        popup.setFocusable(false);
         abs = _abs;
         AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
         list = comp_;
