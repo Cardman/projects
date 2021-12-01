@@ -30,7 +30,7 @@ public final class GuiContextEl extends RunnableContextEl {
         _guiExecutingBlocks.getFrame().dispose();
         interrupt();
         getGuiInit().launchHooks(this, _stackCall);
-        _guiExecutingBlocks.getWindow().setNullCurrent();
+        _guiExecutingBlocks.getGuiInterpreterElements().setGuiRunnable(null);
         new CoveringCodeTask(this, getExecutingOptions()).run();
     }
     public GuiInitializer getGuiInit() {

@@ -28,11 +28,11 @@ public final class WindowFull extends GroupFrame {
     private final AbsPlainButton launch;
 
     private final StringMap<String> messages;
-    private GuiProcess current;
-    private final GuiFactroy fact;
+    private final GuiInterpreterElements currentElements;
+
     protected WindowFull(String _lg, AbstractProgramInfos _list, GuiFactroy _guiFactroy) {
         super(_lg, _list);
-        fact = _guiFactroy;
+        currentElements = new GuiInterpreterElements(getFrames(),_guiFactroy);
         setAccessFile("launcher.mainwindow");
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/gui/messages", getLanguageKey(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmGuiGr.ms().getVal(fileName_);
@@ -82,42 +82,41 @@ public final class WindowFull extends GroupFrame {
     }
 
     public void process() {
-        if (current != null) {
+        if (currentElements.getGuiRunnable() != null) {
             return;
         }
         String txt_ = conf.getText().trim();
-        current = GuiProcess.build("",this, txt_);
-        if (current == null) {
+        GuiRunnable current_ = GuiProcess.build("", txt_, getCurrentElements());
+        currentElements.setGuiRunnable(current_);
+        if (current_ == null) {
             return;
         }
-        current.run();
+        current_.run();
     }
     public void launchFileConf(String _fichier, boolean _direct) {
-        if (current != null) {
+        if (currentElements.getGuiRunnable() != null) {
             return;
         }
         String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams());
         if (content_ == null) {
             return;
         }
-        current = GuiProcess.build(_fichier, this,content_);
-        if (current == null) {
+        GuiRunnable current_ = GuiProcess.build(_fichier, content_, getCurrentElements());
+        currentElements.setGuiRunnable(current_);
+        if (current_ == null) {
             return;
         }
         if (_direct) {
-            current.run();
+            current_.run();
         } else {
-            FrameUtil.invokeLater(current, getFrames());
+            FrameUtil.invokeLater(current_, getFrames());
         }
-    }
-
-    public void setNullCurrent() {
-        current = null;
     }
 
     @Override
     public void quit() {
-        if (current != null&&current.isVisible()) {
+        GuiRunnable current_ = currentElements.getGuiRunnable();
+        if (current_ != null&&current_.isVisible()) {
             return;
         }
         basicDispose();
@@ -138,7 +137,8 @@ public final class WindowFull extends GroupFrame {
         //
     }
 
-    public GuiFactroy getFact() {
-        return fact;
+    public GuiInterpreterElements getCurrentElements() {
+        return currentElements;
     }
+
 }

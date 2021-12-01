@@ -12,8 +12,8 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class GuiContextFactory {
-    public static ResultsGuiContext buildDefKw(String _lang, StringList _mainArgs, WindowFull _window,
-                                               Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files) {
+    public static ResultsGuiContext buildDefKw(String _lang, StringList _mainArgs,
+                                               Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files, GuiInterpreterElements _currentElements) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
         if (!_lang.isEmpty()) {
@@ -26,12 +26,12 @@ public final class GuiContextFactory {
             _undefinedLgNames.allAlias(_exec.getAliases(), new StringMap<String>());
         }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
-        return build(_mainArgs,_window, _options, _exec,mess_,kwl_, _undefinedLgNames, _files);
+        return build(_mainArgs, _options, _exec,mess_,kwl_, _undefinedLgNames, _files, _currentElements);
     }
-    public static ResultsGuiContext build(StringList _mainArgs, WindowFull _window,
-                                          Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+    public static ResultsGuiContext build(StringList _mainArgs,
+                                          Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, GuiInterpreterElements _currentElements) {
         _definedLgNames.setExecutingOptions(_exec);
-        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs,_window);
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _currentElements);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames,fileBuilder_, _options);

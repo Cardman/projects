@@ -29,7 +29,7 @@ public final class GuiExecutingBlocks {
     private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
-    private WindowFull window;
+    private GuiInterpreterElements guiInterpreterElements;
     private ExecRootBlock actionListener;
     private ExecNamedFunctionBlock actionPerformed;
     private ExecRootBlock mouseListener;
@@ -69,15 +69,16 @@ public final class GuiExecutingBlocks {
     private ExecTypeFunction pairPaintSet;
     private DefaultClosingMainWindow eventClose;
 
-    public void initApplicationParts(StringList _mainArgs, WindowFull _window) {
+    public void initApplicationParts(StringList _mainArgs, GuiInterpreterElements _currentElements) {
         mainArgs = _mainArgs;
-        window = _window;
-        textLabel = _window.getCompoFactory().newPlainLabel("");
-        confirm = new OtherConfirmDialog(_window.getFrames());
+        guiInterpreterElements = _currentElements;
+        AbstractProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
+        textLabel = programInfos_.getCompoFactory().newPlainLabel("");
+        confirm = new OtherConfirmDialog(programInfos_);
     }
     private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
         eventClose = new DefaultClosingMainWindow(this, _context);
-        AbsOtherFrame fr_ = window.getFrames().getLightFrameFactory().newOtherFrame();
+        AbsOtherFrame fr_ = guiInterpreterElements.getProgramInfos().getLightFrameFactory().newOtherFrame();
         fr_.setMainFrame(true);
         fr_.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         frame = new FrameStruct(fr_);
@@ -528,21 +529,21 @@ public final class GuiExecutingBlocks {
     }
 
     public AbstractProgramInfos getFrames() {
-        return window.getFrames();
+        return guiInterpreterElements.getProgramInfos();
     }
 
     public AbstractImageFactory getImageFactory() {
-        return window.getImageFactory();
+        return guiInterpreterElements.getProgramInfos().getImageFactory();
     }
 
     public AbsCompoFactory getCompoFactory() {
-        return window.getCompoFactory();
+        return guiInterpreterElements.getProgramInfos().getCompoFactory();
     }
     public AbsLightFrameFactory getLightFrameFactory() {
-        return window.getFrames().getLightFrameFactory();
+        return guiInterpreterElements.getProgramInfos().getLightFrameFactory();
     }
     public GuiFactroy getFact(){
-        return window.getFact();
+        return guiInterpreterElements.getGuiFactroy();
     }
     public FrameStruct getFrame() {
         return frame;
@@ -552,8 +553,8 @@ public final class GuiExecutingBlocks {
         return mainArgs;
     }
 
-    public WindowFull getWindow() {
-        return window;
+    public GuiInterpreterElements getGuiInterpreterElements() {
+        return guiInterpreterElements;
     }
 
     public IntStruct stringWidth(FontStruct _font, Struct _string) {
