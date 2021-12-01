@@ -18,12 +18,10 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
     private final AbsGraphicList<String> list;
 
     private final AbsTextField textField;
-    private final ChangeableTitle changeableTitle;
     private final AbstractProgramInfos abs;
 
-    public AutoCompleteDocument(AbsTextField _field, StringList _aDictionary, ChangeableTitle _changeableTitle, AbstractProgramInfos _abs) {
+    public AutoCompleteDocument(AbsTextField _field, StringList _aDictionary, AbstractProgramInfos _abs) {
         textField = _field;
-        changeableTitle = _changeableTitle;
         dictionary.addAllElts(_aDictionary);
         popup = _abs.getCompoFactory().newAbsPopupMenu();
         abs = _abs;
@@ -49,23 +47,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
             return;
         }
         int height_ = textField.getHeight();
-        AbsCustComponent par_ = textField;
-        int x_ = changeableTitle.getLocationOnScreen().getXcoord();
-        int y_ = changeableTitle.getLocationOnScreen().getYcoord()+30;
-        while (par_ != null) {
-            x_ += par_.getXcoords();
-            y_ += par_.getYcoords();
-            par_ = par_.getParent();
-        }
-        popup.show(x_, y_ + height_);
-    }
-
-    @Override
-    public void focusGained() {
-        if (skip()) {
-            return;
-        }
-        FrameUtil.invokeLater(new FocusGained(this), abs);
+        popup.show(textField,0, height_);
     }
 
     /**
@@ -73,14 +55,6 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
      */
     void hideAutocompletePopup(){
         popup.setVisible(false);
-    }
-
-    @Override
-    public void focusLost() {
-        if (skip()) {
-            return;
-        }
-        FrameUtil.invokeLater(new FocusLost(this), abs);
     }
 
     @Override

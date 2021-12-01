@@ -173,7 +173,7 @@ public final class PaginatorPokemon extends Paginator {
             pk_.add(pkTr_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames());
+        nameAuto = new AutoCompleteDocument(name,pk_, _window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -194,7 +194,7 @@ public final class PaginatorPokemon extends Paginator {
             ab_.add(abTr_);
         }
         ability = getMain().getCompoFactory().newTextField(16);
-        abilityAuto = new AutoCompleteDocument(ability,ab_, getWindow(),_window.getFrames());
+        abilityAuto = new AutoCompleteDocument(ability,ab_, _window.getFrames());
 //        ability.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -215,7 +215,7 @@ public final class PaginatorPokemon extends Paginator {
             it_.add(abTr_);
         }
         item = getMain().getCompoFactory().newTextField(16);
-        itemAuto = new AutoCompleteDocument(item,it_, getWindow(),_window.getFrames());
+        itemAuto = new AutoCompleteDocument(item,it_, _window.getFrames());
 //        item.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -241,7 +241,7 @@ public final class PaginatorPokemon extends Paginator {
             mv_.add(mvTr_);
         }
         moves = getMain().getCompoFactory().newTextField(16);
-        movesAuto = new AutoCompleteDocument(moves,mv_, getWindow(),_window.getFrames());
+        movesAuto = new AutoCompleteDocument(moves,mv_, _window.getFrames());
 //        moves.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {

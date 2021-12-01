@@ -88,7 +88,7 @@ public final class PaginatorEgg extends Paginator {
             pk_.add(pkTr_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,pk_, getWindow(),_window.getFrames());
+        nameAuto = new AutoCompleteDocument(name,pk_, _window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {

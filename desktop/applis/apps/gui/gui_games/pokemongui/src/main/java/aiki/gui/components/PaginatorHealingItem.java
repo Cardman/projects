@@ -245,7 +245,7 @@ public final class PaginatorHealingItem extends Paginator {
             it_.add(abTr_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,it_, getWindow(),_window.getFrames());
+        nameAuto = new AutoCompleteDocument(name,it_, _window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {
@@ -264,7 +264,7 @@ public final class PaginatorHealingItem extends Paginator {
             st_.add(stTr_);
         }
         status = getMain().getCompoFactory().newTextField(16);
-        statusAuto = new AutoCompleteDocument(status,st_, getWindow(),_window.getFrames());
+        statusAuto = new AutoCompleteDocument(status,st_, _window.getFrames());
 //        status.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {

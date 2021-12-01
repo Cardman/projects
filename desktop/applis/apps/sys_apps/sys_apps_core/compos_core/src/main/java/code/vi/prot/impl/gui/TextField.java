@@ -39,7 +39,6 @@ public final class TextField extends CustComponent implements AbsTextField {
 
     public void addAutoComplete(AbsAutoCompleteListener _auto){
         WrAutoCompleteListener wr_ = new WrAutoCompleteListener(_auto);
-        field.addFocusListener(wr_);
         field.getDocument().addDocumentListener(wr_);
     }
 

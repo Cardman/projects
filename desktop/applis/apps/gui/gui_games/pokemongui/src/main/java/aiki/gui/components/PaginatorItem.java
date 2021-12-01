@@ -121,7 +121,7 @@ public final class PaginatorItem extends Paginator {
             it_.add(abTr_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,it_, getWindow(),_window.getFrames());
+        nameAuto = new AutoCompleteDocument(name,it_, _window.getFrames());
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
 //            public void updateText() {

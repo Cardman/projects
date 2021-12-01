@@ -172,7 +172,7 @@ public final class PaginatorMove extends Paginator {
             mvs_.add(mv_);
         }
         name = getMain().getCompoFactory().newTextField(16);
-        nameAuto = new AutoCompleteDocument(name,mvs_, getWindow(),_window.getFrames());
+        nameAuto = new AutoCompleteDocument(name,mvs_, _window.getFrames());
         modeName.setListener(new ChangedModeEvent(modeName, nameAuto));
 
         StringList ts_ = new StringList();
@@ -181,7 +181,7 @@ public final class PaginatorMove extends Paginator {
             ts_.add(mv_);
         }
         types = getMain().getCompoFactory().newTextField(16);
-        typesAuto = new AutoCompleteDocument(types,ts_, getWindow(),_window.getFrames());
+        typesAuto = new AutoCompleteDocument(types,ts_, _window.getFrames());
         modeTypes.setListener(new ChangedModeEvent(modeTypes, typesAuto));
 //        name.getDocument().addDocumentListener(new DocumentAdaptater() {
 //
