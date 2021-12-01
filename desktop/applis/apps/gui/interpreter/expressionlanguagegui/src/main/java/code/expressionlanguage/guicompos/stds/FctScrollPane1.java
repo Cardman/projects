@@ -20,6 +20,6 @@ public final class FctScrollPane1 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(ScrollPaneStruct.newScroll(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),aliasScrollPane,_guiEx.getWindow().getCompoFactory()));
+        return new ArgumentWrapper(ScrollPaneStruct.newScroll(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),aliasScrollPane,_guiEx.getCompoFactory()));
     }
 }

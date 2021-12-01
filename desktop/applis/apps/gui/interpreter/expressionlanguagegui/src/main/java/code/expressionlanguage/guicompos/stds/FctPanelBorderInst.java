@@ -20,6 +20,6 @@ public final class FctPanelBorderInst extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(PanelBorderStruct.newBorder(aliasPanelBorder, _guiEx.getWindow().getCompoFactory()));
+        return new ArgumentWrapper(PanelBorderStruct.newBorder(aliasPanelBorder, _guiEx.getCompoFactory()));
     }
 }

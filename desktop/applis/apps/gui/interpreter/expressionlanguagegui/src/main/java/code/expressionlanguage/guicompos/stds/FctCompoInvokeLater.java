@@ -28,7 +28,7 @@ public final class FctCompoInvokeLater implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        CustComponentStruct.invokeLater((RunnableContextEl) _cont, guiEx.getWindow().getFrames(),_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
+        CustComponentStruct.invokeLater((RunnableContextEl) _cont, guiEx.getFrames(),_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

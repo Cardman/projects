@@ -22,8 +22,8 @@ public final class FctCombo2 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        AbstractGraphicComboBoxGenerator geneComboBox_ = _guiEx.getWindow().getFrames().getGeneComboBox();
+        AbstractGraphicComboBoxGenerator geneComboBox_ = _guiEx.getFrames().getGeneComboBox();
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getWindow().getImageFactory(),newList(argumentWrappers_.get(1).getValue().getStruct()), ((NumberStruct)argumentWrappers_.get(0).getValue().getStruct()).intStruct(), _guiEx.getWindow().getCompoFactory())));
+        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(_guiEx.getImageFactory(),newList(argumentWrappers_.get(1).getValue().getStruct()), ((NumberStruct)argumentWrappers_.get(0).getValue().getStruct()).intStruct(), _guiEx.getCompoFactory())));
     }
 }

@@ -20,6 +20,6 @@ public final class FctTabbedPane extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new TabbedPaneStruct(aliasTabbedPane,_guiEx.getWindow().getCompoFactory()));
+        return new ArgumentWrapper(new TabbedPaneStruct(aliasTabbedPane,_guiEx.getCompoFactory()));
     }
 }

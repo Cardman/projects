@@ -17,6 +17,10 @@ import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.OtherConfirmDialog;
 import code.gui.events.AbsWindowListener;
+import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbsLightFrameFactory;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -523,6 +527,23 @@ public final class GuiExecutingBlocks {
         }
     }
 
+    public AbstractProgramInfos getFrames() {
+        return window.getFrames();
+    }
+
+    public AbstractImageFactory getImageFactory() {
+        return window.getImageFactory();
+    }
+
+    public AbsCompoFactory getCompoFactory() {
+        return window.getCompoFactory();
+    }
+    public AbsLightFrameFactory getLightFrameFactory() {
+        return window.getFrames().getLightFrameFactory();
+    }
+    public GuiFactroy getFact(){
+        return window.getFact();
+    }
     public FrameStruct getFrame() {
         return frame;
     }

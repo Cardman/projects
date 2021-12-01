@@ -17,6 +17,6 @@ public final class FctTreeNode0 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new TreeNodeStruct(_guiEx.getWindow().getCompoFactory().newMutableTreeNode("")));
+        return new ArgumentWrapper(new TreeNodeStruct(_guiEx.getCompoFactory().newMutableTreeNode("")));
     }
 }

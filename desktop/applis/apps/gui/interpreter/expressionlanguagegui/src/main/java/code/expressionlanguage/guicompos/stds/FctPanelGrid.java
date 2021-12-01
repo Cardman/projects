@@ -32,6 +32,6 @@ public final class FctPanelGrid implements StdCaller {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(PanelStruct.newGrid(aliasPanel,((NumberStruct)argumentWrappers_.get(0).getValue().getStruct()).intStruct(),((NumberStruct)argumentWrappers_.get(1).getValue().getStruct()).intStruct(),guiExecutingBlocks.getWindow().getCompoFactory()));
+        return new ArgumentWrapper(PanelStruct.newGrid(aliasPanel,((NumberStruct)argumentWrappers_.get(0).getValue().getStruct()).intStruct(),((NumberStruct)argumentWrappers_.get(1).getValue().getStruct()).intStruct(),guiExecutingBlocks.getCompoFactory()));
     }
 }

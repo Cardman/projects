@@ -20,6 +20,6 @@ public final class FctTextField2 extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new TextFieldStruct(aliasTextField,(NumberStruct) _firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_guiEx.getWindow().getCompoFactory()));
+        return new ArgumentWrapper(new TextFieldStruct(aliasTextField,(NumberStruct) _firstArgs.getArgumentWrappers().get(0).getValue().getStruct(),_guiEx.getCompoFactory()));
     }
 }

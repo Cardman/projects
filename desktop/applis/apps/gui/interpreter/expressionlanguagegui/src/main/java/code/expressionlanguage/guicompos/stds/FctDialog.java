@@ -18,7 +18,7 @@ public final class FctDialog extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        DialogStruct di_ = new DialogStruct(_guiEx.getWindow().getFrames().getLightFrameFactory().newOtherDialog());
+        DialogStruct di_ = new DialogStruct(_guiEx.getLightFrameFactory().newOtherDialog());
         ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
         return new ArgumentWrapper(di_);
     }

@@ -18,7 +18,7 @@ public final class FctFrame extends FctCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        FrameStruct fr_ = new FrameStruct(_guiEx.getWindow().getFrames().getLightFrameFactory().newOtherFrame());
+        FrameStruct fr_ = new FrameStruct(_guiEx.getLightFrameFactory().newOtherFrame());
         ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
         return new ArgumentWrapper(fr_);
     }

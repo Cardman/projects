@@ -29,6 +29,6 @@ public final class FctTree extends FctCompoCtor {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasNullPe(), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        return new ArgumentWrapper(new TreeStruct(aliasTree, _guiEx.getWindow().getCompoFactory().newTreeGui(((TreeNodeStruct) arg_).getTreeNode())));
+        return new ArgumentWrapper(new TreeStruct(aliasTree, _guiEx.getCompoFactory().newTreeGui(((TreeNodeStruct) arg_).getTreeNode())));
     }
 }

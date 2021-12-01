@@ -29,6 +29,6 @@ public final class FctPanelFlow implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        return new ArgumentWrapper(PanelStruct.newFlow(aliasPanel,guiExecutingBlocks.getWindow().getCompoFactory()));
+        return new ArgumentWrapper(PanelStruct.newFlow(aliasPanel,guiExecutingBlocks.getCompoFactory()));
     }
 }

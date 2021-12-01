@@ -46,6 +46,6 @@ public final class FctSplitPane extends FctCompoCtor {
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_cont, _cont.getStandards().getContent().getCoreNames().getAliasIllegalArg(), _stackCall)));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        return new ArgumentWrapper(new SplitPaneStruct(aliasSplitPane,argumentWrappers_.get(0).getValue().getStruct(),left_,right_,_guiEx.getWindow().getCompoFactory()));
+        return new ArgumentWrapper(new SplitPaneStruct(aliasSplitPane,argumentWrappers_.get(0).getValue().getStruct(),left_,right_,_guiEx.getCompoFactory()));
     }
 }

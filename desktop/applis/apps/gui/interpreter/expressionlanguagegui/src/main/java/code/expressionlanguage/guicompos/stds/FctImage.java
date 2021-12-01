@@ -26,6 +26,6 @@ public final class FctImage implements StdCaller {
         Struct w_ = argumentWrappers_.get(0).getValue().getStruct();
         Struct h_ = argumentWrappers_.get(1).getValue().getStruct();
         Struct a_ = argumentWrappers_.get(2).getValue().getStruct();
-        return new ArgumentWrapper(new ImageStruct(guiEx.getWindow().getImageFactory(),((NumberStruct)w_).intStruct(),((NumberStruct)h_).intStruct(), BooleanStruct.isTrue(a_)));
+        return new ArgumentWrapper(new ImageStruct(guiEx.getImageFactory(),((NumberStruct)w_).intStruct(),((NumberStruct)h_).intStruct(), BooleanStruct.isTrue(a_)));
     }
 }

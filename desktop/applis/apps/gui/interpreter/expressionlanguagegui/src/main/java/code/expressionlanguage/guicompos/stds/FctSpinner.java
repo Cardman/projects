@@ -21,6 +21,6 @@ public final class FctSpinner extends FctCompoCtor {
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
-        return new ArgumentWrapper(new SpinnerStruct(aliasSpinner,argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct(),argumentWrappers_.get(2).getValue().getStruct(),argumentWrappers_.get(3).getValue().getStruct(),_guiEx.getWindow().getCompoFactory()));
+        return new ArgumentWrapper(new SpinnerStruct(aliasSpinner,argumentWrappers_.get(0).getValue().getStruct(),argumentWrappers_.get(1).getValue().getStruct(),argumentWrappers_.get(2).getValue().getStruct(),argumentWrappers_.get(3).getValue().getStruct(),_guiEx.getCompoFactory()));
     }
 }

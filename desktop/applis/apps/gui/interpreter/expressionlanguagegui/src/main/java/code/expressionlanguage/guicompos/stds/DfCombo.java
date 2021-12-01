@@ -1,7 +1,6 @@
 package code.expressionlanguage.guicompos.stds;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
@@ -24,7 +23,7 @@ public final class DfCombo extends DfCompoCtor {
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
         GuiExecutingBlocks guiEx_ = ((LgNamesGui) _cont.getStandards()).getGuiExecutingBlocks();
-        AbstractGraphicComboBoxGenerator geneComboBox_ = guiEx_.getWindow().getFrames().getGeneComboBox();
-        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(guiEx_.getWindow().getImageFactory(),new StringList(),-1, guiEx_.getWindow().getCompoFactory())));
+        AbstractGraphicComboBoxGenerator geneComboBox_ = guiEx_.getFrames().getGeneComboBox();
+        return new ArgumentWrapper(new GraphicComboStruct(aliasCombo, geneComboBox_.createCombo(guiEx_.getImageFactory(),new StringList(),-1, guiEx_.getCompoFactory())));
     }
 }

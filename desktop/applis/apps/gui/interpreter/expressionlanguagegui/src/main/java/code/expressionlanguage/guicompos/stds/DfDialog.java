@@ -19,7 +19,7 @@ public final class DfDialog extends DfCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        DialogStruct di_ = new DialogStruct(((LgNamesGui)_cont.getStandards()).getGuiExecutingBlocks().getWindow().getFrames().getLightFrameFactory().newOtherDialog());
+        DialogStruct di_ = new DialogStruct(((LgNamesGui)_cont.getStandards()).getGuiExecutingBlocks().getLightFrameFactory().newOtherDialog());
         ((GuiContextEl)_cont).getGuiInit().getWindows().add(di_,false);
         return new ArgumentWrapper(di_);
     }
