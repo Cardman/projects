@@ -7,12 +7,15 @@ public final class TryBlockStack extends AbstractStask implements EnteredStack {
     private AbruptCallingFinally calling;
     private Struct exception;
 
-    private ExecBracedBlock execLastBlock;
+    private final ExecBracedBlock execLastBlock;
 
     private ExecBracedBlock execCurrentBlock;
 
     private boolean entered;
 
+    public TryBlockStack(ExecBracedBlock _execLastBlock) {
+        execLastBlock = _execLastBlock;
+    }
     public boolean isEntered() {
         return entered;
     }
@@ -25,10 +28,6 @@ public final class TryBlockStack extends AbstractStask implements EnteredStack {
         return execLastBlock;
     }
 
-
-    public void setExecLastBlock(ExecBracedBlock _execLastBlock) {
-        execLastBlock = _execLastBlock;
-    }
 
     @Override
     public ExecBracedBlock getCurrentVisitedBlock() {

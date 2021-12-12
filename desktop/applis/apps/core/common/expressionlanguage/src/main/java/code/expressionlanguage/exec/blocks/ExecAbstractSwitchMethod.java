@@ -77,12 +77,15 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         return retRef;
     }
 
-    public ExecBlock processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        ExecResultCase res_ = ExecAbstractSwitchBlock.innerProcess(getImportedParamType(), _cont, _stack, this, _if, _arg, 0);
-        lastVisMeth(_if, res_);
-        return cover(_cont, _if, _arg, _stack, res_);
+    public ExecBlock processCase(ContextEl _cont, Argument _arg, StackCall _stack) {
+        ExecResultCase res_ = ExecAbstractSwitchBlock.innerProcess(getImportedParamType(), _cont, _stack, this, _arg, 0);
+        ExecListLastBkSw infos_ = new ExecListLastBkSw(this);
+        ExecBracedBlock last_ = lastVisMeth(infos_, res_);
+        SwitchBlockStack sw_ = new SwitchBlockStack(this,last_);
+        sw_.setLabel("");
+        return cover(_cont, sw_, _arg, _stack, res_);
     }
-    protected abstract ExecResultCase lastVisMeth(SwitchBlockStack _if, ExecResultCase _res);
+    protected abstract ExecBracedBlock lastVisMeth(ExecListLastBkSw _if, ExecResultCase _res);
     public ExecBlock cover(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecResultCase _found) {
         if (_cont.callsOrException(_stack)) {
             return this;
@@ -90,8 +93,9 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         AbstractPageEl page_ = _stack.getLastPage();
         _cont.getCoverage().passSwitchMethod(_found, _arg, _stack);
         page_.clearCurrentEls();
-        ExecAbstractSwitchBlock.visit(_if,_found,page_,ExecResultCase.block(_found));
-        return ExecResultCase.block(_found);
+        ExecBracedBlock foundBk_ = ExecResultCase.block(_found);
+        ExecAbstractSwitchBlock.visit(_if,_found,page_, foundBk_);
+        return foundBk_;
     }
 
     public CacheInfo getCacheInfo() {

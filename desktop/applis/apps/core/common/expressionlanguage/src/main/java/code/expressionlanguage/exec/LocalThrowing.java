@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.stacks.AbstractStask;
+import code.expressionlanguage.exec.stacks.TryBlockStack;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -37,15 +38,17 @@ public final class LocalThrowing {
     }
 
     private static boolean setRemovedCallingFinallyToProcess(ContextEl _conf, StackCall _stackCall,Struct _custCause, AbstractPageEl _bkIp, AbstractStask _bl) {
-        ExecBlock currentBlock_ = _bl.getCurrentVisitedBlock();
-        if (currentBlock_ instanceof ExecTryEval) {
-            ExecAbstractCatchEval catchElt_ = retCatch(_conf, _stackCall, _custCause, _bkIp, currentBlock_);
-            if (catchElt_ != null) {
-                _bl.setCurrentVisitedBlock(catchElt_);
-                _conf.getCoverage().passCatches(catchElt_,_stackCall);
-                ExecBlock childCatch_ = catchElt_.getFirstChild();
-                _bkIp.setBlock(childCatch_);
-                return true;
+        if (_bl instanceof TryBlockStack) {
+            ExecBlock currentBlock_ = _bl.getCurrentVisitedBlock();
+            if (currentBlock_ instanceof ExecTryEval) {
+                ExecAbstractCatchEval catchElt_ = retCatch(_conf, _stackCall, _custCause, _bkIp, currentBlock_);
+                if (catchElt_ != null) {
+                    ((TryBlockStack)_bl).setCurrentVisitedBlock(catchElt_);
+                    _conf.getCoverage().passCatches(catchElt_,_stackCall);
+                    ExecBlock childCatch_ = catchElt_.getFirstChild();
+                    _bkIp.setBlock(childCatch_);
+                    return true;
+                }
             }
         }
         return ExecHelperBlocks.setRemovedCallingFinallyToProcess(_bkIp, _bl, null, _custCause);

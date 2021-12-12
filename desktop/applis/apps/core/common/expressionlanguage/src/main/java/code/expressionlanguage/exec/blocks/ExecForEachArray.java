@@ -25,7 +25,7 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
         String className_ = _stack.formatVarType(getImportedClassName());
         Struct struct_ = ExecClassArgumentMatching.defaultValue(className_, _cont);
         ip_.putValueVar(getVariableName(), LocalVariable.newLocalVariable(struct_,className_));
-        incrOrFinish(_cont, hasNext(_cont,_l, _stack),_l, _stack);
+        ExecHelperBlocks.incrOrFinishLoop(this,_cont, hasNext(_cont,_l, _stack),_l, _stack);
     }
 
     @Override

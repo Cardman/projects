@@ -37,9 +37,9 @@ public final class ExecHelperBlocks {
         }
         if (_label.isEmpty()) {
             if (bl_ instanceof LoopBlockStack) {
-                ExecBlock forLoopLoc_ = bl_.getCurrentVisitedBlock();
+                ExecBlock forLoopLoc_ = ((LoopBlockStack)bl_).getExecBlock();
                 _ip.setBlock(forLoopLoc_);
-                ((LoopBlockStack)bl_).getContent().setFinished(true);
+                finishLoop(((LoopBlockStack)bl_).getContent());
                 return null;
             }
             if (bl_ instanceof SwitchBlockStack) {
@@ -51,9 +51,9 @@ public final class ExecHelperBlocks {
         }
         if (StringUtil.quickEq(_label, bl_.getLabel())){
             if (bl_ instanceof LoopBlockStack) {
-                ExecBlock forLoopLoc_ = bl_.getCurrentVisitedBlock();
+                ExecBlock forLoopLoc_ = ((LoopBlockStack)bl_).getExecBlock();
                 _ip.setBlock(forLoopLoc_);
-                ((LoopBlockStack)bl_).getContent().setFinished(true);
+                finishLoop(((LoopBlockStack)bl_).getContent());
             }
             if (bl_ instanceof IfBlockStack) {
                 ExecBlock forLoopLoc_ = ((IfBlockStack)bl_).getLastBlock();
@@ -79,32 +79,30 @@ public final class ExecHelperBlocks {
             return null;
         }
         if (bl_ instanceof LoopBlockStack) {
-            ExecBracedBlock br_ = bl_.getCurrentVisitedBlock();
+            ExecBracedBlock br_ = ((LoopBlockStack)bl_).getExecBlock();
             if (_label.isEmpty()||StringUtil.quickEq(_label, bl_.getLabel())){
-                LoopBlockStack lSt_;
-                lSt_ = (LoopBlockStack) bl_;
-                removeLocalVarsLoop(_ip,br_);
                 _ip.setBlock(br_);
-                processLastElementLoop(_conf,_stackCall,br_,lSt_);
+                nextLoopIterStack(_conf, _ip, _stackCall, br_, (LoopBlockStack) bl_);
                 return null;
             }
         }
         return bl_;
     }
 
-    public static void setVisited(StackCall _stack, ExecBracedBlock _block) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        ip_.setBlock(_block.getFirstChild());
-        setVisited(ip_, _block);
+    private static void nextLoopIterStack(ContextEl _conf, AbstractPageEl _ip, StackCall _stackCall, ExecBracedBlock br_, LoopBlockStack lSt_) {
+        removeLocalVarsLoop(_ip, br_);
+        processLastElementLoop(_conf, _stackCall, br_, lSt_);
     }
 
-    public static void setVisited(AbstractPageEl _ip, ExecBracedBlock _block) {
-        AbstractStask abstractStask_ = _ip.tryGetLastStack();
-        if (abstractStask_ == null) {
-            _ip.setNullReadWrite();
+    public static void setVisited(StackCall _stack, ExecBracedBlock _block) {
+        AbstractPageEl ip_ = _stack.getLastPage();
+        AbstractStask abstractStask_ = ip_.tryGetLastStack();
+        if (!(abstractStask_ instanceof SwitchBlockStack)) {
+            ip_.setNullReadWrite();
             return;
         }
-        abstractStask_.setCurrentVisitedBlock(_block);
+        ip_.setBlock(_block.getFirstChild());
+        ((SwitchBlockStack)abstractStask_).setCurrentVisitedBlock(_block);
     }
 
     public static void processFinally(ContextEl _cont, ExecBracedBlock _block, StackCall _stackCall) {
@@ -118,14 +116,19 @@ public final class ExecHelperBlocks {
             ip_.setNullReadWrite();
             return;
         }
-        ts_.setCurrentVisitedBlock(_block);
+        ((EnteredStack)ts_).setCurrentVisitedBlock(_block);
         if (((EnteredStack)ts_).isEntered()) {
             processBlockAndRemove(_cont, _block, _stackCall);
             return;
         }
-        ((EnteredStack)ts_).setEntered(true);
-        ip_.setBlock(_block.getFirstChild());
+        enterIfBlock(_block, ip_, (EnteredStack) ts_);
     }
+
+    private static void enterIfBlock(ExecBracedBlock _block, AbstractPageEl _ip, EnteredStack _ts) {
+        _ts.setEntered(true);
+        _ip.setBlock(_block.getFirstChild());
+    }
+
     public static void processIf(ContextEl _cont, String _label, ExecCondition _cond, StackCall _stackCall, ExecOperationNodeListOff _condition) {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         if (ip_.matchStatement(_cond)) {
@@ -136,20 +139,18 @@ public final class ExecHelperBlocks {
         if (assert_ == ConditionReturn.CALL_EX) {
             return;
         }
-        IfBlockStack if_ = new IfBlockStack();
-        if_.setExecLastBlock(_cond);
-        if_.setLabel(_label);
+        ExecBracedBlock lastBlock_ = _cond;
         ExecBlock n_ = _cond.getNextSibling();
         while (isNextIfParts(n_)) {
-            if_.setExecLastBlock((ExecBracedBlock) n_);
+            lastBlock_ = (ExecBracedBlock) n_;
             n_ = n_.getNextSibling();
         }
-        if_.setExecBlock(_cond);
+        IfBlockStack if_ = new IfBlockStack(_cond,lastBlock_);
+        if_.setLabel(_label);
         if_.setCurrentVisitedBlock(_cond);
         ip_.addBlock(if_);
         if (assert_ == ConditionReturn.YES) {
-            if_.setEntered(true);
-            ip_.setBlock(_cond.getFirstChild());
+            enterIfBlock(_cond, ip_, if_);
         } else {
             ExecBlock next_ = _cond.getNextSibling();
             if (isNextIfParts(next_)) {
@@ -164,20 +165,20 @@ public final class ExecHelperBlocks {
             ip_.setNullReadWrite();
             return;
         }
-        if_.setCurrentVisitedBlock(_cond);
+        ((EnteredStack)if_).setCurrentVisitedBlock(_cond);
         if (!((EnteredStack)if_).isEntered()) {
             ConditionReturn assert_ = evaluateConditionBas(_cont, _stackCall, _cond, _condition);
             if (assert_ == ConditionReturn.CALL_EX) {
                 return;
             }
             if (assert_ == ConditionReturn.YES) {
-                ((EnteredStack)if_).setEntered(true);
-                ip_.setBlock(_cond.getFirstChild());
+                enterIfBlock(_cond, ip_, (EnteredStack) if_);
                 return;
             }
         }
-        if (isNextIfParts(_cond.getNextSibling())) {
-            ip_.setBlock(_cond.getNextSibling());
+        ExecBlock next_ = _cond.getNextSibling();
+        if (isNextIfParts(next_)) {
+            ip_.setBlock(next_);
             return;
         }
         processBlockAndRemove(_cont, _cond, _stackCall);
@@ -196,9 +197,13 @@ public final class ExecHelperBlocks {
         }
         ((LoopBlockStack) l_).getContent().setEvaluatingKeepLoop(true);
         ConditionReturn keep_ = evaluateConditionBas(_cont, _stackCall, _cond, _condition);
-        afterConditLoop(keep_, ((LoopBlockStack) l_).getContent());
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
+        }
+        if (keep_ == ConditionReturn.NO) {
+            finishLoop(((LoopBlockStack) l_).getContent());
+        } else {
+            ((LoopBlockStack) l_).getContent().setEvaluatingKeepLoop(false);
         }
         ip_.setBlock(_cond.getPreviousSibling());
     }
@@ -233,9 +238,8 @@ public final class ExecHelperBlocks {
             return;
         }
         AbstractPageEl ip_ = _stack.getLastPage();
-        LoopBlockStack l_ = new LoopBlockStack();
+        LoopBlockStack l_ = new LoopBlockStack(_execLoop);
         l_.setLabel(_label);
-        l_.setCurrentVisitedBlock(_execLoop);
         boolean finished_ = _res == ConditionReturn.NO;
         l_.getContent().setFinished(finished_);
         ip_.addBlock(l_);
@@ -245,20 +249,21 @@ public final class ExecHelperBlocks {
     public static void processLastElementLoopWhile(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecWhileCondition _loop, ExecOperationNodeListOff _condition) {
         _l.getContent().setEvaluatingKeepLoop(true);
         ConditionReturn keep_ = evaluateConditionBas(_conf, _stack, _loop, _condition);
-        afterConditLoop(keep_, _l.getContent());
+        afterConditLoop(keep_, _l.getContent(),_stack,_loop);
     }
 
-    public static void afterConditLoop(ConditionReturn _keep, LoopBlockStackContent _content) {
+    private static void afterConditLoop(ConditionReturn _keep, LoopBlockStackContent _content, StackCall _stack, ExecBracedBlock _braced) {
         if (_keep == ConditionReturn.CALL_EX) {
             return;
         }
         if (_keep == ConditionReturn.NO) {
-            _content.setFinished(true);
+            finishLoop(_content);
+        } else {
+            goToFirstBlock(_content,_braced, _stack.getLastPage());
         }
-        _content.setEvaluatingKeepLoop(false);
     }
 
-    public static void processLastElementLoopDo(StackCall _stack, ExecDoBlock _loop) {
+    private static void processLastElementLoopDo(StackCall _stack, ExecDoBlock _loop) {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.setBlock(_loop.getNextSibling());
     }
@@ -270,22 +275,22 @@ public final class ExecHelperBlocks {
             processVisitedLoop(c_, _loop, _loop.getNextSibling(), _cont, _stack, ip_);
             return;
         }
-        LoopBlockStack l_ = new LoopBlockStack();
+        LoopBlockStack l_ = new LoopBlockStack(_loop);
         l_.setLabel(_label);
-        l_.setCurrentVisitedBlock(_loop);
         ip_.addBlock(l_);
-        ip_.setBlock(_loop.getFirstChild());
+        goToFirstBlock(l_.getContent(), _loop,ip_);
     }
 
     public static void processTry(StackCall _stack, String _label, ExecTryEval _block) {
         AbstractPageEl ip_ = _stack.getLastPage();
         ExecBlock n_ = _block.getNextSibling();
-        TryBlockStack tryStack_ = new TryBlockStack();
-        tryStack_.setLabel(_label);
+        ExecBracedBlock last_ = null;
         while (isNextTryParts(n_)) {
-            tryStack_.setExecLastBlock((ExecBracedBlock) n_);
+            last_ = (ExecBracedBlock) n_;
             n_ = n_.getNextSibling();
         }
+        TryBlockStack tryStack_ = new TryBlockStack(last_);
+        tryStack_.setLabel(_label);
         tryStack_.setCurrentVisitedBlock(_block);
         ip_.addBlock(tryStack_);
         ip_.setBlock(_block.getFirstChild());
@@ -302,6 +307,20 @@ public final class ExecHelperBlocks {
 
     private static boolean isNextTryParts(ExecBlock _n) {
         return _n instanceof ExecAbstractCatchEval || _n instanceof ExecFinallyEval;
+    }
+
+    public static void processSwitch(ContextEl _cont, StackCall _stack, String _label, ExecOperationNodeListOff _value, ExecAbstractSwitchBlock _bl) {
+        AbstractPageEl ip_ = _stack.getLastPage();
+        if (ip_.matchStatement(_bl)) {
+            processBlockAndRemove(_cont, _bl, _stack);
+            return;
+        }
+        ip_.globalOffset(_value.getOffset());
+        Argument arg_ = tryToCalculate(_cont, IndexConstants.FIRST_INDEX, _stack, _value.getList(), 0, _bl);
+        if (_cont.callsOrException(_stack)) {
+            return;
+        }
+        _bl.processCase(_cont,_label,arg_, _stack);
     }
 
     public static void processLastElementLoopMutable(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecOperationNodeListOff _step, StringList _variableNames, ExecOperationNodeListOff _exp, ExecForMutableIterativeLoop _block) {
@@ -322,7 +341,7 @@ public final class ExecHelperBlocks {
             }
         }
         ConditionReturn keep_ = evaluateCondition(_conf, index_, _stack, _exp, _block);
-        afterConditLoop(keep_, _l.getContent());
+        afterConditLoop(keep_, _l.getContent(),_stack,_block);
     }
 
     public static void processMutableFor(ContextEl _cont, StackCall _stack, ExecOperationNodeListOff _init, ExecOperationNodeListOff _exp, String _label, StringList _variableNames, ExecForMutableIterativeLoop _bl) {
@@ -430,6 +449,50 @@ public final class ExecHelperBlocks {
 
     }
 
+    private static void processLastElementLoopLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecAbstractForEachLoop _loop) {
+        _l.getContent().setEvaluatingKeepLoop(true);
+        ConditionReturn hasNext_ = _loop.hasNext(_conf,_l, _stack);
+        if (hasNext_ == ConditionReturn.CALL_EX) {
+            return;
+        }
+        incrOrFinishLoop(_loop,_conf, hasNext_,_l, _stack);
+    }
+
+    static void incrOrFinishLoop(ExecAbstractForEachLoop _loop,ContextEl _cont, ConditionReturn _hasNext, LoopBlockStack _l, StackCall _stackCall) {
+        AbstractPageEl ip_ = _stackCall.getLastPage();
+        if (_hasNext == ConditionReturn.NO) {
+            ip_.clearCurrentEls();
+            _cont.getCoverage().passLoop(_loop, new Argument(BooleanStruct.of(false)), _stackCall);
+            finishLoop(_l.getContent());
+            return;
+        }
+        _cont.getCoverage().passLoop(_loop, new Argument(BooleanStruct.of(true)), _stackCall);
+        incrementLoopLoop(_loop,_cont, _l, _stackCall);
+    }
+
+    private static void finishLoop(LoopBlockStackContent _content) {
+        _content.setEvaluatingKeepLoop(false);
+        _content.setFinished(true);
+    }
+
+    static void incrementLoopLoop(ExecAbstractForEachLoop _bk, ContextEl _conf, LoopBlockStack _l, StackCall _stackCall) {
+        _l.getContent().setIndex(_l.getContent().getIndex() + 1);
+        AbstractPageEl abs_ = _stackCall.getLastPage();
+
+        abs_.globalOffset(_bk.getVariableNameOffset());
+        Argument arg_ = _bk.retrieveValue(_conf,_l, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
+            return;
+        }
+        abs_.clearCurrentEls();
+        ExecTemplates.setWrapValue(_conf, _bk.getVariableName(), arg_,-1, abs_.getCache(), abs_.getRefParams(), _stackCall);
+        ExecTemplates.incrIndexLoop(_conf, _bk.getVariableName(), -1, abs_.getCache(), abs_.getVars(), _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
+            return;
+        }
+        goToFirstBlock(_l.getContent(), _bk, abs_);
+    }
+
     public static ConditionReturn hasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, String _locName, CustList<ExecOperationNode> _el, ExecBlock _coveredBlock) {
         _stackCall.getLastPage().putInternVars(_locName, _l.getContent().getStructIterator(), _conf);
         Argument arg_ = tryToCalculate(_conf, IndexConstants.FIRST_INDEX, _stackCall, _el, 0, _coveredBlock);
@@ -457,10 +520,9 @@ public final class ExecHelperBlocks {
         }
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         Struct iterStr_ = arg_.getStruct();
-        LoopBlockStack l_ = new LoopBlockStack();
+        LoopBlockStack l_ = new LoopBlockStack(_block);
         l_.setLabel(_label);
         l_.getContent().setIndex(-1);
-        l_.setCurrentVisitedBlock(_block);
         l_.getContent().setStructIterator(iterStr_);
         l_.getContent().setMaxIteration(length_);
         l_.getContent().setContainer(_its);
@@ -474,9 +536,9 @@ public final class ExecHelperBlocks {
         return tryToCalculate(_conf,IndexConstants.SECOND_INDEX,_stack, _conf.getClasses().getExpsNextCust(),0, _coveredBlock);
     }
 
-    public static void processLastElementLoopTable(ContextEl _conf, LoopBlockStack _l, StackCall _stack, String _variableNameFirst, String _variableNameSecond, ExecForEachTable _block) {
+    private static void processLastElementLoopTable(ContextEl _conf, LoopBlockStack _l, StackCall _stack, String _variableNameFirst, String _variableNameSecond, ExecForEachTable _block) {
         _l.getContent().setEvaluatingKeepLoop(true);
-        ConditionReturn has_ = iteratorHasNext(_conf, _l, _stack, _block);
+        ConditionReturn has_ = iteratorHasNextTable(_conf, _l, _stack, _block);
         if (has_ == ConditionReturn.CALL_EX) {
             return;
         }
@@ -484,12 +546,11 @@ public final class ExecHelperBlocks {
 
         if (hasNext_) {
             _conf.getCoverage().passLoop(_block, new Argument(BooleanStruct.of(true)), _stack);
-            incrementLoop(_conf, _l, _stack, _variableNameFirst, _variableNameSecond, _block);
+            incrementLoopTable(_conf, _l, _stack, _variableNameFirst, _variableNameSecond, _block);
         } else {
             _conf.getCoverage().passLoop(_block, new Argument(BooleanStruct.of(false)), _stack);
             _stack.getLastPage().clearCurrentEls();
-            _l.getContent().setFinished(true);
-            _l.getContent().setEvaluatingKeepLoop(false);
+            finishLoop(_l.getContent());
         }
     }
 
@@ -513,11 +574,10 @@ public final class ExecHelperBlocks {
             return;
         }
         Struct iterStr_ = arg_.getStruct();
-        LoopBlockStack l_ = new LoopBlockStack();
+        LoopBlockStack l_ = new LoopBlockStack(_block);
         l_.setLabel(_label);
         l_.getContent().setIndex(-1);
         l_.getContent().setFinished(false);
-        l_.setCurrentVisitedBlock(_block);
         l_.getContent().setStructIterator(iterStr_);
         l_.getContent().setMaxIteration(length_);
         ip_.addBlock(l_);
@@ -540,7 +600,7 @@ public final class ExecHelperBlocks {
         lv_.setIndexClassName(_block.getImportedClassIndexName());
         varsLoop_.put(_variableNameSecond, lv_);
         ip_.putValueVar(_variableNameSecond, LocalVariable.newLocalVariable(defSecond_,className_));
-        iteratorHasNext(_cont, l_, _stack, _block);
+        iteratorHasNextTable(_cont, l_, _stack, _block);
     }
 
     private static Struct processLoop(ExecOperationNodeListOff _expression, ContextEl _conf, StackCall _stackCall, ExecBlock _coveredBlock) {
@@ -558,7 +618,7 @@ public final class ExecHelperBlocks {
         return ito_;
 
     }
-    private static void incrementLoop(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, String _variableNameFirst, String _variableNameSecond, ExecForEachTable _block) {
+    private static void incrementLoopTable(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, String _variableNameFirst, String _variableNameSecond, ExecForEachTable _block) {
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         Classes cls_ = _conf.getClasses();
         AbstractPageEl call_ = _stackCall.getLastPage();
@@ -599,11 +659,15 @@ public final class ExecHelperBlocks {
             return;
         }
         call_.clearCurrentEls();
-        call_.setBlock(_block.getFirstChild());
-        _l.getContent().setEvaluatingKeepLoop(false);
+        goToFirstBlock(_l.getContent(), _block, call_);
     }
 
-    private static ConditionReturn iteratorHasNext(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecBlock _coveredBlock) {
+    private static void goToFirstBlock(LoopBlockStackContent _l, ExecBracedBlock _block, AbstractPageEl _call) {
+        _call.setBlock(_block.getFirstChild());
+        _l.setEvaluatingKeepLoop(false);
+    }
+
+    private static ConditionReturn iteratorHasNextTable(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecBlock _coveredBlock) {
         String locName_ = _conf.getClasses().getHasNextPairVarCust();
         return hasNext(_conf, _l, _stackCall, locName_, _conf.getClasses().getExpsHasNextPairCust(), _coveredBlock);
     }
@@ -615,7 +679,7 @@ public final class ExecHelperBlocks {
             processVisitedLoop(c_, _block, _block, _cont, _stack, ip_);
             return;
         }
-        LoopBlockStack l_ = processLoop(_cont, _stack, _label, _init, _exp, _step, _block);
+        LoopBlockStack l_ = processLoopIter(_cont, _stack, _label, _init, _exp, _step, _block);
         if (l_ == null) {
             return;
         }
@@ -623,7 +687,7 @@ public final class ExecHelperBlocks {
         visitOrFinish(l_,_block,_cont,_stack,ip_);
     }
 
-    private static LoopBlockStack processLoop(ContextEl _conf, StackCall _stackCall, String _label, ExecOperationNodeListOff _init, ExecOperationNodeListOff _exp, ExecOperationNodeListOff _step, ExecForIterativeLoop _block) {
+    private static LoopBlockStack processLoopIter(ContextEl _conf, StackCall _stackCall, String _label, ExecOperationNodeListOff _init, ExecOperationNodeListOff _exp, ExecOperationNodeListOff _step, ExecForIterativeLoop _block) {
         LgNames stds_ = _conf.getStandards();
         String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
         AbstractPageEl ip_ = _stackCall.getLastPage();
@@ -663,10 +727,9 @@ public final class ExecHelperBlocks {
         long stepValue_ = stepValue(argStep_, fromValue_, toValue_);
         boolean isEq_ = _block instanceof ExecForIterativeLoopEq;
         boolean finished_ = stepValue_ == 0 || fromValue_ == toValue_ && !isEq_;
-        LoopBlockStack l_ = new LoopBlockStack();
+        LoopBlockStack l_ = new LoopBlockStack(_block);
         l_.setLabel(_label);
         l_.getContent().setFinished(finished_);
-        l_.setCurrentVisitedBlock(_block);
         l_.getContent().setEq(isEq_);
         l_.getContent().setCurrentValue(fromValue_);
         l_.getContent().setAchieveValue(toValue_);
@@ -695,20 +758,27 @@ public final class ExecHelperBlocks {
         return stepValue_;
     }
 
-    public static void processSwitch(ContextEl _cont, StackCall _stack, String _label, ExecOperationNodeListOff _value, ExecAbstractSwitchBlock _bl) {
-        AbstractPageEl ip_ = _stack.getLastPage();
-        if (ip_.matchStatement(_bl)) {
-            processBlockAndRemove(_cont, _bl, _stack);
+    private static void processLastElementLoopIter(ContextEl _conf, LoopBlockStack _l, StackCall _stack, ExecForIterativeLoop _loop) {
+        if (_l.getContent().hasNextIter()) {
+            incrementLoopIter(_conf, _l, _stack, _loop);
+            _conf.getCoverage().passLoop(_loop, new Argument(BooleanStruct.of(true)), _stack);
             return;
         }
-        ip_.globalOffset(_value.getOffset());
-        Argument arg_ = tryToCalculate(_cont, IndexConstants.FIRST_INDEX, _stack, _value.getList(), 0, _bl);
-        if (_cont.callsOrException(_stack)) {
-            return;
-        }
-        SwitchBlockStack if_ = new SwitchBlockStack();
-        if_.setLabel(_label);
-        _bl.processCase(_cont,if_,arg_, _stack);
+        finishLoop(_l.getContent());
+        _conf.getCoverage().passLoop(_loop, new Argument(BooleanStruct.of(false)), _stack);
+
+    }
+
+    private static void incrementLoopIter(ContextEl _conf, LoopBlockStack _l, StackCall _stackCall, ExecForIterativeLoop _loop) {
+        _l.getContent().setIndex(_l.getContent().getIndex() + 1);
+        _l.getContent().incr();
+        String variableName_ = _loop.getVariableName();
+        Argument struct_ = ExecTemplates.getWrapValue(_conf, variableName_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+        long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getContent().getStep();
+        Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(_loop.getImportedClassName(), _conf.getStandards().getPrimTypes()), new LongStruct(o_));
+        ExecTemplates.setWrapValue(_conf, variableName_, new Argument(element_),-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+        ExecTemplates.incrIndexLoop(_conf, variableName_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
+        goToFirstBlock(_l.getContent(),_loop,_stackCall.getLastPage());
     }
 
     private static void processVisitedLoop(LoopBlockStack _l, ExecBracedBlock _bl, ExecBlock _next, ContextEl _context, StackCall _stackCall, AbstractPageEl _current) {
@@ -724,7 +794,7 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(_context, _next, _stackCall);
             return;
         }
-        _current.setBlock(_l.getCurrentVisitedBlock().getFirstChild());
+        _current.setBlock(_l.getExecBlock().getFirstChild());
     }
 
     public static void processUnclassed(ContextEl _cont, StackCall _stack, ExecUnclassedBracedBlock _bl) {
@@ -733,14 +803,11 @@ public final class ExecHelperBlocks {
             processBlockAndRemove(_cont, _bl, _stack);
             return;
         }
-        IfBlockStack if_ = new IfBlockStack();
+        IfBlockStack if_ = new IfBlockStack(_bl,_bl);
         if_.setLabel("");
-        if_.setExecLastBlock(_bl);
-        if_.setExecBlock(_bl);
         if_.setCurrentVisitedBlock(_bl);
         ip_.addBlock(if_);
-        if_.setEntered(true);
-        ip_.setBlock(_bl.getFirstChild());
+        enterIfBlock(_bl,ip_,if_);
     }
 
     public static void processEmpty(ContextEl _cont, StackCall _stack, ExecEmptyInstruction _bl) {
@@ -815,8 +882,7 @@ public final class ExecHelperBlocks {
         if (lastStack_ != null) {
             ip_.setBlock(par_);
             if (lastStack_ instanceof LoopBlockStack) {
-                removeLocalVarsLoop(ip_, par_);
-                processLastElementLoop(_conf, _stackCall, par_, (LoopBlockStack) lastStack_);
+                nextLoopIterStack(_conf, ip_, _stackCall, par_, (LoopBlockStack) lastStack_);
             }
             if (lastStack_ instanceof IfBlockStack) {
                 nextIfStack(ip_, par_, (IfBlockStack) lastStack_);
@@ -864,12 +930,15 @@ public final class ExecHelperBlocks {
             AbruptCallingFinally call_ = _lastStack.getCalling();
             if (call_ != null) {
                 MethodCallingFinally callingFinally_ = call_.getCallingFinally();
-                if (callingFinally_ != null) {
-                    callingFinally_.removeBlockFinally(_conf, _stackCall);
+                if (callingFinally_ instanceof ExecBlock) {
+                    if (callingFinally_ instanceof ExecAbstractExpressionReturnMethod) {
+                        callingFinally_.removeBlockFinally(_conf, _stackCall);
+                    } else {
+                        _ip.setBlock((ExecBlock)callingFinally_);
+                    }
                 } else {
                     Struct exception_ = _lastStack.getException();
                     _stackCall.setCallingState(new CustomFoundExc(exception_));
-                    LocalThrowing.removeBlockFinally(_conf, exception_, _stackCall);
                 }
             }
         }
@@ -920,15 +989,15 @@ public final class ExecHelperBlocks {
         }
     }
 
-    private static void processLastElementLoop(ContextEl _conf, StackCall _stackCall, ExecBracedBlock _par, LoopBlockStack _lastStack) {
+    private static void processLastElementLoop(ContextEl _conf, StackCall _stackCall, ExecBlock _par, LoopBlockStack _lastStack) {
         if (_par instanceof ExecDoBlock) {
             processLastElementLoopDo(_stackCall, (ExecDoBlock) _par);
         }
         if (_par instanceof ExecAbstractForEachLoop) {
-            ExecAbstractForEachLoop.processLastElementLoop(_conf, _lastStack, _stackCall, ((ExecAbstractForEachLoop) _par));
+            processLastElementLoopLoop(_conf, _lastStack, _stackCall, ((ExecAbstractForEachLoop) _par));
         }
         if (_par instanceof ExecForIterativeLoop) {
-            ExecForIterativeLoop.processLastElementLoop(_conf, _lastStack, _stackCall, ((ExecForIterativeLoop) _par));
+            processLastElementLoopIter(_conf, _lastStack, _stackCall, ((ExecForIterativeLoop) _par));
         }
         if (_par instanceof ExecForMutableIterativeLoop) {
             processLastElementLoopMutable(_conf, _lastStack, _stackCall, ((ExecForMutableIterativeLoop) _par).getStep(), ((ExecForMutableIterativeLoop) _par).getVariableNames(), ((ExecForMutableIterativeLoop) _par).getExp(), ((ExecForMutableIterativeLoop) _par));
@@ -950,11 +1019,10 @@ public final class ExecHelperBlocks {
         if (_cont.callsOrException(_stack)) {
             return null;
         }
-        LoopBlockStack l_ = new LoopBlockStack();
+        LoopBlockStack l_ = new LoopBlockStack(_execLoop);
         l_.setLabel(_label);
         l_.getContent().setIndex(-1);
         l_.getContent().setFinished(finished_);
-        l_.setCurrentVisitedBlock(_execLoop);
         l_.getContent().setMaxIteration(length_);
         l_.getContent().setContainer(_its);
         return l_;

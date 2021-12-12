@@ -74,11 +74,10 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
     }
 
     static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {
-        Argument a_ = _right;
         if (_post) {
-            a_ = _stored;
+            return _stored;
         }
-        return a_;
+        return _right;
     }
 
     protected ExecOperatorContent getOperatorContent() {

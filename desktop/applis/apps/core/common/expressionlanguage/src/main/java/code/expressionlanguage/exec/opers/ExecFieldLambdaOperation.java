@@ -9,7 +9,10 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaFieldContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.FieldMetaInfo;
+import code.expressionlanguage.structs.LambdaFieldStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecFieldLambdaOperation extends ExecAbstractLambdaOperation {

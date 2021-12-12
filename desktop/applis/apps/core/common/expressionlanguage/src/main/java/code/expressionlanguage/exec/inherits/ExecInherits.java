@@ -10,7 +10,10 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardType;
-import code.util.*;
+import code.util.EntryCust;
+import code.util.Ints;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class ExecInherits {

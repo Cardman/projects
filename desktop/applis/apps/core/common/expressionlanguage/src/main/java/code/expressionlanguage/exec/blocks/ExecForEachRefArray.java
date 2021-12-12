@@ -22,7 +22,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
     protected void checkIfNext(ContextEl _cont, LoopBlockStack _l, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.getRefParams().put(getVariableName(), new ArrayWrapper(_l.getContent().getContainer(),new LongStruct(0)));
-        incrOrFinish(_cont, hasNext(_cont,_l, _stack),_l, _stack);
+        ExecHelperBlocks.incrOrFinishLoop(this,_cont, hasNext(_cont,_l, _stack),_l, _stack);
     }
 
     @Override

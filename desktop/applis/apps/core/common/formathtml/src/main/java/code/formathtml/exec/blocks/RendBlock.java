@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.stacks.LoopBlockStackContent;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.*;
@@ -952,7 +953,7 @@ public abstract class RendBlock {
         if (keep_ == ConditionReturn.CALL_EX) {
             return;
         }
-        ExecHelperBlocks.afterConditLoop(keep_, ((RendLoopBlockStack) l_).getContent());
+        afterConditLoop(keep_, ((RendLoopBlockStack) l_).getContent());
         //        if (keep_ == ConditionReturn.NO) {
 //            ((RendLoopBlockStack) l_).getContent().setFinished(true);
 //        }
@@ -961,6 +962,16 @@ public abstract class RendBlock {
             previousSibling_ = previousSibling_.getPreviousSibling();
         }
         rw_.setRead(previousSibling_);
+    }
+
+    private static void afterConditLoop(ConditionReturn _keep, LoopBlockStackContent _content) {
+        if (_keep == ConditionReturn.CALL_EX) {
+            return;
+        }
+        if (_keep == ConditionReturn.NO) {
+            _content.setFinished(true);
+        }
+        _content.setEvaluatingKeepLoop(false);
     }
 
     private static ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, RendOperationNodeListOff _condition) {
@@ -990,7 +1001,7 @@ public abstract class RendBlock {
 //        RendReadWrite rw_ = ip_.getRendReadWrite();
 //        RendBlock forLoopLoc_ = _loopBlock.getCurrentVisitedBlock();
         ConditionReturn keep_ = evaluateCondition(_conf, _advStandards, _ctx, _rendStack, _bl.getCondition());
-        ExecHelperBlocks.afterConditLoop(keep_, _loopBlock.getContent());
+        afterConditLoop(keep_, _loopBlock.getContent());
         //        if (keep_ == ConditionReturn.NO) {
 //            _loopBlock.getContent().setFinished(true);
 //        } else {
@@ -1163,7 +1174,7 @@ public abstract class RendBlock {
             lv_.setIndex(lv_.getIndex()+1);
         }
         ConditionReturn keep_ = evaluateConditionMutable(_conf, _advStandards, _ctx, _rendStack, _bl.getExp());
-        ExecHelperBlocks.afterConditLoop(keep_, _loopBlock.getContent());
+        afterConditLoop(keep_, _loopBlock.getContent());
         //        if (keep_ == ConditionReturn.NO) {
 //            _loopBlock.getContent().setFinished(true);
 ////        } else {

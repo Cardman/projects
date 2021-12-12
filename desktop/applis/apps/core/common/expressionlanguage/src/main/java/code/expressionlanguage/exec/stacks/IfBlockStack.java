@@ -4,12 +4,16 @@ import code.expressionlanguage.exec.blocks.ExecBracedBlock;
 
 public final class IfBlockStack extends AbstractStask implements ConditionBlockStack,EnteredStack {
 
-    private ExecBracedBlock execBlock;
-    private ExecBracedBlock execLastBlock;
+    private final ExecBracedBlock execBlock;
+    private final ExecBracedBlock execLastBlock;
     private ExecBracedBlock execCurentVisitedBlock;
 
     private boolean entered;
 
+    public IfBlockStack(ExecBracedBlock _execBlock, ExecBracedBlock _execLastBlock) {
+        execBlock = _execBlock;
+        execLastBlock = _execLastBlock;
+    }
     public boolean isEntered() {
         return entered;
     }
@@ -26,16 +30,8 @@ public final class IfBlockStack extends AbstractStask implements ConditionBlockS
         execCurentVisitedBlock = _execCurentVisitedBlock;
     }
 
-    public void setExecBlock(ExecBracedBlock _execBlock) {
-        execBlock = _execBlock;
-    }
-
     public ExecBracedBlock getLastBlock() {
         return execLastBlock;
-    }
-
-    public void setExecLastBlock(ExecBracedBlock _execLastBlock) {
-        this.execLastBlock = _execLastBlock;
     }
 
     public ExecBracedBlock getCurrentVisitedBlock() {

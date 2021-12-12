@@ -1,22 +1,27 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.structs.*;
-import code.util.*;
+import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringMap;
 
 public final class Classes {
 

@@ -2,7 +2,7 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.*;
+import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.*;
 import code.expressionlanguage.exec.calls.util.*;
@@ -13,10 +13,10 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-
-import code.expressionlanguage.stds.*;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 

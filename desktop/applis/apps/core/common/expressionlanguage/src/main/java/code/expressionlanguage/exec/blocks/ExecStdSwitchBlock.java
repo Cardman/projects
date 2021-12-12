@@ -1,7 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.util.CustList;
 
 public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
@@ -11,8 +10,8 @@ public final class ExecStdSwitchBlock extends ExecAbstractSwitchBlock {
     }
 
     @Override
-    protected ExecResultCase lastVis(SwitchBlockStack _if, ExecResultCase _res) {
-        return _res;
+    protected ExecBracedBlock lastVis(ExecListLastBkSw _if, ExecResultCase _res) {
+        return _if.getLast();
     }
 
 }

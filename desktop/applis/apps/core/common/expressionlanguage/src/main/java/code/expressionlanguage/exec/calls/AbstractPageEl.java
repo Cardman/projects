@@ -2,20 +2,22 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
-import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.stacks.*;
+import code.expressionlanguage.exec.stacks.AbstractStask;
+import code.expressionlanguage.exec.stacks.ConditionBlockStack;
+import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -150,22 +152,15 @@ public abstract class AbstractPageEl {
     }
 
     public LoopBlockStack getLastLoopIfPossible(ExecBlock _bl) {
-        LoopBlockStack c_ = null;
-        AbstractStask abstractStask_ = tryGetLastStack();
-        if (abstractStask_ instanceof LoopBlockStack) {
-            c_ = (LoopBlockStack) abstractStask_;
-        }
-        if (c_ != null && c_.getCurrentVisitedBlock() == _bl) {
-            return c_;
+        AbstractStask last_ = tryGetLastStack();
+        if (last_ instanceof LoopBlockStack && ((LoopBlockStack)last_).getExecBlock() == _bl) {
+            return (LoopBlockStack) last_;
         }
         return null;
     }
     public boolean matchStatement(ExecBlock _bl) {
         AbstractStask last_ = tryGetLastStack();
-        if (!(last_ instanceof ConditionBlockStack)) {
-            return false;
-        }
-        return _bl == ((ConditionBlockStack)last_).getBlock();
+        return last_ instanceof ConditionBlockStack && _bl == ((ConditionBlockStack) last_).getBlock();
     }
 
     public AbstractStask tryGetLastStack() {
@@ -189,9 +184,7 @@ public abstract class AbstractPageEl {
         //method walk through
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecAbstractSwitchMethod) {
-            SwitchBlockStack st_ = new SwitchBlockStack();
-            st_.setLabel("");
-            setBlock(((ExecAbstractSwitchMethod)en_).processCase(_context,st_,Argument.getNullableValue(_arg),_stack));
+            setBlock(((ExecAbstractSwitchMethod)en_).processCase(_context, Argument.getNullableValue(_arg),_stack));
             return;
         }
         if (en_ instanceof ExecAbstractExpressionReturnMethod) {

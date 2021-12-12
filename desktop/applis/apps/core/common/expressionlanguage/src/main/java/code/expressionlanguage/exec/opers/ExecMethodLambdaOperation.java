@@ -7,7 +7,9 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.LambdaMethodStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecMethodLambdaOperation extends ExecAbstractLambdaOperation {

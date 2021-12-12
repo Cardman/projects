@@ -6,16 +6,18 @@ public final class LoopBlockStack extends AbstractStask {
 
     private final LoopBlockStackContent content = new LoopBlockStackContent();
 
-    private ExecBracedBlock execBlock;
+    private final ExecBracedBlock execBlock;
 
+    public LoopBlockStack(ExecBracedBlock _execBlock) {
+        execBlock = _execBlock;
+    }
     @Override
     public ExecBracedBlock getCurrentVisitedBlock() {
-        return execBlock;
+        return getExecBlock();
     }
 
-    @Override
-    public void setCurrentVisitedBlock(ExecBracedBlock _bl) {
-        execBlock = _bl;
+    public ExecBracedBlock getExecBlock() {
+        return execBlock;
     }
 
     public LoopBlockStackContent getContent() {

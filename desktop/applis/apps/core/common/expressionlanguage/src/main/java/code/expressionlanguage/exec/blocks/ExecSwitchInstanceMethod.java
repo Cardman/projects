@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec.blocks;
 
-import code.expressionlanguage.exec.stacks.SwitchBlockStack;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
 
@@ -11,7 +10,7 @@ public final class ExecSwitchInstanceMethod extends ExecAbstractSwitchMethod {
     }
 
     @Override
-    protected ExecResultCase lastVisMeth(SwitchBlockStack _if, ExecResultCase _res) {
+    protected ExecBracedBlock lastVisMeth(ExecListLastBkSw _if, ExecResultCase _res) {
         return ExecAbstractSwitchBlock.tryLastVisited(_if, _res);
     }
 }

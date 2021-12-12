@@ -9,12 +9,12 @@ public final class SwitchBlockStack extends AbstractStask implements ConditionBl
 
     private ExecBracedBlock execCurrentVisitedBlock;
 
+    public SwitchBlockStack(ExecBracedBlock _execBlock, ExecBracedBlock _execLastVisitedBlock) {
+        execBlock = _execBlock;
+        execLastVisitedBlock = _execLastVisitedBlock;
+    }
     public ExecBracedBlock getBlock() {
         return execBlock;
-    }
-
-    public void setExecBlock(ExecBracedBlock _execBlock) {
-        execBlock = _execBlock;
     }
 
     @Override
@@ -29,10 +29,6 @@ public final class SwitchBlockStack extends AbstractStask implements ConditionBl
 
     public ExecBracedBlock getExecLastVisitedBlock() {
         return execLastVisitedBlock;
-    }
-
-    public void setExecLastVisitedBlock(ExecBracedBlock _execLastVisitedBlock) {
-        execLastVisitedBlock = _execLastVisitedBlock;
     }
 
 }

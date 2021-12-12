@@ -3,10 +3,10 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AbstractReplacingType;
 import code.expressionlanguage.common.ArrayResult;
-import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.types.KindPartType;
+import code.maths.litteralcom.StrTypes;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 

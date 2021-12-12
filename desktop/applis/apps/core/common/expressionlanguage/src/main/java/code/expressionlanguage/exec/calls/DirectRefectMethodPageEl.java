@@ -6,7 +6,9 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.*;
+import code.expressionlanguage.exec.inherits.AbstractParamChecker;
+import code.expressionlanguage.exec.inherits.ReflectMethodParamChecker;
+import code.expressionlanguage.exec.inherits.SwitchParamChecker;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
 

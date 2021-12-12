@@ -25,28 +25,11 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         value = new ExecOperationNodeListOff(_opValue,_valueOffset);
     }
 
-    private static CustList<ExecBracedBlock> children(ExecBracedBlock _braced, SwitchBlockStack _if) {
-        ExecBlock n_ = _braced.getFirstChild();
-        CustList<ExecBracedBlock> children_;
-        children_ = new CustList<ExecBracedBlock>();
-        while (n_ instanceof ExecBracedBlock) {
-            children_.add((ExecBracedBlock)n_);
-            _if.setExecLastVisitedBlock((ExecBracedBlock) n_);
-            n_ = n_.getNextSibling();
-        }
-        _if.setExecBlock(_braced);
-        return children_;
-    }
-
-    public static ExecResultCase innerProcess(String _instanceTest, ContextEl _cont, StackCall _stack, ExecBracedBlock _braced, SwitchBlockStack _if, Argument _arg, int _index) {
-        CustList<ExecBracedBlock> children_ = children(_braced,_if);
-        return innerProcess(_instanceTest,_cont, _stack, children_, _arg, _index);
-    }
-
-    private static ExecResultCase innerProcess(String _instanceTest, ContextEl _cont, StackCall _stack, CustList<ExecBracedBlock> _children, Argument _arg, int _index) {
+    public static ExecResultCase innerProcess(String _instanceTest, ContextEl _cont, StackCall _stack, ExecBracedBlock _braced, Argument _arg, int _index) {
+        ExecListLastBkSw infos_ = new ExecListLastBkSw(_braced);
         ExecResultCase def_ = null;
         CustList<ExecBracedBlock> filtered_ = new CustList<ExecBracedBlock>();
-        for (ExecBracedBlock b: _children) {
+        for (ExecBracedBlock b: infos_.getChildren()) {
             if (b instanceof ExecDefaultCondition || b instanceof ExecAbstractInstanceCaseCondition && !((ExecAbstractInstanceCaseCondition) b).isSpecific()) {
                 def_ = new ExecResultCase(b,0);
             } else {
@@ -146,11 +129,11 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         return null;
     }
 
-    public static ExecResultCase tryLastVisited(SwitchBlockStack _if, ExecResultCase _res) {
+    public static ExecBracedBlock tryLastVisited(ExecListLastBkSw _if, ExecResultCase _res) {
         if (_res != null) {
-            _if.setExecLastVisitedBlock(_res.getBlock());
+            return _res.getBlock();
         }
-        return _res;
+        return _if.getLast();
     }
 
     @Override
@@ -158,13 +141,16 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         ExecHelperBlocks.processSwitch(_cont, _stack, label, value, this);
     }
 
-    protected void processCase(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack) {
-        ExecResultCase res_ = innerProcess(getInstanceTest(), _cont, _stack, this, _if, _arg, 1);
-        lastVis(_if, res_);
-        addStack(_cont, _if, _arg, _stack, res_);
+    protected void processCase(ContextEl _cont, String _label, Argument _arg, StackCall _stack) {
+        ExecResultCase res_ = innerProcess(getInstanceTest(), _cont, _stack, this, _arg, 1);
+        ExecListLastBkSw infos_ = new ExecListLastBkSw(this);
+        ExecBracedBlock last_ = lastVis(infos_, res_);
+        SwitchBlockStack sw_ = new SwitchBlockStack(this,last_);
+        sw_.setLabel(_label);
+        addStack(_cont, sw_, _arg, _stack, res_);
     }
 
-    protected abstract ExecResultCase lastVis(SwitchBlockStack _if, ExecResultCase _res);
+    protected abstract ExecBracedBlock lastVis(ExecListLastBkSw _if, ExecResultCase _res);
     protected void addStack(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecResultCase _found) {
         if (_cont.callsOrException(_stack)) {
             return;
@@ -179,8 +165,9 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
         if (_found == null) {
             _if.setCurrentVisitedBlock(_bl);
         } else {
-            _ip.setBlock(_found.getBlock());
-            _if.setCurrentVisitedBlock(_found.getBlock());
+            ExecBracedBlock foundBlock_ = _found.getBlock();
+            _ip.setBlock(foundBlock_);
+            _if.setCurrentVisitedBlock(foundBlock_);
         }
         _ip.addBlock(_if);
     }
