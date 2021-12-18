@@ -353,7 +353,7 @@ public abstract class RendBlock {
         RendDynOperationNode root_ = args_.lastKey();
         RendDynOperationNode res_;
         if (root_ instanceof RendIdOperation) {
-            res_ = RendAbstractAffectOperation.getIdOp((RendMethodOperation) root_);
+            res_ = RendAbstractAffectOperation.getCastIdOp((RendMethodOperation) root_);
         } else {
             res_ = root_;
         }

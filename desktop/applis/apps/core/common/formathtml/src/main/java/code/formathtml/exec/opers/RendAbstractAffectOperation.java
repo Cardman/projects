@@ -37,11 +37,11 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         settableParent = tryGetSettableParent(this);
     }
     public static RendDynOperationNode tryGetSettable(RendMethodOperation _operation) {
-        RendDynOperationNode root_ = getIdOp(_operation);
+        RendDynOperationNode root_ = getCastIdOp(_operation);
         return castDottedTo(root_);
     }
     public static RendMethodOperation tryGetSettableParent(RendMethodOperation _operation) {
-        RendDynOperationNode root_ = getIdOp(_operation);
+        RendDynOperationNode root_ = getCastIdOp(_operation);
         return castParentTo(root_);
     }
 
@@ -53,6 +53,13 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         return root_;
     }
 
+    public static RendDynOperationNode getCastIdOp(RendMethodOperation _operation) {
+        RendDynOperationNode root_ = getIdOp(_operation);
+        if (root_ instanceof RendCastOperation) {
+            root_ = root_.getFirstChild();
+        }
+        return root_;
+    }
     public static RendMethodOperation castParentTo(RendDynOperationNode _root) {
         RendMethodOperation elt_;
         if (!(_root instanceof RendAbstractDotOperation)) {

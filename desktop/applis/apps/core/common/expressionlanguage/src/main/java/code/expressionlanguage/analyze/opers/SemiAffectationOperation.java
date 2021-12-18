@@ -37,7 +37,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     @Override
     public void analyzeUnary(AnalyzedPageEl _page) {
         OperationNode leftEl_ = getFirstChild();
-        settable = AffectationOperation.tryGetSettable(this);
+        settable = AffectationOperation.tryGetCastSettable(this);
         if (!isLeftValue(settable)) {
             setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -70,11 +70,12 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         settable.setVariable(false);
         StrTypes ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
-        ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_, op_, _page);
+        ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_,settable, op_, _page);
         if (cl_ != null) {
             fct.infos(cl_);
             return;
         }
+        addErrIfNotSettable(operatorContent.getOper(),leftEl_.getFirstChild(),_page);
         AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {

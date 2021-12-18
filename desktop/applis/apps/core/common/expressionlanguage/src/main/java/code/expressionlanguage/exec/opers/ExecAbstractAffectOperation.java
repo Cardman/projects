@@ -47,7 +47,7 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
     protected abstract void calculateAffect(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                             ContextEl _conf, StackCall _stack);
     static ExecOperationNode tryGetSettable(ExecMethodOperation _operation) {
-        ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
+        ExecOperationNode root_ = getFirstCastToBeAnalyzed(_operation);
         ExecOperationNode elt_;
         if (!(root_ instanceof ExecAbstractDotOperation)) {
             elt_ = root_;
@@ -57,7 +57,7 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         return elt_;
     }
     static ExecMethodOperation tryGetSettableParent(ExecMethodOperation _operation) {
-        ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
+        ExecOperationNode root_ = getFirstCastToBeAnalyzed(_operation);
         ExecMethodOperation elt_;
         if (!(root_ instanceof ExecAbstractDotOperation)) {
             elt_ = ExecHelper.getParentOrNull(root_);
@@ -67,6 +67,14 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         return elt_;
     }
 
+    static ExecOperationNode getFirstCastToBeAnalyzed(ExecMethodOperation _operation) {
+        ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
+        if (root_ instanceof ExecCastOperation) {
+            root_ = root_.getFirstChild();
+        }
+        return root_;
+    }
+
     static ExecOperationNode getFirstToBeAnalyzed(ExecMethodOperation _operation) {
         ExecOperationNode root_ = _operation.getFirstChild();
         while (root_ instanceof ExecIdOperation) {
@@ -74,7 +82,6 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         }
         return root_;
     }
-
     protected StringList getNames() {
         return names;
     }

@@ -52,7 +52,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode left_ = chidren_.first();
         OperationNode right_ = chidren_.last();
-        SettableElResult elt_ = AffectationOperation.tryGetSettable(this);
+        SettableElResult elt_ = AffectationOperation.tryGetCastSettable(this);
         if (!isLeftValue(elt_)) {
             StrTypes ops_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
@@ -107,9 +107,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
             fct.infos(cl_,_page);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
-            map_.setParam(left_.getResultClass());
+            map_.setParam(settable.getResultClass());
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(left_.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(settable.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_ != null) {
                     conv.infos(res_);
                 } else {
@@ -119,11 +119,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(left_.getResultClass().getNames(),ExportCst.JOIN_TYPES));
+                            StringUtil.join(settable.getResultClass().getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     addErr(cast_.getBuiltError());
                 }
-                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes()));
+                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(), _page), _page.getPrimitiveTypes()));
             }
             setBool(right_,_page);
             return;
@@ -135,6 +135,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
 
         if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.PLUS_EQ)) {
+            addErrIfNotSettable(operatorContent.getOper(),left_.getFirstChild(),_page);
             if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
                 if (!isString_) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -183,6 +184,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             return;
         }
         if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.XOR_EQ)) {
+            addErrIfNotSettable(operatorContent.getOper(),left_.getFirstChild(),_page);
             boolean okRes_ = false;
             if (clMatchLeft_.isBoolType(_page) && clMatchRight_.isBoolType(_page)) {
                 okRes_ = true;
@@ -211,6 +213,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         }
         if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ)
                 || StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT)) {
+            addErrIfNotSettable(operatorContent.getOper(),left_.getFirstChild(),_page);
             if (!clMatchLeft_.isBoolType(_page) || !clMatchRight_.isBoolType(_page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -234,9 +237,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(vars_);
             mapping_.setArg(clMatchRight_);
-            mapping_.setParam(clMatchLeft_);
+            mapping_.setParam(settable.getResultClass());
             if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(settable.getResultClass().getSingleNameOrEmpty(), clMatchRight_, _page);
                 if (res_ != null) {
                     clMatchRight_.implicitInfos(res_);
                 } else {
@@ -246,14 +249,15 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     //oper
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
+                            StringUtil.join(settable.getResultClass().getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
                 }
             }
-            setResultClass(AnaClassArgumentMatching.copy(clMatchLeft_, _page.getPrimitiveTypes()));
+            setResultClass(AnaClassArgumentMatching.copy(settable.getResultClass(), _page.getPrimitiveTypes()));
             return;
         }
+        addErrIfNotSettable(operatorContent.getOper(),left_.getFirstChild(),_page);
         if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_, _page)
                 && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();

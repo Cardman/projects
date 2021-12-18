@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -58,6 +60,19 @@ public abstract class MethodOperation extends OperationNode {
         return children;
     }
 
+    protected void addErrIfNotSettable(String _oper, OperationNode _left, AnalyzedPageEl _page) {
+        if (_left instanceof CastOperation) {
+            setRelativeOffsetPossibleAnalyzable(_left.getIndexInEl(), _page);
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //operator
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
+                    _oper);
+            _page.getLocalizer().addError(un_);
+            addErr(un_.getBuiltError());
+        }
+    }
     public static void processEmptyError(OperationNode _o, StringList _errs) {
         if (isEmptyError(_o)) {
             addEmptyError(_o, _errs);

@@ -239,6 +239,10 @@ public final class AffectationOperation extends MethodOperation {
         OperationNode root_ = getFirstToBeAnalyzed(_operation);
         return castDottedTo(root_);
     }
+    public static SettableElResult tryGetCastSettable(MethodOperation _operation) {
+        OperationNode root_ = getFirstCastToBeAnalyzed(_operation);
+        return castDottedTo(root_);
+    }
 
     public static SettableElResult castDottedTo(OperationNode _root) {
         SettableElResult elt_;
@@ -251,13 +255,29 @@ public final class AffectationOperation extends MethodOperation {
         return elt_;
     }
 
-    public static OperationNode getFirstToBeAnalyzed(MethodOperation _operation) {
+    public static OperationNode getFirstCastToBeAnalyzed(MethodOperation _operation) {
         OperationNode root_ = _operation.getFirstChild();
-        while (root_ instanceof IdOperation&&((IdOperation)root_).isStandard()) {
+        while (stdId(root_)) {
+            root_ = root_.getFirstChild();
+        }
+        if (root_ instanceof CastOperation) {
             root_ = root_.getFirstChild();
         }
         return root_;
     }
+
+    public static OperationNode getFirstToBeAnalyzed(MethodOperation _operation) {
+        OperationNode root_ = _operation.getFirstChild();
+        while (stdId(root_)) {
+            root_ = root_.getFirstChild();
+        }
+        return root_;
+    }
+
+    private static boolean stdId(OperationNode _root) {
+        return _root instanceof IdOperation&&((IdOperation) _root).isStandard();
+    }
+
     public static SettableElResult castTo(OperationNode _op) {
         if (_op instanceof SettableElResult) {
             return (SettableElResult) _op;
