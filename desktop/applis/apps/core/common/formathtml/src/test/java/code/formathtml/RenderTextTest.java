@@ -366,6 +366,41 @@ public final class RenderTextTest extends CommonRender {
         assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_,"pkg.BeanOne..Inner"));
     }
     @Test
+    public void process17_ext2Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;'/><c:set value='($(pkg.BeanOne.Inner)(i))+=&quot;iere&quot;'/>{i.textField},{pkg.BeanOne.v}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $int v;");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public String textField=\"txt\";");
+        file_.append("  $public $static Inner $(String v){");
+        file_.append("   Inner i = $new Inner();");
+        file_.append("   i.textField=v;");
+        file_.append("   $return i;");
+        file_.append("  }");
+        file_.append("  $operator+ String(Inner t, Inner v){");
+        file_.append("   $return t.textField+v.textField;");
+        file_.append("  }");
+        file_.append("  $public $static String $(Inner t){");
+        file_.append("   $return t.textField;");
+        file_.append("  }");
+        file_.append("  $static {");
+        file_.append("   v++;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>maniere,1</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_,"pkg.BeanOne..Inner"));
+    }
+    @Test
     public void process18Test() {
         String locale_ = "en";
         String folder_ = "messages";

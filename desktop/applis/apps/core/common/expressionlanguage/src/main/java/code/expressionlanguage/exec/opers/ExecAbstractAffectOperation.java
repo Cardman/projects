@@ -72,6 +72,9 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         if (root_ instanceof ExecCastOperation) {
             root_ = root_.getFirstChild();
         }
+        while (root_ instanceof ExecIdOperation) {
+            root_ = root_.getFirstChild();
+        }
         return root_;
     }
 

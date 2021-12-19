@@ -58,6 +58,9 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         if (root_ instanceof RendCastOperation) {
             root_ = root_.getFirstChild();
         }
+        while (root_ instanceof RendIdOperation) {
+            root_ = root_.getFirstChild();
+        }
         return root_;
     }
     public static RendMethodOperation castParentTo(RendDynOperationNode _root) {

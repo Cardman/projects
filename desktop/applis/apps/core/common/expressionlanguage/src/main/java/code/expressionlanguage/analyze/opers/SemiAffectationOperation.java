@@ -75,7 +75,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             fct.infos(cl_);
             return;
         }
-        addErrIfNotSettable(operatorContent.getOper(),leftEl_.getFirstChild(),_page);
+        addErrIfNotSettable(operatorContent.getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
         AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {

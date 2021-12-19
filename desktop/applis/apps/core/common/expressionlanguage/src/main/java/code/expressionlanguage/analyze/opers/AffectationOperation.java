@@ -256,11 +256,11 @@ public final class AffectationOperation extends MethodOperation {
     }
 
     public static OperationNode getFirstCastToBeAnalyzed(MethodOperation _operation) {
-        OperationNode root_ = _operation.getFirstChild();
-        while (stdId(root_)) {
+        OperationNode root_ = getFirstToBeAnalyzed(_operation);
+        if (root_ instanceof CastOperation) {
             root_ = root_.getFirstChild();
         }
-        if (root_ instanceof CastOperation) {
+        while (stdId(root_)) {
             root_ = root_.getFirstChild();
         }
         return root_;
