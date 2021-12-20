@@ -987,4 +987,63 @@ public final class ProcessMethodDotSafeTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getNumber(ret_));
     }
+    @Test
+    public void calculateArgument46Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  Content c = null;\n");
+        xml_.append("  return (((Content2)c?.content)+=null)?.content;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content{\n");
+        xml_.append(" public Content2 content;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content2{\n");
+        xml_.append(" public String content;\n");
+        xml_.append(" operator+ Content2(Content2 a, Content2 b){\n");
+        xml_.append("  var c = new Content2();\n");
+        xml_.append("  c.content = a?.content +','+ b?.content;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertTrue(ret_.isNull());
+    }
+    @Test
+    public void calculateArgument47Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  Content c = new Content();\n");
+        xml_.append("  return (((Content2)c?.content)+=null).content;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content{\n");
+        xml_.append(" public Content2 content;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Content2{\n");
+        xml_.append(" public String content;\n");
+        xml_.append(" operator+ Content2(Content2 a, Content2 b){\n");
+        xml_.append("  var c = new Content2();\n");
+        xml_.append("  c.content = a?.content +','+ b?.content;\n");
+        xml_.append("  return c;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(",",getString(ret_));
+    }
+
 }
