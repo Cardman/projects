@@ -89,9 +89,9 @@ public final class ExecHelperBlocks {
         return bl_;
     }
 
-    private static void nextLoopIterStack(ContextEl _conf, AbstractPageEl _ip, StackCall _stackCall, ExecBracedBlock br_, LoopBlockStack lSt_) {
-        removeLocalVarsLoop(_ip, br_);
-        processLastElementLoop(_conf, _stackCall, br_, lSt_);
+    private static void nextLoopIterStack(ContextEl _conf, AbstractPageEl _ip, StackCall _stackCall, ExecBracedBlock _br, LoopBlockStack _lSt) {
+        removeLocalVarsLoop(_ip, _br);
+        processLastElementLoop(_conf, _stackCall, _br, _lSt);
     }
 
     public static void setVisited(StackCall _stack, ExecBracedBlock _block) {
