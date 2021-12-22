@@ -23,6 +23,10 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
     }
     static AssOperationNode tryGetSettable(AssMethodOperation _operation) {
         AssOperationNode root_ = getFirstToBeAnalyzed(_operation);
+        if (root_ instanceof AssMethodOperation&&((AssMethodOperation)root_).isCast()) {
+            root_ = root_.getFirstChild();
+        }
+        root_ = loopId(root_);
         return castTo(root_);
     }
     private static AssOperationNode castTo(AssOperationNode _op) {
@@ -32,7 +36,19 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
         return null;
     }
     public static AssOperationNode getFirstToBeAnalyzed(AssMethodOperation _operation) {
+        if (_operation instanceof AssSimReadWriteAffectationOperation) {
+            int indexVar_ = ((AssSimReadWriteAffectationOperation) _operation).getIndexVar();
+            CustList<AssOperationNode> ch_ = _operation.getChildrenNodes();
+            if (!ch_.isValidIndex(indexVar_)) {
+                return null;
+            }
+            return loopId(ch_.get(indexVar_));
+        }
         AssOperationNode root_ = _operation.getFirstChild();
+        return loopId(root_);
+    }
+    private static AssOperationNode loopId(AssOperationNode _start) {
+        AssOperationNode root_ = _start;
         while (root_ instanceof AssSimIdOperation) {
             root_ = root_.getFirstChild();
         }

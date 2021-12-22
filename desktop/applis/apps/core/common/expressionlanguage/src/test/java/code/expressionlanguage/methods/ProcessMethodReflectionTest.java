@@ -4777,7 +4777,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
+        ContextEl cont_ = ctxOkRead(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -4802,7 +4802,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
+        ContextEl cont_ = ctxOkRead(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);
@@ -4827,7 +4827,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        ContextEl cont_ = ctxOk(files_,"pkg.ExTwo");
+        ContextEl cont_ = ctxOkRead(files_,"pkg.ExTwo");
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         Argument out_ = calculateNormal("pkg.ExTwo", id_, args_, cont_);

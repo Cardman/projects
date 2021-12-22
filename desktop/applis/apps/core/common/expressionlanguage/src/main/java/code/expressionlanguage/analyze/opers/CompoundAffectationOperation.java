@@ -134,8 +134,8 @@ public final class CompoundAffectationOperation extends MethodOperation {
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
 
-        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.PLUS_EQ)) {
-            addErrIfNotSettable(operatorContent.getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
+        if (StringUtil.quickEq(getOper(), AbsBk.PLUS_EQ)) {
+            addErrIfNotSettable(getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
             if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
                 if (!isString_) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -176,15 +176,15 @@ public final class CompoundAffectationOperation extends MethodOperation {
                         StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                         StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
-                getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,operatorContent.getOper().length()-1));
+                getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,getOper().length()-1));
                 return;
             }
             left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             return;
         }
-        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.XOR_EQ)) {
-            addErrIfNotSettable(operatorContent.getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
+        if (StringUtil.quickEq(getOper(), AbsBk.AND_EQ) || StringUtil.quickEq(getOper(), AbsBk.OR_EQ) || StringUtil.quickEq(getOper(), AbsBk.XOR_EQ)) {
+            addErrIfNotSettable(getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
             boolean okRes_ = false;
             if (clMatchLeft_.isBoolType(_page) && clMatchRight_.isBoolType(_page)) {
                 okRes_ = true;
@@ -211,9 +211,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setBool(right_,_page);
             return;
         }
-        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ)
-                || StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT)) {
-            addErrIfNotSettable(operatorContent.getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
+        if (StringUtil.quickEq(getOper(), AbsBk.AND_LOG_EQ) || StringUtil.quickEq(getOper(), AbsBk.OR_LOG_EQ)
+                || StringUtil.quickEq(getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(getOper(), AbsBk.OR_LOG_EQ_SHORT)) {
+            addErrIfNotSettable(getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
             if (!clMatchLeft_.isBoolType(_page) || !clMatchRight_.isBoolType(_page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -232,7 +232,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setBool(right_,_page);
             return;
         }
-        if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.NULL_EQ) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.NULL_EQ_SHORT)) {
+        if (isNullSafe()) {
             StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(vars_);
@@ -257,7 +257,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setResultClass(AnaClassArgumentMatching.copy(settable.getResultClass(), _page.getPrimitiveTypes()));
             return;
         }
-        addErrIfNotSettable(operatorContent.getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
+        addErrIfNotSettable(getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
         if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_, _page)
                 && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -274,6 +274,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
             left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
         }
+    }
+
+    public boolean isNullSafe() {
+        return StringUtil.quickEq(getOper(), AbsBk.NULL_EQ) || StringUtil.quickEq(getOper(), AbsBk.NULL_EQ_SHORT);
     }
 
     private void setBool(OperationNode _right,AnalyzedPageEl _page) {

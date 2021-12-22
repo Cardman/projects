@@ -2,8 +2,8 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
+import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -12,26 +12,26 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public abstract class RendCompoundAffectationOperation extends RendAbstractAffectOperation implements CompoundedOperator {
 
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
+    private final boolean staticPostEltContent;
 
-    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
+    protected RendCompoundAffectationOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
         super(_content, _names);
         operatorContent = _operatorContent;
         converter = _converter;
+        staticPostEltContent = _staticPostEltContent;
     }
 
     @Override
     protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        RendDynOperationNode left_ = getFirstNode(this);
-        Argument leftArg_ = getArgument(_nodes,left_);
-        ArgumentsPair argumentPair_ = getArgumentPair(_nodes, left_);
+        ArgumentsPair argumentPair_ = getArgumentPair(_nodes, getSettableAnc());
+        Argument leftArg_ = Argument.getNullableValue(argumentPair_.getArgument());
         if (argumentPair_.isArgumentTest()){
-            if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT)) {
+            if (ExecCompoundAffectationOperation.sh(operatorContent)) {
                 setSimpleArgument(leftArg_, _nodes, _context, _rendStack);
                 return;
             }
@@ -42,27 +42,11 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
         calculateSpec(_nodes, _advStandards, _context, _rendStack);
     }
 
-    protected Argument endCalculateCh(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _res, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
-        Argument arg_ = null;
-        RendDynOperationNode settable_ = getSettable();
-        if (settable_ instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)settable_).endCalculate(_nodes, _res, _advStandards, _context, _rendStackCall);
-        }
-        return Argument.getNullableValue(arg_);
-    }
     protected abstract void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
+
+    public boolean isStaticPostEltContent() {
+        return staticPostEltContent;
+    }
 
     protected ExecOperatorContent getOperatorContent() {
         return operatorContent;

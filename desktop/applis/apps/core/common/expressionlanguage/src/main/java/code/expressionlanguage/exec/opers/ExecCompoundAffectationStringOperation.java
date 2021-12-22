@@ -14,7 +14,7 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
 
 
     public ExecCompoundAffectationStringOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, StringList _names) {
-        super(_opCont, _operatorContent, null, _names);
+        super(_opCont, _operatorContent, null, _names, false);
     }
 
 

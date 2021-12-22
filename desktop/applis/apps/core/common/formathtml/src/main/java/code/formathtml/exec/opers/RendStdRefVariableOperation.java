@@ -98,11 +98,6 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        return trySetArgument(_context, _right, _rendStack);
-    }
-
-    @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         trySetArgument(_context, _right, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);

@@ -110,11 +110,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        return commonSetting(_nodes, _conf, _right, _stack);
-    }
-
-    @Override
     public Argument endCalculate(ContextEl _conf,
                                  IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
                                  Argument _stored, Argument _right, StackCall _stack) {

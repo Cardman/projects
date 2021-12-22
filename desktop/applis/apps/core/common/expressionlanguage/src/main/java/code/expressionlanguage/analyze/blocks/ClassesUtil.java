@@ -1901,7 +1901,6 @@ public final class ClassesUtil {
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
                     method_.buildExpressionLanguageReadOnly(_page);
-                    _page.getFieldsAssSt().addEntry(b,new AssElementBlock(method_));
                 }
                 if (b instanceof FieldBlock) {
                     globalType(_page, c);
@@ -1916,7 +1915,6 @@ public final class ClassesUtil {
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
                     method_.buildExpressionLanguageReadOnly(_page);
-                    _page.getFieldsAssSt().addEntry(b,new AssFieldBlock(method_));
                 }
                 if (b instanceof StaticBlock) {
                     globalType(_page, c);
@@ -1971,7 +1969,6 @@ public final class ClassesUtil {
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(c.getMappings());
                     method_.buildExpressionLanguageReadOnly(_page);
-                    _page.getFieldsAss().addEntry(b,new AssFieldBlock(method_));
                 }
                 if (b instanceof InstanceBlock) {
                     globalType(_page, c);
@@ -2135,6 +2132,7 @@ public final class ClassesUtil {
             CustList<AbsBk> bl_ = getDirectChildren(c);
             StringMap<AssignmentBefore> ass_;
             ass_ = new StringMap<AssignmentBefore>();
+            feedInfos(_page, bl_);
             for (AbsBk b: bl_) {
                 if (!(b instanceof InfoBlock)) {
                     continue;
@@ -2388,6 +2386,25 @@ public final class ClassesUtil {
             AssMemberCallingsBlock assign_ = AssBlockUtil.getExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), anAss_.getLabelsMapping(), m_);
             tryAnalyseAssign(assVars_, null, anAss_, assign_, _page);
             _page.clearAllLocalVars(assVars_);
+        }
+    }
+
+    private static void feedInfos(AnalyzedPageEl _page, CustList<AbsBk> _bl) {
+        for (AbsBk b: _bl) {
+            if (!(b instanceof InfoBlock)) {
+                continue;
+            }
+            InfoBlock f_ = (InfoBlock) b;
+            if (f_ instanceof InnerElementBlock) {
+                _page.getFieldsAssSt().addEntry(b,new AssElementBlock((InnerTypeOrElement) f_));
+            }
+            if (f_ instanceof FieldBlock) {
+                if (!f_.isStaticField()) {
+                    _page.getFieldsAss().addEntry(b,new AssFieldBlock((FieldBlock) f_));
+                } else {
+                    _page.getFieldsAssSt().addEntry(b,new AssFieldBlock((FieldBlock) f_));
+                }
+            }
         }
     }
 

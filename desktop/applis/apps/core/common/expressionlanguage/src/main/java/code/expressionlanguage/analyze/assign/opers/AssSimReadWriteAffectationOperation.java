@@ -1,11 +1,12 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.opers.ExplicitOperatorOperation;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -13,9 +14,13 @@ import code.util.core.StringUtil;
 public final class AssSimReadWriteAffectationOperation extends AssMethodOperation {
     private AssOperationNode settable;
     private final OperationNode analyzed;
+    private int indexVar;
     AssSimReadWriteAffectationOperation(OperationNode _ex) {
         super(_ex);
         analyzed = _ex;
+        if (_ex instanceof ExplicitOperatorOperation) {
+            indexVar = ((ExplicitOperatorOperation) _ex).getIndexVar();
+        }
     }
 
     public void setup() {
@@ -57,5 +62,9 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
                 analyzed.addErr(un_.getBuiltError());
             }
         }
+    }
+
+    public int getIndexVar() {
+        return indexVar;
     }
 }

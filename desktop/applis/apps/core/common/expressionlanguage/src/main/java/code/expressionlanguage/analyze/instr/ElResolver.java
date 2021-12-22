@@ -991,6 +991,48 @@ public final class ElResolver {
                 return;
             }
             char loc_ = _string.charAt(afterClassChoice_);
+            if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordOperator_)) {
+                if (loc_ == '=' || loc_ == ':') {
+                    int afterAff_ = StringExpUtil.nextPrintChar(afterClassChoice_ + 1, len_, _string);
+                    int nextKey_ = afterAff_;
+                    if (StringExpUtil.startsWithKeyWord(_string,afterAff_,keyWordCast_)) {
+                        int impl_ = afterAff_ + keyWordCast_.length();
+                        int nextLeftPar_ = StringExpUtil.nextPrintCharIs(impl_,len_,_string,PAR_LEFT);
+                        if (nextLeftPar_ < 0) {
+                            _d.setBadOffset(impl_+1);
+                            return;
+                        }
+                        int nextRightPar_ = _string.indexOf(PAR_RIGHT, nextLeftPar_);
+                        if (nextRightPar_ < 0) {
+                            _d.setBadOffset(nextLeftPar_+1);
+                            return;
+                        }
+                        nextKey_ = StringExpUtil.nextPrintChar(nextRightPar_ + 1, len_, _string);
+                    }
+                    if (StringExpUtil.startsWithKeyWord(_string,nextKey_,keyWordExplicit_)) {
+                        int test_ = nextKey_ + keyWordExplicit_.length();
+                        int nextLeftPar_ = StringExpUtil.nextPrintCharIs(test_,len_,_string,PAR_LEFT);
+                        if (nextLeftPar_ < 0) {
+                            _d.setBadOffset(test_+1);
+                            return;
+                        }
+                        int nextRightPar_ = _string.indexOf(PAR_RIGHT, nextLeftPar_);
+                        if (nextRightPar_ < 0) {
+                            _d.setBadOffset(nextLeftPar_+1);
+                            return;
+                        }
+                        nextKey_ = StringExpUtil.nextPrintChar(nextRightPar_ + 1, len_, _string);
+                    }
+                    if (StringExpUtil.nextPrintCharIs(nextKey_,len_,_string,PAR_LEFT) < 0) {
+                        _d.setBadOffset(len_);
+                        return;
+                    }
+                    stack_.getCallings().add(nextKey_);
+                    i_ = nextKey_;
+                    _out.setNextIndex(i_);
+                    return;
+                }
+            }
             if (loc_ != PAR_LEFT) {
                 _d.setBadOffset(afterClassChoice_);
                 return;

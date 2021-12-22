@@ -65,7 +65,8 @@ public final class RenderExpUtil {
         }
         Argument res_ = Argument.getNullableValue(_pair.getArgument());
         Struct st_ = res_.getStruct();
-        if (_o.getNextSibling() != null&&_pair.isArgumentTest()){
+        RendDynOperationNode set_ = ancSettable(_o);
+        if (set_ == _o &&_pair.isArgumentTest()){
             RendMethodOperation par_ = _o.getParent();
             if (par_ instanceof RendQuickOperation){
                 st_ = ((RendQuickOperation)par_).getAbsorbingValue();
@@ -76,6 +77,18 @@ public final class RenderExpUtil {
             }
         }
         return RendDynOperationNode.getNextIndex(_o, st_);
+    }
+
+    public static RendDynOperationNode ancSettable(RendDynOperationNode _oper) {
+        RendDynOperationNode set_ = null;
+        RendMethodOperation par_ = _oper.getParent();
+        if (par_ instanceof RendQuickOperation){
+            set_ = par_.getFirstChild();
+        }
+        if (par_ instanceof RendCompoundAffectationOperation){
+            set_ = RendDynOperationNode.ancSettable((RendCompoundAffectationOperation) par_,_oper);
+        }
+        return set_;
     }
 
 }

@@ -90,11 +90,6 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        return processCalling(_nodes, _right, _context, _rendStack);
-    }
-
-    @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         processCalling(_nodes, _right, _context, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post,_stored,_right);

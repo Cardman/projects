@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.opers.CompoundAffectationOperation;
 import code.expressionlanguage.analyze.opers.NullSafeOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SafeDotOperation;
+import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
@@ -23,7 +24,6 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.BoolVal;
-import code.util.core.StringUtil;
 
 public final class Coverage {
     private final CustList<FileBlock> files = new CustList<FileBlock>();
@@ -344,7 +344,7 @@ public final class Coverage {
         }
         if (_op.getParent() instanceof CompoundAffectationOperation) {
             CompoundAffectationOperation c_ = (CompoundAffectationOperation) _op.getParent();
-            if (isLogicEq(c_.getOper(), AbsBk.NULL_EQ, AbsBk.NULL_EQ_SHORT)) {
+            if (c_.isNullSafe()) {
                 nullSafeCore(_fwd,_op, instr_);
                 return;
             }
@@ -553,34 +553,33 @@ public final class Coverage {
         return matchBl_;
     }
     private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
+        ExecOperationNode settable_ = ExpressionLanguage.ancSettable(_oper);
         Argument res_ = Argument.getNullableValue(_v.getArgument());
         Struct v_ = res_.getStruct();
-        if (_oper.getNextSibling() == null || _ana.getResultClass().getImplicitsTest().isEmpty()) {
+        if (settable_ != _oper || _ana.getResultClass().getImplicitsTest().isEmpty()) {
             return v_;
         }
         ExecMethodOperation par_ = _oper.getParent();
+        Struct out_ = v_;
         if (par_ instanceof ExecQuickOperation){
-            return BooleanStruct.of(((ExecQuickOperation)par_).match(BooleanStruct.of(_v.isArgumentTest())));
+            out_ =  BooleanStruct.of(((ExecQuickOperation)par_).match(BooleanStruct.of(_v.isArgumentTest())));
         }
         if (par_ instanceof ExecCompoundAffectationOperation){
             ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-            return compound(v_,p_,_v);
+            out_ = compound(v_,p_,_v);
         }
-        return v_;
+        return out_;
     }
 
     private static Struct compound(Struct _before,ExecCompoundAffectationOperation _par, ArgumentsPair _v) {
         Struct v_ = _before;
-        if (isLogicEq(_par.getOper(), AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT)) {
+        if (ExecOperationNode.andEq(_par)) {
             v_ = BooleanStruct.of(!_v.isArgumentTest());
         }
-        if (isLogicEq(_par.getOper(), AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT)) {
+        if (ExecOperationNode.orEq(_par)) {
             v_ = BooleanStruct.of(_v.isArgumentTest());
         }
         return v_;
-    }
-    private static boolean isLogicEq(String _oper, String _opEq, String _opShEq) {
-        return StringUtil.quickEq(_oper, _opEq) || StringUtil.quickEq(_oper, _opShEq);
     }
 
     public void passCalls(AbstractPageEl _page) {

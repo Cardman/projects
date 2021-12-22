@@ -102,10 +102,6 @@ public final class ExecSettableFieldOperation extends
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        return getCommonSetting(_conf, _nodes, _right, _stack);
-    }
-    @Override
     public Argument endCalculate(ContextEl _conf,
                                  IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
                                  Argument _stored, Argument _right, StackCall _stack) {

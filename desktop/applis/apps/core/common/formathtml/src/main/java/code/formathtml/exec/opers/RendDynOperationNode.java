@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
+import code.expressionlanguage.exec.opers.ExecAbstractAffectOperation;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -142,7 +143,7 @@ public abstract class RendDynOperationNode {
         RendMethodOperation par_ = _operation.getParent();
         if (par_ instanceof RendCompoundAffectationOperation) {
             RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-            if (ExecOperationNode.shEq(_value, p_)) {
+            if (ancSettable(p_,_operation) != null && ExecOperationNode.shEq(_value, p_)) {
                 return par_.getOrder();
             }
         }
@@ -169,6 +170,16 @@ public abstract class RendDynOperationNode {
         return _operation.getOrder() + 1;
     }
 
+    public static RendDynOperationNode ancSettable(RendAbstractAffectOperation _compo, RendDynOperationNode _operation) {
+        RendDynOperationNode cur_ = _compo.getSettable();
+        while (cur_ != null) {
+            if (cur_ == _operation) {
+                return cur_;
+            }
+            cur_ = cur_.getParent();
+        }
+        return null;
+    }
     private static boolean valueShort(Struct _value, RendMethodOperation _par) {
         return _par instanceof RendQuickOperation && ((RendQuickOperation) _par).match(_value);
     }

@@ -7385,7 +7385,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = covEn(files_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7417,7 +7417,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = covEn(files_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7449,7 +7449,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = covEn(files_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -7840,7 +7840,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = covEn(files_);
+        ContextEl cont_ = covEnReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
@@ -12514,7 +12514,7 @@ public final class CoverageReportTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("src/pkg/Ex", xml_.toString());
-        ContextEl cont_ = cov(files_);
+        ContextEl cont_ = covReadOnly(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);

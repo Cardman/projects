@@ -3456,11 +3456,31 @@ public final class LinkageUtil {
             }
         }
         if (_val instanceof ExplicitOperatorOperation) {
-            ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
-            addParts(_vars, par_.getCallFctContent().getFunction(),
-                    _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordOperator().length(),
-                    _val.getErrs(),_val.getErrs());
-            _vars.addParts(export(par_.getPartOffsets()));
+            explicitOperator(_vars, _sum, _val);
+        }
+    }
+
+    private static void explicitOperator(VariablesOffsets _vars, int _sum, OperationNode _val) {
+        ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
+        addParts(_vars, par_.getCallFctContent().getFunction(),
+                _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordOperator().length(),
+                _val.getErrs(), _val.getErrs());
+        _vars.addParts(export(par_.getPartOffsets()));
+        if (par_.isAffect()) {
+            tryAddMergedParts(_vars,par_.getConv().getFunction(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());
+            tryAddMergedParts(_vars,par_.getFunctionTest(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());
+        }
+        if (par_.getMethodIdImpl() != null) {
+            addParts(_vars, par_.getConv().getFunction(),
+                    par_.getBeginImpl()+ _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordCast().length(),
+                    new StringList(), new StringList());
+            addTypes(_vars, par_.getTypesImpl());
+        }
+        if (par_.getMethodIdTest() != null) {
+            addParts(_vars, par_.getFunctionTest(),
+                    par_.getBeginTest()+ _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordExplicit().length(),
+                    new StringList(), new StringList());
+            addTypes(_vars, par_.getTypesTest());
         }
     }
 
@@ -3955,7 +3975,7 @@ public final class LinkageUtil {
         } else if (hasToCallStringConver(_vars, _nextSiblingOp)){
             _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, begin_));
             _vars.addPart(new PartOffset(ExportCst.FOOT_ITALIC,begin_+len_));
-        } else if (StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ) || StringUtil.quickEq(par_.getOper(),AbsBk.NULL_EQ_SHORT)||par_.isRightBool()) {
+        } else if (par_.isNullSafe()||par_.isRightBool()) {
             safeReport(_in, _vars, _nextSiblingOp, _cov, begin_, 1);
         }
     }

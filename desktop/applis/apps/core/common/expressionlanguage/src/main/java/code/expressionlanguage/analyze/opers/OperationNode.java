@@ -1346,29 +1346,8 @@ public abstract class OperationNode {
             return null;
         }
         CustList<CustList<MethodInfo>> listsBinary_ = new CustList<CustList<MethodInfo>>();
-        ClassMethodIdReturn test_ = null;
-        AbstractComparer cmp_ = new DefaultComparer();
-        if (StringUtil.quickEq(_op,"&&")) {
-            CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
-            for (String n:left_.getNames()) {
-                fetchTests(listTrue_, n, null, _page, cmp_, _page.getFalses());
-            }
-            ClassMethodIdReturn clMethImp_ = getCustCastResult(listTrue_,  left_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
-            if (clMethImp_ != null) {
-                test_ = clMethImp_;
-                addBinaries(_page, left_, right_, listsBinary_);
-            }
-        } else if (StringUtil.quickEq(_op,"||")) {
-            CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
-            for (String n:left_.getNames()) {
-                fetchTests(listTrue_,n, null, _page, cmp_, _page.getTrues());
-            }
-            ClassMethodIdReturn clMethImp_ = getCustCastResult(listTrue_,  left_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
-            if (clMethImp_ != null) {
-                test_ = clMethImp_;
-                addBinaries(_page, left_, right_, listsBinary_);
-            }
-        } else {
+        ClassMethodIdReturn test_ = tryGetTest(_left, _op, _page, null);
+        if (test_ != null || !StringExpUtil.isLogical(_op)) {
             addBinaries(_page, left_, right_, listsBinary_);
         }
         ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsBinary_, _op, pair_, _page);
@@ -1441,6 +1420,28 @@ public abstract class OperationNode {
             }
         }
         return null;
+    }
+
+    protected static ClassMethodIdReturn tryGetTest(OperationNode _left,
+                                                    String _op, AnalyzedPageEl _page, ClassMethodId _o) {
+        AnaClassArgumentMatching left_ = _left.getResultClass();
+        AbstractComparer cmp_ = new DefaultComparer();
+        if (StringUtil.quickEq(_op,"&&")) {
+            CustList<MethodInfo> listTrue_ = loopTests(_page, cmp_, left_.getNames(), _o, _page.getFalses());
+            return getCustCastResult(listTrue_,  left_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
+        }
+        if (StringUtil.quickEq(_op,"||")) {
+            CustList<MethodInfo> listTrue_ = loopTests(_page, cmp_, left_.getNames(), _o, _page.getTrues());
+            return getCustCastResult(listTrue_,  left_, _page, _page.getCurrentConstraints().getCurrentConstraints(), cmp_);
+        }
+        return null;
+    }
+    protected static CustList<MethodInfo> loopTests(AnalyzedPageEl _page, AbstractComparer _cmp, StringList _names, ClassMethodId _o, StringMap<CustList<MethodHeaderInfo>> _fct) {
+        CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
+        for (String n : _names) {
+            fetchTests(listTrue_, n, _o, _page, _cmp, _fct);
+        }
+        return listTrue_;
     }
 
     private static void addBinaries(AnalyzedPageEl _page, AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, CustList<CustList<MethodInfo>> _listsBinary) {
@@ -1802,10 +1803,7 @@ public abstract class OperationNode {
     }
 
     private static ClassMethodIdReturn fetchTestsOperator(StringList _names, AnaClassArgumentMatching _arg, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp, StringMap<CustList<MethodHeaderInfo>> _tests) {
-        CustList<MethodInfo> listTrue_ = new CustList<MethodInfo>();
-        for (String n: _names) {
-            fetchTests(listTrue_,n, _uniqueId, _page, _cmp, _tests);
-        }
+        CustList<MethodInfo> listTrue_ = loopTests(_page, _cmp, _names, _uniqueId, _tests);
         return getCustCastResult(listTrue_,  _arg, _page, _page.getCurrentConstraints().getCurrentConstraints(), _cmp);
     }
     private static void fetchTests(CustList<MethodInfo> _methods, String _id, ClassMethodId _uniqueId, AnalyzedPageEl _page, AbstractComparer _cmp, StringMap<CustList<MethodHeaderInfo>> _tests) {
@@ -2958,7 +2956,7 @@ public abstract class OperationNode {
         }
     }
 
-    private static ClassMethodIdReturn getCustCastResult(CustList<MethodInfo> _methods,
+    protected static ClassMethodIdReturn getCustCastResult(CustList<MethodInfo> _methods,
                                                          AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page, StringMap<StringList> _vars, AbstractComparer _cmp) {
         CustList<MethodInfo> signatures_ = new CustList<MethodInfo>();
         for (MethodInfo e: _methods) {

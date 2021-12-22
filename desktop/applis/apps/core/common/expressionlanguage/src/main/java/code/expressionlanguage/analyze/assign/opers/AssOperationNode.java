@@ -110,6 +110,9 @@ public abstract class AssOperationNode {
                 return new AssSimIdOperation(f_);
             }
         }
+        if (_anaNode instanceof NamedArgumentOperation) {
+            return new AssSimIdOperation(_anaNode);
+        }
         if (_anaNode instanceof VariableOperation) {
             VariableOperation s_ = (VariableOperation) _anaNode;
             return new AssSimStdVariableOperation(s_);
@@ -121,6 +124,9 @@ public abstract class AssOperationNode {
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;
             return new AssSimAffectationOperation(a_);
+        }
+        if (_anaNode instanceof ExplicitOperatorOperation&&((ExplicitOperatorOperation)_anaNode).isAffect()) {
+            return new AssSimReadWriteAffectationOperation(_anaNode);
         }
         if (_anaNode instanceof SemiAffectationOperation) {
             SemiAffectationOperation a_ = (SemiAffectationOperation) _anaNode;

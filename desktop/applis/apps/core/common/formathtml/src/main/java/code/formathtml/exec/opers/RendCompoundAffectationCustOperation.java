@@ -20,8 +20,8 @@ public final class RendCompoundAffectationCustOperation extends RendCompoundAffe
     private final ExecFormattedRootBlock formattedType;
     private final ExecStaticEltContent staticEltContent;
 
-    public RendCompoundAffectationCustOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names) {
-        super(_content, _operatorContent, _converter, _names);
+    public RendCompoundAffectationCustOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
+        super(_content, _operatorContent, _converter, _names, _staticPostEltContent);
         pair = _pair;
         formattedType = _staticEltContent.getFormattedType();
         staticEltContent = _staticEltContent;
@@ -38,7 +38,9 @@ public final class RendCompoundAffectationCustOperation extends RendCompoundAffe
             }
             res_ = conv_;
         }
-        Argument arg_ = endCalculateCh(_nodes, res_, _advStandards, _context, _rendStack);
+        ArgumentsPair argumentPair_ = getArgumentPair(_nodes, getSettable());
+        Argument leftArg_ = Argument.getNullableValue(argumentPair_.getArgument());
+        Argument arg_ = endCalculate(_nodes,leftArg_, res_, _advStandards, _context, _rendStack,isStaticPostEltContent());
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

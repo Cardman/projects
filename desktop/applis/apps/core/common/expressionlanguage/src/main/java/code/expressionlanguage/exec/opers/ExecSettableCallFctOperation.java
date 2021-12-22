@@ -75,11 +75,6 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
     }
 
     @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        return trySetArgument(_nodes, _conf, _right, _stack);
-    }
-
-    @Override
     public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, StackCall _stack) {
         trySetArgument(_nodes, _conf, _right, _stack);
         return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);

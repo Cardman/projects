@@ -15,7 +15,6 @@ import code.util.IdMap;
 
 public final class ExpressionLanguage {
 
-    private final CustList<ExecOperationNode> operations;
     private final IdMap<ExecOperationNode,ArgumentsPair> arguments;
     private ExecOperationNode currentOper;
     private ArgumentsPair argument;
@@ -23,9 +22,8 @@ public final class ExpressionLanguage {
     private final ExecBlock coveredBlock;
 
     public ExpressionLanguage(CustList<ExecOperationNode> _operations, ExecBlock _coveredBlock) {
-        operations = _operations;
         coveredBlock = _coveredBlock;
-        arguments = buildArguments();
+        arguments = buildArguments(_operations);
     }
 
     public static ArgumentsPair tryToCalculatePair(ContextEl _conf, ExpressionLanguage _right, int _offset, StackCall _stackCall) {
@@ -86,10 +84,10 @@ public final class ExpressionLanguage {
         }
     }
 
-    private IdMap<ExecOperationNode,ArgumentsPair> buildArguments() {
+    private static IdMap<ExecOperationNode,ArgumentsPair> buildArguments(CustList<ExecOperationNode> _operations) {
         IdMap<ExecOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<ExecOperationNode,ArgumentsPair>();
-        for (ExecOperationNode o: operations) {
+        for (ExecOperationNode o: _operations) {
             ArgumentsPair a_ = new ArgumentsPair();
             a_.setArgument(o.getArgument());
             arguments_.addEntry(o, a_);
@@ -152,8 +150,9 @@ public final class ExpressionLanguage {
         ArgumentsPair value_ = ExecHelper.getArgumentPair(_args,_oper);
         Argument res_ = Argument.getNullableValue(value_.getArgument());
         Struct v_ = res_.getStruct();
-        if (_oper.getNextSibling() != null&&value_.isArgumentTest()){
-            ExecMethodOperation par_ = _oper.getParent();
+        ExecOperationNode set_ = ancSettable(_oper);
+        ExecMethodOperation par_ = _oper.getParent();
+        if (set_ == _oper &&value_.isArgumentTest()){
             if (par_ instanceof ExecQuickOperation){
                 v_ = ((ExecQuickOperation) par_).getAbsorbingValue();
             }
@@ -165,6 +164,17 @@ public final class ExpressionLanguage {
         return Math.max(_least, ExecOperationNode.getNextIndex(_oper, v_));
     }
 
+    public static ExecOperationNode ancSettable(ExecOperationNode _oper) {
+        ExecOperationNode set_ = null;
+        ExecMethodOperation par_ = _oper.getParent();
+        if (par_ instanceof ExecQuickOperation){
+            set_ = par_.getFirstChild();
+        }
+        if (par_ instanceof ExecCompoundAffectationOperation){
+            set_ = ExecOperationNode.ancSettable((ExecCompoundAffectationOperation) par_,_oper);
+        }
+        return set_;
+    }
     public static Struct absCompound(CompoundedOperator _comp,Struct _def) {
         Struct v_ = _def;
         if (ExecOperationNode.andEq(_comp)) {

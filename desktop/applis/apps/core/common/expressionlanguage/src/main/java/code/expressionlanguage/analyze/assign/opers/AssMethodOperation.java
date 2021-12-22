@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.CastOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.AssignedVariables;
@@ -14,8 +15,14 @@ import code.util.StringMap;
 public abstract class AssMethodOperation extends AssOperationNode {
 
     private AssOperationNode firstChild;
+    private boolean cast;
     AssMethodOperation(OperationNode _ex) {
         super(_ex);
+        cast = _ex instanceof CastOperation;
+    }
+
+    public boolean isCast() {
+        return cast;
     }
 
     public final void appendChild(AssOperationNode _child) {

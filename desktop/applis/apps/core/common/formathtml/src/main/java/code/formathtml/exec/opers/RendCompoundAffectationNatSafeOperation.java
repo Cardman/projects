@@ -16,7 +16,7 @@ import code.util.core.StringUtil;
 public final class RendCompoundAffectationNatSafeOperation extends RendCompoundAffectationOperation {
 
     public RendCompoundAffectationNatSafeOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
-        super(_content, _operatorContent, _converter, _names);
+        super(_content, _operatorContent, _converter, _names, false);
     }
 
 

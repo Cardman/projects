@@ -29,7 +29,6 @@ public interface ExecSettableElResult {
             String _op, boolean _post, byte _cast, StackCall _stack);
 
     boolean resultCanBeSet();
-    Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack);
 
     Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, StackCall _stack);
 }

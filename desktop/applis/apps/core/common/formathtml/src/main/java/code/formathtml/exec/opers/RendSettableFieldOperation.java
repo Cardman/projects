@@ -111,12 +111,6 @@ public final class RendSettableFieldOperation extends
     }
 
     @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        processField(_nodes, _right, _context, _rendStack);
-        return _right;
-    }
-
-    @Override
     public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         processField(_nodes, _right, _context, _rendStack);
         return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);

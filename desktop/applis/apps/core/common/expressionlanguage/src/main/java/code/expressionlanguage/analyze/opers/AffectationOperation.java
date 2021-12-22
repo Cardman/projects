@@ -243,6 +243,13 @@ public final class AffectationOperation extends MethodOperation {
         OperationNode root_ = getFirstCastToBeAnalyzed(_operation);
         return castDottedTo(root_);
     }
+    public static SettableElResult tryGetSettableArg(OperationNode _operation) {
+        if (!(_operation instanceof MethodOperation)) {
+            return castDottedTo(_operation);
+        }
+        OperationNode root_ = getFirstCastToBeAnalyzed((MethodOperation) _operation);
+        return castDottedTo(root_);
+    }
 
     public static SettableElResult castDottedTo(OperationNode _root) {
         SettableElResult elt_;

@@ -17,31 +17,37 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
 
     private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
+    private final boolean staticPostEltContent;
 
-    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
+    protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
         super(_opCont, _operatorContent.getOpOffset(), _names);
         operatorContent = _operatorContent;
         converter = _converter;
+        staticPostEltContent = _staticPostEltContent;
     }
 
     @Override
     protected void calculateAffect(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        Argument leftArg_ = getFirstArgument(_nodes,this);
+        ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, getSettableAnc());
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, getFirstChild());
         if (argumentPair_.isArgumentTest()){
             pair_.setIndexImplicitCompound(-1);
-            if (StringUtil.quickEq(operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT)) {
+            Argument tow_ = Argument.getNullableValue(argumentPair_.getArgument());
+            if (sh(operatorContent)) {
                 pair_.setEndCalculate(true);
-                setSimpleArgument(leftArg_, _conf, _nodes, _stack);
+                setSimpleArgument(tow_, _conf, _nodes, _stack);
                 return;
             }
-            Argument arg_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes, _conf, leftArg_, _stack);
+            Argument arg_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes, _conf, tow_, _stack);
             pair_.setEndCalculate(true);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
         calculateSpec(_nodes, _conf, _stack);
+    }
+
+    public static boolean sh(ExecOperatorContent _operatorContent) {
+        return StringUtil.quickEq(_operatorContent.getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(_operatorContent.getOper(), AbsBk.OR_LOG_EQ_SHORT);
     }
 
     protected abstract void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
@@ -57,32 +63,13 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
             return;
         }
         if (!pair_.isEndCalculate()) {
+            Argument stored_ = getArgument(_nodes, getSettable());
             pair_.setEndCalculate(true);
-            Argument arg_ = endCalculateCh(getSettable(), _nodes, _conf, _right, _stack);
+            Argument arg_ = ExecSemiAffectationOperation.endCalculate(_conf,_nodes,_right,stored_,getSettable(), staticPostEltContent,_stack);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
         setSimpleArgument(_right,_conf,_nodes, _stack);
-    }
-    private static Argument endCalculateCh(ExecOperationNode _set,
-                                           IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall){
-        Argument arg_ = null;
-        if (_set instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)_set).endCalculate(_conf, _nodes, _right, _stackCall);
-        }
-        if (_set instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)_set).endCalculate(_conf, _nodes, _right, _stackCall);
-        }
-        if (_set instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)_set).endCalculate(_conf, _nodes, _right, _stackCall);
-        }
-        if (_set instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)_set).endCalculate(_conf, _nodes,_right, _stackCall);
-        }
-        if (_set instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)_set).endCalculate(_conf, _nodes,_right, _stackCall);
-        }
-        return Argument.getNullableValue(arg_);
     }
 
     protected ExecOperatorContent getOperatorContent() {

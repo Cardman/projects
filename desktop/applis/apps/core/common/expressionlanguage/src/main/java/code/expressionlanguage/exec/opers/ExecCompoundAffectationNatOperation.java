@@ -16,7 +16,7 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
 
 
     public ExecCompoundAffectationNatOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
-        super(_opCont, _operatorContent, _converter, _names);
+        super(_opCont, _operatorContent, _converter, _names, false);
     }
 
 

@@ -16,7 +16,7 @@ public final class RendCompoundAffectationNatOperation extends RendCompoundAffec
 
 
     public RendCompoundAffectationNatOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names) {
-        super(_content, _operatorContent, _converter, _names);
+        super(_content, _operatorContent, _converter, _names, false);
     }
 
 
@@ -35,7 +35,7 @@ public final class RendCompoundAffectationNatOperation extends RendCompoundAffec
                 return;
             }
             res_ = conv_;
-            Argument arg_ = endCalculateCh(_nodes, res_, _advStandards, _context, _rendStack);
+            Argument arg_ = endCalculate(_nodes,res_, res_, _advStandards, _context, _rendStack,false);
             setSimpleArgument(arg_, _nodes, _context, _rendStack);
             return;
         }

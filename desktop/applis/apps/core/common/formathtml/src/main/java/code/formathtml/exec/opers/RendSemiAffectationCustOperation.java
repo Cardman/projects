@@ -31,30 +31,10 @@ public class RendSemiAffectationCustOperation extends RendSemiAffectationOperati
         Argument stored_ = getArgument(_nodes,left_);
         checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, getStaticPostEltContent().getKind(), _rendStack);
         Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
-        res_ = endCalculate(_nodes, stored_, res_, _advStandards, _context, _rendStack);
+        res_ = endCalculate(_nodes, stored_, res_, _advStandards, _context, _rendStack, isPost());
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 
-    private Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _stored, Argument _res, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
-        Argument arg_ = null;
-        RendDynOperationNode settable_ = getSettable();
-        if (settable_ instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)settable_).endCalculate(_nodes, isPost(), _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable_).endCalculate(_nodes, isPost(), _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable_).endCalculate(_nodes, isPost(), _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable_).endCalculate(_nodes, isPost(), _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)settable_).endCalculate(_nodes, isPost(), _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        return Argument.getNullableValue(arg_);
-    }
 
     protected ExecStaticPostEltContent getStaticPostEltContent() {
         return staticPostEltContent;

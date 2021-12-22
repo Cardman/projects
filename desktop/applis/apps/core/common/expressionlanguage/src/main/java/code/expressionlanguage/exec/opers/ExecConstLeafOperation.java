@@ -10,9 +10,6 @@ public final class ExecConstLeafOperation extends ExecLeafOperation {
     }
 
     public static boolean isFilter(ExecOperationNode _op) {
-        if (!(_op instanceof ExecConstLeafOperation)) {
-            return false;
-        }
-        return ((ExecConstLeafOperation)_op).filter;
+        return _op instanceof ExecConstLeafOperation && ((ExecConstLeafOperation) _op).filter;
     }
 }

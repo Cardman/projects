@@ -19,8 +19,8 @@ public final class ExecCompoundAffectationCustOperation extends ExecCompoundAffe
     private final ExecTypeFunction pair;
 
 
-    public ExecCompoundAffectationCustOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names) {
-        super(_opCont, _operatorContent, _converter, _names);
+    public ExecCompoundAffectationCustOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
+        super(_opCont, _operatorContent, _converter, _names, _staticPostEltContent);
         pair = _pair;
         staticEltContent = _staticEltContent;
         formattedType = _staticEltContent.getFormattedType();

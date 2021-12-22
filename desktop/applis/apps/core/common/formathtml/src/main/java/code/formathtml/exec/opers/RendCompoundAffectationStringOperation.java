@@ -14,7 +14,7 @@ public final class RendCompoundAffectationStringOperation extends RendCompoundAf
 
 
     public RendCompoundAffectationStringOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, StringList _names) {
-        super(_content, _operatorContent,null, _names);
+        super(_content, _operatorContent,null, _names, false);
     }
 
 

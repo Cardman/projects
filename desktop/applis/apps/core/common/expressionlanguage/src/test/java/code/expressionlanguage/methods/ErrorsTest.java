@@ -10609,7 +10609,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " {\n" +
-                "  <a title=\"The function $static +,MyEnum($int) is undefined.\" class=\"e\">$operator</a>(+,<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>)(1);\n" +
+                "  <a title=\"The function $static +($int) is undefined.\" class=\"e\">$operator</a>(+,<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>)(1);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

@@ -53,7 +53,7 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
         setSimpleArgument(_right, _conf, _nodes, _stack);
     }
 
-    private static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument _stored, ExecOperationNode _settable, boolean _staticPostEltContent, StackCall _stackCall) {
+    static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument _stored, ExecOperationNode _settable, boolean _staticPostEltContent, StackCall _stackCall) {
         Argument arg_ = null;
         if (_settable instanceof ExecStdRefVariableOperation) {
             arg_ = ((ExecStdRefVariableOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent, _stored, _right, _stackCall);
