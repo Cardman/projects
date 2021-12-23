@@ -247,7 +247,12 @@ public final class AffectationOperation extends MethodOperation {
         if (!(_operation instanceof MethodOperation)) {
             return castDottedTo(_operation);
         }
-        OperationNode root_ = getFirstCastToBeAnalyzed((MethodOperation) _operation);
+        OperationNode root_ = _operation;
+        if (root_ instanceof NamedArgumentOperation) {
+            root_ = root_.getFirstChild();
+        }
+        root_ = deepId(root_);
+        root_ = castId(root_);
         return castDottedTo(root_);
     }
 
@@ -264,17 +269,23 @@ public final class AffectationOperation extends MethodOperation {
 
     public static OperationNode getFirstCastToBeAnalyzed(MethodOperation _operation) {
         OperationNode root_ = getFirstToBeAnalyzed(_operation);
+        return castId(root_);
+    }
+
+    private static OperationNode castId(OperationNode _root) {
+        OperationNode root_ = _root;
         if (root_ instanceof CastOperation) {
             root_ = root_.getFirstChild();
         }
-        while (stdId(root_)) {
-            root_ = root_.getFirstChild();
-        }
-        return root_;
+        return deepId(root_);
     }
 
     public static OperationNode getFirstToBeAnalyzed(MethodOperation _operation) {
         OperationNode root_ = _operation.getFirstChild();
+        return deepId(root_);
+    }
+    private static OperationNode deepId(OperationNode _root) {
+        OperationNode root_ = _root;
         while (stdId(root_)) {
             root_ = root_.getFirstChild();
         }
