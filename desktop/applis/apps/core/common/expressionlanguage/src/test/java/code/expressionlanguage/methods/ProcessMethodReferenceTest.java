@@ -5395,6 +5395,84 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculateArgument178Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Ex($int f){\n");
+        xml_.append("  $this.f=f;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExCont e = $new($new(5));\n");
+        xml_.append("  $var f = $lambda(Ex,=,ExTwo);\n");
+        xml_.append("  f.call($that(e[0]),$new(6));\n");
+        xml_.append("  $return e[0].f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public Ex[] a;\n");
+        xml_.append(" $public ExCont(Ex... a){\n");
+        xml_.append("  $this.a=a;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Ex $this($int i){\n");
+        xml_.append("  $return a[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int i){\n");
+        xml_.append("  a[i]=$value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo:Ex {\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append("  $super(p);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgument_1FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Ex($int f){\n");
+        xml_.append("  $this.f=f;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExCont e = $new($new(5));\n");
+        xml_.append("  $var f = $lambda(Ex,=,ExTwo);\n");
+        xml_.append("  f.call($that(e[0]),$new(6));\n");
+        xml_.append("  $return e[0].f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExCont {\n");
+        xml_.append(" $public Ex[] a;\n");
+        xml_.append(" $public ExCont(Ex... a){\n");
+        xml_.append("  $this.a=a;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Ex $this($int i){\n");
+        xml_.append("  $return a[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int i){\n");
+        xml_.append("  a[i]=$value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append(" $public ExTwo($int p){\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErr(files_));
+    }
+
+    @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

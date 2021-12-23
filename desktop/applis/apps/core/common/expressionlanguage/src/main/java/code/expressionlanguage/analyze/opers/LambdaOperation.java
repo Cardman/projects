@@ -763,6 +763,51 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         }
         StringList methodTypes_ = new StringList();
         if (!isIntermediateDottedOperation()) {
+            if (_len == 3 && StringUtil.quickEq(name_, "=")) {
+                int offset_ = className.indexOf('(')+1;
+                offset_ += StringExpUtil.getOffset(_args.first());
+                String type_ = resolveCorrectTypeAccessible(true, _args.first().trim(), _page, offset_,partOffsetsBegin);
+                found(type_);
+                String rightPart_ = _args.last();
+                int secOffset_ = className.indexOf('(')+1+_args.get(0).length()+1+_args.get(1).length()+1+StringExpUtil.getOffset(rightPart_);
+                AnaResultPartType resolved_ = ResolvingTypes.resolveCorrectTypeAccessible(secOffset_, rightPart_, _page);
+                partOffsets.add(resolved_);
+                String arg_ = resolved_.getResult(_page);
+                Mapping map_ = new Mapping();
+                map_.setArg(arg_);
+                map_.setParam(type_);
+                StringMap<StringList> maps_ = new StringMap<StringList>();
+                getRefConstraints(maps_, _page);
+                map_.setMapping(maps_);
+                if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //key word len
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            arg_,
+                            type_);
+                    _page.getLocalizer().addError(cast_);
+                    addErr(cast_.getBuiltError());
+                }
+                StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                fct_.append(StringExpUtil.TEMPLATE_BEGIN);
+                fct_.append('~');
+                fct_.append(type_);
+                fct_.append(StringExpUtil.TEMPLATE_SEP);
+                fct_.append(arg_);
+                fct_.append(StringExpUtil.TEMPLATE_SEP);
+                fct_.append(arg_);
+                fct_.append(StringExpUtil.TEMPLATE_END);
+                lambdaCommonContent.setResult(fct_.toString());
+                StringList params_ = new StringList();
+                params_.add(type_);
+                params_.add(arg_);
+                MethodId id_ = new MethodId(MethodAccessKind.STATIC, "=", params_);
+                method = new ClassMethodId(type_, id_);
+                setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                return;
+            }
             if (_len == 2 && StringUtil.quickEq(name_, "=")) {
                 int offset_ = className.indexOf('(')+1;
                 offset_ += StringExpUtil.getOffset(_args.first());

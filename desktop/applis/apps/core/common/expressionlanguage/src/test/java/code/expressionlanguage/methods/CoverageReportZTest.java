@@ -12391,6 +12391,76 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage681Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int f;\n");
+        xml_.append(" public Ex(int f){\n");
+        xml_.append("  this.f=f;\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  ExCont e = new(new(5));\n");
+        xml_.append("  var f = $lambda(Ex,=,ExTwo);\n");
+        xml_.append("  f.call(that(e[0]),new(6));\n");
+        xml_.append("  return e[0].f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExCont {\n");
+        xml_.append(" public Ex[] a;\n");
+        xml_.append(" public ExCont(Ex... a){\n");
+        xml_.append("  this.a=a;\n");
+        xml_.append(" }\n");
+        xml_.append(" public Ex this(int i){\n");
+        xml_.append("  return a[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int i){\n");
+        xml_.append("  a[i]=value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.ExTwo:Ex {\n");
+        xml_.append(" public ExTwo(int p){\n");
+        xml_.append("  super(p);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public int <span class=\"f\"><a name=\"m34\">f</a></span>;\n" +
+                " <a name=\"m38\">public Ex(</a>int <a name=\"m52\">f</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\">this</span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#m34\">f</a></span></span>=<span class=\"f\"><a href=\"#m52\">f</a></span></span>;\n" +
+                " }\n" +
+                " public static int <a name=\"m90\">exmeth</a>(){\n" +
+                "  <a title=\"pkg.ExCont\" href=\"#m221\">ExCont</a> <span class=\"f\"><span class=\"f\"><a name=\"m109\">e</a> </span>=<span class=\"f\"> <a title=\"pkg.ExCont.pkg.ExCont(pkg.Ex...)\" href=\"#m251\">new</a>(<span class=\"f\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m38\">new</a>(<span class=\"f\">5</span>)</span>)</span></span>;\n" +
+                "  <b title=\"$core.Fct&lt;~pkg.Ex,pkg.ExTwo,pkg.ExTwo&gt;\">var</b> <span class=\"f\"><span class=\"f\"><a name=\"m132\">f</a> </span>=<span class=\"f\"> $lambda(<a title=\"pkg.Ex\" href=\"#m13\">Ex</a>,=,<a title=\"pkg.ExTwo\" href=\"#m390\">ExTwo</a>)</span></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m132\">f</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\">that(<span class=\"f\"><span class=\"f\"><a href=\"#m109\">e</a></span><span class=\"f\"><a title=\"pkg.ExCont.[](int)\" href=\"#m301\">[</a><span class=\"f\">0</span><a title=\"pkg.ExCont.[](int)\" href=\"#m301\">]</a></span></span>)</span>,<span class=\"f\"><a title=\"pkg.ExTwo.pkg.ExTwo(int)\" href=\"#m406\">new</a>(<span class=\"f\">6</span>)</span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m109\">e</a></span><span class=\"f\"><a title=\"pkg.ExCont.[](int)\" href=\"#m301\">[</a><span class=\"f\">0</span><a title=\"pkg.ExCont.[](int)\" href=\"#m301\">]</a></span></span>.<span class=\"f\"><a title=\"pkg.Ex.f\" href=\"#m34\">f</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m221\">pkg.ExCont</a> {\n" +
+                " public <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>[] <span class=\"f\"><a name=\"m247\">a</a></span>;\n" +
+                " <a name=\"m251\">public ExCont(</a><a title=\"pkg.Ex\" href=\"#m13\">Ex</a>... <a name=\"m271\">a</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\">this</span>.<span class=\"f\"><a title=\"pkg.ExCont.a\" href=\"#m247\">a</a></span></span>=<span class=\"f\"><a href=\"#m271\">a</a></span></span>;\n" +
+                " }\n" +
+                " public <a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m301\">this</a>(int <a name=\"m310\">i</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a title=\"pkg.ExCont.a\" href=\"#m247\">a</a></span><span class=\"f\">[<span class=\"f\"><a href=\"#m310\">i</a></span>]</span></span>;\n" +
+                " }\n" +
+                " public void <a name=\"m345\">this</a>(int <a name=\"m354\">i</a>){\n" +
+                "  <span class=\"f\"><span class=\"f\"><span class=\"f\"><a title=\"pkg.ExCont.a\" href=\"#m247\">a</a></span><span class=\"f\">[<span class=\"f\"><a href=\"#m354\">i</a></span>]</span></span>=<span class=\"f\"><b>value</b></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "public class <a name=\"m390\">pkg.ExTwo</a>:<a title=\"pkg.Ex\" href=\"#m13\">Ex</a> {\n" +
+                " <a name=\"m406\">public ExTwo(</a>int <a name=\"m423\">p</a>){\n" +
+                "  <span class=\"f\"><a title=\"pkg.Ex.pkg.Ex(int)\" href=\"#m38\">super</a>(<span class=\"f\"><a href=\"#m423\">p</a></span>)</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
