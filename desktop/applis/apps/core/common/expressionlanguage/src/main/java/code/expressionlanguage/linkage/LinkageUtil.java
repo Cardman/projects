@@ -2750,6 +2750,7 @@ public final class LinkageUtil {
         processLeafType(_vars, sum_,_val);
         processDynamicCall(_vars,sum_, _val);
         processRichHeader(_vars, sum_, _val);
+        explicitOperatorRep(_in,_vars, sum_, _val,_cov);
         processUnaryLeftOperationsCoversReport(_in,_vars, sum_, _val, _cov);
         if (_val instanceof SwitchOperation) {
             SwitchMethodBlock switchMethod_ = ((SwitchOperation) _val).getSwitchMethod();
@@ -2828,6 +2829,7 @@ public final class LinkageUtil {
         processLeafType(_vars, _sum,_val);
         processDynamicCall(_vars,_sum, _val);
         processRichHeader(_vars, _sum, _val);
+        explicitOperatorErr(_vars, _sum, _val);
         if (_val instanceof SwitchOperation) {
             StringList all_ = new StringList(_val.getErrs());
             SwitchMethodBlock switchMethod_ = ((SwitchOperation) _val).getSwitchMethod();
@@ -3455,16 +3457,37 @@ public final class LinkageUtil {
                         _val.getErrs(),_val.getErrs());
             }
         }
-        if (_val instanceof ExplicitOperatorOperation) {
-            explicitOperator(_vars, _sum, _val);
-        }
     }
 
-    private static void explicitOperator(VariablesOffsets _vars, int _sum, OperationNode _val) {
+    private static void explicitOperatorRep(LinkageStackElementIn _in, VariablesOffsets _vars, int _sum, OperationNode _val, Coverage _cov) {
+        if (!(_val instanceof ExplicitOperatorOperation)) {
+            return;
+        }
+        ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
+        OperationNode foundChild_ = par_.getFoundChild();
+        StringList title_ = new StringList();
+        if (foundChild_ != null) {
+            title_.addAllElts(getCoversFoundReport(_in, _vars, foundChild_, _cov));
+        }
+        addParts(_vars, par_.getCallFctContent().getFunction(),
+                _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordOperator().length(),
+                new StringList(), title_);
+        explicitOperatorCom(_vars, _sum, _val);
+    }
+
+    private static void explicitOperatorErr(VariablesOffsets _vars, int _sum, OperationNode _val) {
+        if (!(_val instanceof ExplicitOperatorOperation)) {
+            return;
+        }
         ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
         addParts(_vars, par_.getCallFctContent().getFunction(),
                 _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordOperator().length(),
                 _val.getErrs(), _val.getErrs());
+        explicitOperatorCom(_vars, _sum, _val);
+    }
+
+    private static void explicitOperatorCom(VariablesOffsets _vars, int _sum, OperationNode _val) {
+        ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
         _vars.addParts(export(par_.getPartOffsets()));
         if (par_.isAffect()) {
             tryAddMergedParts(_vars,par_.getConv().getFunction(),par_.getAffOffset()+ _sum + _val.getIndexInEl(),new StringList(), new StringList());

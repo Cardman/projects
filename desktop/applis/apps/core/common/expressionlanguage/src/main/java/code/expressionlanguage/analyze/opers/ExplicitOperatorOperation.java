@@ -45,6 +45,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     private int beginImpl;
     private int beginTest;
     private AnaTypeFct functionTest;
+    private OperationNode foundChild;
     private int indexVar = -1;
 
     public ExplicitOperatorOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -291,6 +292,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             }
             ClassMethodIdReturn test_ = tryGetTest(def_,opSearch,_page, methodIdTest);
             if (test_ != null){
+                foundChild = next_;
                 def_.getResultClass().implicitInfosTest(test_);
                 functionTest = test_.getPair();
             } else if (StringExpUtil.isLogical(opSearch)) {
@@ -431,6 +433,10 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     _varargParam, _name, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalClass()));
         }
         return cust_;
+    }
+
+    public OperationNode getFoundChild() {
+        return foundChild;
     }
 
     public boolean isAffect() {
