@@ -152,7 +152,6 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     String resName_ = resolvedIdType_.getFullName();
                     typesTest.add(resolvedIdType_.getDels());
                     if (!resName_.isEmpty()) {
-                        CustList<Boolean> ref_ = new CustList<Boolean>();
                         int offImpl_ = thirdLeftPar_+1;
                         offImpl_ += argsTest_.first().length() + 1;
                         String full_ = argsTest_.get(1);
@@ -163,8 +162,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                         typesTest.add(result_);
                         arg_ = result_.getResult(_page);
                         StringList out_ = new StringList(_page.getAliasPrimBoolean(),arg_);
-                        ref_.add(false);
-                        ref_.add(false);
+                        CustList<Boolean> ref_ = new CustList<Boolean>(false,false);
                         methodIdTest = new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, nameTest_, out_, ref_, false));
                     }
                 } else {
