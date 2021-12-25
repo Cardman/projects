@@ -4099,6 +4099,49 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(5, getNumber(ret_));
     }
     @Test
+    public void calculateExplicitOperatorRefPostValueExceptionRule2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new();\n");
+        xml_.append("  e[0] = $new(5);\n");
+        xml_.append("  e[1] = $new(5);\n");
+        xml_.append("  $that $var r = $that(e[0]);\n");
+        xml_.append("  $that $var cr = $that(e[1]);\n");
+        xml_.append("  $return $operator(+,Cont):(r,cr).f;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public Cont[] inst=$new Cont[2];\n");
+        xml_.append(" $public $that Cont $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return $that(inst[p]);\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $that $void $this($int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Cont {\n");
+        xml_.append(" $public $int f;\n");
+        xml_.append(" $public Cont($int f)\n");
+        xml_.append(" {\n");
+        xml_.append("  $this.f=f;\n");
+        xml_.append(" }\n");
+        xml_.append(" $operator+ Cont(Cont a, Cont b){\n");
+        xml_.append("  $return $new(a.f+b.f);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
     public void calculate7FailTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
