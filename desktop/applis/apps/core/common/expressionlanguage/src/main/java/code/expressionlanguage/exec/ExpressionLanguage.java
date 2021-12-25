@@ -116,7 +116,7 @@ public final class ExpressionLanguage {
         if (currentOper_ == null) {
             return;
         }
-        if (_wrapp != null&&(!(currentOper_ instanceof ExecStdRefVariableOperation)||!(currentOper_.getParent() instanceof ExecAbstractAffectOperation)||((ExecAbstractAffectOperation)currentOper_.getParent()).getSettable() != currentOper_)) {
+        if (_wrapp != null&&(!(currentOper_ instanceof ExecStdRefVariableOperation)||!isAncAff(currentOper_))) {
             ExecHelper.getArgumentPair(arguments,currentOper).setWrapper(_wrapp);
         }
         if (currentOper_ instanceof CallExecSimpleOperation) {
@@ -128,6 +128,16 @@ public final class ExpressionLanguage {
         getNextIndex(currentOper_, least_,_cont,_stackCall);
     }
 
+    private static boolean isAncAff(ExecOperationNode _oper){
+        ExecOperationNode op_ = _oper;
+        while (op_ != null) {
+            if (op_ instanceof ExecAbstractAffectOperation&& ((ExecAbstractAffectOperation)op_).getSettable() == _oper) {
+                return true;
+            }
+            op_ = op_.getParent();
+        }
+        return false;
+    }
     private void getNextIndex(ExecOperationNode _currentOper, int _least, ContextEl _context, StackCall _stackCall) {
         if (_context.callsOrException(_stackCall)) {
             return;
