@@ -869,6 +869,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         indexersSet_.add(m_);
                     }
                 }
+                checkRef(_page, method_);
             }
             if (AbsBk.isAnnotBlock(method_)) {
                 NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
@@ -894,6 +895,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     _page.addLocError(badMeth_);
                     m_.addNameErrors(badMeth_);
                 }
+                checkRef(_page, method_);
             }
             if (isOverBlock(method_)) {
                 NamedCalledFunctionBlock m_ = (NamedCalledFunctionBlock) method_;
@@ -962,6 +964,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                     idMethods_.add(id_);
                 }
+                checkRef(_page, method_);
             }
             if (AbsBk.isAnnotBlock(method_)) {
                 MethodId id_ = ((NamedCalledFunctionBlock)method_).getId();
@@ -981,6 +984,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                 }
                 idMethods_.add(id_);
+                checkRef(_page, method_);
             }
             if (method_ instanceof ConstructorBlock) {
                 method_.buildImportedTypes(_page);
@@ -1014,22 +1018,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     }
                 }
                 idConstructors_.add(idCt_);
+                checkRef(_page, method_);
             }
             validateParameters(method_, _page, getFile());
-            if (method_.isRetRef() && (!(method_ instanceof NamedCalledFunctionBlock)||((NamedCalledFunctionBlock)method_).getKind() != MethodKind.SET_INDEX)) {
-                if (StringUtil.quickEq(method_.getImportedReturnType(),_page.getAliasVoid())) {
-                    int r_ = method_.getNameOffset();
-                    FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                    badMeth_.setFileName(getFile().getFileName());
-                    badMeth_.setIndexFile(r_);
-                    //method name len
-                    badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
-                            method_.getSignature(_page),
-                            _page.getAliasVoid());
-                    _page.addLocError(badMeth_);
-                    method_.addNameErrors(badMeth_);
-                }
-            }
         }
         buildFieldInfos(bl_, _page);
         _page.getUnary().addEntry(getFullName(),unary_);
@@ -1045,6 +1036,23 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         _page.getTrues().addEntry(getFullName(),true_);
         _page.getFalses().addEntry(getFullName(),false_);
         validateIndexers(indexersGet_, indexersSet_, _page);
+    }
+
+    private void checkRef(AnalyzedPageEl _page, NamedFunctionBlock _method) {
+        if ((!(_method instanceof NamedCalledFunctionBlock)||((NamedCalledFunctionBlock) _method).getKind() != MethodKind.SET_INDEX)&&_method.isRetRef()) {
+            if (StringUtil.quickEq(_method.getImportedReturnType(), _page.getAliasVoid())) {
+                int r_ = _method.getNameOffset();
+                FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+                badMeth_.setFileName(getFile().getFileName());
+                badMeth_.setIndexFile(r_);
+                //method name len
+                badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                        _method.getSignature(_page),
+                        _page.getAliasVoid());
+                _page.addLocError(badMeth_);
+                _method.addNameErrors(badMeth_);
+            }
+        }
     }
 
     public static void validateParameters(NamedFunctionBlock _method, AnalyzedPageEl _page, FileBlock _file) {
