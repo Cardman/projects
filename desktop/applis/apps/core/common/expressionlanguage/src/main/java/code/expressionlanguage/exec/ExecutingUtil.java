@@ -417,7 +417,7 @@ public final class ExecutingUtil {
         }
     }
 
-    public static boolean direct(boolean _direct, ExecTypeFunction _castOpId, String _className) {
+    private static boolean direct(boolean _direct, ExecTypeFunction _castOpId, String _className) {
         return _direct || ExecExplicitOperation.direct(_castOpId, _className);
     }
 }

@@ -852,7 +852,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         _page.addLocError(unexp_);
                         m_.addNameErrors(unexp_);
                     }
-                    if (m_.getParametersTypes().isEmpty()||m_.isRetRef()) {
+                    if (m_.getParametersTypes().isEmpty()) {
                         int where_ = b.getOffset();
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
                         unexp_.setFileName(getFile().getFileName());
@@ -1016,7 +1016,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 idConstructors_.add(idCt_);
             }
             validateParameters(method_, _page, getFile());
-            if (method_.isRetRef()) {
+            if (method_.isRetRef() && (!(method_ instanceof NamedCalledFunctionBlock)||((NamedCalledFunctionBlock)method_).getKind() != MethodKind.SET_INDEX)) {
                 if (StringUtil.quickEq(method_.getImportedReturnType(),_page.getAliasVoid())) {
                     int r_ = method_.getNameOffset();
                     FoundErrorInterpret badMeth_ = new FoundErrorInterpret();

@@ -630,17 +630,16 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         String name_ = _l.getMethodName();
         CustList<Argument> arguments_ = _call.getArguments();
         Struct arr_ = _instance.getStruct();
-        int lastIndex_ = arguments_.size() - 1;
-        if (lastIndex_ < 0) {
+        if (arguments_.isEmpty()) {
             return new Argument(new IntStruct(ExecArrayFieldOperation.getLength(arr_, _conf)));
         }
         if (StringUtil.quickEq(name_,"[:]")) {
-            return rangeInts(_conf, _stackCall, arguments_, arr_, lastIndex_);
+            return rangeInts(_conf, _stackCall, arguments_, arr_);
         }
         if (StringUtil.quickEq(name_,"[:]=")) {
-            return rangeIntsSet(_conf, _stackCall, arguments_, arr_,Argument.getNullableValue(_call.getRight()).getStruct(), lastIndex_);
+            return rangeIntsSet(_conf, _stackCall, arguments_, arr_,Argument.getNullableValue(_call.getRight()).getStruct());
         }
-        Struct range_ = arguments_.get(lastIndex_).getStruct();
+        Struct range_ = arguments_.last().getStruct();
         if (range_ instanceof RangeStruct) {
             Argument right_ = _call.getRight();
             if (right_ != null) {
@@ -680,7 +679,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return new Argument(ExecTemplates.getElement(arr_,ind_, _conf, _stackCall));
     }
 
-    private static Argument rangeInts(ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments, Struct _arr, int _lastIndex) {
+    private static Argument rangeInts(ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments, Struct _arr) {
         if (_arguments.size() == 2) {
             Struct lower_ = _arguments.get(0).getStruct();
             Struct step_ = _arguments.get(1).getStruct();
@@ -690,7 +689,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             return new Argument(ExecTemplates.getRange(_arr,range_.getStruct(), _conf, _stackCall));
         }
-        Struct lower_ = _arguments.get(_lastIndex).getStruct();
+        Struct lower_ = _arguments.last().getStruct();
         Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
         Argument range_ = FctRangeUnlimitedStep.range(_conf, _stackCall, lower_, upper_);
         if (_conf.callsOrException(_stackCall)) {
@@ -698,7 +697,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new Argument(ExecTemplates.getRange(_arr,range_.getStruct(), _conf, _stackCall));
     }
-    private static Argument rangeIntsSet(ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments, Struct _arr, Struct _right, int _lastIndex) {
+    private static Argument rangeIntsSet(ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments, Struct _arr, Struct _right) {
         if (_arguments.size() == 2) {
             Struct lower_ = _arguments.get(0).getStruct();
             Struct step_ = _arguments.get(1).getStruct();
@@ -708,7 +707,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             }
             return new Argument(ExecTemplates.setRange(_arr, (RangeStruct) range_.getStruct(),_right, _conf, _stackCall));
         }
-        Struct lower_ = _arguments.get(_lastIndex).getStruct();
+        Struct lower_ = _arguments.last().getStruct();
         Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
         Argument range_ = FctRangeUnlimitedStep.range(_conf, _stackCall, lower_, upper_);
         if (_conf.callsOrException(_stackCall)) {

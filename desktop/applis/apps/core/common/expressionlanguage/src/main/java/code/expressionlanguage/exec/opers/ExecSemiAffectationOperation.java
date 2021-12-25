@@ -32,25 +32,34 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
     protected void end(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettable());
-        Argument stored_ = getArgument(_nodes, getSettable());
+        Argument stored_ = pairSet_.getArgument();
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
             Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, getSettable(), post, _stack);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
-        if (getSettable() instanceof ExecCustArrOperation || pairSet_.getWrapper() instanceof ArrayCustWrapper) {
-            Argument out_;
-            if (!pair_.isCalledIndexer()) {
-                pair_.setCalledIndexer(true);
-                out_ = getPrePost(post, stored_, _right);
-            } else {
-                out_ = _right;
-            }
+        if (isIndexer(getSettable(),_nodes)) {
+            Argument out_ = callIndexer(_right, pair_, stored_, post);
             setSimpleArgument(out_, _conf, _nodes, _stack);
             return;
         }
         setSimpleArgument(_right, _conf, _nodes, _stack);
+    }
+    static boolean isIndexer(ExecOperationNode _settable, IdMap<ExecOperationNode, ArgumentsPair> _nodes){
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, _settable);
+        return _settable instanceof ExecCustArrOperation || pairSet_.getWrapper() instanceof ArrayCustWrapper;
+    }
+
+    static Argument callIndexer(Argument _right, ArgumentsPair _pair, Argument _stored, boolean _post) {
+        Argument out_;
+        if (!_pair.isCalledIndexer()) {
+            _pair.setCalledIndexer(true);
+            out_ = getPrePost(_post, _stored, _right);
+        } else {
+            out_ = _right;
+        }
+        return out_;
     }
 
     static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument _stored, ExecOperationNode _settable, boolean _staticPostEltContent, StackCall _stackCall) {

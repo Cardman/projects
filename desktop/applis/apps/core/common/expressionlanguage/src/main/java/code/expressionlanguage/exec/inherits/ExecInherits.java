@@ -82,7 +82,7 @@ public final class ExecInherits {
         int dim_ = dBaseParam_.getDim();
         String classParam_ = dBaseParam_.getComponent();
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
-        String baseArr_ = dBaseArg_.getComponent();
+        String baseArg_ = dBaseArg_.getComponent();
         int dimArg_ = dBaseArg_.getDim();
         if (StringUtil.quickEq(classParam_, _context.getStandards().getContent().getCoreNames().getAliasObject())) {
             if (dimArg_ < dim_) {
@@ -93,7 +93,7 @@ public final class ExecInherits {
         if (dimArg_ != dim_) {
             return "";
         }
-        PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArr_);
+        PrimitiveType pr_ = _context.getStandards().getPrimitiveTypes().getVal(baseArg_);
         if (pr_ != null) {
             if (StringUtil.contains(pr_.getAllSuperType(_context), classParam_)) {
                 return _superType;
@@ -106,9 +106,9 @@ public final class ExecInherits {
         if (StringUtil.quickEq(_superType, _context.getStandards().getContent().getCoreNames().getAliasVoid())) {
             return "";
         }
-        String generic_ = getSuperGenericIn(baseArr_,dBaseParam_, _context);
-        GeneType classBody_ = _context.getClassBody(baseArr_);
-        return format(classBody_,_subType, generic_);
+        GeneType classBodyArg_ = _context.getClassBody(baseArg_);
+        String generic_ = getSuperGenericIn(classBodyArg_,dBaseParam_, _context);
+        return format(classBodyArg_,_subType, generic_);
     }
 
     public static String format(GeneType _type, String _first, String _second) {
@@ -290,24 +290,23 @@ public final class ExecInherits {
         String idArg_ = StringExpUtil.getIdFromAllTypes(_subType);
         DimComp dBaseArg_ = StringExpUtil.getQuickComponentBaseType(idArg_);
         String baseArr_ = dBaseArg_.getComponent();
-        String generic_ = getSuperGenericIn(baseArr_,dBaseParam_, _context);
         GeneType classBody_ = _context.getClassBody(baseArr_);
+        String generic_ = getSuperGenericIn(classBody_,dBaseParam_, _context);
         return quickFormat(classBody_, _subType, generic_);
     }
 
-    private static String getSuperGenericIn(String _arg, DimComp _dimParam, ContextEl _context) {
-        GeneType classBody_ = _context.getClassBody(_arg);
+    private static String getSuperGenericIn(GeneType _arg, DimComp _dimParam, ContextEl _context) {
         int dim_ = _dimParam.getDim();
         String param_ = StringExpUtil.getIdFromAllTypes(_dimParam.getComponent());
-        if (classBody_ instanceof ExecAnnotationBlock && StringUtil.quickEq(param_, _context.getStandards().getContent().getReflect().getAliasAnnotationType())) {
+        if (_arg instanceof ExecAnnotationBlock && StringUtil.quickEq(param_, _context.getStandards().getContent().getReflect().getAliasAnnotationType())) {
             return StringExpUtil.getPrettyArrayType(param_, dim_);
         }
         String generic_ = "";
-        if (classBody_ instanceof ExecRootBlock) {
-            generic_ = new ExecLookingSuperTypes(((ExecRootBlock) classBody_).getAllGenericSuperTypes()).find(param_);
+        if (_arg instanceof ExecRootBlock) {
+            generic_ = new ExecLookingSuperTypes(((ExecRootBlock) _arg).getAllGenericSuperTypes()).find(param_);
         }
-        if (classBody_ instanceof StandardType) {
-            generic_ = new CommonLookingSuperTypes(((StandardType) classBody_).getAllGenericSuperTypes()).find(param_);
+        if (_arg instanceof StandardType) {
+            generic_ = new CommonLookingSuperTypes(((StandardType) _arg).getAllGenericSuperTypes()).find(param_);
         }
         if (generic_.isEmpty()) {
             return "";

@@ -56,6 +56,8 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettable());
+        Argument stored_ = pairSet_.getArgument();
         setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
         int indexImplicit_ = pair_.getIndexImplicitCompound();
         if (ImplicitMethods.isValidIndex(converter,indexImplicit_)) {
@@ -63,10 +65,14 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
             return;
         }
         if (!pair_.isEndCalculate()) {
-            Argument stored_ = getArgument(_nodes, getSettable());
             pair_.setEndCalculate(true);
             Argument arg_ = ExecSemiAffectationOperation.endCalculate(_conf,_nodes,_right,stored_,getSettable(), staticPostEltContent,_stack);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
+            return;
+        }
+        if (ExecSemiAffectationOperation.isIndexer(getSettable(),_nodes)) {
+            Argument out_ = ExecSemiAffectationOperation.callIndexer(_right, pair_, stored_, staticPostEltContent);
+            setSimpleArgument(out_, _conf, _nodes, _stack);
             return;
         }
         setSimpleArgument(_right,_conf,_nodes, _stack);
