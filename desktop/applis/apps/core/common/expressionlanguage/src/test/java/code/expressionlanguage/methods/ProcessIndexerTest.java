@@ -4096,7 +4096,7 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("test");
         Argument ret_;
         ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
-        assertEq(8, getNumber(ret_));
+        assertEq(5, getNumber(ret_));
     }
     @Test
     public void calculate7FailTest() {

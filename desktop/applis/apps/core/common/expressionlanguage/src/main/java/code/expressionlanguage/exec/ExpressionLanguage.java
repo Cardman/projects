@@ -111,17 +111,13 @@ public final class ExpressionLanguage {
     }
 
     public void setArgument(AbstractWrapper _wrapp, Argument _arg, ContextEl _cont, StackCall _stackCall) {
-        if (_wrapp != null) {
-            ExecHelper.getArgumentPair(arguments,currentOper).setWrapper(_wrapp);
-        }
-        setArgument(_arg,_cont, _stackCall);
-    }
-
-    public void setArgument(Argument _arg, ContextEl _cont, StackCall _stackCall) {
         ExecOperationNode currentOper_ = currentOper;
         int least_ = index + 1;
         if (currentOper_ == null) {
             return;
+        }
+        if (_wrapp != null&&(!(currentOper_ instanceof ExecStdRefVariableOperation)||!(currentOper_.getParent() instanceof ExecAbstractAffectOperation)||((ExecAbstractAffectOperation)currentOper_.getParent()).getSettable() != currentOper_)) {
+            ExecHelper.getArgumentPair(arguments,currentOper).setWrapper(_wrapp);
         }
         if (currentOper_ instanceof CallExecSimpleOperation) {
             ((CallExecSimpleOperation) currentOper_).endCalculate(_cont, arguments, _arg, _stackCall);
