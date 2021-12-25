@@ -28,6 +28,12 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     }
 
     @Override
+    public void buildImportedReturnTypes(AnalyzedPageEl _page) {
+        super.buildImportedReturnTypes(_page);
+        retRef(_page, MethodKind.OPERATOR);
+    }
+
+    @Override
     public String getSignature(AnalyzedPageEl _page) {
         return getId().getSignature(_page.getDisplayedStrings());
     }

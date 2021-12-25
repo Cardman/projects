@@ -251,6 +251,22 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return partOffsetsReturn.getResult(_page);
     }
 
+
+    void retRef(AnalyzedPageEl _page, MethodKind _kind) {
+        String void_ = _page.getAliasVoid();
+        if (StringUtil.quickEq(getImportedReturnType().trim(), void_) && isRetRef() && _kind != MethodKind.SET_INDEX) {
+            int r_ = getNameOffset();
+            FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
+            badMeth_.setFileName(getFile().getFileName());
+            badMeth_.setIndexFile(r_);
+            //method name len
+            badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
+                    getSignature(_page),
+                    _page.getAliasVoid());
+            _page.addLocError(badMeth_);
+            addNameErrors(badMeth_);
+        }
+    }
     public CustList<Boolean> getParametersRef() {
         return parametersRef;
     }

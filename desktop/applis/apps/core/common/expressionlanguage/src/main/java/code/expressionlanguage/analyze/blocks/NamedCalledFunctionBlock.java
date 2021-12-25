@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.IdFctOperation;
@@ -330,6 +329,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     @Override
     public void buildImportedReturnTypes(AnalyzedPageEl _page) {
         super.buildImportedReturnTypes(_page);
+        retRef(_page, getKind());
         if (typeCall != NameCalledEnum.ANNOTATION) {
             return;
         }
