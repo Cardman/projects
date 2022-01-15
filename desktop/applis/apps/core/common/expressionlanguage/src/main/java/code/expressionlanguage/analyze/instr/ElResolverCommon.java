@@ -2,12 +2,32 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
+import code.util.CharList;
+import code.util.Ints;
 import code.util.core.StringUtil;
 
 public final class ElResolverCommon {
     private ElResolverCommon() {
     }
 
+    static int addNamed(String _string, int _begin, int _end, Ints _namedArgs) {
+        int next_ = StringExpUtil.nextPrintChar(_end, _string.length(), _string);
+        if (!StringExpUtil.nextCharIs(_string, next_, _string.length(), ':')) {
+            return _begin;
+        }
+        int bk_ = StringExpUtil.getBackPrintChar(_string, _begin);
+        if (_namedArgs.contains(bk_)) {
+            _namedArgs.add(next_);
+            return next_+1;
+        }
+        for (char c: CharList.wrapCharArray(',','(','{','[')) {
+            if (StringExpUtil.nextCharIs(_string, bk_, _string.length(), c)) {
+                _namedArgs.add(next_);
+                return next_+1;
+            }
+        }
+        return _begin;
+    }
     static int processPredefinedMethod(String _string, int _i, String _name) {
         int afterSuper_ = _i + _name.length();
         int index_ = _string.indexOf(ElResolver.PAR_LEFT,afterSuper_);

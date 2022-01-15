@@ -117,12 +117,6 @@ final class AfterUnaryParts {
             index = incrementUnary(_string, firstPrintChar_, lastPrintChar_, _offset, _d);
             return;
         }
-        int indexTwoDots_ = _string.indexOf(':',firstPrintChar_);
-        if (indexTwoDots_ > -1) {
-            if (StringExpUtil.isDollarWord(_string.substring(firstPrintChar_,indexTwoDots_).trim())) {
-                prio = ElResolver.NAME_PRIO;
-            }
-        }
         index = firstPrintChar_;
     }
     void setInstance(String _string, AnalyzedPageEl _page) {
@@ -168,6 +162,26 @@ final class AfterUnaryParts {
         }
         if (_d.getDimsAddonIndexes().containsObj((long)index+_offset)) {
             laterIndexesDouble.add(index);
+            index++;
+            return;
+        }
+        if (_d.getNamedArgs().containsObj((long)index+_offset)) {
+            if (!parsBrackets.isEmpty()) {
+                index++;
+                return;
+            }
+            prio = ElResolver.NAME_PRIO;
+            if (operators.isEmpty()) {
+                operators.addEntry(index, Character.toString(curChar_));
+            }
+            enPars = false;
+            enabledId = false;
+            index++;
+            return;
+        }
+        if (prio == ElResolver.NAME_PRIO) {
+            enPars = false;
+            enabledId = false;
             index++;
             return;
         }
@@ -341,7 +355,7 @@ final class AfterUnaryParts {
                 return;
             }
         }
-        if (curChar_ == END_TERNARY&&!parsBrackets.isEmpty()&&parsBrackets.lastValue() == BEGIN_TERNARY) {
+        if (curChar_ == END_TERNARY) {
             parsBrackets.removeLast();
             if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
                 operators.addEntry(index, Character.toString(curChar_));
@@ -353,15 +367,6 @@ final class AfterUnaryParts {
             return;
         }
         if (!parsBrackets.isEmpty()) {
-            index++;
-            return;
-        }
-        if (prio == ElResolver.NAME_PRIO) {
-            if (operators.isEmpty()) {
-                operators.addEntry(index, Character.toString(curChar_));
-            }
-            enPars = false;
-            enabledId = false;
             index++;
             return;
         }

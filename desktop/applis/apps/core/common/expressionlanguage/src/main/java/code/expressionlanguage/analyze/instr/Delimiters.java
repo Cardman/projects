@@ -12,6 +12,7 @@ public final class Delimiters {
     private int length;
     private boolean partOfString;
     private final Ints allowedOperatorsIndexes = new Ints();
+    private final Ints namedArgs = new Ints();
     private final Ints delStringsChars = new Ints();
     private final Ints delTextBlocks = new Ints();
     private final Ints delNumbers = new Ints();
@@ -53,6 +54,10 @@ public final class Delimiters {
 
     public Ints getAllowedOperatorsIndexes() {
         return allowedOperatorsIndexes;
+    }
+
+    public Ints getNamedArgs() {
+        return namedArgs;
     }
 
     public Ints getDelTextBlocks() {

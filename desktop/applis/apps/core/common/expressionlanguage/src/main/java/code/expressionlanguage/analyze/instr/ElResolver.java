@@ -120,7 +120,7 @@ public final class ElResolver {
     static Delimiters checkSyntaxQuick(String _string, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setLength(_string.length());
-        QuickFieldRetriever ret_ = new QuickFieldRetriever(d_);
+        QuickFieldRetriever ret_ = new QuickFieldRetriever(d_, _string);
         return commonCheck(_string, 0, ret_, d_, _page);
     }
     private static Delimiters commonCheck(String _string, int _minIndex, FieldRetriever _ret, Delimiters _d, AnalyzedPageEl _page) {
@@ -1472,9 +1472,11 @@ public final class ElResolver {
                 _dout.setBadOffset(i_);
                 return;
             }
-            if (parsBrackets_.lastValue() == BEGIN_TERNARY) {
-                parsBrackets_.removeLast();
+            if (parsBrackets_.lastValue() != BEGIN_TERNARY) {
+                _dout.setBadOffset(i_);
+                return;
             }
+            parsBrackets_.removeLast();
         }
         if (curChar_ == SEP_ARG && parsBrackets_.isEmpty() && isAcceptCommaInstr(_page)) {
             _dout.setBadOffset(i_);

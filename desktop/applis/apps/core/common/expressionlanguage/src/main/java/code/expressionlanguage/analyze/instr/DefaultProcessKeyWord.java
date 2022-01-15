@@ -74,7 +74,7 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
                     _out.setNextIndex(next_);
                     return;
                 }
-                _out.setNextIndex(j_);
+                _out.setNextIndex(j_+k_);
                 return;
             }
             int next_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,j_);

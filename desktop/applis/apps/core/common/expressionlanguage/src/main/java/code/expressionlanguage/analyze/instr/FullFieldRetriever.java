@@ -36,6 +36,10 @@ public final class FullFieldRetriever implements FieldRetriever {
 
     @Override
     public int processFieldsStaticAccess(boolean _ctorCall, int _begin, String _word, int _to) {
+        int n_ = ElResolverCommon.addNamed(string, _begin, _to, delimiters.getNamedArgs());
+        if (n_ >= _to) {
+            return n_;
+        }
         FoundVariable foundVar_ = new FoundVariable(_word, context);
         AnaLocalVariable val_ = foundVar_.getVal();
         if (val_ != null) {

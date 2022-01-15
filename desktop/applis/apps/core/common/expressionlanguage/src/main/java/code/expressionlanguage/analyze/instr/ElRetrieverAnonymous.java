@@ -627,6 +627,10 @@ public final class ElRetrieverAnonymous {
         if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
             return i_;
         }
+        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _stack.getNamedArgs());
+        if (n_ >= i_) {
+            return n_;
+        }
         int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
         if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
             String afterArrow_ = _string.substring(dash_+"->".length());
@@ -673,6 +677,10 @@ public final class ElRetrieverAnonymous {
         int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
         if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
             return i_;
+        }
+        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _stack.getNamedArgs());
+        if (n_ >= i_) {
+            return n_;
         }
         int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
         if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
@@ -893,9 +901,7 @@ public final class ElRetrieverAnonymous {
             if (parsBrackets_.isEmpty()) {
                 return -1;
             }
-            if (parsBrackets_.lastValue() == ElResolver.BEGIN_TERNARY) {
-                parsBrackets_.removeLast();
-            }
+            parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.SEP_ARG && parsBrackets_.isEmpty()) {
             return -1;
@@ -1209,9 +1215,7 @@ public final class ElRetrieverAnonymous {
             if (parsBrackets_.isEmpty()) {
                 return -1;
             }
-            if (parsBrackets_.lastValue() == ElResolver.BEGIN_TERNARY) {
-                parsBrackets_.removeLast();
-            }
+            parsBrackets_.removeLast();
         }
         boolean escapeOpers_ = false;
         boolean andOr_ = false;

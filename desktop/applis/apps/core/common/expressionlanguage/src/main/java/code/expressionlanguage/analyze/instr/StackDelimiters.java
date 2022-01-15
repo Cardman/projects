@@ -6,6 +6,7 @@ import code.util.StringList;
 
 public final class StackDelimiters {
     private final Ints callings = new Ints();
+    private final Ints namedArgs = new Ints();
     private final Ints indexesNew = new Ints();
     private final Ints indexesSwitch = new Ints();
     private final CustList<Ints> annotationsIndexes = new CustList<Ints>();
@@ -29,6 +30,10 @@ public final class StackDelimiters {
 
     public Ints getCallings() {
         return callings;
+    }
+
+    public Ints getNamedArgs() {
+        return namedArgs;
     }
 
     public Ints getIndexesNew() {
