@@ -77,6 +77,14 @@ public final class ManageTokens {
         }
         return checkToken(_id, _analyzing);
     }
+    public static boolean isValidToken(String _id, AnalyzedPageEl _analyzing) {
+        return !part().checkToken(_id, _analyzing).isError();
+    }
+
+    private static ManageTokens part() {
+        return new ManageTokens("","","","");
+    }
+
     public TokenErrorMessage checkToken(String _id, AnalyzedPageEl _analyzing) {
         if (!StringExpUtil.isDollarWord(_id)) {
             return new TokenErrorMessage(FoundErrorInterpret.buildARError(badCharactersMessage,_id),true);

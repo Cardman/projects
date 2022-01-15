@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CharList;
@@ -10,23 +12,36 @@ public final class ElResolverCommon {
     private ElResolverCommon() {
     }
 
-    static int addNamed(String _string, int _begin, int _end, Ints _namedArgs) {
-        int next_ = StringExpUtil.nextPrintChar(_end, _string.length(), _string);
-        if (!StringExpUtil.nextCharIs(_string, next_, _string.length(), ':')) {
-            return _begin;
-        }
+    static int addNamed(String _string, int _begin, int _end, Ints _namedArgs, AnalyzedPageEl _page) {
         int bk_ = StringExpUtil.getBackPrintChar(_string, _begin);
-        if (_namedArgs.contains(bk_)) {
-            _namedArgs.add(next_);
-            return next_+1;
-        }
         for (char c: CharList.wrapCharArray(',','(','{','[')) {
             if (StringExpUtil.nextCharIs(_string, bk_, _string.length(), c)) {
-                _namedArgs.add(next_);
-                return next_+1;
+                int n_ = nextNamedDbDot(_string, _begin, _end, _page);
+                int pr_ = _begin;
+                while (n_ > -1) {
+                    _namedArgs.add(n_);
+                    int after_ = StringExpUtil.nextPrintChar(n_ + 1, _string.length(), _string);
+                    int e_ = _string.indexOf(':',after_);
+                    n_ = nextNamedDbDot(_string, after_, e_, _page);
+                    pr_ = after_;
+                }
+                return pr_;
             }
         }
         return _begin;
+    }
+    static int nextNamedDbDot(String _string, int _begin, int _end, AnalyzedPageEl _page) {
+        int s_ = StringExpUtil.nextPrintChar(_end, _string.length(), _string);
+        String sub_;
+        if (!StringExpUtil.nextCharIs(_string, s_, _string.length(), ':')) {
+            sub_ = "";
+        } else {
+            sub_ = _string.substring(_begin,s_).trim();
+        }
+        if (!ManageTokens.isValidToken(sub_,_page)) {
+            return -1;
+        }
+        return s_;
     }
     static int processPredefinedMethod(String _string, int _i, String _name) {
         int afterSuper_ = _i + _name.length();

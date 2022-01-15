@@ -627,7 +627,7 @@ public final class ElRetrieverAnonymous {
         if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
             return i_;
         }
-        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _stack.getNamedArgs());
+        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _stack.getNamedArgs(), _page);
         if (n_ >= i_) {
             return n_;
         }
@@ -678,7 +678,7 @@ public final class ElRetrieverAnonymous {
         if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
             return i_;
         }
-        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _stack.getNamedArgs());
+        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _stack.getNamedArgs(), _page);
         if (n_ >= i_) {
             return n_;
         }

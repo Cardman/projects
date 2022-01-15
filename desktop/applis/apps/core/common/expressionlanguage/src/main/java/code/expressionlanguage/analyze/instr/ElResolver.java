@@ -3,10 +3,8 @@ package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.variables.FoundVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -120,7 +118,7 @@ public final class ElResolver {
     static Delimiters checkSyntaxQuick(String _string, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
         d_.setLength(_string.length());
-        QuickFieldRetriever ret_ = new QuickFieldRetriever(d_, _string);
+        QuickFieldRetriever ret_ = new QuickFieldRetriever(d_);
         return commonCheck(_string, 0, ret_, d_, _page);
     }
     private static Delimiters commonCheck(String _string, int _minIndex, FieldRetriever _ret, Delimiters _d, AnalyzedPageEl _page) {
@@ -1256,6 +1254,11 @@ public final class ElResolver {
                 _out.setNextIndex(r.getNext());
                 return;
             }
+        }
+        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _d.getNamedArgs(),_page);
+        if (n_ >= i_) {
+            _out.setNextIndex(n_);
+            return;
         }
         i_ = _ret.processFieldsStaticAccess(ctorCall_,beginWord_,word_,i_);
         _out.setNextIndex(i_);
