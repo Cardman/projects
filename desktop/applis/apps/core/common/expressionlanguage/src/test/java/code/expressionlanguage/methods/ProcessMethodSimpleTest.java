@@ -3601,6 +3601,32 @@ public final class ProcessMethodSimpleTest extends ProcessMethodCommon {
         assertEq(-7, getNumber(ret_));
     }
     @Test
+    public void calculateArgument143Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int f = 1;\n");
+        xml_.append(" $public $int s = 2;\n");
+        xml_.append(" $public $int r = 5;\n");
+        xml_.append(" $public $int t = 7;\n");
+        xml_.append(" $public $int u = 3;\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $var v = $new Ex();\n");
+        xml_.append("  $return v.meth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int meth(){\n");
+        xml_.append("  $return f>0?s>2?u:r:t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(5, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument3FailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
