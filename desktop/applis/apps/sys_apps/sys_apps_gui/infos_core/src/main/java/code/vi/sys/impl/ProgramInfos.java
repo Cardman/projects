@@ -26,6 +26,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.*;
 
@@ -257,7 +258,10 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbstractImage readImg(String _file) {
         try {
-            return new DefImage(ImageIO.read(new FileInputStream(StringUtil.nullToEmpty(_file))));
+            FileInputStream input_ = new FileInputStream(StringUtil.nullToEmpty(_file));
+            BufferedImage read_ = ImageIO.read(input_);
+            StreamCoreUtil.close(input_);
+            return new DefImage(read_);
         } catch (Exception e) {
             return null;
         }
@@ -266,7 +270,16 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     @Override
     public boolean writeImg(String _format, String _file, AbstractImage _img) {
         try {
-            ImageIO.write((RenderedImage) ((DefImage)_img).data(),StringUtil.nullToEmpty(_format),new FileOutputStream(StringUtil.nullToEmpty(_file)));
+            FileOutputStream output_ = new FileOutputStream(StringUtil.nullToEmpty(_file));
+            return write(_format, _img, output_);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    private boolean write(String _format, AbstractImage _img, FileOutputStream _file) {
+        try {
+            ImageIO.write((RenderedImage) ((DefImage)_img).data(),StringUtil.nullToEmpty(_format), _file);
+            StreamCoreUtil.close(_file);
             return true;
         } catch (Exception e) {
             return false;
