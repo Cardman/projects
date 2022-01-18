@@ -117,7 +117,7 @@ public final class ExpressionLanguage {
             return;
         }
         if (_wrapp != null&& !(currentOper_ instanceof ExecStdRefVariableOperation)) {
-            ExecHelper.getArgumentPair(arguments,currentOper).setWrapper(_wrapp);
+            ExecHelper.getArgumentPair(arguments,currentOper_).setWrapper(_wrapp);
         }
         if (currentOper_ instanceof CallExecSimpleOperation) {
             ((CallExecSimpleOperation) currentOper_).endCalculate(_cont, arguments, _arg, _stackCall);
