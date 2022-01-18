@@ -1445,4 +1445,18 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrReadOnly(files_));
     }
+    @Test
+    public void calc8ail() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append(" $public $static $int catching(){\n");;
+        xml_.append("  $operator;\n");
+        xml_.append("  $operator(];\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
 }

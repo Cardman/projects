@@ -512,9 +512,45 @@ public final class ElRetrieverAnonymous {
             _stack.getIndexesNew().add(j_);
             return j_;
         }
+        if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordOperator_)) {
+            int pr_ = StringExpUtil.nextPrintChar(i_+keyWordOperator_.length(), len_, _string);
+            if (!StringExpUtil.nextCharIs(_string,pr_,len_, ElResolver.PAR_LEFT)) {
+                return i_+keyWordOperator_.length();
+            }
+            _stack.getCallings().add(pr_);
+            int indexParRight_ = _string.indexOf(ElResolver.PAR_RIGHT,pr_+1);
+            if (indexParRight_ < 0) {
+                return i_+keyWordOperator_.length();
+            }
+            int prNext_ = StringExpUtil.nextPrintChar(indexParRight_+1, len_, _string);
+            if (StringExpUtil.nextCharIs(_string,prNext_,len_,':') || StringExpUtil.nextCharIs(_string,prNext_,len_,'=')) {
+                int prNextNext_ = StringExpUtil.nextPrintChar(prNext_+1, len_, _string);
+                for (String s: StringUtil.wrapStringArray(keyWordCast_,keyWordExplicit_)) {
+                    if (StringExpUtil.startsWithKeyWord(_string,prNextNext_, s)) {
+                        int impl_ = prNextNext_ + s.length();
+                        int nextLeftPar_ = StringExpUtil.nextPrintCharIs(impl_,len_,_string,ElResolver.PAR_LEFT);
+                        if (nextLeftPar_ < 0) {
+                            return impl_;
+                        }
+                        _stack.getCallings().add(nextLeftPar_);
+                        int nextRightPar_ = _string.indexOf(ElResolver.PAR_RIGHT, nextLeftPar_);
+                        if (nextRightPar_ < 0) {
+                            return impl_;
+                        }
+                        prNextNext_ = StringExpUtil.nextPrintChar(nextRightPar_ + 1, len_, _string);
+                    }
+                }
+                prNext_ = prNextNext_;
+            }
+            if (StringExpUtil.nextCharIs(_string,prNext_,len_,ElResolver.PAR_LEFT)) {
+                _stack.getCallings().add(prNext_);
+                return prNext_;
+            }
+            return indexParRight_+1;
+        }
         for (String s: StringUtil.wrapStringArray(
                 keyWordClasschoice_,
-                keyWordSuperaccess_,keyWordThisaccess_,keyWordInterfaces_,keyWordOperator_)) {
+                keyWordSuperaccess_,keyWordThisaccess_,keyWordInterfaces_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
                 int pr_ = StringExpUtil.nextPrintChar(i_+s.length(), len_, _string);
                 if (!StringExpUtil.nextCharIs(_string,pr_,len_, ElResolver.PAR_LEFT)) {
