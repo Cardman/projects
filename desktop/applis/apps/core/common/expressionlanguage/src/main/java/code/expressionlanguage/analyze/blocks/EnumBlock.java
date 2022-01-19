@@ -7,6 +7,7 @@ import code.util.*;
 public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     private boolean canHaveElements = true;
+    private boolean allow = true;
     private final CustList<InnerTypeOrElement> enumBlocks = new CustList<InnerTypeOrElement>();
     private int ltGt;
     public EnumBlock(int _idRowCol, String _name, String _packageName, OffsetAccessInfo _access,
@@ -43,6 +44,14 @@ public final class EnumBlock extends RootBlock implements UniqueRootedBlock {
 
     public void setCanHaveElements(boolean _canHaveElements) {
         canHaveElements = _canHaveElements;
+    }
+
+    public boolean isAllow() {
+        return allow;
+    }
+
+    public void setAllow(boolean _allow) {
+        this.allow = _allow;
     }
 
     public int getLtGt() {

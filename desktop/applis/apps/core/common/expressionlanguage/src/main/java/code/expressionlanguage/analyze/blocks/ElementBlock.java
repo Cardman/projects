@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -38,6 +39,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
+    private final Ints lastBadIndexes = new Ints();
 
     private boolean koTy;
     public ElementBlock(EnumBlock _m, OffsetStringInfo _fieldName,
@@ -97,6 +99,15 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
             if (errs_.isEmpty()) {
                 fieldList.add(name_);
             }
+        }
+        for (int i: lastBadIndexes) {
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
+            b_.setFileName(getFile().getFileName());
+            b_.setIndexFile(i);
+            //underline index char
+            b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+            _page.addLocError(b_);
+            addNameErrors(b_.getBuiltError());
         }
     }
 
@@ -193,6 +204,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         return annotations;
     }
 
+    @Override
+    public Ints getLastBadIndexes() {
+        return lastBadIndexes;
+    }
 
     public Ints getAnnotationsIndexes() {
         return annotationsIndexes;

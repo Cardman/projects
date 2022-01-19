@@ -1183,6 +1183,8 @@ public final class FileResolver {
                 ((EnumBlock)currentParent_).getEnumBlocks().add((InnerTypeOrElement)br_);
                 if (!ok_) {
                     br_.getBadIndexes().add(indexBeginCalling_ + 1+_offset);
+                } else if (!((EnumBlock)currentParent_).isAllow()) {
+                    ((InnerTypeOrElement)br_).getLastBadIndexes().add(_i+_offset);
                 }
                 br_.setBegin(_i+_offset);
                 br_.setLengthHeader(1);
@@ -1190,6 +1192,8 @@ public final class FileResolver {
                 if (_currentChar == BEGIN_BLOCK) {
                     currentParent_ = (BracedBlock) br_;
                 }
+            } else if (_currentChar == SEP_ENUM_CONST) {
+                ((EnumBlock)currentParent_).setAllow(true);
             }
             if (_currentChar == END_LINE || _currentChar == END_BLOCK) {
                 ((EnumBlock)currentParent_).setCanHaveElements(false);
@@ -1306,6 +1310,9 @@ public final class FileResolver {
                 currentParent_.appendChild(br_);
             }
             currentParent_ = possibleGoUpTwice(currentParent_);
+            if (canHaveElements(currentParent_)) {
+                ((EnumBlock)currentParent_).setAllow(false);
+            }
         }
         _instruction.delete(0, _instruction.length());
         after_.setIndex(_i);

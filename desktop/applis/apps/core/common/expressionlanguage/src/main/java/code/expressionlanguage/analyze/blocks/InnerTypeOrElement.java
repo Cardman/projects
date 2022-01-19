@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.util.CustList;
+import code.util.Ints;
 
 public interface InnerTypeOrElement extends InfoBlock {
     String getUniqueFieldName();
@@ -13,4 +14,5 @@ public interface InnerTypeOrElement extends InfoBlock {
     CustList<AnaResultPartType> getTypePartOffsets();
     CustList<OperationNode> getRoots();
     boolean koType();
+    Ints getLastBadIndexes();
 }

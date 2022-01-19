@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -35,6 +36,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
 
+    private final Ints lastBadIndexes = new Ints();
     private boolean koTy;
     public InnerElementBlock(EnumBlock _m, String _pkgName,OffsetStringInfo _fieldName,
                              OffsetStringInfo _type,
@@ -96,6 +98,15 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
             if (errs_.isEmpty()) {
                 fieldList.add(name_);
             }
+        }
+        for (int i: lastBadIndexes) {
+            FoundErrorInterpret b_ = new FoundErrorInterpret();
+            b_.setFileName(getFile().getFileName());
+            b_.setIndexFile(i);
+            //underline index char
+            b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+            _page.addLocError(b_);
+            addNameErrors(b_.getBuiltError());
         }
     }
 
@@ -233,6 +244,11 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     public void setNumberInner(int _numberInner) {
         this.numberInner = _numberInner;
+    }
+
+    @Override
+    public Ints getLastBadIndexes() {
+        return lastBadIndexes;
     }
 
     @Override

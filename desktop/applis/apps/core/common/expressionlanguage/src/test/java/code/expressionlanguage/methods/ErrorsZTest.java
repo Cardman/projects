@@ -6192,6 +6192,40 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report862Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {\n");
+        xml_.append(" ONE{}\n");
+        xml_.append(" TWO{};\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
+                " <a name=\"m22\">ONE</a>{}\n" +
+                " <a name=\"m29\" title=\"Bad index by parsing.\" class=\"e\">TWO</a>{};\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report863Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {\n");
+        xml_.append(" ONE{}\n");
+        xml_.append(" TWO;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
+                " <a name=\"m22\">ONE</a>{}\n" +
+                " <a name=\"m29\" title=\"Bad index by parsing.\" class=\"e\">TWO</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportSpecTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
