@@ -132,7 +132,7 @@ public final class ElRetrieverAnonymous {
                 continue;
             }
             if (_page.getCurrentBlock() instanceof FieldBlock
-                    && parsBrackets_.isEmpty()
+                    && parsBrackets_.isEmptyStackSymChars()
                     && StringExpUtil.isTypeLeafChar(curChar_)) {
                 int bk_ = StringExpUtil.getBackPrintChar(_string, from_);
                 if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {

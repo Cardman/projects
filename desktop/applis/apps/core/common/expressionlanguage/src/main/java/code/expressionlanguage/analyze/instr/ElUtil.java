@@ -79,7 +79,7 @@ public final class ElUtil {
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
             OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
-            op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
+            op_ = OperationNode.createPossDeclOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, opTwo_, _page);
         }
         setupStaticContext(hiddenVarTypes_, op_, _page);
         setSyntheticRoot(op_, _calcul);
@@ -120,7 +120,7 @@ public final class ElUtil {
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
             OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page);
-            op_ = OperationNode.createOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _page);
+            op_ = OperationNode.createPossDeclOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, opTwo_, _page);
         }
         return getSortedDescNodesReadOnly(op_, _calcul, _page);
     }

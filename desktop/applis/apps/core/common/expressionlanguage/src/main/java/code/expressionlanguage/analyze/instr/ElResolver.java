@@ -291,7 +291,7 @@ public final class ElResolver {
                 continue;
             }
             if (_page.getCurrentBlock() instanceof InfoBlock
-                    && parsBrackets_.isEmpty()
+                    && parsBrackets_.isEmptyStackSymChars()
                     && StringExpUtil.isTypeLeafChar(curChar_)) {
                 int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
                 if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {
@@ -1481,7 +1481,7 @@ public final class ElResolver {
             }
             parsBrackets_.removeLast();
         }
-        if (curChar_ == SEP_ARG && parsBrackets_.isEmpty() && isAcceptCommaInstr(_page)) {
+        if (curChar_ == SEP_ARG && parsBrackets_.isEmptyStackSymChars() && isAcceptCommaInstr(_page)) {
             _dout.setBadOffset(i_);
             return;
         }

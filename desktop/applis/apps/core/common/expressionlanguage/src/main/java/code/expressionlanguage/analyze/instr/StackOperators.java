@@ -1,9 +1,19 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.util.CharList;
 import code.util.CustList;
 
 public final class StackOperators {
     private final CustList<IndexStackOperator> values = new CustList<IndexStackOperator>();
+    public boolean isEmptyStackSymChars() {
+        CharList ch_ = new CharList('{','[','(');
+        for (IndexStackOperator i: values) {
+            if (ch_.containsChar(i.getOperator())) {
+                return false;
+            }
+        }
+        return true;
+    }
     public boolean isEmpty() {
         return values.isEmpty();
     }

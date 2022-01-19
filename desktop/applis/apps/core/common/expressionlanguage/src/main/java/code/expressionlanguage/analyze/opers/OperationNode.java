@@ -185,6 +185,15 @@ public abstract class OperationNode {
         _page.setOffset(_offset);
     }
 
+    public static OperationNode createPossDeclOperationNode(int _index,
+                                                            int _indexChild, OperationsSequence _op, AnalyzedPageEl _page) {
+        if (_op.getPriority() == ElResolver.DECL_PRIO) {
+            DeclaringOperation declaringOperation_ = new DeclaringOperation(_index, _indexChild, null, _op);
+            declaringOperation_.calculateChildren();
+            return declaringOperation_;
+        }
+        return createOperationNode(_index, _indexChild, null, _op, _page);
+    }
     public static OperationNode createOperationNode(int _index,
                                                     int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
         OperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _page);
@@ -219,11 +228,6 @@ public abstract class OperationNode {
         }
         if (_op.getPriority() == ElResolver.NAME_PRIO) {
             return new NamedArgumentOperation(_index, _indexChild, _m, _op);
-        }
-        if (_m == null) {
-            if (_op.getPriority() == ElResolver.DECL_PRIO) {
-                return new DeclaringOperation(_index, _indexChild, null, _op);
-            }
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
             if (_page.getAnnotationAnalysis().isAnnotAnalysis(_m,_op)) {
