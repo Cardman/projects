@@ -681,8 +681,10 @@ public final class ElRetrieverAnonymous {
                 input_.setNextIndex(j_);
                 input_.setNextIndexBef(dash_);
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                int k_ = res_.getNextIndex() - 1;
-                return k_+1;
+                if (res_.isOkType()) {
+                    int k_ = res_.getNextIndex() - 1;
+                    return k_+1;
+                }
             }
         }
         return i_;
@@ -833,8 +835,10 @@ public final class ElRetrieverAnonymous {
                         input_.setAnnotationsParams(parse_.getAnnotationsParams());
                         input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
                         ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                        int k_ = res_.getNextIndex() - 1;
-                        return k_+1;
+                        if (res_.isOkType()) {
+                            int k_ = res_.getNextIndex() - 1;
+                            return k_+1;
+                        }
                     }
                     return rightPar_+1;
                 }
@@ -870,8 +874,10 @@ public final class ElRetrieverAnonymous {
                     input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                    int j_ = res_.getNextIndex() - 1;
-                    return j_+1;
+                    if (res_.isOkType()) {
+                        int j_ = res_.getNextIndex() - 1;
+                        return j_+1;
+                    }
                 }
                 int indexLastSw_ = _stack.getIndexesSwitchEnd().indexOf(bk_);
                 if (indexLastSw_ > -1) {
@@ -887,8 +893,10 @@ public final class ElRetrieverAnonymous {
                     input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
                     input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
-                    int j_ = res_.getNextIndex() - 1;
-                    return j_+1;
+                    if (res_.isOkType()) {
+                        int j_ = res_.getNextIndex() - 1;
+                        return j_+1;
+                    }
                 }
             }
             parsBrackets_.addEntry(i_, _curChar);
