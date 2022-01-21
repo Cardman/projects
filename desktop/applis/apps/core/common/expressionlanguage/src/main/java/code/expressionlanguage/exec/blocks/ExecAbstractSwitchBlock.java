@@ -63,39 +63,39 @@ public abstract class ExecAbstractSwitchBlock extends ExecBracedBlock implements
             return _found;
         }
         if (_in instanceof ExecAbstractInstanceCaseCondition && !_arg.isNull()) {
-            String type_ = _stack.formatVarType(((ExecAbstractInstanceCaseCondition)_in).getImportedClassName());
-            int sum_ = ((ExecAbstractInstanceCaseCondition) _in).getIndex() + _index;
-            int nbPrevious_ = _stack.getLastPage().sizeEl() - 1;
-            return procTypeVar(_cont, _stack, (ExecAbstractInstanceCaseCondition) _in, _arg, type_, sum_, nbPrevious_);
+            return procTypeVar(_cont, _stack, (ExecAbstractInstanceCaseCondition) _in, _arg, _index);
         }
         return processList(_cont, _in, _arg);
     }
 
-    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecAbstractInstanceCaseCondition _in, Argument _arg, String _type, int _sum, int _nbPrevious) {
+    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecAbstractInstanceCaseCondition _in, Argument _arg, int _index) {
+        String type_ = _stack.formatVarType(_in.getImportedClassName());
         ExecOperationNodeListOff exp_ = _in.getExp();
         CustList<ExecOperationNode> list_ = exp_.getList();
-        boolean safe_ = ExecInherits.safeObject(_type, _arg.getStruct().getClassName(_cont), _cont) == ErrorType.NOTHING;
+        boolean safe_ = ExecInherits.safeObject(type_, _arg.getStruct().getClassName(_cont), _cont) == ErrorType.NOTHING;
         if (list_.isEmpty()) {
             if (safe_) {
-                putVar(_stack, _in, _type, _arg);
+                putVar(_stack, _in, type_, _arg);
                 return new ExecResultCase(_in,0);
             }
             return null;
         }
-        if (_sum < _nbPrevious) {
+        int sum_ = _in.getIndex() + _index;
+        int nbPrevious_ = _stack.getLastPage().sizeEl() - 1;
+        if (sum_ < nbPrevious_) {
             return null;
         }
-        if (_sum > _nbPrevious && safe_) {
-            putVar(_stack, _in, _type, _arg);
+        if (sum_ > nbPrevious_ && safe_) {
+            putVar(_stack, _in, type_, _arg);
         }
         int offset_ = exp_.getOffset();
         AbstractPageEl lastPage_ = _stack.getLastPage();
         lastPage_.globalOffset(offset_);
         Argument visit_;
         if (safe_) {
-            visit_ = ExecHelperBlocks.tryToCalculate(_cont, _sum, _stack, list_, 0, _in);
+            visit_ = ExecHelperBlocks.tryToCalculate(_cont, sum_, _stack, list_, 0, _in);
         } else {
-            visit_ = ExecHelperBlocks.tryToCalculate(_cont, _sum, _stack, _cont.getClasses().getExpsConstFalse(), 0, _in);
+            visit_ = ExecHelperBlocks.tryToCalculate(_cont, sum_, _stack, _cont.getClasses().getExpsConstFalse(), 0, _in);
         }
         if (_cont.callsOrException(_stack)) {
             if (!_stack.calls()) {
