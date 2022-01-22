@@ -500,6 +500,9 @@ public final class ForwardInfos {
             for (RootBlock r: e.getKey().getStaticInitImportedInterfaces()) {
                 e.getValue().getRootBlock().getStaticInitImportedInterfaces().add(FetchMemberUtil.fetchType(r, _forwards));
             }
+            for (RootBlock r: e.getKey().getInstanceInitImportedInterfaces()) {
+                e.getValue().getRootBlock().getInstanceInitImportedInterfaces().add(FetchMemberUtil.fetchType(r, _forwards));
+            }
         }
     }
 
@@ -1356,7 +1359,7 @@ public final class ForwardInfos {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
             ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchPossibleTypeCtor(s_.getMemberId(), _forwards);
             if (typeCtor_ != null) {
-                return new ExecStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent()));
+                return new ExecStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(s_.getInstancingStdContent().getNamedFields(),_forwards)));
             }
             return new ExecDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingDirContent(s_.getInstancingCommonContent()));
         }
@@ -1751,7 +1754,7 @@ public final class ForwardInfos {
         int recordType_ = _anaNode.getRecordType();
         ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(recordType_, _forwards);
         if (rootBlock_ != null) {
-            return new ExecRecordConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, rootBlock_, _anaNode.getInfos());
+            return new ExecRecordConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, rootBlock_, FetchMemberUtil.namedFieldsContent(_anaNode.getNamedFields(), _forwards));
         }
         if (_anaNode.getMethod() == null && _anaNode.getRealId() == null) {
             return new ExecFieldLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, new ExecLambdaFieldContent(_anaNode.getFieldId(), _anaNode.getLambdaFieldContent(), _anaNode.getLambdaMemberNumberContentId(), _forwards));

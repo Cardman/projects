@@ -7,21 +7,22 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
+import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.LambdaRecordConstructorStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringMap;
 
 public final class ExecRecordConstructorLambdaOperation extends ExecAbstractLambdaOperation {
 
     private final ExecRootBlock pair;
-    private final StringMap<String> id;
+    private final CustList<ExecNamedFieldContent> namedFields;
 
-    public ExecRecordConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecRootBlock _pair, StringMap<String> _id) {
+    public ExecRecordConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecRootBlock _pair, CustList<ExecNamedFieldContent> _namedFields) {
         super(_opCont, _lamCont);
         pair = _pair;
-        id = _id;
+        namedFields = _namedFields;
     }
 
     @Override
@@ -29,14 +30,14 @@ public final class ExecRecordConstructorLambdaOperation extends ExecAbstractLamb
                           ContextEl _conf, StackCall _stack) {
         ExecFormattedRootBlock ownerType_ = formatVarType(_stack);
         String clArg_ = formatVarTypeRes(_stack);
-        Argument res_ = new Argument(newLambda(ownerType_, clArg_, pair, id));
+        Argument res_ = new Argument(newLambda(ownerType_, clArg_, pair, namedFields));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
     public static Struct newLambda(ExecFormattedRootBlock _ownerType,
                                    String _clArg,
-                                   ExecRootBlock _root, StringMap<String> _id) {
-        return new LambdaRecordConstructorStruct(_root, _clArg, _ownerType, _id);
+                                   ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields) {
+        return new LambdaRecordConstructorStruct(_root, _clArg, _ownerType, _namedFields);
     }
 
 }

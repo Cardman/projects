@@ -19,6 +19,7 @@ import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaFieldContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaMethodContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
@@ -38,9 +39,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private ClassMethodId method;
     private final AnaLambdaMethodContent lambdaMethodContent;
     private ConstructorId realId;
-    private final StringMap<String> infos = new StringMap<String>();
     private final Ints offsets = new Ints();
-    private final StringList named = new StringList();
     private final Ints refs = new Ints();
     private int recordType = -1;
     private RootBlock fieldType;
@@ -50,12 +49,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private int valueOffset;
     private final CustList<AnaResultPartType> partOffsetsPre = new CustList<AnaResultPartType>();
     private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartType> partOffsetsRec = new CustList<AnaResultPartType>();
     private final CustList<AnaResultPartType> partOffsetsBegin = new CustList<AnaResultPartType>();
     private InfoErrorDto partOffsetsErrMiddle = new InfoErrorDto("");
     private InfoErrorDto partOffsetsErrEnd = new InfoErrorDto("");
     private StandardMethod standardMethod;
     private StandardType standardType;
     private StandardConstructor standardConstructor;
+    private final CustList<AnaNamedFieldContent> namedFields = new CustList<AnaNamedFieldContent>();
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -1575,33 +1576,57 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page,clFrom_);
         if (form_.getRootBlock() instanceof RecordBlock) {
             checkWildCards(clFrom_, _page);
-            StringList names_ = new StringList();
+            CustList<ClassField> names_ = new CustList<ClassField>();
             StringList types_ = new StringList();
             int offsetArg_ = className.indexOf('(')+1+_args.first().length()+1+_args.get(1).length()+1-getClassNameOffset();
             RootBlock h_ = form_.getRootBlock();
             for (int i = 2; i < _len; i++) {
                 String arg_ = _args.get(i);
                 String name_ = arg_.trim();
-                boolean contained_ = false;
-                for (InfoBlock f: h_.getFieldsBlocks()) {
-                    String par_ = AnaInherits.quickFormat(h_, clFrom_, f.getImportedClassName());
-                    int index_ = AnaTypeUtil.getIndex(f,name_);
-                    if (index_ >= 0) {
-                        contained_ = true;
-                        types_.add(par_);
-                        offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
-                        named.add(name_);
-                        refs.add(index_);
-                        infos.addEntry(name_,f.getImportedClassName());
-                        break;
+                String fieldName_;
+                ClassField idField_ = null;
+                int e_;
+                int lastIndex_ = name_.lastIndexOf('.');
+                AnaFormattedRootBlock search_;
+                int offsetFirst_ = StringExpUtil.getOffset(arg_);
+                int locFirst_ = offsetArg_ + offsetFirst_;
+                if (lastIndex_ >= 0) {
+                    String pre_ = name_.substring(0, lastIndex_);
+                    String className_ = pre_.trim();
+                    ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(locFirst_, className_, _page);
+                    partOffsetsRec.add(resolvedIdType_.getDels());
+                    String substring_ = name_.substring(lastIndex_ + 1);
+                    e_ = locFirst_ +lastIndex_+1+ StringExpUtil.getOffset(substring_);
+                    fieldName_ = substring_.trim();
+                    search_ = AnaInherits.getFormattedOverridingFullTypeByBases(new AnaFormattedRootBlock(h_), resolvedIdType_.getGeneType());
+                } else {
+                    partOffsetsRec.add(new AnaResultPartType());
+                    fieldName_ = name_;
+                    e_ = locFirst_;
+                    search_ = new AnaFormattedRootBlock(h_);
+                }
+                if (search_ != null) {
+                    RootBlock rootBlock_ = search_.getRootBlock();
+                    for (InfoBlock f: rootBlock_.getFieldsBlocks()) {
+                        String imp_ = f.getImportedClassName();
+                        String formImp_ = AnaInherits.quickFormat(search_, imp_);
+                        String par_ = AnaInherits.quickFormat(h_, clFrom_, formImp_);
+                        int index_ = AnaTypeUtil.getIndex(f,fieldName_);
+                        if (index_ >= 0) {
+                            idField_ = new ClassField(rootBlock_.getFullName(),fieldName_);
+                            types_.add(par_);
+                            offsets.add(e_);
+                            refs.add(index_);
+                            namedFields.add(new AnaNamedFieldContent(fieldName_,imp_,rootBlock_.getFullName(),rootBlock_));
+                            break;
+                        }
                     }
                 }
-                if (!contained_) {
-                    offsets.add(offsetArg_+StringExpUtil.getOffset(arg_));
-                    named.add(name_);
+
+                if (idField_ == null) {
+                    offsets.add(e_);
                     refs.add(-1);
-                }
-                if (StringUtil.contains(names_,name_) || !contained_) {
+                    namedFields.add(new AnaNamedFieldContent(name_,"","",null));
                     String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
                     FoundErrorInterpret call_ = new FoundErrorInterpret();
                     call_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -1611,8 +1636,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             id_);
                     _page.getLocalizer().addError(call_);
                     addErr(call_.getBuiltError());
+                } else if (dupl(names_,idField_)) {
+                    String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
+                    FoundErrorInterpret call_ = new FoundErrorInterpret();
+                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //_fromType len
+                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
+                            id_);
+                    _page.getLocalizer().addError(call_);
+                    addErr(call_.getBuiltError());
+                } else {
+                    names_.add(idField_);
                 }
-                names_.add(name_);
                 offsetArg_ += arg_.length()+1;
             }
             lambdaMemberNumberContentId = new MemberId();
@@ -2706,6 +2742,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return partOffsets;
     }
 
+    public CustList<AnaResultPartType> getPartOffsetsRec() {
+        return partOffsetsRec;
+    }
+
     public CustList<AnaResultPartType> getPartOffsetsPre() {
         return partOffsetsPre;
     }
@@ -2758,15 +2798,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return offsets;
     }
 
-    public StringList getNamed() {
-        return named;
-    }
-
     public Ints getRefs() {
         return refs;
     }
 
-    public StringMap<String> getInfos() {
-        return infos;
+    public CustList<AnaNamedFieldContent> getNamedFields() {
+        return namedFields;
     }
 }

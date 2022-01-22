@@ -612,7 +612,7 @@ public final class RendForwardInfos {
             if (typeCtor_ == null) {
                 return new RendDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingDirContent(s_.getInstancingCommonContent()));
             }
-            return new RendStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent()));
+            return new RendStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(s_.getInstancingStdContent().getNamedFields(),_forwards)));
         }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor s_ = (InterfaceFctConstructor) _anaNode;
@@ -960,7 +960,7 @@ public final class RendForwardInfos {
         int recordType_ = _anaNode.getRecordType();
         ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(recordType_, _forwards);
         if (rootBlock_ != null) {
-            return new RendRecordConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, rootBlock_, _anaNode.getInfos());
+            return new RendRecordConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, rootBlock_, FetchMemberUtil.namedFieldsContent(_anaNode.getNamedFields(), _forwards));
         }
         if (_anaNode.getMethod() == null && _anaNode.getRealId() == null) {
             return new RendFieldLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, new ExecLambdaFieldContent(_anaNode.getFieldId(), _anaNode.getLambdaFieldContent(), _anaNode.getLambdaMemberNumberContentId(), _forwards));

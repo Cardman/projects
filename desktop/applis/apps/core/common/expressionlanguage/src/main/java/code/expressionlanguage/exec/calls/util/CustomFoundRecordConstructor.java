@@ -1,4 +1,5 @@
 package code.expressionlanguage.exec.calls.util;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
@@ -6,15 +7,15 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
-import code.util.StringMap;
 
 public final class CustomFoundRecordConstructor implements CallingState {
 
     private final ExecFormattedRootBlock className;
     private final ExecTypeFunction pair;
 
-    private final StringMap<String> id;
+    private final CustList<ExecNamedFieldContent> namedFields;
     private final String fieldName;
     private final int childIndex;
 
@@ -22,19 +23,19 @@ public final class CustomFoundRecordConstructor implements CallingState {
 
     public CustomFoundRecordConstructor(ExecFormattedRootBlock _className,
                                         ExecTypeFunction _pair,
-                                        StringMap<String> _id,
-                                         CustList<Argument> _arguments) {
-        this(_className,_pair,_id,"",-1,_arguments);
+                                        CustList<ExecNamedFieldContent> _named,
+                                        CustList<Argument> _arguments) {
+        this(_className,_pair, _named,"",-1,_arguments);
     }
 
     public CustomFoundRecordConstructor(ExecFormattedRootBlock _className,
                                         ExecTypeFunction _pair,
-                                        StringMap<String> _id,
+                                        CustList<ExecNamedFieldContent> _named,
                                         String _fieldName, int _childIndex,
                                         CustList<Argument> _arguments) {
         className = _className;
         pair = _pair;
-        id = _id;
+        namedFields = _named;
         fieldName = _fieldName;
         childIndex = _childIndex;
         arguments = _arguments;
@@ -45,8 +46,8 @@ public final class CustomFoundRecordConstructor implements CallingState {
         return ExecutingUtil.createRecordInstancing(_context,this);
     }
 
-    public StringMap<String> getId() {
-        return id;
+    public CustList<ExecNamedFieldContent> getNamedFields() {
+        return namedFields;
     }
 
     public int getChildIndex() {

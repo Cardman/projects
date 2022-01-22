@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CharList;
@@ -18,12 +18,9 @@ public final class ElResolverCommon {
             if (StringExpUtil.nextCharIs(_string, bk_, _string.length(), c)) {
                 int n_ = nextNamedDbDot(_string, _begin, _end, _page);
                 int pr_ = _begin;
-                while (n_ > -1) {
+                if (n_ > -1) {
                     _namedArgs.add(n_);
-                    int after_ = StringExpUtil.nextPrintChar(n_ + 1, _string.length(), _string);
-                    int e_ = _string.indexOf(':',after_);
-                    n_ = nextNamedDbDot(_string, after_, e_, _page);
-                    pr_ = after_;
+                    pr_ = StringExpUtil.nextPrintChar(n_ + 1, _string.length(), _string);
                 }
                 return pr_;
             }
@@ -31,14 +28,14 @@ public final class ElResolverCommon {
         return _begin;
     }
     static int nextNamedDbDot(String _string, int _begin, int _end, AnalyzedPageEl _page) {
-        int s_ = StringExpUtil.nextPrintChar(_end, _string.length(), _string);
+        int s_ = _string.indexOf(':',_end);
         String sub_;
-        if (!StringExpUtil.nextCharIs(_string, s_, _string.length(), ':')) {
+        if (s_ < 0) {
             sub_ = "";
         } else {
-            sub_ = _string.substring(_begin,s_).trim();
+            sub_ = _string.substring(_begin,s_);
         }
-        if (!ManageTokens.isValidToken(sub_,_page)) {
+        if (!AnaInherits.isOkQualFields(sub_,_page)) {
             return -1;
         }
         return s_;

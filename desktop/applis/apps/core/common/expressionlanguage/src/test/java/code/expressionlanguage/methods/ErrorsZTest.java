@@ -2485,14 +2485,14 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("class pkg.Ext {\n");
         xml_.append(" static Object m(){\n");
-        xml_.append("  return (a:b:3);\n");
+        xml_.append("  return (a:3);\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
                 " static Object <a name=\"m31\">m</a>(){\n" +
-                "  return (<a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:<a title=\"The parameter function name b is duplicated.\" class=\"e\">b</a>:3);\n" +
+                "  return (<a title=\"The parameter function name a is duplicated.\" class=\"e\">a</a>:3);\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3254,13 +3254,13 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("@class pkg.Ext {\n");
-        xml_.append(" {\n");
+        xml_.append(" (){\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class <a name=\"m7\">pkg.Ext</a> {\n" +
-                " <a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
+                " <a name=\"m18\">(</a>)<a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -3694,13 +3694,13 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         StringBuilder xml_;
         xml_ = new StringBuilder();
         xml_.append("@interface pkg.Ext {\n");
-        xml_.append(" {\n");
+        xml_.append(" (){\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@interface <a name=\"m11\">pkg.Ext</a> {\n" +
-                " <a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
+                " <a name=\"m22\">(</a>)<a title=\"The instance type pkg.Ext must contain only instance types and instance initilizing blocks.\" class=\"e\">{</a>\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -6222,6 +6222,240 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {\n" +
                 " <a name=\"m22\">ONE</a>{}\n" +
                 " <a name=\"m29\" title=\"Bad index by parsing.\" class=\"e\">TWO</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report864Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  new Rec(field:10, RecSuper2. field2:12);\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@class pkg.Rec:RecSuper {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper2 {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  new <a title=\"pkg.Rec\" href=\"#m106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m130\">field</a>:10, <a title=\"pkg.RecSuper2\" href=\"#m189\">RecSuper2</a>. <a title=\"The parameter function name RecSuper2. field2 is duplicated.\" class=\"e\">field2</a>:12);\n" +
+                "  return null;\n" +
+                " }\n" +
+                "}\n" +
+                "@class <a name=\"m106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m149\">RecSuper</a> {\n" +
+                " int <a name=\"m130\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m149\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m169\">field2</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m189\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\"m210\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report865Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  new Rec(field:10, RecSuper . field3:12);\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@class pkg.Rec:RecSuper {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper2 {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  new <a title=\"pkg.Rec\" href=\"#m106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m130\">field</a>:10, <a title=\"pkg.RecSuper\" href=\"#m149\">RecSuper</a> . <a title=\"The parameter function name RecSuper . field3 is duplicated.\" class=\"e\">field3</a>:12);\n" +
+                "  return null;\n" +
+                " }\n" +
+                "}\n" +
+                "@class <a name=\"m106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m149\">RecSuper</a> {\n" +
+                " int <a name=\"m130\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m149\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m169\">field2</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m189\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\"m210\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report866Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  new Rec(field:10, RecSuper3. field2:12);\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@class pkg.Rec:RecSuper {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper2 {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  new <a title=\"pkg.Rec\" href=\"#m106\">Rec</a>(<a title=\"pkg.Rec.field\" href=\"#m130\">field</a>:10, <a title=\"The type RecSuper3 is unknown.\" class=\"e\">RecSuper3</a>. <a title=\"The parameter function name RecSuper3. field2 is duplicated.\" class=\"e\">field2</a>:12);\n" +
+                "  return null;\n" +
+                " }\n" +
+                "}\n" +
+                "@class <a name=\"m106\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m149\">RecSuper</a> {\n" +
+                " int <a name=\"m130\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m149\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m169\">field2</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m189\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\"m210\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report867Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  $lambda(Rec,new, field, RecSuper2. field2);\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@class pkg.Rec:RecSuper {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper2 {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m109\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#m133\">field</a>, <a title=\"pkg.RecSuper2\" href=\"#m192\">RecSuper2</a>. field2);\n" +
+                "  return null;\n" +
+                " }\n" +
+                "}\n" +
+                "@class <a name=\"m109\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m152\">RecSuper</a> {\n" +
+                " int <a name=\"m133\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m152\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m172\">field2</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m192\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\"m213\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report868Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  $lambda(Rec,new, field, RecSuper. field3);\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@class pkg.Rec:RecSuper {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper2 {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m108\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#m132\">field</a>, <a title=\"pkg.RecSuper\" href=\"#m151\">RecSuper</a>. field3);\n" +
+                "  return null;\n" +
+                " }\n" +
+                "}\n" +
+                "@class <a name=\"m108\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m151\">RecSuper</a> {\n" +
+                " int <a name=\"m132\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m151\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m171\">field2</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m191\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\"m212\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report869Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static Object m(){\n");
+        xml_.append("  $lambda(Rec,new, field, RecSuper3. field2);\n");
+        xml_.append("  return null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@class pkg.Rec:RecSuper {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper2 {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static Object <a name=\"m31\">m</a>(){\n" +
+                "  <a title=\"The type pkg.Rec cannot be instantiated because of abstract.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m109\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#m133\">field</a>, <a title=\"The type RecSuper3 is unknown.\" class=\"e\">RecSuper3</a>. field2);\n" +
+                "  return null;\n" +
+                " }\n" +
+                "}\n" +
+                "@class <a name=\"m109\" title=\"Initializing the interface pkg.RecSuper from the type {1} is needed.\" class=\"e\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m152\">RecSuper</a> {\n" +
+                " int <a name=\"m133\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m152\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m172\">field2</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m192\">pkg.RecSuper2</a> {\n" +
+                " int <a name=\"m213\">field2</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }

@@ -10768,6 +10768,65 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         assertTrue(getCorrectTemplateAll(cont_, t_).isEmpty());
     }
 
+    @Test
+    public void isOkQualFields1() {
+        assertTrue(!isOkQualFields(""));
+    }
+
+    @Test
+    public void isOkQualFields2() {
+        assertTrue(isOkQualFields("_"));
+    }
+
+    @Test
+    public void isOkQualFields3() {
+        assertTrue(isOkQualFields("_._"));
+    }
+
+    @Test
+    public void isOkQualFields4() {
+        assertTrue(isOkQualFields("_.$id*1._"));
+    }
+
+    @Test
+    public void isOkQualFields5() {
+        assertTrue(!isOkQualFields("_.$id?*1._"));
+    }
+
+    @Test
+    public void isOkQualFields6() {
+        assertTrue(!isOkQualFields("_.$id?+1._"));
+    }
+
+    @Test
+    public void isOkQualFields7() {
+        assertTrue(isOkQualFields("_._+1._"));
+    }
+
+    @Test
+    public void isOkQualFields8() {
+        assertTrue(isOkQualFields("_._._"));
+    }
+
+    @Test
+    public void isOkQualFields9() {
+        assertTrue(!isOkQualFields("_.?._"));
+    }
+
+    @Test
+    public void isOkQualFields10() {
+        assertTrue(!isOkQualFields("_._.?"));
+    }
+
+    @Test
+    public void isOkQualFields11() {
+        assertTrue(!isOkQualFields("_._+_._"));
+    }
+
+    private static boolean isOkQualFields(String _string){
+        AnalyzedTestContext analyzedTestContext_ = ctxReadOnlyAna();
+        return AnaInherits.isOkQualFields(_string,analyzedTestContext_.getAnalyzing());
+    }
     private static String getCorrectTemplateAll(AnalyzedTestContext _cont, StringMap<StringList> _t) {
         return AnaInherits.getCorrectTemplateAll(null,"",new StringList(),_t, _cont.getAnalyzing());
     }

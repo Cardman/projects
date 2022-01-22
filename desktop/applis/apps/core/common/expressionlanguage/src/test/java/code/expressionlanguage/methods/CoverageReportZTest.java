@@ -12461,6 +12461,78 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage682Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth (){\n");
+        xml_.append("  Rec r = new Rec(field:10, RecSuper.field2:12);\n");
+        xml_.append("  return r.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@class interfaces(RecSuper) pkg.Rec:RecSuper {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a> (){\n" +
+                "  <a title=\"pkg.Rec\" href=\"#m152\">Rec</a> <span class=\"f\"><span class=\"f\"><a name=\"m58\">r</a> </span>=<span class=\"f\"> new <a title=\"pkg.Rec\" href=\"#m152\">Rec</a>(<span class=\"f\"><a title=\"pkg.Rec.field\" href=\"#m176\">field</a>:<span class=\"f\">10</span></span>,<span class=\"f\"> <a title=\"pkg.RecSuper\" href=\"#m195\">RecSuper</a>.<a title=\"pkg.RecSuper.field2\" href=\"#m215\">field2</a>:<span class=\"f\">12</span></span>)</span></span>;\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m58\">r</a></span>.<span class=\"f\"><a title=\"pkg.Rec.field\" href=\"#m176\">field</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "@class interfaces(<a title=\"pkg.RecSuper\" href=\"#m195\">RecSuper</a>) <a name=\"m152\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m195\">RecSuper</a> {\n" +
+                " int <span class=\"f\"><a name=\"m176\">field</a></span>;\n" +
+                "}\n" +
+                "interface <a name=\"m195\">pkg.RecSuper</a> {\n" +
+                " int <span class=\"f\"><a name=\"m215\">field2</a></span>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void coverage683Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth (){\n");
+        xml_.append("  $lambda(Rec,new, field, RecSuper.field2);\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@class interfaces(RecSuper) pkg.Rec:RecSuper {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">exmeth</a> (){\n" +
+                "  <span class=\"f\">$lambda(<a title=\"pkg.Rec\" href=\"#m141\">Rec</a>,new, <a title=\"pkg.Rec.field\" href=\"#m165\">field</a>, <a title=\"pkg.RecSuper\" href=\"#m184\">RecSuper</a>.<a title=\"pkg.RecSuper.field2\" href=\"#m204\">field2</a>)</span>;\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "@class interfaces(<a title=\"pkg.RecSuper\" href=\"#m184\">RecSuper</a>) <a name=\"m141\">pkg.Rec</a>:<a title=\"pkg.RecSuper\" href=\"#m184\">RecSuper</a> {\n" +
+                " int <span class=\"n\"><a name=\"m165\">field</a></span>;\n" +
+                "}\n" +
+                "interface <a name=\"m184\">pkg.RecSuper</a> {\n" +
+                " int <span class=\"n\"><a name=\"m204\">field2</a></span>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

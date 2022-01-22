@@ -221,7 +221,7 @@ public final class AnaTypeUtil {
             String d_ = c.getFile().getFileName();
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
-            if (len_ > 0 && (c instanceof InterfaceBlock || c instanceof RecordBlock)) {
+            if (len_ > 0 && (c instanceof InterfaceBlock)) {
                 FoundErrorInterpret enum_;
                 enum_ = new FoundErrorInterpret();
                 enum_.setFileName(d_);
@@ -259,7 +259,11 @@ public final class AnaTypeUtil {
                     }
                 } else {
 //                    type_.getStaticInitImportedInterfaces().add(base_);
-                    c.getStaticInitImportedInterfaces().add(r_);
+                    if (!(c instanceof RecordBlock)) {
+                        c.getStaticInitImportedInterfaces().add(r_);
+                    } else {
+                        c.getInstanceInitImportedInterfaces().add(r_);
+                    }
                 }
             }
             for (int i = 0; i < len_; i++) {
@@ -302,82 +306,126 @@ public final class AnaTypeUtil {
             }
         }
         for (RootBlock c: _page.getFoundTypes()) {
-            if (!(c instanceof UniqueRootedBlock)) {
+            if (c instanceof RecordBlock) {
+                ins(_page, c);
                 continue;
             }
-            UniqueRootedBlock un_ = (UniqueRootedBlock)c;
-            CustList<RootBlock> ints_ = un_.getStaticInitImportedInterfaces();
-            StringList trimmedInt_ = new StringList();
-            for (RootBlock i: ints_) {
-                trimmedInt_.add(i.getFullName());
+            if (c instanceof UniqueRootedBlock) {
+                st(_page, c);
             }
-            StringList all_ = c.getAllSuperTypes();
-            StringList allCopy_ = new StringList(all_);
-            StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
-            String clName_ = un_.getImportedDirectGenericSuperClass();
-            String id_ = StringExpUtil.getIdFromAllTypes(clName_);
-            RootBlock superType_ = _page.getAnaClassBody(id_);
-            if (superType_ instanceof UniqueRootedBlock) {
-                StringUtil.removeAllElements(allCopy_, superType_.getAllSuperTypes());
-            }
-            StringList filteredStatic_ = new StringList();
-            for (String i: allCopy_) {
-                RootBlock int_ = _page.getAnaClassBody(i);
-                if (!(int_ instanceof InterfaceBlock)) {
-                    continue;
-                }
-                for (AbsBk b: ClassesUtil.getDirectChildren(int_)) {
-                    if (b instanceof NamedFunctionBlock) {
+        }
+    }
+    private static void ins(AnalyzedPageEl _page, RootBlock _c) {
+        CustList<RootBlock> ints_ = _c.getInstanceInitImportedInterfaces();
+        StringList trimmedInt_ = new StringList();
+        for (RootBlock i: ints_) {
+            trimmedInt_.add(i.getFullName());
+        }
+        StringList all_ = _c.getAllSuperTypes();
+        StringList allCopy_ = new StringList(all_);
+        StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
+        StringList filteredStatic_ = new StringList();
+        for (String i: allCopy_) {
+            RootBlock int_ = _page.getAnaClassBody(i);
+            for (AbsBk b: ClassesUtil.getDirectChildren(int_)) {
+                if (b instanceof InfoBlock) {
+                    InfoBlock a_ = (InfoBlock) b;
+                    if (a_.isStaticField()) {
                         continue;
                     }
-                    if (b instanceof InfoBlock) {
-                        InfoBlock a_ = (InfoBlock) b;
-                        if (!a_.isStaticField()) {
-                            continue;
-                        }
-                        boolean allCst_ = true;
-                        for (String n: a_.getFieldName()) {
-                            StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
-                            if (NumParsers.getStaticField(new ClassField(i, n), staticFields_) == null) {
-                                allCst_ = false;
-                                break;
-                            }
-                        }
-                        if (!allCst_) {
-                            filteredStatic_.add(i);
-                        }
-                    }
-                    if (b instanceof StaticBlock) {
-                        filteredStatic_.add(i);
-                    }
+                    filteredStatic_.add(i);
+                }
+                if (b instanceof InstanceBlock) {
+                    filteredStatic_.add(i);
                 }
             }
-            if (!StringUtil.equalsSet(filteredStatic_, trimmedInt_)) {
-                for (String s: filteredStatic_) {
-                    if (!StringUtil.contains(trimmedInt_,s)) {
-                        FoundErrorInterpret undef_;
-                        undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(un_.getFile().getFileName());
-                        undef_.setIndexFile(c.getIdRowCol());
-                        //last parenthese
-                        undef_.buildError(_page.getAnalysisMessages().getCallIntNeedType(),
-                                s);
-                        _page.addLocError(undef_);
-                        c.addNameErrors(undef_);
-                    }
+        }
+        lookForErrors(_page, _c, trimmedInt_, filteredStatic_);
+    }
+
+    private static void st(AnalyzedPageEl _page, RootBlock _c) {
+        UniqueRootedBlock un_ = (UniqueRootedBlock) _c;
+        CustList<RootBlock> ints_ = _c.getStaticInitImportedInterfaces();
+        StringList trimmedInt_ = new StringList();
+        for (RootBlock i: ints_) {
+            trimmedInt_.add(i.getFullName());
+        }
+        StringList all_ = _c.getAllSuperTypes();
+        StringList allCopy_ = new StringList(all_);
+        StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
+        String clName_ = un_.getImportedDirectGenericSuperClass();
+        String id_ = StringExpUtil.getIdFromAllTypes(clName_);
+        RootBlock superType_ = _page.getAnaClassBody(id_);
+        if (superType_ instanceof UniqueRootedBlock) {
+            StringUtil.removeAllElements(allCopy_, superType_.getAllSuperTypes());
+        }
+        StringList filteredStatic_ = new StringList();
+        for (String i: allCopy_) {
+            feedStatic(_page, filteredStatic_, i);
+        }
+        lookForErrors(_page, _c, trimmedInt_, filteredStatic_);
+    }
+
+    private static void feedStatic(AnalyzedPageEl _page, StringList _filteredStatic, String _i) {
+        RootBlock int_ = _page.getAnaClassBody(_i);
+        if (!(int_ instanceof InterfaceBlock)) {
+            return;
+        }
+        for (AbsBk b: ClassesUtil.getDirectChildren(int_)) {
+            if (b instanceof InfoBlock) {
+                InfoBlock a_ = (InfoBlock) b;
+                if (!a_.isStaticField()) {
+                    continue;
                 }
-                for (String s: trimmedInt_) {
-                    if (!StringUtil.contains(filteredStatic_,s)) {
-                        FoundErrorInterpret undef_;
-                        undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(un_.getFile().getFileName());
-                        undef_.setIndexFile(c.getIdRowCol());
-                        //type len
-                        undef_.buildError(_page.getAnalysisMessages().getCallIntNoNeedType(),
-                                s);
-                        _page.addLocError(undef_);
-                        c.addNameErrors(undef_);
-                    }
+                boolean allCst_ = allCst(_page, _i, a_);
+                if (!allCst_) {
+                    _filteredStatic.add(_i);
+                }
+            }
+            if (b instanceof StaticBlock) {
+                _filteredStatic.add(_i);
+            }
+        }
+    }
+
+    private static boolean allCst(AnalyzedPageEl _page, String _i, InfoBlock _a) {
+        boolean allCst_ = true;
+        for (String n: _a.getFieldName()) {
+            StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
+            if (NumParsers.getStaticField(new ClassField(_i, n), staticFields_) == null) {
+                allCst_ = false;
+                break;
+            }
+        }
+        return allCst_;
+    }
+
+    private static void lookForErrors(AnalyzedPageEl _page, RootBlock _c, StringList _trimmedInt, StringList _filteredStatic) {
+        if (!StringUtil.equalsSet(_filteredStatic, _trimmedInt)) {
+            for (String s : _filteredStatic) {
+                if (!StringUtil.contains(_trimmedInt, s)) {
+                    FoundErrorInterpret undef_;
+                    undef_ = new FoundErrorInterpret();
+                    undef_.setFileName(_c.getFile().getFileName());
+                    undef_.setIndexFile(_c.getIdRowCol());
+                    //last parenthese
+                    undef_.buildError(_page.getAnalysisMessages().getCallIntNeedType(),
+                            s);
+                    _page.addLocError(undef_);
+                    _c.addNameErrors(undef_);
+                }
+            }
+            for (String s : _trimmedInt) {
+                if (!StringUtil.contains(_filteredStatic, s)) {
+                    FoundErrorInterpret undef_;
+                    undef_ = new FoundErrorInterpret();
+                    undef_.setFileName(_c.getFile().getFileName());
+                    undef_.setIndexFile(_c.getIdRowCol());
+                    //type len
+                    undef_.buildError(_page.getAnalysisMessages().getCallIntNoNeedType(),
+                            s);
+                    _page.addLocError(undef_);
+                    _c.addNameErrors(undef_);
                 }
             }
         }

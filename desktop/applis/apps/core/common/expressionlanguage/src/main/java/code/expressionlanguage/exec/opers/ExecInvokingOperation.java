@@ -389,7 +389,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             LambdaRecordConstructorStruct l_ = (LambdaRecordConstructorStruct) ls_;
             ExecFormattedRootBlock clName_ = l_.getFormClassName();
             CustList<Argument> values_ = _values.getArguments();
-            _stackCall.setCallingState(new CustomReflectRecordConstructor(l_.getRoot(),l_.getId(),clName_,values_,true));
+            _stackCall.setCallingState(new CustomReflectRecordConstructor(l_.getRoot(), l_.getNamedFields(), clName_,values_,true));
             return new Argument();
         }
         if (ls_ instanceof LambdaConstructorStruct) {

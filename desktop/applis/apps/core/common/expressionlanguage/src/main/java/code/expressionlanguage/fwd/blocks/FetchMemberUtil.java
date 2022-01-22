@@ -13,6 +13,8 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.Members;
+import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
+import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
 
 public final class FetchMemberUtil {
@@ -61,6 +63,13 @@ public final class FetchMemberUtil {
             return converter_;
         }
         return null;
+    }
+    public static CustList<ExecNamedFieldContent> namedFieldsContent(CustList<AnaNamedFieldContent> _ana, Forwards _fwd) {
+        CustList<ExecNamedFieldContent> list_ = new CustList<ExecNamedFieldContent>();
+        for (AnaNamedFieldContent a: _ana) {
+            list_.add(new ExecNamedFieldContent(a,FetchMemberUtil.fetchType(a.getDeclaring(), _fwd)));
+        }
+        return list_;
     }
 
     public static String formatType(AnaFormattedRootBlock _format,String _dest) {

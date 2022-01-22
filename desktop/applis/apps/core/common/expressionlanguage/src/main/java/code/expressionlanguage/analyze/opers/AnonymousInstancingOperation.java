@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
@@ -72,15 +74,19 @@ public final class AnonymousInstancingOperation extends
         }
         realClassName_ = realClassName_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+newKeyWord_.length()+off_+local_, _page);
-        if (!StringExpUtil.isDollarWord(instancingAnonContent.getBlock().getName())) {
-            FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getLocalizer().getCurrentFileName());
-            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //original type len
-            static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
-                    realClassName_);
-            _page.getLocalizer().addError(static_);
-            addErr(static_.getBuiltError());
+        String name_ = instancingAnonContent.getBlock().getName();
+        if (!StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordId())) {
+            TokenErrorMessage tokenErrorMessage_ = ManageTokens.partClass(_page).checkToken(name_, _page);
+            if (tokenErrorMessage_.isError()) {
+                FoundErrorInterpret static_ = new FoundErrorInterpret();
+                static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //original type len
+                static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
+                        realClassName_);
+                _page.getLocalizer().addError(static_);
+                addErr(static_.getBuiltError());
+            }
         }
         if (!isIntermediateDottedOperation()) {
             setStaticAccess(_page.getStaticContext());

@@ -13,11 +13,13 @@ import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
@@ -315,38 +317,35 @@ public final class StandardInstancingOperation extends
         CustList<OperationNode> childrenNodes_ = _par.getChildrenNodes();
 //        CustList<NamedArgumentOperation> filter_ = out_.getParameterFilter();
         CustList<NamedArgumentOperation> filterErr_ = out_.getParameterFilterErr();
-        StringList names_ = new StringList();
+        CustList<ClassField> names_ = new CustList<ClassField>();
 //        boolean ok_ = true;
         for (OperationNode o: childrenNodes_) {
-            String name_ = ((NamedArgumentOperation) o).getName();
+            ClassField idField_ = ((NamedArgumentOperation) o).getIdField();
+            String name_ = idField_.getFieldName();
             boolean contained_ = false;
-            for (InfoBlock f: _root.getFieldsBlocks()) {
-                String par_ = AnaInherits.quickFormat(_root, _real, f.getImportedClassName());
+            if (((NamedArgumentOperation) o).getRef() >= 0) {
+                String importedClassName_ = ((NamedArgumentOperation) o).getImportedClassName();
+                instancingStdContent.getNamedFields().add(new AnaNamedFieldContent(name_, importedClassName_,idField_.getClassName(),((NamedArgumentOperation) o).getField()));
+                String par_ = AnaInherits.quickFormat(_root, _real, ((NamedArgumentOperation) o).format());
                 Mapping m_ = new Mapping();
                 m_.setArg(o.getResultClass());
                 m_.setParam(par_);
                 m_.setMapping(vars_);
-                int index_ = AnaTypeUtil.getIndex(f,name_);
-                if (index_ >= 0) {
-                    ((NamedArgumentOperation) o).setField(_root);
-                    ((NamedArgumentOperation) o).setRef(index_);
-                    instancingStdContent.getInfos().addEntry(name_,f.getImportedClassName());
-                    if (!AnaInherits.isCorrectOrNumbers(m_, _page)){
-                        ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(par_, o.getResultClass(), _page);
-                        if (res_ == null) {
-                            continue;
-                        }
+                if (!AnaInherits.isCorrectOrNumbers(m_, _page)){
+                    ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(par_, o.getResultClass(), _page);
+                    if (res_ != null) {
                         o.getResultClass().implicitInfos(res_);
+                        contained_ = true;
                     }
+                } else {
                     contained_ = true;
-                    break;
                 }
             }
-            if (StringUtil.contains(names_,name_) || !contained_) {
+            if (dupl(names_,idField_) || !contained_) {
 //                ok_ = false;
                 filterErr_.add(((NamedArgumentOperation) o));
             }
-            names_.add(name_);
+            names_.add(idField_);
             out_.addNamed(((NamedArgumentOperation) o));
         }
 //        out_.setOk(ok_);

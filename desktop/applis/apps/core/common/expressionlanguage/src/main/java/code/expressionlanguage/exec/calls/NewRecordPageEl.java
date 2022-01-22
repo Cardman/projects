@@ -3,38 +3,52 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
-import code.util.StringMap;
+import code.util.IdList;
 
 public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
 
-    private final StringMap<String> names;
+    private final CustList<ExecNamedFieldContent> named;
     private final CustList<Argument> args;
-    public NewRecordPageEl(StringMap<String> _names, CustList<Argument> _args, ExecFormattedRootBlock _global) {
+    private final IdList<ExecRootBlock> visited = new IdList<ExecRootBlock>();
+    public NewRecordPageEl(CustList<ExecNamedFieldContent> _named, CustList<Argument> _args, ExecFormattedRootBlock _global) {
         super(_global);
-        names = _names;
+        named = _named;
         args = _args;
     }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {
+        ExecRootBlock blockRootType_ = getBlockRootType();
+        for (ExecRootBlock r : blockRootType_.getInstanceInitImportedInterfaces()) {
+            if (visited.containsObj(r)) {
+                continue;
+            }
+            visited.add(r);
+            Argument global_ = getGlobalArgument();
+            ExecFormattedRootBlock fullObject_ = ExecFormattedRootBlock.getFullObject(getGlobalClass().getFormatted(), new ExecFormattedRootBlock(r), _context);
+            _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(fullObject_), r.getEmptyCtorPair(), global_));
+            return;
+        }
         if (!checkCondition(_stack)) {
             return;
         }
         //set fields for annotation after calculating default one
-        int len_ = Math.min(names.size(),args.size());
+        int len_ = Math.min(named.size(),args.size());
         Argument gl_ = getGlobalArgument();
-        String className_ = gl_.getStruct().getClassName(_context);
-        String id_ = StringExpUtil.getIdFromAllTypes(className_);
         for (int i = 0; i <len_; i++) {
-            String name_ = names.getKey(i);
+            ExecNamedFieldContent info_ = named.get(i);
+            String id_ = info_.getIdClass();
+            String name_ = info_.getName();
             Argument value_ = args.get(i);
-            String t_ = names.getValue(i);
-            ExecTemplates.setInstanceField(gl_, value_, _context, _stack, new ClassField(id_, name_), new ExecTypeReturn(getBlockRootType(), t_));
+            String t_ = info_.getType();
+            ExecTemplates.setInstanceField(gl_, value_, _context, _stack, new ClassField(id_, name_), new ExecTypeReturn(info_.getDeclaring(), t_));
             if (_context.callsOrException(_stack)) {
                 return;
             }

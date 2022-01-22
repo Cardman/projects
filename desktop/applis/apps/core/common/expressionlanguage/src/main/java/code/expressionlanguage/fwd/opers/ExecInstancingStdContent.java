@@ -1,16 +1,16 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.util.StringMap;
+import code.util.CustList;
 
 public final class ExecInstancingStdContent {
     private final String fieldName;
     private final int blockIndex;
-    private final StringMap<String> infos;
+    private final CustList<ExecNamedFieldContent> namedFields;
 
-    public ExecInstancingStdContent(AnaInstancingStdContent _cont) {
+    public ExecInstancingStdContent(AnaInstancingStdContent _cont, CustList<ExecNamedFieldContent> _namedFields) {
         fieldName = _cont.getFieldName();
         blockIndex = _cont.getBlockIndex();
-        infos = _cont.getInfos();
+        namedFields = _namedFields;
     }
     public String getFieldName() {
         return fieldName;
@@ -20,7 +20,7 @@ public final class ExecInstancingStdContent {
         return blockIndex;
     }
 
-    public StringMap<String> getInfos() {
-        return infos;
+    public CustList<ExecNamedFieldContent> getNamedFields() {
+        return namedFields;
     }
 }

@@ -697,6 +697,14 @@ public abstract class OperationNode {
         return r_;
     }
 
+    protected static boolean dupl(CustList<ClassField> _ids, ClassField _id) {
+        for (ClassField c: _ids) {
+            if (_id.eq(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
     private static void feedTypes(CustList<TypeInfo> _list, StringList _baseTypes, StringMap<String> _superTypesBaseAnc) {
         for (TypeInfo t: _list) {
             if (t.isBase()) {

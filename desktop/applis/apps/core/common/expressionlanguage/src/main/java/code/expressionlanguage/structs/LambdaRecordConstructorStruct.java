@@ -4,7 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.util.StringMap;
+import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
+import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
@@ -15,13 +16,13 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
     private final String className;
     private final ExecFormattedRootBlock formClassName;
 
-    private final StringMap<String> id;
+    private final CustList<ExecNamedFieldContent> namedFields;
 
-    public LambdaRecordConstructorStruct(ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, StringMap<String> _id) {
+    public LambdaRecordConstructorStruct(ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, CustList<ExecNamedFieldContent> _namedFields) {
         root = _root;
         className = StringUtil.nullToEmpty(_className);
         formClassName = _formClassName;
-        id = _id;
+        namedFields = _namedFields;
     }
 
     public ExecRootBlock getRoot() {
@@ -44,7 +45,7 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
         return className;
     }
 
-    public StringMap<String> getId() {
-        return id;
+    public CustList<ExecNamedFieldContent> getNamedFields() {
+        return namedFields;
     }
 }

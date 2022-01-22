@@ -22,6 +22,7 @@ import code.expressionlanguage.exec.coverage.SwitchCoverageResult;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
+import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
@@ -3407,15 +3408,18 @@ public final class LinkageUtil {
         addTypes(_vars,((LambdaOperation)_val).getPartOffsets());
         _vars.addParts(convert(((LambdaOperation)_val).getPartOffsetsErrEnd()));
         if (((LambdaOperation)_val).getRecordType() >= 0) {
-            int len_ = ((LambdaOperation)_val).getNamed().size();
+            CustList<AnaNamedFieldContent> namedFields_ = ((LambdaOperation) _val).getNamedFields();
+            int len_ = namedFields_.size();
             for (int i = 0; i < len_; i++) {
+                _vars.addParts(export(((LambdaOperation) _val).getPartOffsetsRec().get(i)));
                 int ref_ = ((LambdaOperation) _val).getRefs().get(i);
                 if (ref_ < 0) {
                     continue;
                 }
-                String name_ = ((LambdaOperation) _val).getNamed().get(i);
-                updateFieldAnchor(_vars,fieldType_,new StringList(),
-                        new ClassField(fieldType_.getFullName(),name_),
+                AnaNamedFieldContent naFi_ = namedFields_.get(i);
+                String name_ = naFi_.getName();
+                updateFieldAnchor(_vars,naFi_.getDeclaring(),new StringList(),
+                        new ClassField(naFi_.getIdClass(),name_),
                         beginLambda_+((LambdaOperation) _val).getOffsets().get(i),
                         name_.length(), ref_
                 );
@@ -3528,12 +3532,13 @@ public final class LinkageUtil {
             return;
         }
         NamedArgumentOperation n_ = (NamedArgumentOperation) _val;
-        int firstOff_ = n_.getOffsetTr();
-        if (n_.getField() != null) {
+        if (n_.getField() != null || !n_.hasNoDot()) {
+            addTypes(_vars,n_.getPartOffsets());
+            int firstOff_ = n_.getOffsetTr();
             int begin_ = _sum + _val.getIndexInEl()+firstOff_;
             updateFieldAnchor(_vars,n_.getField(),n_.getErrs(),
-                    new ClassField(n_.getField().getFullName(),n_.getName()),
-                    begin_,n_.getName().length(), n_.getRef());
+                    n_.getIdField(),
+                    begin_,n_.getFieldName().length(), n_.getRef());
             return;
         }
         processNamedArgument(_vars, _sum, n_);
@@ -4256,7 +4261,7 @@ public final class LinkageUtil {
                 +rel_+classErr(_errs)+ExportCst.END;
     }
 
-    public static String transform(String _string) {
+    static String transform(String _string) {
         StringBuilder str_ = new StringBuilder();
         for (char c: _string.toCharArray()) {
             if (c > 126) {

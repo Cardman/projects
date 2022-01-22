@@ -1,11 +1,11 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.util.StringMap;
+import code.util.CustList;
 
 public final class AnaInstancingStdContent {
     private String fieldName = "";
     private int blockIndex = -1;
-    private final StringMap<String> infos = new StringMap<String>();
+    private final CustList<AnaNamedFieldContent> namedFields = new CustList<AnaNamedFieldContent>();
 
     public String getFieldName() {
         return fieldName;
@@ -23,7 +23,7 @@ public final class AnaInstancingStdContent {
         this.fieldName = _fieldName;
     }
 
-    public StringMap<String> getInfos() {
-        return infos;
+    public CustList<AnaNamedFieldContent> getNamedFields() {
+        return namedFields;
     }
 }

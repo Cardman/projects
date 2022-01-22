@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.inherits;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.blocks.AnnotationBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -13,6 +14,8 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardType;
+import code.maths.litteralcom.MathExpUtil;
+import code.util.CharList;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -409,6 +412,50 @@ public final class AnaInherits {
         Ints rep_ = _info.getTypeVarCounts();
         return StringExpUtil.normalCorrectType(_genericClass, rep_);
     }
+
+    public static boolean isOkQualFields(String _string, AnalyzedPageEl _page) {
+        int last_ = _string.lastIndexOf('.');
+        if (last_ < 0) {
+            return ManageTokens.isValidToken(_string.trim(),_page);
+        }
+        String firstPart_ = _string.substring(0,last_);
+        StringList inner_ = getAllInnerTypes(firstPart_, new StringList());
+        int size_ = inner_.size();
+        for (int i = 0; i < size_; i+=2) {
+            String part_ = inner_.get(i).trim();
+            int c_ = 0;
+            for (char c: CharList.wrapCharArray('*','+')) {
+                int incr_ = incr(part_, c, _page);
+                if (incr_ < 0) {
+                    return false;
+                }
+                c_ += incr_;
+            }
+            if (c_ == 0 && !ManageTokens.isValidToken(part_,_page)) {
+                return false;
+            }
+        }
+        String lastPart_ = _string.substring(last_+1);
+        return ManageTokens.isValidToken(lastPart_.trim(),_page);
+    }
+    private static int incr(String _part, char _c, AnalyzedPageEl _page) {
+        int ind_ = _part.indexOf(_c);
+        if (ind_ >= 0) {
+            if (!MathExpUtil.isPositiveNumber(_part.substring(ind_+1).trim())){
+                return -1;
+            }
+            String pre_ = _part.substring(0, ind_).trim();
+            if (_c == '*' && StringUtil.quickEq(pre_, _page.getKeyWords().getKeyWordId())) {
+                return 1;
+            }
+            if (!ManageTokens.isValidToken(pre_,_page)) {
+                return -1;
+            }
+            return 1;
+        }
+        return 0;
+    }
+
     /** Splits by single dot the input string into parts regarding packages<br/>
      Let this code:<br/>
      <code><pre>public class my.pkg.MyClass{}</pre>
