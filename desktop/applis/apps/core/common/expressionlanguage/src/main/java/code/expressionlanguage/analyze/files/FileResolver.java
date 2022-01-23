@@ -498,34 +498,6 @@ public final class FileResolver {
         if (StringUtil.quickEq(trTmp_, keyWordStatic_)) {
             return EndInstruction.NO_DECLARE_TYPE;
         }
-        if (StringExpUtil.startsWithKeyWord(trTmp_,keyWords_.getKeyWordReturn())) {
-            return EndInstruction.NONE;
-        }
-        if (StringExpUtil.startsWithKeyWord(trTmp_,keyWords_.getKeyWordThrow())) {
-            return EndInstruction.NONE;
-        }
-        if (StringExpUtil.startsWithKeyWord(trTmp_,keyWords_.getKeyWordBreak())) {
-            return EndInstruction.NONE;
-        }
-        if (StringExpUtil.startsWithKeyWord(trTmp_,keyWords_.getKeyWordContinue())) {
-            return EndInstruction.NONE;
-        }
-        if (isCaseDefault(trTmp_,keyWords_.getKeyWordCase(),keyWords_.getKeyWordDefault())) {
-            return EndInstruction.NONE;
-        }
-        char lastCh_ = trTmp_.charAt(trTmp_.length() - 1);
-        if (lastCh_ =='=') {
-            return EndInstruction.NONE;
-        }
-        if (lastCh_ ==']') {
-            return EndInstruction.NONE;
-        }
-        if (lastCh_ ==':') {
-            return EndInstruction.NONE;
-        }
-        if (lastCh_ =='?') {
-            return EndInstruction.NONE;
-        }
         if (!(_parent instanceof RootBlock)) {
             return EndInstruction.NONE;
         }
