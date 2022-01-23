@@ -1052,6 +1052,182 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         assertEq(12, getNumber(ret_));
     }
     @Test
+    public void calculateArgument44Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<U> {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall U exmeth(){\n");
+        xml_.append("  Rec<U> r = $new Rec<U>();\n");
+        xml_.append("  $return r.field3;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@$interface $interfaces(RecSuper2,RecSuper) pkg.Rec<T>:RecSuper<T> {\n");
+        xml_.append(" $int field;\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper<S>:RecSuper2<S> {\n");
+        xml_.append(" S field2;\n");
+        xml_.append(" {field2=(S)11;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper2<R> {\n");
+        xml_.append(" R field3;\n");
+        xml_.append(" {field3=(R)12;}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(12, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument45Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<U> {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall U exmeth(){\n");
+        xml_.append("  Rec<U> r = $new Rec<U>();\n");
+        xml_.append("  $return r.field3;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@$interface $interfaces(;RecSuper2,RecSuper) pkg.Rec<T>:RecSuper<T> {\n");
+        xml_.append(" $int field;\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper<S>:RecSuper2<S> {\n");
+        xml_.append(" S field2;\n");
+        xml_.append(" {field2=(S)11;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper2<R> {\n");
+        xml_.append(" R field3;\n");
+        xml_.append(" {field3=(R)12;}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(12, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument46Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<U> {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall $int exmeth(){\n");
+        xml_.append("  Rec<U> r = $new Rec<U>();\n");
+        xml_.append("  $return Rec.field25;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@$interface $interfaces(RecStSuper1,RecStSuper2;RecSuper2,RecSuper) pkg.Rec<T>:RecSuper<T>:RecStSuper2 {\n");
+        xml_.append(" $int field;\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper<S>:RecSuper2<S> {\n");
+        xml_.append(" S field2;\n");
+        xml_.append(" {field2=(S)11;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper2<R> {\n");
+        xml_.append(" R field3;\n");
+        xml_.append(" {field3=(R)12;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecStSuper1 {\n");
+        xml_.append(" $static $int field25;\n");
+        xml_.append(" $static {field25=42;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecStSuper2:RecStSuper1 {\n");
+        xml_.append(" $static $int field26;\n");
+        xml_.append(" $static {field26=11;}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(42, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument47Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<U> {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall $int exmeth(){\n");
+        xml_.append("  Rec<U> r = $new Rec<U>();\n");
+        xml_.append("  $return Rec.field26;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@$interface $interfaces(RecStSuper1,RecStSuper2;RecSuper2,RecSuper) pkg.Rec<T>:RecSuper<T>:RecStSuper2 {\n");
+        xml_.append(" $int field;\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper<S>:RecSuper2<S> {\n");
+        xml_.append(" S field2;\n");
+        xml_.append(" {field2=(S)11;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper2<R> {\n");
+        xml_.append(" R field3;\n");
+        xml_.append(" {field3=(R)12;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecStSuper1 {\n");
+        xml_.append(" $static $int field25;\n");
+        xml_.append(" $static {field25=42;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecStSuper2:RecStSuper1 {\n");
+        xml_.append(" $static $int field26;\n");
+        xml_.append(" $static {field26=56;}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(56, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument48Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<U> {\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall $int exmeth(){\n");
+        xml_.append("  Rec<U> r = $new Rec<U>();\n");
+        xml_.append("  $return Rec.field26;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("@$interface $interfaces(RecStSuper1,RecStSuper2;) pkg.Rec<T>:RecStSuper2 {\n");
+        xml_.append(" $int field;\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecStSuper1 {\n");
+        xml_.append(" $static $int field25;\n");
+        xml_.append(" $static {field25=42;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecStSuper2:RecStSuper1 {\n");
+        xml_.append(" $static $int field26;\n");
+        xml_.append(" $static {field26=56;}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(56, getNumber(ret_));
+    }
+    @Test
     public void fail() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("@$class $interfaces(RecSuper,RecSuper;RecSuper,RecSuper) pkg.Rec<T>:RecSuper<T> {\n");

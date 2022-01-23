@@ -6460,6 +6460,90 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void report870Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("@class interfaces(RecSuper) pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"pkg.RecSuper\" href=\"#m62\">RecSuper</a>) <a name=\"m28\" title=\"The type pkg.RecSuper is not an interface.\" class=\"e\">pkg.Rec</a> {\n" +
+                " int <a name=\"m43\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m62\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m82\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report871Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("@class interfaces(RecSuper2) pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"The type RecSuper2 is unknown.\" class=\"e\">RecSuper2</a>) <a name=\"m29\">pkg.Rec</a> {\n" +
+                " int <a name=\"m44\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m63\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m83\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report872Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("@class interfaces(,) pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"There must be a type.\" class=\"e\">,</a><a title=\"There must be a type.\" class=\"e\">)</a> <a name=\"m21\">pkg.Rec</a> {\n" +
+                " int <a name=\"m36\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m55\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m75\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report873Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("@class interfaces( , ) pkg.Rec {\n");
+        xml_.append(" int field;\n");
+        xml_.append("}\n");
+        xml_.append("interface pkg.RecSuper {\n");
+        xml_.append(" int field2;\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">@class interfaces(<a title=\"There must be a type.\" class=\"e\"> </a>,<a title=\"There must be a type.\" class=\"e\"> </a>) <a name=\"m23\">pkg.Rec</a> {\n" +
+                " int <a name=\"m38\">field</a>;\n" +
+                "}\n" +
+                "interface <a name=\"m57\">pkg.RecSuper</a> {\n" +
+                " int <a name=\"m77\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void reportSpecTest() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

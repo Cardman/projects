@@ -853,10 +853,8 @@ public final class FileResolver {
                     nextIndex_ = p_.getOffset();
                     //insert interfaces static initialization for class and enums
                     InterfacesPart interfacesPart_ = new InterfacesPart(afterImports_,nextIndex_);
-                    interfacesPart_.parse(_page.getKeyWords(),nextIndex_,_offset);
+                    interfacesPart_.parse(_page.getKeyWords(),type_,nextIndex_,_offset);
                     int intsOff_ = nextIndex_ + _offset;
-                    StringList staticInitInterfaces_ = interfacesPart_.getStaticInitInterfaces();
-                    Ints staticInitInterfacesOffset_ = interfacesPart_.getStaticInitInterfacesOffset();
                     boolean okType_ = interfacesPart_.isOk();
                     int afterInterfaces_ = interfacesPart_.getLocIndex();
                     int delta_ = afterInterfaces_ - nextIndex_;
@@ -918,8 +916,10 @@ public final class FileResolver {
                     }
                     typeBlock_.getImports().addAllElts(importedTypes_);
                     typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
-                    typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
-                    typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
+                    typeBlock_.getStaticInitInterfaces().addAllElts(interfacesPart_.getStaticInitInterfaces());
+                    typeBlock_.getStaticInitInterfacesOffset().addAllElts(interfacesPart_.getStaticInitInterfacesOffset());
+                    typeBlock_.getInstInitInterfaces().addAllElts(interfacesPart_.getInstInitInterfaces());
+                    typeBlock_.getInstInitInterfacesOffset().addAllElts(interfacesPart_.getInstInitInterfacesOffset());
                     typeBlock_.getAnnotations().addAllElts(annotationsTypes_);
                     typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexesTypes_);
                     typeBlock_.setFile(file_);
@@ -1408,11 +1408,9 @@ public final class FileResolver {
         //insert interfaces static initialization for class and enums
         String infoPart_ = p_.getNextPart();
         InterfacesPart interfacesPart_ = new InterfacesPart(infoPart_, locIndex_);
-        interfacesPart_.parse(keyWords_, locIndex_, _offset);
+        interfacesPart_.parse(keyWords_, type_, locIndex_, _offset);
         locIndex_ = interfacesPart_.getLocIndex();
         infoPart_ = interfacesPart_.getPart();
-        StringList staticInitInterfaces_ = interfacesPart_.getStaticInitInterfaces();
-        Ints staticInitInterfacesOffset_ = interfacesPart_.getStaticInitInterfacesOffset();
         boolean ok_ = interfacesPart_.isOk();
         InheritingPart inh_ = new InheritingPart(locIndex_, infoPart_);
         inh_.parse(_offset);
@@ -1451,8 +1449,10 @@ public final class FileResolver {
         typeBlock_.setupOffsets(typeName_,"");
         typeBlock_.getImports().addAllElts(importedTypes_);
         typeBlock_.getImportsOffset().addAllElts(offsetsImports_);
-        typeBlock_.getStaticInitInterfaces().addAllElts(staticInitInterfaces_);
-        typeBlock_.getStaticInitInterfacesOffset().addAllElts(staticInitInterfacesOffset_);
+        typeBlock_.getStaticInitInterfaces().addAllElts(interfacesPart_.getStaticInitInterfaces());
+        typeBlock_.getStaticInitInterfacesOffset().addAllElts(interfacesPart_.getStaticInitInterfacesOffset());
+        typeBlock_.getInstInitInterfaces().addAllElts(interfacesPart_.getInstInitInterfaces());
+        typeBlock_.getInstInitInterfacesOffset().addAllElts(interfacesPart_.getInstInitInterfacesOffset());
         typeBlock_.getAnnotations().addAllElts(annotations_);
         typeBlock_.getAnnotationsIndexes().addAllElts(annotationsIndexes_);
         if (!ok_) {

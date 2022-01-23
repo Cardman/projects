@@ -2128,6 +2128,7 @@ public final class LinkageUtil {
             return;
         }
         addTypes(_vars, _cond.getPartsStaticInitInterfacesOffset());
+        addTypes(_vars, _cond.getPartsInstInitInterfacesOffset());
     }
 
     private static void processFileBlockReport(VariablesOffsets _vars, FileBlock _cond) {

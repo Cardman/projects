@@ -73,7 +73,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
 
         InterfacesPart ints_ = new InterfacesPart(className_,local_);
-        ints_.parse(_page.getKeyWords(),0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
+        ints_.parse(_page.getKeyWords(),"",0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
         staticInitInterfaces = ints_.getStaticInitInterfaces();
         staticInitInterfacesOffset = ints_.getStaticInitInterfacesOffset();
         local_ = ints_.getLocIndex();

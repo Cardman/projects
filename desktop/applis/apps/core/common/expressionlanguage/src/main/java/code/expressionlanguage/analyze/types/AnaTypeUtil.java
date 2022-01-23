@@ -212,6 +212,47 @@ public final class AnaTypeUtil {
 
     public static void checkInterfaces(AnalyzedPageEl _page) {
         for (RootBlock c: _page.getFoundTypes()) {
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.setCurrentBlock(c);
+            ClassesUtil.globalType(_page,c);
+            String d_ = c.getFile().getFileName();
+            StringList ints_ = c.getInstInitInterfaces();
+            int len_ = ints_.size();
+            CustList<ResolvedIdType> resolvedIdTypes_ = new CustList<ResolvedIdType>();
+            for (int i = 0; i < len_; i++) {
+                int offset_ = c.getInstInitInterfacesOffset().get(i);
+                _page.setCurrentBlock(c);
+                _page.setGlobalOffset(offset_);
+                _page.zeroOffset();
+                _page.getMappingLocal().clear();
+                _page.getMappingLocal().putAllMap(c.getMappings());
+                ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, ints_.get(i), _page);
+                resolvedIdTypes_.add(resolvedIdType_);
+                String base_ = resolvedIdType_.getFullName();
+                c.getPartsInstInitInterfacesOffset().add(resolvedIdType_.getDels());
+                RootBlock r_ = _page.getAnaClassBody(base_);
+                AnaFormattedRootBlock found_ = AnaInherits.getOverridingFullTypeByBases(c, r_);
+                if (!(r_ instanceof InterfaceBlock)||found_ == null) {
+                    FoundErrorInterpret enum_;
+                    enum_ = new FoundErrorInterpret();
+                    enum_.setFileName(d_);
+                    enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //interface len
+                    enum_.buildError(_page.getAnalysisMessages().getCallIntOnly(),
+                            base_);
+                    _page.addLocError(enum_);
+                    if (!base_.isEmpty()) {
+                        c.addNameErrors(enum_);
+                    }
+                } else {
+                    c.getInstanceInitImportedInterfaces().add(found_);
+                }
+            }
+            checkInherits(_page, c, resolvedIdTypes_, c.getInstInitInterfacesOffset());
+        }
+        for (RootBlock c: _page.getFoundTypes()) {
 //            ExecRootBlock type_ = _page.getMapTypes().getVal(c);
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -260,55 +301,15 @@ public final class AnaTypeUtil {
                     }
                 } else {
 //                    type_.getStaticInitImportedInterfaces().add(base_);
-                    if (!(c instanceof RecordBlock)) {
-                        c.getStaticInitImportedInterfaces().add(r_);
-                    } else {
-                        c.getInstanceInitImportedInterfaces().add(found_);
-                    }
+                    c.getStaticInitImportedInterfaces().add(r_);
                 }
             }
-            for (int i = 0; i < len_; i++) {
-                int offsetSup_ = c.getStaticInitInterfacesOffset().get(i);
-                _page.setCurrentBlock(c);
-                ClassesUtil.globalType(_page,c);
-                _page.setGlobalOffset(offsetSup_);
-                _page.zeroOffset();
-                String sup_ = resolvedIdTypes_.get(i).getFullName();
-                RootBlock rs_ = _page.getAnaClassBody(sup_);
-                if (rs_ == null) {
-                    continue;
-                }
-                RootBlock rsSup_ = rs_;
-                for (int j = i + 1; j < len_; j++) {
-                    int offsetSub_ = c.getStaticInitInterfacesOffset().get(j);
-                    _page.setCurrentBlock(c);
-                    ClassesUtil.globalType(_page,c);
-                    _page.setGlobalOffset(offsetSub_);
-                    _page.zeroOffset();
-                    String sub_ = resolvedIdTypes_.get(j).getFullName();
-                    rs_ = _page.getAnaClassBody(sub_);
-                    if (rs_ == null) {
-                        continue;
-                    }
-                    if (rsSup_.isSubTypeOf(rs_)) {
-                        FoundErrorInterpret undef_;
-                        undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(d_);
-                        int offset_ = c.getStaticInitInterfacesOffset().get(j);
-                        undef_.setIndexFile(offset_);
-                        //interface j len
-                        undef_.buildError(_page.getAnalysisMessages().getCallIntInherits(),
-                                sup_,
-                                sub_);
-                        _page.addLocError(undef_);
-                        c.addNameErrors(undef_);
-                    }
-                }
-            }
+            checkInherits(_page, c, resolvedIdTypes_, c.getStaticInitInterfacesOffset());
         }
         for (RootBlock c: _page.getFoundTypes()) {
             if (c instanceof RecordBlock) {
                 ins(_page, c);
+                st(_page, c);
                 continue;
             }
             if (c instanceof UniqueRootedBlock) {
@@ -316,6 +317,49 @@ public final class AnaTypeUtil {
             }
         }
     }
+
+    private static void checkInherits(AnalyzedPageEl _page, RootBlock _root, CustList<ResolvedIdType> _resolvedIdTypes, Ints _offsets) {
+        int len_ = _resolvedIdTypes.size();
+        for (int i = 0; i < len_; i++) {
+            int offsetSup_ = _offsets.get(i);
+            _page.setCurrentBlock(_root);
+            ClassesUtil.globalType(_page, _root);
+            _page.setGlobalOffset(offsetSup_);
+            _page.zeroOffset();
+            String sup_ = _resolvedIdTypes.get(i).getFullName();
+            RootBlock rs_ = _page.getAnaClassBody(sup_);
+            if (rs_ == null) {
+                continue;
+            }
+            RootBlock rsSup_ = rs_;
+            for (int j = i + 1; j < len_; j++) {
+                int offsetSub_ = _offsets.get(j);
+                _page.setCurrentBlock(_root);
+                ClassesUtil.globalType(_page, _root);
+                _page.setGlobalOffset(offsetSub_);
+                _page.zeroOffset();
+                String sub_ = _resolvedIdTypes.get(j).getFullName();
+                rs_ = _page.getAnaClassBody(sub_);
+                if (rs_ == null) {
+                    continue;
+                }
+                if (rsSup_.isSubTypeOf(rs_)) {
+                    FoundErrorInterpret undef_;
+                    undef_ = new FoundErrorInterpret();
+                    undef_.setFileName(_root.getFile().getFileName());
+                    int offset_ = _offsets.get(j);
+                    undef_.setIndexFile(offset_);
+                    //interface j len
+                    undef_.buildError(_page.getAnalysisMessages().getCallIntInherits(),
+                            sup_,
+                            sub_);
+                    _page.addLocError(undef_);
+                    _root.addNameErrors(undef_);
+                }
+            }
+        }
+    }
+
     private static void ins(AnalyzedPageEl _page, RootBlock _c) {
         CustList<AnaFormattedRootBlock> ints_ = _c.getInstanceInitImportedInterfaces();
         StringList trimmedInt_ = new StringList();
@@ -345,7 +389,6 @@ public final class AnaTypeUtil {
     }
 
     private static void st(AnalyzedPageEl _page, RootBlock _c) {
-        UniqueRootedBlock un_ = (UniqueRootedBlock) _c;
         CustList<RootBlock> ints_ = _c.getStaticInitImportedInterfaces();
         StringList trimmedInt_ = new StringList();
         for (RootBlock i: ints_) {
@@ -354,7 +397,7 @@ public final class AnaTypeUtil {
         StringList all_ = _c.getAllSuperTypes();
         StringList allCopy_ = new StringList(all_);
         StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
-        String clName_ = un_.getImportedDirectGenericSuperClass();
+        String clName_ = _c.getImportedDirectGenericSuperClass();
         String id_ = StringExpUtil.getIdFromAllTypes(clName_);
         RootBlock superType_ = _page.getAnaClassBody(id_);
         if (superType_ instanceof UniqueRootedBlock) {

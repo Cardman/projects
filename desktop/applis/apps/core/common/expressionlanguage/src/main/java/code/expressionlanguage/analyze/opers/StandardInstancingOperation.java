@@ -83,7 +83,7 @@ public final class StandardInstancingOperation extends
         }
         realClassName_ = realClassName_.trim();
         InterfacesPart ints_ = new InterfacesPart(realClassName_,local_);
-        ints_.parse(_page.getKeyWords(),0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
+        ints_.parse(_page.getKeyWords(),"",0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
         local_ = ints_.getLocIndex();
         realClassName_ = ints_.getPart();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_+newKeyWord_.length()+local_, _page);

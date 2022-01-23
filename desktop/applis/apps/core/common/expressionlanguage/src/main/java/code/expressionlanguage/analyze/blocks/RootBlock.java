@@ -54,6 +54,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final IntMap< Boolean> explicitDirectSuperTypes = new IntMap< Boolean>();
 
     private final StringList staticInitInterfaces = new StringList();
+    private final StringList instInitInterfaces = new StringList();
     private int templateDefOffset;
     private int nameLength;
 
@@ -61,7 +62,9 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
 
     private final Ints staticInitInterfacesOffset = new Ints();
+    private final Ints instInitInterfacesOffset = new Ints();
     private final CustList<AnaResultPartType> partsStaticInitInterfacesOffset = new CustList<AnaResultPartType>();
+    private final CustList<AnaResultPartType> partsInstInitInterfacesOffset = new CustList<AnaResultPartType>();
 
 
     private String importedDirectSuperClass = "";
@@ -158,6 +161,14 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public Ints getStaticInitInterfacesOffset() {
         return staticInitInterfacesOffset;
+    }
+
+    public StringList getInstInitInterfaces() {
+        return instInitInterfaces;
+    }
+
+    public Ints getInstInitInterfacesOffset() {
+        return instInitInterfacesOffset;
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
@@ -513,28 +524,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             for (AnaFormattedRootBlock a:getAllGenericSuperTypesInfo()) {
                 for (AbsBk b: ClassesUtil.getDirectChildren(a.getRootBlock())) {
                     if (b instanceof ConstructorBlock) {
-                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                        unexp_.setFileName(getFile().getFileName());
-                        unexp_.setIndexFile(getIdRowCol());
-                        //key word len
-                        unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
-                                getFullName()
-                        );
-                        _page.addLocError(unexp_);
-                        addNameErrors(unexp_);
-                    }
-                    if (b instanceof StaticBlock) {
-                        FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                        unexp_.setFileName(getFile().getFileName());
-                        unexp_.setIndexFile(getIdRowCol());
-                        //key word len
-                        unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
-                                getFullName()
-                        );
-                        _page.addLocError(unexp_);
-                        addNameErrors(unexp_);
-                    }
-                    if (b instanceof InfoBlock&&((InfoBlock)b).isStaticField()) {
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
                         unexp_.setFileName(getFile().getFileName());
                         unexp_.setIndexFile(getIdRowCol());
@@ -1826,6 +1815,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<AnaResultPartType> getPartsStaticInitInterfacesOffset() {
         return partsStaticInitInterfacesOffset;
+    }
+
+    public CustList<AnaResultPartType> getPartsInstInitInterfacesOffset() {
+        return partsInstInitInterfacesOffset;
     }
 
     public String getImportedDirectGenericSuperClass(){

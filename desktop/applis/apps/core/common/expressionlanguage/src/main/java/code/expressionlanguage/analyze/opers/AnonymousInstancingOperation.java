@@ -82,8 +82,7 @@ public final class AnonymousInstancingOperation extends
                 static_.setFileName(_page.getLocalizer().getCurrentFileName());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //original type len
-                static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
-                        realClassName_);
+                static_.setBuiltError(tokenErrorMessage_.getMessage());
                 _page.getLocalizer().addError(static_);
                 addErr(static_.getBuiltError());
             }
