@@ -67,7 +67,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private String importedDirectSuperClass = "";
     private final StringList importedDirectSuperInterfaces = new StringList();
     private final CustList<RootBlock> staticInitImportedInterfaces = new CustList<RootBlock>();
-    private final CustList<RootBlock> instanceInitImportedInterfaces = new CustList<RootBlock>();
+    private final CustList<AnaFormattedRootBlock> instanceInitImportedInterfaces = new CustList<AnaFormattedRootBlock>();
     private final CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
 
     private final StringList annotations = new StringList();
@@ -94,6 +94,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<NamedCalledFunctionBlock> annotationsMethodsBlocks = new CustList<NamedCalledFunctionBlock>();
     private final CustList<ConstructorBlock> constructorBlocks = new CustList<ConstructorBlock>();
     private final CustList<InfoBlock> fieldsBlocks = new CustList<InfoBlock>();
+    private final CustList<FieldBlock> fieldsInstBlocks = new CustList<FieldBlock>();
     private final CustList<InstanceBlock> instanceBlocks = new CustList<InstanceBlock>();
     private final CustList<StaticBlock> staticBlocks = new CustList<StaticBlock>();
     private final CustList<RootBlock> childrenRootBlocks = new CustList<RootBlock>();
@@ -1834,7 +1835,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return staticInitImportedInterfaces;
     }
 
-    public CustList<RootBlock> getInstanceInitImportedInterfaces() {
+    public CustList<AnaFormattedRootBlock> getInstanceInitImportedInterfaces() {
         return instanceInitImportedInterfaces;
     }
 
@@ -2076,6 +2077,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public CustList<InfoBlock> getFieldsBlocks() {
         return fieldsBlocks;
+    }
+
+    public CustList<FieldBlock> getFieldsInstBlocks() {
+        return fieldsInstBlocks;
     }
 
     public int getCountInit() {

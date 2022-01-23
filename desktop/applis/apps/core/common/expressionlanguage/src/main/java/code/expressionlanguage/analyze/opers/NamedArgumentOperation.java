@@ -33,6 +33,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
     private ClassField idField = new ClassField("","");
     private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
     private String importedClassName = "";
+    private boolean recordBlock;
 
     public NamedArgumentOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -73,9 +74,10 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
         if (!(anaGeneType_ instanceof RecordBlock)) {
             return;
         }
+        recordBlock = true;
         RootBlock r_ = (RootBlock) anaGeneType_;
         AnaFormattedRootBlock search_;
-        if (hasNoDot()) {
+        if (className.isEmpty()) {
             search_ = new AnaFormattedRootBlock(r_);
         } else {
             ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, className, _page);
@@ -87,7 +89,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
             return;
         }
         RootBlock rootBlock_ = search_.getRootBlock();
-        for (InfoBlock f: rootBlock_.getFieldsBlocks()) {
+        for (InfoBlock f: rootBlock_.getFieldsInstBlocks()) {
             int index_ = AnaTypeUtil.getIndex(f,fieldName);
             if (index_ >= 0) {
                 field = rootBlock_;
@@ -99,8 +101,8 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
         }
     }
 
-    public boolean hasNoDot() {
-        return className.isEmpty();
+    public boolean isRecordBlock() {
+        return recordBlock;
     }
 
     @Override

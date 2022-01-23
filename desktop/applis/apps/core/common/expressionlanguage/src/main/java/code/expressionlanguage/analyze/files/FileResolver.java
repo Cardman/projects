@@ -1893,6 +1893,9 @@ public final class FileResolver {
             ((FieldBlock)br_).getAnnotationsIndexes().addAllElts(annotationsIndexes_);
             ((FieldBlock)br_).setFieldNumber(_currentParent.getFieldsBlocks().size());
             _currentParent.getFieldsBlocks().add((FieldBlock)br_);
+            if (!static_){
+                _currentParent.getFieldsInstBlocks().add((FieldBlock)br_);
+            }
             br_.setBegin(_i+_offset);
             br_.setLengthHeader(1);
             _currentParent.appendChild(br_);

@@ -26,14 +26,14 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {
         ExecRootBlock blockRootType_ = getBlockRootType();
-        for (ExecRootBlock r : blockRootType_.getInstanceInitImportedInterfaces()) {
-            if (visited.containsObj(r)) {
+        for (ExecFormattedRootBlock f : blockRootType_.getInstanceInitImportedInterfaces()) {
+            ExecRootBlock r_ = f.getRootBlock();
+            if (visited.containsObj(r_)) {
                 continue;
             }
-            visited.add(r);
+            visited.add(r_);
             Argument global_ = getGlobalArgument();
-            ExecFormattedRootBlock fullObject_ = ExecFormattedRootBlock.getFullObject(getGlobalClass().getFormatted(), new ExecFormattedRootBlock(r), _context);
-            _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(fullObject_), r.getEmptyCtorPair(), global_));
+            _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(f), r_.getEmptyCtorPair(), global_));
             return;
         }
         if (!checkCondition(_stack)) {

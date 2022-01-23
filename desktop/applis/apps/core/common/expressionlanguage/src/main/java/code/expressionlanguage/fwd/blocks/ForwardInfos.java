@@ -500,8 +500,8 @@ public final class ForwardInfos {
             for (RootBlock r: e.getKey().getStaticInitImportedInterfaces()) {
                 e.getValue().getRootBlock().getStaticInitImportedInterfaces().add(FetchMemberUtil.fetchType(r, _forwards));
             }
-            for (RootBlock r: e.getKey().getInstanceInitImportedInterfaces()) {
-                e.getValue().getRootBlock().getInstanceInitImportedInterfaces().add(FetchMemberUtil.fetchType(r, _forwards));
+            for (AnaFormattedRootBlock r: e.getKey().getInstanceInitImportedInterfaces()) {
+                e.getValue().getRootBlock().getInstanceInitImportedInterfaces().add(FetchMemberUtil.fwdFormatType(r,_forwards));
             }
         }
     }

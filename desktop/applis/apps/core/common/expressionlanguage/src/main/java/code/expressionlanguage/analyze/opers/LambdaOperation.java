@@ -1607,7 +1607,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 if (search_ != null) {
                     RootBlock rootBlock_ = search_.getRootBlock();
-                    for (InfoBlock f: rootBlock_.getFieldsBlocks()) {
+                    for (InfoBlock f: rootBlock_.getFieldsInstBlocks()) {
                         String imp_ = f.getImportedClassName();
                         String formImp_ = AnaInherits.quickFormat(search_, imp_);
                         String par_ = AnaInherits.quickFormat(h_, clFrom_, formImp_);

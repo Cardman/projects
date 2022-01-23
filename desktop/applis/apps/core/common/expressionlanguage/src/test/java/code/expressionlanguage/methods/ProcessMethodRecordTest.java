@@ -1066,6 +1066,24 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         assertTrue(hasErrReadOnly(files_));
     }
     @Test
+    public void fail2() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("@$class $interfaces(RecSuper2,RecSuper) pkg.Rec<T>:RecSuper<T> {\n");
+        xml_.append(" $int field;\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper<S> {\n");
+        xml_.append(" $int field2;\n");
+        xml_.append(" {field2=11;}\n");
+        xml_.append("}\n");
+        xml_.append("$interface pkg.RecSuper2 {\n");
+        xml_.append(" $int field2;\n");
+        xml_.append(" {field2=11;}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+    @Test
     public void recordTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("@$class pkg.Rec {\n");

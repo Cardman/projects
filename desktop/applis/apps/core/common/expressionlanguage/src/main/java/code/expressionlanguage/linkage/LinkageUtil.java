@@ -3532,7 +3532,7 @@ public final class LinkageUtil {
             return;
         }
         NamedArgumentOperation n_ = (NamedArgumentOperation) _val;
-        if (n_.getField() != null || !n_.hasNoDot()) {
+        if (n_.isRecordBlock()) {
             addTypes(_vars,n_.getPartOffsets());
             int firstOff_ = n_.getOffsetTr();
             int begin_ = _sum + _val.getIndexInEl()+firstOff_;

@@ -245,7 +245,8 @@ public final class AnaTypeUtil {
                 String base_ = resolvedIdType_.getFullName();
                 c.getPartsStaticInitInterfacesOffset().add(resolvedIdType_.getDels());
                 RootBlock r_ = _page.getAnaClassBody(base_);
-                if (!(r_ instanceof InterfaceBlock)) {
+                AnaFormattedRootBlock found_ = AnaInherits.getOverridingFullTypeByBases(c, r_);
+                if (!(r_ instanceof InterfaceBlock)||found_ == null) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
                     enum_.setFileName(d_);
@@ -262,7 +263,7 @@ public final class AnaTypeUtil {
                     if (!(c instanceof RecordBlock)) {
                         c.getStaticInitImportedInterfaces().add(r_);
                     } else {
-                        c.getInstanceInitImportedInterfaces().add(r_);
+                        c.getInstanceInitImportedInterfaces().add(found_);
                     }
                 }
             }
@@ -316,10 +317,10 @@ public final class AnaTypeUtil {
         }
     }
     private static void ins(AnalyzedPageEl _page, RootBlock _c) {
-        CustList<RootBlock> ints_ = _c.getInstanceInitImportedInterfaces();
+        CustList<AnaFormattedRootBlock> ints_ = _c.getInstanceInitImportedInterfaces();
         StringList trimmedInt_ = new StringList();
-        for (RootBlock i: ints_) {
-            trimmedInt_.add(i.getFullName());
+        for (AnaFormattedRootBlock i: ints_) {
+            trimmedInt_.add(i.getRootBlock().getFullName());
         }
         StringList all_ = _c.getAllSuperTypes();
         StringList allCopy_ = new StringList(all_);

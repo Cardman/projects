@@ -21,7 +21,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
     private final ClassMethodIdOverrides redirections = new ClassMethodIdOverrides();
 
     private final CustList<ExecRootBlock> staticInitImportedInterfaces = new CustList<ExecRootBlock>();
-    private final CustList<ExecRootBlock> instanceInitImportedInterfaces = new CustList<ExecRootBlock>();
+    private final CustList<ExecFormattedRootBlock> instanceInitImportedInterfaces = new CustList<ExecFormattedRootBlock>();
 
     private final CustList<ExecAnnotContent> annotationsOps = new CustList<ExecAnnotContent>();
     private final CustList<ExecFormattedRootBlock> allGenericSuperTypes = new CustList<ExecFormattedRootBlock>();
@@ -98,7 +98,7 @@ public abstract class ExecRootBlock extends ExecBracedBlock implements GeneType,
         return staticInitImportedInterfaces;
     }
 
-    public CustList<ExecRootBlock> getInstanceInitImportedInterfaces() {
+    public CustList<ExecFormattedRootBlock> getInstanceInitImportedInterfaces() {
         return instanceInitImportedInterfaces;
     }
 
