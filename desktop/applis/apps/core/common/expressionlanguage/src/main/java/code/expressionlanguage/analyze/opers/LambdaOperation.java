@@ -123,6 +123,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 if (m_ instanceof NamedArgumentOperation){
                     NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+                    String inferRecord_ = n_.infer();
+                    if (!inferRecord_.isEmpty()) {
+                        StringList format_ = InvokingOperation.tryFormatFctRefRec(inferRecord_, nbParentsInfer_, type_, vars_, _page);
+                        candidates_.addAllElts(format_);
+                    }
                     String name_ = n_.getName();
                     MethodOperation call_ = n_.getParent();
                     if (call_ instanceof RetrieveMethod) {

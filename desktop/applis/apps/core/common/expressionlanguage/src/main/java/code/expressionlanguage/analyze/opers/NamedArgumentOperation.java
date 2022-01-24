@@ -27,6 +27,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
     private String className = "";
     private String fieldName = "";
     private AnaFormattedRootBlock formatted;
+    private AnaFormattedRootBlock inferred;
     private RootBlock field;
     private int ref=-1;
     private final CustList<NamedFunctionBlock> customMethod = new CustList<NamedFunctionBlock>();
@@ -76,6 +77,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
         }
         recordBlock = true;
         RootBlock r_ = (RootBlock) anaGeneType_;
+        inferred = new AnaFormattedRootBlock(r_,typeInfer_);
         AnaFormattedRootBlock search_;
         if (className.isEmpty()) {
             search_ = new AnaFormattedRootBlock(r_);
@@ -145,7 +147,24 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
         return idField;
     }
 
+    public String infer() {
+        if (inferred == null) {
+            return "";
+        }
+        return AnaInherits.quickFormat(inferred,format());
+    }
+
+    public String format(String _real,RootBlock _root) {
+        return AnaInherits.quickFormat(_root, _real,format());
+    }
+
     public String format() {
+        if (formatted == null) {
+            return "";
+        }
+        if (importedClassName.isEmpty()) {
+            return "";
+        }
         return AnaInherits.quickFormat(formatted, importedClassName);
     }
 

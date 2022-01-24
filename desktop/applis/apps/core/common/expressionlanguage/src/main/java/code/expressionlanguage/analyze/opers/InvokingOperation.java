@@ -213,6 +213,13 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
         return tryFormat(_param, ind_, _nbParentsInfer, _type, _vars, _page);
     }
+    protected static String tryParamFormatArr(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
+        if (!isValidNameIndex(_filter,_param,_name)) {
+            return null;
+        }
+        int ind_ = StringUtil.indexOf(_param.getParametersNames(), _name);
+        return tryFormatArr(_param, ind_, _nbParentsInfer, _type, _vars, _page);
+    }
     protected static StringList tryParamFormatFct(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, String _type, String _full,StringMap<String> _vars, AnalyzedPageEl _page) {
         if (!isValidNameIndex(_filter,_param,_name)) {
             return new StringList();
@@ -457,8 +464,39 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         return tryInferOrImplicit(_type, _vars, _page, cp_);
     }
+
+    protected static String tryFormatArr(Parametrable _param, int _indexChild, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
+        String cp_ = tryGetParamDim(_param, _indexChild, _nbParentsInfer);
+        if (cp_ == null) {
+            return null;
+        }
+        return AnaTemplates.tryInfer(_type, _vars, cp_, _page);
+    }
+
+    protected static String tryFormatRec(String _fieldType, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
+        String cp_ = tryGetRecordDim(_fieldType, _nbParentsInfer);
+        if (cp_ == null) {
+            return null;
+        }
+        return tryInferOrImplicit(_type, _vars, _page, cp_);
+    }
+
+    protected static String tryFormatArrRec(String _fieldType, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
+        String cp_ = tryGetRecordDim(_fieldType, _nbParentsInfer);
+        if (cp_ == null) {
+            return null;
+        }
+        return AnaTemplates.tryInfer(_type, _vars, cp_, _page);
+    }
     protected static StringList tryFormatFct(Parametrable _param, int _indexChild, int _nbParentsInfer, String _type,String _full, StringMap<String> _vars, AnalyzedPageEl _page) {
         String cp_ = tryGetParamDim(_param, _indexChild, _nbParentsInfer);
+        if (cp_ == null) {
+            return new StringList();
+        }
+        return tryInferOrImplicitFct(_type, _full, _vars, _page, cp_);
+    }
+    protected static StringList tryFormatFctRec(String _fieldType, int _nbParentsInfer, String _type, String _full, StringMap<String> _vars, AnalyzedPageEl _page) {
+        String cp_ = tryGetRecordDim(_fieldType, _nbParentsInfer);
         if (cp_ == null) {
             return new StringList();
         }
@@ -481,10 +519,21 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return tryInferOrImplicitFctRef(_type, _vars, _page, cp_);
     }
 
+    protected static StringList tryFormatFctRefRec(String _fieldType, int _nbParentsInfer, String _type, StringMap<String> _vars, AnalyzedPageEl _page) {
+        String cp_ = tryGetRecordDim(_fieldType, _nbParentsInfer);
+        if (cp_ == null) {
+            return new StringList();
+        }
+        return tryInferOrImplicitFctRef(_type, _vars, _page, cp_);
+    }
+
     protected static StringList tryInferOrImplicitFctRef(String _type, StringMap<String> _vars, AnalyzedPageEl _page, String _cp) {
         return tryInferOrImplicitFct(_type, _type, _vars, _page, _cp);
     }
 
+    protected static String tryInferOrImplicitArr(String _type, StringMap<String> _vars, AnalyzedPageEl _page, String _cp) {
+        return AnaTemplates.tryInfer(_type, _vars, _cp, _page);
+    }
     protected static String tryInferOrImplicit(String _type, StringMap<String> _vars, AnalyzedPageEl _page, String _cp) {
         String inferred_ = AnaTemplates.tryInfer(_type, _vars, _cp, _page);
         if (inferred_ != null) {
@@ -512,6 +561,14 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                 }
                 cp_ = cpTwo_;
             }
+        }
+        return cp_;
+    }
+
+    protected static String tryGetRecordDim(String _fieldType,int _nbParentsInfer) {
+        String cp_ = StringExpUtil.getQuickComponentType(_fieldType, _nbParentsInfer);
+        if (isNotCorrectDim(cp_)) {
+            return null;
         }
         return cp_;
     }

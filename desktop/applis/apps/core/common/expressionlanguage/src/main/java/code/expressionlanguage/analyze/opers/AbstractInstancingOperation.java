@@ -148,6 +148,14 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             }
             if (m_ instanceof NamedArgumentOperation){
                 NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+                String inferRecord_ = n_.infer();
+                if (!inferRecord_.isEmpty()) {
+                    String format_ = tryFormatEmpInstRec(this,inferRecord_, nbParentsInfer_, _page);
+                    if (format_ != null) {
+                        typeInfer = format_;
+                    }
+                    return;
+                }
                 String name_ = n_.getName();
                 MethodOperation call_ = n_.getParent();
                 if (call_ instanceof RetrieveMethod) {
@@ -328,6 +336,15 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+            String inferRecord_ = n_.infer();
+            if (!inferRecord_.isEmpty()) {
+                String format_ = tryFormatRec(inferRecord_,nbParentsInfer_, type_,vars_, _page);
+                if (format_ != null) {
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,format_);
+                    typeInfer = format_;
+                }
+                return;
+            }
             String name_ = n_.getName();
             MethodOperation call_ = n_.getParent();
             if (call_ instanceof RetrieveMethod) {
@@ -469,12 +486,22 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (cp_ == null) {
             return null;
         }
-        String base_ = StringExpUtil.getIdFromAllTypes(cp_);
+        return checkEmpInstComm(_current,cp_,_page);
+    }
+    protected static String tryFormatEmpInstRec(AbstractInstancingOperation _current, String _fieldType, int _nbParentsInfer, AnalyzedPageEl _page) {
+        String cp_ = tryGetRecordDim(_fieldType,_nbParentsInfer);
+        if (cp_ == null) {
+            return null;
+        }
+        return checkEmpInstComm(_current,cp_,_page);
+    }
+    protected static String checkEmpInstComm(AbstractInstancingOperation _current, String _type, AnalyzedPageEl _page) {
+        String base_ = StringExpUtil.getIdFromAllTypes(_type);
         AnaGeneType g_ = _page.getAnaGeneType(base_);
         if (g_ == null) {
             return null;
         }
-        if (StringExpUtil.isWildCard(cp_)) {
+        if (StringExpUtil.isWildCard(_type)) {
             return null;
         }
         String enumClassName_ = _page.getAliasEnumType();
@@ -485,10 +512,10 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         if (StringUtil.quickEq(enumClassName_, base_)) {
             return null;
         }
-        if (_current.koType(g_,cp_,_page)) {
+        if (_current.koType(g_,_type,_page)) {
             return null;
         }
-        return cp_;
+        return _type;
     }
     protected abstract boolean koType(AnaGeneType _type,String _realClassName,  AnalyzedPageEl _page);
 

@@ -990,6 +990,9 @@ public abstract class OperationNode {
 
     protected static CustList<ConstructorInfo> tryGetSignatures(AnaGeneType _type, AnalyzedPageEl _page, String _clCurName, String _stCall) {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
+        if (_type instanceof RecordBlock) {
+            return signatures_;
+        }
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
                 ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, _clCurName, s);

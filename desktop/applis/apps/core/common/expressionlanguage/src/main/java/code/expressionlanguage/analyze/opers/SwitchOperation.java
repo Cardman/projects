@@ -77,6 +77,13 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
             }
             if (m_ instanceof NamedArgumentOperation){
                 NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+                String inferRecord_ = n_.infer();
+                if (!inferRecord_.isEmpty()) {
+                    String format_ = StringExpUtil.getQuickComponentType(inferRecord_, nbParentsInfer_);
+                    if (format_ != null) {
+                        retType = format_;
+                    }
+                }
                 String name_ = n_.getName();
                 MethodOperation call_ = n_.getParent();
                 if (call_ instanceof RetrieveMethod) {

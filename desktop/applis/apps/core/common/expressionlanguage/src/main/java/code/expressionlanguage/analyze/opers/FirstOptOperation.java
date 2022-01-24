@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
-public final class FirstOptOperation extends AbstractUnaryOperation {
+public final class FirstOptOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
 
     private int offset;
     private final int delta;
@@ -28,33 +28,9 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
     }
 
     @Override
-    public void analyzeUnary(AnalyzedPageEl _page) {
+    public void preAnalyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
         MethodOperation m_ = getParent();
-        if (isNotChildOfCallDyn(m_)) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //key word len
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                    _page.getKeyWords().getKeyWordFirstopt());
-            _page.getLocalizer().addError(varg_);
-            addErr(varg_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
-        if (isFirstChildInParent()) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //key word len
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
-                    _page.getKeyWords().getKeyWordFirstopt());
-            _page.getLocalizer().addError(varg_);
-            addErr(varg_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
         if (m_ instanceof RetrieveMethod) {
             RetrieveMethod f_ = (RetrieveMethod) m_;
             OperationNode firstChild_ = f_.getFirstChild();
@@ -92,6 +68,36 @@ public final class FirstOptOperation extends AbstractUnaryOperation {
             }
             methodInfos_.clear();
             methodInfos_.addAllElts(newList_);
+        }
+    }
+
+    @Override
+    public void analyzeUnary(AnalyzedPageEl _page) {
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset, _page);
+        MethodOperation m_ = getParent();
+        if (isNotChildOfCallDyn(m_)) {
+            FoundErrorInterpret varg_ = new FoundErrorInterpret();
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //key word len
+            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                    _page.getKeyWords().getKeyWordFirstopt());
+            _page.getLocalizer().addError(varg_);
+            addErr(varg_.getBuiltError());
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
+        if (isFirstChildInParent()) {
+            FoundErrorInterpret varg_ = new FoundErrorInterpret();
+            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //key word len
+            varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                    _page.getKeyWords().getKeyWordFirstopt());
+            _page.getLocalizer().addError(varg_);
+            addErr(varg_.getBuiltError());
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
         }
         OperationNode child_ = getFirstChild();
         setResultClass(AnaClassArgumentMatching.copy(child_.getResultClass(), _page.getPrimitiveTypes()));

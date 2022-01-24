@@ -323,10 +323,10 @@ public final class StandardInstancingOperation extends
             ClassField idField_ = ((NamedArgumentOperation) o).getIdField();
             String name_ = idField_.getFieldName();
             boolean contained_ = false;
-            if (((NamedArgumentOperation) o).getRef() >= 0) {
+            String par_ = ((NamedArgumentOperation) o).format(_real, _root);
+            if (!par_.isEmpty()) {
                 String importedClassName_ = ((NamedArgumentOperation) o).getImportedClassName();
                 instancingStdContent.getNamedFields().add(new AnaNamedFieldContent(name_, importedClassName_,idField_.getClassName(),((NamedArgumentOperation) o).getField()));
-                String par_ = AnaInherits.quickFormat(_root, _real, ((NamedArgumentOperation) o).format());
                 Mapping m_ = new Mapping();
                 m_.setArg(o.getResultClass());
                 m_.setParam(par_);

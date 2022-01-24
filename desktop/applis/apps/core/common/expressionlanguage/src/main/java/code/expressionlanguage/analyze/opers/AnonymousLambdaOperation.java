@@ -107,6 +107,20 @@ public final class AnonymousLambdaOperation extends
         }
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+            String inferRecord_ = n_.infer();
+            if (!inferRecord_.isEmpty()) {
+                Mapping mapping_ = new Mapping();
+                mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
+                mapping_.setParam(pattern_.toString());
+                StringList format_ = InvokingOperation.tryFormatFctRec(inferRecord_, nbParentsInfer_, type_, pattern_.toString(), vars_, _page);
+                for (String c: format_) {
+                    mapping_.setArg(c);
+                    if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                        continue;
+                    }
+                    candidates_.add(c);
+                }
+            }
             String name_ = n_.getName();
             MethodOperation call_ = n_.getParent();
             if (call_ instanceof RetrieveMethod) {

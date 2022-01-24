@@ -42,6 +42,12 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             return;
         }
         NamedArgumentOperation n_ = (NamedArgumentOperation) par_;
+        String inferRecord_ = n_.infer();
+        if (!inferRecord_.isEmpty()) {
+            typeInfer = inferRecord_;
+            setClassName(StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(inferRecord_)));
+            return;
+        }
         String name_ = n_.getName();
         MethodOperation call_ = n_.getParent();
         if (call_ instanceof RetrieveMethod) {

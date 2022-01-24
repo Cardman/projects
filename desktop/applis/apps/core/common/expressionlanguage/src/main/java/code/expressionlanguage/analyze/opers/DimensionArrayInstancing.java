@@ -62,6 +62,14 @@ public final class DimensionArrayInstancing extends
             }
             if (m_ instanceof NamedArgumentOperation){
                 NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+                String inferRecord_ = n_.infer();
+                if (!inferRecord_.isEmpty()) {
+                    String format_ = tryGetRecordDim(inferRecord_, chCount_ + countArrayDims + nbParentsInfer_);
+                    if (format_ != null) {
+                        typeInfer = format_;
+                    }
+                    return;
+                }
                 String name_ = n_.getName();
                 MethodOperation call_ = n_.getParent();
                 if (call_ instanceof RetrieveMethod) {
@@ -198,6 +206,17 @@ public final class DimensionArrayInstancing extends
         int rc_ = _page.getLocalizer().getCurrentLocationIndex();
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
+            String inferRecord_ = n_.infer();
+            if (!inferRecord_.isEmpty()) {
+                String format_ = tryFormatArrRec(inferRecord_, chCount_ + countArrayDims + nbParentsInfer_, type_, vars_, _page);
+                if (format_ != null) {
+                    int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
+                    int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,format_);
+                    typeInfer = format_;
+                }
+                return;
+            }
             String name_ = n_.getName();
             MethodOperation call_ = n_.getParent();
             if (call_ instanceof RetrieveMethod) {
@@ -211,7 +230,7 @@ public final class DimensionArrayInstancing extends
                     CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                     for (int j = 0; j < gr_; j++) {
                         MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        String format_ = tryParamFormat(filter_,methodInfo_, name_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
+                        String format_ = tryParamFormatArr(filter_,methodInfo_, name_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
                         if (format_ == null) {
                             continue;
                         }
@@ -237,7 +256,7 @@ public final class DimensionArrayInstancing extends
                 CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
                 for (int i = 0; i < len_; i++) {
                     ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                    String format_ = tryParamFormat(filter_,methodInfo_, name_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
+                    String format_ = tryParamFormatArr(filter_,methodInfo_, name_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -269,7 +288,7 @@ public final class DimensionArrayInstancing extends
                 CustList<MethodInfo> newList_ = new CustList<MethodInfo>();
                 for (int j = 0; j < gr_; j++) {
                     MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                    String format_ = tryFormat(methodInfo_, indexChild_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
+                    String format_ = tryFormatArr(methodInfo_, indexChild_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
                     if (format_ == null) {
                         continue;
                     }
@@ -298,7 +317,7 @@ public final class DimensionArrayInstancing extends
             CustList<ConstructorInfo> newList_ = new CustList<ConstructorInfo>();
             for (int i = 0; i < len_; i++) {
                 ConstructorInfo methodInfo_ = methodInfos_.get(i);
-                String format_ = tryFormat(methodInfo_, indexChild_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
+                String format_ = tryFormatArr(methodInfo_, indexChild_, chCount_+countArrayDims+nbParentsInfer_, type_, vars_, _page);
                 if (format_ == null) {
                     continue;
                 }
@@ -324,7 +343,7 @@ public final class DimensionArrayInstancing extends
         if (isNotCorrectDim(cp_)) {
             return;
         }
-        String infer_ = tryInferOrImplicit(type_,vars_, _page, cp_);
+        String infer_ = tryInferOrImplicitArr(type_,vars_, _page, cp_);
         if (infer_ == null) {
             return;
         }
