@@ -17,8 +17,6 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
 
     private boolean firstField;
 
-    private ExecTypeFunction emptyCtorPair;
-
     protected AbstractCallingInstancingPageEl(ExecFormattedRootBlock _global) {
         super(_global);
     }
@@ -35,7 +33,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
             if (!calledImplicitConstructor && formattedSuperClass_ != null) {
                 calledImplicitConstructor = true;
                 Argument global_ = getGlobalArgument();
-                _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), emptyCtorPair, global_));
+                _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), formattedSuperClass_.getRootBlock().getEmptyCtorPair(), global_));
                 return false;
             }
             //the super constructor is called here
@@ -84,11 +82,5 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
 
     public void setBlockRootTypes(ExecRootBlock _blockRootType) {
         setBlockRootType(_blockRootType);
-        if (getBlockRootType() instanceof ExecUniqueRootedBlock) {
-            ExecRootBlock blockRootSuperType_ = getBlockRootType().getUniqueType();
-            if (blockRootSuperType_ != null) {
-                emptyCtorPair = blockRootSuperType_.getEmptyCtorPair();
-            }
-        }
     }
 }
