@@ -52,7 +52,7 @@ public final class ExpressionLanguage {
             ExecMethodOperation parent_ = o.getParent();
             if (parent_ instanceof ExecAbstractInstancingOperation && ((ExecAbstractInstancingOperation) parent_).isInitBefore() && o.getIndexChild() == 0) {
                 ExecRootBlock type_ = ((ExecAbstractInstancingOperation) parent_).getInstancingCommonContent().getPair().getType();
-                if (!(type_ instanceof ExecInnerElementBlock)&&type_.withoutInstance()&&_context.getExiting().hasToExit(_stackCall, type_)) {
+                if (!(type_ instanceof ExecInnerElementBlock)&&_context.getExiting().hasToExit(_stackCall, type_)) {
                     processCalling(_el, pageEl_, o, _stackCall);
                     return;
                 }

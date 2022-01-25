@@ -32,8 +32,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         GeneType type_ = getFormatted().getRootBlock();
         if (!initClass) {
             initClass = true;
-            boolean static_ = !MetaInfoUtil.isAbstractType(_gene) && _gene.withoutInstance();
-            if (static_ && _context.getExiting().hasToExit(_stackCall, type_)) {
+            if (!MetaInfoUtil.isAbstractType(_gene) && _context.getExiting().hasToExit(_stackCall, type_)) {
                 setWrapException(true);
                 return false;
             }
