@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -17,7 +16,6 @@ public final class DeclaredFieldOperation extends
 
     private final InfoBlock infoBlock;
     private final StringList errsField;
-    private StringList errCst = new StringList();
 
     public DeclaredFieldOperation(int _indexInEl, int _indexChild,
                                   MethodOperation _m, OperationsSequence _op, InfoBlock _info) {
@@ -35,12 +33,6 @@ public final class DeclaredFieldOperation extends
         String fieldName_ = originalStr_.trim();
         setFieldNameLength(fieldName_.length());
         int valOffset_ = AnaTypeUtil.getIndex(infoBlock, fieldName_);
-        if (infoBlock instanceof FieldBlock) {
-            int id_ = ((FieldBlock) infoBlock).getValuesOffset().indexOf(valOffset_);
-            if (id_ > -1) {
-                errCst = (((FieldBlock) infoBlock).getCstErrorsFields().get(id_));
-            }
-        }
         getSettableFieldContent().setAnc(0);
         if (valOffset_ < 0) {
             FoundErrorInterpret access_ = new FoundErrorInterpret();
@@ -70,10 +62,6 @@ public final class DeclaredFieldOperation extends
         OperationsSequence op_ = getOperations();
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         return StringUtil.getFirstPrintableCharIndex(originalStr_);
-    }
-
-    public StringList getErrCst() {
-        return errCst;
     }
 
     public StringList getErrsField() {

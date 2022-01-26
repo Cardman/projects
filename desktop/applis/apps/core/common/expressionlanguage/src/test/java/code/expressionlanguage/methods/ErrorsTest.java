@@ -10699,7 +10699,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MyEnum {\n");
         xml_.append(" $public $class Inner{\n");
-        xml_.append("  $static $int i;\n");
+        xml_.append("  $static $int i,1;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -10707,7 +10707,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " $public $class <a name=\"m44\">Inner</a>{\n" +
-                "  $static $int <a name=\"m66\" title=\"The field i of the type pkg.MyEnum..Inner is not assigned with a constant.\" class=\"e\">i</a>;\n" +
+                "  $static $int <a name=\"m66\">i</a>,<a title=\"The field name 1 is not valid. It must not start with a digit.\" class=\"e\">1</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
@@ -10725,7 +10725,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a> {\n" +
                 " $public $class <a name=\"m44\">Inner</a>{\n" +
-                "  $static $int <a name=\"m66\" title=\"The field i of the type pkg.MyEnum..Inner is not assigned with a constant.\" class=\"e\">i</a>,<a title=\"The field name 1 is not valid. It must not start with a digit.\" class=\"e\">1</a>,<a name=\"m70\" title=\"The field k of the type pkg.MyEnum..Inner is not assigned with a constant.\" class=\"e\">k</a>;\n" +
+                "  $static $int <a name=\"m66\">i</a>,<a title=\"The field name 1 is not valid. It must not start with a digit.\" class=\"e\">1</a>,<a name=\"m70\">k</a>;\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

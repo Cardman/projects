@@ -52,7 +52,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
     private final StringList nameRetErrors = new StringList();
     private final CustList<StringList> nameErrorsFields = new CustList<StringList>();
-    private final CustList<StringList> cstErrorsFields = new CustList<StringList>();
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
@@ -183,7 +182,6 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             if (errs_.isEmpty()) {
                 fieldName.add(name_);
                 valuesOffset.add(p_.getOff());
-                addCstErrorsFields(new StringList());
             }
             addNameErrorsFields(new StringList(errs_));
         }
@@ -279,16 +277,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         nameErrorsFields.add(_error);
     }
 
-    public void addCstErrorsFields(StringList _error) {
-        cstErrorsFields.add(_error);
-    }
-
     public CustList<StringList> getNameErrorsFields() {
         return nameErrorsFields;
-    }
-
-    public CustList<StringList> getCstErrorsFields() {
-        return cstErrorsFields;
     }
 
     public void addNameRetErrors(FoundErrorInterpret _error) {

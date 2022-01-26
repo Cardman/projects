@@ -537,25 +537,6 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 }
             }
         }
-        if (!withoutInstance()) {
-            for (AbsBk b: bl_) {
-                if (b instanceof InfoBlock) {
-                    continue;
-                }
-                if (b instanceof StaticBlock) {
-                    int where_ = b.getOffset();
-                    FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                    unexp_.setFileName(getFile().getFileName());
-                    unexp_.setIndexFile(where_);
-                    //key word len
-                    unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
-                            getFullName()
-                    );
-                    _page.addLocError(unexp_);
-                    b.addErrorBlock(unexp_.getBuiltError());
-                }
-            }
-        }
         CustList<MethodHeaderInfo> unary_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> binaryFirst_ = new CustList<MethodHeaderInfo>();
         CustList<MethodHeaderInfo> binarySecond_ = new CustList<MethodHeaderInfo>();

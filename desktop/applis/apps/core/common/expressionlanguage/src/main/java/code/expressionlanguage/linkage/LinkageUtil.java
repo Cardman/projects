@@ -3132,14 +3132,8 @@ public final class LinkageUtil {
             int begin_ = beginOff(_sum, _val);
             int idValueOffset_ = ((SettableAbstractFieldOperation)_val).getValueOffset();
             StringList errs_ = ((DeclaredFieldOperation) _val).getErrsField();
-            StringList errCst_ = ((DeclaredFieldOperation) _val).getErrCst();
             if (errs_.isEmpty()) {
-                if (errCst_.isEmpty()) {
-                    _vars.addPart(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
-                } else {
-                    String err_ = StringUtil.join(errCst_,ExportCst.JOIN_ERR);
-                    _vars.addPart(new PartOffset(ExportCst.anchorNameErr(idValueOffset_,err_),begin_));
-                }
+                _vars.addPart(new PartOffset(ExportCst.anchorName(idValueOffset_),begin_));
             } else {
                 String err_ = StringUtil.join(errs_,ExportCst.JOIN_ERR);
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(err_),begin_));

@@ -1883,12 +1883,6 @@ public final class ClassesUtil {
                 }
                 FieldBlock field_ = (FieldBlock) f_;
                 _page.getAssignedDeclaredFields().addAllElts(field_.getAssignedDeclaredFields());
-                int v_ = 0;
-                for (String f: fieldNames_) {
-                    StringList err_ = field_.getCstErrorsFields().get(v_);
-                    checkConstField(err_,c, fullName_, f, _page);
-                    v_++;
-                }
             }
             for (AbsBk b: bl_) {
                 if (b instanceof InnerTypeOrElement) {
@@ -2657,22 +2651,6 @@ public final class ClassesUtil {
             lv_.setConstType(ConstType.PARAM);
         }
         _page.getInfosVars().put(_p, lv_);
-    }
-
-    private static void checkConstField(StringList _err, RootBlock _cl, String _clName, String _field, AnalyzedPageEl _page) {
-        if (NumParsers.getStaticFieldMap(_clName, _page.getStaticFields()).getVal(_field) == null) {
-            if (!_cl.withoutInstance()) {
-                //ERROR
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_cl.getFile().getFileName());
-                un_.setIndexFile(_cl.getOffset());
-                //field name len
-                un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
-                        _field,_clName);
-                _page.addLocError(un_);
-                _err.add(un_.getBuiltError());
-            }
-        }
     }
 
     private static void initStaticFields(AnalyzedPageEl _page) {
