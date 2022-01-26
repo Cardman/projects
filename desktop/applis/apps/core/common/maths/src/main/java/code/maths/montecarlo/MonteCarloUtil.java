@@ -56,7 +56,10 @@ public final class MonteCarloUtil {
     /**@param _excludeMax the maximum of possible returned values
     @return an long from 0 inclusive to the argument excluded*/
     public static long randomLong(long _excludeMax, AbstractGenerator _gene) {
-        return (long) (_gene.pick() * _excludeMax);
+        return randomLong(_excludeMax, _gene.pick());
+    }
+    public static long randomLong(long _excludeMax, double _gene) {
+        return (long) (_gene * (double)_excludeMax);
     }
 
     static LgInt maxNumber(LgInt _max) {
