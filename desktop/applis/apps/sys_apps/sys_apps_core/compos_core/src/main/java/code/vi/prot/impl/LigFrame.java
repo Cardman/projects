@@ -110,7 +110,7 @@ public final class LigFrame implements AbsOtherFrame, ChangeableTitle {
 
     @Override
     public void pack() {
-        pane.validate();
+        FrameUtil.recalculate(pane);
     }
 
     @Override

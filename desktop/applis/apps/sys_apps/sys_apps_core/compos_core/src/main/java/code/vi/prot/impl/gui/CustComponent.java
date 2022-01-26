@@ -352,6 +352,12 @@ public abstract class CustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void recalculate() {
+        getNatComponent().invalidate();
+        getNatComponent().doLayout();
+    }
+
+    @Override
     public void top() {
         getNatComponent().setAlignmentY(Component.TOP_ALIGNMENT);
     }

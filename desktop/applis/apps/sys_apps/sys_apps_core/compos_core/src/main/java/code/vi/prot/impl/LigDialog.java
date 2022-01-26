@@ -79,7 +79,7 @@ public final class LigDialog implements AbsOtherDialog, ChangeableTitle {
     }
     @Override
     public void pack() {
-        contentPane.validate();
+        FrameUtil.recalculate(contentPane);
     }
 
     @Override

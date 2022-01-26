@@ -9,5 +9,6 @@ public interface AbsScrollPane extends AbsCustComponent {
     void setHorizontalValue(int _value);
     int getVerticalValue();
     void setVerticalValue(int _value);
+    void recalculateViewport();
     MetaRect viewRect();
 }

@@ -64,6 +64,12 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
     }
 
     @Override
+    public void recalculateViewport() {
+        component.getViewport().invalidate();
+        component.getViewport().doLayout();
+    }
+
+    @Override
     public MetaRect viewRect() {
         try {
             Rectangle viewRect_ = component.getViewport().getViewRect();
