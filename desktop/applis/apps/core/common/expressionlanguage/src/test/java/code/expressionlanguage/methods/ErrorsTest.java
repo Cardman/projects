@@ -7927,7 +7927,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyCl</a>&lt;<a name=\"m24\">T</a>&gt; {\n" +
                 " {\n" +
                 "  <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>&lt;?&gt; <a name=\"m42\">v</a> = $new <a title=\"pkg.MyCl\" href=\"#m15\">MyCl</a>&lt;Object&gt;();\n" +
-                "  <a href=\"#m42\">v</a>.<a title=\"The argument ? of the type pkg.MyCl&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$new</a> Inexist();\n" +
+                "  <a href=\"#m42\">v</a>.<a title=\"The argument ? of the type pkg.MyCl&lt;?&gt; is bound. It cannot be used in constructor call.\n" +
+                "\n" +
+                "The owner for the type Inexist is not resolved for instancing.\" class=\"e\">$new</a> Inexist();\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

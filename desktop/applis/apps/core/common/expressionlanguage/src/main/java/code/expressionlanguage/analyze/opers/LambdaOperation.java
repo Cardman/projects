@@ -1490,7 +1490,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, i_);
-
+            for (String o: previousResultClass.getNames()) {
+                checkWildCards(o,_page);
+            }
             String cl_ = _args.first().trim();
             String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
             StringMap<String> ownersMap_ = new StringMap<String>();
@@ -1502,19 +1504,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //key word len
                     call_.buildError(_page.getAnalysisMessages().getIllegalCtorArray(),
-                            o);
-                    _page.getLocalizer().addError(call_);
-                    addErr(call_.getBuiltError());
-                    ok_ = false;
-                    continue;
-                }
-                for (String p:StringExpUtil.getWildCards(o)){
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //key word len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                            p,
                             o);
                     _page.getLocalizer().addError(call_);
                     addErr(call_.getBuiltError());

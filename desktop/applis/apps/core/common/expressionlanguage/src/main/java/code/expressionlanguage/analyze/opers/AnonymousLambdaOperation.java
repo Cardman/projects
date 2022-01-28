@@ -93,11 +93,13 @@ public final class AnonymousLambdaOperation extends
             mapping_.setMapping(_page.getCurrentConstraints().getCurrentConstraints());
             mapping_.setParam(pattern_.toString());
             mapping_.setArg(foundType_);
-            if (AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                candidates_.add(foundType_);
-            } else {
-                StringList conv_ = InvokingOperation.tryInferOrImplicitFct(type_, pattern_.toString(), new StringMap<String>(), _page, foundType_);
-                candidates_.addAllElts(conv_);
+            StringList conv_ = InvokingOperation.tryInferOrImplicitFct(type_, pattern_.toString(), new StringMap<String>(), _page, foundType_);
+            for (String c: conv_) {
+                mapping_.setArg(c);
+                if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
+                    continue;
+                }
+                candidates_.add(c);
             }
         }
         boolean list_ = false;

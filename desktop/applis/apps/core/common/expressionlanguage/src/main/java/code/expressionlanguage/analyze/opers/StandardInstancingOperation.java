@@ -123,28 +123,12 @@ public final class StandardInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        StringMap<String> ownersMap_ = new StringMap<String>();
         String idClass_ = StringExpUtil.getIdFromAllTypes(realClassName_);
         int offset_ = idClass_.length() + 1;
         for (String o: arg_.getNames()) {
-            boolean ok_ = true;
-            for (String p: StringExpUtil.getWildCards(o)) {
-                FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //key word len
-                call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                        p,
-                        o);
-                _page.getLocalizer().addError(call_);
-                addErr(call_.getBuiltError());
-                ok_ = false;
-            }
-            if (!ok_) {
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
-            }
+            chWc(this,o,_page);
         }
+        StringMap<String> ownersMap_ = new StringMap<String>();
         for (String o: arg_.getNames()) {
             StringList owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
             if (owners_.onlyOneElt()) {
@@ -218,17 +202,7 @@ public final class StandardInstancingOperation extends
             addErr(call_.getBuiltError());
             return;
         }
-        for (String p:StringExpUtil.getWildCards(_realClassName)){
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //part type len
-            call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                    p,
-                    _realClassName);
-            _page.getLocalizer().addError(call_);
-            addErr(call_.getBuiltError());
-        }
+        chWc(this,_realClassName, _page);
         if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -311,6 +285,21 @@ public final class StandardInstancingOperation extends
         result(_page,_realClassName, g_, ctorRes_, name_);
         setResultClass(new AnaClassArgumentMatching(_realClassName));
     }
+
+    static void chWc(OperationNode _op,String _realClassName, AnalyzedPageEl _page) {
+        for (String p:StringExpUtil.getWildCards(_realClassName)){
+            FoundErrorInterpret call_ = new FoundErrorInterpret();
+            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //part type len
+            call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
+                    p,
+                    _realClassName);
+            _page.getLocalizer().addError(call_);
+            _op.addErr(call_.getBuiltError());
+        }
+    }
+
     private NameParametersFilter buildQuickStrictFilter(AnalyzedPageEl _page,String _real,RootBlock _root, MethodOperation _par) {
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         NameParametersFilter out_ = new NameParametersFilter();
