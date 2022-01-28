@@ -10828,6 +10828,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         return AnaInherits.isOkQualFields(_string,analyzedTestContext_.getAnalyzing());
     }
     private static String getCorrectTemplateAll(AnalyzedTestContext _cont, StringMap<StringList> _t) {
+        AnaInherits.tryGetAllInners(null,"",new StringList(), new StringMap<StringList>(),_cont.getAnalyzing());
         return AnaInherits.getCorrectTemplateAll(null,"",new StringList(),_t, _cont.getAnalyzing());
     }
 

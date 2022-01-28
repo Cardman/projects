@@ -579,6 +579,9 @@ public final class AnaInherits {
         if (!correctNbParameters(_root,realClassName_,_page)) {
             realClassName_ = getRealClassName(StringExpUtil.getIdFromAllTypes(_className), _parts);
         }
+        if (!correctNbParameters(_root,realClassName_,_page)) {
+            return check("", new StringList(""),new StringMap<StringList>(),_page,_root,new CustList<StringList>());
+        }
         return getCorrectTemplateAll(_root, realClassName_, _parts, _inherit, _page);
     }
 
