@@ -576,6 +576,9 @@ public final class AnaInherits {
 
     public static String tryGetAllInners(RootBlock _root, String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
         String realClassName_ = getRealClassName(_className, _parts);
+        if (!correctNbParameters(_root,realClassName_,_page)) {
+            realClassName_ = getRealClassName(StringExpUtil.getIdFromAllTypes(_className), _parts);
+        }
         return getCorrectTemplateAll(_root, realClassName_, _parts, _inherit, _page);
     }
 

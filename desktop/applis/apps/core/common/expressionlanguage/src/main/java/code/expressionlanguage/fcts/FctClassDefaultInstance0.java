@@ -29,15 +29,11 @@ public final class FctClassDefaultInstance0 extends FctClassDefaultInstanceAbs {
         GeneType type_ = _cont.getClassBody(id_);
         ExecRootBlock root_ = (ExecRootBlock) type_;
         CustList<ExecRootBlock> needRoot_ = root_.getSelfAndParentTypes();
-        ExecRootBlock firstType_ = needRoot_.first();
         ExecFormattedRootBlock formType_ = new ExecFormattedRootBlock(root_, className_);
         Struct parent_ = NullStruct.NULL_VALUE;
         int start_ = 0;
-        if (root_.withoutInstance()) {
-            if (_exit.hasToExit(_stackCall, firstType_)) {
-                return new ArgumentWrapper(NullStruct.NULL_VALUE);
-            }
-        } else {
+        if (!root_.withoutInstance()) {
+            ExecRootBlock firstType_ = needRoot_.first();
             if (firstType_ instanceof ExecInnerElementBlock) {
                 if (_exit.hasToExit(_stackCall, firstType_.getParentType())) {
                     return new ArgumentWrapper(NullStruct.NULL_VALUE);

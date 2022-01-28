@@ -607,10 +607,11 @@ public final class AnaTemplates {
         for (String p: StringExpUtil.getAllTypes(gene_).mid(1)) {
             multi_.put(p, new StringList());
         }
-        for (EntryCust<String,String> e: _vars.entryList()) {
+        StringMap<String> vars_ = filterVars(_vars, g_);
+        for (EntryCust<String,String> e: vars_.entryList()) {
             multi_.put(StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,e.getKey()), new StringList());
         }
-        for (EntryCust<String,String> e: _vars.entryList()) {
+        for (EntryCust<String,String> e: vars_.entryList()) {
             feed(multi_,StringUtil.concat(AnaInherits.PREFIX_VAR_TYPE,e.getKey()),e.getValue());
         }
         for (InferenceConstraints i: found_) {
@@ -619,6 +620,25 @@ public final class AnaTemplates {
             feed(multi_,argLoc_,paramLoc_);
         }
         return tryBuild(_page, gene_, multi_, _page.getCurrentConstraints().getCurrentConstraints());
+    }
+
+    private static StringMap<String> filterVars(StringMap<String> _vars, AnaGeneType _g) {
+        CustList<TypeVar> list_ = ContextUtil.getParamTypesMapValues(_g);
+        StringMap<String> vars_ = new StringMap<String>();
+        for (EntryCust<String,String> e: _vars.entryList()) {
+            boolean foundType_ = false;
+            for (TypeVar v: list_) {
+                String name_ = v.getName();
+                if (StringUtil.quickEq(name_, e.getKey())) {
+                    foundType_ = true;
+                    break;
+                }
+            }
+            if (foundType_) {
+                vars_.addEntry(e.getKey(),e.getValue());
+            }
+        }
+        return vars_;
     }
 
     private static String tryBuild(AnalyzedPageEl _page, String _gene, StringMap<StringList> _multi, StringMap<StringList> _cts) {
