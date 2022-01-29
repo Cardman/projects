@@ -9,14 +9,14 @@ public final class OwnerListResultInfo {
     private final IdTypeList<RootBlock> listOwners = new IdTypeList<RootBlock>();
     public void add(String _ownerName, RootBlock _owner, String _simpleName, RootBlock _owned) {
         if (_owned.withoutInstance()) {
-            list.add(0,new OwnerResultInfo(_ownerName,_owner, _simpleName,StringExpUtil.getIdFromAllTypes(_ownerName)+".."+_simpleName,_owned));
+            list.add(0,new OwnerResultInfo(_ownerName,_owner,"..", _simpleName,StringExpUtil.getIdFromAllTypes(_ownerName)+".."+_simpleName,_owned));
         } else {
-            list.add(0,new OwnerResultInfo(_ownerName,_owner, _simpleName,_ownerName+".."+_simpleName,_owned));
+            list.add(0,new OwnerResultInfo(_ownerName,_owner,"..", _simpleName,_ownerName+".."+_simpleName,_owned));
         }
         listOwners.add(0,_owner);
     }
     public void addInnElt(String _ownerName, RootBlock _owner, String _simpleName, RootBlock _owned) {
-        list.add(0,new OwnerResultInfo(_ownerName,_owner, _simpleName,_ownerName+"-"+_simpleName,_owned));
+        list.add(0,new OwnerResultInfo(_ownerName,_owner,"-", _simpleName,_ownerName+"-"+_simpleName,_owned));
         listOwners.add(0,_owner);
     }
     public OwnerListResultInfo getSubclasses() {

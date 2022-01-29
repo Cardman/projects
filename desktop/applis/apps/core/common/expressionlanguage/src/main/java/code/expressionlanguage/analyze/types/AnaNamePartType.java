@@ -55,7 +55,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
             setFoundType(foundOwners_.firstElt().getOwned());
-            setAnalyzedType(foundOwners_.firstElt().ownedEltName());
+            setAnalyzedType(foundOwners_.firstElt().getOwnedGeneName());
             owner = owner_;
             return;
         }
@@ -64,7 +64,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             return;
         }
         setFoundType(foundOwners_.firstElt().getOwned());
-        setAnalyzedType(foundOwners_.firstElt().ownedName());
+        setAnalyzedType(foundOwners_.firstElt().getOwnedGeneName());
         owner = owner_;
     }
 
@@ -122,14 +122,14 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
             setFoundType(foundOwners_.firstElt().getOwned());
-            setAnalyzedType(foundOwners_.firstElt().ownedEltName());
+            setAnalyzedType(foundOwners_.firstElt().getOwnedGeneName());
             owner = id_;
             return;
         }
         OwnerListResultInfo foundOwners_ = AnaTypeUtil.getOwners(id_, _type, _page);
         if (foundOwners_.onlyOneElt()) {
             setFoundType(foundOwners_.firstElt().getOwned());
-            setAnalyzedType(foundOwners_.firstElt().ownedName());
+            setAnalyzedType(foundOwners_.firstElt().getOwnedGeneName());
             owner = id_;
         }
     }
@@ -276,7 +276,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 }
                 if (owners_.onlyOneElt()) {
                     setFoundType(owners_.firstElt().getOwned());
-                    setAnalyzedType(owners_.firstElt().ownedName());
+                    setAnalyzedType(owners_.firstElt().getOwnedGeneName());
                     owner = a;
                 }
             } else {

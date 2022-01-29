@@ -129,7 +129,7 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-        return result(_input, _rooted, _loc, _page, root_);
+        return new AnaResultPartType(_input, _loc, root_, _rooted);
     }
 
     private static void checkAccessGeneral(String _gl, AnaPartType _current, AnalyzedPageEl _page) {
@@ -331,12 +331,7 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-        return result(_input, _rooted, _loc, _page, root_);
-    }
-
-    private static AnaResultPartType result(String _input, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page, AnaPartType _root) {
-        AnaResultPartType out_ = new AnaResultPartType(_input, _loc, _root, _rooted);
-        return out_;
+        return new AnaResultPartType(_input, _loc, root_, _rooted);
     }
 
     private static AnaPartType root(boolean _rootName, AnalyzedPageEl _page, String _inputTr, Ints _indexes) {
@@ -412,7 +407,7 @@ public final class AnaPartTypeUtil {
 //            appendQuickParts(root_,_offs, _page);
 //            return new AnaResultPartType("",null);
 //        }
-        return result(_input, _rooted, _loc, _page, root_);
+        return new AnaResultPartType(_input, _loc, root_, _rooted);
     }
 
     private static AnaPartType rootId(AnalyzedPageEl _page, Ints _indexes, String _trimInput) {
