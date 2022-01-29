@@ -336,7 +336,6 @@ public final class AnaPartTypeUtil {
 
     private static AnaResultPartType result(String _input, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page, AnaPartType _root) {
         AnaResultPartType out_ = new AnaResultPartType(_input, _loc, _root, _rooted);
-        PreLinkagePartTypeUtil.lookForTypes(out_, _page);
         return out_;
     }
 

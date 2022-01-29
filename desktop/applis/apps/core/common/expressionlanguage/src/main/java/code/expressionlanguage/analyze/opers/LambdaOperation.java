@@ -1495,7 +1495,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             String cl_ = _args.first().trim();
             String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
-            StringMap<String> ownersMap_ = new StringMap<String>();
+            StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
             boolean ok_ = true;
             for (String o: previousResultClass.getNames()) {
                 if (o.startsWith(ARR)) {
@@ -1515,9 +1515,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 return;
             }
             for (String o: previousResultClass.getNames()) {
-                StringList owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
+                OwnerListResultInfo owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
                 if (owners_.onlyOneElt()) {
-                    ownersMap_.put(o, owners_.first());
+                    ownersMap_.put(o, owners_.firstElt());
                 }
             }
             if (ownersMap_.size() != 1) {
@@ -1533,15 +1533,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            String sup_ = ownersMap_.values().first();
-            String idSup_ = StringExpUtil.getIdFromAllTypes(sup_);
+            OwnerResultInfo sup_ = ownersMap_.values().first();
 //        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             int offset_ = className.indexOf('(')+1;
             offset_ += StringExpUtil.getOffset(_args.first());
-            String inner_ = StringUtil.concat(idSup_, "..", idClass_);
-            RootBlock root_ = _page.getAnaClassBody(inner_);
+            String inner_ = StringExpUtil.getIdFromAllTypes(sup_.getOwnedName());
+            RootBlock root_ = sup_.getOwned();
             AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
-            partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex()+offset_,_page));
+            partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex()+offset_,_page));
             offset_ += idClass_.length() + 1;
             StringList partsArgs_ = new StringList();
             for (String a: StringExpUtil.getAllTypes(cl_).mid(1)) {
@@ -1553,7 +1552,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 offset_ += a.length() + 1;
             }
             StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-            cl_ = check(root_,StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
+            cl_ = check(root_,sup_.getOwnedName(), partsArgs_, vars_, _page);
             processCtor(methodTypes_, vararg_, null, cl_, _page);
             return;
         }

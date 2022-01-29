@@ -154,7 +154,7 @@ public final class FullFieldRetriever implements FieldRetriever {
                 }
             }
             start_ = trim_;
-            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inns_.first(),start_,r_, loc_,0,_page));
+            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inns_.first(),startType_,start_,r_, loc_,0,_page));
         } else {
             AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + StringExpUtil.getOffset(inns_.first()), trim_, _page);
             start_ = resType_.getResult();
@@ -176,14 +176,14 @@ public final class FullFieldRetriever implements FieldRetriever {
             String p_ = fullPart_.trim();
             operators_.addEntry(rootOff_-1,inns_.get(iPart_-1));
             if (StringUtil.quickEq("..",inns_.get(iPart_-1))) {
-                StringList res_;
+                OwnerListResultInfo res_;
                 res_ = AnaTypeUtil.getEnumOwners(start_, p_, _page);
                 if (!res_.onlyOneElt()) {
                     break;
                 }
-                start_ = StringUtil.concat(res_.first(),"-",p_);
-                startType_ = _page.getAnaGeneType(start_);
-                partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,start_,r_, loc_,rootOff_+1+locOff_,_page));
+                start_ = res_.firstOwnedName();
+                startType_ = res_.firstOwned();
+                partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,startType_,start_,r_, loc_,rootOff_+1+locOff_,_page));
                 rootOff_ += fullPart_.length() + 1;
                 nb_++;
                 iPart_+=2;
@@ -193,13 +193,13 @@ public final class FullFieldRetriever implements FieldRetriever {
             if (fieldLoc_) {
                 break;
             }
-            StringList res_ = AnaTypeUtil.getInners(start_, p_, _page);
+            OwnerListResultInfo res_ = AnaTypeUtil.getInners(start_, p_, _page);
             if (!res_.onlyOneElt()) {
                 break;
             }
-            start_ = res_.first();
-            startType_ = _page.getAnaGeneType(start_);
-            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,start_,r_, loc_,rootOff_+locOff_,_page));
+            start_ = res_.firstOwnedName();
+            startType_ = res_.firstOwned();
+            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,startType_,start_,r_, loc_,rootOff_+locOff_,_page));
             rootOff_ += fullPart_.length() + 1;
             nb_++;
             iPart_+=2;

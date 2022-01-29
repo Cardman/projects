@@ -9,7 +9,7 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.stds.StandardType;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -50,25 +50,22 @@ final class AnaNamePartType extends AnaLeafPartType {
     private void analyzeGenericOnwer(AnaPartType _part, String _type, AnalyzedPageEl _page) {
         String owner_ = _part.getAnalyzedType();
         if (StringUtil.quickEq("..",getPreviousSeparator())) {
-            StringList foundOwners_ = AnaTypeUtil.getEnumOwners(owner_, _type, _page);
+            OwnerListResultInfo foundOwners_ = AnaTypeUtil.getEnumOwners(owner_, _type, _page);
             if (!foundOwners_.onlyOneElt()) {
                 return;
             }
-            setAnalyzedType(StringUtil.concat(foundOwners_.first(), "-", _type));
+            setFoundType(foundOwners_.firstElt().getOwned());
+            setAnalyzedType(foundOwners_.firstElt().ownedEltName());
             owner = owner_;
             return;
         }
-        StringList foundOwners_ = AnaTypeUtil.getGenericOwners(owner_, _type, _page);
+        OwnerListResultInfo foundOwners_ = AnaTypeUtil.getGenericOwners(owner_, _type, _page);
         if (!foundOwners_.onlyOneElt()) {
             return;
         }
-        setAnalyzedType(StringUtil.concat(foundOwners_.first(),"..", _type));
+        setFoundType(foundOwners_.firstElt().getOwned());
+        setAnalyzedType(foundOwners_.firstElt().ownedName());
         owner = owner_;
-    }
-
-    private void analyzeFullType(String _type) {
-        setAnalyzedType(_type);
-        checkAccessLoop = true;
     }
 
     @Override
@@ -95,10 +92,14 @@ final class AnaNamePartType extends AnaLeafPartType {
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
         RootBlock root_ = _page.getAnaClassBody(id_);
         if (root_ != null) {
-            analyzeFullType(_type);
+            setFoundType(root_);
+            setAnalyzedType(_type);
+            checkAccessLoop = true;
             return true;
         }
-        if (_page.getStandardsTypes().contains(_type)) {
+        StandardType val_ = _page.getStandardsTypes().getVal(_type);
+        if (val_ != null) {
+            setFoundType(val_);
             setAnalyzedType(_type);
             return true;
         }
@@ -116,19 +117,19 @@ final class AnaNamePartType extends AnaLeafPartType {
             return;
         }
         if (StringUtil.quickEq("..",getPreviousSeparator())) {
-            StringList foundOwners_ = AnaTypeUtil.getEnumOwners(id_, _type, _page);
+            OwnerListResultInfo foundOwners_ = AnaTypeUtil.getEnumOwners(id_, _type, _page);
             if (!foundOwners_.onlyOneElt()) {
                 return;
             }
-            String idOwner_= StringExpUtil.getIdFromAllTypes(foundOwners_.first());
-            setAnalyzedType(StringUtil.concat(idOwner_,"-", _type));
+            setFoundType(foundOwners_.firstElt().getOwned());
+            setAnalyzedType(foundOwners_.firstElt().ownedEltName());
             owner = id_;
             return;
         }
-        StringList foundOwners_ = AnaTypeUtil.getOwners(id_, _type, _page);
+        OwnerListResultInfo foundOwners_ = AnaTypeUtil.getOwners(id_, _type, _page);
         if (foundOwners_.onlyOneElt()) {
-            String new_ = foundOwners_.first();
-            setAnalyzedType(StringUtil.concat(new_,"..", _type));
+            setFoundType(foundOwners_.firstElt().getOwned());
+            setAnalyzedType(foundOwners_.firstElt().ownedName());
             owner = id_;
         }
     }
@@ -153,15 +154,6 @@ final class AnaNamePartType extends AnaLeafPartType {
         return false;
     }
 
-    @Override
-    void processInexistType(String _in, StringList _errs) {
-        if (!voidType) {
-            super.processInexistType(_in, _errs);
-            return;
-        }
-        _errs.add(FoundErrorInterpret.buildARError(getMessages().getVoidType(),_in.trim()));
-    }
-
     private void tryAnalyzeInnerParts(AccessedBlock _local,
                                       AccessedBlock _rooted, AnalyzedPageEl _page) {
         if (_local instanceof RootBlock) {
@@ -173,6 +165,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             String type_ = getTypeName().trim();
             MappingLocalType resolved_ = _page.getMappingLocal().getVal(type_);
             if (resolved_ != null) {
+                setFoundType(resolved_.getType());
                 setAnalyzedType(resolved_.getFullName());
                 return;
             }
@@ -200,15 +193,15 @@ final class AnaNamePartType extends AnaLeafPartType {
             String resType_;
             String a = e.getKey();
             if (!e.getValue().isLocal()) {
-                StringList owners_ = AnaTypeUtil.getGenericOwners(a, type_, _page);
+                OwnerListResultInfo owners_ = AnaTypeUtil.getGenericOwners(a, type_, _page);
                 if (owners_.isEmpty()) {
                     continue;
                 }
                 if (owners_.onlyOneElt()) {
-                    genStr_ = owners_.first();
+                    OwnerResultInfo info_ = owners_.firstElt();
+                    genStr_ = info_.getOwnerName();
                     id_ = StringExpUtil.getIdFromAllTypes(genStr_);
-                    String in_ = StringUtil.concat(id_,"..",type_);
-                    inner_ = _page.getAnaClassBody(in_);
+                    inner_ = info_.getOwned();
                 }
                 resType_ = type_;
             } else {
@@ -218,6 +211,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                 resType_ = e.getValue().getSimpleName();
             }
             if (inner_ != null) {
+                setFoundType(inner_);
                 if (inner_.withoutInstance()) {
                     setAnalyzedType(StringUtil.concat(id_,"..",resType_));
                     owner = a;
@@ -247,6 +241,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             String type_ = getTypeName().trim();
             MappingLocalType resolved_ = _page.getMappingLocal().getVal(type_);
             if (resolved_ != null) {
+                setFoundType(resolved_.getType());
                 setAnalyzedType(resolved_.getFullName());
                 return;
             }
@@ -275,17 +270,18 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return true;
             }
             if (!e.getValue().isLocal()) {
-                StringList owners_ = AnaTypeUtil.getOwners(a, type_, _page);
+                OwnerListResultInfo owners_ = AnaTypeUtil.getOwners(a, type_, _page);
                 if (owners_.isEmpty()) {
                     continue;
                 }
                 if (owners_.onlyOneElt()) {
-                    String new_ = owners_.first();
-                    setAnalyzedType(StringUtil.concat(new_,"..",type_));
+                    setFoundType(owners_.firstElt().getOwned());
+                    setAnalyzedType(owners_.firstElt().ownedName());
                     owner = a;
                 }
             } else {
                 String resType_ = e.getValue().getSimpleName();
+                setFoundType(e.getValue().getResolvedType());
                 setAnalyzedType(StringUtil.concat(a,"..",resType_));
                 owner = a;
             }
@@ -295,9 +291,10 @@ final class AnaNamePartType extends AnaLeafPartType {
     }
     private void lookupImports(AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
         String type_ = getTypeName().trim();
-        String res_ = ResolvingImportTypes.lookupImportType(type_, _rooted, _ready, _page);
-        if (!res_.isEmpty()) {
-            setAnalyzedType(res_);
+        ResolvedIdTypeContent res_ = ResolvingImportTypes.lookupImportType(type_, _rooted, _ready, _page);
+        if (res_ != null) {
+            setFoundType(res_.getGeneType());
+            setAnalyzedType(res_.getFullName());
             checkAccessLoop = true;
         }
     }
@@ -374,10 +371,13 @@ final class AnaNamePartType extends AnaLeafPartType {
                 return;
             }
             setAnalyzedType(StringUtil.concat(owner_,sep_,type_));
+            setFoundType(inner_);
             return;
         }
-        if (_page.getAnaGeneType(type_) != null) {
+        AnaGeneType anaGeneType_ = _page.getAnaGeneType(type_);
+        if (anaGeneType_ != null) {
             setAnalyzedType(type_);
+            setFoundType(anaGeneType_);
             return;
         }
         if (AnaTypeUtil.isPrimitive(type_, _page)) {
@@ -399,11 +399,16 @@ final class AnaNamePartType extends AnaLeafPartType {
             }
         }
 
-        String out_ = ResolvingImportTypes.lookupImportType(type_,_rooted, new AlwaysReadyTypes(), _page);
-        if (out_.isEmpty()) {
+        ResolvedIdTypeContent out_ = ResolvingImportTypes.lookupImportType(type_,_rooted, new AlwaysReadyTypes(), _page);
+        if (out_ == null) {
             return;
         }
-        setAnalyzedType(out_);
+        setFoundType(out_.getGeneType());
+        setAnalyzedType(out_.getFullName());
+    }
+
+    boolean isVoidType() {
+        return voidType;
     }
 
     void setVoidType(boolean _voidType) {
@@ -448,12 +453,10 @@ final class AnaNamePartType extends AnaLeafPartType {
         return refFileName;
     }
 
-    void processInaccessibleOffsets(StringList _errs) {
-        for (InaccessibleType i: getInaccessibleTypes()) {
-            _errs.add(FoundErrorInterpret.buildARError(getMessages().getInaccessibleType(),
-                    i.getType(),gl));
-        }
+    String getGl() {
+        return gl;
     }
+
     AnaPartType getPreviousPartType() {
         if (getParent() instanceof AnaInnerPartType) {
             return getPreviousSibling();

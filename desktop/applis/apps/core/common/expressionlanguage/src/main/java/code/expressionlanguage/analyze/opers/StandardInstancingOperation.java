@@ -128,11 +128,11 @@ public final class StandardInstancingOperation extends
         for (String o: arg_.getNames()) {
             chWc(this,o,_page);
         }
-        StringMap<String> ownersMap_ = new StringMap<String>();
+        StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
         for (String o: arg_.getNames()) {
-            StringList owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
+            OwnerListResultInfo owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
             if (owners_.onlyOneElt()) {
-                ownersMap_.put(o, owners_.first());
+                ownersMap_.put(o, owners_.firstElt());
             }
         }
         if (ownersMap_.size() != 1) {
@@ -148,10 +148,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        String sup_ = ownersMap_.values().first();
         StringList partsArgs_ = new StringList();
-        String inner_ = StringExpUtil.getIdFromAllTypes(StringUtil.concat(sup_, "..", idClass_));
-        RootBlock root_ = _page.getAnaClassBody(inner_);
         CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
         for (String a: StringExpUtil.getAllTypes(realClassName_).mid(1)) {
             int loc_ = StringUtil.getFirstPrintableCharIndex(a);
@@ -161,10 +158,13 @@ public final class StandardInstancingOperation extends
 //            getPartOffsets().addAllElts(_page.getCurrentParts());
             offset_ += a.length() + 1;
         }
+        OwnerResultInfo sup_ = ownersMap_.values().first();
+        String inner_ = StringExpUtil.getIdFromAllTypes(sup_.getOwnedName());
+        RootBlock root_ = sup_.getOwned();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
-        setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex(),_page), results_));
-        realClassName_ = check(root_,StringUtil.concat(sup_, "..", idClass_), partsArgs_, vars_, _page);
+        setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex(),_page), results_));
+        realClassName_ = check(root_,sup_.getOwnedName(), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
     }
 

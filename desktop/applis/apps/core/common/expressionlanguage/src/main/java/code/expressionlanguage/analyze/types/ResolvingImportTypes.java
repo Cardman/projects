@@ -21,12 +21,12 @@ public final class ResolvingImportTypes {
 
     }
 
-    public static String lookupImportType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
+    public static ResolvedIdTypeContent lookupImportType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
         return getRealSinglePrefixedMemberType(_type, _rooted,_ready, _page);
     }
-    private static String getRealSinglePrefixedMemberType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
+    private static ResolvedIdTypeContent getRealSinglePrefixedMemberType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
         String look_ = _type.trim();
-        StringList types_ = new StringList();
+        CustList<ResolvedIdTypeContent> types_ = new CustList<ResolvedIdTypeContent>();
         CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
         for (StringList s: imports_) {
             for (String i: s) {
@@ -39,21 +39,22 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 if (stopLookup(types_,tr_,look_,_ready, _page)) {
-                    return "";
+                    return null;
                 }
             }
         }
-        if (types_.onlyOneElt()) {
+        if (ResolvedIdType.onlyOneElt(types_)) {
             return types_.first();
         }
         if (!types_.isEmpty()) {
-            return "";
+            return null;
         }
         if (_rooted instanceof RootBlock) {
             RootBlock r_ = (RootBlock) _rooted;
             String type_ = StringExpUtil.removeDottedSpaces(StringUtil.concat(r_.getPackageName(),".",_type));
-            if (_page.getAnaClassBody(type_) != null) {
-                return type_;
+            RootBlock anaClassBody_ = _page.getAnaClassBody(type_);
+            if (anaClassBody_ != null) {
+                return new ResolvedIdTypeContent(type_,anaClassBody_);
             }
         }
         for (StringList s: imports_) {
@@ -67,25 +68,26 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 if (stopLookup(types_,tr_,look_,_ready, _page)) {
-                    return "";
+                    return null;
                 }
             }
         }
-        if (types_.onlyOneElt()) {
+        if (ResolvedIdType.onlyOneElt(types_)) {
             return types_.first();
         }
         if (!types_.isEmpty()) {
-            return "";
+            return null;
         }
         String defPkg_ = _page.getDefaultPkg();
         String type_ = StringExpUtil.removeDottedSpaces(StringUtil.concat(defPkg_,".",_type));
-        if (_page.getAnaGeneType(type_) != null) {
-            return type_;
+        AnaGeneType anaGeneType_ = _page.getAnaGeneType(type_);
+        if (anaGeneType_ != null) {
+            return new ResolvedIdTypeContent(type_,anaGeneType_);
         }
-        return "";
+        return null;
     }
 
-    private static boolean stopLookup(StringList _types, String _import, String _look, ReadyTypes _ready, AnalyzedPageEl _page) {
+    private static boolean stopLookup(CustList<ResolvedIdTypeContent> _types, String _import, String _look, ReadyTypes _ready, AnalyzedPageEl _page) {
         String beginImp_ = StringExpUtil.removeDottedSpaces(_import.substring(0, _import.lastIndexOf('.')+1));
         String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
         boolean stQualifier_ = false;
@@ -97,17 +99,17 @@ public final class ResolvingImportTypes {
         StringList allInnerTypes_ = AnaInherits.getAllInnerTypes(typeInner_, _page);
         String owner_ = allInnerTypes_.first();
         AnaGeneType cl_ = _page.getAnaGeneType(owner_);
-        String res_ = owner_;
+        ResolvedIdTypeContent res_ = new ResolvedIdTypeContent(owner_,cl_);
         boolean addImport_ = true;
         if (cl_ != null) {
             int size_ = allInnerTypes_.size();
             for (int i = 2; i < size_; i+=2) {
                 String i_ = allInnerTypes_.get(i).trim();
-                if (!_ready.isReady(res_)) {
+                if (!_ready.isReady(res_.getFullName())) {
                     return true;
                 }
-                StringList builtInners_ = AnaTypeUtil.getInners(res_, allInnerTypes_.get(i-1), i_, stQualifier_, _page);
-                if (builtInners_.onlyOneElt()) {
+                CustList<ResolvedIdTypeContent> builtInners_ = AnaTypeUtil.getInners(res_.getFullName(), allInnerTypes_.get(i-1), i_, stQualifier_, _page);
+                if (ResolvedIdType.onlyOneElt(builtInners_)) {
                     res_ = builtInners_.first();
                     continue;
                 }
@@ -146,14 +148,14 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
-                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
+                ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = foundCandidate_.getGeneType();
                 if (root_ == null) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(foundCandidate_);
+                StringList typesLoc_ = new StringList(foundCandidate_.getFullName());
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_.getFullName(), typesLoc_, _page, MethodModifier.STATIC);
             }
             methods_.add(m_);
         }
@@ -173,14 +175,14 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
-                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
+                ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = foundCandidate_.getGeneType();
                 if (root_ == null) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(foundCandidate_);
+                StringList typesLoc_ = new StringList(foundCandidate_.getFullName());
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_.getFullName(), typesLoc_, _page, MethodModifier.STATIC);
             }
             methods_.add(m_);
         }
@@ -207,15 +209,15 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
-                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
+                ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = foundCandidate_.getGeneType();
                 if (root_ == null) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(foundCandidate_);
+                StringList typesLoc_ = new StringList(foundCandidate_.getFullName());
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC_CALL);
-                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_.getFullName(), typesLoc_, _page, MethodModifier.STATIC_CALL);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_.getFullName(), typesLoc_, _page, MethodModifier.STATIC);
             }
             methods_.add(m_);
         }
@@ -235,15 +237,15 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
-                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
+                ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = foundCandidate_.getGeneType();
                 if (root_ == null) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(foundCandidate_);
+                StringList typesLoc_ = new StringList(foundCandidate_.getFullName());
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC_CALL);
-                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_, typesLoc_, _page, MethodModifier.STATIC);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_.getFullName(), typesLoc_, _page, MethodModifier.STATIC_CALL);
+                fetchImportStaticMethods(_glClass, _method, m_, foundCandidate_.getFullName(), typesLoc_, _page, MethodModifier.STATIC);
             }
             methods_.add(m_);
         }
@@ -305,8 +307,8 @@ public final class ResolvingImportTypes {
         _methods.add(_value);
     }
 
-    public static StringMap<ImportedField> lookupImportStaticFields(String _glClass, String _method, AnalyzedPageEl _page) {
-        StringMap<ImportedField> methods_ = new StringMap<ImportedField>();
+    public static IdMap<AnaGeneType,ImportedField> lookupImportStaticFields(String _glClass, String _method, AnalyzedPageEl _page) {
+        IdMap<AnaGeneType,ImportedField> methods_ = new IdMap<AnaGeneType,ImportedField>();
         int import_ = 1;
         CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
         String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
@@ -325,14 +327,14 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
-                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
+                ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = foundCandidate_.getGeneType();
                 if (root_ == null) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(foundCandidate_);
+                StringList typesLoc_ = new StringList(foundCandidate_.getFullName());
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticFieldsTmp(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_, _page);
+                fetchImportStaticFieldsTmp(_glClass, _method, methods_, import_, foundCandidate_.getFullName(), typesLoc_, _page);
             }
             import_++;
         }
@@ -351,32 +353,32 @@ public final class ResolvingImportTypes {
                     continue;
                 }
                 String typeLoc_ = StringExpUtil.removeDottedSpaces(st_.substring(0,st_.lastIndexOf('.')));
-                String foundCandidate_ = resolveCandidate(typeLoc_, _page);
-                AnaGeneType root_ = _page.getAnaGeneType(foundCandidate_);
+                ResolvedIdTypeContent foundCandidate_ = resolveCandidate(typeLoc_, _page);
+                AnaGeneType root_ = foundCandidate_.getGeneType();
                 if (root_ == null) {
                     continue;
                 }
-                StringList typesLoc_ = new StringList(foundCandidate_);
+                StringList typesLoc_ = new StringList(foundCandidate_.getFullName());
                 typesLoc_.addAllElts(root_.getAllSuperTypes());
-                fetchImportStaticFieldsTmp(_glClass, _method, methods_, import_, foundCandidate_, typesLoc_, _page);
+                fetchImportStaticFieldsTmp(_glClass, _method, methods_, import_, foundCandidate_.getFullName(), typesLoc_, _page);
             }
             import_++;
         }
         return methods_;
     }
 
-    public static String resolveCandidate(String _c, AnalyzedPageEl _page) {
+    public static ResolvedIdTypeContent resolveCandidate(String _c, AnalyzedPageEl _page) {
         StringList allInnerTypes_ = AnaInherits.getAllInnerTypes(_c, _page);
         String owner_ = allInnerTypes_.first();
         AnaGeneType cl_ = _page.getAnaGeneType(owner_);
-        String res_ = owner_;
+        ResolvedIdTypeContent res_ = new ResolvedIdTypeContent(owner_,cl_);
         if (cl_ != null) {
             int size_ = allInnerTypes_.size();
             for (int i = 2; i < size_; i+=2) {
                 String i_ = allInnerTypes_.get(i).trim();
                 String part_ = allInnerTypes_.get(i-1);
-                StringList builtInners_ = AnaTypeUtil.getInners(res_,part_,i_,false, _page);
-                if (builtInners_.onlyOneElt()) {
+                CustList<ResolvedIdTypeContent> builtInners_ = AnaTypeUtil.getInners(res_.getFullName(),part_,i_,false, _page);
+                if (ResolvedIdType.onlyOneElt(builtInners_)) {
                     res_ = builtInners_.first();
                     continue;
                 }
@@ -386,11 +388,11 @@ public final class ResolvingImportTypes {
         return res_;
     }
 
-    private static void fetchImportStaticFieldsTmp(String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
+    private static void fetchImportStaticFieldsTmp(String _glClass, String _method, IdMap<AnaGeneType,ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
         fetchImportStaticFields(_glClass,_method,_methods,_import,_typeLoc,_typesLoc, _page);
     }
 
-    public static void fetchImportStaticFields(String _glClass, String _method, StringMap<ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
+    public static void fetchImportStaticFields(String _glClass, String _method, IdMap<AnaGeneType,ImportedField> _methods, int _import, String _typeLoc, StringList _typesLoc, AnalyzedPageEl _page) {
         for (String s: _typesLoc) {
             AnaGeneType super_ = _page.getAnaGeneType(s);
             if (super_ instanceof StandardType) {
@@ -398,7 +400,7 @@ public final class ResolvingImportTypes {
                     if (!StringUtil.quickEq(m.getFieldName(), _method.trim())) {
                         continue;
                     }
-                    addImport(_methods,s, new ImportedField(_import, m.getImportedClassName(),true,-1,""));
+                    addImport(_methods,super_, new ImportedField(_import, m.getImportedClassName(),true,-1,""));
                 }
             }
             if (super_ instanceof RootBlock){
@@ -422,14 +424,14 @@ public final class ResolvingImportTypes {
                     ImportedField value_ = new ImportedField(_import, e.getImportedClassName(), e.isFinalField(), v_,e.getFile().getFileName());
                     value_.memberId(cust_.getNumberAll(),e.getFieldNumber());
                     value_.setFieldType(cust_);
-                    addImport(_methods,s, value_);
+                    addImport(_methods,super_, value_);
                 }
             }
         }
     }
-    private static void addImport(StringMap<ImportedField> _methods, String _class, ImportedField _value) {
-        for (EntryCust<String, ImportedField> e: _methods.entryList()) {
-            if (StringUtil.quickEq(e.getKey(), _class)) {
+    private static void addImport(IdMap<AnaGeneType,ImportedField> _methods, AnaGeneType _class, ImportedField _value) {
+        for (EntryCust<AnaGeneType, ImportedField> e: _methods.entryList()) {
+            if (e.getKey() == _class) {
                 return;
             }
         }

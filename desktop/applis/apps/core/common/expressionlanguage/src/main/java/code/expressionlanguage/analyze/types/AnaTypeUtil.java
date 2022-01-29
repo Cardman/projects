@@ -475,32 +475,21 @@ public final class AnaTypeUtil {
         }
     }
 
-    public static StringList getInners(String _root, String _innerName, AnalyzedPageEl _page) {
-        StringList inners_ = new StringList();
-        for (String o: getOwners(_root, _innerName, _page)) {
-            inners_.add(StringUtil.concat(o,"..",_innerName));
-        }
-        return inners_;
+    public static OwnerListResultInfo getInners(String _root, String _innerName, AnalyzedPageEl _page) {
+        return getOwners(_root, _innerName, _page);
     }
-    public static StringList getOwners(String _root, String _innerName, AnalyzedPageEl _page) {
+    public static OwnerListResultInfo getOwners(String _root, String _innerName, AnalyzedPageEl _page) {
         return getOwners(_root,_innerName,false, _page);
     }
-    public static StringList getInners(String _root, String _sep, String _innerName, boolean _staticOnly, AnalyzedPageEl _page) {
-        StringList inners_ = new StringList();
+    public static CustList<ResolvedIdTypeContent> getInners(String _root, String _sep, String _innerName, boolean _staticOnly, AnalyzedPageEl _page) {
         if (StringUtil.quickEq(_sep,".")) {
-            for (String o: getOwners(_root, _innerName,_staticOnly, _page)) {
-                inners_.add(StringUtil.concat(o,"..",_innerName));
-            }
-        } else {
-            for (String o: getEnumOwners(_root, _innerName, _page)) {
-                inners_.add(StringUtil.concat(o,"-",_innerName));
-            }
+            return getOwners(_root, _innerName,_staticOnly, _page).found();
         }
-        return inners_;
+        return getEnumOwners(_root, _innerName, _page).found();
     }
-    private static StringList getOwners(String _root, String _innerName, boolean _staticOnly, AnalyzedPageEl _page) {
+    private static OwnerListResultInfo getOwners(String _root, String _innerName, boolean _staticOnly, AnalyzedPageEl _page) {
         StringList ids_ = new StringList(_root);
-        StringList owners_ = new StringList();
+        OwnerListResultInfo owners_ = new OwnerListResultInfo();
         StringList visited_ = new StringList();
         while (true) {
             StringList new_ = new StringList();
@@ -519,11 +508,11 @@ public final class AnaTypeUtil {
             }
             ids_ = new_;
         }
-        return getSubclasses(owners_, _page);
+        return owners_.getSubclasses();
     }
-    public static StringList getGenericOwners(String _root, String _innerName, AnalyzedPageEl _page) {
+    public static OwnerListResultInfo getGenericOwners(String _root, String _innerName, AnalyzedPageEl _page) {
         StringList ids_ = new StringList(_root);
-        StringList owners_ = new StringList();
+        OwnerListResultInfo owners_ = new OwnerListResultInfo();
         StringList visited_ = new StringList();
         while (true) {
             StringList new_ = new StringList();
@@ -551,7 +540,7 @@ public final class AnaTypeUtil {
             }
             ids_ = new_;
         }
-        return getSubclasses(owners_, _page);
+        return owners_.getSubclasses();
     }
 
     private static void addIfNotFound(StringList _visited, StringList _new, String _format) {
@@ -562,7 +551,7 @@ public final class AnaTypeUtil {
         _new.add(_format);
     }
 
-    private static void added(String _innerName, boolean _staticOnly, StringList _owners, String _s, RootBlock _sub) {
+    private static void added(String _innerName, boolean _staticOnly, OwnerListResultInfo _owners, String _s, RootBlock _sub) {
         for (RootBlock b: ClassesUtil.accessedClassMembers(_sub)) {
             if (_staticOnly) {
                 if (!b.withoutInstance()) {
@@ -571,12 +560,12 @@ public final class AnaTypeUtil {
             }
             String name_ = b.getName();
             if (StringUtil.quickEq(name_, _innerName)) {
-                _owners.add(_s);
+                _owners.add(_s,_sub,name_,b);
             }
         }
     }
-    public static StringList getEnumOwners(String _root, String _innerName, AnalyzedPageEl _page) {
-        StringList owners_ = new StringList();
+    public static OwnerListResultInfo getEnumOwners(String _root, String _innerName, AnalyzedPageEl _page) {
+        OwnerListResultInfo owners_ = new OwnerListResultInfo();
         String id_ = StringExpUtil.getIdFromAllTypes(_root);
         RootBlock g_ = _page.getAnaClassBody(id_);
         if (g_ != null) {
@@ -584,11 +573,11 @@ public final class AnaTypeUtil {
         }
         return owners_;
     }
-    private static void addedInnerElement(String _innerName, StringList _owners, String _s, RootBlock _sub) {
+    private static void addedInnerElement(String _innerName, OwnerListResultInfo _owners, String _s, RootBlock _sub) {
         for (RootBlock b: ClassesUtil.accessedInnerElements(_sub)) {
             String name_ = b.getName();
             if (StringUtil.quickEq(name_, _innerName)) {
-                _owners.add(_s);
+                _owners.addInnElt(_s,_sub,name_,b);
             }
         }
     }
@@ -640,6 +629,32 @@ public final class AnaTypeUtil {
             types_.add(i);
         }
         return types_;
+    }
+    public static IdTypeList<AnaGeneType> getSubclasses(IdTypeList<AnaGeneType> _classNames, AnalyzedPageEl _page) {
+        IdTypeList<AnaGeneType> types_ = new IdTypeList<AnaGeneType>();
+        for (AnaGeneType i: _classNames.ls()) {
+            boolean sub_ = true;
+            for (AnaGeneType j: _classNames.ls()) {
+                if (isSubTypeOfDiff(j,i,_page)) {
+                    sub_ = false;
+                    break;
+                }
+            }
+            if (!sub_) {
+                continue;
+            }
+            types_.add(i);
+        }
+        return types_;
+    }
+    public static boolean isSubTypeOfDiff(AnaGeneType _sub, AnaGeneType _sup, AnalyzedPageEl _page) {
+        if (_sub == _sup) {
+            return false;
+        }
+        if (_sub instanceof RootBlock) {
+            return ((RootBlock) _sub).isSubTypeOf(_sup);
+        }
+        return _sub.isSubTypeOf(_sup.getFullName(), _page);
     }
     public static IdList<RootBlock> getSubclassesCust(IdList<RootBlock> _classNames) {
         IdList<RootBlock> types_ = new IdList<RootBlock>();

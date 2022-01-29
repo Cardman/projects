@@ -3029,6 +3029,39 @@ public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon
         assertEq("CS", getString(ret_));
     }
     @Test
+    public void calculateArgument62Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkgtwo.OuterThree<A> {\n");
+        xml_.append(" public static class InnerFive<E> {\n");
+        xml_.append("  public static String CST;\n");
+        xml_.append("  static {CST = \"CS\";}\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("public class pkgtwo.OuterThree2<A2>:OuterThree<A2> {\n");
+        xml_.append(" public static class InnerFive<E2> {\n");
+        xml_.append("  public String field = OuterThree.InnerFive.CST;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExThree", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("pkgtwo.OuterThree2;\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String method(){\n");
+        xml_.append("  OuterThree2.InnerFive<String> f = new OuterThree2<String>().new InnerFive<String>();\n");
+        xml_.append("  return f.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("CS", getString(ret_));
+    }
+    @Test
     public void calculateArgumentFail_Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

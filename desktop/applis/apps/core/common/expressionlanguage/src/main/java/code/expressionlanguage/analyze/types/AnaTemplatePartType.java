@@ -7,7 +7,6 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.DimComp;
 import code.maths.litteralcom.StrTypes;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.Mapping;
 
@@ -131,15 +130,12 @@ final class AnaTemplatePartType extends AnaBinaryType {
         return indexesChildConstraints.isEmpty();
     }
 
-    void buildBadConstraintsOffsetList() {
-        getErrsList().clear();
-        for (int i = 0; i < countParam; i++) {
-            getErrsList().add("");
-        }
-        for (int i: indexesChildConstraints) {
-            String err_ = FoundErrorInterpret.buildARError(getMessages().getBadParamerizedType(), getAnalyzedType());
-            getErrsList().set(i,err_);
-        }
+    Ints getIndexesChildConstraints() {
+        return indexesChildConstraints;
+    }
+
+    int getCountParam() {
+        return countParam;
     }
 
     private String fetchTemplate() {

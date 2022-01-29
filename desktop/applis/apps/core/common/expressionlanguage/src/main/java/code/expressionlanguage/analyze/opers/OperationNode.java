@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.IdTypeList;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.opers.util.*;
@@ -621,7 +622,7 @@ public abstract class OperationNode {
     }
     private static FieldResult getDeclaredCustFieldByContext(MethodAccessKind _kind, AnaClassArgumentMatching _class,
                                                              String _name, boolean _import, boolean _aff, AnalyzedPageEl _page, ScopeFilter _scope) {
-        StringMap<FieldResult> ancestors_ = new StringMap<FieldResult>();
+        IdMap<AnaGeneType,FieldResult> ancestors_ = new IdMap<AnaGeneType,FieldResult>();
         int maxAnc_ = 0;
         CustList<CustList<TypeInfo>> typesGroup_= typeLists(_class.getNames(),_kind, _page);
         for (CustList<TypeInfo> g: typesGroup_) {
@@ -637,14 +638,14 @@ public abstract class OperationNode {
         }
         int max_ = maxAnc_;
         for (int i = 0; i <= maxAnc_; i++) {
-            StringList subClasses_ = new StringList();
-            for (EntryCust<String,FieldResult> e: ancestors_.entryList()) {
+            IdTypeList<AnaGeneType> subClasses_ = new IdTypeList<AnaGeneType>();
+            for (EntryCust<AnaGeneType,FieldResult> e: ancestors_.entryList()) {
                 if (e.getValue().getContent().getAnc() != i) {
                     continue;
                 }
                 subClasses_.add(e.getKey());
             }
-            StringList subs_ = AnaTypeUtil.getSubclasses(subClasses_, _page);
+            IdTypeList<AnaGeneType> subs_ = AnaTypeUtil.getSubclasses(subClasses_, _page);
             FieldResult res_ = getRes(ancestors_, subs_);
             if (res_ != null) {
                 return res_;
@@ -654,13 +655,13 @@ public abstract class OperationNode {
             int maxLoc_ = maxAnc_ + 1;
             String glClass_ = _scope.getGlClass();
             String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-            for (EntryCust<String, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(curClassBase_, _name, _page).entryList()) {
+            for (EntryCust<AnaGeneType, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(curClassBase_, _name, _page).entryList()) {
                 ImportedField v_ = e.getValue();
                 max_ = Math.max(max_, v_.getImported() +maxAnc_);
                 FieldResult res_ = new FieldResult();
                 String realType_ = v_.getType();
                 boolean finalField_ = v_.isFinalField();
-                String formatted_ = e.getKey();
+                String formatted_ = e.getKey().getFullName();
                 res_.setFormattedType(v_.buildFormatted(formatted_));
                 res_.setFileName(v_.getFileName());
                 res_.setMemberId(v_.getMemberId());
@@ -678,14 +679,14 @@ public abstract class OperationNode {
                 ancestors_.addEntry(e.getKey(),res_);
             }
             for (int i = maxLoc_; i <= max_; i++) {
-                StringList subClasses_ = new StringList();
-                for (EntryCust<String,FieldResult> e: ancestors_.entryList()) {
+                IdTypeList<AnaGeneType> subClasses_ = new IdTypeList<AnaGeneType>();
+                for (EntryCust<AnaGeneType,FieldResult> e: ancestors_.entryList()) {
                     if (e.getValue().getContent().getAnc() != i) {
                         continue;
                     }
                     subClasses_.add(e.getKey());
                 }
-                StringList subs_ = AnaTypeUtil.getSubclasses(subClasses_, _page);
+                IdTypeList<AnaGeneType> subs_ = AnaTypeUtil.getSubclasses(subClasses_, _page);
                 FieldResult res_ = getRes(ancestors_, subs_);
                 if (res_ != null) {
                     return res_;
@@ -718,7 +719,7 @@ public abstract class OperationNode {
         }
     }
 
-    private static void fetchFieldsType(StringMap<FieldResult> _ancestors,
+    private static void fetchFieldsType(IdMap<AnaGeneType,FieldResult> _ancestors,
                                         AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
         FieldInfo fi_ = ContextUtil.getFieldInfo(_scope.getTypeInfo().getRoot(), _scopeField.getRootName(), _scopeField.getName());
         if (fi_ == null) {
@@ -727,7 +728,7 @@ public abstract class OperationNode {
         OperationNode.tryAddField(fi_, _ancestors, _page, _scope, _scopeField);
     }
 
-    public static void tryAddField(FieldInfo _fi, StringMap<FieldResult> _ancestors, AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
+    public static void tryAddField(FieldInfo _fi, IdMap<AnaGeneType,FieldResult> _ancestors, AnalyzedPageEl _page, ScopeFilterType _scope, ScopeFilterField _scopeField) {
         String fullName_ = _scope.getFullName();
         boolean staticField_ = _fi.isStaticField();
         if (_scope.getKind() == MethodAccessKind.STATIC) {
@@ -753,7 +754,7 @@ public abstract class OperationNode {
             return;
         }
         FieldResult res_ = feedFieldResult(formattedPair_, _fi, _scope.getAnc(), if_);
-        _ancestors.addEntry(_scope.getFullName(), res_);
+        _ancestors.addEntry(_scope.getTypeInfo().getRoot(), res_);
     }
 
     private static FieldResult feedFieldResult(AnaFormattedRootBlock _formatted, FieldInfo _fi, int _anc, String _type) {
@@ -774,7 +775,7 @@ public abstract class OperationNode {
         return res_;
     }
 
-    private static FieldResult getRes(StringMap<FieldResult> _ancestors, StringList _classes) {
+    private static FieldResult getRes(IdMap<AnaGeneType,FieldResult> _ancestors, IdTypeList<AnaGeneType> _classes) {
         if (_classes.onlyOneElt()) {
             return _ancestors.getVal(_classes.first());
         }

@@ -79,9 +79,11 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         local_ = ints_.getLocIndex();
         className_ = ints_.getPart();
         AnaClassArgumentMatching arg_ = getPreviousResultClass();
-        StringMap<String> ownersMap_ = new StringMap<String>();
+        StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
         StringMap<String> vars_ = new StringMap<String>();
         String sup_ = "";
+        String innType_ = "";
+        RootBlock innTypeInf_ = null;
         if (isIntermediateDottedOperation()) {
             if (arg_.isArray()) {
                 return;
@@ -93,17 +95,20 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 }
             }
             for (String o: arg_.getNames()) {
-                StringList owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
+                OwnerListResultInfo owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
                 if (owners_.onlyOneElt()) {
-                    ownersMap_.put(o, owners_.first());
+                    ownersMap_.put(o, owners_.firstElt());
                 }
             }
             if (!className_.trim().isEmpty()) {
                 if (ownersMap_.size() != 1) {
                     return;
                 }
-                sup_ = ownersMap_.values().first();
-                RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(sup_));
+                OwnerResultInfo inf_ = ownersMap_.values().first();
+                sup_ = inf_.getOwnerName();
+                innTypeInf_ = inf_.getOwned();
+                innType_ = inf_.getOwnedName();
+                RootBlock root_ = inf_.getOwner();
                 vars_ = AnaInherits.getVarTypes(root_,sup_);
             }
         } else {
@@ -284,8 +289,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 int begin_ = offset_;
                 className_ = className_.trim();
                 String idClass_ = StringExpUtil.getIdFromAllTypes(className_);
-                String inner_ = StringUtil.concat(sup_, "..", idClass_);
-                RootBlock root_ = _page.getAnaClassBody(StringExpUtil.getIdFromAllTypes(inner_));
                 offset_ += idClass_.length() + 1;
                 CustList<AnaResultPartType> results_ = new CustList<AnaResultPartType>();
                 StringList partsArgs_ = new StringList();
@@ -300,10 +303,10 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                     offset_ += a.length() + 1;
                 }
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
-                String res_ = AnaInherits.tryGetAllInners(root_,inner_, partsArgs_, currVars_, _page);
+                String res_ = AnaInherits.tryGetAllInners(innTypeInf_, innType_, partsArgs_, currVars_, _page);
                 if (!res_.isEmpty()) {
                     AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
-                    resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,StringExpUtil.getIdFromAllTypes(inner_),r_, rc_ +begin_,_page), results_);
+                            resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,innTypeInf_,StringExpUtil.getIdFromAllTypes(innType_),r_, rc_ +begin_,_page), results_);
 //                    partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
                 }
@@ -325,7 +328,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             type_ = StringUtil.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;
             AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
-            resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inferForm_,StringExpUtil.getIdFromAllTypes(type_),r_, rc_ +begin_,_page));
+            resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inferForm_,innTypeInf_,StringExpUtil.getIdFromAllTypes(type_),r_, rc_ +begin_,_page));
         }
         int lt_ = newKeyWord_.length() + local_ + className_.indexOf('<');
         int gt_ = newKeyWord_.length() + local_ + className_.indexOf('>') + 1;

@@ -3,10 +3,7 @@ package code.expressionlanguage.analyze.types;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.types.KindPartType;
 import code.util.CustList;
@@ -142,23 +139,6 @@ abstract class AnaPartType {
         analyzedType = _analyzedType;
     }
 
-    void processBadFormedOffsets(StringList _errs) {
-        _errs.add(FoundErrorInterpret.buildARError(messages.getBadParamerizedType(),getAnalyzedType()));
-    }
-
-    void processInexistType(String _in, StringList _errs) {
-        _errs.add(FoundErrorInterpret.buildARError(messages.getUnknownType(),_in));
-    }
-
-    void processFound(AnalyzedPageEl _page) {
-        String imported_ = getAnalyzedType();
-        String idCl_ = StringExpUtil.getIdFromAllTypes(imported_);
-        setFoundType(_page.getAnaGeneType(idCl_));
-    }
-
-    void foundType(AnaPartType _part) {
-        foundType = _part.foundType;
-    }
     AnaGeneType getFoundType() {
         return foundType;
     }
@@ -171,44 +151,8 @@ abstract class AnaPartType {
         return messages;
     }
 
-    String buildOffsetPartDefault(String _href) {
-        return buildOffsetPart(_href, "");
-    }
-
     int getFull() {
         return getLoc() + getIndexInType();
-    }
-
-    String buildOffsetPart() {
-        return buildOffsetPart("", "");
-    }
-    String buildOffsetPart(String _href, String _titleRef) {
-        StringBuilder pref_ = new StringBuilder(ExportCst.BEGIN_ANCHOR);
-        boolean add_ = false;
-        if (!errs.isEmpty()||!_titleRef.isEmpty()) {
-            pref_.append(ExportCst.SEP_ATTR).append(ExportCst.title(errs, _titleRef));
-        }
-        if (!_href.isEmpty()) {
-            pref_.append(ExportCst.SEP_ATTR).append(_href);
-        }
-        if (!errs.isEmpty()) {
-            pref_.append(ExportCst.SEP_ATTR_CLASS_ERR+ExportCst.END);
-        } else {
-            pref_.append(ExportCst.END);
-        }
-        if (!errs.isEmpty()) {
-            add_ = true;
-        }
-        if (!_titleRef.isEmpty()) {
-            add_ = true;
-        }
-        if (!_href.isEmpty()) {
-            add_ = true;
-        }
-        if (!add_) {
-            return "";
-        }
-        return pref_.toString();
     }
 
     StringList getErrs() {

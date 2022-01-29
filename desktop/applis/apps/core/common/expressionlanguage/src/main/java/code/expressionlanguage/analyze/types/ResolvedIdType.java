@@ -1,16 +1,29 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.common.AnaGeneType;
+import code.util.CustList;
 
 public final class ResolvedIdType {
-    private final String fullName;
-    private final AnaGeneType geneType;
+    private final ResolvedIdTypeContent content;
     private final AnaResultPartType dels;
 
     public ResolvedIdType(String _fullName, AnaGeneType _geneType, AnaResultPartType _dels) {
-        this.fullName = _fullName;
-        this.geneType = _geneType;
+        content = new ResolvedIdTypeContent(_fullName, _geneType);
         dels = _dels;
+    }
+
+    public static boolean onlyOneElt(CustList<ResolvedIdTypeContent> _list) {
+        if (_list.isEmpty()) {
+            return false;
+        }
+        AnaGeneType geneType_ = _list.first().getGeneType();
+        int size_ = _list.size();
+        for (int i = 1; i < size_; i++) {
+            if (_list.get(i).getGeneType() != geneType_) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public AnaResultPartType getDels() {
@@ -18,10 +31,10 @@ public final class ResolvedIdType {
     }
 
     public AnaGeneType getGeneType() {
-        return geneType;
+        return content.getGeneType();
     }
 
     public String getFullName() {
-        return fullName;
+        return content.getFullName();
     }
 }
