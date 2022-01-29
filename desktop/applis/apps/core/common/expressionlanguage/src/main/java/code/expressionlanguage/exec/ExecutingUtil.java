@@ -130,7 +130,7 @@ public final class ExecutingUtil {
         ExecFormattedRootBlock cl_ = _e.getClassName();
         CustList<Argument> args_ = _e.getArguments();
         NewRecordPageEl page_ = new NewRecordPageEl(_e.getNamedFields(),args_,cl_);
-        Struct str_ = NullStruct.NULL_VALUE;
+        Struct str_ = _e.getArgument().getStruct();
         String fieldName_ = _e.getFieldName();
         int ordinal_ = _e.getChildIndex();
         Argument argGl_ = new Argument(_context.getInit().processInit(_context, str_, cl_, fieldName_, ordinal_));
@@ -277,7 +277,7 @@ public final class ExecutingUtil {
         } else if (_ref instanceof CustomReflectRecordConstructor) {
             CustomReflectRecordConstructor c_ = (CustomReflectRecordConstructor) _ref;
             CustList<Argument> args_ = c_.getArguments();
-            pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getRoot(), c_.getNamedFields(),c_.getClassName());
+            pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getInstance(), c_.getRoot(), c_.getNamedFields(),c_.getClassName());
         } else if (_ref instanceof CustomReflectGetField) {
             CustomReflectGetField c_ = (CustomReflectGetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();

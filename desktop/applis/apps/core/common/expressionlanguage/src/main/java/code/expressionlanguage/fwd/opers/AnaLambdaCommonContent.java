@@ -6,8 +6,8 @@ public final class AnaLambdaCommonContent {
 
     private boolean intermediate;
     private boolean safeInstance;
-    private String returnFieldType;
-    private String fileName;
+    private String returnFieldType = "";
+    private String fileName = "";
     private boolean shiftArgument;
     private int ancestor;
     private AnaFormattedRootBlock foundFormatted;

@@ -1466,13 +1466,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         ConstructorId feed_ = null;
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
-        String type_;
         if (isIntermediateDottedOperation()) {
             if (match(_args, _len, keyWordId_, 2)) {
                 int offset_ = className.indexOf('(')+1;
                 offset_ += StringExpUtil.getOffset(_args.first());
                 AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
-                type_ = result_.getResult(_page);
+                String type_ = result_.getResult(_page);
                 partOffsetsBegin.add(result_);
                 String cl_ = StringExpUtil.getIdFromAllTypes(type_);
                 argsRes_ = resolveArguments(false,3, cl_, MethodAccessKind.INSTANCE, _args, _page);
@@ -1484,19 +1483,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 processCtor(methodTypes_, vararg_, feed_, type_, _page);
                 return;
             }
-            int i_ = 2;
-            argsRes_ = resolveArguments(i_, _args, _page);
-            if (argsRes_ == null) {
-                return;
-            }
-            vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, i_);
             for (String o: previousResultClass.getNames()) {
                 checkWildCards(o,_page);
             }
-            String cl_ = _args.first().trim();
-            String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
-            StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
-            boolean ok_ = true;
             for (String o: previousResultClass.getNames()) {
                 if (o.startsWith(ARR)) {
                     FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -1507,19 +1496,32 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             o);
                     _page.getLocalizer().addError(call_);
                     addErr(call_.getBuiltError());
-                    ok_ = false;
                 }
             }
-            if (!ok_) {
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
-            }
+            String cl_ = _args.first().trim();
+            String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
+            StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
             for (String o: previousResultClass.getNames()) {
                 OwnerListResultInfo owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
                 if (owners_.onlyOneElt()) {
                     ownersMap_.put(o, owners_.firstElt());
                 }
             }
+            if (ownersMap_.size() == 1) {
+                OwnerResultInfo info_ = ownersMap_.values().first();
+                if (info_.getOwned() instanceof RecordBlock) {
+                    lambdaCommonContent.setShiftArgument(true);
+                    cl_ = buildTypeName(_args.first(), _page, cl_, info_);
+                    processRecord(false, _args, _len, _page, new AnaFormattedRootBlock(info_.getOwned(), cl_));
+                    return;
+                }
+            }
+            int i_ = 2;
+            argsRes_ = resolveArguments(i_, _args, _page);
+            if (argsRes_ == null) {
+                return;
+            }
+            vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, i_);
             if (ownersMap_.size() != 1) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFileName(_page.getLocalizer().getCurrentFileName());
@@ -1533,30 +1535,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
-            OwnerResultInfo sup_ = ownersMap_.values().first();
-//        CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
-            int offset_ = className.indexOf('(')+1;
-            offset_ += StringExpUtil.getOffset(_args.first());
-            String inner_ = StringExpUtil.getIdFromAllTypes(sup_.getOwnedName());
-            RootBlock root_ = sup_.getOwned();
-            AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
-            partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex()+offset_,_page));
-            offset_ += idClass_.length() + 1;
-            StringList partsArgs_ = new StringList();
-            for (String a: StringExpUtil.getAllTypes(cl_).mid(1)) {
-                int loc_ = StringExpUtil.getOffset(a);
-                AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_ + loc_, a.trim(), _page);
-                String res_ = result_.getResult(_page);
-                partOffsetsPre.add(result_);
-                partsArgs_.add(res_);
-                offset_ += a.length() + 1;
-            }
-            StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-            cl_ = check(root_,sup_.getOwnedName(), partsArgs_, vars_, _page);
+            cl_ = buildTypeName(_args.first(), _page, cl_, ownersMap_.values().first());
             processCtor(methodTypes_, vararg_, null, cl_, _page);
             return;
         }
         //!isIntermediateDottedOperation()
+        String type_;
         int offset_ = className.indexOf('(')+1;
         offset_ += StringExpUtil.getOffset(_args.first());
         AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
@@ -1566,96 +1550,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             processArray(_args, _len, _page, clFrom_.substring(ARR.length()));
             return;
         }
-        AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page,clFrom_);
-        if (form_.getRootBlock() instanceof RecordBlock) {
+        AnaGeneType h_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(clFrom_));
+        if (h_ instanceof RecordBlock) {
+            AnaFormattedRootBlock form_ = new AnaFormattedRootBlock((RootBlock) h_,clFrom_);
             checkWildCards(clFrom_, _page);
-            CustList<ClassField> names_ = new CustList<ClassField>();
-            StringList types_ = new StringList();
-            int offsetArg_ = className.indexOf('(')+1+_args.first().length()+1+_args.get(1).length()+1-getClassNameOffset();
-            RootBlock h_ = form_.getRootBlock();
-            for (int i = 2; i < _len; i++) {
-                String arg_ = _args.get(i);
-                String name_ = arg_.trim();
-                String fieldName_;
-                ClassField idField_ = null;
-                int e_;
-                int lastIndex_ = name_.lastIndexOf('.');
-                AnaFormattedRootBlock search_;
-                int offsetFirst_ = StringExpUtil.getOffset(arg_);
-                int locFirst_ = offsetArg_ + offsetFirst_;
-                if (lastIndex_ >= 0) {
-                    String pre_ = name_.substring(0, lastIndex_);
-                    String className_ = pre_.trim();
-                    ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(locFirst_, className_, _page);
-                    partOffsetsRec.add(resolvedIdType_.getDels());
-                    String substring_ = name_.substring(lastIndex_ + 1);
-                    e_ = locFirst_ +lastIndex_+1+ StringExpUtil.getOffset(substring_);
-                    fieldName_ = substring_.trim();
-                    search_ = AnaInherits.getFormattedOverridingFullTypeByBases(new AnaFormattedRootBlock(h_), resolvedIdType_.getGeneType());
-                } else {
-                    partOffsetsRec.add(new AnaResultPartType());
-                    fieldName_ = name_;
-                    e_ = locFirst_;
-                    search_ = new AnaFormattedRootBlock(h_);
-                }
-                if (search_ != null) {
-                    RootBlock rootBlock_ = search_.getRootBlock();
-                    for (InfoBlock f: rootBlock_.getFieldsInstBlocks()) {
-                        String imp_ = f.getImportedClassName();
-                        String formImp_ = AnaInherits.quickFormat(search_, imp_);
-                        String par_ = AnaInherits.quickFormat(h_, clFrom_, formImp_);
-                        int index_ = AnaTypeUtil.getIndex(f,fieldName_);
-                        if (index_ >= 0) {
-                            idField_ = new ClassField(rootBlock_.getFullName(),fieldName_);
-                            types_.add(par_);
-                            offsets.add(e_);
-                            refs.add(index_);
-                            namedFields.add(new AnaNamedFieldContent(fieldName_,imp_,rootBlock_.getFullName(),rootBlock_));
-                            break;
-                        }
-                    }
-                }
-
-                if (idField_ == null) {
-                    offsets.add(e_);
-                    refs.add(-1);
-                    namedFields.add(new AnaNamedFieldContent(name_,"","",null));
-                    String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //_fromType len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
-                            id_);
-                    _page.getLocalizer().addError(call_);
-                    addErr(call_.getBuiltError());
-                } else if (dupl(names_,idField_)) {
-                    String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
-                    FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    //_fromType len
-                    call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
-                            id_);
-                    _page.getLocalizer().addError(call_);
-                    addErr(call_.getBuiltError());
-                } else {
-                    names_.add(idField_);
-                }
-                offsetArg_ += arg_.length()+1;
-            }
-            lambdaMemberNumberContentId = new MemberId();
-            recordType = h_.getNumberAll();
-            lambdaMemberNumberContentId.setRootNumber(recordType);
-            lambdaCommonContent.setFoundFormatted(form_);
-            types_.add(clFrom_);
-            fieldType = h_;
-            StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
-            fct_.append(StringExpUtil.TEMPLATE_BEGIN);
-            fct_.append(StringUtil.join(types_, StringExpUtil.TEMPLATE_SEP));
-            fct_.append(StringExpUtil.TEMPLATE_END);
-            lambdaCommonContent.setResult(fct_.toString());
-            setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+            processRecord(true,_args, _len, _page, form_);
             return;
         }
         if (match(_args, _len, keyWordId_, 2)) {
@@ -1675,15 +1574,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, i_);
         }
-        String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
-        AnaGeneType h_ = _page.getAnaGeneType(id_);
         if (noDefCtor(h_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFileName(_page.getLocalizer().getCurrentFileName());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //_fromType len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
-                    id_);
+                    StringExpUtil.getIdFromAllTypes(clFrom_));
             _page.getLocalizer().addError(call_);
             addErr(call_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -1715,6 +1612,125 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         fct_.append(StringExpUtil.TEMPLATE_END);
         lambdaCommonContent.setResult(fct_.toString());
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+    }
+
+    private void processRecord(boolean _notint,StringList _args, int _len, AnalyzedPageEl _page, AnaFormattedRootBlock _form) {
+        RootBlock h_ = _form.getRootBlock();
+        String clFrom_ = _form.getFormatted();
+        CustList<ClassField> names_ = new CustList<ClassField>();
+        StringList types_ = new StringList();
+        if (_notint&&!h_.withoutInstance()) {
+            //From analyze
+            StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(clFrom_);
+            types_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
+        }
+        int offsetArg_ = className.indexOf('(')+1+ _args.first().length()+1+ _args.get(1).length()+1-getClassNameOffset();
+        for (int i = 2; i < _len; i++) {
+            String arg_ = _args.get(i);
+            String name_ = arg_.trim();
+            String fieldName_;
+            ClassField idField_ = null;
+            int e_;
+            int lastIndex_ = name_.lastIndexOf('.');
+            AnaFormattedRootBlock search_;
+            int offsetFirst_ = StringExpUtil.getOffset(arg_);
+            int locFirst_ = offsetArg_ + offsetFirst_;
+            if (lastIndex_ >= 0) {
+                String pre_ = name_.substring(0, lastIndex_);
+                String className_ = pre_.trim();
+                ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(locFirst_, className_, _page);
+                partOffsetsRec.add(resolvedIdType_.getDels());
+                String substring_ = name_.substring(lastIndex_ + 1);
+                e_ = locFirst_ +lastIndex_+1+ StringExpUtil.getOffset(substring_);
+                fieldName_ = substring_.trim();
+                search_ = AnaInherits.getFormattedOverridingFullTypeByBases(new AnaFormattedRootBlock(h_), resolvedIdType_.getGeneType());
+            } else {
+                partOffsetsRec.add(new AnaResultPartType());
+                fieldName_ = name_;
+                e_ = locFirst_;
+                search_ = new AnaFormattedRootBlock(h_);
+            }
+            if (search_ != null) {
+                RootBlock rootBlock_ = search_.getRootBlock();
+                for (InfoBlock f: rootBlock_.getFieldsInstBlocks()) {
+                    String imp_ = f.getImportedClassName();
+                    String formImp_ = AnaInherits.quickFormat(search_, imp_);
+                    String par_ = AnaInherits.quickFormat(h_, clFrom_, formImp_);
+                    int index_ = AnaTypeUtil.getIndex(f,fieldName_);
+                    if (index_ >= 0) {
+                        idField_ = new ClassField(rootBlock_.getFullName(),fieldName_);
+                        types_.add(par_);
+                        offsets.add(e_);
+                        refs.add(index_);
+                        namedFields.add(new AnaNamedFieldContent(fieldName_,imp_,rootBlock_.getFullName(),rootBlock_));
+                        break;
+                    }
+                }
+            }
+
+            if (idField_ == null) {
+                offsets.add(e_);
+                refs.add(-1);
+                namedFields.add(new AnaNamedFieldContent(name_,"","",null));
+                String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
+                call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //_fromType len
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
+                        id_);
+                _page.getLocalizer().addError(call_);
+                addErr(call_.getBuiltError());
+            } else if (dupl(names_,idField_)) {
+                String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
+                FoundErrorInterpret call_ = new FoundErrorInterpret();
+                call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //_fromType len
+                call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
+                        id_);
+                _page.getLocalizer().addError(call_);
+                addErr(call_.getBuiltError());
+            } else {
+                names_.add(idField_);
+            }
+            offsetArg_ += arg_.length()+1;
+        }
+        lambdaMemberNumberContentId = new MemberId();
+        recordType = h_.getNumberAll();
+        lambdaMemberNumberContentId.setRootNumber(recordType);
+        lambdaCommonContent.setFoundFormatted(_form);
+        types_.add(clFrom_);
+        fieldType = h_;
+        lambdaCommonContent.setFileName(h_.getFile().getFileName());
+        StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+        fct_.append(StringExpUtil.TEMPLATE_BEGIN);
+        fct_.append(StringUtil.join(types_, StringExpUtil.TEMPLATE_SEP));
+        fct_.append(StringExpUtil.TEMPLATE_END);
+        lambdaCommonContent.setResult(fct_.toString());
+        setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+    }
+
+    private String buildTypeName(String _arg, AnalyzedPageEl _page, String _cl, OwnerResultInfo _sup) {
+        String idClass_ = StringExpUtil.getIdFromAllTypes(_cl);
+        int offset_ = className.indexOf('(')+1;
+        offset_ += StringExpUtil.getOffset(_arg);
+        String inner_ = StringExpUtil.getIdFromAllTypes(_sup.getOwnedName());
+        RootBlock root_ = _sup.getOwned();
+        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_, _page.getLocalizer().getCurrentLocationIndex()+offset_, _page));
+        offset_ += idClass_.length() + 1;
+        StringList partsArgs_ = new StringList();
+        for (String a: StringExpUtil.getAllTypes(_cl).mid(1)) {
+            int loc_ = StringExpUtil.getOffset(a);
+            AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_ + loc_, a.trim(), _page);
+            String res_ = result_.getResult(_page);
+            partOffsetsPre.add(result_);
+            partsArgs_.add(res_);
+            offset_ += a.length() + 1;
+        }
+        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
+        return check(root_, _sup.getOwnedName(), partsArgs_, vars_, _page);
     }
 
     private static int vararg(int _len, StringList _methodTypes, int _vararg, MethodId _argsRes, int _i) {

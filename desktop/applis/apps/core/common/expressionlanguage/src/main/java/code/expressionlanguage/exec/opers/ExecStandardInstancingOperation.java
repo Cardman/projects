@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -54,7 +55,8 @@ public final class ExecStandardInstancingOperation extends
         Argument res_;
         if (_instancingCommonContent.getPair().getType() instanceof ExecRecordBlock) {
             CustList<Argument> arguments_ = getArguments(_infos);
-            _stack.setCallingState(new CustomFoundRecordConstructor(_className, _instancingCommonContent.getPair(), _instancingStdContent.getNamedFields(), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex(), arguments_));
+            Argument prev_ = instance(_instancingCommonContent.getPair().getType(),_previous);
+            _stack.setCallingState(new CustomFoundRecordConstructor(prev_,_className, _instancingCommonContent.getPair(), _instancingStdContent.getNamedFields(), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex(), arguments_));
             res_ = Argument.createVoid();
         } else {
             res_ = new InstanceParamChecker(_instancingCommonContent.getPair(), fectchInstFormattedArgs(_className, _instancingCommonContent, _conf, _stack, _infos), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex()).checkParams(_className, _previous, null, _conf, _stack);
@@ -62,4 +64,10 @@ public final class ExecStandardInstancingOperation extends
         return res_;
     }
 
+    public static Argument instance(ExecRootBlock _type, Argument _previous) {
+        if (!withInstance(_type)) {
+            return Argument.createVoid();
+        }
+        return _previous;
+    }
 }

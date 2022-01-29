@@ -891,11 +891,11 @@ public final class FileResolver {
                                  instructionTrimLocation_ +_offset);
                     } else if (StringUtil.quickEq(type_, "@"+keyWordClass_)) {
                         typeBlock_ = new RecordBlock(false,beginDefinition_, baseName_, packageName_,
-                                new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_,
+                                new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_,true,
                                  instructionTrimLocation_ +_offset);
                     } else if (StringUtil.quickEq(type_, "@"+keyWordInterface_)) {
                         typeBlock_ = new RecordBlock(true,beginDefinition_, baseName_, packageName_,
-                                new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_,
+                                new OffsetAccessInfo(accessOffsetType_+_offset, access_), tempDef_, superTypes_,true,
                                  instructionTrimLocation_ +_offset);
                     } else if (StringUtil.quickEq(type_, keyWordInterface_)) {
                         typeBlock_ = new InterfaceBlock(beginDefinition_, baseName_, packageName_,
@@ -1429,11 +1429,11 @@ public final class FileResolver {
                      _instructionTrimLocation + _offset);
         } else if (StringUtil.quickEq(type_, "@"+ keyWordClass_)) {
             typeBlock_ = new RecordBlock(false,beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_), tempDef_, superTypes_,
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_), tempDef_, superTypes_,staticType_,
                      _instructionTrimLocation + _offset);
         } else if (StringUtil.quickEq(type_, "@"+ keyWordInterface_)) {
             typeBlock_ = new RecordBlock(true,beginDefinition_, typeName_, _pkgName,
-                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_), tempDef_, superTypes_,
+                    new OffsetAccessInfo(typeOffset_ - 1+ _offset, accessFct_), tempDef_, superTypes_,staticType_,
                      _instructionTrimLocation + _offset);
         } else if (StringUtil.quickEq(type_, keyWordInterface_)) {
             typeBlock_ = new InterfaceBlock(beginDefinition_, typeName_, _pkgName,

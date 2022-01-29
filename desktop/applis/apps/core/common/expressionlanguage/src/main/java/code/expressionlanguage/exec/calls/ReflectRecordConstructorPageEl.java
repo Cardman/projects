@@ -5,8 +5,8 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
+import code.expressionlanguage.exec.opers.ExecStandardInstancingOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
 
@@ -14,14 +14,16 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
 
     private boolean calledMethod;
     private final ExecRootBlock root;
+    private final Argument instance;
     private final CustList<ExecNamedFieldContent> namedFields;
     private final ExecFormattedRootBlock className;
 
     private final CustList<Argument> arguments;
 
-    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className) {
+    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className) {
         arguments = _arguments;
         root = _root;
+        instance = _instance;
         namedFields = _namedFields;
         className = _className;
     }
@@ -33,7 +35,7 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
-            _stack.setCallingState(new CustomFoundRecordConstructor(className, new ExecTypeFunction(root,null), namedFields, arguments));
+            _stack.setCallingState(new CustomFoundRecordConstructor(ExecStandardInstancingOperation.instance(root,instance),className, className.getRootBlock().getEmptyCtorPair(), namedFields, arguments));
             return false;
         }
         return true;

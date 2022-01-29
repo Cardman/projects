@@ -12,6 +12,7 @@ import code.util.CustList;
 
 public final class CustomFoundRecordConstructor implements CallingState {
 
+    private final Argument argument;
     private final ExecFormattedRootBlock className;
     private final ExecTypeFunction pair;
 
@@ -21,18 +22,19 @@ public final class CustomFoundRecordConstructor implements CallingState {
 
     private final CustList<Argument> arguments;
 
-    public CustomFoundRecordConstructor(ExecFormattedRootBlock _className,
+    public CustomFoundRecordConstructor(Argument _argument,ExecFormattedRootBlock _className,
                                         ExecTypeFunction _pair,
                                         CustList<ExecNamedFieldContent> _named,
                                         CustList<Argument> _arguments) {
-        this(_className,_pair, _named,"",-1,_arguments);
+        this(_argument,_className,_pair, _named,"",-1,_arguments);
     }
 
-    public CustomFoundRecordConstructor(ExecFormattedRootBlock _className,
+    public CustomFoundRecordConstructor(Argument _argument,ExecFormattedRootBlock _className,
                                         ExecTypeFunction _pair,
                                         CustList<ExecNamedFieldContent> _named,
                                         String _fieldName, int _childIndex,
                                         CustList<Argument> _arguments) {
+        argument = _argument;
         className = _className;
         pair = _pair;
         namedFields = _named;
@@ -44,6 +46,10 @@ public final class CustomFoundRecordConstructor implements CallingState {
     @Override
     public AbstractPageEl processAfterOperation(ContextEl _context, StackCall _stack) {
         return ExecutingUtil.createRecordInstancing(_context,this);
+    }
+
+    public Argument getArgument() {
+        return argument;
     }
 
     public CustList<ExecNamedFieldContent> getNamedFields() {

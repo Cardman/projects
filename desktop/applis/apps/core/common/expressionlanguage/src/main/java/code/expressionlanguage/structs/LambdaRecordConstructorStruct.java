@@ -4,25 +4,38 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct implements LambdaStruct {
 
-    private final Argument instanceCall = Argument.createVoid();
+    private final Argument instanceCall;
 
     private final ExecRootBlock root;
     private final String className;
     private final ExecFormattedRootBlock formClassName;
-
+    private final boolean safeInstance;
     private final CustList<ExecNamedFieldContent> namedFields;
+    private final boolean shiftInstance;
 
-    public LambdaRecordConstructorStruct(ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, CustList<ExecNamedFieldContent> _namedFields) {
+    public LambdaRecordConstructorStruct(ExecLambdaCommonContent _cont, Argument _previous, ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, CustList<ExecNamedFieldContent> _namedFields) {
         root = _root;
+        instanceCall = Argument.getNullableValue(_previous);
         className = StringUtil.nullToEmpty(_className);
         formClassName = _formClassName;
         namedFields = _namedFields;
+        safeInstance = _cont.isSafeInstance();
+        shiftInstance = _cont.isShiftArgument();
+    }
+
+
+    public boolean isShiftInstance() {
+        return shiftInstance;
+    }
+    public boolean isSafeInstance() {
+        return safeInstance && instanceCall.isNull();
     }
 
     public ExecRootBlock getRoot() {

@@ -9,18 +9,24 @@ import code.util.CustList;
 
 public final class CustomReflectRecordConstructor extends AbstractReflectElement {
 
+    private final Argument instance;
     private final ExecRootBlock root;
     private final CustList<ExecNamedFieldContent> namedFields;
     private final ExecFormattedRootBlock className;
     private final CustList<Argument> arguments;
 
-    public CustomReflectRecordConstructor(ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className,
+    public CustomReflectRecordConstructor(Argument _instance,ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className,
                                           CustList<Argument> _arguments, boolean _lambda) {
         super(_lambda);
+        instance = _instance;
         root = _root;
         namedFields = _namedFields;
         className = _className;
         arguments = _arguments;
+    }
+
+    public Argument getInstance() {
+        return instance;
     }
 
     public ExecRootBlock getRoot() {

@@ -387,9 +387,21 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         LgNames lgNames_ = _conf.getStandards();
         if (ls_ instanceof LambdaRecordConstructorStruct) {
             LambdaRecordConstructorStruct l_ = (LambdaRecordConstructorStruct) ls_;
+            if (l_.isSafeInstance()) {
+                return defaultValueLambda(_conf, l_);
+            }
             ExecFormattedRootBlock clName_ = l_.getFormClassName();
             CustList<Argument> values_ = _values.getArguments();
-            _stackCall.setCallingState(new CustomReflectRecordConstructor(l_.getRoot(), l_.getNamedFields(), clName_,values_,true));
+            if (!l_.isShiftInstance()) {
+                ExecRootBlock type_ = l_.getRoot();
+                if (withInstance(type_)) {
+                    Argument instance_ = ExecHelper.getFirstArgument(values_);
+                    _stackCall.setCallingState(new CustomReflectRecordConstructor(instance_,l_.getRoot(), l_.getNamedFields(), clName_,values_.mid(1),true));
+                    return new Argument();
+                }
+            }
+            Argument instance_ = l_.getInstanceCall();
+            _stackCall.setCallingState(new CustomReflectRecordConstructor(instance_,l_.getRoot(), l_.getNamedFields(), clName_,values_,true));
             return new Argument();
         }
         if (ls_ instanceof LambdaConstructorStruct) {
@@ -500,7 +512,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
         if (!_ls.isShiftInstance()) {
             ExecRootBlock type_ = meta_.getPairType();
-            if (type_ != null && !type_.withoutInstance()) {
+            if (withInstance(type_)) {
                 Argument instance_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(argumentWrappers_));
                 call_.getArgumentWrappers().addAllElts(argumentWrappers_.mid(1));
                 _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, true));
@@ -511,6 +523,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         call_.getArgumentWrappers().addAllElts(argumentWrappers_);
         _stackCall.setCallingState(new CustomReflectLambdaConstructor(meta_, instance_.getStruct(),call_, true));
         return new Argument();
+    }
+
+    protected static boolean withInstance(ExecRootBlock _type) {
+        return _type != null && !_type.withoutInstance();
     }
 
     private static Argument virtualField(ArgumentListCall _values, ContextEl _conf, StackCall _stackCall, LambdaFieldStruct _l) {

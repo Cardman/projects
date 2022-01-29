@@ -495,7 +495,7 @@ public final class ProcessMethodMutableRecordTest extends ProcessMethodCommon {
         xml_.append("  Rec r = $new Rec(field:10);\n");
         xml_.append("  $return r.field;\n");
         xml_.append(" }\n");
-        xml_.append(" @$interface Rec {\n");
+        xml_.append(" $static @$interface Rec {\n");
         xml_.append("  $int field;\n");
         xml_.append(" }\n");
         xml_.append("}\n");
@@ -827,7 +827,7 @@ public final class ProcessMethodMutableRecordTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Rec");
         CustList<ExecNamedFieldContent> named_ = new CustList<ExecNamedFieldContent>();
         named_.add(new ExecNamedFieldContent(new AnaNamedFieldContent("field","$int","pkg.Rec",null),classBody_));
-        ArgumentWrapper argumentWrapper_ = ProcessMethod.instanceRecordArgument(cont_, stackCall_, new CustomFoundRecordConstructor(new ExecFormattedRootBlock(classBody_, "pkg.Rec"), new ExecTypeFunction(classBody_, null), named_, args_));
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.instanceRecordArgument(cont_, stackCall_, new CustomFoundRecordConstructor(Argument.createVoid(),new ExecFormattedRootBlock(classBody_, "pkg.Rec"), new ExecTypeFunction(classBody_, null), named_, args_));
         Argument out_ = argumentWrapper_.getValue();
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());
