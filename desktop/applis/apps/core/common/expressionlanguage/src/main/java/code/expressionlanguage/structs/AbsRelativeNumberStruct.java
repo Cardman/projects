@@ -3,6 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.common.NumParsers;
+import code.maths.litteralcom.MathExpUtil;
 
 public abstract class AbsRelativeNumberStruct extends NumberStruct {
 
@@ -46,11 +47,11 @@ public abstract class AbsRelativeNumberStruct extends NumberStruct {
 
     @Override
     public double doubleStruct() {
-        return (double)longStruct();
+        return MathExpUtil.toDouble(longStruct());
     }
 
     @Override
     public float floatStruct() {
-        return (float)longStruct();
+        return (float)MathExpUtil.toDouble(longStruct());
     }
 }

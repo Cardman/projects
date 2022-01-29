@@ -14,6 +14,12 @@ public final class MathExpUtil {
     private MathExpUtil() {
     }
 
+    public static double toDouble(long _nb){
+        return toDouble((double)_nb);
+    }
+    private static double toDouble(double _nb){
+        return _nb;
+    }
     public static boolean allOp(char _curChar) {
         return _curChar == MatCommonCst.PAR_RIGHT || supplDels(_curChar) ||unary(_curChar) || normalOp(_curChar);
     }

@@ -879,14 +879,14 @@ public final class LgInt implements Displayable {
             double mult_ = (double) grDigits.get(i) * _db;
             long multLong_ = (long) mult_;
             resultatChiffres_.set(i, multLong_);
-            double part_ = (double) multLong_;
-            double tmp_ = (mult_ - part_) * (double) BASE;
+            double part_ = MathExpUtil.toDouble(multLong_);
+            double tmp_ = (mult_ - part_) * MathExpUtil.toDouble(BASE);
             int j_ = i + 1;
             for (int j = j_; j < nbDig_; j++) {
                 long tmpLong_ = (long)tmp_;
                 resultatChiffres_.set(j, resultatChiffres_.get(j) + tmpLong_);
-                double floor_ = (double)tmpLong_;
-                tmp_ = (tmp_ - floor_) * (double)BASE;
+                double floor_ = MathExpUtil.toDouble(tmpLong_);
+                tmp_ = (tmp_ - floor_) * MathExpUtil.toDouble(BASE);
             }
         }
         long retenue_ = 0;

@@ -3,6 +3,7 @@ package code.maths.montecarlo;
 import code.maths.LgInt;
 import code.maths.NumDiffDenNum;
 import code.maths.Rate;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
@@ -59,7 +60,7 @@ public final class MonteCarloUtil {
         return randomLong(_excludeMax, _gene.pick());
     }
     public static long randomLong(long _excludeMax, double _gene) {
-        return (long) (_gene * (double)_excludeMax);
+        return (long) (_gene * MathExpUtil.toDouble(_excludeMax));
     }
 
     static LgInt maxNumber(LgInt _max) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.common;
 
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
+import code.maths.litteralcom.MathExpUtil;
 import code.util.CustList;
 import code.util.Replacement;
 import code.util.StringList;
@@ -414,7 +415,7 @@ public final class NumParsers {
             return bigNb(_positive, numberInt_);
         }
         long longValue_ = parseQuickLongTen(numberInt_.toString());
-        double value_ = (double) longValue_;
+        double value_ = MathExpUtil.toDouble(longValue_);
         int index_ = indexNotZero(numberDec_);
         StringBuilder decCopy_ = new StringBuilder(numberDec_.substring(index_));
         decCopy_.delete(Math.min(MAX_DIGITS_DOUBLE + 1, decCopy_.length()), decCopy_.length());
@@ -422,7 +423,7 @@ public final class NumParsers {
             return buildNbSimple(_positive, longValue_, value_);
         }
         long decLongValue_ = parseQuickLongTen(decCopy_.toString());
-        double decValue_ = (double) decLongValue_;
+        double decValue_ = MathExpUtil.toDouble(decLongValue_);
         double power_ = pow(numberDec_.length(),10.0);
         if (!_positive) {
             return new DoubleInfo(-value_ - decValue_ / power_);
@@ -452,7 +453,7 @@ public final class NumParsers {
             diff_ = (int) (-_expNbLong + _dec.length());
             //expNbLong_ < dec_.length() => 0 < dec_.length() - expNbLong_
         }
-        double value_ = (double) longValue_;
+        double value_ = MathExpUtil.toDouble(longValue_);
         double power_ = pow(diff_,10.0);
         if (!_positive) {
             return new DoubleInfo(-value_ / power_);
@@ -470,7 +471,7 @@ public final class NumParsers {
             return bigNb(_positive, number_);
         }
         long longValue_ = parseQuickLongTen(number_.toString());
-        double value_ = (double) longValue_;
+        double value_ = MathExpUtil.toDouble(longValue_);
         return buildNbSimple(_positive, longValue_, value_);
     }
 
@@ -480,7 +481,7 @@ public final class NumParsers {
                 return bigNb(_positive, _int);
             }
             long longValue_ = parseQuickLongTen(_int.toString());
-            double value_ = (double) longValue_;
+            double value_ = MathExpUtil.toDouble(longValue_);
             return buildNbSimple(_positive, longValue_, value_);
         }
         long longValue_;
@@ -494,7 +495,7 @@ public final class NumParsers {
             longValue_ = parseQuickLongTen(_int.toString());
             expNbLong_ = _expNbLong;
         }
-        double value_ = (double) longValue_;
+        double value_ = MathExpUtil.toDouble(longValue_);
         double power_ = pow(expNbLong_,10.0);
         if (!_positive) {
             return buildNb(-value_, expNbLong_, power_, longValue_);
@@ -540,7 +541,7 @@ public final class NumParsers {
     }
 
     private static DoubleInfo buildNb(StringBuilder _dec, long _expNbLong, long _longValue, long _ra) {
-        double parsed_ = (double) _longValue;
+        double parsed_ = MathExpUtil.toDouble(_longValue);
         long delta_ = delta(_dec, _expNbLong, _ra);
         double p_ = pow(delta_, 2.0);
         return buildNb(parsed_, delta_, p_, _longValue);
@@ -588,7 +589,7 @@ public final class NumParsers {
     }
 
     private static double processBigNumbers(StringBuilder _nb, boolean _positive) {
-        double long_ = (double) parseQuickLongTen(_nb.substring(0, MAX_DIGITS_DOUBLE + 1));
+        double long_ = MathExpUtil.toDouble(parseQuickLongTen(_nb.substring(0, MAX_DIGITS_DOUBLE + 1)));
         int logDec_ = _nb.length() - MAX_DIGITS_DOUBLE - 1;
         double power_ = pow(logDec_,10.0);
         double out_ = long_ * power_;
@@ -1606,7 +1607,7 @@ public final class NumParsers {
             return new LongStruct(nb_);
         }
         double left_ = _a.doubleStruct();
-        double nb_ = left_ + (double)_dir;
+        double nb_ = left_ + MathExpUtil.toDouble(_dir);
         if (isFloat(_cast)) {
             return new FloatStruct((float)nb_);
         }
