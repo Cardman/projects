@@ -944,10 +944,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             processAbstract(staticChoiceMethod_, id_, _page);
             return;
         }
-        OperationNode o_ = _m.getFirstChild();
-        boolean stAcc_ = o_ instanceof StaticAccessOperation;
-        boolean stAccCall_ = o_ instanceof StaticCallAccessOperation;
-        if (stAcc_ || stAccCall_) {
+        if (isStaticAccess(_m)) {
+            OperationNode o_ = _m.getFirstChild();
+            boolean stAcc_ = o_ instanceof StaticAccessOperation;
+            boolean stAccCall_ = o_ instanceof StaticCallAccessOperation;
             str_ = resolveCorrectTypes(stAccCall_, _args, _page);
             int vararg_ = -1;
             MethodId argsRes_;
@@ -1466,6 +1466,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         ConstructorId feed_ = null;
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
+        checkAccessStatic(_page);
         if (isIntermediateDottedOperation()) {
             for (String o: previousResultClass.getNames()) {
                 checkWildCards(o,_page);
@@ -1642,6 +1643,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaCommonContent.setResult(fct_.toString());
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
     }
+
+    private void checkAccessStatic(AnalyzedPageEl _page) {
+        if (isStaticAccess(getParent())) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //key word len
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    StringUtil.join(previousResultClass.getNames(),ExportCst.JOIN_TYPES));
+            _page.getLocalizer().addError(un_);
+            addErr(un_.getBuiltError());
+        }
+    }
+
 
     private void processRecord(boolean _notint, int _from,StringList _args, int _len, AnalyzedPageEl _page, AnaFormattedRootBlock _form) {
         RootBlock h_ = _form.getRootBlock();
@@ -1971,15 +1986,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             setResultClass(new AnaClassArgumentMatching(fct_));
             return;
         }
-        OperationNode o_ = _m.getFirstChild();
-        if (o_ instanceof StaticAccessOperation) {
+        if (isStaticAccess(_m)) {
             str_ = resolveCorrectTypes(false, _args, _page);
             int i_ = 3;
             boolean aff_ = i_ < _len;
             AnaClassArgumentMatching fromCl_ = new AnaClassArgumentMatching(str_);
             sum_ += StringExpUtil.getOffset(_args.get(2));
             ScopeFilter scope_ = new ScopeFilter(null, true, true, false, _page.getGlobalClass());
-            FieldResult r_ = resolveDeclaredCustField(false, fromCl_, fieldName_, false, aff_, _page, scope_);
+            FieldResult r_ = resolveDeclaredCustField(true, fromCl_, fieldName_, false, aff_, _page, scope_);
             if (r_.getStatus() == SearchingMemberStatus.ZERO) {
                 buildErrLambda(sum_,fromCl_,fieldName_,_page);
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -2126,6 +2140,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         setResultClass(new AnaClassArgumentMatching(fct_));
     }
 
+    private static boolean isStaticAccess(MethodOperation _m) {
+        if (!(_m instanceof DotOperation)) {
+            return false;
+        }
+        OperationNode o_ = _m.getFirstChild();
+        boolean stAcc_ = o_ instanceof StaticAccessOperation;
+        boolean stAccCall_ = o_ instanceof StaticCallAccessOperation;
+        return stAcc_ || stAccCall_;
+    }
     private void updateFieldInfos(boolean _aff, FieldResult _r) {
         lambdaCommonContent.setFileName(_r.getFileName());
         lambdaMemberNumberContentId = _r.getMemberId();
@@ -2349,6 +2372,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (argsRes_ == null) {
             return;
         }
+        checkAccessStatic(_page);
         if (isIntermediateDottedOperation()) {
             if (match(_args, _len, keyWordId_, j_)) {
                 methodTypes_.add(previousResultClass.getName());
