@@ -2255,6 +2255,65 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         assertEq(11, getNumber(ret_));
     }
     @Test
+    public void calculateArgument87Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T extfield=(T)10;\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T exmeth (){\n");
+        xml_.append("  Ex<T> p = $new Ex<T>();\n");
+        xml_.append("  $Fct<T,Ex<T>.Rec<T>> r = p?.$lambda(Ex<T>.Rec<T>,$new,$id,Ex.RecInt.field);\n");
+        xml_.append("  $return r.call((T)12)?.field2;\n");
+        xml_.append(" }\n");
+        xml_.append(" $interface RecInt<U> {\n");
+        xml_.append("  U field=(U)extfield;\n");
+        xml_.append("  U field2=(U)extfield;\n");
+        xml_.append(" }\n");
+        xml_.append(" @$class $interfaces(Ex.RecInt) Rec<S>:RecInt<S> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument88Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<A>:Ex<A> {}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T extfield=(T)10;\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T exmeth (){\n");
+        xml_.append("  ExTwo<T> p = $new ExTwo<T>();\n");
+        xml_.append("  $Fct<T,Ex<T>.Rec<T>> r = p?.$lambda(Ex<T>.Rec<T>,$new,$id,Ex.RecInt.field);\n");
+        xml_.append("  $return r.call((T)12)?.field2;\n");
+        xml_.append(" }\n");
+        xml_.append(" $interface RecInt<U> {\n");
+        xml_.append("  U field=(U)extfield;\n");
+        xml_.append("  U field2=(U)extfield;\n");
+        xml_.append(" }\n");
+        xml_.append(" @$class $interfaces(Ex.RecInt) Rec<S>:RecInt<S> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
     public void fail() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("@$class $interfaces(RecSuper,RecSuper;RecSuper,RecSuper) pkg.Rec<T>:RecSuper<T> {\n");
@@ -2562,6 +2621,56 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         xml_.append("}\n");
         xml_.append("@$class pkg.RecCont<R> {\n");
         xml_.append(" R field4;\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+    @Test
+    public void fail14() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<A> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {\n");
+        xml_.append(" $public T extfield=(T)10;\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T exmeth (){\n");
+        xml_.append("  ExTwo<T> p = $new ExTwo<T>();\n");
+        xml_.append("  $Fct<T,Ex<T>.Rec<T>> r = p?.$lambda(Ex<T>.Rec<T>,$new,$id,Ex.RecInt.field);\n");
+        xml_.append("  $return r.call((T)12)?.field2;\n");
+        xml_.append(" }\n");
+        xml_.append(" $interface RecInt<U> {\n");
+        xml_.append("  U field=(U)extfield;\n");
+        xml_.append("  U field2=(U)extfield;\n");
+        xml_.append(" }\n");
+        xml_.append(" @$class $interfaces(Ex.RecInt) Rec<S>:RecInt<S> {\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
+    @Test
+    public void fail15() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<A> {}\n");
+        xml_.append("$public $class pkg.Ex<T>:ExTwo<T> {\n");
+        xml_.append(" $public T extfield=(T)10;\n");
+        xml_.append(" $public $static $int exmeth (){\n");
+        xml_.append("  $return $staticCall(Ex<$int>).exmeth();\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $staticCall T exmeth (){\n");
+        xml_.append("  ExTwo<T> p = $new ExTwo<T>();\n");
+        xml_.append("  $Fct<T,Ex<T>.Rec<T>> r = $staticCall(Ex<T>.Rec<T>).$lambda($new);\n");
+        xml_.append("  $return r.call((T)12)?.field2;\n");
+        xml_.append(" }\n");
+        xml_.append(" $interface RecInt<U> {\n");
+        xml_.append("  U field=(U)extfield;\n");
+        xml_.append("  U field2=(U)extfield;\n");
+        xml_.append(" }\n");
+        xml_.append(" @$class $interfaces(Ex.RecInt) Rec<S>:RecInt<S> {\n");
+        xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());

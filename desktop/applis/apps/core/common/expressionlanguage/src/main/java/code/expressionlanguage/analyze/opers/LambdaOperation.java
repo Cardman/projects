@@ -1482,6 +1482,51 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     addErr(call_.getBuiltError());
                 }
             }
+            if (match(_args, _len, keyWordId_, 2)) {
+                StringList bounds_ = new StringList();
+                for (String c: previousResultClass.getNames()) {
+                    bounds_.addAllElts(InvokingOperation.getBounds(c, _page));
+                }
+                int offset_ = className.indexOf('(')+1;
+                offset_ += StringExpUtil.getOffset(_args.first());
+                AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
+                String type_ = result_.getResult(_page);
+                partOffsetsBegin.add(result_);
+                StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(type_);
+                String param_ = StringUtil.join(innerParts_.left(innerParts_.size() - 2), "");
+                Mapping map_ = new Mapping();
+                map_.setArg(new AnaClassArgumentMatching(bounds_));
+                map_.setParam(param_);
+                StringMap<StringList> maps_ = new StringMap<StringList>();
+                getRefConstraints(maps_, _page);
+                map_.setMapping(maps_);
+                if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //key word len
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            StringUtil.join(bounds_,ExportCst.JOIN_TYPES),
+                            param_);
+                    _page.getLocalizer().addError(cast_);
+                    addErr(cast_.getBuiltError());
+                }
+                AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page, type_);
+                if (form_.getRootBlock() instanceof RecordBlock) {
+                    lambdaCommonContent.setShiftArgument(true);
+                    processRecord(false,3, _args, _len, _page, form_);
+                    return;
+                }
+                String clType_ = StringExpUtil.getIdFromAllTypes(type_);
+                argsRes_ = resolveArguments(false,3, clType_, MethodAccessKind.INSTANCE, _args, _page);
+                if (argsRes_ == null) {
+                    return;
+                }
+                feed_ = MethodId.to(clType_, argsRes_);
+                ko(type_, argsRes_, methodTypes_, _page);
+                processCtor(methodTypes_, vararg_, feed_, type_, _page);
+                return;
+            }
             String cl_ = _args.first().trim();
             String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
             StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
@@ -1496,25 +1541,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (info_.getOwned() instanceof RecordBlock) {
                     lambdaCommonContent.setShiftArgument(true);
                     cl_ = buildTypeName(_args.first(), _page, cl_, info_);
-                    processRecord(false, _args, _len, _page, new AnaFormattedRootBlock(info_.getOwned(), cl_));
+                    processRecord(false,2, _args, _len, _page, new AnaFormattedRootBlock(info_.getOwned(), cl_));
                     return;
                 }
-            }
-            if (match(_args, _len, keyWordId_, 2)) {
-                int offset_ = className.indexOf('(')+1;
-                offset_ += StringExpUtil.getOffset(_args.first());
-                AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
-                String type_ = result_.getResult(_page);
-                partOffsetsBegin.add(result_);
-                String clType_ = StringExpUtil.getIdFromAllTypes(type_);
-                argsRes_ = resolveArguments(false,3, clType_, MethodAccessKind.INSTANCE, _args, _page);
-                if (argsRes_ == null) {
-                    return;
-                }
-                feed_ = MethodId.to(clType_, argsRes_);
-                ko(type_, argsRes_, methodTypes_, _page);
-                processCtor(methodTypes_, vararg_, feed_, type_, _page);
-                return;
             }
             int i_ = 2;
             argsRes_ = resolveArguments(i_, _args, _page);
@@ -1554,7 +1583,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (h_ instanceof RecordBlock) {
             AnaFormattedRootBlock form_ = new AnaFormattedRootBlock((RootBlock) h_,clFrom_);
             checkWildCards(clFrom_, _page);
-            processRecord(true,_args, _len, _page, form_);
+            processRecord(true,2,_args, _len, _page, form_);
             return;
         }
         if (match(_args, _len, keyWordId_, 2)) {
@@ -1614,7 +1643,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
     }
 
-    private void processRecord(boolean _notint,StringList _args, int _len, AnalyzedPageEl _page, AnaFormattedRootBlock _form) {
+    private void processRecord(boolean _notint, int _from,StringList _args, int _len, AnalyzedPageEl _page, AnaFormattedRootBlock _form) {
         RootBlock h_ = _form.getRootBlock();
         String clFrom_ = _form.getFormatted();
         CustList<ClassField> names_ = new CustList<ClassField>();
@@ -1624,8 +1653,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(clFrom_);
             types_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
         }
-        int offsetArg_ = className.indexOf('(')+1+ _args.first().length()+1+ _args.get(1).length()+1-getClassNameOffset();
-        for (int i = 2; i < _len; i++) {
+        int offsetArg_ = className.indexOf('(')+1-getClassNameOffset();
+        for (int i = 0; i < _from; i++) {
+            offsetArg_ += _args.get(i).length() + 1;
+        }
+        for (int i = _from; i < _len; i++) {
             String arg_ = _args.get(i);
             String name_ = arg_.trim();
             String fieldName_;
