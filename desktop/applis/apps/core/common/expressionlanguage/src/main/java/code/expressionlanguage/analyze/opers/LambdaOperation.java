@@ -1467,22 +1467,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
         if (isIntermediateDottedOperation()) {
-            if (match(_args, _len, keyWordId_, 2)) {
-                int offset_ = className.indexOf('(')+1;
-                offset_ += StringExpUtil.getOffset(_args.first());
-                AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
-                String type_ = result_.getResult(_page);
-                partOffsetsBegin.add(result_);
-                String cl_ = StringExpUtil.getIdFromAllTypes(type_);
-                argsRes_ = resolveArguments(false,3, cl_, MethodAccessKind.INSTANCE, _args, _page);
-                if (argsRes_ == null) {
-                    return;
-                }
-                feed_ = MethodId.to(cl_, argsRes_);
-                ko(type_, argsRes_, methodTypes_, _page);
-                processCtor(methodTypes_, vararg_, feed_, type_, _page);
-                return;
-            }
             for (String o: previousResultClass.getNames()) {
                 checkWildCards(o,_page);
             }
@@ -1515,6 +1499,22 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     processRecord(false, _args, _len, _page, new AnaFormattedRootBlock(info_.getOwned(), cl_));
                     return;
                 }
+            }
+            if (match(_args, _len, keyWordId_, 2)) {
+                int offset_ = className.indexOf('(')+1;
+                offset_ += StringExpUtil.getOffset(_args.first());
+                AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
+                String type_ = result_.getResult(_page);
+                partOffsetsBegin.add(result_);
+                String clType_ = StringExpUtil.getIdFromAllTypes(type_);
+                argsRes_ = resolveArguments(false,3, clType_, MethodAccessKind.INSTANCE, _args, _page);
+                if (argsRes_ == null) {
+                    return;
+                }
+                feed_ = MethodId.to(clType_, argsRes_);
+                ko(type_, argsRes_, methodTypes_, _page);
+                processCtor(methodTypes_, vararg_, feed_, type_, _page);
+                return;
             }
             int i_ = 2;
             argsRes_ = resolveArguments(i_, _args, _page);
