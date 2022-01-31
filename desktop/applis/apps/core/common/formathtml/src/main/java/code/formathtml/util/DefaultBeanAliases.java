@@ -107,7 +107,7 @@ public final class DefaultBeanAliases {
     private String aliasMessageSetArgs="setArgs";
     private final BeanAliasParameters beanAliasParameters = new BeanAliasParameters();
 
-    public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
+    public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> files_ = new StringMap<String>();
         StringMap<PrimitiveType> primitiveTypes_ = _content.getPrimTypes().getPrimitiveTypes();
         AliasCore coreNames_ = _content.getCoreNames();
@@ -186,7 +186,6 @@ public final class DefaultBeanAliases {
         file_.append(" ").append("}");
         file_.append("}");
         files_.put(getAliasBean(), file_.toString());
-        _predefinedClasses.add(getAliasBean());
         file_ = new StringBuilder();
         String keys_ = getAliasMapKeys();
         String values_ = getAliasMapValues();
@@ -426,7 +425,6 @@ public final class DefaultBeanAliases {
         file_.append("}");
         file_.append("}");
         files_.put(getAliasStringMapObject(), file_.toString());
-        _predefinedClasses.add(getAliasStringMapObject());
         file_ = new StringBuilder();
         file_.append(public_).append(" ").append(interface_).append(" ")
                 .append(aliasValidator).append("{");
@@ -442,8 +440,6 @@ public final class DefaultBeanAliases {
         file_.append(endLine_);
         file_.append("}");
         files_.put(aliasValidator, file_.toString());
-        _predefinedInterfacesInitOrder.add(aliasValidator);
-        _predefinedClasses.add(aliasValidator);
         return files_;
     }
     private static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _params) {

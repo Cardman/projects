@@ -4,7 +4,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.fwd.blocks.ExecClassContent;
 import code.expressionlanguage.fwd.blocks.ExecRootBlockContent;
 
-public final class ExecClassBlock extends ExecRootBlock implements ExecUniqueRootedBlock {
+public final class ExecClassBlock extends ExecRootBlock {
 
     private final ExecClassContent classContent;
 

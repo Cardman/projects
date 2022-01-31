@@ -9843,7 +9843,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static int countCustomTypes(AnalyzedTestContext _cont) {
         int count_ = 0;
         for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (!StringUtil.contains(_cont.getAnalyzing().getPredefinedClasses(), r.getFullName())) {
+            if (!r.getFile().isPredefined()) {
                 count_++;
             }
         }
@@ -9872,7 +9872,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private static RootBlock getCustomTypes(AnalyzedTestContext _cont, int _i) {
         int count_ = 0;
         for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (StringUtil.contains(_cont.getAnalyzing().getPredefinedClasses(), r.getFullName())) {
+            if (r.getFile().isPredefined()) {
                 continue;
             }
             if (count_ == _i) {

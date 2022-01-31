@@ -43,9 +43,7 @@ public final class AnalyzedPageEl {
     private static final int DEFAULT_TAB_WIDTH = 4;
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
-    private final StringList predefinedClasses = new StringList();
 
-    private final StringList predefinedInterfacesInitOrder = new StringList();
     private AbstractConstantsCalculator calculator;
     private AbstractFileBuilder fileBuilder;
     private StringMap<String> resources;
@@ -242,10 +240,7 @@ public final class AnalyzedPageEl {
 
     public StringMap<String> buildFiles(){
         AbstractFileBuilder fileBuilder_ = getFileBuilder();
-        StringMap<String> m_ = fileBuilder_.buildFiles(keyWords);
-        predefinedClasses.addAllElts(fileBuilder_.getPredefinedClasses());
-        predefinedInterfacesInitOrder.addAllElts(fileBuilder_.getPredefinedInterfacesInitOrder());
-        return m_;
+        return fileBuilder_.buildFiles(keyWords);
     }
     public StringMap<StandardType> getStandardsTypes() {
         return content.getStandards();
@@ -1280,14 +1275,6 @@ public final class AnalyzedPageEl {
 
     public IdMap<RootBlock, ClassMethodIdReturn> getRandCodes() {
         return randCodes;
-    }
-
-    public StringList getPredefinedClasses() {
-        return predefinedClasses;
-    }
-
-    public StringList getPredefinedInterfacesInitOrder() {
-        return predefinedInterfacesInitOrder;
     }
 
     public AbstractConstantsCalculator getCalculator() {

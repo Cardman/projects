@@ -4,20 +4,16 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundConstructor;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
-import code.util.IdList;
 
 public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
 
     private final CustList<ExecNamedFieldContent> named;
     private final CustList<Argument> args;
-    private final IdList<ExecRootBlock> visited = new IdList<ExecRootBlock>();
     public NewRecordPageEl(CustList<ExecNamedFieldContent> _named, CustList<Argument> _args, ExecFormattedRootBlock _global) {
         super(_global);
         named = _named;
@@ -25,17 +21,6 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
     }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {
-        ExecRootBlock blockRootType_ = getBlockRootType();
-        for (ExecFormattedRootBlock f : blockRootType_.getInstanceInitImportedInterfaces()) {
-            ExecRootBlock r_ = f.getRootBlock();
-            if (visited.containsObj(r_)) {
-                continue;
-            }
-            visited.add(r_);
-            Argument global_ = getGlobalArgument();
-            _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(f), r_.getEmptyCtorPair(), global_));
-            return;
-        }
         if (!checkCondition(_stack)) {
             return;
         }

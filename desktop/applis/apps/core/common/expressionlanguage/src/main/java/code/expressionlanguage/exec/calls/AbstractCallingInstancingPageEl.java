@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.NotInitializedFields;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.util.IdList;
 
 
 public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl implements ForwardPageEl {
@@ -16,6 +17,7 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     private boolean calledImplicitConstructor;
 
     private boolean firstField;
+    private final IdList<ExecRootBlock> visited = new IdList<ExecRootBlock>();
 
     protected AbstractCallingInstancingPageEl(ExecFormattedRootBlock _global) {
         super(_global);
@@ -27,16 +29,24 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
 
     public final boolean checkCondition(StackCall _stack) {
         ExecRootBlock blockRootType_ = getBlockRootType();
-        if (blockRootType_ instanceof ExecUniqueRootedBlock) {
-            //class or enum (included inner enum)
-            ExecFormattedRootBlock formattedSuperClass_ = blockRootType_.getFormattedSuperClass();
-            if (!calledImplicitConstructor && formattedSuperClass_ != null) {
-                calledImplicitConstructor = true;
-                Argument global_ = getGlobalArgument();
-                _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), formattedSuperClass_.getRootBlock().getEmptyCtorPair(), global_));
-                return false;
+        //class or enum (included inner enum)
+        ExecFormattedRootBlock formattedSuperClass_ = blockRootType_.getFormattedSuperClass();
+        if (!calledImplicitConstructor && formattedSuperClass_ != null) {
+            calledImplicitConstructor = true;
+            Argument global_ = getGlobalArgument();
+            _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(formattedSuperClass_), formattedSuperClass_.getRootBlock().getEmptyCtorPair(), global_));
+            return false;
+        }
+        //the super constructor is called here
+        for (ExecFormattedRootBlock f : blockRootType_.getInstanceInitImportedInterfaces()) {
+            ExecRootBlock r_ = f.getRootBlock();
+            if (visited.containsObj(r_)) {
+                continue;
             }
-            //the super constructor is called here
+            visited.add(r_);
+            Argument global_ = getGlobalArgument();
+            _stack.setCallingState(new CustomFoundConstructor(_stack.formatVarType(f), r_.getEmptyCtorPair(), global_));
+            return false;
         }
         ExecBlock blockRoot_ = getBlockRoot();
         ExecBlock bl_ = null;
@@ -75,12 +85,13 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
 
     public void blockRootTypes(ExecTypeFunction _pair) {
         ExecRootBlock type_ = _pair.getType();
-        setBlockRootTypes(type_);
         setBlockRoot(_pair.getFct());
-        fileOffset(type_);
+        fileTypeOffset(type_);
     }
 
-    public void setBlockRootTypes(ExecRootBlock _blockRootType) {
-        setBlockRootType(_blockRootType);
+    public void fileTypeOffset(ExecRootBlock _type) {
+        setFile(_type.getFile());
+        globalOffset(_type.getIdRowCol());
+        setBlockRootType(_type);
     }
 }

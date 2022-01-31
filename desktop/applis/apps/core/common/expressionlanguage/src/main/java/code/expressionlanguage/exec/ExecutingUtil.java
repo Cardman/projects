@@ -193,8 +193,7 @@ public final class ExecutingUtil {
         page_.setReturnedArgument(argGl_);
         ReadWrite rw_ = new ReadWrite();
         page_.setReadWrite(rw_);
-        page_.fileOffset(_type);
-        page_.setBlockRootTypes(_type);
+        page_.fileTypeOffset(_type);
         return page_;
     }
     private static AbstractPageEl createForwardingInstancing(ContextEl _context, CustomFoundConstructor _e) {

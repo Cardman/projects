@@ -884,7 +884,7 @@ public final class CustAliases {
         stdcl_ = new StandardClass(aliasConcurrentError, fields_, constructors_, methods_, _content.getCoreNames().getAliasError(), StdClassModifier.ABSTRACT);
         _content.getStandards().addEntry(aliasConcurrentError, stdcl_);
     }
-    public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
+    public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
         String content_ = properties.getVal("resources_lg/threads/runnable.txt");
         StringMap<PrimitiveType> primitiveTypes_ = _content.getPrimTypes().getPrimitiveTypes();
@@ -917,9 +917,7 @@ public final class CustAliases {
         map_.put("{void}", coreNames_.getAliasVoid());
         map_.put("{run}", aliasRun);
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasRunnable);
         stds_.put(aliasRunnable, content_);
-        _predefinedInterfacesInitOrder.add(aliasRunnable);
         content_ = properties.getVal("resources_lg/collections/list.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -966,11 +964,7 @@ public final class CustAliases {
         map_.put("{iterator}", predefTypes_.getAliasIterator());
         map_.put("{clear}",aliasListClear);
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasCustIterator);
-        _predefinedClasses.add(aliasList);
         stds_.put(aliasList, content_);
-        _predefinedInterfacesInitOrder.add(aliasCustIterator);
-        _predefinedInterfacesInitOrder.add(aliasList);
         content_ = properties.getVal("resources_lg/collections/table.txt");
         map_.put("{CustPair}",aliasCustPair);
         map_.put("{Pair}",predefTypes_.getAliasPairType());
@@ -1024,13 +1018,7 @@ public final class CustAliases {
         map_.put("{removeTa}",aliasRemoveTa);
         map_.put("{iteratorTable}",predefTypes_.getAliasIteratorTable());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasCustPair);
-        _predefinedClasses.add(aliasCustIterTable);
-        _predefinedClasses.add(aliasTable);
         stds_.put(aliasTable, content_);
-        _predefinedInterfacesInitOrder.add(aliasCustPair);
-        _predefinedInterfacesInitOrder.add(aliasCustIterTable);
-        _predefinedInterfacesInitOrder.add(aliasTable);
 
         content_ = properties.getVal("resources_lg/tests/run.txt");
         map_.put("{a}",tr("a", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
@@ -1412,27 +1400,7 @@ public final class CustAliases {
         map_.put("{tps3}",custAliasParameters.getAliasExecute1ExecuteSetupError2());
         content_ = StringUtil.formatQuote(content_, map_);
 
-        _predefinedClasses.add(aliasInfoTest);
-        _predefinedClasses.add(aliasDifference);
-        _predefinedClasses.add(aliasAssert);
-        _predefinedClasses.add(aliasParameters);
-        _predefinedClasses.add(aliasBefore);
-        _predefinedClasses.add(aliasAfter);
-        _predefinedClasses.add(aliasTest);
-        _predefinedClasses.add(aliasExecutedTest);
-        _predefinedClasses.add(aliasResult);
-        _predefinedClasses.add(aliasExecute);
         stds_.put(aliasExecute, content_);
-        _predefinedInterfacesInitOrder.add(aliasInfoTest);
-        _predefinedInterfacesInitOrder.add(aliasDifference);
-        _predefinedInterfacesInitOrder.add(aliasAssert);
-        _predefinedInterfacesInitOrder.add(aliasParameters);
-        _predefinedInterfacesInitOrder.add(aliasBefore);
-        _predefinedInterfacesInitOrder.add(aliasAfter);
-        _predefinedInterfacesInitOrder.add(aliasTest);
-        _predefinedInterfacesInitOrder.add(aliasExecutedTest);
-        _predefinedInterfacesInitOrder.add(aliasResult);
-        _predefinedInterfacesInitOrder.add(aliasExecute);
         content_ = properties.getVal("resources_lg/threads/formatting.txt");
         map_.put("{Format}",aliasFormatType);
         map_.put("{int}", int_);
@@ -1444,9 +1412,7 @@ public final class CustAliases {
         map_.put("{print}",getAliasPrint());
         map_.put("{format}",charSeq_.getAliasFormat());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasFormatType);
         stds_.put(aliasFormatType, content_);
-        _predefinedInterfacesInitOrder.add(aliasFormatType);
         return stds_;
     }
     public void messages(AnalysisMessages _mess,String _lang, StringMap<String> _cust) {

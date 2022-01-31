@@ -254,11 +254,6 @@ public abstract class AbstractPageEl {
     public void setBlockRoot(ExecBlock _execBlockRoot) {
         blockRoot = _execBlockRoot;
     }
-
-    public void fileOffset(ExecRootBlock _type) {
-        setFile(_type.getFile());
-        globalOffset(_type.getIdRowCol());
-    }
     public void globalOffset(int _offset) {
         setOffset(0);
         setGlobalOffset(_offset);

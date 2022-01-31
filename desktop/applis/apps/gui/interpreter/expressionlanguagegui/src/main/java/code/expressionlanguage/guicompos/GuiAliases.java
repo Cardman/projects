@@ -854,7 +854,7 @@ public final class GuiAliases {
     private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
     private final StringMap<String> propertiesGui = MessCdmGuiGr.ms();
 
-    public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content, StringList _predefinedClasses, StringList _predefinedInterfacesInitOrder) {
+    public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
         String content_ = res("resources_lg_gui/action_event.txt");
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
@@ -889,9 +889,7 @@ public final class GuiAliases {
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{e}", guiAliasParameters.getAliasActionListener0ActionPerformed0());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasActionListener);
         stds_.put(aliasActionListener, content_);
-        _predefinedInterfacesInitOrder.add(aliasActionListener);
         content_ = res("resources_lg_gui/change_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -900,9 +898,7 @@ public final class GuiAliases {
         map_.put("{stateChanged}", aliasStateChanged);
         map_.put("{void}", co_.getAliasVoid());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasChangeListener);
         stds_.put(aliasChangeListener, content_);
-        _predefinedInterfacesInitOrder.add(aliasChangeListener);
         content_ = res("resources_lg_gui/tree_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -913,9 +909,7 @@ public final class GuiAliases {
         map_.put("{void}", co_.getAliasVoid());
         map_.put("{e}", guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasTreeListener);
         stds_.put(aliasTreeListener, content_);
-        _predefinedInterfacesInitOrder.add(aliasTreeListener);
         content_ = res("resources_lg_gui/table_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -927,9 +921,7 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasTableListener0TableValueTableChanged0());
         map_.put("{f}", guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasTableListener);
         stds_.put(aliasTableListener, content_);
-        _predefinedInterfacesInitOrder.add(aliasTableListener);
         content_ = res("resources_lg_gui/mouse_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -952,9 +944,7 @@ public final class GuiAliases {
         map_.put("{f}", guiAliasParameters.getAliasMouseListener0MouseDragged0());
         map_.put("{g}", guiAliasParameters.getAliasMouseListener0MouseMoved0());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasMouseListener);
         stds_.put(aliasMouseListener, content_);
-        _predefinedInterfacesInitOrder.add(aliasMouseListener);
         content_ = res("resources_lg_gui/wheel_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -965,9 +955,7 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasWheelListener0WheelMove0());
         map_.put("{void}", co_.getAliasVoid());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasWheelListener);
         stds_.put(aliasWheelListener, content_);
-        _predefinedInterfacesInitOrder.add(aliasWheelListener);
         content_ = res("resources_lg_gui/key_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -982,9 +970,7 @@ public final class GuiAliases {
         map_.put("{b}", guiAliasParameters.getAliasKeyListener0KeyTyped0());
         map_.put("{c}", guiAliasParameters.getAliasKeyListener0KeyReleased0());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasKeyListener);
         stds_.put(aliasKeyListener, content_);
-        _predefinedInterfacesInitOrder.add(aliasKeyListener);
         content_ = res("resources_lg_gui/window_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -1007,9 +993,7 @@ public final class GuiAliases {
         map_.put("{f}", guiAliasParameters.getAliasWindowListener0WindowActivated0());
         map_.put("{g}", guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasWindowListener);
         stds_.put(aliasWindowListener, content_);
-        _predefinedInterfacesInitOrder.add(aliasWindowListener);
         content_ = res("resources_lg_gui/list_event.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -1021,9 +1005,7 @@ public final class GuiAliases {
         map_.put("{e}", guiAliasParameters.getAliasListSelection0ValueChanged0());
         map_.put("{f}", guiAliasParameters.getAliasListSelection0ValueChanged1());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasListSelection);
         stds_.put(aliasListSelection, content_);
-        _predefinedInterfacesInitOrder.add(aliasListSelection);
         content_ = res("resources_lg_gui/repaint.txt");
         map_ = new StringMap<String>();
         map_.put("{public}", public_);
@@ -1431,9 +1413,7 @@ public final class GuiAliases {
         map_.put("{dispose}",aliasImageDispose);
         map_.put("{boolean}",primTypes_.getAliasPrimBoolean());
         content_ = StringUtil.formatQuote(content_, map_);
-        _predefinedClasses.add(aliasPaint);
         stds_.put(aliasPaint, content_);
-        _predefinedInterfacesInitOrder.add(aliasPaint);
         return stds_;
     }
 

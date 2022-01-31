@@ -18,7 +18,7 @@ public class CustBeanFileBuilder extends BeanFileBuilder {
     @Override
     public StringMap<String> buildFiles(KeyWords _keyWords) {
         StringMap<String> m_ = super.buildFiles(_keyWords);
-        for (EntryCust<String,String> e:custAliases.buildFiles(_keyWords, getContent(), getPredefinedClasses(), getPredefinedInterfacesInitOrder()).entryList()) {
+        for (EntryCust<String,String> e:custAliases.buildFiles(_keyWords, getContent()).entryList()) {
             m_.addEntry(e.getKey(),e.getValue());
         }
         return m_;

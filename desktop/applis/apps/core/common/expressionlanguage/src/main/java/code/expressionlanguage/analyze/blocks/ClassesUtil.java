@@ -1355,7 +1355,7 @@ public final class ClassesUtil {
                             r.addNameErrors(enum_);
                         }
                     }
-                    if (r instanceof InterfaceBlock || r instanceof RecordBlock) {
+                    if (r instanceof InterfaceBlock) {
                         if (!(s_ instanceof InterfaceBlock)) {
                             FoundErrorInterpret enum_;
                             enum_ = new FoundErrorInterpret();
@@ -2570,6 +2570,9 @@ public final class ClassesUtil {
     }
 
     private static void processInterfaceCtor(RootBlock _cl, CustList<AbsBk> _blocks, AnalyzedPageEl _page) {
+        if (_cl instanceof RecordBlock) {
+            return;
+        }
         boolean hasCtor_ = false;
         for (AbsBk b: _blocks) {
             if (b instanceof ConstructorBlock) {
@@ -2579,35 +2582,16 @@ public final class ClassesUtil {
         }
         StringList filteredCtor_ = new StringList();
         if (_cl instanceof UniqueRootedBlock) {
-            UniqueRootedBlock un_ = (UniqueRootedBlock) _cl;
             StringList all_ = _cl.getAllSuperTypes();
             StringList allCopy_ = new StringList(all_);
-            StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
-            String superClass_ = un_.getImportedDirectGenericSuperClass();
+            String superClass_ = _cl.getImportedDirectGenericSuperClass();
             String superClassId_ = StringExpUtil.getIdFromAllTypes(superClass_);
             RootBlock superType_ = _page.getAnaClassBody(superClassId_);
             if (superType_ instanceof UniqueRootedBlock) {
                 StringUtil.removeAllElements(allCopy_, superType_.getAllSuperTypes());
             }
             for (String i: allCopy_) {
-                RootBlock int_ = _page.getAnaClassBody(i);
-                if (!(int_ instanceof InterfaceBlock)) {
-                    continue;
-                }
-                for (AbsBk b: getDirectChildren(int_)) {
-                    if (b instanceof NamedFunctionBlock) {
-                        continue;
-                    }
-                    if (b instanceof InfoBlock) {
-                        InfoBlock a_ = (InfoBlock) b;
-                        if (!a_.isStaticField()) {
-                            filteredCtor_.add(i);
-                        }
-                    }
-                    if (b instanceof InstanceBlock) {
-                        filteredCtor_.add(i);
-                    }
-                }
+                AnaTypeUtil.feedInst(_page,filteredCtor_,i);
             }
         }
         _page.getNeedInterfaces().clear();

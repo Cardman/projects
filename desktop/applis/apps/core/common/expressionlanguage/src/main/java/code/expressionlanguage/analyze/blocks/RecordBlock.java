@@ -4,7 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.util.IntMap;
 
-public final class RecordBlock extends RootBlock {
+public final class RecordBlock extends RootBlock implements UniqueRootedBlock {
 
     private final boolean mutable;
     private final boolean staticType;

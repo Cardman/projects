@@ -368,24 +368,30 @@ public final class AnaTypeUtil {
         }
         StringList all_ = _c.getAllSuperTypes();
         StringList allCopy_ = new StringList(all_);
-        StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
         StringList filteredStatic_ = new StringList();
         for (String i: allCopy_) {
-            RootBlock int_ = _page.getAnaClassBody(i);
-            for (AbsBk b: ClassesUtil.getDirectChildren(int_)) {
-                if (b instanceof InfoBlock) {
-                    InfoBlock a_ = (InfoBlock) b;
-                    if (a_.isStaticField()) {
-                        continue;
-                    }
-                    filteredStatic_.add(i);
-                }
-                if (b instanceof InstanceBlock) {
-                    filteredStatic_.add(i);
-                }
-            }
+            feedInst(_page, filteredStatic_, i);
         }
         lookForErrors(_page, _c, trimmedInt_, filteredStatic_);
+    }
+
+    public static void feedInst(AnalyzedPageEl _page, StringList _filterInst, String _i) {
+        RootBlock int_ = _page.getAnaClassBody(_i);
+        if (!(int_ instanceof InterfaceBlock)) {
+            return;
+        }
+        for (AbsBk b: ClassesUtil.getDirectChildren(int_)) {
+            if (b instanceof InfoBlock) {
+                InfoBlock a_ = (InfoBlock) b;
+                if (a_.isStaticField()) {
+                    continue;
+                }
+                _filterInst.add(_i);
+            }
+            if (b instanceof InstanceBlock) {
+                _filterInst.add(_i);
+            }
+        }
     }
 
     private static void st(AnalyzedPageEl _page, RootBlock _c) {
@@ -396,7 +402,6 @@ public final class AnaTypeUtil {
         }
         StringList all_ = _c.getAllSuperTypes();
         StringList allCopy_ = new StringList(all_);
-        StringUtil.removeAllElements(allCopy_, _page.getPredefinedInterfacesInitOrder());
         String clName_ = _c.getImportedDirectGenericSuperClass();
         String id_ = StringExpUtil.getIdFromAllTypes(clName_);
         RootBlock superType_ = _page.getAnaClassBody(id_);
