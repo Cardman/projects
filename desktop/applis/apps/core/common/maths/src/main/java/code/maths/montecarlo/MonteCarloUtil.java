@@ -33,31 +33,38 @@ public final class MonteCarloUtil {
         return loi_;
     }
 
-    static CustList<LgInt> randomNumbersSeed(LgInt _lgInt, AbstractGenerator _gene) {
+    static CustList<LgInt> randomNumbersSeed(LgInt _lgInt, AbstractGenerator _gene, CustomSeedGene _cust) {
         CustList<LgInt> numbers_ = new CustList<LgInt>();
         for(int i = IndexConstants.FIRST_INDEX; i < NB_RAND; i++){
 //          numbers_.add(MAX_RANDOM.multiply(randomDouble()));
-            numbers_.add(randomLgInt(_lgInt, _gene));
+            numbers_.add(randomLgInt(_lgInt, _gene, _cust));
         }
         return numbers_;
     }
 
     public static LgInt randomLgInt(LgInt _excludeMax, AbstractGenerator _gene) {
-        return Rate.multiply(randomRate(_gene), new Rate(_excludeMax)).intPart();
+        return randomLgInt(_excludeMax, _gene, new CustomSeedGene());
     }
 
-    private static Rate randomRate(AbstractGenerator _gene) {
-        return new Rate(randomInt(_gene), Integer.MAX_VALUE + 1L);
+    public static LgInt randomLgInt(LgInt _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust) {
+        return Rate.multiply(randomRate(_gene,_cust), new Rate(_excludeMax)).intPart();
     }
 
-    private static int randomInt(AbstractGenerator _gene) {
-        return (int)randomLong(Integer.MAX_VALUE + 1L,_gene);
+    private static Rate randomRate(AbstractGenerator _gene, CustomSeedGene _cust) {
+        return new Rate(randomInt(_gene,_cust), Integer.MAX_VALUE + 1L);
+    }
+
+    private static int randomInt(AbstractGenerator _gene, CustomSeedGene _cust) {
+        return (int)randomLong(Integer.MAX_VALUE + 1L,_gene,_cust);
     }
 
     /**@param _excludeMax the maximum of possible returned values
     @return an long from 0 inclusive to the argument excluded*/
     public static long randomLong(long _excludeMax, AbstractGenerator _gene) {
-        return randomLong(_excludeMax, _gene.pick());
+        return randomLong(_excludeMax, _gene, new CustomSeedGene());
+    }
+    public static long randomLong(long _excludeMax, AbstractGenerator _gene, CustomSeedGene _cust) {
+        return randomLong(_excludeMax, _cust.pick(_gene));
     }
     public static long randomLong(long _excludeMax, double _gene) {
         return (long) (_gene * MathExpUtil.toDouble(_excludeMax));

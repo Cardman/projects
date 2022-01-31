@@ -155,6 +155,15 @@ public class MonteCarloTest extends EquallableMathUtil {
     }
 
     @Test
+    public void randomLong() {
+        assertTrue(MonteCarloUtil.randomLong(2, new DefaultGenerator()) < 2);
+    }
+
+    @Test
+    public void randomLgInt() {
+        assertTrue(MonteCarloUtil.randomLgInt(new LgInt(2), new DefaultGenerator()).ll() < 2);
+    }
+    @Test
     public void editNumber1Test() {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(2L, new LgInt(1));

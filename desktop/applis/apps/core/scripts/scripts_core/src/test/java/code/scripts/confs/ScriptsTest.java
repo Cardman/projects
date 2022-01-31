@@ -67,6 +67,7 @@ public final class ScriptsTest extends EquallableScriptsUtil {
         assertNotNull(MessagesGamesGames.ms());
         assertNotNull(MessagesCardsAll.ms());
         assertNotNull(MessagesGuiGui.ms());
+        assertNotNull(new PageCardsSample().self());
     }
     @Test
     public void pk() {
@@ -88,12 +89,14 @@ public final class ScriptsTest extends EquallableScriptsUtil {
         assertNotNull(MessagesInit.ms());
         assertNotNull(CssInit.ms());
         assertNotNull(MessPkGr.ms());
+        assertNotNull(new PageAikiSample().self());
     }
     @Test
     public void help() {
         assertNotNull(HelpScriptConfPages.infoLg());
         assertNotNull(HelpScriptPages.cf());
         assertNotNull(HelpScriptPagesImgs.ct());
+        assertNotNull(new HelpCardsSample().self());
     }
     @Test
     public void global(){

@@ -2,6 +2,7 @@ package code.expressionlanguage.options;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
@@ -33,6 +34,7 @@ public final class ContextFactory {
     public static void validateStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
                                     CustList<CommentDelimiters> _comments, Options _options, LgNamesContent _content, AnalyzedPageEl _page) {
         if (validatedStds(_fwd, _mess,_definedKw,_comments,_options, _content, _page)) {
+            ParsedArgument.buildCustom(_options,_definedKw);
             _fwd.getGenerator().build();
             ValidatorStandard.setupOverrides(_page);
         }

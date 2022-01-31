@@ -150,6 +150,9 @@ public final class RunningTest implements Runnable {
                     _exec.setSrcFolder(StringUtil.replaceBackSlash(output_));
                 }
             }
+            if (l.startsWith("seed=")) {
+                _options.setSeedElts(l.substring("seed=".length()));
+            }
             if (l.startsWith("impl=")) {
                 _options.setDisplayImplicit(true);
             }

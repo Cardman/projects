@@ -20,15 +20,15 @@ public final class FctMathEval extends FctMath {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         Struct st_ = argumentWrappers_.get(0).getValue().getStruct();
         Struct seps_ = argumentWrappers_.get(1).getValue().getStruct();
-        return eval(st_, seps_, _cont);
+        return eval(st_, seps_, _cont, _stackCall);
     }
 
 
-    private static ArgumentWrapper eval(Struct _st, Struct _seps, ContextEl _context) {
+    private static ArgumentWrapper eval(Struct _st, Struct _seps, ContextEl _context, StackCall _stackCall) {
         LgNames lgNames_ = _context.getStandards();
         AbstractGenerator generator_ = lgNames_.getGenerator();
         String val_ = NumParsers.getStringValue(_st);
         CustList<Replacement> repls_ = NumParsers.getReplValue(_seps);
-        return new ArgumentWrapper(new StringStruct(MaParser.processEl(generator_,val_,repls_)));
+        return new ArgumentWrapper(new StringStruct(MaParser.processEl(generator_,_stackCall.getSeedCust(),val_,repls_)));
     }
 }

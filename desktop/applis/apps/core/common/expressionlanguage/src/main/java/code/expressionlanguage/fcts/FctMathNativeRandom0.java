@@ -12,6 +12,6 @@ public final class FctMathNativeRandom0 extends FctMath {
     @Override
     public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractGenerator generator_ = _cont.getStandards().getGenerator();
-        return new ArgumentWrapper(new DoubleStruct(generator_.pick()));
+        return new ArgumentWrapper(new DoubleStruct(_stackCall.getSeedCust().pick(generator_)));
     }
 }

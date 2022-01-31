@@ -124,7 +124,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             MaRateStruct m_ = (MaRateStruct) all_.last();
             Rate max_ = m_.getRate();
             if (law_.nbEvents() > 0 && max_.isInteger() && max_.isZeroOrGt()) {
-                setStruct(new MaRateStruct(law_.editNumber(max_.intPart(), mapping.getGenerator())));
+                setStruct(new MaRateStruct(law_.editNumber(max_.intPart(), mapping.getGenerator(), mapping.getCust())));
                 return;
             }
         }
@@ -132,7 +132,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             MaMonteCarloNumberStruct v_ = (MaMonteCarloNumberStruct) all_.first();
             MonteCarloNumber law_ = v_.getLaw();
             if (law_.nbEvents() > 0) {
-                setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
+                setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust())));
                 return;
             }
         }
@@ -152,7 +152,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             law_.addQuickEvent(pair_.getEvent(),pair_.getFreq());
         }
         if (law_.nbEvents() > 0) {
-            setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
+            setStruct(new MaRateStruct(law_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust())));
             return;
         }
         MonteCarloNumber lawSimple_ = new MonteCarloNumber();
@@ -166,7 +166,7 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             lawSimple_.addQuickEvent(((MaRateStruct)value_).getRate(),LgInt.one());
         }
         if (allEvts_&&lawSimple_.nbEvents() > 0) {
-            setStruct(new MaRateStruct(lawSimple_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator())));
+            setStruct(new MaRateStruct(lawSimple_.editNumber(LgInt.getMaxLongPlusOne(), mapping.getGenerator(), mapping.getCust())));
             return;
         }
         _error.setOffset(getIndexExp()+operOff);

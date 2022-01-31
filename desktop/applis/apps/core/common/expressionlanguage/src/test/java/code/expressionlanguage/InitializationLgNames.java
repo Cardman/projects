@@ -1,6 +1,7 @@
 package code.expressionlanguage;
 
 import code.expressionlanguage.analyze.*;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -63,6 +64,7 @@ public final class InitializationLgNames {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgNames.getContent());
         Forwards forwards_ = new Forwards(_lgNames, fileBuilder_, _opt);
         ContextFactory.validatedStds(forwards_, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgNames.getContent(), page_);
+        ParsedArgument.buildCustom(_opt,_kw);
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
         Assert.assertTrue(page_.isEmptyStdError());

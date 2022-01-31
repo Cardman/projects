@@ -7,11 +7,14 @@ import code.util.ints.Listable;
 public abstract class AbMonteCarlo<E> implements IntMonteCarlo {
 
     public E editNumber(LgInt _lgInt,AbstractGenerator _gene) {
+        return editNumber(_lgInt, _gene, new CustomSeedGene());
+    }
+    public E editNumber(LgInt _lgInt,AbstractGenerator _gene, CustomSeedGene _cust) {
         Listable<E> cles_ = events();
         if(cles_.size() == IndexConstants.SECOND_INDEX - IndexConstants.FIRST_INDEX){
             return cles_.first();
         }
-        return editNumberSeed(MonteCarloUtil.randomNumberSe(MonteCarloUtil.randomNumbersSeed(_lgInt,_gene),_lgInt));
+        return editNumberSeed(MonteCarloUtil.randomNumberSe(MonteCarloUtil.randomNumbersSeed(_lgInt,_gene,_cust),_lgInt));
     }
 
     E editNumberSeed(LgInt _randomNumber) {

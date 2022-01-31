@@ -4,6 +4,7 @@ import code.maths.EquallableMathUtil;
 import code.maths.Rate;
 import code.maths.geo.*;
 import code.maths.litteralcom.StrTypes;
+import code.maths.montecarlo.CustomSeedGene;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.CustList;
 import code.util.IdList;
@@ -3921,6 +3922,6 @@ public final class MaParserTest extends EquallableMathUtil {
     }
 
     private static String processEl(String _el, CustList<Replacement> _conf) {
-        return MaParser.processEl(new DefaultGenerator(),_el, _conf);
+        return MaParser.processEl(new DefaultGenerator(),new CustomSeedGene(),_el, _conf);
     }
 }

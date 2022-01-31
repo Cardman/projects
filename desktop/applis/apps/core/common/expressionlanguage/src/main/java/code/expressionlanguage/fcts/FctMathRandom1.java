@@ -77,6 +77,6 @@ public final class FctMathRandom1 extends FctMath {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
-        return new ArgumentWrapper(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(_args).longStruct(),generator_)));
+        return new ArgumentWrapper(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(_args).longStruct(),generator_,_stackCall.getSeedCust())));
     }
 }

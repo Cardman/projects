@@ -461,6 +461,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return validateAndRet(_files, cont_);
     }
 
+    protected static ContextEl ctxOkReadSeed(StringMap<String> _files, String _seed) {
+        AnalyzedTestContext cont_ = ctxReadOnlyAnaSeed(_seed);
+        return validateAndRet(_files, cont_);
+    }
+
     private static ContextEl validateAndRet(StringMap<String> _files, AnalyzedTestContext _cont) {
         ContextEl ctx_ = validateAll(_files, _cont);
         assertTrue(isEmptyErrors(_cont));
@@ -526,6 +531,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static AnalyzedTestContext ctxAna(String... _types) {
         Options opt_ = newOptions();
         addTypesInit(opt_, _types);
+        return InitializationLgNames.buildStdOneAna(opt_);
+    }
+
+    protected static AnalyzedTestContext ctxReadOnlyAnaSeed(String _seed) {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setSeedElts(_seed);
         return InitializationLgNames.buildStdOneAna(opt_);
     }
 

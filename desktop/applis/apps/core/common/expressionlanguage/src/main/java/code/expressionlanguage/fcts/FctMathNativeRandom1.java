@@ -14,6 +14,6 @@ public final class FctMathNativeRandom1 extends FctMath {
     @Override
     public ArgumentWrapper alea(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AbstractGenerator generator_ = _cont.getStandards().getGenerator();
-        return new ArgumentWrapper(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).longStruct(),generator_)));
+        return new ArgumentWrapper(new LongStruct(MonteCarloUtil.randomLong(NumParsers.convertToNumber(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct()).longStruct(),generator_,_stackCall.getSeedCust())));
     }
 }

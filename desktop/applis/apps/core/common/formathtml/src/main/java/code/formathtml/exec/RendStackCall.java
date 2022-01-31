@@ -8,6 +8,7 @@ import code.formathtml.FormParts;
 import code.formathtml.HtmlPage;
 import code.formathtml.ImportingPage;
 import code.formathtml.SimplePageEl;
+import code.maths.montecarlo.CustomSeedGene;
 import code.sml.Document;
 import code.util.CustList;
 
@@ -27,7 +28,11 @@ public final class RendStackCall {
     private final StackCall stackCall;
 
     public RendStackCall(InitPhase _readOnlyOthers, ContextEl _ctx) {
-        stackCall = StackCall.newInstance(_readOnlyOthers, _ctx);
+        this(_readOnlyOthers,_ctx,new CustomSeedGene());
+    }
+
+    public RendStackCall(InitPhase _readOnlyOthers, ContextEl _ctx, CustomSeedGene _cust) {
+        stackCall = StackCall.newInstance(_readOnlyOthers, _ctx,_cust);
     }
 
     public void init() {

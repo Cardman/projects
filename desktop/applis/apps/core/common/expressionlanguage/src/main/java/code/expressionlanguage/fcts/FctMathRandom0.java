@@ -70,6 +70,6 @@ public final class FctMathRandom0 extends FctMath {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         AbstractGenerator generator_ = lgNames_.getGenerator();
-        return new ArgumentWrapper(new DoubleStruct(generator_.pick()));
+        return new ArgumentWrapper(new DoubleStruct(_stackCall.getSeedCust().pick(generator_)));
     }
 }

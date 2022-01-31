@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 
 public final class StackCall {
@@ -22,16 +23,22 @@ public final class StackCall {
     private Struct seedSpecGenerator;
     private Struct seedSpecDoubleGenerator;
     private Struct seed;
-    public StackCall(InitPhase _readOnlyOthers) {
+    private final CustomSeedGene seedCust;
+    public StackCall(InitPhase _readOnlyOthers, CustomSeedGene _seedCust) {
         initializingTypeInfos = new InitializingTypeInfos();
         initializingTypeInfos.setInitEnums(_readOnlyOthers);
         seedSpecGenerator = NullStruct.NULL_VALUE;
         seedSpecDoubleGenerator = NullStruct.NULL_VALUE;
         seed = NullStruct.NULL_VALUE;
+        this.seedCust = _seedCust;
     }
 
     public static StackCall newInstance(InitPhase _readOnlyOthers, ContextEl _ctx) {
-        StackCall st_ = new StackCall(_readOnlyOthers);
+        return newInstance(_readOnlyOthers, _ctx, _ctx.getExecutionInfos().getSeed());
+    }
+
+    public static StackCall newInstance(InitPhase _readOnlyOthers, ContextEl _ctx, CustomSeedGene _seed) {
+        StackCall st_ = new StackCall(_readOnlyOthers,CustomSeedGene.copy(_seed));
         st_.setFullStack(new DefaultFullStack(_ctx));
         return st_;
     }
@@ -118,6 +125,10 @@ public final class StackCall {
 
     public void setSeed(Struct _seed) {
         this.seed = _seed;
+    }
+
+    public CustomSeedGene getSeedCust() {
+        return seedCust;
     }
 
     public CallingState getCallingState() {

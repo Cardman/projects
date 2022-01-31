@@ -3,6 +3,7 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
 import code.expressionlanguage.stds.LgNames;
+import code.maths.montecarlo.CustomSeedGene;
 
 public final class CommonExecutionInfos {
 
@@ -10,6 +11,7 @@ public final class CommonExecutionInfos {
     private final int tabWidth;
 
     private final int stackOverFlow;
+    private final CustomSeedGene seed;
     private final LgNames standards;
     private final Classes classes;
     private final Coverage coverage;
@@ -24,6 +26,7 @@ public final class CommonExecutionInfos {
         this.caller = _caller;
         this.tabWidth = _metrics.getTabWidth();
         this.stackOverFlow = _metrics.getStackOverFlow();
+        this.seed = _metrics.getSeed();
         this.standards = _standards;
         this.classes = _classes;
         this.coverage = _coverage;
@@ -41,6 +44,10 @@ public final class CommonExecutionInfos {
 
     public int getStackOverFlow() {
         return stackOverFlow;
+    }
+
+    public CustomSeedGene getSeed() {
+        return seed;
     }
 
     public LgNames getStandards() {

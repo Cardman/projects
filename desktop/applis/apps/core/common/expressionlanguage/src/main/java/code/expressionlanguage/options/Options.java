@@ -2,6 +2,7 @@ package code.expressionlanguage.options;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.DefaultAccess;
+import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -18,6 +19,8 @@ public final class Options {
     private final DefaultAccess defaultAccess = new DefaultAccess();
     private int tabWidth = 4;
     private int stack = -1;
+    private String seedElts = "";
+    private CustomSeedGene seedGene = new CustomSeedGene();
 
     public StringList getTypesInit() {
         return typesInit;
@@ -93,5 +96,21 @@ public final class Options {
 
     public void setStack(int _stack) {
         this.stack = _stack;
+    }
+
+    public String getSeedElts() {
+        return seedElts;
+    }
+
+    public void setSeedElts(String _seedElts) {
+        this.seedElts = _seedElts;
+    }
+
+    public CustomSeedGene getSeedGene() {
+        return seedGene;
+    }
+
+    public void setSeedGene(CustomSeedGene _seedGene) {
+        this.seedGene = _seedGene;
     }
 }
