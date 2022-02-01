@@ -87,7 +87,6 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
             out.write(_array,0,Math.max(0,read_));
             return read_;
         } catch (Exception e) {
-            e.printStackTrace();
             return -2;
         }
     }
