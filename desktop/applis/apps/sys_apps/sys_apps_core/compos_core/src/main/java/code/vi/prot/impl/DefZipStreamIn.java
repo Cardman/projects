@@ -57,6 +57,7 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
     @Override
     public void close() {
         StreamCoreUtil.close(zipIn);
+        StreamCoreUtil.close(out);
     }
 
     @Override
