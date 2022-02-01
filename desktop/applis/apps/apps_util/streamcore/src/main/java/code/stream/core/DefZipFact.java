@@ -31,7 +31,7 @@ public final class DefZipFact implements AbstractZipFact {
                 continue;
             }
             long size_ = zis_.getSize();
-            byte[] bytes_ = new byte[Math.max((int) size_,0)];
+            byte[] bytes_ = new byte[Math.max((int) size_,_bytes.length)];
             int i = 0;
             while (i < bytes_.length) {
                 int read_ = zis_.read(bytes_, i, bytes_.length - i);
