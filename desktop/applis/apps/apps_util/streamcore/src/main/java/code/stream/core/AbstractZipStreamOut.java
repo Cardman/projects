@@ -7,5 +7,5 @@ public interface AbstractZipStreamOut {
     void close();
     byte[] byteArray();
 
-    boolean putNextEntry(String _key, long _lastModifTime);
+    boolean putNextEntry(String _key, long _lastModifTime, long _size);
 }

@@ -40,10 +40,11 @@ public final class DefZipStreamOut implements AbstractZipStreamOut {
     }
 
     @Override
-    public boolean putNextEntry(String _key, long _lastModifTime) {
+    public boolean putNextEntry(String _key, long _lastModifTime, long _size) {
         try {
             ZipEntry e_ = new ZipEntry(_key);
             e_.setTime(_lastModifTime);
+            e_.setSize(_size);
             zipOut.putNextEntry(e_);
             return true;
         } catch (Exception e) {
