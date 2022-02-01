@@ -601,12 +601,9 @@ public final class ElRetrieverAnonymous {
         return i_;
     }
 
-    private static int indexAfterPossibleCastQuick(String _string, int _from, Ints _callings) {
+    private static int indexAfterPossibleCastQuick(String _string, int _from, Ints _callings, KeyWords _keyWords) {
         int indexParRight_ = _string.indexOf(ElResolver.PAR_RIGHT, _from +1);
         if (indexParRight_ < 0) {
-            return _from;
-        }
-        if (indexParRight_ + 1 >= _string.length()) {
             return _from;
         }
         if (_callings.containsObj(_from)) {
@@ -616,12 +613,15 @@ public final class ElRetrieverAnonymous {
         String sub_ = _string.substring(_from + 1, indexParRight_);
         String subTrim_ = sub_.trim();
         int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
+        if (next_ < 0 || StringExpUtil.startsWithKeyWord(_string, next_, _keyWords.getKeyWordInstanceof())) {
+            return _from;
+        }
         for (String s: StringUtil.wrapStringArray("+=","-=",
                 "*=","/=","%=",
                 "^=","&=","|=",
                 "||","&&","?",":",
                 "<",">",",","->",
-                "!=","=",")","]","}")) {
+                "!=","=",")","[","]","}")) {
             if (_string.startsWith(s,next_)) {
                 return _from;
             }
@@ -844,7 +844,7 @@ public final class ElRetrieverAnonymous {
                 }
             }
 
-            int j_ = indexAfterPossibleCastQuick(_string,i_, _stack.getCallings());
+            int j_ = indexAfterPossibleCastQuick(_string,i_, _stack.getCallings(), _page.getKeyWords());
             if (j_ > i_) {
                 return j_;
             }
@@ -1144,7 +1144,7 @@ public final class ElRetrieverAnonymous {
                 }
             }
 
-            int j_ = indexAfterPossibleCastQuick(_string,i_, _stack.getCallings());
+            int j_ = indexAfterPossibleCastQuick(_string,i_, _stack.getCallings(), _page.getKeyWords());
             if (j_ > i_) {
                 return j_;
             }

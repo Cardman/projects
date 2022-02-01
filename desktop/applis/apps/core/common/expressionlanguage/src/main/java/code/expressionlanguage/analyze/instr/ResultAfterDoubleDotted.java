@@ -6,8 +6,6 @@ public final class ResultAfterDoubleDotted {
 
     private int lastDoubleDot;
 
-    private boolean callCtor;
-
     public int getNextIndex() {
         return nextIndex;
     }
@@ -22,14 +20,6 @@ public final class ResultAfterDoubleDotted {
 
     public void setLastDoubleDot(int _lastDoubleDot) {
         lastDoubleDot = _lastDoubleDot;
-    }
-
-    public boolean isCallCtor() {
-        return callCtor;
-    }
-
-    public void setCallCtor(boolean _callCtor) {
-        callCtor = _callCtor;
     }
 
 }

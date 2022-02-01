@@ -10,6 +10,35 @@ import org.junit.Test;
 public final class ProcessMethodInternOptionTypeTest extends ProcessMethodCommon {
 
     @Test
+    public void calculateArgument0Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Outer {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append("  public int field=2;\n");
+        xml_.append("  operator- Inner(Inner i) {\n");
+        xml_.append("   return i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int method(){\n");
+        xml_.append("  Outer.Inner v = (Outer.Inner)-new Outer().new Inner();\n");
+        xml_.append("  return v.field;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/ExFour", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("method");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

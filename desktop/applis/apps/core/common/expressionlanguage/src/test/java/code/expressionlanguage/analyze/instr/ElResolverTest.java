@@ -4277,7 +4277,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "1+$()";
         Delimiters d_ = checkSyntax(conf_, el_);
-        assertEq(5, d_.getBadOffset());
+        assertEq(-1, d_.getBadOffset());
     }
 
     @Test
@@ -4763,7 +4763,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
         String el_ = "1+explicit()";
         Delimiters d_ = checkSyntax(conf_, el_);
-        assertEq(12, d_.getBadOffset());
+        assertEq(-1, d_.getBadOffset());
     }
 
     @Test

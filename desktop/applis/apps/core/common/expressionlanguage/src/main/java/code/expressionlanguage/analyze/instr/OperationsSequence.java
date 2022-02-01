@@ -92,20 +92,20 @@ public final class OperationsSequence {
             if (op_.charAt(0) != DOT_VAR) {
                 if (priority == ElResolver.FCT_OPER_PRIO) {
                     if (op_.charAt(0) != '?') {
-                        int afterLastPar_ = operators.lastKey()+1;
-                        StringBuilder filter_ = new StringBuilder(_string);
-                        for (int i : _nb.getReverse()) {
-                            if (i < afterLastPar_) {
-                                break;
-                            }
-                            filter_.deleteCharAt(i);
-                            countArrays++;
-                        }
-                        countArrays/=2;
-                        if (op_.charAt(0) == ARR && _instance) {
-                            initArrayDim_ = true;
-                        }
                         if (block == null) {
+                            int afterLastPar_ = operators.lastKey()+1;
+                            StringBuilder filter_ = new StringBuilder(_string);
+                            if (op_.charAt(0) == ARR && _instance) {
+                                for (int i : _nb.getReverse()) {
+                                    if (i < afterLastPar_) {
+                                        break;
+                                    }
+                                    filter_.deleteCharAt(i);
+                                    countArrays++;
+                                }
+                                countArrays/=2;
+                                initArrayDim_ = true;
+                            }
                             if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
                                 if (!instance) {
                                     operators.clear();

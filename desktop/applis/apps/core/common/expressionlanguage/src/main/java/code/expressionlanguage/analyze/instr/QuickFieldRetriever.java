@@ -10,7 +10,7 @@ public final class QuickFieldRetriever implements FieldRetriever {
     }
 
     @Override
-    public int processFieldsStaticAccess(boolean _ctorCall, int _begin, String _word, int _to) {
+    public int processFieldsStaticAccess(int _begin, String _word, int _to) {
         VariableInfo info_ = new VariableInfo();
         ConstType type_;
         type_ = ConstType.WORD;
@@ -20,5 +20,10 @@ public final class QuickFieldRetriever implements FieldRetriever {
         info_.setName(_word);
         delimiters.getVariables().add(info_);
         return _to;
+    }
+
+    @Override
+    public int tryGetVarField(int _begin, String _word, int _to) {
+        return _begin;
     }
 }

@@ -43,6 +43,7 @@ public final class Delimiters {
     private final Ints dimsAddonIndexes = new Ints();
     private final Ints delAccessIndexers = new Ints();
     private final Ints delValues = new Ints();
+    private boolean enabledOp = true;
 
     public int getBadOffset() {
         return badOffset;
@@ -199,5 +200,13 @@ public final class Delimiters {
 
     public void setLength(int _length) {
         length = _length;
+    }
+
+    public boolean isEnabledOp() {
+        return enabledOp;
+    }
+
+    public void setEnabledOp(boolean _enabledOp) {
+        this.enabledOp = _enabledOp;
     }
 }
