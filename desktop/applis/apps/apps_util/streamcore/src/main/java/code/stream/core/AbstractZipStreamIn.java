@@ -6,6 +6,7 @@ public interface AbstractZipStreamIn {
     void close();
     int read(byte[] _array,int _off,int _len);
 
+    byte[] getReadBytes();
     String getName();
 
     boolean isDirectory();

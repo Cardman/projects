@@ -30,20 +30,20 @@ public final class DefZipFact implements AbstractZipFact {
                 zis_.closeEntry();
                 continue;
             }
-            long size_ = zis_.getSize();
-            byte[] bytes_ = new byte[Math.max((int) size_,_bytes.length)];
+            byte[] bytes_ = new byte[1];
             int i = 0;
-            while (i < bytes_.length) {
-                int read_ = zis_.read(bytes_, i, bytes_.length - i);
+            while (true) {
+                int read_ = zis_.read(bytes_, 0, bytes_.length);
                 if (read_ <= 0) {
                     break;
                 }
                 i += read_;
             }
-            int maxByte_ = Math.min(i,bytes_.length);
+            byte[] readBytes_ = zis_.getReadBytes();
+            int maxByte_ = Math.min(i,readBytes_.length);
             byte[] copy_ = new byte[maxByte_];
             for (int j = 0; j < maxByte_; j++) {
-                set(bytes_, copy_, j);
+                set(readBytes_, copy_, j);
             }
             ContentTime content_ = new ContentTime(copy_, time_);
             files_.put(name_, content_);
@@ -63,15 +63,15 @@ public final class DefZipFact implements AbstractZipFact {
             ContentTime file_ = n.getValue();
             byte[] content_ = file_.getContent();
             if (content_ != null) {
-                zos_.putNextEntry(n.getKey(),file_.getLastModifTime(),content_.length);
+                zos_.putNextEntry(n.getKey(),file_.getLastModifTime());
                 if (!n.getKey().endsWith("/")) {
                     zos_.write(content_);
                 }
             } else {
                 if (n.getKey().endsWith("/")) {
-                    zos_.putNextEntry(n.getKey(),file_.getLastModifTime(),0);
+                    zos_.putNextEntry(n.getKey(),file_.getLastModifTime());
                 } else {
-                    zos_.putNextEntry(n.getKey() + "/",file_.getLastModifTime(),0);
+                    zos_.putNextEntry(n.getKey() + "/",file_.getLastModifTime());
                 }
             }
             zos_.closeEntry();

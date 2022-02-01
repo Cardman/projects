@@ -3,6 +3,7 @@ package code.vi.prot.impl;
 import code.stream.core.AbstractZipStreamIn;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -12,9 +13,11 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
     private long time;
     private long size;
     private boolean directory;
+    private final ByteArrayOutputStream out;
     public DefZipStreamIn(byte[] _bytes) {
         ByteArrayInputStream bais_ = new ByteArrayInputStream(_bytes);
         zipIn = new ZipInputStream(bais_);
+        out = new ByteArrayOutputStream();
     }
     @Override
     public boolean hasNextEntry() {
@@ -79,10 +82,18 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
     @Override
     public int read(byte[] _array, int _off, int _len) {
         try {
-            return zipIn.read(_array,_off,_len);
+            int read_ = zipIn.read(_array, _off, _len);
+            out.write(_array,0,Math.max(0,read_));
+            return read_;
         } catch (Exception e) {
+            e.printStackTrace();
             return -2;
         }
+    }
+
+    @Override
+    public byte[] getReadBytes() {
+        return out.toByteArray();
     }
 
     private static boolean directory(ZipEntry _current) {
