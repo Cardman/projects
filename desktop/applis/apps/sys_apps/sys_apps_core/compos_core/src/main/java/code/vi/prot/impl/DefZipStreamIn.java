@@ -13,7 +13,7 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
     private long time;
     private long size;
     private boolean directory;
-    private final ByteArrayOutputStream out;
+    private ByteArrayOutputStream out;
     public DefZipStreamIn(byte[] _bytes) {
         ByteArrayInputStream bais_ = new ByteArrayInputStream(_bytes);
         zipIn = new ZipInputStream(bais_);
@@ -30,6 +30,7 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
             time = time(_current);
             size = size(_current);
             directory = directory(_current);
+            out = new ByteArrayOutputStream();
             return true;
         } catch (Exception e) {
             return false;
@@ -48,8 +49,10 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
     public boolean closeEntry() {
         try {
             zipIn.closeEntry();
+            StreamCoreUtil.close(out);
             return true;
         } catch (Exception e) {
+            StreamCoreUtil.close(out);
             return false;
         }
     }
@@ -57,7 +60,6 @@ public final class DefZipStreamIn implements AbstractZipStreamIn {
     @Override
     public void close() {
         StreamCoreUtil.close(zipIn);
-        StreamCoreUtil.close(out);
     }
 
     @Override
