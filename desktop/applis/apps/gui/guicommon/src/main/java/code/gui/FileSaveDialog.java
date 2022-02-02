@@ -51,15 +51,15 @@ public final class FileSaveDialog extends FileDialog implements SingleFileSelect
         getAbsDialog().setAccessFile(DIALOG_ACCESS);
     }
 
-    public static void setFileSaveDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, String... _excludedFolders) {
+    public static void setFileSaveDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath) {
         _w.getFileSaveDialog().dialog = _w.getConfirmDialog();
-        _w.getFileSaveDialog().setFileDialogByFrame(_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
+        _w.getFileSaveDialog().setFileDialogByFrame(_w,_language,_currentFolderRoot,_extension, _folder);
         _w.getFileSaveDialog().initSaveDialog(_w, _homePath);
     }
 
-    public static void setFileSaveDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, GroupFrame _dialog, String... _excludedFolders) {
+    public static void setFileSaveDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String _homePath, GroupFrame _dialog) {
         _dialog.getFileSaveDialog().dialog = _dialog.getConfirmDialog();
-        _dialog.getFileSaveDialog().setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder, _excludedFolders);
+        _dialog.getFileSaveDialog().setFileDialog(_c,_w,_language,_currentFolderRoot,_extension, _folder);
         _dialog.getFileSaveDialog().initSaveDialog(_c, _homePath);
     }
 

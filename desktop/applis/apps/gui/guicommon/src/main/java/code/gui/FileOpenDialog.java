@@ -55,9 +55,9 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         keepSearching = _keepSearching;
         showNewResults = _showNewResults;
     }
-    public static void setFileOpenDialog(GroupFrame _w,String _language,boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
+    public static void setFileOpenDialog(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder) {
         _w.getFileOpenDialog().dialog = _w.getConfirmDialog();
-        _w.getFileOpenDialog().setFileDialogByFrame(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
+        _w.getFileOpenDialog().setFileDialogByFrame(_w, _language, _currentFolderRoot, _extension, _folder);
 //        DIALOG.initFileOpenDialog(_w, _language, _currentFolderRoot, _extension, _folder, _excludedFolders);
         _w.getFileOpenDialog().initFileOpenDialog(_w.getCommonFrame());
     }

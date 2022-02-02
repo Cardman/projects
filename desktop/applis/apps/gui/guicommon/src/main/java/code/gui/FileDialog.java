@@ -102,11 +102,11 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         absDialog.setOwner(_owner);
     }
 
-    protected void setFileDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
-        initByFrame(_w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
+    protected void setFileDialogByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, String _extension, String _folder) {
+        initByFrame(_w,_language,_currentFolderRoot, true, _extension, _folder);
     }
 
-    protected void initByFrame(GroupFrame _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
+    protected void initByFrame(GroupFrame _w, String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder) {
         //super(_w,true);
         absDialog.setDialogIcon(_w.getImageFactory(),_w);
         absDialog.setModal(true);
@@ -115,14 +115,14 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         addTypingFileName = _addTypingFileName;
         folder = _folder;
         superFrame = _w;
-        initDialog(_language, _currentFolderRoot, _excludedFolders);
+        initDialog(_language, _currentFolderRoot);
     }
 
-    protected void setFileDialog(GroupFrame _c,AbsDialog _w,String _language, boolean _currentFolderRoot, String _extension, String _folder, String... _excludedFolders) {
-        initByDialog(_c, _w,_language,_currentFolderRoot, true, _extension, _folder, _excludedFolders);
+    protected void setFileDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, String _extension, String _folder) {
+        initByDialog(_c, _w,_language,_currentFolderRoot, true, _extension, _folder);
     }
 
-    protected void initByDialog(GroupFrame _c,AbsDialog _w,String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder, String... _excludedFolders) {
+    protected void initByDialog(GroupFrame _c, AbsDialog _w, String _language, boolean _currentFolderRoot, boolean _addTypingFileName, String _extension, String _folder) {
         //super(_w,true);
         absDialog.setDialogIcon(_c.getImageFactory(),_w);
         absDialog.setModal(true);
@@ -131,10 +131,10 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
         extension = _extension;
         addTypingFileName = _addTypingFileName;
         folder = _folder;
-        initDialog(_language, _currentFolderRoot, _excludedFolders);
+        initDialog(_language, _currentFolderRoot);
     }
 
-    private void initDialog(String _language, boolean _currentFolderRoot, String... _excludedFolders) {
+    private void initDialog(String _language, boolean _currentFolderRoot) {
         String lg_ = superFrame.getLanguageKey();
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, lg_, DIALOG_ACCESS);
         String loadedResourcesMessages_ = MessGuiGr.ms().getVal(fileName_);
@@ -148,7 +148,7 @@ public abstract class FileDialog implements ChangeableTitle,AbsCloseableDialog {
             String root_ = StringUtil.replaceBackSlash(superFrame.getFileCoreStream().newFile(folder).getAbsolutePath());
             currentFolder = StringUtil.concat(root_,StreamTextFile.SEPARATEUR);
             if (StringUtil.quickEq(currentFolder, StreamFolderFile.getCurrentPath(superFrame.getFileCoreStream()))) {
-                for (String f: _excludedFolders) {
+                for (String f: superFrame.getFrames().getExcludedFolders()) {
                     excludedFolders.add(StringUtil.concat(currentFolder,f));
                 }
             }

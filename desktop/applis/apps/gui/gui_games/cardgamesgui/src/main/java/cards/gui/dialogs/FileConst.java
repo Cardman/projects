@@ -6,9 +6,7 @@ public final class FileConst {
 
     public static final String PORT_INI = "cards_port.ini";
 
-    public static final String EXCLUDED = "jre";
-
-//    public static final String SUITS_PNG = "suits.png";
+    //    public static final String SUITS_PNG = "suits.png";
 
     public static final String SUITS_TXT = "suits.txt";
 

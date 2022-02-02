@@ -4,6 +4,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.AbsGroupFrame;
+import code.stream.StreamTextFile;
 import code.vi.prot.impl.*;
 import code.vi.sys.impl.gui.DefFrameFactory;
 import code.gui.images.AbstractImage;
@@ -63,6 +64,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     private final AbstractSocketFactory socketFactory;
     private final AbsFrameFactory frameFactory;
     private final AbsLightFrameFactory lightFrameFactory;
+    private final StringList excludedFolders;
 
     protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         threadFactory = new DefaultThreadFactory();
@@ -83,7 +85,13 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         validator = new DefaultNameValidating(new StringList());
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
+        excludedFolders = StreamTextFile.getExcludedFolders(System.getProperty("java.class.path"));
     }
+
+    public StringList getExcludedFolders() {
+        return excludedFolders;
+    }
+
     private String initialize() {
         String init_ = StringUtil.replaceBackSlashDot(fileCoreStream.newFile(DOT).getAbsolutePath());
         return init_.substring(0, init_.length() - 1);

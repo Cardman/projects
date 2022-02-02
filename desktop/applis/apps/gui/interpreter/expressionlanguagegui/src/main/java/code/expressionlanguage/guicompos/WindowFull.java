@@ -65,7 +65,7 @@ public final class WindowFull extends GroupFrame {
         addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {
-        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath(),"jre");
+        FileOpenDialog.setFileOpenDialog(this,getLanguageKey(),true, "", getFrames().getHomePath());
         String fichier_=FileOpenDialog.getStaticSelectedPath(getFileOpenDialog());
         if (fichier_ == null) {
             fichier_ = "";

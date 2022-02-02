@@ -55,6 +55,10 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
         validator = new DefaultNameValidating(new StringList());
     }
 
+    public StringList getExcludedFolders() {
+        return new StringList();
+    }
+
     @Override
     public AbsFrameFactory getFrameFactory() {
         return null;

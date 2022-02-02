@@ -5,8 +5,6 @@ public final class Resources {
 
     public static final String PORT_INI = "pokemon_port.ini";
 
-    public static final String EXCLUDED = "jre";
-
     public static final String ZIPPED_DATA_EXT = ".zip";
 
     public static final String GAME_EXT = ".pkgame";

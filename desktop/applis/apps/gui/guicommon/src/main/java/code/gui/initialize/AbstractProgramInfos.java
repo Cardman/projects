@@ -12,9 +12,11 @@ import code.stream.core.TechStreams;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 
 public interface AbstractProgramInfos {
+    StringList getExcludedFolders();
     String getHomePath();
     String getTmpUserFolder();
     CustList<AbsGroupFrame> getFrames();
