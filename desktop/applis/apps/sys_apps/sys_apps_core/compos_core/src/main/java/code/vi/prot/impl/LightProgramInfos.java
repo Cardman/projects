@@ -17,7 +17,6 @@ import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
-import code.vi.maths.random.AdvancedGenerator;
 
 public abstract class LightProgramInfos implements AbstractProgramInfos {
 
@@ -38,7 +37,7 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
     private final AbstractSocketFactory socketFactory;
     private final AbsLightFrameFactory lightFrameFactory;
 
-    protected LightProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
+    protected LightProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator, AbstractGenerator _gene) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = null;
         lightFrameFactory = new DefLigFrameFactory();
@@ -51,7 +50,7 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
         homePath = "";
         tmpUserFolder = "";
-        generator = new AdvancedGenerator();
+        generator = _gene;
         validator = new DefaultNameValidating(new StringList());
     }
 

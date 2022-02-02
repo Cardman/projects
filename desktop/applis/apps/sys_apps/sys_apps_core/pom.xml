@@ -12,10 +12,10 @@
 	<artifactId>sys_apps_core</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>random</module>
 		<module>compos_core</module>
 		<module>compos_def_back</module>
 		<module>compos_def_fact</module>
 		<module>compos_other</module>
+		<module>random</module>
 	</modules>
 </project>
