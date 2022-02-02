@@ -14,4 +14,5 @@ public interface ProgressingTests {
     void setResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved);
     ExecutingOptions getExec();
     void init(ExecutingOptions _exec);
+    byte[] getExportedReport();
 }
