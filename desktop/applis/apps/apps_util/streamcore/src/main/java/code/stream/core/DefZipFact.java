@@ -63,15 +63,16 @@ public final class DefZipFact implements AbstractZipFact {
             ContentTime file_ = n.getValue();
             byte[] content_ = file_.getContent();
             if (content_ != null) {
-                zos_.putNextEntry(n.getKey(),file_.getLastModifTime());
                 if (!n.getKey().endsWith("/")) {
-                    zos_.write(content_);
+                    zos_.putNextEntry(n.getKey(),file_.getLastModifTime(),content_);
+                } else {
+                    zos_.putNextEmptyEntry(n.getKey(),file_.getLastModifTime());
                 }
             } else {
                 if (n.getKey().endsWith("/")) {
-                    zos_.putNextEntry(n.getKey(),file_.getLastModifTime());
+                    zos_.putNextEmptyEntry(n.getKey(),file_.getLastModifTime());
                 } else {
-                    zos_.putNextEntry(n.getKey() + "/",file_.getLastModifTime());
+                    zos_.putNextEmptyEntry(n.getKey() + "/",file_.getLastModifTime());
                 }
             }
             zos_.closeEntry();

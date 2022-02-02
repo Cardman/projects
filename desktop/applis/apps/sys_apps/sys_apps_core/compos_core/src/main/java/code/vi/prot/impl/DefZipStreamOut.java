@@ -15,16 +15,6 @@ public final class DefZipStreamOut implements AbstractZipStreamOut {
     }
 
     @Override
-    public boolean write(byte[] _array) {
-        try {
-            zipOut.write(_array);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    @Override
     public boolean closeEntry() {
         try {
             zipOut.closeEntry();
@@ -40,15 +30,33 @@ public final class DefZipStreamOut implements AbstractZipStreamOut {
     }
 
     @Override
-    public boolean putNextEntry(String _key, long _lastModifTime) {
+    public boolean putNextEntry(String _key, long _lastModifTime, byte[] _content) {
         try {
-            ZipEntry e_ = new ZipEntry(_key);
-            e_.setTime(_lastModifTime);
+            ZipEntry e_ = entry(_key, _lastModifTime);
+            e_.setSize(_content.length);
+            zipOut.putNextEntry(e_);
+            zipOut.write(_content);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean putNextEmptyEntry(String _key, long _lastModifTime) {
+        try {
+            ZipEntry e_ = entry(_key, _lastModifTime);
             zipOut.putNextEntry(e_);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private ZipEntry entry(String _key, long _lastModifTime) {
+        ZipEntry e_ = new ZipEntry(_key);
+        e_.setTime(_lastModifTime);
+        return e_;
     }
 
     @Override
