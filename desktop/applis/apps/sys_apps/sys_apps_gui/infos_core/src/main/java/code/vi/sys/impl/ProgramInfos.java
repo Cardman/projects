@@ -85,7 +85,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         validator = new DefaultNameValidating(new StringList());
         UpdateStyle updateStyle_ = new UpdateStyleImpl();
         updateStyle_.update();
-        excludedFolders = StreamTextFile.getExcludedFolders(System.getProperty("java.class.path"));
+        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
 
     public StringList getExcludedFolders() {

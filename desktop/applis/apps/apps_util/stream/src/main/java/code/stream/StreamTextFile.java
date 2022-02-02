@@ -18,7 +18,10 @@ public final class StreamTextFile {
     private StreamTextFile() {
     }
 
-    public static StringList getExcludedFolders(String _path) {
+    public static StringList getExcludedFolders(AbstractFileCoreStream _fileCoreStream, String _current, String _path) {
+        if (_fileCoreStream.newFile(_current+_path).exists()) {
+            return new StringList();
+        }
         for (String p: StringUtil.splitChars(_path,';')) {
             if (p.endsWith(".exe")) {
                 return new StringList("jre");
