@@ -141,7 +141,6 @@ public final class ElResolver {
         int unicode_ = 0;
         int len_ = _string.length();
         int i_ = _minIndex;
-        int lastDoubleDot_ = i_;
         boolean beginOrEnd_ = false;
         while (i_ < len_) {
             if (!StringUtil.isWhitespace(_string.charAt(i_))) {
@@ -162,11 +161,7 @@ public final class ElResolver {
         int nbChars_ = 0;
         ResultAfterInstKeyWord resKeyWords_ = new ResultAfterInstKeyWord();
         resKeyWords_.setNextIndex(i_);
-        ResultAfterDoubleDotted resWords_ = new ResultAfterDoubleDotted();
-        resWords_.setNextIndex(i_);
-        resWords_.setLastDoubleDot(i_);
-        resOpers_.setDoubleDotted(resWords_);
-        int fieldNumber_ = 0;
+        resOpers_.setDoubleDotted(resKeyWords_);
         while (i_ < len_) {
             char curChar_ = _string.charAt(i_);
             if (constTextChar_) {
@@ -294,55 +289,12 @@ public final class ElResolver {
                 unicode_ = res_.getUnicode();
                 continue;
             }
-            if (_page.getCurrentBlock() instanceof InfoBlock
-                    && parsBrackets_.isEmptyStackSymChars()
-                    && StringExpUtil.isTypeLeafChar(curChar_)) {
-                int bk_ = StringExpUtil.getBackPrintChar(_string, i_);
-                if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {
-                    int beginWord_ = i_;
-                    int j_ = ElResolverCommon.getWord(_string, len_, i_);
-                    int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
-                    if (n_ < 0
-                            || StringExpUtil.nextCharIs(_string, n_, len_, '=') && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, '=')
-                            || StringExpUtil.nextCharIs(_string, n_, len_, ',')) {
-                        String word_ = _string.substring(beginWord_, j_);
-                        VariableInfo info_ = new VariableInfo();
-                        ConstType type_;
-                        type_ = ConstType.CUST_FIELD;
-                        info_.setKind(type_);
-                        info_.declaringField(fieldNumber_,(InfoBlock)_page.getCurrentBlock());
-                        info_.setAffect(StringExpUtil.nextCharIs(_string, n_, len_, '='));
-                        info_.setFirstChar(beginWord_);
-                        info_.setLastChar(j_);
-                        info_.setName(word_);
-                        _d.getVariables().add(info_);
-                        i_ = j_;
-                        fieldNumber_++;
-                        _d.setEnabledOp(true);
-                        continue;
-                    }
-                }
-            }
-            resKeyWords_.setNextIndex(i_);
-            processAfterInstuctionKeyWord(_string, _d, resKeyWords_,resOpers_, _page);
-            if (_d.getBadOffset() >= 0) {
-                return _d;
-            }
-            int nextInd_ = resKeyWords_.getNextIndex();
-            if (nextInd_ > i_) {
-                i_ = nextInd_;
-                continue;
-            }
             if (StringExpUtil.isTypeLeafChar(curChar_)) {
-                resWords_.setNextIndex(i_);
-                resWords_.setLastDoubleDot(lastDoubleDot_);
-                processWords(_string,curChar_, _d, _ret,resWords_, _page);
-                nextInd_ = resWords_.getNextIndex();
-                lastDoubleDot_ = resWords_.getLastDoubleDot();
-            }
-            if (nextInd_ > i_) {
-                i_ = nextInd_;
-                _d.setEnabledOp(true);
+                int res_ = procWord(i_, resOpers_, _string, _ret, _d, _page);
+                if (res_ < 0) {
+                    return _d;
+                }
+                i_ = res_;
                 continue;
             }
             resOpers_.setPartOfString(partOfString_);
@@ -354,7 +306,6 @@ public final class ElResolver {
             resOpers_.setConstText(false);
             resOpers_.setNbChars(nbChars_);
             resOpers_.getDoubleDotted().setNextIndex(i_);
-            resOpers_.getDoubleDotted().setLastDoubleDot(lastDoubleDot_);
             processOperators(beginIndex_, _string, delimiters_, _d, _ret,resOpers_, _page);
             if (_d.getBadOffset() >= 0) {
                 return _d;
@@ -369,7 +320,6 @@ public final class ElResolver {
             partOfString_ = resOpers_.isPartOfString();
 
             i_ = resOpers_.getDoubleDotted().getNextIndex();
-            lastDoubleDot_ = resOpers_.getDoubleDotted().getLastDoubleDot();
         }
         if (constTextString_) {
             _d.setBadOffset(i_);
@@ -401,39 +351,64 @@ public final class ElResolver {
         _d.setBadOffset(i_);
         return _d;
     }
+    private static int procWord(int _i, ResultAfterOperators _resOpers, String _string, FieldRetriever _ret, Delimiters _d, AnalyzedPageEl _page) {
+        if (_page.getCurrentBlock() instanceof InfoBlock
+                && _resOpers.getParsBrackets().isEmptyStackSymChars()) {
+            int len_ = _string.length();
+            int bk_ = StringExpUtil.getBackPrintChar(_string, _i);
+            if (bk_ < 0 || StringExpUtil.nextCharIs(_string, bk_, len_, ',')) {
+                int j_ = ElResolverCommon.getWord(_string, len_, _i);
+                int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
+                if (n_ < 0
+                        || StringExpUtil.nextCharIs(_string, n_, len_, '=') && !StringExpUtil.nextCharIs(_string, n_ + 1, len_, '=')
+                        || StringExpUtil.nextCharIs(_string, n_, len_, ',')) {
+                    String word_ = _string.substring(_i, j_);
+                    VariableInfo info_ = new VariableInfo();
+                    ConstType type_;
+                    type_ = ConstType.CUST_FIELD;
+                    info_.setKind(type_);
+                    info_.declaringField(_resOpers.getFieldNumber(),(InfoBlock)_page.getCurrentBlock());
+                    info_.setAffect(StringExpUtil.nextCharIs(_string, n_, len_, '='));
+                    info_.setFirstChar(_i);
+                    info_.setLastChar(j_);
+                    info_.setName(word_);
+                    _d.getVariables().add(info_);
+                    _resOpers.setFieldNumber(_resOpers.getFieldNumber()+1);
+                    _d.setEnabledOp(true);
+                    return j_;
+                }
+            }
+        }
+        char curChar_ = _string.charAt(_i);
+        ResultAfterInstKeyWord kw_ = _resOpers.getDoubleDotted();
+        kw_.setNextIndex(_i);
+        processAfterInstuctionKeyWordCast(_string, _d, kw_, _page);
+        if (_d.getBadOffset() >= 0) {
+            return -1;
+        }
+        int nextInd_ = kw_.getNextIndex();
+        if (nextInd_ > _i) {
+            return nextInd_;
+        }
+        processAfterInstuctionKeyWord(_string, _d, kw_, _resOpers, _page);
+        if (_d.getBadOffset() >= 0) {
+            return -1;
+        }
+        nextInd_ = kw_.getNextIndex();
+        if (nextInd_ > _i) {
+            _d.setEnabledOp(true);
+            return nextInd_;
+        }
+        processWords(_string,curChar_, _d, _ret, kw_, _page);
+        return kw_.getNextIndex();
+    }
 
-    private static void processAfterInstuctionKeyWord(String _string, Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers, AnalyzedPageEl _page) {
+    private static void processAfterInstuctionKeyWordCast(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
-        String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordCast_ = keyWords_.getKeyWordCast();
         String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
-        String keyWordClass_ = keyWords_.getKeyWordClass();
-        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
-        String keyWordFalse_ = keyWords_.getKeyWordFalse();
-        String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
-        String keyWordId_ = keyWords_.getKeyWordId();
-        String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
-        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
-        String keyWordLambda_ = keyWords_.getKeyWordLambda();
-        String keyWordNull_ = keyWords_.getKeyWordNull();
-        String keyWordNew_ = keyWords_.getKeyWordNew();
-        String keyWordStatic_ = keyWords_.getKeyWordStatic();
-        String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
-        String keyWordSuper_ = keyWords_.getKeyWordSuper();
-        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
-        String keyWordThat_ = keyWords_.getKeyWordThat();
-        String keyWordThis_ = keyWords_.getKeyWordThis();
-        String keyWordParent_ = keyWords_.getKeyWordParent();
-        String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
-        String keyWordTrue_ = keyWords_.getKeyWordTrue();
-        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
-        String keyWordValues_ = keyWords_.getKeyWordValues();
-        String keyWordVararg_ = keyWords_.getKeyWordVararg();
-        String keyWordDefault_ = keyWords_.getKeyWordDefault();
-        String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
-        String keyWordOperator_ = keyWords_.getKeyWordOperator();
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordCast_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
@@ -468,11 +443,40 @@ public final class ElResolver {
             _d.getDelExplicit().add(indexParRight_);
             i_ = indexParRight_ + 1;
             _out.setNextIndex(i_);
-            return;
         }
-        if (StringExpUtil.isDollarWordChar(_string.charAt(i_))) {
-            _d.setEnabledOp(true);
-        }
+    }
+    private static void processAfterInstuctionKeyWord(String _string, Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers, AnalyzedPageEl _page) {
+        int len_ = _string.length();
+        int i_ = _out.getNextIndex();
+        KeyWords keyWords_ = _page.getKeyWords();
+        String keyWordBool_ = keyWords_.getKeyWordBool();
+        String keyWordCast_ = keyWords_.getKeyWordCast();
+        String keyWordExplicit_ = keyWords_.getKeyWordExplicit();
+        String keyWordClass_ = keyWords_.getKeyWordClass();
+        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+        String keyWordFalse_ = keyWords_.getKeyWordFalse();
+        String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
+        String keyWordId_ = keyWords_.getKeyWordId();
+        String keyWordInstanceof_ = keyWords_.getKeyWordInstanceof();
+        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
+        String keyWordLambda_ = keyWords_.getKeyWordLambda();
+        String keyWordNull_ = keyWords_.getKeyWordNull();
+        String keyWordNew_ = keyWords_.getKeyWordNew();
+        String keyWordStatic_ = keyWords_.getKeyWordStatic();
+        String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordParent_ = keyWords_.getKeyWordParent();
+        String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
+        String keyWordTrue_ = keyWords_.getKeyWordTrue();
+        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
+        String keyWordValues_ = keyWords_.getKeyWordValues();
+        String keyWordVararg_ = keyWords_.getKeyWordVararg();
+        String keyWordDefault_ = keyWords_.getKeyWordDefault();
+        String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
+        String keyWordOperator_ = keyWords_.getKeyWordOperator();
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordVararg_)) {
             int indexParLeft_ = _string.indexOf(PAR_LEFT,i_+1);
             if (indexParLeft_ < 0) {
@@ -1209,7 +1213,7 @@ public final class ElResolver {
         }
         return afterSuper_;
     }
-    private static void processWords(String _string, char _curChar, Delimiters _d, FieldRetriever _ret, ResultAfterDoubleDotted _out, AnalyzedPageEl _page) {
+    private static void processWords(String _string, char _curChar, Delimiters _d, FieldRetriever _ret, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -1220,6 +1224,7 @@ public final class ElResolver {
             _d.getDelNumbers().add(i_);
             _d.getDelNumbers().add(nextIndex_);
             _out.setNextIndex(nextIndex_);
+            _d.setEnabledOp(true);
             return;
         }
         int beginWord_ = i_;
@@ -1229,6 +1234,7 @@ public final class ElResolver {
         if (nextPar_ > -1) {
             _d.getStack().getCallings().add(nextPar_);
             _out.setNextIndex(i_);
+            _d.setEnabledOp(true);
             return;
         }
         int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
@@ -1242,12 +1248,14 @@ public final class ElResolver {
             info_.setName(word_);
             _d.getVariables().add(info_);
             _out.setNextIndex(i_);
+            _d.setEnabledOp(true);
             return;
         }
         for (AnonymousResult r:_page.getCurrentAnonymousResults()) {
             if (r.getIndex() == beginWord_) {
                 _page.getAnonymousResults().add(r);
                 _out.setNextIndex(r.getNext());
+                _d.setEnabledOp(true);
                 return;
             }
         }
@@ -1258,6 +1266,7 @@ public final class ElResolver {
         }
         i_ = _ret.processFieldsStaticAccess(beginWord_,word_,i_);
         _out.setNextIndex(i_);
+        _d.setEnabledOp(true);
     }
 
     public static int incrAfterWord(int _i, String _string) {
@@ -1278,7 +1287,7 @@ public final class ElResolver {
         parsBrackets_ = _out.getParsBrackets();
 
         int len_ = _string.length();
-        ResultAfterDoubleDotted doubleDotted_ = _out.getDoubleDotted();
+        ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
         int i_ = doubleDotted_.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
         int nbChars_;

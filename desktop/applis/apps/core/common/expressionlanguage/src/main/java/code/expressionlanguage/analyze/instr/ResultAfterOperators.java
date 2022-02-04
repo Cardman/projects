@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
 public final class ResultAfterOperators {
-    private ResultAfterDoubleDotted doubleDotted;
+    private ResultAfterInstKeyWord doubleDotted;
     private StackOperators parsBrackets;
     private boolean constTextString;
     private boolean constTextChar;
@@ -11,11 +11,12 @@ public final class ResultAfterOperators {
     private boolean beginOrEnd;
     private boolean partOfString;
     private int nbChars;
-    public ResultAfterDoubleDotted getDoubleDotted() {
+    private int fieldNumber;
+    public ResultAfterInstKeyWord getDoubleDotted() {
         return doubleDotted;
     }
 
-    public void setDoubleDotted(ResultAfterDoubleDotted _doubleDotted) {
+    public void setDoubleDotted(ResultAfterInstKeyWord _doubleDotted) {
         doubleDotted = _doubleDotted;
     }
 
@@ -91,4 +92,11 @@ public final class ResultAfterOperators {
         partOfString = _partOfString;
     }
 
+    public int getFieldNumber() {
+        return fieldNumber;
+    }
+
+    public void setFieldNumber(int _fieldNumber) {
+        this.fieldNumber = _fieldNumber;
+    }
 }

@@ -581,7 +581,7 @@ public final class ElRetrieverAnonymous {
                 _stack.getCallings().add(pr_);
                 int indexParRight_ = _string.indexOf(ElResolver.PAR_RIGHT,pr_+1);
                 if (indexParRight_ < 0) {
-                    return i_;
+                    return i_+s.length();
                 }
                 return indexParRight_+1;
             }

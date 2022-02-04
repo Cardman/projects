@@ -76,8 +76,6 @@ public final class NatElResolver {
     private static int processWords(String _string, NatDelimiters _d, int _nextIndex, Ints _callings) {
         int len_ = _string.length();
         int i_ = _nextIndex;
-        ResultAfterInstKeyWord resTmp_ = new ResultAfterInstKeyWord();
-        resTmp_.setNextIndex(i_);
         int beginWord_ = i_;
         i_ = ElResolver.incrAfterWord(i_,_string);
         String word_ = _string.substring(beginWord_, i_);
