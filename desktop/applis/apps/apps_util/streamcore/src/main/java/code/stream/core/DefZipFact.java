@@ -31,21 +31,13 @@ public final class DefZipFact implements AbstractZipFact {
                 continue;
             }
             byte[] bytes_ = new byte[1];
-            int i = 0;
             while (true) {
                 int read_ = zis_.read(bytes_, 0, bytes_.length);
                 if (read_ <= 0) {
                     break;
                 }
-                i += read_;
             }
-            byte[] readBytes_ = zis_.getReadBytes();
-            int maxByte_ = Math.min(i,readBytes_.length);
-            byte[] copy_ = new byte[maxByte_];
-            for (int j = 0; j < maxByte_; j++) {
-                set(readBytes_, copy_, j);
-            }
-            ContentTime content_ = new ContentTime(copy_, time_);
+            ContentTime content_ = new ContentTime(zis_.getReadBytes(), time_);
             files_.put(name_, content_);
             zis_.closeEntry();
         }
@@ -53,9 +45,6 @@ public final class DefZipFact implements AbstractZipFact {
         return files_;
     }
 
-    private static void set(byte[] _bytes, byte[] _copy, int _j) {
-        _copy[_j] = _bytes[_j];
-    }
     @Override
     public byte[] zipBinFiles(StringMap<ContentTime> _files) {
         AbstractZipStreamOut zos_ = zipFactory.buildOut();
