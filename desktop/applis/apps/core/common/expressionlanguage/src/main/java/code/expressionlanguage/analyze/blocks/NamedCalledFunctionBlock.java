@@ -266,7 +266,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
                 continue;
             }
-            RootBlock formattedDestType_ = formInfoDest_.getRootBlock();
             boolean retRef_ = false;
             String nameLocId_ = nameLoc_;
             if (nameLoc_.startsWith("~")) {
@@ -282,7 +281,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0,resolved_.getInfo()));
                 continue;
             }
-            CustList<NamedCalledFunctionBlock> methods_ = formattedDestType_.getOverridableBlocks();
             if (!new FormattedMethodId(getId().quickFormat(AnaInherits.getVarTypes(formInfo_))).eqPartial(new FormattedMethodId(methodIdDest_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
@@ -297,6 +295,8 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             ClassMethodId id_ = null;
             AnaTypeFct fct_ = null;
             int rc_ = _page.getLocalizer().getCurrentLocationIndex() +off_;
+            RootBlock formattedDestType_ = formInfoDest_.getRootBlock();
+            CustList<NamedCalledFunctionBlock> methods_ = formattedDestType_.getOverridableBlocks();
             for (NamedCalledFunctionBlock m: methods_) {
                 if (m.isAbstractMethod()) {
                     continue;

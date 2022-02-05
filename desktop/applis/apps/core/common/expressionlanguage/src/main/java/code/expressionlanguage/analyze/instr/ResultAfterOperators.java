@@ -8,7 +8,6 @@ public final class ResultAfterOperators {
     private boolean constString;
     private boolean constChar;
     private boolean constText;
-    private boolean beginOrEnd;
     private boolean partOfString;
     private int nbChars;
     private int fieldNumber;
@@ -66,14 +65,6 @@ public final class ResultAfterOperators {
 
     public void setConstText(boolean _constText) {
         constText = _constText;
-    }
-
-    public boolean isBeginOrEnd() {
-        return beginOrEnd;
-    }
-
-    public void setBeginOrEnd(boolean _beginOrEnd) {
-        beginOrEnd = _beginOrEnd;
     }
 
     public int getNbChars() {

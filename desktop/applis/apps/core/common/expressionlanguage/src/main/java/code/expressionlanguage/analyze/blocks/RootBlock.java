@@ -801,7 +801,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         }
                     }
                 } else {
-                    if (m_.isStaticMethod()) {
+                    if (m_.hiddenInstance()) {
                         int where_ = b.getOffset();
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
                         unexp_.setFileName(getFile().getFileName());
