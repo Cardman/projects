@@ -468,7 +468,7 @@ public final class StringExpUtil {
     }
 
     public static boolean isIndexerOrInexist(String _nameLoc) {
-        return _nameLoc.trim().isEmpty() || _nameLoc.startsWith("[]");
+        return _nameLoc.trim().isEmpty();
     }
     public static ExtractedParts tryToExtract(String _string, char _first, char _last) {
         int index_ = _string.indexOf(_first);

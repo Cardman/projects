@@ -1778,6 +1778,8 @@ public final class FileResolver {
                             new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                              _instructionTrimLocation +_offset, _page);
                     ov_.setMatchParamNames(false);
+                    ov_.setDefinition(info_);
+                    ov_.setDefinitionOffset(offsetLast_);
                 } else {
                     if (!retRef_
                             &&StringUtil.quickEq(trimMeth_, _page.getKeyWords().getKeyWordToString())

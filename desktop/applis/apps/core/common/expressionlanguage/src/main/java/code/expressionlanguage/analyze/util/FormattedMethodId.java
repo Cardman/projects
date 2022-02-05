@@ -18,6 +18,15 @@ public final class FormattedMethodId {
         return eqPartial(_obj);
     }
 
+    public static boolean eqPartial(FormattedMethodId _current,FormattedMethodId _other) {
+        if (_current.getName().startsWith("[]")) {
+            return _current.eq(_other);
+        }
+        if (_other.getName().startsWith("[]")) {
+            return false;
+        }
+        return _current.eqPartial(_other);
+    }
     public boolean eqPartial(FormattedMethodId _other) {
         if (id.isRetRef() != _other.id.isRetRef()) {
             return false;

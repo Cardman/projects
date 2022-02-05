@@ -281,7 +281,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0,resolved_.getInfo()));
                 continue;
             }
-            if (!new FormattedMethodId(getId().quickFormat(AnaInherits.getVarTypes(formInfo_))).eqPartial(new FormattedMethodId(methodIdDest_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
+            if (!FormattedMethodId.eqPartial(new FormattedMethodId(getId().quickFormat(AnaInherits.getVarTypes(formInfo_))),new FormattedMethodId(methodIdDest_.quickFormat(AnaInherits.getVarTypes(formInfoDest_))))) {
                 allPartSuperTypes_.addAllElts(superPartOffsets_);
                 sum_ += o.length()+1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null,null,  0, 0));
@@ -303,7 +303,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 }
                 if (m.getId().eq(methodIdDest_)) {
                     String returnDest_ = AnaInherits.quickFormat(formInfoDest_,m.getImportedReturnType());
-                    if (methodIdDest_.isRetRef()) {
+                    if (m.mustHaveSameRet()) {
                         if (!StringUtil.quickEq(return_,returnDest_)) {
                             continue;
                         }

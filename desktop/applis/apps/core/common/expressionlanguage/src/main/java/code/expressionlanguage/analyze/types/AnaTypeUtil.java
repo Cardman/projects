@@ -39,15 +39,12 @@ public final class AnaTypeUtil {
         }
         for (OverridingMethodDto e: getAllInstanceSignatures(_type)) {
             FormattedMethodId key_ = e.getFormattedMethodId();
-            if (!StringUtil.quickEq(key_.getName(),"[]")
-                    &&!StringUtil.quickEq(key_.getName(),"[]=")) {
-                for (AbsBk b: ClassesUtil.getDirectChildren(_type)) {
-                    if (b instanceof InternOverrideBlock) {
-                        for (OverridingMethodDto o: ((InternOverrideBlock) b).getOverrides()) {
-                            if (o.getFormattedMethodId().eq(key_)) {
-                                e.getMethodIds().clear();
-                                e.getMethodIds().addAllElts(o.getMethodIds());
-                            }
+            for (AbsBk b: ClassesUtil.getDirectChildren(_type)) {
+                if (b instanceof InternOverrideBlock) {
+                    for (OverridingMethodDto o: ((InternOverrideBlock) b).getOverrides()) {
+                        if (o.getFormattedMethodId().eq(key_)) {
+                            e.getMethodIds().clear();
+                            e.getMethodIds().addAllElts(o.getMethodIds());
                         }
                     }
                 }

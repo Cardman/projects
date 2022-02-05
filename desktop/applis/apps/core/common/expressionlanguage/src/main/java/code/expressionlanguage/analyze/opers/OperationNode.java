@@ -2451,7 +2451,7 @@ public abstract class OperationNode {
             named_.add(m_);
         }
         CustList<CustList<MethodInfo>> next_;
-        if (StringUtil.quickEq(_filter.getStaticCall(), "<>") || !_filter.getStaticCall().isEmpty()) {
+        if (!_filter.getStaticCall().isEmpty()) {
             next_ = infer(_varargOnly, _filter, _page, named_);
         } else {
             next_ = named_;

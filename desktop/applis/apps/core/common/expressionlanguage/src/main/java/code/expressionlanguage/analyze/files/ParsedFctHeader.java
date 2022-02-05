@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -36,12 +35,11 @@ public final class ParsedFctHeader {
 
     public void parse(String _info, AnalyzedPageEl _parse, int _sum) {
         KeyWords keyWords_ = _parse.getKeyWords();
-        String keyWordIntern_ = keyWords_.getKeyWordIntern();
         String keyWordThat_ = keyWords_.getKeyWordThat();
-        parse(_info, keyWordIntern_, keyWordThat_, _sum);
+        parse(_info, keyWordThat_, _sum);
     }
 
-    public void parse(String _info, String _keyWordIntern, String _keyWordThat, int _sum) {
+    public void parse(String _info, String _keyWordThat, int _sum) {
         offsetLast = _sum;
         if (_info.startsWith(END_CALLING)) {
             offsetLast++;
@@ -99,9 +97,7 @@ public final class ParsedFctHeader {
                 String sub_ = _info.substring(afterRightPar_);
                 int afterRightParOffset_ = afterRightPar_+ StringUtil.getFirstPrintableCharIndex(sub_);
                 info = sub_.trim();
-                if (StringExpUtil.startsWithKeyWord(info, _keyWordIntern)) {
-                    offsetLast = afterRightParOffset_+ _sum;
-                }
+                offsetLast = afterRightParOffset_+ _sum;
                 break;
             }
             j_=DefaultProcessKeyWord.skipWhiteSpace(_info,implCall_+1);
