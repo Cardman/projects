@@ -223,7 +223,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             }
             String key_ = parts_.first();
             int off_ = StringUtil.getFirstPrintableCharIndex(key_);
-            ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_, key_, _page);
+            ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_, key_.trim(), _page);
             AnaGeneType bl_ = resolvedIdType_.getGeneType();
             String clKey_ = resolvedIdType_.getFullName();
             CustList<AnaResultPartType> allPartTypes_ = new CustList<AnaResultPartType>();
@@ -243,7 +243,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             }
             String sgn_ = parts_.last().substring(1);
             ExtractedParts extr_ = StringExpUtil.tryToExtract(sgn_,'(',')');
-            String nameLoc_ = extr_.getFirst().trim();
+            String nameLoc_ = extr_.getFirst();
             if (StringExpUtil.isIndexerOrInexist(nameLoc_)) {
                 sum_ += o.length() + 1;
                 allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,null, null, 0, 0));
@@ -267,10 +267,14 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 continue;
             }
             boolean retRef_ = false;
-            String nameLocId_ = nameLoc_;
-            if (nameLoc_.startsWith("~")) {
+            int delta_ = StringExpUtil.getOffset(nameLoc_);
+            String nameLocId_ = nameLoc_.trim();
+            if (nameLocId_.startsWith("~")) {
                 retRef_ = true;
-                nameLocId_ = nameLoc_.substring(1);
+                delta_++;
+                nameLocId_ = nameLoc_.trim().substring(1);
+                delta_+= StringExpUtil.getOffset(nameLocId_);
+                nameLocId_ = nameLocId_.trim();
             }
             ResolvedId resolved_ = IdFctOperation.resolveArguments(1, retRef_, clDest_,nameLocId_,MethodAccessKind.INSTANCE,args_,sgn_, _page);
             superPartOffsets_.addAllElts(resolved_.getResults());
@@ -294,7 +298,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             }
             ClassMethodId id_ = null;
             AnaTypeFct fct_ = null;
-            int rc_ = _page.getLocalizer().getCurrentLocationIndex() +off_;
+            int rc_ = _page.getLocalizer().getCurrentLocationIndex() +off_+delta_;
             RootBlock formattedDestType_ = formInfoDest_.getRootBlock();
             CustList<NamedCalledFunctionBlock> methods_ = formattedDestType_.getOverridableBlocks();
             for (NamedCalledFunctionBlock m: methods_) {
@@ -321,7 +325,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 }
             }
             allPartSuperTypes_.addAllElts(superPartOffsets_);
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,id_,fct_, rc_, nameLoc_.length()));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,id_,fct_, rc_, nameLocId_.length()));
             sum_ += o.length()+1;
         }
     }

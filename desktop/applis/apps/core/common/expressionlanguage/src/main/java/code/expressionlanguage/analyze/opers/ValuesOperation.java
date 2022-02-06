@@ -40,7 +40,7 @@ public final class ValuesOperation extends LeafOperation {
         String sub_ = className.substring(leftPar_,className.lastIndexOf(')'));
         leftPar_ += StringUtil.getFirstPrintableCharIndex(sub_);
         String clName_;
-        ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(leftPar_, sub_, _page);
+        ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(leftPar_, sub_.trim(), _page);
         clName_ = resolvedIdType_.getFullName();
         partOffsets.add(resolvedIdType_.getDels());
         RootBlock r_ = _page.getAnaClassBody(clName_);

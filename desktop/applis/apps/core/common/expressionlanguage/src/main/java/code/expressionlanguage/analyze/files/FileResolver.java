@@ -940,6 +940,7 @@ public final class FileResolver {
                 internOffest_ += beg_ +1;
                 exp_ = exp_.substring(beg_ +1,lastPar_);
                 internOffest_ += StringUtil.getFirstPrintableCharIndex(exp_);
+                exp_ = exp_.trim();
                 ok_ = true;
             }
             InternOverrideBlock int_ = new InternOverrideBlock( instructionTrimLocation_+_offset,exp_, internOffest_+_offset);
