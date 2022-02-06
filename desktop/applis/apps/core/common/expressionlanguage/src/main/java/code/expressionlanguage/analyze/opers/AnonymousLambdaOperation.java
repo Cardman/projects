@@ -241,14 +241,14 @@ public final class AnonymousLambdaOperation extends
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymousFct().add(block);
-            block.getMappings().putAllMap(currentFct_.getMappings());
+            block.getMappings().putAllMap(currentFct_.getRefMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
             if (globalType_ != null) {
-                block.getMappings().putAllMap(globalType_.getMappings());
+                block.getMappings().putAllMap(globalType_.getRefMappings());
             }
             if (operator_ != null) {
-                block.getMappings().putAllMap(operator_.getMappings());
+                block.getMappings().putAllMap(operator_.getRefMappings());
             }
         }
         boolean built_ = false;

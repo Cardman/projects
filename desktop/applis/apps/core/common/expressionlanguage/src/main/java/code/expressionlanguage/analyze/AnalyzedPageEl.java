@@ -691,6 +691,11 @@ public final class AnalyzedPageEl {
         return null;
     }
 
+    public void addRefFoundType(RootBlock _type) {
+        _type.setReference(true);
+        refFoundTypes.add(_type);
+    }
+
     public StringMap<Integer> getAvailableVariables() {
         return availableVariables;
     }
@@ -806,10 +811,6 @@ public final class AnalyzedPageEl {
 
     public CustList<RootBlock> getPrevFoundTypes() {
         return prevFoundTypes;
-    }
-
-    public CustList<RootBlock> getRefFoundTypes() {
-        return refFoundTypes;
     }
 
     public int getCountTypes() {

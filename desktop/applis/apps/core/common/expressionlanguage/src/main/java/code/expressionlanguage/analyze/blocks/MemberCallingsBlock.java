@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.reach.blocks.ReachMemberCallingsBlock;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -111,6 +112,10 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     }
 
     public abstract  MethodAccessKind getStaticContext();
+
+    public StringMap<MappingLocalType> getRefMappings() {
+        return AnaTypeUtil.getRefMappings(mappings);
+    }
 
     public StringMap<MappingLocalType> getMappings() {
         return mappings;

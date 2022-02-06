@@ -6,10 +6,7 @@ import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.analyze.util.FormattedMethodId;
-import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.*;
@@ -224,7 +221,7 @@ public final class AnaTypeUtil {
                 _page.setGlobalOffset(offset_);
                 _page.zeroOffset();
                 _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(c.getMappings());
+                _page.getMappingLocal().putAllMap(c.getRefMappings());
                 ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, ints_.get(i), _page);
                 resolvedIdTypes_.add(resolvedIdType_);
                 String base_ = resolvedIdType_.getFullName();
@@ -277,7 +274,7 @@ public final class AnaTypeUtil {
                 _page.setGlobalOffset(offset_);
                 _page.zeroOffset();
                 _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(c.getMappings());
+                _page.getMappingLocal().putAllMap(c.getRefMappings());
                 ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, ints_.get(i), _page);
                 resolvedIdTypes_.add(resolvedIdType_);
                 String base_ = resolvedIdType_.getFullName();
@@ -477,6 +474,18 @@ public final class AnaTypeUtil {
         }
     }
 
+    public static StringMap<MappingLocalType> getRefMappings(StringMap<MappingLocalType> _map) {
+        StringMap<MappingLocalType> map_ = new StringMap<MappingLocalType>();
+        for (EntryCust<String,MappingLocalType> e: _map.entryList()) {
+            MappingLocalType value_ = e.getValue();
+            if (!value_.getType().isReference()) {
+                continue;
+            }
+            map_.addEntry(e.getKey(), value_);
+        }
+        return map_;
+    }
+
     public static OwnerListResultInfo getInners(String _root, String _innerName, AnalyzedPageEl _page) {
         return getOwners(_root, _innerName, _page);
     }
@@ -554,7 +563,7 @@ public final class AnaTypeUtil {
     }
 
     private static void added(String _innerName, boolean _staticOnly, OwnerListResultInfo _owners, String _s, RootBlock _sub) {
-        for (RootBlock b: ClassesUtil.accessedClassMembers(_sub)) {
+        for (RootBlock b: accessedClassMembers(_sub)) {
             if (_staticOnly) {
                 if (!b.withoutInstance()) {
                     continue;
@@ -576,7 +585,7 @@ public final class AnaTypeUtil {
         return owners_;
     }
     private static void addedInnerElement(String _innerName, OwnerListResultInfo _owners, String _s, RootBlock _sub) {
-        for (RootBlock b: ClassesUtil.accessedInnerElements(_sub)) {
+        for (RootBlock b: accessedInnerElements(_sub)) {
             String name_ = b.getName();
             if (StringUtil.quickEq(name_, _innerName)) {
                 _owners.addInnElt(_s,_sub,name_,b);
@@ -862,4 +871,42 @@ public final class AnaTypeUtil {
         }
         return v_;
     }
+
+    private static CustList<RootBlock> accessedClassMembers(RootBlock _clOwner) {
+        CustList<RootBlock> inners_ = new CustList<RootBlock>();
+        for (RootBlock b: getDirectMemberTypes(_clOwner)) {
+            if (b instanceof InnerElementBlock) {
+                continue;
+            }
+            inners_.add(b);
+        }
+        return inners_;
+    }
+
+    private static CustList<RootBlock> accessedInnerElements(RootBlock _clOwner) {
+        CustList<RootBlock> inners_ = new CustList<RootBlock>();
+        for (RootBlock b: getDirectMemberTypes(_clOwner)) {
+            if (!(b instanceof InnerElementBlock)) {
+                continue;
+            }
+            inners_.add(b);
+        }
+        return inners_;
+    }
+
+    public static CustList<RootBlock> getDirectMemberTypes(AbsBk _element) {
+        CustList<RootBlock> list_ = new CustList<RootBlock>();
+        if (_element == null) {
+            return list_;
+        }
+        AbsBk elt_ = _element.getFirstChild();
+        while (elt_ != null) {
+            if (elt_ instanceof RootBlock && ((RootBlock)elt_).isReference()) {
+                list_.add((RootBlock) elt_);
+            }
+            elt_ = elt_.getNextSibling();
+        }
+        return list_;
+    }
+
 }

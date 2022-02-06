@@ -94,7 +94,7 @@ public final class ResolvingSuperTypes {
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
         _page.setImportingTypes(_ana);
         _page.getMappingLocal().clear();
-        _page.getMappingLocal().putAllMap(_ana.getMappings());
+        _page.getMappingLocal().putAllMap(_ana.getRefMappings());
         return AnaPartTypeUtil.processAnalyzeLineInherits(id_, inh_, scope_,_ana, _page);
     }
 }

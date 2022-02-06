@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.inherits.*;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -53,7 +52,7 @@ public final class ClassesUtil {
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
             _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(c.getMappings());
+            _page.getMappingLocal().putAllMap(c.getRefMappings());
             for (AbsBk b: getDirectChildren(c)) {
                 if (b instanceof InternOverrideBlock) {
                     _page.setCurrentBlock(c);
@@ -100,7 +99,7 @@ public final class ClassesUtil {
             _page.setImportingAcces(new TypeAccessor(e.getFullName()));
             _page.setImportingTypes(e);
             _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(e.getMappings());
+            _page.getMappingLocal().putAllMap(e.getRefMappings());
             for (AbsBk b: getDirectChildren(e)) {
                 if (AbsBk.isOverBlock(b)) {
                     _page.setCurrentBlock(e);
@@ -313,7 +312,7 @@ public final class ClassesUtil {
             StringList types_ = o.getImportedParametersTypes();
             prepareParams(_page,o.getParametersNamesOffset(),o.getParamErrors(), params_, o.getParametersRef(), types_, o.isVarargs());
             _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(o.getMappings());
+            _page.getMappingLocal().putAllMap(o.getRefMappings());
             o.buildFctInstructionsReadOnly(_page);
             AnalyzingEl a_ = _page.getAnalysisAss();
             a_.setVariableIssue(_page.isVariableIssue());
@@ -330,7 +329,7 @@ public final class ClassesUtil {
             _page.setImportingTypes(o);
             _page.setCurrentBlock(o);
             _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(o.getMappings());
+            _page.getMappingLocal().putAllMap(o.getRefMappings());
             o.buildAnnotations(_page);
             o.buildAnnotationsParameters(_page);
         }
@@ -398,7 +397,7 @@ public final class ClassesUtil {
                 StringList types_ = e.getImportedParametersTypes();
                 prepareParams(_page, e.getParametersNamesOffset(), e.getParamErrors(),params_,e.getParametersRef(), types_, e.isVarargs());
                 _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(e.getMappings());
+                _page.getMappingLocal().putAllMap(e.getRefMappings());
                 e.buildFctInstructionsReadOnly(_page);
                 AnalyzingEl a_ = _page.getAnalysisAss();
                 a_.setVariableIssue(_page.isVariableIssue());
@@ -411,7 +410,7 @@ public final class ClassesUtil {
                 _page.getCache().getLocalVariables().addAllElts(e.getCache().getLocalVariables());
                 _page.getCache().getLoopVariables().addAllElts(e.getCache().getLoopVariables());
                 _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(e.getMappings());
+                _page.getMappingLocal().putAllMap(e.getRefMappings());
                 e.buildFctInstructionsReadOnly(_page);
                 AnalyzingEl a_ = _page.getAnalysisAss();
                 a_.setVariableIssue(_page.isVariableIssue());
@@ -421,14 +420,14 @@ public final class ClassesUtil {
             for (NamedCalledFunctionBlock e:s.getAnonymousFunctions()) {
                 _page.setupFctChars(e);
                 _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(e.getMappings());
+                _page.getMappingLocal().putAllMap(e.getRefMappings());
                 e.buildAnnotations(_page);
                 e.buildAnnotationsParameters(_page);
             }
             for (SwitchMethodBlock e:s.getSwitchMethods()) {
                 _page.setupFctChars(e);
                 _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(e.getMappings());
+                _page.getMappingLocal().putAllMap(e.getRefMappings());
                 e.buildAnnotations(_page);
                 e.buildAnnotationsParameters(_page);
             }
@@ -662,7 +661,7 @@ public final class ClassesUtil {
         _page.getAllFoundTypes().add(_root);
         _page.getSorted().put(_root.getFullName(),_root);
         if (ok_) {
-            _page.getRefFoundTypes().add(_root);
+            _page.addRefFoundType(_root);
         }
         if (_root instanceof AnonymousTypeBlock) {
             int c_ = _page.getCountAnonTypes();
@@ -771,7 +770,7 @@ public final class ClassesUtil {
                     MemberCallingsBlock m_ = (MemberCallingsBlock) b;
                     MemberCallingsBlock outerFuntion_ = m_.getStrictOuterFuntion();
                     if (outerFuntion_ != null) {
-                        m_.getMappings().putAllMap(outerFuntion_.getMappings());
+                        m_.getMappings().putAllMap(outerFuntion_.getRefMappings());
                     }
                 }
             }
@@ -779,7 +778,7 @@ public final class ClassesUtil {
         for (RootBlock r: _page.getFoundTypes()) {
             MemberCallingsBlock outerFuntion_ = r.getStrictOuterFuntion();
             if (outerFuntion_ != null) {
-                r.getMappings().putAllMap(outerFuntion_.getMappings());
+                r.getMappings().putAllMap(outerFuntion_.getRefMappings());
             }
         }
     }
@@ -1713,7 +1712,7 @@ public final class ClassesUtil {
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
             _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(c.getMappings());
+            _page.getMappingLocal().putAllMap(c.getRefMappings());
             c.validateIds(_page);
             if (c.getNbOperators() > 0) {
                 _page.getTypesWithInnerOperators().add(c.getFullName());
@@ -1889,7 +1888,7 @@ public final class ClassesUtil {
                     InnerTypeOrElement method_ = (InnerTypeOrElement) b;
                     _page.setCurrentBlock(b);
                     _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(c.getMappings());
+                    _page.getMappingLocal().putAllMap(c.getRefMappings());
                     method_.buildExpressionLanguageReadOnly(_page);
                 }
                 if (b instanceof FieldBlock) {
@@ -1903,7 +1902,7 @@ public final class ClassesUtil {
                     _page.setCurrentBlock(b);
                     _page.setCurrentFct(null);
                     _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(c.getMappings());
+                    _page.getMappingLocal().putAllMap(c.getRefMappings());
                     method_.buildExpressionLanguageReadOnly(_page);
                 }
                 if (b instanceof StaticBlock) {
@@ -1912,7 +1911,7 @@ public final class ClassesUtil {
                     _page.setCurrentFile(c.getFile());
                     StaticBlock method_ = (StaticBlock) b;
                     _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    _page.getMappingLocal().putAllMap(method_.getRefMappings());
                     method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
@@ -1957,7 +1956,7 @@ public final class ClassesUtil {
                     _page.setCurrentBlock(b);
                     _page.setCurrentFct(null);
                     _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(c.getMappings());
+                    _page.getMappingLocal().putAllMap(c.getRefMappings());
                     method_.buildExpressionLanguageReadOnly(_page);
                 }
                 if (b instanceof InstanceBlock) {
@@ -1966,7 +1965,7 @@ public final class ClassesUtil {
                     _page.setCurrentFile(c.getFile());
                     InstanceBlock method_ = (InstanceBlock) b;
                     _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    _page.getMappingLocal().putAllMap(method_.getRefMappings());
                     method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
@@ -1986,7 +1985,7 @@ public final class ClassesUtil {
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
                     _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    _page.getMappingLocal().putAllMap(method_.getRefMappings());
                     method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
@@ -2014,7 +2013,7 @@ public final class ClassesUtil {
                     prepareParams(_page,method_.getParametersNamesOffset(), method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
                     method_.getUsedParameters().addAllEntries(_page.getInfosVars());
                     _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    _page.getMappingLocal().putAllMap(method_.getRefMappings());
                     method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
@@ -2028,7 +2027,7 @@ public final class ClassesUtil {
                     prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
                     processValueParam(_page, c, method_);
                     _page.getMappingLocal().clear();
-                    _page.getMappingLocal().putAllMap(method_.getMappings());
+                    _page.getMappingLocal().putAllMap(method_.getRefMappings());
                     method_.buildFctInstructionsReadOnly(_page);
                     AnalyzingEl a_ = _page.getAnalysisAss();
                     a_.setVariableIssue(_page.isVariableIssue());
@@ -2051,7 +2050,7 @@ public final class ClassesUtil {
             }
             annotated_.addAllElts(getDirectChildren(c));
             _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(c.getMappings());
+            _page.getMappingLocal().putAllMap(c.getRefMappings());
             for (AbsBk b:annotated_) {
                 _page.setCurrentBlock(b);
                 if (AbsBk.isAnnotBlock(b)) {
@@ -2674,7 +2673,7 @@ public final class ClassesUtil {
                 _page.setCurrentFile(c.getFile());
                 _page.setCurrentBlock(f_);
                 _page.getMappingLocal().clear();
-                _page.getMappingLocal().putAllMap(c.getMappings());
+                _page.getMappingLocal().putAllMap(c.getRefMappings());
                 _page.setCurrentFct(null);
                 CustList<OperationNode> list_ = f_.buildExpressionLanguageQuickly(_page);
                 String cl_ = c.getFullName();

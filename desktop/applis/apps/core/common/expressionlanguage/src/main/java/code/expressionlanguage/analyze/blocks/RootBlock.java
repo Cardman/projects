@@ -101,6 +101,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<InstanceBlock> instanceBlocks = new CustList<InstanceBlock>();
     private final CustList<StaticBlock> staticBlocks = new CustList<StaticBlock>();
     private final CustList<RootBlock> childrenRootBlocks = new CustList<RootBlock>();
+    private boolean reference;
     RootBlock(int _idRowCol,
               String _packageName, OffsetAccessInfo _access, String _templateDef,
               IntMap<String> _directSuperTypes, int _offset, String _name) {
@@ -2005,6 +2006,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         this.rootBlockContent.setSuffix(_suffix);
     }
 
+    public StringMap<MappingLocalType> getRefMappings() {
+        return AnaTypeUtil.getRefMappings(mappings);
+    }
+
     public StringMap<MappingLocalType> getMappings() {
         return mappings;
     }
@@ -2070,5 +2075,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
     public CustList<RootBlock> getChildrenRootBlocks() {
         return childrenRootBlocks;
+    }
+
+    public boolean isReference() {
+        return reference;
+    }
+
+    public void setReference(boolean _reference) {
+        this.reference = _reference;
     }
 }

@@ -196,14 +196,14 @@ public final class AnonymousInstancingOperation extends
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymous().add(instancingAnonContent.getBlock());
-            instancingAnonContent.getBlock().getMappings().putAllMap(currentFct_.getMappings());
+            instancingAnonContent.getBlock().getMappings().putAllMap(currentFct_.getRefMappings());
             instancingAnonContent.getBlock().getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
             if (parentType_ != null) {
-                instancingAnonContent.getBlock().getMappings().putAllMap(parentType_.getMappings());
+                instancingAnonContent.getBlock().getMappings().putAllMap(parentType_.getRefMappings());
             }
             if (operator_ != null) {
-                instancingAnonContent.getBlock().getMappings().putAllMap(operator_.getMappings());
+                instancingAnonContent.getBlock().getMappings().putAllMap(operator_.getRefMappings());
             }
         }
         AbsBk currentBlock_ = _page.getCurrentBlock();
