@@ -208,7 +208,7 @@ public final class AnaTypeUtil {
     }
 
     public static void checkInterfaces(AnalyzedPageEl _page) {
-        for (RootBlock c: _page.getFoundTypes()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
             _page.setImportingTypes(c);
@@ -249,7 +249,7 @@ public final class AnaTypeUtil {
             }
             checkInherits(_page, c, resolvedIdTypes_, c.getInstInitInterfacesOffset());
         }
-        for (RootBlock c: _page.getFoundTypes()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
 //            ExecRootBlock type_ = _page.getMapTypes().getVal(c);
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -303,7 +303,7 @@ public final class AnaTypeUtil {
             }
             checkInherits(_page, c, resolvedIdTypes_, c.getStaticInitInterfacesOffset());
         }
-        for (RootBlock c: _page.getFoundTypes()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             if (c instanceof RecordBlock) {
                 ins(_page, c);
                 st(_page, c);

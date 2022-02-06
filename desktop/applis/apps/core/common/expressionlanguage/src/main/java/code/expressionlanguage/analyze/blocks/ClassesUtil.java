@@ -47,6 +47,22 @@ public final class ClassesUtil {
         } else {
             validateSimFinals(_page);
         }
+        for (RootBlock c: _page.getAllFoundTypes()) {
+            globalType(_page, c);
+            _page.setImporting(c);
+            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
+            _page.setImportingTypes(c);
+            _page.getMappingLocal().clear();
+            _page.getMappingLocal().putAllMap(c.getMappings());
+            for (AbsBk b: getDirectChildren(c)) {
+                if (b instanceof InternOverrideBlock) {
+                    _page.setCurrentBlock(c);
+                    ((InternOverrideBlock)b).buildTypes(c, _page);
+                }
+            }
+        }
+        validateOverridingInherit(_page);
+        AnaTypeUtil.checkInterfaces(_page);
         if (_page.isDisplayUnusedParameterStaticMethod()) {
             for (RootBlock r: _page.getAllFoundTypes()) {
                 for (NamedCalledFunctionBlock o: r.getOverridableBlocks()) {
@@ -241,9 +257,7 @@ public final class ClassesUtil {
         validateInheritingClasses(_page);
         validateIdsOperators(_page);
         validateIds(_page);
-        validateOverridingInherit(_page);
         validateEl(_page);
-        AnaTypeUtil.checkInterfaces(_page);
         _page.getSortedOperators().addAllElts(_page.getAllOperators());
         _page.getSortedOperators().sortElts(new AnaOperatorCmp());
         for (OperatorBlock o: _page.getSortedOperators()) {
@@ -280,9 +294,7 @@ public final class ClassesUtil {
         processMapping(_page);
         validateInheritingClasses(_page);
         validateIds(_page);
-        validateOverridingInherit(_page);
         validateEl(_page);
-        AnaTypeUtil.checkInterfaces(_page);
         _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
         _page.getFoundTypes().clear();
         CustList<BracedBlock> brBl_ = new CustList<BracedBlock>();
@@ -369,7 +381,6 @@ public final class ClassesUtil {
             processMapping(_page);
             validateInheritingClasses(_page);
             validateIds(_page);
-            validateOverridingInherit(_page);
             for (AnonymousInstancingOperation e: _page.getAnonymous()) {
                 _page.setGlobalType(e.getGlType());
                 e.postAnalyze(_page);
@@ -422,7 +433,6 @@ public final class ClassesUtil {
                 e.buildAnnotationsParameters(_page);
             }
             _page.setAnnotAnalysis(false);
-            AnaTypeUtil.checkInterfaces(_page);
         }
     }
 
@@ -1709,20 +1719,6 @@ public final class ClassesUtil {
                 _page.getTypesWithInnerOperators().add(c.getFullName());
             }
         }
-        for (RootBlock c: _page.getFoundTypes()) {
-            globalType(_page, c);
-            _page.setImporting(c);
-            _page.setImportingAcces(new TypeAccessor(c.getFullName()));
-            _page.setImportingTypes(c);
-            _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(c.getMappings());
-            for (AbsBk b: getDirectChildren(c)) {
-                if (b instanceof InternOverrideBlock) {
-                    _page.setCurrentBlock(c);
-                    ((InternOverrideBlock)b).buildTypes(c, _page);
-                }
-            }
-        }
     }
 
     private static void validateIdsOperators(AnalyzedPageEl _page) {
@@ -1810,14 +1806,14 @@ public final class ClassesUtil {
     }
 
     public static void validateOverridingInherit(AnalyzedPageEl _page) {
-        for (RootBlock c: _page.getFoundTypes()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             c.setupBasicOverrides(_page);
         }
-        for (RootBlock c: _page.getFoundTypes()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             c.checkCompatibility(_page);
             c.checkImplements(_page);
         }
-        for (RootBlock c: _page.getFoundTypes()) {
+        for (RootBlock c: _page.getAllFoundTypes()) {
             c.checkCompatibilityBounds(_page);
         }
     }
