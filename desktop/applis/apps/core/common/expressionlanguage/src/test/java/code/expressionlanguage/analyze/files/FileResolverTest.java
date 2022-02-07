@@ -9826,6 +9826,15 @@ public final class FileResolverTest extends ProcessMethodCommon {
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
+    @Test
+    public void parseFile21FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("public class void\n");
+        file_.append("}\n");
+        AnalyzedTestContext context_ = simpleContextEnDefault();
+        parseFile(file_, context_, "my_file", false);
+        assertTrue(!isEmptyErrors(context_));
+    }
     protected static void parseFile(StringBuilder _file, AnalyzedTestContext _context, String _myFile, boolean _predefined) {
         String content_ = _file.toString();
         parseFile(_context, _myFile, _predefined, content_, _context.getAnalyzing());

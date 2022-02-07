@@ -347,7 +347,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     public final void buildMapParamType(AnalyzedPageEl _page) {
         rootBlockContent.setParamTypesMap(new StringMap<TypeVar>());
         _page.getMappingLocal().clear();
-        _page.getMappingLocal().putAllMap(mappings);
+        _page.getMappingLocal().putAllMap(getRefMappings());
         for (RootBlock r: getSelfAndParentTypes()) {
             if (r == this) {
                 if (r instanceof AnonymousTypeBlock) {
@@ -1142,7 +1142,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         rcs_ = getRowColDirectSuperTypes();
         results.clear();
         _page.getMappingLocal().clear();
-        _page.getMappingLocal().putAllMap(mappings);
+        _page.getMappingLocal().putAllMap(getRefMappings());
         int len_ = rcs_.size();
         for (int i = 0; i < len_; i++) {
             int index_ = rcs_.getKey(i);

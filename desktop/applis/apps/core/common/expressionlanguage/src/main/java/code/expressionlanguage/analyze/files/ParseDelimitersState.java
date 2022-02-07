@@ -24,18 +24,10 @@ final class ParseDelimitersState {
             parentheses++;
         }
         if (_curChar == END_CALLING) {
-            if (parentheses == 0) {
-                exitLoop = true;
-                return;
-            }
-            parentheses--;
+            checkPars();
         }
         if (_curChar == END_ARRAY) {
-            if (parentheses == 0) {
-                exitLoop = true;
-                return;
-            }
-            parentheses--;
+            checkPars();
         }
         if (_curChar == BEGIN_BLOCK) {
             if (_endInstruction) {
@@ -46,11 +38,22 @@ final class ParseDelimitersState {
         }
         if (_curChar == END_BLOCK) {
             if (_endInstruction) {
+                if (braces <= 0) {
+                    exitLoop = true;
+                    return;
+                }
                 braces--;
             } else {
-                parentheses--;
+                checkPars();
             }
         }
+    }
+    private void checkPars() {
+        if (parentheses <= 0) {
+            exitLoop = true;
+            return;
+        }
+        parentheses--;
     }
 
     int getParentheses() {
