@@ -1,6 +1,9 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.SegmentStringPart;
+import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
@@ -21,7 +24,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     private final Ints beginComments = new Ints();
     private final Ints endComments = new Ints();
-
+    private final CustList<SegmentStringPart> stringParts = new CustList<SegmentStringPart>();
     private final StringList imports = new StringList();
 
     private final Ints importsOffset = new Ints();
@@ -99,6 +102,14 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
         }
     }
 
+    public StringComment stringComment(CustList<CommentDelimiters> _comments) {
+        return new StringComment(content, _comments);
+    }
+    public void metrics(StringComment _stringComment) {
+        getBeginComments().addAllElts(_stringComment.getBeginComments());
+        getEndComments().addAllElts(_stringComment.getEndComments());
+        getStringParts().addAllElts(_stringComment.getStringParts());
+    }
     public FileMetrics getMetrics(int _tabWidth) {
         return new FileMetrics(metricsCore,_tabWidth);
     }
@@ -116,6 +127,10 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
 
     public Ints getEndComments() {
         return endComments;
+    }
+
+    public CustList<SegmentStringPart> getStringParts() {
+        return stringParts;
     }
 
     public Ints getTabulations() {

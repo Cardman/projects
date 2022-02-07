@@ -9815,6 +9815,17 @@ public final class FileResolverTest extends ProcessMethodCommon {
         parseFile(file_, context_, "my_file", false);
         assertTrue(isEmptyErrors(context_));
     }
+    @Test
+    public void parseFile20FailTest() {
+        StringBuilder file_ = new StringBuilder();
+        file_.append("\"\"\n");
+        file_.append("public class void {\n");
+        file_.append("}\n");
+        file_.append("\"\"\n");
+        AnalyzedTestContext context_ = simpleContextEnDefault();
+        parseFile(file_, context_, "my_file", false);
+        assertTrue(!isEmptyErrors(context_));
+    }
     protected static void parseFile(StringBuilder _file, AnalyzedTestContext _context, String _myFile, boolean _predefined) {
         String content_ = _file.toString();
         parseFile(_context, _myFile, _predefined, content_, _context.getAnalyzing());
@@ -9830,7 +9841,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         _context.getForwards().getCoverage().putFile(fileBlock_);
         _page.getErrors().putFile(fileBlock_, _context.getAnalyzing());
         fileBlock_.processLinesTabsWithError(_file, _context.getAnalyzing());
-        FileResolver.parseFile(fileBlock_, _fileName, _file, _context.getAnalyzing());
+        StringComment stringComment_ = fileBlock_.stringComment(_page.getComments());
+        fileBlock_.metrics(stringComment_);
+        String file_ = stringComment_.getFile();
+        FileResolver.parseFile(fileBlock_, _fileName, file_, _context.getAnalyzing());
         StringList basePkgFound_ = _page.getBasePackagesFound();
         basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
         StringList pkgFound_ = _page.getPackagesFound();

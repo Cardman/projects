@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.inherits.*;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -724,7 +725,9 @@ public final class ClassesUtil {
             if (!block_.getBinChars().isEmpty()) {
                 continue;
             }
-            String file_ = block_.getContent();
+            StringComment stringComment_ = block_.stringComment(_page.getComments());
+            block_.metrics(stringComment_);
+            String file_ = stringComment_.getFile();
             FileResolver.parseFile(block_, fileName_,file_, _page);
         }
         StringList basePkgFound_ = _page.getBasePackagesFound();

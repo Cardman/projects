@@ -11,9 +11,8 @@ import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
-import org.junit.Assert;
 
-public final class InitializationLgNames {
+public final class InitializationLgNames extends EquallableElUtil {
 
     public static AnalyzedTestContext buildStdOneAna(Options _opt) {
         return buildStdOneAna(IndexConstants.INDEX_NOT_FOUND_ELT, _opt);
@@ -67,7 +66,7 @@ public final class InitializationLgNames {
         ParsedArgument.buildCustom(_opt,_kw);
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
-        Assert.assertTrue(page_.isEmptyStdError());
+        assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContext(_opt,page_, forwards_,_lgNames);
     }
 

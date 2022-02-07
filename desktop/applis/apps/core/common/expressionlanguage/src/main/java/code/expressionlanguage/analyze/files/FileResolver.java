@@ -40,6 +40,7 @@ public final class FileResolver {
     }
 
     public static void parseFile(FileBlock _block, String _fileName, String _file, AnalyzedPageEl _page) {
+        CustList<SegmentStringPart> stringParts_ = _block.getStringParts();
         StringList importedTypes_ = new StringList();
         StringBuilder str_ = new StringBuilder();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -59,15 +60,19 @@ public final class FileResolver {
         int indexImport_ = 0;
         Ints badIndexes_ = new Ints();
         Ints offsetsImports_ = new Ints();
-        CustList<CommentDelimiters> comments_ = _page.getComments();
         int braces_ = 0;
         int parentheses_ = 0;
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
-            if (stringComment(_file, i_, comments_, currentChar_)) {
-                ParseStringsCommentsState parse_ = new ParseStringsCommentsState(i_,_file,str_);
-                parse_.parse(0,_block,comments_);
-                i_ = parse_.getIndex();
+            int until_ = i_;
+            for (SegmentStringPart s: stringParts_) {
+                if (s.getBegin() == i_) {
+                    until_ = s.getEnd();
+                    break;
+                }
+            }
+            if (until_ > i_) {
+                i_ = until_;
                 continue;
             }
             ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
@@ -181,16 +186,19 @@ public final class FileResolver {
             }
             i_ = res_.getNextIndex();
             boolean ended_ = true;
-            CommentDelimiters current_ = null;
             braces_ = 0;
             parentheses_ = 0;
             while (i_ < len_) {
                 char currentChar_ = _file.charAt(i_);
-                if (stringComment(_file, i_, comments_, currentChar_)) {
-                    ParseStringsCommentsState parse_ = new ParseStringsCommentsState(i_,_file,str_);
-                    parse_.parse(0,_block,comments_);
-                    current_ = parse_.getCurrentCom();
-                    i_ = parse_.getIndex();
+                int until_ = i_;
+                for (SegmentStringPart s: stringParts_) {
+                    if (s.getBegin() == i_) {
+                        until_ = s.getEnd();
+                        break;
+                    }
+                }
+                if (until_ > i_) {
+                    i_ = until_;
                     continue;
                 }
                 ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
@@ -221,9 +229,6 @@ public final class FileResolver {
                 i_ = i_ + 1;
             }
             if (ended_) {
-                if (current_ != null) {
-                    _block.getEndComments().add(len_ - 1);
-                }
                 return;
             }
             input_.setNextIndex(i_);
@@ -232,11 +237,15 @@ public final class FileResolver {
 
     static void appendEndComment(StringBuilder _str, String _endCom) {
         for (char c: _endCom.toCharArray()) {
-            if (c < ' ') {
-                _str.append(c);
-            } else {
-                _str.append(' ');
-            }
+            appendChar(_str, c);
+        }
+    }
+
+    static void appendChar(StringBuilder _str, char _c) {
+        if (_c < ' ') {
+            _str.append(_c);
+        } else {
+            _str.append(' ');
         }
     }
 
@@ -254,6 +263,7 @@ public final class FileResolver {
         StringBuilder instruction_ = new StringBuilder();
         int instructionLocation_ = _input.getNextIndex();
         FileBlock fileBlock_ = _input.getFile();
+        CustList<SegmentStringPart> stringParts_ = fileBlock_.getStringParts();
         int braces_ = 0;
         int parentheses_ = 0;
         BracedBlock currentParent_ = null;
@@ -263,14 +273,21 @@ public final class FileResolver {
         AfterBuiltInstruction after_ = new AfterBuiltInstruction();
         after_.setIndex(i_);
         after_.setParent(null);
-        CustList<CommentDelimiters> comments_ = _page.getComments();
         while (i_ < len_) {
             char currentChar_ = _file.charAt(i_);
-            if (stringComment(_file, i_, comments_, currentChar_)) {
-                ParseStringsCommentsState parse_ = new ParseStringsCommentsState(i_,_file,instruction_);
-                parse_.parse(instructionLocation_,fileBlock_,comments_);
-                i_ = parse_.getIndex();
-                instructionLocation_ = parse_.getInstructionLocation();
+            int until_ = i_;
+            for (SegmentStringPart s: stringParts_) {
+                if (s.getBegin() == _offset + i_) {
+                    until_ = s.getEnd() - _offset;
+                    for (int c = i_; c < until_; c++) {
+                        instructionLocation_ = setInstLocation(instruction_, instructionLocation_, c);
+                        instruction_.append(_file.charAt(c));
+                    }
+                    break;
+                }
+            }
+            if (until_ > i_) {
+                i_ = until_;
                 continue;
             }
             EndInstruction endInstr_ = EndInstruction.NONE;
@@ -339,10 +356,6 @@ public final class FileResolver {
         out_.setNextIndex(i_);
         out_.setOkType(okType_);
         return out_;
-    }
-
-    private static boolean stringComment(String _file, int _i, CustList<CommentDelimiters> _comments, char _currentChar) {
-        return _currentChar == DEL_CHAR || _currentChar == DEL_STRING || _currentChar == DEL_TEXT || ParseStringsCommentsState.skip(_file, _i, _comments) != null;
     }
 
     static String getEndCom(String _file, int _i, CommentDelimiters _current) {

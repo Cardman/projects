@@ -7,7 +7,6 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
-import org.junit.Assert;
 
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -15,7 +14,7 @@ import code.expressionlanguage.options.Options;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
-public final class InitializationLgNamesRender {
+public final class InitializationLgNamesRender extends EquallableRenderUtil {
 
     private InitializationLgNamesRender(){
     }
@@ -31,7 +30,7 @@ public final class InitializationLgNamesRender {
         ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
         lgNames_.build();
         ValidatorStandard.setupOverrides(page_);
-        Assert.assertTrue(page_.isEmptyStdError());
+        assertTrue(page_.isEmptyStdError());
         return new AnalyzedTestContextRender(_opt,page_, forwards_,lgNames_);
     }
 
