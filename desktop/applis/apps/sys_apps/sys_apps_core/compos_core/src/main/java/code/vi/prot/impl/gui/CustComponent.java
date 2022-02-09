@@ -1,7 +1,6 @@
 package code.vi.prot.impl.gui;
 
 import java.awt.*;
-import java.awt.image.MemoryImageSource;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -20,7 +19,6 @@ import code.util.IdMap;
 
 public abstract class CustComponent implements AbsCustComponent {
 
-    private static final String SELECT = "select";
     private AbsCustComponent parent;
     private final IdMap<AbsKeyListener, WrKeyListener> mapKey = new IdMap<AbsKeyListener, WrKeyListener>();
     private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
@@ -208,13 +206,6 @@ public abstract class CustComponent implements AbsCustComponent {
 
     public void setToolTipText(String _title) {
         getNatComponent().setToolTipText(_title);
-    }
-
-    @Override
-    public void setCursor(int _wCurs, int _hCurs, int[] _pixels) {
-        Toolkit tool_ = Toolkit.getDefaultToolkit();
-        Image b_ = tool_.createImage(new MemoryImageSource(_wCurs, _hCurs, _pixels, 0, _wCurs));
-        getNatComponent().setCursor(tool_.createCustomCursor(b_, new Point(0, 0),SELECT));
     }
 
     @Override

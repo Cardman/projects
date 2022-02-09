@@ -137,8 +137,8 @@ public final class WindowRts extends GroupFrame {
         threadLau = getThreadFactory().newThread(thread);
     }
 
-    private static void setCursor(AbsPanel _battlegroundWrapper, int _wCurs, int _hCurs, int[] _pixels) {
-        _battlegroundWrapper.setCursor(_wCurs, _hCurs, _pixels);
+    private void setCursor(AbsPanel _battlegroundWrapper, int _wCurs, int _hCurs, int[] _pixels) {
+        getFrames().getFrameFactory().setCursor(_battlegroundWrapper,_wCurs, _hCurs, _pixels);
     }
 
     @Override
