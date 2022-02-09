@@ -11,6 +11,30 @@ import org.junit.Test;
 
 public final class ProcessMethodToStringTest extends ProcessMethodCommon {
     @Test
+    public void calculate0Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static String test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  $return \"\"+e;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public String $toString()\n");
+        xml_.append(" {\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq("", getString(ret_));
+    }
+    @Test
     public void calculate1Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
