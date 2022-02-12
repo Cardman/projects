@@ -1660,7 +1660,75 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMergedDuplicates(s_, merge_);
         assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
     }
+    @Test
+    public void fail67Test() {
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
 
+        kw_.setKeyWordNbDig0("");
+        kw_.setKeyWordNbDig1("0");
+        kw_.setKeyWordNbDig2(",");
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+
+        StringMap<String> keyWords_ = kw_.allKeyWords();
+        validateKeyWordContents(kw_, s_, keyWords_);
+        StringMap<String> escapings_ = kw_.allEscapings();
+        validateEscapingsContents(kw_, s_, escapings_);
+        StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
+        validateNbWordContents(kw_, s_, nbWords_);
+        validateBinarySeparators(kw_, s_);
+        StringMap<String> prims_ = allPrimitives(s_);
+        validatePrimitiveContents(s_, prims_);
+        StringMap<String> refTypes_ = allRefTypes(s_);
+        validateRefTypeContents(s_, prims_, refTypes_);
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
+        validateMethodsContents(s_, prims_, methods_);
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
+        validateFieldsContents(s_, prims_, fields_);
+        validateKeyWordDuplicates(kw_, s_, keyWords_);
+        validateEscapingsDuplicates(kw_, s_, escapings_);
+        StringMap<String> nbWordsDec_ = kw_.allNbWords(kw_.allNbWordsDec());
+        validateNbWordDuplicates(kw_, s_, nbWordsDec_);
+        StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
+        validateNbWordDuplicates(kw_, s_, nbWordsBin_);
+        validateStartsPrefixesDuplicates(kw_, s_);
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+    }
+    @Test
+    public void fail68Test() {
+        KeyWords kw_ = new KeyWords();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+
+        kw_.setKeyWordNbDig0("F");
+        kw_.setKeyWordNbDig1("F");
+        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+
+        StringMap<String> keyWords_ = kw_.allKeyWords();
+        validateKeyWordContents(kw_, s_, keyWords_);
+        StringMap<String> escapings_ = kw_.allEscapings();
+        validateEscapingsContents(kw_, s_, escapings_);
+        StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
+        validateNbWordContents(kw_, s_, nbWords_);
+        validateBinarySeparators(kw_, s_);
+        StringMap<String> prims_ = allPrimitives(s_);
+        validatePrimitiveContents(s_, prims_);
+        StringMap<String> refTypes_ = allRefTypes(s_);
+        validateRefTypeContents(s_, prims_, refTypes_);
+        StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
+        validateMethodsContents(s_, prims_, methods_);
+        StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
+        validateFieldsContents(s_, prims_, fields_);
+        validateKeyWordDuplicates(kw_, s_, keyWords_);
+        validateEscapingsDuplicates(kw_, s_, escapings_);
+        StringMap<String> nbWordsDec_ = kw_.allNbWords(kw_.allNbWordsDec());
+        validateNbWordDuplicates(kw_, s_, nbWordsDec_);
+        StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
+        validateNbWordDuplicates(kw_, s_, nbWordsBin_);
+        validateStartsPrefixesDuplicates(kw_, s_);
+        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+    }
     private static void validateEscapingsContents(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _escapings) {
         _kw.validateEscapingsContents(_escapings, _s.getAnalyzing());
     }
@@ -1698,7 +1766,7 @@ public class LgNamesTest extends ProcessMethodCommon {
     }
 
     @Test
-    public void fail67Test() {
+    public void fail69Test() {
         
         
         KeyWords kw_ = new KeyWords();

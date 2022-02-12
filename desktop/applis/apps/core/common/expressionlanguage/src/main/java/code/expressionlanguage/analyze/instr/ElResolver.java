@@ -64,10 +64,6 @@ public final class ElResolver {
     static final char ANNOT = '@';
 
     static final char MIN_ENCODE_DIGIT = '0';
-    static final char MIN_ENCODE_LOW_LETTER = 'a';
-    static final char MAX_ENCODE_LOW_LETTER = 'f';
-    static final char MIN_ENCODE_UPP_LETTER = 'A';
-    static final char MAX_ENCODE_UPP_LETTER = 'F';
 
     static final String ARR = "[";
     static final String ARR_END = "]";
@@ -1724,17 +1720,8 @@ public final class ElResolver {
             return infos_;
         }
         if (unicode_ > 0) {
-            boolean ok_ = StringExpUtil.isDigit(curChar_);
-            if (curChar_ >= MIN_ENCODE_LOW_LETTER && curChar_ <= MAX_ENCODE_LOW_LETTER) {
-                ok_ = true;
-            }
-            if (curChar_ >= MIN_ENCODE_UPP_LETTER && curChar_ <= MAX_ENCODE_UPP_LETTER) {
-                ok_ = true;
-            }
-            if (!ok_) {
-                _si.setKo();
-            }
-            infos_.getStringInfo().getBuiltUnicode()[unicode_-1] = curChar_;
+            char charToAdd_ = trStr(_key, _si, curChar_);
+            infos_.getStringInfo().getBuiltUnicode()[unicode_-1] = charToAdd_;
             if (unicode_ < UNICODE_SIZE) {
                 unicode_++;
             } else {
@@ -1827,6 +1814,40 @@ public final class ElResolver {
         return infos_;
     }
 
+    private static char trStr(KeyWords _key, StringInfo _si, char curChar_) {
+        char charToAdd_ = curChar_;
+        boolean ok_ = StringExpUtil.isDigit(curChar_);
+        if (!ok_) {
+            int min_ = NumParsers.toMinCaseLetter(curChar_);
+            int ind_ = _key.getKeyWordNbDig().indexOf(min_);
+            if (ind_ >= 0) {
+                ok_ = true;
+                charToAdd_ = (char) (ind_ + 'A');
+            }
+        }
+        if (!ok_) {
+            _si.setKo();
+        }
+        return charToAdd_;
+    }
+
+    private static char trTx(KeyWords _key, TextBlockInfo _si, char curChar_) {
+        char charToAdd_ = curChar_;
+        boolean ok_ = StringExpUtil.isDigit(curChar_);
+        if (!ok_) {
+            int min_ = NumParsers.toMinCaseLetter(curChar_);
+            int ind_ = _key.getKeyWordNbDig().indexOf(min_);
+            if (ind_ >= 0) {
+                ok_ = true;
+                charToAdd_ = (char) (ind_ + 'A');
+            }
+        }
+        if (!ok_) {
+            _si.setKo();
+        }
+        return charToAdd_;
+    }
+
     private static IndexUnicodeEscape processTextBlocks(KeyWords _key, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _infos, char _delimiter) {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
@@ -1908,17 +1929,8 @@ public final class ElResolver {
         }
         infos_.getTextInfo().setLastSpace(-1);
         if (unicode_ > 0) {
-            boolean ok_ = StringExpUtil.isDigit(curChar_);
-            if (curChar_ >= MIN_ENCODE_LOW_LETTER && curChar_ <= MAX_ENCODE_LOW_LETTER) {
-                ok_ = true;
-            }
-            if (curChar_ >= MIN_ENCODE_UPP_LETTER && curChar_ <= MAX_ENCODE_UPP_LETTER) {
-                ok_ = true;
-            }
-            if (!ok_) {
-                _si.setKo();
-            }
-            infos_.getTextInfo().getBuiltUnicode()[unicode_-1] = curChar_;
+            char charToAdd_ = trTx(_key, _si, curChar_);
+            infos_.getTextInfo().getBuiltUnicode()[unicode_-1] = charToAdd_;
             if (unicode_ < UNICODE_SIZE) {
                 unicode_++;
             } else {

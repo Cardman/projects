@@ -13,6 +13,54 @@ import org.junit.Test;
 public final class StringExpUtilTest extends ProcessMethodCommon {
 
     @Test
+    public void toMin1() {
+        assertEq(73,NumParsers.toMinCase((char) 304));
+    }
+    @Test
+    public void toMin2() {
+        assertEq(837,NumParsers.toMinCase((char) 921));
+    }
+    @Test
+    public void toMin3() {
+        assertEq(181,NumParsers.toMinCase((char) 924));
+    }
+    @Test
+    public void toMin4() {
+        assertEq(837,NumParsers.toMinCase((char) 953));
+    }
+    @Test
+    public void toMin5() {
+        assertEq(181,NumParsers.toMinCase((char) 956));
+    }
+    @Test
+    public void toMin6() {
+        assertEq(920,NumParsers.toMinCase((char) 1012));
+    }
+    @Test
+    public void toMin7() {
+        assertEq(837,NumParsers.toMinCase((char) 8126));
+    }
+    @Test
+    public void toMin8() {
+        assertEq(937,NumParsers.toMinCase((char) 8486));
+    }
+    @Test
+    public void toMin9() {
+        assertEq(75,NumParsers.toMinCase((char) 8490));
+    }
+    @Test
+    public void toMin10() {
+        assertEq(197,NumParsers.toMinCase((char) 8491));
+    }
+    @Test
+    public void toMin11() {
+        assertEq(7304,NumParsers.toMinCase((char) 42570));
+    }
+    @Test
+    public void toMin12() {
+        assertEq(7304,NumParsers.toMinCase((char) 42571));
+    }
+    @Test
     public void getAllTypes1Test(){
         assertEq(new StringList("String"), StringExpUtil.getAllTypes("String"));
     }

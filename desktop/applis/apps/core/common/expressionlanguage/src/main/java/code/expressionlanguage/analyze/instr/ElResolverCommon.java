@@ -211,7 +211,8 @@ public final class ElResolverCommon {
                 exp_ = true;
                 break;
             }
-            if (isNonNbPart(current_, base_)) {
+            int dig_ = digitPart(current_, base_, _key);
+            if (dig_ < 0) {
                 j_ = incrSep(j_,base_,sub_,hexEnd_);
                 boolean ok_ = processSuffix(_key, _string, output_, nbInfos_, j_);
                 if (ok_) {
@@ -223,7 +224,7 @@ public final class ElResolverCommon {
                 continue;
             }
             //current_ is digit or expected letter
-            append(_seenDot, intPart_, decPart_, current_);
+            append(_seenDot, intPart_, decPart_, (char) dig_);
             j_++;
         }
         if (dot_) {
@@ -240,10 +241,11 @@ public final class ElResolverCommon {
             boolean added_ = false;
             while (j_ < _max) {
                 char curChar_ = _string.charAt(j_);
-                if (isNonNbPart(curChar_, base_)) {
+                int dig_ = digitPart(curChar_, base_, _key);
+                if (dig_ < 0) {
                     break;
                 }
-                decPart_.append(curChar_);
+                decPart_.append((char) dig_);
                 added_ = true;
                 j_++;
             }
@@ -340,35 +342,42 @@ public final class ElResolverCommon {
         }
         return ok_;
     }
-
-    private static boolean isNonNbPart(char _char, int _base) {
-        return isNonDigit(_char,_base) && _char != ElResolver.NB_INTERN_SP;
+    private static int digitPart(char _char, int _base, KeyWords _key) {
+        if (_char == ElResolver.NB_INTERN_SP) {
+            return _char;
+        }
+        return digit(_char,_base,_key);
     }
 
-    private static boolean isNonDigit(char _char, int _base) {
-        boolean ok_ = false;
+    private static int digit(char _char, int _base, KeyWords _key) {
         if (_base == 10) {
-            ok_ = StringExpUtil.isDigit(_char);
-        } else if (_base == 16) {
             if (StringExpUtil.isDigit(_char)) {
-                ok_ = true;
+                return _char;
             }
-            if (_char >= ElResolver.MIN_ENCODE_LOW_LETTER && _char <= ElResolver.MAX_ENCODE_LOW_LETTER) {
-                ok_ = true;
-            }
-            if (_char >= ElResolver.MIN_ENCODE_UPP_LETTER && _char <= ElResolver.MAX_ENCODE_UPP_LETTER) {
-                ok_ = true;
-            }
-        } else if (_base == 2) {
-            if (_char == '0' || _char == '1') {
-                ok_ = true;
-            }
-        } else {
-            if (_char >= ElResolver.MIN_ENCODE_DIGIT && _char <= '7') {
-                ok_ = true;
-            }
+            return -1;
         }
-        return !ok_;
+        if (_base == 16) {
+            if (StringExpUtil.isDigit(_char)) {
+                return _char;
+            }
+            int min_ = NumParsers.toMinCaseLetter(_char);
+            String keyWordNbDig_ = _key.getKeyWordNbDig();
+            int ch_ = keyWordNbDig_.indexOf(min_);
+            if (ch_ >= 0) {
+                return ch_ + 'A';
+            }
+            return -1;
+        }
+        if (_base == 2) {
+            if (_char == '0' || _char == '1') {
+                return _char;
+            }
+            return -1;
+        }
+        if (_char >= ElResolver.MIN_ENCODE_DIGIT && _char <= '7') {
+            return _char;
+        }
+        return -1;
     }
 
     private static void processExp(KeyWords _key, int _start, int _max, String _string, NumberInfosOutput _output) {
@@ -418,10 +427,11 @@ public final class ElResolverCommon {
             }
         }
         while (j_ < _max) {
-            if (isNonNbPart(_string.charAt(j_),10)) {
+            int dig_ = digitPart(_string.charAt(j_), 10, _key);
+            if (dig_ < 0) {
                 break;
             }
-            exp_.append(_string.charAt(j_));
+            exp_.append((char) dig_);
             j_++;
         }
         int n_ = StringExpUtil.nextPrintChar(j_, _max, _string);

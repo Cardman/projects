@@ -1,14 +1,13 @@
 package code.expressionlanguage.options;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringDataLetterUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.stds.LgNamesContent;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class KeyWords {
@@ -70,6 +69,12 @@ public final class KeyWords {
     private static final String NB_HEX = "NbHex";
     private static final String NB_HEX_END = "NbHexEnd";
     private static final String NB_BIN = "NbBin";
+    private static final String NB_DIG0 = "NbDig0";
+    private static final String NB_DIG1 = "NbDig1";
+    private static final String NB_DIG2 = "NbDig2";
+    private static final String NB_DIG3 = "NbDig3";
+    private static final String NB_DIG4 = "NbDig4";
+    private static final String NB_DIG5 = "NbDig5";
     private static final String THAT = "That";
     private static final String BOOL = "Bool";
     private static final String VALUES = "Values";
@@ -168,7 +173,14 @@ public final class KeyWords {
     private String keyWordNbHex = "x";
     private String keyWordNbHexEnd = "x";
     private String keyWordNbBin = "b";
-    
+    private String keyWordNbDig0 = "A";
+    private String keyWordNbDig1 = "B";
+    private String keyWordNbDig2 = "C";
+    private String keyWordNbDig3 = "D";
+    private String keyWordNbDig4 = "E";
+    private String keyWordNbDig5 = "F";
+    private String keyWordNbDig = "";
+
     private String keyWordCast = "$";
     private String keyWordExplicit = "explicit";
     private String keyWordClasschoice = "$classchoice";
@@ -344,6 +356,7 @@ public final class KeyWords {
         }
     }
     public void validateBinarySeparators(AnalyzedPageEl _page) {
+        validateSupplDigits(_page);
         validateExpBin(_page);
         validatePreBin(keyWordNbBin, _page);
         validatePreBin(keyWordNbHex, _page);
@@ -354,6 +367,47 @@ public final class KeyWords {
             }
         }
     }
+    private void validateSupplDigits(AnalyzedPageEl _page) {
+        AnalysisMessages a_ = _page.getAnalysisMessages();
+        CustList<String> supplDig_ = new CustList<String>();
+        supplDig_.add(keyWordNbDig0);
+        supplDig_.add(keyWordNbDig1);
+        supplDig_.add(keyWordNbDig2);
+        supplDig_.add(keyWordNbDig3);
+        supplDig_.add(keyWordNbDig4);
+        supplDig_.add(keyWordNbDig5);
+        Ints supplDigMin_ = new Ints();
+        for (String p: supplDig_) {
+            if (p.length() != 1) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getEmptyNb(),p));
+                _page.addStdError(err_);
+            } else if (!StringDataLetterUtil.isLetter(p.charAt(0))){
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDigitFirst(),p,Character.toString(p.charAt(0))));
+                _page.addStdError(err_);
+            } else {
+                supplDigMin_.add(NumParsers.toMinCase(p.charAt(0)));
+            }
+        }
+        supplDigMin_.sort();
+        int size_ = supplDigMin_.size();
+        for (int i = 1; i < size_; i++) {
+            int va_ = supplDigMin_.get(i);
+            if (supplDigMin_.get(i - 1) >= va_) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateNumberWord(),Character.toString((char)va_)));
+                _page.addStdError(err_);
+            }
+        }
+        StringBuilder keyWordNbDigBuilder_ = new StringBuilder();
+        for (int i = 0; i < size_; i++) {
+            int va_ = supplDigMin_.get(i);
+            keyWordNbDigBuilder_.append((char)va_);
+        }
+        keyWordNbDig = keyWordNbDigBuilder_.toString();
+    }
+
     public void validateStartsPrefixesDuplicates(AnalyzedPageEl _page) {
         validateStartsDuplicates(keyWordNbBin,keyWordNbHex, _page);
     }
@@ -395,16 +449,13 @@ public final class KeyWords {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstChar_)));
             _page.addStdError(err_);
-        }
-        if (firstChar_ >= 'A' && firstChar_ <= 'F') {
-            StdWordError err_ = new StdWordError();
-            err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstChar_)));
-            _page.addStdError(err_);
-        }
-        if (firstChar_ >= 'a' && firstChar_ <= 'f') {
-            StdWordError err_ = new StdWordError();
-            err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstChar_)));
-            _page.addStdError(err_);
+        } else {
+            int min_ = NumParsers.toMinCase(firstChar_);
+            if (keyWordNbDig.indexOf(min_) >= 0) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbHex,Character.toString(firstChar_)));
+                _page.addStdError(err_);
+            }
         }
     }
     private static void validatePreBin(String _sep, AnalyzedPageEl _page) {
@@ -468,16 +519,13 @@ public final class KeyWords {
             StdWordError err_ = new StdWordError();
             err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
             _page.addStdError(err_);
-        }
-        if (firstExpBin_ >= 'A' && firstExpBin_ <= 'F') {
-            StdWordError err_ = new StdWordError();
-            err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
-            _page.addStdError(err_);
-        }
-        if (firstExpBin_ >= 'a' && firstExpBin_ <= 'f') {
-            StdWordError err_ = new StdWordError();
-            err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
-            _page.addStdError(err_);
+        } else {
+            int min_ = NumParsers.toMinCase(firstExpBin_);
+            if (keyWordNbDig.indexOf(min_) >= 0) {
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getIllegalFirstChar(),keyWordNbExpBin,Character.toString(firstExpBin_)));
+                _page.addStdError(err_);
+            }
         }
     }
     public void build(StringMap<String> _util,StringMap<String> _cust) {
@@ -539,6 +587,12 @@ public final class KeyWords {
         setKeyWordNbHex(LgNamesContent.get(_util, _cust, NB_HEX));
         setKeyWordNbHexEnd(LgNamesContent.get(_util, _cust, NB_HEX_END));
         setKeyWordNbBin(LgNamesContent.get(_util, _cust, NB_BIN));
+        setKeyWordNbDig0(LgNamesContent.get(_util, _cust, NB_DIG0));
+        setKeyWordNbDig1(LgNamesContent.get(_util, _cust, NB_DIG1));
+        setKeyWordNbDig2(LgNamesContent.get(_util, _cust, NB_DIG2));
+        setKeyWordNbDig3(LgNamesContent.get(_util, _cust, NB_DIG3));
+        setKeyWordNbDig4(LgNamesContent.get(_util, _cust, NB_DIG4));
+        setKeyWordNbDig5(LgNamesContent.get(_util, _cust, NB_DIG5));
         setKeyWordThat(LgNamesContent.get(_util, _cust, THAT));
         setKeyWordBool(LgNamesContent.get(_util, _cust, BOOL));
         setKeyWordValues(LgNamesContent.get(_util, _cust, VALUES));
@@ -667,6 +721,11 @@ public final class KeyWords {
         keyWords_.addEntry(NB_BIN,keyWordNbBin);
         return keyWords_;
     }
+
+    public String getKeyWordNbDig() {
+        return keyWordNbDig;
+    }
+
     public StringMap<String> allNbWords(StringMap<String> _othersWords) {
         StringMap<String> keyWords_ = new StringMap<String>();
         for (EntryCust<String,String> o: _othersWords.entryList()) {
@@ -1122,6 +1181,30 @@ public final class KeyWords {
     }
     public void setKeyWordNbBin(String _keyWordNbBin) {
         keyWordNbBin = _keyWordNbBin;
+    }
+
+    public void setKeyWordNbDig0(String _keyWordNbDig0) {
+        this.keyWordNbDig0 = _keyWordNbDig0;
+    }
+
+    public void setKeyWordNbDig1(String _keyWordNbDig1) {
+        this.keyWordNbDig1 = _keyWordNbDig1;
+    }
+
+    public void setKeyWordNbDig2(String _keyWordNbDig2) {
+        this.keyWordNbDig2 = _keyWordNbDig2;
+    }
+
+    public void setKeyWordNbDig3(String _keyWordNbDig3) {
+        this.keyWordNbDig3 = _keyWordNbDig3;
+    }
+
+    public void setKeyWordNbDig4(String _keyWordNbDig4) {
+        this.keyWordNbDig4 = _keyWordNbDig4;
+    }
+
+    public void setKeyWordNbDig5(String _keyWordNbDig5) {
+        this.keyWordNbDig5 = _keyWordNbDig5;
     }
     public String getKeyWordCast() {
         return keyWordCast;

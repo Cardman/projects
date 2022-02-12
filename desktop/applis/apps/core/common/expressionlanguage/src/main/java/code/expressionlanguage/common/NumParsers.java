@@ -2136,7 +2136,48 @@ public final class NumParsers {
                 || _toffset > (long)_instance.length() - _len
                 || _ooffset > (long)_other.length() - _len;
     }
-
+    public static int toMinCaseLetter(char _char) {
+        if (!StringDataLetterUtil.isLetter(_char)) {
+            return -1;
+        }
+        return toMinCase(_char);
+    }
+    public static int toMinCase(char _char) {
+        if (_char == 304) {
+            return 73;
+        }
+        if (_char == 921) {
+            return 837;
+        }
+        if (_char == 924) {
+            return 181;
+        }
+        if (_char == 953) {
+            return 837;
+        }
+        if (_char == 956) {
+            return 181;
+        }
+        if (_char == 1012) {
+            return 920;
+        }
+        if (_char == 8126) {
+            return 837;
+        }
+        if (_char == 8486) {
+            return 937;
+        }
+        if (_char == 8490) {
+            return 75;
+        }
+        if (_char == 8491) {
+            return 197;
+        }
+        if (_char == 42570 || _char == 42571) {
+            return 7304;
+        }
+        return Math.min(StringDataUtil.toLowerCase(_char),StringDataUtil.toUpperCase(_char));
+    }
     public static Struct getStaticField(ClassField _clField, StringMap<StringMap<Struct>> _staticFields) {
         StringMap<Struct> map_ = getStaticFieldMap(_clField.getClassName(), _staticFields);
         if (map_.isEmpty()) {
