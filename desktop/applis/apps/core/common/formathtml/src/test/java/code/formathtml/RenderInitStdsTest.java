@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.common.FileMetricsCore;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
@@ -14,16 +15,14 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendFileBlock;
 import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.Ints;
-import code.util.StringMap;
+import code.util.*;
 import org.junit.Test;
 
 public final class RenderInitStdsTest extends CommonRender {
@@ -74,7 +73,7 @@ public final class RenderInitStdsTest extends CommonRender {
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
         new Navigation().initializeRendSessionDoc(null, null, null, rendStackCall_);
         rendStackCall_.addPage(new ImportingPage());
-        RendBlock.processDo(a_.getConfiguration(),null,null,null, rendStackCall_);
+        RendBlock.processDo(null,null,null, rendStackCall_);
         RendBlock.processElse(a_.getConfiguration(),null,null,null, rendStackCall_);
         RendBlock.processElseIf(a_.getConfiguration(),null,null,null, rendStackCall_);
         RendBlock.processFinally(a_.getConfiguration(),null,null,null, rendStackCall_);
@@ -85,7 +84,7 @@ public final class RenderInitStdsTest extends CommonRender {
         RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
         RendDynOperationNode.getFirstNode(null);
         assertNull(RendDynOperationNode.getParentOrNull(null));
-        new ImportingPage().getSum();
+        new ImportingPage().realIndex(new RendFileBlock(new FileMetricsCore(new Ints(),new Ints()),"", new IntTreeMap<Integer>()));
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);

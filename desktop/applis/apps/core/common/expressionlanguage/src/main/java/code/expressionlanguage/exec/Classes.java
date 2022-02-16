@@ -13,6 +13,7 @@ import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.fwd.DefExecFileListBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -68,7 +69,7 @@ public final class Classes {
             //all errors are logged here
             return null;
         }
-        ForwardInfos.generalForward(_page,_forwards);
+        ForwardInfos.generalForward(_page,_forwards, new DefExecFileListBuilder(_page,_forwards));
         ContextEl ctx_ = _forwards.generate(_opt);
         forwardAndClear(ctx_);
         Options options_ = _page.getOptions();

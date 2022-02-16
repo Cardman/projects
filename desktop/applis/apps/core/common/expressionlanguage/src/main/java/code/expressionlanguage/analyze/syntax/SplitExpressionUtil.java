@@ -18,7 +18,6 @@ public final class SplitExpressionUtil {
     private SplitExpressionUtil() {
     }
     public static CustList<IntermediaryResults> getNextResults(AnalyzedPageEl _page) {
-        CustList<IntermediaryResults> list_ = new CustList<IntermediaryResults>();
         IntermediaryResults int_ = new IntermediaryResults();
         CustList<RootBlock> allInit_ = new CustList<RootBlock>();
         for (RootBlock c: _page.getOuterTypes()) {
@@ -46,6 +45,11 @@ public final class SplitExpressionUtil {
         for (RootBlock c: allInit_) {
             processType(_page, int_, c);
         }
+        return anonymous(int_,_page);
+    }
+    public static CustList<IntermediaryResults> anonymous(IntermediaryResults _inter, AnalyzedPageEl _page) {
+        IntermediaryResults int_ = _inter;
+        CustList<IntermediaryResults> list_ = new CustList<IntermediaryResults>();
         while (!int_.getAnonymousTypes().isEmpty()||!int_.getAnonymousFunctions().isEmpty()||!int_.getSwitchMethods().isEmpty()) {
             list_.add(int_);
             CustList<AnonymousTypeBlock> anonymousTypes_ = int_.getAnonymousTypes();

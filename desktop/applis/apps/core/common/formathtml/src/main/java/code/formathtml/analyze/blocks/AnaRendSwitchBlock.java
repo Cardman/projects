@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
@@ -22,6 +23,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
 
     private final String value;
     private final int valueOffset;
+    private final ResultExpression resultExpression = new ResultExpression();
 
     private OperationNode root;
     private AnaClassArgumentMatching result;
@@ -40,8 +42,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(valueOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrValue());
-        root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page);
+        root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page,resultExpression);
         result = root.getResultClass();
         AnaClassArgumentMatching clArg_ = root.getResultClass();
         String type_ = clArg_.getSingleNameOrEmpty();

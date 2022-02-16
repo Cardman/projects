@@ -336,6 +336,12 @@ public final class ClassesUtil {
         }
         _page.setAnnotAnalysis(false);
 
+        processAnonymous(_page);
+    }
+
+    public static void processAnonymous(AnalyzedPageEl _page) {
+        StringList basePkgFound_ = _page.getBasePackagesFound();
+        StringList pkgFound_ = _page.getPackagesFound();
         for (IntermediaryResults s:_page.getNextResults()) {
             for (AnonymousInstancingOperation e: _page.getAnonymous()) {
                 AnonymousTypeBlock block_ = e.getBlock();

@@ -4,13 +4,11 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
-import code.util.IntTreeMap;
-import code.util.StringMap;
 
 public final class RendEmptyInstruction extends RendPossibleEmpty {
-    public RendEmptyInstruction() {
-        setEscapedChars(new StringMap<IntTreeMap<Integer>>());
-    }
+//    public RendEmptyInstruction() {
+//        setEscapedChars(new StringMap<IntTreeMap<Integer>>());
+//    }
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {

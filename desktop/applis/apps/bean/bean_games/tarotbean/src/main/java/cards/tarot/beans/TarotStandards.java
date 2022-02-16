@@ -309,7 +309,7 @@ public final class TarotStandards extends BeanNatLgNames {
         _rendStack.addPage(ip_);
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
         _rendStack.clearPages();
-        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
+        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack);
     }
 
     @Override

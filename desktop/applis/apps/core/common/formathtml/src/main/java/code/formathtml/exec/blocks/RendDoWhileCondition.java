@@ -14,6 +14,6 @@ public final class RendDoWhileCondition extends RendCondition {
     }
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        processDo(_cont,_stds,_ctx,this, _rendStack);
+        processDo(_stds,_ctx,this, _rendStack);
     }
 }

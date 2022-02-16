@@ -25,8 +25,6 @@ public final class Configuration {
     private static final String EMPTY_STRING = "";
 
     private static final int DEFAULT_TAB_WIDTH = 4;
-    private static final String SEPARATOR_PATH = "/";
-    private static final String IMPLICIT_LANGUAGE = "//";
 
     private String firstUrl = EMPTY_STRING;
 
@@ -50,10 +48,6 @@ public final class Configuration {
     private RendDocumentBlock rendDocumentBlock;
     private StringMap<String> files = new StringMap<String>();
 
-    public static String getRealFilePath(String _lg, String _link) {
-        return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
-    }
-
     public void init(DualConfigurationContext _dual) {
         prefix = StringUtil.concat(prefix,SEP);
         _dual.getRenderFiles().removeAllString(firstUrl);
@@ -69,8 +63,7 @@ public final class Configuration {
 
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String s: _dual.getRenderFiles()) {
-            String link_ = getRealFilePath(currentLanguage,s);
-            String file_ = _files.getVal(link_);
+            String file_ = _files.getVal(s);
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             Document document_ = res_.getDocument();
             if (document_ == null) {
@@ -82,24 +75,24 @@ public final class Configuration {
                 AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
                 continue;
             }
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), link_, _analyzingDoc.getRendKeyWords());
-            d_.addEntry(link_,anaDoc_);
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(d_.size(),_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), s, _analyzingDoc.getRendKeyWords());
+            d_.addEntry(s,anaDoc_);
         }
         buildDocs(_analyzingDoc, _page, d_, _analyzingDoc.getBeansInfosBefore());
         String currentUrl_ = getFirstUrl();
-        String realFilePath_ = getRealFilePath(currentLanguage, currentUrl_);
-        if (d_.getVal(realFilePath_) == null) {
+        if (d_.getVal(currentUrl_) == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFileName(_analyzingDoc.getFileName());
             badEl_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _analyzingDoc));
             badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantFile(),
-                    realFilePath_);
+                    currentUrl_);
             AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
         }
         return d_;
     }
 
     private static void buildDocs(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, StringMap<AnaRendDocumentBlock> _d, StringMap<BeanInfo> _beansInfosBefore) {
+        _analyzingDoc.setDocs(_d);
         for (AnaRendDocumentBlock v : _d.values()) {
             v.buildFctInstructions(_analyzingDoc, _page, _beansInfosBefore);
         }

@@ -28,7 +28,7 @@ public final class AnaRendText extends AnaRendLeaf implements AnaRendBuildEl {
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
         ResultText res_ = new ResultText();
-        res_.buildAna(expression, expressionOffset, _anaDoc, _page);
+        res_.buildIdAna(expression, expressionOffset, _anaDoc, _page);
         roots = res_.getOpExpRoot();
         texts = res_.getTexts();
     }

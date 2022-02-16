@@ -18,7 +18,7 @@ public final class NatRendIfCondition extends NatRendCondition {
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        RendBlockHelp.processIf(_cont, _stds, _ctx, _rendStack, label, this);
+        RendBlockHelp.processIf(_stds, _ctx, _rendStack, label, this);
     }
 
 }

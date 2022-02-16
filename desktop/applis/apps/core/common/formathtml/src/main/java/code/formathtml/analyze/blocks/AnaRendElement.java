@@ -32,7 +32,7 @@ public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRe
         if (!id_.isEmpty()) {
             ResultText r_ = new ResultText();
             int off_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrId());
-            r_.buildAna(id_, off_, _anaDoc, _page);
+            r_.buildIdAna(id_, off_, _anaDoc, _page);
             attributesText.put(_anaDoc.getRendKeyWords().getAttrId(),r_);
         }
         String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());

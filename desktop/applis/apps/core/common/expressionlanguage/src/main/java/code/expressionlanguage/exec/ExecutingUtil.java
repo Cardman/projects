@@ -244,7 +244,7 @@ public final class ExecutingUtil {
         return page_;
     }
     public static BlockPageEl createBlockPageEl(ContextEl _context, ExecFormattedRootBlock _class, Argument _current, ExecRootBlock _rootBlock, ExecInitBlock _block) {
-        ExecFileBlock file_ = _block.getFile();
+        ExecAbstractFileBlock file_ = _block.getFile();
         BlockPageEl page_ = new BlockPageEl(_class);
         page_.setGlobalArgument(_current);
         page_.setReturnedArgument(_current);

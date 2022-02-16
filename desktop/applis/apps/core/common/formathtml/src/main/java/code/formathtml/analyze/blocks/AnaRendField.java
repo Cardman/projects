@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 
@@ -11,6 +12,8 @@ public final class AnaRendField extends AnaRendParentBlock implements AnaRendBui
     private final String prepare;
     private final int prepareOffset;
     private OperationNode root;
+    private final ResultExpression resultExpression = new ResultExpression();
+
     AnaRendField(OffsetStringInfo _prepare, int _offset) {
         super(_offset);
         prepare = _prepare.getInfo();
@@ -33,8 +36,7 @@ public final class AnaRendField extends AnaRendParentBlock implements AnaRendBui
             _anaDoc.setInternGlobalClass(intern_);
             _page.setGlobalOffset(prepareOffset);
             _page.zeroOffset();
-            _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrPrepare());
-            root = RenderAnalysis.getRootAnalyzedOperations(prepare, 0, _anaDoc, _page);
+            root = RenderAnalysis.getRootAnalyzedOperations(prepare, 0, _anaDoc, _page,resultExpression);
             _anaDoc.setInternGlobalClass(EMPTY_STRING);
         }
     }

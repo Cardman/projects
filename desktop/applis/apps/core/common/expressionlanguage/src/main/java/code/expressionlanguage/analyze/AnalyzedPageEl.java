@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.DefaultAccess;
+import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.SwitchOperation;
@@ -15,10 +16,7 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
-import code.expressionlanguage.common.AnaGeneType;
-import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.common.FileMetrics;
-import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
@@ -138,7 +136,9 @@ public final class AnalyzedPageEl {
     private AbstractLocalizer localizer;
     private AbstractTokenValidation tokenValidation;
     private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
+    private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
+    private CustList<SegmentStringPart> currentParts = new CustList<SegmentStringPart>();
     private final CustList<AnonymousInstancingOperation> anonymous = new CustList<AnonymousInstancingOperation>();
     private final CustList<AnonymousInstancingOperation> anonymousList = new CustList<AnonymousInstancingOperation>();
     private final CustList<AnonymousLambdaOperation> anonymousLambda = new CustList<AnonymousLambdaOperation>();
@@ -1105,12 +1105,24 @@ public final class AnalyzedPageEl {
         return anonymousResults;
     }
 
+    public CustList<SegmentStringPart> getParts() {
+        return parts;
+    }
+
     public CustList<AnonymousResult> getCurrentAnonymousResults() {
         return currentAnonymousResults;
     }
 
     public void setCurrentAnonymousResults(CustList<AnonymousResult> _currentAnonymousResults) {
         this.currentAnonymousResults = _currentAnonymousResults;
+    }
+
+    public CustList<SegmentStringPart> getCurrentParts() {
+        return currentParts;
+    }
+
+    public void setCurrentParts(CustList<SegmentStringPart> _currentParts) {
+        this.currentParts = _currentParts;
     }
 
     public CustList<AnonymousInstancingOperation> getAnonymous() {

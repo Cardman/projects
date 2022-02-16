@@ -11,28 +11,43 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Element;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock {
 
+    private final int nb;
     private final Element elt;
 
     private final String file;
     private final String fileName;
+    private final FileBlock fileBlock;
     private String beanName;
     private StringList imports = new StringList();
-    public AnaRendDocumentBlock(Element _elt, String _file, int _offset, String _fileName) {
+    private final IntTreeMap<Integer> escapedChar;
+    public AnaRendDocumentBlock(int _n,Element _elt, String _file, int _offset, String _fileName) {
         super(_offset);
+        this.nb = _n;
+        fileBlock = new FileBlock(_offset, false, _fileName);
         elt = _elt;
         file = _file;
         fileName = _fileName;
+        escapedChar = getIndexesSpecChars(_file);
+    }
+
+    public int getNb() {
+        return nb;
+    }
+
+    public IntTreeMap<Integer> getEscapedChar() {
+        return escapedChar;
     }
 
     public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, StringMap<BeanInfo> _beansInfosBefore) {
         setBeanName(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
-        imports = StringUtil.splitChar(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrAlias())),';');
+        initMetrics(_anaDoc, _page);
         _page.setGlobalOffset(getOffset());
         _page.zeroOffset();
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
@@ -93,6 +108,23 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             }
         }
     }
+
+    private void initMetrics(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        String alias_ = StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrAlias());
+        imports = StringUtil.splitChar(elt.getAttribute(alias_),';');
+        fileBlock.processLinesTabsWithError(file, _page);
+        int o_ = getAttributeDelimiter(alias_);
+        for (String o: imports) {
+            fileBlock.getImports().add(o);
+            fileBlock.getImportsOffset().add(o_);
+            o_ += o.length() +1;
+        }
+    }
+
+    public FileBlock getFileBlock() {
+        return fileBlock;
+    }
+
     @Override
     public StringList getFileImports() {
         return getImports();
@@ -149,14 +181,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
 
     public void setBeanName(String _beanName) {
         this.beanName = _beanName;
-    }
-
-    public String getFile() {
-        return file;
-    }
-
-    public String getFileName() {
-        return fileName;
     }
 
 }

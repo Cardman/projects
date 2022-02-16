@@ -21,7 +21,6 @@ public final class RendLine extends RendLeaf {
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         ip_.setOffset(exp.getOffset());
-        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrValue());
         RenderExpUtil.calculateReuse(exp.getList(), _stds, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;

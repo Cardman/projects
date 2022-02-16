@@ -2,6 +2,7 @@ package code.formathtml.nat;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -24,7 +25,7 @@ import code.util.core.StringUtil;
 public final class NatInputBuilder {
 
     public void tryBuildInputResult(String _name, ResultInput _resultInput, AnaRendBlock _bl, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _resultInput.setOpsReadRoot(RenderAnalysis.getRootAnalyzedOperations(_name+"()", 0, _anaDoc, _page));
+        _resultInput.setOpsReadRoot(RenderAnalysis.getRootAnalyzedOperations(_name+"()", 0, _anaDoc, _page, new ResultExpression()));
         OperationNode settable_ = _resultInput.getOpsReadRoot();
         _resultInput.setClassName(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
         _resultInput.setResult(settable_.getResultClass());

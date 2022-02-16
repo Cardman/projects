@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
@@ -17,6 +18,8 @@ import code.util.core.StringUtil;
 public final class AnaRendForm extends AnaRendElement {
     private CustList<OperationNode> roots;
     private OperationNode root;
+    private final ResultExpression resultExpression = new ResultExpression();
+
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
@@ -34,7 +37,7 @@ public final class AnaRendForm extends AnaRendElement {
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-            r_.buildAna(lk_, rowsGrId_, _anaDoc, _page);
+            r_.buildIdAna(lk_, rowsGrId_, _anaDoc, _page);
             texts = r_.getTexts();
             roots = r_.getOpExpRoot();
             for (OperationNode e: r_.getOpExpRoot()) {
@@ -71,7 +74,8 @@ public final class AnaRendForm extends AnaRendElement {
             if (pref_.indexOf('(') < 0) {
                 pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
             }
-            root = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
+            _page.zeroOffset();
+            root = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page,resultExpression);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

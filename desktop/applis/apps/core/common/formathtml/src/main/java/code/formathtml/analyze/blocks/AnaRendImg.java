@@ -22,7 +22,7 @@ public final class AnaRendImg extends AnaRendElement {
         ResultText res_ = new ResultText();
         String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrSrc());
         int rowsGrId_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrSrc());
-        res_.buildAna(pageName_, rowsGrId_, _anaDoc, _page);
+        res_.buildIdAna(pageName_, rowsGrId_, _anaDoc, _page);
         roots = res_.getOpExpRoot();
         texts = res_.getTexts();
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrSrc());

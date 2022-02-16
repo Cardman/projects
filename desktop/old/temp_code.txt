@@ -1,0 +1,476 @@
+/**for (SegmentStringPart s: stringParts_) {
+                   if (s.getBegin() == instrLoc_ + from_) {
+                       int until_ = s.getEnd() - instrLoc_;
+                   }
+               }
+               int instrLoc_ = _curElts.getInstrLoc();
+                       CustList<SegmentStringPart> stringParts_ = _file.getStringParts();*/
+
+    public static void commonCheckQuickTmp(String _string, int _minIndex, AnalyzedPageEl _page, ResultExpression _res, int _curInd) {
+        _page.getAnonymousResults().clear();
+        _page.getParts().clear();
+        String currentPkg_ = _page.getCurrentPkg();
+        FileBlock currentFile_ = _page.getCurrentFile();
+        stackBegin(_string,_minIndex, currentFile_,currentPkg_,_page, new CurrentExpElts(currentPkg_, currentFile_, _curInd));
+        _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
+        _res.setParts(new CustList<SegmentStringPart>(_page.getParts()));
+    }
+
+    public static void commonCheckQuickDel(String _string, int _minIndex, AnalyzedPageEl _page, ResultExpression _res) {
+        _page.getAnonymousResults().clear();
+        _page.getParts().clear();
+        stackBeginDel(_string,_minIndex, _page, _page.getLocalizer().getCurrentLocationIndex());
+        _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
+        _res.setParts(new CustList<SegmentStringPart>(_page.getParts()));
+    }
+
+    private static void stackBeginDel(String _string, int _from, AnalyzedPageEl _page, int _curIndex) {
+        boolean constTextString_ = false;
+        boolean constTextChar_ = false;
+        boolean constString_ = false;
+        boolean constChar_ = false;
+        boolean constText_ = false;
+        StackDelimiters stack_ = new StackDelimiters();
+        StackOperators parsBrackets_ = new StackOperators();
+        char prevOp_ = ElResolver.SPACE;
+        int from_ = _from;
+        int len_ = _string.length();
+        while (from_ < len_) {
+            char curChar_ = _string.charAt(from_);
+            if (constTextString_) {
+                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == ElResolver.DELIMITER_STRING
+                        && StringExpUtil.nextCharIs(_string,from_+1,len_, ElResolver.DELIMITER_STRING)
+                        &&StringExpUtil.nextCharIs(_string,from_+2,len_, ElResolver.DELIMITER_STRING)) {
+                    constTextString_ = false;
+                    from_ += 3;
+                    continue;
+                }
+                from_++;
+                continue;
+            }
+            if (constString_) {
+                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == ElResolver.DELIMITER_STRING) {
+                    constString_ = false;
+                }
+                from_++;
+                continue;
+            }
+            if (constTextChar_) {
+                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == ElResolver.DELIMITER_CHAR
+                        &&StringExpUtil.nextCharIs(_string,from_+1,len_, ElResolver.DELIMITER_CHAR)
+                        &&StringExpUtil.nextCharIs(_string,from_+2,len_, ElResolver.DELIMITER_CHAR)) {
+                    constTextChar_ = false;
+                    from_ += 3;
+                    continue;
+                }
+                from_++;
+                continue;
+            }
+            if (constChar_) {
+                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
+                    from_++;
+                    from_++;
+                    continue;
+                }
+                if (curChar_ == ElResolver.DELIMITER_CHAR) {
+                    constChar_ = false;
+                }
+                from_++;
+                continue;
+            }
+            if (constText_) {
+                if (curChar_ == ElResolver.DELIMITER_TEXT) {
+                    if (from_ + 1 >= len_ ||_string.charAt(from_ + 1) != ElResolver.DELIMITER_TEXT) {
+                        constText_ = false;
+                        from_++;
+                        continue;
+                    }
+                    from_++;
+                }
+                from_++;
+                continue;
+            }
+            if (curChar_ == ElResolver.DELIMITER_STRING) {
+                if (ElResolverCommon.isRepeated(_string, from_, len_, ElResolver.DELIMITER_STRING)) {
+                    constTextString_ = true;
+                    from_+=3;
+                    continue;
+                }
+                constString_ = true;
+                from_++;
+                continue;
+            }
+            if (curChar_ == ElResolver.DELIMITER_CHAR) {
+                if (ElResolverCommon.isRepeated(_string, from_, len_, ElResolver.DELIMITER_CHAR)) {
+                    constTextChar_ = true;
+                    from_+=3;
+                    continue;
+                }
+                constChar_ = true;
+                from_++;
+                continue;
+            }
+            if (curChar_ == ElResolver.DELIMITER_TEXT) {
+                constText_ = true;
+                from_++;
+                continue;
+            }
+            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,stack_, _page, _curIndex);
+            if (next_ > from_) {
+                from_ = next_;
+                continue;
+            }
+            if (StringExpUtil.isTypeLeafChar(curChar_)) {
+                next_ = processWordsQuickBeginDel(_string,from_,prevOp_,curChar_,stack_, _page);
+                if (next_ < 0) {
+                    break;
+                }
+                from_ = next_;
+                continue;
+            }
+            if (prevOp_ != '.' && curChar_ == ElResolver.DOT_VAR) {
+                int n_ = StringExpUtil.nextPrintChar(from_ + 1, len_, _string);
+                if (!StringExpUtil.nextCharIs(_string,n_,len_, ElResolver.DOT_VAR)) {
+                    if (ElResolverCommon.isDigitOrDot(_string,n_)) {
+                        KeyWords keyWords_ = _page.getKeyWords();
+                        NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, len_, _string, true);
+                        from_ = res_.getNextIndex();
+                        continue;
+                    }
+                }
+            }
+            next_ = processOperatorsQuickBeginDel(parsBrackets_,stack_,from_,curChar_, _string, _page);
+            if (next_ < 0) {
+                break;
+            }
+            if (!StringUtil.isWhitespace(curChar_)) {
+                prevOp_ = curChar_;
+            }
+            from_ = next_;
+        }
+    }
+
+    private static int processWordsQuickBeginDel(String _string, int _i, char _prevOp, char _curChar, StackDelimiters _stack, AnalyzedPageEl _page) {
+        int len_ = _string.length();
+        int i_ = _i;
+        KeyWords keyWords_ = _page.getKeyWords();
+        if (_prevOp != '.' && StringExpUtil.isDigit(_curChar)) {
+            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, len_, _string, false);
+            return res_.getNextIndex();
+        }
+        int beginWord_ = i_;
+        while (i_ < len_) {
+            char locChar_ = _string.charAt(i_);
+            if (!StringExpUtil.isTypeLeafChar(locChar_)) {
+                break;
+            }
+            i_++;
+        }
+        int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, ElResolver.PAR_LEFT);
+        if (nextPar_ > -1) {
+            _stack.getCallings().add(nextPar_);
+            return i_;
+        }
+        int bk_ = StringExpUtil.getBackPrintChar(_string, beginWord_);
+        if (StringExpUtil.nextCharIs(_string,bk_,len_,'.')) {
+            return i_;
+        }
+        int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _stack.getNamedArgs(), _page);
+        return Math.max(n_, i_);
+    }
+
+    private static int processOperatorsQuickBeginDel(StackOperators _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
+                                                     AnalyzedPageEl _page) {
+        StackOperators parsBrackets_;
+        parsBrackets_ = _parsBrackets;
+
+        int len_ = _string.length();
+        if (_curChar == ElResolver.PAR_LEFT) {
+            int j_ = indexAfterPossibleCastQuick(_string, _i, _stack.getCallings(), _page.getKeyWords());
+            if (j_ > _i) {
+                return j_;
+            }
+            _stack.getCallings().add(_i);
+            parsBrackets_.addEntry(_i, _curChar);
+        }
+        if (_curChar == ElResolver.PAR_RIGHT) {
+            if (parsBrackets_.isEmpty()) {
+                return -1;
+            }
+            parsBrackets_.removeLast();
+        }
+        if (_curChar == ElResolver.ANN_ARR_LEFT) {
+            parsBrackets_.addEntry(_i, _curChar);
+        }
+        if (_curChar == ElResolver.ANN_ARR_RIGHT) {
+            if (parsBrackets_.isEmpty()) {
+                return -1;
+            }
+            parsBrackets_.removeLast();
+        }
+        if (_curChar == ElResolver.ARR_LEFT) {
+            int j_ = _i + 1;
+            SkipArPart s_ = new SkipArPart();
+            s_.skip(j_,_string);
+            j_ = s_.getIndex();
+            boolean skip_ = s_.isSkip();
+            if (skip_) {
+                return j_ + 1;
+            }
+            parsBrackets_.addEntry(_i, _curChar);
+        }
+        if (_curChar == ElResolver.ARR_RIGHT) {
+            if (parsBrackets_.isEmpty()) {
+                return -1;
+            }
+            parsBrackets_.removeLast();
+        }
+        if (_curChar == ElResolver.BEGIN_TERNARY) {
+            boolean ternary_ = isTernary(_string, len_, _i);
+            if (ternary_) {
+                parsBrackets_.addEntry(_i, _curChar);
+            }
+        }
+        if (_curChar == ElResolver.END_TERNARY) {
+            if (parsBrackets_.isEmpty()) {
+                return -1;
+            }
+            parsBrackets_.removeLast();
+        }
+        return incrOps(_curChar, _string, len_, _i);
+    }
+
+/*
+
+    @Test
+    public void __1(){
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
+        conf_.setPrefix("c:");
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        WarningShow warningShow_ = new WarningShow();
+        warningShow_.setTernary(true);
+        opt_.setWarningShow(warningShow_);
+        AnalyzedTestContextRender cont_ = InitializationLgNamesRender.buildStdThree(opt_);
+        AnalyzedTestConfiguration analyzedTestContext_ = new AnalyzedTestConfiguration(conf_, cont_, cont_.getForwards(), cont_.getStds());
+        ResultExpression res_ = new ResultExpression();
+        String file_ = "<html>";
+        file_ += "<body>";
+        file_ += "{a&lt;&lt;b}";
+        file_ += "</body>";
+        file_ += "</html>";
+        DocumentResult resSml_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
+        Document document_ = resSml_.getDocument();
+        AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(0,analyzedTestContext_.getAnalyzingDoc().getPrefix(), document_, file_, analyzedTestContext_.getAnalyzing().getPrimTypes(), "my_file", analyzedTestContext_.getAnalyzingDoc().getRendKeyWords());
+
+        FileBlock bl_ = anaDoc_.getFileBlock();
+//        FileBlock bl_ = new FileBlock(0,false,"my_file");
+//        bl_.processLinesTabsWithError(file_,analyzedTestContext_.getAnalyzing());
+        analyzedTestContext_.getAnalyzing().setCurrentFile(bl_);
+        analyzedTestContext_.getAnalyzing().setCurrentPkg("mypkg");
+        ElRetrieverAnonymous.commonCheckQuickTmp("{a<<b}",1,analyzedTestContext_.getAnalyzing(), res_,12);
+    }
+    @Test
+    public void __2(){
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
+        conf_.setPrefix("c:");
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        WarningShow warningShow_ = new WarningShow();
+        warningShow_.setTernary(true);
+        opt_.setWarningShow(warningShow_);
+        AnalyzedTestContextRender cont_ = InitializationLgNamesRender.buildStdThree(opt_);
+        final AnalyzedTestConfiguration analyzedTestContext_ = new AnalyzedTestConfiguration(conf_, cont_, cont_.getForwards(), cont_.getStds());
+        ResultExpression res_ = new ResultExpression();
+        String file_ = "<html>";
+        file_ += "<body>";
+        file_ += "{((a,b)-&gt;a&lt;b).appel(c,d)}";
+        file_ += "</body>";
+        file_ += "</html>";
+        DocumentResult resSml_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
+        Document document_ = resSml_.getDocument();
+        AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(0,analyzedTestContext_.getAnalyzingDoc().getPrefix(), document_, file_, analyzedTestContext_.getAnalyzing().getPrimTypes(), "my_file", analyzedTestContext_.getAnalyzingDoc().getRendKeyWords());
+        analyzedTestContext_.getAnalyzingDoc().getDocs().addEntry("my_file",anaDoc_);
+        analyzedTestContext_.getAnalyzingDoc().setCurrentDoc(anaDoc_);
+        FileBlock bl_ = anaDoc_.getFileBlock();
+//        FileBlock bl_ = new FileBlock(0,false,"my_file");
+//        bl_.processLinesTabsWithError(file_,analyzedTestContext_.getAnalyzing());
+
+        analyzedTestContext_.getAnalyzing().setCurrentFile(bl_);
+        analyzedTestContext_.getAnalyzing().setCurrentPkg("mypkg");
+        AnaRendText firstChild_ = (AnaRendText) anaDoc_.getFirstChild().getFirstChild().getFirstChild();
+        ElRetrieverAnonymous.commonCheckQuickTmp(firstChild_.getExpression(),1,analyzedTestContext_.getAnalyzing(), res_,firstChild_.getExpressionOffset());
+//        ElRetrieverAnonymous.commonCheckQuickTmp(firstChild_.getExpression(),1,analyzedTestContext_.getAnalyzing(), res_,12);
+//        ElRetrieverAnonymous.commonCheckQuickTmp("{((a,b)->a<b).appel(c,d)}",1,analyzedTestContext_.getAnalyzing(), res_,12);
+//        ElRetrieverAnonymous.commonCheckQuickTmp("{((a,b)->a<b).appel(c,d)}",1,analyzedTestContext_.getAnalyzing(), res_,12);
+        System.out.println(res_.getAnonymousResults().size());
+        System.out.println(res_.getAnonymousResults().first().getIndex());
+        System.out.println(res_.getAnonymousResults().first().getLength());
+        System.out.println(res_.getAnonymousResults().first().getUntil());
+        System.out.println(res_.getAnonymousResults().first().getNext());
+        analyzedTestContext_.getAnalyzing().setLocalizer(new AdvancedLocalizer(analyzedTestContext_.getAnalyzing(), analyzedTestContext_.getAnalyzingDoc()));
+//        final IntTreeMap<Integer> indexesSpecChars_ = AnaRendBlock.getIndexesSpecChars(file_);
+//        analyzedTestContext_.getAnalyzing().setLocalizer(new AbstractLocalizer(){
+//
+//            @Override
+//            public String getCurrentFileName() {
+//                return "";
+//            }
+//
+//            @Override
+//            public int getCurrentLocationIndex() {
+//                return RendAnalysisMessagesTest.getCurrentLocationIndex(analyzedTestContext_.getAnalyzing(),indexesSpecChars_);
+//            }
+//
+//            @Override
+//            public void addWarning(FoundWarningInterpret _warning) {
+//
+//            }
+//
+//            @Override
+//            public void addError(FoundErrorInterpret _error) {
+//
+//            }
+//        });
+        analyzedTestContext_.getAnalyzingDoc().setCurrentBlock(firstChild_);
+        analyzedTestContext_.getAnalyzing().setGlobalOffset(res_.getAnonymousResults().first().getType().getFirstChild().getOffset());
+        analyzedTestContext_.getAnalyzing().zeroOffset();
+        System.out.println(analyzedTestContext_.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+    }
+
+//    public static int getCurrentLocationIndex(AnalyzedPageEl _analyzing, IntTreeMap< Integer> _map) {
+////        int offset_ = _analyzing.getOffset();
+////        return getSum(offset_,_map)+ _analyzing.getTraceIndex()-offset_;
+//        return getSum(_analyzing.getTraceIndex(),_map);
+//    }
+
+//    public static int getSum(int _offset, IntTreeMap< Integer> _map) {
+//        int delta_ = getDelta(_offset, _map);
+//        return _offset+delta_;
+//    }
+
+//    private static int getDelta(int _offset, IntTreeMap< Integer> _map) {
+//        int delta_ = 0;
+//        int nbIndexes_ = getIndexesCount(_map, _offset);
+//        for (int i = 0; i < nbIndexes_; i++) {
+//            delta_ += _map.getValue(i);
+//        }
+//        return delta_;
+//    }
+
+//    private static int getIndexesCount(IntTreeMap< Integer> _t, int _offset) {
+//        int delta_ = 0;
+//        int count_ = 0;
+//        for (EntryCust<Integer, Integer> e: _t.entryList()) {
+//            if (e.getKey() - delta_ >= _offset) {
+//                return count_;
+//            }
+//            delta_ += e.getValue();
+//            count_++;
+//        }
+//        return count_;
+//    }
+
+//    private static final char END_ESCAPED = ';';
+//    private static final char ENCODED = '&';
+    @Test
+    public void __3(){
+        Configuration conf_ =  EquallableRenderUtil.newConfiguration();
+        conf_.setPrefix("c:");
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        WarningShow warningShow_ = new WarningShow();
+        warningShow_.setTernary(true);
+        opt_.setWarningShow(warningShow_);
+        AnalyzedTestContextRender cont_ = InitializationLgNamesRender.buildStdThree(opt_);
+        final AnalyzedTestConfiguration analyzedTestContext_ = new AnalyzedTestConfiguration(conf_, cont_, cont_.getForwards(), cont_.getStds());
+        ResultExpression res_ = new ResultExpression();
+        String file_ = "<html>";
+        file_ += "<body>";//&#45;
+        file_ += "{(a,b)-&gt;{$return a&lt;b;}.appel(c,d)}";
+        file_ += "</body>";
+        file_ += "</html>";
+        DocumentResult resSml_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
+        Document document_ = resSml_.getDocument();
+        AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(0,analyzedTestContext_.getAnalyzingDoc().getPrefix(), document_, file_, analyzedTestContext_.getAnalyzing().getPrimTypes(), "my_file", analyzedTestContext_.getAnalyzingDoc().getRendKeyWords());
+        analyzedTestContext_.getAnalyzingDoc().getDocs().addEntry("my_file",anaDoc_);
+        analyzedTestContext_.getAnalyzingDoc().setCurrentDoc(anaDoc_);
+        FileBlock bl_ = anaDoc_.getFileBlock();
+//        FileBlock bl_ = new FileBlock(0,false,"my_file");
+//        bl_.processLinesTabsWithError(file_,analyzedTestContext_.getAnalyzing());
+
+        analyzedTestContext_.getAnalyzing().setCurrentFile(bl_);
+        analyzedTestContext_.getAnalyzing().setCurrentPkg("mypkg");
+        AnaRendText firstChild_ = (AnaRendText) anaDoc_.getFirstChild().getFirstChild().getFirstChild();
+        ElRetrieverAnonymous.commonCheckQuickTmp(firstChild_.getExpression(),1,analyzedTestContext_.getAnalyzing(), res_, firstChild_.getOffset());
+//        ElRetrieverAnonymous.commonCheckQuickTmp("{(a,b)->{return a<b;}.appel(c,d)}",1,analyzedTestContext_.getAnalyzing(), res_,12);
+        System.out.println(res_.getAnonymousResults().size());
+        System.out.println(res_.getAnonymousResults().first().getIndex());
+        System.out.println(res_.getAnonymousResults().first().getLength());
+        System.out.println(res_.getAnonymousResults().first().getUntil());
+        System.out.println(res_.getAnonymousResults().first().getNext());
+        analyzedTestContext_.getAnalyzing().setLocalizer(new AdvancedLocalizer(analyzedTestContext_.getAnalyzing(), analyzedTestContext_.getAnalyzingDoc()));
+
+
+//        final IntTreeMap<Integer> indexesSpecChars_ = AnaRendBlock.getIndexesSpecChars(file_);
+//        analyzedTestContext_.getAnalyzing().setLocalizer(new AbstractLocalizer(){
+//
+//            @Override
+//            public String getCurrentFileName() {
+//                return "";
+//            }
+//
+//            @Override
+//            public int getCurrentLocationIndex() {
+//                return RendAnalysisMessagesTest.getCurrentLocationIndex(analyzedTestContext_.getAnalyzing(),indexesSpecChars_);
+//            }
+//
+//            @Override
+//            public void addWarning(FoundWarningInterpret _warning) {
+//
+//            }
+//
+//            @Override
+//            public void addError(FoundErrorInterpret _error) {
+//
+//            }
+//        });
+        analyzedTestContext_.getAnalyzingDoc().setCurrentBlock(firstChild_);
+        analyzedTestContext_.getAnalyzing().setGlobalOffset(((ReturnMethod)res_.getAnonymousResults().first().getType().getFirstChild()).getExpressionOffset());
+        analyzedTestContext_.getAnalyzing().zeroOffset();
+        System.out.println(analyzedTestContext_.getAnalyzing().getLocalizer().getCurrentLocationIndex());
+    }
+
+    private static Options newOptions() {
+        Options options_ = new Options();
+        DefaultAccess defaultAccess_ = options_.getDefaultAccess();
+        setup(defaultAccess_.getAccAnonymous(), AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccClass(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccEnum(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccInnerEnum(),AccessEnum.PACKAGE);
+        setup(defaultAccess_.getAccAnnotation(),AccessEnum.PUBLIC);
+        setup(defaultAccess_.getAccInterface(),AccessEnum.PUBLIC);
+        defaultAccess_.setAccOuter(AccessEnum.PACKAGE);
+        return options_;
+    }
+    private static void setup(DefaultAccessType _def, AccessEnum _value) {
+        _def.setAccLocalTypes(_value);
+        _def.setAccMember(_value);
+        _def.setAccInners(_value);
+    }
+*/

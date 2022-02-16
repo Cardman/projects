@@ -26,7 +26,6 @@ public abstract class NatAnaRendCondition extends AnaRendParentBlock implements 
     }
 
     protected void buildConditions(AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrCondition());
         root = NatRenderAnalysis.getRootAnalyzedOperations(condition, 0, _anaDoc, _page);
     }
 

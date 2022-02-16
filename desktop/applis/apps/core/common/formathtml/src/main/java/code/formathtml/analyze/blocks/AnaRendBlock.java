@@ -9,7 +9,6 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.*;
-import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -39,8 +38,6 @@ public abstract class AnaRendBlock {
     private static final char END_ESCAPED = ';';
     private static final char ENCODED = '&';
     private static final char EQUALS = '=';
-    private static final char QUOT = 34;
-    private static final char APOS = 39;
     private static final String LINE_RETURN = "\n";
     private static final String TAB = "\t";
     private static final String BEFORE_LINE_RETURN = "\r\n";
@@ -52,18 +49,17 @@ public abstract class AnaRendBlock {
 
     private final int offset;
 
-    private StringMap<IntTreeMap<Integer>> escapedChars = new StringMap<IntTreeMap<Integer>>();
     private StringMap<AttributePart> attributeDelimiters = new StringMap<AttributePart>();
 
     AnaRendBlock(int _offset) {
         offset = _offset;
     }
 
-    public static AnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, RendKeyWords _rendKeyWords) {
+    public static AnaRendDocumentBlock newRendDocumentBlock(int _nb,String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, RendKeyWords _rendKeyWords) {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl);
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(_nb,documentElement_,_docText,0, _currentUrl);
         AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, _rendKeyWords);
         out_.appendChild(curWrite_);
         while (curWrite_ != null) {
@@ -71,7 +67,7 @@ public abstract class AnaRendBlock {
             if (curWrite_ instanceof AnaRendParentBlock&&firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
                 AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, _rendKeyWords);
-                ((AnaRendParentBlock) curWrite_).appendChild(rendBlock_);
+                appendChild((AnaRendParentBlock) curWrite_,rendBlock_);
                 curWrite_ = rendBlock_;
                 curNode_ = firstChild_;
                 continue;
@@ -83,7 +79,7 @@ public abstract class AnaRendBlock {
                 if (nextSibling_ != null) {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
                     AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _prefix, nextSibling_,_docText, _primTypes, _rendKeyWords);
-                    par_.appendChild(rendBlock_);
+                    appendChild(par_,rendBlock_);
                     curWrite_ = rendBlock_;
                     curNode_ = nextSibling_;
                     break;
@@ -99,6 +95,12 @@ public abstract class AnaRendBlock {
         }
         return out_;
     }
+    private static void appendChild(AnaRendParentBlock _par, AnaRendBlock _child) {
+        _par.appendChild(_child);
+        if (_child instanceof AnaRendElement&&_par instanceof AnaRendMessage) {
+            ((AnaRendMessage)_par).getChildren().add((AnaRendElement) _child);
+        }
+    }
 
     private static void tryAppendEmptyBlock(AnaRendBlock _curWrite) {
         if (_curWrite instanceof AnaRendParentBlock) {
@@ -110,16 +112,7 @@ public abstract class AnaRendBlock {
 
     private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
         AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _prefix, _elt, _docText, _primTypes, _rendKeyWords);
-        if (_elt instanceof Text) {
-            int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
-            AttributePart attrPart_ = new AttributePart();
-            attrPart_.setBegin(_begin);
-            attrPart_.setEnd(endHeader_);
-            IntTreeMap<Integer> esc_ = getIndexesSpecChars(_docText, false, attrPart_, _begin);
-            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            infos_.addEntry(EMPTY_STRING,esc_);
-            bl_.escapedChars = infos_;
-        } else {
+        if (_elt instanceof Element) {
             Element elt_ = (Element) _elt;
             String tagName_ = elt_.getTagName();
             int endHeader_ = _docText.indexOf(GT_TAG, _begin);
@@ -127,11 +120,6 @@ public abstract class AnaRendBlock {
             StringMap<AttributePart> attr_;
             attr_ = getAttributes(_docText, beginHeader_, endHeader_);
             bl_.attributeDelimiters = attr_;
-            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            for (EntryCust<String, AttributePart> e: attr_.entryList()) {
-                infos_.put(e.getKey(), getIndexesSpecChars(_docText, true, e.getValue(), _begin));
-            }
-            bl_.escapedChars = infos_;
         }
         return bl_;
     }
@@ -356,14 +344,10 @@ public abstract class AnaRendBlock {
         }
         return _link.getAttribute(_rendKeyWords.getAttrHref());
     }
-    public static IntTreeMap< Integer> getIndexesSpecChars(String _html, boolean _realAttr, AttributePart _att, int _beginNode) {
-        int begin_ = _att.getBegin();
-        int end_ = _att.getEnd();
+    public static IntTreeMap< Integer> getIndexesSpecChars(String _html) {
+        int begin_ = 0;
+        int end_ = _html.length();
         int i_ = begin_;
-        int delta_ = 0;
-        if (_realAttr) {
-            delta_ = begin_ - _beginNode;
-        }
         IntTreeMap< Integer> indexes_;
         indexes_ = new IntTreeMap< Integer>();
         while (i_ < end_) {
@@ -373,7 +357,7 @@ public abstract class AnaRendBlock {
                 while (i_ < _html.length()&&_html.charAt(i_) != END_ESCAPED) {
                     i_++;
                 }
-                indexes_.put(beginEscaped_ - _beginNode - delta_, i_ - beginEscaped_);
+                indexes_.put(beginEscaped_, i_ - beginEscaped_);
             }
             i_++;
         }
@@ -537,14 +521,8 @@ public abstract class AnaRendBlock {
         return new OffsetBooleanInfo(0,_elt.hasAttribute(_key));
     }
 
-    public void setEscapedChars(StringMap<IntTreeMap<Integer>> _escapedChars) {
-        escapedChars = _escapedChars;
-    }
     protected static String getProperty(String _key, AnalyzingDoc _anaDoc) {
         return _anaDoc.getProperties().getVal(_key);
-    }
-    public StringMap<IntTreeMap<Integer>> getEscapedChars() {
-        return escapedChars;
     }
     public final int getOffset() {
         return offset;

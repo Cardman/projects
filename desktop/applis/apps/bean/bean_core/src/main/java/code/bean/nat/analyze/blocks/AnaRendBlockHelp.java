@@ -14,8 +14,6 @@ import code.formathtml.errors.RendKeyWords;
 import code.formathtml.structs.BeanInfo;
 import code.sml.*;
 import code.sml.util.ResourcesMessagesUtil;
-import code.util.EntryCust;
-import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -42,7 +40,6 @@ public final class AnaRendBlockHelp {
 
     public static void loop(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         AnaRendBlock enNat_ = _doc;
-        _anaDoc.setFileName(_doc.getFileName());
         _anaDoc.setCurrentDoc(_doc);
         while (true) {
             _anaDoc.setCurrentBlock(enNat_);
@@ -103,7 +100,7 @@ public final class AnaRendBlockHelp {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl);
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(0,documentElement_,_docText,0, _currentUrl);
         AnaRendBlock curWriteNat_ = newRendBlockEsc(indexGlobal_, _prefix, curNode_,_docText, _rendKeyWords, _caller, _builder);
         out_.appendChild(curWriteNat_);
         while (curWriteNat_ != null) {
@@ -162,23 +159,23 @@ public final class AnaRendBlockHelp {
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
             bl_ = new NatAnaRendText(new OffsetStringInfo(_begin, t_.getTextContent()), _begin);
-            int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
-            AttributePart attrPartNat_ = new AttributePart();
-            attrPartNat_.setBegin(_begin);
-            attrPartNat_.setEnd(endHeader_);
-            IntTreeMap<Integer> esc_ = AnaRendBlock.getIndexesSpecChars(_docText, false, attrPartNat_, _begin);
-            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            infos_.addEntry(EMPTY_STRING, esc_);
-            bl_.setEscapedChars(infos_);
+//            int endHeader_ = _docText.indexOf(LT_BEGIN_TAG, _begin);
+//            AttributePart attrPartNat_ = new AttributePart();
+//            attrPartNat_.setBegin(_begin);
+//            attrPartNat_.setEnd(endHeader_);
+//            IntTreeMap<Integer> esc_ = AnaRendBlock.getIndexesSpecChars(_docText, false, attrPartNat_, _begin);
+//            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
+//            infos_.addEntry(EMPTY_STRING, esc_);
+//            bl_.setEscapedChars(infos_);
         } else {
             Element elt_ = (Element) _elt;
             StringMap<AttributePart> attributes_ = getAttributes(_docText, _begin + elt_.getTagName().length(), _docText.indexOf(GT_TAG, _begin));
             bl_ = element(_begin, _prefix, (Element) _elt, _rendKeyWords, _caller, attributes_, _builder);
-            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
-            for (EntryCust<String, AttributePart> e : attributes_.entryList()) {
-                infos_.put(e.getKey(), AnaRendBlock.getIndexesSpecChars(_docText, true, e.getValue(), _begin));
-            }
-            bl_.setEscapedChars(infos_);
+//            StringMap<IntTreeMap<Integer>> infos_ = new StringMap<IntTreeMap<Integer>>();
+//            for (EntryCust<String, AttributePart> e : attributes_.entryList()) {
+//                infos_.put(e.getKey(), AnaRendBlock.getIndexesSpecChars(_docText, true, e.getValue(), _begin));
+//            }
+//            bl_.setEscapedChars(infos_);
         }
         return bl_;
     }

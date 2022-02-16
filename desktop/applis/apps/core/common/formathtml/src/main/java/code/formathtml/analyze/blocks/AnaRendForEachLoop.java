@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -50,6 +51,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
     private final String expression;
 
     private final int expressionOffset;
+    private final ResultExpression resultExpression = new ResultExpression();
 
     private OperationNode root;
     private boolean okVar = true;
@@ -127,8 +129,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         }
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrList());
-        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
+        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpression);
         return root;
     }
     public void inferArrayClass(AnalyzingDoc _anaDoc, OperationNode _root, AnalyzedPageEl _page) {

@@ -42,7 +42,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v&=1/0 > 0";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -65,7 +65,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v|=1/0 > 0";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -88,7 +88,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v&=1 > 0";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -111,7 +111,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v|=1 > 0";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -166,7 +166,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "++v";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -187,7 +187,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v++";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -208,7 +208,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v[0i]++";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -230,7 +230,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "++v[0i]";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -2167,11 +2167,11 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         Argument argGl_ = _cont.getArgument();
         boolean static_ = argGl_.isNull();
         _cont.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
-        Delimiters d_ = checkSyntax(_cont, _el, 0);
+        Delimiters d_ = checkSyntax(_cont, _el);
         OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el);
         OperationNode op_ = rendOp(0, _cont, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_);
-        ForwardInfos.generalForward( _cont.getAnalyzing(),_cont.getForwards());
+        generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
         //        Classes.forwardAndClear(_cont.getContext());
@@ -2187,8 +2187,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
     private static void processQuickEl(String _el, AnalyzedTestConfiguration _cont) {
         String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
         _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
-        CustList<OperationNode> all_ = getQuickAnalyzed(_el, 0, _cont, _cont.getAnalyzingDoc());
-        ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards());
+        CustList<OperationNode> all_ = getQuickAnalyzed(_el, _cont, _cont.getAnalyzingDoc());
+        generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
         assertTrue(_cont.isEmptyErrors());
@@ -2265,8 +2265,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 //        addInnerPage(_cont);
         String gl_ = _cont.getArgumentClass();
         _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
-        CustList<OperationNode> all_ = getQuickAnalyzed(_s, 0, _cont, _cont.getAnalyzingDoc());
-        ForwardInfos.generalForward( _cont.getAnalyzing(), _cont.getForwards());
+        CustList<OperationNode> all_ = getQuickAnalyzed(_s, _cont, _cont.getAnalyzingDoc());
+        generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
         assertTrue(_cont.isEmptyErrors());

@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
@@ -13,6 +14,7 @@ public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
     private final String expression;
 
     private final int expressionOffset;
+    private final ResultExpression resultExpression = new ResultExpression();
 
     private OperationNode root;
     AnaRendLine(OffsetStringInfo _left, int _offset) {
@@ -25,8 +27,7 @@ public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrValue());
-        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
+        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpression);
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
             AnaRendDeclareVariable declaring_ = (AnaRendDeclareVariable) getPreviousSibling();

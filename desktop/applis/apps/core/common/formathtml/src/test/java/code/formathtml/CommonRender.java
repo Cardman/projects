@@ -7,12 +7,14 @@ import code.expressionlanguage.analyze.files.DefaultAccessType;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -20,6 +22,7 @@ import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.fwd.DefExecFileListBuilder;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.WarningShow;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -27,7 +30,6 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
@@ -135,8 +137,9 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
     protected static void simpleForward(AnalyzedTestConfiguration _context) {
         AnalyzedPageEl page_ = _context.getAnalyzing();
-        ForwardInfos.generalForward(page_, _context.getForwards());
-        RendForwardInfos.buildExec(_context.getAnalyzingDoc(), _context.getAnalyzed(), _context.getForwards(), _context.getConfiguration());
+        CustList<ExecAbstractFileBlock> rendFiles_ = BeanCustLgNames.execFiles(_context.getAnalyzed());
+        ForwardInfos.generalForward(page_, _context.getForwards(), new DefExecFileListBuilder(page_, _context.getForwards()));
+        RendForwardInfos.buildExec(_context.getAnalyzingDoc(),rendFiles_, _context.getAnalyzed(), _context.getForwards(), _context.getConfiguration());
     }
 
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
@@ -155,16 +158,15 @@ public abstract class CommonRender extends EquallableRenderUtil {
         _conf.getConfiguration().setFiles(_filesThree);
     }
 
-    protected static CustList<OperationNode> getQuickAnalyzed(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
+    protected static CustList<OperationNode> getQuickAnalyzed(String _el, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc) {
         _analyzingDoc.setup(_conf.getConfiguration(), _conf.getDual());
         setupAnalyzing(_conf, _conf.getAnalyzingDoc());
         Argument argGl_ = _conf.getArgument();
         boolean static_ = argGl_.isNull();
         _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
-        Delimiters d_ = checkSyntax(_conf, _el, _index);
-        String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = rendOpSeq(_index, _conf, d_, el_);
-        OperationNode op_ = rendOp(_index, _conf, opTwo_);
+        Delimiters d_ = checkSyntax(_conf, _el);
+        OperationsSequence opTwo_ = rendOpSeq(0, _conf, d_, _el);
+        OperationNode op_ = rendOp(0, _conf, opTwo_);
         return getSortedDescNodes(_conf, op_);
     }
 
@@ -184,8 +186,11 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return ElResolver.getOperationsSequence(_offset, _el, _d, _ctx.getAnalyzing());
     }
 
-    protected static Delimiters checkSyntax(AnalyzedTestConfiguration _ctx, String _elr, int _off) {
-        return ElResolver.checkSyntax(_elr, _off, _ctx.getAnalyzing());
+    protected static Delimiters checkSyntax(AnalyzedTestConfiguration _ctx, String _elr) {
+        ResultExpression res_ = new ResultExpression();
+        AnalyzedPageEl analyzing_ = _ctx.getAnalyzing();
+        analyzing_.setCurrentParts(res_.getParts());
+        return ElResolver.checkSyntax(_elr, 0, analyzing_);
     }
 
     protected static OperationNode getOperationNode(int _ind, byte _ch, MethodOperation _par, OperationsSequence _opTwo, AnalyzedTestConfiguration _ctx) {
@@ -1002,11 +1007,12 @@ public abstract class CommonRender extends EquallableRenderUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, _a.getAnalyzing().getPrimTypes(), "page"+c_+".html", conf_.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(c_ -1,"c:", doc_, h, _a.getAnalyzing().getPrimTypes(), "page"+c_+".html", conf_.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
         setLocalFiles(_a, _analyzingDoc);
+        _analyzingDoc.setDocs(d_);
         for (AnaRendDocumentBlock v: d_.values()) {
             v.buildFctInstructions(_analyzingDoc, _a.getAnalyzing(), _analyzingDoc.getBeansInfosBefore());
         }
@@ -1018,7 +1024,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         b2_.setClassName(_className);
         b2_.setResolvedClassName(_className);
         _a.getConfiguration().getBeansInfos().addEntry(_bean, b2_);
-        OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations("$new "+_className+"()", 0, _a.getAnalyzingDoc(), _a.getAnalyzing());
+        ResultExpression res_ = new ResultExpression();
+        OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations("$new "+_className+"()", 0, _a.getAnalyzingDoc(), _a.getAnalyzing(),res_);
         _a.getAnalyzingDoc().getBeansInfos().addEntry(root_,b2_);
     }
 
@@ -1116,7 +1123,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         Configuration conf_ = _a.getConfiguration();
         BeanCustLgNames stds_ = _a.getAdvStandards();
         _rendStackCall.clearPages();
-        return BeanCustLgNames.getRes(conf_.getRendDocumentBlock(), conf_, stds_, _ctx, _rendStackCall, "page1.html");
+        return BeanCustLgNames.getRes(conf_.getRendDocumentBlock(), conf_, stds_, _ctx, _rendStackCall);
     }
 
     protected static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {

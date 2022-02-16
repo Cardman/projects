@@ -50,7 +50,6 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements N
         } else {
             importedClassName = AnaRendBlockHelp.EMPTY_STRING;
         }
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrList());
         root = NatRenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
         NatOperationNode root_ = root;
         String names_ = root_.getNames();

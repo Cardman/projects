@@ -22,7 +22,6 @@ public final class NatAnaRendField extends AnaRendParentBlock implements NatRend
         NatAnaRendClass cl_ = (NatAnaRendClass) getParent();
         String intern_ = cl_.getFullName();
         _anaDoc.setInternGlobalClass(intern_);
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrPrepare());
         root = NatRenderAnalysis.getRootAnalyzedOperations(prepare, 0, _anaDoc, _page);
         _anaDoc.setInternGlobalClass(AnaRendBlockHelp.EMPTY_STRING);
     }

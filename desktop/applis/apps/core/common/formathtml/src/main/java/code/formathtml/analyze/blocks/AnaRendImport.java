@@ -30,7 +30,7 @@ public final class AnaRendImport extends AnaRendParentBlock implements AnaRendBu
         _page.zeroOffset();
         String pageName_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrPage());
         int rowsGrId_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrPage());
-        res_.buildAna(pageName_, rowsGrId_, _anaDoc, _page);
+        res_.buildIdAna(pageName_, rowsGrId_, _anaDoc, _page);
         roots = res_.getOpExpRoot();
         texts = res_.getTexts();
     }

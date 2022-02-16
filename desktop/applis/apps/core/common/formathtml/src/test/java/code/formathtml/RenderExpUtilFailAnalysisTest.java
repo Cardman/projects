@@ -308,17 +308,13 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     }
 
     private static void processFail(String _el, AnalyzedTestConfiguration _cont,PairVar... _vars) {
-        processFail(_el, 0, _cont,_vars);
-    }
-
-    private static void processFail(String _el, int _index, AnalyzedTestConfiguration _conf, PairVar... _vars) {
-        AnalyzedPageEl page_ = _conf.getAnalyzing();
+        AnalyzedPageEl page_ = _cont.getAnalyzing();
         boolean merged_ = page_.isMerged();
         boolean accept_ = page_.isAcceptCommaInstr();
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
-        AnalyzingDoc analyzingDoc_ = _conf.getAnalyzingDoc();
-        analyzingDoc_.setup(_conf.getConfiguration(), _conf.getDual());
+        AnalyzingDoc analyzingDoc_ = _cont.getAnalyzingDoc();
+        analyzingDoc_.setup(_cont.getConfiguration(), _cont.getDual());
         AnalyzingDoc.setupInts(page_, analyzingDoc_);
         page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
         for (PairVar e: _vars) {
@@ -331,11 +327,10 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         page_.setAcceptCommaInstr(accept_);
         page_.setCurrentVarSetting(currentVarSetting_);
         page_.setAccessStaticContext(MethodId.getKind(true));
-        Delimiters d_ = checkSyntax(_conf, _el, _index);
-        String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = rendOpSeq(_index, _conf, d_, el_);
-        OperationNode op_ = rendOp(_index, _conf, opTwo_);
-        getSortedDescNodes(_conf, op_);
+        Delimiters d_ = checkSyntax(_cont, _el);
+        OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el);
+        OperationNode op_ = rendOp(0, _cont, opTwo_);
+        getSortedDescNodes(_cont, op_);
     }
 
 }

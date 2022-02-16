@@ -8,7 +8,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -27,7 +26,6 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultConfigurationLoader;
 import code.formathtml.util.DualAnalyzedContext;
-import code.formathtml.util.DualConfigurationContext;
 import code.gui.document.AbstractThreadActions;
 import code.gui.document.RenderedPage;
 import code.renders.utilcompo.CustBeanFileBuilder;
@@ -85,7 +83,7 @@ public final class CustThreadActions extends AbstractThreadActions {
             return;
         }
         getPage().getNavigation().setFiles(fileNames);
-        ContextEl ctx_ = stds.setupAll(getPage().getNavigation(), getPage().getNavigation().getSession(), getPage().getNavigation().getFiles(), du_);
+        ContextEl ctx_ = stds.setupAll(getPage().getNavigation(), du_);
         if (ctx_ == null) {
             ReportedMessages reportedMessages_ = du_.getAnalyzed().getMessages();
             if (getPage().getArea() != null) {

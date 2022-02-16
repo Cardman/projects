@@ -36,12 +36,11 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
             RendBlockHelp.processBlockAndRemove(_ctx, _rendStack, this);
             return;
         }
-        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         String lg_ = _cont.getCurrentLanguage();
         String pageName_ = NatRenderingText.renderNat(textPart, _stds, _ctx, _rendStack);
-        String link_ = Configuration.getRealFilePath(lg_,pageName_);
+        String link_ = BeanNatCommonLgNames.getRealFilePath(lg_,pageName_);
         RendDocumentBlock val_ = _cont.getRenders().getVal(link_);
         String beanName_ = val_.getBeanName();
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
@@ -58,7 +57,6 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
                     if (f instanceof NatRendField) {
                         ip_.setOffset(((NatRendField) f).getPrepareOffset());
                         ip_.setOpOffset(0);
-                        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPrepare());
                         CustList<RendDynOperationNode> exps_ = ((NatRendField) f).getExps();
                         ip_.setInternGlobal(newBean_);
                         RenderExpUtil.calculateReuse(exps_, _stds, _ctx, _rendStack);
@@ -69,9 +67,8 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
         }
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
-        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
         beforeDisp(newBean_, (BeanNatCommonLgNames) _stds);
-        ImportingPage newIp_ = RendImport.newImportingPage(_cont, _rendStack, ip_, link_, val_, beanName_);
+        ImportingPage newIp_ = RendImport.newImportingPage(_cont, _rendStack, ip_, val_, beanName_);
         newIp_.setGlobalArgumentStruct(newBean_);
         RendIfStack if_ = new RendIfStack();
         if_.setLabel("");

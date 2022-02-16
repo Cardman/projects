@@ -35,16 +35,13 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
             processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
-        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
-        String lg_ = _cont.getCurrentLanguage();
         String pageName_ = RenderingText.render(textPart, _stds, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        String link_ = Configuration.getRealFilePath(lg_,pageName_);
-        RendDocumentBlock val_ = _cont.getRenders().getVal(link_);
+        RendDocumentBlock val_ = _cont.getRenders().getVal(pageName_);
         if (val_ == null) {
             processBlock(_cont, _stds, _ctx, _rendStack);
             return;
@@ -76,7 +73,6 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
                         if (f instanceof RendField) {
                             ip_.setOffset(((RendField) f).getPrepareOffset());
                             ip_.setOpOffset(0);
-                            ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPrepare());
                             CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                             ip_.setInternGlobal(newBean_);
                             RenderExpUtil.calculateReuse(exps_, _stds, _ctx, _rendStack);
@@ -91,12 +87,11 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         }
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
-        ip_.setProcessingAttribute(_cont.getRendKeyWords().getAttrPage());
         befDisp((BeanCustLgNames) _stds, _ctx, _rendStack, newBean_);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        ImportingPage newIp_ = newImportingPage(_cont, _rendStack, ip_, link_, val_, beanName_);
+        ImportingPage newIp_ = newImportingPage(_cont, _rendStack, ip_, val_, beanName_);
         if (newBean_ != null) {
             newIp_.setGlobalArgumentStruct(newBean_);
         }
@@ -116,12 +111,12 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         }
     }
 
-    public static ImportingPage newImportingPage(Configuration _cont, RendStackCall _rendStack, ImportingPage _ip, String _link, RendDocumentBlock _val, String _beanName) {
+    public static ImportingPage newImportingPage(Configuration _cont, RendStackCall _rendStack, ImportingPage _ip, RendDocumentBlock _val, String _beanName) {
         ImportingPage newIp_ = new ImportingPage();
         newIp_.setTabWidth(_cont.getTabWidth());
         newIp_.setOffset(0);
-        newIp_.setFile(_val.getFile());
-        newIp_.setReadUrl(_link);
+        newIp_.doc(_val);
+//        newIp_.setReadUrl(_link);
         newIp_.setBeanName(_beanName);
         RendReadWrite rwLoc_ = new RendReadWrite();
         rwLoc_.setConf(_rendStack.getFormParts());

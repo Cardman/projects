@@ -107,14 +107,14 @@ public final class RendBlockHelp {
         }
     }
 
-    static void processIf(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, String _label, NatRendIfCondition _cond) {
+    static void processIf(BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack, String _label, NatRendIfCondition _cond) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(_cond)) {
             processBlockAndRemove(_ctx, _rendStack, _cond);
             return;
         }
-        ConditionReturn toEnter_ = evaluateCondition(_cont, _stds, _ctx, _rendStack, _cond.getCondition());
+        ConditionReturn toEnter_ = evaluateCondition(_stds, _ctx, _rendStack, _cond.getCondition());
         RendIfStack if_ = new RendIfStack();
         if_.setLabel(_label);
         if_.setLastBlock(_cond);
@@ -137,7 +137,7 @@ public final class RendBlockHelp {
         }
     }
 
-    public static void processElseIf(Configuration _conf, BeanLgNames _stds, ContextEl _cont, NatRendCondition _cond, RendStackCall _rendStackCall) {
+    public static void processElseIf(BeanLgNames _stds, ContextEl _cont, NatRendCondition _cond, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendAbstractStask if_ = ip_.tryGetRendLastStack();
@@ -147,7 +147,7 @@ public final class RendBlockHelp {
         }
         if_.setCurrentVisitedBlock(_cond);
         if (!((RendIfStack) if_).isEntered()) {
-            ConditionReturn assert_ = evaluateCondition(_conf,_stds,_cont, _rendStackCall, _cond.getCondition());
+            ConditionReturn assert_ = evaluateCondition(_stds,_cont, _rendStackCall, _cond.getCondition());
             if (assert_ == ConditionReturn.YES) {
                 ((RendIfStack) if_).setEntered(true);
                 rw_.setRead(_cond.getFirstChild());
@@ -182,10 +182,9 @@ public final class RendBlockHelp {
         processBlockAndRemove(_cont, _rendStackCall, _cond);
     }
 
-    private static ConditionReturn evaluateCondition(Configuration _context, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, RendOperationNodeListOff _condition) {
+    private static ConditionReturn evaluateCondition(BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, RendOperationNodeListOff _condition) {
         ImportingPage last_ = _rendStackCall.getLastPage();
         last_.setOffset(_condition.getOffset());
-        last_.setProcessingAttribute(_context.getRendKeyWords().getAttrCondition());
         Argument arg_ = RenderExpUtil.calculateReuse(_condition.getList(), _stds, _ctx, _rendStackCall);
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;

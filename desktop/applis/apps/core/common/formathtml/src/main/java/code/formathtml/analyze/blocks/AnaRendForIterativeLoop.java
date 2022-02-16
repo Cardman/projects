@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -48,6 +49,9 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
 
     private final boolean eq;
     private final int eqOffset;
+    private final ResultExpression resultExpressionInit = new ResultExpression();
+    private final ResultExpression resultExpressionExp = new ResultExpression();
+    private final ResultExpression resultExpressionStep = new ResultExpression();
 
     private OperationNode rootInit;
 
@@ -121,18 +125,15 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
         }
         _page.setGlobalOffset(initOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrFrom());
-        rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page);
+        rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page,resultExpressionInit);
         checkResult(_anaDoc, _page, cl_, initOffset, rootInit);
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrTo());
-        rootExp = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
+        rootExp = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpressionExp);
         checkResult(_anaDoc, _page, cl_, expressionOffset, rootExp);
         _page.setGlobalOffset(stepOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrStep());
-        rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page);
+        rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page,resultExpressionStep);
         checkResult(_anaDoc, _page, cl_, stepOffset, rootStep);
         if (!res_.isError()) {
             AnaLoopVariable lv_ = new AnaLoopVariable();

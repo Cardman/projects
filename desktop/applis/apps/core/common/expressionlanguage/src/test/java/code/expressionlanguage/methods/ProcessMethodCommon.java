@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.DefExecFileListBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -510,7 +511,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
 
     protected static void postValidation(AnalyzedTestContext _ctx) {
         ClassesUtil.postValidation(_ctx.getAnalyzing());
-        ForwardInfos.generalForward(_ctx.getAnalyzing(), _ctx.getForwards());
+        generalForward(_ctx);
     }
 
     protected static void validateEl(AnalyzedTestContext _cont) {
@@ -622,8 +623,12 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext _cont) {
         validateWithoutInit(_files, _cont);
         assertTrue( isEmptyErrors(_cont));
-        ForwardInfos.generalForward(_cont.getAnalyzing(),_cont.getForwards());
+        generalForward(_cont);
         return forwardAndClear(_cont);
+    }
+
+    protected static void generalForward(AnalyzedTestContext _cont) {
+        ForwardInfos.generalForward(_cont.getAnalyzing(), _cont.getForwards(), new DefExecFileListBuilder(_cont.getAnalyzing(), _cont.getForwards()));
     }
 
     protected StringMap<StringMap<Struct>> validateStaticFieldsFail(StringMap<String> _files) {

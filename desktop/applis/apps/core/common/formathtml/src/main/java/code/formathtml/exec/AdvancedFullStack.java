@@ -2,9 +2,11 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.AbstractFullStack;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.formathtml.ImportingPage;
@@ -39,12 +41,18 @@ public final class AdvancedFullStack implements AbstractFullStack {
     }
 
     private static StackTraceElementStruct newStackTraceElement(ImportingPage _page, ContextEl _context) {
-        int indexFileType_ = _page.getSum();
-        int row_ = _page.getRowFile(indexFileType_);
-        int col_ = _page.getColFile(indexFileType_,row_);
-        String fileName_ = _page.getReadUrl();
+        ExecAbstractFileBlock file_ = _page.file();
+        if (file_ != null) {
+            FileMetrics metrics_ = file_.getMetrics(_page.getTabWidth());
+            int indexFileType_ = _page.realIndex(file_);
+            int row_ = metrics_.getRowFile(indexFileType_);
+            int col_ = metrics_.getColFile(indexFileType_,row_);
+            String fileName_ = file_.getFileName();
+            String currentClassName_ = _page.getGlobalArgument().getStruct().getClassName(_context);
+            return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
+        }
         String currentClassName_ = _page.getGlobalArgument().getStruct().getClassName(_context);
-        return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
+        return new StackTraceElementStruct("",0,0,0,currentClassName_,"");
     }
 
 }

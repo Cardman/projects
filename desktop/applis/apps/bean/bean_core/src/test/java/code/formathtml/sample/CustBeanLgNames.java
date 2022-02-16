@@ -844,7 +844,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             }
         }
         _rendStack.clearPages();
-        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
+        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack);
     }
 
     @Override

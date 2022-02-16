@@ -3,11 +3,11 @@ package code.formathtml.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -23,6 +23,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.DefExecFileListBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -42,10 +43,7 @@ import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.exec.blocks.RendImport;
-import code.formathtml.exec.blocks.RendImportForm;
+import code.formathtml.exec.blocks.*;
 import code.formathtml.exec.opers.*;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
@@ -410,26 +408,36 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return ValidatorStandard.tr(_list);
     }
 
-    public ContextEl setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
+    public ContextEl setupAll(Navigation _nav, DualAnalyzedContext _dual) {
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         Forwards forwards_ = _dual.getForwards();
-        setupRendClasses(_files, page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources());
+        setupRendClasses(_nav.getFiles(), page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources(),_dual.getContext().getRenderFiles());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         _nav.initInstancesPattern(page_, analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
-        ReportedMessages messages_ = page_.getMessages();
-        if (!messages_.isAllEmptyErrors()) {
+        if (!page_.isEmptyErrors()) {
             return null;
         }
-        ForwardInfos.generalForward(page_, forwards_);
-        RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, _conf);
+        CustList<ExecAbstractFileBlock> rendFiles_ = execFiles(d_);
+        ForwardInfos.generalForward(page_, forwards_, new DefExecFileListBuilder(page_,forwards_));
+        RendForwardInfos.buildExec(analyzingDoc_, rendFiles_, d_, forwards_, _nav.getSession());
         Options options_ = page_.getOptions();
         ContextEl context_ = forwardAndClear(_dual.getContext().getOptions(), forwards_);
         ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
         return context_;
     }
 
+    public static CustList<ExecAbstractFileBlock> execFiles(StringMap<AnaRendDocumentBlock> _analyzed){
+        CustList<ExecAbstractFileBlock> exec_ = new CustList<ExecAbstractFileBlock>();
+        for (EntryCust<String, AnaRendDocumentBlock> e: _analyzed.entryList()) {
+            AnaRendDocumentBlock value_ = e.getValue();
+            FileMetricsCore metricsCore_ = value_.getFileBlock().getMetricsCore();
+            String key_ = e.getKey();
+            exec_.add(new RendFileBlock(metricsCore_,key_,value_.getEscapedChar()));
+        }
+        return exec_;
+    }
     public ContextEl forwardAndClear(Options _options, Forwards _forward) {
         ContextEl ctx_ = _forward.generate(_options);
         Classes.forwardAndClear(ctx_);
@@ -437,7 +445,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return ctx_;
     }
 
-    private static void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added) {
+    private static void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added, StringList _render) {
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
             if (StringUtil.quickEq(e.getKey(), _filesConfName)) {
@@ -445,6 +453,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 break;
             }
         }
+        StringList intersect_ = StringUtil.intersect(content_, _render);
+        StringUtil.removeAllElements(content_,intersect_);
         StringMap<String> classFiles_ = new StringMap<String>();
         for (String f: content_) {
             for (EntryCust<String, String> e: _files.entryList()) {
@@ -557,10 +567,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return "";
         }
         _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack, _dest);
+        return getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack);
     }
 
-    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl) {
+    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().initForms();
         String beanName_ = _rend.getBeanName();
         Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
@@ -568,7 +578,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _rendStackCall.addPage(new ImportingPage());
         RendImport.befDisp(_stds,_ctx, _rendStackCall, bean_);
         _rendStackCall.removeLastPage();
-        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, _currentUrl, beanName_, bean_);
+        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, beanName_, bean_);
     }
 
     private void processInitBeans(Configuration _conf, String _dest, String _beanName, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStackCall) {

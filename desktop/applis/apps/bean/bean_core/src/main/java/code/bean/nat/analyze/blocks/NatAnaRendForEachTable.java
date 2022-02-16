@@ -55,7 +55,6 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock implements 
     public void buildEl(AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         importedClassNameFirst = classNameFirst;
         importedClassNameSecond = classNameSecond;
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrMap());
         root = NatRenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
     }
 

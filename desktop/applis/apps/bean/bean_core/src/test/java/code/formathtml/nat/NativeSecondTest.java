@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -27,7 +28,6 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.sample.BeanOne;
 import code.formathtml.sample.BeanTwo;
 import code.formathtml.sample.MyValidator;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
@@ -296,7 +296,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
         analyzeInner(conf_.getConfiguration(),conf_, _html);
-        RendForwardInfos.buildExec(analyzingDoc_, conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
+        RendForwardInfos.buildExec(analyzingDoc_, new CustList<ExecAbstractFileBlock>(), conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
         setFirst(conf_);
         ContextEl generate_ = conf_.getForwards().generate(new Options());
         RendStackCall built_ = conf_.build(InitPhase.NOTHING, generate_);
@@ -351,7 +351,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         addBeanInfo(_conf,"bean_one", new BeanStruct(_bean));
         addBeanInfo(_conf,"bean_two", new BeanStruct(_beanTwo));
         analyzeInner(c_,_conf, _html,_htmlTwo);
-        RendForwardInfos.buildExec(_conf.getAnalyzingDoc(), _conf.getAnalyzed(), null, _conf.getConfiguration());
+        RendForwardInfos.buildExec(_conf.getAnalyzingDoc(), new CustList<ExecAbstractFileBlock>(), _conf.getAnalyzed(), null, _conf.getConfiguration());
         setFirst(_conf);
         return _conf.getConfiguration().getRenders().getVal("page1.html");
     }
@@ -378,7 +378,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, h, null, "page1.html", _conf.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(c_ - 1,"c:", doc_, h, null, "page1.html", _conf.getRendKeyWords());
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
@@ -471,7 +471,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
     }
 
     private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
-        return BeanNatCommonLgNames.getRes(_doc, _conf, (BeanNatCommonLgNames) _stds, _context, _rendStackCall, "page1.html");
+        return BeanNatCommonLgNames.getRes(_doc, _conf, (BeanNatCommonLgNames) _stds, _context, _rendStackCall);
     }
 
     private static Navigation newNavigation(NativeOtherAnalyzedTestConfiguration _conf) {

@@ -1,22 +1,25 @@
 package code.formathtml.exec.blocks;
 
+import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.sml.Element;
 import code.util.CustList;
 
 public final class RendDocumentBlock extends RendParentBlock {
 
+    private ExecAbstractFileBlock fileBlock;
     private Element elt;
 
-    private String file;
-    private String fileName;
     private String beanName;
     private CustList<RendBlock> bodies = new CustList<RendBlock>();
 
-    public RendDocumentBlock(Element _elt, String _file, String _fileName, String _beanName) {
+    public RendDocumentBlock(ExecAbstractFileBlock _fileBlock, Element _elt, String _beanName) {
+        this.fileBlock = _fileBlock;
         this.elt = _elt;
-        this.file = _file;
-        this.fileName = _fileName;
         this.beanName = _beanName;
+    }
+
+    public ExecAbstractFileBlock getFileBlock() {
+        return fileBlock;
     }
 
     public Element getElt() {
@@ -29,10 +32,6 @@ public final class RendDocumentBlock extends RendParentBlock {
 
     public CustList<RendBlock> getBodies() {
         return bodies;
-    }
-
-    public String getFile() {
-        return file;
     }
 
 }

@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -18,6 +19,8 @@ public abstract class AnaRendCondition extends AnaRendParentBlock implements Ana
     private final int conditionOffset;
 
     private OperationNode root;
+    private final ResultExpression resultExpression = new ResultExpression();
+
     AnaRendCondition(OffsetStringInfo _condition, int _offset) {
         super(_offset);
         condition = _condition.getInfo();
@@ -31,8 +34,7 @@ public abstract class AnaRendCondition extends AnaRendParentBlock implements Ana
     protected void buildConditions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(conditionOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrCondition());
-        root = RenderAnalysis.getRootAnalyzedOperations(condition, 0, _anaDoc, _page);
+        root = RenderAnalysis.getRootAnalyzedOperations(condition, 0, _anaDoc, _page,resultExpression);
         AnaClassArgumentMatching exp_ = root.getResultClass();
         if (!exp_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);

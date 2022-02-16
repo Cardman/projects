@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.AffectationOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -44,6 +45,9 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     private final String step;
     private final int stepOffset;
 
+    private final ResultExpression resultExpressionInit = new ResultExpression();
+    private final ResultExpression resultExpressionExp = new ResultExpression();
+    private final ResultExpression resultExpressionStep = new ResultExpression();
 
     private OperationNode rootInit;
 
@@ -109,11 +113,10 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _page.getVariablesNamesToInfer().clear();
         _page.setGlobalOffset(initOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrInit());
         _page.setForLoopPartState(ForLoopPart.INIT);
         _page.setAcceptCommaInstr(true);
         if (!init.trim().isEmpty()) {
-            rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page);
+            rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page,resultExpressionInit);
         }
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
@@ -129,10 +132,9 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _page.setAcceptCommaInstr(false);
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrCondition());
         _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (!expression.trim().isEmpty()) {
-            rootExp = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
+            rootExp = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpressionExp);
         }
         if (rootExp != null) {
             AnaClassArgumentMatching exp_ = rootExp.getResultClass();
@@ -166,9 +168,8 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         _page.setForLoopPartState(ForLoopPart.STEP);
         _page.setMerged(true);
         _page.setAcceptCommaInstr(true);
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrStep());
         if (!step.trim().isEmpty()) {
-            rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page);
+            rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page,resultExpressionStep);
         }
         _page.setMerged(false);
         _page.setAcceptCommaInstr(false);

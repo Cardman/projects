@@ -47,13 +47,14 @@ public final class MetaInfoUtil {
     public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index, StackCall _stackCall) {
         AbstractPageEl call_ = _stackCall.getCall(_index);
         int indexFileType_;
-        ExecFileBlock f_ = call_.getFile();
+        ExecAbstractFileBlock f_ = call_.getFile();
         String fileName_;
         int row_;
         int col_;
         if (f_ != null) {
             fileName_ = f_.getFileName();
-            indexFileType_ = call_.getTraceIndex();
+            int trace_ = call_.getTraceIndex();
+            indexFileType_ = f_.realIndex(trace_);
             FileMetrics metrics_ = f_.getMetrics(_cont.getTabWidth());
             row_ = metrics_.getRowFile(indexFileType_);
             col_ = metrics_.getColFile(indexFileType_,row_);

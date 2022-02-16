@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.instr.Delimiters;
+import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
@@ -22,7 +23,6 @@ import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
@@ -61,7 +61,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         initInstancesPattern(_nav.getSession(),analyzingDoc_);
         StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
-        RendForwardInfos.buildExec(analyzingDoc_, d_, _dual.getForwards(), _conf);
+        RendForwardInfos.buildExec(analyzingDoc_, new CustList<ExecAbstractFileBlock>(), d_, _dual.getForwards(), _conf);
         return page_.getMessages();
     }
     public static void initInstancesPattern(Configuration _conf, AnalyzingDoc _anaDoc) {
@@ -115,7 +115,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         BeanStruct bean_ = getBeanOrNull(currentBeanName_);
         setStoredForms(bean_, stringMapObject_);
         _rendStack.clearPages();
-        String res_ = BeanNatCommonLgNames.getRes(rendDocumentBlock_, _conf, this, _ctx, _rendStack, _dest);
+        String res_ = BeanNatCommonLgNames.getRes(rendDocumentBlock_, _conf, this, _ctx, _rendStack);
         for (EntryCust<Long, LongTreeMap<NodeContainer>> e: _rendStack.getHtmlPage().getContainers().entryList()) {
             for (EntryCust<Long, NodeContainer> f: e.getValue().entryList()) {
                 if (f.getValue().getUpdated() == NullStruct.NULL_VALUE){

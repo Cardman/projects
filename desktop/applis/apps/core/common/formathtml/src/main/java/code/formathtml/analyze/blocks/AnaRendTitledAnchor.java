@@ -52,7 +52,7 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
             String attribute_ = _read.getAttribute(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             ResultText r_ = new ResultText();
             int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
-            r_.buildAna(attribute_, rowsGrId_, _anaDoc, _page);
+            r_.buildIdAna(attribute_, rowsGrId_, _anaDoc, _page);
             opExpTitle.addEntry(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)),r_);
             i_++;
         }

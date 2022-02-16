@@ -10,7 +10,7 @@ public abstract class ExecBlock {
 
     private ExecBlock previousSibling;
 
-    private ExecFileBlock file;
+    private ExecAbstractFileBlock file;
 
     protected ExecBlock() {
     }
@@ -18,11 +18,11 @@ public abstract class ExecBlock {
         parent = _b;
     }
 
-    public final ExecFileBlock getFile() {
+    public final ExecAbstractFileBlock getFile() {
         return file;
     }
 
-    public void setFile(ExecFileBlock _file) {
+    public void setFile(ExecAbstractFileBlock _file) {
         file = _file;
     }
 

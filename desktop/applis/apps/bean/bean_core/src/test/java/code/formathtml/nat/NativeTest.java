@@ -61,7 +61,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         RendStackCall stack_ = new RendStackCall(InitPhase.NOTHING, conf_.getContext());
         stack_.addPage(new ImportingPage());
         RendBlockHelp.processElse(null,null,stack_);
-        RendBlockHelp.processElseIf(null,null, null, null,stack_);
+        RendBlockHelp.processElseIf(null, null, null,stack_);
         NatStdRefVariableOperation.getValue(null,null,null);
         PairStruct struct_ = new PairStruct("", NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
         assertEq("",new VariableWrapperNat(LocalVariable.newLocalVariable(struct_,"")).getClassName(null,null));
@@ -1819,7 +1819,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String s: _conf.getDual().getRenderFiles()) {
-            String link_ = Configuration.getRealFilePath(_conf.getConfiguration().getCurrentLanguage(),s);
+            String link_ = BeanNatCommonLgNames.getRealFilePath(_conf.getConfiguration().getCurrentLanguage(),s);
             String file_ = _nav.getFiles().getVal(link_);
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             Document document_ = res_.getDocument();
@@ -2023,7 +2023,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanNatLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
-        return BeanNatCommonLgNames.getRes(_doc, _conf, _stds, _context, _rendStackCall, "page1.html");
+        return BeanNatCommonLgNames.getRes(_doc, _conf, _stds, _context, _rendStackCall);
     }
 
     private static Navigation newNavigation(NativeAnalyzedTestConfiguration _conf) {

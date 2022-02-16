@@ -17,7 +17,7 @@ public final class RenderStyleTest extends CommonRender {
     @Test
     public void process2Test() {
         String folder_ = "messages";
-        String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest'{'color:{&quot;blue&quot;};'}'\"/></head><style>CONTENT</style><body/></html>";
+        String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest\\{color:{&quot;blue&quot;};\\}\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         assertEq("<html><head><link href=\"main.css\" rel=\"stylesheet\"/><style>.classTest{color:blue;}</style></head><style>{0}CONTENT</style><body/></html>", getRes(folder_, html_, files_, new StringMap<String>()));
@@ -25,7 +25,7 @@ public final class RenderStyleTest extends CommonRender {
     @Test
     public void process3Test() {
         String folder_ = "messages";
-        String html_ = "<html><head><style>CONTENT</style><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest'{'color:{&quot;blue&quot;};'}'\"/></head><body/></html>";
+        String html_ = "<html><head><style>CONTENT</style><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest\\{color:{&quot;blue&quot;};\\}\"/></head><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         assertEq("<html><head><style>CONTENT.classTest{color:blue;}</style><link href=\"main.css\" rel=\"stylesheet\"/></head><body/></html>", getRes(folder_, html_, files_, new StringMap<String>()));
@@ -33,7 +33,7 @@ public final class RenderStyleTest extends CommonRender {
     @Test
     public void process4Test() {
         String folder_ = "messages";
-        String html_ = "<html><head><style/><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest'{'color:{&quot;blue&quot;};'}'\"/></head><body/></html>";
+        String html_ = "<html><head><style/><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest\\{color:{&quot;blue&quot;};\\}\"/></head><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         assertEq("<html><head><style>.classTest{color:blue;}</style><link href=\"main.css\" rel=\"stylesheet\"/></head><body/></html>", getRes(folder_, html_, files_, new StringMap<String>()));
@@ -75,7 +75,7 @@ public final class RenderStyleTest extends CommonRender {
     @Test
     public void process9Test() {
         String folder_ = "messages";
-        String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest'{'color:{&quot;blue&quot;+1/0};'}'\"/></head><style>CONTENT</style><body/></html>";
+        String html_ = "<html><head><link href=\"main.css\" rel=\"stylesheet\" param0=\".classTest\\{color:{&quot;blue&quot;+1/0};\\}\"/></head><style>CONTENT</style><body/></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put("main.css", "{0}");
         assertNotNull(getEx(folder_, html_, files_));

@@ -3,6 +3,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
@@ -138,15 +139,16 @@ public final class Navigation {
 
     public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
         String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
+        ResultExpression res_ = new ResultExpression();
         for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page);
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page, res_);
             info_.setResolvedClassName(info_.getClassName());
             _anaDoc.getBeansInfos().addEntry(root_,info_);
         }
         for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page);
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page, res_);
             _anaDoc.getLateValidators().addEntry(root_,v_);
         }
     }

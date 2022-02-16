@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -13,6 +14,8 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class AnaRendRadio extends AnaRendInput {
+    private final ResultExpression resultExpression = new ResultExpression();
+
     private OperationNode rootConverterFieldValue;
     private String varNameConverterFieldValue = EMPTY_STRING;
     AnaRendRadio(Element _elt, int _offset) {
@@ -45,7 +48,9 @@ public final class AnaRendRadio extends AnaRendInput {
             _page.getInfosVars().addEntry(varLoc_,lv_);
             String preRend_ = StringUtil.concat(converterFieldValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
-            rootConverterFieldValue = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
+            _page.setGlobalOffset(attr_);
+            _page.zeroOffset();
+            rootConverterFieldValue = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpression);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

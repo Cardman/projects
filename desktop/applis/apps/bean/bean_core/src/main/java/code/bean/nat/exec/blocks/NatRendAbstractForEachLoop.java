@@ -53,7 +53,7 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
             RendBlockHelp.processVisitedLoop(this,_ctx,_rendStack);
             return;
         }
-        Struct its_ = processLoop(_cont, _stds, _ctx, _rendStack);
+        Struct its_ = processLoop(_stds, _ctx, _rendStack);
         RendLoopBlockStack l_ = newLoopBlockStack(_ctx,label,its_);
         l_.setLabel(label);
         l_.setBlock(this);
@@ -71,10 +71,9 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
         Struct struct_ = NullStruct.NULL_VALUE;
         ip_.putValueVar(getVariableName(), new VariableWrapperNat(LocalVariable.newLocalVariable(struct_, "")));
     }
-    private Struct processLoop(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private Struct processLoop(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.setOffset(exp.getOffset());
-        ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrList());
         Argument arg_ = RenderExpUtil.calculateReuse(exp.getList(), _advStandards, _ctx, _rendStackCall);
         return arg_.getStruct();
 

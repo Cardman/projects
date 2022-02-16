@@ -1280,7 +1280,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AnalyzedTestContext cont_ = ctxAna();
         validateWithoutInit(_files,cont_);
         assertTrue(isEmptyErrors(cont_));
-        ForwardInfos.generalForward(cont_.getAnalyzing(),cont_.getForwards());
+        generalForward(cont_);
         ContextEl ctx_ = forwardAndClear(cont_);
         cont_.setContext(ctx_);
         cont_.setStackCall(StackCall.newInstance(InitPhase.NOTHING,ctx_));

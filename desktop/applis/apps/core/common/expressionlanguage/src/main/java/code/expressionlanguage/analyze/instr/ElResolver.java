@@ -1380,7 +1380,6 @@ public final class ElResolver {
                 _dout.setBadOffset(i_);
                 return;
             }
-            ElResolverCommon.tryAddStringParts(parsBrackets_, i_, stack_);
             parsBrackets_.removeLast();
         }
         if (curChar_ == ANN_ARR_LEFT) {
@@ -1815,37 +1814,33 @@ public final class ElResolver {
     }
 
     private static char trStr(KeyWords _key, StringInfo _si, char curChar_) {
-        char charToAdd_ = curChar_;
-        boolean ok_ = StringExpUtil.isDigit(curChar_);
-        if (!ok_) {
-            int min_ = NumParsers.toMinCaseLetter(curChar_);
-            int ind_ = _key.getKeyWordNbDig().indexOf(min_);
-            if (ind_ >= 0) {
-                ok_ = true;
-                charToAdd_ = (char) (ind_ + 'A');
-            }
-        }
-        if (!ok_) {
+        int index_ = index(_key, curChar_);
+        if (index_ < 0) {
             _si.setKo();
+            return curChar_;
         }
-        return charToAdd_;
+        return (char) index_;
     }
 
     private static char trTx(KeyWords _key, TextBlockInfo _si, char curChar_) {
-        char charToAdd_ = curChar_;
-        boolean ok_ = StringExpUtil.isDigit(curChar_);
-        if (!ok_) {
-            int min_ = NumParsers.toMinCaseLetter(curChar_);
-            int ind_ = _key.getKeyWordNbDig().indexOf(min_);
-            if (ind_ >= 0) {
-                ok_ = true;
-                charToAdd_ = (char) (ind_ + 'A');
-            }
-        }
-        if (!ok_) {
+        int index_ = index(_key, curChar_);
+        if (index_ < 0) {
             _si.setKo();
+            return curChar_;
         }
-        return charToAdd_;
+        return (char) index_;
+    }
+    private static int index(KeyWords _key, char _curChar) {
+        boolean ok_ = StringExpUtil.isDigit(_curChar);
+        if (ok_) {
+            return _curChar;
+        }
+        int min_ = NumParsers.toMinCaseLetter(_curChar);
+        int ind_ = _key.getKeyWordNbDig().indexOf(min_);
+        if (ind_ >= 0) {
+            return (char) (ind_ + 'A');
+        }
+        return -1;
     }
 
     private static IndexUnicodeEscape processTextBlocks(KeyWords _key, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _infos, char _delimiter) {

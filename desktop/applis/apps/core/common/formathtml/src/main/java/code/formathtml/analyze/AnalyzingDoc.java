@@ -4,10 +4,11 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.formathtml.Configuration;
+import code.formathtml.common.RendBlockUtil;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
@@ -23,7 +24,6 @@ public final class AnalyzingDoc {
 
     private AnaRendBlock currentBlock;
     private String internGlobalClass="";
-    private String attribute="";
     private String fileName="";
     private AnaRendDocumentBlock currentDoc;
     private CustList<StringList> importTypes = new CustList<StringList>();
@@ -41,6 +41,8 @@ public final class AnalyzingDoc {
     private String messagesFolder = "";
     private StringMap<String> files = new StringMap<String>();
     private StringMap<BeanInfo> beansInfosBefore = new StringMap<BeanInfo>();
+    private StringMap<AnaRendDocumentBlock> docs = new StringMap<AnaRendDocumentBlock>();
+    private int tabWidth;
 
 
     public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
@@ -54,8 +56,7 @@ public final class AnalyzingDoc {
     }
 
     public static int getCurrentLocationIndex(AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc) {
-        int offset_ = _analyzing.getOffset();
-        return _analyzingDoc.getSum(offset_)+ _analyzing.getTraceIndex()-offset_;
+        return _analyzingDoc.getSum(_analyzing.getTraceIndex());
     }
 
     public void setup(Configuration _conf, DualConfigurationContext _dual) {
@@ -65,6 +66,7 @@ public final class AnalyzingDoc {
         messagesFolder = _dual.getMessagesFolder();
         files = _conf.getFiles();
         beansInfosBefore = _conf.getBeansInfos();
+        tabWidth = _dual.getOptions().getTabWidth();
     }
     public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
         _page.getMappingLocal().clear();
@@ -84,55 +86,26 @@ public final class AnalyzingDoc {
     }
 
     public String getLocationFile(String _fileName, int _sum) {
-        return StringUtil.concat(Long.toString(_sum));
-    }
-
-    public static int getSum(int _offset, int _glOffset, RendBlock _currentBlock, String _attribute) {
-        int delta_ = getDelta(_offset, _attribute, _currentBlock.getEscapedChars());
-        return _glOffset+_offset+delta_;
+        AnaRendDocumentBlock val_ = getDocs().getVal(_fileName);
+        if (val_ == null) {
+            return "";
+        }
+        FileMetrics metrics_ = val_.getFileBlock().getMetrics(tabWidth);
+        int su_ = getSum(_sum,val_);
+        int r_ = metrics_.getRowFile(su_);
+        int c_ = metrics_.getColFile(su_,r_);
+        return StringUtil.concat( Long.toString(r_),",",Long.toString(c_),",",Long.toString(_sum));
     }
 
     public int getSum(int _offset) {
-        if (currentBlock == null) {
+        if (currentDoc == null) {
             return 0;
         }
-        int delta_ = getDelta(_offset, attribute, currentBlock.getEscapedChars());
-        return _offset+delta_;
+        return getSum(_offset, currentDoc);
     }
 
-    private static int getDelta(int _offset, String _attribute, StringMap<IntTreeMap<Integer>> _escapedChars) {
-        int delta_ = 0;
-        IntTreeMap< Integer> esc_ = getEscapedChars(_attribute, _escapedChars);
-        if (esc_ != null) {
-            int nbIndexes_ = getIndexesCount(esc_, _offset);
-            for (int i = 0; i < nbIndexes_; i++) {
-                delta_ += esc_.getValue(i);
-            }
-        }
-        return delta_;
-    }
-
-    private static int getIndexesCount(IntTreeMap< Integer> _t, int _offset) {
-        int delta_ = 0;
-        int count_ = 0;
-        for (EntryCust<Integer, Integer> e: _t.entryList()) {
-            if (e.getKey() - delta_ >= _offset) {
-                return count_;
-            }
-            delta_ += e.getValue();
-            count_++;
-        }
-        return count_;
-    }
-    private static IntTreeMap<Integer> getEscapedChars(String _attribute, StringMap<IntTreeMap<Integer>> _escapedChars) {
-        for (EntryCust<String, IntTreeMap< Integer>> t: _escapedChars.entryList()) {
-            String c_ = t.getKey();
-            if (!StringUtil.quickEq(c_, _attribute)) {
-                continue;
-            }
-            return t.getValue();
-        }
-        return null;
+    private static int getSum(int _offset, AnaRendDocumentBlock _currentDoc) {
+        return RendBlockUtil.retrieve(_offset, _currentDoc.getEscapedChar());
     }
 
     public String getAliasCharSequence() {
@@ -141,10 +114,6 @@ public final class AnalyzingDoc {
 
     public boolean isInternGlobal() {
         return !getInternGlobalClass().isEmpty();
-    }
-
-    public void setAttribute(String _attribute) {
-        attribute = _attribute;
     }
 
     public StringList getLanguages() {
@@ -245,4 +214,11 @@ public final class AnalyzingDoc {
         return beansInfosBefore;
     }
 
+    public StringMap<AnaRendDocumentBlock> getDocs() {
+        return docs;
+    }
+
+    public void setDocs(StringMap<AnaRendDocumentBlock> _docs) {
+        this.docs = _docs;
+    }
 }

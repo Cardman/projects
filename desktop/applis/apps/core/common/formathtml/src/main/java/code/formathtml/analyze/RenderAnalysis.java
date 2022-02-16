@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.reach.opers.ReachMethodOperation;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
@@ -25,8 +26,9 @@ public final class RenderAnalysis {
     private RenderAnalysis() {
     }
 
-    public static OperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public static OperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
         _page.setCurrentAnonymousResults(new CustList<AnonymousResult>());
+        _page.setCurrentParts(_res.getParts());
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _minIndex, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
@@ -56,8 +58,9 @@ public final class RenderAnalysis {
         return op_;
     }
 
-    public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
         _page.setCurrentAnonymousResults(new CustList<AnonymousResult>());
+        _page.setCurrentParts(_res.getParts());
         Delimiters d_ = ElResolver.checkSyntax(_el, _index, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {

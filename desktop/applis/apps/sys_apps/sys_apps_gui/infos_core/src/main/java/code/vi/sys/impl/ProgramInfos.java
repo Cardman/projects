@@ -4,6 +4,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.AbsGroupFrame;
+import code.stream.StreamBinaryFile;
 import code.stream.StreamTextFile;
 import code.vi.prot.impl.*;
 import code.vi.sys.impl.gui.DefFrameFactory;
@@ -23,6 +24,8 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.MemoryCacheImageInputStream;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -265,31 +268,28 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
 
     @Override
     public AbstractImage readImg(String _file) {
+        byte[] bytes_ = StreamBinaryFile.loadFile(StringUtil.nullToEmpty(_file), getFileCoreStream(), getStreams());
+        MemoryCacheImageInputStream mem_ = new MemoryCacheImageInputStream(new ByteArrayInputStream(bytes_));
         try {
-            FileInputStream input_ = new FileInputStream(StringUtil.nullToEmpty(_file));
-            BufferedImage read_ = ImageIO.read(input_);
-            StreamCoreUtil.close(input_);
+            BufferedImage read_ = ImageIO.read(mem_);
+            StreamCoreUtil.close(mem_);
             return new DefImage(read_);
         } catch (Exception e) {
+            StreamCoreUtil.close(mem_);
             return null;
         }
     }
 
     @Override
     public boolean writeImg(String _format, String _file, AbstractImage _img) {
+        ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
+        MemoryCacheImageOutputStream mem_ = new MemoryCacheImageOutputStream(baos_);
         try {
-            FileOutputStream output_ = new FileOutputStream(StringUtil.nullToEmpty(_file));
-            return write(_format, _img, output_);
+            ImageIO.write((RenderedImage) ((DefImage) _img).data(), _format, mem_);
+            StreamCoreUtil.close(mem_);
+            return StreamBinaryFile.writeFile(StringUtil.nullToEmpty(_file),baos_.toByteArray(),getStreams());
         } catch (Exception e) {
-            return false;
-        }
-    }
-    private boolean write(String _format, AbstractImage _img, FileOutputStream _file) {
-        try {
-            ImageIO.write((RenderedImage) ((DefImage)_img).data(),StringUtil.nullToEmpty(_format), _file);
-            StreamCoreUtil.close(_file);
-            return true;
-        } catch (Exception e) {
+            StreamCoreUtil.close(mem_);
             return false;
         }
     }

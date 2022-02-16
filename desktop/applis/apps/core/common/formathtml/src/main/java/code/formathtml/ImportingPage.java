@@ -1,12 +1,11 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.blocks.*;
 import code.formathtml.stacks.*;
 import code.formathtml.util.*;
@@ -14,20 +13,14 @@ import code.util.*;
 
 public final class ImportingPage {
 
-    private static final String EMPTY_STRING = "";
-
     private final SimplePageEl pageEl = new SimplePageEl();
     private Struct internGlobal;
-
-    private String processingAttribute = EMPTY_STRING;
 
     private final CustList<RendAbstractStask> rendBlockStacks = new CustList<RendAbstractStask>();
 
     private String beanName;
 
     private final StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
-
-    private String readUrl = "";
 
     private RendReadWrite rendReadWrite;
 
@@ -36,56 +29,23 @@ public final class ImportingPage {
     private int offset;
     private int opOffset;
 
-    private String file = "";
+    private RendDocumentBlock document;
 
     private boolean enabledOp=true;
 
-    public int getRowFile(int _sum) {
-        int i_ = 0;
-        int r_ = 1;
-        while (i_ < Math.min(_sum,file.length())) {
-            char ch_ = file.charAt(i_);
-            if (ch_ == '\n') {
-                r_++;
-            }
-            i_++;
-        }
-        return r_;
+    public int realIndex(ExecAbstractFileBlock _fileBlock) {
+        return _fileBlock.realIndex(opOffset + offset);
     }
 
-    public int getColFile(int _sum, int _r) {
-        int i_ = 0;
-        int r_ = 1;
-        while (r_ < _r) {
-            char ch_ = file.charAt(i_);
-            if (ch_ == '\n') {
-                r_++;
-            }
-            i_++;
+    public ExecAbstractFileBlock file() {
+        if (document == null) {
+            return null;
         }
-        int begin_ = i_;
-        int d_ = 0;
-        int count_ =  Math.min(_sum,file.length()-1);
-        for (int j = begin_; j <= count_; j++) {
-            char ch_ = file.charAt(j);
-            if (ch_ == '\t') {
-                d_ += tabWidth;
-                d_ -= d_ % tabWidth;
-            } else {
-                d_++;
-            }
-        }
-        return d_;
-    }
-    public int getSum() {
-        if (rendReadWrite == null) {
-            return 0;
-        }
-        return AnalyzingDoc.getSum(opOffset,offset,rendReadWrite.getRead(),processingAttribute);
+        return document.getFileBlock();
     }
 
-    public void setFile(String _file) {
-        file = _file;
+    public void doc(RendDocumentBlock _doc) {
+        this.document = _doc;
     }
 
     public SimplePageEl getPageEl() {
@@ -195,20 +155,12 @@ public final class ImportingPage {
         rendBlockStacks.removeQuicklyLast();
     }
 
-    public String getReadUrl() {
-        return readUrl;
-    }
-
-    public void setReadUrl(String _readUrl) {
-        readUrl = _readUrl;
+    public int getTabWidth() {
+        return tabWidth;
     }
 
     public void setTabWidth(int _tabWidth) {
         tabWidth = _tabWidth;
-    }
-
-    public void setProcessingAttribute(String _processingAttribute) {
-        processingAttribute = _processingAttribute;
     }
 
     public Struct getInternGlobal() {

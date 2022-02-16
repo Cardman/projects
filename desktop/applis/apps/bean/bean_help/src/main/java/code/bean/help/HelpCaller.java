@@ -65,7 +65,7 @@ public final class HelpCaller {
         _rendStackCall.getFormParts().initForms();
         String beanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = _navigation.getSession().getBuiltBeans().getVal(beanName_);
-        return RendBlock.res(rendDocumentBlock_, _navigation.getSession(), null, _ctx, _rendStackCall, dest_,beanName_,bean_);
+        return RendBlock.res(rendDocumentBlock_, _navigation.getSession(), null, _ctx, _rendStackCall, beanName_,bean_);
     }
 
     public static void buildFctInstructions(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {

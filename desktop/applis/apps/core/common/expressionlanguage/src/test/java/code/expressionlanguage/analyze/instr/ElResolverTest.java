@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.*;
 
@@ -5478,11 +5479,17 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private static Delimiters checkSyntax(AnalyzedTestContext _conf, String _el) {
-        return ElResolver.checkSyntax(_el, 0, _conf.getAnalyzing());
+        ResultExpression res_ = new ResultExpression();
+        AnalyzedPageEl analyzing_ = _conf.getAnalyzing();
+        analyzing_.setCurrentParts(res_.getParts());
+        return ElResolver.checkSyntax(_el, 0, analyzing_);
     }
 
     private static Delimiters checkSyntaxDelimiters(AnalyzedTestContext _conf, String _el, int _minIndex) {
-        return ElResolver.checkSyntaxDelimiters(_el, _minIndex, _conf.getAnalyzing());
+        ResultExpression res_ = new ResultExpression();
+        AnalyzedPageEl analyzing_ = _conf.getAnalyzing();
+        analyzing_.setCurrentParts(res_.getParts());
+        return ElResolver.checkSyntaxDelimiters(_el, _minIndex, analyzing_);
     }
 
     private static void setGlobalType(AnalyzedTestContext _conf, String _globalClass) {

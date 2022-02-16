@@ -2,6 +2,7 @@ package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -19,7 +20,8 @@ import code.util.core.StringUtil;
 public final class ResultInput {
 
     private static final String EMPTY_STRING = "";
-
+    private final ResultExpression resultExpressionRead = new ResultExpression();
+    private final ResultExpression resultExpressionValue = new ResultExpression();
     private OperationNode opsReadRoot;
     private OperationNode opsValueRoot;
     private String varName = EMPTY_STRING;
@@ -34,27 +36,33 @@ public final class ResultInput {
     private OperationNode settable;
 
     public void build(AnaRendBlock _bl, Element _read, String _varValue, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        int attributeName_ = _bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName());
         String name_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
+            _page.setGlobalOffset(attributeName_);
+            _page.zeroOffset();
             tryBuildInputResult(name_, _bl, _anaDoc, _page);
         } else {
             String type_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrType());
             if (!StringUtil.quickEq(type_,_anaDoc.getRendKeyWords().getValueSubmit())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFileName(_anaDoc.getFileName());
-                badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
+                badEl_.setIndexFile(attributeName_);
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
                 AnalyzingDoc.addError(badEl_, _anaDoc, _page);
             }
         }
         if (_read.hasAttribute(_varValue)) {
+            int attributeValue_ = _bl.getAttributeDelimiter(_varValue);
+            _page.setGlobalOffset(attributeValue_);
+            _page.zeroOffset();
             String value_ = _read.getAttribute(_varValue);
-            opsValueRoot = RenderAnalysis.getRootAnalyzedOperations(value_, 0, _anaDoc, _page);
+            opsValueRoot = RenderAnalysis.getRootAnalyzedOperations(value_, 0, _anaDoc, _page,resultExpressionValue);
         }
     }
 
     public void tryBuildInputResult(String _name, AnaRendBlock _bl, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        setOpsReadRoot(RenderAnalysis.getRootAnalyzedOperations(_name, 0, _anaDoc, _page));
+        setOpsReadRoot(RenderAnalysis.getRootAnalyzedOperations(_name, 0, _anaDoc, _page,resultExpressionRead));
         OperationNode res_;
         if (opsReadRoot instanceof IdOperation) {
             res_ = AffectationOperation.getFirstToBeAnalyzed((MethodOperation) opsReadRoot);

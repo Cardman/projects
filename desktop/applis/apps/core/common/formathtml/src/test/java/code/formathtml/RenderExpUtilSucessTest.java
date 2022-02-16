@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.Delimiters;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.*;
@@ -13,6 +14,7 @@ import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodId;
@@ -23,6 +25,7 @@ import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
+import code.formathtml.util.BeanCustLgNames;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -128,7 +131,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         context_.getLocalVariables().addEntry("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
         Argument arg_ = buildAndCalculate(context_, all_);
@@ -576,7 +579,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
@@ -1078,7 +1081,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
         context_.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(context_.getAnalyzing(),globalClass_));
         context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(false));
-        Delimiters d_ = checkSyntax(context_, "$this.inst", 0);
+        Delimiters d_ = checkSyntax(context_, "$this.inst");
         String el_ = "$this.inst";
         OperationsSequence opTwo_ = rendOpSeq(0, context_, d_, el_);
         OperationNode op_ = rendOp(0, context_, opTwo_);
@@ -1456,7 +1459,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/ExTwo", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.ExTwo");
-        CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.ExTwo).exmeth()", 0, cont_, cont_.getAnalyzingDoc());
+        CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.ExTwo).exmeth()", cont_, cont_.getAnalyzingDoc());
         Argument arg_ = buildAndCalculateFwd(cont_, all_);
         assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
         assertEq("pkg.Ex",getString(arg_));
@@ -3117,7 +3120,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
         Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
         setGlobalArgumentStruct(context_, str_, "pkg.Ex");
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -3139,7 +3142,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
         setGlobalType(context_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", 0, context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
         Struct str_ = init(context_, "pkg.Ex");
         setGlobalArgumentStruct(context_, str_, "pkg.Ex");
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -4190,7 +4193,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
         setGlobalType(conf_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v+=$new pkg.Ex(8)).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v+=$new pkg.Ex(8)).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -4227,7 +4230,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
         setGlobalType(conf_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v++).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v++).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         LocalVariable lv_ = new LocalVariable();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -4263,7 +4266,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
         setGlobalType(conf_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(++v).inst", 0, conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(++v).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
         LocalVariable lv_ = new LocalVariable();
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         Struct value_ = init(conf_,"pkg.Ex");
@@ -4872,7 +4875,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer-=12i", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer-=12i", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -4991,7 +4994,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$classchoice(pkg.Ex)inst=v", 0, cont_, cont_.getAnalyzingDoc(),cont_.getAliasInteger(),"v",true);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$classchoice(pkg.Ex)inst=v", cont_, cont_.getAnalyzingDoc(),cont_.getAliasInteger(),"v",true);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(NullStruct.NULL_VALUE);
@@ -5043,7 +5046,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.Ex).exmeth()[0i]=2i", 0, cont_, cont_.getAnalyzingDoc());
+        CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.Ex).exmeth()[0i]=2i", cont_, cont_.getAnalyzingDoc());
         buildAndCalculateFwd(cont_, all_);
         Struct fieldValue_ = getStaticField(cont_);
         Struct[] res_ = ((ArrayStruct) fieldValue_).getInstance();
@@ -5071,7 +5074,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer++", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer++", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5093,7 +5096,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("++v.integer", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("++v.integer", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5116,7 +5119,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
         setGlobalType(cont_, "pkg.Composite");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v.integer-=12i)", 0, cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v.integer-=12i)", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct var_ = init(cont_,"pkg.Composite");
@@ -5151,7 +5154,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v+=1i";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5184,7 +5187,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v==1i";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5205,7 +5208,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v++";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5227,7 +5230,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "++v";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5248,7 +5251,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v[0i]++";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5269,7 +5272,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "++v[0i]";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5291,7 +5294,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v+=2i";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5312,7 +5315,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v[0i]+=3i";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5338,7 +5341,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v+++v2";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5366,7 +5369,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v---v2";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5393,7 +5396,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v=++v2";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5420,7 +5423,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v= ++v2";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5438,7 +5441,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
         setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
         String elr_ = "+1y";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5464,7 +5467,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
         String elr_ = "v=v2=4i";
-        Delimiters d_ = checkSyntax(context_, elr_, 0);
+        Delimiters d_ = checkSyntax(context_, elr_);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
@@ -5547,7 +5550,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument argGl_ = _context.getArgument();
         boolean static_ = argGl_.isNull();
         _context.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
-        Delimiters d_ = checkSyntax(_context, _s, 0);
+        Delimiters d_ = checkSyntax(_context, _s);
         OperationsSequence opTwo_ = rendOpSeq(0, _context, d_, _s);
         OperationNode op_ = rendOp(0, _context, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(_context, op_);
@@ -5560,11 +5563,6 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = caculateReuse(ctx_,_context, executableNodes_);
         checkNullEx(_context);
         return arg_;
-    }
-
-    private static void generalForward(AnalyzedTestConfiguration _context) {
-        ForwardInfos.generalForward(_context.getAnalyzing(), _context.getForwards());
-//        Classes.forwardAndClear(_context.getContext());
     }
 
     private static Argument buildAndCalculate(AnalyzedTestConfiguration _context, CustList<RendDynOperationNode> _all) {
@@ -5613,12 +5611,13 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument argGl_ = conf_.getArgument();
         boolean static_ = argGl_.isNull();
         conf_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
-        Delimiters d_ = checkSyntax(conf_, _s, 0);
+        Delimiters d_ = checkSyntax(conf_, _s);
         OperationsSequence opTwo_ = rendOpSeq(0, conf_, d_, _s);
         OperationNode op_ = rendOp(0, conf_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(conf_, op_);
-        ForwardInfos.generalForward(conf_.getAnalyzing(),conf_.getForwards());
-        RendForwardInfos.buildExec(conf_.getAnalyzingDoc(), conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
+        CustList<ExecAbstractFileBlock> rendFiles_ = BeanCustLgNames.execFiles(conf_.getAnalyzed());
+        generalForward(conf_);
+        RendForwardInfos.buildExec(conf_.getAnalyzingDoc(), rendFiles_, conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
 //        conf_.getAdvStandards().forwardAndClear(conf_.getOpt(), conf_.getForwards());
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(conf_, all_);
         ContextEl ctx_ = getGenerate(conf_);
@@ -5706,14 +5705,14 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         localVars_.put("v", lv_);
         CommonRender.setLocalVars(context_, localVars_);
         setupAnalyzing(context_);
-        Delimiters d_ = checkSyntax(context_, _s, 0);
+        Delimiters d_ = checkSyntax(context_, _s);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, _s, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
         assertTrue(context_.isEmptyErrors());
-        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards());
+        generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getOpt());
@@ -5775,7 +5774,8 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
         AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
         setupAnalyzing(context_);
-        Delimiters d1_ = checkDel(_s, 2, context_);
+        ResultExpression res_ = new ResultExpression();
+        Delimiters d1_ = checkDel(_s, 2, context_, res_);
         assertTrue(d1_.getBadOffset() < 0);
         int end1_ = d1_.getIndexEnd();
         analyzingDoc_.setNextIndex(end1_ +2);
@@ -5783,10 +5783,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         OperationsSequence opTwo1_ = rendOpSeq(context_, d1_, el1_, 2);
         OperationNode op1_ = rendOp(context_, opTwo1_);
         CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_);
-        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards());
+        generalForward(context_);
         CustList<RendDynOperationNode> out1_ = getQuickExecutableNodes(context_, all1_);
         setupAnalyzing(context_);
-        Delimiters d_ = checkDel(_s, _i, context_);
+        Delimiters d_ = checkDel(_s, _i, context_, res_);
         assertTrue(d_.getBadOffset() < 0);
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
@@ -5831,7 +5831,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument argGl_ = context_.getArgument();
         boolean static_ = argGl_.isNull();
         context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
-        Delimiters d_ = checkSyntax(context_, _el, 0);
+        Delimiters d_ = checkSyntax(context_, _el);
         OperationsSequence opTwo_ = rendOpSeq(0, context_, d_, _el);
         OperationNode op_ = rendOp(0, context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
@@ -5851,15 +5851,18 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return new Argument(calculateReuse(_ctx,_conf,_out));
     }
 
-    private static Delimiters checkDel(String _s, int _i, AnalyzedTestConfiguration _context) {
-        return ElResolver.checkSyntaxDelimiters(_s, _i, _context.getAnalyzing());
+    private static Delimiters checkDel(String _s, int _i, AnalyzedTestConfiguration _context, ResultExpression _res) {
+        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
+        analyzing_.setCurrentParts(_res.getParts());
+        return ElResolver.checkSyntaxDelimiters(_s, _i, analyzing_);
     }
 
     private static Argument processDelimiters(String _s, int _i) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
         AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
         setupAnalyzing(context_);
-        Delimiters d_ = checkDel(_s, 2, context_);
+        ResultExpression res_ = new ResultExpression();
+        Delimiters d_ = checkDel(_s, 2, context_, res_);
         assertTrue(d_.getBadOffset() < 0);
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
@@ -5867,7 +5870,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, 2);
         OperationNode op_ = rendOp(context_, opTwo_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        ForwardInfos.generalForward(context_.getAnalyzing(),context_.getForwards());
+        generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
         assertTrue(isEmptyErrors(context_));
@@ -5889,7 +5892,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     private static Argument processElNormalField(StringMap<String> _files, ClassField _keyField, String _clasName, IntStruct _value, String _varName, String _init) {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(_files);
         setGlobalType(context_, _clasName);
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", 0, context_, context_.getAnalyzingDoc(),_clasName,_varName,false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, context_.getAnalyzingDoc(),_clasName,_varName,false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         Struct str_ = initAndSet(context_, _keyField, _value, _init);
@@ -5938,14 +5941,13 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         a_.setConstType(ConstType.LOC_VAR);
         _analyzing.getInfosVars().put(_varName, a_);
     }
-    private static CustList<RendDynOperationNode> getQuickAnalyzedFwd(String _el, int _index, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, String _type, String _varName, boolean _static) {
+    private static CustList<RendDynOperationNode> getQuickAnalyzedFwd(String _el, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, String _type, String _varName, boolean _static) {
         _analyzingDoc.setup(_conf.getConfiguration(), _conf.getDual());
         setupAnalyzingOneVar(_conf.getAnalyzing(), _conf.getAnalyzingDoc(), _type, _varName);
         _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(_static));
-        Delimiters d_ = checkSyntax(_conf, _el, _index);
-        String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = rendOpSeq(_index, _conf, d_, el_);
-        OperationNode op_ = rendOp(_index, _conf, opTwo_);
+        Delimiters d_ = checkSyntax(_conf, _el);
+        OperationsSequence opTwo_ = rendOpSeq(0, _conf, d_, _el);
+        OperationNode op_ = rendOp(0, _conf, opTwo_);
         CustList<OperationNode> ops_ = getSortedDescNodes(_conf, op_);
         generalForward(_conf);
         return getQuickExecutableNodes(_conf,ops_);

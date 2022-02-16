@@ -60,7 +60,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
 //            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
-        Struct its_ = processLoopTable(_cont, _stds, _ctx, _rendStack);
+        Struct its_ = processLoopTable(_stds, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -101,10 +101,9 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         return l_;
     }
 
-    Struct processLoopTable(Configuration _conf, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    Struct processLoopTable(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.setOffset(exp.getOffset());
-        ip_.setProcessingAttribute(_conf.getRendKeyWords().getAttrMap());
         Argument arg_ = RenderExpUtil.calculateReuse(exp.getList(), _advStandards, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;

@@ -38,28 +38,28 @@ public final class RenderTextTest extends CommonRender {
     public void process2Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body>'{escaped}'</body></html>";
+        String html_ = "<html><body>\\{escaped\\}</body></html>";
         assertEq("<html><body>{escaped}</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process3Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body>'{escaped}'{1+1}</body></html>";
+        String html_ = "<html><body>\\{escaped\\}{1+1}</body></html>";
         assertEq("<html><body>{escaped}2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process4Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body>'{''escaped}'{1+1}</body></html>";
+        String html_ = "<html><body>\\{'escaped\\}{1+1}</body></html>";
         assertEq("<html><body>{'escaped}2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
     public void process5Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body>''{1+1}</body></html>";
+        String html_ = "<html><body>'{1+1}</body></html>";
         assertEq("<html><body>'2</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test

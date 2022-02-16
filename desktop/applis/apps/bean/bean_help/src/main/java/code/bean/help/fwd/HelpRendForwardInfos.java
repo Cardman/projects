@@ -3,6 +3,7 @@ package code.bean.help.fwd;
 import code.bean.help.analyze.HelpResultText;
 import code.bean.help.analyze.blocks.*;
 import code.bean.help.exec.blocks.*;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.formathtml.*;
 import code.formathtml.analyze.*;
 import code.formathtml.analyze.blocks.*;
@@ -17,22 +18,22 @@ public final class HelpRendForwardInfos {
     private HelpRendForwardInfos() {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(null,_ana.getElt(), _ana.getBeanName());
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
             RendBlock loc_ = newHelpRendBlock(pair_.getRead());
-            pair_.setWrite(completeHelp(_anaDoc, rendDoc_, pair_.getWrite(), pair_.getRead(), loc_));
+            pair_.setWrite(completeHelp(_anaDoc, rendDoc_, pair_.getWrite(), loc_));
             RendForwardInfos.nextPair(pair_);
         }
         return rendDoc_;
     }
 
-    private static RendParentBlock completeHelp(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlock _curPar, AnaRendBlock _en, RendBlock _loc) {
+    private static RendParentBlock completeHelp(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlock _curPar, RendBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof HelpRendStdElement && StringUtil.quickEq(((HelpRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                 _rendDoc.getBodies().add(_loc);
             }
-            _loc.setEscapedChars(_en.getEscapedChars());
+//            _loc.setEscapedChars(_en.getEscapedChars());
             _curPar.appendChild(_loc);
         }
         if (_loc instanceof RendParentBlock) {
@@ -111,7 +112,7 @@ public final class HelpRendForwardInfos {
         RendDocumentBlock rendDoc_ = build(_value, _anaDoc);
         _conf.getRenders().put(_key, rendDoc_);
         String currentUrl2_ = _conf.getFirstUrl();
-        String realFilePath2_ = Configuration.getRealFilePath(_conf.getCurrentLanguage(), currentUrl2_);
+        String realFilePath2_ = BeanNatCommonLgNames.getRealFilePath(_conf.getCurrentLanguage(), currentUrl2_);
         _conf.setRendDocumentBlock(_conf.getRenders().getVal(realFilePath2_));
     }
 

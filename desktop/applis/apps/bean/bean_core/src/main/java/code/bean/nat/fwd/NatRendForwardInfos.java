@@ -1,5 +1,6 @@
 package code.bean.nat.fwd;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.blocks.*;
@@ -25,22 +26,22 @@ public final class NatRendForwardInfos {
     private NatRendForwardInfos() {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getElt(), _ana.getFile(), _ana.getFileName(), _ana.getBeanName());
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(null,_ana.getElt(), _ana.getBeanName());
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
             RendBlock loc_ = newRendBlock(pair_.getRead());
-            pair_.setWrite(complete(_anaDoc, rendDoc_, pair_.getWrite(), pair_.getRead(), loc_));
+            pair_.setWrite(complete(_anaDoc, rendDoc_, pair_.getWrite(), loc_));
             RendForwardInfos.nextPair(pair_);
         }
         return rendDoc_;
     }
 
-    private static RendParentBlock complete(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlock _curPar, AnaRendBlock _en, RendBlock _loc) {
+    private static RendParentBlock complete(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlock _curPar, RendBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof NatRendStdElement && StringUtil.quickEq(((NatRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                 _rendDoc.getBodies().add(_loc);
             }
-            _loc.setEscapedChars(_en.getEscapedChars());
+//            _loc.setEscapedChars(_en.getEscapedChars());
             _curPar.appendChild(_loc);
         }
         if (_loc instanceof RendParentBlock) {
@@ -132,7 +133,7 @@ public final class NatRendForwardInfos {
             return new NatRendEscImg(f_.getRead(),part_,partText_);
         }
         if (_current instanceof NatAnaRendPackage){
-            return new NatRendPackage();
+            return new NatRendClass();
         }
         if (_current instanceof NatAnaRendForm){
             NatAnaRendForm f_ = (NatAnaRendForm) _current;
@@ -450,7 +451,7 @@ public final class NatRendForwardInfos {
             _conf.getRenders().put(v.getKey(), rendDoc_);
         }
         String currentUrl2_ = _conf.getFirstUrl();
-        String realFilePath2_ = Configuration.getRealFilePath(_conf.getCurrentLanguage(), currentUrl2_);
+        String realFilePath2_ = BeanNatCommonLgNames.getRealFilePath(_conf.getCurrentLanguage(), currentUrl2_);
         _conf.setRendDocumentBlock(_conf.getRenders().getVal(realFilePath2_));
     }
 

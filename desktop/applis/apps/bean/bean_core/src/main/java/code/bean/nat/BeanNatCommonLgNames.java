@@ -40,6 +40,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public static final String TYPE_ITERATOR = "code.util.SimpleItr";
     public static final String TYPE_COUNTABLE = "code.util.ints.Countable";
     private static final String TYPE_ENTRIES = "$custentries";
+    private static final String SEPARATOR_PATH = "/";
+    private static final String IMPLICIT_LANGUAGE = "//";
     private final StringMap<String> iterables = new StringMap<String>();
     private final StringMap<Validator> validators = new StringMap<Validator>();
 
@@ -49,14 +51,19 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         super(new DefaultGenerator());
     }
 
-    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanNatCommonLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall, String _currentUrl) {
+    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanNatCommonLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().initForms();
         String beanName_ = _rend.getBeanName();
         Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
         _rendStackCall.setMainBean(bean_);
         NatRendImport.beforeDisp(bean_, _stds);
-        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, _currentUrl, beanName_, bean_);
+        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, beanName_, bean_);
     }
+
+    public static String getRealFilePath(String _lg, String _link) {
+        return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
+    }
+
     public abstract void beforeDisplaying(Struct _arg);
     @Override
     public void preInitBeans(Configuration _conf) {

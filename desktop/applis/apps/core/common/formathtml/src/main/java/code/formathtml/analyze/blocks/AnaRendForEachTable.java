@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -58,6 +59,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
     private final String expression;
 
     private final int expressionOffset;
+    private final ResultExpression resultExpression = new ResultExpression();
 
     private OperationNode root;
     private boolean okVarFirst = true;
@@ -164,8 +166,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         }
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
-        _anaDoc.setAttribute(_anaDoc.getRendKeyWords().getAttrMap());
-        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page);
+        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpression);
     }
 
     public void checkIterableCandidates(StringList _types, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

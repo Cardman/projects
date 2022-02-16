@@ -3,6 +3,7 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -26,6 +27,10 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
     private final StringList args = new StringList();
     private final StringMap<Document> locDoc = new StringMap<Document>();
     private StringList varNames = new StringList();
+    private final CustList<ResultExpression> resultExpressionList = new CustList<ResultExpression>();
+    private final ResultExpression resultExpression = new ResultExpression();
+    private final CustList<AnaRendElement> children = new CustList<AnaRendElement>();
+
 
     AnaRendMessage(Element _elt, int _offset) {
         super(_offset);
@@ -41,11 +46,12 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
         if (preformatted.isEmpty()) {
             return;
         }
-        for (Element n: elt.getChildElements()) {
-            String attribute_ = n.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
-            if (n.hasAttribute(_anaDoc.getRendKeyWords().getAttrQuoted())) {
+        for (AnaRendElement e: children) {
+            int attributeDelimiter_ = e.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
+            String attribute_ = e.getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
+            if (e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrQuoted())) {
                 quoted.add(true);
-                if (n.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
+                if (e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
                     args.add(escapeParam(attribute_));
                     escaped.add(true);
                 } else {
@@ -57,12 +63,16 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
             }
             args.add(EMPTY_STRING);
             quoted.add(false);
-            if (n.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
+            if (e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
                 escaped.add(true);
             } else {
                 escaped.add(false);
             }
-            roots.add(RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page));
+            ResultExpression res_ = new ResultExpression();
+            resultExpressionList.add(res_);
+            _page.setGlobalOffset(attributeDelimiter_);
+            _page.zeroOffset();
+            roots.add(RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page,res_));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         if (elt.getAttribute(_anaDoc.getRendKeyWords().getAttrEscaped()).isEmpty()) {
@@ -96,7 +106,7 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                             if (href_.indexOf('(') == IndexConstants.INDEX_NOT_FOUND_ELT) {
                                 href_ = StringUtil.concat(href_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
                             }
-                            callExpsLoc_.add(RenderAnalysis.getRootAnalyzedOperations(href_, 1, _anaDoc, _page));
+                            callExpsLoc_.add(RenderAnalysis.getRootAnalyzedOperations(href_, 1, _anaDoc, _page,resultExpression));
                         } else {
                             callExpsLoc_.add(null);
                         }
@@ -120,6 +130,10 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
             }
 
         }
+    }
+
+    public CustList<AnaRendElement> getChildren() {
+        return children;
     }
 
     public CustList<OperationNode> getRoots() {
