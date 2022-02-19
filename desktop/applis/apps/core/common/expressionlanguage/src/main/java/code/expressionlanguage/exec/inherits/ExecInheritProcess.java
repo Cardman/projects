@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AbstractInheritProcess;
+import code.expressionlanguage.common.AbstractTypePairHash;
 import code.expressionlanguage.common.MappingPairs;
 
 public final class ExecInheritProcess extends AbstractInheritProcess {
@@ -9,6 +10,11 @@ public final class ExecInheritProcess extends AbstractInheritProcess {
 
     public ExecInheritProcess(ContextEl _context) {
         this.context = _context;
+    }
+
+    @Override
+    protected AbstractTypePairHash checker() {
+        return context.getChecker();
     }
 
     @Override

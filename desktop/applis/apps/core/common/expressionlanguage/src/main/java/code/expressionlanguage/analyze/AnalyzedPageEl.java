@@ -176,6 +176,10 @@ public final class AnalyzedPageEl {
         return page_;
     }
 
+    public AbstractTypePairHash getChecker() {
+        return options.getChecker();
+    }
+
     public StringMap<StringMap<Struct>> getStaticFields() {
         return staticFields;
     }

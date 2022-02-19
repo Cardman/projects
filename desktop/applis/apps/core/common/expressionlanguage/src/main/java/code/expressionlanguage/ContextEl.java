@@ -1,5 +1,6 @@
 package code.expressionlanguage;
 
+import code.expressionlanguage.common.AbstractTypePairHash;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
@@ -13,6 +14,10 @@ public abstract class ContextEl {
 
     protected ContextEl(CommonExecutionInfos _executionInfos) {
         executionInfos = _executionInfos;
+    }
+
+    public AbstractTypePairHash getChecker() {
+        return executionInfos.getClasses().getChecker();
     }
 
     public GeneType getClassBody(String _type) {

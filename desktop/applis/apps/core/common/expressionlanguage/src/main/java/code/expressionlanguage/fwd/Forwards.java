@@ -37,7 +37,7 @@ public final class Forwards {
         coverage = new Coverage(_options.isCovering());
         coverage.setImplicit(_options.isDisplayImplicit());
         coverage.setDisplayEncode(_options.isEncodeHeader());
-        classes = new Classes();
+        classes = new Classes(_options.getChecker());
         fileBuilder = _fileBuilder;
     }
 

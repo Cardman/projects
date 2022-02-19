@@ -33,9 +33,10 @@ public abstract class AbstractInheritProcess {
         return okTree_;
     }
 
+    protected abstract AbstractTypePairHash checker();
     protected abstract MappingPairs getExecutingCorrect(String _a, String _p);
 
-    private static boolean ko(MappingPairs _m, CustList<Matching> _all,CustList<Matching> _new) {
+    private boolean ko(MappingPairs _m, CustList<Matching> _all,CustList<Matching> _new) {
         if (_m == null) {
             return true;
         }
@@ -57,9 +58,9 @@ public abstract class AbstractInheritProcess {
         }
         return koTree_;
     }
-    private static boolean notExist(CustList<Matching> _all, Matching _n) {
+    private boolean notExist(CustList<Matching> _all, Matching _n) {
         for (Matching m: _all) {
-            if (areTypePairs(m,_n)) {
+            if (checker().areTypePairs(m,_n)) {
                 return false;
             }
         }

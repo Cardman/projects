@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.AbstractTypePairHash;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
@@ -51,12 +52,16 @@ public final class Classes {
     private ExecTypeFunction seedGeneratorPair;
     private final CustList<ClassMetaInfo> classMetaInfos = new CustList<ClassMetaInfo>();
     private String keyWordValue = "";
-
-    public Classes(){
+    private final AbstractTypePairHash checker;
+    public Classes(AbstractTypePairHash _checker){
         common = new ClassesCommon();
         classesBodies = new StringMap<ExecRootBlock>();
+        checker = _checker;
     }
 
+    public AbstractTypePairHash getChecker() {
+        return checker;
+    }
 
     public StringMap<String> getResources() {
 		return getCommon().getResources();

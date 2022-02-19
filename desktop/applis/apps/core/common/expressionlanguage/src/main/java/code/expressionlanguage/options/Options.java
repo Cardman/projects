@@ -2,6 +2,8 @@ package code.expressionlanguage.options;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.DefaultAccess;
+import code.expressionlanguage.common.AbstractTypePairHash;
+import code.expressionlanguage.common.DefTypePairHash;
 import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 import code.util.StringList;
@@ -21,6 +23,18 @@ public final class Options {
     private int stack = -1;
     private String seedElts = "";
     private CustomSeedGene seedGene = new CustomSeedGene();
+    private AbstractTypePairHash checker;
+
+    public Options() {
+        setChecker(new DefTypePairHash());
+    }
+    public AbstractTypePairHash getChecker() {
+        return checker;
+    }
+
+    public void setChecker(AbstractTypePairHash _ch) {
+        this.checker = _ch;
+    }
 
     public StringList getTypesInit() {
         return typesInit;
