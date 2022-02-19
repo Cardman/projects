@@ -49,18 +49,25 @@ public abstract class AbstractInheritProcess {
                     koTree_ = true;
                     break;
                 }
-                Matching n_ = buildMatch(n);
-                if (notExist(_all,n_)) {
-                    _all.add(n_);
-                    _new.add(n_);
-                }
+                AbstractTypePairHash checker_ = checker();
+                tryAddNext(_all, _new, n, checker_, MatchingEnum.EQ);
             }
         }
         return koTree_;
     }
-    private boolean notExist(CustList<Matching> _all, Matching _n) {
+
+    public static void tryAddNext(CustList<Matching> _all, CustList<Matching> _new, Matching _n, AbstractTypePairHash _checker, MatchingEnum _eq) {
+        Matching n_ = buildMatch(_n);
+        if (notExist(_all,n_, _checker)) {
+            n_.setMatchEq(_eq);
+            _all.add(n_);
+            _new.add(n_);
+        }
+    }
+
+    private static boolean notExist(CustList<Matching> _all, Matching _n, AbstractTypePairHash _checker) {
         for (Matching m: _all) {
-            if (checker().areTypePairs(m,_n)) {
+            if (_checker.areTypePairs(m,_n)) {
                 return false;
             }
         }

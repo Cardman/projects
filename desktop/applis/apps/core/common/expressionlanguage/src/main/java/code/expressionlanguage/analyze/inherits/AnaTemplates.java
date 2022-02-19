@@ -699,11 +699,13 @@ public final class AnaTemplates {
             boolean ok_ = false;
             StringList names_ = arg_.getNames();
             for (String a: names_) {
+                CustList<Matching> all_ = new CustList<Matching>();
                 CustList<Matching> matchs_ = new CustList<Matching>();
                 Matching match_ = new Matching();
                 match_.setArg(a);
                 match_.setParam(p);
                 matchs_.add(match_);
+                all_.add(match_);
                 boolean okTree_ = true;
                 while (true) {
                     CustList<Matching> new_ = new CustList<Matching>();
@@ -745,15 +747,7 @@ public final class AnaTemplates {
                                 okTree_ = false;
                                 break;
                             }
-                            Matching n_ = new Matching();
-                            if (n.getMatchEq() == MatchingEnum.SUB) {
-                                n_.setArg(n.getArg());
-                                n_.setParam(n.getParam());
-                            } else {
-                                n_.setArg(n.getParam());
-                                n_.setParam(n.getArg());
-                            }
-                            new_.add(n_);
+                            AbstractInheritProcess.tryAddNext(all_,new_,n, _page.getChecker(),MatchingEnum.EQ);
                         }
                         if (!okTree_) {
                             break;
@@ -1057,12 +1051,14 @@ public final class AnaTemplates {
         for (String p: param_.getNames()) {
             StringList names_ = arg_.getNames();
             for (String a: names_) {
+                CustList<Matching> all_ = new CustList<Matching>();
                 CustList<Matching> matchs_ = new CustList<Matching>();
                 Matching match_ = new Matching();
                 match_.setArg(a);
                 match_.setParam(p);
                 match_.setMatchEq(_base);
                 matchs_.add(match_);
+                all_.add(match_);
                 while (true) {
                     CustList<Matching> new_ = new CustList<Matching>();
                     for (Matching m: matchs_) {
@@ -1095,16 +1091,7 @@ public final class AnaTemplates {
                                 new_.add(n);
                                 continue;
                             }
-                            Matching n_ = new Matching();
-                            if (n.getMatchEq() == MatchingEnum.SUB) {
-                                n_.setArg(n.getArg());
-                                n_.setParam(n.getParam());
-                            } else {
-                                n_.setArg(n.getParam());
-                                n_.setParam(n.getArg());
-                            }
-                            n_.setMatchEq(_base);
-                            new_.add(n_);
+                            AbstractInheritProcess.tryAddNext(all_,new_,n, _page.getChecker(),_base);
                         }
                     }
                     if (new_.isEmpty()) {
