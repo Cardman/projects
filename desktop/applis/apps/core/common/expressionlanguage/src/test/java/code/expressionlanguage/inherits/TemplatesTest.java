@@ -4,6 +4,9 @@ import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.common.DefTypePairHash;
+import code.expressionlanguage.common.Matching;
+import code.expressionlanguage.common.OthTypePairHash;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.methods.ProcessMethodCommon;
@@ -618,6 +621,83 @@ public final class TemplatesTest extends ProcessMethodCommon {
         String second_ = "code.util.CustList<#V>";
         assertEq("code.util.CustList<#V>", format(cont_, first_, second_));
     }
+
+    @Test
+    public void typePair1(){
+        assertEq("Tmp<?>", OthTypePairHash.hcode("Tmp<?>"));
+    }
+
+    @Test
+    public void typePair2(){
+        assertEq("Tmp<Cl>", OthTypePairHash.hcode("Tmp<Cl>"));
+    }
+
+    @Test
+    public void areTypePairs1(){
+        Matching m_ = new Matching();
+        m_.setArg("A");
+        m_.setParam("B");
+        Matching n_ = new Matching();
+        n_.setArg("A");
+        n_.setParam("B");
+        assertTrue(new OthTypePairHash().areTypePairs(m_, n_));
+    }
+
+    @Test
+    public void areTypePairs2(){
+        Matching m_ = new Matching();
+        m_.setArg("A");
+        m_.setParam("B");
+        Matching n_ = new Matching();
+        n_.setArg("A");
+        n_.setParam("C");
+        assertTrue(!new OthTypePairHash().areTypePairs(m_, n_));
+    }
+
+    @Test
+    public void areTypePairs3(){
+        Matching m_ = new Matching();
+        m_.setArg("B");
+        m_.setParam("A");
+        Matching n_ = new Matching();
+        n_.setArg("C");
+        n_.setParam("A");
+        assertTrue(!new OthTypePairHash().areTypePairs(m_, n_));
+    }
+
+    @Test
+    public void areTypePairs4(){
+        Matching m_ = new Matching();
+        m_.setArg("B");
+        m_.setParam("D");
+        Matching n_ = new Matching();
+        n_.setArg("C");
+        n_.setParam("A");
+        assertTrue(!new OthTypePairHash().areTypePairs(m_, n_));
+    }
+
+    @Test
+    public void areTypePairs5(){
+        Matching m_ = new Matching();
+        m_.setArg("A");
+        m_.setParam("B");
+        Matching n_ = new Matching();
+        n_.setArg("A");
+        n_.setParam("B");
+        assertTrue(new DefTypePairHash().areTypePairs(m_, n_));
+    }
+
+    @Test
+    public void areTypePairs6(){
+        Matching m_ = new Matching();
+        m_.setArg("A");
+        m_.setParam("B");
+        Matching n_ = new Matching();
+        n_.setArg("A");
+        n_.setParam("C");
+        assertTrue(!new DefTypePairHash().areTypePairs(m_, n_));
+    }
+
     @Test
     public void getGenericTypeByBases1Test() {
         AnalyzedTestContext context_ = simpleContextEl();
