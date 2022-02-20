@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
@@ -53,7 +54,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         if (ElUtil.isDeclaringLoopVariable(this, _page)) {
             declare = true;
-            TokenErrorMessage res_ = _page.getTokenValidation().isValidSingleToken(str_);
+            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(str_, _page);
             variableContent.setVariableName(str_);
             realVariableName = str_;
             if (res_.isError()) {

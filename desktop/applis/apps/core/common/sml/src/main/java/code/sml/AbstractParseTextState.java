@@ -297,30 +297,7 @@ public abstract class AbstractParseTextState {
             }
         }
         tagName.delete(IndexConstants.FIRST_INDEX, tagName.length());
-        if (index + 2 >= _len) {
-            return false;
-        }
-        if (input.charAt(index + 1) == LT_CHAR) {
-            if (input.charAt(index + 2) == SLASH) {
-                index++;
-                //input.charAt(index) == '<'
-                index++;
-                //input.charAt(index) == '/'
-                index++;
-                //input.charAt(index) is the first character of end tag
-                state = ReadingState.FOOTER;
-                indexFoot = index;
-                return true;
-            }
-            index++;
-            index++;
-            state = ReadingState.HEADER;
-            addChild = true;
-            return true;
-        }
-        state = ReadingState.TEXT;
-        index++;
-        return true;
+        return redirect(_len);
     }
 
 
@@ -335,6 +312,10 @@ public abstract class AbstractParseTextState {
             finished = true;
             return false;
         }
+        return redirect(_len);
+    }
+
+    private boolean redirect(int _len) {
         if (index + 2 >= _len) {
             return false;
         }

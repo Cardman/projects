@@ -49,10 +49,10 @@ public final class HelpAnaRendBlockHelp {
                 if (parentNode_ == null) {
                     curWrite_ = null;
                 } else {
+                    indexGlobal_ = _docText.indexOf("</"+parentNode_.getTagName()+">",indexGlobal_)+2+parentNode_.getTagName().length()+2;
                     curWrite_ = par_;
                     curNode_ = parentNode_;
                 }
-
             }
         }
         return out_;

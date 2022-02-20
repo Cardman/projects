@@ -89,6 +89,7 @@ public abstract class AnaRendBlock {
                     curWrite_ = null;
                     break;
                 }
+                indexGlobal_ = _docText.indexOf("</"+parentNode_.getTagName()+">",indexGlobal_)+2+parentNode_.getTagName().length()+2;
                 curWrite_ = par_;
                 curNode_ = parentNode_;
             }
@@ -371,9 +372,6 @@ public abstract class AnaRendBlock {
             return _html.indexOf(StringUtil.concat(Character.toString(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
         }
         int indexText_ = _html.indexOf(GT_TAG, _from);
-        while (_html.charAt(indexText_ + 1) == LT_BEGIN_TAG) {
-            indexText_ = _html.indexOf(GT_TAG, indexText_ + 1);
-        }
         return indexText_ + 1;
     }
 

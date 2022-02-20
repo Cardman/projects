@@ -129,10 +129,10 @@ public final class AnaRendBlockHelp {
                 if (parentNode_ == null) {
                     curWriteNat_ = null;
                 } else {
+                    indexGlobal_ = _docText.indexOf("</"+parentNode_.getTagName()+">",indexGlobal_)+2+parentNode_.getTagName().length()+2;
                     curWriteNat_ = par_;
                     curNode_ = parentNode_;
                 }
-
             }
         }
         return out_;

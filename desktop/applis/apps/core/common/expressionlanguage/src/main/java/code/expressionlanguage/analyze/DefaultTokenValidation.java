@@ -33,9 +33,5 @@ public final class DefaultTokenValidation implements AbstractTokenValidation {
         MemberCallingsBlock fct_ = page.getCurrentFct();
         return fct_.getStaticContext() == MethodAccessKind.STATIC;
     }
-    @Override
-    public TokenErrorMessage isValidSingleToken(String _id) {
-        return ManageTokens.partVar(page).checkTokenVar(_id, page);
-    }
 
 }
