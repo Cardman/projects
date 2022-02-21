@@ -1268,10 +1268,6 @@ public final class ForwardInfos {
             AnnotationInstanceArobaseOperation n_ = (AnnotationInstanceArobaseOperation) _anaNode;
             return new ExecAnnotationInstanceArobaseOperation(FetchMemberUtil.fetchType(n_.getRootNumber(), _forwards), new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInstancingAnnotContent(n_.getInstancingAnnotContent(),_forwards));
         }
-        if (_anaNode instanceof AnnotationInstanceArrOperation) {
-            AnnotationInstanceArrOperation n_ = (AnnotationInstanceArrOperation) _anaNode;
-            return new ExecArrayElementOperation(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(n_.getClassName()));
-        }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;
             if (f_.isClonedMethod()) {
@@ -1333,13 +1329,9 @@ public final class ForwardInfos {
             ArgumentListInstancing c_ = (ArgumentListInstancing) _anaNode;
             return new ExecArgumentListInstancing(new ExecOperationContent(c_.getContent()));
         }
-        if (_anaNode instanceof InferArrayInstancing) {
-            InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;
-            return new ExecArrayElementOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(i_.getArrayInstancingContent()));
-        }
-        if (_anaNode instanceof ElementArrayInstancing) {
-            ElementArrayInstancing e_ = (ElementArrayInstancing) _anaNode;
-            return new ExecArrayElementOperation(new ExecOperationContent(e_.getContent()), e_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(e_.getArrayInstancingContent()));
+        if (_anaNode instanceof WithArrayElementInstancing) {
+            WithArrayElementInstancing e_ = (WithArrayElementInstancing) _anaNode;
+            return new ExecArrayElementOperation(new ExecOperationContent(_anaNode.getContent()), e_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(e_.getArrayInstancingContent()));
         }
         if (_anaNode instanceof DimensionArrayInstancing) {
             DimensionArrayInstancing d_ = (DimensionArrayInstancing) _anaNode;

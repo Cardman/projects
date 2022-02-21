@@ -32,7 +32,7 @@ public final class ExecExplicitOperation extends ExecMethodOperation implements 
     }
     public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock,
                                    ExecFormattedRootBlock _classNameOwner, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
-        checkCustomOper(_exit, _rootBlock, _stackCall.formatVarType(_classNameOwner), _conf, null, _stackCall, _list);
+        checkCustomOper(_exit, _rootBlock, StackCall.formatVarType(_stackCall,_classNameOwner), _conf, null, _stackCall, _list);
         return Argument.createVoid();
     }
 

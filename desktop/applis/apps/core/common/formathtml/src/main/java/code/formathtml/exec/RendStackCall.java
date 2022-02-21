@@ -1,8 +1,10 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.AbstractStackCall;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.FormParts;
 import code.formathtml.HtmlPage;
@@ -12,7 +14,7 @@ import code.maths.montecarlo.CustomSeedGene;
 import code.sml.Document;
 import code.util.CustList;
 
-public final class RendStackCall {
+public final class RendStackCall implements AbstractStackCall {
 
     private HtmlPage htmlPage = new HtmlPage();
 
@@ -35,6 +37,9 @@ public final class RendStackCall {
         stackCall = StackCall.newInstance(_readOnlyOthers, _ctx,_cust);
     }
 
+    public String formatVarType(String _varType) {
+        return ExecInherits.quickFormat(getLastPage().getGlobalClass(),_varType);
+    }
     public void init() {
         htmlPage = new HtmlPage();
         document = null;

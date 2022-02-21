@@ -27,6 +27,7 @@ import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.WarningShow;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
+import code.formathtml.analyze.VirtualImportingBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
@@ -81,14 +82,14 @@ public abstract class CommonRender extends EquallableRenderUtil {
         }
     }
 
-    protected static void setupValues(AnalyzedTestConfiguration _analyzing, ImportingPage _lastPage) {
+    protected static void setupValues(AnalyzedTestConfiguration _analyzing, ImportingPage _lastPage, ContextEl _context) {
         for (EntryCust<String, LocalVariable> e: _analyzing.getLocalVariables().entryList()) {
             _lastPage.getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
         }
         for (EntryCust<String,LoopVariable> e: _analyzing.getVars().entryList()) {
             _lastPage.getPageEl().getVars().addEntry(e.getKey(),e.getValue());
         }
-        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct());
+        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
     }
     protected static void setLocalVars(AnalyzedTestConfiguration _importingPage, StringMap<LocalVariable> _localVars) {
 //        for (EntryCust<String, LocalVariable> e: _localVars.entryList()) {
@@ -370,6 +371,16 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return successRes(ctx_, a_);
     }
 
+    protected static String getCommOneBeanParam(String _html, StringMap<String> _filesThree, StringMap<String> _filesSec) {
+        AnalyzedTestConfiguration a_ = build();
+        getHeaders(_filesSec, a_);
+        assertTrue(isEmptyErrors(a_));
+        setFiles(_filesThree, a_);
+        ContextEl ctx_ = calcOneBeanParam(_html, a_);
+
+        return successRes(ctx_, a_);
+    }
+
     protected static String getCommOneBean(String _folder, String _relative, String _html, StringMap<String> _filesThree, StringMap<String> _filesSec, String... _types) {
         AnalyzedTestConfiguration a_ = build(_types);
         getHeaders(_filesSec, a_);
@@ -447,6 +458,17 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return ctx_;
     }
 
+    private static ContextEl calcOneBeanParam(String _html, AnalyzedTestConfiguration _a) {
+        newOneBeanParam(_a);
+        analyzeInner(_a, _html);
+        assertTrue(isEmptyErrors(_a));
+        simpleForward(_a);
+        CustList<RendDynOperationNode> ops_ = buildExecPart(_a, "bean_one");
+        ContextEl ctx_ = tryFwdInit(_a);
+        calcBean(ctx_,_a, ops_, "bean_one");
+        return ctx_;
+    }
+
     protected static ContextEl tryFwdInit(AnalyzedTestConfiguration _a) {
         ContextEl ctx_ = tryForward(_a);
         tryInitStaticlyTypes(ctx_,_a);
@@ -455,6 +477,10 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
     private static void newOneBean(AnalyzedTestConfiguration _a) {
         newBeanInfo(_a, "pkg.BeanOne", "bean_one");
+    }
+
+    private static void newOneBeanParam(AnalyzedTestConfiguration _a) {
+        newBeanInfo(_a, "pkg.BeanOne<$int>", "bean_one");
     }
 
     private static void setup(String _folder, String _relative, StringMap<String> _filesThree, AnalyzedTestConfiguration _a) {
@@ -1020,6 +1046,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
     }
 
     private static void newBeanInfo(AnalyzedTestConfiguration _a, String _className, String _bean) {
+        _a.getAnalyzing().setImportingAcces(new VirtualImportingBlock());
         BeanInfo b2_ = new BeanInfo();
         b2_.setClassName(_className);
         b2_.setResolvedClassName(_className);
@@ -1086,7 +1113,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
     protected static Struct calculateReuse(ContextEl _ctx,AnalyzedTestConfiguration _a, CustList<RendDynOperationNode> _ops) {
         RendStackCall build_ = _a.build(InitPhase.NOTHING, _ctx);
         build_.addPage(new ImportingPage());
-        setupValues(_a,build_.getLastPage());
+        setupValues(_a,build_.getLastPage(), _ctx);
         return RenderExpUtil.calculateReuse(_ops, _a.getAdvStandards(), _ctx, build_).getStruct();
     }
 

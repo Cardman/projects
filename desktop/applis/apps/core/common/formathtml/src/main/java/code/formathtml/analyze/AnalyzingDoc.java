@@ -26,7 +26,6 @@ public final class AnalyzingDoc {
     private String internGlobalClass="";
     private String fileName="";
     private AnaRendDocumentBlock currentDoc;
-    private CustList<StringList> importTypes = new CustList<StringList>();
     private RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
     private RendKeyWords rendKeyWords = new RendKeyWords();
 
@@ -74,15 +73,9 @@ public final class AnalyzingDoc {
         _page.setCurrentAnaBlockForEachLoop(null);
         _page.setCurrentAnaBlockForEachTable(null);
         _page.setProcessKeyWord(new AdvancedProcessKeyWord(_page, _analyzingDoc));
-        _page.setHiddenTypes(new AdvancedHiddenTypes(_page));
-        _page.setCurrentGlobalBlock(new AdvancedCurrentGlobalBlock(_page, _analyzingDoc));
-        _page.setCurrentConstraints(new AdvancedCurrentConstraints());
-        _page.setAnnotationAnalysis(new AdvancedAnnotationAnalysis());
         _page.setLoopDeclaring(new AdvancedLoopDeclaring(_analyzingDoc));
         _page.setLocalDeclaring(new AdvancedLocalDeclaring(_analyzingDoc));
-        _page.setBuildingConstraints(new AdvancedBuildingConstraints(_page));
         _page.setLocalizer(new AdvancedLocalizer(_page, _analyzingDoc));
-        _page.setTokenValidation(new AdvancedTokenValidation(_page));
     }
 
     public String getLocationFile(String _fileName, int _sum) {
@@ -151,19 +144,8 @@ public final class AnalyzingDoc {
         fileName = _fileName;
     }
 
-    public CustList<StringList> getImportTypes() {
-        return importTypes;
-    }
-
-    public AnaRendDocumentBlock getCurrentDoc() {
-        return currentDoc;
-    }
-
     public void setCurrentDoc(AnaRendDocumentBlock _current) {
         this.currentDoc = _current;
-        importTypes.clear();
-        importTypes.add(_current.getImports());
-        importTypes.add(_current.getFileImports());
     }
 
     public int getNextIndex() {

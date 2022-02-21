@@ -23,7 +23,7 @@ public final class ExecAnonymousInstancingOperation extends
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getInstancingCommonContent().getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        ExecFormattedRootBlock className_ = _stack.formatVarType(getFormattedType());
+        ExecFormattedRootBlock className_ = StackCall.formatVarType(_stack,getFormattedType());
         Argument res_;
         if (_conf.getExiting().hasToExit(_stack, className_.getRootBlock())) {
             res_ = Argument.createVoid();

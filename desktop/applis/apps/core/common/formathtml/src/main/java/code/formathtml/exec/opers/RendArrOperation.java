@@ -84,7 +84,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context,_rendStack);
         return processArray(_nodes,res_,_context,_rendStack);
     }
 

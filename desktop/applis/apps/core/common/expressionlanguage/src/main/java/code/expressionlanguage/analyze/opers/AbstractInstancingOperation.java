@@ -305,7 +305,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 String res_ = AnaInherits.tryGetAllInners(innTypeInf_, innType_, partsArgs_, currVars_, _page);
                 if (!res_.isEmpty()) {
-                    AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+                    AccessedBlock r_ = _page.getImporting();
                             resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,innTypeInf_,StringExpUtil.getIdFromAllTypes(innType_),r_, rc_ +begin_,_page), results_);
 //                    partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
@@ -327,7 +327,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
             type_ = StringUtil.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;
-            AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+            AccessedBlock r_ = _page.getImporting();
             resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inferForm_,innTypeInf_,StringExpUtil.getIdFromAllTypes(type_),r_, rc_ +begin_,_page));
         }
         int lt_ = newKeyWord_.length() + local_ + className_.indexOf('<');

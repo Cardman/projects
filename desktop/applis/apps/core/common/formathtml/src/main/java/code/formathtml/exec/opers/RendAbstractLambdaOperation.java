@@ -1,11 +1,13 @@
 package code.formathtml.exec.opers;
 
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecAbstractLambdaOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.CallersInfo;
+import code.formathtml.exec.RendStackCall;
 
 public abstract class RendAbstractLambdaOperation extends RendLeafOperation implements RendCalculableOperation,RendPossibleIntermediateDotted {
 
@@ -27,12 +29,15 @@ public abstract class RendAbstractLambdaOperation extends RendLeafOperation impl
         return lambdaCommonContent;
     }
 
-    protected CallersInfo format(ExecLambdaMethodContent _caller) {
-        return ExecAbstractLambdaOperation.build(_caller,getFoundClass());
+    protected CallersInfo format(ExecLambdaMethodContent _caller,RendStackCall _stack) {
+        return ExecAbstractLambdaOperation.build(_caller,formatVarType(_stack));
     }
 
-    public String formatVarTypeRes() {
-        return result;
+    public ExecFormattedRootBlock formatVarType(RendStackCall _stack) {
+        return StackCall.formatVarType(_stack,getFoundClass());
+    }
+    public String formatVarTypeRes(RendStackCall _stack) {
+        return _stack.formatVarType(result);
     }
     public ExecFormattedRootBlock getFoundClass() {
         return lambdaCommonContent.getFormattedType();

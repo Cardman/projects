@@ -1,10 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ImportedField;
-import code.expressionlanguage.analyze.ImportedMethod;
-import code.expressionlanguage.analyze.MethodHeaderInfo;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
@@ -231,7 +228,7 @@ public abstract class OperationNode {
             return new NamedArgumentOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
-            if (_page.getAnnotationAnalysis().isAnnotAnalysis(_m,_op)) {
+            if (DefaultAnnotationAnalysis.isAnnotAnalysis(_page, _m,_op)) {
                 return new AnnotationInstanceArrOperation(_index, _indexChild, _m, _op);
             }
             String fctName_ = _op.getFctName().trim();

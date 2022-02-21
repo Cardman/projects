@@ -197,7 +197,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         String trim_ = inns_.first().trim();
         int nb_ = 0;
         String start_;
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         AnaGeneType startType_ = _page.getAnaGeneType(trim_);
         int loc_ = _from + _page.getLocalizer().getCurrentLocationIndex();
         if (startType_ != null) {

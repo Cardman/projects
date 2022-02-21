@@ -4,6 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -36,7 +37,7 @@ public final class RendExplicitOperation extends RendMethodOperation implements 
 
     public static Argument prepare(AbstractExiting _exit, ExecTypeFunction _rootBlock,
                                    ExecFormattedRootBlock _classNameOwner, ContextEl _conf, RendStackCall _stackCall, ArgumentListCall _list) {
-        ExecExplicitOperation.checkCustomOper(_exit, _rootBlock, _classNameOwner, _conf,null, _stackCall.getStackCall(), _list);
+        ExecExplicitOperation.checkCustomOper(_exit, _rootBlock, StackCall.formatVarType(_stackCall,_classNameOwner), _conf,null, _stackCall.getStackCall(), _list);
         return Argument.createVoid();
     }
 

@@ -162,7 +162,7 @@ public final class StandardInstancingOperation extends
         String inner_ = StringExpUtil.getIdFromAllTypes(sup_.getOwnedName());
         RootBlock root_ = sup_.getOwned();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex(),_page), results_));
         realClassName_ = check(root_,sup_.getOwnedName(), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);

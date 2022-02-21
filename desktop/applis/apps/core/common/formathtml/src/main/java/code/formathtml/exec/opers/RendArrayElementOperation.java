@@ -25,7 +25,7 @@ public final class RendArrayElementOperation extends
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         int off_ = getMethodName();
         setRelOffsetPossibleLastPage(off_, _rendStack);
-        String className_ = getClassName();
+        String className_ = _rendStack.formatVarType(getClassName());
 
         int nbCh_ = arguments_.size();
 

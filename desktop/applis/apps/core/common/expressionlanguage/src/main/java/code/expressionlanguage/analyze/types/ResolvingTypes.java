@@ -24,15 +24,14 @@ public final class ResolvingTypes {
     }
 
     public static AnaResultPartType resolveAccessibleIdTypeWithoutError(int _loc, String _in, AnalyzedPageEl _page) {
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         int rc_ = _page.getLocalizer().getCurrentLocationIndex()+_loc;
-        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
-        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in, a_,r_, rc_, _page);
+        return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_in, r_,r_, rc_, _page);
     }
 
     public static AnaResultPartType resolveCorrectAccessibleType(int _loc, String _in, String _fromType, AnalyzedPageEl _page) {
         int rc_ = _page.getLocalizer().getCurrentLocationIndex()+_loc;
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         String idFromType_ = StringExpUtil.getIdFromAllTypes(_fromType);
         AnaGeneType from_ = _page.getAnaGeneType(idFromType_);
@@ -63,14 +62,13 @@ public final class ResolvingTypes {
 
     public static AnaResultPartType resolveCorrectTypeWithoutErrors(int _loc, String _in, AnalyzedPageEl _page) {
         String tr_ = _in.trim();
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         _page.getBuildingConstraints().buildCurrentConstraintsFull();
-        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         String gl_ = _page.getGlobalClass();
         int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
         _page.getCurrentBadIndexes().clear();
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_, gl_, a_, r_, rc_, _page);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_, gl_, r_, r_, rc_, _page);
         AnaPartTypeUtil.processAnalyzeConstraintsCore(resType_, varsCt_, false, _page);
         inaccess(_page, resType_);
         return resType_;
@@ -78,14 +76,13 @@ public final class ResolvingTypes {
 
     public static AnaResultPartType resolveCorrectTypeWithoutErrorsExact(int _loc, String _in, AnalyzedPageEl _page) {
         String tr_ = _in.trim();
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         _page.getBuildingConstraints().buildCurrentConstraintsFull();
-        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         String gl_ = _page.getGlobalClass();
         int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
         _page.getCurrentBadIndexes().clear();
-        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyze(tr_, gl_, a_, r_, rc_, _page);
+        AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyze(tr_, gl_, r_, r_, rc_, _page);
         AnaPartTypeUtil.processAnalyzeConstraintsCore(resType_, varsCt_, true, _page);
         inaccess(_page, resType_);
         return resType_;
@@ -100,17 +97,16 @@ public final class ResolvingTypes {
     public static AnaResultPartType resolveCorrectType(int _loc, String _in, boolean _exact, AnalyzedPageEl _page) {
         int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
         String tr_ = _in.trim();
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         _page.getBuildingConstraints().buildCurrentConstraintsFull();
-        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         String gl_ = _page.getGlobalClass();
         AnaResultPartType resType_;
         _page.getCurrentBadIndexes().clear();
         if (_exact) {
-            resType_ = AnaPartTypeUtil.processAnalyze(tr_, gl_, a_,r_, rc_, _page);
+            resType_ = AnaPartTypeUtil.processAnalyze(tr_, gl_, r_,r_, rc_, _page);
         } else {
-            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_, gl_, a_,r_, rc_, _page);
+            resType_ = AnaPartTypeUtil.processAnalyzeLine(tr_, gl_, r_,r_, rc_, _page);
         }
         for (InaccessibleType i: _page.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -159,14 +155,13 @@ public final class ResolvingTypes {
 //            partOffsets_.add(new PartOffset(ExportCst.END_ANCHOR,rc_+void_.length()));
 //            return _page.getAliasObject();
 //        }
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         StringMap<StringList> varsCt_ = _page.getCurrentConstraints().getCurrentConstraints();
         _page.getBuildingConstraints().buildCurrentConstraintsFull();
-        AccessedBlock a_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock(r_);
         String gl_ = _page.getGlobalClass();
         AnaResultPartType resType_;
         _page.getCurrentBadIndexes().clear();
-        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, gl_, a_,r_, rc_, _page);
+        resType_ = AnaPartTypeUtil.processAccAnalyze(tr_, gl_, r_,r_, rc_, _page);
         return checkResType(_in, true, rc_, varsCt_, resType_, _page);
     }
 
@@ -188,7 +183,7 @@ public final class ResolvingTypes {
         int rc_ = _page.getLocalizer().getCurrentLocationIndex();
         String tr_ = _in.trim();
         String void_ = _page.getAliasVoid();
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         StringList inners_ = AnaInherits.getAllInnerTypes(_in, _page);
         String firstFull_ = inners_.first();
         int firstOff_;

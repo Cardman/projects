@@ -31,9 +31,10 @@ public final class RendDeclareVariable extends RendAbstractDeclareVariable {
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName, _ctx);
+        String cl_ = _rendStack.formatVarType(importedClassName);
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(cl_, _ctx);
         for (String v: getVariableNames()) {
-            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,importedClassName);
+            LocalVariable lv_ = LocalVariable.newLocalVariable(struct_,cl_);
             ip_.putValueVar(v, new VariableWrapper(lv_));
         }
         processBlock(_cont, _stds, _ctx, _rendStack);

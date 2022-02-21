@@ -21,7 +21,7 @@ import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public class AnnotationInstanceArobaseOperation extends AnnotationInstanceOperation {
+public final class AnnotationInstanceArobaseOperation extends AnnotationInstanceOperation {
     private AnaResultPartType partOffsets = new AnaResultPartType();
 
     private final AnaInstancingAnnotContent instancingAnnotContent;

@@ -83,7 +83,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
         Argument a_ = getArgument(_nodes,this);
         Struct store_ = a_.getStruct();
         Argument left_ = new Argument(store_);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context,_rendStack);
         return trySetArgument(_context, res_, _rendStack);
     }
 

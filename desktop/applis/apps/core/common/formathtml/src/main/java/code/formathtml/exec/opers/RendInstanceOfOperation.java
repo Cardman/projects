@@ -31,7 +31,7 @@ public final class RendInstanceOfOperation extends RendMethodOperation implement
         if (objArg_.isNull()) {
             argres_ = new Argument(BooleanStruct.of(false));
         } else {
-            String str_ = typeCheckContent.getClassName();
+            String str_ = _rendStack.formatVarType(typeCheckContent.getClassName());
             boolean res_ = ExecInherits.safeObject(str_, objArg_.getStruct().getClassName(_context), _context) == ErrorType.NOTHING;
             argres_ = new Argument(BooleanStruct.of(res_));
         }

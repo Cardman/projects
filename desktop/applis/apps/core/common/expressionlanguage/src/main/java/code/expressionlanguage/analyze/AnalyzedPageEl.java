@@ -60,6 +60,7 @@ public final class AnalyzedPageEl {
     private final AnaCache cache = new AnaCache();
 
     private MemberCallingsBlock currentFct;
+    private WithContext currentCtx;
     private AccessedBlock importing;
     private AccessingImportingBlock importingAcces;
     private final CustList<StringList> importingTypes = new CustList<StringList>();
@@ -126,15 +127,11 @@ public final class AnalyzedPageEl {
 
     private final StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
     private AbstractProcessKeyWord processKeyWord;
-    private AbstractHiddenTypes hiddenTypes;
-    private AbstractCurrentConstraints currentConstraints;
-    private AbstractAnnotationAnalysis annotationAnalysis;
-    private AbstractCurrentGlobalBlock currentGlobalBlock;
+    private DefaultCurrentConstraints currentConstraints;
     private AbstractLoopDeclaring loopDeclaring;
     private AbstractLocalDeclaring localDeclaring;
-    private AbstractBuildingConstraints buildingConstraints;
+    private DefaultBuildingConstraints buildingConstraints;
     private AbstractLocalizer localizer;
-    private AbstractTokenValidation tokenValidation;
     private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
@@ -164,15 +161,11 @@ public final class AnalyzedPageEl {
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         page_.setProcessKeyWord(new DefaultProcessKeyWord(page_));
-        page_.setHiddenTypes(new DefaultHiddenTypes(page_));
         page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
-        page_.setAnnotationAnalysis(new DefaultAnnotationAnalysis(page_));
-        page_.setCurrentGlobalBlock(new DefaultCurrentGlobalBlock(page_));
         page_.setLoopDeclaring(new DefaultLoopDeclaring(page_));
         page_.setLocalDeclaring(new DefaultLocalDeclaring(page_));
         page_.setBuildingConstraints(new DefaultBuildingConstraints(page_));
         page_.setLocalizer(new DefaultLocalizer(page_));
-        page_.setTokenValidation(new DefaultTokenValidation(page_));
         return page_;
     }
 
@@ -543,6 +536,15 @@ public final class AnalyzedPageEl {
 
     public void setCurrentFct(MemberCallingsBlock _currentFct) {
         currentFct = _currentFct;
+        setCurrentCtx(_currentFct);
+    }
+
+    public WithContext getCurrentCtx() {
+        return currentCtx;
+    }
+
+    public void setCurrentCtx(WithContext _curr) {
+        this.currentCtx = _curr;
     }
 
     public AccessedBlock getImporting() {
@@ -865,36 +867,12 @@ public final class AnalyzedPageEl {
         this.currentAnaBlockForEachTable = _currentAnaBlockForEachTable;
     }
 
-    public AbstractHiddenTypes getHiddenTypes() {
-        return hiddenTypes;
-    }
-
-    public void setHiddenTypes(AbstractHiddenTypes _hiddenTypes) {
-        this.hiddenTypes = _hiddenTypes;
-    }
-
-    public AbstractCurrentConstraints getCurrentConstraints() {
+    public DefaultCurrentConstraints getCurrentConstraints() {
         return currentConstraints;
     }
 
-    public void setCurrentConstraints(AbstractCurrentConstraints _currentConstraints) {
+    public void setCurrentConstraints(DefaultCurrentConstraints _currentConstraints) {
         this.currentConstraints = _currentConstraints;
-    }
-
-    public AbstractAnnotationAnalysis getAnnotationAnalysis() {
-        return annotationAnalysis;
-    }
-
-    public void setAnnotationAnalysis(AbstractAnnotationAnalysis _annotationAnalysis) {
-        this.annotationAnalysis = _annotationAnalysis;
-    }
-
-    public AbstractCurrentGlobalBlock getCurrentGlobalBlock() {
-        return currentGlobalBlock;
-    }
-
-    public void setCurrentGlobalBlock(AbstractCurrentGlobalBlock _currentGlobalBlock) {
-        this.currentGlobalBlock = _currentGlobalBlock;
     }
 
     public AbstractLoopDeclaring getLoopDeclaring() {
@@ -913,11 +891,11 @@ public final class AnalyzedPageEl {
         this.localDeclaring = _localDeclaring;
     }
 
-    public AbstractBuildingConstraints getBuildingConstraints() {
+    public DefaultBuildingConstraints getBuildingConstraints() {
         return buildingConstraints;
     }
 
-    public void setBuildingConstraints(AbstractBuildingConstraints _buildingConstraints) {
+    public void setBuildingConstraints(DefaultBuildingConstraints _buildingConstraints) {
         this.buildingConstraints = _buildingConstraints;
     }
 
@@ -927,14 +905,6 @@ public final class AnalyzedPageEl {
 
     public void setLocalizer(AbstractLocalizer _localizer) {
         this.localizer = _localizer;
-    }
-
-    public AbstractTokenValidation getTokenValidation() {
-        return tokenValidation;
-    }
-
-    public void setTokenValidation(AbstractTokenValidation _tokenValidation) {
-        this.tokenValidation = _tokenValidation;
     }
 
     public String getCurrentEmptyPartErr() {

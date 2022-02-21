@@ -69,7 +69,7 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
         ip_.setOpOffset(0);
         beforeDisp(newBean_, (BeanNatCommonLgNames) _stds);
         ImportingPage newIp_ = RendImport.newImportingPage(_cont, _rendStack, ip_, val_, beanName_);
-        newIp_.setGlobalArgumentStruct(newBean_);
+        newIp_.setGlobalArgumentStruct(newBean_,_ctx);
         RendIfStack if_ = new RendIfStack();
         if_.setLabel("");
         if_.setLastBlock(this);

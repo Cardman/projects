@@ -591,13 +591,9 @@ public final class RendForwardInfos {
             ArgumentListInstancing i_ = (ArgumentListInstancing) _anaNode;
             return new RendArgumentListInstancing(new ExecOperationContent(i_.getContent()));
         }
-        if (_anaNode instanceof InferArrayInstancing) {
-            InferArrayInstancing i_ = (InferArrayInstancing) _anaNode;
-            return new RendArrayElementOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(i_.getArrayInstancingContent()));
-        }
-        if (_anaNode instanceof ElementArrayInstancing) {
-            ElementArrayInstancing e_ = (ElementArrayInstancing) _anaNode;
-            return new RendArrayElementOperation(new ExecOperationContent(e_.getContent()), e_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(e_.getArrayInstancingContent()));
+        if (_anaNode instanceof WithArrayElementInstancing) {
+            WithArrayElementInstancing e_ = (WithArrayElementInstancing) _anaNode;
+            return new RendArrayElementOperation(new ExecOperationContent(_anaNode.getContent()), e_.isIntermediateDottedOperation(), new ExecArrayInstancingContent(e_.getArrayInstancingContent()));
         }
         if (_anaNode instanceof DimensionArrayInstancing) {
             DimensionArrayInstancing d_ = (DimensionArrayInstancing) _anaNode;
@@ -702,11 +698,11 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof StaticInfoOperation) {
             StaticInfoOperation f_ = (StaticInfoOperation) _anaNode;
-            return new RendConstLeafOperation(false,new ExecOperationContent(f_.getContent()));
+            return new RendStaticInfoOperation(new ExecOperationContent(f_.getContent()), f_.getClassName());
         }
         if (_anaNode instanceof DefaultValueOperation) {
             DefaultValueOperation f_ = (DefaultValueOperation) _anaNode;
-            return new RendConstLeafOperation(false,new ExecOperationContent(f_.getContent()));
+            return new RendDefaultValueOperation(new ExecOperationContent(f_.getContent()), f_.getClassName());
         }
         if (_anaNode instanceof DefaultOperation) {
             DefaultOperation f_ = (DefaultOperation) _anaNode;

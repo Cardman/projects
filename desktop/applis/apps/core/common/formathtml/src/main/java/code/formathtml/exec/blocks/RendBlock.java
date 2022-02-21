@@ -62,7 +62,7 @@ public abstract class RendBlock {
         ip_.setBeanName(_beanName);
         ip_.doc(_rend);
         if (_bean != null) {
-            ip_.setGlobalArgumentStruct(_bean);
+            ip_.setGlobalArgumentStruct(_bean,_ctx);
         }
         _rendStackCall.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
@@ -1102,12 +1102,13 @@ public abstract class RendBlock {
             return;
         }
         ip_.setOffset(_bl.getInit().getOffset());
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(_bl.getImportedClassName(), _ctx);
+        String importedClassName_ = _rendStack.formatVarType(_bl.getImportedClassName());
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName_, _ctx);
         for (String v: _bl.getVariableNames()) {
             LoopVariable lv_ = new LoopVariable();
             lv_.setIndexClassName(_bl.getImportedClassIndexName());
             ip_.getVars().put(v, lv_);
-            putVar(struct_, ip_, v, _bl.getImportedClassName());
+            putVar(struct_, ip_, v, importedClassName_);
         }
         if (!_bl.getInit().getList().isEmpty()) {
             RenderExpUtil.calculateReuse(_bl.getInit().getList(), _stds, _ctx, _rendStack);
@@ -1217,7 +1218,7 @@ public abstract class RendBlock {
             ImportingPage ip_ = _rendStack.getLastPage();
             String var_ = ((RendAbstractInstanceCaseCondition) def_).getVariableName();
             Struct struct_ = _arg.getStruct();
-            putVar(struct_, ip_, var_, _bl.getInstanceTest());
+            putVar(struct_, ip_, var_, _rendStack.formatVarType( _bl.getInstanceTest()));
         }
         return def_;
     }
@@ -1241,22 +1242,22 @@ public abstract class RendBlock {
             return _found;
         }
         if (_in instanceof RendAbstractInstanceCaseCondition && !_arg.isNull()) {
-            String type_ = ((RendAbstractInstanceCaseCondition)_in).getImportedClassName();
-            return procTypeVar(_cont,_rendStack,_stds, (RendAbstractInstanceCaseCondition) _in, _arg, type_);
+            return procTypeVar(_cont,_rendStack,_stds, (RendAbstractInstanceCaseCondition) _in, _arg);
         }
         return processList(_cont, _in, _arg);
     }
 
-    private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, BeanLgNames _stds,RendAbstractInstanceCaseCondition _in, Argument _arg, String _type) {
+    private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, BeanLgNames _stds, RendAbstractInstanceCaseCondition _in, Argument _arg) {
         Struct struct_ = _arg.getStruct();
         RendOperationNodeListOff exp_ = _in.getExp();
         CustList<RendDynOperationNode> list_ = exp_.getList();
-        boolean safe_ = ExecInherits.safeObject(_type, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING;
+        String importedClassName_ = _rendStack.formatVarType(_in.getImportedClassName());
+        boolean safe_ = ExecInherits.safeObject(importedClassName_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING;
         if (list_.isEmpty()) {
             if (safe_) {
                 ImportingPage ip_ = _rendStack.getLastPage();
                 String var_ = _in.getVariableName();
-                putVar(struct_, ip_, var_, _in.getImportedClassName());
+                putVar(struct_, ip_, var_, importedClassName_);
                 return _in;
             }
             return null;
@@ -1266,7 +1267,7 @@ public abstract class RendBlock {
         }
         ImportingPage ip_ = _rendStack.getLastPage();
         String var_ = _in.getVariableName();
-        putVar(struct_, ip_, var_, _in.getImportedClassName());
+        putVar(struct_, ip_, var_, importedClassName_);
         ip_.setOffset(exp_.getOffset());
         Argument visit_ = RenderExpUtil.calculateReuse(list_, _stds, _cont, _rendStack);
         if (_cont.callsOrException(_rendStack.getStackCall())||BooleanStruct.isFalse(visit_.getStruct())) {

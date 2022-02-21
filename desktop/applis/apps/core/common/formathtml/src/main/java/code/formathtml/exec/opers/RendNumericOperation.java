@@ -24,15 +24,8 @@ public abstract class RendNumericOperation extends RendMethodOperation implement
         return new Argument(res_.getResult());
     }
 
-    static Argument calculateAffect(Argument _left, Argument _right, StringList _cls, ContextEl _conf) {
-        Struct first_ = _left.getStruct();
-        Argument res_;
-        if (first_ != NullStruct.NULL_VALUE) {
-            res_=new Argument(ExecClassArgumentMatching.convert(first_, _conf, _cls));
-        } else {
-            res_=new Argument(ExecClassArgumentMatching.convert(_right.getStruct(), _conf, _cls));
-        }
-        return res_;
+    static Argument calculateAffect(Argument _left, Argument _right, StringList _cls, ContextEl _conf,RendStackCall _stack) {
+        return ExecNumericOperation.calculateAffect(_left,_conf,_right,_cls,_stack);
     }
 
     public int getOpOffset() {

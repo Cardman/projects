@@ -23,8 +23,8 @@ public final class RendSimpleMethodLambdaOperation extends RendAbstractLambdaOpe
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previousRendClone_ = getPreviousArg(this, _nodes, _rendStack);
-        String clArg_ = formatVarTypeRes();
-        ExecFormattedRootBlock ownerType_ = getFoundClass();
+        String clArg_ = formatVarTypeRes(_rendStack);
+        ExecFormattedRootBlock ownerType_ = formatVarType(_rendStack);
         Argument res_ = new Argument(ExecSimpleMethodLambdaOperation.newLambda(getLambdaCommonContent(),lambdaMethodContent,previousRendClone_, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }

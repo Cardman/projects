@@ -21,7 +21,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class ElementArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
+public final class ElementArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation, WithArrayElementInstancing {
 
     private ResolvedInstance resolvedInstance = new ResolvedInstance();
     private InfoErrorDto partOffsetsErr = new InfoErrorDto("");

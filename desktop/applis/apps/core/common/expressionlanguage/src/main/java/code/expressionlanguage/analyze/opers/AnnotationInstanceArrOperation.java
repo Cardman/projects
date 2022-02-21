@@ -10,26 +10,27 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.fwd.opers.AnaArrayInstancingContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class AnnotationInstanceArrOperation extends AnnotationInstanceOperation {
-
-    private String className = "";
+public final class AnnotationInstanceArrOperation extends AnnotationInstanceOperation implements WithArrayElementInstancing {
+    private final AnaArrayInstancingContent arrayInstancingContent;
     public AnnotationInstanceArrOperation(int _index,
                                           int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        arrayInstancingContent = new AnaArrayInstancingContent(getOperations().getFctName());
     }
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         MethodOperation mOp_ = getParent();
         AbsBk curr_ = _page.getCurrentBlock();
-        className = _page.getAliasObject();
+        arrayInstancingContent.setClassName(_page.getAliasObject());
         if (mOp_ == null) {
-            className = ((NamedCalledFunctionBlock) curr_).getImportedReturnType();
+            arrayInstancingContent.setClassName(((NamedCalledFunctionBlock) curr_).getImportedReturnType());
         }
         if (mOp_ instanceof AssocationOperation) {
             AssocationOperation ass_ = (AssocationOperation) mOp_;
@@ -40,7 +41,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
             String className_ = inst_.getClassName();
             RootBlock typeInfo_ = _page.getAnaClassBody(className_);
             if (typeInfo_ == null) {
-                className = _page.getAliasObject();
+                arrayInstancingContent.setClassName(_page.getAliasObject());
                 return;
             }
             String type_ = EMPTY_STRING;
@@ -49,20 +50,20 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
                 type_ = list_.first().getImportedReturnType();
             }
             if (!type_.isEmpty()) {
-                className = type_;
+                arrayInstancingContent.setClassName(type_);
             } else {
-                className = _page.getAliasObject();
+                arrayInstancingContent.setClassName(_page.getAliasObject());
             }
         } else if (mOp_ instanceof AnnotationInstanceOperation) {
             if (!(mOp_ instanceof AnnotationInstanceArobaseOperation)) {
-                className = _page.getAliasObject();
+                arrayInstancingContent.setClassName(_page.getAliasObject());
             } else {
                 AnnotationInstanceArobaseOperation inst_;
                 inst_ = (AnnotationInstanceArobaseOperation)mOp_;
                 String className_ = inst_.getClassName();
                 RootBlock type_ = _page.getAnaClassBody(className_);
                 if (type_ == null) {
-                    className = _page.getAliasObject();
+                    arrayInstancingContent.setClassName(_page.getAliasObject());
                     return;
                 }
                 CustList<AbsBk> bls_ = ClassesUtil.getDirectChildren(type_);
@@ -75,25 +76,27 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
                     blsAnn_.add(a_);
                 }
                 if (blsAnn_.size() != 1) {
-                    className = _page.getAliasObject();
+                    arrayInstancingContent.setClassName(_page.getAliasObject());
                 } else {
                     NamedCalledFunctionBlock a_ =blsAnn_.first();
-                    className = a_.getImportedReturnType();
+                    arrayInstancingContent.setClassName(a_.getImportedReturnType());
                 }
             }
         }
     }
 
-    public String getClassName() {
-        return className;
+    @Override
+    public AnaArrayInstancingContent getArrayInstancingContent() {
+        return arrayInstancingContent;
     }
+
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
-        String eltType_ = StringExpUtil.getQuickComponentType(className);
+        String eltType_ = StringExpUtil.getQuickComponentType(arrayInstancingContent.getClassName());
         if (eltType_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -101,10 +104,10 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
             un_.setFileName(_page.getLocalizer().getCurrentFileName());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    className);
+                    arrayInstancingContent.getClassName());
             _page.getLocalizer().addError(un_);
             setPartOffsetsErr(new InfoErrorDto(un_.getBuiltError(),i_,1));
-            setResultClass(new AnaClassArgumentMatching(className));
+            setResultClass(new AnaClassArgumentMatching(arrayInstancingContent.getClassName()));
             return;
         }
         Mapping mapping_ = new Mapping();
@@ -134,7 +137,8 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
             }
             getPartOffsetsChildren().add(parts_);
         }
-        setResultClass(new AnaClassArgumentMatching(className));
+        setResultClass(new AnaClassArgumentMatching(arrayInstancingContent.getClassName()));
+        arrayInstancingContent.setClassName(eltType_);
     }
 
 }

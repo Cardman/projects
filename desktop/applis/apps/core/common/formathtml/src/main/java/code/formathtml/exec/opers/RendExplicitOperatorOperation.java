@@ -19,20 +19,20 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
     private final ExecTypeFunction pair;
     private final ExecStaticFctContent staticFctContent;
     private final int offsetOper;
-    private final ExecFormattedRootBlock formattedType;
 
     public RendExplicitOperatorOperation(ExecOperationContent _content, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair, int _offsetOper, ExecArrContent _arrContent) {
         super(_content, _intermediateDottedOperation, _arrContent);
         staticFctContent = _staticFctContent;
         pair = _pair;
         offsetOper = _offsetOper;
-        formattedType = _staticFctContent.getFormattedType();
     }
 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(offsetOper, _rendStack);
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, ExecInvokingOperation.fectchArgs(staticFctContent.getLastType(), staticFctContent.getNaturalVararg(), null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), formattedType, staticFctContent.getKind(), _rendStack.getStackCall());
+        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(staticFctContent.getFormattedType(), staticFctContent.getKind(), _rendStack);
+        String lastType_ = ExecFormattedRootBlock.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, ExecInvokingOperation.fectchArgs(lastType_, staticFctContent.getNaturalVararg(), null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), classNameFound_, staticFctContent.getKind(), _rendStack.getStackCall());
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

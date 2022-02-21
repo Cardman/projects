@@ -56,8 +56,9 @@ public final class RendForEachIterable extends RendAbstractForEachLoop {
     @Override
     protected void putVar(ContextEl _ctx, RendStackCall _rendStack, RendLoopBlockStack _l) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        Struct struct_ = ExecClassArgumentMatching.defaultValue(getImportedClassName(), _ctx);
-        ip_.putValueVar(getVariableName(), new VariableWrapper(LocalVariable.newLocalVariable(struct_, getImportedClassName())));
+        String importedClassName_ = _rendStack.formatVarType(getImportedClassName());
+        Struct struct_ = ExecClassArgumentMatching.defaultValue(importedClassName_, _ctx);
+        ip_.putValueVar(getVariableName(), new VariableWrapper(LocalVariable.newLocalVariable(struct_, importedClassName_)));
     }
 
     @Override

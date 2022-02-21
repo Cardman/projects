@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultTokenValidation;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
@@ -217,7 +218,7 @@ final class AnaNamePartType extends AnaLeafPartType {
                     owner = a;
                     return true;
                 }
-                if (_page.getTokenValidation().isStaticAccess()) {
+                if (DefaultTokenValidation.isStaticAcc(_page)) {
                     setAnalyzedType(StringUtil.concat(id_,"..",resType_));
                     owner = a;
                     return true;
@@ -335,13 +336,13 @@ final class AnaNamePartType extends AnaLeafPartType {
             return new CustList<InaccessibleType>();
         }
         CustList<InaccessibleType> l_ = new CustList<InaccessibleType>();
-        AccessingImportingBlock gl_ = _page.getCurrentGlobalBlock().getImportingAcces();
-        if (_page.getHiddenTypes().isHidden(gl_,found_)) {
+        AccessingImportingBlock gl_ = _page.getImportingAcces();
+        Accessed a_ = new Accessed(found_.getAccess(), found_.getPackageName(), found_.getParentType(), found_);
+        if (gl_.isTypeHidden(a_, _page)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
             _page.getCurrentBadIndexes().add(i_);
             l_.add(i_);
         }
-        Accessed a_ = new Accessed(found_.getAccess(), found_.getPackageName(), found_.getParentType(), found_);
         if (new TypeAccessor(idOwner_).isTypeHidden(a_, _page)) {
             InaccessibleType i_ = new InaccessibleType(_indexInType, idFound_);
             _page.getCurrentBadIndexes().add(i_);

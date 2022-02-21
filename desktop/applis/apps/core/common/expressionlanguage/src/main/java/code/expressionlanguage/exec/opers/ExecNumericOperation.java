@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.AbstractStackCall;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -27,7 +28,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         return new Argument(res_.getResult());
     }
 
-    static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, StringList _cls, StackCall _stackCall) {
+    public static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, StringList _cls, AbstractStackCall _stackCall) {
         Struct first_ = _left.getStruct();
         Argument res_;
         if (first_ != NullStruct.NULL_VALUE) {

@@ -1,7 +1,9 @@
 package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -30,8 +32,13 @@ public final class ImportingPage {
     private int opOffset;
 
     private RendDocumentBlock document;
-
+    private ExecFormattedRootBlock globalClass;
     private boolean enabledOp=true;
+
+    public ImportingPage() {
+        initGlobal(null, null);
+    }
+
 
     public int realIndex(ExecAbstractFileBlock _fileBlock) {
         return _fileBlock.realIndex(opOffset + offset);
@@ -87,8 +94,18 @@ public final class ImportingPage {
         return pageEl.getGlobalArgument();
     }
 
-    public void setGlobalArgumentStruct(Struct _obj) {
+    public void setGlobalArgumentStruct(Struct _obj, ContextEl _ctx) {
         pageEl.setGlobalArgumentStruct(_obj);
+        initGlobal(_obj, _ctx);
+    }
+
+    private void initGlobal(Struct _struct, ContextEl _ctx) {
+        if (_struct != null) {
+            String className_ = _struct.getClassName(_ctx);
+            globalClass = new ExecFormattedRootBlock(_ctx.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(className_)),className_);
+        } else {
+            globalClass = ExecFormattedRootBlock.defValue();
+        }
     }
     public StringMap<AbstractWrapper> getRefParams() {
         return getPageEl().getRefParams();
@@ -225,6 +242,10 @@ public final class ImportingPage {
 
     public void putValueVar(String _var, AbstractWrapper _local) {
         pageEl.putValueVar(_var,_local);
+    }
+
+    public ExecFormattedRootBlock getGlobalClass() {
+        return globalClass;
     }
 
 }

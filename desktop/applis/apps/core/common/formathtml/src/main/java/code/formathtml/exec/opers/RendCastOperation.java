@@ -28,7 +28,7 @@ public final class RendCastOperation extends RendMethodOperation implements Rend
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _rendStack);
         Struct str_ = ExecHelper.getFirstArgument(arguments_).getStruct();
-        String paramName_ = typeCheckContent.getClassName();
+        String paramName_ = _rendStack.formatVarType(typeCheckContent.getClassName());
         Struct objArg_ = ExecCastOperation.wrapFct(paramName_,false, _context, str_);
         Struct conv_ = ExecTemplates.checkObject(paramName_, objArg_, _context, _rendStack.getStackCall());
         setSimpleArgument(new Argument(conv_), _nodes, _context, _rendStack);

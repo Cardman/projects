@@ -26,7 +26,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class InferArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation {
+public final class InferArrayInstancing extends AbstractArrayInstancingOperation implements PreAnalyzableOperation, WithArrayElementInstancing  {
     private InfoErrorDto partOffsetsErr = new InfoErrorDto("");
     private String typeInfer = EMPTY_STRING;
 

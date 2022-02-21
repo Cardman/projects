@@ -310,14 +310,15 @@ public abstract class RendDynOperationNode {
     static Argument tryConvert(ExecTypeFunction _c, ExecFormattedRootBlock _owner, Argument _argument, ContextEl _context, RendStackCall _rend) {
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         Parameters parameters_ = new Parameters();
+        ExecFormattedRootBlock format_ = StackCall.formatVarType(_rend,_owner);
         if (!_context.callsOrException(_rend.getStackCall())) {
             ArgumentListCall l_ = new ArgumentListCall(args_);
-            parameters_ = ExecTemplates.okArgsSet(_c.getFct(), _owner,null, l_, _context, _rend.getStackCall());
+            parameters_ = ExecTemplates.okArgsSet(_c.getFct(), format_,null, l_, _context, _rend.getStackCall());
         }
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
-        Argument out_ = ProcessMethod.calculateArgument(new CustomFoundMethod(Argument.createVoid(),_owner,_c, parameters_), _context, _rend.getStackCall()).getValue();
+        Argument out_ = ProcessMethod.calculateArgument(new CustomFoundMethod(Argument.createVoid(),format_,_c, parameters_), _context, _rend.getStackCall()).getValue();
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }

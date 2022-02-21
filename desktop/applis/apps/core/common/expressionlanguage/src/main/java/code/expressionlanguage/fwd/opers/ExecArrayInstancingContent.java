@@ -12,11 +12,6 @@ public final class ExecArrayInstancingContent {
         this.className = _cont.getClassName();
     }
 
-    public ExecArrayInstancingContent(String _cl) {
-        this.methodName = 0;
-        this.className = StringExpUtil.getQuickComponentType(_cl);
-    }
-
     public int getMethodName() {
         return methodName;
     }

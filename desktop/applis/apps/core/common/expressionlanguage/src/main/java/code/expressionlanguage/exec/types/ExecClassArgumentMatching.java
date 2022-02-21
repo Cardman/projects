@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.types;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.AbstractStackCall;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -36,7 +36,7 @@ public final class ExecClassArgumentMatching {
     }
 
     public static Struct convertFormatted(Struct _arg,
-                                          ContextEl _exec, StringList _names, StackCall _stackCall) {
+                                          ContextEl _exec, StringList _names, AbstractStackCall _stackCall) {
         StringList className_ = formatted(_names, _stackCall);
         return convert(_arg, _exec, className_);
     }
@@ -60,7 +60,7 @@ public final class ExecClassArgumentMatching {
     }
 
     public static Struct convertFormattedWide(Struct _arg,
-                                              ContextEl _exec, StringList _names, StackCall _stackCall) {
+                                              ContextEl _exec, StringList _names, AbstractStackCall _stackCall) {
         StringList className_ = formatted(_names, _stackCall);
         return convertWide(_arg, _exec, className_);
     }
@@ -84,7 +84,7 @@ public final class ExecClassArgumentMatching {
         return isPrimitive(stds_, _names);
     }
 
-    private static StringList formatted(StringList _clNames, StackCall _stackCall) {
+    private static StringList formatted(StringList _clNames, AbstractStackCall _stackCall) {
         StringList className_ = new StringList();
         for (String s: _clNames) {
             className_.add(_stackCall.formatVarType(s));

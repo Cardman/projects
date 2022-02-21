@@ -1764,7 +1764,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         offset_ += StringExpUtil.getOffset(_arg);
         String inner_ = StringExpUtil.getIdFromAllTypes(_sup.getOwnedName());
         RootBlock root_ = _sup.getOwned();
-        AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+        AccessedBlock r_ = _page.getImporting();
         partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_, _page.getLocalizer().getCurrentLocationIndex()+offset_, _page));
         offset_ += idClass_.length() + 1;
         StringList partsArgs_ = new StringList();

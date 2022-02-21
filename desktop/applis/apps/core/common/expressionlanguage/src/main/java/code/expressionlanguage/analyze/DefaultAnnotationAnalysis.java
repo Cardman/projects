@@ -7,19 +7,12 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.core.StringUtil;
 
-public final class DefaultAnnotationAnalysis implements AbstractAnnotationAnalysis {
-    private final AnalyzedPageEl context;
+public final class DefaultAnnotationAnalysis {
 
-    public DefaultAnnotationAnalysis(AnalyzedPageEl _context) {
-        this.context = _context;
+    private DefaultAnnotationAnalysis() {
     }
 
-    @Override
-    public boolean isAnnotAnalysis(OperationNode _op, OperationsSequence _seq) {
-        return isAnnotAnalysis(context,_op,_seq);
-    }
-
-    private static boolean isAnnotAnalysis(AnalyzedPageEl _cont, OperationNode _op, OperationsSequence _seq) {
+    public static boolean isAnnotAnalysis(AnalyzedPageEl _cont, OperationNode _op, OperationsSequence _seq) {
         boolean ok_ = false;
         if ((AbsBk.isAnnotBlock(_cont.getCurrentBlock()) && _op == null)
                 || _op instanceof AssocationOperation

@@ -85,7 +85,7 @@ public final class RendSettableFieldOperation extends
         Struct store_ = current_.getStruct();
         Argument left_ = new Argument(store_);
 
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context,_rendStack);
         return processField(_nodes, res_, _context, _rendStack);
     }
 

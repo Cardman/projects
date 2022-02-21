@@ -78,7 +78,7 @@ public final class PreLinkagePartTypeUtil {
     }
     public static AnaResultPartType processAccessKoRootAnalyze(boolean _voidType, FoundErrorInterpret _err, String _input, int _loc, int _indexInType, AnalyzedPageEl _page) {
         if (_page.isGettingParts()) {
-            AccessedBlock r_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlock();
+            AccessedBlock r_ = _page.getImporting();
             String inputTr_ = _input.trim();
             AnaNamePartType named_ = new AnaNamePartType(null, 0, _indexInType, inputTr_.trim(), ".", _page.getAnalysisMessages());
             named_.setLoc(_loc);

@@ -12,7 +12,7 @@ import code.expressionlanguage.structs.Struct;
 import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 
-public final class StackCall {
+public final class StackCall implements AbstractStackCall {
 
     private CallingState callingState;
 
@@ -65,8 +65,8 @@ public final class StackCall {
         callingState = null;
     }
 
-    public ExecFormattedRootBlock formatVarType(ExecFormattedRootBlock _varType) {
-        return new ExecFormattedRootBlock(_varType, formatVarType(_varType.getFormatted()));
+    public static ExecFormattedRootBlock formatVarType(AbstractStackCall _stack,ExecFormattedRootBlock _varType) {
+        return new ExecFormattedRootBlock(_varType, _stack.formatVarType(_varType.getFormatted()));
     }
     public String formatVarType(String _varType) {
         return getLastPage().formatVarType(_varType);

@@ -25,8 +25,8 @@ public final class RendFieldLambdaOperation extends RendAbstractLambdaOperation 
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        String clArg_ = formatVarTypeRes();
-        ExecFormattedRootBlock ownerType_ = getFoundClass();
+        String clArg_ = formatVarTypeRes(_rendStack);
+        ExecFormattedRootBlock ownerType_ = formatVarType(_rendStack);
         Argument res_ = new Argument(ExecFieldLambdaOperation.newLambda(getLambdaCommonContent(),lambdaFieldContent,previous_, ownerType_, clArg_));
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }

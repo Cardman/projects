@@ -46,7 +46,7 @@ public abstract class RendMethodOperation extends RendDynOperationNode {
     public void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
                                                   IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ExecFormattedRootBlock _formattedType, MethodAccessKind _kind, RendStackCall _stackCall) {
         ArgumentListCall l_ = ExecMethodOperation.listNamedArguments(buildInfos(_nodes)).getArguments();
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_ , _formattedType, _kind, _stackCall.getStackCall());
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_ , ExecFormattedRootBlock.formatType(_formattedType, _kind, _stackCall), _kind, _stackCall.getStackCall());
     }
 
     public final void appendChild(RendDynOperationNode _child) {

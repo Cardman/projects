@@ -1,36 +1,25 @@
 package code.expressionlanguage.analyze;
 
-import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.blocks.InfoBlock;
-import code.expressionlanguage.analyze.blocks.MemberCallingsBlock;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 
-public final class DefaultTokenValidation implements AbstractTokenValidation {
-    private final AnalyzedPageEl page;
+public final class DefaultTokenValidation {
 
-    public DefaultTokenValidation(AnalyzedPageEl _page) {
-        this.page = _page;
+    private DefaultTokenValidation() {
     }
 
-    @Override
-    public boolean isStaticAccess() {
-        return isStaticAcc();
-    }
-
-
-    private boolean isStaticAcc() {
-        if (page.isAnnotAnalysis()) {
+    public static boolean isStaticAcc(AnalyzedPageEl _page) {
+        if (_page.isAnnotAnalysis()) {
             return true;
         }
-        AbsBk bl_ = page.getCurrentBlock();
+        AbsBk bl_ = _page.getCurrentBlock();
         if (bl_ instanceof InfoBlock) {
             return ((InfoBlock)bl_).isStaticField();
         }
         if (bl_ instanceof RootBlock) {
             return ((RootBlock)bl_).withoutInstance();
         }
-        MemberCallingsBlock fct_ = page.getCurrentFct();
+        WithContext fct_ = _page.getCurrentCtx();
         return fct_.getStaticContext() == MethodAccessKind.STATIC;
     }
 

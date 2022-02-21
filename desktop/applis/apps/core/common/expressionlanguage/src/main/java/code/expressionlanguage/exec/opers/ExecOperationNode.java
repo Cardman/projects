@@ -63,7 +63,7 @@ public abstract class ExecOperationNode {
         ExecTypeFunction c = _implicits.get(_indexImplicit);
         AbstractExiting ex_ = _conf.getExiting();
         ArgumentListCall l_ = new ArgumentListCall(Argument.getNullableValue(_right));
-        if (ExecExplicitOperation.checkCustomOper(ex_, c, _stackCall.formatVarType(_implicits.getOwnerClass()), _conf, _right, _stackCall, l_)) {
+        if (ExecExplicitOperation.checkCustomOper(ex_, c, StackCall.formatVarType(_stackCall,_implicits.getOwnerClass()), _conf, _right, _stackCall, l_)) {
             return _indexImplicit;
         }
         return _indexImplicit +1;

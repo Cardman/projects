@@ -279,6 +279,21 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasEr(files_, "$new $void<>[i]+$new pkg.Outer.Ex<pkg.Outer.Ex<$int>>()"));
     }
+    @Test
+    public void processEl465Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Outer {\n");
+        xml_.append("$public $static $class Ex<T:pkg.Outer> {\n");
+        xml_.append(" $public $static $int inst=14;\n");
+        xml_.append(" $public $int res(T v){\n");
+        xml_.append("  $return ($int)inst+($int)v;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasEr(files_, "@Arobase()"));
+    }
 
     private static boolean hasEr(StringMap<String> _files, String _s) {
         Configuration conf_ = EquallableRenderUtil.newConfiguration();

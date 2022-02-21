@@ -140,7 +140,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
-        if (!ExecTemplates.checkQuick(importedClassName, Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
+        if (!ExecTemplates.checkQuick(_rendStackCall.formatVarType(importedClassName), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
             return;
         }
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);

@@ -3,6 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecInterfaceFctConstructor;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -60,7 +61,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
     private void prepareArgument(IdMap<RendDynOperationNode, ArgumentsPair> _all, Argument _arguments, ContextEl _context, RendStackCall _rendStackCall) {
-        ExecFormattedRootBlock superClass_ = invokingConstructorContent.getFormattedType();
+        ExecFormattedRootBlock superClass_ = StackCall.formatVarType(_rendStackCall,invokingConstructorContent.getFormattedType());
         ExecInterfaceFctConstructor.prep(_context,_rendStackCall.getStackCall(),_arguments,superClass_,buildInfos(_all),invokingConstructorContent,pair);
     }
 

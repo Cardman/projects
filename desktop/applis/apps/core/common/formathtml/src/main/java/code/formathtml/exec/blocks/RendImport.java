@@ -93,7 +93,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         }
         ImportingPage newIp_ = newImportingPage(_cont, _rendStack, ip_, val_, beanName_);
         if (newBean_ != null) {
-            newIp_.setGlobalArgumentStruct(newBean_);
+            newIp_.setGlobalArgumentStruct(newBean_,_ctx);
         }
         RendIfStack if_ = new RendIfStack();
         if_.setLabel("");

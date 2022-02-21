@@ -27,7 +27,7 @@ public final class ResolvingImportTypes {
     private static ResolvedIdTypeContent getRealSinglePrefixedMemberType(String _type, AccessedBlock _rooted, ReadyTypes _ready, AnalyzedPageEl _page) {
         String look_ = _type.trim();
         CustList<ResolvedIdTypeContent> types_ = new CustList<ResolvedIdTypeContent>();
-        CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
+        CustList<StringList> imports_ = _page.getImportingTypes();
         for (StringList s: imports_) {
             for (String i: s) {
                 String tr_ = i.trim();
@@ -130,7 +130,7 @@ public final class ResolvingImportTypes {
 
     public static CustList<CustList<ImportedMethod>> lookupImportStaticMethods(String _glClass, String _method, AnalyzedPageEl _page) {
         CustList<CustList<ImportedMethod>> methods_ = new CustList<CustList<ImportedMethod>>();
-        CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
+        CustList<StringList> imports_ = _page.getImportingTypes();
         String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
         for (StringList t: imports_) {
             CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
@@ -191,7 +191,7 @@ public final class ResolvingImportTypes {
 
     public static CustList<CustList<ImportedMethod>> lookupImportStaticCallMethods(String _glClass, String _method, AnalyzedPageEl _page) {
         CustList<CustList<ImportedMethod>> methods_ = new CustList<CustList<ImportedMethod>>();
-        CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
+        CustList<StringList> imports_ = _page.getImportingTypes();
         String keyWordStatic_ = _page.getKeyWords().getKeyWordStaticCall();
         for (StringList t: imports_) {
             CustList<ImportedMethod> m_ = new CustList<ImportedMethod>();
@@ -310,7 +310,7 @@ public final class ResolvingImportTypes {
     public static IdMap<AnaGeneType,ImportedField> lookupImportStaticFields(String _glClass, String _method, AnalyzedPageEl _page) {
         IdMap<AnaGeneType,ImportedField> methods_ = new IdMap<AnaGeneType,ImportedField>();
         int import_ = 1;
-        CustList<StringList> imports_ = _page.getCurrentGlobalBlock().getCurrentGlobalBlockImportingTypes();
+        CustList<StringList> imports_ = _page.getImportingTypes();
         String keyWordStatic_ = _page.getKeyWords().getKeyWordStatic();
         for (StringList t: imports_) {
             for (String i: t) {

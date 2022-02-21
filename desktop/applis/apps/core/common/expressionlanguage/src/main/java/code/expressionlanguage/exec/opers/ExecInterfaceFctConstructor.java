@@ -50,7 +50,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
                 return;
             }
             pair_.setArgument(ref_);
-            ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
+            ExecFormattedRootBlock superClass_ = StackCall.formatVarType(_stack,getFormattedType());
             prep(_conf, _stack, ref_, superClass_, buildInfos(_nodes), getInvokingConstructorContent(), getPair());
             Argument res_ = Argument.createVoid();
             setSimpleArgument(res_, _conf, _nodes, _stack);
@@ -62,7 +62,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         } else {
             arg_ = mainArgument_;
         }
-        ExecFormattedRootBlock superClass_ = _stack.formatVarType(getFormattedType());
+        ExecFormattedRootBlock superClass_ = StackCall.formatVarType(_stack,getFormattedType());
         prep(_conf, _stack, arg_, superClass_, buildInfos(_nodes), getInvokingConstructorContent(), getPair());
         Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);

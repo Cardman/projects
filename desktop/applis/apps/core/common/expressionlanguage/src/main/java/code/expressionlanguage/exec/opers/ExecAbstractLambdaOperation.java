@@ -40,7 +40,7 @@ public abstract class ExecAbstractLambdaOperation extends ExecLeafOperation impl
     }
 
     public ExecFormattedRootBlock formatVarType(StackCall _stack) {
-        return _stack.formatVarType(getFoundClass());
+        return StackCall.formatVarType(_stack,getFoundClass());
     }
     public ExecFormattedRootBlock getFoundClass() {
         return lambdaCommonContent.getFormattedType();

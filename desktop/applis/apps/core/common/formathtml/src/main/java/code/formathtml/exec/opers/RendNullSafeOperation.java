@@ -30,13 +30,13 @@ public final class RendNullSafeOperation extends RendMethodOperation implements 
         Argument f_ = getArgument(_nodes,first_);
         Struct abs_ = f_.getStruct();
         if (abs_ != NullStruct.NULL_VALUE) {
-            f_ = new Argument(ExecClassArgumentMatching.convert(abs_, _context, names));
+            f_ = new Argument(ExecClassArgumentMatching.convertFormatted(abs_, _context, names,_rendStack));
             setQuickConvertSimpleArgument(f_, _nodes, _context, _rendStack);
             return;
         }
         RendDynOperationNode last_ = getLastNode(this);
         Argument a_ = getArgument(_nodes,last_);
-        a_ = new Argument(ExecClassArgumentMatching.convert(a_.getStruct(), _context, names));
+        a_ = new Argument(ExecClassArgumentMatching.convertFormatted(a_.getStruct(), _context, names,_rendStack));
         setSimpleArgument(a_, _nodes, _context, _rendStack);
     }
 }

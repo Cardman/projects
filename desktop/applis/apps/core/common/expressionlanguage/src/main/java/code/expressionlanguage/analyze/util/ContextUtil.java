@@ -126,7 +126,7 @@ public final class ContextUtil {
         return _type instanceof EnumBlock || _type instanceof InnerElementBlock;
     }
 
-    private static boolean isExplicitFct(FunctionBlock _fct) {
+    private static boolean isExplicitFct(WithContext _fct) {
         return _fct instanceof NamedCalledFunctionBlock
                 && (((NamedCalledFunctionBlock) _fct).getKind() == MethodKind.EXPLICIT_CAST
         ||((NamedCalledFunctionBlock) _fct).getKind() == MethodKind.IMPLICIT_CAST
@@ -170,7 +170,7 @@ public final class ContextUtil {
         if (bl_ instanceof InfoBlock) {
             static_ = ((InfoBlock)bl_).isStaticField();
         } else {
-            MemberCallingsBlock fct_ = _page.getCurrentFct();
+            WithContext fct_ = _page.getCurrentCtx();
             if (fct_ == null) {
                 static_ = true;
             } else if (isExplicitFct(fct_)){

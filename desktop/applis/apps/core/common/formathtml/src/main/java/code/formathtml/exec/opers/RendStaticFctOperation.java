@@ -29,10 +29,10 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
-        String lastType_ = staticFctContent.getLastType();
+        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(staticFctContent.getFormattedType(), staticFctContent.getKind(), _rendStack);
+        String lastType_ = ExecFormattedRootBlock.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
 //        int naturalVararg_ = staticFctContent.getNaturalVararg();
 //        Argument prev_ = new Argument();
-        ExecFormattedRootBlock classNameFound_ = staticFctContent.getFormattedType();
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecStaticFctOperation.prep(_context,_rendStack.getStackCall(),classNameFound_,lastType_,buildInfos(_nodes),staticFctContent,pair), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

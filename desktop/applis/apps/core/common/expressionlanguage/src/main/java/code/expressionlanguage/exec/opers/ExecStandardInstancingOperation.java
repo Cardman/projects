@@ -31,7 +31,7 @@ public final class ExecStandardInstancingOperation extends
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getInstancingCommonContent().getMethodName());
-        ExecFormattedRootBlock className_ = _stack.formatVarType(getFormattedType());
+        ExecFormattedRootBlock className_ = StackCall.formatVarType(_stack,getFormattedType());
         Argument res_ = null;
         if (instancingStdContent.getFieldName().isEmpty()) {
             setRelOffsetPossibleLastPage(off_, _stack);

@@ -18,9 +18,9 @@ public final class RenderExpUtil {
 
     public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, Argument _arg, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         Argument globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
-        _rendStackCall.getLastPage().setGlobalArgumentStruct(_arg.getStruct());
+        _rendStackCall.getLastPage().setGlobalArgumentStruct(_arg.getStruct(),_ctx);
         Argument argument_ = calculateReuse(_nodes, _advStandards, _ctx, _rendStackCall);
-        _rendStackCall.getLastPage().setGlobalArgumentStruct(globalArgument_.getStruct());
+        _rendStackCall.getLastPage().setGlobalArgumentStruct(globalArgument_.getStruct(),_ctx);
         return argument_;
     }
     public static Argument calculateReuse(CustList<RendDynOperationNode> _nodes, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {

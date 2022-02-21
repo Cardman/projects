@@ -37,7 +37,7 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
     public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, StringList _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         Argument left_ = pair_.getArgument();
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context);
+        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context,_rendStack);
         return trySetArgument(_nodes, _context, res_, _rendStack);
     }
 

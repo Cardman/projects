@@ -16,7 +16,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock {
+public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock,WithContext {
 
     private final int nb;
     private final Element elt;
@@ -27,6 +27,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private String beanName;
     private StringList imports = new StringList();
     private final IntTreeMap<Integer> escapedChar;
+    private MethodAccessKind accessKind;
     public AnaRendDocumentBlock(int _n,Element _elt, String _file, int _offset, String _fileName) {
         super(_offset);
         this.nb = _n;
@@ -45,6 +46,11 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         return escapedChar;
     }
 
+    @Override
+    public MethodAccessKind getStaticContext() {
+        return accessKind;
+    }
+
     public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, StringMap<BeanInfo> _beansInfosBefore) {
         setBeanName(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
         initMetrics(_anaDoc, _page);
@@ -53,19 +59,27 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setCurrentPkg("");
         _page.setCurrentFile(null);
+        _page.setCurrentFct(null);
+        _page.setCurrentCtx(this);
         if (_beansInfosBefore.contains(beanName)) {
+            accessKind = MethodAccessKind.INSTANCE;
             _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
             String clName_ = _beansInfosBefore.getVal(beanName).getResolvedClassName();
             AnaFormattedRootBlock globalType_ = new AnaFormattedRootBlock(_page, clName_);
             _page.setGlobalType(globalType_);
             _page.setImporting(globalType_.getRootBlock());
         } else {
+            accessKind = MethodAccessKind.STATIC;
             _page.setGlobalType(AnaFormattedRootBlock.defValue());
             _page.setImporting(null);
         }
         AnaRendBlock en_ = this;
         StringList labels_ = new StringList();
         _anaDoc.setFileName(fileName);
+        _page.setImportingAcces(this);
+        _page.getImportingTypes().clear();
+        _page.getImportingTypes().add(getImports());
+        _page.getImportingTypes().add(getFileImports());
         _anaDoc.setCurrentDoc(this);
         while (true) {
             _anaDoc.setCurrentBlock(en_);

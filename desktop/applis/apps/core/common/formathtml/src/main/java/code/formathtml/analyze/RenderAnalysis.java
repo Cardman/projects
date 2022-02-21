@@ -158,7 +158,7 @@ public final class RenderAnalysis {
             ElUtil.analyzeInfer(_current, _page);
             return;
         }
-        if (!(_current instanceof AbstractInvokingConstructor)) {
+        if (!(_current instanceof AbstractInvokingConstructor)&&!(_current instanceof AnnotationInstanceArobaseOperation)) {
             if (_current instanceof ThisOperation) {
                 if (((ThisOperation)_current).isIntermediateDottedOperation()) {
                     FoundErrorInterpret badNb_ = new FoundErrorInterpret();
