@@ -553,7 +553,10 @@ public abstract class OperationNode {
             return new VariableOperation(_index, _indexChild, _m, _op, lineDeclarator_);
         }
         if (ElUtil.isDeclaringRefVariable(_m, _page)) {
-            return new RefVariableOperation(_index, _indexChild, _m, _op, lineDeclarator_);
+            if (lineDeclarator_ != null) {
+                return new RefVariableOperation(_index, _indexChild, _m, _op, lineDeclarator_);
+            }
+            return new RefVariableOperation(_index, _indexChild, _m, _op, loopDeclarator_);
         }
         if (_m instanceof AbstractDotOperation) {
             OperationNode ch_ = _m.getFirstChild();

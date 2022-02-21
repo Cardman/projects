@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
-public interface AbsLoopDeclarator {
-    void setImportedClassName(String _importedClassName);
+public interface AbsLoopDeclarator extends AbsLineDeclarator {
 
     String getImportedClassIndexName();
 }
