@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomReflectMethod;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -6686,6 +6687,14 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());
         assertEq(1, getNumber(out_));
+    }
+    @Test
+    public void exc() {
+        ContextEl cont_ = ctxOk(new StringMap<String>());
+        CustomFoundExc ref_ = new CustomFoundExc(NullStruct.NULL_VALUE);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
+        assertSame(NullStruct.NULL_VALUE, argumentWrapper_.getValue().getStruct());
     }
 
     private static StandardMethod std(StandardType _type, MethodId _id) {

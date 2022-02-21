@@ -4,6 +4,7 @@ import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.structs.NullStruct;
 
 public final class ProcessMethod {
 
@@ -23,6 +24,9 @@ public final class ProcessMethod {
 
     public static ArgumentWrapper calculate(CallingState _custom, ContextEl _cont, StackCall _stackCall) {
         AbstractPageEl page_ = _custom.processAfterOperation(_cont,_stackCall);
+        if (page_ == null) {
+            return new ArgumentWrapper(NullStruct.NULL_VALUE);
+        }
         return loopAndReturn(_cont, _stackCall, page_);
     }
 

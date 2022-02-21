@@ -57,7 +57,7 @@ public abstract class RendDynOperationNode {
         StackCall stackCall_ = _stackCall.getStackCall();
         CallingState callingState_ = stackCall_.getCallingState();
         ArgumentWrapper res_;
-        if (callingState_ != null && !(callingState_ instanceof CustomFoundExc)) {
+        if (callingState_ != null) {
             res_ = ProcessMethod.calculate(callingState_, _context, stackCall_);
         } else {
             res_ = new ArgumentWrapper(_res,null);
