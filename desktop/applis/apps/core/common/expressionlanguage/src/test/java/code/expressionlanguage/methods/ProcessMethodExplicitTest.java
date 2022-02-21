@@ -2072,7 +2072,7 @@ public final class ProcessMethodExplicitTest extends ProcessMethodCommon {
         LocalVariable lv_ = LocalVariable.newLocalVariable(new IntStruct(5),cont_);
         p_.getRefParameters().addEntry(method_.getParametersName(0),new VariableWrapper(lv_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
-        Argument ret_ = ProcessMethod.calculateArgument(new CustomFoundMethod(Argument.createVoid(),new ExecFormattedRootBlock(classBody_,"pkg.ExClass"), new ExecTypeFunction(classBody_, method_),p_),cont_, stackCall_).getValue();
+        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(Argument.createVoid(), new ExecFormattedRootBlock(classBody_, "pkg.ExClass"), new ExecTypeFunction(classBody_, method_), p_), cont_, stackCall_).getValue();
 
         Struct struct_ = ret_.getStruct();
         assertEq("pkg.ExClass", struct_.getClassName(cont_));

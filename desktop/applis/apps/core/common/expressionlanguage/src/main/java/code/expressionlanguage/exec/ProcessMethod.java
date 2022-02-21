@@ -21,22 +21,8 @@ public final class ProcessMethod {
         loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,new ExecFormattedRootBlock(_rootBlock,_class),null));
     }
 
-    public static ArgumentWrapper instanceRecordArgument(ContextEl _cont, StackCall _stackCall, CustomFoundRecordConstructor _found) {
-        AbstractPageEl page_ = ExecutingUtil.createRecordInstancing(_cont,_found);
-        return loopAndReturn(_cont, _stackCall, page_);
-    }
-
-    public static ArgumentWrapper instanceArgument(ContextEl _cont, StackCall _stackCall, CustomFoundConstructor _found) {
-        AbstractPageEl page_ = ExecutingUtil.createNewInstancing(_cont,_found);
-        return loopAndReturn(_cont, _stackCall, page_);
-    }
-
-    public static ArgumentWrapper calculateArgument(CustomFoundMethod _custom, ContextEl _cont, StackCall _stackCall) {
-        AbstractPageEl page_ = ExecutingUtil.createCallingMethod(_cont,_custom.getGl(), _custom.getClassName(),_custom.getPair(), _custom.getArguments());
-        return loopAndReturn(_cont, _stackCall, page_);
-    }
-    public static ArgumentWrapper reflectArgument(ContextEl _cont, AbstractReflectElement _ref, StackCall _stackCall) {
-        AbstractPageEl page_ = ExecutingUtil.createReflectMethod(_ref);
+    public static ArgumentWrapper calculate(CallingState _custom, ContextEl _cont, StackCall _stackCall) {
+        AbstractPageEl page_ = _custom.processAfterOperation(_cont,_stackCall);
         return loopAndReturn(_cont, _stackCall, page_);
     }
 

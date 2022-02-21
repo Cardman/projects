@@ -6666,7 +6666,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ArrayStruct s_ = args();
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
-        ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_, stackCall_);
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());
@@ -6681,7 +6681,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         ArrayStruct s_ = args();
         CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
-        ArgumentWrapper argumentWrapper_ = ProcessMethod.reflectArgument(cont_, ref_, stackCall_);
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());

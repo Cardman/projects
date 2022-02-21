@@ -20,7 +20,7 @@ public final class StrConv {
         CallingState state_ = _stackCall.getCallingState();
         if (state_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            out_ = ProcessMethod.calculateArgument(method_, _r, _stackCall).getValue();
+            out_ = ProcessMethod.calculate(method_, _r, _stackCall).getValue();
         }
         return ExecCatOperation.getDisplayable(out_, _r).getInstance();
     }

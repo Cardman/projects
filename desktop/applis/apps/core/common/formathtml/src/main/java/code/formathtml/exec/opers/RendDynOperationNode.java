@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
-import code.expressionlanguage.exec.opers.ExecAbstractAffectOperation;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -58,18 +57,8 @@ public abstract class RendDynOperationNode {
         StackCall stackCall_ = _stackCall.getStackCall();
         CallingState callingState_ = stackCall_.getCallingState();
         ArgumentWrapper res_;
-        if (callingState_ instanceof CustomFoundConstructor) {
-            CustomFoundConstructor ctor_ = (CustomFoundConstructor)callingState_;
-            res_ = ProcessMethod.instanceArgument(_context, stackCall_, ctor_);
-        } else if (callingState_ instanceof CustomFoundRecordConstructor) {
-            CustomFoundRecordConstructor ctor_ = (CustomFoundRecordConstructor)callingState_;
-            res_ = ProcessMethod.instanceRecordArgument(_context, stackCall_, ctor_);
-        } else if (callingState_ instanceof CustomFoundMethod) {
-            CustomFoundMethod method_ = (CustomFoundMethod) callingState_;
-            res_ = ProcessMethod.calculateArgument(method_, _context, stackCall_);
-        } else if (callingState_ instanceof AbstractReflectElement) {
-            AbstractReflectElement ref_ = (AbstractReflectElement) callingState_;
-            res_ = ProcessMethod.reflectArgument(_context,ref_, stackCall_);
+        if (callingState_ != null && !(callingState_ instanceof CustomFoundExc)) {
+            res_ = ProcessMethod.calculate(callingState_, _context, stackCall_);
         } else {
             res_ = new ArgumentWrapper(_res,null);
         }
@@ -318,7 +307,7 @@ public abstract class RendDynOperationNode {
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
-        Argument out_ = ProcessMethod.calculateArgument(new CustomFoundMethod(Argument.createVoid(),format_,_c, parameters_), _context, _rend.getStackCall()).getValue();
+        Argument out_ = ProcessMethod.calculate(new CustomFoundMethod(Argument.createVoid(), format_, _c, parameters_), _context, _rend.getStackCall()).getValue();
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
@@ -353,7 +342,7 @@ public abstract class RendDynOperationNode {
         CallingState state_ = _stackCall.getStackCall().getCallingState();
         if (state_ instanceof CustomFoundMethod) {
             CustomFoundMethod method_ = (CustomFoundMethod) state_;
-            return ProcessMethod.calculateArgument(method_, _ct, _stackCall.getStackCall()).getValue();
+            return ProcessMethod.calculate(method_, _ct, _stackCall.getStackCall()).getValue();
         }
         return _def;
     }

@@ -64,7 +64,7 @@ public class CustInitializer extends DefaultInitializer {
                 boolean convert_ = false;
                 if (state_ instanceof CustomFoundMethod) {
                     CustomFoundMethod method_ = (CustomFoundMethod) state_;
-                    out_ = ProcessMethod.calculateArgument(method_, _cont, _stackCall).getValue();
+                    out_ = ProcessMethod.calculate(method_, _cont, _stackCall).getValue();
                     convert_ = true;
                 }
                 if (!_cont.callsOrException(_stackCall)) {
