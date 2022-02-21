@@ -27,7 +27,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public final class ForMutableIterativeLoop extends BracedBlock implements
-        Loop,WithConditionPart {
+        Loop,WithConditionPart,AbsLoopDeclarator {
 
     private final String label;
     private final int labelOffset;
@@ -174,11 +174,13 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.getVariablesNamesToInfer().clear();
         _page.setGlobalOffset(initOffset);
         _page.zeroOffset();
+        _page.setLoopDeclarator(this);
         _page.setAcceptCommaInstr(true);
         _page.setForLoopPartState(ForLoopPart.INIT);
         if (!init.trim().isEmpty()) {
             resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, init, Calculation.staticCalculation(static_), _page));
         }
+        _page.setLoopDeclarator(null);
         addVars(_page);
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();

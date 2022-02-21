@@ -9,7 +9,6 @@ import code.expressionlanguage.stds.LgNamesContent;
 import code.formathtml.Configuration;
 import code.formathtml.common.RendBlockUtil;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
@@ -22,7 +21,6 @@ import code.util.core.StringUtil;
 public final class AnalyzingDoc {
     private StringList languages = new StringList();
 
-    private AnaRendBlock currentBlock;
     private String internGlobalClass="";
     private String fileName="";
     private AnaRendDocumentBlock currentDoc;
@@ -73,8 +71,6 @@ public final class AnalyzingDoc {
         _page.setCurrentAnaBlockForEachLoop(null);
         _page.setCurrentAnaBlockForEachTable(null);
         _page.setProcessKeyWord(new AdvancedProcessKeyWord(_page, _analyzingDoc));
-        _page.setLoopDeclaring(new AdvancedLoopDeclaring(_analyzingDoc));
-        _page.setLocalDeclaring(new AdvancedLocalDeclaring(_analyzingDoc));
         _page.setLocalizer(new AdvancedLocalizer(_page, _analyzingDoc));
     }
 
@@ -119,13 +115,6 @@ public final class AnalyzingDoc {
 
     public void setContent(BeanLgNames _adv) {
         content = _adv.getContent();
-    }
-    public AnaRendBlock getCurrentBlock() {
-        return currentBlock;
-    }
-
-    public void setCurrentBlock(AnaRendBlock _currentBlock) {
-        this.currentBlock = _currentBlock;
     }
 
     public String getInternGlobalClass() {

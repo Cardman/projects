@@ -42,7 +42,6 @@ public final class AnaRendBlockHelp {
         AnaRendBlock enNat_ = _doc;
         _anaDoc.setCurrentDoc(_doc);
         while (true) {
-            _anaDoc.setCurrentBlock(enNat_);
             AnaRendBlock n_ = enNat_.getFirstChild();
             if (enNat_ instanceof NatRendBuildEl) {
                 ((NatRendBuildEl)enNat_).buildExpressionLanguage(_doc, _anaDoc, _page);

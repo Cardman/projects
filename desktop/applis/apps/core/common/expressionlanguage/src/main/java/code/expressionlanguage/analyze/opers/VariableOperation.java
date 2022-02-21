@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
@@ -31,10 +32,12 @@ public final class VariableOperation extends LeafOperation implements
     private int ref;
     private boolean declare;
     private boolean finalVariable;
+    private AbsLineDeclarator lineDeclarator;
 
     public VariableOperation(int _indexInEl, int _indexChild,
-            MethodOperation _m, OperationsSequence _op) {
+                             MethodOperation _m, OperationsSequence _op, AbsLineDeclarator _decl) {
         this(_indexInEl, _indexChild, _m, _op,EMPTY_STRING,0,-1,false);
+        lineDeclarator = _decl;
     }
 
     public VariableOperation(int _indexInEl, int _indexChild,
@@ -104,6 +107,9 @@ public final class VariableOperation extends LeafOperation implements
         setResultClass(new AnaClassArgumentMatching(className, _page.getPrimitiveTypes()));
     }
 
+    public AbsLineDeclarator getLineDeclarator() {
+        return lineDeclarator;
+    }
     public boolean isDeclare() {
         return declare;
     }

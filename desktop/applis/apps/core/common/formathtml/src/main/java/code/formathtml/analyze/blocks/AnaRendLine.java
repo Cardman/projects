@@ -39,6 +39,7 @@ public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
             AffectationOperation.processInfer(t_, _page);
             declaring_.getVariableNames().addAllElts(vars_);
         }
+        _page.setLineDeclarator(null);
         _page.setMerged(false);
         _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);

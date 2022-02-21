@@ -71,6 +71,7 @@ public final class Line extends Leaf implements BuildableElMethod {
             declaring_.setErrInf(err_);
             declaring_.getVariableNames().addAllElts(vars_);
         }
+        _page.setLineDeclarator(null);
         _page.setMerged(false);
         _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);

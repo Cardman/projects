@@ -1,6 +1,7 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -9,7 +10,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class AnaRendDeclareVariable extends AnaRendLeaf implements AnaRendBuildEl {
+public final class AnaRendDeclareVariable extends AnaRendLeaf implements AnaRendBuildEl, AbsLineDeclarator {
 
     private final StringList variableNames = new StringList();
 
@@ -45,6 +46,7 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf implements AnaRend
         } else {
             importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         }
+        _page.setLineDeclarator(this);
         _page.setMerged(true);
         _page.setRefVariable(refVariable);
         _page.setAcceptCommaInstr(true);

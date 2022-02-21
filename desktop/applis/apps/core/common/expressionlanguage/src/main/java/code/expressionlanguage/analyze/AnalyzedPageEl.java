@@ -128,8 +128,6 @@ public final class AnalyzedPageEl {
     private final StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
     private AbstractProcessKeyWord processKeyWord;
     private DefaultCurrentConstraints currentConstraints;
-    private AbstractLoopDeclaring loopDeclaring;
-    private AbstractLocalDeclaring localDeclaring;
     private DefaultBuildingConstraints buildingConstraints;
     private AbstractLocalizer localizer;
     private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
@@ -157,13 +155,13 @@ public final class AnalyzedPageEl {
     private Options options;
     private LgNamesContent content;
     private BuildableLgNames logErr;
+    private AbsLineDeclarator lineDeclarator;
+    private AbsLoopDeclarator loopDeclarator;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         page_.setProcessKeyWord(new DefaultProcessKeyWord(page_));
         page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
-        page_.setLoopDeclaring(new DefaultLoopDeclaring(page_));
-        page_.setLocalDeclaring(new DefaultLocalDeclaring(page_));
         page_.setBuildingConstraints(new DefaultBuildingConstraints(page_));
         page_.setLocalizer(new DefaultLocalizer(page_));
         return page_;
@@ -875,22 +873,6 @@ public final class AnalyzedPageEl {
         this.currentConstraints = _currentConstraints;
     }
 
-    public AbstractLoopDeclaring getLoopDeclaring() {
-        return loopDeclaring;
-    }
-
-    public void setLoopDeclaring(AbstractLoopDeclaring _loopDeclaring) {
-        this.loopDeclaring = _loopDeclaring;
-    }
-
-    public AbstractLocalDeclaring getLocalDeclaring() {
-        return localDeclaring;
-    }
-
-    public void setLocalDeclaring(AbstractLocalDeclaring _localDeclaring) {
-        this.localDeclaring = _localDeclaring;
-    }
-
     public DefaultBuildingConstraints getBuildingConstraints() {
         return buildingConstraints;
     }
@@ -1278,5 +1260,21 @@ public final class AnalyzedPageEl {
 
     public void setFileBuilder(AbstractFileBuilder _fileBuilder) {
         this.fileBuilder = _fileBuilder;
+    }
+
+    public AbsLineDeclarator getLineDeclarator() {
+        return lineDeclarator;
+    }
+
+    public void setLineDeclarator(AbsLineDeclarator _lineDeclarator) {
+        this.lineDeclarator = _lineDeclarator;
+    }
+
+    public AbsLoopDeclarator getLoopDeclarator() {
+        return loopDeclarator;
+    }
+
+    public void setLoopDeclarator(AbsLoopDeclarator _loopDeclarator) {
+        this.loopDeclarator = _loopDeclarator;
     }
 }

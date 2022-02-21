@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
+import code.expressionlanguage.analyze.blocks.AbsLoopDeclarator;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -75,14 +77,14 @@ public final class AffectationOperation extends MethodOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        boolean decl_ = false;
+        AbsLineDeclarator decl_ = null;
         String inf_ = "";
         if (elt_ instanceof RefVariableOperation) {
             settableOp = (RefVariableOperation)elt_;
             RefVariableOperation v_ = (RefVariableOperation)elt_;
             inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringRefVariable(v_, _page)) {
-                decl_ = true;
+                decl_ = v_.getLineDeclarator();
             }
         }
         if (elt_ instanceof VariableOperation) {
@@ -90,10 +92,10 @@ public final class AffectationOperation extends MethodOperation {
             VariableOperation v_ = (VariableOperation)elt_;
             inf_ = v_.getVariableName();
             if (ElUtil.isDeclaringVariable(v_, _page)) {
-                decl_ = true;
+                decl_ = v_.getLineDeclarator();
             }
         }
-        if (decl_) {
+        if (decl_ != null) {
             if (StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
@@ -102,7 +104,7 @@ public final class AffectationOperation extends MethodOperation {
                     AnaLocalVariable lv_ = _page.getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
                     _page.getVariablesNamesToInfer().removeString(inf_);
-                    _page.getLocalDeclaring().setupDeclaratorClass(type_);
+                    decl_.setImportedClassName(type_);
                     _page.setCurrentVarSetting(type_);
                     settableOp.setResultClass(n_);
                     clMatchLeftPoss_ = n_;
@@ -132,7 +134,8 @@ public final class AffectationOperation extends MethodOperation {
             MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
             settableOp = v_;
             inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringLoopVariable(v_, _page) && StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
+            AbsLoopDeclarator loopDeclarator_ = v_.getLoopDeclarator();
+            if (loopDeclarator_ != null && StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 String type_ = clMatchRight_.getSingleNameOrEmpty();
                 if (!type_.isEmpty()) {
@@ -140,7 +143,7 @@ public final class AffectationOperation extends MethodOperation {
                     AnaLocalVariable lv_ = _page.getInfosVars().getVal(inf_);
                     lv_.setClassName(type_);
                     _page.getVariablesNamesToInfer().removeString(inf_);
-                    _page.getLoopDeclaring().setupLoopDeclaratorClass(type_);
+                    loopDeclarator_.setImportedClassName(type_);
                     _page.setCurrentVarSetting(type_);
                     v_.setResultClass(n_);
                     clMatchLeftPoss_ = n_;

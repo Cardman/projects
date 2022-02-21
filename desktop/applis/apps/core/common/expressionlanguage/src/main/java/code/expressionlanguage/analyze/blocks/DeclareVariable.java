@@ -8,7 +8,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class DeclareVariable extends Leaf implements BuildableElMethod {
+public final class DeclareVariable extends Leaf implements BuildableElMethod,AbsLineDeclarator {
 
     private final StringList variableNames = new StringList();
 
@@ -61,6 +61,7 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod {
             partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
             importedClassName = partOffsets.getResult(_page);
         }
+        _page.setLineDeclarator(this);
         _page.setMerged(true);
         _page.setRefVariable(refVariable);
         _page.setAcceptCommaInstr(true);

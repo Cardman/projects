@@ -82,7 +82,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         _page.getImportingTypes().add(getFileImports());
         _anaDoc.setCurrentDoc(this);
         while (true) {
-            _anaDoc.setCurrentBlock(en_);
             if (en_ instanceof ImportForEachLoop) {
                 _page.setCurrentAnaBlockForEachLoop((ImportForEachLoop) en_);
             } else {

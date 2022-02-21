@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.blocks.AbsLoopDeclarator;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
@@ -30,10 +31,12 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
     private int ref;
     private boolean declare;
     private boolean finalVariable;
+    private AbsLoopDeclarator loopDeclarator;
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
-            MethodOperation _m, OperationsSequence _op) {
+                                        MethodOperation _m, OperationsSequence _op, AbsLoopDeclarator _decl) {
         this(_indexInEl, _indexChild, _m, _op, EMPTY_STRING,0,-1,false);
+        loopDeclarator = _decl;
     }
 
     public MutableLoopVariableOperation(int _indexInEl, int _indexChild,
@@ -52,7 +55,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
-        if (ElUtil.isDeclaringLoopVariable(this, _page)) {
+        if (loopDeclarator != null) {
             declare = true;
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(str_, _page);
             variableContent.setVariableName(str_);
@@ -76,7 +79,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
                 _page.getVariablesNamesToInfer().add(str_);
             }
             AnaLoopVariable lv_ = new AnaLoopVariable();
-            String indexClassName_ = _page.getLoopDeclaring().getIndexClassName();
+            String indexClassName_ = loopDeclarator.getImportedClassIndexName();
             lv_.setRef(ref);
             lv_.setIndexClassName(indexClassName_);
             _page.getLoopsVars().put(str_, lv_);
@@ -98,6 +101,10 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
         variableContent.setVariableName(StringExpUtil.skipPrefix(str_));
         realVariableName = str_;
         setResultClass(new AnaClassArgumentMatching(className, _page.getPrimitiveTypes()));
+    }
+
+    public AbsLoopDeclarator getLoopDeclarator() {
+        return loopDeclarator;
     }
 
     @Override

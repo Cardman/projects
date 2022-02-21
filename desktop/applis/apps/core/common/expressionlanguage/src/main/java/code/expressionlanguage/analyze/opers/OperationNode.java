@@ -544,14 +544,16 @@ public abstract class OperationNode {
         if (_op.getDeclaringField() != null) {
             return new DeclaredFieldOperation(_index, _indexChild, _m, _op, _op.getDeclaringField());
         }
+        AbsLoopDeclarator loopDeclarator_ = _page.getLoopDeclarator();
         if (ElUtil.isDeclaringLoopVariable(_m, _page)) {
-            return new MutableLoopVariableOperation(_index, _indexChild, _m, _op);
+            return new MutableLoopVariableOperation(_index, _indexChild, _m, _op,loopDeclarator_);
         }
+        AbsLineDeclarator lineDeclarator_ = _page.getLineDeclarator();
         if (ElUtil.isDeclaringVariable(_m, _page)) {
-            return new VariableOperation(_index, _indexChild, _m, _op);
+            return new VariableOperation(_index, _indexChild, _m, _op, lineDeclarator_);
         }
         if (ElUtil.isDeclaringRefVariable(_m, _page)) {
-            return new RefVariableOperation(_index, _indexChild, _m, _op);
+            return new RefVariableOperation(_index, _indexChild, _m, _op, lineDeclarator_);
         }
         if (_m instanceof AbstractDotOperation) {
             OperationNode ch_ = _m.getFirstChild();

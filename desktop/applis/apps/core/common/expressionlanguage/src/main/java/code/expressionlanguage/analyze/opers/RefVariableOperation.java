@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -29,10 +30,12 @@ public final class RefVariableOperation extends LeafOperation implements
 
     private int ref;
     private boolean declare;
+    private AbsLineDeclarator lineDeclarator;
 
     public RefVariableOperation(int _indexInEl, int _indexChild,
-                                MethodOperation _m, OperationsSequence _op) {
+                                MethodOperation _m, OperationsSequence _op, AbsLineDeclarator _decl) {
         this(_indexInEl, _indexChild, _m, _op,EMPTY_STRING,0, -1);
+        lineDeclarator = _decl;
     }
 
     public RefVariableOperation(int _indexInEl, int _indexChild,
@@ -108,6 +111,10 @@ public final class RefVariableOperation extends LeafOperation implements
         variableContent.setVariableName(StringExpUtil.skipPrefix(str_));
         realVariableName = str_;
         setResultClass(new AnaClassArgumentMatching(className, _page.getPrimitiveTypes()));
+    }
+
+    public AbsLineDeclarator getLineDeclarator() {
+        return lineDeclarator;
     }
 
     public boolean isDeclare() {

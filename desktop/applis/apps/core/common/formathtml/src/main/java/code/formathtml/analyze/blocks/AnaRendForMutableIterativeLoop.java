@@ -1,6 +1,8 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
+import code.expressionlanguage.analyze.blocks.AbsLoopDeclarator;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -20,7 +22,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock implements AnaRendLoop {
+public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock implements AnaRendLoop, AbsLoopDeclarator {
 
     private final String label;
     private final int labelOffset;
@@ -93,6 +95,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         }
         _page.setGlobalOffset(classNameOffset);
         _page.zeroOffset();
+        _page.setLoopDeclarator(this);
         if (!className.isEmpty()) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -118,6 +121,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         if (!init.trim().isEmpty()) {
             rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page,resultExpressionInit);
         }
+        _page.setLoopDeclarator(null);
         if (_page.isMerged()) {
             StringList vars_ = _page.getVariablesNames();
             String t_ = inferOrObject(importedClassName, _page);
