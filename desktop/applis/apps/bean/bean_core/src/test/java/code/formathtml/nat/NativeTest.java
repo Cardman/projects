@@ -701,34 +701,34 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.composite.string\" n-i=\"0\" value=\"\"/></form></body></html>", n_.getHtmlText());
     }
 
-    @Test
-    public void process7_Test() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
-        StringMap<Document> docs_ = new StringMap<Document>();
-        StringMap<String> files_ = new StringMap<String>();
-        CustBeanLgNames lgNames_ = new CustBeanLgNames();
-        lgNames_.getValidators().addEntry("my_val",new MyValidator());
-        basicStandards(lgNames_);
-        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        files_.put("page2.html", htmlTwo_);
-        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
-        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-        String xmlConf_ = confCom();
-        Navigation n_ = new Navigation();
-        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, null);
-        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
-        n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
-        ContextEl generate_ = du_.getForwards().generate(new Options());
-        n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
-    }
+//    @Test
+//    public void process7_Test() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+//        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
+//        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+//        StringMap<Document> docs_ = new StringMap<Document>();
+//        StringMap<String> files_ = new StringMap<String>();
+//        CustBeanLgNames lgNames_ = new CustBeanLgNames();
+//        lgNames_.getValidators().addEntry("my_val",new MyValidator());
+//        basicStandards(lgNames_);
+//        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page1.html", html_);
+//        files_.put("page2.html", htmlTwo_);
+//        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+//        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
+//        String xmlConf_ = confCom();
+//        Navigation n_ = new Navigation();
+//        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, null);
+//        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+//        n_.setFiles(files_);
+//        lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
+//        ContextEl generate_ = du_.getForwards().generate(new Options());
+//        n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
+//        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+//    }
     @Test
     public void processNatTest() {
         String locale_ = "en";
