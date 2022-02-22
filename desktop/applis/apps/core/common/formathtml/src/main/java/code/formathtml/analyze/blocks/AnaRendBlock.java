@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -48,6 +49,7 @@ public abstract class AnaRendBlock {
     private AnaRendBlock previousSibling;
 
     private final int offset;
+    private int endHeader;
 
     private StringMap<AttributePart> attributeDelimiters = new StringMap<AttributePart>();
 
@@ -68,6 +70,7 @@ public abstract class AnaRendBlock {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
                 AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, _rendKeyWords);
                 appendChild((AnaRendParentBlock) curWrite_,rendBlock_);
+                indexGlobal_ = rendBlock_.endHeader;
                 curWrite_ = rendBlock_;
                 curNode_ = firstChild_;
                 continue;
@@ -80,6 +83,7 @@ public abstract class AnaRendBlock {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
                     AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _prefix, nextSibling_,_docText, _primTypes, _rendKeyWords);
                     appendChild(par_,rendBlock_);
+                    indexGlobal_ = rendBlock_.endHeader;
                     curWrite_ = rendBlock_;
                     curNode_ = nextSibling_;
                     break;
@@ -89,7 +93,7 @@ public abstract class AnaRendBlock {
                     curWrite_ = null;
                     break;
                 }
-                indexGlobal_ = _docText.indexOf("</"+parentNode_.getTagName()+">",indexGlobal_)+2+parentNode_.getTagName().length()+2;
+                indexGlobal_ = _docText.indexOf("</",indexGlobal_)+2;
                 curWrite_ = par_;
                 curNode_ = parentNode_;
             }
@@ -121,6 +125,12 @@ public abstract class AnaRendBlock {
             StringMap<AttributePart> attr_;
             attr_ = getAttributes(_docText, beginHeader_, endHeader_);
             bl_.attributeDelimiters = attr_;
+            bl_.endHeader = endHeader_;
+            if (!StringExpUtil.nextCharIs(_docText,endHeader_-1,_docText.length(),'/') &&_docText.startsWith("></"+tagName_+">",endHeader_)) {
+                bl_.endHeader += ("</"+tagName_+">").length();
+            }
+        } else {
+            bl_.endHeader = _docText.indexOf(LT_BEGIN_TAG, _begin);
         }
         return bl_;
     }
