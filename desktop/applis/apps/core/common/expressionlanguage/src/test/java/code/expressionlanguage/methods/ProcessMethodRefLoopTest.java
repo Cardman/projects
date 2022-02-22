@@ -302,6 +302,56 @@ public final class ProcessMethodRefLoopTest extends ProcessMethodCommon {
         assertEq(10, getNumber(ret_));
     }
     @Test
+    public void calculateArgument5Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int v = 0;\n");
+        xml_.append("  $int s = 0;\n");
+        xml_.append("  $for ($that $int e = $that(v); e < 4;e++){\n");
+        xml_.append("    s += ([e]);\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (v != 4) {\n");
+        xml_.append("   $return -1;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument6Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $int v = 0;\n");
+        xml_.append("  $int s = 0;\n");
+        xml_.append("  $for ($that $var e = $that(v); e < 4;e++){\n");
+        xml_.append("    s += e;\n");
+        xml_.append("  }\n");
+        xml_.append("  $if (v != 4) {\n");
+        xml_.append("   $return -1;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return s;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+    @Test
     public void calculateArgumentFailTest() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

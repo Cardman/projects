@@ -4,11 +4,13 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
+import code.expressionlanguage.analyze.blocks.AbsLoopDeclarator;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
@@ -84,6 +86,13 @@ public final class RefVariableOperation extends LeafOperation implements
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringUtil.quickEq(c_, keyWordVar_)) {
                 _page.getVariablesNamesToInfer().add(str_);
+            }
+            if (lineDeclarator instanceof AbsLoopDeclarator){
+                AnaLoopVariable lv_ = new AnaLoopVariable();
+                String indexClassName_ = ((AbsLoopDeclarator) lineDeclarator).getImportedClassIndexName();
+                lv_.setRef(ref);
+                lv_.setIndexClassName(indexClassName_);
+                _page.getLoopsVars().put(str_, lv_);
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();
             if (StringUtil.quickEq(c_, keyWordVar_)) {

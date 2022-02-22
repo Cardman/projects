@@ -6629,7 +6629,9 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
 
     private static Argument tryCalculate(ContextEl _context, StackCall _stackCall) {
         ExecRootBlock cl_ = _context.getClasses().getClassBody("code.formathtml.classes.Apply");
-        ExecutingUtil.addPage(_context,new CommonMethodPageEl(new ExecFormattedRootBlock(cl_,"code.formathtml.classes.Apply")), _stackCall);
+        CommonMethodPageEl page_ = new CommonMethodPageEl(new ExecFormattedRootBlock(cl_, "code.formathtml.classes.Apply"));
+        page_.setBlockRootType(cl_);
+        ExecutingUtil.addPage(_context, page_, _stackCall);
         ExecFieldBlock f_ = fetchField(cl_);
         return tryToCalculate(_context,f_, _stackCall);
     }
