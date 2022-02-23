@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -57,12 +58,14 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
             return;
         }
         indexImplicit_ = pair_.getIndexImplicitSemiTo();
-        if (ImplicitMethods.isValidIndex(converterTo,indexImplicit_)) {
+        if (converterFrom != null && ImplicitMethods.isValidIndex(converterTo,indexImplicit_)) {
             String tres_ = converterTo.get(indexImplicit_).getFct().getImportedParametersTypes().first();
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(_right, getOperatorContent().getOper(), cast_);
-            pair_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,res_, converterTo,indexImplicit_, _stack));
+            ExecFormattedRootBlock formatted_ = StackCall.formatVarType(_stack, converterFrom.getOwnerClass());
+            ExecFormattedRootBlock to_ = ExecFormattedRootBlock.quickFormat(formatted_, converterTo.getOwnerClass());
+            pair_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,res_, converterTo,indexImplicit_, _stack,to_));
             return;
         }
         end(_conf, _nodes, _right, _stack);

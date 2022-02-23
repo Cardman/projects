@@ -3,7 +3,9 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -30,15 +32,19 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
         Argument leftStore_ = getArgument(_nodes,left_);
         Argument stored_ = getArgument(_nodes, getSettable());
         Argument before_ = stored_;
+        ExecFormattedRootBlock owner_ = ExecFormattedRootBlock.defValue();
         if (converterFrom != null) {
             Argument conv_ = tryConvert(converterFrom.get(0),converterFrom.getOwnerClass(), leftStore_, _context, _rendStack);
             stored_ = Argument.getNullableValue(conv_);
+            owner_ = converterFrom.getOwnerClass();
         }
         if (converterTo != null) {
             String tres_ = converterTo.get(0).getFct().getImportedParametersTypes().get(0);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
             Argument res_ = ExecNumericOperation.calculateIncrDecr(stored_, getOperatorContent().getOper(), cast_);
-            Argument conv_ = tryConvert(converterTo.get(0),converterTo.getOwnerClass(), res_, _context, _rendStack);
+            ExecFormattedRootBlock formatted_ = StackCall.formatVarType(_rendStack, owner_);
+            ExecFormattedRootBlock to_ = ExecFormattedRootBlock.quickFormat(formatted_, converterTo.getOwnerClass());
+            Argument conv_ = tryConvert(converterTo.get(0), res_, _context, _rendStack,to_);
             if (conv_ == null) {
                 return;
             }
