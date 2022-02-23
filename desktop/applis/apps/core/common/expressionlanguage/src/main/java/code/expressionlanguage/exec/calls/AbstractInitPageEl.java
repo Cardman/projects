@@ -40,7 +40,6 @@ public abstract class AbstractInitPageEl extends AbstractPageEl {
         setNullReadWrite();
     }
     public void blockRoot(ExecRootBlock _type) {
-        setBlockRootType(_type);
         setBlockRoot(_type);
     }
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {

@@ -248,17 +248,16 @@ public final class ExecTemplates {
         AbstractPageEl last_ = _stackCall.getLastPage();
         Argument instance_ = last_.getGlobalArgument();
         ExecFormattedRootBlock glClass_ = last_.getGlobalClass();
-        ExecRootBlock type_ = last_.getBlockRootType();
         if (_id instanceof ExecSwitchInstanceMethod) {
             Parameters out_ = okArgsExSw(_id, glClass_, new HiddenCache(last_), _conf, _stackCall, _value);
             if (out_.getError() == null) {
-                _stackCall.setCallingState(new CustomFoundSwitch(instance_, glClass_, type_, _id, out_.getCache(), _value));
+                _stackCall.setCallingState(new CustomFoundSwitch(instance_, glClass_, _id, out_.getCache(), _value));
             } else {
                 _stackCall.setCallingState(new CustomFoundExc(out_.getError()));
             }
             return;
         }
-        _stackCall.setCallingState(new CustomFoundSwitch(instance_,glClass_,type_,_id, new HiddenCache(last_),_value));
+        _stackCall.setCallingState(new CustomFoundSwitch(instance_,glClass_, _id, new HiddenCache(last_),_value));
     }
 
     public static Parameters okArgsSetSw(ExecAbstractSwitchMethod _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {

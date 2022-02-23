@@ -28,8 +28,6 @@ public abstract class AbstractPageEl {
 
     private final ExecFormattedRootBlock globalClass;
 
-    private ExecRootBlock blockRootType;
-
     private ReadWrite readWrite;
     private ExecBlock execBlock;
     private ExecBlock blockRoot;
@@ -295,11 +293,7 @@ public abstract class AbstractPageEl {
     }
 
     public ExecRootBlock getBlockRootType() {
-        return blockRootType;
-    }
-
-    public void setBlockRootType(ExecRootBlock _blockRootType) {
-        blockRootType = _blockRootType;
+        return globalClass.getRootBlock();
     }
 
 }

@@ -49,7 +49,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
         Cache cache_ = method_.getCache();
         AbstractParamChecker ab_;
         if (callee_ instanceof ExecAbstractSwitchMethod) {
-            ab_ = new SwitchParamChecker(pair_.getType(), (ExecAbstractSwitchMethod) callee_, _args, MethodAccessKind.STATIC_CALL);
+            ab_ = new SwitchParamChecker((ExecAbstractSwitchMethod) callee_, _args, MethodAccessKind.STATIC_CALL);
         } else {
             ab_ = new ReflectStaticCallParamChecker(pair_, _args);
         }

@@ -94,7 +94,7 @@ public final class ExecutingUtil {
         } else {
             pageLoc_.setGlobalArgument(gl_);
         }
-        setSwitchInfos(_context, pageLoc_, _e.getType(),_e.getSwitchMethod(),_e.getCache());
+        setSwitchInfos(_context, pageLoc_, _e.getSwitchMethod(),_e.getCache());
         return pageLoc_;
     }
     public static AbstractPageEl createCallingMethod(ContextEl _context, Argument _gl, ExecFormattedRootBlock _class, ExecTypeFunction _method, Parameters _args) {
@@ -116,8 +116,7 @@ public final class ExecutingUtil {
         _page.setReadWrite(rwLoc_);
         _page.setFile(fct_.getFile());
     }
-    private static void setSwitchInfos(ContextEl _context, CommonSwitchMethodPageEl _page, ExecRootBlock _type, ExecAbstractSwitchMethod _block, Cache _cache) {
-        _page.setBlockRootType(_type);
+    private static void setSwitchInfos(ContextEl _context, CommonSwitchMethodPageEl _page, ExecAbstractSwitchMethod _block, Cache _cache) {
         _page.setBlockRoot(_block);
         _context.getCoverage().passCalls(_page);
         _page.setCache(_cache);
@@ -243,12 +242,11 @@ public final class ExecutingUtil {
         page_.setFile(_type.getFile());
         return page_;
     }
-    public static BlockPageEl createBlockPageEl(ContextEl _context, ExecFormattedRootBlock _class, Argument _current, ExecRootBlock _rootBlock, ExecInitBlock _block) {
+    public static BlockPageEl createBlockPageEl(ContextEl _context, ExecFormattedRootBlock _class, Argument _current, ExecInitBlock _block) {
         ExecAbstractFileBlock file_ = _block.getFile();
         BlockPageEl page_ = new BlockPageEl(_class);
         page_.setGlobalArgument(_current);
         page_.setReturnedArgument(_current);
-        page_.setBlockRootType(_rootBlock);
         ReadWrite rw_ = new ReadWrite();
         ExecBlock firstChild_ = _block.getFirstChild();
         rw_.setBlock(firstChild_);

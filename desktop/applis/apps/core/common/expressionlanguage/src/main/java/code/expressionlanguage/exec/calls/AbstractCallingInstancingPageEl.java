@@ -92,6 +92,5 @@ public abstract class AbstractCallingInstancingPageEl extends AbstractPageEl imp
     public void fileTypeOffset(ExecRootBlock _type) {
         setFile(_type.getFile());
         globalOffset(_type.getIdRowCol());
-        setBlockRootType(_type);
     }
 }

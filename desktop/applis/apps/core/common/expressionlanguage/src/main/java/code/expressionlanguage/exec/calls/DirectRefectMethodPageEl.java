@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.AbstractParamChecker;
 import code.expressionlanguage.exec.inherits.ReflectMethodParamChecker;
 import code.expressionlanguage.exec.inherits.SwitchParamChecker;
@@ -22,8 +21,7 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
         ExecMemberCallingsBlock callee_ = getCallee();
         AbstractParamChecker ab_;
         if (callee_ instanceof ExecAbstractSwitchMethod) {
-            ExecRootBlock type_ = getPair().getType();
-            ab_ = new SwitchParamChecker(type_,(ExecAbstractSwitchMethod) callee_, _args,getAccessKind());
+            ab_ = new SwitchParamChecker((ExecAbstractSwitchMethod) callee_, _args,getAccessKind());
         } else {
             ab_ = new ReflectMethodParamChecker(getPair(), _args,_right,getAccessKind());
         }

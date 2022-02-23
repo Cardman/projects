@@ -19,7 +19,6 @@ public final class CommonMethodPageEl extends AbstractCommonMethodPageEl {
     }
 
     public void blockRootType(ExecTypeFunction _pair) {
-        setBlockRootType(_pair.getType());
         setBlockRoot(_pair.getFct());
     }
     @Override

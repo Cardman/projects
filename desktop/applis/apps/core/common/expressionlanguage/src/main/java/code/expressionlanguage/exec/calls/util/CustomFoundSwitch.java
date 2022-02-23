@@ -1,10 +1,10 @@
 package code.expressionlanguage.exec.calls.util;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecutingUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -15,16 +15,14 @@ public final class CustomFoundSwitch implements CallingState {
 
     private final ExecFormattedRootBlock className;
 
-    private final ExecRootBlock type;
     private final ExecAbstractSwitchMethod switchMethod;
 
     private final Cache cache;
     private final Argument value;
 
-    public CustomFoundSwitch(Argument _gl, ExecFormattedRootBlock _className, ExecRootBlock _type, ExecAbstractSwitchMethod _switchMethod, Cache _cache, Argument _value) {
+    public CustomFoundSwitch(Argument _gl, ExecFormattedRootBlock _className, ExecAbstractSwitchMethod _switchMethod, Cache _cache, Argument _value) {
         gl = _gl;
         className = _className;
-        type = _type;
         switchMethod = _switchMethod;
         cache = _cache;
         value = _value;
@@ -40,10 +38,6 @@ public final class CustomFoundSwitch implements CallingState {
 
     public ExecFormattedRootBlock getClassName() {
         return className;
-    }
-
-    public ExecRootBlock getType() {
-        return type;
     }
 
     public ExecAbstractSwitchMethod getSwitchMethod() {
