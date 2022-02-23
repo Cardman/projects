@@ -60,10 +60,11 @@ public abstract class AnaRendBlock {
     public static AnaRendDocumentBlock newRendDocumentBlock(int _nb,String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, RendKeyWords _rendKeyWords) {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
-        int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
         AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(_nb,documentElement_,_docText,0, _currentUrl);
+        int indexGlobal_ = indexOfBeginNode(curNode_, _docText, 0);
         AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, _rendKeyWords);
         out_.appendChild(curWrite_);
+        indexGlobal_ = curWrite_.endHeader;
         while (curWrite_ != null) {
             Node firstChild_ = curNode_.getFirstChild();
             if (curWrite_ instanceof AnaRendParentBlock&&firstChild_ != null) {
@@ -93,7 +94,7 @@ public abstract class AnaRendBlock {
                     curWrite_ = null;
                     break;
                 }
-                indexGlobal_ = _docText.indexOf("</",indexGlobal_)+2;
+                indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG,indexGlobal_)+2;
                 curWrite_ = par_;
                 curNode_ = parentNode_;
             }
@@ -134,6 +135,11 @@ public abstract class AnaRendBlock {
         }
         return bl_;
     }
+
+    public int getEndHeader() {
+        return endHeader;
+    }
+
     private static AnaRendBlock newRendBlock(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
@@ -379,10 +385,9 @@ public abstract class AnaRendBlock {
     }
     public static int indexOfBeginNode(Node _node, String _html, int _from) {
         if (_node instanceof Element) {
-            return _html.indexOf(StringUtil.concat(Character.toString(LT_BEGIN_TAG),((Element) _node).getTagName()), _from) + 1;
+            return _html.indexOf(LT_BEGIN_TAG, _from) + 1;
         }
-        int indexText_ = _html.indexOf(GT_TAG, _from);
-        return indexText_ + 1;
+        return _html.indexOf(GT_TAG, _from) + 1;
     }
 
     static StringMap<String> getPre(String _value, int _offset, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
