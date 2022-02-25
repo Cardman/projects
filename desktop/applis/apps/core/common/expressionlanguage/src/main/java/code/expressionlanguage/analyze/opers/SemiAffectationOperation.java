@@ -78,7 +78,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
-            ReversibleConversion reversibleConversion_ = tryGetPair(clMatchLeft_, _page);
+            ReversibleConversion reversibleConversion_ = tryGetPair(settable.getResultClass().getSingleNameOrEmpty(), clMatchLeft_, _page);
             if (reversibleConversion_ != null) {
                 convFrom.infos(reversibleConversion_.getFrom());
                 convTo.infos(reversibleConversion_.getTo());

@@ -271,6 +271,73 @@ public final class RenderOffsetsTest extends CommonRender {
         assertEq(46,firstChild_.getFirstChild().getNextSibling().getEndHeader());
     }
     @Test
+    public void process15_1Test() {
+        String file_ = "";
+        file_ += "<html><body><span>_";
+        file_ += "<span/></span><div>_</div></body>_</html>";
+        AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
+        AnaRendBlock firstChild_ = doc_.getFirstChild();
+        assertTrue(firstChild_ instanceof AnaRendStdElement);
+        assertEq(1,firstChild_.getOffset());
+        assertEq(5,firstChild_.getEndHeader());
+        assertTrue(firstChild_.getFirstChild() instanceof AnaRendStdElement);
+        assertEq(7,firstChild_.getFirstChild().getOffset());
+        assertEq(11,firstChild_.getFirstChild().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild() instanceof AnaRendStdElement);
+        assertEq(13,firstChild_.getFirstChild().getFirstChild().getOffset());
+        assertEq(17,firstChild_.getFirstChild().getFirstChild().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getFirstChild() instanceof AnaRendText);
+        assertEq(18,firstChild_.getFirstChild().getFirstChild().getFirstChild().getOffset());
+        assertEq(19,firstChild_.getFirstChild().getFirstChild().getFirstChild().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getFirstChild().getNextSibling() instanceof AnaRendStdElement);
+        assertEq(20,firstChild_.getFirstChild().getFirstChild().getFirstChild().getNextSibling().getOffset());
+        assertEq(25,firstChild_.getFirstChild().getFirstChild().getFirstChild().getNextSibling().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getNextSibling() instanceof AnaRendStdElement);
+        assertEq(34,firstChild_.getFirstChild().getFirstChild().getNextSibling().getOffset());
+        assertEq(37,firstChild_.getFirstChild().getFirstChild().getNextSibling().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getNextSibling().getFirstChild() instanceof AnaRendText);
+        assertEq(38,firstChild_.getFirstChild().getFirstChild().getNextSibling().getFirstChild().getOffset());
+        assertEq(39,firstChild_.getFirstChild().getFirstChild().getNextSibling().getFirstChild().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getNextSibling() instanceof AnaRendText);
+        assertEq(52,firstChild_.getFirstChild().getNextSibling().getOffset());
+        assertEq(53,firstChild_.getFirstChild().getNextSibling().getEndHeader());
+    }
+    @Test
+    public void process15_2Test() {
+        String file_ = "";
+        file_ += "<html><body><span>_";
+        file_ += "<span/></span>_<div>_</div></body>_</html>";
+        AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
+        AnaRendBlock firstChild_ = doc_.getFirstChild();
+        assertTrue(firstChild_ instanceof AnaRendStdElement);
+        assertEq(1,firstChild_.getOffset());
+        assertEq(5,firstChild_.getEndHeader());
+        assertTrue(firstChild_.getFirstChild() instanceof AnaRendStdElement);
+        assertEq(7,firstChild_.getFirstChild().getOffset());
+        assertEq(11,firstChild_.getFirstChild().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild() instanceof AnaRendStdElement);
+        assertEq(13,firstChild_.getFirstChild().getFirstChild().getOffset());
+        assertEq(17,firstChild_.getFirstChild().getFirstChild().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getFirstChild() instanceof AnaRendText);
+        assertEq(18,firstChild_.getFirstChild().getFirstChild().getFirstChild().getOffset());
+        assertEq(19,firstChild_.getFirstChild().getFirstChild().getFirstChild().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getFirstChild().getNextSibling() instanceof AnaRendStdElement);
+        assertEq(20,firstChild_.getFirstChild().getFirstChild().getFirstChild().getNextSibling().getOffset());
+        assertEq(25,firstChild_.getFirstChild().getFirstChild().getFirstChild().getNextSibling().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getNextSibling() instanceof AnaRendText);
+        assertEq(33,firstChild_.getFirstChild().getFirstChild().getNextSibling().getOffset());
+        assertEq(34,firstChild_.getFirstChild().getFirstChild().getNextSibling().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getNextSibling().getNextSibling() instanceof AnaRendStdElement);
+        assertEq(35,firstChild_.getFirstChild().getFirstChild().getNextSibling().getNextSibling().getOffset());
+        assertEq(38,firstChild_.getFirstChild().getFirstChild().getNextSibling().getNextSibling().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getFirstChild().getNextSibling().getNextSibling().getFirstChild() instanceof AnaRendText);
+        assertEq(39,firstChild_.getFirstChild().getFirstChild().getNextSibling().getNextSibling().getFirstChild().getOffset());
+        assertEq(40,firstChild_.getFirstChild().getFirstChild().getNextSibling().getNextSibling().getFirstChild().getEndHeader());
+        assertTrue(firstChild_.getFirstChild().getNextSibling() instanceof AnaRendText);
+        assertEq(53,firstChild_.getFirstChild().getNextSibling().getOffset());
+        assertEq(54,firstChild_.getFirstChild().getNextSibling().getEndHeader());
+    }
+    @Test
     public void process16Test() {
         String file_ = "";
         file_ += "<html attr='value'/>";

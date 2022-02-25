@@ -1155,20 +1155,19 @@ public abstract class OperationNode {
         methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalClass()), new FormattedFilter());
         return getCustIncrDecrResult(methods_, _name, _argsClass, _settable, _page);
     }
-    protected static ReversibleConversion tryGetPair(AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
+    protected static ReversibleConversion tryGetPair(String _settable,AnaClassArgumentMatching _argsClass, AnalyzedPageEl _page) {
         StringList conv_ = new StringList();
         conv_.add(_page.getAliasPrimInteger());
         conv_.add(_page.getAliasPrimLong());
         conv_.add(_page.getAliasPrimFloat());
         conv_.add(_page.getAliasPrimDouble());
         for (String p: conv_) {
-            AnaClassArgumentMatching r_ = new AnaClassArgumentMatching(p);
             ClassMethodIdReturn from_ = tryGetDeclaredImplicitCast(p, _argsClass, _page);
             if (from_ == null) {
                 continue;
             }
-            String param_ = from_.getRealId().getParametersType(1);
-            ClassMethodIdReturn to_ = tryGetDeclaredImplicitCast(param_, r_, _page);
+            AnaClassArgumentMatching r_ = new AnaClassArgumentMatching(p);
+            ClassMethodIdReturn to_ = tryGetDeclaredImplicitCast(_settable, r_, _page);
             if (to_ == null) {
                 continue;
             }

@@ -61,14 +61,10 @@ public abstract class ExecOperationNode {
 
     static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit, StackCall _stackCall) {
         ExecFormattedRootBlock formatted_ = StackCall.formatVarType(_stackCall, _implicits.getOwnerClass());
-        return processConverter(_conf, _right, _implicits, _indexImplicit, _stackCall, formatted_);
-    }
-
-    static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit, StackCall _stackCall, ExecFormattedRootBlock _formatted) {
         ExecTypeFunction c = _implicits.get(_indexImplicit);
         AbstractExiting ex_ = _conf.getExiting();
         ArgumentListCall l_ = new ArgumentListCall(Argument.getNullableValue(_right));
-        if (ExecExplicitOperation.checkCustomOper(ex_, c, _formatted, _conf, _right, _stackCall, l_)) {
+        if (ExecExplicitOperation.checkCustomOper(ex_, c, formatted_, _conf, _right, _stackCall, l_)) {
             return _indexImplicit;
         }
         return _indexImplicit +1;
