@@ -75,7 +75,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         DefFrameFactory frameFactory_ = new DefFrameFactory();
         this.frameFactory = frameFactory_;
         this.lightFrameFactory = frameFactory_;
-        streams = new TechStreams(new DefBinFact(new DefBinFactory()),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
+        streams = new TechStreams(new DefBinFact(new DefBinFactory(new DefaultInputStreamBuilder())),new DefTextFact(new DefTextFactory()),new DefZipFact(new DefZipFactory()));
         interceptor = new DefInterceptor(new DefErrGenerator());
         socketFactory = new DefSocketFactory();
         compoFactory = new DefCompoFactory();
@@ -268,7 +268,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
 
     @Override
     public AbstractImage readImg(String _file) {
-        byte[] bytes_ = StreamBinaryFile.loadFile(StringUtil.nullToEmpty(_file), getFileCoreStream(), getStreams());
+        byte[] bytes_ = StreamBinaryFile.loadFile(StringUtil.nullToEmpty(_file), getStreams());
         MemoryCacheImageInputStream mem_ = new MemoryCacheImageInputStream(new ByteArrayInputStream(bytes_));
         try {
             BufferedImage read_ = ImageIO.read(mem_);

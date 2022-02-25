@@ -2,6 +2,7 @@ package code.vi.sys.impl;
 
 import code.stream.core.AbstractBinFactory;
 import code.stream.core.AbstractBinStreamIn;
+import code.stream.core.AbstractInputStreamBuilder;
 import code.util.core.StringUtil;
 import code.vi.prot.impl.StreamCoreUtil;
 
@@ -9,9 +10,14 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 public final class DefBinFactory implements AbstractBinFactory {
+    private final AbstractInputStreamBuilder builder;
+    public DefBinFactory(AbstractInputStreamBuilder _builder) {
+        builder = _builder;
+    }
+
     @Override
     public AbstractBinStreamIn buildIn(String _filePath) {
-        return new DefBinStreamIn(_filePath);
+        return builder.build(_filePath);
     }
 
     @Override

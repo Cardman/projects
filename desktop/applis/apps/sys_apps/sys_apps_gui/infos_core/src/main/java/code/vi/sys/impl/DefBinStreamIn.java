@@ -1,15 +1,13 @@
 package code.vi.sys.impl;
 
-import code.stream.core.AbstractBinStreamIn;
 import code.util.core.StringUtil;
-import code.vi.prot.impl.StreamCoreUtil;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
-public final class DefBinStreamIn implements AbstractBinStreamIn {
-    private final InputStream reader;
+public final class DefBinStreamIn extends AbstractBinStreamInImpl {
     public DefBinStreamIn(String _fileName) {
-        reader = tryCreateFileInputStream(_fileName);
+        super(tryCreateFileInputStream(_fileName));
     }
 
     public static InputStream tryCreateFileInputStream(String _file) {
@@ -17,19 +15,6 @@ public final class DefBinStreamIn implements AbstractBinStreamIn {
             return new FileInputStream(StringUtil.nullToEmpty(_file));
         } catch (Exception e) {
             return null;
-        }
-    }
-    @Override
-    public boolean close() {
-        return StreamCoreUtil.close(reader);
-    }
-
-    @Override
-    public int read(byte[] _array, int _off, int _len) {
-        try {
-            return reader.read(_array, _off, _len);
-        } catch (Exception e) {
-            return -2;
         }
     }
 }

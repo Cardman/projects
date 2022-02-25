@@ -68,7 +68,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     @Override
     public byte[] loadFile(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
-        return StreamBinaryFile.loadFile(file_,fileCoreStream,streams);
+        return StreamBinaryFile.loadFile(file_, streams);
     }
 
     @Override

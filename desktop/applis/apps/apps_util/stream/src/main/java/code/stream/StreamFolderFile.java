@@ -73,7 +73,7 @@ public final class StreamFolderFile {
             }
             return new ReadFiles(zipFiles_, OutputType.FOLDER);
         }
-        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact,_zip);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder, _zip);
         return StreamZipFile.getZippedFiles(_app, bytes_, _zip.getZipFact());
     }
 
@@ -91,7 +91,7 @@ public final class StreamFolderFile {
                     }
                     continue;
                 }
-                byte[] contentOfFile_ = StreamBinaryFile.loadFile(f,_fact,_zip);
+                byte[] contentOfFile_ = StreamBinaryFile.loadFile(f, _zip);
                 if (contentOfFile_ == null) {
                     continue;
                 }
@@ -99,7 +99,7 @@ public final class StreamFolderFile {
             }
             return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.FOLDER);
         }
-        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder,_fact,_zip);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder, _zip);
         return StreamZipFile.getZippedBinFiles(bytes_, _zip.getZipFact());
     }
 

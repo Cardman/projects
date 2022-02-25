@@ -5,7 +5,6 @@ import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
 import code.stream.StreamBinaryFile;
-import code.stream.StreamTextFile;
 import code.util.StringMap;
 import code.converterimages.gui.CreateMainWindowConverter;
 import code.util.core.BoolVal;
@@ -24,7 +23,7 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
     }
 
     public BoolVal getObject(String _fileName) {
-        if (isBinary(StreamBinaryFile.loadFile(_fileName, getFrames().getFileCoreStream(), getFrames().getStreams()))) {
+        if (isBinary(StreamBinaryFile.loadFile(_fileName, getFrames().getStreams()))) {
             AbstractImage img_ = getFrames().readImg(_fileName);
             if (img_ != null) {
                 return BoolVal.TRUE;

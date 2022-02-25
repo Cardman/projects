@@ -58,7 +58,7 @@ public class LaunchingApplications extends SoftApplicationCore {
     protected final void launch(String _language, String[] _args) {
         StringList args_ = getFile(_args);
         if (!args_.isEmpty()) {
-            byte[] bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
+            byte[] bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getStreams());
             if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
                 AbstractImage img_ = getFrames().readImg(args_.first());
                 if (img_ != null) {

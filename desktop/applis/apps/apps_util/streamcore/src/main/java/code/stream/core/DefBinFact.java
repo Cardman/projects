@@ -12,22 +12,19 @@ public final class DefBinFact implements AbstractBinFact {
     }
 
     @Override
-    public byte[] loadFile(String _nomFichier, long _est) {
+    public byte[] loadFile(String _nomFichier) {
         AbstractBinStreamIn reader_ = textFactory.buildIn(_nomFichier);
-        int index_ = IndexConstants.FIRST_INDEX;
-        byte[] bytes_ = new byte[(int) _est];
         while (true) {
-            int read_ = reader_.read(bytes_, index_, (int) (_est - index_));
+            int read_ = reader_.read();
             if (read_ < IndexConstants.INDEX_NOT_FOUND_ELT) {
                 return null;
             }
-            if (read_ == IndexConstants.INDEX_NOT_FOUND_ELT || index_ == _est) {
+            if (read_ <= 0) {
                 break;
             }
-            index_ += read_;
         }
         reader_.close();
-        return bytes_;
+        return reader_.getBytes();
     }
 
     @Override

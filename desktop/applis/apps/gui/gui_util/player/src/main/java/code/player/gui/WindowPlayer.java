@@ -201,7 +201,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 //.wav or .txt
                 AbsClipStream c_;
                 if (songsList.get(noSong).endsWith(WAV)) {
-                    c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream(),getStreams()));
+                    c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()));
                 } else {
                     String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream(),getStreams());
                     c_ = openClip(txt_);
@@ -215,7 +215,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                         break;
                     }
                     if (songsList.get(noSong).endsWith(WAV)) {
-                        c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream(),getStreams()));
+                        c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()));
                     } else {
                         String txt_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream(),getStreams());
                         c_ = openClip(txt_);
@@ -283,7 +283,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 contentList = mainDoc_.export();
                 AbsClipStream c_;
                 if (songsList.get(noSong).endsWith(WAV)) {
-                    c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream(),getStreams()));
+                    c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()));
                 } else {
                     String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream(),getStreams());
                     c_ = openClip(txtIn_);
@@ -297,7 +297,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                         break;
                     }
                     if (songsList.get(noSong).endsWith(WAV)) {
-                        c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong),getFileCoreStream(),getStreams()));
+                        c_ = getFrames().openClip(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()));
                     } else {
                         String txtIn_ = StreamTextFile.contentsOfFile(songsList.get(noSong),getFileCoreStream(),getStreams());
                         c_ = openClip(txtIn_);
