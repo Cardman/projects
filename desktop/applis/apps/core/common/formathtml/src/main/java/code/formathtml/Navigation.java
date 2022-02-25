@@ -65,7 +65,7 @@ public final class Navigation {
     private HtmlPage htmlPage;
 
     public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad) {
-        DocumentResult res_ = DocumentBuilder.parseSaxHtmlRowCol(_cont);
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_cont);
         Document doc_ = res_.getDocument();
         return loadConfiguration(_lgCode, _lgNames, _fileBuilder, _confLoad, doc_);
     }

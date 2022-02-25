@@ -581,11 +581,7 @@ public final class DocumentBuilder {
     }
 
     public static String transformSpecialChars(String _htmlText, boolean _affectEamp, boolean _affectLtGt) {
-        StringMap<String> map_ = new StringMap<String>();
-        format1(map_);
-        addLtGt(_affectLtGt, map_);
-        format2(map_);
-        addEamp(_affectEamp, map_);
+        StringMap<String> map_ = possibleEncodes(_affectEamp, _affectLtGt);
         int length_ = _htmlText.length();
         StringBuilder str_ = new StringBuilder();
         int i_ = 0;
@@ -593,6 +589,21 @@ public final class DocumentBuilder {
         return AbstractEncodingText.encodeCommon(_htmlText, map_, length_, incr_);
     }
 
+    public static StringMap<String> possibleEncodes() {
+        return possibleEncodes(true,true);
+    }
+    public static StringMap<String> possibleEncodes(boolean _affectEamp, boolean _affectLtGt) {
+        StringMap<String> map_ = new StringMap<String>();
+        format(map_);
+        addLtGt(_affectLtGt, map_);
+        addEamp(_affectEamp, map_);
+        return map_;
+    }
+
+    private static void format(StringMap<String> _map) {
+        format1(_map);
+        format2(_map);
+    }
     private static void format2(StringMap<String> _map) {
         _map.put(E_APOS, StringUtil.simpleNumberFormat(ENCODE, (int)APOS));
         _map.put(E_U_OELIG, StringUtil.simpleNumberFormat(ENCODE, (int)U_OE_LIG));
@@ -864,10 +875,9 @@ public final class DocumentBuilder {
 
     public static String encodeHtml(String _htmlText) {
         StringMap<String> map_ = new StringMap<String>();
-        format1(map_);
+        format(map_);
         map_.put(E_LT, StringUtil.simpleNumberFormat(ENCODE, (int)LT));
         map_.put(E_GT, StringUtil.simpleNumberFormat(ENCODE, (int)GT));
-        format2(map_);
         map_.put(E_AMP, StringUtil.simpleNumberFormat(ENCODE, (int)ASCII_38));
         int length_ = _htmlText.length();
         StringBuilder str_ = new StringBuilder();

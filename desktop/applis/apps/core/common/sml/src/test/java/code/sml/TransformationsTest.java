@@ -127,6 +127,11 @@ public class TransformationsTest extends EquallableRowColUtil {
     }
 
     @Test
+    public void possibleEncodes() {
+        assertNotNull(DocumentBuilder.possibleEncodes());
+    }
+
+    @Test
     public void encodeToHtml2Test() {
         assertEq("&#233;", DocumentBuilder.encodeToHtml(String.valueOf(CharList.wrapCharArray((char)233))));
     }
