@@ -364,7 +364,6 @@ public class ListTest extends EquallableExUtil {
     }
     @Test
     public void simpleIterator1Test() {
-        assertTrue(new CharList().isEmpty());
         assertEq(0,CharList.wrapCharArray().length);
     }
 }

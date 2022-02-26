@@ -6,9 +6,9 @@ import code.util.CustList;
 public final class StackOperators {
     private final CustList<IndexStackOperator> values = new CustList<IndexStackOperator>();
     public boolean isEmptyStackSymChars() {
-        CharList ch_ = new CharList('{','[','(');
+        char[] ch_ = CharList.wrapCharArray('{','[','(');
         for (IndexStackOperator i: values) {
-            if (ch_.containsChar(i.getOperator())) {
+            if (CharList.containsChar(ch_,i.getOperator())) {
                 return false;
             }
         }

@@ -1025,7 +1025,7 @@ public final class StringUtil {
         wordsSepBeginEnd_ = new WordsSeparators();
         StringList words_ = new StringList();
         StringList separators_ = new StringList();
-        CharList metas_ = getMetaCharactersSpace();
+        char[] metas_ = getMetaCharactersSpace();
         feedSeparators(_string, wordsSepBeginEnd_, words_, separators_, metas_);
         int nbWords_=words_.size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbWords_; i++){
@@ -1037,7 +1037,7 @@ public final class StringUtil {
         return wordsSepBeginEnd_;
     }
 
-    private static void feedSeparators(String _string, WordsSeparators _wordsSeps, StringList _words, StringList _separators, CharList _metas) {
+    private static void feedSeparators(String _string, WordsSeparators _wordsSeps, StringList _words, StringList _separators, char[] _metas) {
         int begin_ = IndexConstants.FIRST_INDEX;
         while (true) {
             int minIndex_ = lowestIndexOfMetaChar(_string, begin_, _metas);
@@ -1075,7 +1075,7 @@ public final class StringUtil {
         wordsSepBeginEnd_ = new WordsSeparators();
         StringList words_ = new StringList();
         StringList separators_ = new StringList();
-        CharList metas_ = getMetaCharacters();
+        char[] metas_ = getMetaCharacters();
         feedSeparators(_string, wordsSepBeginEnd_, words_, separators_, metas_);
         int nbWords_=words_.size();
         for(int i = IndexConstants.FIRST_INDEX; i<nbWords_; i++){
@@ -1089,7 +1089,7 @@ public final class StringUtil {
 
     private static int lowestIndexOfMetaChar(String _string,
                                              int _begin,
-                                             CharList _metas) {
+                                             char[] _metas) {
         int minIndex_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         for (char s: _metas) {
             int index_ = indexOf(_string, _begin, s);
@@ -1107,10 +1107,10 @@ public final class StringUtil {
 
     private static int lowestIndexOfWordChar(String _string,
                                              int _minIndex,
-                                             CharList _metas) {
+                                             char[] _metas) {
         int ind_ = _minIndex;
         while (ind_ < _string.length()) {
-            if (!_metas.containsChar(_string.charAt(ind_))) {
+            if (!CharList.containsChar(_metas,_string.charAt(ind_))) {
                 break;
             }
             ind_++;
@@ -1133,12 +1133,12 @@ public final class StringUtil {
         return index_;
     }
 
-    private static CharList getMetaCharacters() {
-        return new CharList(CHARACTER, STRING, POSSIBLE_CHAR);
+    private static char[] getMetaCharacters() {
+        return CharList.wrapCharArray(CHARACTER, STRING, POSSIBLE_CHAR);
     }
 
-    private static CharList getMetaCharactersSpace() {
-        return new CharList(SPACE_CHAR);
+    private static char[] getMetaCharactersSpace() {
+        return CharList.wrapCharArray(SPACE_CHAR);
     }
 
     public static void retainAllElements(CustList<String> _strings, CustList<String> _c) {
@@ -1292,12 +1292,11 @@ public final class StringUtil {
 
     public static StringList splitChars(String _string, char... _separators) {
         StringList l_ = new StringList();
-        CharList cs_ = new CharList(_separators);
         int len_ = _string.length();
         StringBuilder str_ = new StringBuilder();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             char ch_ = _string.charAt(i);
-            if (cs_.containsChar(ch_)) {
+            if (CharList.containsChar(_separators,ch_)) {
                 l_.add(str_.toString());
                 str_ = new StringBuilder();
             } else {

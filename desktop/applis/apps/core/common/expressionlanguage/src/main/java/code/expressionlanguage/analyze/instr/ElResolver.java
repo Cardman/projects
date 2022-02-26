@@ -1682,7 +1682,7 @@ public final class ElResolver {
                 }
                 i_++;
             }
-            infos_.getStringInfo().getChars().add(curChar_);
+            infos_.getStringInfo().appendChar(curChar_);
             nbChars_++;
             infos_.setNbChars(nbChars_);
             i_++;
@@ -1711,7 +1711,7 @@ public final class ElResolver {
                 infos_.setIndex(i_);
                 return infos_;
             }
-            infos_.getStringInfo().getChars().add(curChar_);
+            infos_.getStringInfo().appendChar(curChar_);
             nbChars_++;
             infos_.setNbChars(nbChars_);
             i_++;
@@ -1726,7 +1726,7 @@ public final class ElResolver {
             } else {
                 char[] unicodes_ = infos_.getStringInfo().getBuiltUnicode();
                 char builtChar_ = NumParsers.parseCharSixteen(String.valueOf(unicodes_));
-                infos_.getStringInfo().getChars().add(builtChar_);
+                infos_.getStringInfo().appendChar(builtChar_);
                 unicode_ = 0;
                 nbChars_++;
                 escapedMeta_ = false;
@@ -1748,7 +1748,7 @@ public final class ElResolver {
             nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
-            infos_.getStringInfo().getChars().add(curChar_);
+            infos_.getStringInfo().appendChar(curChar_);
             i_++;
             infos_.setIndex(i_);
             return infos_;
@@ -1766,28 +1766,28 @@ public final class ElResolver {
             infos_.setEscape(false);
             if (StringUtil.quickEq(single_, newLine_)) {
                 i_+=newLine_.length();
-                infos_.getStringInfo().getChars().add(LINE_RETURN);
+                infos_.getStringInfo().appendChar(LINE_RETURN);
             } else if (StringUtil.quickEq(single_, form_)) {
                 i_+=form_.length();
-                infos_.getStringInfo().getChars().add(FORM_FEED);
+                infos_.getStringInfo().appendChar(FORM_FEED);
             } else if (StringUtil.quickEq(single_, rfeed_)) {
                 i_+=rfeed_.length();
-                infos_.getStringInfo().getChars().add(LINE_FEED);
+                infos_.getStringInfo().appendChar(LINE_FEED);
             } else if (StringUtil.quickEq(single_, tab_)) {
                 i_+=tab_.length();
-                infos_.getStringInfo().getChars().add(TAB);
+                infos_.getStringInfo().appendChar(TAB);
             } else if (StringUtil.quickEq(single_, space_)) {
                 i_+=tab_.length();
-                infos_.getStringInfo().getChars().add(SPACE);
+                infos_.getStringInfo().appendChar(SPACE);
             } else {
                 i_+=bound_.length();
-                infos_.getStringInfo().getChars().add(BOUND);
+                infos_.getStringInfo().appendChar(BOUND);
             }
             infos_.setIndex(i_);
             return infos_;
         }
         if (curChar_ == ESCAPE_META_CHAR) {
-            infos_.getStringInfo().getChars().add(ESCAPE_META_CHAR);
+            infos_.getStringInfo().appendChar(ESCAPE_META_CHAR);
             nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
@@ -1798,7 +1798,7 @@ public final class ElResolver {
         String unicodeStr_ = _key.getKeyWordEscUnicode();
         if (!_string.startsWith(unicodeStr_,i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
             _si.setKo();
-            infos_.getStringInfo().getChars().add(curChar_);
+            infos_.getStringInfo().appendChar(curChar_);
             nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
@@ -1877,9 +1877,9 @@ public final class ElResolver {
                     && StringExpUtil.nextCharIs(_string,i_+2,_string.length(),_delimiter)) {
                 int lastSpace_ = infos_.getTextInfo().getLastSpace();
                 if (lastSpace_ > -1) {
-                    int lastIndex_ = infos_.getTextInfo().getChars().size()-1;
+                    int lastIndex_ = infos_.getTextInfo().length()-1;
                     for (int i = lastIndex_; i >= lastSpace_; i--) {
-                        infos_.getTextInfo().getChars().remove(i);
+                        infos_.getTextInfo().remove(i);
                     }
                 }
                 infos_.setPart(false);
@@ -1892,13 +1892,13 @@ public final class ElResolver {
                 infos_.getTextInfo().setLine(true);
                 int lastSpace_ = infos_.getTextInfo().getLastSpace();
                 if (lastSpace_ > -1) {
-                    int lastIndex_ = infos_.getTextInfo().getChars().size()-1;
+                    int lastIndex_ = infos_.getTextInfo().length()-1;
                     for (int i = lastIndex_; i >= lastSpace_; i--) {
-                        infos_.getTextInfo().getChars().remove(i);
+                        infos_.getTextInfo().remove(i);
                     }
                 }
                 if (line_) {
-                    infos_.getTextInfo().getChars().add(curChar_);
+                    infos_.getTextInfo().appendChar(curChar_);
                     nbChars_++;
                     infos_.setNbChars(nbChars_);
                 }
@@ -1906,14 +1906,14 @@ public final class ElResolver {
                 infos_.getTextInfo().setLastSpace(-1);
             } else if (StringUtil.isWhitespace(curChar_)) {
                 if (infos_.getTextInfo().isPrintable()) {
-                    infos_.getTextInfo().setLastSpace(infos_.getTextInfo().getChars().size());
-                    infos_.getTextInfo().getChars().add(curChar_);
+                    infos_.getTextInfo().setLastSpace(infos_.getTextInfo().length());
+                    infos_.getTextInfo().appendChar(curChar_);
                     nbChars_++;
                     infos_.setNbChars(nbChars_);
                 }
             } else {
                 infos_.getTextInfo().setLastSpace(-1);
-                infos_.getTextInfo().getChars().add(curChar_);
+                infos_.getTextInfo().appendChar(curChar_);
                 infos_.getTextInfo().setPrintable(true);
                 nbChars_++;
                 infos_.setNbChars(nbChars_);
@@ -1931,7 +1931,7 @@ public final class ElResolver {
             } else {
                 char[] unicodes_ = infos_.getTextInfo().getBuiltUnicode();
                 char builtChar_ = NumParsers.parseCharSixteen(String.valueOf(unicodes_));
-                infos_.getTextInfo().getChars().add(builtChar_);
+                infos_.getTextInfo().appendChar(builtChar_);
                 infos_.getTextInfo().setPrintable(true);
                 unicode_ = 0;
                 nbChars_++;
@@ -1948,7 +1948,7 @@ public final class ElResolver {
             nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
-            infos_.getTextInfo().getChars().add(curChar_);
+            infos_.getTextInfo().appendChar(curChar_);
             infos_.getTextInfo().setPrintable(true);
             i_++;
             infos_.setIndex(i_);
@@ -1974,29 +1974,29 @@ public final class ElResolver {
             infos_.setEscape(false);
             if (StringUtil.quickEq(single_, newLine_)) {
                 i_+=newLine_.length();
-                infos_.getTextInfo().getChars().add(LINE_RETURN);
+                infos_.getTextInfo().appendChar(LINE_RETURN);
             } else if (StringUtil.quickEq(single_, form_)) {
                 i_+=form_.length();
-                infos_.getTextInfo().getChars().add(FORM_FEED);
+                infos_.getTextInfo().appendChar(FORM_FEED);
             } else if (StringUtil.quickEq(single_, rfeed_)) {
                 i_+=rfeed_.length();
-                infos_.getTextInfo().getChars().add(LINE_FEED);
+                infos_.getTextInfo().appendChar(LINE_FEED);
             } else if (StringUtil.quickEq(single_, tab_)) {
                 i_+=tab_.length();
-                infos_.getTextInfo().getChars().add(TAB);
+                infos_.getTextInfo().appendChar(TAB);
             } else if (StringUtil.quickEq(single_, space_)) {
                 i_+=tab_.length();
-                infos_.getTextInfo().getChars().add(SPACE);
+                infos_.getTextInfo().appendChar(SPACE);
             } else {
                 i_+=bound_.length();
-                infos_.getTextInfo().getChars().add(BOUND);
+                infos_.getTextInfo().appendChar(BOUND);
             }
             infos_.getTextInfo().setPrintable(true);
             infos_.setIndex(i_);
             return infos_;
         }
         if (curChar_ == ESCAPE_META_CHAR) {
-            infos_.getTextInfo().getChars().add(ESCAPE_META_CHAR);
+            infos_.getTextInfo().appendChar(ESCAPE_META_CHAR);
             infos_.getTextInfo().setPrintable(true);
             nbChars_++;
             infos_.setNbChars(nbChars_);
@@ -2008,7 +2008,7 @@ public final class ElResolver {
         String unicodeStr_ = _key.getKeyWordEscUnicode();
         if (!_string.startsWith(unicodeStr_,i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
             _si.setKo();
-            infos_.getTextInfo().getChars().add(curChar_);
+            infos_.getTextInfo().appendChar(curChar_);
             nbChars_++;
             infos_.setNbChars(nbChars_);
             infos_.setEscape(false);
@@ -2341,19 +2341,15 @@ public final class ElResolver {
         end_ = _d.getDelStringsChars().indexOfNb((long)lastPrintChar_+_offset);
         if (delimits(begin_, end_)) {
             StringInfo info_ = _d.getStringInfo().get(begin_/2);
-            CharList list_ = info_.getChars();
-            int lenStr_ = list_.size();
-            char[] str_ = new char[lenStr_];
-            for (int i = 0; i < lenStr_; i++) {
-                str_[i] = list_.get(i);
-            }
+            StringBuilder list_ = info_.getChars();
+            String export_ = list_.toString();
             if (_string.charAt(firstPrintChar_) == DELIMITER_CHAR) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CHARACTER);
                 op_.setOperators(new StrTypes());
                 op_.setStrInfo(info_);
                 info_.setFound(_string);
-                op_.setValue(String.valueOf(str_), firstPrintChar_);
+                op_.setValue(export_, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -2363,7 +2359,7 @@ public final class ElResolver {
                 op_.setOperators(new StrTypes());
                 op_.setStrInfo(info_);
                 info_.setFound(_string);
-                op_.setValue(String.valueOf(str_), firstPrintChar_);
+                op_.setValue(export_, firstPrintChar_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -2372,7 +2368,7 @@ public final class ElResolver {
             op_.setOperators(new StrTypes());
             op_.setStrInfo(info_);
             info_.setFound(_string);
-            op_.setValue(String.valueOf(str_), firstPrintChar_);
+            op_.setValue(export_, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -2380,18 +2376,14 @@ public final class ElResolver {
         end_ = _d.getDelTextBlocks().indexOfNb((long)lastPrintChar_+_offset);
         if (delimits(begin_, end_)) {
             TextBlockInfo info_ = _d.getTextInfo().get(begin_/2);
-            CharList list_ = info_.getChars();
-            int lenStr_ = list_.size();
-            char[] str_ = new char[lenStr_];
-            for (int i = 0; i < lenStr_; i++) {
-                str_[i] = list_.get(i);
-            }
+            StringBuilder list_ = info_.getChars();
+            String export_ = list_.toString();
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.TEXT_BLOCK);
             op_.setOperators(new StrTypes());
             op_.setTextInfo(info_);
             info_.setFound(_string);
-            op_.setValue(String.valueOf(str_), firstPrintChar_);
+            op_.setValue(export_, firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }

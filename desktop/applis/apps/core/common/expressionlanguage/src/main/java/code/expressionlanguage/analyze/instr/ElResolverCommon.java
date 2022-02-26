@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.SuffixedNumber;
 import code.util.CharList;
 import code.util.Ints;
 import code.util.core.StringUtil;
@@ -89,12 +90,12 @@ public final class ElResolverCommon {
             if (startChar_ == '0') {
                 String sub_ = _string.substring(start_ + 1);
                 if (start_ + 1 < _max) {
-                    String suff_ = _key.getNbKeyWord(sub_, 0);
+                    SuffixedNumber suff_ = _key.getNbKeyWord(sub_, 0);
                     if (suff_ != null) {
-                        char ch_ = _key.getSuffixes().getVal(suff_);
+                        char ch_ = suff_.getValue();
                         nbInfos_.setSuffix(ch_);
                         intPart_.append(startChar_);
-                        output_.setNextIndex(start_ + 1 + suff_.length());
+                        output_.setNextIndex(start_ + 1 + suff_.getKey().length());
                         return output_;
                     }
                     if (sub_.startsWith(hexPre_)) {
@@ -318,10 +319,10 @@ public final class ElResolverCommon {
     private static void processDotSuffix(KeyWords _key, int _base, String _sub, String _hexPre, String _string,
                                          NumberInfosOutput _output, NumberInfos _nbInfos, int _j, int _max) {
         int j_ = incrSep(_j,_base,_sub,_hexPre);
-        String suff_ = _key.getNbKeyWord(_string, j_);
+        SuffixedNumber suff_ = _key.getNbKeyWord(_string, j_);
         if (suff_ != null) {
-            j_ +=suff_.length();
-            char su_ = _key.getSuffixes().getVal(suff_);
+            j_ +=suff_.getKey().length();
+            char su_ = suff_.getValue();
             _nbInfos.setSuffix(su_);
         }
         j_ = nextIndex(_key,j_, _max, _string, _output, _nbInfos.getDecimalPart());
@@ -329,13 +330,13 @@ public final class ElResolverCommon {
     }
 
     private static boolean processSuffix(KeyWords _key, String _string, NumberInfosOutput _output, NumberInfos _nbInfos, int _j) {
-        String suff_ = _key.getNbKeyWord(_string, _j);
+        SuffixedNumber suff_ = _key.getNbKeyWord(_string, _j);
         if (suff_ == null) {
             return false;
         }
-        char ch_ = _key.getSuffixes().getVal(suff_);
+        char ch_ = suff_.getValue();
         _nbInfos.setSuffix(ch_);
-        int n_ = _j + suff_.length();
+        int n_ = _j + suff_.getKey().length();
         boolean ok_ = processedCorrectOrContinue(_string, n_);
         if (ok_) {
             _output.setNextIndex(n_);
@@ -441,11 +442,11 @@ public final class ElResolverCommon {
             return;
         }
         if (j_ < _max && StringDataLetterUtil.isLetter(_string.charAt(j_))) {
-            String keyWord_ = _key.getNbKeyWord(_string, j_);
+            SuffixedNumber keyWord_ = _key.getNbKeyWord(_string, j_);
             if (keyWord_ != null) {
-                char suf_ = _key.getSuffixes().getVal(keyWord_);
+                char suf_ = keyWord_.getValue();
                 _output.getInfos().setSuffix(suf_);
-                j_+=keyWord_.length();
+                j_+=keyWord_.getKey().length();
             }
         }
         j_ = nextIndex(_key,j_, _max, _string, _output, exp_);

@@ -1,15 +1,23 @@
 package code.expressionlanguage.analyze.instr;
 
-import code.util.CharList;
 
 public abstract class CharSeqBlockInfo {
-    private final CharList chars = new CharList();
+    private final StringBuilder chars = new StringBuilder();
     private String found;
     private boolean ko;
     private final char[] builtUnicode = new char[4];
 
+    public int length() {
+        return chars.length();
+    }
+    public void remove(int _index){
+        chars.deleteCharAt(_index);
+    }
+    public void appendChar(char _char) {
+        chars.append(_char);
+    }
 
-    public CharList getChars() {
+    public StringBuilder getChars() {
         return chars;
     }
 

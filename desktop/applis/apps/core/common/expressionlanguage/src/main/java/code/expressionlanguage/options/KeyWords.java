@@ -762,31 +762,45 @@ public final class KeyWords {
     public boolean isKeyWord(String _word) {
         return StringUtil.contains(allKeyWords().values(), _word);
     }
-    public StringMap<Character> getSuffixes() {
-        StringMap<Character> keyWords_ = new StringMap<Character>();
-        keyWords_.addEntry(keyWordNbSufDoublePrim,'d');
-        keyWords_.addEntry(keyWordNbSufDouble,'D');
-        keyWords_.addEntry(keyWordNbSufFloatPrim,'f');
-        keyWords_.addEntry(keyWordNbSufFloat,'F');
-        keyWords_.addEntry(keyWordNbSufLongPrim,'l');
-        keyWords_.addEntry(keyWordNbSufLong,'L');
-        keyWords_.addEntry(keyWordNbSufIntegerPrim,'i');
-        keyWords_.addEntry(keyWordNbSufInteger,'I');
-        keyWords_.addEntry(keyWordNbSufCharacterPrim,'c');
-        keyWords_.addEntry(keyWordNbSufCharacter,'C');
-        keyWords_.addEntry(keyWordNbSufShortPrim,'s');
-        keyWords_.addEntry(keyWordNbSufShort,'S');
-        keyWords_.addEntry(keyWordNbSufBytePrim,'b');
-        keyWords_.addEntry(keyWordNbSufByte,'B');
-        return keyWords_;
-    }
-    public String getNbKeyWord(String _string, int _from) {
-        StringMap<String> keyWords_ = allNbWords(new StringMap<String>());
-        StringList list_ = new StringList();
-        for (String k: keyWords_.values()) {
+
+    public SuffixedNumber getNbKeyWord(String _string, int _from) {
+        CustList<String> keyWords_ = new CustList<String>();
+        keyWords_.add(keyWordNbSufDoublePrim);
+        keyWords_.add(keyWordNbSufDouble);
+        keyWords_.add(keyWordNbSufFloatPrim);
+        keyWords_.add(keyWordNbSufFloat);
+        keyWords_.add(keyWordNbSufLongPrim);
+        keyWords_.add(keyWordNbSufLong);
+        keyWords_.add(keyWordNbSufIntegerPrim);
+        keyWords_.add(keyWordNbSufInteger);
+        keyWords_.add(keyWordNbSufCharacterPrim);
+        keyWords_.add(keyWordNbSufCharacter);
+        keyWords_.add(keyWordNbSufShortPrim);
+        keyWords_.add(keyWordNbSufShort);
+        keyWords_.add(keyWordNbSufBytePrim);
+        keyWords_.add(keyWordNbSufByte);
+        SuffixedNumbers suff_ = new SuffixedNumbers();
+        suff_.addEntry(keyWordNbSufDoublePrim,'d');
+        suff_.addEntry(keyWordNbSufDouble,'D');
+        suff_.addEntry(keyWordNbSufFloatPrim,'f');
+        suff_.addEntry(keyWordNbSufFloat,'F');
+        suff_.addEntry(keyWordNbSufLongPrim,'l');
+        suff_.addEntry(keyWordNbSufLong,'L');
+        suff_.addEntry(keyWordNbSufIntegerPrim,'i');
+        suff_.addEntry(keyWordNbSufInteger,'I');
+        suff_.addEntry(keyWordNbSufCharacterPrim,'c');
+        suff_.addEntry(keyWordNbSufCharacter,'C');
+        suff_.addEntry(keyWordNbSufShortPrim,'s');
+        suff_.addEntry(keyWordNbSufShort,'S');
+        suff_.addEntry(keyWordNbSufBytePrim,'b');
+        suff_.addEntry(keyWordNbSufByte,'B');
+        CustList<SuffixedNumber> list_ = new CustList<SuffixedNumber>();
+        int index_ = 0;
+        for (String k: keyWords_) {
             if (StringExpUtil.startsWithKeyWord(_string,_from, k)) {
-                list_.add(k);
+                list_.add(suff_.get(index_));
             }
+            index_++;
         }
         if (list_.isEmpty()) {
             return null;
