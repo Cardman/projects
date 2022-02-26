@@ -162,7 +162,7 @@ public abstract class ExecOperationNode {
                 return par_.getOrder();
             }
         }
-        if (safeDotShort(_value, par_)) {
+        if (safeDotShort(_value, index_, par_ instanceof ExecSafeDotOperation)) {
             ExecOperationNode last_ = ExecHelper.getLastNode(par_);
             if (!(last_ instanceof ExecAbstractLambdaOperation)) {
                 return shortCutNul(par_, last_, par_.getOrder());
@@ -185,6 +185,10 @@ public abstract class ExecOperationNode {
         return _operation.getOrder() + 1;
     }
 
+    public static boolean safeDotShort(Struct _value, int _index, boolean _inst) {
+        return _index == 0 && safeDotShort(_value, _inst);
+    }
+
     public static ExecOperationNode ancSettable(ExecAbstractAffectOperation _compo, ExecOperationNode _operation) {
         ExecOperationNode cur_ = _compo.getSettable();
         while (cur_ != null) {
@@ -204,8 +208,8 @@ public abstract class ExecOperationNode {
         return _par instanceof ExecNullSafeOperation && _value != NullStruct.NULL_VALUE;
     }
 
-    private static boolean safeDotShort(Struct _value, ExecMethodOperation _par) {
-        return _par instanceof ExecSafeDotOperation && _value == NullStruct.NULL_VALUE;
+    private static boolean safeDotShort(Struct _value, boolean _inst) {
+        return _inst && _value == NullStruct.NULL_VALUE;
     }
 
     private static int shortCutNul(ExecMethodOperation _par, ExecOperationNode _last, int _order) {

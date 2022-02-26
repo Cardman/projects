@@ -136,7 +136,7 @@ public abstract class RendDynOperationNode {
                 return par_.getOrder();
             }
         }
-        if (par_ instanceof RendSafeDotOperation && _value == NullStruct.NULL_VALUE) {
+        if (ExecOperationNode.safeDotShort(_value,index_,par_ instanceof RendSafeDotOperation)) {
             RendDynOperationNode last_ = par_.getChildrenNodes().last();
             if (!(last_ instanceof RendAbstractLambdaOperation)) {
                 return shortCutNul(par_, last_, par_.getOrder());
