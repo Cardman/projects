@@ -1,16 +1,17 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
-import code.expressionlanguage.analyze.opers.util.ReversibleConversion;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
@@ -70,34 +71,48 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         settable.setVariable(false);
         StrTypes ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
-        ClassMethodIdReturn cl_ = getIncrDecrOperatorOrMethod(this,leftEl_,settable, op_, _page);
-        if (cl_ != null) {
-            fct.infos(cl_);
-            return;
-        }
-        AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
-        if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
-            ReversibleConversion reversibleConversion_ = tryGetPair(settable.getResultClass().getSingleNameOrEmpty(), clMatchLeft_, _page);
-            if (reversibleConversion_ != null) {
-                convFrom.infos(reversibleConversion_.getFrom());
-                convTo.infos(reversibleConversion_.getTo());
-            } else {
-                Mapping mapping_ = new Mapping();
-                mapping_.setArg(clMatchLeft_);
-                mapping_.setParam(_page.getAliasLong());
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
-                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                //operator
-                cast_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                        StringUtil.join(clMatchLeft_.getNames(), ExportCst.JOIN_TYPES));
-                _page.getLocalizer().addError(cast_);
-                addErr(cast_.getBuiltError());
+        OperatorConverter cl_ = getIncrDecrOperatorOrMethod(this,leftEl_,settable, op_, _page);
+        if (cl_ != null) {
+            fct.infos(cl_,_page);
+            ClassMethodIdReturn test_ = null;
+            Mapping map_ = new Mapping();
+            map_.setArg(getResultClass());
+            map_.setParam(settable.getResultClass());
+            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(settable.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
+                if (res_ != null) {
+                    convTo.infos(res_);
+                    test_ = cl_.getTest();
+                } else {
+                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    //oper len
+                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                            StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
+                            StringUtil.join(settable.getResultClass().getNames(),ExportCst.JOIN_TYPES));
+                    _page.getLocalizer().addError(cast_);
+                    addErr(cast_.getBuiltError());
+                }
+                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(), _page), _page.getPrimitiveTypes()));
+            }
+            if (test_ != null) {
+                convFrom.infos(test_);
             }
             return;
         }
-        addErrIfNotSettable(operatorContent.getOper(),AffectationOperation.getFirstToBeAnalyzed(this),_page);
+        AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
+        if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
+            FoundErrorInterpret cast_ = new FoundErrorInterpret();
+            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            //operator
+            cast_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    StringUtil.join(clMatchLeft_.getNames(), ExportCst.JOIN_TYPES));
+            _page.getLocalizer().addError(cast_);
+            addErr(cast_.getBuiltError());
+        }
         clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());
     }
 
