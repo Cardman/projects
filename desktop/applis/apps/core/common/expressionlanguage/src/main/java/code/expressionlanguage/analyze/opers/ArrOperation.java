@@ -176,8 +176,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             staticChoiceMethod = staticChoiceMethod_;
             anc = clMeth_.getAncestor();
             callFctContent.update(clMeth_);
-            MethodId id_ = clMeth_.getRealId();
-            unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
             setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()));
             return;
         }

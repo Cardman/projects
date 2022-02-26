@@ -138,9 +138,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             }
             callFctContent.update(clMeth_);
             trueFalse = true;
-            MethodId id_ = clMeth_.getRealId();
             staticMethod = true;
-            unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
@@ -171,7 +169,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         }
         MethodId id_ = clMeth_.getRealId();
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
     }
 

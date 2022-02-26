@@ -394,8 +394,6 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
         setResultClass(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()));
         callFctContent.update(cust_);
-        MethodId realId_ = cust_.getRealId();
-        unwrapArgsFct(realId_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), _name.getAll(), _page);
         return cust_;
     }
 

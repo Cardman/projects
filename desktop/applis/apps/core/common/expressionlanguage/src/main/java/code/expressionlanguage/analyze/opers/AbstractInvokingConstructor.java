@@ -107,7 +107,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             invokingConstructorContent.setNaturalVararg(nbParams_ - 1);
             invokingConstructorContent.setLastType(constId.getParametersType(nbParams_ - 1));
         }
-        unwrapArgsFct(constId, invokingConstructorContent.getNaturalVararg(), invokingConstructorContent.getLastType(), _args.getAll(), _page);
+        unwrapArgsFct(_res, _args.getAll(), _page);
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 

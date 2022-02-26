@@ -2,10 +2,11 @@ package code.expressionlanguage.analyze.opers.util;
 
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardType;
 
-public final class ConstrustorIdVarArg {
+public final class ConstrustorIdVarArg implements AbsPossibleVarArg {
 
     private ConstructorId realId;
     private AnaTypeFct pair;
@@ -18,6 +19,11 @@ public final class ConstrustorIdVarArg {
     private String fileName;
     private AnaFormattedRootBlock formattedType;
     private MemberId memberId = new MemberId();
+
+    @Override
+    public Identifiable ident() {
+        return getRealId();
+    }
 
     public ConstructorId getRealId() {
         return realId;

@@ -1116,7 +1116,7 @@ public abstract class OperationNode {
         if (!(found_ instanceof MethodInfo)) {
             return null;
         }
-        return res(_filter, (MethodInfo) found_);
+        return res(_filter, (MethodInfo) found_,_page);
     }
 
     protected static ClassMethodIdReturn tryGetDeclaredCustMethod(StringList _classes, String _name,
@@ -1249,10 +1249,7 @@ public abstract class OperationNode {
         CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, operand_);
         ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, single_, _page);
         if (clMethImp_ != null) {
-            CustList<OperationNode> chidren_ = _node.getChildrenNodes();
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            MethodId id_ = clMethImp_.getRealId();
-            InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
             return new OperatorConverter(clMethImp_);
         }
         ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _page);
@@ -1327,10 +1324,7 @@ public abstract class OperationNode {
         CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, operand_);
         ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, single_, _page);
         if (clMethImp_ != null) {
-            CustList<OperationNode> chidren_ = _node.getChildrenNodes();
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            MethodId realId_ = clMethImp_.getRealId();
-            InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
             return new OperatorConverter(clMethImp_);
         }
         ClassMethodIdReturn clId_ = getCustomIncrDecrOperatorOrMethod(_node, _operand, _settable, _op, _page);
@@ -1368,6 +1362,11 @@ public abstract class OperationNode {
             }
             CustList<ClassMethodIdReturn> locList_ = firstList(implicits_);
             ClassMethodIdReturn loc_ = firstElt(locList_);
+            if (loc_ != null) {
+                CustList<CustList<AnaFormattedRootBlock>> impls_ = new CustList<CustList<AnaFormattedRootBlock>>();
+                impls_.add(new CustList<AnaFormattedRootBlock>(loc_.getFormattedType()));
+                InvokingOperation.unwrapArgsFctImpl(loc_,impls_,single_,_page);
+            }
             if (found_ instanceof MethodInfo) {
                 MethodInfo m_ = (MethodInfo) found_;
 //                CustList<OperationNode> allOps_ = m_.getAllOps();
@@ -1430,8 +1429,6 @@ public abstract class OperationNode {
         if (clMethImp_ != null) {
             CustList<OperationNode> chidren_ = _node.getChildrenNodes();
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            MethodId id_ = clMethImp_.getRealId();
-            InvokingOperation.unwrapArgsFct(id_, -1, EMPTY_STRING, chidren_, _page);
             OperatorConverter op_ = new OperatorConverter(clMethImp_);
             op_.setTest(test_);
             return op_;
@@ -1535,16 +1532,12 @@ public abstract class OperationNode {
                 chidren_, _page);
         if (clMeth_ != null) {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            MethodId realId_ = clMeth_.getRealId();
-            InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
             return clMeth_;
         }
         //implicit use of operator key word
         ClassMethodIdReturn cust_ = getOperator(_op, chidren_, _page);
         if (cust_ != null) {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            MethodId realId_ = cust_.getRealId();
-            InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, chidren_, _page);
             return cust_;
         }
         return null;
@@ -1556,15 +1549,13 @@ public abstract class OperationNode {
                 _arg.getResultClass(),_settable.getResultClass(), _page);
         if (clMeth_ != null) {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            MethodId realId_ = clMeth_.getRealId();
-            InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, new CustList<OperationNode>(_arg), _page);
+            InvokingOperation.unwrapArgsFct(clMeth_, new CustList<OperationNode>(_arg), _page);
             return clMeth_;
         }
         ClassMethodIdReturn cust_ = getIncrDecrOperator(_op, _arg.getResultClass(),_settable.getResultClass(), _page);
         if (cust_ != null) {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            MethodId realId_ = cust_.getRealId();
-            InvokingOperation.unwrapArgsFct(realId_, -1, EMPTY_STRING, new CustList<OperationNode>(_arg), _page);
+            InvokingOperation.unwrapArgsFct(cust_, new CustList<OperationNode>(_arg), _page);
             return cust_;
         }
         return null;
@@ -1694,7 +1685,7 @@ public abstract class OperationNode {
         if (!(found_ instanceof MethodInfo)) {
             return null;
         }
-        return res(_filter, (MethodInfo) found_);
+        return res(_filter, (MethodInfo) found_, _page);
     }
 
     static ClassMethodIdReturn getOperatorLambda(ClassMethodId _cl, int _varargOnly,
@@ -2496,17 +2487,19 @@ public abstract class OperationNode {
         if (!(found_ instanceof MethodInfo)) {
             return null;
         }
-        return res(name_, (MethodInfo) found_);
+        return res(name_, (MethodInfo) found_,_page);
     }
 
-    private static ClassMethodIdReturn res(NameParametersFilter _filter, MethodInfo _found) {
+    private static ClassMethodIdReturn res(NameParametersFilter _filter, MethodInfo _found, AnalyzedPageEl _page) {
         pats(_filter, _found);
         CustList<CustList<ClassMethodIdReturn>> implicits_ = _found.getImplicits();
         CustList<OperationNode> allOps_ = _found.getAllOps();
         feedImplicitsInfos(implicits_, allOps_);
         namedParams(_filter, _found);
         MethodId id_ = _found.getFormatted();
-        return buildResult(_found, id_);
+        ClassMethodIdReturn res_ = buildResult(_found, id_);
+        InvokingOperation.unwrapArgsFct(res_,allOps_,_page);
+        return res_;
     }
 
     private static void namedParams(NameParametersFilter _filter, MethodInfo _m) {

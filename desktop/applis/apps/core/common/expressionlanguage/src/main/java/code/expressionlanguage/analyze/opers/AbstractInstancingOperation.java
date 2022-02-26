@@ -589,7 +589,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             setNaturalVararg(nbParams_ - 1);
             setLastType(instancingCommonContent_.getConstId().getParametersType(nbParams_ - 1));
         }
-        unwrapArgsFct(instancingCommonContent_.getConstId(), getNaturalVararg(), getLastType(), _name.getAll(), _page);
+        unwrapArgsFct(_ctorRes, _name.getAll(), _page);
     }
 
 

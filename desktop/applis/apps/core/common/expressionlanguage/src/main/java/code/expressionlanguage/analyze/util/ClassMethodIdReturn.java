@@ -1,13 +1,15 @@
 package code.expressionlanguage.analyze.util;
 
 
+import code.expressionlanguage.analyze.opers.util.AbsPossibleVarArg;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
 
-public final class ClassMethodIdReturn {
+public final class ClassMethodIdReturn implements AbsPossibleVarArg {
 
     private ClassMethodId id;
     private MethodId realId;
@@ -32,6 +34,11 @@ public final class ClassMethodIdReturn {
 
     public void setId(ClassMethodId _id) {
         id = _id;
+    }
+
+    @Override
+    public Identifiable ident() {
+        return getRealId();
     }
 
     public MethodId getRealId() {

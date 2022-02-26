@@ -232,10 +232,8 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             }
             callFctContent.update(clMeth_);
             trueFalse = true;
-            MethodId id_ = clMeth_.getRealId();
             staticChoiceMethod = staticChoiceMethod_;
             staticMethod = true;
-            unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
@@ -270,7 +268,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         MethodId id_ = clMeth_.getRealId();
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
-        unwrapArgsFct(id_, callFctContent.getNaturalVararg(), callFctContent.getLastType(), name_.getAll(), _page);
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
     }
 

@@ -805,10 +805,30 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return bounds_;
     }
 
-    static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<OperationNode> _args, AnalyzedPageEl _page) {
+    static void unwrapArgsFct(AbsPossibleVarArg _res, CustList<OperationNode> _args, AnalyzedPageEl _page) {
+        CustList<CustList<AnaFormattedRootBlock>> impls_ = new CustList<CustList<AnaFormattedRootBlock>>();
+        for (OperationNode o: _args) {
+            impls_.add(o.getResultClass().getImplicits());
+        }
+        unwrapArgsFctImpl(_res,impls_,_args,_page);
+    }
+    static void unwrapArgsFctImpl(AbsPossibleVarArg _res, CustList<CustList<AnaFormattedRootBlock>> _impl, CustList<OperationNode> _args, AnalyzedPageEl _page) {
+        Identifiable id_ = _res.ident();
+        int natvarag_ = -1;
+        String lastType_ = "";
+        if (_res.isVarArgToCall()) {
+            natvarag_ = id_.getParametersTypesLength() - 1;
+            lastType_ = id_.getParametersType(natvarag_);
+        }
+        unwrapArgsFct(id_,natvarag_,lastType_, _impl,_args,_page);
+    }
+    static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<CustList<AnaFormattedRootBlock>> _impl, CustList<OperationNode> _args, AnalyzedPageEl _page) {
         if (_natvararg > -1) {
             int lenCh_ = _args.size();
             for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
+                if (!_impl.get(i).isEmpty()) {
+                    continue;
+                }
                 OperationNode a_ = _args.get(i);
                 if (i >= _natvararg) {
                     if (AnaTypeUtil.isPrimitive(_lasttype, _page)) {
@@ -824,6 +844,9 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         } else {
             int lenCh_ = _args.size();
             for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
+                if (!_impl.get(i).isEmpty()) {
+                    continue;
+                }
                 OperationNode a_ = _args.get(i);
                 String param_ = _id.getParametersType(i);
                 if (i + 1 == lenCh_ && _id.isVararg()) {
