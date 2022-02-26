@@ -55,7 +55,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    un_.setFile(_page.getCurrentFile());
                     //after first arg separator len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(clMatch_.getNames(),ExportCst.JOIN_TYPES));

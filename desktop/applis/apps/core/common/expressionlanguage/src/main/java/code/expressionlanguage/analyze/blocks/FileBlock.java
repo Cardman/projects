@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.files.StringComment;
+import code.expressionlanguage.common.AbstractFileEscapedCalc;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
@@ -40,12 +41,18 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     private final StringList packages = new StringList();
     private int length;
     private int numberFile;
+    private final AbstractFileEscapedCalc fileEscapedCalc;
 
-    public FileBlock(int _offset, boolean _predefined, String _fileName) {
+    public FileBlock(int _offset, boolean _predefined, String _fileName, AbstractFileEscapedCalc _fileEscapedCalc) {
         super(_offset);
         metricsCore = new FileMetricsCore(new Ints(),new Ints());
         predefined = _predefined;
         fileName = _fileName;
+        fileEscapedCalc = _fileEscapedCalc;
+    }
+
+    public AbstractFileEscapedCalc getFileEscapedCalc() {
+        return fileEscapedCalc;
     }
 
     public static StringMap<String> errors(AnalyzedPageEl _analyzing) {
@@ -84,7 +91,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             badChars_.removeDuplicates();
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setIndexFile(badChars_.first());
-            d_.setFileName(fileName);
+            d_.setFile(this);
             StringList badCharsStr_ = new StringList();
             for (int i: badChars_) {
                 badCharsStr_.add(Long.toString(i));

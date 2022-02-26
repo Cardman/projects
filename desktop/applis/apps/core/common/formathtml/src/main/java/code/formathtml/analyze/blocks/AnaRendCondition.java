@@ -46,11 +46,11 @@ public abstract class AnaRendCondition extends AnaRendParentBlock implements Ana
                     exp_.implicitInfosTest(trueOp_);
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(conditionOffset);
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(exp_.getNames(),AND_ERR));
-                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _page);
                 }
             }
         }

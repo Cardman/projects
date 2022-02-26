@@ -69,7 +69,7 @@ public final class CatchEval extends AbstractCatchEval {
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(getFile().getFileName());
+            d_.setFile(getFile());
             d_.setIndexFile(variableNameOffset);
             //variable name
             d_.setBuiltError(res_.getMessage());

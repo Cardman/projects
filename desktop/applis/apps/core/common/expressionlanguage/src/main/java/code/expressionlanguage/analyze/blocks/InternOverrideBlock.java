@@ -35,7 +35,7 @@ public final class InternOverrideBlock extends Leaf {
     public void buildTypes(RootBlock _root, AnalyzedPageEl _page) {
         for (int i:getBadIndexes()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
+            b_.setFile(getFile());
             b_.setIndexFile(i);
             //underline index char
             b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());

@@ -23,7 +23,7 @@ public final class AnaRendTryEval extends AnaRendParentBlock implements AnaRendE
             if (!(nBlock_ instanceof AnaRendFinallyEval)) {
                 if (!isPossibleEmpty(nBlock_)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(getOffset());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                             _page.getKeyWords().getKeyWordTry(),
@@ -33,11 +33,11 @@ public final class AnaRendTryEval extends AnaRendParentBlock implements AnaRendE
                                             _page.getKeyWords().getKeyWordFinally()
                                     ),
                                     OR_ERR));
-                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _page);
                 } else if (!(nBlock_.getNextSibling() instanceof AnaRendAbstractCatchEval)){
                     if (!(nBlock_.getNextSibling() instanceof AnaRendFinallyEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
+                        un_.setFile(_page.getCurrentFile());
                         un_.setIndexFile(getOffset());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                                 _page.getKeyWords().getKeyWordTry(),
@@ -47,7 +47,7 @@ public final class AnaRendTryEval extends AnaRendParentBlock implements AnaRendE
                                                 _page.getKeyWords().getKeyWordFinally()
                                         ),
                                         OR_ERR));
-                        AnalyzingDoc.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _page);
                     }
                 }
             }

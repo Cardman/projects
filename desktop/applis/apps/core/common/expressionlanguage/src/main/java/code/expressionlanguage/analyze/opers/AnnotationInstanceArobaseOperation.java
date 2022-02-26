@@ -69,7 +69,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             un_.setIndexFile(i_);
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     _page.getAliasObject());
@@ -87,7 +87,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
         String objCl_ = _page.getAliasObject();
         if (StringUtil.quickEq(instancingAnnotContent.getClassName(), objCl_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             call_.setIndexFile(i_);
             //text header after @
@@ -139,7 +139,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                         }
                     }
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     StrTypes operators_ = getOperations().getOperators();
                     int k_ = operators_.firstKey();
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
@@ -160,7 +160,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                 return;
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setFile(_page.getCurrentFile());
             StrTypes operators_ = getOperations().getOperators();
             int k_ = operators_.lastKey();
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
@@ -176,7 +176,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
         }
         if (filter_.size() != suppliedFields_.size()) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setFile(_page.getCurrentFile());
             StrTypes operators_ = getOperations().getOperators();
             int k_ = operators_.lastKey();
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
@@ -201,7 +201,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
         for (EntryCust<AssocationOperation,Integer> e: counts_.entryList()) {
             if (e.getValue() > 1) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key len at operation
                 cast_.buildError(_page.getAnalysisMessages().getDupSuppliedAnnotField(),
@@ -229,7 +229,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             if (!found_) {
                 //ERROR
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 StrTypes operators_ = getOperations().getOperators();
                 int k_ = 0;
                 if (!operators_.isEmpty()) {
@@ -280,7 +280,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                     }
                     //ERROR
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //equal char
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),

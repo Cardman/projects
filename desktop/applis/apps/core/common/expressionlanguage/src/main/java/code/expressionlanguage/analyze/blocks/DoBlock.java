@@ -40,7 +40,7 @@ public final class DoBlock extends BracedBlock implements Loop {
         AbsBk nextSibling_ = getNextSibling();
         if (nextSibling_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
+            un_.setFile(getFile());
             un_.setIndexFile(getOffset());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
@@ -56,7 +56,7 @@ public final class DoBlock extends BracedBlock implements Loop {
         }
         if (!(nextSibling_ instanceof DoWhileCondition)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(nextSibling_.getFile().getFileName());
+            un_.setFile(nextSibling_.getFile());
             un_.setIndexFile(nextSibling_.getOffset());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),

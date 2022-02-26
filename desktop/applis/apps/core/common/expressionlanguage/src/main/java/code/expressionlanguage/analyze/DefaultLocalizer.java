@@ -3,29 +3,25 @@ package code.expressionlanguage.analyze;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 
-public final class DefaultLocalizer implements AbstractLocalizer {
+public final class DefaultLocalizer {
     private final AnalyzedPageEl context;
 
     public DefaultLocalizer(AnalyzedPageEl _context) {
         this.context = _context;
     }
 
-    @Override
     public String getCurrentFileName() {
-        return context.getCurrentBlock().getFile().getFileName();
+        return AnalyzedPageEl.getFileName(context.getCurrentFile());
     }
 
-    @Override
     public int getCurrentLocationIndex() {
         return context.getTraceIndex();
     }
 
-    @Override
     public void addWarning(FoundWarningInterpret _warning) {
         context.addLocWarning(_warning);
     }
 
-    @Override
     public void addError(FoundErrorInterpret _error) {
         context.addLocError(_error);
     }

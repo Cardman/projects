@@ -362,7 +362,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             return;
         }
         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-        cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+        cast_.setFile(_page.getCurrentFile());
         cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //return type len
         cast_.buildError(_page.getAnalysisMessages().getUnexpectedRetType(),
@@ -395,7 +395,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         mapping_.setParam(import_);
         if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(defaultValueOffset);
             //parentheses
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),

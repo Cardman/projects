@@ -48,11 +48,11 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
         String type_ = clArg_.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(valueOffset);
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                     type_);
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
         } else {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType classBody_ = _page.getAnaGeneType(id_);
@@ -68,11 +68,11 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                     instanceTest = type_;
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(valueOffset);
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             id_);
-                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _page);
                 }
             } else {
                 instanceTest = type_;
@@ -96,7 +96,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
             _page.setGlobalOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),
                     _page.getKeyWords().getKeyWordSwitch(),
@@ -106,7 +106,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                                     _page.getKeyWords().getKeyWordDefault()
                             ),
                             OR_ERR));
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
             first_ = first_.getNextSibling();
         }
     }

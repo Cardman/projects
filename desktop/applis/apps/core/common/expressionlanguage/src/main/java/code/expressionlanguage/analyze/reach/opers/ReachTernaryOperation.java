@@ -46,7 +46,7 @@ public final class ReachTernaryOperation extends ReachMethodOperation implements
         if (_page.isDisplayWarningTernary()&&_opOne.getArgument() != null) {
             FoundWarningInterpret d_ = new FoundWarningInterpret();
             d_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            d_.setFileName(_page.getLocalizer().getCurrentFileName());
+            d_.setFile(_page.getCurrentFile());
             d_.buildWarning(_page.getAnalysisMessages().getDeadCodeTernary());
             _page.getLocalizer().addWarning(d_);
             _info.addWarn(d_.getBuiltWarning());

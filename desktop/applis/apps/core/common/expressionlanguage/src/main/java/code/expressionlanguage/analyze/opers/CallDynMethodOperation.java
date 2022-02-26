@@ -124,7 +124,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
             if (!StringUtil.quickEq(idClass_,_page.getAliasFct())) {
                 FoundErrorInterpret und_ = new FoundErrorInterpret();
-                und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                und_.setFile(_page.getCurrentFile());
                 und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //fctName_ len
                 und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -135,7 +135,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             }
             if (static_ != MethodAccessKind.INSTANCE) {
                 FoundErrorInterpret und_ = new FoundErrorInterpret();
-                und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                und_.setFile(_page.getCurrentFile());
                 und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //fctName_ len
                 und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -146,7 +146,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             }
             if (mid_.isRetRef()) {
                 FoundErrorInterpret und_ = new FoundErrorInterpret();
-                und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                und_.setFile(_page.getCurrentFile());
                 und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //fctName_ len
                 und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -158,7 +158,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             if (StringUtil.quickEq(fctName_, _page.getAliasMetaInfo()) || StringUtil.quickEq(fctName_, _page.getAliasInstance())) {
                 if (mid_.getParametersTypesLength() != 0) {
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
-                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setFile(_page.getCurrentFile());
                     und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //fctName_ len
                     und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -171,7 +171,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             if (StringUtil.quickEq(fctName_, _page.getAliasCall())) {
                 if (!mid_.isVararg()) {
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
-                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setFile(_page.getCurrentFile());
                     und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //fctName_ len
                     und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -182,7 +182,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 }
                 if (mid_.getParametersTypesLength() != 1) {
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
-                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setFile(_page.getCurrentFile());
                     und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //fctName_ len
                     und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -192,7 +192,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                     addErr(und_.getBuiltError());
                 } else if (!StringUtil.quickEq(mid_.getParametersType(0), _page.getAliasObject())){
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
-                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setFile(_page.getCurrentFile());
                     und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //fctName_ len
                     und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -202,7 +202,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                     addErr(und_.getBuiltError());
                 } else if (mid_.getParametersRef(0)){
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
-                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setFile(_page.getCurrentFile());
                     und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //fctName_ len
                     und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -214,7 +214,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             }
             if (idMethod_.getAncestor() != 0) {
                 FoundErrorInterpret und_ = new FoundErrorInterpret();
-                und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                und_.setFile(_page.getCurrentFile());
                 und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //fctName_ len
                 und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -237,7 +237,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-                undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+                undefined_.setFile(_page.getCurrentFile());
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
@@ -255,7 +255,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             if (!chidren_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-                undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+                undefined_.setFile(_page.getCurrentFile());
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
@@ -271,7 +271,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         if (!StringUtil.quickEq(fctName_, _page.getAliasCall())) {
             errLeftValue = true;
             FoundErrorInterpret und_ = new FoundErrorInterpret();
-            und_.setFileName(_page.getLocalizer().getCurrentFileName());
+            und_.setFile(_page.getCurrentFile());
             und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //fctName_ len
             und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -285,7 +285,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             if (last_ instanceof NamedArgumentOperation) {
                 if (!(last_.getFirstChild() instanceof ArgumentListInstancing)) {
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
-                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setFile(_page.getCurrentFile());
                     und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //fctName_ len
                     und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -305,7 +305,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                     }
                     if (StringUtil.indexOf(paramNames_,((NamedArgumentOperation) last_).getName()) < 0) {
                         FoundErrorInterpret und_ = new FoundErrorInterpret();
-                        und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        und_.setFile(_page.getCurrentFile());
                         und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                         //fctName_ len
                         und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -319,7 +319,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 }
                 if (chidren_.size() > 1){
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
-                    und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    und_.setFile(_page.getCurrentFile());
                     und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //fctName_ len
                     und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -332,7 +332,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 for (OperationNode o: chidren_) {
                     if (o instanceof NamedArgumentOperation) {
                         FoundErrorInterpret und_ = new FoundErrorInterpret();
-                        und_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        und_.setFile(_page.getCurrentFile());
                         und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                         //fctName_ len
                         und_.buildError(_page.getAnalysisMessages().getFunctionalApplyOnly(),
@@ -366,7 +366,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             if (param_.isEmpty()) {
                 noNeed = true;
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-                undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+                undefined_.setFile(_page.getCurrentFile());
                 undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //unexpected coma or right parenthese
                 undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
@@ -380,7 +380,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             }
             indexCh = Math.min(param_.size() - 1,firstArgs_.size()-1);
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+            undefined_.setFile(_page.getCurrentFile());
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //unexpected coma or right parenthese
             undefined_.buildError(_page.getAnalysisMessages().getFunctionalApplyNbDiff(),
@@ -415,7 +415,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 if (pa_.startsWith("~")) {
                     if (!(chidren_.get(i) instanceof WrappOperation)||!a_.matchClass(pa_.substring(1))) {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        cast_.setFile(_page.getCurrentFile());
                         int i_ = _page.getLocalizer().getCurrentLocationIndex();
                         cast_.setIndexFile(i_);
                         //character before
@@ -428,7 +428,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 } else if (!StringUtil.quickEq("?", pa_)) {
                     if (chidren_.get(i) instanceof WrappOperation) {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        cast_.setFile(_page.getCurrentFile());
                         int i_ = _page.getLocalizer().getCurrentLocationIndex();
                         cast_.setIndexFile(i_);
                         //character before
@@ -443,7 +443,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                             a_.implicitInfos(res_);
                         } else {
                             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            cast_.setFile(_page.getCurrentFile());
                             int i_ = _page.getLocalizer().getCurrentLocationIndex();
                             cast_.setIndexFile(i_);
                             //character before

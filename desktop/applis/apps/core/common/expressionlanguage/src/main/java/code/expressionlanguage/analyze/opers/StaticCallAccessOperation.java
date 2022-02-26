@@ -82,7 +82,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         if (type_.startsWith(AnaTemplates.ARR_BEG_STRING)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badAccess_.setFile(_page.getCurrentFile());
             //type len
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);
@@ -92,7 +92,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         if (type_.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badAccess_.setFile(_page.getCurrentFile());
             //type len
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);
@@ -102,7 +102,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         if (stCall.isEmpty()&&StringExpUtil.isWildCard(type_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badAccess_.setFile(_page.getCurrentFile());
             //type len
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);

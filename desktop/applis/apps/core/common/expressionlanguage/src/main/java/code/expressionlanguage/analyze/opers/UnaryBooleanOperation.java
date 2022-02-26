@@ -41,7 +41,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         if (!clMatch_.isBoolType(_page)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //operator
             un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                     StringUtil.join(clMatch_.getNames(), ExportCst.JOIN_TYPES),

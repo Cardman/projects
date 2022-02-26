@@ -18,7 +18,7 @@ public final class AnaRendElseCondition extends AnaRendParentBlock implements An
             if (!(pBlock_ instanceof AnaRendElseIfCondition)) {
                 if (!isPossibleEmpty(pBlock_)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(getOffset());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                             _page.getKeyWords().getKeyWordElse(),
@@ -28,11 +28,11 @@ public final class AnaRendElseCondition extends AnaRendParentBlock implements An
                                             _page.getKeyWords().getKeyWordElseif()
                                     ),
                                     OR_ERR));
-                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _page);
                 } else if (!(pBlock_.getPreviousSibling() instanceof AnaRendIfCondition)){
                     if (!(pBlock_.getPreviousSibling() instanceof AnaRendElseIfCondition)){
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
+                        un_.setFile(_page.getCurrentFile());
                         un_.setIndexFile(getOffset());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                                 _page.getKeyWords().getKeyWordElse(),
@@ -42,7 +42,7 @@ public final class AnaRendElseCondition extends AnaRendParentBlock implements An
                                                 _page.getKeyWords().getKeyWordElseif()
                                         ),
                                         OR_ERR));
-                        AnalyzingDoc.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _page);
                     }
                 }
             }

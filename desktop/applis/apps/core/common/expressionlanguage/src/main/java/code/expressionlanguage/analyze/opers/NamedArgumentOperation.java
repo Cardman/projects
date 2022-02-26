@@ -113,7 +113,7 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),

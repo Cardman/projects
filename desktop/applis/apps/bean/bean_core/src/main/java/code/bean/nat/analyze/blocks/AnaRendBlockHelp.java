@@ -41,7 +41,6 @@ public final class AnaRendBlockHelp {
 
     public static void loop(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         AnaRendBlock enNat_ = _doc;
-        _anaDoc.setCurrentDoc(_doc);
         while (true) {
             AnaRendBlock n_ = enNat_.getFirstChild();
             if (enNat_ instanceof NatRendBuildEl) {

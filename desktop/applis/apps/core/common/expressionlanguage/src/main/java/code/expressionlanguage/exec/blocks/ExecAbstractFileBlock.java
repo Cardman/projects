@@ -1,5 +1,6 @@
 package code.expressionlanguage.exec.blocks;
 
+import code.expressionlanguage.common.AbstractFileEscapedCalc;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.FileMetricsCore;
 
@@ -9,9 +10,16 @@ public abstract class ExecAbstractFileBlock {
 
     private final String fileName;
 
-    protected ExecAbstractFileBlock(FileMetricsCore _metricsCore, String _fileName) {
+    private final AbstractFileEscapedCalc fileEscapedCalc;
+
+    protected ExecAbstractFileBlock(FileMetricsCore _metricsCore, String _fileName, AbstractFileEscapedCalc _fileEscapedCalc) {
         metricsCore = _metricsCore;
         fileName = _fileName;
+        fileEscapedCalc = _fileEscapedCalc;
+    }
+
+    public AbstractFileEscapedCalc getFileEscapedCalc() {
+        return fileEscapedCalc;
     }
 
     public FileMetrics getMetrics(int _tabWidth) {
@@ -21,7 +29,5 @@ public abstract class ExecAbstractFileBlock {
     public String getFileName() {
         return fileName;
     }
-
-    public abstract int realIndex(int _index);
 
 }

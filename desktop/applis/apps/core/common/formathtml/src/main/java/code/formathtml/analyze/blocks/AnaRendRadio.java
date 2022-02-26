@@ -59,12 +59,12 @@ public final class AnaRendRadio extends AnaRendInput {
             m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_anaDoc.getFileName());
+                badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(rootConverterFieldValue.getResultClass().getNames(),AND_ERR),
                         _anaDoc.getAliasCharSequence());
-                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _page);
             }
         }
     }

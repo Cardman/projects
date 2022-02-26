@@ -113,7 +113,7 @@ public final class StandardInstancingOperation extends
         AnaClassArgumentMatching arg_ = getPreviousResultClass();
         if (arg_.isArray()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getLocalizer().getCurrentFileName());
+            static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
@@ -137,7 +137,7 @@ public final class StandardInstancingOperation extends
         }
         if (ownersMap_.size() != 1) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getLocalizer().getCurrentFileName());
+            static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //idClass_ len
             static_.buildError(_page.getAnalysisMessages().getNotResolvedOwner(),
@@ -192,7 +192,7 @@ public final class StandardInstancingOperation extends
         AnaGeneType g_ = _page.getAnaGeneType(base_);
         if (g_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
@@ -205,7 +205,7 @@ public final class StandardInstancingOperation extends
         chWc(this,_realClassName, _page);
         if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
@@ -230,7 +230,7 @@ public final class StandardInstancingOperation extends
             for (OperationNode o: childrenNodes_) {
                 if (!(o instanceof NamedArgumentOperation) || o.getFirstChild() instanceof WrappOperation) {
                     FoundErrorInterpret call_ = new FoundErrorInterpret();
-                    call_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    call_.setFile(_page.getCurrentFile());
                     call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //type len
                     call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
@@ -247,7 +247,7 @@ public final class StandardInstancingOperation extends
                 o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffsetTr(), _page);
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                b_.setFile(_page.getCurrentFile());
                 b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //param name len
                 b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
@@ -289,7 +289,7 @@ public final class StandardInstancingOperation extends
     static void chWc(OperationNode _op,String _realClassName, AnalyzedPageEl _page) {
         for (String p:StringExpUtil.getWildCards(_realClassName)){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //part type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
@@ -344,9 +344,8 @@ public final class StandardInstancingOperation extends
         if (ContextUtil.isEnumType(_type)) {
             if (innerElt == null) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                String file_ = _page.getLocalizer().getCurrentFileName();
                 int fileIndex_ = _page.getLocalizer().getCurrentLocationIndex();
-                call_.setFileName(file_);
+                call_.setFile(_page.getCurrentFile());
                 call_.setIndexFile(fileIndex_);
                 //type len
                 call_.buildError(_page.getAnalysisMessages().getIllegalCtorEnum());

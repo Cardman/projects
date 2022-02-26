@@ -34,7 +34,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             _page.setGlobalOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
+            un_.setFile(getFile());
             un_.setIndexFile(getOffset());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
@@ -62,7 +62,7 @@ public final class DefaultCondition extends SwitchPartBlock {
                 while (first_ != this) {
                     if (first_ instanceof DefaultCondition) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(getFile().getFileName());
+                        un_.setFile(getFile());
                         un_.setIndexFile(getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
@@ -79,7 +79,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             instanceTest = instanceTest_;
             if (getNextSibling() != null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
+                un_.setFile(getFile());
                 un_.setIndexFile(getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
@@ -91,7 +91,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(getFile().getFileName());
+                d_.setFile(getFile());
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());

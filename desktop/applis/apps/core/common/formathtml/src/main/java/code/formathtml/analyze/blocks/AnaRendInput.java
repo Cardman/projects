@@ -75,12 +75,12 @@ public abstract class AnaRendInput extends AnaRendElement {
                 m_.setParam(r_.getOpsReadRoot().getResultClass());
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(attr_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(rootConverter.getResultClass().getNames(),AND_ERR),
                             StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
-                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _page);
                 }
             }
         } else {
@@ -89,23 +89,23 @@ public abstract class AnaRendInput extends AnaRendElement {
                 if (isNotConvertible(_page, clName_)) {
                     int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(attr_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             clName_,
                             clName_);
-                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _page);
                 }
             } else if (rootRead != null) {
                 if (isNotConvertible(_page, r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
                     int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(attr_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR),
                             clName_);
-                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _page);
                 }
             }
         }
@@ -132,12 +132,12 @@ public abstract class AnaRendInput extends AnaRendElement {
             m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_anaDoc.getFileName());
+                badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(rootConverterField.getResultClass().getNames(),AND_ERR),
                         _anaDoc.getAliasCharSequence());
-                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _page);
             }
         }
     }

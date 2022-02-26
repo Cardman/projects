@@ -40,7 +40,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             int in_ = Math.min(getOperations().getOperators().size()-1,1);
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(in_), _page);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badNb_.setFile(_page.getCurrentFile());
             int index_ = _page.getLocalizer().getCurrentLocationIndex();
             badNb_.setIndexFile(index_);
             //first oper
@@ -99,7 +99,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);
-        un_.setFileName(_page.getLocalizer().getCurrentFileName());
+        un_.setFile(_page.getCurrentFile());
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringUtil.join(new StringList(

@@ -50,7 +50,7 @@ public final class ResolvingTypes {
         boolean ok_ = AnaPartTypeUtil.processAnalyzeConstraintsCore(resType_, vars_, true, _page);
         if (!ok_) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(rc_);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
@@ -110,7 +110,7 @@ public final class ResolvingTypes {
         }
         for (InaccessibleType i: _page.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(rc_+i.getIndex());
             //part len
             un_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
@@ -126,7 +126,7 @@ public final class ResolvingTypes {
         String tr_ = _in.trim();
 //        if (tr_.isEmpty()) {
 //            FoundErrorInterpret un_ = new FoundErrorInterpret();
-//            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+//            un_.setFile(_page.getCurrentFile());
 //            un_.setIndexFile(rc_);
 //            //_in len
 //            un_.buildError(_page.getAnalysisMessages().getEmptyType());
@@ -141,7 +141,7 @@ public final class ResolvingTypes {
 //        }
 //        if (StringUtil.quickEq(tr_, void_)) {
 //            FoundErrorInterpret un_ = new FoundErrorInterpret();
-//            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+//            un_.setFile(_page.getCurrentFile());
 //            un_.setIndexFile(rc_);
 //            //_in len
 //            un_.buildError(_page.getAnalysisMessages().getVoidType(),
@@ -169,7 +169,7 @@ public final class ResolvingTypes {
         boolean ok_ = AnaPartTypeUtil.processAnalyzeConstraintsCore(_resType, _varsCt, _exact, _page);
         if (!ok_) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(_rc);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
@@ -203,7 +203,7 @@ public final class ResolvingTypes {
         int rootLoc_ = rc_ + _loc;
         if (StringUtil.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(rc_);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getVoidType(),
@@ -215,7 +215,7 @@ public final class ResolvingTypes {
         }
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(rc_);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
@@ -237,7 +237,7 @@ public final class ResolvingTypes {
                 if (id_ == null) {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    undef_.setFile(_page.getCurrentFile());
                     undef_.setIndexFile(rc_);
                     //_in len
                     undef_.buildError(_page.getAnalysisMessages().getUnknownType(),
@@ -273,7 +273,7 @@ public final class ResolvingTypes {
                 //ERROR
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
-                undef_.setFileName(_page.getLocalizer().getCurrentFileName());
+                undef_.setFile(_page.getCurrentFile());
                 undef_.setIndexFile(rc_);
                 //_in len
                 undef_.buildError(_page.getAnalysisMessages().getUnknownType(),

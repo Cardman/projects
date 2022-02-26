@@ -66,7 +66,7 @@ public final class ReturnMethod extends AbruptBlock {
                 AnaClassArgumentMatching ret_ = res.getRoot().getResultClass();
                 if (!(res.getRoot() instanceof WrappOperation)||!ret_.matchClass(retType_)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(getFile().getFileName());
+                    cast_.setFile(getFile());
                     cast_.setIndexFile(expressionOffset);
                     //original type
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -83,7 +83,7 @@ public final class ReturnMethod extends AbruptBlock {
                 AnaClassArgumentMatching ret_ = res.getRoot().getResultClass();
                 if (!(res.getRoot() instanceof WrappOperation)||!ret_.matchClass(retType_)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(getFile().getFileName());
+                    cast_.setFile(getFile());
                     cast_.setIndexFile(expressionOffset);
                     //original type
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -132,7 +132,7 @@ public final class ReturnMethod extends AbruptBlock {
         mapping_.setParam(_retType);
         if (StringUtil.quickEq(_retType, _page.getAliasVoid())) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(expressionOffset);
             //original type
             cast_.buildError(_page.getAnalysisMessages().getVoidType(),
@@ -148,7 +148,7 @@ public final class ReturnMethod extends AbruptBlock {
                 ret_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(getFile().getFileName());
+                cast_.setFile(getFile());
                 cast_.setIndexFile(expressionOffset);
                 //original type
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),

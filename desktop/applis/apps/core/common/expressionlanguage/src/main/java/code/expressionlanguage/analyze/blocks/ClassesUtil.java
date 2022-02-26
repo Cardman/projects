@@ -74,7 +74,7 @@ public final class ClassesUtil {
                             if (!var_.isUsed()) {
                                 FoundWarningInterpret d_ = new FoundWarningInterpret();
                                 d_.setIndexFile(var_.getRef());
-                                d_.setFileName(o.getFile().getFileName());
+                                d_.setFile(o.getFile());
                                 d_.buildWarning(_page.getAnalysisMessages().getUnusedParamStatic(),e.getKey());
                                 _page.getLocalizer().addWarning(d_);
                                 o.getParamWarns().get(indexParam_).add(d_.getBuiltWarning());
@@ -122,6 +122,7 @@ public final class ClassesUtil {
             }
         }
         for (RootBlock r: _page.getAllFoundTypes()) {
+            _page.setCurrentFile(r.getFile());
             if (r.mustImplement()) {
                 CustList<AnaFormattedRootBlock> allSuperClass_ = r.getAllGenericSuperTypesInfo();
                 for (AnaFormattedRootBlock s: allSuperClass_) {
@@ -133,7 +134,7 @@ public final class ClassesUtil {
                             if (inf_ == null) {
                                 FoundErrorInterpret err_;
                                 err_ = new FoundErrorInterpret();
-                                err_.setFileName(r.getFile().getFileName());
+                                err_.setFile(r.getFile());
                                 err_.setIndexFile(r.getIdRowCol());
                                 //type id
                                 err_.buildError(
@@ -351,7 +352,7 @@ public final class ClassesUtil {
                 if (StringUtil.quickEq(enumParamClassName_, base_)) {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFileName(block_.getFile().getFileName());
+                    undef_.setFile(block_.getFile());
                     undef_.setIndexFile(e.getIndex());
                     //original type len
                     undef_.buildError(_page.getAnalysisMessages().getReservedType(),
@@ -363,7 +364,7 @@ public final class ClassesUtil {
                 if (StringUtil.quickEq(enumClassName_, base_)) {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFileName(block_.getFile().getFileName());
+                    undef_.setFile(block_.getFile());
                     undef_.setIndexFile(e.getIndex());
                     //original type len
                     undef_.buildError(_page.getAnalysisMessages().getReservedType(),
@@ -389,6 +390,7 @@ public final class ClassesUtil {
             validateIds(_page);
             for (AnonymousInstancingOperation e: _page.getAnonymous()) {
                 _page.setGlobalType(e.getGlType());
+                _page.setCurrentFile(e.getBlock().getFile());
                 e.postAnalyze(_page);
             }
             _page.getAnonymous().clear();
@@ -454,7 +456,7 @@ public final class ClassesUtil {
         boolean ok_ = _add;
         if (_page.getSorted().contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_root.getFile().getFileName());
+            d_.setFile(_root.getFile());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
             d_.buildError(_page.getAnalysisMessages().getDuplicatedType(),
@@ -468,7 +470,7 @@ public final class ClassesUtil {
         packageName_ = _root.getPackageName();
         if (packageName_.trim().isEmpty()) {
             FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-            badCl_.setFileName(_root.getFile().getFileName());
+            badCl_.setFile(_root.getFile());
             badCl_.setIndexFile(_root.getBegin());
             //key word category len
             badCl_.buildError(_page.getAnalysisMessages().getEmptyPackage());
@@ -482,7 +484,7 @@ public final class ClassesUtil {
                 TokenErrorMessage res_ = ManageTokens.partClass(_page).checkToken(tr_, _page);
                 if (res_.isError()) {
                     FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-                    badCl_.setFileName(_root.getFile().getFileName());
+                    badCl_.setFile(_root.getFile());
                     badCl_.setIndexFile(_root.getIdRowCol());
                     //pkg part or dot
                     badCl_.setBuiltError(res_.getMessage());
@@ -498,7 +500,7 @@ public final class ClassesUtil {
             TokenErrorMessage resClName_ = ManageTokens.partClass(_page).checkTokenKeyVar(className_, _page);
             if (resClName_.isError()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setFile(_root.getFile());
                 badCl_.setIndexFile(_root.getIdRowCol());
                 //name part if possible or original type
                 badCl_.setBuiltError(resClName_.getMessage());
@@ -522,7 +524,7 @@ public final class ClassesUtil {
             int offId_ = tempOff_ + StringUtil.getFirstPrintableCharIndex(p);
             if (id_.isEmpty()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setFile(_root.getFile());
                 badCl_.setIndexFile(offId_);
                 //char after def
                 badCl_.buildError(_page.getAnalysisMessages().getEmptyPartClassName());
@@ -544,7 +546,7 @@ public final class ClassesUtil {
             TokenErrorMessage res_ = ManageTokens.partVarClass(_page).checkTokenKeyVar(id_, _page);
             if (res_.isError()) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setFile(_root.getFile());
                 badCl_.setIndexFile(offId_);
                 //id_ len
                 badCl_.setBuiltError(res_.getMessage());
@@ -553,7 +555,7 @@ public final class ClassesUtil {
             }
             if (StringUtil.contains(varTypes_, id_)) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setFile(_root.getFile());
                 badCl_.setIndexFile(offId_);
                 //id_ len
                 badCl_.buildError(_page.getAnalysisMessages().getDuplicatedPartVarClassName(),
@@ -564,7 +566,7 @@ public final class ClassesUtil {
             }
             if (StringUtil.contains(namesFromParent_, id_)) {
                 FoundErrorInterpret badCl_ = new FoundErrorInterpret();
-                badCl_.setFileName(_root.getFile().getFileName());
+                badCl_.setFile(_root.getFile());
                 badCl_.setIndexFile(offId_);
                 //id_ len
                 badCl_.buildError(_page.getAnalysisMessages().getDuplicatedPartVarClassName(),
@@ -635,7 +637,7 @@ public final class ClassesUtil {
         }
         if (_page.getStandardsTypes().contains(fullName_)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_root.getFile().getFileName());
+            d_.setFile(_root.getFile());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
             d_.buildError(_page.getAnalysisMessages().getDuplicatedTypeStd(),
@@ -646,7 +648,7 @@ public final class ClassesUtil {
         }
         if (AnaTypeUtil.isPrimitive(fullName_, _page)) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFileName(_root.getFile().getFileName());
+            d_.setFile(_root.getFile());
             d_.setIndexFile(_root.getIdRowCol());
             //original type len
             d_.buildError(_page.getAnalysisMessages().getDuplicatedTypePrim(),
@@ -657,7 +659,7 @@ public final class ClassesUtil {
         }
         if (_root instanceof RootErrorBlock) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_root.getFile().getFileName());
+            b_.setFile(_root.getFile());
             b_.setIndexFile(((RootErrorBlock)_root).getCategoryOffset());
             //underline index char
             b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
@@ -717,7 +719,8 @@ public final class ClassesUtil {
         for (EntryCust<String,String> f: _files.entryList()) {
             String file_ = f.getKey();
             String content_ = f.getValue();
-            FileBlock fileBlock_ = new FileBlock(0,_predefined, file_);
+            FileBlock fileBlock_ = new FileBlock(0,_predefined, file_, new DefaultFileEscapedCalc());
+            _page.setCurrentFile(fileBlock_);
             fileBlock_.setNumberFile(_page.getFilesBodies().size());
             _page.putFileBlock(file_, fileBlock_);
             fileBlock_.processLinesTabsWithError(content_, _page);
@@ -734,6 +737,7 @@ public final class ClassesUtil {
             StringComment stringComment_ = block_.stringComment(_page.getComments());
             block_.metrics(stringComment_);
             String file_ = stringComment_.getFile();
+            _page.setCurrentFile(block_);
             FileResolver.parseFile(block_, fileName_,file_, _page);
         }
         StringList basePkgFound_ = _page.getBasePackagesFound();
@@ -793,6 +797,7 @@ public final class ClassesUtil {
     }
 
     public static void fetchByFile(StringList _basePkgFound, StringList _pkgFound, FileBlock _anaFile, AnalyzedPageEl _page) {
+        _page.setCurrentFile(_anaFile);
         for (AbsBk b: getDirectChildren(_anaFile)) {
             if (b instanceof RootBlock) {
                 RootBlock r_ = (RootBlock) b;
@@ -802,6 +807,7 @@ public final class ClassesUtil {
     }
 
     private static void processType(StringList _basePkgFound, StringList _pkgFound, AbsBk _r, AnalyzedPageEl _page) {
+        _page.setCurrentFile(_r.getFile());
         StringList allReservedInnersRoot_ = new StringList();
         boolean addPkg_ = true;
         if (_r instanceof RootBlock) {
@@ -815,7 +821,7 @@ public final class ClassesUtil {
                     }
                     //ERROR
                     FoundErrorInterpret d_ = new FoundErrorInterpret();
-                    d_.setFileName(_r.getFile().getFileName());
+                    d_.setFile(_r.getFile());
                     d_.setIndexFile(r_.getIdRowCol());
                     //original id len
                     d_.buildError(_page.getAnalysisMessages().getDuplicatedTypePkg(),
@@ -877,7 +883,7 @@ public final class ClassesUtil {
                             String s_ = cur_.getName();
                             if (StringUtil.contains(allReservedInnersRoot_, s_)) {
                                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                                d_.setFileName(_r.getFile().getFileName());
+                                d_.setFile(_r.getFile());
                                 d_.setIndexFile(cur_.getIdRowCol());
                                 //s_ len
                                 d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
@@ -892,7 +898,7 @@ public final class ClassesUtil {
                                 }
                                 if (StringUtil.contains(reverv_, s_)) {
                                     FoundErrorInterpret d_ = new FoundErrorInterpret();
-                                    d_.setFileName(_r.getFile().getFileName());
+                                    d_.setFile(_r.getFile());
                                     d_.setIndexFile(cur_.getIdRowCol());
                                     //s_ len
                                     d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
@@ -904,7 +910,7 @@ public final class ClassesUtil {
                                 StringList namesFromParent_ = getParamVarFromAnyParent(cur_);
                                 if (StringUtil.contains(namesFromParent_, s_)) {
                                     FoundErrorInterpret d_ = new FoundErrorInterpret();
-                                    d_.setFileName(_r.getFile().getFileName());
+                                    d_.setFile(_r.getFile());
                                     d_.setIndexFile(cur_.getIdRowCol());
                                     //s_ len
                                     d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
@@ -917,7 +923,7 @@ public final class ClassesUtil {
                                 MappingLocalType resolved_ = mappings_.getVal(s_);
                                 if (resolved_ != null) {
                                     FoundErrorInterpret d_ = new FoundErrorInterpret();
-                                    d_.setFileName(_r.getFile().getFileName());
+                                    d_.setFile(_r.getFile());
                                     d_.setIndexFile(cur_.getIdRowCol());
                                     //s_ len
                                     d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
@@ -936,7 +942,7 @@ public final class ClassesUtil {
                         if (StringUtil.contains(_basePkgFound, s_)) {
                             //ERROR
                             FoundErrorInterpret d_ = new FoundErrorInterpret();
-                            d_.setFileName(_r.getFile().getFileName());
+                            d_.setFile(_r.getFile());
                             d_.setIndexFile(cur_.getIdRowCol());
                             //s_ len
                             d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
@@ -948,7 +954,7 @@ public final class ClassesUtil {
                         } else if (StringUtil.contains(simpleNames_, s_)) {
                             //ERROR
                             FoundErrorInterpret d_ = new FoundErrorInterpret();
-                            d_.setFileName(_r.getFile().getFileName());
+                            d_.setFile(_r.getFile());
                             d_.setIndexFile(cur_.getIdRowCol());
                             //s_ len
                             d_.buildError(_page.getAnalysisMessages().getDuplicatedInnerType(),
@@ -1061,13 +1067,16 @@ public final class ClassesUtil {
         CustList<RootBlock> listTypes_ = _page.getListTypesNames();
         for (RootBlock s: listTypes_) {
             _page.setCurrentBlock(s);
+            _page.setCurrentFile(s.getFile());
             s.buildDirectGenericSuperTypes(_page);
         }
         for (RootBlock c: _page.getFoundTypes()) {
             _page.setCurrentBlock(c);
+            _page.setCurrentFile(c.getFile());
             c.buildMapParamType(_page);
         }
         for (RootBlock c: _page.getFoundTypes()) {
+            _page.setCurrentFile(c.getFile());
             if (c.withoutInstance()) {
                 continue;
             }
@@ -1127,7 +1136,7 @@ public final class ClassesUtil {
                 for (String s: allDirectSuperTypes_) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
-                    enum_.setFileName(c.getFile().getFileName());
+                    enum_.setFile(c.getFile());
                     enum_.setIndexFile(c.getIdRowCol());
                     //super type len
                     enum_.buildError(_page.getAnalysisMessages().getBadInheritsType(),
@@ -1160,6 +1169,7 @@ public final class ClassesUtil {
             for (RootBlock r: stClNames_) {
 //                ExecRootBlock exec_ = _page.getMapTypes().getVal(r);
                 String c= r.getFullName();
+                _page.setCurrentFile(r.getFile());
                 if (r instanceof AnnotationBlock) {
                     int index_ = 0;
                     StringMap<Integer> foundNames_ = new StringMap<Integer>();
@@ -1171,7 +1181,7 @@ public final class ClassesUtil {
                         if (r.getExplicitDirectSuperTypes().getValue(index_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
-                            undef_.setFileName(r.getFile().getFileName());
+                            undef_.setFile(r.getFile());
                             undef_.setIndexFile(offset_);
                             //idSuper_ len
                             undef_.buildError(_page.getAnalysisMessages().getBadInheritsType(),
@@ -1212,7 +1222,7 @@ public final class ClassesUtil {
                     String void_ = _page.getAliasVoid();
                     if (StringUtil.quickEq(idSuper_, void_)) {
                         FoundErrorInterpret undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(r.getFile().getFileName());
+                        undef_.setFile(r.getFile());
                         undef_.setIndexFile(offset_);
                         //_in len
                         undef_.buildError(_page.getAnalysisMessages().getVoidType(),
@@ -1226,7 +1236,7 @@ public final class ClassesUtil {
                         if (_page.getStandardsTypes().contains(idSuper_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
-                            undef_.setFileName(r.getFile().getFileName());
+                            undef_.setFile(r.getFile());
                             undef_.setIndexFile(offset_);
                             //idSuper_ len
                             undef_.buildError(_page.getAnalysisMessages().getReservedType(),
@@ -1269,7 +1279,7 @@ public final class ClassesUtil {
                         if (StringUtil.quickEq(enumParamClassName_, foundType_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
-                            undef_.setFileName(r.getFile().getFileName());
+                            undef_.setFile(r.getFile());
                             undef_.setIndexFile(offset_);
                             //original type len
                             undef_.buildError(_page.getAnalysisMessages().getReservedType(),
@@ -1283,7 +1293,7 @@ public final class ClassesUtil {
                         if (StringUtil.quickEq(enumClassName_, foundType_) && !StringUtil.quickEq(c, enumParamClassName_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
-                            undef_.setFileName(r.getFile().getFileName());
+                            undef_.setFile(r.getFile());
                             undef_.setIndexFile(offset_);
                             //original type len
                             undef_.buildError(_page.getAnalysisMessages().getReservedType(),
@@ -1318,7 +1328,7 @@ public final class ClassesUtil {
                     if (e.getValue() > 1) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(r.getFile().getFileName());
+                        undef_.setFile(r.getFile());
                         undef_.setIndexFile(r.getIdRowCol());
                         //original type len
                         undef_.buildError(_page.getAnalysisMessages().getDuplicateSuper(),
@@ -1346,7 +1356,7 @@ public final class ClassesUtil {
                         if (!s_.withoutInstance()) {
                             FoundErrorInterpret enum_;
                             enum_ = new FoundErrorInterpret();
-                            enum_.setFileName(r.getFile().getFileName());
+                            enum_.setFile(r.getFile());
                             enum_.setIndexFile(offset_);
                             //original k_ string len
                             enum_.buildError(_page.getAnalysisMessages().getBadInheritsTypeInn(),
@@ -1361,7 +1371,7 @@ public final class ClassesUtil {
                         if (supSise_ > subSise_) {
                             FoundErrorInterpret enum_;
                             enum_ = new FoundErrorInterpret();
-                            enum_.setFileName(r.getFile().getFileName());
+                            enum_.setFile(r.getFile());
                             enum_.setIndexFile(offset_);
                             //original k_ string len
                             enum_.buildError(_page.getAnalysisMessages().getBadInheritsTypeAsInn(),
@@ -1377,7 +1387,7 @@ public final class ClassesUtil {
                         if (!(s_ instanceof InterfaceBlock)) {
                             FoundErrorInterpret enum_;
                             enum_ = new FoundErrorInterpret();
-                            enum_.setFileName(r.getFile().getFileName());
+                            enum_.setFile(r.getFile());
                             enum_.setIndexFile(offset_);
                             //original type len
                             enum_.buildError(_page.getAnalysisMessages().getBadInheritsTypeInt(),
@@ -1395,7 +1405,7 @@ public final class ClassesUtil {
                     if (ContextUtil.isFinalType(s_)) {
                         FoundErrorInterpret enum_;
                         enum_ = new FoundErrorInterpret();
-                        enum_.setFileName(r.getFile().getFileName());
+                        enum_.setFile(r.getFile());
                         enum_.setIndexFile(offset_);
                         //original type len
                         enum_.buildError(_page.getAnalysisMessages().getFinalType(),
@@ -1408,7 +1418,7 @@ public final class ClassesUtil {
                 if (nbDirectSuperClass_ > 1) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
-                    enum_.setFileName(r.getFile().getFileName());
+                    enum_.setFile(r.getFile());
                     enum_.setIndexFile(r.getIdRowCol());
                     //second super class
                     enum_.buildError(_page.getAnalysisMessages().getSuperClass(),
@@ -1436,9 +1446,10 @@ public final class ClassesUtil {
             if (next_.isEmpty()) {
                 for (RootBlock r: stClNames_) {
                     _page.getListTypesNames().add(r);
+                    _page.setCurrentFile(r.getFile());
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFileName(r.getFile().getFileName());
+                    undef_.setFile(r.getFile());
                     undef_.setIndexFile(r.getIdRowCol());
                     //id len
                     undef_.buildError(_page.getAnalysisMessages().getUnknownSuperType(),
@@ -1454,6 +1465,7 @@ public final class ClassesUtil {
 
     private static void checkTemplatesDef(String _objectClassName, AnalyzedPageEl _page) {
         for (RootBlock s: _page.getFoundTypes()) {
+            _page.setCurrentFile(s.getFile());
             String c = s.getFullName();
             Mapping mapping_ = new Mapping();
             StringMap<StringList> cts_ = new StringMap<StringList>();
@@ -1466,7 +1478,7 @@ public final class ClassesUtil {
             if (!variables_.isEmpty() && s instanceof AnnotationBlock) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(s.getFile().getFileName());
+                b_.setFile(s.getFile());
                 b_.setIndexFile(s.getIdRowCol());
                 //first < after type id
                 b_.buildError(_page.getAnalysisMessages().getAnnotationParam(),
@@ -1480,7 +1492,7 @@ public final class ClassesUtil {
             if (!cyclic_.isEmpty()) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(s.getFile().getFileName());
+                b_.setFile(s.getFile());
                 b_.setIndexFile(s.getIdRowCol());
                 //first < after type id
                 b_.buildError(_page.getAnalysisMessages().getCyclicMapping(),
@@ -1497,7 +1509,7 @@ public final class ClassesUtil {
                 for (String b: upper_) {
                     if (b.startsWith("[")) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(s.getFile().getFileName());
+                        un_.setFile(s.getFile());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedTypeBound(),
@@ -1507,7 +1519,7 @@ public final class ClassesUtil {
                     }
                     if (AnaTypeUtil.isPrimitive(b, _page)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(s.getFile().getFileName());
+                        un_.setFile(s.getFile());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedTypeBound(),
@@ -1527,7 +1539,7 @@ public final class ClassesUtil {
                 boolean okLoc_ = true;
                 if (existNative_ && existCustom_) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(s.getFile().getFileName());
+                    un_.setFile(s.getFile());
                     un_.setIndexFile(s.getIdRowCol());
                     //type var len => at def
                     un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
@@ -1584,7 +1596,7 @@ public final class ClassesUtil {
                             //error
                             FoundErrorInterpret inh_;
                             inh_ = new FoundErrorInterpret();
-                            inh_.setFileName(s.getFile().getFileName());
+                            inh_.setFile(s.getFile());
                             inh_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
                             inh_.buildError(_page.getAnalysisMessages().getAbsMapping(),
@@ -1597,7 +1609,7 @@ public final class ClassesUtil {
                             //error
                             FoundErrorInterpret inh_;
                             inh_ = new FoundErrorInterpret();
-                            inh_.setFileName(s.getFile().getFileName());
+                            inh_.setFile(s.getFile());
                             inh_.setIndexFile(s.getIdRowCol());
                             //type var len => at def
                             inh_.buildError(_page.getAnalysisMessages().getFinalMapping(),
@@ -1621,7 +1633,7 @@ public final class ClassesUtil {
                 for (AnaResultPartType b: t.getResults()) {
                     if (!AnaPartTypeUtil.processAnalyzeConstraintsCore(b, map_, true, _page)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(s.getFile().getFileName());
+                        un_.setFile(s.getFile());
                         un_.setIndexFile(s.getIdRowCol());
                         //type var len => at def
                         un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),
@@ -1634,7 +1646,7 @@ public final class ClassesUtil {
             for (AnaResultPartType t: s.getResults()) {
                 if (!AnaPartTypeUtil.processAnalyzeConstraintsCore(t, map_, true, _page)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(s.getFile().getFileName());
+                    un_.setFile(s.getFile());
                     un_.setIndexFile(s.getIdRowCol());
                     // char : before super type
                     buildErr(_page, t, un_);
@@ -1647,7 +1659,7 @@ public final class ClassesUtil {
 //            }
 //                if (!AnaPartTypeUtil.processAnalyzeConstraints(t, map_, true, s.getSuperTypesParts(), _page)) {
 //                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-//                    un_.setFileName(s.getFile().getFileName());
+//                    un_.setFile(s.getFile());
 //                    un_.setIndexFile(s.getIdRowCol());
 //                    // char : before super type
 //                    buildErr(_page, t, un_);
@@ -1673,7 +1685,7 @@ public final class ClassesUtil {
             if (!e.getValue().onlyOneElt()) {
                 FoundErrorInterpret duplicate_;
                 duplicate_ = new FoundErrorInterpret();
-                duplicate_.setFileName(_s.getFile().getFileName());
+                duplicate_.setFile(_s.getFile());
                 duplicate_.setIndexFile(_s.getIdRowCol());
                 //type var len => at def
                 duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedGenericSuperTypes(),
@@ -1686,6 +1698,7 @@ public final class ClassesUtil {
 
     private static void validateSingleParameterizedClasses(AnalyzedPageEl _page) {
         for (RootBlock i: _page.getFoundTypes()) {
+            _page.setCurrentFile(i.getFile());
             CustList<AnaFormattedRootBlock> genericSuperTypes_ = i.fetchAllGenericSuperTypes();
             StringList allGenericSuperTypes_ = new StringList();
             for (AnaFormattedRootBlock a: genericSuperTypes_) {
@@ -1733,6 +1746,7 @@ public final class ClassesUtil {
         CustList<MethodId> idMethods_ = new CustList<MethodId>();
         globalType(_page);
         for (OperatorBlock o: _page.getAllOperators()) {
+            _page.setCurrentFile(o.getFile());
             String name_ = o.getName();
             _page.setImporting(o);
             _page.setImportingAcces(new OperatorAccessor());
@@ -1741,7 +1755,7 @@ public final class ClassesUtil {
             o.buildImportedTypes(_page);
             if (!StringExpUtil.isOper(name_)) {
                 FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                badMeth_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+                badMeth_.setFile(_page.getCurrentFile());
                 badMeth_.setIndexFile(o.getNameOffset());
                 //key word len
                 badMeth_.buildError(_page.getAnalysisMessages().getBadOperatorName(),
@@ -1755,7 +1769,7 @@ public final class ClassesUtil {
                     FoundErrorInterpret duplicate_;
                     duplicate_ = new FoundErrorInterpret();
                     duplicate_.setIndexFile(o.getOffset());
-                    duplicate_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+                    duplicate_.setFile(_page.getCurrentFile());
                     //key word len
                     duplicate_.buildError(_page.getAnalysisMessages().getDuplicateOperator(),
                             id_.getSignature(_page.getDisplayedStrings()));
@@ -1774,7 +1788,7 @@ public final class ClassesUtil {
                 if (res_.isError()) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
-                    b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+                    b_.setFile(_page.getCurrentFile());
                     b_.setIndexFile(o.getOffset());
                     //param name len
                     b_.setBuiltError(res_.getMessage());
@@ -1784,7 +1798,7 @@ public final class ClassesUtil {
                 if (StringUtil.contains(seen_, v)){
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
-                    b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+                    b_.setFile(_page.getCurrentFile());
                     b_.setIndexFile(o.getOffset());
                     //param name len
                     b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
@@ -1800,7 +1814,7 @@ public final class ClassesUtil {
                 if (StringUtil.quickEq(o.getImportedReturnType(), _page.getAliasVoid())) {
                     int r_ = o.getNameOffset();
                     FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                    badMeth_.setFileName(o.getFile().getFileName());
+                    badMeth_.setFile(o.getFile());
                     badMeth_.setIndexFile(r_);
                     //method name len
                     badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
@@ -1815,13 +1829,16 @@ public final class ClassesUtil {
 
     public static void validateOverridingInherit(AnalyzedPageEl _page) {
         for (RootBlock c: _page.getAllFoundTypes()) {
+            _page.setCurrentFile(c.getFile());
             c.setupBasicOverrides(_page);
         }
         for (RootBlock c: _page.getAllFoundTypes()) {
+            _page.setCurrentFile(c.getFile());
             c.checkCompatibility(_page);
             c.checkImplements(_page);
         }
         for (RootBlock c: _page.getAllFoundTypes()) {
+            _page.setCurrentFile(c.getFile());
             c.checkCompatibilityBounds(_page);
         }
     }
@@ -2081,19 +2098,22 @@ public final class ClassesUtil {
         _page.setAnnotAnalysis(false);
         //init annotations here
         for (RootBlock c: _page.getFoundTypes()) {
+            _page.setCurrentFile(c.getFile());
             c.validateConstructors(_page);
         }
     }
 
     public static void globalType(AnalyzedPageEl _page, RootBlock _c) {
         _page.setGlobalType(new AnaFormattedRootBlock(_c));
+        _page.setCurrentFile(_c.getFile());
     }
 
     private static void procBadIndexes(AnalyzedPageEl _page, CustList<BracedBlock> _braced) {
         for (BracedBlock c: _braced) {
+            _page.setCurrentFile(c.getFile());
             for (int i: c.getBadIndexesGlobal()) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
-                b_.setFileName(c.getFile().getFileName());
+                b_.setFile(c.getFile());
                 b_.setIndexFile(Math.max(0,Math.min(c.getFile().getLength()-1,i)));
                 //underline index char
                 b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
@@ -2104,7 +2124,7 @@ public final class ClassesUtil {
             }
             for (int i: c.getBadIndexes()) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
-                b_.setFileName(c.getFile().getFileName());
+                b_.setFile(c.getFile());
                 b_.setIndexFile(i);
                 //underline index char
                 b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
@@ -2187,7 +2207,7 @@ public final class ClassesUtil {
                 if (!StringUtil.contains(_page.getInitFields(),key_)) {
                     //error
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(c.getFile().getFileName());
+                    un_.setFile(c.getFile());
                     un_.setIndexFile(c.getOffset());
                     un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                             key_,fullName_);
@@ -2288,7 +2308,7 @@ public final class ClassesUtil {
                         if (b instanceof InfoBlock) {
                             if (StringUtil.contains(((InfoBlock) b).getFieldName(), fieldName_)) {
                                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                                un_.setFileName(c.getFile().getFileName());
+                                un_.setFile(c.getFile());
                                 un_.setIndexFile(b.getOffset());
                                 un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                                         fieldName_,fullName_);
@@ -2319,7 +2339,7 @@ public final class ClassesUtil {
                             continue;
                         }
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(c.getFile().getFileName());
+                        un_.setFile(c.getFile());
                         un_.setIndexFile(m_.getNameOffset());
                         un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                                 fieldName_,fullName_);
@@ -2520,10 +2540,10 @@ public final class ClassesUtil {
         assVars_.setCache(new AnaCache());
         globalType(_page);
         _page.setCurrentPkg("");
-        _page.setCurrentFile(null);
         for (EntryCust<OperatorBlock, AnalyzingEl> e: _page.getResultsAnaOperator().entryList()) {
             NamedFunctionBlock m_ = e.getKey();
             AnalyzingEl anAss_ = e.getValue();
+            _page.setCurrentFile(m_.getFile());
             AssSimStdMethodBlock assign_ = AssBlockUtil.getSimExecutableNodes(anAss_.getCanCompleteNormally(), anAss_.getCanCompleteNormallyGroup(), m_);
             tryAnalyseAssign(assVars_, anAss_, assign_, _page);
             _page.clearAllLocalVars(assVars_);
@@ -2603,7 +2623,7 @@ public final class ClassesUtil {
         if (!hasCtor_ && !filteredCtor_.isEmpty()) {
             FoundErrorInterpret undef_;
             undef_ = new FoundErrorInterpret();
-            undef_.setFileName(_cl.getFile().getFileName());
+            undef_.setFile(_cl.getFile());
             undef_.setIndexFile(_cl.getIdRowCol());
             //original id len
             undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtor(),
@@ -2701,6 +2721,7 @@ public final class ClassesUtil {
                 }
                 ClassFieldBlock cf_ = e.getValue();
                 FieldBlock f_ = cf_.getFieldName();
+                _page.setCurrentFile(f_.getFile());
                 CustList<OperationNode> ops_ = cf_.getClassName();
                 ReachOperationUtil.tryCalculate(f_,ops_, k_.getFieldName(), _page);
                 if (NumParsers.getStaticField(k_, _page.getStaticFields()) != null) {

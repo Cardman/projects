@@ -94,11 +94,11 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_page.getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            AnalyzingDoc.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _page);
         }
         _page.setGlobalOffset(classNameOffset);
         _page.zeroOffset();
@@ -107,21 +107,21 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
         if (!AnaTypeUtil.isIntOrderClass(elementClass_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(classNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassName);
-            AnalyzingDoc.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _page);
         }
         _page.setGlobalOffset(variableNameOffset);
         _page.zeroOffset();
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_anaDoc.getFileName());
+            b_.setFile(_page.getCurrentFile());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            AnalyzingDoc.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _page);
         }
         _page.setGlobalOffset(initOffset);
         _page.zeroOffset();
@@ -157,12 +157,12 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
                 resCl_.implicitInfosCore(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_anaDoc.getFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_offset);
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         _result,
                         StringUtil.join(_currentRoot.getResultClass().getNames(),AND_ERR));
-                AnalyzingDoc.addError(cast_, _anaDoc, _page);
+                AnalyzingDoc.addError(cast_, _page);
             }
         }
     }

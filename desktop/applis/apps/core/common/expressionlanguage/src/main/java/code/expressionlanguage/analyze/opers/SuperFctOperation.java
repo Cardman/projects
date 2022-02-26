@@ -116,7 +116,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setFile(_page.getCurrentFile());
             //type len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringUtil.join(clCur_.getNames(), ExportCst.JOIN_TYPES),
@@ -181,7 +181,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
             abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            abs_.setFileName(_page.getLocalizer().getCurrentFileName());
+            abs_.setFile(_page.getCurrentFile());
             //method name len
             abs_.buildError(
                     _page.getAnalysisMessages().getAbstractMethodRef(),

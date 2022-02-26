@@ -63,7 +63,7 @@ public final class MutableLoopVariableOperation extends LeafOperation implements
             if (res_.isError()) {
                 _page.setVariableIssue(true);
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
-                b_.setFileName(_page.getLocalizer().getCurrentFileName());
+                b_.setFile(_page.getCurrentFile());
                 b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //variable name len
                 b_.setBuiltError(res_.getMessage());

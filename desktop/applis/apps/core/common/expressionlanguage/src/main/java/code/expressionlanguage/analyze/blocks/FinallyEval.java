@@ -47,7 +47,7 @@ public final class FinallyEval extends BracedBlock implements Eval {
         if (!(pBlock_ instanceof AbstractCatchEval)) {
             if (!(pBlock_ instanceof TryEval)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
+                un_.setFile(getFile());
                 un_.setIndexFile(getOffset());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                         _page.getKeyWords().getKeyWordFinally(),

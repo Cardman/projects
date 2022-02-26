@@ -26,11 +26,11 @@ public final class InternGlobalOperation extends LeafOperation {
         String arg_ = analyzingDoc.getInternGlobalClass();
         if (_page.isStaticContext()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(analyzingDoc.getFileName());
-            static_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, analyzingDoc));
+            static_.setFile(_page.getCurrentFile());
+            static_.setIndexFile(_page.getTraceIndex());
             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
                     _page.getKeyWords().getKeyWordThis());
-            AnalyzingDoc.addError(static_, analyzingDoc, _page);
+            AnalyzingDoc.addError(static_, _page);
         }
         setResultClass(new AnaClassArgumentMatching(arg_));
     }

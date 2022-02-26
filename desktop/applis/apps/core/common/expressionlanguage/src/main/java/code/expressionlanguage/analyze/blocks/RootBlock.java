@@ -258,7 +258,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (supInt_.getAccess().isStrictMoreAccessibleThan(supCl_.getAccess())) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
-                        err_.setFileName(getFile().getFileName());
+                        err_.setFile(getFile());
                         err_.setIndexFile(supCl_.getAccessOffset());
                         //key word access or method name
                         err_.buildError(_page.getAnalysisMessages().getMethodsAccesses(),
@@ -277,7 +277,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
                             err_ = new FoundErrorInterpret();
-                            err_.setFileName(getFile().getFileName());
+                            err_.setFile(getFile());
                             err_.setIndexFile(supCl_.getReturnTypeOffset());
                             //sub return type len
                             err_.buildError(_page.getAnalysisMessages().getBadReturnTypeIndexer(),
@@ -295,7 +295,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (!AnaInherits.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
-                        err_.setFileName(getFile().getFileName());
+                        err_.setFile(getFile());
                         err_.setIndexFile(supCl_.getReturnTypeOffset());
                         //sub return type len
                         err_.buildError(_page.getAnalysisMessages().getBadReturnTypeInherit(),
@@ -499,7 +499,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (!(b instanceof FunctionBlock)) {
                 int where_ = b.getOffset();
                 FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                unexp_.setFileName(getFile().getFileName());
+                unexp_.setFile(getFile());
                 unexp_.setIndexFile(where_);
                 //block len
                 unexp_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());
@@ -512,7 +512,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (b instanceof ConstructorBlock) {
                     int where_ = b.getOffset();
                     FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                    unexp_.setFileName(getFile().getFileName());
+                    unexp_.setFile(getFile());
                     unexp_.setIndexFile(where_);
                     //key word len
                     unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
@@ -526,7 +526,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 for (AbsBk b: ClassesUtil.getDirectChildren(a.getRootBlock())) {
                     if (b instanceof ConstructorBlock) {
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                        unexp_.setFileName(getFile().getFileName());
+                        unexp_.setFile(getFile());
                         unexp_.setIndexFile(getIdRowCol());
                         //key word len
                         unexp_.buildError(_page.getAnalysisMessages().getUnexpectedMemberInst(),
@@ -563,7 +563,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (!StringExpUtil.isOper(m_.getName())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadOperatorName(),
@@ -598,7 +598,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (m_.getParametersTypes().size() != 1) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
@@ -608,7 +608,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasPrimBoolean())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
@@ -619,7 +619,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (!StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
@@ -630,7 +630,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (!m_.isStaticMethod()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
@@ -640,7 +640,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (m_.isVarargs() || m_.getId().isRef()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadMethodVararg(),
@@ -658,7 +658,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (m_.getParametersTypes().size() != 1) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
@@ -668,7 +668,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (!StringUtil.quickEq(m_.getImportedReturnType(),getGenericString())&&!StringUtil.quickEq(m_.getImportedParametersTypes().first(),getGenericString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
@@ -679,7 +679,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (!m_.isStaticMethod()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
@@ -689,7 +689,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (m_.isVarargs() || m_.getId().isRef()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadMethodVararg(),
@@ -719,7 +719,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (m_.getParametersTypes().size() != 0) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadParams(),
@@ -729,7 +729,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasPrimLong()) || m_.getId().isRef()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
@@ -740,7 +740,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (m_.hiddenInstance()) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadMethodModifier(),
@@ -750,7 +750,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (m_.getAccess() != AccessEnum.PUBLIC) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadAccess(),
@@ -765,7 +765,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (!StringUtil.quickEq(m_.getImportedReturnType(),_page.getAliasString())) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),
@@ -776,7 +776,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     } else if (m_.getAccess() != AccessEnum.PUBLIC) {
                         int r_ = m_.getNameOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         badMeth_.buildError(_page.getAnalysisMessages().getBadAccess(),
@@ -793,7 +793,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         if (mess_.isError()) {
                             int r_ = m_.getNameOffset();
                             FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                            badMeth_.setFileName(getFile().getFileName());
+                            badMeth_.setFile(getFile());
                             badMeth_.setIndexFile(r_);
                             //method name len
                             badMeth_.setBuiltError(mess_.getMessage());
@@ -805,7 +805,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (m_.hiddenInstance()) {
                         int where_ = b.getOffset();
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                        unexp_.setFileName(getFile().getFileName());
+                        unexp_.setFile(getFile());
                         unexp_.setIndexFile(where_);
                         //key word this len
                         unexp_.buildError(_page.getAnalysisMessages().getBadIndexerModifier(),
@@ -816,7 +816,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (m_.getParametersTypes().isEmpty()) {
                         int where_ = b.getOffset();
                         FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                        unexp_.setFileName(getFile().getFileName());
+                        unexp_.setFile(getFile());
                         unexp_.setIndexFile(where_);
                         //key word this len
                         unexp_.buildError(_page.getAnalysisMessages().getBadIndexerParams(),
@@ -837,7 +837,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (m_.isKo()) {
                     int r_ = m_.getNameOffset();
                     FoundErrorInterpret b_ = new FoundErrorInterpret();
-                    b_.setFileName(getFile().getFileName());
+                    b_.setFile(getFile());
                     b_.setIndexFile(r_);
                     //underline index char
                     b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
@@ -848,7 +848,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (mess_.isError()) {
                     int r_ = m_.getNameOffset();
                     FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                    badMeth_.setFileName(getFile().getFileName());
+                    badMeth_.setFile(getFile());
                     badMeth_.setIndexFile(r_);
                     //method name len
                     badMeth_.setBuiltError(mess_.getMessage());
@@ -870,7 +870,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             FoundErrorInterpret duplicate_;
                             duplicate_ = new FoundErrorInterpret();
                             duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
+                            duplicate_.setFile(getFile());
                             //method name len
                             duplicate_.buildError(_page.getAnalysisMessages().getReservedCustomMethod(),
                                     id_.getSignature(_page.getDisplayedStrings()));
@@ -882,7 +882,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             FoundErrorInterpret duplicate_;
                             duplicate_ = new FoundErrorInterpret();
                             duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
+                            duplicate_.setFile(getFile());
                             //method name len
                             duplicate_.buildError(_page.getAnalysisMessages().getReservedCustomMethod(),
                                     id_.getSignature(_page.getDisplayedStrings()));
@@ -896,7 +896,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             FoundErrorInterpret duplicate_;
                             duplicate_ = new FoundErrorInterpret();
                             duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
+                            duplicate_.setFile(getFile());
                             //method name len
                             duplicate_.buildError(_page.getAnalysisMessages().getDuplicateCustomMethod(),
                                     id_.getSignature(_page.getDisplayedStrings()));
@@ -913,7 +913,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                             FoundErrorInterpret duplicate_;
                             duplicate_ = new FoundErrorInterpret();
                             duplicate_.setIndexFile(r_);
-                            duplicate_.setFileName(getFile().getFileName());
+                            duplicate_.setFile(getFile());
                             //method name len
                             duplicate_.buildError(_page.getAnalysisMessages().getDuplicateIndexer(),
                                     id_.getSignature(_page.getDisplayedStrings()));
@@ -932,7 +932,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         FoundErrorInterpret duplicate_;
                         duplicate_ = new FoundErrorInterpret();
                         duplicate_.setIndexFile(r_);
-                        duplicate_.setFileName(getFile().getFileName());
+                        duplicate_.setFile(getFile());
                         String sgn_ = id_.getSignature(_page.getDisplayedStrings());
                         //method name len
                         duplicate_.buildError(_page.getAnalysisMessages().getDuplicateCustomMethod(),
@@ -950,7 +950,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (!StringUtil.quickEq(ctorName_,getName())) {
                         int r_ = method_.getOffset();
                         FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-                        badMeth_.setFileName(getFile().getFileName());
+                        badMeth_.setFile(getFile());
                         badMeth_.setIndexFile(r_);
                         //method name len
                         AnalysisMessages ana_ = _page.getAnalysisMessages();
@@ -966,7 +966,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         FoundErrorInterpret duplicate_;
                         duplicate_ = new FoundErrorInterpret();
                         duplicate_.setIndexFile(r_);
-                        duplicate_.setFileName(getFile().getFileName());
+                        duplicate_.setFile(getFile());
                         //left par len
                         duplicate_.buildError(_page.getAnalysisMessages().getDuplicatedCtor(),
                                 idCt_.getSignature(_page.getDisplayedStrings()));
@@ -1006,7 +1006,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (res_.isError()) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(_file.getFileName());
+                b_.setFile(_file);
                 b_.setIndexFile(_method.getOffset());
                 //param name len
                 b_.setBuiltError(res_.getMessage());
@@ -1019,7 +1019,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     if (StringUtil.quickEq(v, keyWordValue_)) {
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
-                        b_.setFileName(_file.getFileName());
+                        b_.setFile(_file);
                         b_.setIndexFile(_method.getOffset());
                         //param name len
                         b_.buildError(_page.getAnalysisMessages().getReservedParamName(),
@@ -1032,7 +1032,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (StringUtil.contains(seen_, v)){
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(_file.getFileName());
+                b_.setFile(_file);
                 b_.setIndexFile(_method.getOffset());
                 //param name len
                 b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
@@ -1075,7 +1075,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (!ok_) {
                 int where_ = i.getOffset();
                 FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                unexp_.setFileName(getFile().getFileName());
+                unexp_.setFile(getFile());
                 unexp_.setIndexFile(where_);
                 //method name len
                 unexp_.buildError(_page.getAnalysisMessages().getBadIndexerPairSet(),
@@ -1086,7 +1086,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (set_.getModifier() != i.getModifier()) {
                     int where_ = i.getOffset();
                     FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                    unexp_.setFileName(getFile().getFileName());
+                    unexp_.setFile(getFile());
                     unexp_.setIndexFile(where_);
                     //method name len
                     unexp_.buildError(_page.getAnalysisMessages().getBadIndexerModifiers(),
@@ -1097,7 +1097,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (set_.getAccess() != i.getAccess()) {
                     int where_ = i.getOffset();
                     FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                    unexp_.setFileName(getFile().getFileName());
+                    unexp_.setFile(getFile());
                     unexp_.setIndexFile(where_);
                     //method name len
                     unexp_.buildError(_page.getAnalysisMessages().getBadIndexerAccesses(),
@@ -1120,7 +1120,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             if (!ok_) {
                 int where_ = i.getOffset();
                 FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                unexp_.setFileName(getFile().getFileName());
+                unexp_.setFile(getFile());
                 unexp_.setIndexFile(where_);
                 //method name len
                 unexp_.buildError(_page.getAnalysisMessages().getBadIndexerPairGet(),
@@ -1161,7 +1161,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                         j_.add(resType_.getResult());
                     } else {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(getFile().getFileName());
+                        un_.setFile(getFile());
                         un_.setIndexFile(o_ + loc_);
                         //_in len
                         un_.buildError(_page.getAnalysisMessages().getEmptyType());
@@ -1306,7 +1306,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             retClasses_.removeDuplicates();
             types_.removeDuplicates();
             FoundErrorInterpret err_ = new FoundErrorInterpret();
-            err_.setFileName(getFile().getFileName());
+            err_.setFile(getFile());
             err_.setIndexFile(rootBlockContent.getIdRowCol());
             //original id len
             err_.buildError(_page.getAnalysisMessages().getReturnTypes(),
@@ -1330,7 +1330,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 String formattedSup_ = s.getReturnType();
                 if (!AnaInherits.isReturnCorrect(formattedSup_, subType_,_vars, _page)) {
                     FoundErrorInterpret err_ = new FoundErrorInterpret();
-                    err_.setFileName(getFile().getFileName());
+                    err_.setFile(getFile());
                     err_.setIndexFile(rootBlockContent.getIdRowCol());
                     //original id len
                     err_.buildError(_page.getAnalysisMessages().getFinalNotSubReturnType(),
@@ -1356,7 +1356,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             retClasses_.removeDuplicates();
             types_.removeDuplicates();
             FoundErrorInterpret err_ = new FoundErrorInterpret();
-            err_.setFileName(getFile().getFileName());
+            err_.setFile(getFile());
             err_.setIndexFile(rootBlockContent.getIdRowCol());
             //original id len
             err_.buildError(_page.getAnalysisMessages().getTwoReturnTypes(),
@@ -1369,7 +1369,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         er_ = RootBlock.areModifierCompatible(sub_);
         for (MethodIdAncestors e: er_) {
             FoundErrorInterpret err_ = new FoundErrorInterpret();
-            err_.setFileName(getFile().getFileName());
+            err_.setFile(getFile());
             err_.setIndexFile(rootBlockContent.getIdRowCol());
             //original id len
             err_.buildError(_page.getAnalysisMessages().getTwoFinal(),
@@ -1412,7 +1412,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (b.getFirstChild() != null) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
-                    err_.setFileName(getFile().getFileName());
+                    err_.setFile(getFile());
                     err_.setIndexFile(b.getNameOffset());
                     //last char (brace) in header
                     err_.buildError(
@@ -1429,7 +1429,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                 if (b.isAbstractMethod()) {
                     FoundErrorInterpret err_;
                     err_ = new FoundErrorInterpret();
-                    err_.setFileName(getFile().getFileName());
+                    err_.setFile(getFile());
                     err_.setIndexFile(b.getNameOffset());
                     //abstract key word
                     err_.buildError(
@@ -1684,7 +1684,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         if (ctors_.isEmpty() && !opt_) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
+            un_.setFile(getFile());
             un_.setIndexFile(getOffset());
             //original id len
             un_.buildError(_page.getAnalysisMessages().getUndefinedSuperCtor(),
@@ -1698,7 +1698,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (ConstructorBlock c: ctors_) {
             if (c.implicitConstr() && !opt_) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
+                un_.setFile(getFile());
                 un_.setIndexFile(c.getOffset());
                 //original id len
                 un_.buildError(_page.getAnalysisMessages().getUndefinedSuperCtorCall(),
@@ -1729,7 +1729,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
                     for (ConstructorId c: cycle_) {
                         c_.add(c.getSignature(_page.getDisplayedStrings()));
                     }
-                    cyclic_.setFileName(getFile().getFileName());
+                    cyclic_.setFile(getFile());
                     cyclic_.setIndexFile(getOffset());
                     //original contructor id len
                     cyclic_.buildError(_page.getAnalysisMessages().getCyclicCtorCall(),

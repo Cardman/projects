@@ -84,11 +84,11 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         Argument arg_ = root_.getArgument();
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_anaDoc.getFileName());
+            static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(expressionOffset);
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getAliasNullPe());
-            AnalyzingDoc.addError(static_, _anaDoc, _page);
+            AnalyzingDoc.addError(static_, _page);
         } else if (root_.getResultClass().isArray()) {
             inferArrayClass(_anaDoc, root_, _page);
         } else {
@@ -105,20 +105,20 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            AnalyzingDoc.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _page);
         }
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             okVar = false;
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_anaDoc.getFileName());
+            b_.setFile(_page.getCurrentFile());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            AnalyzingDoc.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _page);
         }
         _page.setGlobalOffset(classNameOffset);
         _page.zeroOffset();
@@ -139,11 +139,11 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         } else {
             if (importedClassName.isEmpty()) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_anaDoc.getFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(expressionOffset);
                 cast_.buildError(_page.getAnalysisMessages().getUnknownType(),
                         className.trim());
-                AnalyzingDoc.addError(cast_, _anaDoc, _page);
+                AnalyzingDoc.addError(cast_, _page);
             } else {
                 if (refVariable) {
                     if (!compo_.matchClass(importedClassName)) {
@@ -157,12 +157,12 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
                 mapping_.setMapping(vars_);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_anaDoc.getFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(expressionOffset);
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(compo_.getNames(),AND_ERR),
                             importedClassName);
-                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
+                    AnalyzingDoc.addError(cast_, _page);
                 }
             }
         }
@@ -195,22 +195,22 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
                 mapping_.setMapping(vars_);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_anaDoc.getFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(expressionOffset);
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassName);
-                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
+                    AnalyzingDoc.addError(cast_, _page);
                 }
             }
         } else {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(expressionOffset);
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _page.getAliasObject(),
                     _page.getAliasIterable());
-            AnalyzingDoc.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _page);
         }
     }
     private boolean toInfer(AnalyzedPageEl _page) {

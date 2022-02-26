@@ -87,7 +87,7 @@ public abstract class AbsBk {
             }
             if (!wc_) {
                 FoundErrorInterpret bad_ = new FoundErrorInterpret();
-                bad_.setFileName(getFile().getFileName());
+                bad_.setFile(getFile());
                 bad_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
                 //label_ len
                 bad_.buildError(_page.getAnalysisMessages().getBadLabel());
@@ -96,7 +96,7 @@ public abstract class AbsBk {
             } else if (!label_.isEmpty()){
                 if (StringUtil.contains(_anEl.getLabels(), label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
-                    dup_.setFileName(getFile().getFileName());
+                    dup_.setFile(getFile());
                     dup_.setIndexFile(((BreakableBlock)this).getRealLabelOffset());
                     //label_ len
                     dup_.buildError(_page.getAnalysisMessages().getDuplicatedLabel());
@@ -127,7 +127,7 @@ public abstract class AbsBk {
             return false;
         }
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setFileName(_block.getFile().getFileName());
+        un_.setFile(_block.getFile());
         un_.setIndexFile(_block.getOffset());
         //defined len first key words
         un_.buildError(_page.getAnalysisMessages().getUnexpectedBlockExp());

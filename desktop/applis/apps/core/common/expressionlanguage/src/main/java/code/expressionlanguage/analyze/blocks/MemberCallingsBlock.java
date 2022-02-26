@@ -36,6 +36,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
         AbsBk firstChild_ = getFirstChild();
         _page.setCurrentBlock(this);
         _page.setCurrentFct(this);
+        _page.setCurrentFile(getFile());
         StringMap<StringList> vars_ = ContextUtil.getCurrentConstraints(_page);
         Mapping mapping_ = new Mapping();
         mapping_.setMapping(vars_);
@@ -93,7 +94,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Functio
     private void checkIndexes(AbsBk _en, AnalyzedPageEl _page) {
         for (int i:_en.getBadIndexes()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
+            b_.setFile(getFile());
             b_.setIndexFile(i);
             //underline index char
             b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());

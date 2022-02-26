@@ -66,7 +66,7 @@ public final class AffectationOperation extends MethodOperation {
         }
         if (!isLeftValue(elt_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
@@ -115,7 +115,7 @@ public final class AffectationOperation extends MethodOperation {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 if (!clMatchLeftPoss_.matchClass(clMatchRight_)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -159,7 +159,7 @@ public final class AffectationOperation extends MethodOperation {
             StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
             if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //field name len
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
@@ -180,7 +180,7 @@ public final class AffectationOperation extends MethodOperation {
                 return;
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -202,7 +202,7 @@ public final class AffectationOperation extends MethodOperation {
                 clMatchRight_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -223,7 +223,7 @@ public final class AffectationOperation extends MethodOperation {
         StringList vars_ = _page.getVariablesNames();
         if (StringUtil.quickEq(_import, _page.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //'var' len
             un_.buildError(_page.getAnalysisMessages().getUnassignedInferingType(),

@@ -59,7 +59,7 @@ public final class ElUtil {
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //badOffset char
             badEl_.buildError(_page.getAnalysisMessages().getEmptyPart());
@@ -101,7 +101,7 @@ public final class ElUtil {
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //badOffset char
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
@@ -251,7 +251,7 @@ public final class ElUtil {
                         &&!(_current instanceof AffectationOperation)) {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
-                    b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+                    b_.setFile(_page.getCurrentFile());
                     b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                     _page.addLocError(b_);
@@ -262,7 +262,7 @@ public final class ElUtil {
                     if (!(_current instanceof DeclaredFieldOperation)) {
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
-                        b_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+                        b_.setFile(_page.getCurrentFile());
                         b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                         b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                         _page.addLocError(b_);

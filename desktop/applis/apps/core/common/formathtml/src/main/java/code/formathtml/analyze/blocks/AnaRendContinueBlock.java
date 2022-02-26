@@ -37,7 +37,7 @@ public final class AnaRendContinueBlock extends AnaRendLeaf implements AnaRendBu
             _page.setGlobalOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(labelOffset);
             if (label.isEmpty()) {
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAbrupt(),
@@ -63,7 +63,7 @@ public final class AnaRendContinueBlock extends AnaRendLeaf implements AnaRendBu
                                 ),
                                 OR_ERR));
             }
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
         }
     }
 

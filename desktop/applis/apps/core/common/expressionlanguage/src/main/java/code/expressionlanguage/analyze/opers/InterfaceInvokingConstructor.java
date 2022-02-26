@@ -35,7 +35,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         RootBlock candidate_ = _page.getAnaClassBody(cl_);
         if (!(candidate_ instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
@@ -47,7 +47,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         AnaFormattedRootBlock superClass_ = AnaInherits.getFormattedOverridingFullTypeByBases(clCurType_, candidate_);
         if (superClass_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
@@ -66,7 +66,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         BracedBlock br_ = curBlock_.getParent();
         if (br_.getParent() instanceof InterfaceBlock) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(curLine_.getFile().getFileName());
+            call_.setFile(curLine_.getFile());
             call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntNotFromInt());
@@ -92,7 +92,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                     if (!(f_ instanceof Line)) {
                         //error
                         FoundErrorInterpret call_ = new FoundErrorInterpret();
-                        call_.setFileName(curLine_.getFile().getFileName());
+                        call_.setFile(curLine_.getFile());
                         call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
                         //key word len
                         call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
@@ -102,7 +102,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         if (!((Line)f_).isCallFromCtorToCtor()|| ((Line)f_).isCallThis()) {
                             //error
                             FoundErrorInterpret call_ = new FoundErrorInterpret();
-                            call_.setFileName(curLine_.getFile().getFileName());
+                            call_.setFile(curLine_.getFile());
                             call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
                             //key word len
                             call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
@@ -142,7 +142,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
             if (supType_ != null && supType_.isSubTypeOf(_cl, _page)) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
-                undef_.setFileName(_n.getFile().getFileName());
+                undef_.setFile(_n.getFile());
                 undef_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //current type len
                 undef_.buildError(_page.getAnalysisMessages().getCallCtorIntInherits(),

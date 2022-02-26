@@ -131,7 +131,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
             un_.setIndexFile(i_);
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);
@@ -148,7 +148,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
             un_.setIndexFile(i_);
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     n_);
@@ -164,7 +164,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
             un_.setIndexFile(i_);
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     cp_);
@@ -192,7 +192,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                     argType_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     int i_ = _page.getLocalizer().getCurrentLocationIndex();
                     cast_.setIndexFile(i_);
                     //first separator char child

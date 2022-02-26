@@ -33,7 +33,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
         if (StringUtil.quickEq(oper.trim(), NEG_BOOL)) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badEl_.setFile(_page.getCurrentFile());
             int index_ = _page.getLocalizer().getCurrentLocationIndex();
             badEl_.setIndexFile(index_);
             //oper len

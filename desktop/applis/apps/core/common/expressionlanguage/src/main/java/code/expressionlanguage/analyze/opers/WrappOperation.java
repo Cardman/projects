@@ -77,7 +77,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         }
         if (!rightAffDecl_&&!retRef_&&isNotChildOfCall(m_)&& !(m_ instanceof NamedArgumentOperation)&&!(m_ instanceof AbstractRefTernaryOperation)&&!(m_ instanceof ArgumentListInstancing)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
@@ -89,7 +89,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         }
         if (m_ instanceof NamedArgumentOperation && m_.getParent() instanceof CallDynMethodOperation) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
@@ -106,7 +106,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         }
         if (!(firstChild_ instanceof RefVariableOperation)&&!(firstChild_ instanceof VariableOperation)&&!(firstChild_ instanceof MutableLoopVariableOperation)&&!(firstChild_ instanceof SettableAbstractFieldOperation)&&!(firstChild_ instanceof DotOperation)&&!(firstChild_ instanceof AbstractRefTernaryOperation)&&!(firstChild_ instanceof SwitchOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
@@ -127,7 +127,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
                 return;
             }
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
@@ -171,7 +171,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         AnaSettableOperationContent settableFieldContent_ = _last.getSettableFieldContent();
         if (settableFieldContent_.isFinalField()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
@@ -185,7 +185,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
     public void processErrorVar(AnalyzedPageEl _page, AnaLocalVariable _var) {
         if (_var == null || _var.isFinalVariable()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),

@@ -63,7 +63,7 @@ public final class SettableFieldOperation extends
         FieldResult r_ = resolveDeclaredCustField(isStaticAccess() != MethodAccessKind.INSTANCE, cl_, fieldName_, import_, affect_, _page, scope_);
         if (r_.getStatus() == SearchingMemberStatus.ZERO) {
             FoundErrorInterpret access_ = new FoundErrorInterpret();
-            access_.setFileName(_page.getLocalizer().getCurrentFileName());
+            access_.setFile(_page.getCurrentFile());
             access_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //_name len
             access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),

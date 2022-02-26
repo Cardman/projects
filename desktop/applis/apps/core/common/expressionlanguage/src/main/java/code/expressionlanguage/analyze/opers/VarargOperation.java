@@ -33,7 +33,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
         MethodOperation m_ = getParent();
         if (isNotChildOfCallDyn(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
@@ -49,7 +49,7 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
         }
         if (!isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len

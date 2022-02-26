@@ -71,7 +71,7 @@ public final class AssInit extends AssMemberCallingsBlock {
         if (!a_.isAssignedAfter() && !a_.isUnassignedAfter()) {
             //error
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getCurrentBlock().getFile().getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             un_.buildError(_page.getAnalysisMessages().getUnassignedFinalField(),
                     name_,cl_);

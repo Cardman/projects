@@ -116,7 +116,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         if (getParent() != null) {
             //error
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(curBlock_.getFile().getFileName());
+            call_.setFile(curBlock_.getFile());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorEnd());
@@ -126,7 +126,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             if (!(curBlock_.getParent() instanceof ConstructorBlock)) {
                 //error
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(curBlock_.getFile().getFileName());
+                call_.setFile(curBlock_.getFile());
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
                 call_.buildError(_page.getAnalysisMessages().getCallCtor());
@@ -135,7 +135,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             } else if (!(curBlock_ instanceof Line)) {
                 //error
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                call_.setFileName(curBlock_.getFile().getFileName());
+                call_.setFile(curBlock_.getFile());
                 call_.setIndexFile(getFullIndexInEl());
                 //key word len
                 call_.buildError(_page.getAnalysisMessages().getCallCtorBeforeBlock());
@@ -150,7 +150,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         AbsBk curBlock_ = _page.getCurrentBlock();
         if (curBlock_.getParent().getFirstChild() != curBlock_) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(curBlock_.getFile().getFileName());
+            call_.setFile(curBlock_.getFile());
             call_.setIndexFile(getFullIndexInEl());
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorFirstLine());

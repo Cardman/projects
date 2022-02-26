@@ -75,7 +75,7 @@ public abstract class QuickOperation extends MethodOperation {
                 } else {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -94,7 +94,7 @@ public abstract class QuickOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //first operator char or second operator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(leftRes_.getNames(),ExportCst.JOIN_TYPES));
@@ -106,7 +106,7 @@ public abstract class QuickOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //first operator char or second operator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(rightRes_.getNames(), ExportCst.JOIN_TYPES));

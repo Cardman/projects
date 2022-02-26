@@ -63,7 +63,7 @@ public final class AssStdVariableOperation extends AssLeafOperation {
                     //errors
                     setRelativeOffsetPossibleAnalyzable(_page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     un_.buildError(_page.getAnalysisMessages().getFinalField(),
                             varName_);

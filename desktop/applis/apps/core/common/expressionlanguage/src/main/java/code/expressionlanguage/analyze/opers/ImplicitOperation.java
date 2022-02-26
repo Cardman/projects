@@ -37,7 +37,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         StringList types_ = StringExpUtil.getAllSepCommaTypes(extract_);
         if (types_.size() > 3) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-            badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badCall_.setFile(_page.getCurrentFile());
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
@@ -77,7 +77,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             if (geneType_ == null) {
                 int rc_ = _page.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(rc_);
                 //_in len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -104,7 +104,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         if (geneType_ == null) {
             int rc_ = _page.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(rc_);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -144,7 +144,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             classesNames_.add(StringUtil.join(c.getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setFile(_page.getCurrentFile());
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
         String exp_ = _page.getKeyWords().getKeyWordCast();

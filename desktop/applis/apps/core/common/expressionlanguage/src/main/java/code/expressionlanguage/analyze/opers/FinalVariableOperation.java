@@ -75,7 +75,7 @@ public final class FinalVariableOperation extends LeafOperation {
         variableContent.setVariableName(str_);
         realVariableName = str_;
         FoundErrorInterpret und_ = new FoundErrorInterpret();
-        und_.setFileName(_page.getLocalizer().getCurrentFileName());
+        und_.setFile(_page.getCurrentFile());
         und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //variable name len
         und_.buildError(_page.getAnalysisMessages().getUndefinedVariable(),

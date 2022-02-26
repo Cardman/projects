@@ -41,7 +41,7 @@ public final class ImportingPage {
 
 
     public int realIndex(ExecAbstractFileBlock _fileBlock) {
-        return _fileBlock.realIndex(opOffset + offset);
+        return _fileBlock.getFileEscapedCalc().realIndex(opOffset + offset);
     }
 
     public ExecAbstractFileBlock file() {

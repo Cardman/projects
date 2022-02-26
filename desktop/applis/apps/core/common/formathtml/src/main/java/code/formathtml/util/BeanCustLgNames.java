@@ -8,6 +8,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -434,7 +435,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             AnaRendDocumentBlock value_ = e.getValue();
             FileMetricsCore metricsCore_ = value_.getFileBlock().getMetricsCore();
             String key_ = e.getKey();
-            exec_.add(new RendFileBlock(metricsCore_,key_,value_.getEscapedChar()));
+            exec_.add(new ExecFileBlock(metricsCore_,key_,value_.getFileBlock().getFileEscapedCalc()));
         }
         return exec_;
     }

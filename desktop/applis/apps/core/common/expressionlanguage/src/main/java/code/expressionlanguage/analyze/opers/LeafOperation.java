@@ -28,7 +28,7 @@ public abstract class LeafOperation extends OperationNode {
         if (!ContextUtil.canAccessType(curClassBase_, a_, _page)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badAccess_.setFile(_page.getCurrentFile());
             //className len
             badAccess_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
                     _classStr,

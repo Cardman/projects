@@ -91,7 +91,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
         String type_ = _result.getSingleNameOrEmpty();
         if (type_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_braced.getFile().getFileName());
+            un_.setFile(_braced.getFile());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //one char => change to first left par
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),
@@ -112,7 +112,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                     _braced.setInstanceTest(true,type_);
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_braced.getFile().getFileName());
+                    un_.setFile(_braced.getFile());
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //one char => change to first left par
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -134,7 +134,7 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
                 continue;
             }
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_braced.getFile().getFileName());
+            un_.setFile(_braced.getFile());
             un_.setIndexFile(_braced.getOffset());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedSwitch(),

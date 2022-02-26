@@ -105,11 +105,11 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         Argument arg_ = root.getArgument();
         if (Argument.isNullValue(arg_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_anaDoc.getFileName());
+            static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(expressionOffset);
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getAliasNullPe());
-            AnalyzingDoc.addError(static_, _anaDoc, _page);
+            AnalyzingDoc.addError(static_, _page);
         } else {
             StringList names_ = root.getResultClass().getNames();
             StringList out_ = getCustomType(names_, _page);
@@ -126,28 +126,28 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            AnalyzingDoc.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _page);
         }
         TokenErrorMessage resOne_ = ManageTokens.partVar(_page).checkTokenVar(variableNameFirst, _page);
         if (resOne_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_anaDoc.getFileName());
+            b_.setFile(_page.getCurrentFile());
             b_.setIndexFile(variableNameOffsetFirst);
             b_.setBuiltError(resOne_.getMessage());
-            AnalyzingDoc.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _page);
             okVarFirst = false;
         }
         TokenErrorMessage resTwo_ = ManageTokens.partVar(_page).checkTokenVar(variableNameSecond, _page);
         if (resTwo_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_anaDoc.getFileName());
+            b_.setFile(_page.getCurrentFile());
             b_.setIndexFile(variableNameOffsetSecond);
             b_.setBuiltError(resTwo_.getMessage());
-            AnalyzingDoc.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _page);
             okVarSecond = false;
         }
         _page.setGlobalOffset(classNameOffsetFirst);
@@ -190,12 +190,12 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                 mapping_.setMapping(vars_);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_anaDoc.getFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(expressionOffset);
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameFirst);
-                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
+                    AnalyzingDoc.addError(cast_, _page);
                 }
             }
             mapping_ = new Mapping();
@@ -216,22 +216,22 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                 mapping_.setMapping(vars_);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_anaDoc.getFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(expressionOffset);
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             paramArg_,
                             importedClassNameSecond);
-                    AnalyzingDoc.addError(cast_, _anaDoc, _page);
+                    AnalyzingDoc.addError(cast_, _page);
                 }
             }
         } else {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(expressionOffset);
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _page.getAliasObject(),
                     _page.getAliasIterableTable());
-            AnalyzingDoc.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _page);
         }
     }
 
@@ -239,11 +239,11 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         if (okVarFirst && okVarSecond) {
             if (StringUtil.quickEq(variableNameFirst, variableNameSecond)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_anaDoc.getFileName());
+                d_.setFile(_page.getCurrentFile());
                 d_.setIndexFile(variableNameOffsetSecond);
                 d_.buildError(_page.getAnalysisMessages().getBadVariableName(),
                         variableNameFirst);
-                AnalyzingDoc.addError(d_, _anaDoc, _page);
+                AnalyzingDoc.addError(d_, _page);
                 return;
             }
         }

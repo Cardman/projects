@@ -147,7 +147,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_page.getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
@@ -158,7 +158,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
+            b_.setFile(getFile());
             b_.setIndexFile(variableNameOffset);
             //variable name len
             b_.setBuiltError(res_.getMessage());
@@ -193,7 +193,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                 mapping_.setArg("");
                 mapping_.setParam("");
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(getFile().getFileName());
+                cast_.setFile(getFile());
                 cast_.setIndexFile(expressionOffset);
                 //separator char
                 cast_.buildError(_page.getAnalysisMessages().getUnknownType(),
@@ -204,7 +204,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                 if (refVariable) {
                     if (!compo_.matchClass(importedClassName)) {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(getFile().getFileName());
+                        cast_.setFile(getFile());
                         cast_.setIndexFile(expressionOffset);
                         //separator char
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -220,7 +220,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                     mapping_.setMapping(vars_);
                     if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(getFile().getFileName());
+                        cast_.setFile(getFile());
                         cast_.setIndexFile(expressionOffset);
                         //separator char
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -302,7 +302,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
                 mapping_.setMapping(vars_);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(getFile().getFileName());
+                    cast_.setFile(getFile());
                     cast_.setIndexFile(expressionOffset);
                     //separator char
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -314,7 +314,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
             }
         } else {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(expressionOffset);
             //separator char
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),

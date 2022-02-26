@@ -67,7 +67,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 }
                 if (!added_) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(getFile().getFileName());
+                    un_.setFile(getFile());
                     un_.setIndexFile(valueOffset);
                     //key word len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
@@ -130,7 +130,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 meta.getStdValues().add(argument_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
+                un_.setFile(getFile());
                 un_.setIndexFile(valueOffset);
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
@@ -151,7 +151,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 for (ClassField p: c_.meta.getEnumValues()) {
                     if (_classField.eq(p)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(getFile().getFileName());
+                        un_.setFile(getFile());
                         un_.setIndexFile(getValueOffset()+ getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
@@ -169,7 +169,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         for (ClassField p: meta.getEnumValues()) {
             if (_classField.eq(p)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
+                un_.setFile(getFile());
                 un_.setIndexFile(getValueOffset()+ getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
@@ -191,7 +191,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
                 for (Argument p: c_.meta.getStdValues()) {
                     if (_value.getStruct().sameReference(p.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(getFile().getFileName());
+                        un_.setFile(getFile());
                         un_.setIndexFile(getValueOffset()+ getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
@@ -209,7 +209,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         for (Argument p: meta.getStdValues()) {
             if (_value.getStruct().sameReference(p.getStruct())) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
+                un_.setFile(getFile());
                 un_.setIndexFile(getValueOffset()+ getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
@@ -229,7 +229,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
         m_.setParam(_resSwitch);
         if (!_instance && !AnaInherits.isCorrectOrNumbers(m_, _page)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
+            un_.setFile(getFile());
             un_.setIndexFile(valueOffset);
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),

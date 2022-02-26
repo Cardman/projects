@@ -54,7 +54,7 @@ public final class MetaInfoUtil {
         if (f_ != null) {
             fileName_ = f_.getFileName();
             int trace_ = call_.getTraceIndex();
-            indexFileType_ = f_.realIndex(trace_);
+            indexFileType_ = f_.getFileEscapedCalc().realIndex(trace_);
             FileMetrics metrics_ = f_.getMetrics(_cont.getTabWidth());
             row_ = metrics_.getRowFile(indexFileType_);
             col_ = metrics_.getColFile(indexFileType_,row_);

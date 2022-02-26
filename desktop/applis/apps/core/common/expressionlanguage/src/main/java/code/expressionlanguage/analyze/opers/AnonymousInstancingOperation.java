@@ -79,7 +79,7 @@ public final class AnonymousInstancingOperation extends
             TokenErrorMessage tokenErrorMessage_ = ManageTokens.partClass(_page).checkToken(name_, _page);
             if (tokenErrorMessage_.isError()) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                static_.setFile(_page.getCurrentFile());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //original type len
                 static_.setBuiltError(tokenErrorMessage_.getMessage());
@@ -102,7 +102,7 @@ public final class AnonymousInstancingOperation extends
             return;
         }
         FoundErrorInterpret static_ = new FoundErrorInterpret();
-        static_.setFileName(_page.getLocalizer().getCurrentFileName());
+        static_.setFile(_page.getCurrentFile());
         static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //key word len
         static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
@@ -128,7 +128,7 @@ public final class AnonymousInstancingOperation extends
         AnaGeneType g_ = _page.getAnaGeneType(base_);
         if (!(g_ instanceof RootBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
@@ -139,7 +139,7 @@ public final class AnonymousInstancingOperation extends
         }
         for (String p:StringExpUtil.getWildCards(_realClassName)){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //part type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),

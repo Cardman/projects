@@ -77,7 +77,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 //type len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
@@ -116,7 +116,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 //type len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(getResultClass().getNames(), ExportCst.JOIN_TYPES),
@@ -129,7 +129,7 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
         if (!isIntermediateDottedOperation()) {
             if (_page.getStaticContext() != MethodAccessKind.INSTANCE) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                static_.setFile(_page.getCurrentFile());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //kw_ len
                 static_.buildError(_page.getAnalysisMessages().getStaticAccess(),

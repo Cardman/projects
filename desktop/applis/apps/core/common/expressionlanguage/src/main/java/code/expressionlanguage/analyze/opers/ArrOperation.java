@@ -163,7 +163,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
                     FoundErrorInterpret abs_ = new FoundErrorInterpret();
                     abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    abs_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    abs_.setFile(_page.getCurrentFile());
                     //method name len
                     abs_.buildError(
                             _page.getAnalysisMessages().getAbstractMethodRef(),
@@ -185,7 +185,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             int i_ = _page.getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badNb_.setFile(_page.getCurrentFile());
             badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //second separator char
             badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
@@ -204,7 +204,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 ||right_ instanceof FirstOptOperation || getDeltaCount(right_) != 0) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
@@ -219,7 +219,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             if (!class_.isArray()) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setFile(_page.getCurrentFile());
                 //first separator char
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
@@ -239,7 +239,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setFile(_page.getCurrentFile());
                 //first separator char
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         StringUtil.join(indexClass_.getNames(),ExportCst.JOIN_TYPES));
@@ -250,7 +250,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         if (!class_.isArray()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));

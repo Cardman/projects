@@ -129,7 +129,7 @@ public final class AnalyzedPageEl {
     private AbstractProcessKeyWord processKeyWord;
     private DefaultCurrentConstraints currentConstraints;
     private DefaultBuildingConstraints buildingConstraints;
-    private AbstractLocalizer localizer;
+    private DefaultLocalizer localizer;
     private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
@@ -396,8 +396,20 @@ public final class AnalyzedPageEl {
         globalOffset = _globalOffset;
     }
 
+    public static String getFileName(FileBlock _file) {
+        if (_file == null) {
+            return "";
+        }
+        return _file.getFileName();
+    }
+    public static int getTraceIndex(FileBlock _file,int _index) {
+        if (_file == null) {
+            return 0;
+        }
+        return _file.getFileEscapedCalc().realIndex(_index);
+    }
     public int getTraceIndex() {
-        return globalOffset + getOffset() + translatedOffset;
+        return getTraceIndex(currentFile, globalOffset + getOffset() + translatedOffset);
     }
 
     public AbsBk getCurrentBlock() {
@@ -881,11 +893,11 @@ public final class AnalyzedPageEl {
         this.buildingConstraints = _buildingConstraints;
     }
 
-    public AbstractLocalizer getLocalizer() {
+    public DefaultLocalizer getLocalizer() {
         return localizer;
     }
 
-    public void setLocalizer(AbstractLocalizer _localizer) {
+    public void setLocalizer(DefaultLocalizer _localizer) {
         this.localizer = _localizer;
     }
 
@@ -980,21 +992,24 @@ public final class AnalyzedPageEl {
 
 
     public void addLocWarning(FoundWarningInterpret _warning) {
-        _warning.setLocationFile(getLocationFile(_warning.getFileName(),_warning.getIndexFile(), this));
+        _warning.setLocationFile(getLocationFile(_warning.getIndexFile(),_warning.getFile(), getTabWidth()));
         addWarning(_warning);
     }
 
     public void addLocError(FoundErrorInterpret _error) {
-        _error.setLocationFile(getLocationFile(_error.getFileName(),_error.getIndexFile(), this));
+        _error.setLocationFile(getLocationFile(_error.getIndexFile(),_error.getFile(), getTabWidth()));
         addError(_error);
     }
 
-    private static String getLocationFile(String _fileName, int _sum, AnalyzedPageEl _analyzing) {
-        FileBlock file_ = _analyzing.getFileBody(_fileName);
-        FileMetrics metrics_ = file_.getMetrics(_analyzing.getTabWidth());
-        int r_ = metrics_.getRowFile(_sum);
-        int c_ = metrics_.getColFile(_sum,r_);
-        return StringUtil.concat( Long.toString(r_),",",Long.toString(c_),",",Long.toString(_sum));
+    public static String getLocationFile(int _sum, FileBlock _file, int _tab) {
+        int res_ = getTraceIndex(_file,_sum);
+        if (_file == null) {
+            return "";
+        }
+        FileMetrics metrics_ = _file.getMetrics(_tab);
+        int r_ = metrics_.getRowFile(res_);
+        int c_ = metrics_.getColFile(res_,r_);
+        return StringUtil.concat(Long.toString(r_), ",", Long.toString(c_), ",", Long.toString(res_));
     }
 
     public void addError(FoundErrorInterpret _error) {
@@ -1026,9 +1041,7 @@ public final class AnalyzedPageEl {
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {
         filesBodies.put(_fileName, _fileBlock);
     }
-    public FileBlock getFileBody(String _string) {
-        return filesBodies.getVal(_string);
-    }
+
     public StringMap<FileBlock> getFilesBodies() {
         return filesBodies;
     }

@@ -24,12 +24,12 @@ public final class AnaRendField extends AnaRendParentBlock implements AnaRendBui
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(getParent() instanceof AnaRendClass)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(getOffset());
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _anaDoc.getRendKeyWords().getKeyWordField(),
                     _anaDoc.getRendKeyWords().getKeyWordClass());
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
         } else {
             AnaRendClass cl_ = (AnaRendClass) getParent();
             String intern_ = cl_.getFullName();

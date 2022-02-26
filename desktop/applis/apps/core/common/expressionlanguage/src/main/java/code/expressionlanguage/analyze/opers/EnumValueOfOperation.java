@@ -60,7 +60,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         RootBlock r_ = _page.getAnaClassBody(clName_);
         if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //className len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -77,7 +77,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         if (!ContextUtil.canAccessType(curClassBase_,a_, _page)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badAccess_.setFile(_page.getCurrentFile());
             //className len
             badAccess_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
                     clName_,
@@ -89,7 +89,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         String stringType_ = _page.getAliasString();
         if (!argCl_.matchClass(stringType_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //separator after className
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),

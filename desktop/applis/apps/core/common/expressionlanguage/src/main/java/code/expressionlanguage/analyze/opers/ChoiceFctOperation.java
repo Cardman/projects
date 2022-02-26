@@ -158,7 +158,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
             abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            abs_.setFileName(_page.getLocalizer().getCurrentFileName());
+            abs_.setFile(_page.getCurrentFile());
             //method name len
             abs_.buildError(
                     _page.getAnalysisMessages().getAbstractMethodRef(),

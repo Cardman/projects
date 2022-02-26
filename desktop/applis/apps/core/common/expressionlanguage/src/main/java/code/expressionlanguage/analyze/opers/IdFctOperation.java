@@ -40,7 +40,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         MethodOperation m_ = getParent();
         if (isNotChildOfCall(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
@@ -55,7 +55,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         }
         if (!isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             varg_.setIndexFile(i_);
             //key word len
@@ -186,7 +186,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
                 if (i + 1 != len_) {
                     //last type => error
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
-                    varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    varg_.setFile(_page.getCurrentFile());
                     int i_ = off_ + _page.getLocalizer().getCurrentLocationIndex() + full_.lastIndexOf("...");
                     varg_.setIndexFile(i_);
                     //three dots

@@ -38,10 +38,10 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(_anaDoc.getFileName());
+            b_.setFile(_page.getCurrentFile());
             b_.setIndexFile(variableNameOffset);
             b_.setBuiltError(res_.getMessage());
-            AnalyzingDoc.addError(b_, _anaDoc, _page);
+            AnalyzingDoc.addError(b_, _page);
             return;
         }
         _page.setGlobalOffset(classNameOffset);
@@ -55,7 +55,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
             if (!(pBlock_ instanceof AnaRendTryEval)) {
                 if (!isPossibleEmpty(pBlock_)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(getOffset());
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                             _page.getKeyWords().getKeyWordCatch(),
@@ -65,11 +65,11 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
                                             _page.getKeyWords().getKeyWordTry()
                                     ),
                                     OR_ERR));
-                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _page);
                 } else if (!(pBlock_.getPreviousSibling() instanceof AnaRendAbstractCatchEval)) {
                     if (!(pBlock_.getPreviousSibling() instanceof AnaRendTryEval)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
+                        un_.setFile(_page.getCurrentFile());
                         un_.setIndexFile(getOffset());
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                                 _page.getKeyWords().getKeyWordCatch(),
@@ -79,7 +79,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
                                                 _page.getKeyWords().getKeyWordTry()
                                         ),
                                         OR_ERR));
-                        AnalyzingDoc.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _page);
                     }
                 }
             }

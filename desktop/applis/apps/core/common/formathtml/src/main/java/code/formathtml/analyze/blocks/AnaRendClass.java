@@ -19,23 +19,23 @@ public final class AnaRendClass  extends AnaRendParentBlock implements AnaRendBu
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(getParent() instanceof AnaRendPackage)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(getOffset());
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _anaDoc.getRendKeyWords().getKeyWordClass(),
                     _anaDoc.getRendKeyWords().getKeyWordPackage());
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
         } else {
             AnaRendPackage par_ = (AnaRendPackage) getParent();
             fullName = StringUtil.concat(par_.getName(),DOT,name);
             fullName = StringExpUtil.removeDottedSpaces(fullName);
             if (_page.getAnaGeneType(fullName) == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(getOffset());
                 un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                         fullName);
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
             }
         }
     }

@@ -97,7 +97,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             o.setRelativeOffsetPossibleAnalyzable(o.getIndexInEl()+ o.getOffsetTr(), _page);
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
-            b_.setFileName(_page.getLocalizer().getCurrentFileName());
+            b_.setFile(_page.getCurrentFile());
             b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //param name len
             b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
@@ -903,7 +903,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setFile(_page.getCurrentFile());
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
@@ -918,7 +918,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             classesNames_.add(StringUtil.join(c.getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setFile(_page.getCurrentFile());
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
@@ -933,7 +933,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-        undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+        undefined_.setFile(_page.getCurrentFile());
         undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //key word len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),

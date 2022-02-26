@@ -25,13 +25,13 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
             _page.setGlobalOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
                     _page.getKeyWords().getKeyWordDefault(),
                     EMPTY_STRING,
                     _page.getKeyWords().getKeyWordSwitch());
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
         } else {
             AnaRendSwitchBlock s_ = (AnaRendSwitchBlock) b_;
             if (!s_.isInstance()) {
@@ -39,13 +39,13 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
                 while (first_ != this) {
                     if (first_ instanceof AnaRendDefaultCondition) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
+                        un_.setFile(_page.getCurrentFile());
                         un_.setIndexFile(getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
                                 _page.getKeyWords().getKeyWordDefault(),
                                 _page.getKeyWords().getKeyWordSwitch());
-                        AnalyzingDoc.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _page);
                         break;
                     }
                     first_ = first_.getNextSibling();
@@ -56,22 +56,22 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
             setImportedClassName(instanceTest_);
             if (getNextSibling() != null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDefDup(),
                         _page.getKeyWords().getKeyWordDefault(),
                         _page.getKeyWords().getKeyWordSwitch());
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
             }
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(getVariableName(), _page);
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_anaDoc.getFileName());
+                d_.setFile(_page.getCurrentFile());
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());
-                AnalyzingDoc.addError(d_, _anaDoc, _page);
+                AnalyzingDoc.addError(d_, _page);
                 return;
             }
             AnaLocalVariable lv_ = new AnaLocalVariable();

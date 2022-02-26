@@ -1,7 +1,6 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
 import code.expressionlanguage.analyze.blocks.AbsLoopDeclarator;
 import code.expressionlanguage.analyze.blocks.ForLoopPart;
 import code.expressionlanguage.analyze.blocks.ForMutableIterativeLoop;
@@ -87,11 +86,11 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_anaDoc.getFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(classIndexNameOffset);
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
                     importedClassIndexName);
-            AnalyzingDoc.addError(cast_, _anaDoc, _page);
+            AnalyzingDoc.addError(cast_, _page);
         }
         _page.setGlobalOffset(classNameOffset);
         _page.zeroOffset();
@@ -152,11 +151,11 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
                         exp_.implicitInfosTest(trueOp_);
                     } else {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
+                        un_.setFile(_page.getCurrentFile());
                         un_.setIndexFile(expressionOffset);
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                                 StringUtil.join(exp_.getNames(),AND_ERR));
-                        AnalyzingDoc.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _page);
                     }
                 }
             }

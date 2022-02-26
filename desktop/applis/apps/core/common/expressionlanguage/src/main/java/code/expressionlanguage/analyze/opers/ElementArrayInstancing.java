@@ -270,7 +270,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         if (eltType_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     className_);
@@ -303,7 +303,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
                     argType_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     int i_ = _page.getLocalizer().getCurrentLocationIndex();
                     cast_.setIndexFile(i_);
                     //first separator char child

@@ -164,7 +164,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
         if (names_.isEmpty()) {
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
+            b_.setFile(getFile());
             b_.setIndexFile(getOffset());
             //value len
             b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
@@ -197,7 +197,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
             if (mess_.isError()) {
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
-                b_.setFileName(_bl.getFile().getFileName());
+                b_.setFile(_bl.getFile());
                 b_.setIndexFile(_bl.getOffset());
                 //trName_ len
                 b_.setBuiltError(mess_.getMessage());
@@ -210,7 +210,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
                     FoundErrorInterpret duplicate_;
                     duplicate_ = new FoundErrorInterpret();
                     duplicate_.setIndexFile(r_);
-                    duplicate_.setFileName(_bl.getFile().getFileName());
+                    duplicate_.setFile(_bl.getFile());
                     //trName_ len
                     duplicate_.buildError(_page.getAnalysisMessages().getDuplicateField(),
                             trName_);

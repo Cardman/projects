@@ -531,7 +531,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             String outer_ = StringUtil.join(parts_.left(parts_.size() - 2),"");
             if (_staticAccess != MethodAccessKind.INSTANCE) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                static_.setFile(_page.getCurrentFile());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //original type len
                 static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
@@ -546,7 +546,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 m_.setMapping(vars_);
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)){
                     FoundErrorInterpret static_ = new FoundErrorInterpret();
-                    static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    static_.setFile(_page.getCurrentFile());
                     static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //original type len
                     static_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),

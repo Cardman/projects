@@ -57,7 +57,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             StrTypes ops_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
@@ -75,7 +75,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //field name len
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
@@ -114,7 +114,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     conv.infos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -138,7 +138,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
                 if (!isString_) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -154,7 +154,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             if (!AnaTypeUtil.isPureNumberClass(clMatchRight_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -168,7 +168,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_, _page)
                     && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -193,7 +193,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
             if (!okRes_) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -213,7 +213,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 || StringUtil.quickEq(getOper(), AbsBk.AND_LOG_EQ_SHORT) || StringUtil.quickEq(getOper(), AbsBk.OR_LOG_EQ_SHORT)) {
             if (!clMatchLeft_.isBoolType(_page) || !clMatchRight_.isBoolType(_page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -241,7 +241,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     clMatchRight_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -257,7 +257,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_,clMatchRight_, _page)
                 && !AnaTypeUtil.isIntOrderClass(clMatchLeft_,clMatchRight_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //oper len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),

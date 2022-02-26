@@ -16,12 +16,12 @@ public final class AnaRendImportForm extends AnaRendParentBlock implements AnaRe
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         if (!(getParent() instanceof AnaRendImport)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(getOffset());
             un_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedChildTag(),
                     _anaDoc.getRendKeyWords().getKeyWordForm(),
                     _anaDoc.getRendKeyWords().getKeyWordImport());
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
         }
     }
 

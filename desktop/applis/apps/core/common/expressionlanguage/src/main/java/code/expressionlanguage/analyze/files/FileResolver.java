@@ -149,7 +149,7 @@ public final class FileResolver {
         if (!badIndexes_.isEmpty()) {
             for (int i: badIndexes_) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
-                b_.setFileName(_fileName);
+                b_.setFile(_block);
                 b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i)));
                 //if empty file => add underlined space
                 //else underline last char
@@ -171,7 +171,7 @@ public final class FileResolver {
             badIndexes_ = input_.getBadIndexes();
             for (int i: badIndexes_) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
-                b_.setFileName(_fileName);
+                b_.setFile(_block);
                 b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i)));
                 //underline index char
                 b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
@@ -205,7 +205,7 @@ public final class FileResolver {
                 parsPars_.parse(currentChar_,false);
                 if (parsPars_.isExitLoop()) {
                     FoundErrorInterpret b_ = new FoundErrorInterpret();
-                    b_.setFileName(_fileName);
+                    b_.setFile(_block);
                     b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i_)));
                     //if empty file => add underlined space
                     //else underline last char

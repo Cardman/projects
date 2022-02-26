@@ -219,7 +219,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
                 arg_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(getFile().getFileName());
+                cast_.setFile(getFile());
                 cast_.setIndexFile(_offset);
                 //char before expression
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -238,7 +238,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
@@ -253,7 +253,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         AnaClassArgumentMatching elementClass_ = new AnaClassArgumentMatching(cl_);
         if (!AnaTypeUtil.isIntOrderClass(elementClass_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(classNameOffset);
             //className len
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
@@ -266,7 +266,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
+            b_.setFile(getFile());
             b_.setIndexFile(variableNameOffset);
             //variable name len
             b_.setBuiltError(res_.getMessage());

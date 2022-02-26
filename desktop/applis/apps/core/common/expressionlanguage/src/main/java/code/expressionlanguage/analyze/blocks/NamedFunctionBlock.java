@@ -257,7 +257,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         if (StringUtil.quickEq(getImportedReturnType().trim(), void_) && isRetRef() && _kind != MethodKind.SET_INDEX) {
             int r_ = getNameOffset();
             FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
-            badMeth_.setFileName(getFile().getFileName());
+            badMeth_.setFile(getFile());
             badMeth_.setIndexFile(r_);
             //method name len
             badMeth_.buildError(_page.getAnalysisMessages().getBadReturnType(),

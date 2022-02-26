@@ -46,10 +46,10 @@ public final class ResultInput {
             String type_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrType());
             if (!StringUtil.quickEq(type_,_anaDoc.getRendKeyWords().getValueSubmit())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_anaDoc.getFileName());
+                badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(attributeName_);
                 badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
-                AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                AnalyzingDoc.addError(badEl_, _page);
             }
         }
         if (_read.hasAttribute(_varValue)) {
@@ -80,19 +80,19 @@ public final class ResultInput {
             if (clField_ != null) {
                 if (settableFieldContent_.isStaticField()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
                     badEl_.buildError(_anaDoc.getRendAnalysisMessages().getStaticInputName(),
                             clField_.getFieldName());
-                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _page);
                 }
                 if (settableFieldContent_.isFinalField()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
                     badEl_.buildError(_page.getAnalysisMessages().getFinalField(),
                             clField_.getFieldName());
-                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _page);
                 }
                 idClass = clField_.getClassName();
                 idName = clField_.getFieldName();
@@ -177,10 +177,10 @@ public final class ResultInput {
             }
         } else {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_anaDoc.getFileName());
+            badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
             badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
-            AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+            AnalyzingDoc.addError(badEl_, _page);
         }
     }
 

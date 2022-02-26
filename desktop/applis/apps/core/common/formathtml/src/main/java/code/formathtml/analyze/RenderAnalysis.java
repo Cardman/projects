@@ -33,13 +33,13 @@ public final class RenderAnalysis {
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_anaDoc.getFileName());
+            badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(badOffset_);
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
                     Long.toString(badOffset_),
                     _el);
-            AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+            AnalyzingDoc.addError(badEl_, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -65,13 +65,13 @@ public final class RenderAnalysis {
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_anaDoc.getFileName());
+            badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(badOffset_);
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
                     Long.toString(badOffset_),
                     _el);
-            AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+            AnalyzingDoc.addError(badEl_, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();
             tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -162,10 +162,10 @@ public final class RenderAnalysis {
             if (_current instanceof ThisOperation) {
                 if (((ThisOperation)_current).isIntermediateDottedOperation()) {
                     FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-                    badNb_.setFileName(_anaDoc.getFileName());
-                    badNb_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _anaDoc));
+                    badNb_.setFile(_page.getCurrentFile());
+                    badNb_.setIndexFile(_page.getTraceIndex());
                     badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
-                    AnalyzingDoc.addError(badNb_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badNb_, _page);
                     return;
                 }
             }
@@ -176,24 +176,24 @@ public final class RenderAnalysis {
                     SettableAbstractFieldOperation field_ = (SettableAbstractFieldOperation) settable_;
                     if (field_.getSettableFieldContent().isFinalField()) {
                         FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-                        badNb_.setFileName(_anaDoc.getFileName());
-                        badNb_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _anaDoc));
+                        badNb_.setFile(_page.getCurrentFile());
+                        badNb_.setIndexFile(_page.getTraceIndex());
                         StringBuilder id_ = new StringBuilder();
                         id_.append(field_.getSettableFieldContent().getClassField().getClassName());
                         id_.append(";");
                         id_.append(field_.getSettableFieldContent().getClassField().getFieldName());
                         badNb_.buildError(_page.getAnalysisMessages().getFinalField(),
                                 id_.toString());
-                        AnalyzingDoc.addError(badNb_, _anaDoc, _page);
+                        AnalyzingDoc.addError(badNb_, _page);
                     }
                 }
             }
         } else {
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFileName(_anaDoc.getFileName());
-            badNb_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _anaDoc));
+            badNb_.setFile(_page.getCurrentFile());
+            badNb_.setIndexFile(_page.getTraceIndex());
             badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
-            AnalyzingDoc.addError(badNb_, _anaDoc, _page);
+            AnalyzingDoc.addError(badNb_, _page);
         }
     }
 

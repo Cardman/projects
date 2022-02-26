@@ -55,7 +55,7 @@ public final class ConstantOperation extends LeafOperation {
             setResultClass(new AnaClassArgumentMatching(stringType_));
             if (op_.getTextInfo().isKo()) {
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-                badFormat_.setFileName(_page.getLocalizer().getCurrentFileName());
+                badFormat_.setFile(_page.getCurrentFile());
                 badFormat_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //constant len
                 badFormat_.buildError(_page.getAnalysisMessages().getBadCharFormat(),op_.getTextInfo().getFound());
@@ -70,7 +70,7 @@ public final class ConstantOperation extends LeafOperation {
             setResultClass(new AnaClassArgumentMatching(stringType_));
             if (op_.getStrInfo().isKo()) {
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-                badFormat_.setFileName(_page.getLocalizer().getCurrentFileName());
+                badFormat_.setFile(_page.getCurrentFile());
                 badFormat_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //constant len
                 badFormat_.buildError(_page.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
@@ -85,7 +85,7 @@ public final class ConstantOperation extends LeafOperation {
             if (op_.getStrInfo().isKo()) {
                 a_ = new Argument();
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-                badFormat_.setFileName(_page.getLocalizer().getCurrentFileName());
+                badFormat_.setFile(_page.getCurrentFile());
                 badFormat_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //constant len
                 badFormat_.buildError(_page.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
@@ -96,7 +96,7 @@ public final class ConstantOperation extends LeafOperation {
             } else {
                 a_ = new Argument();
                 FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-                badFormat_.setFileName(_page.getLocalizer().getCurrentFileName());
+                badFormat_.setFile(_page.getCurrentFile());
                 badFormat_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //constant len
                 badFormat_.buildError(_page.getAnalysisMessages().getBadCharFormat(),op_.getStrInfo().getFound());
@@ -111,7 +111,7 @@ public final class ConstantOperation extends LeafOperation {
         String argClassName_ = parsed_.getType();
         if (argClassName_.isEmpty()) {
             FoundErrorInterpret badFormat_ = new FoundErrorInterpret();
-            badFormat_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badFormat_.setFile(_page.getCurrentFile());
             badFormat_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //constant len
             badFormat_.buildError(_page.getAnalysisMessages().getBadNbFormat(),

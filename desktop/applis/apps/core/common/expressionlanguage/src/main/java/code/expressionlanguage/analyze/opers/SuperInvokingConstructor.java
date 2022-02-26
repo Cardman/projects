@@ -21,7 +21,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         RootBlock clBody_ = _page.getGlobalType().getRootBlock();
         if (!(clBody_ instanceof UniqueRootedBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorSuperClassEnumSingleton());
@@ -37,7 +37,7 @@ public final class SuperInvokingConstructor extends AbstractInvokingConstructor 
         }
         if (getType() == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_page.getLocalizer().getCurrentFileName());
+            call_.setFile(_page.getCurrentFile());
             call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorNoSuperClassEnum());

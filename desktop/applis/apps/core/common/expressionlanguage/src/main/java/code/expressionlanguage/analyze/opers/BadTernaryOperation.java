@@ -24,7 +24,7 @@ public final class BadTernaryOperation extends MethodOperation {
         String fct_ = getOperations().getFctName();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringUtil.getFirstPrintableCharIndex(fct_), _page);
         FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-        badNb_.setFileName(_page.getLocalizer().getCurrentFileName());
+        badNb_.setFile(_page.getCurrentFile());
         badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //=> move to BadTernaryOperation (underline key word)
         badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),

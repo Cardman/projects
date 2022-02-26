@@ -52,7 +52,7 @@ public final class AssocationOperation extends AbstractUnaryOperation {
             }
             if (!ok_) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //fieldName len
                 cast_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),

@@ -42,7 +42,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         if (!isLeftValue(settable)) {
             setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //operator
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
@@ -58,7 +58,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //field name len
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
@@ -86,7 +86,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                     test_ = cl_.getTest();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -105,7 +105,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //operator
             cast_.buildError(_page.getAnalysisMessages().getUnexpectedType(),

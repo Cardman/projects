@@ -17,7 +17,7 @@ public final class BadDottedOperation extends LeafOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String argClName_;
         FoundErrorInterpret emptyPart_ = new FoundErrorInterpret();
-        emptyPart_.setFileName(_page.getLocalizer().getCurrentFileName());
+        emptyPart_.setFile(_page.getCurrentFile());
         emptyPart_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
         //if parent is null => all text
         //if parent is not null => use parent header

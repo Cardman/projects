@@ -61,7 +61,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    un_.setFile(_page.getCurrentFile());
                     //after first arg separator len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(clMatch_.getNames(),ExportCst.JOIN_TYPES));
@@ -81,7 +81,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         OperationNode opThree_ = chidren_.last();
         if (!(opTwo_ instanceof WrappOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
@@ -91,7 +91,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         }
         if (!(opThree_ instanceof WrappOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFileName(_page.getLocalizer().getCurrentFileName());
+            varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
@@ -103,7 +103,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         if (!clMatchTwo_.matchClass(clMatchThree_)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+            cast_.setFile(_page.getCurrentFile());
             int i_ = _page.getLocalizer().getCurrentLocationIndex();
             cast_.setIndexFile(i_);
             //character before

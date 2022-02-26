@@ -411,11 +411,11 @@ public abstract class AnaRendBlock {
         String fileName_ = getProperty(var_, _analyzingDoc);
         if (fileName_ == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_analyzingDoc.getFileName());
+            badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(_offset);
             badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantKey(),
                     var_);
-            AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
+            AnalyzingDoc.addError(badEl_, _page);
             return new StringMap<String>();
         }
         StringMap<String> pres_ = new StringMap<String>();
@@ -429,13 +429,13 @@ public abstract class AnaRendBlock {
             }
             if (index_ >= 0) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_analyzingDoc.getFileName());
+                badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(_offset);
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         " ",
                         Long.toString(index_),
                         cont_);
-                AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
+                AnalyzingDoc.addError(badEl_, _page);
                 return new StringMap<String>();
             }
             StringMap<String> messages_ = getMessages(cont_);
@@ -443,11 +443,11 @@ public abstract class AnaRendBlock {
             String format_ = getQuickFormat(messages_, key_);
             if (format_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_analyzingDoc.getFileName());
+                badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(_offset);
                 badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantKey(),
                         key_);
-                AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
+                AnalyzingDoc.addError(badEl_, _page);
                 return new StringMap<String>();
             }
             pres_.addEntry(l,format_);

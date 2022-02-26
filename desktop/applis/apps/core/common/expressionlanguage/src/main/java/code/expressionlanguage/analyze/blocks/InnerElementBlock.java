@@ -101,7 +101,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
         }
         for (int i: lastBadIndexes) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
+            b_.setFile(getFile());
             b_.setIndexFile(i);
             //underline index char
             b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());

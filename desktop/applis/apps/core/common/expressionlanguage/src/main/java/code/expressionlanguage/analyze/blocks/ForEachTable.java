@@ -171,7 +171,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             mapping_.setArg(importedClassIndexName);
             mapping_.setParam(_page.getAliasLong());
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
@@ -182,7 +182,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         TokenErrorMessage resOne_ = ManageTokens.partVar(_page).checkTokenVar(variableNameFirst, _page);
         if (resOne_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
+            b_.setFile(getFile());
             b_.setIndexFile(variableNameOffsetFirst);
             //first variable name
             b_.setBuiltError(resOne_.getMessage());
@@ -193,7 +193,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         TokenErrorMessage resTwo_ = ManageTokens.partVar(_page).checkTokenVar(variableNameSecond, _page);
         if (resTwo_.isError()) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
-            b_.setFileName(getFile().getFileName());
+            b_.setFile(getFile());
             b_.setIndexFile(variableNameOffsetSecond);
             //second variable name
             b_.setBuiltError(resTwo_.getMessage());
@@ -247,7 +247,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
                 mapping_.setMapping(vars_);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(getFile().getFileName());
+                    cast_.setFile(getFile());
                     cast_.setIndexFile(expressionOffset);
                     //separator char before expression
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -275,7 +275,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
                 mapping_.setMapping(vars_);
                 if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(getFile().getFileName());
+                    cast_.setFile(getFile());
                     cast_.setIndexFile(expressionOffset);
                     //separator char before expression
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -287,7 +287,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             }
         } else {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(expressionOffset);
             //separator char before expression
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -302,7 +302,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         if (okVarFirst && okVarSecond) {
             if (StringUtil.quickEq(variableNameFirst, variableNameSecond)) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(getFile().getFileName());
+                d_.setFile(getFile());
                 d_.setIndexFile(variableNameOffsetSecond);
                 //second variable name len
                 d_.buildError(_page.getAnalysisMessages().getDuplicatedVariableName(),

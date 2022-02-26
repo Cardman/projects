@@ -30,7 +30,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             if (!(o_ instanceof StaticAccessOperation)) {
                 String arg_ = _page.getGlobalClass();
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                static_.setFile(_page.getCurrentFile());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 static_.buildError(_page.getAnalysisMessages().getStaticAccessPrev(),
@@ -45,7 +45,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             RootBlock g_ = _page.getGlobalType().getRootBlock();
             if (g_ == null) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                static_.setFile(_page.getCurrentFile());
                 static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word len
                 static_.buildError(_page.getAnalysisMessages().getStaticAccessPrev(),
@@ -68,7 +68,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                         }
                         if (!(root_ instanceof AbstractInvokingConstructor)) {
                             FoundErrorInterpret static_ = new FoundErrorInterpret();
-                            static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            static_.setFile(_page.getCurrentFile());
                             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                             //key word len
                             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
@@ -77,7 +77,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
                             addErr(static_.getBuiltError());
                         } else if (thisContent.getNbAncestors() == 0){
                             FoundErrorInterpret static_ = new FoundErrorInterpret();
-                            static_.setFileName(_page.getLocalizer().getCurrentFileName());
+                            static_.setFile(_page.getCurrentFile());
                             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                             //key word len
                             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
@@ -94,7 +94,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
             }
             String arg_ = _page.getAliasObject();
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getLocalizer().getCurrentFileName());
+            static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             static_.buildError(_page.getAnalysisMessages().getStaticAccessPrev(),
@@ -107,7 +107,7 @@ public final class ThisOperation extends LeafOperation implements PossibleInterm
         String arg_ = _page.getGlobalClass();
         if (_page.getStaticContext() != MethodAccessKind.INSTANCE) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getLocalizer().getCurrentFileName());
+            static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),

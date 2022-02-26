@@ -30,7 +30,7 @@ public final class ResolvingSuperTypes {
     public static void loopWildCards(RootBlock _ana, int _location, AnalyzedPageEl _page, AnaResultPartType _resType) {
         for (String p:StringExpUtil.getWildCards(_resType.getResult())){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFileName(_ana.getFile().getFileName());
+            call_.setFile(_ana.getFile());
             call_.setIndexFile(_location);
             //_in len
             call_.buildError(_page.getAnalysisMessages().getIllegalGenericSuperTypeBound(),
@@ -45,7 +45,7 @@ public final class ResolvingSuperTypes {
         String tr_ = _in.trim();
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_ana.getFile().getFileName());
+            un_.setFile(_ana.getFile());
             un_.setIndexFile(_location);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
@@ -65,7 +65,7 @@ public final class ResolvingSuperTypes {
         AnaResultPartType resType_ = AnaPartTypeUtil.processAnalyzeHeader(_in, _rootName, gl_, scope_, _ana, _location, _page);
         for (InaccessibleType i : _page.getCurrentBadIndexes()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_ana.getFile().getFileName());
+            un_.setFile(_ana.getFile());
             un_.setIndexFile(_location + i.getIndex());
             //part len
             un_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
@@ -74,7 +74,7 @@ public final class ResolvingSuperTypes {
         }
         if (resType_.getResult().trim().isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_ana.getFile().getFileName());
+            un_.setFile(_ana.getFile());
             un_.setIndexFile(_location);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getUnknownType(),

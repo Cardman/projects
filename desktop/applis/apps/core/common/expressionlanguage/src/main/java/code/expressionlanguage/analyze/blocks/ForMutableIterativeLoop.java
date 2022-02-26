@@ -240,7 +240,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFileName(getFile().getFileName());
+            cast_.setFile(getFile());
             cast_.setIndexFile(classIndexNameOffset);
             //classIndexName len
             cast_.buildError(_page.getAnalysisMessages().getNotPrimitiveWrapper(),
@@ -282,7 +282,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                     function = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(getFile().getFileName());
+                    un_.setFile(getFile());
                     un_.setIndexFile(expressionOffset);
                     //second ; char
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),

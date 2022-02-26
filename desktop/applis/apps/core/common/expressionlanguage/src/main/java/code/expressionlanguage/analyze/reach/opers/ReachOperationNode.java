@@ -264,7 +264,7 @@ public abstract class ReachOperationNode {
     void checkNull(Argument _arg, AnalyzedPageEl _page) {
         if (Argument.isNullValue(_arg)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFileName(_page.getLocalizer().getCurrentFileName());
+            static_.setFile(_page.getCurrentFile());
             static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //leaf or header parent or first operator
             static_.buildError(_page.getAnalysisMessages().getNullValue(),

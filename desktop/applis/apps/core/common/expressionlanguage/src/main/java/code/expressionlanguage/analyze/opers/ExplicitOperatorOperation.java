@@ -127,7 +127,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     }
                 } else {
                     FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-                    badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    badCall_.setFile(_page.getCurrentFile());
                     badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //key word len
                     badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
@@ -168,7 +168,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     }
                 } else {
                     FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-                    badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    badCall_.setFile(_page.getCurrentFile());
                     badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //key word len
                     badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
@@ -219,7 +219,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         if (argsFirst.size() > 2) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
-            badCall_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badCall_.setFile(_page.getCurrentFile());
             badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
@@ -251,7 +251,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             }
             if (next_ == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
@@ -264,7 +264,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             SettableElResult settable_ = AffectationOperation.tryGetSettableArg(def_);
             if (settable_ == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
@@ -281,7 +281,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                     setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //field name len
                     un_.buildError(_page.getAnalysisMessages().getFinalField(),
@@ -297,7 +297,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 functionTest = test_.getPair();
             } else if (StringExpUtil.isLogical(opSearch)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                cast_.setFile(_page.getCurrentFile());
                 cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -318,7 +318,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     map_.setParam(left_);
                     if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        cast_.setFile(_page.getCurrentFile());
                         cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                         //oper len
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -331,7 +331,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     }
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -351,7 +351,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                         conv.infos(res_);
                     } else {
                         FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFileName(_page.getLocalizer().getCurrentFileName());
+                        cast_.setFile(_page.getCurrentFile());
                         cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                         //oper len
                         cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
@@ -378,7 +378,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         ClassMethodIdReturn cust_ = tryFindOperator(_page, varargOnly_, varargParam_, id_, _name);
         if (cust_ == null) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
-            undefined_.setFileName(_page.getLocalizer().getCurrentFileName());
+            undefined_.setFile(_page.getCurrentFile());
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //_name len
             StringList classesNames_ = new StringList();
@@ -412,7 +412,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (StringExpUtil.isWildCard(from)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
             badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            badAccess_.setFileName(_page.getLocalizer().getCurrentFileName());
+            badAccess_.setFile(_page.getCurrentFile());
             //type len
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     from);

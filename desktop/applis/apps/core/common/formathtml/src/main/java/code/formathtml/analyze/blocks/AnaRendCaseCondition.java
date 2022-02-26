@@ -63,13 +63,13 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             _page.setGlobalOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
                     _page.getKeyWords().getKeyWordCase(),
                     value,
                     _page.getKeyWords().getKeyWordSwitch());
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
             root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page,resultExpression);
             return;
         }
@@ -81,13 +81,13 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         if (!variableName_.isEmpty()) {
             if (!instance_) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
                         _page.getKeyWords().getKeyWordCase(),
                         value);
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
             }
             _page.setGlobalOffset(classNameOffset);
             _page.zeroOffset();
@@ -106,21 +106,21 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 AnaClassArgumentMatching resultClass_ = root.getResultClass();
                 if (!resultClass_.isBoolType(_page)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(valueOffset);
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(resultClass_.getNames(),AND_ERR));
-                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _page);
                 }
                 resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
             }
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(_anaDoc.getFileName());
+                d_.setFile(_page.getCurrentFile());
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());
-                AnalyzingDoc.addError(d_, _anaDoc, _page);
+                AnalyzingDoc.addError(d_, _page);
             }
             return;
         }
@@ -169,13 +169,13 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 }
                 if (!added_) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(_anaDoc.getFileName());
+                    un_.setFile(_page.getCurrentFile());
                     un_.setIndexFile(valueOffset);
                     //key word len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
                             _page.getKeyWords().getKeyWordCase(),
                             value);
-                    AnalyzingDoc.addError(un_, _anaDoc, _page);
+                    AnalyzingDoc.addError(un_, _page);
                     break;
                 }
             }
@@ -219,13 +219,13 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 stdValues.add(argument_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(valueOffset);
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
                         _page.getKeyWords().getKeyWordCase(),
                         _value);
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
             }
         }
     }
@@ -239,14 +239,14 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 for (ClassField p: c_.enumValues) {
                     if (_classField.eq(p)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
+                        un_.setFile(_page.getCurrentFile());
                         un_.setIndexFile(getValueOffset()+ getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                                 _page.getKeyWords().getKeyWordCase(),
                                 _display,
                                 _page.getKeyWords().getKeyWordSwitch());
-                        AnalyzingDoc.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _page);
                         return;
                     }
                 }
@@ -256,14 +256,14 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         for (ClassField p: enumValues) {
             if (_classField.eq(p)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(getValueOffset()+ getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                         _page.getKeyWords().getKeyWordCase(),
                         _display,
                         _page.getKeyWords().getKeyWordSwitch());
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
                 return;
             }
         }
@@ -277,14 +277,14 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 for (Argument p: c_.stdValues) {
                     if (_value.getStruct().sameReference(p.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        un_.setFileName(_anaDoc.getFileName());
+                        un_.setFile(_page.getCurrentFile());
                         un_.setIndexFile(getValueOffset()+ getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                                 _page.getKeyWords().getKeyWordCase(),
                                 AnaApplyCoreMethodUtil.getString(_value, _page),
                                 _page.getKeyWords().getKeyWordSwitch());
-                        AnalyzingDoc.addError(un_, _anaDoc, _page);
+                        AnalyzingDoc.addError(un_, _page);
                         return;
                     }
                 }
@@ -294,14 +294,14 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         for (Argument p: stdValues) {
             if (_value.getStruct().sameReference(p.getStruct())) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(getValueOffset()+ getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                         _page.getKeyWords().getKeyWordCase(),
                         AnaApplyCoreMethodUtil.getString(_value, _page),
                         _page.getKeyWords().getKeyWordSwitch());
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
                 return;
             }
         }
@@ -312,13 +312,13 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         m_.setParam(_resSwitch);
         if (!_instance &&!AnaInherits.isCorrectOrNumbers(m_, _page)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(valueOffset);
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
                     _page.getKeyWords().getKeyWordCase(),
                     _string,
                     StringUtil.join(_resSwitch.getNames(),AND_ERR));
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
         }
     }
 

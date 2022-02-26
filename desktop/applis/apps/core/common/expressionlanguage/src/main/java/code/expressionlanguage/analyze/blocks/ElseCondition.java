@@ -48,7 +48,7 @@ public final class ElseCondition extends BracedBlock implements BlockCondition, 
         if (!(pBlock_ instanceof IfCondition)) {
             if (!(pBlock_ instanceof ElseIfCondition)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
+                un_.setFile(getFile());
                 un_.setIndexFile(getOffset());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCatchElseFinally(),
                         _page.getKeyWords().getKeyWordElse(),

@@ -395,7 +395,7 @@ public final class DimensionArrayInstancing extends
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     int i_ = _page.getLocalizer().getCurrentLocationIndex();
                     un_.setIndexFile(i_);
-                    un_.setFileName(_page.getLocalizer().getCurrentFileName());
+                    un_.setFile(_page.getCurrentFile());
                     //first part child bracket
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(resCh_.getNames(),ExportCst.JOIN_TYPES));

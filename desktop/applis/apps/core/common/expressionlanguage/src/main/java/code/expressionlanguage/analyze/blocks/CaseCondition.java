@@ -86,7 +86,7 @@ public final class CaseCondition extends SwitchPartBlock {
         MethodAccessKind stCtx_ = f_.getStaticContext();
         if (!(par_ instanceof SwitchBlock)&&!(par_ instanceof SwitchMethodBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
+            un_.setFile(getFile());
             un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
                     _page.getKeyWords().getKeyWordCase(),
@@ -118,7 +118,7 @@ public final class CaseCondition extends SwitchPartBlock {
         if (!variableName.isEmpty()) {
             if (!instance_) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(getFile().getFileName());
+                un_.setFile(getFile());
                 un_.setIndexFile(valueOffset);
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getCaseTypeVar());
@@ -143,7 +143,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
                 if (!resultClass_.isBoolType(_page)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(getFile().getFileName());
+                    un_.setFile(getFile());
                     un_.setIndexFile(conditionOffset);
                     //key word len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -155,7 +155,7 @@ public final class CaseCondition extends SwitchPartBlock {
             }
             if (res_.isError()) {
                 FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFileName(getFile().getFileName());
+                d_.setFile(getFile());
                 d_.setIndexFile(variableOffset);
                 //variable name
                 d_.setBuiltError(res_.getMessage());

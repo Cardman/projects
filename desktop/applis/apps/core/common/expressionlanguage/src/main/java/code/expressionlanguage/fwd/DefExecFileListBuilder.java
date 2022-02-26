@@ -21,7 +21,7 @@ public final class DefExecFileListBuilder implements AbstractExecFileListBuilder
         CustList<ExecAbstractFileBlock> files_ = new CustList<ExecAbstractFileBlock>();
         for (EntryCust<String, FileBlock> f: analyzed.getFilesBodies().entryList()) {
             FileBlock content_ = f.getValue();
-            ExecAbstractFileBlock exFile_ = new ExecFileBlock(content_.getMetricsCore(), content_.getFileName());
+            ExecAbstractFileBlock exFile_ = new ExecFileBlock(content_.getMetricsCore(), content_.getFileName(),content_.getFileEscapedCalc());
             coverage.putFile(content_);
             files_.add(exFile_);
         }

@@ -46,12 +46,12 @@ public final class AnaRendForm extends AnaRendElement {
                 m_.setParam(_page.getAliasLong());
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(rowsGrId_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(e.getResultClass().getNames(),AND_ERR),
                             _page.getAliasLong());
-                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _page);
                 }
             }
             int l_ = roots.size();

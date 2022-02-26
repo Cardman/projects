@@ -139,7 +139,7 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
         if (!(_en instanceof ReachRootBlock)&&!_anEl.isReachable(_en)) {
             //error
             FoundErrorInterpret deadCode_ = new FoundErrorInterpret();
-            deadCode_.setFileName(getFile().getFileName());
+            deadCode_.setFile(getFile());
             deadCode_.setIndexFile(_en.getOffset());
             //all header expression
             deadCode_.buildError(_page.getAnalysisMessages().getDeadCode(),

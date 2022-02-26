@@ -65,6 +65,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         ExecTemplates.trySetArgument(ctx_,new Argument(),new ArgumentsPair(), null);
         new ClassMethodId("",new MethodId(null,"",new StringList())).eq(new ClassMethodId(" ",new MethodId(null,"",new StringList())));
         AnaInherits.getOverridingFullTypeByBases(null,null);
+        AnalyzedPageEl.getLocationFile(0,null,0);
+        AnalyzedPageEl.getFileName(null);
     }
 
     @Test

@@ -68,11 +68,11 @@ public final class Configuration {
             Document document_ = res_.getDocument();
             if (document_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFileName(_analyzingDoc.getFileName());
-                badEl_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _analyzingDoc));
+                badEl_.setFile(_page.getCurrentFile());
+                badEl_.setIndexFile(_page.getTraceIndex());
                 badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getBadDocument(),
                         res_.getLocation().display());
-                AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
+                AnalyzingDoc.addError(badEl_, _page);
                 continue;
             }
             AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(d_.size(),_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), s, _analyzingDoc);
@@ -82,17 +82,16 @@ public final class Configuration {
         String currentUrl_ = getFirstUrl();
         if (d_.getVal(currentUrl_) == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFileName(_analyzingDoc.getFileName());
-            badEl_.setIndexFile(AnalyzingDoc.getCurrentLocationIndex(_page, _analyzingDoc));
+            badEl_.setFile(_page.getCurrentFile());
+            badEl_.setIndexFile(_page.getTraceIndex());
             badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantFile(),
                     currentUrl_);
-            AnalyzingDoc.addError(badEl_, _analyzingDoc, _page);
+            AnalyzingDoc.addError(badEl_, _page);
         }
         return d_;
     }
 
     private static void buildDocs(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, StringMap<AnaRendDocumentBlock> _d, StringMap<BeanInfo> _beansInfosBefore) {
-        _analyzingDoc.setDocs(_d);
         for (AnaRendDocumentBlock v : _d.values()) {
             v.buildFctInstructions(_analyzingDoc, _page, _beansInfosBefore);
         }

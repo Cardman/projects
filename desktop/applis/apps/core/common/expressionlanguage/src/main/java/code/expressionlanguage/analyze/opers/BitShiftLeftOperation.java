@@ -37,7 +37,7 @@ public final class BitShiftLeftOperation extends NumericOperation {
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         int index_ = _page.getLocalizer().getCurrentLocationIndex();
         un_.setIndexFile(index_);
-        un_.setFileName(_page.getLocalizer().getCurrentFileName());
+        un_.setFile(_page.getCurrentFile());
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                 StringUtil.join(new StringList(

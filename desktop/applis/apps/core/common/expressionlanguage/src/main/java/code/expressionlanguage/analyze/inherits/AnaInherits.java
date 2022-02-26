@@ -561,7 +561,7 @@ public final class AnaInherits {
         if (res_.isEmpty()) {
             int rc_ = _page.getLocalizer().getCurrentLocationIndex();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_page.getLocalizer().getCurrentFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(rc_);
             //original type len
             String realClassName_ = getRealClassName(_className, _parts);

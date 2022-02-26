@@ -29,7 +29,6 @@ public final class AnaTypeUtil {
     }
 
     public static void buildOverrides(RootBlock _type, AnalyzedPageEl _page) {
-        String fileName_ = _type.getFile().getFileName();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         for (TypeVar t: _type.getParamTypesMapValues()) {
             vars_.put(t.getName(), t.getConstraints());
@@ -89,7 +88,7 @@ public final class AnaTypeUtil {
                     if (supId_.getBlock().isFinalMethod()) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
-                        err_.setFileName(fileName_);
+                        err_.setFile(_type.getFile());
                         err_.setIndexFile(supId_.getBlock().getNameOffset());
                         //sub method name len
                         err_.buildError(_page.getAnalysisMessages().getDuplicatedFinal(),
@@ -102,7 +101,7 @@ public final class AnaTypeUtil {
                     if (supId_.getBlock().getAccess().isStrictMoreAccessibleThan(subId_.getBlock().getAccess())) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
-                        err_.setFileName(fileName_);
+                        err_.setFile(_type.getFile());
                         err_.setIndexFile(supId_.getBlock().getAccessOffset());
                         //key word access or method name
                         err_.buildError(_page.getAnalysisMessages().getMethodsAccesses(),
@@ -118,7 +117,7 @@ public final class AnaTypeUtil {
                         if (!StringUtil.quickEq(formattedRetBase_, formattedRetDer_)) {
                             FoundErrorInterpret err_;
                             err_ = new FoundErrorInterpret();
-                            err_.setFileName(fileName_);
+                            err_.setFile(_type.getFile());
                             err_.setIndexFile(supId_.getBlock().getReturnTypeOffset());
                             //sub return type len
                             err_.buildError(_page.getAnalysisMessages().getBadReturnTypeIndexer(),
@@ -139,7 +138,7 @@ public final class AnaTypeUtil {
                     if (!AnaInherits.isReturnCorrect(formattedRetBase_, formattedRetDer_, vars_, _page)) {
                         FoundErrorInterpret err_;
                         err_ = new FoundErrorInterpret();
-                        err_.setFileName(fileName_);
+                        err_.setFile(_type.getFile());
                         err_.setIndexFile(supId_.getBlock().getReturnTypeOffset());
                         //sub return type len
                         err_.buildError(_page.getAnalysisMessages().getBadReturnTypeInherit(),
@@ -211,7 +210,6 @@ public final class AnaTypeUtil {
             _page.setImportingTypes(c);
             _page.setCurrentBlock(c);
             ClassesUtil.globalType(_page,c);
-            String d_ = c.getFile().getFileName();
             StringList ints_ = c.getInstInitInterfaces();
             int len_ = ints_.size();
             CustList<ResolvedIdType> resolvedIdTypes_ = new CustList<ResolvedIdType>();
@@ -231,7 +229,7 @@ public final class AnaTypeUtil {
                 if (!(r_ instanceof InterfaceBlock)||found_ == null) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
-                    enum_.setFileName(d_);
+                    enum_.setFile(c.getFile());
                     enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //interface len
                     enum_.buildError(_page.getAnalysisMessages().getCallIntOnly(),
@@ -253,13 +251,12 @@ public final class AnaTypeUtil {
             _page.setImportingTypes(c);
             _page.setCurrentBlock(c);
             ClassesUtil.globalType(_page,c);
-            String d_ = c.getFile().getFileName();
             StringList ints_ = c.getStaticInitInterfaces();
             int len_ = ints_.size();
             if (len_ > 0 && (c instanceof InterfaceBlock)) {
                 FoundErrorInterpret enum_;
                 enum_ = new FoundErrorInterpret();
-                enum_.setFileName(d_);
+                enum_.setFile(c.getFile());
                 enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //original id len
                 enum_.buildError(_page.getAnalysisMessages().getCallIntNoNeed(),
@@ -284,7 +281,7 @@ public final class AnaTypeUtil {
                 if (!(r_ instanceof InterfaceBlock)||found_ == null) {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
-                    enum_.setFileName(d_);
+                    enum_.setFile(c.getFile());
                     enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //interface len
                     enum_.buildError(_page.getAnalysisMessages().getCallIntOnly(),
@@ -301,6 +298,7 @@ public final class AnaTypeUtil {
             checkInherits(_page, c, resolvedIdTypes_, c.getStaticInitInterfacesOffset());
         }
         for (RootBlock c: _page.getAllFoundTypes()) {
+            _page.setCurrentFile(c.getFile());
             if (c instanceof RecordBlock) {
                 ins(_page, c);
                 st(_page, c);
@@ -340,7 +338,7 @@ public final class AnaTypeUtil {
                 if (rsSup_.isSubTypeOf(rs_)) {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFileName(_root.getFile().getFileName());
+                    undef_.setFile(_root.getFile());
                     int offset_ = _offsets.get(j);
                     undef_.setIndexFile(offset_);
                     //interface j len
@@ -449,7 +447,7 @@ public final class AnaTypeUtil {
                 if (!StringUtil.contains(_trimmedInt, s)) {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFileName(_c.getFile().getFileName());
+                    undef_.setFile(_c.getFile());
                     undef_.setIndexFile(_c.getIdRowCol());
                     //last parenthese
                     undef_.buildError(_page.getAnalysisMessages().getCallIntNeedType(),
@@ -462,7 +460,7 @@ public final class AnaTypeUtil {
                 if (!StringUtil.contains(_filteredStatic, s)) {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFileName(_c.getFile().getFileName());
+                    undef_.setFile(_c.getFile());
                     undef_.setIndexFile(_c.getIdRowCol());
                     //type len
                     undef_.buildError(_page.getAnalysisMessages().getCallIntNoNeedType(),

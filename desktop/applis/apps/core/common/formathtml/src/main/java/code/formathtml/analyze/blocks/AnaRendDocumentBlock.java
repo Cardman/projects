@@ -9,6 +9,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Element;
 import code.sml.EncodedChar;
@@ -33,11 +34,12 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     public AnaRendDocumentBlock(int _n, Element _elt, String _file, int _offset, String _fileName, CustList<EncodedChar> _chars) {
         super(_offset);
         this.nb = _n;
-        fileBlock = new FileBlock(_offset, false, _fileName);
+        IntTreeMap<Integer> escaped_ = getIndexesSpecChars(_file, _chars);
+        fileBlock = new FileBlock(_offset, false, _fileName, new AdvFileEscapedCalc(escaped_));
         elt = _elt;
         file = _file;
         fileName = _fileName;
-        escapedChar = getIndexesSpecChars(_file, _chars);
+        escapedChar = escaped_;
     }
 
     public int getNb() {
@@ -60,7 +62,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         _page.zeroOffset();
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setCurrentPkg("");
-        _page.setCurrentFile(null);
+        _page.setCurrentFile(fileBlock);
         _page.setCurrentFct(null);
         _page.setCurrentCtx(this);
         if (_beansInfosBefore.contains(beanName)) {
@@ -77,12 +79,10 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         }
         AnaRendBlock en_ = this;
         StringList labels_ = new StringList();
-        _anaDoc.setFileName(fileName);
         _page.setImportingAcces(this);
         _page.getImportingTypes().clear();
         _page.getImportingTypes().add(getImports());
         _page.getImportingTypes().add(getFileImports());
-        _anaDoc.setCurrentDoc(this);
         while (true) {
             if (en_ instanceof ImportForEachLoop) {
                 _page.setCurrentAnaBlockForEachLoop((ImportForEachLoop) en_);
@@ -168,17 +168,17 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             }
             if (!wc_) {
                 FoundErrorInterpret bad_ = new FoundErrorInterpret();
-                bad_.setFileName(_anaDoc.getFileName());
+                bad_.setFile(_page.getCurrentFile());
                 bad_.setIndexFile(((AnaRendLocBreakableBlock) _block).getRealLabelOffset());
                 bad_.buildError(_page.getAnalysisMessages().getBadLabel());
-                AnalyzingDoc.addError(bad_, _anaDoc, _page);
+                AnalyzingDoc.addError(bad_, _page);
             } else if (!label_.isEmpty()){
                 if (StringUtil.contains(_labels, label_)) {
                     FoundErrorInterpret dup_ = new FoundErrorInterpret();
-                    dup_.setFileName(_anaDoc.getFileName());
+                    dup_.setFile(_page.getCurrentFile());
                     dup_.setIndexFile(((AnaRendLocBreakableBlock) _block).getRealLabelOffset());
                     dup_.buildError(_page.getAnalysisMessages().getDuplicatedLabel());
-                    AnalyzingDoc.addError(dup_, _anaDoc, _page);
+                    AnalyzingDoc.addError(dup_, _page);
                 } else {
                     _labels.add(label_);
                 }

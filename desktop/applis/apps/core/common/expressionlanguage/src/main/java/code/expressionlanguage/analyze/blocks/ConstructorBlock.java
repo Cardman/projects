@@ -123,7 +123,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
                     if (!StringUtil.contains(ints_,n)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(getFile().getFileName());
+                        undef_.setFile(getFile());
                         undef_.setIndexFile(getNameOffset());
                         //left par of ctor
                         undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNeed(),
@@ -136,7 +136,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
                     if (!StringUtil.contains(filteredCtor_,n)) {
                         FoundErrorInterpret undef_;
                         undef_ = new FoundErrorInterpret();
-                        undef_.setFileName(getFile().getFileName());
+                        undef_.setFile(getFile());
                         undef_.setIndexFile(getNameOffset());
                         //constructor ref header len
                         undef_.buildError(_page.getAnalysisMessages().getMustCallIntCtorNotNeed(),
@@ -150,7 +150,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
             if (!ints_.isEmpty()) {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
-                undef_.setFileName(getFile().getFileName());
+                undef_.setFile(getFile());
                 undef_.setIndexFile(getNameOffset());
                 //first constructor ref header len
                 undef_.buildError(_page.getAnalysisMessages().getMustNotCallIntCtorAfterThis());

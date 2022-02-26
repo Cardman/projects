@@ -36,7 +36,7 @@ public final class DeclaredFieldOperation extends
         getSettableFieldContent().setAnc(0);
         if (valOffset_ < 0) {
             FoundErrorInterpret access_ = new FoundErrorInterpret();
-            access_.setFileName(_page.getLocalizer().getCurrentFileName());
+            access_.setFile(_page.getCurrentFile());
             access_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //_name len
             access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),

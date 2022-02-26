@@ -116,11 +116,11 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                 Document docLoc_ = res_.getDocument();
                 if (docLoc_ == null) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFileName(_anaDoc.getFileName());
+                    badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(offMessage_);
                     badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
                             res_.getLocation().display());
-                    AnalyzingDoc.addError(badEl_, _anaDoc, _page);
+                    AnalyzingDoc.addError(badEl_, _page);
                 }
                 callsRoots.addEntry(e.getKey(),callExpsLoc_);
                 locDoc.addEntry(e.getKey(),docLoc_);

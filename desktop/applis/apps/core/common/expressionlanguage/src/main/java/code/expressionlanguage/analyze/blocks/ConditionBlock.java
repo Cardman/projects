@@ -67,7 +67,7 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
                     function = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFileName(getFile().getFileName());
+                    un_.setFile(getFile());
                     un_.setIndexFile(conditionOffset);
                     //key word len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),

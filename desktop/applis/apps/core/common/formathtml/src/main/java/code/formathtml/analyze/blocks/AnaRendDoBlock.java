@@ -21,37 +21,37 @@ public final class AnaRendDoBlock extends AnaRendParentBlock implements AnaRendL
         AnaRendBlock pBlock_ = getNextSibling();
         if (pBlock_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(_anaDoc.getFileName());
+            un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                     _page.getKeyWords().getKeyWordDo(),
                     _page.getKeyWords().getKeyWordWhile());
-            AnalyzingDoc.addError(un_, _anaDoc, _page);
+            AnalyzingDoc.addError(un_, _page);
         } else if (!(pBlock_ instanceof AnaRendDoWhileCondition)) {
             if (!isPossibleEmpty(pBlock_)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(pBlock_.getOffset());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                         _page.getKeyWords().getKeyWordDo(),
                         _page.getKeyWords().getKeyWordWhile());
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
             } else if (pBlock_.getNextSibling() == null){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(pBlock_.getOffset());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                         _page.getKeyWords().getKeyWordDo(),
                         _page.getKeyWords().getKeyWordWhile());
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
             } else if (!(pBlock_.getNextSibling() instanceof AnaRendDoWhileCondition)){
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFileName(_anaDoc.getFileName());
+                un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(pBlock_.getNextSibling().getOffset());
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedDoTry(),
                         _page.getKeyWords().getKeyWordDo(),
                         _page.getKeyWords().getKeyWordWhile());
-                AnalyzingDoc.addError(un_, _anaDoc, _page);
+                AnalyzingDoc.addError(un_, _page);
             }
         }
     }

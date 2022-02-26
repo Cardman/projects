@@ -60,7 +60,7 @@ public final class BreakBlock extends AbruptBlock {
             _page.setGlobalOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setFileName(getFile().getFileName());
+            un_.setFile(getFile());
             un_.setIndexFile(getOffset());
             if (label.isEmpty()) {
                 //key word len
