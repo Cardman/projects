@@ -57,19 +57,20 @@ public abstract class AnaRendBlock {
         offset = _offset;
     }
 
-    public static AnaRendDocumentBlock newRendDocumentBlock(int _nb,String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, RendKeyWords _rendKeyWords) {
+    public static AnaRendDocumentBlock newRendDocumentBlock(int _nb,String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, AnalyzingDoc _anaDoc) {
+        RendKeyWords rend_ = _anaDoc.getRendKeyWords();
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(_nb,documentElement_,_docText,0, _currentUrl);
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(_nb,documentElement_,_docText,0, _currentUrl,_anaDoc.getEncoded());
         int indexGlobal_ = indexOfBeginNode(curNode_, _docText, 0);
-        AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, _rendKeyWords);
+        AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, rend_);
         out_.appendChild(curWrite_);
         indexGlobal_ = curWrite_.endHeader;
         while (curWrite_ != null) {
             Node firstChild_ = curNode_.getFirstChild();
             if (curWrite_ instanceof AnaRendParentBlock&&firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
-                AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, _rendKeyWords);
+                AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, rend_);
                 appendChild((AnaRendParentBlock) curWrite_,rendBlock_);
                 indexGlobal_ = rendBlock_.endHeader;
                 curWrite_ = rendBlock_;
@@ -82,7 +83,7 @@ public abstract class AnaRendBlock {
                 AnaRendParentBlock par_ = curWrite_.getParent();
                 if (nextSibling_ != null) {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
-                    AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _prefix, nextSibling_,_docText, _primTypes, _rendKeyWords);
+                    AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _prefix, nextSibling_,_docText, _primTypes, rend_);
                     appendChild(par_,rendBlock_);
                     indexGlobal_ = rendBlock_.endHeader;
                     curWrite_ = rendBlock_;
@@ -361,25 +362,39 @@ public abstract class AnaRendBlock {
         }
         return _link.getAttribute(_rendKeyWords.getAttrHref());
     }
-    public static IntTreeMap< Integer> getIndexesSpecChars(String _html) {
+    public static IntTreeMap< Integer> getIndexesSpecChars(String _html, CustList<EncodedChar> _chars) {
         int begin_ = 0;
         int end_ = _html.length();
         int i_ = begin_;
         IntTreeMap< Integer> indexes_;
         indexes_ = new IntTreeMap< Integer>();
         while (i_ < end_) {
-            if (_html.charAt(i_) == ENCODED) {
-                int beginEscaped_ = i_;
+            if (_html.charAt(i_) != ENCODED) {
                 i_++;
-                while (i_ < _html.length()&&_html.charAt(i_) != END_ESCAPED) {
-                    i_++;
+                continue;
+            }
+            int beginEscaped_ = i_;
+            i_++;
+            while (i_ < end_&&_html.charAt(i_) != END_ESCAPED) {
+                i_++;
+            }
+            if (i_ < end_) {
+                for (EncodedChar e: _chars) {
+                    if (addEscaped(_html, i_, beginEscaped_, e)) {
+                        indexes_.put(beginEscaped_, i_ - beginEscaped_);
+                        break;
+                    }
                 }
-                indexes_.put(beginEscaped_, i_ - beginEscaped_);
             }
             i_++;
         }
         return indexes_;
     }
+
+    private static boolean addEscaped(String _html, int _i, int _beginEscaped, EncodedChar _e) {
+        return _html.charAt(_beginEscaped + 1) == '#' || StringUtil.quickEq(_html.substring(_beginEscaped, _i + 1), _e.getKey());
+    }
+
     private static StringMap<AttributePart> getAttributes(String _html, int _from, int _to) {
         return DocumentAttribute.getAttributes(_html, _from, _to);
     }

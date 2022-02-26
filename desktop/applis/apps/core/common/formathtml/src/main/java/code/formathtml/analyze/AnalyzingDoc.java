@@ -15,6 +15,8 @@ import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DualConfigurationContext;
+import code.sml.DocumentBuilder;
+import code.sml.EncodedChar;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -40,7 +42,18 @@ public final class AnalyzingDoc {
     private StringMap<BeanInfo> beansInfosBefore = new StringMap<BeanInfo>();
     private StringMap<AnaRendDocumentBlock> docs = new StringMap<AnaRendDocumentBlock>();
     private int tabWidth;
+    private CustList<EncodedChar> encoded;
+    public AnalyzingDoc() {
+        setEncoded(DocumentBuilder.possibleEncodes());
+    }
 
+    public CustList<EncodedChar> getEncoded() {
+        return encoded;
+    }
+
+    public void setEncoded(CustList<EncodedChar> _enc) {
+        this.encoded = _enc;
+    }
 
     public static void addWarning(FoundWarningInterpret _warning, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _analyzing) {
         _warning.setLocationFile(_analyzingDoc.getLocationFile(_warning.getFileName(),_warning.getIndexFile()));

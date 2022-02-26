@@ -439,10 +439,37 @@ public final class RenderOffsetsTest extends CommonRender {
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
         assertEq(23, RendBlockUtil.retrieve(17, doc_.getEscapedChar()));
     }
+    @Test
+    public void process27Test() {
+        String file_ = "";
+        file_ += "<html attr='val&#60;&#62;ue'/>";
+        AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
+        assertEq(15, RendBlockUtil.retrieve(15, doc_.getEscapedChar()));
+    }
+    @Test
+    public void process28Test() {
+        String file_ = "";
+        file_ += "<html attr='val&#60;&#62;ue'/>";
+        AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
+        assertEq(20, RendBlockUtil.retrieve(16, doc_.getEscapedChar()));
+    }
+    @Test
+    public void process29Test() {
+        String file_ = "";
+        file_ += "<html attr='val&#60;&#62;ue'/>";
+        AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
+        assertEq(25, RendBlockUtil.retrieve(17, doc_.getEscapedChar()));
+    }
+    @Test
+    public void process30Test() {
+        String file_ = "";
+        file_ += "<html attr='val&inexist;ue'/>";
+        AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
+        assertEq(24, RendBlockUtil.retrieve(24, doc_.getEscapedChar()));
+    }
     private static AnaRendDocumentBlock newRendDocumentBlock(String _docText) {
         AnalyzedTestConfiguration a_ = build();
-        Configuration conf_ = a_.getConfiguration();
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(_docText).getDocument();
-        return AnaRendDocumentBlock.newRendDocumentBlock(0,"c:", doc_, _docText, a_.getAnalyzing().getPrimTypes(), "page1.html", conf_.getRendKeyWords());
+        return AnaRendDocumentBlock.newRendDocumentBlock(0,"c:", doc_, _docText, a_.getAnalyzing().getPrimTypes(), "page1.html", a_.getAnalyzingDoc());
     }
 }

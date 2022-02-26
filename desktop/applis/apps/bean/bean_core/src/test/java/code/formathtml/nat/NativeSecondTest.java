@@ -378,7 +378,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(c_ - 1,"c:", doc_, h, null, "page1.html", _conf.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(c_ - 1,"c:", doc_, h, null, "page1.html", null);
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }

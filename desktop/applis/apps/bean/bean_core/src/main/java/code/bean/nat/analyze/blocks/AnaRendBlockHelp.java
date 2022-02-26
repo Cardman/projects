@@ -14,6 +14,7 @@ import code.formathtml.errors.RendKeyWords;
 import code.formathtml.structs.BeanInfo;
 import code.sml.*;
 import code.sml.util.ResourcesMessagesUtil;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -99,7 +100,7 @@ public final class AnaRendBlockHelp {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(0,documentElement_,_docText,0, _currentUrl);
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(0,documentElement_,_docText,0, _currentUrl, new CustList<EncodedChar>());
         AnaRendBlock curWriteNat_ = newRendBlockEsc(indexGlobal_, _prefix, curNode_,_docText, _rendKeyWords, _caller, _builder);
         out_.appendChild(curWriteNat_);
         while (curWriteNat_ != null) {

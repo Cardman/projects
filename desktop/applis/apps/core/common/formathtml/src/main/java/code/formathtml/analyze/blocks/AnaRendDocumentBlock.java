@@ -11,6 +11,8 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Element;
+import code.sml.EncodedChar;
+import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -28,14 +30,14 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private StringList imports = new StringList();
     private final IntTreeMap<Integer> escapedChar;
     private MethodAccessKind accessKind;
-    public AnaRendDocumentBlock(int _n,Element _elt, String _file, int _offset, String _fileName) {
+    public AnaRendDocumentBlock(int _n, Element _elt, String _file, int _offset, String _fileName, CustList<EncodedChar> _chars) {
         super(_offset);
         this.nb = _n;
         fileBlock = new FileBlock(_offset, false, _fileName);
         elt = _elt;
         file = _file;
         fileName = _fileName;
-        escapedChar = getIndexesSpecChars(_file);
+        escapedChar = getIndexesSpecChars(_file, _chars);
     }
 
     public int getNb() {

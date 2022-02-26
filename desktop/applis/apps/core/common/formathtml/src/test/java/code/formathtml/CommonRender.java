@@ -1033,7 +1033,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(c_ -1,"c:", doc_, h, _a.getAnalyzing().getPrimTypes(), "page"+c_+".html", conf_.getRendKeyWords());
+            AnaRendDocumentBlock anaDoc_ = AnaRendDocumentBlock.newRendDocumentBlock(c_ -1,"c:", doc_, h, _a.getAnalyzing().getPrimTypes(), "page"+c_+".html", _analyzingDoc);
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
