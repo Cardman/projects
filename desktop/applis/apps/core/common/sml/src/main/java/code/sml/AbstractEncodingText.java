@@ -1,6 +1,6 @@
 package code.sml;
 
-import code.util.StringMap;
+import code.util.CustList;
 
 abstract class AbstractEncodingText {
     private static final char ENCODED = '&';
@@ -13,7 +13,7 @@ abstract class AbstractEncodingText {
         str = _str;
     }
 
-    static String encodeCommon(String _htmlText, StringMap<String> _map, int _length, AbstractEncodingText _incr) {
+    static String encodeCommon(String _htmlText, CustList<EncodedChar> _map, int _length, AbstractEncodingText _incr) {
         while (_incr.index < _length) {
             if (_incr.exit(_htmlText, _map)) {
                 break;
@@ -21,7 +21,7 @@ abstract class AbstractEncodingText {
         }
         return _incr.str.toString();
     }
-    private boolean exit(String _htmlText, StringMap<String> _map) {
+    private boolean exit(String _htmlText, CustList<EncodedChar> _map) {
         int length_ = _htmlText.length();
         char ch_ = _htmlText.charAt(index);
         if (ch_ != ENCODED) {
@@ -43,7 +43,7 @@ abstract class AbstractEncodingText {
         return false;
     }
 
-    protected abstract void incr(String _htmlText, StringMap<String> _map, StringBuilder _str, int _iEncode, int _index);
+    protected abstract void incr(String _htmlText, CustList<EncodedChar> _map, StringBuilder _str, int _iEncode, int _index);
 
     protected static boolean matchRegion(String _htmlText, int _iEncode, int _index, String _key) {
         boolean equals_ = true;
