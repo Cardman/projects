@@ -4,27 +4,31 @@ import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.annotation.ExportAnnotationUtil;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.HiddenCache;
-import code.expressionlanguage.exec.variables.*;
-import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.ReflectGetFieldPageEl;
+import code.expressionlanguage.exec.calls.ReflectSetFieldPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.Cache;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.exec.opers.ExecSemiAffectationNatOperation;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
+import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.AnaOperatorContent;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperatorContent;
+import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.structs.*;
-import code.expressionlanguage.exec.calls.*;
 import code.util.*;
 import org.junit.Test;
 
@@ -504,7 +508,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
     public void okArgsSetSwCall() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {}\n");
+        xml_.append("$public $class pkg.Ex {$public $static $void m($int i){}}\n");
         xml_.append("$public $annotation pkg.ExAnnot {}\n");
         files_.put("pkg/Ex", xml_.toString());
         AnalyzedTestContext cont_ = validated(files_);
@@ -515,6 +519,15 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         stackCall_.addInternPage(instancingClass_);
         ExecTemplates.okArgsSetSwCall( ex_, cont_.getContext(), stackCall_, Argument.createVoid());
         assertNotNull(getTrueException(stackCall_));
+        ImplicitMethods converterTo_ = new ImplicitMethods();
+        converterTo_.getConverter().add(new ExecTypeFunction(classBody_, (ExecNamedFunctionBlock) classBody_.getChildrenOthers().first()));
+        converterTo_.setOwnerClass(new ExecFormattedRootBlock(classBody_));
+        AnaOperatorContent co_ = new AnaOperatorContent();
+        co_.setOper("");
+        ExecSemiAffectationNatOperation sem_ = new ExecSemiAffectationNatOperation(new ExecOperationContent(0, new ExecClassArgumentMatching(""), 0), new ExecOperatorContent(co_), converterTo_, false, new StringList());
+        IdMap<ExecOperationNode, ArgumentsPair> nodes_ = new IdMap<ExecOperationNode, ArgumentsPair>();
+        nodes_.addEntry(sem_,new ArgumentsPair());
+        sem_.endCalculate(cont_.getContext(),nodes_, new Argument(), stackCall_);
     }
     @Test
     public void okArgs1Test() {

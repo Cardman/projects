@@ -7419,7 +7419,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m127\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m127\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m68\">nb</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m127\">ExClass</a>()</span></span>;\n" +
-                "  <span class=\"f\">++<a title=\"pkg.ExClass.static $(int,pkg.ExClass)\" href=\"#m273\"> </a><a title=\"pkg.ExClass.static $(pkg.ExClass,int)\" href=\"#m185\"> </a><span class=\"f\"><a href=\"#m68\">nb</a></span></span>;\n" +
+                "  <span class=\"f\">++<a title=\"pkg.ExClass.static $(pkg.ExClass,int)\" href=\"#m185\"> </a><span class=\"f\"><a title=\"pkg.ExClass.static $(int,pkg.ExClass)\" href=\"#m273\"> </a><a href=\"#m68\">nb</a></span></span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m68\">nb</a></span>;\n" +
                 " }\n" +
                 "}\n" +
@@ -7467,7 +7467,7 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Apply</a> {\n" +
                 " public static <a title=\"pkg.ExClass\" href=\"#m127\">ExClass</a> <a name=\"m48\">method</a>(){\n" +
                 "  <a title=\"pkg.ExClass\" href=\"#m127\">ExClass</a> <span class=\"f\"><span class=\"f\"><a name=\"m68\">nb</a> </span>=<span class=\"f\"> new <a title=\"pkg.ExClass\" href=\"#m127\">ExClass</a>()</span></span>;\n" +
-                "  <span class=\"f\"><span class=\"f\"><a href=\"#m68\">nb</a></span><a title=\"pkg.ExClass.static $(int,pkg.ExClass)\" href=\"#m273\"> </a><a title=\"pkg.ExClass.static $(pkg.ExClass,int)\" href=\"#m185\"> </a>++</span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m68\">nb</a><a title=\"pkg.ExClass.static $(int,pkg.ExClass)\" href=\"#m273\"> </a></span><a title=\"pkg.ExClass.static $(pkg.ExClass,int)\" href=\"#m185\"> </a>++</span>;\n" +
                 "  return <span class=\"f\"><a href=\"#m68\">nb</a></span>;\n" +
                 " }\n" +
                 "}\n" +

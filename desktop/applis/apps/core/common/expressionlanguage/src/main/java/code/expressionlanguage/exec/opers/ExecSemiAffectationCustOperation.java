@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -17,8 +18,8 @@ public final class ExecSemiAffectationCustOperation extends ExecSemiAffectationO
     private final ExecFormattedRootBlock formattedType;
     private final ExecStaticPostEltContent staticPostEltContent;
 
-    public ExecSemiAffectationCustOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ExecOperatorContent _operatorContent, ExecTypeFunction _pair, StringList _names) {
-        super(_opCont, _operatorContent, _staticPostEltContent.isPost(),_names);
+    public ExecSemiAffectationCustOperation(ExecOperationContent _opCont, ExecStaticPostEltContent _staticPostEltContent, ImplicitMethods _implicitMethods, ExecOperatorContent _operatorContent, ExecTypeFunction _pair, StringList _names) {
+        super(_opCont, _operatorContent, _staticPostEltContent.isPost(),_implicitMethods,_names);
         pair = _pair;
         staticPostEltContent = _staticPostEltContent;
         formattedType = _staticPostEltContent.getFormattedType();

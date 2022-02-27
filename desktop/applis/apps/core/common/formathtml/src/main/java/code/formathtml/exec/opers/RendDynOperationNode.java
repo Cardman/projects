@@ -1,24 +1,32 @@
 package code.formathtml.exec.opers;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.*;
+import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
-import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.fwd.opers.*;
-import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-
 import code.expressionlanguage.exec.opers.ExecOperationNode;
-import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.ImplicitMethods;
+import code.expressionlanguage.exec.util.NativeFct;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendNativeFct;
 import code.formathtml.exec.RendStackCall;
 import code.util.CustList;
@@ -119,6 +127,9 @@ public abstract class RendDynOperationNode {
     }
     protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgument());
+    }
+    protected static Argument getArgumentBeforeImpl(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
+        return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgumentBeforeImpl());
     }
     protected static Argument getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return Argument.getNullableValue(_nodes.getValue(_node.getOrder()).getPreviousArgument());
@@ -265,6 +276,8 @@ public abstract class RendDynOperationNode {
     }
 
     private void defCalcArg(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _out) {
+        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        pair_.argumentImpl(_out);
         Argument out_ = _out;
         int s_ = implicits.size();
         for (int i = 0; i < s_; i++) {

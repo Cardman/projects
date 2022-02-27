@@ -1,21 +1,21 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
-import code.util.*;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
@@ -23,7 +23,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private final AnaOperatorContent operatorContent;
     private final boolean post;
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
-    private final ClassMethodIdMemberIdTypeFct convFrom = new ClassMethodIdMemberIdTypeFct();
     private final ClassMethodIdMemberIdTypeFct convTo = new ClassMethodIdMemberIdTypeFct();
 
     public SemiAffectationOperation(int _index, int _indexChild,
@@ -72,10 +71,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         StrTypes ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
-        OperatorConverter cl_ = getIncrDecrOperatorOrMethod(this,leftEl_,settable, op_, _page);
+        OperatorConverter cl_ = getIncrDecrOperatorOrMethod(this,leftEl_, op_, _page);
         if (cl_ != null) {
             fct.infos(cl_,_page);
-            ClassMethodIdReturn test_ = null;
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
             map_.setParam(settable.getResultClass());
@@ -83,7 +81,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(settable.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_ != null) {
                     convTo.infos(res_);
-                    test_ = cl_.getTest();
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
@@ -96,9 +93,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                     addErr(cast_.getBuiltError());
                 }
                 setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(), _page), _page.getPrimitiveTypes()));
-            }
-            if (test_ != null) {
-                convFrom.infos(test_);
             }
             return;
         }
@@ -123,9 +117,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     public ClassMethodIdMemberIdTypeFct getFct() {
         return fct;
     }
-    public ClassMethodIdMemberIdTypeFct getConvFrom() {
-        return convFrom;
-    }
 
     public ClassMethodIdMemberIdTypeFct getConvTo() {
         return convTo;
@@ -137,10 +128,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
 
     public SettableElResult getSettable() {
         return settable;
-    }
-
-    public AnaTypeFct getFunctionFrom() {
-        return convFrom.getFunction();
     }
 
     public AnaTypeFct getFunctionTo() {

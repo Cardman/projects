@@ -6,13 +6,13 @@ public final class ArgumentsPair {
     private Argument argument;
     private AbstractWrapper wrapper;
     private Argument argumentBeforeTest;
+    private Argument argumentBeforeImpl;
     private boolean argumentTest;
     private boolean calcArgumentTest;
     private Argument previousArgument;
     private int indexImplicit;
     private int indexImplicitTest;
     private int indexImplicitCompound;
-    private int indexImplicitSemiFrom;
     private int indexImplicitSemiTo;
     private boolean endCalculate;
     private boolean calledIndexer;
@@ -54,6 +54,16 @@ public final class ArgumentsPair {
         calcArgumentTest = true;
     }
 
+    public Argument getArgumentBeforeImpl() {
+        return argumentBeforeImpl;
+    }
+
+    public void argumentImpl(Argument _arg) {
+        if (argumentBeforeImpl != null) {
+            return;
+        }
+        argumentBeforeImpl = _arg;
+    }
     public Argument getPreviousArgument() {
         return previousArgument;
     }
@@ -91,14 +101,6 @@ public final class ArgumentsPair {
 
     public void setIndexImplicitCompound(int _indexImplicitCompound) {
         this.indexImplicitCompound = _indexImplicitCompound;
-    }
-
-    public int getIndexImplicitSemiFrom() {
-        return indexImplicitSemiFrom;
-    }
-
-    public void setIndexImplicitSemiFrom(int _indexImplicitSemiFrom) {
-        this.indexImplicitSemiFrom = _indexImplicitSemiFrom;
     }
 
     public int getIndexImplicitSemiTo() {

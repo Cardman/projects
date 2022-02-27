@@ -36,7 +36,6 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
             ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes, this);
             pairBefore_.setEndCalculate(true);
-            pairBefore_.setIndexImplicitSemiFrom(-1);
             pairBefore_.setIndexImplicitSemiTo(-1);
             pairBefore_.setIndexImplicitCompound(-1);
             pairBefore_.setCalledIndexer(true);

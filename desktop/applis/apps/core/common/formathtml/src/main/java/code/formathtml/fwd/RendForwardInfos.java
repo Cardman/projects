@@ -18,8 +18,11 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
 import code.expressionlanguage.fwd.opers.*;
-import code.formathtml.*;
-import code.formathtml.analyze.*;
+import code.formathtml.Configuration;
+import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.InternGlobalOperation;
+import code.formathtml.analyze.ResultInput;
+import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.blocks.*;
 import code.formathtml.exec.blocks.*;
 import code.formathtml.exec.opers.*;
@@ -906,9 +909,9 @@ public final class RendForwardInfos {
         StringList names_ = _anaNode.getResultClass().getNames();
         ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(_anaNode.getFct(), _forwards);
         if (pair_.getFct() == null) {
-            return new RendSemiAffectationNatOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), FetchMemberUtil.fetchImplicits(_anaNode.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), _anaNode.isPost(), names_);
+            return new RendSemiAffectationNatOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), _anaNode.isPost(), names_);
         }
-        return new RendSemiAffectationCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecStaticPostEltContent(_anaNode.getFct(), _anaNode.isPost(), _forwards), new ExecOperatorContent(_anaNode.getOperatorContent()), pair_, names_);
+        return new RendSemiAffectationCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecStaticPostEltContent(_anaNode.getFct(), _anaNode.isPost(), _forwards), new ExecOperatorContent(_anaNode.getOperatorContent()), pair_, FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), names_);
     }
 
     private static RendCompoundAffectationOperation compound(CompoundAffectationOperation _anaNode, Forwards _forwards) {

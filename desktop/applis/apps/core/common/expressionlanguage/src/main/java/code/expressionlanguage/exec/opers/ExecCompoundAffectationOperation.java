@@ -56,8 +56,8 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettable());
-        Argument stored_ = pairSet_.getArgument();
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettableAnc());
+        Argument stored_ = Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
         setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
         int indexImplicit_ = pair_.getIndexImplicitCompound();
         if (ImplicitMethods.isValidIndex(converter,indexImplicit_)) {

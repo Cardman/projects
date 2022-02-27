@@ -3,17 +3,16 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.instr.Delimiters;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.structs.*;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
@@ -2081,6 +2080,31 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         StringMap<String> files_ = new StringMap<String>();
         assertNotNull(ex(files_, "explicit($int)\"5\""));
 
+    }
+    @Test
+    public void processEl479Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $operator++ $int(pkg.Ex a){\n");
+        xml_.append("  $var o = $new pkg.Ex();\n");
+        xml_.append("  o.inst = a.inst+1/0;\n");
+        xml_.append("  $return o.inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static pkg.Ex $($int a){\n");
+        xml_.append("  $var o = $new pkg.Ex();\n");
+        xml_.append("  o.inst = a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Ex res = $new Ex(6);\n");
+        xml_.append(" $public $int inst;\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertNotNull(ex(files_, "(pkg.Ex.res++).inst"));
     }
     @Test
     public void processAffect8FailTest() {

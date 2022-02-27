@@ -5,6 +5,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
+import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
@@ -13,18 +18,18 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.LinkagePartTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.DisplayedStrings;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.coverage.AbstractCoverageResult;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.coverage.SwitchCoverageResult;
-import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.analyze.instr.*;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.maths.litteralcom.IndexStrPart;
@@ -3661,7 +3666,6 @@ public final class LinkageUtil {
         }
         if (ch_ != null) {
             int begin_ = offsetOp_ + _sum + _val.getIndexInEl()+2;
-            tryAddMergedParts(_vars,par_.getFunctionFrom(), begin_, new StringList(), new StringList());
             tryAddMergedParts(_vars,par_.getFunctionTo(), begin_, new StringList(), new StringList());
         }
     }
@@ -4053,7 +4057,6 @@ public final class LinkageUtil {
             int sum_ = beginBlock_ + par_.getIndexInEl();
             int opOff_ = sum_+par_.getOpOffset();
             if(par_.isPost()) {
-                tryAddMergedParts(_vars,par_.getFunctionFrom(), opOff_, new StringList(), new StringList());
                 tryAddMergedParts(_vars,par_.getFunctionTo(), opOff_, new StringList(), new StringList());
                 boolean err_ = true;
                 AnaTypeFct function_ = par_.getFct().getFunction();

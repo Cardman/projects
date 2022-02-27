@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.ArrayCustWrapper;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -14,10 +15,12 @@ import code.util.StringList;
 public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation {
     private final boolean post;
     private final ExecOperatorContent operatorContent;
+    private final ImplicitMethods converterTo;
 
-    protected ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, boolean _post, StringList _names) {
+    protected ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, boolean _post, ImplicitMethods _converterTo, StringList _names) {
         super(_opCont, _operatorContent.getOpOffset(), _names);
         operatorContent = _operatorContent;
+        converterTo = _converterTo;
         post = _post;
     }
 
@@ -31,8 +34,13 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
 
     protected void end(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettable());
-        Argument stored_ = pairSet_.getArgument();
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettableAnc());
+        Argument stored_ = Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
+        int indexImplicit_ = pair_.getIndexImplicitSemiTo();
+        if (ImplicitMethods.isValidIndex(converterTo,indexImplicit_)) {
+            pair_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,_right, converterTo,indexImplicit_, _stack));
+            return;
+        }
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
             Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, getSettable(), post, _stack);
@@ -82,7 +90,11 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
         return Argument.getNullableValue(arg_);
     }
 
-    static Argument getPrePost(boolean _post, Argument _stored,Argument _right) {
+    public ImplicitMethods getConverterTo() {
+        return converterTo;
+    }
+
+    static Argument getPrePost(boolean _post, Argument _stored, Argument _right) {
         if (_post) {
             return _stored;
         }

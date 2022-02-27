@@ -10,17 +10,17 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.fwd.AbstractExecFileListBuilder;
-import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.Coverage;
 import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.AbstractExecFileListBuilder;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.util.*;
@@ -1543,9 +1543,9 @@ public final class ForwardInfos {
         StringList names_ = _anaNode.getResultClass().getNames();
         ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(_anaNode.getFct(), _forwards);
         if (pair_.getFct() == null) {
-            return new ExecSemiAffectationNatOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), FetchMemberUtil.fetchImplicits(_anaNode.getConvFrom(), _forwards), FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), _anaNode.isPost(), names_);
+            return new ExecSemiAffectationNatOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), _anaNode.isPost(), names_);
         }
-        return new ExecSemiAffectationCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecStaticPostEltContent(_anaNode.getFct(), _anaNode.isPost(), _forwards), new ExecOperatorContent(_anaNode.getOperatorContent()), pair_, names_);
+        return new ExecSemiAffectationCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecStaticPostEltContent(_anaNode.getFct(), _anaNode.isPost(), _forwards), FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), new ExecOperatorContent(_anaNode.getOperatorContent()), pair_, names_);
     }
 
     private static ExecOperationNode procGeneOperators(OperationNode _anaNode, Forwards _forwards) {

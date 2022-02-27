@@ -1,28 +1,30 @@
 package code.expressionlanguage.analyze.opers;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.types.IdTypeList;
-import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
-import code.expressionlanguage.analyze.opers.util.*;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.FoundVariable;
-import code.expressionlanguage.common.*;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.util.*;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.analyze.types.IdTypeList;
+import code.expressionlanguage.analyze.types.ResolvingImportTypes;
+import code.expressionlanguage.analyze.util.*;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.FoundVariable;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.analyze.types.ResolvingImportTypes;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -1132,12 +1134,6 @@ public abstract class OperationNode {
         possibleAdjust(res_);
         return res_;
     }
-    protected static ClassMethodIdReturn tryGetDeclaredCustIncrDecrMethod(StringList _classes, String _name,
-                                                                          AnaClassArgumentMatching _argsClass, AnaClassArgumentMatching _settable, AnalyzedPageEl _page) {
-        CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(MethodAccessKind.STATIC, _classes, _name, false, _page, new ScopeFilter(null, true, false, false, _page.getGlobalClass()), new FormattedFilter());
-        return getCustIncrDecrResult(methods_, _name, _argsClass, _settable, _page);
-    }
 
     protected static ClassMethodIdReturn tryGetDeclaredCustMethodLambda(int _varargOnly,
                                                                         MethodAccessKind _staticContext,
@@ -1292,9 +1288,8 @@ public abstract class OperationNode {
     }
 
     static OperatorConverter getIncrDecrOperatorOrMethod(MethodOperation _node,
-                                                           OperationNode _operand,
-                                                           SettableElResult _settable,
-                                                           String _op, AnalyzedPageEl _page) {
+                                                         OperationNode _operand,
+                                                         String _op, AnalyzedPageEl _page) {
         AnaClassArgumentMatching operand_ = _operand.getResultClass();
         CustList<OperationNode> single_ = new CustList<OperationNode>(_operand);
         if (isNativeUnaryOperator(operand_,_op, _page)) {
@@ -1306,7 +1301,7 @@ public abstract class OperationNode {
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return new OperatorConverter(clMethImp_);
         }
-        ClassMethodIdReturn clId_ = getCustomIncrDecrOperatorOrMethod(_node, _operand, _settable, _op, _page);
+        ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _page);
         if (clId_ != null) {
             return new OperatorConverter(clId_);
         }
@@ -1326,37 +1321,10 @@ public abstract class OperationNode {
                 addVirtual(_op, _page, list_,p, p, new StringList(p));
             }
             lists_.add(list_);
-            NameParametersFilter name_ = name(single_);
-//            ClassMethodIdReturn clMeth_ = getCustResult(false, true, -1, lists_, _op, "", name_, _page);
-
-
-            Parametrable found_ = tryGet(false, true, -1, lists_, _op, "", name_, _page);
-            CustList<CustList<ClassMethodIdReturn>> implicits_;
-            if (found_ instanceof MethodInfo) {
-                MethodInfo m_ = (MethodInfo) found_;
-                pats(name_, m_);
-                implicits_ = m_.getImplicits();
-            } else {
-                implicits_ = new CustList<CustList<ClassMethodIdReturn>>();
-            }
-            CustList<ClassMethodIdReturn> locList_ = firstList(implicits_);
-            ClassMethodIdReturn loc_ = firstElt(locList_);
-            if (loc_ != null) {
-                CustList<CustList<AnaFormattedRootBlock>> impls_ = new CustList<CustList<AnaFormattedRootBlock>>();
-                impls_.add(new CustList<AnaFormattedRootBlock>(loc_.getFormattedType()));
-                InvokingOperation.unwrapArgsFctImpl(loc_,impls_,single_,_page);
-            }
-            if (found_ instanceof MethodInfo) {
-                MethodInfo m_ = (MethodInfo) found_;
-//                CustList<OperationNode> allOps_ = m_.getAllOps();
-//                feedImplicitsInfos(implicits_, allOps_);
-                namedParams(name_, m_);
-                MethodId idForm_ = m_.getFormatted();
-                ClassMethodIdReturn clMeth_ = buildResult(m_, idForm_);
+            ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, single_, _page);
+            if (clMeth_ != null) {
                 _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
-                OperatorConverter conv_ = new OperatorConverter(clMeth_);
-                conv_.setTest(loc_);
-                return conv_;
+                return new OperatorConverter(clMeth_);
             }
         }
         return null;
@@ -1370,25 +1338,6 @@ public abstract class OperationNode {
         return name_;
     }
 
-    private static ClassMethodIdReturn firstElt(CustList<ClassMethodIdReturn> _locList) {
-        ClassMethodIdReturn loc_;
-        if (_locList.isEmpty()) {
-            loc_ = null;
-        } else {
-            loc_ = _locList.first();
-        }
-        return loc_;
-    }
-
-    private static CustList<ClassMethodIdReturn> firstList(CustList<CustList<ClassMethodIdReturn>> _implicits) {
-        CustList<ClassMethodIdReturn> locList_;
-        if (_implicits.isEmpty()) {
-            locList_ = new CustList<ClassMethodIdReturn>();
-        } else {
-            locList_ = _implicits.first();
-        }
-        return locList_;
-    }
 
     static OperatorConverter getBinaryOperatorOrMethod(MethodOperation _node,
                                                        OperationNode _left, OperationNode _right,
@@ -1406,7 +1355,6 @@ public abstract class OperationNode {
         }
         ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsBinary_, _op, pair_, _page);
         if (clMethImp_ != null) {
-            CustList<OperationNode> chidren_ = _node.getChildrenNodes();
             _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
             OperatorConverter op_ = new OperatorConverter(clMethImp_);
             op_.setTest(test_);
@@ -1521,24 +1469,7 @@ public abstract class OperationNode {
         }
         return null;
     }
-    private static ClassMethodIdReturn getCustomIncrDecrOperatorOrMethod(MethodOperation _node, OperationNode _arg, SettableElResult _settable, String _op, AnalyzedPageEl _page) {
-        StringList bounds_ = _page.getTypesWithInnerOperators();
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustIncrDecrMethod(
-                bounds_, _op,
-                _arg.getResultClass(),_settable.getResultClass(), _page);
-        if (clMeth_ != null) {
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            InvokingOperation.unwrapArgsFct(clMeth_, new CustList<OperationNode>(_arg), _page);
-            return clMeth_;
-        }
-        ClassMethodIdReturn cust_ = getIncrDecrOperator(_op, _arg.getResultClass(),_settable.getResultClass(), _page);
-        if (cust_ != null) {
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(cust_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            InvokingOperation.unwrapArgsFct(cust_, new CustList<OperationNode>(_arg), _page);
-            return cust_;
-        }
-        return null;
-    }
+
     private static boolean isNativeUnaryOperator(AnaClassArgumentMatching _operand, String _op, AnalyzedPageEl _page) {
         if (StringUtil.quickEq(_op,"!")) {
             return _operand.isBoolType(_page);
@@ -1638,13 +1569,6 @@ public abstract class OperationNode {
                 && _right.matchClass(_page.getAliasObject());
     }
 
-    private static ClassMethodIdReturn getIncrDecrOperator(String _op, AnaClassArgumentMatching _argsClass, AnaClassArgumentMatching _settable, AnalyzedPageEl _page) {
-        //implicit use of operator key word
-        CustList<MethodInfo> ops_ = getOperators(false, null, _page);
-        CustList<CustList<MethodInfo>> o_ = new CustList<CustList<MethodInfo>>();
-        o_.add(ops_);
-        return getCustIncrDecrResult(o_, _op, _argsClass, _settable, _page);
-    }
     static ClassMethodIdReturn getOperator(String _op, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {
         CustList<MethodInfo> ops_ = getOperators(false, null, _page);
         boolean uniq_ = uniq((ClassMethodId) null, -1);
@@ -2580,35 +2504,6 @@ public abstract class OperationNode {
         return next_;
     }
 
-    private static ClassMethodIdReturn getCustIncrDecrResult(CustList<CustList<MethodInfo>> _methods,
-                                                             String _name, AnaClassArgumentMatching _argsClass, AnaClassArgumentMatching _settable, AnalyzedPageEl _page) {
-        CustList<CustList<MethodInfo>> signatures_ = new CustList<CustList<MethodInfo>>();
-        for (CustList<MethodInfo> l: _methods) {
-            CustList<MethodInfo> m_ = new CustList<MethodInfo>();
-            for (MethodInfo e: l) {
-                MethodId id_ = e.getConstraints();
-                boolean varArg_ = id_.isVararg();
-                if (varArg_ || id_.isRef()) {
-                    continue;
-                }
-                if (!StringUtil.quickEq(id_.getName(), _name)) {
-                    continue;
-                }
-                if (e.getGeneFormatted().getParametersTypesLength() != 1) {
-                    continue;
-                }
-                if (!isPossibleIncrDecrMethod(e, _argsClass, _settable, _page)) {
-                    continue;
-                }
-                m_.add(e);
-            }
-            signatures_.add(m_);
-        }
-        StringMap<StringList> map_;
-        map_ = _page.getCurrentConstraints().getCurrentConstraints();
-        ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        return tryGetResult(gr_,signatures_);
-    }
     private static boolean isPossibleMethodLambda(Parametrable _id, AnalyzedPageEl _page,
                                                   StringList _argsClass) {
         int startOpt_ = _argsClass.size();
@@ -2962,26 +2857,7 @@ public abstract class OperationNode {
         }
         return operation_ instanceof WrappOperation;
     }
-    private static boolean isPossibleIncrDecrMethod(Parametrable _id,
-                                                    AnaClassArgumentMatching _argsClass,AnaClassArgumentMatching _settable, AnalyzedPageEl _page) {
-        StringMap<StringList> mapCtr_ = _page.getCurrentConstraints().getCurrentConstraints();
-        String wc_ = _id.getGeneFormatted().getParametersType(0);
-        Mapping map_ = new Mapping();
-        map_.setArg(_argsClass);
-        map_.getMapping().putAllMap(mapCtr_);
-        map_.setParam(wc_);
-        if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-            return false;
-        }
-        map_.setArg(_id.getReturnType());
-        map_.setParam(_settable);
-        if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-            return false;
-        }
-        _id.setInvocation(InvocationMethod.STRICT);
-        return true;
 
-    }
     private static boolean match(Parametrable _id,
                                  String _param) {
         int all_ = _id.getGeneFormatted().getParametersTypesLength();

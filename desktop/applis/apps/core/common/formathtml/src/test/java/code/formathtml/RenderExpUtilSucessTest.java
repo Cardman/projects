@@ -5,23 +5,25 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.Delimiters;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.structs.*;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
@@ -4827,6 +4829,32 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth(j:3,k:5)");
         assertEq(9, getNumber(arg_));
+    }
+    @Test
+    public void processEl479Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $operator++ $int(pkg.Ex a){\n");
+        xml_.append("  $var o = $new pkg.Ex();\n");
+        xml_.append("  o.inst = a.inst+1;\n");
+        xml_.append("  $return o.inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static pkg.Ex $($int a){\n");
+        xml_.append("  $var o = $new pkg.Ex();\n");
+        xml_.append("  o.inst = a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Ex res = $new Ex(6);\n");
+        xml_.append(" $public $int inst;\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        Argument argument_ = processEl(files_, "(pkg.Ex.res++).inst");
+        assertEq(6,getNumber(argument_));
     }
     @Test
     public void procesAffect00Test() {

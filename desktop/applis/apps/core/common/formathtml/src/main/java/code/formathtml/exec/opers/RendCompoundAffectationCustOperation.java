@@ -38,8 +38,8 @@ public final class RendCompoundAffectationCustOperation extends RendCompoundAffe
             }
             res_ = conv_;
         }
-        ArgumentsPair argumentPair_ = getArgumentPair(_nodes, getSettable());
-        Argument leftArg_ = Argument.getNullableValue(argumentPair_.getArgument());
+        ArgumentsPair argumentPair_ = getArgumentPair(_nodes, getSettableAnc());
+        Argument leftArg_ = Argument.getNullableValue(argumentPair_.getArgumentBeforeImpl());
         Argument arg_ = endCalculate(_nodes,leftArg_, res_, _advStandards, _context, _rendStack,isStaticPostEltContent());
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }

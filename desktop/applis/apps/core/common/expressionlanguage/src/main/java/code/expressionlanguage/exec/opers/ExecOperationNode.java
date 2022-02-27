@@ -336,6 +336,7 @@ public abstract class ExecOperationNode {
 
     private void defCalcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall, ArgumentsPair _pair, Argument _before) {
         int indexImplicit_ = _pair.getIndexImplicit();
+        _pair.argumentImpl(_before);
         if (implicits.isValidIndex(indexImplicit_)) {
             _pair.setIndexImplicit(processConverter(_conf, _before,implicits,indexImplicit_, _stackCall));
             return;
