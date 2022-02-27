@@ -914,6 +914,76 @@ public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(7, getNumber(ret_));
     }
+
+    @Test
+    public void calculateArgument27Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $operator++ $int(pkg.Ex a){\n");
+        xml_.append("  $var o = $new pkg.Ex();\n");
+        xml_.append("  o.inst = a.inst+1;\n");
+        xml_.append("  $return o.inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static pkg.Ex $($int a){\n");
+        xml_.append("  $var o = $new pkg.Ex();\n");
+        xml_.append("  o.inst = a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Ex res = $new Ex(6);\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  pkg.Ex.res++;\n");
+        xml_.append("  $return pkg.Ex.res.inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int inst;\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(7, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgument28Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $operator++ $int(pkg.Ex a){\n");
+        xml_.append("  $var o = $new pkg.Ex();\n");
+        xml_.append("  o.inst = a.inst+1;\n");
+        xml_.append("  $return o.inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static pkg.Ex $($int a){\n");
+        xml_.append("  $var o = $new pkg.Ex();\n");
+        xml_.append("  o.inst = a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Ex res = $new Ex(6);\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  ++pkg.Ex.res;\n");
+        xml_.append("  $return pkg.Ex.res.inst;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int inst;\n");
+        xml_.append(" $public Ex(){}\n");
+        xml_.append(" $public Ex($int p){\n");
+        xml_.append("  inst=p;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxReadOnlyOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(7, getNumber(ret_));
+    }
     @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();
