@@ -33,7 +33,7 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
             if (conv_ == null) {
                 return;
             }
-            conv_ = RendAffectationOperation.calculateChSetting(getSettable(),_nodes, conv_, _advStandards, _context, _rendStack);
+            RendAffectationOperation.calculateChSetting(getSettable(),_nodes, conv_, _advStandards, _context, _rendStack);
             stored_ = getPrePost(isPost(),before_,conv_);
             setSimpleArgument(stored_, _nodes, _context, _rendStack);
             return;
