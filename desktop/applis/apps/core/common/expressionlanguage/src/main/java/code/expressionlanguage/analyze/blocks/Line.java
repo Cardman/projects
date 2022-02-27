@@ -60,7 +60,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         if (res.getRoot() instanceof AbstractInvokingConstructor) {
             constId =((AbstractInvokingConstructor) res.getRoot()).getConstId();
         }
-        if (_page.isMerged()) {
+        if (_page.getLineDeclarator() != null) {
             StringList vars_ = _page.getVariablesNames();
             DeclareVariable declaring_ = (DeclareVariable) getPreviousSibling();
             if (declaring_.isRefVariable()) {
@@ -72,10 +72,8 @@ public final class Line extends Leaf implements BuildableElMethod {
             declaring_.getVariableNames().addAllElts(vars_);
         }
         _page.setLineDeclarator(null);
-        _page.setMerged(false);
         _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
-        _page.setFinalVariable(false);
     }
 
     public static void checkOpers(OperationNode _root, AnalyzedPageEl _page) {

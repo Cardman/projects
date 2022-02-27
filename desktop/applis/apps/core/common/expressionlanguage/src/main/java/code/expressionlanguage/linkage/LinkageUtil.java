@@ -3158,10 +3158,9 @@ public final class LinkageUtil {
     }
 
     private static void processVariables(VariablesOffsets _vars, int _sum, OperationNode _val) {
-        processRefVariable(_vars,_sum, _val);
+
         processVariable(_vars,_sum, _val);
-        processMutableLoppVariable(_vars,_sum, _val);
-        processRefParam(_vars,_sum, _val);
+
         processFinalVariable(_vars,_sum, _val);
     }
 
@@ -3176,49 +3175,10 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(_val.getErrs(),ExportCst.JOIN_ERR)), begVar_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endVar_));
             } else {
-                if (((FinalVariableOperation) _val).isKeyWord()) {
-                    _vars.addPart(new PartOffset(ExportCst.HEAD_BOLD, begVar_));
-                    _vars.addPart(new PartOffset(ExportCst.END_BOLD, endVar_));
-                } else {
-                    int id_ = ((FinalVariableOperation) _val).getRef();
-                    _vars.addPart(new PartOffset(ExportCst.anchorRef(id_), begVar_));
-                    _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endVar_));
-                }
-            }
-        }
-    }
-
-    private static void processRefParam(VariablesOffsets _vars, int _sum, OperationNode _val) {
-        if (_val instanceof RefParamOperation) {
-            String varName_ = ((RefParamOperation) _val).getRealVariableName();
-            int delta_ = ((RefParamOperation) _val).getOff();
-            int id_ = ((RefParamOperation) _val).getRef();
-            int begVar_ = delta_ + _sum + _val.getIndexInEl();
-            int endVar_ = begVar_ + varName_.length();
-            _vars.addPart(new PartOffset(ExportCst.anchorRef(id_), begVar_));
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endVar_));
-        }
-    }
-
-    private static void processMutableLoppVariable(VariablesOffsets _vars, int _sum, OperationNode _val) {
-        if (_val instanceof MutableLoopVariableOperation) {
-            String varName_ = ((MutableLoopVariableOperation) _val).getRealVariableName();
-            int delta_ = ((MutableLoopVariableOperation) _val).getOff();
-            int id_ = ((MutableLoopVariableOperation) _val).getRef();
-            int begVar_ = delta_ + _sum + _val.getIndexInEl();
-            int endVar_ = begVar_ + varName_.length();
-            if (((MutableLoopVariableOperation) _val).isDeclare()) {
-                StringList errs_ = ((MutableLoopVariableOperation) _val).getNameErrors();
-                if (!errs_.isEmpty()) {
-                    _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), begVar_));
-                } else {
-                    _vars.addPart(new PartOffset(ExportCst.anchorName(id_), begVar_));
-                }
-
-            } else {
+                int id_ = ((FinalVariableOperation) _val).getRef();
                 _vars.addPart(new PartOffset(ExportCst.anchorRef(id_), begVar_));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endVar_));
             }
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endVar_));
         }
     }
 
@@ -3229,40 +3189,27 @@ public final class LinkageUtil {
             int id_ = ((VariableOperation) _val).getRef();
             int begVar_ = delta_ + _sum + _val.getIndexInEl();
             int endVar_ = begVar_ + varName_.length();
-            if (((VariableOperation) _val).isDeclare()) {
-                StringList errs_ = ((VariableOperation) _val).getNameErrors();
-                if (!errs_.isEmpty()) {
-                    _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), begVar_));
-                } else {
-                    _vars.addPart(new PartOffset(ExportCst.anchorName(id_), begVar_));
-                }
-
+            StringList errs_ = ((VariableOperation) _val).getNameErrors();
+            if (!errs_.isEmpty()) {
+                _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), begVar_));
             } else {
-                _vars.addPart(new PartOffset(ExportCst.anchorRef(id_), begVar_));
+                _vars.addPart(new PartOffset(ExportCst.anchorName(id_), begVar_));
             }
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endVar_));
         }
-    }
-
-    private static void processRefVariable(VariablesOffsets _vars, int _sum, OperationNode _val) {
-        if (_val instanceof RefVariableOperation) {
-            String varName_ = ((RefVariableOperation) _val).getRealVariableName();
-            int delta_ = ((RefVariableOperation) _val).getOff();
-            int id_ = ((RefVariableOperation) _val).getRef();
+        if (_val instanceof VariableOperationUse) {
+            String varName_ = ((VariableOperationUse) _val).getRealVariableName();
+            int delta_ = ((VariableOperationUse) _val).getOff();
+            int id_ = ((VariableOperationUse) _val).getRef();
             int begVar_ = delta_ + _sum + _val.getIndexInEl();
             int endVar_ = begVar_ + varName_.length();
-            if (((RefVariableOperation) _val).isDeclare()) {
-                StringList errs_ = ((RefVariableOperation) _val).getNameErrors();
-                if (!errs_.isEmpty()) {
-                    _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(errs_,ExportCst.JOIN_ERR)), begVar_));
-                } else {
-                    _vars.addPart(new PartOffset(ExportCst.anchorName(id_), begVar_));
-                }
-
+            if (((VariableOperationUse) _val).isKeyWord()) {
+                _vars.addPart(new PartOffset(ExportCst.HEAD_BOLD, begVar_));
+                _vars.addPart(new PartOffset(ExportCst.END_BOLD, endVar_));
             } else {
                 _vars.addPart(new PartOffset(ExportCst.anchorRef(id_), begVar_));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endVar_));
             }
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, endVar_));
         }
     }
 

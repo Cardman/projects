@@ -17,8 +17,8 @@ public abstract class CharSeqBlockInfo {
         chars.append(_char);
     }
 
-    public StringBuilder getChars() {
-        return chars;
+    public String build() {
+        return chars.toString();
     }
 
     public String getFound() {

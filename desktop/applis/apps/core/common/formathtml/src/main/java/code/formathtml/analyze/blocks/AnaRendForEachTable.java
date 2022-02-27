@@ -258,6 +258,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                 lInfo_.setClassName(_page.getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
+            lInfo_.setFinalVariable(true);
             _page.getInfosVars().put(variableNameFirst, lInfo_);
         }
         if (okVarSecond) {
@@ -271,6 +272,7 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
                 lInfo_.setClassName(_page.getAliasObject());
             }
             lInfo_.setConstType(ConstType.FIX_VAR);
+            lInfo_.setFinalVariable(true);
             _page.getInfosVars().put(variableNameSecond, lInfo_);
         }
     }

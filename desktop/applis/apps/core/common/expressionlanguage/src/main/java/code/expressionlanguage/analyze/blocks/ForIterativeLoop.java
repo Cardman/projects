@@ -196,6 +196,7 @@ public final class ForIterativeLoop extends AbstractForLoop implements Loop {
             lInfo_.setClassName(cl_);
             lInfo_.setRef(variableNameOffset);
             lInfo_.setConstType(ConstType.FIX_VAR);
+            lInfo_.setFinalVariable(true);
             _page.getInfosVars().put(variableName, lInfo_);
         }
 //        _page.getCoverage().putBlockOperationsLoops(this);

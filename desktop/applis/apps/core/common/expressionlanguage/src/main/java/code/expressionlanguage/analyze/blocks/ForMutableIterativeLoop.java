@@ -174,14 +174,13 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.getVariablesNamesToInfer().clear();
         _page.setGlobalOffset(initOffset);
         _page.zeroOffset();
-        _page.setLoopDeclarator(this);
         _page.setAcceptCommaInstr(true);
         _page.setForLoopPartState(ForLoopPart.INIT);
         if (!init.trim().isEmpty()) {
             resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, init, Calculation.staticCalculation(static_), _page));
         }
-        _page.setLoopDeclarator(null);
         addVars(_page);
+        _page.setLineDeclarator(null);
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.CONDITION);
@@ -191,22 +190,19 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             resExp.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resExp, expression, Calculation.staticCalculation(static_), _page));
             checkBoolCondition(resExp.getRoot(), _page);
         }
-        _page.setMerged(false);
         _page.setGlobalOffset(stepOffset);
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.STEP);
-        _page.setMerged(true);
         _page.setAcceptCommaInstr(true);
         if (!step.trim().isEmpty()) {
             resStep.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resStep, step, Calculation.staticCalculation(static_), _page));
         }
-        _page.setMerged(false);
         _page.setAcceptCommaInstr(false);
 
     }
 
     private void addVars(AnalyzedPageEl _page) {
-        if (_page.isMerged()) {
+        if (_page.getLineDeclarator() != null) {
             StringList vars_ = _page.getVariablesNames();
             errInf = AffectationOperation.processInfer(importedClassName, _page);
             getVariableNames().addAllElts(vars_);
@@ -214,7 +210,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 checkOpers(resInit.getRoot(), _page);
             }
         }
-        _page.setMerged(false);
         _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
     }
@@ -251,6 +246,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         _page.setGlobalOffset(classNameOffset);
         _page.zeroOffset();
         if (!className.isEmpty()) {
+            _page.setLineDeclarator(this);
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
@@ -259,12 +255,9 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
                 importedClassName = partOffsets.getResult(_page);
             }
-            _page.setMerged(true);
             _page.setRefVariable(refVariable);
-            _page.setFinalVariable(finalVariable);
             _page.setCurrentVarSetting(importedClassName);
         } else {
-            _page.setMerged(false);
             _page.setRefVariable(false);
         }
     }
@@ -294,6 +287,11 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         }
         exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
 //        ElUtil.setImplicits(_exp, _page, _root);
+    }
+
+    @Override
+    public boolean isRefVariable() {
+        return refVariable;
     }
 
     public String getImportedClassIndexName() {

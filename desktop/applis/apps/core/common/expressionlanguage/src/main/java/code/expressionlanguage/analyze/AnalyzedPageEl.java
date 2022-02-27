@@ -98,9 +98,7 @@ public final class AnalyzedPageEl {
 
     private int translatedOffset;
 
-    private boolean merged;
     private boolean acceptCommaInstr;
-    private boolean finalVariable;
     private boolean refVariable;
     private String currentVarSetting = "";
     private final StringList needInterfaces = new StringList();
@@ -156,7 +154,6 @@ public final class AnalyzedPageEl {
     private LgNamesContent content;
     private BuildableLgNames logErr;
     private AbsLineDeclarator lineDeclarator;
-    private AbsLoopDeclarator loopDeclarator;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -602,14 +599,6 @@ public final class AnalyzedPageEl {
         }
     }
 
-    public boolean isMerged() {
-        return merged;
-    }
-
-    public void setMerged(boolean _merged) {
-        merged = _merged;
-    }
-
     public boolean isAcceptCommaInstr() {
         return acceptCommaInstr;
     }
@@ -624,14 +613,6 @@ public final class AnalyzedPageEl {
 
     public void setRefVariable(boolean _refVariable) {
         refVariable = _refVariable;
-    }
-
-    public boolean isFinalVariable() {
-        return finalVariable;
-    }
-
-    public void setFinalVariable(boolean _finalVariable) {
-        finalVariable = _finalVariable;
     }
 
     public String getCurrentVarSetting() {
@@ -1283,11 +1264,4 @@ public final class AnalyzedPageEl {
         this.lineDeclarator = _lineDeclarator;
     }
 
-    public AbsLoopDeclarator getLoopDeclarator() {
-        return loopDeclarator;
-    }
-
-    public void setLoopDeclarator(AbsLoopDeclarator _loopDeclarator) {
-        this.loopDeclarator = _loopDeclarator;
-    }
 }

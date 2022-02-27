@@ -325,6 +325,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             }
             lInfo_.setRef(variableNameOffsetFirst);
             lInfo_.setConstType(ConstType.FIX_VAR);
+            lInfo_.setFinalVariable(true);
             _page.getInfosVars().put(variableNameFirst, lInfo_);
         }
         if (okVarSecond) {
@@ -340,6 +341,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
             }
             lInfo_.setRef(variableNameOffsetSecond);
             lInfo_.setConstType(ConstType.FIX_VAR);
+            lInfo_.setFinalVariable(true);
             _page.getInfosVars().put(variableNameSecond, lInfo_);
         }
     }

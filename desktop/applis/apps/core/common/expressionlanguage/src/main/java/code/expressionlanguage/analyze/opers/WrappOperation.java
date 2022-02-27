@@ -100,11 +100,17 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             return;
         }
         OperationNode firstChild_ = AffectationOperation.getFirstToBeAnalyzed(this);
-        if (firstChild_ instanceof RefParamOperation || isLeftValueCall(firstChild_)) {
+        if (isLeftValueCall(firstChild_)) {
             setResultClass(new AnaClassArgumentMatching(firstChild_.getResultClass().getNames()));
             return;
         }
-        if (!(firstChild_ instanceof RefVariableOperation)&&!(firstChild_ instanceof VariableOperation)&&!(firstChild_ instanceof MutableLoopVariableOperation)&&!(firstChild_ instanceof SettableAbstractFieldOperation)&&!(firstChild_ instanceof DotOperation)&&!(firstChild_ instanceof AbstractRefTernaryOperation)&&!(firstChild_ instanceof SwitchOperation)) {
+        if (firstChild_ instanceof VariableOperationUse) {
+            VariableOperationUse v_ = (VariableOperationUse)firstChild_;
+            processErrorVar(_page, v_);
+            setResultClass(new AnaClassArgumentMatching(firstChild_.getResultClass().getNames()));
+            return;
+        }
+        if (!(firstChild_ instanceof SettableAbstractFieldOperation) && !(firstChild_ instanceof DotOperation) && !(firstChild_ instanceof AbstractRefTernaryOperation) && !(firstChild_ instanceof SwitchOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -141,30 +147,13 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             procField(_page, (SettableAbstractFieldOperation) firstChild_);
             return;
         }
-        if (firstChild_ instanceof VariableOperation) {
-            VariableOperation v_ = (VariableOperation)firstChild_;
-            AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
-            processErrorVar(_page, var_);
-            return;
-        }
-        if (firstChild_ instanceof RefVariableOperation) {
-            RefVariableOperation v_ = (RefVariableOperation)firstChild_;
-            setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
-            return;
-        }
         if (firstChild_ instanceof AbstractRefTernaryOperation) {
             AbstractRefTernaryOperation v_ = (AbstractRefTernaryOperation)firstChild_;
             setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
             return;
         }
-        if (firstChild_ instanceof SwitchOperation) {
-            SwitchOperation v_ = (SwitchOperation)firstChild_;
-            setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
-            return;
-        }
-        MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)firstChild_;
-        AnaLocalVariable var_ = _page.getInfosVars().getVal(v_.getVariableName());
-        processErrorVar(_page, var_);
+        SwitchOperation v_ = (SwitchOperation)firstChild_;
+        setResultClass(AnaClassArgumentMatching.copy(v_.getResultClass(), _page.getPrimitiveTypes()));
     }
 
     private void procField(AnalyzedPageEl _page, SettableAbstractFieldOperation _last) {
@@ -182,8 +171,8 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         setResultClass(AnaClassArgumentMatching.copy(_last.getResultClass(), _page.getPrimitiveTypes()));
     }
 
-    public void processErrorVar(AnalyzedPageEl _page, AnaLocalVariable _var) {
-        if (_var == null || _var.isFinalVariable()) {
+    public void processErrorVar(AnalyzedPageEl _page, VariableOperationUse _var) {
+        if (_var.isFinalVariable()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
             varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
@@ -193,9 +182,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
             _page.getLocalizer().addError(varg_);
             addErr(varg_.getBuiltError());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
         }
-        setResultClass(new AnaClassArgumentMatching(_var.getClassName()));
     }
 
     public int getDelta() {

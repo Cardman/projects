@@ -730,16 +730,12 @@ public final class RendForwardInfos {
             ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
             return new RendArrayFieldOperation(new ExecOperationContent(s_.getContent()), new ExecFieldOperationContent(s_.getFieldContent()));
         }
-        if (_anaNode instanceof MutableLoopVariableOperation) {
-            MutableLoopVariableOperation m_ = (MutableLoopVariableOperation) _anaNode;
-            return new RendStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
-        }
-        if (_anaNode instanceof RefVariableOperation) {
-            RefVariableOperation m_ = (RefVariableOperation) _anaNode;
-            return new RendStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()),m_.isDeclare());
-        }
         if (_anaNode instanceof VariableOperation) {
             VariableOperation m_ = (VariableOperation) _anaNode;
+            return new RendStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()), m_.getType() == ConstType.REF_LOC_VAR);
+        }
+        if (_anaNode instanceof VariableOperationUse) {
+            VariableOperationUse m_ = (VariableOperationUse) _anaNode;
             return new RendStdRefVariableOperation(new ExecOperationContent(m_.getContent()), new ExecVariableContent(m_.getVariableContent()));
         }
         if (_anaNode instanceof FinalVariableOperation) {
@@ -784,10 +780,7 @@ public final class RendForwardInfos {
     }
 
     private static RendLeafOperation finalVariable(FinalVariableOperation _anaNode) {
-        if (_anaNode.getType() == ConstType.LOOP_INDEX) {
-            return new RendFinalVariableOperation(new ExecOperationContent(_anaNode.getContent()), new ExecVariableContent(_anaNode.getVariableContent()));
-        }
-        return new RendStdRefVariableOperation(new ExecOperationContent(_anaNode.getContent()), new ExecVariableContent(_anaNode.getVariableContent()));
+        return new RendFinalVariableOperation(new ExecOperationContent(_anaNode.getContent()), new ExecVariableContent(_anaNode.getVariableContent()));
     }
 
     private static RendDynOperationNode procGeneOperators(OperationNode _anaNode, Forwards _forwards) {

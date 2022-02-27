@@ -232,6 +232,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             lInfo_.setConstType(ConstType.REF_LOC_VAR);
         } else {
             lInfo_.setConstType(ConstType.FIX_VAR);
+            lInfo_.setFinalVariable(true);
         }
         _page.getInfosVars().put(variableName, lInfo_);
     }

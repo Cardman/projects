@@ -134,6 +134,7 @@ public final class CaseCondition extends SwitchPartBlock {
                 lv_.setClassName(importedType);
                 lv_.setRef(variableOffset);
                 lv_.setConstType(ConstType.FIX_VAR);
+                lv_.setFinalVariable(true);
                 _page.getInfosVars().put(variableName, lv_);
             }
             if (!condition.trim().isEmpty()) {

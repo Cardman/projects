@@ -64,12 +64,14 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock implements 
         AnaLocalVariable lInfo_ = new AnaLocalVariable();
         lInfo_.setClassName(importedClassNameFirst);
         lInfo_.setConstType(ConstType.FIX_VAR);
+        lInfo_.setFinalVariable(true);
         _page.getInfosVars().put(variableNameFirst, lInfo_);
         lv_ = new AnaLoopVariable();
         _page.getLoopsVars().put(variableNameSecond, lv_);
         lInfo_ = new AnaLocalVariable();
         lInfo_.setClassName(importedClassNameSecond);
         lInfo_.setConstType(ConstType.FIX_VAR);
+        lInfo_.setFinalVariable(true);
         _page.getInfosVars().put(variableNameSecond, lInfo_);
     }
 

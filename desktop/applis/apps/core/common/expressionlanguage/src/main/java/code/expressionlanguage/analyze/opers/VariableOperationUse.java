@@ -3,28 +3,42 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.variables.FoundVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.util.core.IndexConstants;
 
-public final class RefParamOperation extends LeafOperation implements
-        SettableElResult{
+public final class VariableOperationUse extends LeafOperation implements
+        SettableElResult {
 
     private final AnaVariableContent variableContent;
+    private final boolean keyWord;
 
     private String realVariableName = EMPTY_STRING;
 
-    private final String className;
+    private String className = EMPTY_STRING;
 
     private final int ref;
+    private final boolean finalVariable;
 
-    public RefParamOperation(int _indexInEl, int _indexChild, String _className, int _ref, MethodOperation _m, OperationsSequence _op, int _deep) {
+    public VariableOperationUse(int _indexInEl, int _indexChild,
+                                MethodOperation _m, OperationsSequence _op,
+                                FoundVariable _foundVar) {
         super(_indexInEl, _indexChild, _m, _op);
+        AnaLocalVariable val_ = _foundVar.getVal();
         int relativeOff_ = _op.getOffset();
         variableContent = new AnaVariableContent(relativeOff_);
-        className = _className;
-        ref = _ref;
-        variableContent.setDeep(_deep);
+        className = val_.getClassName();
+        ref = val_.getRef();
+        variableContent.setDeep(_foundVar.getDeep());
+        finalVariable = val_.isFinalVariable();
+        keyWord = val_.isKeyWord();
+    }
+
+    @Override
+    public void setVariable(boolean _variable) {
+        variableContent.setVariable(_variable);
     }
 
     @Override
@@ -39,20 +53,32 @@ public final class RefParamOperation extends LeafOperation implements
         setResultClass(new AnaClassArgumentMatching(className, _page.getPrimitiveTypes()));
     }
 
-    @Override
-    public void setVariable(boolean _variable) {
-        variableContent.setVariable(_variable);
+    public String getVariableName() {
+        return variableContent.getVariableName();
+    }
+
+    public String getRealVariableName() {
+        return realVariableName;
+    }
+
+    public int getOff() {
+        return variableContent.getOff();
     }
 
     public int getRef() {
         return ref;
     }
 
-    public int getOff() {
-        return variableContent.getOff();
+    public boolean isKeyWord() {
+        return keyWord;
     }
-    public String getRealVariableName() {
-        return realVariableName;
+
+    public boolean isFinalVariable() {
+        return finalVariable;
+    }
+
+    public int getDeep() {
+        return variableContent.getDeep();
     }
 
     public AnaVariableContent getVariableContent() {

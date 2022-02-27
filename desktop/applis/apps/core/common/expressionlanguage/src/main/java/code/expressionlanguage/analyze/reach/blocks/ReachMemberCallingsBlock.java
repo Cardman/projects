@@ -51,7 +51,6 @@ public abstract class ReachMemberCallingsBlock extends ReachBracedBlock implemen
         _page.setGlobalOffset(getOffset());
         _page.zeroOffset();
         ReachBlock firstChild_ = getFirstChild();
-        _page.setMerged(false);
         _page.setCurrentBlock(getInfo());
         _page.setAnalysisAss(_anEl);
         ReachBlock en_ = this;

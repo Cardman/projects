@@ -2341,8 +2341,7 @@ public final class ElResolver {
         end_ = _d.getDelStringsChars().indexOfNb((long)lastPrintChar_+_offset);
         if (delimits(begin_, end_)) {
             StringInfo info_ = _d.getStringInfo().get(begin_/2);
-            StringBuilder list_ = info_.getChars();
-            String export_ = list_.toString();
+            String export_ = info_.build();
             if (_string.charAt(firstPrintChar_) == DELIMITER_CHAR) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CHARACTER);
@@ -2376,8 +2375,7 @@ public final class ElResolver {
         end_ = _d.getDelTextBlocks().indexOfNb((long)lastPrintChar_+_offset);
         if (delimits(begin_, end_)) {
             TextBlockInfo info_ = _d.getTextInfo().get(begin_/2);
-            StringBuilder list_ = info_.getChars();
-            String export_ = list_.toString();
+            String export_ = info_.build();
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.TEXT_BLOCK);
             op_.setOperators(new StrTypes());

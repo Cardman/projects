@@ -2182,7 +2182,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "  final int <a name=\"m65\">sum2</a> = 3;\n" +
                 "  for (int <a name=\"m86\">i</a> = 1; <a href=\"#m86\">i</a> &lt;= 9; <a href=\"#m86\">i</a>+= 2){\n" +
                 "   <a href=\"#m44\">sum</a> += <a title=\"pkg.Ext.static m($core.Fct&lt;int,$core.Fct&lt;int,int&gt;&gt;,int,int)\" href=\"#m223\">m</a>(<span class=\"t\"><a name=\"m121\">a</a> <a name=\"m123\">-&gt;</a> <span class=\"t\"><a name=\"m126\">i</a> <a name=\"m128\">-&gt;</a> {final int <a name=\"m142\">b</a> = 0;\n" +
-                "   <a href=\"#m34\">j</a> <a title=\"The assignment operator = is unexpected.\" class=\"e\">=</a> 1;\n" +
+                "   <a href=\"#m34\">j</a> <a title=\"The field j is already assigned.\" class=\"e\">=</a> 1;\n" +
                 "   return <a href=\"#m65\">sum2</a> + <a href=\"#m126\">i</a> + <a href=\"#m121\">a</a>;}</span></span>,2,7);\n" +
                 "  }\n" +
                 "  return <a href=\"#m44\">sum</a>;\n" +

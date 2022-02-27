@@ -106,6 +106,7 @@ public final class DefaultCondition extends SwitchPartBlock {
             lv_.setClassName(instanceTest_);
             lv_.setRef(variableOffset);
             lv_.setConstType(ConstType.FIX_VAR);
+            lv_.setFinalVariable(true);
             _page.getInfosVars().put(variableName, lv_);
         }
     }

@@ -2587,6 +2587,7 @@ public final class ClassesUtil {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(c_);
                 lv_.setConstType(ConstType.PARAM);
+                lv_.setFinalVariable(true);
                 lv_.setKeyWord(true);
                 _page.getInfosVars().put(p_, lv_);
             }
@@ -2657,6 +2658,7 @@ public final class ClassesUtil {
             lv_.setConstType(ConstType.REF_PARAM);
         } else {
             lv_.setConstType(ConstType.PARAM);
+            lv_.setFinalVariable(true);
         }
         _page.getInfosVars().put(_p, lv_);
     }

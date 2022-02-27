@@ -77,6 +77,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
             AnaLocalVariable lv_ = new AnaLocalVariable();
             lv_.setClassName(instanceTest_);
             lv_.setConstType(ConstType.FIX_VAR);
+            lv_.setFinalVariable(true);
             _page.getInfosVars().put(getVariableName(), lv_);
         }
     }

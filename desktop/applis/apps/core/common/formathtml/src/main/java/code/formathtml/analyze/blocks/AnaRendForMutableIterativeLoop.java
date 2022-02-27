@@ -94,8 +94,8 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         }
         _page.setGlobalOffset(classNameOffset);
         _page.zeroOffset();
-        _page.setLoopDeclarator(this);
         if (!className.isEmpty()) {
+            _page.setLineDeclarator(this);
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordVar_ = keyWords_.getKeyWordVar();
             if (StringUtil.quickEq(className.trim(), keyWordVar_)) {
@@ -103,12 +103,9 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             } else {
                 importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
             }
-            _page.setMerged(true);
             _page.setRefVariable(refVariable);
-            _page.setFinalVariable(false);
             _page.setCurrentVarSetting(importedClassName);
         } else {
-            _page.setMerged(false);
             _page.setRefVariable(false);
         }
         _page.getVariablesNames().clear();
@@ -120,8 +117,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         if (!init.trim().isEmpty()) {
             rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page,resultExpressionInit);
         }
-        _page.setLoopDeclarator(null);
-        if (_page.isMerged()) {
+        if (_page.getLineDeclarator() != null) {
             StringList vars_ = _page.getVariablesNames();
             String t_ = inferOrObject(importedClassName, _page);
             AffectationOperation.processInfer(t_, _page);
@@ -130,7 +126,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
                 ForMutableIterativeLoop.checkOpers(rootInit, _page);
             }
         }
-        _page.setMerged(false);
+        _page.setLineDeclarator(null);
         _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
         _page.setGlobalOffset(expressionOffset);
@@ -164,17 +160,24 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         buildIncrementPart(_anaDoc, _page);
     }
 
+    @Override
+    public boolean isRefVariable() {
+        return refVariable;
+    }
+
+    @Override
+    public boolean isFinalVariable() {
+        return false;
+    }
+
     private void buildIncrementPart(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setMerged(false);
         _page.setGlobalOffset(stepOffset);
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.STEP);
-        _page.setMerged(true);
         _page.setAcceptCommaInstr(true);
         if (!step.trim().isEmpty()) {
             rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page,resultExpressionStep);
         }
-        _page.setMerged(false);
         _page.setAcceptCommaInstr(false);
     }
 

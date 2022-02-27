@@ -142,6 +142,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             AnaLocalVariable lInfo_ = new AnaLocalVariable();
             lInfo_.setClassName(cl_);
             lInfo_.setConstType(ConstType.FIX_VAR);
+            lInfo_.setFinalVariable(true);
             _page.getInfosVars().put(variableName, lInfo_);
         }
     }

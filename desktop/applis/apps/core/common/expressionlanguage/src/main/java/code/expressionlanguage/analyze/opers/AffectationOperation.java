@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
-import code.expressionlanguage.analyze.blocks.AbsLoopDeclarator;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -13,6 +12,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -79,21 +79,13 @@ public final class AffectationOperation extends MethodOperation {
         }
         AbsLineDeclarator decl_ = null;
         String inf_ = "";
-        if (elt_ instanceof RefVariableOperation) {
-            settableOp = (RefVariableOperation)elt_;
-            RefVariableOperation v_ = (RefVariableOperation)elt_;
-            inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringRefVariable(v_, _page)) {
-                decl_ = v_.getLineDeclarator();
-            }
-        }
+        ConstType t_ = ConstType.NOTHING;
         if (elt_ instanceof VariableOperation) {
             settableOp = (VariableOperation)elt_;
             VariableOperation v_ = (VariableOperation)elt_;
+            t_ = v_.getType();
             inf_ = v_.getVariableName();
-            if (ElUtil.isDeclaringVariable(v_, _page)) {
-                decl_ = v_.getLineDeclarator();
-            }
+            decl_ = v_.getLineDeclarator();
         }
         if (decl_ != null) {
             if (StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
@@ -111,7 +103,7 @@ public final class AffectationOperation extends MethodOperation {
                     setResultClass(AnaClassArgumentMatching.copy(n_, _page.getPrimitiveTypes()));
                 }
             }
-            if (elt_ instanceof RefVariableOperation) {
+            if (t_ == ConstType.REF_LOC_VAR) {
                 AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
                 if (!clMatchLeftPoss_.matchClass(clMatchRight_)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
@@ -128,27 +120,6 @@ public final class AffectationOperation extends MethodOperation {
                     foundOffset = _page.getLocalizer().getCurrentLocationIndex();
                 }
                 return;
-            }
-        }
-        if (elt_ instanceof MutableLoopVariableOperation) {
-            MutableLoopVariableOperation v_ = (MutableLoopVariableOperation)elt_;
-            settableOp = v_;
-            inf_ = v_.getVariableName();
-            AbsLoopDeclarator loopDeclarator_ = v_.getLoopDeclarator();
-            if (loopDeclarator_ != null && StringUtil.contains(_page.getVariablesNamesToInfer(), inf_)) {
-                AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-                String type_ = clMatchRight_.getSingleNameOrEmpty();
-                if (!type_.isEmpty()) {
-                    AnaClassArgumentMatching n_ = new AnaClassArgumentMatching(type_, _page.getPrimitiveTypes());
-                    AnaLocalVariable lv_ = _page.getInfosVars().getVal(inf_);
-                    lv_.setClassName(type_);
-                    _page.getVariablesNamesToInfer().removeString(inf_);
-                    loopDeclarator_.setImportedClassName(type_);
-                    _page.setCurrentVarSetting(type_);
-                    v_.setResultClass(n_);
-                    clMatchLeftPoss_ = n_;
-                    setResultClass(AnaClassArgumentMatching.copy(n_, _page.getPrimitiveTypes()));
-                }
             }
         }
         if (elt_ instanceof SettableAbstractFieldOperation) {

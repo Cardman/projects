@@ -81,6 +81,7 @@ public final class CatchEval extends AbstractCatchEval {
         lv_.setClassName(importedClassName);
         lv_.setRef(variableNameOffset);
         lv_.setConstType(ConstType.FIX_VAR);
+        lv_.setFinalVariable(true);
         _page.getInfosVars().put(variableName, lv_);
     }
 

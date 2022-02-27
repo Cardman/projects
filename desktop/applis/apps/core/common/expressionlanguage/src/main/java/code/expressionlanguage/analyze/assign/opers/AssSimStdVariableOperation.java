@@ -1,13 +1,13 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.blocks.AssSimDeclareVariable;
 import code.expressionlanguage.analyze.assign.blocks.AssSimForMutableIterativeLoop;
 import code.expressionlanguage.analyze.assign.util.*;
+import code.expressionlanguage.analyze.opers.VariableOperationUse;
 
 public final class AssSimStdVariableOperation extends AssLeafOperation {
 
@@ -20,15 +20,16 @@ public final class AssSimStdVariableOperation extends AssLeafOperation {
     AssSimStdVariableOperation(VariableOperation _ex) {
         super(_ex);
         variableName = _ex.getVariableName();
-        declare = _ex.isDeclare();
+        declare = true;
         finalVariable = _ex.isFinalVariable();
         deep = _ex.getDeep();
         analyzed = _ex;
     }
-    AssSimStdVariableOperation(MutableLoopVariableOperation _ex) {
+
+    AssSimStdVariableOperation(VariableOperationUse _ex) {
         super(_ex);
         variableName = _ex.getVariableName();
-        declare = _ex.isDeclare();
+        declare = false;
         finalVariable = _ex.isFinalVariable();
         deep = _ex.getDeep();
         analyzed = _ex;

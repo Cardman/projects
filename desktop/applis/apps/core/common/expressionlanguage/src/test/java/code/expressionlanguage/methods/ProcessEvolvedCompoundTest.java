@@ -1459,4 +1459,30 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrReadOnly(files_));
     }
+    @Test
+    public void calc9Fail() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExTwo<S> {\n");
+        xml_.append(" $public $final S a;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex<T> {\n");
+        xml_.append(" $public T a;\n");
+        xml_.append(" $operator+ Ex<$int> (Ex<$int> a, Ex<$int> b){\n");
+        xml_.append("  Ex<$int> o = $new Ex<>();\n");
+        xml_.append("  o.a=a.a+b.a;\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $final Ex<$int> v = $null;\n");
+        xml_.append("  $operator(+,Ex<$int>)=((Ex<$int>)v,$null);\n");
+        xml_.append("  $if (v?.a?.a != 0i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrReadOnly(files_));
+    }
 }

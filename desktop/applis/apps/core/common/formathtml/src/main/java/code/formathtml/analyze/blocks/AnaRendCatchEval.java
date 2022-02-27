@@ -49,6 +49,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);
         lv_.setConstType(ConstType.FIX_VAR);
+        lv_.setFinalVariable(true);
         _page.getInfosVars().put(variableName, lv_);
         AnaRendBlock pBlock_ = getPreviousSibling();
         if (!(pBlock_ instanceof AnaRendAbstractCatchEval)) {

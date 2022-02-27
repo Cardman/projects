@@ -47,10 +47,8 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf implements AnaRend
             importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         }
         _page.setLineDeclarator(this);
-        _page.setMerged(true);
         _page.setRefVariable(refVariable);
         _page.setAcceptCommaInstr(true);
-        _page.setFinalVariable(false);
         _page.setCurrentVarSetting(importedClassName);
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
@@ -58,6 +56,11 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf implements AnaRend
 
     public boolean isRefVariable() {
         return refVariable;
+    }
+
+    @Override
+    public boolean isFinalVariable() {
+        return false;
     }
 
     public String getImportedClassName() {

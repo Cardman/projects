@@ -324,7 +324,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
 
     private static void processFail(String _el, AnalyzedTestConfiguration _cont,PairVar... _vars) {
         AnalyzedPageEl page_ = _cont.getAnalyzing();
-        boolean merged_ = page_.isMerged();
         boolean accept_ = page_.isAcceptCommaInstr();
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
@@ -338,7 +337,6 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
             a_.setConstType(ConstType.LOC_VAR);
             page_.getInfosVars().put(e.getName(), a_);
         }
-        page_.setMerged(merged_);
         page_.setAcceptCommaInstr(accept_);
         page_.setCurrentVarSetting(currentVarSetting_);
         page_.setAccessStaticContext(MethodId.getKind(true));

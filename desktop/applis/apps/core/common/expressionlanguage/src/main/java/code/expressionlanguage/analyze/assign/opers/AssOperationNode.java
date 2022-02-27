@@ -73,8 +73,8 @@ public abstract class AssOperationNode {
             VariableOperation s_ = (VariableOperation) _anaNode;
             return new AssStdVariableOperation(s_);
         }
-        if (_anaNode instanceof MutableLoopVariableOperation) {
-            MutableLoopVariableOperation s_ = (MutableLoopVariableOperation) _anaNode;
+        if (_anaNode instanceof VariableOperationUse) {
+            VariableOperationUse s_ = (VariableOperationUse) _anaNode;
             return new AssStdVariableOperation(s_);
         }
         if (_anaNode instanceof DotOperation) {
@@ -117,8 +117,8 @@ public abstract class AssOperationNode {
             VariableOperation s_ = (VariableOperation) _anaNode;
             return new AssSimStdVariableOperation(s_);
         }
-        if (_anaNode instanceof MutableLoopVariableOperation) {
-            MutableLoopVariableOperation s_ = (MutableLoopVariableOperation) _anaNode;
+        if (_anaNode instanceof VariableOperationUse) {
+            VariableOperationUse s_ = (VariableOperationUse) _anaNode;
             return new AssSimStdVariableOperation(s_);
         }
         if (_anaNode instanceof AffectationOperation) {

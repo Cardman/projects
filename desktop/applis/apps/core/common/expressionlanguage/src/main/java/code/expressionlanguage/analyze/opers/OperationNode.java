@@ -544,19 +544,12 @@ public abstract class OperationNode {
         if (_op.getDeclaringField() != null) {
             return new DeclaredFieldOperation(_index, _indexChild, _m, _op, _op.getDeclaringField());
         }
-        AbsLoopDeclarator loopDeclarator_ = _page.getLoopDeclarator();
-        if (ElUtil.isDeclaringLoopVariable(_m, _page)) {
-            return new MutableLoopVariableOperation(_index, _indexChild, _m, _op,loopDeclarator_);
-        }
         AbsLineDeclarator lineDeclarator_ = _page.getLineDeclarator();
-        if (ElUtil.isDeclaringVariable(_m, _page)) {
-            return new VariableOperation(_index, _indexChild, _m, _op, lineDeclarator_);
-        }
-        if (ElUtil.isDeclaringRefVariable(_m, _page)) {
-            if (lineDeclarator_ != null) {
-                return new RefVariableOperation(_index, _indexChild, _m, _op, lineDeclarator_);
+        if (lineDeclarator_ != null && ElUtil.isDeclaringVariable(_m)) {
+            if (!lineDeclarator_.isRefVariable()) {
+                return new VariableOperation(_index, _indexChild, _m, _op, lineDeclarator_,ConstType.LOC_VAR);
             }
-            return new RefVariableOperation(_index, _indexChild, _m, _op, loopDeclarator_);
+            return new VariableOperation(_index, _indexChild, _m, _op, lineDeclarator_,ConstType.REF_LOC_VAR);
         }
         if (_m instanceof AbstractDotOperation) {
             OperationNode ch_ = _m.getFirstChild();
@@ -572,23 +565,9 @@ public abstract class OperationNode {
         }
         FoundVariable foundVar_ = new FoundVariable(str_,_page);
         AnaLocalVariable val_ = foundVar_.getVal();
-        int deep_ = foundVar_.getDeep();
         if (val_ != null) {
-            if (val_.getConstType() == ConstType.REF_PARAM) {
-                val_.setUsed(true);
-                return new RefParamOperation(_index,_indexChild,val_.getClassName(), val_.getRef(),_m,_op, deep_);
-            }
-            if (val_.getConstType() == ConstType.REF_LOC_VAR) {
-                return new RefVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(), deep_);
-            }
-            if (val_.getConstType() == ConstType.LOC_VAR) {
-                return new VariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_,val_.isFinalVariable());
-            }
-            if (val_.getConstType() == ConstType.MUTABLE_LOOP_VAR) {
-                return new MutableLoopVariableOperation(_index, _indexChild, _m, _op, val_.getClassName(), val_.getRef(),deep_,val_.isFinalVariable());
-            }
             val_.setUsed(true);
-            return new FinalVariableOperation(_index, _indexChild, _m, _op,val_.getClassName(),val_.getRef(),deep_,val_.isKeyWord());
+            return new VariableOperationUse(_index, _indexChild, _m, _op, foundVar_);
         }
         return new SettableFieldOperation(_index, _indexChild, _m, _op,new StandardFieldOperation(_op));
     }

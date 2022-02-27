@@ -1,11 +1,11 @@
 package code.expressionlanguage.analyze.assign.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.MutableLoopVariableOperation;
 import code.expressionlanguage.analyze.opers.VariableOperation;
 import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.opers.VariableOperationUse;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -19,13 +19,14 @@ public final class AssStdVariableOperation extends AssLeafOperation {
     AssStdVariableOperation(VariableOperation _ex) {
         super(_ex);
         variableName = _ex.getVariableName();
-        declare = _ex.isDeclare();
+        declare = true;
         finalVariable = _ex.isFinalVariable();
     }
-    AssStdVariableOperation(MutableLoopVariableOperation _ex) {
+
+    AssStdVariableOperation(VariableOperationUse _ex) {
         super(_ex);
         variableName = _ex.getVariableName();
-        declare = _ex.isDeclare();
+        declare = false;
         finalVariable = _ex.isFinalVariable();
     }
 

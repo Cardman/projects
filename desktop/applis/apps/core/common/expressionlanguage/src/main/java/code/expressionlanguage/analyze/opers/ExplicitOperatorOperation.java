@@ -290,6 +290,18 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     addErr(un_.getBuiltError());
                 }
             }
+            if (settable_ instanceof VariableOperationUse && ((VariableOperationUse)settable_).isFinalVariable()) {
+                VariableOperationUse cst_ = (VariableOperationUse)settable_;
+                setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFile(_page.getCurrentFile());
+                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                //field name len
+                un_.buildError(_page.getAnalysisMessages().getFinalField(),
+                        cst_.getVariableName());
+                _page.getLocalizer().addError(un_);
+                addErr(un_.getBuiltError());
+            }
             ClassMethodIdReturn test_ = tryGetTest(def_,opSearch,_page, methodIdTest);
             if (test_ != null){
                 foundChild = next_;

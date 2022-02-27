@@ -330,73 +330,7 @@ public final class ElUtil {
         }
     }
 
-    public static boolean isDeclaringLoopVariable(MethodOperation _par, AnalyzedPageEl _page) {
-        if (!isDeclaringLoopVariable(_page)) {
-            return false;
-        }
-        return isDeclaringVariable(_par);
-    }
-    private static boolean isDeclaringLoopVariable(AnalyzedPageEl _page) {
-        if (_page.isRefVariable()) {
-            return false;
-        }
-        if (!_page.isMerged()) {
-            return false;
-        }
-        return _page.getLoopDeclarator() != null;
-    }
-    public static boolean isDeclaringVariable(VariableOperation _var, AnalyzedPageEl _page) {
-        if (!isDeclaringVariable(_page)) {
-            return false;
-        }
-        return isDeclaringVariable(_var);
-    }
-    public static boolean isDeclaringVariable(MethodOperation _par, AnalyzedPageEl _page) {
-        if (!isDeclaringVariable(_page)) {
-            return false;
-        }
-        return isDeclaringVariable(_par);
-    }
-    private static boolean isDeclaringVariable(AnalyzedPageEl _page) {
-        if (_page.isRefVariable()) {
-            return false;
-        }
-        if (!_page.isMerged()) {
-            return false;
-        }
-        return _page.getLineDeclarator() != null;
-    }
-    public static boolean isDeclaringRefVariable(RefVariableOperation _var, AnalyzedPageEl _page) {
-        if (!_page.isRefVariable()) {
-            return false;
-        }
-        return isDeclaringVariable(_var);
-    }
-    public static boolean isDeclaringRefVariable(MethodOperation _par, AnalyzedPageEl _page) {
-        if (!_page.isRefVariable()) {
-            return false;
-        }
-        return isDeclaringVariable(_par);
-    }
-    private static boolean isDeclaringVariable(OperationNode _var) {
-        MethodOperation par_ = _var.getParent();
-        if (par_ == null) {
-            return true;
-        }
-        if (par_ instanceof DeclaringOperation) {
-            return true;
-        }
-        if (par_ instanceof AffectationOperation) {
-            if (par_.getParent() == null) {
-                return _var == par_.getFirstChild();
-            }
-            if (par_.getParent() instanceof DeclaringOperation) {
-                return _var == par_.getFirstChild();
-            }
-        }
-        return false;
-    }
-    private static boolean isDeclaringVariable(MethodOperation _par) {
+    public static boolean isDeclaringVariable(MethodOperation _par) {
         if (_par == null) {
             return true;
         }

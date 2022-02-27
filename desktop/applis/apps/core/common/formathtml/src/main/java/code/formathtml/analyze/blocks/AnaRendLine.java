@@ -28,7 +28,7 @@ public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
         root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpression);
-        if (_page.isMerged()) {
+        if (_page.getLineDeclarator() != null) {
             StringList vars_ = _page.getVariablesNames();
             AnaRendDeclareVariable declaring_ = (AnaRendDeclareVariable) getPreviousSibling();
             if (declaring_.isRefVariable()) {
@@ -40,10 +40,8 @@ public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
             declaring_.getVariableNames().addAllElts(vars_);
         }
         _page.setLineDeclarator(null);
-        _page.setMerged(false);
         _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
-        _page.setFinalVariable(false);
     }
 
     public OperationNode getRoot() {

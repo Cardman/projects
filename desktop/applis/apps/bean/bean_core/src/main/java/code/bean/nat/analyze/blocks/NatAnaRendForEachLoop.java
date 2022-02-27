@@ -66,6 +66,7 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements N
             lInfo_.setClassName(_page.getAliasObject());
         }
         lInfo_.setConstType(ConstType.FIX_VAR);
+        lInfo_.setFinalVariable(true);
         _page.getInfosVars().put(variableName, lInfo_);
     }
 

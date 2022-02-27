@@ -97,6 +97,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
                 lv_.setClassName(getImportedClassName());
                 lv_.setConstType(ConstType.FIX_VAR);
+                lv_.setFinalVariable(true);
                 _page.getInfosVars().put(variableName_, lv_);
             }
             if (!value.trim().isEmpty()) {
