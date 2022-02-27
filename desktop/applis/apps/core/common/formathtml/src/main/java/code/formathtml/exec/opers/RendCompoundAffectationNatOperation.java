@@ -35,7 +35,8 @@ public final class RendCompoundAffectationNatOperation extends RendCompoundAffec
                 return;
             }
             res_ = conv_;
-            Argument arg_ = endCalculate(_nodes,res_, res_, _advStandards, _context, _rendStack,false);
+            RendAffectationOperation.calculateChSetting(getSettable(),_nodes, res_, _advStandards, _context, _rendStack);
+            Argument arg_ = RendSemiAffectationOperation.getPrePost(isStaticPostEltContent(),leftArg_,res_);
             setSimpleArgument(arg_, _nodes, _context, _rendStack);
             return;
         }

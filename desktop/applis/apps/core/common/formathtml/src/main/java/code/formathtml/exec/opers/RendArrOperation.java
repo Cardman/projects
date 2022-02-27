@@ -108,12 +108,6 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         return new Argument(out_.getStruct());
     }
 
-    @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        processArray(_nodes, _right, _context, _rendStack);
-        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
     private Argument processArray(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _stackCall) {
         if (_context.callsOrException(_stackCall.getStackCall())) {
             return _right;

@@ -871,7 +871,9 @@ public abstract class OperationNode {
         Ints nameParametersFilterIndexes_ = cInfo_.getNameParametersFilterIndexes();
         NamedFunctionBlock custMethod_ = ((ConstructorInfo)cInfo_).getCustomCtor();
         feedNamedParams(_filter, nameParametersFilterIndexes_, custMethod_);
-        return buildCtorInfo(_curClassName, _type, (ConstructorInfo) cInfo_);
+        ConstrustorIdVarArg res_ = buildCtorInfo(_curClassName, _type, (ConstructorInfo) cInfo_);
+        InvokingOperation.unwrapArgsFct(res_,allOps_,_page);
+        return res_;
     }
 
     protected static ConstrustorIdVarArg buildCtorInfo(String _curClassName, AnaGeneType _type, ConstructorInfo _cInfo) {
@@ -2394,21 +2396,22 @@ public abstract class OperationNode {
     }
 
     private static ClassMethodIdReturn res(NameParametersFilter _filter, MethodInfo _found, AnalyzedPageEl _page) {
-        pats(_filter, _found);
+        StaticCallAccessOperation staticCallOp_ = _filter.getStaticCallOp();
+        if (staticCallOp_ != null) {
+            if (!_filter.getStaticCall().isEmpty()) {
+                staticCallOp_.setPartOffsets(new ResolvedInstance(staticCallOp_.getPartOffsets(),staticCallOp_.getLt(), staticCallOp_.getGt(), _found.getClassName()));
+            }
+        }
         CustList<CustList<ClassMethodIdReturn>> implicits_ = _found.getImplicits();
         CustList<OperationNode> allOps_ = _found.getAllOps();
         feedImplicitsInfos(implicits_, allOps_);
-        namedParams(_filter, _found);
+        Ints nameParametersFilterIndexes_ = _found.getNameParametersFilterIndexes();
+        NamedFunctionBlock custMethod_ = _found.getCustMethod();
+        feedNamedParams(_filter, nameParametersFilterIndexes_, custMethod_);
         MethodId id_ = _found.getFormatted();
         ClassMethodIdReturn res_ = buildResult(_found, id_);
         InvokingOperation.unwrapArgsFct(res_,allOps_,_page);
         return res_;
-    }
-
-    private static void namedParams(NameParametersFilter _filter, MethodInfo _m) {
-        Ints nameParametersFilterIndexes_ = _m.getNameParametersFilterIndexes();
-        NamedFunctionBlock custMethod_ = _m.getCustMethod();
-        feedNamedParams(_filter, nameParametersFilterIndexes_, custMethod_);
     }
 
     private static Parametrable tryGet(boolean _unique, boolean _excludeVarargRef, int _varargOnly, CustList<CustList<MethodInfo>> _methods, String _name, String _param, NameParametersFilter _filter, AnalyzedPageEl _page) {
@@ -2466,15 +2469,6 @@ public abstract class OperationNode {
         map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
         return sortFct(signatures_, gr_);
-    }
-
-    private static void pats(NameParametersFilter _filter, MethodInfo _m) {
-        StaticCallAccessOperation staticCallOp_ = _filter.getStaticCallOp();
-        if (staticCallOp_ != null) {
-            if (!_filter.getStaticCall().isEmpty()) {
-                staticCallOp_.setPartOffsets(new ResolvedInstance(staticCallOp_.getPartOffsets(),staticCallOp_.getLt(), staticCallOp_.getGt(), _m.getClassName()));
-            }
-        }
     }
 
     private static CustList<CustList<MethodInfo>> infer(int _varargOnly, NameParametersFilter _filter, AnalyzedPageEl _page, CustList<CustList<MethodInfo>> _named) {

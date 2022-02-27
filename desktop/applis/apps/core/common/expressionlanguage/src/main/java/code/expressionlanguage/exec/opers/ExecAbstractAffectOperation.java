@@ -36,8 +36,7 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
             ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes, this);
             pairBefore_.setEndCalculate(true);
-            pairBefore_.setIndexImplicitSemiTo(-1);
-            pairBefore_.setIndexImplicitCompound(-1);
+            pairBefore_.setIndexImplicitConv(-1);
             pairBefore_.setCalledIndexer(true);
             setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _conf, names, _stack)), _conf, _nodes, _stack);
             return;

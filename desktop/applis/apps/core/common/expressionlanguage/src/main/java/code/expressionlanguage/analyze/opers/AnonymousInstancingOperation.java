@@ -250,7 +250,7 @@ public final class AnonymousInstancingOperation extends
             buildCtorError(name_,_page,formatted_);
             return;
         }
-        result(_page,formatted_,instancingAnonContent.getBlock(),ctorRes_, name_);
+        result(formatted_,instancingAnonContent.getBlock(),ctorRes_);
     }
 
     public AnonymousTypeBlock getBlock() {

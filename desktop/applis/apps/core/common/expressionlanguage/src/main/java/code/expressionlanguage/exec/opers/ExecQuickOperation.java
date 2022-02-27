@@ -32,9 +32,9 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
             return;
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        int indexImplicit_ = pair_.getIndexImplicitCompound();
+        int indexImplicit_ = pair_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(converter,indexImplicit_)) {
-            pair_.setIndexImplicitCompound(processConverter(_conf, _right, converter, indexImplicit_, _stack));
+            pair_.setIndexImplicitConv(processConverter(_conf, _right, converter, indexImplicit_, _stack));
             return;
         }
         setSimpleArgument(_right,_conf,_nodes, _stack);

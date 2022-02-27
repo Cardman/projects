@@ -109,14 +109,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         return new Argument(out_.getStruct());
     }
 
-    @Override
-    public Argument endCalculate(ContextEl _conf,
-                                 IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
-                                 Argument _stored, Argument _right, StackCall _stack) {
-        commonSetting(_nodes,_conf,_right,_stack);
-        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
     private Argument commonSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
         if (_conf.callsOrException(_stack)) {
             return _right;

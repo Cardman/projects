@@ -23,7 +23,7 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
     protected void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
-        int indexImplicit_ = pairBefore_.getIndexImplicitSemiTo();
+        int indexImplicit_ = pairBefore_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(getConverterTo(),indexImplicit_)) {
             String tres_ = getConverterTo().get(indexImplicit_).getFct().getImportedParametersTypes().first();
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
@@ -33,7 +33,7 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
             Argument l_ = new Argument(store_);
             Argument res_;
             res_ = ExecNumericOperation.calculateIncrDecr(l_, getOperatorContent().getOper(), cast_);
-            pairBefore_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,res_, getConverterTo(),indexImplicit_, _stack));
+            pairBefore_.setIndexImplicitConv(ExecOperationNode.processConverter(_conf,res_, getConverterTo(),indexImplicit_, _stack));
             return;
         }
         Argument arg_ = calculateSemiChSetting(_nodes, _conf, _stack);
@@ -42,12 +42,6 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
-    @Override
-    public void endCalculate(ContextEl _conf,
-                             IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
-        end(_conf, _nodes, _right, _stack);
-    }
     private Argument calculateSemiChSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
         Argument arg_ = null;
         ExecOperationNode settable_ = getSettable();

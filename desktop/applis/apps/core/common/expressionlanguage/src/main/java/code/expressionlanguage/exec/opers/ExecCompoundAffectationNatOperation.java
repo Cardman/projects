@@ -28,12 +28,12 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = getConverter();
-        int indexImplicit_ = pairBefore_.getIndexImplicitCompound();
+        int indexImplicit_ = pairBefore_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(implicits_,indexImplicit_)) {
             String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getOperatorContent().getOper(), cast_, _stack);
-            pairBefore_.setIndexImplicitCompound(processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
+            pairBefore_.setIndexImplicitConv(processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }
         Argument arg_ = calculateCompoundSetting(_nodes, _conf, rightArg_, _stack);

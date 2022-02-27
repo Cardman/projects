@@ -32,28 +32,38 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
     protected abstract void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                           ContextEl _conf, StackCall _stack);
 
-    protected void end(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettableAnc());
+    @Override
+    public void endCalculate(ContextEl _conf,
+                             IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
+        setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
+        end(this,_conf, _nodes, _right, _stack,converterTo,post);
+    }
+
+    protected static void end(ExecAbstractAffectOperation _current,ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack, ImplicitMethods _impl, boolean _post) {
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,_current);
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, _current.getSettableAnc());
         Argument stored_ = Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
-        int indexImplicit_ = pair_.getIndexImplicitSemiTo();
-        if (ImplicitMethods.isValidIndex(converterTo,indexImplicit_)) {
-            pair_.setIndexImplicitSemiTo(ExecOperationNode.processConverter(_conf,_right, converterTo,indexImplicit_, _stack));
+        int indexImplicit_ = pair_.getIndexImplicitConv();
+        if (ImplicitMethods.isValidIndex(_impl,indexImplicit_)) {
+            pair_.setIndexImplicitConv(ExecOperationNode.processConverter(_conf,_right, _impl,indexImplicit_, _stack));
             return;
         }
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
-            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, getSettable(), post, _stack);
-            setSimpleArgument(arg_, _conf, _nodes, _stack);
+            ExecAffectationOperation.calculateChSetting( _current.getSettable(), _nodes, _conf,_right, _stack);
+            Argument arg_ = ExecSemiAffectationOperation.getPrePost(_post, stored_, _right);
+//            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, _current.getSettable(), _post, _stack);
+            _current.setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
-        if (isIndexer(getSettable(),_nodes)) {
-            Argument out_ = callIndexer(_right, pair_, stored_, post);
-            setSimpleArgument(out_, _conf, _nodes, _stack);
+        if (isIndexer(_current.getSettable(),_nodes)) {
+            Argument out_ = callIndexer(_right, pair_, stored_, _post);
+            _current.setSimpleArgument(out_, _conf, _nodes, _stack);
             return;
         }
-        setSimpleArgument(_right, _conf, _nodes, _stack);
+        _current.setSimpleArgument(_right, _conf, _nodes, _stack);
     }
+
     static boolean isIndexer(ExecOperationNode _settable, IdMap<ExecOperationNode, ArgumentsPair> _nodes){
         ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, _settable);
         return _settable instanceof ExecCustArrOperation || pairSet_.getWrapper() instanceof ArrayCustWrapper;
@@ -68,26 +78,6 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
             out_ = _right;
         }
         return out_;
-    }
-
-    static Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, Argument _stored, ExecOperationNode _settable, boolean _staticPostEltContent, StackCall _stackCall) {
-        Argument arg_ = null;
-        if (_settable instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent, _stored, _right, _stackCall);
-        }
-        if (_settable instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent, _stored, _right, _stackCall);
-        }
-        if (_settable instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent, _stored, _right, _stackCall);
-        }
-        if (_settable instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent, _stored, _right, _stackCall);
-        }
-        if (_settable instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)_settable).endCalculate(_conf, _nodes, _staticPostEltContent, _stored, _right, _stackCall);
-        }
-        return Argument.getNullableValue(arg_);
     }
 
     public ImplicitMethods getConverterTo() {

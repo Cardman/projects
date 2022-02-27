@@ -74,12 +74,6 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
         return arrContent.isVariable();
     }
 
-    @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, StackCall _stack) {
-        trySetArgument(_nodes, _conf, _right, _stack);
-        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
     private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, StackCall _stackCall) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         return ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall);

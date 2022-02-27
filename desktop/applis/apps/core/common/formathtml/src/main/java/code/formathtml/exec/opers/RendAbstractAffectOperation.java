@@ -38,26 +38,6 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         settableParent = tryGetSettableParent(this);
         settableAnc = anc(this);
     }
-    protected Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _stored, Argument _res, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall, boolean _post) {
-        Argument arg_ = null;
-        RendDynOperationNode settable_ = getSettable();
-        if (settable_ instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)settable_).endCalculate(_nodes, _post, _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable_).endCalculate(_nodes, _post, _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable_).endCalculate(_nodes, _post, _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable_).endCalculate(_nodes, _post, _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)settable_).endCalculate(_nodes, _post, _stored, _res, _advStandards, _context, _rendStackCall);
-        }
-        return Argument.getNullableValue(arg_);
-    }
 
     public static RendDynOperationNode tryGetSettable(RendAbstractAffectOperation _operation) {
         RendDynOperationNode root_ = getCastIdOp(_operation);

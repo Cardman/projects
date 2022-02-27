@@ -394,7 +394,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
             //_name len
             StringList classesNames_ = new StringList();
-            for (OperationNode c: _name.getAll()) {
+            for (OperationNode c: _name.getAllOps()) {
                 classesNames_.add(StringUtil.join(c.getResultClass().getNames(), ExportCst.JOIN_TYPES));
             }
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),

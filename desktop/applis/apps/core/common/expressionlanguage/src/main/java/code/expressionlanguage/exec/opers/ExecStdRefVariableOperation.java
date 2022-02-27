@@ -94,12 +94,6 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
         return variableContent.isVariable();
     }
 
-    @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, StackCall _stack) {
-        trySetArgument(_conf, _right, _stack);
-        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
     private Argument trySetArgument(ContextEl _conf, Argument _res, StackCall _stackCall) {
         return ExecTemplates.setWrapValue(_conf,variableContent, _res, _stackCall);
     }

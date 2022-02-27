@@ -38,7 +38,9 @@ public class RendSemiAffectationCustOperation extends RendSemiAffectationOperati
             }
             res_ = conv_;
         }
-        res_ = endCalculate(_nodes, stored_, res_, _advStandards, _context, _rendStack, isPost());
+        RendAffectationOperation.calculateChSetting(getSettable(),_nodes, res_, _advStandards, _context, _rendStack);
+        res_ = RendSemiAffectationOperation.getPrePost(isPost(),stored_,res_);
+//        res_ = endCalculate(_nodes, stored_, res_, _advStandards, _context, _rendStack, isPost());
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 

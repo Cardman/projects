@@ -806,13 +806,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
 
     static void unwrapArgsFct(AbsPossibleVarArg _res, CustList<OperationNode> _args, AnalyzedPageEl _page) {
-        CustList<CustList<AnaFormattedRootBlock>> impls_ = new CustList<CustList<AnaFormattedRootBlock>>();
-        for (OperationNode o: _args) {
-            impls_.add(o.getResultClass().getImplicits());
-        }
-        unwrapArgsFctImpl(_res,impls_,_args,_page);
-    }
-    static void unwrapArgsFctImpl(AbsPossibleVarArg _res, CustList<CustList<AnaFormattedRootBlock>> _impl, CustList<OperationNode> _args, AnalyzedPageEl _page) {
         Identifiable id_ = _res.ident();
         int natvarag_ = -1;
         String lastType_ = "";
@@ -820,40 +813,43 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             natvarag_ = id_.getParametersTypesLength() - 1;
             lastType_ = id_.getParametersType(natvarag_);
         }
-        unwrapArgsFct(id_,natvarag_,lastType_, _impl,_args,_page);
+        unwrapArgsFct(id_,natvarag_,lastType_, _args, _page);
     }
-    static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<CustList<AnaFormattedRootBlock>> _impl, CustList<OperationNode> _args, AnalyzedPageEl _page) {
+
+    static void unwrapArgsFct(Identifiable _id, int _natvararg, String _lasttype, CustList<OperationNode> _args, AnalyzedPageEl _page) {
         if (_natvararg > -1) {
             int lenCh_ = _args.size();
             for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-                if (!_impl.get(i).isEmpty()) {
+                OperationNode a_ = _args.get(i);
+                AnaClassArgumentMatching resultClass_ = a_.getResultClass();
+                if (!resultClass_.getImplicits().isEmpty()) {
                     continue;
                 }
-                OperationNode a_ = _args.get(i);
                 if (i >= _natvararg) {
                     if (AnaTypeUtil.isPrimitive(_lasttype, _page)) {
-                        a_.getResultClass().setUnwrapObject(_lasttype, _page.getPrimitiveTypes());
+                        resultClass_.setUnwrapObject(_lasttype, _page.getPrimitiveTypes());
                     }
                 } else {
                     String param_ = _id.getParametersType(i);
                     if (AnaTypeUtil.isPrimitive(param_, _page)) {
-                        a_.getResultClass().setUnwrapObject(param_, _page.getPrimitiveTypes());
+                        resultClass_.setUnwrapObject(param_, _page.getPrimitiveTypes());
                     }
                 }
             }
         } else {
             int lenCh_ = _args.size();
             for (int i = IndexConstants.FIRST_INDEX; i < lenCh_; i++) {
-                if (!_impl.get(i).isEmpty()) {
+                OperationNode a_ = _args.get(i);
+                AnaClassArgumentMatching resultClass_ = a_.getResultClass();
+                if (!resultClass_.getImplicits().isEmpty()) {
                     continue;
                 }
-                OperationNode a_ = _args.get(i);
                 String param_ = _id.getParametersType(i);
                 if (i + 1 == lenCh_ && _id.isVararg()) {
                     param_ = StringExpUtil.getPrettyArrayType(param_);
                 }
                 if (AnaTypeUtil.isPrimitive(param_, _page)) {
-                    a_.getResultClass().setUnwrapObject(param_, _page.getPrimitiveTypes());
+                    resultClass_.setUnwrapObject(param_, _page.getPrimitiveTypes());
                 }
             }
         }

@@ -97,12 +97,6 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
         return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        trySetArgument(_context, _right, _rendStack);
-        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
     private Argument trySetArgument(ContextEl _conf, Argument _res, RendStackCall _rendStackCall) {
         return processCall(ExecTemplates.setWrapValue(_conf,variableContent, _res, _rendStackCall.getLastPage().getPageEl().getCache(), _rendStackCall.getLastPage().getPageEl().getRefParams(), _rendStackCall.getStackCall()),_conf,_rendStackCall).getValue();
     }

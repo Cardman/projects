@@ -575,7 +575,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         return false;
     }
 
-    protected void result(AnalyzedPageEl _page,String _realClassName, AnaGeneType _g, ConstrustorIdVarArg _ctorRes, NameParametersFilter _name) {
+    protected void result(String _realClassName, AnaGeneType _g, ConstrustorIdVarArg _ctorRes) {
         setConstId(_ctorRes.getRealId());
         setConstructor(_ctorRes.getConstructor());
         setConstructor(_ctorRes.getPair());
@@ -589,7 +589,6 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             setNaturalVararg(nbParams_ - 1);
             setLastType(instancingCommonContent_.getConstId().getParametersType(nbParams_ - 1));
         }
-        unwrapArgsFct(_ctorRes, _name.getAll(), _page);
     }
 
 

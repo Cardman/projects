@@ -101,14 +101,6 @@ public final class ExecSettableFieldOperation extends
         return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
-    @Override
-    public Argument endCalculate(ContextEl _conf,
-                                 IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post,
-                                 Argument _stored, Argument _right, StackCall _stack) {
-        getCommonSetting(_conf, _nodes, _right, _stack);
-        return ExecSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
     private Argument getCommonSetting(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stackCall) {
         if (_conf.callsOrException(_stackCall)) {
             return _right;

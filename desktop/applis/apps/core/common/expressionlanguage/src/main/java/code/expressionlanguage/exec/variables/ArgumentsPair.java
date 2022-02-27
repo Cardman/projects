@@ -12,8 +12,7 @@ public final class ArgumentsPair {
     private Argument previousArgument;
     private int indexImplicit;
     private int indexImplicitTest;
-    private int indexImplicitCompound;
-    private int indexImplicitSemiTo;
+    private int indexImplicitConv;
     private boolean endCalculate;
     private boolean calledIndexer;
     public Argument getArgument() {
@@ -95,20 +94,12 @@ public final class ArgumentsPair {
         this.indexImplicitTest = _indexImplicitTest;
     }
 
-    public int getIndexImplicitCompound() {
-        return indexImplicitCompound;
+    public int getIndexImplicitConv() {
+        return indexImplicitConv;
     }
 
-    public void setIndexImplicitCompound(int _indexImplicitCompound) {
-        this.indexImplicitCompound = _indexImplicitCompound;
-    }
-
-    public int getIndexImplicitSemiTo() {
-        return indexImplicitSemiTo;
-    }
-
-    public void setIndexImplicitSemiTo(int _indexImplicitSemiTo) {
-        this.indexImplicitSemiTo = _indexImplicitSemiTo;
+    public void setIndexImplicitConv(int _indexImplicitConv) {
+        this.indexImplicitConv = _indexImplicitConv;
     }
 
     public boolean isCalledIndexer() {

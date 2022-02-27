@@ -30,5 +30,4 @@ public interface ExecSettableElResult {
 
     boolean resultCanBeSet();
 
-    Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, StackCall _stack);
 }

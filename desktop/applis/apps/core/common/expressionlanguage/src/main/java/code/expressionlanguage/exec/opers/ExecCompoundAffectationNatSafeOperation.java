@@ -27,7 +27,7 @@ public final class ExecCompoundAffectationNatSafeOperation extends ExecCompoundA
         Argument rightArg_ = getLastArgument(_nodes,this);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         if (StringUtil.quickEq(getOperatorContent().getOper(), AbsBk.NULL_EQ_SHORT) && !leftArg_.isNull()) {
-            pair_.setIndexImplicitCompound(-1);
+            pair_.setIndexImplicitConv(-1);
             pair_.setEndCalculate(true);
             setSimpleArgument(leftArg_, _conf, _nodes, _stack);
             return;

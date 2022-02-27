@@ -28,7 +28,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private MemberId memberId = new MemberId();
     private AnaFormattedRootBlock type;
-    public AbstractInvokingConstructor(int _index, int _indexChild,
+    protected AbstractInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = getOperations().getFctName();
@@ -87,18 +87,18 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         }
         ConstrustorIdVarArg ctorRes_;
         ctorRes_ = getDeclaredCustConstructor(varargOnly_, from, type.getRootBlock(), feed_, varargParam_, name_, _page);
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
         if (ctorRes_ == null) {
             buildCtorError(name_,_page,from.getName());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             checkPositionBasis(_page);
             return;
         }
-        postAnalysis(ctorRes_, name_, _page);
+        postAnalysis(ctorRes_);
         checkPositionBasis(_page);
     }
 
     abstract AnaClassArgumentMatching getFrom(AnalyzedPageEl _page);
-    private void postAnalysis(ConstrustorIdVarArg _res, NameParametersFilter _args, AnalyzedPageEl _page) {
+    private void postAnalysis(ConstrustorIdVarArg _res) {
         constructor = _res.getPair();
         memberId = _res.getMemberId();
         constId = _res.getRealId();
@@ -107,8 +107,6 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             invokingConstructorContent.setNaturalVararg(nbParams_ - 1);
             invokingConstructorContent.setLastType(constId.getParametersType(nbParams_ - 1));
         }
-        unwrapArgsFct(_res, _args.getAll(), _page);
-        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
     void checkPositionBasis(AnalyzedPageEl _page) {

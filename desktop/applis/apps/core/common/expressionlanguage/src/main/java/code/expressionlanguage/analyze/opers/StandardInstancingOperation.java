@@ -282,7 +282,7 @@ public final class StandardInstancingOperation extends
             setResultClass(new AnaClassArgumentMatching(_realClassName));
             return;
         }
-        result(_page,_realClassName, g_, ctorRes_, name_);
+        result(_realClassName, g_, ctorRes_);
         setResultClass(new AnaClassArgumentMatching(_realClassName));
     }
 

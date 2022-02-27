@@ -223,7 +223,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             ClassMethodId f_ = getTrueFalse(feedBase_, _page);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
-            AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getAll());
+            AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getAllOps());
             clMeth_ = tryGetDeclaredCustTrueFalse(staticAccess_, bounds_, trimMeth_, f_, argsClass_, _page);
             if (clMeth_ == null) {
                 buildErrNotFoundTrueFalse(staticAccess_,trimMeth_,_page,argsClass_);

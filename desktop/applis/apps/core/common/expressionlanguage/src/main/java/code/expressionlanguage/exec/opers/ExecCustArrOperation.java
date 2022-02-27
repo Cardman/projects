@@ -93,11 +93,6 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         return arrContent.isVariable();
     }
 
-    @Override
-    public Argument endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, StackCall _stack) {
-        return getArgument(_conf, _nodes, _right, _stack);
-    }
-
     private Argument getArgument(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stackCall) {
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();

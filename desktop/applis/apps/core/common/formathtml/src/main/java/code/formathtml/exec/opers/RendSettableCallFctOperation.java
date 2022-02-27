@@ -63,12 +63,6 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
         return arrContent.isVariable();
     }
 
-    @Override
-    public Argument endCalculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, boolean _post, Argument _stored, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        trySetArgument(_nodes, _context, _right, _rendStack);
-        return RendSemiAffectationOperation.getPrePost(_post, _stored, _right);
-    }
-
     private Argument trySetArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, RendStackCall _stackCall) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         return processCall(ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall.getStackCall()),_conf,_stackCall).getValue();

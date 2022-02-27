@@ -31,7 +31,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
         ArgumentsPair argumentPair_ = ExecHelper.getArgumentPair(_nodes, getSettableAnc());
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         if (argumentPair_.isArgumentTest()){
-            pair_.setIndexImplicitCompound(-1);
+            pair_.setIndexImplicitConv(-1);
             Argument tow_ = Argument.getNullableValue(argumentPair_.getArgument());
             if (sh(operatorContent)) {
                 pair_.setEndCalculate(true);
@@ -55,27 +55,8 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettableAnc());
-        Argument stored_ = Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
         setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
-        int indexImplicit_ = pair_.getIndexImplicitCompound();
-        if (ImplicitMethods.isValidIndex(converter,indexImplicit_)) {
-            pair_.setIndexImplicitCompound(processConverter(_conf, _right, converter, indexImplicit_, _stack));
-            return;
-        }
-        if (!pair_.isEndCalculate()) {
-            pair_.setEndCalculate(true);
-            Argument arg_ = ExecSemiAffectationOperation.endCalculate(_conf,_nodes,_right,stored_,getSettable(), staticPostEltContent,_stack);
-            setSimpleArgument(arg_, _conf, _nodes, _stack);
-            return;
-        }
-        if (ExecSemiAffectationOperation.isIndexer(getSettable(),_nodes)) {
-            Argument out_ = ExecSemiAffectationOperation.callIndexer(_right, pair_, stored_, staticPostEltContent);
-            setSimpleArgument(out_, _conf, _nodes, _stack);
-            return;
-        }
-        setSimpleArgument(_right,_conf,_nodes, _stack);
+        ExecSemiAffectationOperation.end(this,_conf,_nodes,_right,_stack,converter,staticPostEltContent);
     }
 
     protected ExecOperatorContent getOperatorContent() {
