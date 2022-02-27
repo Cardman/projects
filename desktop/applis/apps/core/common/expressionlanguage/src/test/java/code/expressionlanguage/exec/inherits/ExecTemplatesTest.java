@@ -519,15 +519,6 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         stackCall_.addInternPage(instancingClass_);
         ExecTemplates.okArgsSetSwCall( ex_, cont_.getContext(), stackCall_, Argument.createVoid());
         assertNotNull(getTrueException(stackCall_));
-        ImplicitMethods converterTo_ = new ImplicitMethods();
-        converterTo_.getConverter().add(new ExecTypeFunction(classBody_, (ExecNamedFunctionBlock) classBody_.getChildrenOthers().first()));
-        converterTo_.setOwnerClass(new ExecFormattedRootBlock(classBody_));
-        AnaOperatorContent co_ = new AnaOperatorContent();
-        co_.setOper("");
-        ExecSemiAffectationNatOperation sem_ = new ExecSemiAffectationNatOperation(new ExecOperationContent(0, new ExecClassArgumentMatching(""), 0), new ExecOperatorContent(co_), converterTo_, false, new StringList());
-        IdMap<ExecOperationNode, ArgumentsPair> nodes_ = new IdMap<ExecOperationNode, ArgumentsPair>();
-        nodes_.addEntry(sem_,new ArgumentsPair());
-        sem_.endCalculate(cont_.getContext(),nodes_, new Argument(), stackCall_);
     }
     @Test
     public void okArgs1Test() {
