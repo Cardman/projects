@@ -273,6 +273,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 addErr(un_.getBuiltError());
                 return;
             }
+            OperationNode castOp_ = AffectationOperation.tryGetCastSettableArg(def_);
+            if (castOp_ instanceof CastOperation){
+                ((CastOperation)castOp_).setStrict(true);
+            }
+            settable_.setVariable(false);
             AnaClassArgumentMatching left_ = settable_.getResultClass();
             indexVar = next_.getIndexChild();
             if (settable_ instanceof SettableFieldOperation) {

@@ -68,7 +68,12 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        OperationNode castOp_ = AffectationOperation.getFirstToBeAnalyzed(this);
+        if (castOp_ instanceof CastOperation) {
+            ((CastOperation)castOp_).setStrict(true);
+        }
         settable = elt_;
+        elt_.setVariable(false);
         if (settable instanceof SettableFieldOperation) {
             SettableFieldOperation cst_ = (SettableFieldOperation)settable;
             StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
@@ -129,7 +134,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             return;
         }
         setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes()));
-        elt_.setVariable(false);
         String stringType_ = _page.getAliasString();
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();

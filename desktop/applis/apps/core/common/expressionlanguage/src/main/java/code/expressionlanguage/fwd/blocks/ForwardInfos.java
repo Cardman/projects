@@ -1567,6 +1567,9 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof CastOperation) {
             CastOperation m_ = (CastOperation) _anaNode;
+            if (m_.isStrict()) {
+                return new ExecStrictCastOperation(new ExecOperationContent(m_.getContent()), new ExecTypeCheckContent(m_.getTypeCheckContent()));
+            }
             return new ExecCastOperation(new ExecOperationContent(m_.getContent()), new ExecTypeCheckContent(m_.getTypeCheckContent()));
         }
         if (_anaNode instanceof ExplicitOperation) {

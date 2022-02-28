@@ -19,8 +19,6 @@ public abstract class ExecAbstractDotOperation extends ExecMethodOperation imple
     }
     public void calculateDot(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
         ExecOperationNode lastNode_ = ExecHelper.getLastNode(this);
-        ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, lastNode_);
-        Argument a_ = Argument.getNullableValue(pairCh_.getArgument());
         boolean simple_;
         if (getParent() instanceof ExecAffectationOperation) {
             ExecAffectationOperation aff_ = (ExecAffectationOperation) getParent();
@@ -29,7 +27,9 @@ public abstract class ExecAbstractDotOperation extends ExecMethodOperation imple
             simple_ = false;
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
+        ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, lastNode_);
         ExecHelper.fwdWrapper(pair_,pairCh_);
+        Argument a_ = Argument.getNullableValue(pairCh_.getArgument());
         if (simple_) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stackCall);
         } else {

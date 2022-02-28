@@ -218,16 +218,18 @@ public final class AffectationOperation extends MethodOperation {
         return castDottedTo(root_);
     }
     public static SettableElResult tryGetSettableArg(OperationNode _operation) {
-        if (!(_operation instanceof MethodOperation)) {
-            return castDottedTo(_operation);
-        }
+        OperationNode root_ = tryGetCastSettableArg(_operation);
+        root_ = castId(root_);
+        return castDottedTo(root_);
+    }
+
+    public static OperationNode tryGetCastSettableArg(OperationNode _operation) {
         OperationNode root_ = _operation;
         if (root_ instanceof NamedArgumentOperation) {
             root_ = root_.getFirstChild();
         }
         root_ = deepId(root_);
-        root_ = castId(root_);
-        return castDottedTo(root_);
+        return root_;
     }
 
     public static SettableElResult castDottedTo(OperationNode _root) {
