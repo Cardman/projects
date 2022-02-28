@@ -29,7 +29,7 @@ public final class ExecStrictCastOperation extends ExecMethodOperation implement
         Struct str_ = ExecHelper.getFirstArgument(arguments_).getStruct();
         String paramName_ = _stack.formatVarType(typeCheckContent.getClassName());
         ExecTemplates.checkQuick(paramName_,str_.getClassName(_conf),_conf,_stack);
-        setSimpleArgument(new Argument(str_), _conf, _nodes, _stack);
+        setQuickNoConvertSimpleArgument(new Argument(str_), _conf, _nodes, _stack);
     }
 
 }

@@ -210,7 +210,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 checkOpers(resInit.getRoot(), _page);
             }
         }
-        _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
     }
 
@@ -255,10 +254,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
                 partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
                 importedClassName = partOffsets.getResult(_page);
             }
-            _page.setRefVariable(refVariable);
             _page.setCurrentVarSetting(importedClassName);
-        } else {
-            _page.setRefVariable(false);
         }
     }
     private void checkBoolCondition(OperationNode _root, AnalyzedPageEl _page) {

@@ -3,14 +3,12 @@ package code.bean.nat.exec.opers;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatCaller;
 import code.bean.nat.SpecNatMethod;
+import code.bean.nat.fwd.opers.NatExecStdFctContent;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.bean.nat.fwd.opers.NatExecStdFctContent;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
@@ -54,18 +52,18 @@ public final class NatStdFctOperation extends NatSettableCallFctOperation implem
         Struct[] args_ = getObjects(Argument.toArgArray(firstArgs_));
         Struct instance_ = previous_.getStruct();
         if (instance_ instanceof ArrayStruct) {
-            ArgumentWrapper argres_ = new ArgumentWrapper(new Argument(BooleanStruct.of(ExecArrayFieldOperation.getArray(instance_, _context).getLength()==0)), null);
-            setSimpleArgument(argres_, _nodes, _context, _rendStack);
+            Argument argres_ = new Argument(BooleanStruct.of(((ArrayStruct)instance_).getLength()==0));
+            calcArg(_nodes, argres_);
             return;
         }
         NatCaller caller_ = standardMethod.getCaller();
         if (caller_ != null) {
-            ArgumentWrapper argres_ = new ArgumentWrapper(new Argument(caller_.re( _context, instance_, args_)), null);
-            setSimpleArgument(argres_, _nodes, _context, _rendStack);
+            Argument argres_ = new Argument(caller_.re( _context, instance_, args_));
+            calcArg(_nodes, argres_);
             return;
         }
-        ArgumentWrapper argres_ = new ArgumentWrapper(new Argument(((BeanNatCommonLgNames)_advStandards).getOtherResultLoc( _context, instance_,classMethodId, args_)), null);
-        setSimpleArgument(argres_, _nodes, _context, _rendStack);
+        Argument argres_ = new Argument(((BeanNatCommonLgNames)_advStandards).getOtherResultLoc( _context, instance_,classMethodId, args_));
+        calcArg(_nodes, argres_);
     }
 
     public String getMethodName() {

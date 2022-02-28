@@ -103,10 +103,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             } else {
                 importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
             }
-            _page.setRefVariable(refVariable);
             _page.setCurrentVarSetting(importedClassName);
-        } else {
-            _page.setRefVariable(false);
         }
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
@@ -127,7 +124,6 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
             }
         }
         _page.setLineDeclarator(null);
-        _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();

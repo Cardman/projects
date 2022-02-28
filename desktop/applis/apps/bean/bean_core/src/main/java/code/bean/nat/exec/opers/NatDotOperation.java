@@ -14,6 +14,6 @@ public final class NatDotOperation extends NatAbstractDotOperation {
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        calculateDot(_nodes, _context, _rendStack);
+        calculateDot(_nodes);
     }
 }

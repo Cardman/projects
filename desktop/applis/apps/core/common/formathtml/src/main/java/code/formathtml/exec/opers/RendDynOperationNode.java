@@ -301,7 +301,7 @@ public abstract class RendDynOperationNode {
         return _parent == null || _parent instanceof RendRefTernaryOperation;
     }
 
-    private void calcArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _out) {
+    protected void calcArg(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _out) {
         RendPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             _nodes.getValue(n_.getOrder()).setPreviousArgument(_out);

@@ -67,7 +67,7 @@ public final class NatStdRefVariableOperation extends RendLeafOperation implemen
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
         Argument arg_ = new ArgumentWrapper(getArgValue(val_, _context, _rendStack.getStackCall()), null).getValue();
-        setSimpleArgument(arg_, _nodes, _context, _rendStack);
+        calcArg(_nodes, arg_);
     }
 
 

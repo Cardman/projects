@@ -24,6 +24,6 @@ public final class NatIdOperation extends RendMethodOperation implements RendCal
         ArgumentsPair pairCh_ = getArgumentPair(_nodes, o_);
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         ExecHelper.fwdWrapper(pair_,pairCh_);
-        setSimpleArgument(a_, _nodes, _context, _rendStack);
+        calcArg(_nodes, a_);
     }
 }

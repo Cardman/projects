@@ -40,7 +40,6 @@ public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
             declaring_.getVariableNames().addAllElts(vars_);
         }
         _page.setLineDeclarator(null);
-        _page.setRefVariable(false);
         _page.setAcceptCommaInstr(false);
     }
 

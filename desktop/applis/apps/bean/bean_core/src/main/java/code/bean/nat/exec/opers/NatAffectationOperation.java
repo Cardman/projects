@@ -20,7 +20,7 @@ public final class NatAffectationOperation extends NatAbstractAffectOperation {
         RendDynOperationNode right_ = getLastNode(this);
         Argument rightArg_ = getArgument(_nodes,right_);
         Argument arg_ = calculateChSetting(getSettable(),_nodes, rightArg_, _advStandards, _context, _rendStack);
-        setSimpleArgument(arg_, _nodes, _context, _rendStack);
+        calcArg(_nodes, arg_);
     }
 
     static Argument calculateChSetting(RendDynOperationNode _set,

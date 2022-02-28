@@ -41,13 +41,13 @@ public final class NatSettableFieldOperation extends
         if (callerSet_ != null) {
             result_ = new Argument(callerSet_.re(_context, default_, new Struct[]{}));
             Argument arg_ = new ArgumentWrapper(result_, null).getValue();
-            setSimpleArgument(arg_, _nodes, _context, _rendStack);
+            calcArg(_nodes, arg_);
             return;
         }
         ResultErrorStd res_ = ((BeanNatCommonLgNames)_advStandards).getOtherResult(_context, fieldId_, default_);
         result_ = new Argument(res_.getResult());
         Argument arg_ = new ArgumentWrapper(result_, null).getValue();
-        setSimpleArgument(arg_, _nodes, _context, _rendStack);
+        calcArg(_nodes, arg_);
     }
 
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {

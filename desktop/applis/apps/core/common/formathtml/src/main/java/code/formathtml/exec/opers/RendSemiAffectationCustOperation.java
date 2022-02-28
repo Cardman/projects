@@ -14,7 +14,7 @@ import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
-public class RendSemiAffectationCustOperation extends RendSemiAffectationOperation {
+public final class RendSemiAffectationCustOperation extends RendSemiAffectationOperation {
     private final ExecTypeFunction pair;
     private final ExecFormattedRootBlock formattedType;
     private final ExecStaticPostEltContent staticPostEltContent;

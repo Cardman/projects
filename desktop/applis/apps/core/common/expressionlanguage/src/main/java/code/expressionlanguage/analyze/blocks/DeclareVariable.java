@@ -62,7 +62,6 @@ public final class DeclareVariable extends Leaf implements BuildableElMethod,Abs
             importedClassName = partOffsets.getResult(_page);
         }
         _page.setLineDeclarator(this);
-        _page.setRefVariable(refVariable);
         _page.setAcceptCommaInstr(true);
         _page.setCurrentVarSetting(importedClassName);
         _page.getVariablesNames().clear();

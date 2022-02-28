@@ -25,7 +25,7 @@ public final class NatFinalVariableOperation extends RendLeafOperation implement
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _rendStack);
         Argument arg_ = NatStdRefVariableOperation.getIndexLoop(variableContent, _rendStack.getPageEl().getVars());
-        setSimpleArgument(arg_, _nodes, _context, _rendStack);
+        calcArg(_nodes, arg_);
     }
 
 }

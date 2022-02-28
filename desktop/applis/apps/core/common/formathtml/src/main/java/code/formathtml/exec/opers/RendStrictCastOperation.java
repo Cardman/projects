@@ -29,7 +29,7 @@ public final class RendStrictCastOperation extends RendMethodOperation implement
         Struct str_ = ExecHelper.getFirstArgument(arguments_).getStruct();
         String paramName_ = _rendStack.formatVarType(typeCheckContent.getClassName());
         ExecTemplates.checkQuick(paramName_,str_.getClassName(_context),_context,_rendStack.getStackCall());
-        setSimpleArgument(new Argument(str_), _nodes, _context, _rendStack);
+        setQuickNoConvertSimpleArgument(new Argument(str_), _nodes, _context, _rendStack);
     }
 
 }
