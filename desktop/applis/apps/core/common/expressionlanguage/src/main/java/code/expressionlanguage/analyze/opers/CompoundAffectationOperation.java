@@ -85,6 +85,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 addErr(un_.getBuiltError());
             }
         }
+        setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(settable.getResultClass(), _page), _page.getPrimitiveTypes()));
         StrTypes ops_ = getOperations().getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
@@ -129,7 +130,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setBool(right_,_page);
             return;
         }
-        setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes()));
         String stringType_ = _page.getAliasString();
         boolean isString_ = clMatchLeft_.matchClass(stringType_);
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
