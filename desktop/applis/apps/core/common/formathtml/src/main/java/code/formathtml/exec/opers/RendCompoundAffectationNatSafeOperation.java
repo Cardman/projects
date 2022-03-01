@@ -30,30 +30,9 @@ public final class RendCompoundAffectationNatSafeOperation extends RendCompoundA
             setSimpleArgument(leftArg_, _nodes, _context, _rendStack);
             return;
         }
-        Argument arg_ = calculateCompoundChSetting(_nodes, rightArg_, _advStandards, _context, _rendStack);
+        Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, getNames(), _context,_rendStack);
+        Argument arg_ = RendAffectationOperation.calculateChSetting(getSettable(),_nodes,res_,_advStandards,_context,_rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
-    }
-
-    private Argument calculateCompoundChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _rightArg, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
-        Argument arg_ = null;
-        RendDynOperationNode settable_ = getSettable();
-        StringList names_ = getNames();
-        if (settable_ instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)settable_).calculateCompoundSetting(_nodes, _rightArg, names_, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable_).calculateCompoundSetting(_nodes, _rightArg, names_, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable_).calculateCompoundSetting(_nodes, _rightArg, names_, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable_).calculateCompoundSetting(_nodes, _rightArg, names_, _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)settable_).calculateCompoundSetting(_nodes, _rightArg, names_, _advStandards, _context, _rendStackCall);
-        }
-        return Argument.getNullableValue(arg_);
     }
 
 }

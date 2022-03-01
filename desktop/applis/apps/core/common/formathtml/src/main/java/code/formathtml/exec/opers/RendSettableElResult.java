@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.StringList;
 
 public interface RendSettableElResult {
 
@@ -15,14 +14,5 @@ public interface RendSettableElResult {
 
     Argument calculateSetting(
             IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
-
-    Argument calculateCompoundString(
-            IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
-
-    Argument calculateCompoundSetting(
-            IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, StringList _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
-
-    Argument calculateCompoundSetting(
-            IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, byte _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
 
 }

@@ -3,17 +3,14 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
-import code.util.StringList;
 
 public final class RendStdRefVariableOperation extends RendLeafOperation implements
         RendCalculableOperation,RendSettableElResult{
@@ -57,33 +54,6 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         return trySetArgument(_context, _right, _rendStack);
-    }
-
-    @Override
-    public Argument calculateCompoundString(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_ = a_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = ExecCatOperation.localSumDiff(left_, _right, _context);
-        return trySetArgument(_context, res_, _rendStack);
-    }
-
-    @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, byte _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_ = a_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl, _context, _rendStack);
-        return trySetArgument(_context, res_, _rendStack);
-    }
-
-    @Override
-    public Argument calculateCompoundSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, StringList _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_ = a_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context,_rendStack);
-        return trySetArgument(_context, res_, _rendStack);
     }
 
     private Argument trySetArgument(ContextEl _conf, Argument _res, RendStackCall _rendStackCall) {

@@ -5,24 +5,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.util.IdMap;
-import code.util.StringList;
 
 public interface ExecSettableElResult {
 
     Argument calculateSetting(
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack);
-
-    Argument calculateCompoundString(
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, StackCall _stack);
-
-    Argument calculateCompoundSetting(
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, StringList _cl, StackCall _stack);
-
-    Argument calculateCompoundSetting(
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, Argument _right, byte _cast, StackCall _stack);
 
     boolean resultCanBeSet();
 

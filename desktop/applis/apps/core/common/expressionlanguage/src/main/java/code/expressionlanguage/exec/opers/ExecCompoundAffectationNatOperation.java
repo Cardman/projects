@@ -36,30 +36,10 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
             pairBefore_.setIndexImplicitConv(processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }
-        Argument arg_ = calculateCompoundSetting(_nodes, _conf, rightArg_, _stack);
+        Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb(), _stack);
+        Argument set_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes,_conf,res_,_stack);
         pair_.setEndCalculate(true);
-        setSimpleArgument(arg_, _conf, _nodes, _stack);
-    }
-
-    private Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _rightArg, StackCall _stackCall) {
-        Argument arg_ = null;
-        ExecOperationNode settable_ = getSettable();
-        if (settable_ instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)settable_).calculateCompoundSetting(_nodes, _conf, getOperatorContent().getOper(), _rightArg, getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable_ instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)settable_).calculateCompoundSetting(_nodes, _conf, getOperatorContent().getOper(), _rightArg, getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable_ instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)settable_).calculateCompoundSetting(_nodes, _conf, getOperatorContent().getOper(), _rightArg, getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable_ instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)settable_).calculateCompoundSetting(_nodes, _conf, getOperatorContent().getOper(), _rightArg, getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable_ instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)settable_).calculateCompoundSetting(_nodes, _conf, getOperatorContent().getOper(), _rightArg, getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        return Argument.getNullableValue(arg_);
+        setSimpleArgument(set_, _conf, _nodes, _stack);
     }
 
 }

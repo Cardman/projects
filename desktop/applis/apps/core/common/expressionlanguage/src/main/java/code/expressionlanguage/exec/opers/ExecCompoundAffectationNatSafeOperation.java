@@ -32,31 +32,10 @@ public final class ExecCompoundAffectationNatSafeOperation extends ExecCompoundA
             setSimpleArgument(leftArg_, _conf, _nodes, _stack);
             return;
         }
-        Argument arg_ = calculateCompoundSetting(_nodes, _conf, rightArg_, _stack);
+        Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getNames(), _stack);
+        Argument arg_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes,_conf,res_,_stack);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
-    }
-
-    private Argument calculateCompoundSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _rightArg, StackCall _stackCall) {
-        Argument arg_ = null;
-        ExecOperationNode settable_ = getSettable();
-        StringList names_ = getNames();
-        if (settable_ instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)settable_).calculateCompoundSetting(_nodes, _conf, _rightArg, names_, _stackCall);
-        }
-        if (settable_ instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)settable_).calculateCompoundSetting(_nodes, _conf, _rightArg, names_, _stackCall);
-        }
-        if (settable_ instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)settable_).calculateCompoundSetting(_nodes, _conf, _rightArg, names_, _stackCall);
-        }
-        if (settable_ instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)settable_).calculateCompoundSetting(_nodes, _conf, _rightArg, names_, _stackCall);
-        }
-        if (settable_ instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)settable_).calculateCompoundSetting(_nodes, _conf, _rightArg, names_, _stackCall);
-        }
-        return Argument.getNullableValue(arg_);
     }
 
 }

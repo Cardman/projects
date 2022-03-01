@@ -245,6 +245,7 @@ public abstract class RendDynOperationNode {
             return;
         }
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
+        pair_.argumentImpl(_argument);
         if (!implicitsTest.isEmpty()) {
             Argument res_ = tryConvert(implicitsTest.get(0),implicitsTest.getOwnerClass(), _argument, _context, _rendStack);
             if (res_ == null) {
@@ -269,7 +270,6 @@ public abstract class RendDynOperationNode {
             }
         }
         if (pair_.isArgumentTest()) {
-            pair_.argumentImpl(_argument);
             calcArg(_nodes, _argument);
             return;
         }
@@ -277,8 +277,6 @@ public abstract class RendDynOperationNode {
     }
 
     private void defCalcArg(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _out) {
-        ArgumentsPair pair_ = getArgumentPair(_nodes,this);
-        pair_.argumentImpl(_out);
         Argument out_ = _out;
         int s_ = implicits.size();
         for (int i = 0; i < s_; i++) {

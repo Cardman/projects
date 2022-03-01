@@ -45,7 +45,7 @@ public final class RendSemiAffectationCustOperation extends RendSemiAffectationO
     }
 
 
-    protected ExecStaticPostEltContent getStaticPostEltContent() {
+    ExecStaticPostEltContent getStaticPostEltContent() {
         return staticPostEltContent;
     }
 

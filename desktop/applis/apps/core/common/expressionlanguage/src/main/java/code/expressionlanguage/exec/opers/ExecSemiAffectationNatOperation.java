@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -27,21 +26,17 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
         if (ImplicitMethods.isValidIndex(getConverterTo(),indexImplicit_)) {
             String tres_ = getConverterTo().get(indexImplicit_).getFct().getImportedParametersTypes().first();
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
-            ExecOperationNode left_ = getFirstChild();
-            Argument leftArg_ = getArgument(_nodes,left_);
-            Struct store_ = leftArg_.getStruct();
-            Argument l_ = new Argument(store_);
-            Argument res_;
-            res_ = ExecNumericOperation.calculateIncrDecr(l_, getOperatorContent().getOper(), cast_);
+            Argument leftArg_ = getArgument(_nodes,getFirstChild());
+            Argument res_ = ExecNumericOperation.calculateIncrDecr(leftArg_, getOperatorContent().getOper(), cast_);
             pairBefore_.setIndexImplicitConv(ExecOperationNode.processConverter(_conf,res_, getConverterTo(),indexImplicit_, _stack));
             return;
         }
-        Argument a_ = getArgument(_nodes,getFirstChild());
+        Argument leftArg_ = getArgument(_nodes,getFirstChild());
+        Argument res_ = ExecNumericOperation.calculateIncrDecr(leftArg_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb());
         ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettable());
-        Argument left_ = pairSet_.getArgumentBeforeImpl();
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(a_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb());
+        Argument before_ = pairSet_.getArgumentBeforeImpl();
         ExecAffectationOperation.calculateChSetting(getSettable(), _nodes, _conf,res_, _stack);
-        Argument arg_ = ExecSemiAffectationOperation.getPrePost(isPost(), left_, res_);
+        Argument arg_ = getPrePost(isPost(), before_, res_);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes, _stack);

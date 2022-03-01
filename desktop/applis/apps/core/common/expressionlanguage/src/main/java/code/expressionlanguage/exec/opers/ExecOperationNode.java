@@ -300,6 +300,7 @@ public abstract class ExecOperationNode {
             return;
         }
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
+        pair_.argumentImpl(_argument);
         int indexImplicitTest_ = pair_.getIndexImplicitTest();
         Argument before_;
         if (!implicitsTest.isEmpty()) {
@@ -328,7 +329,6 @@ public abstract class ExecOperationNode {
             }
         }
         if (pair_.isArgumentTest()) {
-            pair_.argumentImpl(before_);
             calcArg(_possiblePartial, _conf, _nodes, before_, _stackCall);
             return;
         }
@@ -337,7 +337,6 @@ public abstract class ExecOperationNode {
 
     private void defCalcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall, ArgumentsPair _pair, Argument _before) {
         int indexImplicit_ = _pair.getIndexImplicit();
-        _pair.argumentImpl(_before);
         if (implicits.isValidIndex(indexImplicit_)) {
             _pair.setIndexImplicit(processConverter(_conf, _before,implicits,indexImplicit_, _stackCall));
             return;
