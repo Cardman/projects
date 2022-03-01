@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.opers.ExecCustArrOperation;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
 import code.expressionlanguage.fwd.opers.*;
@@ -77,16 +76,6 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         Argument left_ = new Argument(store_);
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context,_rendStack);
         return processCalling(_nodes, res_, _context, _rendStack);
-    }
-
-    @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_ = a_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        Argument arg_ = processCalling(_nodes, res_, _context, _rendStack);
-        return RendSemiAffectationOperation.getPrePost(_post,left_,arg_);
     }
 
     private Argument processCalling(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStackCall) {

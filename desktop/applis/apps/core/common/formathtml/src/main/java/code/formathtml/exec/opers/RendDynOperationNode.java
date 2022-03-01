@@ -269,6 +269,7 @@ public abstract class RendDynOperationNode {
             }
         }
         if (pair_.isArgumentTest()) {
+            pair_.argumentImpl(_argument);
             calcArg(_nodes, _argument);
             return;
         }

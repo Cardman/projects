@@ -28,7 +28,7 @@ public final class RendSemiAffectationCustOperation extends RendSemiAffectationO
 
     @Override
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        Argument stored_ = getArgumentBeforeImpl(_nodes,getSettableAnc());
+        Argument stored_ = getArgumentBeforeImpl(_nodes,getSettable());
         checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, getStaticPostEltContent().getKind(), _rendStack);
         Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
         if (getConverterTo() != null) {

@@ -68,10 +68,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        OperationNode castOp_ = AffectationOperation.getFirstToBeAnalyzed(this);
-        if (castOp_ instanceof CastOperation) {
-            ((CastOperation)castOp_).setStrict(true);
-        }
         settable = elt_;
         elt_.setVariable(false);
         if (settable instanceof SettableFieldOperation) {

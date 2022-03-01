@@ -80,16 +80,6 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_ = a_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_conf, res_, _stack);
-        return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
-    }
-
-    @Override
     public boolean resultCanBeSet() {
         return variableContent.isVariable();
     }

@@ -328,6 +328,7 @@ public abstract class ExecOperationNode {
             }
         }
         if (pair_.isArgumentTest()) {
+            pair_.argumentImpl(before_);
             calcArg(_possiblePartial, _conf, _nodes, before_, _stackCall);
             return;
         }

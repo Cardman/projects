@@ -23,7 +23,7 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode left_ = getFirstNode(this);
         Argument leftStore_ = getArgument(_nodes,left_);
-        Argument stored_ = getArgumentBeforeImpl(_nodes, getSettableAnc());
+        Argument stored_ = getArgumentBeforeImpl(_nodes, getSettable());
         Argument before_ = stored_;
         if (getConverterTo() != null) {
             String tres_ = getConverterTo().get(0).getFct().getImportedParametersTypes().get(0);
@@ -38,29 +38,10 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
             setSimpleArgument(stored_, _nodes, _context, _rendStack);
             return;
         }
-        Argument arg_ = calculateSemiChSetting(_nodes, _advStandards, _context, _rendStack);
+        Argument res_ = ExecNumericOperation.calculateIncrDecr(leftStore_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb());
+        RendAffectationOperation.calculateChSetting(getSettable(),_nodes,res_,_advStandards,_context,_rendStack);
+        Argument arg_ = RendSemiAffectationOperation.getPrePost(isPost(), stored_, res_);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
-    }
-
-    private Argument calculateSemiChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
-        Argument arg_ = null;
-        RendDynOperationNode settable_ = getSettable();
-        if (settable_ instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
-        }
-        if (settable_ instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)settable_).calculateSemiSetting(_nodes, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _advStandards, _context, _rendStackCall);
-        }
-        return Argument.getNullableValue(arg_);
     }
 
 

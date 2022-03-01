@@ -24,10 +24,6 @@ public interface ExecSettableElResult {
             IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
             String _op, Argument _right, byte _cast, StackCall _stack);
 
-    Argument calculateSemiSetting(
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post, byte _cast, StackCall _stack);
-
     boolean resultCanBeSet();
 
 }

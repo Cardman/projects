@@ -88,19 +88,6 @@ public final class ExecSettableFieldOperation extends
         return getCommonSetting(_conf,_nodes,res_,_stack);
     }
 
-    @Override
-    public Argument calculateSemiSetting(
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post, byte _cast, StackCall _stack) {
-        Argument current_ = getArgument(_nodes,this);
-        Struct store_ = current_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-
-        getCommonSetting(_conf,_nodes,res_,_stack);
-        return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
-    }
-
     private Argument getCommonSetting(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stackCall) {
         if (_conf.callsOrException(_stackCall)) {
             return _right;

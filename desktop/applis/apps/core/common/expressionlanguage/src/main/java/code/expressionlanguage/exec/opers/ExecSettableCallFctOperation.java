@@ -61,15 +61,6 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
-        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        Argument left_ = pair_.getArgument();
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_nodes, _conf, res_, _stack);
-        return ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
-    }
-
-    @Override
     public boolean resultCanBeSet() {
         return arrContent.isVariable();
     }

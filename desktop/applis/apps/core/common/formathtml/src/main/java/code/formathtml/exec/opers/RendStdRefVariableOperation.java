@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -85,16 +84,6 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
         Argument left_ = new Argument(store_);
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _cl, _context,_rendStack);
         return trySetArgument(_context, res_, _rendStack);
-    }
-
-    @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_ = a_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_context, res_, _rendStack);
-        return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
     private Argument trySetArgument(ContextEl _conf, Argument _res, RendStackCall _rendStackCall) {

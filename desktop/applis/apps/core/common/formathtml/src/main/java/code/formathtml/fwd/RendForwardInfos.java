@@ -805,9 +805,6 @@ public final class RendForwardInfos {
         }
         if (_anaNode instanceof CastOperation) {
             CastOperation m_ = (CastOperation) _anaNode;
-            if (m_.isStrict()) {
-                return new RendStrictCastOperation(new ExecOperationContent(m_.getContent()), new ExecTypeCheckContent(m_.getTypeCheckContent()));
-            }
             return new RendCastOperation(new ExecOperationContent(m_.getContent()), new ExecTypeCheckContent(m_.getTypeCheckContent()));
         }
         if (_anaNode instanceof ExplicitOperation) {

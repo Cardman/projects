@@ -96,19 +96,6 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         return commonSetting(_nodes, _conf, res_, _stack);
     }
 
-    @Override
-    public Argument calculateSemiSetting(
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            String _op, boolean _post, byte _cast, StackCall _stack) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_ = a_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        commonSetting(_nodes,_conf,res_,_stack);
-        Argument out_ = ExecSemiAffectationOperation.getPrePost(_post, left_, res_);
-        return new Argument(out_.getStruct());
-    }
-
     private Argument commonSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
         if (_conf.callsOrException(_stack)) {
             return _right;

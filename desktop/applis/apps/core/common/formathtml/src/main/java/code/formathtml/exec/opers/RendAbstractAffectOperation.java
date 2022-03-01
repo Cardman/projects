@@ -66,7 +66,7 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
 
     public static RendDynOperationNode getCastIdOp(RendAbstractAffectOperation _operation) {
         RendDynOperationNode root_ = getIdOp(_operation);
-        if (root_ instanceof RendStrictCastOperation) {
+        if (root_ instanceof RendCastOperation) {
             root_ = root_.getFirstChild();
         }
         return deepId(root_);

@@ -14,7 +14,6 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
     private int beginType;
     private AnaResultPartType partOffsets;
     private boolean found;
-    private boolean strict;
     public CastOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -91,11 +90,4 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         return found;
     }
 
-    public boolean isStrict() {
-        return strict;
-    }
-
-    public void setStrict(boolean _strict) {
-        this.strict = _strict;
-    }
 }

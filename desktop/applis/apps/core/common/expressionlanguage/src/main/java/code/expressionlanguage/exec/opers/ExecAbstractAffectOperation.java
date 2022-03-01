@@ -69,7 +69,7 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
 
     private static ExecOperationNode getFirstCastToBeAnalyzed(ExecAbstractAffectOperation _operation) {
         ExecOperationNode root_ = getFirstToBeAnalyzed(_operation);
-        if (root_ instanceof ExecStrictCastOperation) {
+        if (root_ instanceof ExecCastOperation) {
             root_ = root_.getFirstChild();
         }
         return deepSearchId(root_);

@@ -25,7 +25,4 @@ public interface RendSettableElResult {
     Argument calculateCompoundSetting(
             IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, Argument _right, byte _cl, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
 
-    Argument calculateSemiSetting(
-            IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
-
 }

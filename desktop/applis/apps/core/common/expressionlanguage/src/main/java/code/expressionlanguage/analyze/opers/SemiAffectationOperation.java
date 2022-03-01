@@ -51,10 +51,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        OperationNode castOp_ = AffectationOperation.getFirstToBeAnalyzed(this);
-        if (castOp_ instanceof CastOperation) {
-            ((CastOperation)castOp_).setStrict(true);
-        }
         if (settable instanceof SettableFieldOperation) {
             SettableFieldOperation cst_ = (SettableFieldOperation)settable;
             StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();

@@ -36,31 +36,15 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
             pairBefore_.setIndexImplicitConv(ExecOperationNode.processConverter(_conf,res_, getConverterTo(),indexImplicit_, _stack));
             return;
         }
-        Argument arg_ = calculateSemiChSetting(_nodes, _conf, _stack);
+        Argument a_ = getArgument(_nodes,getFirstChild());
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettable());
+        Argument left_ = pairSet_.getArgumentBeforeImpl();
+        Argument res_ = ExecNumericOperation.calculateIncrDecr(a_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb());
+        ExecAffectationOperation.calculateChSetting(getSettable(), _nodes, _conf,res_, _stack);
+        Argument arg_ = ExecSemiAffectationOperation.getPrePost(isPost(), left_, res_);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
-    }
-
-    private Argument calculateSemiChSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stackCall) {
-        Argument arg_ = null;
-        ExecOperationNode settable_ = getSettable();
-        if (settable_ instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable_ instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable_ instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable_ instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        if (settable_ instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)settable_).calculateSemiSetting(_nodes, _conf, getOperatorContent().getOper(), isPost(), getResultClass().getUnwrapObjectNb(), _stackCall);
-        }
-        return Argument.getNullableValue(arg_);
     }
 
 

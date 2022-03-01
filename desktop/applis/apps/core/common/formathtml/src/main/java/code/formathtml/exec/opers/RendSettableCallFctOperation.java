@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -47,15 +46,6 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
         Argument left_ = pair_.getArgument();
         Argument res_ = RendNumericOperation.calculateAffect(left_, _right, _op, _cl, _context, _rendStack);
         return trySetArgument(_nodes, _context, res_, _rendStack);
-    }
-
-    @Override
-    public Argument calculateSemiSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, String _op, boolean _post, byte _cast, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        Argument left_ = pair_.getArgument();
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        trySetArgument(_nodes, _context, res_, _rendStack);
-        return RendSemiAffectationOperation.getPrePost(_post, left_, res_);
     }
 
     @Override

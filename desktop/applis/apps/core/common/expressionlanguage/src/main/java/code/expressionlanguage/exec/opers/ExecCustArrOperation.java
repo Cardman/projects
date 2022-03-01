@@ -80,15 +80,6 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
     }
 
     @Override
-    public Argument calculateSemiSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, String _op, boolean _post, byte _cast, StackCall _stack) {
-        Argument a_ = getArgument(_nodes,this);
-        Struct store_ = a_.getStruct();
-        Argument left_ = new Argument(store_);
-        Argument res_ = ExecNumericOperation.calculateIncrDecr(left_, _op, _cast);
-        return getArgument(_conf,_nodes,res_,_stack);
-    }
-
-    @Override
     public boolean resultCanBeSet() {
         return arrContent.isVariable();
     }
