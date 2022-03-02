@@ -35,13 +35,13 @@ public final class RendCompoundAffectationNatOperation extends RendCompoundAffec
                 return;
             }
             res_ = conv_;
-            RendAffectationOperation.calculateChSetting(getSettable(),_nodes, res_, _advStandards, _context, _rendStack);
+            calculateChSetting(_nodes, res_, _advStandards, _context, _rendStack);
             Argument arg_ = RendSemiAffectationOperation.getPrePost(isStaticPostEltContent(),leftArg_,res_);
             setSimpleArgument(arg_, _nodes, _context, _rendStack);
             return;
         }
         Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb(), _context, _rendStack);
-        Argument arg_ = RendAffectationOperation.calculateChSetting(getSettable(),_nodes,res_,_advStandards,_context,_rendStack);
+        Argument arg_ = calculateChSetting(_nodes,res_,_advStandards,_context,_rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

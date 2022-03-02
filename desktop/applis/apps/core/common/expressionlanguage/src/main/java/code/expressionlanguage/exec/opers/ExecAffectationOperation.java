@@ -29,28 +29,8 @@ public final class ExecAffectationOperation extends ExecAbstractAffectOperation 
             return;
         }
         Argument rightArg_ = getLastArgument(_nodes, this);
-        Argument arg_ = calculateChSetting(getSettable(),_nodes, _conf, rightArg_, _stack);
+        Argument arg_ = calculateChSetting(_nodes, _conf, rightArg_, _stack);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
-    static Argument calculateChSetting(ExecOperationNode _set,
-                                       IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall){
-        Argument arg_ = null;
-        if (_set instanceof ExecStdRefVariableOperation) {
-            arg_ = ((ExecStdRefVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
-        }
-        if (_set instanceof ExecSettableFieldOperation) {
-            arg_ = ((ExecSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
-        }
-        if (_set instanceof ExecCustArrOperation) {
-            arg_ = ((ExecCustArrOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
-        }
-        if (_set instanceof ExecArrOperation) {
-            arg_ = ((ExecArrOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
-        }
-        if (_set instanceof ExecSettableCallFctOperation) {
-            arg_ = ((ExecSettableCallFctOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
-        }
-        return Argument.getNullableValue(arg_);
-    }
 }

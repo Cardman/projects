@@ -35,7 +35,7 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
                 setSimpleArgument(leftArg_, _nodes, _context, _rendStack);
                 return;
             }
-            Argument arg_ = RendAffectationOperation.calculateChSetting(getSettable(),_nodes, leftArg_, _advStandards, _context, _rendStack);
+            Argument arg_ = calculateChSetting(_nodes, leftArg_, _advStandards, _context, _rendStack);
             setSimpleArgument(arg_, _nodes, _context, _rendStack);
             return;
         }

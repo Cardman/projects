@@ -27,28 +27,8 @@ public final class RendAffectationOperation extends RendAbstractAffectOperation 
         }
         RendDynOperationNode right_ = getLastNode(this);
         Argument rightArg_ = getArgument(_nodes,right_);
-        Argument arg_ = calculateChSetting(getSettable(),_nodes, rightArg_, _advStandards, _context, _rendStack);
+        Argument arg_ = calculateChSetting(_nodes, rightArg_, _advStandards, _context, _rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 
-    static Argument calculateChSetting(RendDynOperationNode _set,
-                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall){
-        Argument arg_ = null;
-        if (_set instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
-        }
-        if (_set instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
-        }
-        if (_set instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
-        }
-        if (_set instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
-        }
-        if (_set instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
-        }
-        return Argument.getNullableValue(arg_);
-    }
 }

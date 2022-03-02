@@ -38,7 +38,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
                 setSimpleArgument(tow_, _conf, _nodes, _stack);
                 return;
             }
-            Argument arg_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes, _conf, tow_, _stack);
+            Argument arg_ = calculateChSetting(_nodes, _conf, tow_, _stack);
             pair_.setEndCalculate(true);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;

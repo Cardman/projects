@@ -37,7 +37,7 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
             return;
         }
         Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb(), _stack);
-        Argument set_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes,_conf,res_,_stack);
+        Argument set_ = calculateChSetting(_nodes,_conf,res_,_stack);
         pair_.setEndCalculate(true);
         setSimpleArgument(set_, _conf, _nodes, _stack);
     }

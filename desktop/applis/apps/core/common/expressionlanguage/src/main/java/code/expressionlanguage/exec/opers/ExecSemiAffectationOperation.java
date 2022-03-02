@@ -41,8 +41,7 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
 
     protected static void end(ExecAbstractAffectOperation _current,ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack, ImplicitMethods _impl, boolean _post) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,_current);
-        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, _current.getSettable());
-        Argument stored_ = Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
+        Argument stored_ = firstArg(_current,_nodes);
         int indexImplicit_ = pair_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(_impl,indexImplicit_)) {
             pair_.setIndexImplicitConv(ExecOperationNode.processConverter(_conf,_right, _impl,indexImplicit_, _stack));
@@ -50,7 +49,7 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
         }
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
-            ExecAffectationOperation.calculateChSetting( _current.getSettable(), _nodes, _conf,_right, _stack);
+            _current.calculateChSetting(_nodes, _conf,_right, _stack);
             Argument arg_ = ExecSemiAffectationOperation.getPrePost(_post, stored_, _right);
 //            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, _current.getSettable(), _post, _stack);
             _current.setSimpleArgument(arg_, _conf, _nodes, _stack);

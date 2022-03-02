@@ -31,7 +31,7 @@ public final class RendCompoundAffectationNatSafeOperation extends RendCompoundA
             return;
         }
         Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, getNames(), _context,_rendStack);
-        Argument arg_ = RendAffectationOperation.calculateChSetting(getSettable(),_nodes,res_,_advStandards,_context,_rendStack);
+        Argument arg_ = calculateChSetting(_nodes,res_,_advStandards,_context,_rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

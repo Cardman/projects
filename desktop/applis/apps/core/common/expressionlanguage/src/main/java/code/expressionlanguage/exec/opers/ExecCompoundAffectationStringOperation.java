@@ -25,7 +25,7 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         Argument res_ = ExecCatOperation.localSumDiff(leftArg_, rightArg_, _conf);
-        Argument arg_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes,_conf,res_,_stack);
+        Argument arg_ = calculateChSetting(_nodes,_conf,res_,_stack);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }

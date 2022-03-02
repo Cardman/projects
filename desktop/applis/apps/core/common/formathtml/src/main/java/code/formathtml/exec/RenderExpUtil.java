@@ -80,13 +80,12 @@ public final class RenderExpUtil {
     }
 
     public static RendDynOperationNode ancSettable(RendDynOperationNode _oper) {
-        RendDynOperationNode set_ = null;
+        RendDynOperationNode set_;
         RendMethodOperation par_ = _oper.getParent();
         if (par_ instanceof RendQuickOperation){
             set_ = par_.getFirstChild();
-        }
-        if (par_ instanceof RendCompoundAffectationOperation){
-            set_ = RendDynOperationNode.ancSettable((RendCompoundAffectationOperation) par_,_oper);
+        } else {
+            set_ = RendDynOperationNode.ancSettableInComp(_oper);
         }
         return set_;
     }

@@ -24,7 +24,7 @@ public final class RendCompoundAffectationStringOperation extends RendCompoundAf
         Argument leftArg_ = getArgument(_nodes,getFirstNode(this));
         Argument rightArg_ = getArgument(_nodes,getLastNode(this));
         Argument res_ = ExecCatOperation.localSumDiff(leftArg_, rightArg_, _context);
-        Argument arg_ = RendAffectationOperation.calculateChSetting(getSettable(),_nodes,res_,_advStandards,_context,_rendStack);
+        Argument arg_ = calculateChSetting(_nodes,res_,_advStandards,_context,_rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

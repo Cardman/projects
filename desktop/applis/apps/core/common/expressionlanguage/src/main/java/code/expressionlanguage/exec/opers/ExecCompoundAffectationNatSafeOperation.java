@@ -33,7 +33,7 @@ public final class ExecCompoundAffectationNatSafeOperation extends ExecCompoundA
             return;
         }
         Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getNames(), _stack);
-        Argument arg_ = ExecAffectationOperation.calculateChSetting(getSettable(),_nodes,_conf,res_,_stack);
+        Argument arg_ = calculateChSetting(_nodes,_conf,res_,_stack);
         pair_.setEndCalculate(true);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }

@@ -22,7 +22,7 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
     @Override
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument leftStore_ = getArgument(_nodes,getFirstNode(this));
-        Argument before_ = getArgumentBeforeImpl(_nodes, getSettable());
+        Argument before_ = firstArg(this,_nodes);
         if (getConverterTo() != null) {
             String tres_ = getConverterTo().get(0).getFct().getImportedParametersTypes().get(0);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
@@ -31,13 +31,13 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
             if (conv_ == null) {
                 return;
             }
-            RendAffectationOperation.calculateChSetting(getSettable(),_nodes, conv_, _advStandards, _context, _rendStack);
+            calculateChSetting(_nodes, conv_, _advStandards, _context, _rendStack);
             Argument arg_ =  getPrePost(isPost(),before_,conv_);
             setSimpleArgument(arg_, _nodes, _context, _rendStack);
             return;
         }
         Argument res_ = ExecNumericOperation.calculateIncrDecr(leftStore_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb());
-        RendAffectationOperation.calculateChSetting(getSettable(),_nodes,res_,_advStandards,_context,_rendStack);
+        calculateChSetting(_nodes,res_,_advStandards,_context,_rendStack);
         Argument arg_ = getPrePost(isPost(), before_, res_);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }

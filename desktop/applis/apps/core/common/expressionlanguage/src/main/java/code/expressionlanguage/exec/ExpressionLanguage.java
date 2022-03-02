@@ -161,13 +161,12 @@ public final class ExpressionLanguage {
     }
 
     public static ExecOperationNode ancSettable(ExecOperationNode _oper) {
-        ExecOperationNode set_ = null;
+        ExecOperationNode set_;
         ExecMethodOperation par_ = _oper.getParent();
         if (par_ instanceof ExecQuickOperation){
             set_ = par_.getFirstChild();
-        }
-        if (par_ instanceof ExecCompoundAffectationOperation){
-            set_ = ExecOperationNode.ancSettable((ExecCompoundAffectationOperation) par_,_oper);
+        } else {
+            set_ = ExecOperationNode.ancSettableInComp(_oper);
         }
         return set_;
     }

@@ -46,6 +46,30 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
 
     protected abstract void calculateAffect(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                             ContextEl _conf, StackCall _stack);
+    Argument calculateChSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall) {
+        return calculateChSetting(getSettable(),_nodes,_conf,_right,_stackCall);
+    }
+    static Argument calculateChSetting(ExecOperationNode _set,
+                                       IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall){
+        Argument arg_ = null;
+        if (_set instanceof ExecStdRefVariableOperation) {
+            arg_ = ((ExecStdRefVariableOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
+        }
+        if (_set instanceof ExecSettableFieldOperation) {
+            arg_ = ((ExecSettableFieldOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
+        }
+        if (_set instanceof ExecCustArrOperation) {
+            arg_ = ((ExecCustArrOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
+        }
+        if (_set instanceof ExecArrOperation) {
+            arg_ = ((ExecArrOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
+        }
+        if (_set instanceof ExecSettableCallFctOperation) {
+            arg_ = ((ExecSettableCallFctOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
+        }
+        return Argument.getNullableValue(arg_);
+    }
+
     private static ExecOperationNode tryGetSettable(ExecAbstractAffectOperation _operation) {
         ExecOperationNode root_ = getFirstCastToBeAnalyzed(_operation);
         ExecOperationNode elt_;
@@ -106,6 +130,11 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
             root_ = root_.getFirstChild();
         }
         return root_;
+    }
+
+    protected static Argument firstArg(ExecAbstractAffectOperation _current, IdMap<ExecOperationNode, ArgumentsPair> _nodes) {
+        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, _current.getSettable());
+        return Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
     }
     protected StringList getNames() {
         return names;

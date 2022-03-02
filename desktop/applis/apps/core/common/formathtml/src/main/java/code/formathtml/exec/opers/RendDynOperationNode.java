@@ -128,9 +128,7 @@ public abstract class RendDynOperationNode {
     protected static Argument getArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgument());
     }
-    protected static Argument getArgumentBeforeImpl(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
-        return Argument.getNullableValue(getArgumentPair(_nodes,_node).getArgumentBeforeImpl());
-    }
+
     protected static Argument getPreviousArgument(IdMap<RendDynOperationNode,ArgumentsPair> _nodes, RendDynOperationNode _node) {
         return Argument.getNullableValue(_nodes.getValue(_node.getOrder()).getPreviousArgument());
     }
@@ -143,7 +141,7 @@ public abstract class RendDynOperationNode {
         RendMethodOperation par_ = _operation.getParent();
         if (par_ instanceof RendCompoundAffectationOperation) {
             RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-            if (ancSettable(p_,_operation) != null && ExecOperationNode.shEq(_value, p_)) {
+            if (ancSettableInComp(_operation) != null && ExecOperationNode.shEq(_value, p_)) {
                 return par_.getOrder();
             }
         }
@@ -170,7 +168,14 @@ public abstract class RendDynOperationNode {
         return _operation.getOrder() + 1;
     }
 
-    public static RendDynOperationNode ancSettable(RendAbstractAffectOperation _compo, RendDynOperationNode _operation) {
+    public static RendDynOperationNode ancSettableInComp(RendDynOperationNode _operation) {
+        RendMethodOperation par_ = _operation.getParent();
+        if (!(par_ instanceof RendCompoundAffectationOperation)) {
+            return null;
+        }
+        return ancSettable((RendAbstractAffectOperation) par_,_operation);
+    }
+    private static RendDynOperationNode ancSettable(RendAbstractAffectOperation _compo, RendDynOperationNode _operation) {
         RendDynOperationNode cur_ = _compo.getSettable();
         while (cur_ != null) {
             if (cur_ == _operation) {

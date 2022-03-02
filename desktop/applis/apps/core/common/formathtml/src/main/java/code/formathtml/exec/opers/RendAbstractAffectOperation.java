@@ -33,6 +33,31 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
     }
 
     protected abstract void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
+
+    Argument calculateChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
+        return calculateChSetting(getSettable(),_nodes,_right,_advStandards,_context,_rendStackCall);
+    }
+    static Argument calculateChSetting(RendDynOperationNode _set,
+                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall){
+        Argument arg_ = null;
+        if (_set instanceof RendStdRefVariableOperation) {
+            arg_ = ((RendStdRefVariableOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+        }
+        if (_set instanceof RendSettableFieldOperation) {
+            arg_ = ((RendSettableFieldOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+        }
+        if (_set instanceof RendCustArrOperation) {
+            arg_ = ((RendCustArrOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+        }
+        if (_set instanceof RendArrOperation) {
+            arg_ = ((RendArrOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+        }
+        if (_set instanceof RendSettableCallFctOperation) {
+            arg_ = ((RendSettableCallFctOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+        }
+        return Argument.getNullableValue(arg_);
+    }
+
     public void setup() {
         settable = tryGetSettable(this);
         settableParent = tryGetSettableParent(this);
@@ -108,6 +133,10 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         return elt_;
     }
 
+    protected static Argument firstArg(RendAbstractAffectOperation _current, IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
+        ArgumentsPair pairSet_ = getArgumentPair(_nodes, _current.getSettable());
+        return Argument.getNullableValue(pairSet_.getArgumentBeforeImpl());
+    }
     protected StringList getNames() {
         return names;
     }

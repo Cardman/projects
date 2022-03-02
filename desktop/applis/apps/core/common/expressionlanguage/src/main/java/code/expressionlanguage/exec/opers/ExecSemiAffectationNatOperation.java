@@ -33,9 +33,8 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
         }
         Argument leftArg_ = getArgument(_nodes,getFirstChild());
         Argument res_ = ExecNumericOperation.calculateIncrDecr(leftArg_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb());
-        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, getSettable());
-        Argument before_ = pairSet_.getArgumentBeforeImpl();
-        ExecAffectationOperation.calculateChSetting(getSettable(), _nodes, _conf,res_, _stack);
+        Argument before_ = firstArg(this,_nodes);
+        calculateChSetting(_nodes, _conf,res_, _stack);
         Argument arg_ = getPrePost(isPost(), before_, res_);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         pair_.setEndCalculate(true);

@@ -158,7 +158,7 @@ public abstract class ExecOperationNode {
         ExecMethodOperation par_ = _operation.getParent();
         if (par_ instanceof ExecCompoundAffectationOperation) {
             ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
-            if (ancSettable(p_,_operation) != null&&shEq(_value, p_)) {
+            if (ancSettableInComp(_operation) != null&&shEq(_value, p_)) {
                 return par_.getOrder();
             }
         }
@@ -189,7 +189,14 @@ public abstract class ExecOperationNode {
         return _index == 0 && safeDotShort(_value, _inst);
     }
 
-    public static ExecOperationNode ancSettable(ExecAbstractAffectOperation _compo, ExecOperationNode _operation) {
+    public static ExecOperationNode ancSettableInComp(ExecOperationNode _operation) {
+        ExecMethodOperation par_ = _operation.getParent();
+        if (!(par_ instanceof ExecCompoundAffectationOperation)) {
+            return null;
+        }
+        return ancSettable((ExecAbstractAffectOperation) par_,_operation);
+    }
+    private static ExecOperationNode ancSettable(ExecAbstractAffectOperation _compo, ExecOperationNode _operation) {
         ExecOperationNode cur_ = _compo.getSettable();
         while (cur_ != null) {
             if (cur_ == _operation) {

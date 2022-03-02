@@ -28,7 +28,7 @@ public final class RendSemiAffectationCustOperation extends RendSemiAffectationO
 
     @Override
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        Argument stored_ = getArgumentBeforeImpl(_nodes,getSettable());
+        Argument stored_ = firstArg(this,_nodes);
         checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, getStaticPostEltContent().getKind(), _rendStack);
         Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
         if (getConverterTo() != null) {
@@ -38,7 +38,7 @@ public final class RendSemiAffectationCustOperation extends RendSemiAffectationO
             }
             res_ = conv_;
         }
-        RendAffectationOperation.calculateChSetting(getSettable(),_nodes, res_, _advStandards, _context, _rendStack);
+        calculateChSetting(_nodes, res_, _advStandards, _context, _rendStack);
         res_ = RendSemiAffectationOperation.getPrePost(isPost(),stored_,res_);
 //        res_ = endCalculate(_nodes, stored_, res_, _advStandards, _context, _rendStack, isPost());
         setSimpleArgument(res_, _nodes, _context, _rendStack);
