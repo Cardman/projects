@@ -353,7 +353,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     _page.getLocalizer().addError(cast_);
                     addErr(cast_.getBuiltError());
                 }
-                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(left_, _page), _page.getPrimitiveTypes()));
+                setResultClass(AnaClassArgumentMatching.copy(left_, _page.getPrimitiveTypes()));
             } else {
                 Mapping map_ = new Mapping();
                 map_.setArg(getResultClass());
@@ -373,7 +373,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                         _page.getLocalizer().addError(cast_);
                         addErr(cast_.getBuiltError());
                     }
-                    setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(left_, _page), _page.getPrimitiveTypes()));
+                    setResultClass(AnaClassArgumentMatching.copy(left_, _page.getPrimitiveTypes()));
                 }
             }
             return;
