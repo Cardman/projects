@@ -5,13 +5,11 @@ import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.formathtml.analyze.AnalyzingDoc;
 
 public final class InternGlobalNatOperation extends LeafNatOperation {
-    private final int off;
     private final AnalyzingDoc analyzingDoc;
 
     public InternGlobalNatOperation(int _indexInEl, int _indexChild,
                                     MethodNatOperation _m, NatOperationsSequence _op, AnalyzingDoc _analyzingDoc) {
         super(_indexInEl, _indexChild, _m, _op);
-        off = _op.getOffset();
         analyzingDoc = _analyzingDoc;
     }
 
@@ -21,7 +19,4 @@ public final class InternGlobalNatOperation extends LeafNatOperation {
         setResultClass(arg_);
     }
 
-    public int getOff() {
-        return off;
-    }
 }

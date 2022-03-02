@@ -329,7 +329,7 @@ public final class NatRendForwardInfos {
     private static RendDynOperationNode createNatOperationNode(NatOperationNode _anaNode) {
         if (_anaNode instanceof InternGlobalNatOperation) {
             InternGlobalNatOperation m_ = (InternGlobalNatOperation) _anaNode;
-            return new RendInternGlobalOperation(new ExecOperationContent(m_.getContent()), m_.getOff());
+            return new NatInternGlobalOperation(new ExecOperationContent(m_.getContent()));
         }
         return procOperand6(_anaNode);
     }
@@ -387,7 +387,7 @@ public final class NatRendForwardInfos {
     private static RendDynOperationNode procGeneOperators(NatOperationNode _anaNode) {
         if (_anaNode instanceof UnaryBooleanNatOperation) {
             UnaryBooleanNatOperation m_ = (UnaryBooleanNatOperation) _anaNode;
-            return new RendUnaryBooleanOperation(new ExecOperationContent(m_.getContent()));
+            return new NatUnaryBooleanOperation(new ExecOperationContent(m_.getContent()));
         }
         AffectationNatOperation a_ = (AffectationNatOperation) _anaNode;
         return new NatAffectationOperation(new ExecOperationContent(a_.getContent()));
