@@ -12,10 +12,6 @@ public abstract class RendQuickOperation extends RendMethodOperation {
         absorbingValue = BooleanStruct.of(_absorbingValue);
     }
 
-    public Struct getAbsorbingValue() {
-        return absorbingValue;
-    }
-
     public boolean match(Struct _struct){
         return absorbingValue.sameReference(_struct);
     }

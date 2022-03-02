@@ -5,12 +5,13 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.opers.*;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.*;
+import code.util.IdMap;
 
 public final class RenderExpUtil {
     private RenderExpUtil() {
@@ -65,29 +66,62 @@ public final class RenderExpUtil {
         }
         Argument res_ = Argument.getNullableValue(_pair.getArgument());
         Struct st_ = res_.getStruct();
-        RendDynOperationNode set_ = ancSettable(_o);
-        if (set_ == _o &&_pair.isArgumentTest()){
+        if (isAncSettable(_o) &&_pair.isArgumentTest()){
             RendMethodOperation par_ = _o.getParent();
-            if (par_ instanceof RendQuickOperation){
-                st_ = ((RendQuickOperation)par_).getAbsorbingValue();
-            }
-            if (par_ instanceof RendCompoundAffectationOperation){
-                RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation) par_;
-                st_ = ExpressionLanguage.absCompound(p_,st_);
-            }
+            return par_.getOrder();
         }
-        return RendDynOperationNode.getNextIndex(_o, st_);
+        return getNextIndex(_o, st_);
     }
-
-    public static RendDynOperationNode ancSettable(RendDynOperationNode _oper) {
-        RendDynOperationNode set_;
+    private static boolean isAncSettable(RendDynOperationNode _oper) {
         RendMethodOperation par_ = _oper.getParent();
         if (par_ instanceof RendQuickOperation){
-            set_ = par_.getFirstChild();
-        } else {
-            set_ = RendDynOperationNode.ancSettableInComp(_oper);
+            return par_.getFirstChild() == _oper;
         }
-        return set_;
+        return par_ instanceof RendCompoundAffectationOperation && _oper == ((RendAbstractAffectOperation) par_).getSettableAnc();
     }
 
+    private static int getNextIndex(RendDynOperationNode _operation, Struct _value) {
+        int index_ = _operation.getIndexChild();
+        RendMethodOperation par_ = _operation.getParent();
+        if (par_ instanceof RendCompoundAffectationNatSafeOperation && isAncSettable(_operation) && _value != NullStruct.NULL_VALUE) {
+            return par_.getOrder();
+        }
+        if (ExpressionLanguage.safeDotShort(_value,index_,par_ instanceof RendSafeDotOperation)) {
+            RendDynOperationNode last_ = par_.getChildrenNodes().last();
+            if (!(last_ instanceof RendAbstractLambdaOperation)) {
+                return shortCutNul(par_, last_, par_.getOrder());
+            }
+        }
+        if (nulSafeShort(_value, par_)) {
+            return par_.getOrder();
+        }
+        if (par_ instanceof RendRefTernaryOperation) {
+            if (index_ == 1) {
+                return par_.getOrder();
+            }
+            if (index_ == 0 && BooleanStruct.isFalse(_value)) {
+                return RendDynOperationNode.getOrder(_operation.getNextSibling()) + 1;
+            }
+        }
+        return _operation.getOrder() + 1;
+    }
+
+    private static boolean nulSafeShort(Struct _value, RendMethodOperation _par) {
+        return _par instanceof RendNullSafeOperation && _value != NullStruct.NULL_VALUE;
+    }
+
+    private static int shortCutNul(RendMethodOperation _par, RendDynOperationNode _last, int _order) {
+        RendMethodOperation p_ = _par;
+        while (p_ != null) {
+            RendDynOperationNode set_ = null;
+            if (p_ instanceof RendAbstractAffectOperation) {
+                set_ = ((RendAbstractAffectOperation) p_).getSettable();
+            }
+            if (set_ == _last) {
+                return p_.getOrder();
+            }
+            p_ = p_.getParent();
+        }
+        return _order;
+    }
 }

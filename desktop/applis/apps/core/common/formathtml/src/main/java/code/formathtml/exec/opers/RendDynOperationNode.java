@@ -25,7 +25,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendNativeFct;
 import code.formathtml.exec.RendStackCall;
@@ -135,77 +134,6 @@ public abstract class RendDynOperationNode {
 
     public final RendMethodOperation getParent() {
         return parent;
-    }
-    public static int getNextIndex(RendDynOperationNode _operation, Struct _value) {
-        int index_ = _operation.getIndexChild();
-        RendMethodOperation par_ = _operation.getParent();
-        if (par_ instanceof RendCompoundAffectationOperation) {
-            RendCompoundAffectationOperation p_ = (RendCompoundAffectationOperation)par_;
-            if (ancSettableInComp(_operation) != null && ExecOperationNode.shEq(_value, p_)) {
-                return par_.getOrder();
-            }
-        }
-        if (ExecOperationNode.safeDotShort(_value,index_,par_ instanceof RendSafeDotOperation)) {
-            RendDynOperationNode last_ = par_.getChildrenNodes().last();
-            if (!(last_ instanceof RendAbstractLambdaOperation)) {
-                return shortCutNul(par_, last_, par_.getOrder());
-            }
-        }
-        if (nulSafeShort(_value, par_)) {
-            return par_.getOrder();
-        }
-        if (valueShort(_value, par_)) {
-            return par_.getOrder();
-        }
-        if (par_ instanceof RendRefTernaryOperation) {
-            if (index_ == 1) {
-                return par_.getOrder();
-            }
-            if (index_ == 0 && BooleanStruct.isFalse(_value)) {
-                return getOrder(_operation.getNextSibling()) + 1;
-            }
-        }
-        return _operation.getOrder() + 1;
-    }
-
-    public static RendDynOperationNode ancSettableInComp(RendDynOperationNode _operation) {
-        RendMethodOperation par_ = _operation.getParent();
-        if (!(par_ instanceof RendCompoundAffectationOperation)) {
-            return null;
-        }
-        return ancSettable((RendAbstractAffectOperation) par_,_operation);
-    }
-    private static RendDynOperationNode ancSettable(RendAbstractAffectOperation _compo, RendDynOperationNode _operation) {
-        RendDynOperationNode cur_ = _compo.getSettable();
-        while (cur_ != null) {
-            if (cur_ == _operation) {
-                return cur_;
-            }
-            cur_ = cur_.getParent();
-        }
-        return null;
-    }
-    private static boolean valueShort(Struct _value, RendMethodOperation _par) {
-        return _par instanceof RendQuickOperation && ((RendQuickOperation) _par).match(_value);
-    }
-
-    private static boolean nulSafeShort(Struct _value, RendMethodOperation _par) {
-        return _par instanceof RendNullSafeOperation && _value != NullStruct.NULL_VALUE;
-    }
-
-    private static int shortCutNul(RendMethodOperation _par, RendDynOperationNode _last, int _order) {
-        RendMethodOperation p_ = _par;
-        while (p_ != null) {
-            RendDynOperationNode set_ = null;
-            if (p_ instanceof RendAbstractAffectOperation) {
-                set_ = ((RendAbstractAffectOperation) p_).getSettable();
-            }
-            if (set_ == _last) {
-                return p_.getOrder();
-            }
-            p_ = p_.getParent();
-        }
-        return _order;
     }
 
     public final int getOrder() {

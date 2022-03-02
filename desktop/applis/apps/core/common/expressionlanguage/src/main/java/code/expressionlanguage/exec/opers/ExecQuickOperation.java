@@ -39,9 +39,6 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         }
         setSimpleArgument(_right,_conf,_nodes, _stack);
     }
-    public Struct getAbsorbingValue() {
-        return absorbingValue;
-    }
 
     public boolean match(Struct _struct){
         return absorbingValue.sameReference(_struct);

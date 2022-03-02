@@ -553,10 +553,9 @@ public final class Coverage {
         return matchBl_;
     }
     private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
-        ExecOperationNode settable_ = ExpressionLanguage.ancSettable(_oper);
         Argument res_ = Argument.getNullableValue(_v.getArgument());
         Struct v_ = res_.getStruct();
-        if (settable_ != _oper || _ana.getResultClass().getImplicitsTest().isEmpty()) {
+        if (!ExpressionLanguage.isAncSettable(_oper) || _ana.getResultClass().getImplicitsTest().isEmpty()) {
             return v_;
         }
         ExecMethodOperation par_ = _oper.getParent();

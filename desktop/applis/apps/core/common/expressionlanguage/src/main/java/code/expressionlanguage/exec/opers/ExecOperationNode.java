@@ -20,7 +20,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -153,113 +152,13 @@ public abstract class ExecOperationNode {
     public final ExecMethodOperation getParent() {
         return parent;
     }
-    public static int getNextIndex(ExecOperationNode _operation, Struct _value) {
-        int index_ = _operation.getIndexChild();
-        ExecMethodOperation par_ = _operation.getParent();
-        if (par_ instanceof ExecCompoundAffectationOperation) {
-            ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation)par_;
-            if (ancSettableInComp(_operation) != null&&shEq(_value, p_)) {
-                return par_.getOrder();
-            }
-        }
-        if (safeDotShort(_value, index_, par_ instanceof ExecSafeDotOperation)) {
-            ExecOperationNode last_ = ExecHelper.getLastNode(par_);
-            if (!(last_ instanceof ExecAbstractLambdaOperation)) {
-                return shortCutNul(par_, last_, par_.getOrder());
-            }
-        }
-        if (nulSafeShort(_value, par_)) {
-            return par_.getOrder();
-        }
-        if (valueShort(_value, par_)) {
-            return par_.getOrder();
-        }
-        if (par_ instanceof ExecRefTernaryOperation) {
-            if (index_ == 1) {
-                return par_.getOrder();
-            }
-            if (index_ == 0 && BooleanStruct.isFalse(_value)) {
-                return ExecHelper.getOrder(_operation.getNextSibling()) + 1;
-            }
-        }
-        return _operation.getOrder() + 1;
-    }
-
-    public static boolean safeDotShort(Struct _value, int _index, boolean _inst) {
-        return _index == 0 && safeDotShort(_value, _inst);
-    }
-
-    public static ExecOperationNode ancSettableInComp(ExecOperationNode _operation) {
-        ExecMethodOperation par_ = _operation.getParent();
-        if (!(par_ instanceof ExecCompoundAffectationOperation)) {
-            return null;
-        }
-        return ancSettable((ExecAbstractAffectOperation) par_,_operation);
-    }
-    private static ExecOperationNode ancSettable(ExecAbstractAffectOperation _compo, ExecOperationNode _operation) {
-        ExecOperationNode cur_ = _compo.getSettable();
-        while (cur_ != null) {
-            if (cur_ == _operation) {
-                return cur_;
-            }
-            cur_ = cur_.getParent();
-        }
-        return null;
-    }
-
-    private static boolean valueShort(Struct _value, ExecMethodOperation _par) {
-        return _par instanceof ExecQuickOperation && ((ExecQuickOperation) _par).match(_value);
-    }
-
-    private static boolean nulSafeShort(Struct _value, ExecMethodOperation _par) {
-        return _par instanceof ExecNullSafeOperation && _value != NullStruct.NULL_VALUE;
-    }
-
-    private static boolean safeDotShort(Struct _value, boolean _inst) {
-        return _inst && _value == NullStruct.NULL_VALUE;
-    }
-
-    private static int shortCutNul(ExecMethodOperation _par, ExecOperationNode _last, int _order) {
-        ExecMethodOperation p_ = _par;
-        while (p_ != null) {
-            ExecOperationNode set_ = null;
-            if (p_ instanceof ExecAbstractAffectOperation) {
-                set_ = ((ExecAbstractAffectOperation) p_).getSettable();
-            }
-            if (set_ == _last) {
-                return p_.getOrder();
-            }
-            p_ = p_.getParent();
-        }
-        return _order;
-    }
-
-    public static boolean shEq(Struct _value, CompoundedOperator _p) {
-        return nullEq(_value, _p) || andEq(_value, _p) || orEq(_value, _p);
-    }
-
-    private static boolean orEq(Struct _value, CompoundedOperator _p) {
-        return orEq(_p) && BooleanStruct.isTrue(_value);
-    }
 
     public static boolean orEq(CompoundedOperator _p) {
         return shortEq(_p, AbsBk.OR_LOG_EQ, AbsBk.OR_LOG_EQ_SHORT);
     }
 
-    private static boolean andEq(Struct _value, CompoundedOperator _p) {
-        return andEq(_p) && BooleanStruct.isFalse(_value);
-    }
-
     public static boolean andEq(CompoundedOperator _p) {
         return shortEq(_p, AbsBk.AND_LOG_EQ, AbsBk.AND_LOG_EQ_SHORT);
-    }
-
-    private static boolean nullEq(Struct _value, CompoundedOperator _par) {
-        return nullEq(_par) && _value != NullStruct.NULL_VALUE;
-    }
-
-    private static boolean nullEq(CompoundedOperator _par) {
-        return shortEq(_par, AbsBk.NULL_EQ, AbsBk.NULL_EQ_SHORT);
     }
 
     private static boolean shortEq(CompoundedOperator _compound, String _slow, String _quick) {

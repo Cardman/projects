@@ -9,6 +9,7 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -146,40 +147,74 @@ public final class ExpressionLanguage {
         ArgumentsPair value_ = ExecHelper.getArgumentPair(_args,_oper);
         Argument res_ = Argument.getNullableValue(value_.getArgument());
         Struct v_ = res_.getStruct();
-        ExecOperationNode set_ = ancSettable(_oper);
         ExecMethodOperation par_ = _oper.getParent();
-        if (set_ == _oper &&value_.isArgumentTest()){
-            if (par_ instanceof ExecQuickOperation){
-                v_ = ((ExecQuickOperation) par_).getAbsorbingValue();
-            }
-            if (par_ instanceof ExecCompoundAffectationOperation){
-                ExecCompoundAffectationOperation p_ = (ExecCompoundAffectationOperation) par_;
-                v_ = absCompound(p_,v_);
-            }
+        if (isAncSettable(_oper) &&value_.isArgumentTest()){
+            return Math.max(_least,par_.getOrder());
         }
-        return Math.max(_least, ExecOperationNode.getNextIndex(_oper, v_));
+        return Math.max(_least, getNextIndex(_oper, v_));
     }
 
-    public static ExecOperationNode ancSettable(ExecOperationNode _oper) {
-        ExecOperationNode set_;
+    public static boolean isAncSettable(ExecOperationNode _oper) {
         ExecMethodOperation par_ = _oper.getParent();
         if (par_ instanceof ExecQuickOperation){
-            set_ = par_.getFirstChild();
-        } else {
-            set_ = ExecOperationNode.ancSettableInComp(_oper);
+            return par_.getFirstChild() == _oper;
         }
-        return set_;
+        return par_ instanceof ExecCompoundAffectationOperation && _oper == ((ExecAbstractAffectOperation) par_).getSettableAnc();
     }
-    public static Struct absCompound(CompoundedOperator _comp,Struct _def) {
-        Struct v_ = _def;
-        if (ExecOperationNode.andEq(_comp)) {
-            v_ = BooleanStruct.of(false);
+
+    private static int getNextIndex(ExecOperationNode _operation, Struct _value) {
+        int index_ = _operation.getIndexChild();
+        ExecMethodOperation par_ = _operation.getParent();
+        if (par_ instanceof ExecCompoundAffectationNatSafeOperation && isAncSettable(_operation) && _value != NullStruct.NULL_VALUE) {
+            return par_.getOrder();
         }
-        if (ExecOperationNode.orEq(_comp)) {
-            v_ = BooleanStruct.of(true);
+        if (safeDotShort(_value, index_, par_ instanceof ExecSafeDotOperation)) {
+            ExecOperationNode last_ = ExecHelper.getLastNode(par_);
+            if (!(last_ instanceof ExecAbstractLambdaOperation)) {
+                return shortCutNul(par_, last_, par_.getOrder());
+            }
         }
-        return v_;
+        if (nulSafeShort(_value, par_)) {
+            return par_.getOrder();
+        }
+        if (par_ instanceof ExecRefTernaryOperation) {
+            if (index_ == 1) {
+                return par_.getOrder();
+            }
+            if (index_ == 0 && BooleanStruct.isFalse(_value)) {
+                return ExecHelper.getOrder(_operation.getNextSibling()) + 1;
+            }
+        }
+        return _operation.getOrder() + 1;
     }
+
+    public static boolean safeDotShort(Struct _value, int _index, boolean _inst) {
+        return _index == 0 && safeDotShort(_value, _inst);
+    }
+
+    private static boolean nulSafeShort(Struct _value, ExecMethodOperation _par) {
+        return _par instanceof ExecNullSafeOperation && _value != NullStruct.NULL_VALUE;
+    }
+
+    private static boolean safeDotShort(Struct _value, boolean _inst) {
+        return _inst && _value == NullStruct.NULL_VALUE;
+    }
+
+    private static int shortCutNul(ExecMethodOperation _par, ExecOperationNode _last, int _order) {
+        ExecMethodOperation p_ = _par;
+        while (p_ != null) {
+            ExecOperationNode set_ = null;
+            if (p_ instanceof ExecAbstractAffectOperation) {
+                set_ = ((ExecAbstractAffectOperation) p_).getSettable();
+            }
+            if (set_ == _last) {
+                return p_.getOrder();
+            }
+            p_ = p_.getParent();
+        }
+        return _order;
+    }
+
     public IdMap<ExecOperationNode, ArgumentsPair> getArguments() {
         return arguments;
     }
