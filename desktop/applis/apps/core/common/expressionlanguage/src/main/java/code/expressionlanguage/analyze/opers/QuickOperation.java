@@ -85,7 +85,7 @@ public abstract class QuickOperation extends MethodOperation {
                     errFirst.add(cast_.getBuiltError());
                     okNum = false;
                 }
-                setResultClass(AnaClassArgumentMatching.copy(AnaTypeUtil.toPrimitive(leftRes_, _page), _page.getPrimitiveTypes()));
+                setResultClass(AnaClassArgumentMatching.copy(leftRes_, _page.getPrimitiveTypes()));
             }
             return;
         }
