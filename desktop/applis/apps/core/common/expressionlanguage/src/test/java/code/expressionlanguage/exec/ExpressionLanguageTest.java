@@ -1,8 +1,14 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.exec.blocks.ExecFieldBlock;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -10,10 +16,19 @@ import code.expressionlanguage.exec.calls.CommonMethodPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.VariableWrapper;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 public final class ExpressionLanguageTest extends ProcessMethodCommon {
@@ -6677,9 +6692,28 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     private static ContextEl contextEl(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxAna();
-        ContextEl ctx_ = validateAll(_files, cont_);
-        assertTrue(isEmptyErrors(cont_));
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        ContextEl ctx_ = validateAll(_files, page_,forwards_);
+        assertTrue(isEmptyErrors(page_));
         return ctx_;
     }
 }

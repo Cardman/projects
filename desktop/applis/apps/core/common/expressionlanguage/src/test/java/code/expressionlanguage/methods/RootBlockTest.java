@@ -1,19 +1,32 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.AnalyzedTestContext;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.types.OverridingMethodDto;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.analyze.util.TypeVar;
-import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
 import code.util.*;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -30,8 +43,8 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
-        assertFalse(OverridesTypeUtil.onlyOneElt(new IdList<RootBlock>(cont_.getAnalyzing().getAnaClassBody("pkg.Ex"),cont_.getAnalyzing().getAnaClassBody("pkg.ExTwo"))));
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
+        assertFalse(OverridesTypeUtil.onlyOneElt(new IdList<RootBlock>(cont_.getAnaClassBody("pkg.Ex"),cont_.getAnaClassBody("pkg.ExTwo"))));
     }
     @Test
     public void getAllGenericSuperTypes1Test() {
@@ -43,7 +56,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringList superTypes_ = getAllGenericSuperTypes(cont_, "pkg.ExTwo");
         assertEq(1, superTypes_.size());
         assertEq("pkg.Ex<#T>", superTypes_.first());
@@ -62,7 +75,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree<S> :pkg.ExTwo<S>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringList superTypes_ = getAllGenericSuperTypes(cont_, "pkg.ExThree");
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<#S>", superTypes_.first());
@@ -82,7 +95,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExThree :pkg.ExTwo<java.lang.String>{}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringList superTypes_ = getAllGenericSuperTypes(cont_, "pkg.ExThree");
         assertEq(2, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
@@ -105,7 +118,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExFour :pkg.ExTwo<java.lang.String>:pkg.ExThree<java.lang.String>{}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         StringList superTypes_ = getAllGenericSuperTypes(cont_, "pkg.ExFour");
         assertEq(3, superTypes_.size());
         assertEq("pkg.ExTwo<java.lang.String>", superTypes_.first());
@@ -113,14 +126,6 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq("pkg.Ex<java.lang.String>", superTypes_.last());
     }
 
-    public static StringList getAllGenericSuperTypes(AnalyzedTestContext _cont, String _className) {
-        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(_cont, _className).fetchAllGenericSuperTypes();
-        StringList l_ = new StringList();
-        for (AnaFormattedRootBlock a: allGenericSuperTypes_) {
-            l_.add(a.getFormatted());
-        }
-        return l_;
-    }
 
     @Test
     public void getAllGenericSuperTypes5Test() {
@@ -138,11 +143,30 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExFour :pkg.ExTwo<java.lang.Number>:pkg.ExThree<java.lang.String>{}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        AnalyzedTestContext cont_ = ctxAna();
-        parseCustomFiles(files_, cont_);
-        assertTrue( isEmptyErrors(cont_));
-        validateInheritingClasses(cont_);
-        assertTrue( !isEmptyErrors(cont_));
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(files_, page_);
+        assertTrue( isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        assertTrue( !isEmptyErrors(page_));
     }
 
 
@@ -162,7 +186,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -193,14 +217,6 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints());
     }
 
-    private static CustList<OverridingMethodDto> getAllOverridingMethods(AnalyzedTestContext _cont, String _className) {
-        CustList<OverridingMethodDto> out_ = new CustList<OverridingMethodDto>();
-        for (OverridingMethodDto o: getClassBody(_cont, _className).getAllOverridingMethods()) {
-            out_.add(o);
-        }
-        return out_;
-    }
-
     @Test
     public void test1() {
         StringMap<String> files_ = new StringMap<String>();
@@ -215,7 +231,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(0, map_.size());
@@ -258,7 +274,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -289,7 +305,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -319,7 +335,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -349,7 +365,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -385,7 +401,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -441,7 +457,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -480,9 +496,9 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int2", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
-        CustList<TypeVar> types_ = cont_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
+        CustList<TypeVar> types_ = cont_.getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(2, types_.first().getConstraints().size());
@@ -506,7 +522,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -536,7 +552,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -570,7 +586,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExThree<T> :pkg.ExTwo<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -621,14 +637,6 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertEq(resId_, res_.getConstraints());
     }
 
-    private static RootBlock getClassBody(AnalyzedTestContext _cont, String _className) {
-        for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
-            if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
-                return r;
-            }
-        }
-        return null;
-    }
 
     @Test
     public void test12() {
@@ -678,7 +686,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -732,7 +740,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkgtwo/ExThree", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkgtwo.ExThree");
         assertEq(1, map_.size());
@@ -769,7 +777,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         StringList superTypes_;
@@ -825,7 +833,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -874,7 +882,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Int", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -906,7 +914,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(0, map_.size());
@@ -951,7 +959,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>:pkg.ExThree<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -1014,7 +1022,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.ExThree<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -1081,7 +1089,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>:pkg.ExThree<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -1144,7 +1152,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :pkg.Ex<T>:pkg.ExThree<T>{\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExTwo");
         assertEq(1, map_.size());
@@ -1188,17 +1196,6 @@ public final class RootBlockTest extends ProcessMethodCommon {
         resId_ = new MethodId(MethodAccessKind.INSTANCE,"instancemethod", new StringList("#S"));
         assertEq("pkg.ExThree", res_.getClassName());
         assertEq(resId_, res_.getConstraints());
-    }
-
-    private static StringMap<ClassMethodId> getConcreteMethodsToCall(AnalyzedTestContext _cont, MethodId _id, RootBlock _r) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(page_.getAnaClassBody(_r.getFullName()), _id, page_);
-        StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
-        for (EntryCust<String,GeneStringOverridable> e: conc_.entryList()) {
-            GeneStringOverridable value_ = e.getValue();
-            tr_.addEntry(e.getKey(),new ClassMethodId(StringExpUtil.getIdFromAllTypes(value_.getGeneString()),value_.getBlock().getId()));
-        }
-        return tr_;
     }
 
     @Test
@@ -1251,7 +1248,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExFour", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         checkOverrides(cont_);
         CustList<OverridingMethodDto> map_ = getAllOverridingMethods(cont_, "pkg.ExFour");
         assertEq(1, map_.size());
@@ -1744,17 +1741,36 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertTrue(hasErr(files_));
     }
 
-    private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxAna();
-        parseCustomFiles(_files, cont_);
-        assertTrue( isEmptyErrors(cont_));
-        validateInheritingClasses(cont_);
-        assertTrue( isEmptyErrors(cont_));
-        return cont_;
+    private static AnalyzedPageEl unfullValidateOverridingMethods(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue( isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        assertTrue( isEmptyErrors(page_));
+        return page_;
     }
 
 
-    private static void checkOverrides(AnalyzedTestContext _cont) {
+    private static void checkOverrides(AnalyzedPageEl _cont) {
         validateIds(_cont);
         assertTrue( isEmptyErrors(_cont));
         validateOverridingInherit(_cont);
@@ -1766,16 +1782,35 @@ public final class RootBlockTest extends ProcessMethodCommon {
     }
 
     private static boolean checkErrorsValue(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(_files);
-        return checkErrorsValue(cont_);
-    }
-
-    private static boolean checkErrorsValue(AnalyzedTestContext _cont) {
-        validateIds(_cont);
-        assertTrue( isEmptyErrors(_cont));
-        validateOverridingInherit(_cont);
-        postValidation(_cont);
-        return !isEmptyErrors(_cont);
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue( isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        assertTrue( isEmptyErrors(page_));
+        validateIds(page_);
+        assertTrue( isEmptyErrors(page_));
+        validateOverridingInherit(page_);
+        postValidation(page_,forwards_);
+        return !isEmptyErrors(page_);
     }
 
 
@@ -1792,6 +1827,43 @@ public final class RootBlockTest extends ProcessMethodCommon {
             }
         }
         return l_;
+    }
+
+    public static StringList getAllGenericSuperTypes(AnalyzedPageEl _cont, String _className) {
+        CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = getClassBody(_cont, _className).fetchAllGenericSuperTypes();
+        StringList l_ = new StringList();
+        for (AnaFormattedRootBlock a: allGenericSuperTypes_) {
+            l_.add(a.getFormatted());
+        }
+        return l_;
+    }
+
+    private static CustList<OverridingMethodDto> getAllOverridingMethods(AnalyzedPageEl _cont, String _className) {
+        CustList<OverridingMethodDto> out_ = new CustList<OverridingMethodDto>();
+        for (OverridingMethodDto o: getClassBody(_cont, _className).getAllOverridingMethods()) {
+            out_.add(o);
+        }
+        return out_;
+    }
+
+    private static RootBlock getClassBody(AnalyzedPageEl _cont, String _className) {
+        for (RootBlock r: _cont.getFoundTypes()) {
+            if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+    private static StringMap<ClassMethodId> getConcreteMethodsToCall(AnalyzedPageEl _cont, MethodId _id, RootBlock _r) {
+        AnalyzedPageEl page_ = _cont;
+        StringMap<GeneStringOverridable> conc_ = OverridesTypeUtil.getConcreteMethodsToCall(page_.getAnaClassBody(_r.getFullName()), _id, page_);
+        StringMap<ClassMethodId> tr_ = new StringMap<ClassMethodId>();
+        for (EntryCust<String,GeneStringOverridable> e: conc_.entryList()) {
+            GeneStringOverridable value_ = e.getValue();
+            tr_.addEntry(e.getKey(),new ClassMethodId(StringExpUtil.getIdFromAllTypes(value_.getGeneString()),value_.getBlock().getId()));
+        }
+        return tr_;
     }
 
 }

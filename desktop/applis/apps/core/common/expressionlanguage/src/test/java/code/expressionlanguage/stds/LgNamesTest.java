@@ -34,11 +34,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordAbstract("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail2Test() {
@@ -49,11 +49,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordIntern("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
         assertTrue(kw_.getKeyWordIntern().isEmpty());
     }
     @Test
@@ -65,11 +65,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordAbstract("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail4Test() {
@@ -80,11 +80,11 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordAbstract("1a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail5Test() {
@@ -95,13 +95,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
         validateEscapingsContents(kw_, s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail6Test() {
@@ -112,13 +112,13 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
         StringMap<String> escapings_ = kw_.allEscapings();
         validateEscapingsContents(kw_, s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
 
     @Test
@@ -130,7 +130,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -138,7 +138,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateEscapingsContents(kw_, s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail8Test() {
@@ -149,7 +149,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -157,7 +157,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateEscapingsContents(kw_, s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail9Test() {
@@ -168,7 +168,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("_");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -176,7 +176,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateEscapingsContents(kw_, s_, escapings_);
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail10Test() {
@@ -187,7 +187,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -196,7 +196,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail11Test() {
@@ -207,7 +207,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -216,7 +216,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail12Test() {
@@ -227,7 +227,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("_");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -236,7 +236,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail13Test() {
@@ -247,7 +247,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("0a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -256,7 +256,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail14Test() {
@@ -267,7 +267,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -276,7 +276,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail15Test() {
@@ -287,7 +287,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -296,7 +296,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail16Test() {
@@ -307,7 +307,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("_");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -316,7 +316,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail17Test() {
@@ -327,7 +327,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("1");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -336,7 +336,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail18Test() {
@@ -347,7 +347,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -356,7 +356,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail19Test() {
@@ -367,7 +367,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbExpBin("A");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -376,7 +376,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail20Test() {
@@ -387,7 +387,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -396,7 +396,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail21Test() {
@@ -407,7 +407,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -416,7 +416,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail22Test() {
@@ -427,7 +427,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("1");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -436,7 +436,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail23Test() {
@@ -447,7 +447,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -456,7 +456,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail24Test() {
@@ -467,7 +467,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbHexEnd("A");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -476,7 +476,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWords_ = kw_.allNbWords(kw_.allNbWordsBasic());
         validateNbWordContents(kw_, s_, nbWords_);
         validateBinarySeparators(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail25Test() {
@@ -487,7 +487,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -498,7 +498,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateBinarySeparators(kw_, s_);
         StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail26Test() {
@@ -509,7 +509,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -520,7 +520,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateBinarySeparators(kw_, s_);
         StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail27Test() {
@@ -531,7 +531,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("$if");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -542,7 +542,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateBinarySeparators(kw_, s_);
         StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail28Test() {
@@ -553,7 +553,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("0a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -564,7 +564,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateBinarySeparators(kw_, s_);
         StringMap<String> prims_ = allPrimitives(s_);
         validatePrimitiveContents(s_, prims_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail29Test() {
@@ -575,7 +575,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("$if");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -588,7 +588,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail30Test() {
@@ -599,7 +599,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -612,7 +612,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail31Test() {
@@ -623,7 +623,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("ab");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -636,7 +636,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail32Test() {
@@ -647,7 +647,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("0a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -660,7 +660,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail33Test() {
@@ -671,7 +671,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("a..b");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -684,7 +684,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail34Test() {
@@ -695,7 +695,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("$int");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -708,7 +708,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail35Test() {
@@ -719,7 +719,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().setDefaultPkg("pkg");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -732,7 +732,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail36Test() {
@@ -743,7 +743,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("java");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -756,7 +756,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail37Test() {
@@ -767,7 +767,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -782,7 +782,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail38Test() {
@@ -793,7 +793,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -808,7 +808,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail39Test() {
@@ -819,7 +819,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("0a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -834,7 +834,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail40Test() {
@@ -845,7 +845,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("$if");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -860,7 +860,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail41Test() {
@@ -871,7 +871,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getCharSeq().setAliasLength("$int");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -886,7 +886,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         StringMap<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodNames(s_);
         validateMethodsContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail42Test() {
@@ -897,7 +897,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -914,7 +914,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail43Test() {
@@ -925,7 +925,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -942,7 +942,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail44Test() {
@@ -953,7 +953,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("0a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -970,7 +970,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail45Test() {
@@ -981,7 +981,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("$int");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -998,7 +998,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail46Test() {
@@ -1009,7 +1009,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("$if");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1026,7 +1026,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsContents(s_, prims_, methods_);
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail47Test() {
@@ -1037,7 +1037,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordCase("$abstract");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1055,7 +1055,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<CustList<KeyValueMemberName>> fields_ = allTableTypeFieldNames(s_);
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail48Test() {
@@ -1066,7 +1066,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("n");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1085,7 +1085,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail49Test() {
@@ -1096,7 +1096,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscBound("nou");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1115,7 +1115,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail50Test() {
@@ -1126,7 +1126,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscUnicode("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1145,7 +1145,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail51Test() {
@@ -1156,7 +1156,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscUnicode("f");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1175,7 +1175,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail52Test() {
@@ -1187,7 +1187,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         kw_.setKeyWordEscBound("");
         kw_.setKeyWordEscUnicode("f0");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1206,7 +1206,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail53Test() {
@@ -1217,7 +1217,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordEscUnicode("f0");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1236,7 +1236,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateFieldsContents(s_, prims_, fields_);
         validateKeyWordDuplicates(kw_, s_, keyWords_);
         validateEscapingsDuplicates(kw_, s_, escapings_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail54Test() {
@@ -1247,7 +1247,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbSufLong("Y");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1270,7 +1270,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateNbWordDuplicates(kw_, s_, nbWordsDec_);
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         validateNbWordDuplicates(kw_, s_, nbWordsBin_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail55Test() {
@@ -1281,7 +1281,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
         
         kw_.setKeyWordNbBin("x");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1305,7 +1305,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         validateNbWordDuplicates(kw_, s_, nbWordsBin_);
         validateStartsPrefixesDuplicates(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail56Test() {
@@ -1319,7 +1319,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getContent().getNbAlias().setAliasMaxValueField("MIN_VALUE");
         lgName_.getContent().getMathRef().setAliasLe("ge");
         lgName_.getContent().getNbAlias().setAliasBoolean("java.lang.Byte");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1347,7 +1347,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeDuplicates(s_, refTypes_);
         validateMethodsDuplicates(s_, methods_);
         validateFieldsDuplicates(s_, fields_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail57Test() {
@@ -1358,7 +1358,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1371,7 +1371,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail58Test() {
@@ -1382,7 +1382,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getNbAlias().setAliasInteger("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1395,7 +1395,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validatePrimitiveContents(s_, prims_);
         StringMap<String> refTypes_ = allRefTypes(s_);
         validateRefTypeContents(s_, prims_, refTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail59Test() {
@@ -1410,7 +1410,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getContent().getPredefTypes().setAliasEnumParamVar("");
         lgName_.getContent().getPredefTypes().setAliasIteratorTypeVar("$if");
         lgName_.getContent().getPredefTypes().setAliasIterableVar("$int");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1441,7 +1441,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsDuplicates(s_, methods_);
         validateFieldsDuplicates(s_, fields_);
         validateVarTypesDuplicates(s_, varTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail60Test() {
@@ -1453,7 +1453,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         lgName_.getContent().getPredefTypes().setAliasIterableTableVarFirst("E");
         lgName_.getContent().getPredefTypes().setAliasIterableTableVarSecond("E");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1484,7 +1484,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsDuplicates(s_, methods_);
         validateFieldsDuplicates(s_, fields_);
         validateVarTypesDuplicates(s_, varTypes_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail61Test() {
@@ -1495,7 +1495,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1510,7 +1510,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail62Test() {
@@ -1521,7 +1521,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("<");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1536,7 +1536,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail63Test() {
@@ -1547,7 +1547,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("0a");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1562,7 +1562,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail64Test() {
@@ -1573,7 +1573,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("$if");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1588,7 +1588,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail65Test() {
@@ -1599,7 +1599,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("$int");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1614,7 +1614,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateRefTypeContents(s_, prims_, refTypes_);
         CustList<CustList<KeyValueMemberName>> methods_ = allTableTypeMethodParamNames(s_);
         validateParamtersContents(s_, prims_, methods_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail66Test() {
@@ -1625,7 +1625,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         InitializationLgNames.basicStandards(lgName_);
 
         lgName_.getContent().getPredefTypes().setAliasHasNextPair("hasNext");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1658,7 +1658,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateVarTypesDuplicates(s_, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = allMergeTableTypeMethodNames(s_);
         validateMergedDuplicates(s_, merge_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail67Test() {
@@ -1669,7 +1669,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         kw_.setKeyWordNbDig0("");
         kw_.setKeyWordNbDig1("0");
         kw_.setKeyWordNbDig2(",");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
 
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1693,7 +1693,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         validateNbWordDuplicates(kw_, s_, nbWordsBin_);
         validateStartsPrefixesDuplicates(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
     @Test
     public void fail68Test() {
@@ -1703,7 +1703,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
         kw_.setKeyWordNbDig0("F");
         kw_.setKeyWordNbDig1("F");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
 
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -1727,42 +1727,42 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> nbWordsBin_ = kw_.allNbWords(kw_.allNbWordsBin());
         validateNbWordDuplicates(kw_, s_, nbWordsBin_);
         validateStartsPrefixesDuplicates(kw_, s_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
-    private static void validateEscapingsContents(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _escapings) {
-        _kw.validateEscapingsContents(_escapings, _s.getAnalyzing());
-    }
-
-    private static void validateBinarySeparators(KeyWords _kw, AnalyzedTestContext _s) {
-        _kw.validateBinarySeparators(_s.getAnalyzing());
+    private static void validateEscapingsContents(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _escapings) {
+        _kw.validateEscapingsContents(_escapings, _s);
     }
 
-    private static void validateMethodsContents(AnalyzedTestContext _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _methods) {
-        ValidatorStandard.validateMethodsContents(_methods, _prims, _s.getAnalyzing());
+    private static void validateBinarySeparators(KeyWords _kw, AnalyzedPageEl _s) {
+        _kw.validateBinarySeparators(_s);
     }
 
-    private static void validateFieldsContents(AnalyzedTestContext _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _fields) {
-        ValidatorStandard.validateFieldsContents(_fields, _prims, _s.getAnalyzing());
+    private static void validateMethodsContents(AnalyzedPageEl _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _methods) {
+        ValidatorStandard.validateMethodsContents(_methods, _prims, _s);
     }
 
-    private static void validateKeyWordDuplicates(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _keyWords) {
-        _kw.validateKeyWordDuplicates(_keyWords, _s.getAnalyzing());
+    private static void validateFieldsContents(AnalyzedPageEl _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _fields) {
+        ValidatorStandard.validateFieldsContents(_fields, _prims, _s);
     }
 
-    private static void validateNbWordDuplicates(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _nbWordsBin) {
-        _kw.validateNbWordDuplicates(_nbWordsBin, _s.getAnalyzing());
+    private static void validateKeyWordDuplicates(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _keyWords) {
+        _kw.validateKeyWordDuplicates(_keyWords, _s);
     }
 
-    private static void validatePrimitiveDuplicates(AnalyzedTestContext _s, StringMap<String> _prims) {
-        ValidatorStandard.validatePrimitiveDuplicates(_prims, _s.getAnalyzing());
+    private static void validateNbWordDuplicates(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _nbWordsBin) {
+        _kw.validateNbWordDuplicates(_nbWordsBin, _s);
     }
 
-    private static void validateMethodsDuplicates(AnalyzedTestContext _s, StringMap<CustList<KeyValueMemberName>> _methods) {
-        ValidatorStandard.validateMethodsDuplicates(_methods, _s.getAnalyzing());
+    private static void validatePrimitiveDuplicates(AnalyzedPageEl _s, StringMap<String> _prims) {
+        ValidatorStandard.validatePrimitiveDuplicates(_prims, _s);
     }
 
-    private static void validateVarTypesDuplicates(AnalyzedTestContext _s, StringMap<CustList<KeyValueMemberName>> _varTypes) {
-        ValidatorStandard.validateVarTypesDuplicates(_varTypes, _s.getAnalyzing());
+    private static void validateMethodsDuplicates(AnalyzedPageEl _s, StringMap<CustList<KeyValueMemberName>> _methods) {
+        ValidatorStandard.validateMethodsDuplicates(_methods, _s);
+    }
+
+    private static void validateVarTypesDuplicates(AnalyzedPageEl _s, StringMap<CustList<KeyValueMemberName>> _varTypes) {
+        ValidatorStandard.validateVarTypesDuplicates(_varTypes, _s);
     }
 
     @Test
@@ -2284,7 +2284,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods1("");
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods2("");
         lgName_.getReflect().getParams().setAliasAnnotated0GetDeclaredSwitchMethods3("");
-        AnalyzedTestContext s_ = getCtx(kw_, lgName_);
+        AnalyzedPageEl s_ = getCtx(kw_, lgName_);
         
         StringMap<String> keyWords_ = kw_.allKeyWords();
         validateKeyWordContents(kw_, s_, keyWords_);
@@ -2320,55 +2320,55 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateVarTypesDuplicates(s_, varTypes_);
         CustList<CustList<KeyValueMemberName>> merge_ = allMergeTableTypeMethodNames(s_);
         validateMergedDuplicates(s_, merge_);
-        assertTrue(s_.getAnalyzing().getMessages().displayStdErrors(),!s_.getAnalyzing().isEmptyStdError());
+        assertTrue(s_.getMessages().displayStdErrors(),!s_.isEmptyStdError());
     }
 
-    private static void validateParamtersDuplicates(AnalyzedTestContext _s, CustList<CustList<KeyValueMemberName>> _params) {
-        ValidatorStandard.validateParamtersDuplicates(_params, _s.getAnalyzing());
+    private static void validateParamtersDuplicates(AnalyzedPageEl _s, CustList<CustList<KeyValueMemberName>> _params) {
+        ValidatorStandard.validateParamtersDuplicates(_params, _s);
     }
 
-    private static void validateKeyWordContents(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _keyWords) {
-        _kw.validateKeyWordContents(_keyWords, _s.getAnalyzing());
+    private static void validateKeyWordContents(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _keyWords) {
+        _kw.validateKeyWordContents(_keyWords, _s);
     }
 
-    private static void validateNbWordContents(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _nbWords) {
-        _kw.validateNbWordContents(_nbWords, _s.getAnalyzing());
+    private static void validateNbWordContents(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _nbWords) {
+        _kw.validateNbWordContents(_nbWords, _s);
     }
 
-    private static void validatePrimitiveContents(AnalyzedTestContext _s, StringMap<String> _prims) {
-        ValidatorStandard.validatePrimitiveContents(_prims, _s.getAnalyzing());
+    private static void validatePrimitiveContents(AnalyzedPageEl _s, StringMap<String> _prims) {
+        ValidatorStandard.validatePrimitiveContents(_prims, _s);
     }
 
-    private static void validateRefTypeContents(AnalyzedTestContext _s, StringMap<String> _prims, StringMap<String> _refTypes) {
-        ValidatorStandard.validateRefTypeContents(_refTypes, _prims, _s.getAnalyzing());
+    private static void validateRefTypeContents(AnalyzedPageEl _s, StringMap<String> _prims, StringMap<String> _refTypes) {
+        ValidatorStandard.validateRefTypeContents(_refTypes, _prims, _s);
     }
 
-    private static void validateParamtersContents(AnalyzedTestContext _s, StringMap<String> _prims, CustList<CustList<KeyValueMemberName>> _params) {
-        ValidatorStandard.validateParamtersContents(_params, _prims, _s.getAnalyzing());
+    private static void validateParamtersContents(AnalyzedPageEl _s, StringMap<String> _prims, CustList<CustList<KeyValueMemberName>> _params) {
+        ValidatorStandard.validateParamtersContents(_params, _prims, _s);
     }
 
-    private static void validateVarTypesContents(AnalyzedTestContext _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _varTypes) {
-        ValidatorStandard.validateVarTypesContents(_varTypes, _prims, _s.getAnalyzing());
+    private static void validateVarTypesContents(AnalyzedPageEl _s, StringMap<String> _prims, StringMap<CustList<KeyValueMemberName>> _varTypes) {
+        ValidatorStandard.validateVarTypesContents(_varTypes, _prims, _s);
     }
 
-    private static void validateEscapingsDuplicates(KeyWords _kw, AnalyzedTestContext _s, StringMap<String> _escapings) {
-        _kw.validateEscapingsDuplicates(_escapings, _s.getAnalyzing());
+    private static void validateEscapingsDuplicates(KeyWords _kw, AnalyzedPageEl _s, StringMap<String> _escapings) {
+        _kw.validateEscapingsDuplicates(_escapings, _s);
     }
 
-    private static void validateStartsPrefixesDuplicates(KeyWords _kw, AnalyzedTestContext _s) {
-        _kw.validateStartsPrefixesDuplicates(_s.getAnalyzing());
+    private static void validateStartsPrefixesDuplicates(KeyWords _kw, AnalyzedPageEl _s) {
+        _kw.validateStartsPrefixesDuplicates(_s);
     }
 
-    private static void validateRefTypeDuplicates(AnalyzedTestContext _s, StringMap<String> _refTypes) {
-        ValidatorStandard.validateRefTypeDuplicates(_refTypes, _s.getAnalyzing());
+    private static void validateRefTypeDuplicates(AnalyzedPageEl _s, StringMap<String> _refTypes) {
+        ValidatorStandard.validateRefTypeDuplicates(_refTypes, _s);
     }
 
-    private static void validateFieldsDuplicates(AnalyzedTestContext _s, StringMap<CustList<KeyValueMemberName>> _fields) {
-        ValidatorStandard.validateFieldsDuplicates(_fields, _s.getAnalyzing());
+    private static void validateFieldsDuplicates(AnalyzedPageEl _s, StringMap<CustList<KeyValueMemberName>> _fields) {
+        ValidatorStandard.validateFieldsDuplicates(_fields, _s);
     }
 
-    private static void validateMergedDuplicates(AnalyzedTestContext _s, CustList<CustList<KeyValueMemberName>> _merge) {
-        ValidatorStandard.validateMergedDuplicates(_merge, _s.getAnalyzing());
+    private static void validateMergedDuplicates(AnalyzedPageEl _s, CustList<CustList<KeyValueMemberName>> _merge) {
+        ValidatorStandard.validateMergedDuplicates(_merge, _s);
     }
     @Test
     public void success1Test() {
@@ -2393,12 +2393,21 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(others_);
         Options options_ = new Options();
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
-        AnalyzedTestContext contextEl_ = getCtx(kw_, lgName_, options_, calculator_);
+        AnalysisMessages mess_ = new AnalysisMessages();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = contextEl_.getForwards();
-        ContextFactory.validateStds(forwards_,contextEl_.getAnalyzing().getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
+        page_.setAnalysisMessages(mess_);
+        page_.setKeyWords(kw_);
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        page_.setFileBuilder(fileBuilder_);
+        page_.setStandards(lgName_.getContent());
+        page_.setLogErr(lgName_);
+        page_.setCalculator(calculator_);
+        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
+        assertTrue(page_.isEmptyMessageError());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, options_);
+        ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
         ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
-        assertTrue(isEmptyErrors(contextEl_));
+        assertTrue(isEmptyErrors(page_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
@@ -2431,12 +2440,21 @@ public class LgNamesTest extends ProcessMethodCommon {
         all_.putAllMap(others_);
         Options options_ = new Options();
         AbstractConstantsCalculator calculator_ = new DefaultConstantsCalculator(lgName_.getNbAlias());
-        AnalyzedTestContext contextEl_ = getCtx(kw_, lgName_, options_, calculator_);
+        AnalysisMessages mess_ = new AnalysisMessages();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = contextEl_.getForwards();
-        ContextFactory.validateStds(forwards_,contextEl_.getAnalyzing().getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
+        page_.setAnalysisMessages(mess_);
+        page_.setKeyWords(kw_);
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        page_.setFileBuilder(fileBuilder_);
+        page_.setStandards(lgName_.getContent());
+        page_.setLogErr(lgName_);
+        page_.setCalculator(calculator_);
+        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
+        assertTrue(page_.isEmptyMessageError());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, options_);
+        ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
         ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
-        assertTrue(isEmptyErrors(contextEl_));
+        assertTrue(isEmptyErrors(page_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
         ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
@@ -2447,7 +2465,36 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq(2, getNumber(ret_));
     }
 
-    private static AnalyzedTestContext getCtx(KeyWords _kw, LgNames _lgName, Options _options, AbstractConstantsCalculator _calculator) {
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedPageEl _lgName) {
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeMethodNames();
+    }
+
+    private static CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(AnalyzedPageEl _lgName) {
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeMethodParamNames();
+    }
+
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(AnalyzedPageEl _lgName) {
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeVarTypes();
+    }
+
+    private static StringMap<String> allPrimitives(AnalyzedPageEl _lgName) {
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allPrimitives();
+    }
+
+    private static StringMap<String> allRefTypes(AnalyzedPageEl _lgName) {
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allRefTypes();
+    }
+
+    private static CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames(AnalyzedPageEl _lgName) {
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allMergeTableTypeMethodNames();
+    }
+
+    private static StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(AnalyzedPageEl _lgName) {
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeFieldNames();
+    }
+
+
+    private static AnalyzedPageEl getCtx(KeyWords _kw, LgNames _lgName) {
         AnalysisMessages mess_ = new AnalysisMessages();
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
@@ -2456,43 +2503,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setFileBuilder(fileBuilder_);
         page_.setStandards(_lgName.getContent());
         page_.setLogErr(_lgName);
-        page_.setCalculator(_calculator);
+        page_.setCalculator(null);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
-        return new AnalyzedTestContext(page_, new Forwards(_lgName,fileBuilder_, _options),_lgName);
-    }
-
-    private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedTestContext _lgName) {
-        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeMethodNames();
-    }
-
-    private static CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(AnalyzedTestContext _lgName) {
-        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeMethodParamNames();
-    }
-
-    private static StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(AnalyzedTestContext _lgName) {
-        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeVarTypes();
-    }
-
-    private static StringMap<String> allPrimitives(AnalyzedTestContext _lgName) {
-        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allPrimitives();
-    }
-
-    private static StringMap<String> allRefTypes(AnalyzedTestContext _lgName) {
-        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allRefTypes();
-    }
-
-    private static CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames(AnalyzedTestContext _lgName) {
-        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allMergeTableTypeMethodNames();
-    }
-
-    private static StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(AnalyzedTestContext _lgName) {
-        return _lgName.getAnalyzing().getFileBuilder().getDefaultAliasGroups().allTableTypeFieldNames();
-    }
-
-
-    private static AnalyzedTestContext getCtx(KeyWords _kw, LgNames _lgName) {
-        return getCtx(_kw, _lgName, new Options(), null);
+        return page_;
     }
     @Test
     public void getAlias1() {

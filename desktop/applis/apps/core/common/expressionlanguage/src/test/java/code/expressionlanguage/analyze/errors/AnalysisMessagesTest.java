@@ -1,13 +1,22 @@
 package code.expressionlanguage.analyze.errors;
 
-import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.EquallableElUtil;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.ManageTokens;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
+import code.util.CustList;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 public final class AnalysisMessagesTest extends EquallableElUtil {
@@ -251,8 +260,25 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
     }
     @Test
     public void fail2() {
-        AnalyzedTestContext analyzedTestContext_ = InitializationLgNames.buildStdOneAna(new Options());
-        AnalyzedPageEl page_ = analyzedTestContext_.getAnalyzing();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        Options _opt = new Options();
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        _opt.setTabWidth(tabWidth_);
+        _opt.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, _opt);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(_opt, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
         assertTrue(ManageTokens.partVarClass(page_).checkTokenKeyVar(page_.getKeyWords().getKeyWordVar(), page_).isError());
     }
 }

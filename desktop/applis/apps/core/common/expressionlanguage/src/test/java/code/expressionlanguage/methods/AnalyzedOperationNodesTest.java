@@ -1,14 +1,25 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.AnalyzedTestContext;
+import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.*;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -2535,8 +2546,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext contAna_ = quickValidate(files_);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody( "pkgtwo.ExClass");
+        AnalyzedPageEl contAna_ = quickValidate(files_);
+        RootBlock r_ = contAna_.getAnaClassBody( "pkgtwo.ExClass");
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
         StringList names_ = f_.getFieldName();
         assertEq(2, names_.size());
@@ -3424,9 +3435,29 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = ctxLgAna("en");
-        buildAllBracesBodies(files_, cont_);
-        assertTrue(!isEmptyErrors(cont_));
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        buildAllBracesBodies(files_, page_);
+        assertTrue(!isEmptyErrors(page_));
     }
 
 
@@ -4472,20 +4503,20 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static boolean hasNot(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = quickValidate(_files);
+        AnalyzedPageEl cont_ = quickValidate(_files);
         return isEmptyErrors(cont_);
     }
 
     private static ClassMethodIdVarArg getStdFct(StringMap<String> _files) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody( "pkg.ExTwo");
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody( "pkg.ExTwo");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         return getFctAna(f_);
     }
 
     private static ClassMethodIdVarArg getFctAna4(StringMap<String> _files, String _s) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody(_s);
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody(_s);
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         return getFctAna(f_);
     }
@@ -4532,8 +4563,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static ClassMethodIdVarArg build(StringMap<String> _files, String _type) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody(_type);
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody(_type);
         FieldBlock f_ = (FieldBlock) r_.getFirstChild().getNextSibling();
         FctOperation fct_ = getFctAna(getReducedNodes(f_.getRoot()));
         assertNotNull(fct_);
@@ -4542,22 +4573,22 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
 
     private static ClassMethodIdVarArg getStaticFctChoice3(StringMap<String> _files, String _s) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody(_s);
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody(_s);
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         return getChoiceFctAna(f_);
     }
 
     private static ClassMethodIdVarArg getStaticFctSuper(StringMap<String> _files, String _s) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody(_s);
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody(_s);
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         return getSuperFctAna(f_);
     }
 
     private static ClassMethodIdVarArg getStaticFctAnaClassChoice2(StringMap<String> _files) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody( "pkgtwo.Apply");
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody( "pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         return getChoiceFctAna(f_);
     }
@@ -4569,8 +4600,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static ClassMethodIdVarArg getClassMethodIdSuper(StringMap<String> _files) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody( "pkgtwo.Apply");
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody( "pkgtwo.Apply");
         Line f_ = (Line) r_.getFirstChild().getFirstChild().getNextSibling().getNextSibling();
         return getSuperFctAna(f_);
     }
@@ -4583,15 +4614,15 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
 
 
     private static ConstructorIdVarArg getConstId3(StringMap<String> _files, String _className) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody(_className);
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody(_className);
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         return getCtorAna(f_);
     }
 
     private static ConstructorIdVarArg getConstId4(StringMap<String> _files) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        OperatorBlock r_ = contAna_.getAnalyzing().getAllOperators().first();
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        OperatorBlock r_ = contAna_.getAllOperators().first();
         Line f_ = (Line) r_.getFirstChild();
         return getCtorAna(f_);
     }
@@ -4603,8 +4634,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static ClassField getField(StringMap<String> _files, String _s) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody(_s);
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody(_s);
         Line f_ = (Line) r_.getFirstChild().getFirstChild();
         SettableAbstractFieldOperation fct_ = getFieldAna(getReducedNodes(f_.getRoot()));
         assertNotNull(fct_);
@@ -4612,17 +4643,36 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     }
 
     private static StringList getFieldName(StringMap<String> _files, String _s) {
-        AnalyzedTestContext contAna_ = quickValidate(_files);
-        RootBlock r_ = contAna_.getAnalyzing().getAnaClassBody(_s);
+        AnalyzedPageEl contAna_ = quickValidate(_files);
+        RootBlock r_ = contAna_.getAnaClassBody(_s);
         FieldBlock f_ = (FieldBlock) r_.getFirstChild();
         return f_.getFieldName();
     }
 
-    private static AnalyzedTestContext quickValidate(StringMap<String> _files) {
-        AnalyzedTestContext contAna_ = ctxAna();
-        validateWithoutInit(_files, contAna_);
-        assertTrue( isEmptyErrors(contAna_));
-        return contAna_;
+    private static AnalyzedPageEl quickValidate(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        validateWithoutInit(_files, page_);
+        assertTrue( isEmptyErrors(page_));
+        return page_;
     }
 
     private static ClassMethodIdVarArg getClassMethodId(FctOperation _fct) {
@@ -4716,8 +4766,9 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         }
         return out_;
     }
-    private static void buildAllBracesBodies(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ClassesUtil.buildAllBracesBodies(_files, _cont.getAnalyzing());
+
+    private static void buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _cont) {
+        ClassesUtil.buildAllBracesBodies(_files, _cont);
     }
 
 }

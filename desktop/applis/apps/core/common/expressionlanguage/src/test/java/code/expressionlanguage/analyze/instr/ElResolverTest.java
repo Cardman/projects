@@ -1,18 +1,34 @@
 package code.expressionlanguage.analyze.instr;
 
-import code.expressionlanguage.*;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
-import code.expressionlanguage.analyze.blocks.*;
-
+import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.FieldBlock;
+import code.expressionlanguage.analyze.blocks.Line;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.*;
-
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.NumberInfos;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringMap;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -416,12 +432,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         xml_.append(" $public $int integer;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext conf_ = prepare(files_);
+        AnalyzedPageEl conf_ = prepare(files_);
 
         setGlobalType(conf_, "pkg.BeanOne");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         AbsBk field_ = r_.getFirstChild();
-        AnalyzedPageEl page_ = conf_.getAnalyzing();
+        AnalyzedPageEl page_ = conf_;
         page_.setCurrentBlock(field_);
         RootBlock rTwo_ = getAnaClassBody(conf_, "pkg.Composite");
         page_.setCurrentBlock(rTwo_.getFirstChild());
@@ -1523,12 +1539,12 @@ public final class ElResolverTest extends ProcessMethodCommon {
         xml_.append(" $public $void getOverridenFour($int p){}\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext conf_ = prepare(files_);
+        AnalyzedPageEl conf_ = prepare(files_);
 
         setGlobalType(conf_, "pkg.BeanOne");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.BeanOne");
         AbsBk field_ = r_.getFirstChild();
-        AnalyzedPageEl page_ = conf_.getAnalyzing();
+        AnalyzedPageEl page_ = conf_;
         page_.setCurrentBlock(field_);
         AbsBk b_ = field_.getNextSibling().getFirstChild();
         page_.setCurrentBlock(b_);
@@ -2531,15 +2547,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int inst = pkg.Ex.exmeth(0i);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext conf_ = prepare(files_);
+        AnalyzedPageEl conf_ = prepare(files_);
 
         setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
-        conf_.getAnalyzing().setImporting(r_);
-        conf_.getAnalyzing().setImportingTypes(r_);
+        conf_.setCurrentBlock(b_);
+        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImporting(r_);
+        conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -2575,15 +2591,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int inst = Ex.exmeth(0i);\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext conf_ = prepare(files_);
+        AnalyzedPageEl conf_ = prepare(files_);
 
         setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
-        conf_.getAnalyzing().setImporting(r_);
-        conf_.getAnalyzing().setImportingTypes(r_);
+        conf_.setCurrentBlock(b_);
+        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImporting(r_);
+        conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -2618,15 +2634,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         xml_.append(" $public $static $String inst = $Class.forName(\"\");\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext conf_ = prepare(files_);
+        AnalyzedPageEl conf_ = prepare(files_);
 
         setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
-        conf_.getAnalyzing().setImporting(r_);
-        conf_.getAnalyzing().setImportingTypes(r_);
+        conf_.setCurrentBlock(b_);
+        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImporting(r_);
+        conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -2663,15 +2679,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext conf_ = prepare(files_);
+        AnalyzedPageEl conf_ = prepare(files_);
 
         setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
-        conf_.getAnalyzing().setImporting(r_);
-        conf_.getAnalyzing().setImportingTypes(r_);
+        conf_.setCurrentBlock(b_);
+        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImporting(r_);
+        conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -2716,15 +2732,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         xml_.append(" $public $static $int inst = pkg.ExThree.Ex.inst;\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext conf_ = prepare(files_);
+        AnalyzedPageEl conf_ = prepare(files_);
 
         setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
-        conf_.getAnalyzing().setImporting(r_);
-        conf_.getAnalyzing().setImportingTypes(r_);
+        conf_.setCurrentBlock(b_);
+        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImporting(r_);
+        conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -2761,15 +2777,15 @@ public final class ElResolverTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext conf_ = prepare(files_);
+        AnalyzedPageEl conf_ = prepare(files_);
 
         setGlobalType(conf_, "pkg.ExTwo");
         RootBlock r_ = getAnaClassBody(conf_, "pkg.ExTwo");
         AbsBk b_ = r_.getFirstChild();
-        conf_.getAnalyzing().setCurrentBlock(b_);
-        conf_.getAnalyzing().setImportingAcces(new TypeAccessor("pkg.ExTwo"));
-        conf_.getAnalyzing().setImporting(r_);
-        conf_.getAnalyzing().setImportingTypes(r_);
+        conf_.setCurrentBlock(b_);
+        conf_.setImportingAcces(new TypeAccessor("pkg.ExTwo"));
+        conf_.setImporting(r_);
+        conf_.setImportingTypes(r_);
         FieldBlock l_ = (FieldBlock) b_;
         String el_ = l_.getValue();
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -2927,7 +2943,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void getOperationsSequence210Test() {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         String el_ = "composite.integer.int";
         Delimiters d_ = new Delimiters();
@@ -3111,7 +3127,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void getOperationsSequence218Test() {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         String el_ = "0x1";
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3133,7 +3149,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void getOperationsSequence219Test() {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         String el_ = "0x1f";
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3155,7 +3171,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void getOperationsSequence220Test() {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         String el_ = "0x1p0";
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3177,7 +3193,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void getOperationsSequence221Test() {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         String el_ = "0x1fp0";
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3199,7 +3215,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void getOperationsSequence222Test() {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         String el_ = "0x1.2p0";
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3221,7 +3237,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void getOperationsSequence223Test() {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         String el_ = "0x1f.2p0";
         Delimiters d_ = checkSyntax(conf_, el_);
@@ -3835,7 +3851,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private Delimiters del(String _el, int _minIndex) {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         return checkSyntaxDelimiters(conf_, _el, _minIndex);
     }
@@ -3878,7 +3894,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private int getBadOffset(String _el, int minIndex) {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         return checkSyntaxDelimiters(conf_, _el, minIndex).getBadOffset();
     }
@@ -4238,26 +4254,26 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
 
     private int getBadOffset_(String _el) {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         return checkSyntax(conf_, _el).getBadOffset();
     }
 
     private Delimiters tst(String _el) {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         return checkSyntax(conf_, _el);
     }
 
     private OperationsSequence test(String _el) {
-        AnalyzedTestContext conf_ = contextEl();
+        AnalyzedPageEl conf_ = contextEl();
 
         Delimiters d_ = checkSyntax(conf_, _el);
         return getOperationsSequence(conf_, _el, d_, 0);
     }
 
-    private static AnalyzedTestContext prepare(StringMap<String> _files) {
-        AnalyzedTestContext conf_ = contextEl();
+    private static AnalyzedPageEl prepare(StringMap<String> _files) {
+        AnalyzedPageEl conf_ = contextEl();
         parseCustomFiles(_files, conf_);
         validateInheritingClasses(conf_);
         validateIds(conf_);
@@ -4265,33 +4281,53 @@ public final class ElResolverTest extends ProcessMethodCommon {
         return conf_;
     }
 
-    private static OperationsSequence getOperationsSequence(AnalyzedTestContext _conf, String _el, Delimiters _d, int _offset) {
-        return ElResolver.getOperationsSequence(_offset, _el, _d, _conf.getAnalyzing());
+    private static OperationsSequence getOperationsSequence(AnalyzedPageEl _conf, String _el, Delimiters _d, int _offset) {
+        return ElResolver.getOperationsSequence(_offset, _el, _d, _conf);
     }
-    private static AnalyzedTestContext contextEl() {
-        return ctxAna();
+    private static AnalyzedPageEl contextEl() {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return page_;
     }
 
-    private static Delimiters checkSyntax(AnalyzedTestContext _conf, String _el) {
+    private static Delimiters checkSyntax(AnalyzedPageEl _conf, String _el) {
         ResultExpression res_ = new ResultExpression();
-        AnalyzedPageEl analyzing_ = _conf.getAnalyzing();
+        AnalyzedPageEl analyzing_ = _conf;
         analyzing_.setCurrentParts(res_.getParts());
         return ElResolver.checkSyntax(_el, 0, analyzing_);
     }
 
-    private static Delimiters checkSyntaxDelimiters(AnalyzedTestContext _conf, String _el, int _minIndex) {
+    private static Delimiters checkSyntaxDelimiters(AnalyzedPageEl _conf, String _el, int _minIndex) {
         ResultExpression res_ = new ResultExpression();
-        AnalyzedPageEl analyzing_ = _conf.getAnalyzing();
+        AnalyzedPageEl analyzing_ = _conf;
         analyzing_.setCurrentParts(res_.getParts());
         return ElResolver.checkSyntaxDelimiters(_el, _minIndex, analyzing_);
     }
 
-    private static void setGlobalType(AnalyzedTestContext _conf, String _globalClass) {
-        _conf.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_conf.getAnalyzing(),_globalClass));
+    private static void setGlobalType(AnalyzedPageEl _conf, String _globalClass) {
+        _conf.setGlobalType(new AnaFormattedRootBlock(_conf,_globalClass));
     }
 
-    private static RootBlock getAnaClassBody(AnalyzedTestContext _classes, String _className) {
-        for (RootBlock r: _classes.getAnalyzing().getFoundTypes()) {
+    private static RootBlock getAnaClassBody(AnalyzedPageEl _classes, String _className) {
+        for (RootBlock r: _classes.getFoundTypes()) {
             if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }

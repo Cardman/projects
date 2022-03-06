@@ -1,10 +1,11 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.*;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
@@ -22,13 +23,13 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.options.WarningShow;
+import code.expressionlanguage.options.*;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.*;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public abstract class ProcessMethodCommon extends EquallableElUtil {
 
@@ -152,99 +153,153 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return new ConstructorId(_name, cl_, false);
     }
 
-    private static AnalyzedTestContext contextElCoverageDefaultEnComment() {
-        Options opt_ = newOptions();
-        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
-        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-        opt_.setCovering(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
-    }
-    private static AnalyzedTestContext contextElCoverageDefaultComment() {
-        Options opt_ = newOptions();
-        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
-        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-        opt_.setCovering(true);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-    private static AnalyzedTestContext contextElErrorReadOnlyDef() {
-        Options opt_ = newOptions();
-        opt_.setReadOnly(true);
-        opt_.setGettingErrors(true);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-    private static AnalyzedTestContext contextElErrorReadOnlyDefImpl() {
-        Options opt_ = newOptions();
-        opt_.setReadOnly(true);
-        opt_.setGettingErrors(true);
-        opt_.setDisplayImplicit(true);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-
     private static StringMap<String> getErrors(ResultContext _report) {
         return _report.getReportedMessages().getErrors();
     }
 
-    private static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ResultContext validate_ = validate(_cont, _files);
-        assertTrue(!isEmptyErrors(_cont));
+    private static StringMap<String> validateAndCheckReportErrors(StringMap<String> _files, AnalyzedPageEl _page, Forwards _fwd) {
+        ResultContext validate_ = validate(_files,_page,_fwd);
+        assertTrue(!isEmptyErrors(_page));
         return getErrors(validate_);
     }
 
-    private static StringMap<String> validateAndCheckReportWarnings(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ResultContext validate_ = validate(_cont, _files);
+    private static StringMap<String> validateAndCheckReportWarnings(StringMap<String> _files, AnalyzedPageEl _page, Forwards _fwd) {
+        ResultContext validate_ = validate(_files,_page,_fwd);
         return getErrors(validate_);
     }
 
-    private static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ResultContext validate_ = validate(_cont, _files);
-        assertTrue(isEmptyErrors(_cont));
+    private static StringMap<String> validateAndCheckNoReportErrors(StringMap<String> _files, AnalyzedPageEl _page, Forwards _fwd) {
+        ResultContext validate_ = validate(_files,_page,_fwd);
+        assertTrue(isEmptyErrors(_page));
         return getErrors(validate_);
     }
 
     protected static boolean covErr(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        validate(cont_,_files);
-        return !isEmptyErrors(cont_);
+        Options opt_ = newOptions();
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        validate(_files,page_,forwards_);
+        return !isEmptyErrors(page_);
     }
 
     protected static StringMap<String> ctxNotErrReadOnly(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElErrorReadOnlyDef();
-        return validateAndCheckNoReportErrors(_files, cont_);
-    }
-    protected static StringMap<String> ctxErrReadOnly(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElErrorReadOnlyDef();
-        return validateAndCheckReportErrors(_files, cont_);
-    }
-    protected static StringMap<String> ctxErrReadOnlyImpl(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElErrorReadOnlyDefImpl();
-        return validateAndCheckReportErrors(_files, cont_);
-    }
-
-    protected static StringMap<String> ctxErrStdReadOnly(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDef();
-        return validateAndCheckReportErrors(_files, cont_);
-    }
-
-    protected static StringMap<String> ctxWarnStdReadOnly(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElErrorStdWarningDef();
-        return validateAndCheckReportWarnings(_files, cont_);
-    }
-
-    protected static StringMap<String> ctxErrStdReadOnlyImpl(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDefImpl();
-        return validateAndCheckReportErrors(_files, cont_);
-    }
-    protected static StringMap<String> ctxErrStdReadOnlyImpl2(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElErrorStdReadOnlyDefImpl2();
-        return validateAndCheckReportErrors(_files, cont_);
-    }
-    private static AnalyzedTestContext contextElErrorStdReadOnlyDef() {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndCheckNoReportErrors(_files, page_,forwards_);
     }
-    private static AnalyzedTestContext contextElErrorStdWarningDef() {
+    protected static StringMap<String> ctxErrReadOnly(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setGettingErrors(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndCheckReportErrors(_files, page_,forwards_);
+    }
+    protected static StringMap<String> ctxErrReadOnlyImpl(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setGettingErrors(true);
+        opt_.setDisplayImplicit(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndCheckReportErrors(_files, page_,forwards_);
+    }
+
+    protected static StringMap<String> ctxErrStdReadOnly(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setGettingErrors(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndCheckReportErrors(_files, page_,forwards_);
+    }
+
+    protected static StringMap<String> ctxWarnStdReadOnly(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         WarningShow warningShow_ = new WarningShow();
@@ -252,368 +307,734 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         warningShow_.setUnusedParameterStaticMethod(true);
         opt_.setWarningShow(warningShow_);
         opt_.setGettingErrors(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndCheckReportWarnings(_files, page_,forwards_);
     }
-    private static AnalyzedTestContext contextElCoverageReadOnlyDef() {
-        Options opt_ = newOptions();
-        opt_.setReadOnly(true);
-        opt_.setCovering(true);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-    private static AnalyzedTestContext contextElErrorStdReadOnlyDefImpl() {
+
+    protected static StringMap<String> ctxErrStdReadOnlyImpl(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndCheckReportErrors(_files, page_,forwards_);
     }
-    private static AnalyzedTestContext contextElErrorStdReadOnlyDefImpl2() {
+    protected static StringMap<String> ctxErrStdReadOnlyImpl2(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
         opt_.setEncodeHeader(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
-    }
-    private static AnalyzedTestContext contextElCoverageReadOnlyDefImpl() {
-        Options opt_ = newOptions();
-        opt_.setReadOnly(true);
-        opt_.setCovering(true);
-        opt_.setDisplayImplicit(true);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-
-    private static AnalyzedTestContext contextElCoverageDisplayDef() {
-        Options opt_ = newOptions();
-        opt_.setCovering(true);
-        AnalyzedTestContext ct_ = InitializationLgNames.buildStdOneAna(opt_);
-        ct_.getDisplayedStrings().setTrueString("\"");
-        ct_.getDisplayedStrings().setFalseString("&");
-        return ct_;
-    }
-
-    private static AnalyzedTestContext contextElCoverageDefAna() {
-        Options opt_ = newOptions();
-        opt_.setCovering(true);
-        return InitializationLgNames.buildStdOneAna(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndCheckReportErrors(_files, page_,forwards_);
     }
 
     protected static StringMap<String> export(ContextEl _cont) {
         return ExecFileBlock.export(_cont);
     }
     protected static ContextEl covEnReadOnly(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEn();
-        return validateCovAndRet(_files, cont_);
-    }
-
-    protected static ContextEl covEnReadOnlyImpl(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEnImpl();
-        return validateCovAndRet(_files, cont_);
-    }
-
-    protected static ContextEl covEnReadOnlyImpl2(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ontextElCoverageReadOnlyEnImpl2();
-        return validateCovAndRet(_files, cont_);
-    }
-
-    private static AnalyzedTestContext ontextElCoverageReadOnlyEn() {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
-    private static AnalyzedTestContext ontextElCoverageReadOnlyEnImpl() {
+    protected static ContextEl covEnReadOnlyImpl(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
-    private static AnalyzedTestContext ontextElCoverageReadOnlyEnImpl2() {
+    protected static ContextEl covEnReadOnlyImpl2(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setEncodeHeader(true);
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl covEn(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageEnAna();
-        return validateCovAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl covValEn(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageEnAna();
-        return validateAndRet(_files, cont_);
-    }
-
-    private static AnalyzedTestContext contextElCoverageEnAna() {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        return InitializationLgNames.buildStdOneAna("en",opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl contextElEnum(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElEnumAna();
-        return validateAndRet(_files, cont_);
-    }
-
-    private static AnalyzedTestContext contextElEnumAna() {
         Options opt_ = newOptions();
-        return InitializationLgNames.buildStdEnumsAna(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        lgName_.getContent().getPredefTypes().setAliasEnumName("name");
+        lgName_.getContent().getPredefTypes().setAliasEnumOrdinal("ordinal");
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static boolean ctxMustInitFail(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
-        validateAll(_files, cont_);
-        ReportedMessages reportedMessages_ = cont_.getAnalyzing().getMessages();
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        validateAll(_files, page_,forwards_);
+        ReportedMessages reportedMessages_ = page_.getMessages();
         reportedMessages_.displayErrors();
         return !reportedMessages_.isAllEmptyErrors();
     }
 
-    protected static ContextEl validateAll(StringMap<String> _files, AnalyzedTestContext _cont) {
-        return Classes.validateAll(_files, _cont.getAnalyzing(), _cont.getForwards());
+    protected static ContextEl validateAll(StringMap<String> _files, AnalyzedPageEl _cont, Forwards _fwd) {
+        return Classes.validateAll(_files, _cont, _fwd);
     }
 
     protected static ContextEl ctxMustInit(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElReadOnlyMustInit();
-        return validateAndRet(_files, cont_);
-    }
-
-    private static AnalyzedTestContext contextElReadOnlyMustInit() {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
-        return InitializationLgNames.buildStdOneAna(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl contextElToString(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElToStringAna();
-        return validateAndRet(_files, cont_);
-    }
-
-    private static AnalyzedTestContext contextElToStringAna() {
         Options opt_ = newOptions();
-        return InitializationLgNames.buildStdToStringAna(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        kw_.setKeyWordToString("toSpecString");
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static boolean ok(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxAna();
-        validateAll(_files, cont_);
-        return isEmptyErrors(cont_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        validateAll(_files, page_,forwards_);
+        return isEmptyErrors(page_);
     }
 
     protected static ContextEl ctxNoErrExp(StringMap<String> _files) {
-        AnalyzedTestContext ctx_ = contextElExp();
-        return validateAndRet(_files, ctx_);
-    }
-
-    private static AnalyzedTestContext contextElExp() {
         Options opt_ = newOptions();
-        return InitializationLgNames.buildStdExp(opt_);
-    }
-
-    private static AnalyzedTestContext ctxLgReadOnlyAna(String _lg, String... _types) {
-        Options opt_ = newOptions();
-        opt_.setReadOnly(true);
-        addTypesInit(opt_, _types);
-        return InitializationLgNames.buildStdOneAna(_lg, opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        kw_.setKeyWordNbExpBin("power");
+        kw_.setKeyWordNbExpDec("exp");
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl contextElDefault(StringMap<String> _files, int _i) {
-        AnalyzedTestContext cont_ = contextElDefault(_i);
-        return validateAndRet(_files, cont_);
-    }
-
-    private static AnalyzedTestContext contextElDefault(int _m) {
         Options opt_ = newOptions();
-        return InitializationLgNames.buildStdOneAna(_m, opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(_i);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl contextElTypes(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElTypes("pkg.ExTwo","pkg.ExThree","pkg.ExFour","Biz");
-        return validateAndRet(_files, cont_);
-    }
-
-    private static AnalyzedTestContext contextElTypes(String... _types) {
         Options opt_ = newOptions();
-        addTypesInit(opt_, _types);
-        return InitializationLgNames.buildStdOneAna(opt_);
+        addTypesInit(opt_, "pkg.ExTwo", "pkg.ExThree", "pkg.ExFour", "Biz");
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
-    private static void addTypesInit(Options _opt, String... _types) {
+    protected static void addTypesInit(Options _opt, String... _types) {
         _opt.getTypesInit().addAllElts(new StringList(_types));
     }
 
     protected static ContextEl ctxResOk(StringMap<String> _srcFiles, StringMap<String> _all) {
-        AnalyzedTestContext cont_ = ctxAna();
-        cont_.getAnalyzing().addResources(_all);
-        return validateAndRet(_srcFiles, cont_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        page_.addResources(_all);
+        return validateAndRet(_srcFiles, page_,forwards_);
     }
 
     protected static ContextEl ctxOk(StringMap<String> _files, String... _types) {
-        AnalyzedTestContext cont_ = ctxAna(_types);
-        return validateAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_, _types);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl ctxOkRead(StringMap<String> _files, String... _types) {
-        AnalyzedTestContext cont_ = ctxReadOnlyAna(_types);
-        return validateAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        addTypesInit(opt_, _types);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl ctxOkReadSeed(StringMap<String> _files, String _seed) {
-        AnalyzedTestContext cont_ = ctxReadOnlyAnaSeed(_seed);
-        return validateAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setSeedElts(_seed);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
-    private static ContextEl validateAndRet(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ContextEl ctx_ = validateAll(_files, _cont);
+    private static ContextEl validateAndRet(StringMap<String> _files, AnalyzedPageEl _cont, Forwards _fwd) {
+        ContextEl ctx_ = validateAll(_files, _cont, _fwd);
         assertTrue(isEmptyErrors(_cont));
         return ctx_;
     }
 
     protected static ContextEl ctxLgOk(String _lg,StringMap<String> _files, String... _types) {
-        AnalyzedTestContext cont_ = ctxLgAna(_lg,_types);
-        return validateAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_, _types);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords(_lg);
+        if (StringUtil.quickEq(_lg, "en")) {
+            km_.initEnStds(lgName_);
+        } else {
+            km_.initFrStds(lgName_);
+        }
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
-    protected static ContextEl forwardAndClear(AnalyzedTestContext _cont) {
-        ContextEl ctx_ = _cont.getForwards().generate();
+    protected static ContextEl forwardAndClear(Forwards _cont) {
+        ContextEl ctx_ = _cont.generate();
         Classes.forwardAndClear(ctx_);
         return ctx_;
     }
 
-    protected static void validateWithoutInit(StringMap<String> _files, AnalyzedTestContext _cont) {
-        Classes.validateWithoutInit(_files, _cont.getAnalyzing());
+    protected static void validateWithoutInit(StringMap<String> _files, AnalyzedPageEl _cont) {
+        Classes.validateWithoutInit(_files, _cont);
     }
 
 
-    protected static void buildFilesBodies(AnalyzedTestContext _cont, StringMap<String> _files) {
-        ClassesUtil.buildFilesBodies(_files,true, _cont.getAnalyzing());
+    protected static void buildFilesBodies(AnalyzedPageEl _cont, StringMap<String> _files) {
+        ClassesUtil.buildFilesBodies(_files,true, _cont);
     }
 
-    protected static void parseFiles(AnalyzedTestContext _cont) {
-        ClassesUtil.parseFiles(_cont.getAnalyzing());
+    protected static void parseFiles(AnalyzedPageEl _cont) {
+        ClassesUtil.parseFiles(_cont);
     }
 
-    protected static void validateInheritingClasses(AnalyzedTestContext _cont) {
-        ClassesUtil.validateInheritingClasses(_cont.getAnalyzing());
+    protected static void validateInheritingClasses(AnalyzedPageEl _cont) {
+        ClassesUtil.validateInheritingClasses(_cont);
     }
 
-    protected static void validateIds(AnalyzedTestContext _cont) {
-        ClassesUtil.validateIds(_cont.getAnalyzing());
+    protected static void validateIds(AnalyzedPageEl _cont) {
+        ClassesUtil.validateIds(_cont);
     }
 
-    protected static void validateOverridingInherit(AnalyzedTestContext _cont) {
-        ClassesUtil.validateOverridingInherit(_cont.getAnalyzing());
+    protected static void validateOverridingInherit(AnalyzedPageEl _cont) {
+        ClassesUtil.validateOverridingInherit(_cont);
     }
 
-    protected static void postValidation(AnalyzedTestContext _ctx) {
-        ClassesUtil.postValidation(_ctx.getAnalyzing());
-        generalForward(_ctx);
+    protected static void postValidation(AnalyzedPageEl _ctx,Forwards _fwd) {
+        ClassesUtil.postValidation(_ctx);
+        generalForward(_ctx,_fwd);
     }
 
-    protected static void validateEl(AnalyzedTestContext _cont) {
-        ClassesUtil.validateEl(_cont.getAnalyzing());
+    protected static void validateEl(AnalyzedPageEl _cont) {
+        ClassesUtil.validateEl(_cont);
     }
 
-    protected static void checkInterfaces(AnalyzedTestContext _cont) {
-        AnaTypeUtil.checkInterfaces(_cont.getAnalyzing());
-    }
-
-    protected static AnalyzedTestContext ctxReadOnlyAna(String... _types) {
-        Options opt_ = newOptions();
-        opt_.setReadOnly(true);
-        addTypesInit(opt_, _types);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-
-    protected static AnalyzedTestContext ctxAna(String... _types) {
-        Options opt_ = newOptions();
-        addTypesInit(opt_, _types);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-
-    protected static AnalyzedTestContext ctxReadOnlyAnaSeed(String _seed) {
-        Options opt_ = newOptions();
-        opt_.setReadOnly(true);
-        opt_.setSeedElts(_seed);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-
-    protected static AnalyzedTestContext ctxAnaWarn(String... _types) {
-        Options opt_ = newOptions();
-        WarningShow warningShow_ = new WarningShow();
-        warningShow_.setTernary(true);
-        warningShow_.setUnusedParameterStaticMethod(true);
-        opt_.setWarningShow(warningShow_);
-        addTypesInit(opt_, _types);
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-
-    protected static AnalyzedTestContext ctxLgAna(String _lg, String... _types) {
-        Options opt_ = newOptions();
-        addTypesInit(opt_, _types);
-        return InitializationLgNames.buildStdOneAna(_lg, opt_);
-    }
-
-    protected static AnalyzedTestContext getEnContextElComment() {
-        Options opt_ = newOptions();
-        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
-        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-
-
-        return InitializationLgNames.buildStdOneAna("en", opt_);
+    protected static void checkInterfaces(AnalyzedPageEl _cont) {
+        AnaTypeUtil.checkInterfaces(_cont);
     }
 
 
     protected boolean failValidateValue(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        validateWithoutInit(_files, cont_);
-        ReportedMessages headers_ = cont_.getAnalyzing().getMessages();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        validateWithoutInit(_files, page_);
+        ReportedMessages headers_ = page_.getMessages();
         headers_.displayErrors();
-        return !isEmptyErrors(cont_);
+        return !isEmptyErrors(page_);
     }
 
     protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> _files, String... _types) {
-        AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg,_types);
-        return validateAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        addTypesInit(opt_, _types);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords(_lg);
+        if (StringUtil.quickEq(_lg, "en")) {
+            km_.initEnStds(lgName_);
+        } else {
+            km_.initFrStds(lgName_);
+        }
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxLgReadOnlyAna(_lg);
-        return invalid(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords(_lg);
+        if (StringUtil.quickEq(_lg, "en")) {
+            km_.initEnStds(lgName_);
+        } else {
+            km_.initFrStds(lgName_);
+        }
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return invalid(_files, page_);
     }
 
     protected static ContextEl ctxReadOnlyOk(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxReadOnlyAna();
-        return validateAndRet(_files, cont_);
-    }
-
-    private static AnalyzedTestContext ctxReadOnlyAna() {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
 
-        return InitializationLgNames.buildStdOneAna(opt_);
-    }
-
-    private static AnalyzedTestContext contextElSingleDotDefaultComment() {
-        Options opt_ = newOptions();
-        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
-        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-
-        return InitializationLgNames.buildStdOneAna(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
     protected ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        return validQuick(_files, cont_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validQuick(_files, page_,forwards_);
     }
 
     protected static Struct getStaticField(ContextEl _ctx, ClassField _id) {
@@ -621,80 +1042,105 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return NumParsers.getStaticField(_id, staticFields_);
     }
 
-    protected static ContextEl validQuick(StringMap<String> _files, AnalyzedTestContext _cont) {
+    protected static ContextEl validQuick(StringMap<String> _files, AnalyzedPageEl _cont, Forwards _fwd) {
         validateWithoutInit(_files, _cont);
         assertTrue( isEmptyErrors(_cont));
-        generalForward(_cont);
-        return forwardAndClear(_cont);
+        generalForward(_cont,_fwd);
+        return forwardAndClear(_fwd);
     }
 
-    protected static void generalForward(AnalyzedTestContext _cont) {
-        ForwardInfos.generalForward(_cont.getAnalyzing(), _cont.getForwards());
+    protected static void generalForward(AnalyzedPageEl _cont, Forwards _fwd) {
+        ForwardInfos.generalForward(_cont, _fwd);
     }
 
     protected StringMap<StringMap<Struct>> validateStaticFieldsFail(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        validateWithoutInit(_files, cont_);
-        assertTrue(!isEmptyErrors(cont_));
-        return cont_.getForwards().getStaticFields();
-    }
-    protected static AnalyzedTestContext unfullValidateInheriting(StringMap<String> _files) {
-        Options opt_ = newOptions();
-
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        parseCustomFiles(_files, cont_);
-        assertTrue( isEmptyErrors(cont_));
-        validateInheritingClasses(cont_);
-        assertTrue( isEmptyErrors(cont_));
-        return cont_;
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        validateWithoutInit(_files, page_);
+        assertTrue(!isEmptyErrors(page_));
+        return forwards_.getStaticFields();
     }
 
     protected boolean failValidateInheritingClassesValue(StringMap<String> _files) {
         Options opt_ = newOptions();
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        parseCustomFiles(_files, cont_);
-        assertTrue( isEmptyErrors(cont_));
-        validateInheritingClasses(cont_);
-        return !isEmptyErrors(cont_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue( isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        return !isEmptyErrors(page_);
     }
 
     protected boolean failValidateInheritingClassesSingleValue(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        parseCustomFiles(_files, cont_);
-        assertTrue( isEmptyErrors(cont_));
-        validateInheritingClasses(cont_);
-        return !isEmptyErrors(cont_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue( isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        return !isEmptyErrors(page_);
     }
 
-    protected static void parseCustomFiles(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ClassesUtil.tryBuildAllBracedClassesBodies(_files, _cont.getAnalyzing());
+    protected static void parseCustomFiles(StringMap<String> _files, AnalyzedPageEl _cont) {
+        ClassesUtil.tryBuildAllBracedClassesBodies(_files, _cont);
     }
 
-    protected static void validateInheritingClassesId(AnalyzedTestContext _cont) {
-        ClassesUtil.validateInheritingClassesId(_cont.getAnalyzing());
+    protected static void validateInheritingClassesId(AnalyzedPageEl _cont) {
+        ClassesUtil.validateInheritingClassesId(_cont);
     }
 
-    protected static AnalyzedTestContext simpleCtx() {
-        Options opt_ = newOptions();
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        parsePredefFiles(cont_);
-        return cont_;
-    }
-
-    protected static AnalyzedTestContext simpleCtxComment() {
-        Options opt_ = newOptions();
-        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
-        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        parsePredefFiles(cont_);
-        return cont_;
-    }
-
-    private static Options newOptions() {
+    protected static Options newOptions() {
         Options options_ = new Options();
         options_.setEncodeHeader(false);
         DefaultAccess defaultAccess_ = options_.getDefaultAccess();
@@ -713,15 +1159,6 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         _def.setAccInners(_value);
     }
 
-    private static void parsePredefFiles(AnalyzedTestContext _cont) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
-        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            FileResolverTest.parseFile(_cont, name_, true, content_);
-        }
-    }
-
     protected static Struct getField(Struct _struct, ClassField _key) {
         return ClassFieldStruct.getPair(((FieldableStruct)_struct).getFields(),_key).getStruct();
     }
@@ -731,54 +1168,214 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return ((CustomFoundExc) str_).getStruct();
     }
     protected static ContextEl cov(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        return validateCovAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl covReadOnly(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageReadOnlyDef();
-        return validateCovAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl covReadOnlyImpl(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageReadOnlyDefImpl();
-        return validateCovAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+        opt_.setCovering(true);
+        opt_.setDisplayImplicit(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_, forwards_);
     }
 
     protected static ContextEl covDisplay(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageDisplayDef();
-        return validateCovAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        page_.getDisplayedStrings().setTrueString("\"");
+        page_.getDisplayedStrings().setFalseString("&");
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl covCom(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageDefaultComment();
-        return validateCovAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl covEnCom(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageDefaultEnComment();
-        return validateCovAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
     protected static ContextEl covVal(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        return validateCovAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateCovAndRet(_files, page_,forwards_);
     }
 
-    private static ContextEl validateCovAndRet(StringMap<String> _files, AnalyzedTestContext _cont) {
-        ResultContext ctx_ = validate(_cont, _files);
-        assertTrue(isEmptyErrors(_cont));
+
+    private static ContextEl validateCovAndRet(StringMap<String> _files, AnalyzedPageEl _page, Forwards _fwd) {
+        ResultContext ctx_ = validate(_files, _page, _fwd);
+        assertTrue(isEmptyErrors(_page));
         return ctx_.getContext();
     }
 
     protected static ContextEl covVal2(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElCoverageDefAna();
-        return validateAndRet(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.setCovering(true);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return validateAndRet(_files, page_,forwards_);
     }
 
-    protected static ResultContext validate(AnalyzedTestContext _c, StringMap<String> _f) {
-        return validate(_f, _c.getAnalyzing(), _c.getForwards());
-    }
     protected static String getString(Argument _arg) {
         return ((CharSequenceStruct)_arg.getStruct()).toStringInstance();
     }
@@ -799,45 +1396,152 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static ContextEl checkWarn(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxAnaWarn();
-        ContextEl ctx_ = validateAll(_files, cont_);
-        ReportedMessages methodHeaders_ = cont_.getAnalyzing().getMessages();
-        assertTrue(isEmptyErrors(cont_));
+        Options opt_ = newOptions();
+        WarningShow warningShow_ = new WarningShow();
+        warningShow_.setTernary(true);
+        warningShow_.setUnusedParameterStaticMethod(true);
+        opt_.setWarningShow(warningShow_);
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        ContextEl ctx_ = validateAll(_files, page_,forwards_);
+        ReportedMessages methodHeaders_ = page_.getMessages();
+        assertTrue(isEmptyErrors(page_));
         assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());
         return ctx_;
     }
 
     protected static boolean hasErrReadOnly(StringMap<String> _files) {
-        AnalyzedTestContext ctx_ = ctxReadOnlyAna();
-        return invalid(_files, ctx_);
+        Options opt_ = newOptions();
+        opt_.setReadOnly(true);
+
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return invalid(_files, page_);
     }
 
     protected static boolean hasErrDefCom(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = contextElSingleDotDefaultComment();
-        return invalid(_files, cont_);
+        Options opt_ = newOptions();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return invalid(_files, page_);
     }
 
-    private static boolean invalid(StringMap<String> _files, AnalyzedTestContext _cont) {
+    private static boolean invalid(StringMap<String> _files, AnalyzedPageEl _cont) {
         validateWithoutInit(_files, _cont);
         return !isEmptyErrors(_cont);
     }
 
     protected static boolean hasErr(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxAna();
-        return invalid(_files, cont_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return invalid(_files, page_);
     }
 
     protected static boolean hasErrLg(StringMap<String> _files, String _lg) {
-        AnalyzedTestContext cont_ = ctxLgAna(_lg);
-        return invalid(_files, cont_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords(_lg);
+        if (StringUtil.quickEq(_lg, "en")) {
+            km_.initEnStds(lgName_);
+        } else {
+            km_.initFrStds(lgName_);
+        }
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        return invalid(_files, page_);
     }
 
     protected static boolean isSuccessfulInitialized(ContextEl _cont, String _s) {
         return _cont.getLocks().getState(_s) == InitClassState.SUCCESS;
     }
 
-    protected static boolean isEmptyErrors(AnalyzedTestContext _cont) {
-        return _cont.getAnalyzing().isEmptyErrors();
+    protected static boolean isEmptyErrors(AnalyzedPageEl _cont) {
+        return _cont.isEmptyErrors();
     }
 
     protected static boolean isInitialized(ContextEl _cont, String _cl) {

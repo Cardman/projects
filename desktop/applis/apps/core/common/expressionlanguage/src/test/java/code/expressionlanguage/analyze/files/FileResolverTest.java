@@ -1,16 +1,24 @@
 package code.expressionlanguage.analyze.files;
 
-import code.expressionlanguage.AnalyzedTestContext;
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.blocks.*;
 
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.DefaultFileEscapedCalc;
 import code.expressionlanguage.common.StringExpUtil;
 
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.options.*;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
 import code.util.*;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -25,7 +33,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$public $class pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -46,7 +54,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("*comment*\\\n");
         file_.append("$interface pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -63,7 +71,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$final $class pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -80,7 +88,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$abstract $class pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -96,7 +104,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\\\\ multi line\n");
         file_.append("$annotation pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -112,7 +120,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\\\\ multi line\n");
         file_.append("$package $class pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -128,7 +136,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\\\\ multi line\n");
         file_.append("$private $class pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -147,7 +155,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$interface pkgtwo.ExInt {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -169,7 +177,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\\\\ multi line\n");
         file_.append("$interface pkgtwo.ExInt {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -191,7 +199,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" $enum Inner {:");
         file_.append(" }");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -210,7 +218,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" FOUR<FIVE,SIX>(\"\">\"\");\n");
         file_.append(" $public $static $void m(){}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -240,7 +248,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" FOUR<FIVE,SIX>(\"\">\"\"){};\n");
         file_.append(" $public $static $void m(){}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(3, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_, 0).getFullName());
@@ -279,7 +287,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$public $class pkgtwo.ExClass<#T> {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -299,7 +307,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$public $class pkgtwo.Toto<#T:pktwo.Content> {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -319,7 +327,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$public $class pkgtwo.Toto<#Param> : pkgthree.Inherit {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -341,7 +349,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$public $class pkgtwo.Toto<#Param> : pkgthree.Inherit<#Param> {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -363,7 +371,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$public $class pkgtwo.Toto<#Param,#SecondParam> : pkgthree.Inherit<#Param> : pkgfour.Inherit<#SecondParam> {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -387,7 +395,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.Toto<#T:pkgtwo.Inherit> : pkgthree.Inherit<#T> : pkgfour.Inherit<#T> {\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -437,7 +445,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -601,7 +609,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -795,7 +803,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -916,7 +924,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -1038,7 +1046,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -1170,7 +1178,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         file_.append("$public $class pkgtwo.ExClassTwo {\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -1203,7 +1211,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -1336,7 +1344,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -1479,7 +1487,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -1646,7 +1654,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -1811,7 +1819,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -1946,7 +1954,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2081,7 +2089,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2215,7 +2223,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2334,7 +2342,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$throw $badthrows;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2369,7 +2377,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2415,7 +2423,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t} $while(condition;.);\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2467,7 +2475,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2530,7 +2538,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2600,7 +2608,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2662,7 +2670,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2724,7 +2732,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2782,7 +2790,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2838,7 +2846,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2905,7 +2913,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -2967,7 +2975,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -3005,7 +3013,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         file_.append("$public $class pkgtwo.ExClassTwo {\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -3044,7 +3052,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         file_.append("$public $class pkgtwo.ExClassTwo {\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -3090,7 +3098,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3231,7 +3239,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3370,7 +3378,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3433,7 +3441,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3497,7 +3505,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3556,7 +3564,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t} $while(condition);\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3609,7 +3617,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3679,7 +3687,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3750,7 +3758,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -3896,7 +3904,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -3952,7 +3960,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -4019,7 +4027,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -4079,7 +4087,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.Toto<#T:pkgtwo.Inherit> : pkgthree.Inherit<#T> : pkgfour.Inherit<#T> {\n");
         file_.append("\t$private $String exfield='{IN_BRACE}(){}'({INNER});\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4115,7 +4123,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.Toto<#T:pkgtwo.Inherit> : pkgthree.Inherit<#T> : pkgfour.Inherit<#T> {\n");
         file_.append("\t$private $String exfield={INNER};\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4151,7 +4159,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.Toto<#T:pkgtwo.Inherit> : pkgthree.Inherit<#T> : pkgfour.Inherit<#T> {\n");
         file_.append("\t$private $String exfield=$new pkg.Ex[]{INNER};\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4208,7 +4216,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4415,7 +4423,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4604,7 +4612,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.ExClass {\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -4629,7 +4637,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class [pkg.ExThree;$static pkg.ExFour.methodtwo;] pkgtwo.ExClass {\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -4661,7 +4669,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\tHERE;\n");
         file_.append("\t$private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4724,7 +4732,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("pkgtwo.MyClassTwo;\n");
         file_.append("@MyAnnot\n");
         file_.append("$public $class pkg.MyClass{}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyClass", getCustomTypes(context_,0).getFullName());
@@ -4747,7 +4755,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t@MyAnnot THERE(1i,\n3i),\n");
         file_.append("\tHERE;\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4805,7 +4813,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.Toto {\n");
         file_.append("\t@MyAnnot $private $String exfield=\"{IN_BRACE}(){}\"({INNER});\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4843,7 +4851,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.Toto {\n");
         file_.append("\t@MyAnnot $private $normal $String exmethod(){}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4884,7 +4892,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.Toto {\n");
         file_.append("\t@MyAnnot $private $normal $String exmethod(@MyAnnotTwo $int p){}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -4936,7 +4944,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -4959,7 +4967,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exmethod();\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -4996,7 +5004,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exmethod()\"sample\";\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5035,7 +5043,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t@MyAnnot $String exmethod();\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5074,7 +5082,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exmethod(){\"sample\"};\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5113,7 +5121,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exmethod()(\"sample\")+\" test\";\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5148,7 +5156,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ $long ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -5187,7 +5195,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ $long ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -5225,7 +5233,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ $long (@MyAnnot\n$int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -5267,7 +5275,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $class [] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5288,7 +5296,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$abstract $class [] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5309,7 +5317,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$final $class [] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5330,7 +5338,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $class [] Inner<#S>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5351,7 +5359,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $static $class [] Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5375,7 +5383,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exfield;\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5409,7 +5417,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$final $String exfield;\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5444,7 +5452,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$String exfield = \"\";\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5479,7 +5487,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $annotation pkg.MyAnnot {\n");
         file_.append("\t$final $String exfield = \"\";\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5512,7 +5520,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $static $class Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5533,7 +5541,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $static $class Inner<#T>:pkg.Outer<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5555,7 +5563,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $static $class Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5577,7 +5585,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $static $class Inner<#T>:pkg.Outer<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5601,7 +5609,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$class(MyClass).method();\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -5643,7 +5651,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$class (MyClass).method();\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -5685,7 +5693,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$class  (MyClass).method();\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -5728,7 +5736,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" $class StaticInner{\n");
         file_.append(" }\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5755,7 +5763,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" $public $class [my.Class;] StaticInner{\n");
         file_.append(" }\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5784,7 +5792,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" $public $class StaticInner{\n");
         file_.append(" }\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.MyAnnot", getCustomTypes(context_,0).getFullName());
@@ -5809,7 +5817,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $class [my.Import;] Inner{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(2, countCustomTypes(context_));
         assertEq("pkg.Outer", getCustomTypes(context_,0).getFullName());
@@ -5847,7 +5855,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -5987,7 +5995,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -6125,7 +6133,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
     }
@@ -6139,7 +6147,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $final $class pkgtwo.Toto<#T> {\n");
         file_.append("\t$private $String exfield='\\'';\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6171,7 +6179,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $abstract $class pkgtwo.Toto<#T> {\n");
         file_.append("\t$private $String exfield=\"\\\"\";\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6203,7 +6211,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $abstract $final $class pkgtwo.Toto<#T> {\n");
         file_.append("\t$private $String exfield=\"\";\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6244,7 +6252,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6301,7 +6309,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6364,7 +6372,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6494,7 +6502,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6555,7 +6563,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6609,7 +6617,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachable;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6674,7 +6682,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6825,7 +6833,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6962,7 +6970,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $class pkgtwo.Toto {\n");
         file_.append("\t$private $String myf=\"ValueOne\",mys=\"ValueTwo\";\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -6995,7 +7003,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$class pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7016,7 +7024,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7049,7 +7057,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7088,7 +7096,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7131,7 +7139,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7177,7 +7185,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7224,7 +7232,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  return;\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7273,7 +7281,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  return;\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7319,7 +7327,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7352,7 +7360,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7392,7 +7400,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7437,7 +7445,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7485,7 +7493,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7529,7 +7537,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7560,7 +7568,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7597,7 +7605,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7638,7 +7646,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7682,7 +7690,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7728,7 +7736,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7772,7 +7780,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7816,7 +7824,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7859,7 +7867,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefaultComment();
+        AnalyzedPageEl context_ = simpleContextEnDefaultComment();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7900,7 +7908,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefaultComment();
+        AnalyzedPageEl context_ = simpleContextEnDefaultComment();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7940,7 +7948,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" private static final java.lang.String multi=`\n");
         file_.append("  static {``next\"// /*\t)`;\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7963,7 +7971,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" private static final java.lang.String multi=`\n");
         file_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`;\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -7987,7 +7995,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  static {``next\"// /*\t)`,line=`now\nreturn to line\n``but capture all`;\n");
         file_.append(" private static final java.lang.String single=\"`\";\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8016,7 +8024,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$public $enum pkgtwo.Toto : hello.word<Ex> : every.body {\n");
         file_.append("\tONE\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8046,7 +8054,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  Systeme.afficher(\"1+2=\"+(1+2));\n");
         file_.append(" }\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleContextFrDefault();
+        AnalyzedPageEl context_ = simpleContextFrDefault();
         parseFile(file_, context_, "mon_fichier", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("mon.paquet.Exemple", getCustomTypes(context_,0).getFullName());
@@ -8064,7 +8072,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         StringMap<String> files_ = new StringMap<String>();
         files_.put("my_file", file_.toString());
         parseFile(file_, context_, "my_file", false);
@@ -8114,7 +8122,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8145,7 +8153,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8176,7 +8184,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8207,7 +8215,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8238,7 +8246,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8269,7 +8277,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8300,7 +8308,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8331,7 +8339,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return \"\";\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8362,7 +8370,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\tTemp<Other<String>>[] v;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8388,7 +8396,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\tTemp <Other<String>>[] v;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8414,7 +8422,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\tTemp<Other<String>> [] v;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8440,7 +8448,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\tTemp<Other<String>>[]v;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8466,7 +8474,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\tv.$new Cl();\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8488,7 +8496,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\tv.a$new mycl;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8520,7 +8528,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefaultComment();
+        AnalyzedPageEl context_ = simpleContextEnDefaultComment();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8567,7 +8575,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefaultComment();
+        AnalyzedPageEl context_ = simpleContextEnDefaultComment();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8614,7 +8622,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefaultComment();
+        AnalyzedPageEl context_ = simpleContextEnDefaultComment();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8661,7 +8669,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefaultComment();
+        AnalyzedPageEl context_ = simpleContextEnDefaultComment();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -8704,7 +8712,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t}\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -8732,7 +8740,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ $long[] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8757,7 +8765,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ $long[ ] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8782,7 +8790,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ Tmp<Val> ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8807,7 +8815,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ Tmp<U<Val>> ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8832,7 +8840,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ Tmp <U<Val>> ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8857,7 +8865,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ Tmp<U<Val>> [] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8882,7 +8890,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ Tmp<U<Val>>.Inner ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8907,7 +8915,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ #T ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8932,7 +8940,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ Tmp<U<Val>> [] [] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8957,7 +8965,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ pkg .Inner ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -8982,7 +8990,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ pkg. Inner ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -9007,7 +9015,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("$operator+ Tmp<U<Val >> [] [] ($int a, $short b) {\n");
         file_.append("\t$return plus(a;.;,b;.;);\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
@@ -9036,7 +9044,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9048,7 +9056,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" $foreach ([([)]):] {\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9060,7 +9068,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" iter (int i=0;;) {\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9076,7 +9084,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9094,7 +9102,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9113,7 +9121,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9132,7 +9140,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9154,7 +9162,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9176,7 +9184,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  }\n");
         file_.append(" }\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq(1, countFileTypes(context_));
@@ -9205,7 +9213,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -9346,7 +9354,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$return $unreachablebis;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -9471,7 +9479,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$badthrowbis<y,tab[8]>p;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -9513,7 +9521,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t\t$badthrowbis<y?tab[8]>p;\n");
         file_.append("\t}\n");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.Toto", getCustomTypes(context_,0).getFullName());
@@ -9556,7 +9564,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\r\n");
         file_.append("$public $class pkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -9577,7 +9585,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*/\r\n");
         file_.append("$public $class pkgtwo.ExClass {");
         file_.append("}\b");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(0, countCustomTypes(context_));
         assertTrue(!isEmptyErrors(context_));
@@ -9591,7 +9599,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("comment*\\\n");
         file_.append("$public $class pkgtwo.ExClass {");
         file_.append("}\r");
-        AnalyzedTestContext context_ = simpleCtxComment();
+        AnalyzedPageEl context_ = simpleCtxCommentPage();
         parseFile(file_, context_, "my_file", false);
         assertEq(1, countCustomTypes(context_));
         assertEq("pkgtwo.ExClass", getCustomTypes(context_,0).getFullName());
@@ -9610,7 +9618,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $class [] Outer{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9621,7 +9629,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("\t$public $class [] Inner<#T>{\n");
         file_.append("\t}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9643,21 +9651,20 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  $return t;.;\n");
         file_.append(" }\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(isEmptyErrors(context_));
-        AnalyzedTestContext contextBis_ = ctxAna();
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("my_file",file_.toString());
-        validateWithoutInit(files_,contextBis_);
-        assertTrue(!isEmptyErrors(contextBis_));
+        validateWithoutInit(files_,context_);
+        assertTrue(!isEmptyErrors(context_));
     }
     @Test
     public void parseFile4FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.#Outer {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", true);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9668,7 +9675,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         file_.append("$public $class pkg.Outer {\t\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9677,7 +9684,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<,> {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9686,7 +9693,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<T,T> {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9695,7 +9702,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.Outer<int#> {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9704,7 +9711,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class java.lang.String {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9713,7 +9720,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("public class int {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9724,7 +9731,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         file_.append("$public $class pkg.Ex {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9739,7 +9746,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         file_.append("public class pkg.pkgtwo {\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9753,7 +9760,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append(" $enum pkg.Inner {:");
         file_.append(" }");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9764,7 +9771,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}");
         file_.append("$annotation\tpkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9775,7 +9782,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}");
         file_.append("$annotation []\tpkgtwo.ExClass {");
         file_.append("}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9783,7 +9790,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     public void parseFile16FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$annotation []");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9791,7 +9798,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     public void parseFile17FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$annotation [");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9799,7 +9806,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
     public void parseFile18FailTest() {
         StringBuilder file_ = new StringBuilder();
         file_.append("$annotation pkg.MyAnnot{$public $int v=r{}y}");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(isEmptyErrors(context_));
     }
@@ -9812,7 +9819,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("}\n");
         file_.append("}\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleCtx();
+        AnalyzedPageEl context_ = simpleCtxPage();
         parseFile(file_, context_, "my_file", false);
         assertTrue(isEmptyErrors(context_));
     }
@@ -9823,7 +9830,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("public class void {\n");
         file_.append("}\n");
         file_.append("\"\"\n");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
@@ -9832,50 +9839,146 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringBuilder file_ = new StringBuilder();
         file_.append("public class void\n");
         file_.append("}\n");
-        AnalyzedTestContext context_ = simpleContextEnDefault();
+        AnalyzedPageEl context_ = simpleContextEnDefault();
         parseFile(file_, context_, "my_file", false);
         assertTrue(!isEmptyErrors(context_));
     }
-    protected static void parseFile(StringBuilder _file, AnalyzedTestContext _context, String _myFile, boolean _predefined) {
+
+
+    private static AnalyzedPageEl simpleContextEnDefault() {
+        //key words in some language
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            parseFile(page_,name_, true, content_);
+        }
+        return page_;
+    }
+    private static AnalyzedPageEl simpleContextEnDefaultComment() {
+        //key words in some language
+        Options opt_ = newOptions();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+
+
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            parseFile(page_,name_,  true, content_);
+        }
+        return page_;
+    }
+    private static AnalyzedPageEl simpleContextFrDefault() {
+        //key words in some language
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("fr");
+        km_.initFrStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            parseFile(page_, name_, true, content_);
+        }
+        return page_;
+    }
+
+    protected static void parseFile(StringBuilder _file, AnalyzedPageEl _context, String _myFile, boolean _predefined) {
         String content_ = _file.toString();
-        parseFile(_context, _myFile, _predefined, content_, _context.getAnalyzing());
+        parseFile(_context, _myFile, _predefined, content_, _context);
     }
 
-    public static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file) {
-        parseFile(_context,_fileName,_predefined,_file, _context.getAnalyzing());
+    public static void parseFile(AnalyzedPageEl _context, String _fileName, boolean _predefined, String _file) {
+        parseFile(_context,_fileName,_predefined,_file, _context);
     }
 
-    protected static void parseFile(AnalyzedTestContext _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
+    protected static void parseFile(AnalyzedPageEl _context, String _fileName, boolean _predefined, String _file, AnalyzedPageEl _page) {
         FileBlock fileBlock_ = new FileBlock(0,_predefined, _fileName, new DefaultFileEscapedCalc());
         _page.putFileBlock(_fileName, fileBlock_);
-        _page.getErrors().putFile(fileBlock_, _context.getAnalyzing());
+        _page.getErrors().putFile(fileBlock_, _context);
         _page.setCurrentFile(fileBlock_);
-        fileBlock_.processLinesTabsWithError(_file, _context.getAnalyzing());
+        fileBlock_.processLinesTabsWithError(_file, _context);
         StringComment stringComment_ = fileBlock_.stringComment(_page.getComments());
         fileBlock_.metrics(stringComment_);
         String file_ = stringComment_.getFile();
-        FileResolver.parseFile(fileBlock_, _fileName, file_, _context.getAnalyzing());
+        FileResolver.parseFile(fileBlock_, _fileName, file_, _context);
         StringList basePkgFound_ = _page.getBasePackagesFound();
         basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
         StringList pkgFound_ = _page.getPackagesFound();
         pkgFound_.addAllElts(fileBlock_.getAllPackages());
-        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, _context.getAnalyzing());
-        ClassesUtil.fetchOuterTypesCountOpers(_context.getAnalyzing(),fileBlock_);
+        ClassesUtil.fetchByFile(basePkgFound_,pkgFound_,fileBlock_, _context);
+        ClassesUtil.fetchOuterTypesCountOpers(_context,fileBlock_);
     }
 
 
-    private static int countCustomTypes(AnalyzedTestContext _cont) {
+    private static int countCustomTypes(AnalyzedPageEl _cont) {
         int count_ = 0;
-        for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
+        for (RootBlock r: _cont.getFoundTypes()) {
             if (!r.getFile().isPredefined()) {
                 count_++;
             }
         }
         return count_;
     }
-    private static int countFileTypes(AnalyzedTestContext _cont) {
+    private static int countFileTypes(AnalyzedPageEl _cont) {
         int count_ = 0;
-        for (EntryCust<String, FileBlock> r: _cont.getAnalyzing().getFilesBodies().entryList()) {
+        for (EntryCust<String, FileBlock> r: _cont.getFilesBodies().entryList()) {
             if (!r.getValue().isPredefined()) {
                 count_++;
             }
@@ -9883,8 +9986,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         return count_;
     }
 
-    private static RootBlock getClassBody(AnalyzedTestContext _cont, String _className) {
-        for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
+    private static RootBlock getClassBody(AnalyzedPageEl _cont, String _className) {
+        for (RootBlock r: _cont.getFoundTypes()) {
             if (StringUtil.quickEq(r.getFullName(),StringExpUtil.getIdFromAllTypes(_className))) {
                 return r;
             }
@@ -9893,9 +9996,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
 
 
-    private static RootBlock getCustomTypes(AnalyzedTestContext _cont, int _i) {
+    private static RootBlock getCustomTypes(AnalyzedPageEl _cont, int _i) {
         int count_ = 0;
-        for (RootBlock r: _cont.getAnalyzing().getFoundTypes()) {
+        for (RootBlock r: _cont.getFoundTypes()) {
             if (r.getFile().isPredefined()) {
                 continue;
             }
@@ -9906,43 +10009,67 @@ public final class FileResolverTest extends ProcessMethodCommon {
         }
         return null;
     }
-    private static AnalyzedTestContext simpleContextEnDefault() {
-        //key words in some language
-        AnalyzedTestContext cont_ = ctxLgAna("en");
-        AnalyzedPageEl page_ = cont_.getAnalyzing();
-        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            parseFile(cont_,name_, true, content_);
-        }
-        return cont_;
-    }
-    private static AnalyzedTestContext simpleContextEnDefaultComment() {
-        //key words in some language
-        AnalyzedTestContext cont_ = getEnContextElComment();
-        AnalyzedPageEl page_ = cont_.getAnalyzing();
-        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            parseFile(cont_,name_,  true, content_);
-        }
-        return cont_;
-    }
-    private static AnalyzedTestContext simpleContextFrDefault() {
-        //key words in some language
-        AnalyzedTestContext cont_ = ctxLgAna("fr");
-        AnalyzedPageEl page_ = cont_.getAnalyzing();
-        for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
-            String name_ = e.getKey();
-            String content_ = e.getValue();
-            parseFile(cont_, name_, true, content_);
-        }
-        return cont_;
-    }
-    private static CustList<OperatorBlock> getOperators(AnalyzedTestContext _context) {
-        return _context.getAnalyzing().getAllOperators();
+    private static CustList<OperatorBlock> getOperators(AnalyzedPageEl _context) {
+        return _context.getAllOperators();
     }
 
+
+    protected static AnalyzedPageEl simpleCtxPage() {
+        Options opt_ = newOptions();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parsePredefFiles(page_);
+        return page_;
+    }
+    protected static AnalyzedPageEl simpleCtxCommentPage() {
+        Options opt_ = newOptions();
+        opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
+        opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parsePredefFiles(page_);
+        return page_;
+    }
+
+    private static void parsePredefFiles(AnalyzedPageEl _cont) {
+        for (EntryCust<String, String> e: _cont.buildFiles().entryList()) {
+            String name_ = e.getKey();
+            String content_ = e.getValue();
+            FileResolverTest.parseFile(_cont, name_, true, content_);
+        }
+    }
     private static StringList getDirectSuperTypes(RootBlock _r) {
         StringList l_ = new StringList();
         for (String p: _r.getDirectSuperTypes()) {

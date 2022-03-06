@@ -1,11 +1,25 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.AnalyzedTestContext;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 
@@ -24,8 +38,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
          String solved_ = processAnalyze("OuterTwo", "", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("pkgtwo.OuterTwo", solved_);
@@ -51,9 +65,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyze("OuterThree<OuterFour>", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("pkgtwo.OuterThree<pkgthree.OuterFour>", solved_);
@@ -81,9 +95,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterFive<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyze("OuterThree<OuterFive<OuterFour>>", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("pkgtwo.OuterThree<pkgtwo.OuterFive<pkgthree.OuterFour>>", solved_);
@@ -109,9 +123,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyze("OuterTwo.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree", solved_);
     }
@@ -136,9 +150,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyze("Outer.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree", solved_);
     }
@@ -171,9 +185,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyze("Outer.InnerThree.InnerInner", "",context_, root_);
         assertEq("pkgtwo.OuterThree..InnerFive..InnerInner", solved_);
     }
@@ -206,9 +220,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("InnerThree.InnerInner", "pkg.Outer",context_, root_);
         assertEq("pkgtwo.OuterThree..InnerFive..InnerInner", solved_);
@@ -234,9 +248,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("Outer.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo<java.lang.Number>..InnerThree", solved_);
@@ -262,9 +276,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("Outer<java.lang.Number>.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo<java.lang.Number>..InnerThree", solved_);
@@ -290,9 +304,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("Outer<java.lang.Number>.InnerThree<java.lang.String>", "",context_, root_);
         assertEq("pkgtwo.OuterTwo<java.lang.Number>..InnerThree<java.lang.String>", solved_);
@@ -318,9 +332,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("InnerThree<java.lang.String>", "pkg.Outer<#U>",context_, root_);
         assertEq("pkgtwo.OuterTwo<#U>..InnerThree<java.lang.String>", solved_);
@@ -354,13 +368,13 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
-        context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
-        context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
-        context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
+        context_.getAvailableVariables().addEntry("D",0);
+        context_.getAvailableVariables().addEntry("H",0);
+        context_.getAvailableVariables().addEntry("I",0);
         String solved_ = processAnalyze("Outer<D>.InnerThree<H>.InnerInner<I>", "",context_, root_);
         assertEq("pkgtwo.OuterThree<#D>..InnerFive<#H>..InnerInner<#I>", solved_);
     }
@@ -377,9 +391,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterTwo {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("OuterTwo[]", "", context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -398,9 +412,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("OuterTwo<java.lang.Number>[]", "", context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -435,13 +449,13 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
-        context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
-        context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
-        context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
+        context_.getAvailableVariables().addEntry("D",0);
+        context_.getAvailableVariables().addEntry("H",0);
+        context_.getAvailableVariables().addEntry("I",0);
         String solved_ = processAnalyze("Outer<D[]>.InnerThree<H[]>.InnerInner<I[]>[]", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);
@@ -455,9 +469,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("java.lang.$Fct<$void>", "", context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -484,9 +498,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("OuterThree<?OuterFour>", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -513,9 +527,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("OuterThree<!OuterFour>", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -542,9 +556,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("OuterThree<?>", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -563,9 +577,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterTwo<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("OuterTwo<?java.lang.Number>[]", "", context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -592,9 +606,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("OuterThree<?OuterFour[]>", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -621,9 +635,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("OuterThree<!OuterFour[]>", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -638,9 +652,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("java.lang.$Fct<?>", "", context_, root_);
         assertTrue( isEmptyErrors(context_));
@@ -667,9 +681,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyze("OuterTwo.InnerThree<Outer.Inner>", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree<pkg.Outer..Inner>", solved_);
     }
@@ -702,13 +716,13 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.D");
+        RootBlock root_ = context_.getAnaClassBody("pkg.D");
 
-        context_.getAnalyzing().getAvailableVariables().addEntry("D",0);
-        context_.getAnalyzing().getAvailableVariables().addEntry("H",0);
-        context_.getAnalyzing().getAvailableVariables().addEntry("I",0);
+        context_.getAvailableVariables().addEntry("D",0);
+        context_.getAvailableVariables().addEntry("H",0);
+        context_.getAvailableVariables().addEntry("I",0);
         String solved_ = processAnalyze("D<D[]>.InnerThree<H[]>.InnerInner<I[]>[]", "",context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("[pkgtwo.OuterThree<[#D>..InnerFive<[#H>..InnerInner<[#I>", solved_);
@@ -734,9 +748,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyze("OuterTwo.InnerThree<Outer.Inner>", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree<pkg.Outer..Inner>", solved_);
     }
@@ -761,9 +775,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
         String solved_ = processAnalyze("Outer.InnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo..InnerThree", solved_);
@@ -789,9 +803,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
         String solved_ = processAnalyze("Outer<java.lang.String>.InnerThree<java.lang.Number>.InnerInnerThree", "",context_, root_);
         assertEq("pkgtwo.OuterTwo<java.lang.String>..InnerFour..InnerInnerThree", solved_);
@@ -805,9 +819,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("pkg.Outer<$void>", "", context_, root_);
         assertEq("", solved_);
@@ -821,9 +835,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("$Fct<$void,$int>", "", context_, root_);
         assertEq("", solved_);
@@ -837,9 +851,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("java.lang.$Fct<!java.lang.Number,?java.lang.Number>", "", context_, root_);
         assertEq("", solved_);
@@ -853,9 +867,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Outer<T> {\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         
         String solved_ = processAnalyze("java.lang.$Fct<java.lang.Number,?java.lang.Number>", "", context_, root_);
         assertEq("", solved_);
@@ -881,9 +895,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
         String solved_ = processAnalyze("Outer<java.lang.Number,java.lang.Number>.InnerThree", "",context_, root_);
         assertEq("", solved_);
@@ -909,9 +923,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
         String solved_ = processAnalyze("Outer.InnerThree", "",context_, root_);
         assertEq("", solved_);
@@ -937,9 +951,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
         String solved_ = processAnalyze("Outer.Inner", "",context_, root_);
         assertEq("", solved_);
@@ -957,9 +971,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
         String solved_ = processAnalyze("Outer..Inner", "",context_, root_);
         assertEq("", solved_);
@@ -985,9 +999,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
         String solved_ = processAnalyze("Outer<java.lang.String>.InnerThree.InnerInnerThree", "",context_, root_);
         assertEq("", solved_);
@@ -1013,9 +1027,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
 
         String solved_ = processAnalyze("?java.lang.String", "",context_, root_);
         assertEq("", solved_);
@@ -1041,9 +1055,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("OuterThree<OuterFour>", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("pkgtwo.OuterThree<pkgthree.OuterFour>", solved_);
@@ -1051,7 +1065,7 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
     @Test
     public void processAnalyzeLineWithoutErr() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         String solved_ = processAnalyzeLineWithoutErr(",", context_, null);
         assertEq("", solved_);
     }
@@ -1076,9 +1090,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("OuterFour.OuterThree<OuterFour>", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("pkgthree.OuterFour..OuterThree<pkgthree.OuterFour>", solved_);
@@ -1104,9 +1118,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
 
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("OuterThree<?OuterFour>", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("pkgtwo.OuterThree<?pkgthree.OuterFour>", solved_);
@@ -1132,9 +1146,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
 
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("OuterThree<?>", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("pkgtwo.OuterThree<?>", solved_);
@@ -1160,10 +1174,10 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
-        context_.getAnalyzing().getAvailableVariables().clear();
-        context_.getAnalyzing().getAvailableVariables().addEntry("T",0);
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
+        context_.getAvailableVariables().clear();
+        context_.getAvailableVariables().addEntry("T",0);
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("OuterThree<T>", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("pkgtwo.OuterThree<#T>", solved_);
@@ -1189,9 +1203,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgthree.OuterFour {\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
 
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("$Fct<~OuterFour>", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("java.lang.$Fct<~pkgthree.OuterFour>", solved_);
@@ -1217,9 +1231,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("OuterFour.OuterThree<$void>", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("", solved_);
@@ -1245,9 +1259,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("OuterFour.OuterThree<$void", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("", solved_);
@@ -1273,9 +1287,9 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         
-        RootBlock root_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer");
+        RootBlock root_ = context_.getAnaClassBody("pkg.Outer");
         String solved_ = processAnalyzeLine("OuterFour..OuterThree<$void>", context_, root_);
         assertTrue( isEmptyErrors(context_));
         assertEq("", solved_);
@@ -1539,8 +1553,8 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         return AnaPartTypeUtil.isKoForWord(_type, new StringList());
     }
 
-    private static String processAnalyze(String _input, String _globalType, AnalyzedTestContext _an, RootBlock _rooted) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
+    private static String processAnalyze(String _input, String _globalType, AnalyzedPageEl _an, RootBlock _rooted) {
+        AnalyzedPageEl page_ = _an;
         page_.setImportingTypes(_rooted);
         AnaResultPartType anaResultPartType_ = AnaPartTypeUtil.processAnalyze(_input, _globalType, _rooted, _rooted, 0, page_);
         AnaPartType partType_ = anaResultPartType_.getPartType();
@@ -1553,15 +1567,42 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
         return anaResultPartType_.getResult();
     }
 
-    private static String processAnalyzeLine(String _input, AnalyzedTestContext _an, RootBlock _rooted) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
+    private static String processAnalyzeLine(String _input, AnalyzedPageEl _an, RootBlock _rooted) {
+        AnalyzedPageEl page_ = _an;
         page_.setImportingTypes(_rooted);
         return AnaPartTypeUtil.processAnalyzeLine(_input, "", _rooted, _rooted, 0, page_).getResult();
     }
 
-    private static String processAnalyzeLineWithoutErr(String _input, AnalyzedTestContext _an, RootBlock _rooted) {
-        AnalyzedPageEl page_ = _an.getAnalyzing();
+    private static String processAnalyzeLineWithoutErr(String _input, AnalyzedPageEl _an, RootBlock _rooted) {
+        AnalyzedPageEl page_ = _an;
         page_.setImportingTypes(_rooted);
         return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_input, _rooted, _rooted, 0, page_).getResult();
+    }
+    protected static AnalyzedPageEl unfullValidateInheriting(StringMap<String> _files) {
+        Options opt_ = newOptions();
+
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue( isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        assertTrue( isEmptyErrors(page_));
+        return page_;
     }
 }

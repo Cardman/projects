@@ -1,9 +1,24 @@
 package code.expressionlanguage.inherits;
 
-import code.expressionlanguage.AnalyzedTestContext;
+import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
+import code.expressionlanguage.options.ContextFactory;
+import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
+import code.util.CustList;
 import code.util.StringList;
+import code.util.core.IndexConstants;
 import code.util.core.SortConstants;
 import org.junit.Test;
 
@@ -35,49 +50,122 @@ public final class PrimitiveTypeUtilTest extends ProcessMethodCommon {
 
     @Test
     public void cmpTypes1Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
-        String int_ = context_.getAliasInteger();
-        String nb_ = context_.getAliasNumber();
-        assertEq(SortConstants.SWAP_SORT, cmpTypes(context_, int_, nb_));
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        String int_ = page_.getAliasInteger();
+        String nb_ = page_.getAliasNumber();
+        assertEq(SortConstants.SWAP_SORT, cmpTypes(page_, int_, nb_));
     }
 
-    private static int cmpTypes(AnalyzedTestContext _context, String _int, String _nb) {
-        return AnaTypeUtil.cmpTypes(_nb,_int, _context.getAnalyzing());
+    private static int cmpTypes(AnalyzedPageEl _context, String _int, String _nb) {
+        return AnaTypeUtil.cmpTypes(_nb,_int, _context);
     }
 
     @Test
     public void getSubclasses1Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
-        StringList classes_ = new StringList(context_.getAliasInteger(), context_.getAliasNumber());
-        StringList sub_ = getSubclasses(context_, classes_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        StringList classes_ = new StringList(page_.getAliasInteger(), page_.getAliasNumber());
+        StringList sub_ = getSubclasses(page_, classes_);
         assertEq(1, sub_.size());
-        assertEq(context_.getAliasInteger(), sub_.get(0));
+        assertEq(page_.getAliasInteger(), sub_.get(0));
     }
 
     @Test
     public void getSubclasses2Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
-        StringList classes_ = new StringList(context_.getAliasString(), context_.getAliasNumber());
-        StringList sub_ = getSubclasses(context_, classes_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        StringList classes_ = new StringList(page_.getAliasString(), page_.getAliasNumber());
+        StringList sub_ = getSubclasses(page_, classes_);
         assertEq(2, sub_.size());
-        assertEq(context_.getAliasString(), sub_.get(0));
-        assertEq(context_.getAliasNumber(), sub_.get(1));
+        assertEq(page_.getAliasString(), sub_.get(0));
+        assertEq(page_.getAliasNumber(), sub_.get(1));
     }
 
     @Test
     public void getSubclasses3Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
-        StringList classes_ = new StringList(context_.getAliasVoid(), context_.getAliasVoid());
-        StringList sub_ = getSubclasses(context_, classes_);
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        StringList classes_ = new StringList(page_.getAliasVoid(), page_.getAliasVoid());
+        StringList sub_ = getSubclasses(page_, classes_);
         assertTrue(sub_.onlyOneElt());
-        assertEq(context_.getAliasVoid(), sub_.get(0));
+        assertEq(page_.getAliasVoid(), sub_.get(0));
     }
 
-    private static StringList getSubclasses(AnalyzedTestContext _context, StringList _classes) {
-        return AnaTypeUtil.getSubclasses(_classes, _context.getAnalyzing());
+    private static StringList getSubclasses(AnalyzedPageEl _context, StringList _classes) {
+        return AnaTypeUtil.getSubclasses(_classes, _context);
     }
 
-    private static AnalyzedTestContext simpleContextEl() {
-        return ctxAna();
-    }
 }

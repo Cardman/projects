@@ -6,7 +6,7 @@ import code.util.StringMap;
 public final class KeyWordsMap {
 
     private final StringMap<KeyWords> keyWords = new StringMap<KeyWords>();
-    private final StringMap<LgNames> stds = new StringMap<LgNames>();
+//    private final StringMap<LgNames> stds = new StringMap<LgNames>();
     public KeyWordsMap() {
         initKeyWords();
     }
@@ -186,7 +186,7 @@ public final class KeyWordsMap {
         keyWords.put("en", en_);
         keyWords.put("fr", fr_);
     }
-    public void initEnStds(LgNames _lgNames) {
+    public static void initEnStds(LgNames _lgNames) {
         _lgNames.getContent().setDefaultPkg("$core");
         _lgNames.getContent().getCoreNames().setAliasObject("$core.Object");
         _lgNames.getContent().getCoreNames().setAliasVoid("void");
@@ -532,9 +532,9 @@ public final class KeyWordsMap {
         _lgNames.getDisplayedStrings().setNan("Nan");
         _lgNames.getDisplayedStrings().setExponent("E");
         _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
-        stds.put("en", _lgNames);
+//        stds.put("en", _lgNames);
     }
-    public void initFrStds(LgNames _lgNames) {
+    public static void initFrStds(LgNames _lgNames) {
         _lgNames.getContent().setDefaultPkg("$coeur");
         _lgNames.getContent().getCoreNames().setAliasObject("$coeur.Objet");
         _lgNames.getContent().getCoreNames().setAliasVoid("vide");
@@ -880,7 +880,7 @@ public final class KeyWordsMap {
         _lgNames.getDisplayedStrings().setNan("Pun");
         _lgNames.getDisplayedStrings().setExponent("E");
         _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
-        stds.put("fr", _lgNames);
+//        stds.put("fr", _lgNames);
     }
     public KeyWords getKeyWords(String _lg) {
         return keyWords.getVal(_lg);

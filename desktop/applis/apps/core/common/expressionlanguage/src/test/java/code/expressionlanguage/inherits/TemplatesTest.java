@@ -1,19 +1,29 @@
 package code.expressionlanguage.inherits;
 
-import code.expressionlanguage.AnalyzedTestContext;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultConstantsCalculator;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.DefTypePairHash;
 import code.expressionlanguage.common.Matching;
 import code.expressionlanguage.common.OthTypePairHash;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.options.*;
+import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNames;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 import org.junit.Test;
 
 
@@ -21,25 +31,25 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void getAllInnerTypesSingleDotted1Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("int"),getAllInnerTypesSingleDotted("int", context_));
     }
     @Test
     public void getAllInnerTypesSingleDotted2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("int[]"),getAllInnerTypesSingleDotted("int[]", context_));
     }
     @Test
     public void getAllInnerTypesSingleDotted3Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("int[][]"),getAllInnerTypesSingleDotted("int[][]", context_));
     }
     @Test
     public void getAllInnerTypesSingleDotted4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("String"),getAllInnerTypesSingleDotted("String", context_));
     }
     @Test
@@ -49,13 +59,13 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex"),getAllInnerTypesSingleDotted("pkg.Ex", context_));
     }
     @Test
     public void getAllInnerTypesSingleDotted6Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("String[]"),getAllInnerTypesSingleDotted("String[]", context_));
     }
     @Test
@@ -65,13 +75,13 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex[]"),getAllInnerTypesSingleDotted("pkg.Ex[]", context_));
     }
     @Test
     public void getAllInnerTypesSingleDotted8Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("String[][]"),getAllInnerTypesSingleDotted("String[][]", context_));
     }
     @Test
@@ -81,7 +91,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex[][]"),getAllInnerTypesSingleDotted("pkg.Ex[][]", context_));
     }
     @Test
@@ -91,7 +101,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<String>"),getAllInnerTypesSingleDotted("pkg.Ex<String>", context_));
     }
     @Test
@@ -104,7 +114,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<pkg.ExTwo>"),getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo>", context_));
     }
     @Test
@@ -114,7 +124,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<String[]>"),getAllInnerTypesSingleDotted("pkg.Ex<String[]>", context_));
     }
     @Test
@@ -127,7 +137,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<pkg.ExTwo[]>"),getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo[]>", context_));
     }
     @Test
@@ -137,7 +147,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex<T> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<String>[]"),getAllInnerTypesSingleDotted("pkg.Ex<String>[]", context_));
     }
     @Test
@@ -150,7 +160,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<pkg.ExTwo>[]"),getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo>[]", context_));
     }
     @Test
@@ -162,7 +172,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex","Inner"),getAllInnerTypesSingleDotted("pkg.Ex.Inner", context_));
     }
     @Test
@@ -174,7 +184,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("Ex"),getAllInnerTypesSingleDotted("Ex", context_));
     }
     @Test
@@ -187,7 +197,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("Ex<pkg.ExTwo>"),getAllInnerTypesSingleDotted("Ex<pkg.ExTwo>", context_));
     }
     @Test
@@ -200,7 +210,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("Ex<pkg.ExTwo>[]"),getAllInnerTypesSingleDotted("Ex<pkg.ExTwo>[]", context_));
     }
     @Test
@@ -212,7 +222,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex","Inner"),getAllInnerTypesSingleDotted("pkg.Ex.Inner", context_));
     }
     @Test
@@ -224,7 +234,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("Ex","Inner"),getAllInnerTypesSingleDotted("Ex.Inner", context_));
     }
     @Test
@@ -239,7 +249,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("Ex<ExTwo>","Inner"),getAllInnerTypesSingleDotted("Ex<ExTwo>.Inner", context_));
     }
     @Test
@@ -255,7 +265,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<pkg.ExTwo<pkg.ExThree>>"),getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo<pkg.ExThree>>", context_));
     }
     @Test
@@ -273,7 +283,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExThree {}\n");
         files_.put("pkg/ExThree", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex<pkg.ExTwo<pkg.ExThree>.Inner>"),getAllInnerTypesSingleDotted("pkg.Ex<pkg.ExTwo<pkg.ExThree>.Inner>", context_));
     }
     @Test
@@ -285,7 +295,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("pkg.Ex","Inner[]"),getAllInnerTypesSingleDotted("pkg.Ex.Inner[]", context_));
     }
     @Test
@@ -297,7 +307,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append(" public class Inner {}\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("Ex","Inner[]"),getAllInnerTypesSingleDotted("Ex.Inner[]", context_));
     }
     @Test
@@ -312,7 +322,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("public class pkg.ExTwo {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethodsStd(files_);
+        AnalyzedPageEl context_ = unfullValidateOverridingMethodsStd(files_);
         assertEq(new StringList("Ex<ExTwo>","Inner[]"),getAllInnerTypesSingleDotted("Ex<ExTwo>.Inner[]", context_));
     }
 
@@ -322,7 +332,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number,java.lang.Number>";
         String second_ = "#S";
         assertEq("#S", quickFormat(context_, first_, second_));
@@ -333,16 +343,16 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateOverridingMethods(files_);
+        ContextEl context_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "java.lang.String";
         assertEq(second_, quickFormat(context_, first_, second_));
     }
     @Test
     public void quickFormat1Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
-        String first_ = context_.getAliasString();
-        String second_ = context_.getAliasInteger();
+        ContextEl context_ = simpleContextEl();
+        String first_ = context_.getStandards().getCharSeq().getAliasString();
+        String second_ = context_.getStandards().getNbAlias().getAliasInteger();
         assertEq(second_, quickFormat(context_, first_, second_));
     }
     @Test
@@ -351,7 +361,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "java.lang.String";
         assertEq("java.lang.String", quickFormat(cont_, first_, second_));
@@ -363,7 +373,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "#T";
         assertEq("java.lang.Number", quickFormat(cont_, first_, second_));
@@ -375,16 +385,16 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
         assertEq("#E", quickFormat(cont_, first_, second_));
     }
     @Test
     public void format1Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
-        String first_ = context_.getAliasString();
-        String second_ = context_.getAliasInteger();
+        ContextEl context_ = simpleContextEl();
+        String first_ = context_.getStandards().getCharSeq().getAliasString();
+        String second_ = context_.getStandards().getNbAlias().getAliasInteger();
         assertEq(second_, format(context_, first_, second_));
     }
 
@@ -394,7 +404,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T:U&V,U:W,V:W,W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number,java.lang.Number,java.lang.Number,java.lang.Number>";
         String second_ = "#W";
         assertEq("java.lang.Number", format(cont_, first_, second_));
@@ -409,7 +419,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "?#W";
         assertEq("?java.lang.Number", format(cont_, first_, second_));
@@ -422,7 +432,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "!#W";
         assertEq("!java.lang.Number", format(cont_, first_, second_));
@@ -432,7 +442,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void format4Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "$int";
         String second_ = "java.lang.Number";
         assertEq("java.lang.Number", format(cont_, first_, second_));
@@ -444,7 +454,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "#W";
         assertEq("?java.lang.Number", format(cont_, first_, second_));
@@ -457,7 +467,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<W> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "?#W";
         assertEq("?java.lang.Number", format(cont_, first_, second_));
@@ -520,7 +530,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "java.lang.String";
         assertEq("java.lang.String", format(cont_, first_, second_));
@@ -532,7 +542,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "java.lang.String";
         assertEq("java.lang.String", format(cont_, first_, second_));
@@ -544,7 +554,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<#E>";
         String second_ = "#T";
         assertEq("#E", format(cont_, first_, second_));
@@ -556,7 +566,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String>";
         String second_ = "#T";
         assertEq("java.lang.String", format(cont_, first_, second_));
@@ -568,7 +578,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#U";
         assertEq("java.lang.Object", format(cont_, first_, second_));
@@ -580,7 +590,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
         assertEq("java.lang.String", format(cont_, first_, second_));
@@ -592,7 +602,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#T";
         assertEq("java.lang.String", format(cont_, first_, second_));
@@ -604,7 +614,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "#V";
         assertEq("#V", format(cont_, first_, second_));
@@ -616,7 +626,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<T,U> {}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.String,java.lang.Object>";
         String second_ = "code.util.CustList<#V>";
         assertEq("code.util.CustList<#V>", format(cont_, first_, second_));
@@ -700,14 +710,14 @@ public final class TemplatesTest extends ProcessMethodCommon {
 
     @Test
     public void getGenericTypeByBases1Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
+        ContextEl context_ = simpleContextEl();
         String t_ = getFullTypeByBases(context_, "java.lang.String", "java.lang.Object");
         assertEq("java.lang.Object", t_);
     }
 
     @Test
     public void getGenericTypeByBases2Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
+        ContextEl context_ = simpleContextEl();
         String t_ = getFullTypeByBases(context_, "java.lang.Object", "java.lang.String");
         assertEq("",t_);
     }
@@ -730,7 +740,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
 
     @Test
     public void getGenericTypeByBases6Test() {
-        AnalyzedTestContext context_ = simpleContextEl();
+        ContextEl context_ = simpleContextEl();
         String t_ = getFullTypeByBases(context_, "java.lang.String", "java.lang.String");
         assertEq("java.lang.String", t_);
     }
@@ -750,7 +760,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = getFullTypeByBases(cont_, "pkg.Ex", "pkg.Ex");
         assertEq("pkg.Ex", t_);
     }
@@ -769,7 +779,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = getFullTypeByBases(cont_, "pkg.ExTwo", "pkg.Ex");
         assertEq("pkg.Ex", t_);
     }
@@ -784,7 +794,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = getFullTypeByBases(cont_, "pkg.Ex", "pkg.ExTwo");
         assertEq("",t_);
     }
@@ -807,7 +817,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>:ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = getFullTypeByBases(cont_, "pkg.ExTwo<#V>", "pkg.ExFive");
         assertEq("pkg.ExFive<#V>", t_);
     }
@@ -824,7 +834,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = getFullTypeByBases(cont_, "pkg.ExTwo<#V>", "pkg.Ex");
         assertEq("pkg.Ex<#V>", t_);
     }
@@ -839,7 +849,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo :pkg.Ex<java.lang.Number>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = getFullTypeByBases(cont_, "pkg.ExTwo", "pkg.Ex");
         assertEq("pkg.Ex<java.lang.Number>", t_);
     }
@@ -853,7 +863,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = getFullTypeByBases(cont_, "pkg.Ex<#V>", "pkg.Ex");
         assertEq("pkg.Ex<#V>", t_);
     }
@@ -870,14 +880,14 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<U> :pkg.Ex<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String t_ = getFullTypeByBases(cont_, "pkg.Ex<#V>", "pkg.ExThree");
         assertEq("pkg.ExThree<#V>", t_);
     }
     @Test
     public void correctNbParameters0Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         assertTrue(!correctNbParameters(cont_, "pkg"));
     }
 
@@ -887,13 +897,13 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.Ex<W> {$public $static $class Inner<X> {}}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         assertTrue(!correctNbParameters(cont_, "pkg.Ex<java.lang.Number>..Inner<java.lang.Number>"));
     }
     @Test
     public void correctNbParameters2Test() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         assertTrue(!correctNbParameters(cont_, ""));
     }
 
@@ -907,7 +917,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<S>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<?[#T>";
         String res_ = getFullTypeByBases(cont_, first_, second_);
@@ -924,7 +934,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<S>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<[#T>";
         String res_ = getFullTypeByBases(cont_, first_, second_);
@@ -942,7 +952,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $interface pkg.ExTwo<S>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<?[#T>";
         String res_ = format(cont_, first_, second_);
@@ -1006,9 +1016,9 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex<T:java.lang.Number> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethodsAna(files_);
         String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex<E>");
-        RootBlock root_ = cont_.getAnalyzing().getAnaClassBody(className_);
+        RootBlock root_ = cont_.getAnaClassBody(className_);
         CustList<AnaFormattedRootBlock> superTypes_ = root_.getAllGenericSuperTypesInfo();
         assertEq(0, superTypes_.size());
     }
@@ -1021,9 +1031,9 @@ public final class TemplatesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T:java.lang.Number> {}\n");
         xml_.append("$public $class pkg.Ex<E:java.lang.Number>:pkg.ExTwo<E> {}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        AnalyzedPageEl cont_ = unfullValidateOverridingMethodsAna(files_);
         String className_ = StringExpUtil.getIdFromAllTypes("pkg.Ex");
-        RootBlock root_ = cont_.getAnalyzing().getAnaClassBody(className_);
+        RootBlock root_ = cont_.getAnaClassBody(className_);
         CustList<AnaFormattedRootBlock> superTypes_ = root_.getAllGenericSuperTypesInfo();
         assertEq(1, superTypes_.size());
         assertEq("pkg.ExTwo<#E>", superTypes_.get(0).getFormatted());
@@ -1032,68 +1042,150 @@ public final class TemplatesTest extends ProcessMethodCommon {
     @Test
     public void getOverridingFullTypeByBasesTest() {
         StringMap<String> files_ = new StringMap<String>();
-        AnalyzedTestContext cont_ = unfullValidateOverridingMethods(files_);
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
         assertEq("", getOverridingFullTypeByBases(cont_, "Inex", ""));
     }
 
-    private static String getOverridingFullTypeByBases(AnalyzedTestContext _cont, String _sub, String _sup) {
-        return ExecInherits.getFullObject(_sub, _sup, _cont.getContext());
+    private static AnalyzedPageEl unfullValidateOverridingMethodsStd(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWordsMap km_ = new KeyWordsMap();
+        KeyWords kwl_ = km_.getKeyWords("en");
+        km_.initEnStds(lgName_);
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(4);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kwl_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
+        postValidation(page_,forwards_);
+        return page_;
+    }
+    private static ContextEl unfullValidateOverridingMethods(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
+        postValidation(page_,forwards_);
+        return forwards_.generate();
+    }
+    private static AnalyzedPageEl unfullValidateOverridingMethodsAna(StringMap<String> _files) {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
+        postValidation(page_,forwards_);
+        return page_;
     }
 
-    private static AnalyzedTestContext unfullValidateOverridingMethodsStd(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxLgAna("en");
-        parseCustomFiles(_files, cont_);
-        assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
-        validateInheritingClasses(cont_);
-        assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
-        postValidation(cont_);
-        cont_.setContext(cont_.generate());
-        return cont_;
-    }
-    private static AnalyzedTestContext unfullValidateOverridingMethods(StringMap<String> _files) {
-        AnalyzedTestContext cont_ = ctxAna();
-        parseCustomFiles(_files, cont_);
-        assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
-        validateInheritingClasses(cont_);
-        assertTrue(cont_.getAnalyzing().getMessages().displayErrors(), isEmptyErrors(cont_));
-        postValidation(cont_);
-        cont_.setContext(cont_.generate());
-        return cont_;
-    }
-
-    private static AnalyzedTestContext simpleContextEl() {
-        AnalyzedTestContext cont_ = ctxAna();
-        AnalyzedPageEl page_ = cont_.getAnalyzing();
+    private static ContextEl simpleContextEl() {
+        Options opt_ = newOptions();
+        addTypesInit(opt_);
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
         StringMap<String> files_ = page_.buildFiles();
-        buildFilesBodies(cont_, files_);
-        parseFiles(cont_);
-        validateInheritingClasses(cont_);
-        validateIds(cont_);
-        validateOverridingInherit(cont_);
-        validateEl(cont_);
-        checkInterfaces(cont_);
-        cont_.setContext(cont_.generate());
-        return cont_;
+        buildFilesBodies(page_, files_);
+        parseFiles(page_);
+        validateInheritingClasses(page_);
+        validateIds(page_);
+        validateOverridingInherit(page_);
+        validateEl(page_);
+        checkInterfaces(page_);
+        return forwards_.generate();
     }
 
-    private static String getFullTypeByBases(AnalyzedTestContext _context, String _s, String _s2) {
-        return getFullTypeByBasesTmp(_context.getContext(), _s, _s2);
+    private static String getOverridingFullTypeByBases(ContextEl _cont, String _sub, String _sup) {
+        return ExecInherits.getFullObject(_sub, _sup, _cont);
     }
 
-    private static String quickFormat(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecInherits.quickFormat(_first, _second, _context.getContext());
+    private static String getFullTypeByBases(ContextEl _context, String _s, String _s2) {
+        return getFullTypeByBasesTmp(_context, _s, _s2);
     }
 
-    private static String format(AnalyzedTestContext _context, String _first, String _second) {
-        return ExecInherits.format(_first, _second, _context.getContext());
+    private static String quickFormat(ContextEl _context, String _first, String _second) {
+        return ExecInherits.quickFormat(_first, _second, _context);
     }
 
-    private static StringList getAllInnerTypesSingleDotted(String _type, AnalyzedTestContext _an) {
-        return Templates.getAllInnerTypesSingleDotted(_type, _an.getAnalyzing());
+    private static String format(ContextEl _context, String _first, String _second) {
+        return ExecInherits.format(_first, _second, _context);
     }
 
-    private static boolean correctNbParameters(AnalyzedTestContext _cont, String _pkg) {
-        return ExecInherits.correctNbParameters(_pkg, _cont.getContext());
+    private static StringList getAllInnerTypesSingleDotted(String _type, AnalyzedPageEl _an) {
+        return Templates.getAllInnerTypesSingleDotted(_type, _an);
+    }
+
+    private static boolean correctNbParameters(ContextEl _cont, String _pkg) {
+        return ExecInherits.correctNbParameters(_pkg, _cont);
     }
 
 }

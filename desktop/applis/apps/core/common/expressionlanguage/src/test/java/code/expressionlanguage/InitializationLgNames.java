@@ -1,93 +1,8 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.analyze.*;
-import code.expressionlanguage.analyze.instr.ParsedArgument;
-import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.LgNames;
-import code.util.CustList;
-import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public final class InitializationLgNames extends EquallableElUtil {
-
-    public static AnalyzedTestContext buildStdOneAna(Options _opt) {
-        return buildStdOneAna(IndexConstants.INDEX_NOT_FOUND_ELT, _opt);
-    }
-
-    public static AnalyzedTestContext buildStdOneAna(int _stack, Options _opt) {
-        LgNames lgName_ = new CustLgNames();
-        basicStandards(lgName_);
-        return buildAna(_stack,lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
-    }
-
-    public static AnalyzedTestContext buildStdEnumsAna(Options _opt) {
-        LgNames lgName_ = new CustLgNames();
-        basicStandards(lgName_);
-        lgName_.getContent().getPredefTypes().setAliasEnumName("name");
-        lgName_.getContent().getPredefTypes().setAliasEnumOrdinal("ordinal");
-        return buildAna(IndexConstants.INDEX_NOT_FOUND_ELT,lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
-    }
-
-    public static AnalyzedTestContext buildStdToStringAna(Options _opt) {
-        LgNames lgName_ = new CustLgNames();
-        basicStandards(lgName_);
-        return buildToStringAna(IndexConstants.INDEX_NOT_FOUND_ELT,lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
-    }
-    public static AnalyzedTestContext buildStdExp(Options _opt) {
-        LgNames lgName_ = new CustLgNames();
-        basicStandards(lgName_);
-        return builExp(lgName_, _opt, new DefaultConstantsCalculator(lgName_.getNbAlias()));
-    }
-
-    public static AnalyzedTestContext buildStdOneAna(String _lg,Options _opt) {
-        LgNames lgName_ = new CustLgNames();
-        basicStandards(lgName_);
-        return buildDefKwAna(_lg, _opt, lgName_,4, new DefaultConstantsCalculator(lgName_.getNbAlias()));
-    }
-
-    private static AnalyzedTestContext buildAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        return common(_stack, _lgNames, _opt, _calculator, a_, kw_, tabWidth_);
-    }
-
-    private static AnalyzedTestContext common(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator, AnalysisMessages _a, KeyWords _kw, int _tabWidth) {
-        _opt.setTabWidth(_tabWidth);
-        _opt.setStack(_stack);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgNames.getContent());
-        Forwards forwards_ = new Forwards(_lgNames, fileBuilder_, _opt);
-        page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(_a.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgNames.getContent(), page_);
-        ParsedArgument.buildCustom(_opt,_kw);
-        _lgNames.build();
-        ValidatorStandard.setupOverrides(page_);
-        assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(page_, forwards_,_lgNames);
-    }
-
-    private static AnalyzedTestContext buildToStringAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        kw_.setKeyWordToString("toSpecString");
-        int tabWidth_ = 4;
-        return common(_stack, _lgNames, _opt, _calculator, a_, kw_, tabWidth_);
-    }
-
-    private static AnalyzedTestContext builExp(LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        kw_.setKeyWordNbExpBin("power");
-        kw_.setKeyWordNbExpDec("exp");
-        int tabWidth_ = 4;
-        return common(IndexConstants.INDEX_NOT_FOUND_ELT, _lgNames, _opt, _calculator, a_, kw_, tabWidth_);
-    }
 
     public static void basicStandards(LgNames _lgNames) {
         _lgNames.getContent().setDefaultPkg("java.lang");
@@ -444,16 +359,4 @@ public final class InitializationLgNames extends EquallableElUtil {
         _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
     }
 
-    private static AnalyzedTestContext buildDefKwAna(String _lang,
-                                                     Options _options, LgNames _undefinedLgNames, int _tabWidth, AbstractConstantsCalculator _calculator) {
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords(_lang);
-        if (StringUtil.quickEq(_lang, "en")) {
-            km_.initEnStds(_undefinedLgNames);
-        } else {
-            km_.initFrStds(_undefinedLgNames);
-        }
-        return common(IndexConstants.INDEX_NOT_FOUND_ELT, _undefinedLgNames, _options, _calculator, a_, kwl_, _tabWidth);
-    }
 }

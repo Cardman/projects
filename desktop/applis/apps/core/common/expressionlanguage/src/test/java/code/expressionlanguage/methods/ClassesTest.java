@@ -1,13 +1,12 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
-import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.IdTypeList;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
@@ -20,6 +19,7 @@ import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
+import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
@@ -34,6 +34,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.util.*;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -43,20 +44,37 @@ public final class ClassesTest extends ProcessMethodCommon {
     public void emptyClassesTest() {
         StringMap<String> files_ = new StringMap<String>();
         Options opt_ = new Options();
-        AnalyzedTestContext cont_ = InitializationLgNames.buildStdOneAna(opt_);
-        ContextEl ctx_ = validateAll(files_, cont_);
-        ReportedMessages rep_ = cont_.getAnalyzing().getMessages();
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        ContextEl ctx_ = validateAll(files_, page_,forwards_);
+        ReportedMessages rep_ = page_.getMessages();
         assertTrue(rep_.isAllEmptyErrors());
         assertEq(0, new AssignedVariables().getLastFieldsOrEmpty().size());
         assertEq(0, new AssignedVariables().getLastVariablesOrEmpty().size());
         assertNull(new Accessed(AccessEnum.PUBLIC,"",null).outerParent());
         IdTypeList<AnaGeneType> g_ = new IdTypeList<AnaGeneType>();
-        g_.add(cont_.getAnalyzing().getAnaGeneType(cont_.getAnalyzing().getAliasObject()));
-        g_.add(cont_.getAnalyzing().getAnaGeneType(cont_.getAnalyzing().getAliasObject()));
+        g_.add(page_.getAnaGeneType(page_.getAliasObject()));
+        g_.add(page_.getAnaGeneType(page_.getAliasObject()));
         assertTrue(g_.onlyOneElt());
         CustList<ResolvedIdTypeContent> g2_ = new CustList<ResolvedIdTypeContent>();
-        g2_.add(new ResolvedIdTypeContent(cont_.getAnalyzing().getAliasObject(),cont_.getAnalyzing().getAnaGeneType(cont_.getAnalyzing().getAliasObject())));
-        g2_.add(new ResolvedIdTypeContent(cont_.getAnalyzing().getAliasObject(),cont_.getAnalyzing().getAnaGeneType(cont_.getAnalyzing().getAliasObject())));
+        g2_.add(new ResolvedIdTypeContent(page_.getAliasObject(),page_.getAnaGeneType(page_.getAliasObject())));
+        g2_.add(new ResolvedIdTypeContent(page_.getAliasObject(),page_.getAnaGeneType(page_.getAliasObject())));
         assertTrue(ResolvedIdType.onlyOneElt(g2_));
         ClassesUtil.getDirectChildren(null);
         AnaTypeUtil.getDirectMemberTypes(null);
@@ -161,7 +179,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -182,7 +200,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.Ex;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -203,7 +221,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -229,7 +247,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.Ex;\n");
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -251,7 +269,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -273,7 +291,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         xml_.append("$public $class pkg.Ex<T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -296,7 +314,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<T>{}\n");
         xml_.append("$public $class pkgthree.ExFour<T> {}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -319,8 +337,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExTwo<T:ExThree<T>> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
-        CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
+        CustList<TypeVar> types_ = context_.getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());
@@ -344,8 +362,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.ExThree;\n");
         xml_.append("$public $class pkg.ExTwo<T:ExThree<T>> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
-        CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
+        CustList<TypeVar> types_ = context_.getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());
@@ -369,8 +387,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("pkgtwo.*;\n");
         xml_.append("$public $class pkg.ExTwo<T:ExThree<T>> :Ex<T>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
-        CustList<TypeVar> types_ = context_.getAnalyzing().getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
+        CustList<TypeVar> types_ = context_.getAnaClassBody("pkg.ExTwo").getParamTypesMapValues();
         assertEq(1, types_.size());
         assertEq("T", types_.first().getName());
         assertEq(1, types_.first().getConstraints().size());
@@ -388,7 +406,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -406,7 +424,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -424,7 +442,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -451,7 +469,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -478,7 +496,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -500,7 +518,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<?T>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -521,7 +539,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<?>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -542,7 +560,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<!T>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -563,7 +581,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<?T[]>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -584,7 +602,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkg.ExTwo<T> :Ex<pkg.ExThree<!T[]>>{}\n");
         xml_.append("$public $class pkg.ExThree<U>{}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.ExTwo");
         assertEq(2, types_.size());
         assertEq("pkg.ExTwo<#T>", types_.first());
@@ -610,7 +628,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -636,7 +654,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -662,7 +680,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -688,7 +706,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -714,7 +732,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -740,7 +758,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -766,7 +784,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -792,7 +810,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -818,7 +836,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -844,7 +862,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -870,7 +888,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -898,7 +916,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -932,7 +950,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -958,7 +976,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -984,7 +1002,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1010,7 +1028,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1036,7 +1054,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1064,7 +1082,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1092,7 +1110,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1120,7 +1138,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1146,7 +1164,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1174,7 +1192,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1202,7 +1220,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1228,7 +1246,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1254,7 +1272,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1280,7 +1298,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append("$public $class pkgtwo.OuterThree {\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1306,7 +1324,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1332,7 +1350,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1358,7 +1376,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1384,8 +1402,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
-        StringList types_ = context_.getAnalyzing().getAnaClassBody("pkg.Outer..InnerTwo").getImportedDirectSuperInterfaces();
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
+        StringList types_ = context_.getAnaClassBody("pkg.Outer..InnerTwo").getImportedDirectSuperInterfaces();
         assertTrue(StringUtil.contains(types_, "pkg.OuterThree..InnerThree"));
     }
     @Test
@@ -1539,7 +1557,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -1909,7 +1927,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestContext context_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl context_ = unfullValidateInheriting(files_);
         StringList types_ = getAllGenericClasses(context_, "pkg.Outer..InnerTwo");
         assertEq(2, types_.size());
         assertEq("pkg.Outer..InnerTwo", types_.first());
@@ -2867,7 +2885,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext ctx_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl ctx_ = unfullValidateInheriting(files_);
         assertEq(1, getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").size());
         assertEq("pkg.Outer..InnerTwo..InnerThree", getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").first());
     }
@@ -2888,18 +2906,11 @@ public final class ClassesTest extends ProcessMethodCommon {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestContext ctx_ = unfullValidateInheriting(files_);
+        AnalyzedPageEl ctx_ = unfullValidateInheriting(files_);
         assertEq(1, getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").size());
         assertEq("pkg.Outer..InnerTwo..InnerThree..InnerFour", getImportedDirectSuperTypes(ctx_, "pkg.Outer..Inner").first());
     }
 
-    private static StringList getImportedDirectSuperTypes(AnalyzedTestContext _ctx, String _className) {
-        StringList list_ = new StringList();
-        for (AnaFormattedRootBlock l:_ctx.getAnalyzing().getAnaClassBody(_className).getImportedDirectSuperTypesInfo()) {
-            list_.add(l.getFormatted());
-        }
-        return list_;
-    }
     @Test
     public void resolve76FailTest() {
         StringMap<String> files_ = new StringMap<String>();
@@ -7949,8 +7960,8 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertTrue(hasErr(files_));
     }
 
-    private static StringList getAllGenericClasses(AnalyzedTestContext _context, String _className) {
-        RootBlock anaClassBody_ = _context.getAnalyzing().getAnaClassBody(_className);
+    private static StringList getAllGenericClasses(AnalyzedPageEl _context, String _className) {
+        RootBlock anaClassBody_ = _context.getAnaClassBody(_className);
         StringList allGenericClasses_ = new StringList();
         for (AnaFormattedRootBlock a: anaClassBody_.getAllGenericClassesInfo()) {
             allGenericClasses_.add(a.getFormatted());
@@ -7958,4 +7969,38 @@ public final class ClassesTest extends ProcessMethodCommon {
         return allGenericClasses_;
     }
 
+    private static StringList getImportedDirectSuperTypes(AnalyzedPageEl _ctx, String _className) {
+        StringList list_ = new StringList();
+        for (AnaFormattedRootBlock l:_ctx.getAnaClassBody(_className).getImportedDirectSuperTypesInfo()) {
+            list_.add(l.getFormatted());
+        }
+        return list_;
+    }
+    protected static AnalyzedPageEl unfullValidateInheriting(StringMap<String> _files) {
+        Options opt_ = newOptions();
+
+        LgNames lgName_ = new CustLgNames();
+        InitializationLgNames.basicStandards(lgName_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        new DefaultConstantsCalculator(lgName_.getNbAlias());
+        opt_.setTabWidth(tabWidth_);
+        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
+        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+        ParsedArgument.buildCustom(opt_, kw_);
+        lgName_.build();
+        ValidatorStandard.setupOverrides(page_);
+        assertTrue(page_.isEmptyStdError());
+        parseCustomFiles(_files, page_);
+        assertTrue( isEmptyErrors(page_));
+        validateInheritingClasses(page_);
+        assertTrue( isEmptyErrors(page_));
+        return page_;
+    }
 }
