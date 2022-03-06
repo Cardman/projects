@@ -2,7 +2,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.Struct;
@@ -40,11 +40,11 @@ public final class ImportingPage {
     }
 
 
-    public int realIndex(ExecAbstractFileBlock _fileBlock) {
+    public int realIndex(ExecFileBlock _fileBlock) {
         return _fileBlock.getFileEscapedCalc().realIndex(opOffset + offset);
     }
 
-    public ExecAbstractFileBlock file() {
+    public ExecFileBlock file() {
         if (document == null) {
             return null;
         }

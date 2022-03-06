@@ -11,7 +11,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.instr.Delimiters;
-import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
@@ -26,6 +26,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DualAnalyzedContext;
 import code.formathtml.util.DualConfigurationContext;
 import code.formathtml.util.NodeContainer;
@@ -60,8 +61,14 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         analyzingDoc_.setContent(this);
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         initInstancesPattern(_nav.getSession(),analyzingDoc_);
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
-        RendForwardInfos.buildExec(analyzingDoc_, new CustList<ExecAbstractFileBlock>(), d_, _dual.getForwards(), _conf);
+        DualConfigurationContext _dual1 = _dual.getContext();
+        Configuration _session = _nav.getSession();
+        ((BeanLgNames) this).preInitBeans(_session);
+        analyzingDoc_.setRendAnalysisMessages(_dual1.getAnalysisMessages());
+        analyzingDoc_.setLanguages(_nav.getLanguages());
+        _session.setCurrentLanguage(_nav.getLanguage());
+        StringMap<AnaRendDocumentBlock> d_ = _session.analyzedRenders(_nav.getFiles(), analyzingDoc_, page_, _dual1);
+        RendForwardInfos.buildExec(analyzingDoc_, new CustList<ExecFileBlock>(), d_, _dual.getForwards(), _conf);
         return page_.getMessages();
     }
     public static void initInstancesPattern(Configuration _conf, AnalyzingDoc _anaDoc) {

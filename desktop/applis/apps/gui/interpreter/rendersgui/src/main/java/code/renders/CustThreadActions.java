@@ -20,6 +20,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
+import code.formathtml.DualNavigationContext;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultConfigurationLoader;
@@ -81,7 +82,7 @@ public final class CustThreadActions extends AbstractThreadActions {
             return;
         }
         getPage().getNavigation().setFiles(fileNames);
-        ContextEl ctx_ = stds.setupAll(getPage().getNavigation(), du_);
+        ContextEl ctx_ = stds.setupAll(new DualNavigationContext(getPage().getNavigation(), du_));
         if (ctx_ == null) {
             ReportedMessages reportedMessages_ = du_.getAnalyzed().getMessages();
             if (getPage().getArea() != null) {

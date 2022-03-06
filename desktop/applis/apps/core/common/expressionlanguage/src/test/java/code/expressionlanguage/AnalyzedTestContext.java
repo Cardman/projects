@@ -2,30 +2,22 @@ package code.expressionlanguage;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.Initializer;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.common.DisplayedStrings;
-import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 
 public final class AnalyzedTestContext {
     private final AnalyzedPageEl analyzing;
     private final Forwards forwards;
     private StackCall stackCall;
-    private Options opt;
     private LgNames lgNames;
     private ContextEl context;
 
-    public AnalyzedTestContext(Options _opt, AnalyzedPageEl _analyzing, Forwards _forwards, LgNames _lgNames) {
+    public AnalyzedTestContext(AnalyzedPageEl _analyzing, Forwards _forwards, LgNames _lgNames) {
         this.analyzing = _analyzing;
         forwards = _forwards;
-        opt = _opt;
         lgNames = _lgNames;
-    }
-
-    public Options getOpt() {
-        return opt;
     }
 
     public ContextEl getContext() {
@@ -41,7 +33,7 @@ public final class AnalyzedTestContext {
     }
 
     public ContextEl generate(){
-        return forwards.generate(opt);
+        return forwards.generate();
     }
     public Forwards getForwards() {
         return forwards;

@@ -2,7 +2,11 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.RenderAnalysis;
+import code.formathtml.analyze.VirtualImportingBlock;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
@@ -53,7 +57,22 @@ public final class Configuration {
         _dual.getRenderFiles().removeAllString(firstUrl);
         _dual.getRenderFiles().add(firstUrl);
     }
-
+    public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
+        String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
+        ResultExpression res_ = new ResultExpression();
+        _page.setImportingAcces(new VirtualImportingBlock());
+        for (EntryCust<String, BeanInfo> e: getBeansInfos().entryList()) {
+            BeanInfo info_ = e.getValue();
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page, res_);
+            info_.setResolvedClassName(info_.getClassName());
+            _anaDoc.getBeansInfos().addEntry(root_,info_);
+        }
+        for (EntryCust<String,ValidatorInfo> e: getLateValidators().entryList()) {
+            ValidatorInfo v_ = e.getValue();
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page, res_);
+            _anaDoc.getLateValidators().addEntry(root_,v_);
+        }
+    }
     public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, DualConfigurationContext _dual) {
         renders.clear();
         setFiles(_files);

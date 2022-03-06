@@ -60,7 +60,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
         beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), du_, new DefNatBlockBuilder());
-        context = du_.getForwards().generate(du_.getContext().getOptions());
+        context = du_.getForwards().generate();
     }
 
     static String getRealFilePath(String _lg, String _link) {

@@ -1,23 +1,23 @@
 package code.formathtml;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.InitClassState;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
+import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 import org.junit.Test;
 
 public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
@@ -30,7 +30,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
     public void processEl8FailTest() {
         assertNotNull(ex(new StringMap<String>(), "$new java.lang.Integer[-1i]"));
     }
-    @Test
+    /*@Test
     public void processEl182Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
@@ -120,14 +120,14 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         calculate(all_, context_);
         assertNotNull(getException(context_));
         assertEq(getAliasNullPe(context_), exClass(context_));
-    }
+    }*/
     @Test
     public void processEl202Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        processElLow("$(java.lang.Byte)\"not cast\"", context_);
-        assertEq(getAliasCastType(context_), exClass(context_));
+        Struct context_ = getAnalyzedTestConfiguration(new StringMap<String>(), "$(java.lang.Byte)\"not cast\"");
+        assertNotNull(context_);
     }
 
+    /*
     @Test
     public void processEl204Test() {
         AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
@@ -235,11 +235,11 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
         CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        
+
         calculate(all_, context_);
 
         assertEq(getAliasNullPe(context_), exClass(context_));
-    }
+    }*/
 
     @Test
     public void processEl242Test() {
@@ -1205,13 +1205,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        processElLow("$static(pkg.ExTwo).exmeth()", cont_);
-        
-        Struct exc_ = getException(cont_);
-        assertTrue(exc_ instanceof InvokeTargetErrorStruct);
-        Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertEq(getAliasNullPe(cont_), exClass(cont_, cause_));
+        Struct cont_ = getAnalyzedTestConfiguration(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(cont_);
     }
 
     @Test
@@ -1249,13 +1244,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        processElLow("$static(pkg.ExTwo).exmeth()", cont_);
-        
-        Struct exc_ = getException(cont_);
-        assertTrue(exc_ instanceof InvokeTargetErrorStruct);
-        Struct cause_ = ((InvokeTargetErrorStruct)exc_).getCause();
-        assertEq(getAliasNullPe(cont_), exClass(cont_, cause_));
+        Struct cont_ = getAnalyzedTestConfiguration(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(cont_);
     }
     @Test
     public void processEl297Test() {
@@ -1292,11 +1282,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        processElLow("$static(pkg.ExTwo).exmeth()", cont_);
-        
-        Struct exc_ = getException(cont_);
-        assertEq(getAliasNullPe(cont_), exClass(cont_, exc_));
+        Struct cont_ = getAnalyzedTestConfiguration(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(cont_);
     }
     @Test
     public void processEl298Test() {
@@ -1333,11 +1320,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExConc", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        processElLow("$static(pkg.ExTwo).exmeth()", cont_);
-        
-        Struct exc_ = getException(cont_);
-        assertEq(getAliasNullPe(cont_), exClass(cont_, exc_));
+        Struct cont_ = getAnalyzedTestConfiguration(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(cont_);
     }
     @Test
     public void processEl303Test() {
@@ -1360,10 +1344,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        processElLow("$static(pkg.ExTwo).exmeth()", cont_);
-
-        assertEq(getAliasClassNotFoundError(cont_), exClass(cont_));
+        Struct cont_ = getAnalyzedTestConfiguration(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(cont_);
     }
 
     @Test
@@ -1387,10 +1369,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        processElLow("$static(pkg.ExTwo).exmeth()", cont_);
-
-        assertEq(getAliasNullPe(cont_), exClass(cont_));
+        Struct cont_ = getAnalyzedTestConfiguration(files_, "$static(pkg.ExTwo).exmeth()");
+        assertNotNull(cont_);
     }
 
     @Test
@@ -1421,10 +1401,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        processQuickEl("pkg.ExTwo.exmeth()+pkg.Ex.inst+1/0", cont_);
-        assertNotNull(getException(cont_));
-        assertTrue(!isSuccessfulInitialized(cont_));
+        Struct conf_ = getAnalyzedTestConfiguration(files_, "pkg.ExTwo.exmeth()+pkg.Ex.inst+1/0");
+        assertNotNull(conf_);
     }
 
     @Test
@@ -1452,9 +1430,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_);
-        processElLow("$new{} pkg.Ex(5).inst+1/0", conf_);
-        assertNotNull(getException(conf_));
+        Struct conf_ = getAnalyzedTestConfiguration(files_, "$new{} pkg.Ex(5).inst+1/0");
+        assertNotNull(conf_);
     }
     @Test
     public void processEl363Test() {
@@ -1481,55 +1458,54 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append(" }\n");
         xml_.append("}\n");
         files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_);
-        processElLow("$new pkg.Ex(5).inst+1/0", conf_);
-        assertNotNull(getException(conf_));
+        Struct conf_ = getAnalyzedTestConfiguration(files_, "$new pkg.Ex(5).inst+1/0");
+        assertNotNull(conf_);
     }
 
-    @Test
-    public void processEl367Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(0));
-        localVars_.put("arg2", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        processElLow("($int)arg", context_);
-        assertNotNull(getException(context_));
-    }
-    @Test
-    public void processEl368Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimBoolean());
-        lv_.setStruct(BooleanStruct.of(true));
-        localVars_.put("arg", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimInteger());
-        lv_.setStruct(new IntStruct(0));
-        localVars_.put("arg2", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        processElLow("($boolean)arg2", context_);
-        assertNotNull(getException(context_));
-    }
-    @Test
-    public void processEl375Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasString()));
-        lv_.setStruct(NullStruct.NULL_VALUE);
-        localVars_.put("arg", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        processElLow("arg.length", context_);
-        assertNotNull(getException(context_));
-    }
+//    @Test
+//    public void processEl367Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setClassName(context_.getAliasPrimBoolean());
+//        lv_.setStruct(BooleanStruct.of(true));
+//        localVars_.put("arg", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        lv_.setStruct(new IntStruct(0));
+//        localVars_.put("arg2", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        processElLow("($int)arg", context_);
+//        assertNotNull(getException(context_));
+//    }
+//    @Test
+//    public void processEl368Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setClassName(context_.getAliasPrimBoolean());
+//        lv_.setStruct(BooleanStruct.of(true));
+//        localVars_.put("arg", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        lv_.setStruct(new IntStruct(0));
+//        localVars_.put("arg2", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        processElLow("($boolean)arg2", context_);
+//        assertNotNull(getException(context_));
+//    }
+//    @Test
+//    public void processEl375Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasString()));
+//        lv_.setStruct(NullStruct.NULL_VALUE);
+//        localVars_.put("arg", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        processElLow("arg.length", context_);
+//        assertNotNull(getException(context_));
+//    }
     @Test
     public void processEl382Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -2000,9 +1976,8 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_);
-        processElLow("$new pkg.Ex(5)[0]/=0", conf_);
-        assertNotNull(getException(conf_));
+        Struct conf_ = getAnalyzedTestConfiguration(files_, "$new pkg.Ex(5)[0]/=0");
+        assertNotNull(conf_);
     }
     @Test
     public void processEl447Test() {
@@ -2036,9 +2011,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
         files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_);
-        processQuickEl("pkg.Ex.st[0].myval", conf_);
-        assertNotNull(getException(conf_));
+        assertNotNull(getAnalyzedTestConfiguration(files_,"pkg.Ex.st[0].myval"));
     }
 
     @Test
@@ -2106,200 +2079,227 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         files_.put("pkg/Ex", xml_.toString());
         assertNotNull(ex(files_, "(pkg.Ex.res++).inst"));
     }
-    @Test
-    public void processAffect8FailTest() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(1));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasInteger());
-        localVars_.put("v2", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        processElLow("v=v2", context_);
-        
-        assertNotNull(getException(context_));
-    }
-    @Test
-    public void processAffect11FailTest() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t;\n");
-        xml_.append("  t=8;\n");
-        xml_.append("  $return 1i+$($int)t+e;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(cont_.getAliasInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_, localVars_);
-        processElLow("$classchoice(pkg.Ex)inst=v", cont_);
-        
-        assertNotNull(getException(cont_));
-    }
-    @Test
-    public void processAffect12FailTest() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        String stringType_ = context_.getAliasString();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct array_ = new ArrayStruct(1, StringExpUtil.getPrettyArrayType(stringType_));
-        array_.set(0,NullStruct.NULL_VALUE);
-        lv_.setStruct(array_);
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasObject()));
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(1));
-        lv_.setClassName(context_.getAliasInteger());
-        localVars_.put("v2", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        processElLow("v[0i]=v2", context_);
-        
-        assertNotNull(getException(context_));
-    }
-    @Test
-    public void processAffect16FailTest() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        String primIntType_ = context_.getAliasPrimInteger();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct array_ = new ArrayStruct(1, StringExpUtil.getPrettyArrayType(primIntType_));
-        array_.set(0,new IntStruct(0));
-        lv_.setStruct(array_);
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        processElLow("v[0i]/=0", context_);
-        
-        assertNotNull(getException(context_));
-    }
+//    @Test
+//    public void processAffect8FailTest() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(1));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setClassName(context_.getAliasInteger());
+//        localVars_.put("v2", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        processElLow("v=v2", context_);
+//
+//        assertNotNull(getException(context_));
+//    }
+//    @Test
+//    public void processAffect11FailTest() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static $int inst;\n");
+//        xml_.append(" $public $static $int exmeth($int e){\n");
+//        xml_.append("  $long t;\n");
+//        xml_.append("  t=8;\n");
+//        xml_.append("  $return 1i+$($int)t+e;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(NullStruct.NULL_VALUE);
+//        lv_.setClassName(cont_.getAliasInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(cont_, localVars_);
+//        processElLow("$classchoice(pkg.Ex)inst=v", cont_);
+//
+//        assertNotNull(getException(cont_));
+//    }
+//    @Test
+//    public void processAffect12FailTest() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        String stringType_ = context_.getAliasString();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct array_ = new ArrayStruct(1, StringExpUtil.getPrettyArrayType(stringType_));
+//        array_.set(0,NullStruct.NULL_VALUE);
+//        lv_.setStruct(array_);
+//        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasObject()));
+//        localVars_.put("v", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(1));
+//        lv_.setClassName(context_.getAliasInteger());
+//        localVars_.put("v2", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        processElLow("v[0i]=v2", context_);
+//
+//        assertNotNull(getException(context_));
+//    }
+//    @Test
+//    public void processAffect16FailTest() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        String primIntType_ = context_.getAliasPrimInteger();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct array_ = new ArrayStruct(1, StringExpUtil.getPrettyArrayType(primIntType_));
+//        array_.set(0,new IntStruct(0));
+//        lv_.setStruct(array_);
+//        lv_.setClassName(StringExpUtil.getPrettyArrayType(primIntType_));
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        processElLow("v[0i]/=0", context_);
+//
+//        assertNotNull(getException(context_));
+//    }
 
-    private static void processElLow(String _el, AnalyzedTestConfiguration _cont) {
-        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
-        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
-        _cont.getAnalyzingDoc().setup(_cont.getConfiguration(), _cont.getDual());
-        setupAnalyzing(_cont, _cont.getAnalyzingDoc());
-        Argument argGl_ = _cont.getArgument();
-        boolean static_ = argGl_.isNull();
-        _cont.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
+    private static RendStackCall processElLow(String _el, DualNavigationContext _cont, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc analyzingDoc) {
+//        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
+//        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
+        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext());
+        setupAnalyzing(_cont, analyzingDoc, _localVariables, _vars);
+//        Argument argGl_ = _cont.getArgument();
+        boolean static_ = true;
+        _cont.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_cont, _el);
-        OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el);
-        OperationNode op_ = rendOp(0, _cont, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_);
+        OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el, analyzingDoc);
+        OperationNode op_ = rendOp(0, _cont, opTwo_, analyzingDoc);
+        CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_, analyzingDoc);
         generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
         //        Classes.forwardAndClear(_cont.getContext());
-        assertTrue(_cont.isEmptyErrors());
+        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
 //        ExecClassesUtil.forwardClassesMetaInfos(_cont.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_cont.getOpt());
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_cont.getDualAnalyzedContext().getForwards().getOptions());
         ctx_.setExiting(new NoExiting());
-        calculateReuse(ctx_,_cont, executableNodes_);
-        assertTrue(_cont.isEmptyErrors());
-        assertNotNull(getException(_cont));
+        RendStackCall reuse_ = reuse(ctx_, _cont, executableNodes_, _localVariables, _vars);
+        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertNotNull(getException(reuse_));
+        return reuse_;
     }
 
-    private static void processQuickEl(String _el, AnalyzedTestConfiguration _cont) {
-        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
-        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
-        CustList<OperationNode> all_ = getQuickAnalyzed(_el, _cont, _cont.getAnalyzingDoc());
-        generalForward(_cont);
-        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
-        ContextEl ctx_ = getGenerate(_cont);
-        assertTrue(_cont.isEmptyErrors());
-        ExecClassesUtil.forwardClassesMetaInfos(ctx_);
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_cont.getOpt());
-        ctx_.setExiting(new NoExiting());
-        calculateReuse(ctx_,_cont, executableNodes_);
-        assertTrue(_cont.isEmptyErrors());
-        assertNotNull(getException(_cont));
+//    private static void processQuickEl(String _el, AnalyzedTestConfiguration _cont) {
+//        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
+//        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
+//        CustList<OperationNode> all_ = getQuickAnalyzed(_el, _cont, _cont.getAnalyzingDoc());
+//        generalForward(_cont);
+//        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
+//        ContextEl ctx_ = getGenerate(_cont);
+//        assertTrue(_cont.isEmptyErrors());
+//        ExecClassesUtil.forwardClassesMetaInfos(ctx_);
+//        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_cont.getOpt());
+//        ctx_.setExiting(new NoExiting());
+//        reuse(ctx_, _cont, executableNodes_);
+//        assertTrue(_cont.isEmptyErrors());
+//        assertNotNull(getException(_cont));
+//    }
+//
+//    private static void calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
+//        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_an, _ops);
+//        ContextEl ctx_ = getGenerate(_an);
+//        ctx_.setExiting(new NoExiting());
+//        reuse(ctx_, _an, executableNodes_);
+//        assertNotNull(getException(_an));
+//    }
+
+    private static RendStackCall reuse(ContextEl ctx_, AnalyzedTestConfiguration _an, CustList<RendDynOperationNode> executableNodes_, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
+        RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
+//        RendStackCall build_ = _an.build(InitPhase.NOTHING, ctx_);
+        build_.addPage(new ImportingPage());
+        setupValues(build_.getLastPage(), _localVariables, _vars);
+        RenderExpUtil.calculateReuse(executableNodes_, _an.getAdvStandards(), ctx_, build_);
+        return build_;
     }
 
-    private static void calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
-        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_an, _ops);
-        ContextEl ctx_ = getGenerate(_an);
-        ctx_.setExiting(new NoExiting());
-        calculateReuse(ctx_,_an, executableNodes_);
-        assertNotNull(getException(_an));
+    private static RendStackCall reuse(ContextEl ctx_, DualNavigationContext _an, CustList<RendDynOperationNode> executableNodes_, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
+        RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
+//        RendStackCall build_ = _an.build(InitPhase.NOTHING, ctx_);
+        build_.addPage(new ImportingPage());
+        setupValues(build_.getLastPage(), _localVariables, _vars);
+        RenderExpUtil.calculateReuse(executableNodes_, _an.getDualAnalyzedContext().getStds(), ctx_, build_);
+        return build_;
     }
 
-    private static AnalyzedTestConfiguration getConfigurationQuick(StringMap<String> _files, String... _types) {
+    private static DualNavigationContext getConfigurationQuick(StringMap<String> _files, String... _types) {
         Configuration conf_ = EquallableRenderUtil.newConfiguration();
-        AnalyzedTestConfiguration a_ = build(conf_,_types);
-        Classes.validateWithoutInit(_files, a_.getAnalyzing());
+        DualNavigationContext a_ = buildNav(conf_,_types);
+        Classes.validateWithoutInit(_files, a_.getDualAnalyzedContext().getAnalyzed());
         assertTrue(isEmptyErrors(a_));
         return a_;
     }
 
     private static Struct ex(StringMap<String> _files, String _el) {
-        return checkEx3(getConfigurationQuick(_files), _el);
+        DualNavigationContext configurationQuick = getConfigurationQuick(_files);
+        return checkEx3(configurationQuick, _el, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
-    private static String getAliasCastType(AnalyzedTestConfiguration _context) {
-        return _context.getStandards().getContent().getCoreNames().getAliasCastType();
-    }
+//    private static String getAliasCastType(AnalyzedTestConfiguration _context) {
+//        return _context.getStandards().getContent().getCoreNames().getAliasCastType();
+//    }
 
-    private static String exClass(AnalyzedTestConfiguration _context) {
-        return exClass(_context, getException(_context));
-    }
+//    private static String exClass(AnalyzedTestConfiguration _context) {
+//        return exClass(_context, getException(_context));
+//    }
+//
+//    private static String getAliasDivisionZero(AnalyzedTestConfiguration _context) {
+//        return _context.getStandards().getContent().getCoreNames().getAliasDivisionZero();
+//    }
+//
+//    private static void setupAnalyzing(AnalyzedTestConfiguration _context) {
+//        _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
+//        setupAnalyzing(_context, _context.getAnalyzingDoc());
+//    }
+//
+//    private static void setValue(LocalVariable _lv) {
+//        ArrayStruct array_ = new ArrayStruct(1, ARR_INTEGER);
+//        array_.set(0,NullStruct.NULL_VALUE);
+//        _lv.setStruct(array_);
+//        _lv.setClassName(ARR_INTEGER);
+//    }
 
-    private static String getAliasDivisionZero(AnalyzedTestConfiguration _context) {
-        return _context.getStandards().getContent().getCoreNames().getAliasDivisionZero();
-    }
+//    private static String exClass(AnalyzedTestConfiguration _cont, Struct _cause) {
+//        return _cause.getClassName(_cont.getContext());
+//    }
 
-    private static void setupAnalyzing(AnalyzedTestConfiguration _context) {
-        _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context, _context.getAnalyzingDoc());
-    }
+//    private static String getAliasClassNotFoundError(AnalyzedTestConfiguration _cont) {
+//        return _cont.getStandards().getContent().getReflect().getAliasClassNotFoundError();
+//    }
+//
+//    private static String getAliasNullPe(AnalyzedTestConfiguration _cont) {
+//        return _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
+//    }
+//
+//
+//    private static boolean isSuccessfulInitialized(AnalyzedTestConfiguration _cont) {
+//        return _cont.getContext().getLocks().getState("pkg.Ex") == InitClassState.SUCCESS;
+//    }
 
-    private static void setValue(LocalVariable _lv) {
-        ArrayStruct array_ = new ArrayStruct(1, ARR_INTEGER);
-        array_.set(0,NullStruct.NULL_VALUE);
-        _lv.setStruct(array_);
-        _lv.setClassName(ARR_INTEGER);
-    }
-
-    private static String exClass(AnalyzedTestConfiguration _cont, Struct _cause) {
-        return _cause.getClassName(_cont.getContext());
-    }
-
-    private static String getAliasClassNotFoundError(AnalyzedTestConfiguration _cont) {
-        return _cont.getStandards().getContent().getReflect().getAliasClassNotFoundError();
-    }
-
-    private static String getAliasNullPe(AnalyzedTestConfiguration _cont) {
-        return _cont.getStandards().getContent().getCoreNames().getAliasNullPe();
-    }
-
-
-    private static boolean isSuccessfulInitialized(AnalyzedTestConfiguration _cont) {
-        return _cont.getContext().getLocks().getState("pkg.Ex") == InitClassState.SUCCESS;
-    }
-
-    private static Struct checkEx3(AnalyzedTestConfiguration _cont, String _s) {
+    private static Struct checkEx3(DualNavigationContext _cont, String _s, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc analyzingDoc) {
 //        addInnerPage(_cont);
-        String gl_ = _cont.getArgumentClass();
-        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
-        CustList<OperationNode> all_ = getQuickAnalyzed(_s, _cont, _cont.getAnalyzingDoc());
+//        String gl_ = _cont.getArgumentClass();
+//        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
+        CustList<OperationNode> all_ = getQuickAnalyzed(_s, _cont, analyzingDoc);
         generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
-        assertTrue(_cont.isEmptyErrors());
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getOpt());
+        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getDualAnalyzedContext().getForwards().getOptions());
         ctx_.setExiting(new NoExiting());
-        calculateReuse(ctx_,_cont, executableNodes_);
-        assertTrue(_cont.isEmptyErrors());
-        assertNotNull(getException(_cont));
-        return getException(_cont);
+        RendStackCall st_ = reuse(ctx_, _cont, executableNodes_, _localVariables, _vars);
+        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        assertNotNull(getException(st_));
+        return getException(st_);
     }
+
+    private Struct getAnalyzedTestConfiguration(StringMap<String> files_, String _el) {
+        DualNavigationContext conf_ = getConfigurationQuick(files_);
+        RendStackCall rendStackCall_ = processElLow(_el, conf_, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
+        return getException(rendStackCall_);
+    }
+
 
 }

@@ -1,48 +1,15 @@
 package code.formathtml;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanFileBuilder;
 
-import code.expressionlanguage.options.ContextFactory;
-import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
 import code.formathtml.util.BeanLgNames;
-import code.util.CustList;
 
 public final class InitializationLgNamesRender extends EquallableRenderUtil {
 
     private InitializationLgNamesRender(){
     }
 
-    public static AnalyzedTestContextRender buildStdThree(Options _opt) {
-        BeanCustLgNames lgNames_ = getBeanCustLgNames();
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases());
-        Forwards forwards_ = new Forwards(lgNames_, fileBuilder_, _opt);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
-        lgNames_.build();
-        ValidatorStandard.setupOverrides(page_);
-        assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContextRender(_opt,page_, forwards_,lgNames_);
-    }
-
-    private static BeanCustLgNames getBeanCustLgNames() {
-        BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
-        basicCustStandards(lgNames_);
-        basicStandards(lgNames_);
-        lgNames_.getContent().getMathRef().setAliasMath("java.lang.$math");
-        return lgNames_;
-    }
-
-    private static void basicCustStandards(BeanCustLgNames _lgNames) {
+    public static void basicCustStandards(BeanCustLgNames _lgNames) {
         _lgNames.getBeanAliases().setAliasMapKeys("keys");
         _lgNames.getBeanAliases().setAliasMapValues("values");
         _lgNames.getBeanAliases().setAliasMapIndexOfEntry("indexOfEntry");

@@ -1,18 +1,12 @@
 package code.formathtml;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.Classes;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
@@ -26,33 +20,19 @@ public final class AnalyzedTestConfiguration {
     private ContextEl context;
     private final DualConfigurationContext dual;
     private final Options opt;
-    private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
-    private final StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-    private final StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-    private Argument argument = Argument.createVoid();
-    private String argumentClass = "";
-    private RendStackCall rendStackCall;
 
-    public AnalyzedTestConfiguration(Configuration _configuration, AnalyzedTestContextRender _analyzing, Forwards _forwards, BeanCustLgNames _standards) {
+    public AnalyzedTestConfiguration(Configuration _configuration, Forwards _forwards, BeanCustLgNames _standards, DualConfigurationContext _dual, Options _opt, AnalyzedPageEl _page) {
         this.configuration = _configuration;
         forwards = _forwards;
         adv= _standards;
         analyzingDoc.setContent(adv);
-        dual = _analyzing.getDual();
-        opt = _analyzing.getOpt();
-        this.analyzing = _analyzing.getAnalyzing();
+        dual = _dual;
+        opt = _opt;
+        this.analyzing = _page;
     }
 
     public Options getOpt() {
         return opt;
-    }
-
-    public StringMap<LocalVariable> getLocalVariables() {
-        return localVariables;
-    }
-
-    public StringMap<LoopVariable> getVars() {
-        return vars;
     }
 
     public Configuration getConfiguration() {
@@ -64,7 +44,7 @@ public final class AnalyzedTestConfiguration {
     }
 
     public ContextEl generate(){
-        return forwards.generate(opt);
+        return forwards.generate();
     }
     public Forwards getForwards() {
         return forwards;
@@ -72,34 +52,6 @@ public final class AnalyzedTestConfiguration {
 
     public AnalyzingDoc getAnalyzingDoc() {
         return analyzingDoc;
-    }
-
-    public String getAliasPrimLong() {
-        return analyzing.getAliasPrimLong();
-    }
-
-    public String getAliasBoolean() {
-        return analyzing.getAliasBoolean();
-    }
-
-    public String getAliasPrimBoolean() {
-        return analyzing.getAliasPrimBoolean();
-    }
-
-    public String getAliasObject() {
-        return analyzing.getAliasObject();
-    }
-
-    public String getAliasString() {
-        return analyzing.getAliasString();
-    }
-
-    public String getAliasInteger() {
-        return analyzing.getAliasInteger();
-    }
-
-    public String getAliasPrimInteger() {
-        return analyzing.getAliasPrimInteger();
     }
 
     public LgNames getStandards() {
@@ -122,9 +74,6 @@ public final class AnalyzedTestConfiguration {
         return forwards.getClasses();
     }
 
-    public String getAliasByte() {
-        return analyzing.getAliasByte();
-    }
     public void setNavigation(StringMap<StringMap<String>> _stringMapStringMap) {
         configuration.setNavigation(_stringMapStringMap);
     }
@@ -137,40 +86,8 @@ public final class AnalyzedTestConfiguration {
         return adv;
     }
 
-    public StringMap<AnaRendDocumentBlock> getAnalyzed() {
-        return analyzed;
-    }
-
-    public void setAnalyzed(StringMap<AnaRendDocumentBlock> _analyzed) {
-        this.analyzed = _analyzed;
-    }
-
     public DualConfigurationContext getDual() {
         return dual;
     }
 
-    public RendStackCall build(InitPhase _readOnlyOthers, ContextEl _ctx) {
-        rendStackCall = new RendStackCall(_readOnlyOthers,_ctx);
-        return rendStackCall;
-    }
-
-    public RendStackCall getRendStackCall() {
-        return rendStackCall;
-    }
-
-    public Argument getArgument() {
-        return argument;
-    }
-
-    public void setArgument(Argument _argument) {
-        this.argument = _argument;
-    }
-
-    public String getArgumentClass() {
-        return argumentClass;
-    }
-
-    public void setArgumentClass(String _argumentClass) {
-        this.argumentClass = _argumentClass;
-    }
 }

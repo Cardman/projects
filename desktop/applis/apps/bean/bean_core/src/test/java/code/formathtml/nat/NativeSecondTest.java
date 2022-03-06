@@ -10,7 +10,7 @@ import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -131,7 +131,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
-        ContextEl generate_ = du_.getForwards().generate(du_.getContext().getOptions());
+        ContextEl generate_ = du_.getForwards().generate();
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING,generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_one.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
@@ -181,7 +181,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
-        ContextEl generate_ = du_.getForwards().generate(du_.getContext().getOptions());
+        ContextEl generate_ = du_.getForwards().generate();
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, generate_);
         n_.initializeRendSession(generate_, du_.getStds(), rendStackCall_);
         HtmlPage htmlPage_ = n_.getHtmlPage();
@@ -253,7 +253,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(n_, n_.getSession(), n_.getFiles(), du_);
-        ContextEl generate_ = du_.getForwards().generate(du_.getContext().getOptions());
+        ContextEl generate_ = du_.getForwards().generate();
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, generate_);
         n_.initializeRendSession(generate_, du_.getStds(), rendStackCall_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"0\" value=\"ONE\"/><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"1\" value=\"TWO\"/></form></body></html>", n_.getHtmlText());
@@ -296,9 +296,9 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
         setLocalFiles(conf_, analyzingDoc_);
         analyzeInner(conf_.getConfiguration(),conf_, _html);
-        RendForwardInfos.buildExec(analyzingDoc_, new CustList<ExecAbstractFileBlock>(), conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
+        RendForwardInfos.buildExec(analyzingDoc_, new CustList<ExecFileBlock>(), conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
         setFirst(conf_);
-        ContextEl generate_ = conf_.getForwards().generate(new Options());
+        ContextEl generate_ = conf_.getForwards().generate();
         RendStackCall built_ = conf_.build(InitPhase.NOTHING, generate_);
         return getSampleRes(conf_.getConfiguration(), conf_.getConfiguration().getRenders().getVal("page1.html"), conf_.getAdv(), generate_, built_);
     }
@@ -351,7 +351,7 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         addBeanInfo(_conf,"bean_one", new BeanStruct(_bean));
         addBeanInfo(_conf,"bean_two", new BeanStruct(_beanTwo));
         analyzeInner(c_,_conf, _html,_htmlTwo);
-        RendForwardInfos.buildExec(_conf.getAnalyzingDoc(), new CustList<ExecAbstractFileBlock>(), _conf.getAnalyzed(), null, _conf.getConfiguration());
+        RendForwardInfos.buildExec(_conf.getAnalyzingDoc(), new CustList<ExecFileBlock>(), _conf.getAnalyzed(), null, _conf.getConfiguration());
         setFirst(_conf);
         return _conf.getConfiguration().getRenders().getVal("page1.html");
     }

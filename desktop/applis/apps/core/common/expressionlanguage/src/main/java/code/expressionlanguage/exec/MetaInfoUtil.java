@@ -47,7 +47,7 @@ public final class MetaInfoUtil {
     public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index, StackCall _stackCall) {
         AbstractPageEl call_ = _stackCall.getCall(_index);
         int indexFileType_;
-        ExecAbstractFileBlock f_ = call_.getFile();
+        ExecFileBlock f_ = call_.getFile();
         String fileName_;
         int row_;
         int col_;

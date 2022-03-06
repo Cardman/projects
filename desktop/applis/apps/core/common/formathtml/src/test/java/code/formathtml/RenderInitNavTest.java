@@ -1247,16 +1247,19 @@ public final class RenderInitNavTest extends CommonRender {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases());
         Forwards fwd_ = new Forwards(lgNames_, fileBuilder_, opt_);
+        page_.setLogErr(fwd_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validatedStds(fwd_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgNames_.getContent(), page_);
         lgNames_.build();
         ValidatorStandard.setupOverrides(page_);
         assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestConfigurationBis(fwd_,_conf, lgNames_, new DualConfigurationContext(), page_);
+        DualConfigurationContext dual_ = new DualConfigurationContext();
+        return new AnalyzedTestConfigurationBis(fwd_,_conf, lgNames_, dual_, page_);
     }
     private static ContextEl setupRendClassesInitStdMess(AnalyzedTestConfigurationBis _a, Navigation _n) {
         DualConfigurationContext d_ = _a.getDual();
         DualAnalyzedContext dual_ = new DualAnalyzedContext(_a.getFwd(),_a.getAnalyzing(),_a.getAdvStandards(),d_);
-        return _a.getAdvStandards().setupAll(_n, dual_);
+        return _a.getAdvStandards().setupAll(new DualNavigationContext(_n, dual_));
     }
 
     private void init(ContextEl _ctx,AnalyzedTestConfigurationBis _a, Navigation _n) {
@@ -1264,6 +1267,6 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static ContextEl setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {
-        return _stds.setupAll(_nav, _dual);
+        return _stds.setupAll(new DualNavigationContext(_nav, _dual));
     }
 }

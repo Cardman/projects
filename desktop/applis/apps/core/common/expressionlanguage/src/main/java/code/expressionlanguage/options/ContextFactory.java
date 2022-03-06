@@ -18,7 +18,7 @@ public final class ContextFactory {
 
     private ContextFactory(){}
 
-    public static ContextEl addResourcesAndValidate(Options _opt, StringMap<String> _files, String _folder, AnalyzedPageEl _page, Forwards _forwards) {
+    public static ContextEl addResourcesAndValidate(StringMap<String> _files, String _folder, AnalyzedPageEl _page, Forwards _forwards) {
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringUtil.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {
@@ -28,11 +28,15 @@ public final class ContextFactory {
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
         _page.addResources(_files);
-        return Classes.validateAll(_opt,srcFiles_, _page, _forwards);
+        return Classes.validateAll(srcFiles_, _page, _forwards);
     }
 
     public static void validateStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
                                     CustList<CommentDelimiters> _comments, Options _options, LgNamesContent _content, AnalyzedPageEl _page) {
+        AnalysisMessages.validateMessageContents(_mess.allMessages(), _page);
+        if (!_page.isEmptyMessageError()) {
+            return;
+        }
         if (validatedStds(_fwd, _mess,_definedKw,_comments,_options, _content, _page)) {
             ParsedArgument.buildCustom(_options,_definedKw);
             _fwd.getGenerator().build();
@@ -41,7 +45,6 @@ public final class ContextFactory {
     }
     public static boolean validatedStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
                                         CustList<CommentDelimiters> _comments, Options _options, LgNamesContent _content, AnalyzedPageEl _page) {
-        _page.setLogErr(_fwd.getGenerator());
         _page.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
         CommentsUtil.checkAndUpdateComments(comments_,_comments);
@@ -56,10 +59,6 @@ public final class ContextFactory {
         _page.setStaticFields(_fwd.getStaticFields());
         _page.setTabWidth(_options.getTabWidth());
         _page.setGettingErrors(_options.isGettingErrors());
-        AnalysisMessages.validateMessageContents(_mess.allMessages(), _page);
-        if (!_page.isEmptyMessageError()) {
-            return false;
-        }
         StringMap<String> keyWords_ = _definedKw.allKeyWords();
         _definedKw.validateKeyWordContents(keyWords_, _page);
         StringMap<String> escapings_ = _definedKw.allEscapings();

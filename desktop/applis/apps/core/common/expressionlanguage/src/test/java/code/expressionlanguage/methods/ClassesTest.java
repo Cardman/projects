@@ -81,8 +81,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards fwd_ = new Forwards(lgName_, fileBuilder_, opts_);
+        page_.setLogErr(fwd_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_);
-        Classes.validateAll(opts_, new StringMap<String>(), page_, fwd_);
+        Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyStdError());
         assertTrue(!page_.isEmptyErrors());
     }
@@ -102,8 +104,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards fwd_ = new Forwards(lgName_, fileBuilder_, opts_);
+        page_.setLogErr(fwd_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_);
-        Classes.validateAll(opts_, new StringMap<String>(), page_, fwd_);
+        Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyStdError());
     }
 
@@ -119,8 +123,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards fwd_ = new Forwards(lgName_, null, opts_);
+        page_.setLogErr(fwd_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_);
-        Classes.validateAll(opts_, new StringMap<String>(), page_, fwd_);
+        Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
     }
@@ -135,8 +141,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards fwd_ = new Forwards(lgName_, null, opts_);
+        page_.setLogErr(fwd_.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_);
-        Classes.validateAll(opts_, new StringMap<String>(), page_, fwd_);
+        Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(!page_.isEmptyErrors());
     }

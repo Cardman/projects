@@ -74,7 +74,7 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
 //        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
         stds_.setupAll(docs_,navigation, navigation.getSession(), du_, new AdvNatBlockBuilder(stds_));
-        context = du_.getForwards().generate(du_.getContext().getOptions());
+        context = du_.getForwards().generate();
     }
 
     public Navigation getNavigation() {

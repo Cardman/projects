@@ -2,19 +2,11 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.RenderAnalysis;
-import code.formathtml.analyze.VirtualImportingBlock;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
-import code.formathtml.structs.ValidatorInfo;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
@@ -126,33 +118,8 @@ public final class Navigation {
         processAfterInvoke(currentUrl_,currentBeanName,bean_, _stds, _ctx, _rendStackCall);
     }
 
-    public StringMap<AnaRendDocumentBlock> analyzedRenders(AnalyzedPageEl _page, BeanLgNames _stds, AnalyzingDoc _analyzingDoc, DualConfigurationContext _dual) {
-        _stds.preInitBeans(session);
-        _analyzingDoc.setRendAnalysisMessages(_dual.getAnalysisMessages());
-        _analyzingDoc.setLanguages(languages);
-        session.setCurrentLanguage(language);
-        return session.analyzedRenders(files, _analyzingDoc, _page, _dual);
-    }
-
     public StringMap<String> getFiles() {
         return files;
-    }
-
-    public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
-        String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-        ResultExpression res_ = new ResultExpression();
-        _page.setImportingAcces(new VirtualImportingBlock());
-        for (EntryCust<String, BeanInfo> e: session.getBeansInfos().entryList()) {
-            BeanInfo info_ = e.getValue();
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page, res_);
-            info_.setResolvedClassName(info_.getClassName());
-            _anaDoc.getBeansInfos().addEntry(root_,info_);
-        }
-        for (EntryCust<String,ValidatorInfo> e: session.getLateValidators().entryList()) {
-            ValidatorInfo v_ = e.getValue();
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page, res_);
-            _anaDoc.getLateValidators().addEntry(root_,v_);
-        }
     }
 
     public void processRendAnchorRequest(String _anchorRef, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack) {

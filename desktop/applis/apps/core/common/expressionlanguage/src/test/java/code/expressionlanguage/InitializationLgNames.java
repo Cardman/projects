@@ -62,12 +62,14 @@ public final class InitializationLgNames extends EquallableElUtil {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgNames.getContent());
         Forwards forwards_ = new Forwards(_lgNames, fileBuilder_, _opt);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(_a.allMessages(), page_);
         ContextFactory.validatedStds(forwards_, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgNames.getContent(), page_);
         ParsedArgument.buildCustom(_opt,_kw);
         _lgNames.build();
         ValidatorStandard.setupOverrides(page_);
         assertTrue(page_.isEmptyStdError());
-        return new AnalyzedTestContext(_opt,page_, forwards_,_lgNames);
+        return new AnalyzedTestContext(page_, forwards_,_lgNames);
     }
 
     private static AnalyzedTestContext buildToStringAna(int _stack, LgNames _lgNames, Options _opt, AbstractConstantsCalculator _calculator) {

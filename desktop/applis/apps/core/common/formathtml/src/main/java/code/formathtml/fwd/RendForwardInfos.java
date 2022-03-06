@@ -6,10 +6,7 @@ import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
-import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -38,7 +35,7 @@ import code.util.core.StringUtil;
 public final class RendForwardInfos {
     private RendForwardInfos() {
     }
-    private static RendDocumentBlock build(ExecAbstractFileBlock _fileBlock, AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
+    private static RendDocumentBlock build(ExecFileBlock _fileBlock, AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
         RendDocumentBlock rendDoc_ = new RendDocumentBlock(_fileBlock, _ana.getElt(), _ana.getBeanName());
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
@@ -1147,16 +1144,16 @@ public final class RendForwardInfos {
         }
     }
 
-    public static void buildExec(AnalyzingDoc _analyzingDoc, CustList<ExecAbstractFileBlock> _rendFiles, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf) {
+    public static void buildExec(AnalyzingDoc _analyzingDoc, CustList<ExecFileBlock> _rendFiles, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf) {
         buildExec(_rendFiles,_d, _forwards, _conf, _analyzingDoc);
         initBeansInstances(_analyzingDoc, _forwards);
         initValidatorsInstance(_analyzingDoc, _forwards);
     }
 
-    private static void buildExec(CustList<ExecAbstractFileBlock> _rendFiles, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, AnalyzingDoc _anaDoc) {
+    private static void buildExec(CustList<ExecFileBlock> _rendFiles, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, AnalyzingDoc _anaDoc) {
         for (EntryCust<String,AnaRendDocumentBlock> v: _d.entryList()) {
             AnaRendDocumentBlock value_ = v.getValue();
-            ExecAbstractFileBlock val_ = _rendFiles.get(value_.getNb());
+            ExecFileBlock val_ = _rendFiles.get(value_.getNb());
             RendDocumentBlock rendDoc_ = build(val_, value_, _forwards, _anaDoc);
             _conf.getRenders().put(v.getKey(), rendDoc_);
         }

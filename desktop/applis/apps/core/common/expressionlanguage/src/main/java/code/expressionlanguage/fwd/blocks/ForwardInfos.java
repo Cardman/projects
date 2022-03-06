@@ -18,7 +18,6 @@ import code.expressionlanguage.exec.opers.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.AbstractExecFileListBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.Members;
 import code.expressionlanguage.fwd.opers.*;
@@ -29,14 +28,20 @@ import code.util.core.StringUtil;
 public final class ForwardInfos {
     private ForwardInfos() {
     }
-    public static void generalForward(AnalyzedPageEl _page, Forwards _forwards, AbstractExecFileListBuilder _builder) {
+    public static void generalForward(AnalyzedPageEl _page, Forwards _forwards) {
         Coverage coverage_ = _forwards.getCoverage();
         coverage_.setKeyWords(_page.getKeyWords());
         coverage_.putToStringOwner(_page.getAliasObject());
         coverage_.putRandCodeOwner(_page.getAliasObject());
         _forwards.setAliasBoolean(_page.getAliasBoolean());
         _forwards.setAliasPrimBoolean(_page.getAliasPrimBoolean());
-        CustList<ExecAbstractFileBlock> files_ = _builder.build();
+        CustList<ExecFileBlock> files_ = new CustList<ExecFileBlock>();
+        for (EntryCust<String, FileBlock> f: _page.getFilesBodies().entryList()) {
+            FileBlock content_ = f.getValue();
+            ExecFileBlock exFile_ = new ExecFileBlock(content_.getMetricsCore(), content_.getFileName(),content_.getFileEscapedCalc());
+            coverage_.putFile(content_);
+            files_.add(exFile_);
+        }
         feedExecTypes(_page, _forwards, coverage_, files_);
         innerFetchExecEnd(_forwards);
         Classes classes_ = _forwards.getClasses();
@@ -46,7 +51,7 @@ public final class ForwardInfos {
             classes_.getClassesBodies().addEntry(fullName_, e_);
         }
         for (OperatorBlock o: _page.getAllOperators()){
-            ExecAbstractFileBlock exFile_ = files_.get(o.getFile().getNumberFile());
+            ExecFileBlock exFile_ = files_.get(o.getFile().getNumberFile());
             ExecOperatorBlock e_ = new ExecOperatorBlock(o.isRetRef(), o.getName(), o.isVarargs(), o.getAccess(), o.getParametersNames(), o.getImportedParametersTypes(), o.getParametersRef());
             e_.setImportedReturnType(o.getImportedReturnType());
             e_.setFile(exFile_);
@@ -118,11 +123,11 @@ public final class ForwardInfos {
         _classes.setKeyWordValue(_page.getKeyWords().getKeyWordValue());
     }
 
-    private static void feedExecTypes(AnalyzedPageEl _page, Forwards _forwards, Coverage _coverage, CustList<ExecAbstractFileBlock> _files) {
+    private static void feedExecTypes(AnalyzedPageEl _page, Forwards _forwards, Coverage _coverage, CustList<ExecFileBlock> _files) {
         for (RootBlock r: _page.getAllFoundTypes()) {
             Members v_ = new Members();
             FileBlock fileBlock_ = r.getFile();
-            ExecAbstractFileBlock exFile_ = _files.get(fileBlock_.getNumberFile());
+            ExecFileBlock exFile_ = _files.get(fileBlock_.getNumberFile());
             if (r instanceof AnonymousTypeBlock) {
                 ExecAnonymousTypeBlock e_ = new ExecAnonymousTypeBlock(new ExecRootBlockContent(r.getRootBlockContent()), r.getAccess());
                 e_.setFile(exFile_);
@@ -282,7 +287,7 @@ public final class ForwardInfos {
         }
     }
 
-    private static void feedFct(AnalyzedPageEl _page, Forwards _forwards, Coverage _coverage, CustList<ExecAbstractFileBlock> _files) {
+    private static void feedFct(AnalyzedPageEl _page, Forwards _forwards, Coverage _coverage, CustList<ExecFileBlock> _files) {
         for (EntryCust<RootBlock, Members> e: _forwards.getMembers()) {
             RootBlock c = e.getKey();
             Members mem_ = e.getValue();
@@ -318,7 +323,7 @@ public final class ForwardInfos {
             ExecNamedFunctionBlock function_ = buildExecAnonymousLambdaOperation(e, _forwards);
             _forwards.addFctBody(method_, function_);
             int numberFile_ = method_.getFile().getNumberFile();
-            ExecAbstractFileBlock value_ = _files.get(numberFile_);
+            ExecFileBlock value_ = _files.get(numberFile_);
             function_.setFile(value_);
         }
         for (SwitchOperation e: _page.getAllSwitchMethods()) {
@@ -327,7 +332,7 @@ public final class ForwardInfos {
             ExecAbstractSwitchMethod function_ = buildExecSwitchOperation(e, _forwards);
             _forwards.addFctBody(method_, function_);
             int numberFile_ = method_.getFile().getNumberFile();
-            ExecAbstractFileBlock value_ = _files.get(numberFile_);
+            ExecFileBlock value_ = _files.get(numberFile_);
             function_.setFile(value_);
         }
     }
@@ -818,7 +823,7 @@ public final class ForwardInfos {
     }
 
     private static void buildExec(MemberCallingsBlock _from, ExecMemberCallingsBlock _dest, Coverage _coverage, Forwards _forwards) {
-        ExecAbstractFileBlock fileDest_ = _dest.getFile();
+        ExecFileBlock fileDest_ = _dest.getFile();
         AbsBk firstChild_ = _from.getFirstChild();
         _coverage.putBlockOperationsCaller(_dest,_from);
         if (firstChild_ == null) {
@@ -827,7 +832,7 @@ public final class ForwardInfos {
         buildExecBody(_from, _coverage, _forwards, _dest, fileDest_);
     }
 
-    private static void buildExecBody(MemberCallingsBlock _from, Coverage _coverage, Forwards _forwards, ExecBracedBlock _blockToWrite, ExecAbstractFileBlock _fileDest) {
+    private static void buildExecBody(MemberCallingsBlock _from, Coverage _coverage, Forwards _forwards, ExecBracedBlock _blockToWrite, ExecFileBlock _fileDest) {
         ExecBracedBlock blockToWrite_ = _blockToWrite;
         AbsBk en_ = _from;
         while (en_ != null) {
@@ -866,7 +871,7 @@ public final class ForwardInfos {
         return _blockToWrite;
     }
 
-    private static ExecBlock block(AbsBk _en, ExecAbstractFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
+    private static ExecBlock block(AbsBk _en, ExecFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
         if (_en instanceof BreakBlock) {
             ExecBreakBlock exec_ = new ExecBreakBlock(((BreakBlock) _en).getLabel());
             exec_.setFile(_fileDest);
@@ -921,7 +926,7 @@ public final class ForwardInfos {
         return block4(_en, _fileDest, _coverage, _forwards);
     }
 
-    private static ExecBlock block4(AbsBk _en, ExecAbstractFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
+    private static ExecBlock block4(AbsBk _en, ExecFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
         if (_en instanceof DoWhileCondition) {
             CustList<ExecOperationNode> opCondition_ = getExecutableNodes(((ConditionBlock) _en).getRoot(), _coverage, _forwards, _en);
             ExecCondition exec_ = new ExecDoWhileCondition(((ConditionBlock) _en).getConditionOffset(), opCondition_);
@@ -965,7 +970,7 @@ public final class ForwardInfos {
         return block3(_en, _fileDest, _coverage, _forwards);
     }
 
-    private static ExecBlock block3(AbsBk _en, ExecAbstractFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
+    private static ExecBlock block3(AbsBk _en, ExecFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
         if (_en instanceof ElseCondition) {
             ExecElseCondition exec_ = new ExecElseCondition();
             exec_.setFile(_fileDest);
@@ -1014,7 +1019,7 @@ public final class ForwardInfos {
         return block2(_en, _fileDest, _coverage, _forwards);
     }
 
-    private static ExecBlock block2(AbsBk _en, ExecAbstractFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
+    private static ExecBlock block2(AbsBk _en, ExecFileBlock _fileDest, Coverage _coverage, Forwards _forwards) {
         if (_en instanceof ForEachTable) {
             CustList<ExecOperationNode> op_ = getExecutableNodes(((ForEachTable) _en).getRoot(), _coverage, _forwards, _en);
             ExecForEachTable exec_ = new ExecForEachTable(((ForEachTable) _en).getLabel(), ((ForEachTable) _en).getImportedClassNameFirst(),

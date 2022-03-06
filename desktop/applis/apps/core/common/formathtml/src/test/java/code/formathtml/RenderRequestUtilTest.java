@@ -1,12 +1,16 @@
 package code.formathtml;
 
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.NodeContainer;
 import code.util.StringMap;
 import org.junit.Test;
@@ -36,12 +40,17 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
-        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        Struct value_ = redirect(session_, new Argument(build_), 0);
+        DualNavigationContext dual_ = buildNav();
+
+
+        setup(folder_, relative_, files_, dual_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), dual_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(), dual_.getNavigation().getSession());
+        addInnerPage(build);
+        Struct build_ = dual_.getNavigation().getSession().getBuiltBeans().getVal("bean_one");
+        Struct value_ = redirect(new Argument(build_), 0, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(2,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -66,12 +75,17 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
-        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        Struct value_ = redirect(session_, new Argument(build_), 0);
+        DualNavigationContext dual_ = buildNav();
+
+
+        setup(folder_, relative_, files_, dual_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_),dual_);
+
+        RendStackCall st = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(st,ctx_, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(),  dual_.getNavigation().getSession());
+        addInnerPage(st);
+        Struct build_ =  dual_.getNavigation().getSession().getBuiltBeans().getVal("bean_one");
+        Struct value_ = redirect(new Argument(build_), 0, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(), ctx_, st);
         assertEq(2,((NumberStruct)value_).intStruct());
     }
 
@@ -98,12 +112,17 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
-        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        Struct value_ = redirect(session_, new Argument(build_), 0);
+        DualNavigationContext dual_ = buildNav();
+
+
+        setup(folder_, relative_, files_, dual_.getDualAnalyzedContext().getContext(),  dual_.getNavigation().getSession());
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), dual_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_,(BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(),  dual_.getNavigation().getSession());
+        addInnerPage(build);
+        Struct build_ =  dual_.getNavigation().getSession().getBuiltBeans().getVal("bean_one");
+        Struct value_ = redirect(new Argument(build_), 0, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(10,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -128,12 +147,20 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
+        DualNavigationContext a_ = buildNav();
+
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        Struct value_ = redirect(session_, new Argument(build_), 0);
+        Struct value_ = redirect(new Argument(build_), 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
 
@@ -163,12 +190,20 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
+        DualNavigationContext a_ = buildNav();
+
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        Struct value_ = redirect(session_, new Argument(build_), 1);
+        Struct value_ = redirect(new Argument(build_), 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -196,12 +231,20 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
+        DualNavigationContext a_ = buildNav();
+
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        Struct value_ = redirect(session_, new Argument(build_), 1);
+        Struct value_ = redirect(new Argument(build_), 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -230,12 +273,20 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
+        DualNavigationContext a_ = buildNav();
+
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        Struct value_ = redirect(session_, new Argument(build_), 1);
+        Struct value_ = redirect(new Argument(build_), 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(20,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -263,12 +314,20 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
+        DualNavigationContext a_ = buildNav();
+
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        Struct value_ = redirect(session_, new Argument(build_), 1);
+        Struct value_ = redirect(new Argument(build_), 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(8,((NumberStruct)value_).intStruct());
     }
 
@@ -295,13 +354,21 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNavEx(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
+        DualNavigationContext a_ = buildNav();
+
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        redirect(session_, new Argument(build_), 0);
-        assertNotNull(getException(session_));
+        redirect(new Argument(build_), 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        assertNotNull(getException(build));
     }
 
     @Test
@@ -326,13 +393,21 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNavEx(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
+        DualNavigationContext a_ = buildNav();
+
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        redirect(session_, new Argument(build_), 0);
-        assertNotNull(getException(session_));
+        redirect(new Argument(build_), 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        assertNotNull(getException(build));
     }
     @Test
     public void process11Test() {
@@ -356,18 +431,21 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNavEx(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
-        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        setGlobalArgumentStruct(session_, build_);
-        redirect(session_, new Argument(build_), 0);
-        assertNotNull(getException(session_));
-    }
+        DualNavigationContext a_ = buildNav();
 
-    private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _conf, Struct _build) {
-        _conf.setArgument(new Argument(_build));
-        _conf.setArgumentClass("pkg.BeanOne");
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
+        Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
+        redirect(new Argument(build_), 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        assertNotNull(getException(build));
     }
 
 
@@ -396,12 +474,22 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
-        NodeContainer nCont_ = session_.getRendStackCall().getFormParts().getContainersMap().firstValue().getValue(0);
-        NodeContainer nContBis_ = session_.getRendStackCall().getFormParts().getContainersMap().firstValue().getValue(1);
-        setRendObject(session_, nCont_, new IntStruct(2));
+        DualNavigationContext a_ = buildNav();
+
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, files_, a_);
+        setNavigation(a_.getNavigation().getSession());
+        ContextEl ctx_ = elOneBean(filesSec_, oneFile(html_), a_);
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
+        NodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
+        NodeContainer nContBis_ = build.getFormParts().getContainersMap().firstValue().getValue(1);
+        setRendObject(nCont_, new IntStruct(2), (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(2, ((NumberStruct)getStruct(build_,nCont_.getIdField())).intStruct());
         assertEq(6, ((NumberStruct)getStruct(build_,nContBis_.getIdField())).intStruct());
@@ -432,11 +520,20 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
-        NodeContainer nCont_ = session_.getRendStackCall().getFormParts().getContainersMap().firstValue().getValue(0);
-        setRendObject(session_, nCont_, new IntStruct(2));
+        DualNavigationContext a_ = buildNav();
+
+
+        setup(folder_, relative_, files_, a_);
+        ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), a_);
+
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
+        NodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
+        setRendObject(nCont_, new IntStruct(2), (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         Struct dto_ = getStruct(build_,new ClassField("pkg.BeanOne", "first"));
         assertEq(2, ((NumberStruct)getStruct(dto_,nCont_.getIdField())).intStruct());
@@ -466,11 +563,21 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
-        NodeContainer nCont_ = session_.getRendStackCall().getFormParts().getContainersMap().firstValue().getValue(0);
-        setRendObject(session_, nCont_, new IntStruct(9));
+        DualNavigationContext a_ = buildNav();
+
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, files_, a_);
+        setNavigation(a_.getNavigation().getSession());
+        ContextEl ctx_ = elOneBean(filesSec_, oneFile(html_), a_);
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
+        NodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
+        setRendObject(nCont_, new IntStruct(9), (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(9, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[0]).intStruct());
         assertEq(4, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[1]).intStruct());
@@ -510,11 +617,21 @@ public final class RenderRequestUtilTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestConfiguration session_ = simulateNav2(folder_, relative_, html_, files_, filesSec_);
-        Configuration conf_ = session_.getConfiguration();
-        addInnerPage(session_);
-        NodeContainer nCont_ = session_.getRendStackCall().getFormParts().getContainersMap().firstValue().getValue(0);
-        setRendObject(session_, nCont_, new IntStruct(9));
+        DualNavigationContext a_ = buildNav();
+
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, files_, a_);
+        setNavigation(a_.getNavigation().getSession());
+        ContextEl ctx_ = elOneBean(filesSec_, oneFile(html_), a_);
+        RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
+        successRes(build,ctx_, a_);
+        
+        
+        Configuration conf_ = a_.getNavigation().getSession();
+        addInnerPage(build);
+        NodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
+        setRendObject(nCont_, new IntStruct(9), (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(9, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[0]).intStruct());
         assertEq(4, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[1]).intStruct());
@@ -524,13 +641,15 @@ public final class RenderRequestUtilTest extends CommonRender {
         assertEq(6, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbersTwo"))).getInstance()[2]).intStruct());
     }
 
-    private static void setRendObject(AnalyzedTestConfiguration _conf, NodeContainer _nCont, IntStruct _attribute) {
-        RendRequestUtil.setRendObject(_nCont, _attribute, _conf.getAdvStandards(), _conf.getContext(), _conf.getRendStackCall());
+    private static void setRendObject(NodeContainer _nCont, IntStruct _attribute, BeanCustLgNames _advStandards, ContextEl _ctx) {
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
+        rendStackCall_.addPage(new ImportingPage());
+        RendRequestUtil.setRendObject(_nCont, _attribute, _advStandards, _ctx, rendStackCall_);
     }
 
 
-    private static Struct redirect(AnalyzedTestConfiguration _conf, Argument _bean, int _url) {
-        return RendRequestUtil.redirect(_bean, _url, _conf.getAdvStandards(), _conf.getContext(), _conf.getRendStackCall(), _conf.getRendStackCall().getHtmlPage());
+    private static Struct redirect(Argument _bean, int _url, BeanCustLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
+        return RendRequestUtil.redirect(_bean, _url, _advStandards, _context, _rendStackCall, _rendStackCall.getHtmlPage());
     }
 
 }

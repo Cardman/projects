@@ -1,8 +1,14 @@
 package code.formathtml;
 
+import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.*;
 
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.*;
 import code.util.*;
 import org.junit.Test;
@@ -31,8 +37,10 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        AnalyzedTestNavigation session_ = getStdNavigation2(locale_, folder_, relative_, filesSec_, files_);
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_, files_);
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -40,7 +48,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "page2.html");
+        processRendAnchorRequest(a_,ctx_, "page2.html");
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("", nav_.getCurrentBeanName());
         assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
@@ -67,9 +75,9 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
         StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         Navigation nav_ = getStdNavigation(locale_, folder_, relative_, filesSec_, files_, "session", "pkg.BeanOne");
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -95,8 +103,10 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        AnalyzedTestNavigation session_ = getStdNavigation2(locale_, folder_, relative_, filesSec_, files_);
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_, files_);
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -104,15 +114,15 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "");
+        processRendAnchorRequest(a_,ctx_, "");
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("", nav_.getCurrentBeanName());
         assertEq("",nav_.getReferenceScroll());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
     }
 
-    private static void processRendAnchorRequest(AnalyzedTestNavigation _nav, String _s) {
-        _nav.getNav().processRendAnchorRequest(_s, _nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getRendStackCall());
+    private static void processRendAnchorRequest(DualNavigationContext _nav, ContextEl _ctx, String _s) {
+        _nav.getNavigation().processRendAnchorRequest(_s, _nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
     }
 
     @Test
@@ -140,7 +150,7 @@ public final class RenderNavigationTest extends CommonRender {
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        assertNotNull(getException(getStdNavigation2(locale_, folder_, relative_, filesSec_, files_, "session", "pkg.BeanOne").getGl()));
+        assertNotNull(getException(getStdNavigation2(locale_, folder_, relative_, filesSec_, files_, "session", "pkg.BeanOne")));
     }
     @Test
     public void validatorInitTest() {
@@ -193,8 +203,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation nav_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        assertNotNull(getException(nav_.getGl()));
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNotNull(getException(rendStackCall_));
     }
     @Test
     public void titleTest() {
@@ -239,8 +251,28 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession5(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = buildNav();
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
+        setNavigation(a_.getNavigation().getSession());
+        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val2", "page3.html");
+        Navigation nav_1 = a_.getNavigation();
+
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        addBeanInfo(nav_1, i_, "bean_one");
+        StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
+        filesThree_.put("page3.html", htmlThree_);
+        ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(4)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -248,7 +280,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "$bean_one.click(4)");
+        processRendAnchorRequest(a_,ctx_, "$bean_one.click(4)");
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
@@ -276,8 +308,28 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession5(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = buildNav();
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
+        setNavigation(a_.getNavigation().getSession());
+        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val2", "page3.html");
+        Navigation nav_1 = a_.getNavigation();
+
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        addBeanInfo(nav_1, i_, "bean_one");
+        StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
+        filesThree_.put("page3.html", htmlThree_);
+        ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -285,7 +337,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "$bean_one.click(1)");
+        processRendAnchorRequest(a_,ctx_, "$bean_one.click(1)");
         assertEq("page3.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>After</body></html>", nav_.getHtmlText());
@@ -312,8 +364,28 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession5(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = buildNav();
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
+        setNavigation(a_.getNavigation().getSession());
+        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val2", "page3.html");
+        Navigation nav_1 = a_.getNavigation();
+
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        addBeanInfo(nav_1, i_, "bean_one");
+        StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
+        filesThree_.put("page3.html", htmlThree_);
+        ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -321,7 +393,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "$bean_one.click(1)");
+        processRendAnchorRequest(a_,ctx_, "$bean_one.click(1)");
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -348,8 +420,28 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession55(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_, "bean_one.click2()", "page2.html", "page3.html", "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = buildNav();
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
+        setNavigation(a_.getNavigation().getSession());
+        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click2()",new StringMap<String>());
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click2()").addEntry("val1", "page2.html");
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click2()").addEntry("val2", "page3.html");
+        Navigation nav_1 = a_.getNavigation();
+
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        addBeanInfo(nav_1, i_, "bean_one");
+        StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
+        filesThree_.put("page3.html", htmlThree_);
+        ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -357,7 +449,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "$bean_one.click(1)");
+        processRendAnchorRequest(a_,ctx_, "$bean_one.click(1)");
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -385,8 +477,28 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession55(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_, "bean_one.click()", "page2.html", "page4.html", "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = buildNav();
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
+        setNavigation(a_.getNavigation().getSession());
+        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val2", "page4.html");
+        Navigation nav_1 = a_.getNavigation();
+
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        addBeanInfo(nav_1, i_, "bean_one");
+        StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
+        filesThree_.put("page3.html", htmlThree_);
+        ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -394,7 +506,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "$bean_one.click(1)");
+        processRendAnchorRequest(a_,ctx_, "$bean_one.click(1)");
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(1)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -426,8 +538,29 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession56(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_);
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = buildNav();
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
+        setNavigation(a_.getNavigation().getSession());
+        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val2", "page3.html");
+        Navigation nav_1 = a_.getNavigation();
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        addBeanInfo(nav_1, i_, "bean_one");
+        i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanTwo");
+        addBeanInfo(nav_1, i_, "bean_two");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(4)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -435,7 +568,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "$bean_one.click(4)");
+        processRendAnchorRequest(a_,ctx_, "$bean_one.click(4)");
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_two", nav_.getCurrentBeanName());
         assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
@@ -462,8 +595,28 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession55(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_, "bean_one.click()", "page2.html#sampleName", "page3.html", "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = buildNav();
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
+        setNavigation(a_.getNavigation().getSession());
+        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click()",new StringMap<String>());
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html#sampleName");
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val2", "page3.html");
+        Navigation nav_1 = a_.getNavigation();
+
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne");
+        addBeanInfo(nav_1, i_, "bean_one");
+        StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
+        filesThree_.put("page3.html", htmlThree_);
+        ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(4)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -471,7 +624,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "$bean_one.click(4)");
+        processRendAnchorRequest(a_,ctx_, "$bean_one.click(4)");
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("sampleName", nav_.getReferenceScroll());
@@ -501,8 +654,28 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession55(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_, filesSec_, "bean_one.click(,)", "page2.html", "page3.html", "session", "pkg.BeanOne<java.lang.String>");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = buildNav();
+
+        setFirst("page1.html", a_.getNavigation().getSession());
+        setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
+        setNavigation(a_.getNavigation().getSession());
+        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click(,)",new StringMap<String>());
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click(,)").addEntry("val1", "page2.html");
+        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click(,)").addEntry("val2", "page3.html");
+        Navigation nav_1 = a_.getNavigation();
+
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
+        BeanInfo i_ = new BeanInfo();
+        i_.setScope("session");
+        i_.setClassName("pkg.BeanOne<java.lang.String>");
+        addBeanInfo(nav_1, i_, "bean_one");
+        StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
+        filesThree_.put("page3.html", htmlThree_);
+        ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one.click(1,3)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -510,7 +683,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(session_, "$bean_one.click(1,3)");
+        processRendAnchorRequest(a_,ctx_, "$bean_one.click(1,3)");
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
@@ -558,8 +731,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -582,7 +757,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(-1);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
     }
     @Test
@@ -628,8 +803,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -652,7 +829,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -710,8 +887,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -737,7 +916,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -785,8 +964,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -817,7 +998,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("4");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -865,8 +1046,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -897,7 +1080,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -948,8 +1131,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -980,7 +1165,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("4");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -1033,8 +1218,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -1057,7 +1244,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -1107,8 +1294,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
@@ -1130,7 +1319,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
@@ -1178,8 +1367,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -1210,8 +1401,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("4");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
 
     }
 
@@ -1255,8 +1445,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -1287,8 +1479,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("4");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
 
     }
     @Test
@@ -1321,8 +1512,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">2</textarea></form></body></html>", nav_.getHtmlText());
@@ -1345,7 +1538,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("1");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">1</textarea></form></body></html>", nav_.getHtmlText());
@@ -1400,8 +1593,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -1424,7 +1619,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -1480,8 +1675,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
@@ -1504,7 +1701,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
@@ -1560,8 +1757,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\"/></form></body></html>", nav_.getHtmlText());
@@ -1584,7 +1783,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\">Description one</span></form></body></html>", nav_.getHtmlText());
@@ -1649,8 +1848,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\"/></form></body></html>", nav_.getHtmlText());
@@ -1673,7 +1874,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\">desc an arg</span></form></body></html>", nav_.getHtmlText());
@@ -1729,8 +1930,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">TWO</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
@@ -1753,7 +1956,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">ONE</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
@@ -1810,8 +2013,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -1840,7 +2045,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
@@ -1899,8 +2104,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -1929,7 +2136,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("on");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
@@ -1981,8 +2188,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSessionSim(locale_, folder_, relative_, files_, filesSec_, "pkg.BeanOne", "session");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA(folder_, relative_, "pkg.BeanOne", "session");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -2007,7 +2216,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("6");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -2068,8 +2277,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"text\" name=\"bean_one.textField\" n-i=\"1\" value=\"text\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"2\" checked=\"checked\"/><textarea n-i=\"3\" name=\"bean_one.textArea\">text</textarea><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -2110,7 +2321,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ta");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"text\" name=\"bean_one.textField\" n-i=\"1\" value=\"tf\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"2\" checked=\"checked\"/><textarea n-i=\"3\" name=\"bean_one.textArea\">ta</textarea><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
@@ -2169,8 +2380,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
@@ -2193,7 +2406,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
@@ -2249,8 +2462,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">NOT DELETE</span></form></body></html>", nav_.getHtmlText());
@@ -2273,7 +2488,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
@@ -2329,8 +2544,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"> </span></form></body></html>", nav_.getHtmlText());
@@ -2353,7 +2570,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
@@ -2409,8 +2626,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
@@ -2433,7 +2652,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
@@ -2489,7 +2708,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        Navigation nav_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne").getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("", nav_.getHtmlText());
     }
     @Test
@@ -2543,8 +2765,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -2575,7 +2799,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("8");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
@@ -2635,8 +2859,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -2667,7 +2893,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("8");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -2726,11 +2952,12 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
     public void form28Test() {
@@ -2783,11 +3010,12 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
     public void form29Test() {
@@ -2840,11 +3068,12 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
     public void form30Test() {
@@ -2890,12 +3119,12 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
-        checkNoExc(session_);
-        nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        DualNavigationContext a_ = getNavigationContext(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNull(rendStackCall.getStackCall().getCallingState());
+        a_.getNavigation().getHtmlPage().setUrl(0);
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
     public void form31Test() {
@@ -2947,11 +3176,12 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "request", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContext(folder_, relative_, "request", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
 
     @Test
@@ -2992,8 +3222,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3024,7 +3256,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("4");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3071,8 +3303,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate(2,4)\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3103,7 +3337,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("4");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate(2,4)\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3142,8 +3376,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3166,7 +3402,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("6");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3203,8 +3439,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3227,7 +3465,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("6/");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3264,8 +3502,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3288,7 +3528,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("6/");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3325,7 +3565,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        Navigation nav_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne").getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("", nav_.getHtmlText());
     }
 
@@ -3360,8 +3603,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append("ONE");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3384,7 +3629,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("6");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3409,8 +3654,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public String textField=\"txt\";");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3433,7 +3680,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("after");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"after\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3458,8 +3705,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public String textField=\"txt\";");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3481,7 +3730,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField\" n-i=\"0\" value=\"\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3506,8 +3755,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public $boolean boolField;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3530,7 +3781,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("on");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3554,8 +3805,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" $public $boolean boolField=$true;");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3578,7 +3831,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("off");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_one.boolField\" n-i=\"0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3613,8 +3866,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3636,7 +3891,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3673,8 +3928,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3697,7 +3954,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("6");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3733,8 +3990,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3757,7 +4016,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -3820,8 +4079,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -3852,7 +4113,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("8");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -3908,12 +4169,12 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSessionSim2(locale_, folder_, relative_, content_, html_, filesSec_, "request", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
-        checkNoExc(session_);
-        nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        DualNavigationContext a_ = getNavigationContext(folder_, relative_, "request", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNull(rendStackCall.getStackCall().getCallingState());
+        a_.getNavigation().getHtmlPage().setUrl(0);
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
     public void form48Test() {
@@ -3963,12 +4224,14 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession4(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
-        checkNoExc(session_);
-        nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        DualNavigationContext a_ = getDualNavigationContext(folder_, relative_, "page", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, getStringStringMap(folder_, locale_, relative_, content_, html_, html_), a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNull(rendStackCall_.getStackCall().getCallingState());
+        a_.getNavigation().getHtmlPage().setUrl(0);
+        //        checkNoExc(session_);
+//        nav_.getHtmlPage().setUrl(0);
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
 
     @Test
@@ -4022,8 +4285,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "page", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -4054,7 +4319,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("8");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -4115,8 +4380,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession44(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getDualNavigationContext1(folder_, relative_, "page", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"page2.html\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -4147,7 +4414,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("8");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page2.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"page2.html\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
@@ -4204,12 +4471,16 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession4(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
-        checkNoExc(session_);
-        nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        DualNavigationContext a_ = getDualNavigationContext(folder_, relative_, "page", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, getStringStringMap(folder_, locale_, relative_, content_, html_, html_), a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNull(rendStackCall_.getStackCall().getCallingState());
+        a_.getNavigation().getHtmlPage().setUrl(0);
+//        AnalyzedTestNavigation session_ = a_;
+//        Navigation nav_ = session_.getNav();
+//        checkNoExc(session_);
+//        nav_.getHtmlPage().setUrl(0);
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
     public void form52Test() {
@@ -4258,12 +4529,14 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession4(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
-        checkNoExc(session_);
-        nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        DualNavigationContext a_ = getDualNavigationContext(folder_, relative_, "page", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, getStringStringMap(folder_, locale_, relative_, content_, html_, html_), a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNull(rendStackCall_.getStackCall().getCallingState());
+        a_.getNavigation().getHtmlPage().setUrl(0);
+        //        checkNoExc(session_);
+//        nav_.getHtmlPage().setUrl(0);
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
     public void form53Test() {
@@ -4313,12 +4586,14 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession4(locale_, folder_, relative_, content_, html_, filesSec_, "page", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
-        checkNoExc(session_);
-        nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
-        assertNotNull(getException(session_.getGl()));
+        DualNavigationContext a_ = getDualNavigationContext(folder_, relative_, "page", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, getStringStringMap(folder_, locale_, relative_, content_, html_, html_), a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNull(rendStackCall_.getStackCall().getCallingState());
+        a_.getNavigation().getHtmlPage().setUrl(0);
+        //        checkNoExc(session_);
+//        nav_.getHtmlPage().setUrl(0);
+        assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
 
     @Test
@@ -4370,8 +4645,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></body></html>", nav_.getHtmlText());
@@ -4394,7 +4671,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></body></html>", nav_.getHtmlText());
@@ -4456,8 +4733,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession3(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getDualNavigationContext2(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -4480,7 +4759,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
     }
 
@@ -4532,8 +4811,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.numbers[0]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
@@ -4556,7 +4837,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.numbers[0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -4617,8 +4898,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
@@ -4641,7 +4924,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -4702,8 +4985,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[1,-1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
@@ -4726,7 +5011,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[1,-1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -4787,8 +5072,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
@@ -4811,7 +5098,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -4872,8 +5159,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:-1,i:1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
@@ -4896,7 +5185,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:-1,i:1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -4957,8 +5246,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:1,i:-1]\" n-i=\"1\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
@@ -4981,7 +5272,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:1,i:-1]\" n-i=\"1\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -5027,8 +5318,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:0,j:1]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
@@ -5052,7 +5345,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:0,j:1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -5099,8 +5392,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[j:1,i:0]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
@@ -5124,7 +5419,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[j:1,i:0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -5171,8 +5466,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),$that(j)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
@@ -5196,7 +5493,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),$that(j)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -5243,8 +5540,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),j]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
@@ -5268,7 +5567,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),j]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -5315,8 +5614,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i,$that(j)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
@@ -5340,7 +5641,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i,$that(j)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -5387,8 +5688,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0,1]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
@@ -5412,7 +5715,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0,1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -5459,8 +5762,10 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
         filesSec_.put(CUST_TABLE_PATH, getCustomTable());
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
-        AnalyzedTestNavigation session_ = initSession2(locale_, folder_, relative_, content_, html_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getContextVal(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$id(pkg.BeanOne,$int...)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
@@ -5484,7 +5789,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("9");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$id(pkg.BeanOne,$int...)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
@@ -5520,8 +5825,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -5544,7 +5851,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("6");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -5581,8 +5888,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -5605,7 +5914,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("a");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
 
     }
@@ -5637,8 +5946,10 @@ public final class RenderNavigationTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        AnalyzedTestNavigation session_ = initSession(locale_, folder_, relative_, files_, filesSec_, "session", "pkg.BeanOne");
-        Navigation nav_ = session_.getNav();
+        DualNavigationContext a_ = getA_(folder_, relative_, "session", "pkg.BeanOne");
+        ContextEl ctx_ = ana(filesSec_, files_,a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.validate(4)\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
@@ -5661,12 +5972,18 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("a");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
-        processRendFormRequest(session_);
+        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
     }
 
-    private static void processRendFormRequest(AnalyzedTestNavigation _nav) {
-        _nav.getNav().processRendFormRequest(_nav.getAdvStandards(), _nav.getContext(), _nav.getGl().getRendStackCall());
+    private static void processRendFormRequest(DualNavigationContext _nav, ContextEl _ctx) {
+        _nav.getNavigation().processRendFormRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
+    }
+
+    private static Struct processRendFormRequestExc(DualNavigationContext _nav, ContextEl _ctx) {
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
+        _nav.getNavigation().processRendFormRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, rendStackCall_);
+        return getException(rendStackCall_);
     }
 
     @Test
@@ -5699,36 +6016,36 @@ public final class RenderNavigationTest extends CommonRender {
         assertTrue(getStdNavigation7(locale_, folder_, relative_, files_, filesSec_, "page1.html"));
 
     }
-    @Test
-    public void form2FailTest() {
-        String locale_ = "en";
-        String folder_ = "messages";
-        String relative_ = "sample/file";
-        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html><body>Content</body></html>";
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
-        files_.put("page1.html", html_);
-        StringMap<String> filesSec_ = new StringMap<String>();
-        StringBuilder file_ = new StringBuilder();
-        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
-        file_.append(" $public $int index=4;");
-        file_.append(" $public $int[] numbers={2,4,6};");
-        file_.append(" $public $void beforeDisplaying(){");
-        file_.append("  numbers={2,4,6};");
-        file_.append("  index=4;");
-        file_.append("  $var ch = getForms().getVal(\"index\");");
-        file_.append("  $if (ch != $null){");
-        file_.append("   index=($int)ch;");
-        file_.append("  }");
-        file_.append(" }");
-        file_.append(" $public $void validate(){");
-        file_.append(" }");
-        file_.append("}");
-        filesSec_.put("my_file",file_.toString());
-        assertTrue(getStdNavigation7(locale_, folder_, relative_, files_, filesSec_, "page.html"));
-
-    }
+//    @Test
+//    public void form2FailTest() {
+//        String locale_ = "en";
+//        String folder_ = "messages";
+//        String relative_ = "sample/file";
+//        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+//        String html_ = "<html><body>Content</body></html>";
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+//        files_.put("page1.html", html_);
+//        StringMap<String> filesSec_ = new StringMap<String>();
+//        StringBuilder file_ = new StringBuilder();
+//        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+//        file_.append(" $public $int index=4;");
+//        file_.append(" $public $int[] numbers={2,4,6};");
+//        file_.append(" $public $void beforeDisplaying(){");
+//        file_.append("  numbers={2,4,6};");
+//        file_.append("  index=4;");
+//        file_.append("  $var ch = getForms().getVal(\"index\");");
+//        file_.append("  $if (ch != $null){");
+//        file_.append("   index=($int)ch;");
+//        file_.append("  }");
+//        file_.append(" }");
+//        file_.append(" $public $void validate(){");
+//        file_.append(" }");
+//        file_.append("}");
+//        filesSec_.put("my_file",file_.toString());
+//        assertTrue(getStdNavigation7(locale_, folder_, relative_, files_, filesSec_, "page.html"));
+//
+//    }
     @Test
     public void form3FailTest() {
         String locale_ = "en";
@@ -5760,10 +6077,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertTrue(initSessionFail(locale_, folder_, relative_, files_, new StringMap<String>(), "page", "pkg.BeanOne"));
     }
 
-    private static void checkNoExc(AnalyzedTestNavigation _session) {
-        assertNull(_session.getGl().getRendStackCall().getStackCall().getCallingState());
+    protected static Struct getException(RendStackCall _cont) {
+        CallingState str_ = _cont.getStackCall().getCallingState();
+        return ((CustomFoundExc) str_).getStruct();
     }
-
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

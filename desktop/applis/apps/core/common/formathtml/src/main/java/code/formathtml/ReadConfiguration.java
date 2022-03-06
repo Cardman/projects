@@ -27,33 +27,36 @@ public final class ReadConfiguration {
         AnalysisMessages a_ = new AnalysisMessages();
         RendKeyWords rkw_ = _conf.getRendKeyWords();
         _stds.buildAliases(_elt,_lg, rkw_,kw_, _context.getAnalysisMessages(),a_);
-        ContextFactory.validateStds(_forwards, a_, kw_, new CustList<CommentDelimiters>(), _context.getOptions(), _stds.getContent(), _page);
+        _page.setLogErr(_forwards.getGenerator());
+        AnalysisMessages.validateMessageContents(a_.allMessages(), _page);
         AnalysisMessages.validateMessageContents(_context.getAnalysisMessages().allMessages(), _page);
         if (!_page.isEmptyMessageError()) {
             return false;
         }
-        StringMap<String> allTags_ = rkw_.allTags();
-        rkw_.validateTagContents(allTags_, _page);
-        rkw_.validateDuplicates(allTags_, _page);
-        StringMap<String> allAttrs_ = rkw_.allAttrs();
-        rkw_.validateAttrContents(allAttrs_, _page);
-        rkw_.validateDuplicates(allAttrs_, _page);
-        StringMap<String> allValues_ = rkw_.allValues();
-        rkw_.validateValueContents(allValues_, _page);
-        rkw_.validateDuplicates(allValues_, _page);
-        StringMap<String> allStyleAttrs_ = rkw_.allStyleAttrs();
-        rkw_.validateAttrContents(allStyleAttrs_, _page);
-        rkw_.validateDuplicates(allStyleAttrs_, _page);
-        StringMap<String> allSyleValues_ = rkw_.allStyleValues();
-        rkw_.validateStyleValueContents(allSyleValues_, _page);
-        rkw_.validateDuplicates(allSyleValues_, _page);
-        StringMap<String> allStyleUnits_ = rkw_.allStyleUnits();
-        rkw_.validateStyleUnitContents(allStyleUnits_, _page);
-        rkw_.validateDuplicates(allStyleUnits_, _page);
-        if (!_page.isEmptyStdError()) {
-            return false;
-        }
-        return true;
+        return loadContext(_stds, _page, _forwards, kw_, a_, rkw_);
+    }
+
+    public static boolean loadContext(BeanCustLgNames _stds, AnalyzedPageEl _page, Forwards _forwards, KeyWords _kw, AnalysisMessages _a, RendKeyWords _rkw) {
+        ContextFactory.validateStds(_forwards, _a, _kw, new CustList<CommentDelimiters>(), _forwards.getOptions(), _stds.getContent(), _page);
+        StringMap<String> allTags_ = _rkw.allTags();
+        _rkw.validateTagContents(allTags_, _page);
+        _rkw.validateDuplicates(allTags_, _page);
+        StringMap<String> allAttrs_ = _rkw.allAttrs();
+        _rkw.validateAttrContents(allAttrs_, _page);
+        _rkw.validateDuplicates(allAttrs_, _page);
+        StringMap<String> allValues_ = _rkw.allValues();
+        _rkw.validateValueContents(allValues_, _page);
+        _rkw.validateDuplicates(allValues_, _page);
+        StringMap<String> allStyleAttrs_ = _rkw.allStyleAttrs();
+        _rkw.validateAttrContents(allStyleAttrs_, _page);
+        _rkw.validateDuplicates(allStyleAttrs_, _page);
+        StringMap<String> allSyleValues_ = _rkw.allStyleValues();
+        _rkw.validateStyleValueContents(allSyleValues_, _page);
+        _rkw.validateDuplicates(allSyleValues_, _page);
+        StringMap<String> allStyleUnits_ = _rkw.allStyleUnits();
+        _rkw.validateStyleUnitContents(allStyleUnits_, _page);
+        _rkw.validateDuplicates(allStyleUnits_, _page);
+        return _page.isEmptyStdError();
     }
 
     public static Options getOptions(Element _elt, DualConfigurationContext _context) {

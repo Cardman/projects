@@ -8,6 +8,7 @@ import code.expressionlanguage.options.Options;
 import code.formathtml.*;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultBeanAliases;
+import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -347,17 +348,14 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
     }
 
     private static AnalyzedTestConfiguration build(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
-        AnalyzedTestContextRender s_ = getCtx(_kw, _lgName, _opts);
-        Configuration conf_ = new Configuration();
-        return new AnalyzedTestConfiguration(conf_,s_, s_.getForwards(), _lgName);
-    }
-
-    private static AnalyzedTestContextRender getCtx(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(_lgName);
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(_kw);
-        return new AnalyzedTestContextRender(_opts,page_, new Forwards(_lgName,null, _opts), _lgName);
+        Forwards forwards_ = new Forwards(_lgName, null, _opts);
+        Configuration conf_ = new Configuration();
+        DualConfigurationContext dual_ = new DualConfigurationContext();
+        return new AnalyzedTestConfiguration(conf_, forwards_, _lgName, dual_,_opts, page_);
     }
 
     private static void validateAttrContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {

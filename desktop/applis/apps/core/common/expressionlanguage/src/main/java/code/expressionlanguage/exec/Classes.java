@@ -14,7 +14,6 @@ import code.expressionlanguage.exec.blocks.ExecOperatorBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.fwd.DefExecFileListBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -68,16 +67,16 @@ public final class Classes {
 	}
 
     /**Resources are possibly added before analyzing file types*/
-    public static ContextEl validateAll(Options _opt, StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
+    public static ContextEl validateAll(StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
         validateWithoutInit(_files, _page);
         if (!_page.isEmptyErrors()) {
             //all errors are logged here
             return null;
         }
-        ForwardInfos.generalForward(_page,_forwards, new DefExecFileListBuilder(_page,_forwards));
-        ContextEl ctx_ = _forwards.generate(_opt);
+        ForwardInfos.generalForward(_page,_forwards);
+        ContextEl ctx_ = _forwards.generate();
         forwardAndClear(ctx_);
-        Options options_ = _page.getOptions();
+        Options options_ = _forwards.getOptions();
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
         return ctx_;
     }

@@ -23,13 +23,13 @@ class NativeAnalyzedTestConfiguration {
     private StringMap<AnaRendDocumentBlock> analyzed = new StringMap<AnaRendDocumentBlock>();
     private RendStackCall stackCall;
 
-    NativeAnalyzedTestConfiguration(ContextEl _generate, Configuration _configuration, NativeAnalyzedTestContext _analyzing, Forwards _forwards, CustBeanLgNames _standards) {
+    NativeAnalyzedTestConfiguration(ContextEl _generate, Configuration _configuration, Forwards _forwards, CustBeanLgNames _standards, NatAnalyzedCode _page, DualConfigurationContext _dual) {
         this.configuration = _configuration;
         forwards = _forwards;
         adv= _standards;
-        dual = _analyzing.getDual();
+        dual = _dual;
         analyzingDoc.setContent(adv);
-        this.analyzing = _analyzing.getAnalyzing();
+        this.analyzing = _page;
         context = _generate;
     }
 

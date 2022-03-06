@@ -6,7 +6,7 @@ import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.formathtml.ImportingPage;
@@ -41,7 +41,7 @@ public final class AdvancedFullStack implements AbstractFullStack {
     }
 
     private static StackTraceElementStruct newStackTraceElement(ImportingPage _page, ContextEl _context) {
-        ExecAbstractFileBlock file_ = _page.file();
+        ExecFileBlock file_ = _page.file();
         if (file_ != null) {
             FileMetrics metrics_ = file_.getMetrics(_page.getTabWidth());
             int indexFileType_ = _page.realIndex(file_);

@@ -17,6 +17,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
@@ -98,12 +99,12 @@ public final class GuiProcess implements GuiRunnable {
         }
         opt_.setReadOnly(true);
         LgNamesGui stds_ = new LgNamesGui(fileInfos_,programInfos_.getInterceptor());
-        ResultsGuiContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, _currentElements);
-        GuiContextEl cont_ = res_.getRunnable();
+        ResultContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, _currentElements);
+        ContextEl cont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getInfos());
         String time_ = Clock.getDateTimeText("_", "_", "_", programInfos_.getThreadFactory());
-        if (cont_ == null) {
+        if (!(cont_ instanceof GuiContextEl)) {
             MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();
             byte[] bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
@@ -116,7 +117,7 @@ public final class GuiProcess implements GuiRunnable {
         MemoryReporter.buildWarning(reportedMessages_,exec_,fileInfos_,time_);
         GuiProcess pr_ = new GuiProcess();
         pr_.executingOptions = exec_;
-        pr_.context = cont_;
+        pr_.context = (GuiContextEl) cont_;
         pr_.clName = clName_;
         pr_.mName = mName_;
         pr_.programInfos = programInfos_;

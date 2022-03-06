@@ -2397,7 +2397,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = contextEl_.getForwards();
         ContextFactory.validateStds(forwards_,contextEl_.getAnalyzing().getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
-        ContextEl ctx_ = ContextFactory.addResourcesAndValidate(options_, all_, "src", page_, forwards_);
+        ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2435,7 +2435,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = contextEl_.getForwards();
         ContextFactory.validateStds(forwards_,contextEl_.getAnalyzing().getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
-        ContextEl ctx_ = ContextFactory.addResourcesAndValidate(options_, all_, "src", page_, forwards_);
+        ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(contextEl_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
@@ -2459,7 +2459,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setCalculator(_calculator);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
-        return new AnalyzedTestContext(_options,page_, new Forwards(_lgName,fileBuilder_, _options),_lgName);
+        return new AnalyzedTestContext(page_, new Forwards(_lgName,fileBuilder_, _options),_lgName);
     }
 
     private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedTestContext _lgName) {

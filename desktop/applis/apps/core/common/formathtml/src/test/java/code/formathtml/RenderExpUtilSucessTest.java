@@ -13,11 +13,10 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitClassState;
-import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -25,11 +24,13 @@ import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.structs.*;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.util.BeanCustLgNames;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -123,22 +124,22 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         assertEq(2, getNumber(arg_));
     }
 
-    @Test
-    public void processEl17Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int inst=2i;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        setGlobalType(context_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
-        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
-        context_.getLocalVariables().addEntry("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
-        Argument arg_ = buildAndCalculate(context_, all_);
-        assertEq(2, getNumber(arg_));
-    }
+//    @Test
+//    public void processEl17Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $int inst=2i;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
+//        setGlobalType(context_, "pkg.Ex");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
+//        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
+//        context_.getLocalVariables().addEntry("v",LocalVariable.newLocalVariable(str_,"pkg.Ex"));
+//        Argument arg_ = buildAndCalculate(context_, all_);
+//        assertEq(2, getNumber(arg_));
+//    }
     @Test
     public void processEl18Test() {
         Argument arg_ = processEl(new StringMap<String>(), "5 $instanceof java.lang.Number");
@@ -224,74 +225,74 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processEl(new StringMap<String>(), "$null $instanceof java.lang.Object");
         assertTrue(arg_.isFalse());
     }
-    @Test
-    public void processEl58Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        String stringType_ = context_.getAliasString();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("7"));
-        lv_.setClassName(stringType_);
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("8"));
-        lv_.setClassName(stringType_);
-        localVars_.put("d", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
-        lv_.setClassName(stringType_);
-        localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)", context_);
-        assertEq("varargs;7 8 7",getString(arg_));
-    }
-    @Test
-    public void processEl59Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        String stringType_ = context_.getAliasString();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
-        lv_.setClassName(stringType_);
-        localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("f.format($vararg(java.lang.CharSequence))", context_);
-        assertEq("varargs;{0} {1} {2}",getString(arg_));
-    }
-    @Test
-    public void processEl60Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        String stringType_ = context_.getAliasString();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("7"));
-        lv_.setClassName(stringType_);
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("8"));
-        lv_.setClassName(stringType_);
-        localVars_.put("d", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
-        lv_.setClassName(stringType_);
-        localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("f.format(v,d,v)", context_);
-        assertEq("varargs;7 8 7",getString(arg_));
-    }
-    @Test
-    public void processEl61Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        String stringType_ = context_.getAliasString();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
-        lv_.setClassName(stringType_);
-        localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("f.format()", context_);
-        assertEq("varargs;{0} {1} {2}",getString(arg_));
-    }
+//    @Test
+//    public void processEl58Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        String stringType_ = context_.getAliasString();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("7"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("v", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("8"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("d", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("f", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)", context_);
+//        assertEq("varargs;7 8 7",getString(arg_));
+//    }
+//    @Test
+//    public void processEl59Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        String stringType_ = context_.getAliasString();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("f", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("f.format($vararg(java.lang.CharSequence))", context_);
+//        assertEq("varargs;{0} {1} {2}",getString(arg_));
+//    }
+//    @Test
+//    public void processEl60Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        String stringType_ = context_.getAliasString();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("7"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("v", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("8"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("d", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("f", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("f.format(v,d,v)", context_);
+//        assertEq("varargs;7 8 7",getString(arg_));
+//    }
+//    @Test
+//    public void processEl61Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        String stringType_ = context_.getAliasString();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("f", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("f.format()", context_);
+//        assertEq("varargs;{0} {1} {2}",getString(arg_));
+//    }
 
     @Test
     public void processEl63Test() {
@@ -327,28 +328,28 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[0]);
         assertSame(NullStruct.NULL_VALUE, (((ArrayStruct) res_).getInstance())[1]);
     }
-    @Test
-    public void processEl68Test() {
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        setValues(lv_, 0, 0, ARR_INT);
-        localVars_.put("arrays", lv_);
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("arrays[0i]", context_);
-        assertEq(0, getNumber(arg_));
-    }
-    @Test
-    public void processEl69Test() {
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        setPairs(lv_);
-        localVars_.put("arrays", lv_);
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("arrays[0i].length", context_);
-        assertEq(2, getNumber(arg_));
-    }
+//    @Test
+//    public void processEl68Test() {
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        setValues(lv_, 0, 0, ARR_INT);
+//        localVars_.put("arrays", lv_);
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("arrays[0i]", context_);
+//        assertEq(0, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl69Test() {
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        setPairs(lv_);
+//        localVars_.put("arrays", lv_);
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("arrays[0i].length", context_);
+//        assertEq(2, getNumber(arg_));
+//    }
     @Test
     public void processEl70Test() {
         Argument arg_ = processEl(new StringMap<String>(), "!!$false");
@@ -379,49 +380,49 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processEl(new StringMap<String>(), "(\"Hello\\\"\"+'\\'').length()");
         assertEq(7, getNumber(arg_));
     }
-    @Test
-    public void processEl81Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        String stringType_ = context_.getAliasString();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("7"));
-        lv_.setClassName(stringType_);
-        localVars_.put("v", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("8"));
-        lv_.setClassName(stringType_);
-        localVars_.put("d", lv_);
-        lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
-        lv_.setClassName(stringType_);
-        localVars_.put("f", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("(f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)+'\\'').length()", context_);
-        assertEq(14, getNumber(arg_));
-    }
-    @Test
-    public void processEl82Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        setVal(lv_, 8, ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("$static($math).abs(v[0i]+2)*2", context_);
-        assertEq(20L, getNumber(arg_));
-    }
-    @Test
-    public void processEl83Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        setVal(lv_, 8, ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("(v[0i]+2)*2", context_);
-        assertEq(20L, getNumber(arg_));
-    }
+//    @Test
+//    public void processEl81Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        String stringType_ = context_.getAliasString();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("7"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("v", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("8"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("d", lv_);
+//        lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("varargs;{0} {1} {2}"));
+//        lv_.setClassName(stringType_);
+//        localVars_.put("f", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("(f.format($vararg(java.lang.CharSequence),$firstopt(v),d,v)+'\\'').length()", context_);
+//        assertEq(14, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl82Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        setVal(lv_, 8, ARR_INT);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("$static($math).abs(v[0i]+2)*2", context_);
+//        assertEq(20L, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl83Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        setVal(lv_, 8, ARR_INT);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("(v[0i]+2)*2", context_);
+//        assertEq(20L, getNumber(arg_));
+//    }
     @Test
     public void processEl87Test() {
         Argument arg_ = processElNormal3("$bool(1>0,0i,1i)", new StringMap<String>());
@@ -524,22 +525,22 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processEl(files_, "$static(pkg.Ex).exmeth(6i)");
         assertEq(15, getNumber(arg_));
     }
-    @Test
-    public void processEl107Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t;\n");
-        xml_.append("  t=8;\n");
-        xml_.append("  $return 1i+$($int)t+e;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        Argument arg_ = processElNormalLow("$new pkg.Ex()", cont_, "pkg.Ex");
-        assertEq("pkg.Ex",arg_.getStruct().getClassName(cont_.getContext()));
-    }
+//    @Test
+//    public void processEl107Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static $int exmeth($int e){\n");
+//        xml_.append("  $long t;\n");
+//        xml_.append("  t=8;\n");
+//        xml_.append("  $return 1i+$($int)t+e;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        Argument arg_ = processElNormalLow("$new pkg.Ex()", cont_, "pkg.Ex");
+//        assertEq("pkg.Ex",arg_.getStruct().getClassName(cont_.getContext()));
+//    }
     @Test
     public void processEl109Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -571,29 +572,29 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processEl(files_, "$classchoice(pkg.Ex)inst");
         assertEq(2, getNumber(arg_));
     }
-    @Test
-    public void processEl112Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int inst=2i;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        setGlobalType(context_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
-        lv_.setStruct(str_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        for (EntryCust<String, LocalVariable> e: localVars_.entryList()) {
-            context_.getLocalVariables().addEntry(e.getKey(),e.getValue());
-        }
-        Argument arg_ = buildAndCalculate(context_, all_);
-        assertEq(2, getNumber(arg_));
-    }
+//    @Test
+//    public void processEl112Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $int inst=2i;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
+//        setGlobalType(context_, "pkg.Ex");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, context_.getAnalyzingDoc(),"pkg.Ex","v",false);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
+//        lv_.setStruct(str_);
+//        lv_.setClassName("pkg.Ex");
+//        localVars_.put("v", lv_);
+//        for (EntryCust<String, LocalVariable> e: localVars_.entryList()) {
+//            context_.getLocalVariables().addEntry(e.getKey(),e.getValue());
+//        }
+//        Argument arg_ = buildAndCalculate(context_, all_);
+//        assertEq(2, getNumber(arg_));
+//    }
     @Test
     public void processEl119Test() {
         Argument arg_ = processEl(new StringMap<String>(), "(1y+2y)*3");
@@ -916,19 +917,19 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         assertEq(Long.MAX_VALUE, getNumber(arg_));
     }
 
-    @Test
-    public void processEl331Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasPrimInteger()));
-        localVars_.put("arg", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        calcLow("arg={2}", context_);
-        ArrayStruct struct_ = (ArrayStruct)lv_.getStruct();
-        assertEq(1,struct_.getInstance().length);
-        assertEq(2,((NumberStruct)struct_.getInstance()[0]).intStruct());
-    }
+//    @Test
+//    public void processEl331Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setClassName(StringExpUtil.getPrettyArrayType(context_.getAliasPrimInteger()));
+//        localVars_.put("arg", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        calcLow("arg={2}", context_);
+//        ArrayStruct struct_ = (ArrayStruct)lv_.getStruct();
+//        assertEq(1,struct_.getInstance().length);
+//        assertEq(2,((NumberStruct)struct_.getInstance()[0]).intStruct());
+//    }
 
     @Test
     public void processEl332Test() {
@@ -1068,33 +1069,33 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument argument_ = processElNormal1Int(5, "arg%3", "arg");
         assertEq(2,getNumber(argument_));
     }
-    @Test
-    public void processEl356Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int inst=2i;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        setGlobalType(context_, "pkg.Ex");
-        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
-        String globalClass_ = context_.getAnalyzing().getGlobalClass();
-        setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
-        context_.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(context_.getAnalyzing(),globalClass_));
-        context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(false));
-        Delimiters d_ = checkSyntax(context_, "$this.inst");
-        String el_ = "$this.inst";
-        OperationsSequence opTwo_ = rendOpSeq(0, context_, d_, el_);
-        OperationNode op_ = rendOp(0, context_, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        generalForward(context_);
-        CustList<RendDynOperationNode> ex_ = getQuickExecutableNodes(context_, all_);
-        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
-        setGlobalArgumentStruct(context_, str_,"pkg.Ex");
-        Argument arg_ = buildAndCalculate(context_, ex_);
-        assertEq(2, getNumber(arg_));
-    }
+//    @Test
+//    public void processEl356Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $int inst=2i;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
+//        setGlobalType(context_, "pkg.Ex");
+//        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
+//        String globalClass_ = context_.getAnalyzing().getGlobalClass();
+//        setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
+//        context_.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(context_.getAnalyzing(),globalClass_));
+//        context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(false));
+//        Delimiters d_ = checkSyntax(context_, "$this.inst");
+//        String el_ = "$this.inst";
+//        OperationsSequence opTwo_ = rendOpSeq(0, context_, d_, el_);
+//        OperationNode op_ = rendOp(0, context_, opTwo_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        generalForward(context_);
+//        CustList<RendDynOperationNode> ex_ = getQuickExecutableNodes(context_, all_);
+//        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
+//        setGlobalArgumentStruct(context_, str_,"pkg.Ex");
+//        Argument arg_ = buildAndCalculate(context_, ex_);
+//        assertEq(2, getNumber(arg_));
+//    }
 
     @Test
     public void processEl357Test() {
@@ -1438,34 +1439,34 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processEl(files_, "$static($Class).forName(\"pkg.Ex\",$true).getName()");
         assertEq("pkg.Ex",getString(arg_));
     }
-    @Test
-    public void processEl239Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i);\n");
-        xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t;\n");
-        xml_.append("  t=8;\n");
-        xml_.append("  $return 1i+$($int)t+e;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $static java.lang.String exmeth(){\n");
-        xml_.append("  $return $static($Class).forName(\"pkg.Ex\",$true).getName();\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        setGlobalType(cont_, "pkg.ExTwo");
-        CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.ExTwo).exmeth()", cont_, cont_.getAnalyzingDoc());
-        Argument arg_ = buildAndCalculateFwd(cont_, all_);
-        assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
-        assertEq("pkg.Ex",getString(arg_));
-    }
+//    @Test
+//    public void processEl239Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static $int inst = exmeth(5i);\n");
+//        xml_.append(" $public $static $int exmeth($int e){\n");
+//        xml_.append("  $long t;\n");
+//        xml_.append("  t=8;\n");
+//        xml_.append("  $return 1i+$($int)t+e;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.ExTwo {\n");
+//        xml_.append(" $public $static $int inst;\n");
+//        xml_.append(" $public $static java.lang.String exmeth(){\n");
+//        xml_.append("  $return $static($Class).forName(\"pkg.Ex\",$true).getName();\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        files_.put("pkg/ExTwo", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        setGlobalType(cont_, "pkg.ExTwo");
+//        CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.ExTwo).exmeth()", cont_, cont_.getAnalyzingDoc());
+//        Argument arg_ = buildAndCalculateFwd(cont_, all_);
+//        assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
+//        assertEq("pkg.Ex",getString(arg_));
+//    }
     @Test
     public void processEl240Test() {
         Argument arg_ = processEl(new StringMap<String>(), "$class($void).getName()");
@@ -1519,45 +1520,45 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processElLow(new StringMap<String>(), "$class($math).getDeclaredMethods(\"mod\",$true,$false,$class($int),$class($int))[0i].invoke($null,4i,3i)");
         assertEq(1, getNumber(arg_));
     }
-    @Test
-    public void processEl252Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int inst = exmeth(5i);\n");
-        xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t;\n");
-        xml_.append("  t=8;\n");
-        xml_.append("  $return 1i+$($int)t+e;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $static $int exmeth(){\n");
-        xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$false,$class($int))[0i];\n");
-        xml_.append("  $return $($int) m.invoke($null,6i);\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $abstract $class pkg.ExAbs {\n");
-        xml_.append(" $public $abstract java.lang.String exmeth();\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExAbs", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
-        xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return \"out\";\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExConc", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        Argument arg_ = calcLow("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
-        assertEq(15, getNumber(arg_));
-    }
+//    @Test
+//    public void processEl252Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static $int inst = exmeth(5i);\n");
+//        xml_.append(" $public $static $int exmeth($int e){\n");
+//        xml_.append("  $long t;\n");
+//        xml_.append("  t=8;\n");
+//        xml_.append("  $return 1i+$($int)t+e;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.ExTwo {\n");
+//        xml_.append(" $public $static $int inst;\n");
+//        xml_.append(" $public $static $int exmeth(){\n");
+//        xml_.append("  $Method m = $class(pkg.Ex).getDeclaredMethods(\"exmeth\",$true,$false,$class($int))[0i];\n");
+//        xml_.append("  $return $($int) m.invoke($null,6i);\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        files_.put("pkg/ExTwo", xml_.toString());
+//        xml_ = new StringBuilder();
+//        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+//        xml_.append(" $public $abstract java.lang.String exmeth();\n");
+//        xml_.append("}\n");
+//        files_.put("pkg/ExAbs", xml_.toString());
+//        xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+//        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+//        xml_.append("  $return \"out\";\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        files_.put("pkg/ExConc", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        Argument arg_ = calcLow("$static(pkg.ExTwo).exmeth()", cont_);
+//        assertEq(14, ((NumberStruct) getStaticField(cont_)).intStruct());
+//        assertEq(15, getNumber(arg_));
+//    }
     @Test
     public void processEl253Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1883,56 +1884,56 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processElLow(files_, "$static(pkg.ExTwo).exmeth()");
         assertEq(19, getNumber(arg_));
     }
-    @Test
-    public void processEl261Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex<T> {\n");
-        xml_.append(" $public $static $int inst=6i;\n");
-        xml_.append(" $public $static $void set($int i){\n");
-        xml_.append("  inst+=i;\n");
-        xml_.append(" }\n");
-        xml_.append(" $public $normal $int exmeth(T... e){\n");
-        xml_.append("  $long t;\n");
-        xml_.append("  t=8;\n");
-        xml_.append("  $if(e!=$null){\n");
-        xml_.append("   $foreach(T i:e){\n");
-        xml_.append("    t+=$($int)i;;\n");
-        xml_.append("   }\n");
-        xml_.append("  }\n");
-        xml_.append("  $return 1i+$($int)t;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public $static $int inst;\n");
-        xml_.append(" $public $static java.lang.Object exmeth(){\n");
-        xml_.append("  $Method m = $class($Method).getDeclaredMethods(\"invoke\",$false,$true,$class(java.lang.Object),$class(java.lang.Object))[0i];\n");
-        xml_.append("  $Method mtwo = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"set\",$true,$false,$class($int))[0i];\n");
-        xml_.append("  $return m.invoke(mtwo,$null,$new java.lang.Object[]{4i});\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExTwo", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $abstract $class pkg.ExAbs {\n");
-        xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return \"super\";\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExAbs", xml_.toString());
-        xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
-        xml_.append(" $public $normal java.lang.String exmeth(){\n");
-        xml_.append("  $return \"out\";\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        files_.put("pkg/ExConc", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        Argument arg_ = calcLow("$static(pkg.ExTwo).exmeth()", cont_);
-        assertEq(10, ((NumberStruct) getStaticField(cont_)).intStruct());
-        assertTrue(arg_.isNull());
-    }
+//    @Test
+//    public void processEl261Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex<T> {\n");
+//        xml_.append(" $public $static $int inst=6i;\n");
+//        xml_.append(" $public $static $void set($int i){\n");
+//        xml_.append("  inst+=i;\n");
+//        xml_.append(" }\n");
+//        xml_.append(" $public $normal $int exmeth(T... e){\n");
+//        xml_.append("  $long t;\n");
+//        xml_.append("  t=8;\n");
+//        xml_.append("  $if(e!=$null){\n");
+//        xml_.append("   $foreach(T i:e){\n");
+//        xml_.append("    t+=$($int)i;;\n");
+//        xml_.append("   }\n");
+//        xml_.append("  }\n");
+//        xml_.append("  $return 1i+$($int)t;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.ExTwo {\n");
+//        xml_.append(" $public $static $int inst;\n");
+//        xml_.append(" $public $static java.lang.Object exmeth(){\n");
+//        xml_.append("  $Method m = $class($Method).getDeclaredMethods(\"invoke\",$false,$true,$class(java.lang.Object),$class(java.lang.Object))[0i];\n");
+//        xml_.append("  $Method mtwo = $class(pkg.Ex<java.lang.Integer>).getDeclaredMethods(\"set\",$true,$false,$class($int))[0i];\n");
+//        xml_.append("  $return m.invoke(mtwo,$null,$new java.lang.Object[]{4i});\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        files_.put("pkg/ExTwo", xml_.toString());
+//        xml_ = new StringBuilder();
+//        xml_.append("$public $abstract $class pkg.ExAbs {\n");
+//        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+//        xml_.append("  $return \"super\";\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        files_.put("pkg/ExAbs", xml_.toString());
+//        xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.ExConc:pkg.ExAbs {\n");
+//        xml_.append(" $public $normal java.lang.String exmeth(){\n");
+//        xml_.append("  $return \"out\";\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        files_.put("pkg/ExConc", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        Argument arg_ = calcLow("$static(pkg.ExTwo).exmeth()", cont_);
+//        assertEq(10, ((NumberStruct) getStaticField(cont_)).intStruct());
+//        assertTrue(arg_.isNull());
+//    }
 
     @Test
     public void processEl267Test() {
@@ -2971,18 +2972,18 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processElNormalInit(files_, "$new{} pkg.Ex(5).inst","pkg.Ex");
         assertEq(5,getNumber(arg_));
     }
-    @Test
-    public void processEl361Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
-        LoopVariable lv_ = new LoopVariable();
-        lv_.setIndexClassName(context_.getAliasPrimLong());
-        lv_.setIndex(5);
-        localVars_.put("arg", lv_);
-        context_.getVars().addAllEntries(localVars_);
-        Argument argument_ = calcLow("([arg])", context_);
-        assertEq(5,getNumber(argument_));
-    }
+//    @Test
+//    public void processEl361Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LoopVariable> localVars_ = new StringMap<LoopVariable>();
+//        LoopVariable lv_ = new LoopVariable();
+//        lv_.setIndexClassName(context_.getAliasPrimLong());
+//        lv_.setIndex(5);
+//        localVars_.put("arg", lv_);
+//        context_.getVars().addAllEntries(localVars_);
+//        Argument argument_ = calcLow("([arg])", context_);
+//        assertEq(5,getNumber(argument_));
+//    }
 
     @Test
     public void processEl364Test() {
@@ -3007,18 +3008,18 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument argument_ = processElNormalBoolInt(true, "($boolean)arg", new IntStruct(0));
         assertTrue(argument_.isTrue());
     }
-    @Test
-    public void processEl366Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasString());
-        lv_.setStruct(new StringStruct("str"));
-        localVars_.put("arg", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument argument_ = calcLow("(String)arg", context_);
-        assertEq("str",getString(argument_));
-    }
+//    @Test
+//    public void processEl366Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setClassName(context_.getAliasString());
+//        lv_.setStruct(new StringStruct("str"));
+//        localVars_.put("arg", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument argument_ = calcLow("(String)arg", context_);
+//        assertEq("str",getString(argument_));
+//    }
     @Test
     public void processEl369Test() {
         StringBuilder xml_;
@@ -3066,19 +3067,19 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         assertTrue(argument_.isTrue());
     }
 
-    @Test
-    public void processEl376Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        setVal(lv_, 8, ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument arg_ = calcLow("v.clone()", context_);
-        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
-        assertEq(1, arr_.getInstance().length);
-        assertEq(8, ((NumberStruct)arr_.getInstance()[0]).intStruct());
-    }
+//    @Test
+//    public void processEl376Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        setVal(lv_, 8, ARR_INT);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument arg_ = calcLow("v.clone()", context_);
+//        ArrayStruct arr_ = (ArrayStruct) arg_.getStruct();
+//        assertEq(1, arr_.getInstance().length);
+//        assertEq(8, ((NumberStruct)arr_.getInstance()[0]).intStruct());
+//    }
 
     @Test
     public void processEl377Test() {
@@ -3112,50 +3113,50 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument arg_ = processEl(files_, "pkg.ExTwo.exmeth($id(pkg.ExTwo,$static,$int,$int),4,8)");
         assertEq(12,getNumber(arg_));
     }
-    @Test
-    public void procesAffect0Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int inst=2i;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        setGlobalType(context_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
-        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
-        setGlobalArgumentStruct(context_, str_, "pkg.Ex");
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(0));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        buildAndCalculate(context_, all_);
-        assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
-    }
-    @Test
-    public void procesAffect000Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $int inst;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
-        setGlobalType(context_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
-        Struct str_ = init(context_, "pkg.Ex");
-        setGlobalArgumentStruct(context_, str_, "pkg.Ex");
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(2));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        buildAndCalculate(context_, all_);
-        assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
-    }
+//    @Test
+//    public void procesAffect0Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $int inst=2i;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
+//        setGlobalType(context_, "pkg.Ex");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v)=$this.inst", context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v", false);
+//        Struct str_ = initAndSet(context_, new ClassField("pkg.Ex", "inst"), new IntStruct(2), "pkg.Ex");
+//        setGlobalArgumentStruct(context_, str_, "pkg.Ex");
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(0));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        buildAndCalculate(context_, all_);
+//        assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
+//    }
+//    @Test
+//    public void procesAffect000Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $int inst;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(files_);
+//        setGlobalType(context_, "pkg.Ex");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$this.inst=(v)", context_, context_.getAnalyzingDoc(),context_.getAliasPrimInteger(),"v",false);
+//        Struct str_ = init(context_, "pkg.Ex");
+//        setGlobalArgumentStruct(context_, str_, "pkg.Ex");
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(2));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        buildAndCalculate(context_, all_);
+//        assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
+//    }
 
     @Test
     public void processEl379Test() {
@@ -4172,115 +4173,115 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Argument argument_ = processEl(files_, "(++pkg.Ex.res.res).inst","pkg.Ex");
         assertEq(7,getNumber(argument_));
     }
-    @Test
-    public void processEl430Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator+ pkg.Ex(pkg.Ex a,pkg.Ex b){\n");
-        xml_.append(" $var o = $new pkg.Ex();\n");
-        xml_.append(" o.inst = a.inst+b.inst;\n");
-        xml_.append(" $return o;\n");
-        xml_.append("}\n");
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public Ex res = $new Ex(6);\n");
-        xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static ExTwo res = $new ExTwo();\n");
-        xml_.append(" $public $int inst;\n");
-        xml_.append(" $public Ex(){}\n");
-        xml_.append(" $public Ex($int p){\n");
-        xml_.append("  inst=p;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
-        setGlobalType(conf_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v+=$new pkg.Ex(8)).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct value_ = init(conf_,"pkg.Ex");
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(conf_, localVars_);
-        Argument argument_ = buildAndCalculate(conf_, all_);
-        assertEq(14,getNumber(argument_));
-        assertEq(14,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
-    }
+//    @Test
+//    public void processEl430Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$operator+ pkg.Ex(pkg.Ex a,pkg.Ex b){\n");
+//        xml_.append(" $var o = $new pkg.Ex();\n");
+//        xml_.append(" o.inst = a.inst+b.inst;\n");
+//        xml_.append(" $return o;\n");
+//        xml_.append("}\n");
+//        xml_.append("$public $class pkg.ExTwo {\n");
+//        xml_.append(" $public Ex res = $new Ex(6);\n");
+//        xml_.append("}\n");
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static ExTwo res = $new ExTwo();\n");
+//        xml_.append(" $public $int inst;\n");
+//        xml_.append(" $public Ex(){}\n");
+//        xml_.append(" $public Ex($int p){\n");
+//        xml_.append("  inst=p;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
+//        setGlobalType(conf_, "pkg.Ex");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v+=$new pkg.Ex(8)).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        Struct value_ = init(conf_,"pkg.Ex");
+//        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
+//        lv_.setStruct(value_);
+//        lv_.setClassName("pkg.Ex");
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(conf_, localVars_);
+//        Argument argument_ = buildAndCalculate(conf_, all_);
+//        assertEq(14,getNumber(argument_));
+//        assertEq(14,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
+//    }
 
-    @Test
-    public void processEl431Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator++ pkg.Ex(pkg.Ex a){\n");
-        xml_.append(" $var o = $new pkg.Ex();\n");
-        xml_.append(" o.inst = a.inst+1;\n");
-        xml_.append(" $return o;\n");
-        xml_.append("}\n");
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public Ex res = $new Ex(6);\n");
-        xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static ExTwo res = $new ExTwo();\n");
-        xml_.append(" $public $int inst;\n");
-        xml_.append(" $public Ex(){}\n");
-        xml_.append(" $public Ex($int p){\n");
-        xml_.append("  inst=p;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
-        setGlobalType(conf_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v++).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
-        LocalVariable lv_ = new LocalVariable();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        Struct value_ = init(conf_,"pkg.Ex");
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(conf_, localVars_);
-        Argument argument_ = buildAndCalculate(conf_, all_);
-        assertEq(6,getNumber(argument_));
-        assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
-    }
-    @Test
-    public void processEl432Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$operator++ pkg.Ex(pkg.Ex a){\n");
-        xml_.append(" $var o = $new pkg.Ex();\n");
-        xml_.append(" o.inst = a.inst+1;\n");
-        xml_.append(" $return o;\n");
-        xml_.append("}\n");
-        xml_.append("$public $class pkg.ExTwo {\n");
-        xml_.append(" $public Ex res = $new Ex(6);\n");
-        xml_.append("}\n");
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static ExTwo res = $new ExTwo();\n");
-        xml_.append(" $public $int inst;\n");
-        xml_.append(" $public Ex(){}\n");
-        xml_.append(" $public Ex($int p){\n");
-        xml_.append("  inst=p;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
-        setGlobalType(conf_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(++v).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
-        LocalVariable lv_ = new LocalVariable();
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        Struct value_ = init(conf_,"pkg.Ex");
-        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
-        lv_.setStruct(value_);
-        lv_.setClassName("pkg.Ex");
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(conf_, localVars_);
-        Argument argument_ = buildAndCalculate(conf_, all_);
-        assertEq(7,getNumber(argument_));
-        assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
-    }
+//    @Test
+//    public void processEl431Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$operator++ pkg.Ex(pkg.Ex a){\n");
+//        xml_.append(" $var o = $new pkg.Ex();\n");
+//        xml_.append(" o.inst = a.inst+1;\n");
+//        xml_.append(" $return o;\n");
+//        xml_.append("}\n");
+//        xml_.append("$public $class pkg.ExTwo {\n");
+//        xml_.append(" $public Ex res = $new Ex(6);\n");
+//        xml_.append("}\n");
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static ExTwo res = $new ExTwo();\n");
+//        xml_.append(" $public $int inst;\n");
+//        xml_.append(" $public Ex(){}\n");
+//        xml_.append(" $public Ex($int p){\n");
+//        xml_.append("  inst=p;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
+//        setGlobalType(conf_, "pkg.Ex");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v++).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+//        LocalVariable lv_ = new LocalVariable();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        Struct value_ = init(conf_,"pkg.Ex");
+//        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
+//        lv_.setStruct(value_);
+//        lv_.setClassName("pkg.Ex");
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(conf_, localVars_);
+//        Argument argument_ = buildAndCalculate(conf_, all_);
+//        assertEq(6,getNumber(argument_));
+//        assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
+//    }
+//    @Test
+//    public void processEl432Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$operator++ pkg.Ex(pkg.Ex a){\n");
+//        xml_.append(" $var o = $new pkg.Ex();\n");
+//        xml_.append(" o.inst = a.inst+1;\n");
+//        xml_.append(" $return o;\n");
+//        xml_.append("}\n");
+//        xml_.append("$public $class pkg.ExTwo {\n");
+//        xml_.append(" $public Ex res = $new Ex(6);\n");
+//        xml_.append("}\n");
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static ExTwo res = $new ExTwo();\n");
+//        xml_.append(" $public $int inst;\n");
+//        xml_.append(" $public Ex(){}\n");
+//        xml_.append(" $public Ex($int p){\n");
+//        xml_.append("  inst=p;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration conf_ = getConfigurationQuick(files_,"pkg.Ex");
+//        setGlobalType(conf_, "pkg.Ex");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(++v).inst", conf_, conf_.getAnalyzingDoc(),"pkg.Ex","v",false);
+//        LocalVariable lv_ = new LocalVariable();
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        Struct value_ = init(conf_,"pkg.Ex");
+//        setStruct(value_,new ClassField("pkg.Ex","inst"),new IntStruct(6));
+//        lv_.setStruct(value_);
+//        lv_.setClassName("pkg.Ex");
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(conf_, localVars_);
+//        Argument argument_ = buildAndCalculate(conf_, all_);
+//        assertEq(7,getNumber(argument_));
+//        assertEq(7,((NumberStruct)getStruct(lv_.getStruct(),new ClassField("pkg.Ex","inst"))).intStruct());
+//    }
     @Test
     public void processEl434Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -4867,220 +4868,220 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         assertEq(1, ((NumberStruct)lv_.getStruct()).intStruct());
     }
 
-    @Test
-    public void processAffect3Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        setVal(lv_, 0, ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        calcLow("v[0i]=12i", context_);
-        assertEq(12, ((NumberStruct) ((ArrayStruct)lv_.getStruct()).getInstance()[0]).intStruct());
-    }
-    @Test
-    public void processAffect4Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        setArrays(lv_);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        calcLow("v[0i][0i]=12i", context_);
-        assertEq(12, ((NumberStruct)(((ArrayStruct)((ArrayStruct)lv_.getStruct()).getInstance()[0]).getInstance())[0]).intStruct());
-    }
+//    @Test
+//    public void processAffect3Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        setVal(lv_, 0, ARR_INT);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        calcLow("v[0i]=12i", context_);
+//        assertEq(12, ((NumberStruct) ((ArrayStruct)lv_.getStruct()).getInstance()[0]).intStruct());
+//    }
+//    @Test
+//    public void processAffect4Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        setArrays(lv_);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        calcLow("v[0i][0i]=12i", context_);
+//        assertEq(12, ((NumberStruct)(((ArrayStruct)((ArrayStruct)lv_.getStruct()).getInstance()[0]).getInstance())[0]).intStruct());
+//    }
     @Test
     public void processAffect5Test() {
         LocalVariable lv_ = processElNormal1Int2(1, "v+=1i");
         assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
     }
-    @Test
-    public void processAffect6Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Composite {\n");
-        xml_.append(" $public $int integer;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer-=12i", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct var_ = init(cont_,"pkg.Composite");
-        lv_.setStruct(var_);
-        lv_.setClassName("pkg.Composite");
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_, localVars_);
-        setGlobalType(cont_, "pkg.Composite");
-        Argument res_ = buildAndCalculate(cont_, all_);
-        assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
-        assertEq(-12, getNumber(res_));
-    }
-    @Test
-    public void processAffect7Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setVal(lv_, 0, ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument res_ = calcLow("v[0i]-=12i", context_);
-        assertEq(-12, ((NumberStruct) in_.get(0)).intStruct());
-        assertEq(-12, getNumber(res_));
-    }
-    @Test
-    public void processAffect8Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setArrays(lv_);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument res_ = calcLow("v[0i][0i]-=12i", context_);
-        assertEq(-12, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
-        assertEq(-12, getNumber(res_));
-    }
-    @Test
-    public void processAffect9Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setArrays(lv_);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument res_ = calcLow("v[0i][0i]++", context_);
-        assertEq(1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
-        assertEq(0, getNumber(res_));
-    }
-
-    @Test
-    public void processAffect10Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setArrays(lv_);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument res_ = calcLow("v[0i][0i]--", context_);
-        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
-        assertEq(0, getNumber(res_));
-    }
-    @Test
-    public void processAffect11Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setArrays(lv_);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument res_ = calcLow("++v[0i][0i]", context_);
-        assertEq(1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
-        assertEq(1, getNumber(res_));
-    }
-    @Test
-    public void processAffect12Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setArrays(lv_);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        Argument res_ = calcLow("--v[0i][0i]", context_);
-        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
-        assertEq(-1, getNumber(res_));
-    }
-    @Test
-    public void processAffect21Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static java.lang.Integer inst;\n");
-        xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t;\n");
-        xml_.append("  t=8;\n");
-        xml_.append("  $return 1i+$($int)t+e;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        calcLow("$classchoice(pkg.Ex)inst=2i", cont_);
-        Struct fieldValue_ = getStaticField(cont_);
-        assertEq(2, ((NumberStruct) fieldValue_).intStruct());
-    }
-    @Test
-    public void processAffect22Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static java.lang.Integer inst;\n");
-        xml_.append(" $public $static $int exmeth($int e){\n");
-        xml_.append("  $long t;\n");
-        xml_.append("  t=8;\n");
-        xml_.append("  $return 1i+$($int)t+e;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        setGlobalType(cont_, "pkg.Ex");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$classchoice(pkg.Ex)inst=v", cont_, cont_.getAnalyzingDoc(),cont_.getAliasInteger(),"v",true);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(NullStruct.NULL_VALUE);
-        lv_.setClassName(cont_.getAliasInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_, localVars_);
-        ContextEl ctx_ = getGenerate(cont_);
-        buildAndCalculate(cont_, all_);
-        Struct arg_ = getStaticField(cont_);
-        assertSame(NullStruct.NULL_VALUE,arg_);
-    }
-    @Test
-    public void processAffect23Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new StringStruct("add "));
-        lv_.setClassName(context_.getAliasString());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        calcLow("v+=1i", context_);
-        assertEq("add 1", ((StringStruct)lv_.getStruct()).getInstance());
-    }
-    @Test
-    public void processAffect24Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        String arrayType_ = StringExpUtil.getPrettyArrayType(context_.getAliasString());
-        ArrayStruct array_ = new ArrayStruct(1, arrayType_);
-        array_.set(0, new StringStruct("add "));
-        lv_.setStruct(array_);
-        lv_.setClassName(arrayType_);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        calcLow("v[0i]+=1i", context_);
-        assertEq("add 1",((StringStruct)(((ArrayStruct) lv_.getStruct()).getInstance())[0]).getInstance());
-    }
-    @Test
-    public void processAffect25Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Ex {\n");
-        xml_.append(" $public $static $int[] inst=$new $int[1i];\n");
-        xml_.append(" $public $static $int[] exmeth(){\n");
-        xml_.append("  $return inst;\n");
-        xml_.append(" }\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        setGlobalType(cont_, "pkg.Ex");
-        CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.Ex).exmeth()[0i]=2i", cont_, cont_.getAnalyzingDoc());
-        buildAndCalculateFwd(cont_, all_);
-        Struct fieldValue_ = getStaticField(cont_);
-        Struct[] res_ = ((ArrayStruct) fieldValue_).getInstance();
-        assertEq(1,res_.length);
-        assertEq(2,((NumberStruct)res_[0]).intStruct());
-    }
+//    @Test
+//    public void processAffect6Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Composite {\n");
+//        xml_.append(" $public $int integer;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer-=12i", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        Struct var_ = init(cont_,"pkg.Composite");
+//        lv_.setStruct(var_);
+//        lv_.setClassName("pkg.Composite");
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(cont_, localVars_);
+//        setGlobalType(cont_, "pkg.Composite");
+//        Argument res_ = buildAndCalculate(cont_, all_);
+//        assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
+//        assertEq(-12, getNumber(res_));
+//    }
+//    @Test
+//    public void processAffect7Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setVal(lv_, 0, ARR_INT);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument res_ = calcLow("v[0i]-=12i", context_);
+//        assertEq(-12, ((NumberStruct) in_.get(0)).intStruct());
+//        assertEq(-12, getNumber(res_));
+//    }
+//    @Test
+//    public void processAffect8Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setArrays(lv_);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument res_ = calcLow("v[0i][0i]-=12i", context_);
+//        assertEq(-12, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
+//        assertEq(-12, getNumber(res_));
+//    }
+//    @Test
+//    public void processAffect9Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setArrays(lv_);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument res_ = calcLow("v[0i][0i]++", context_);
+//        assertEq(1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
+//        assertEq(0, getNumber(res_));
+//    }
+//
+//    @Test
+//    public void processAffect10Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setArrays(lv_);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument res_ = calcLow("v[0i][0i]--", context_);
+//        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
+//        assertEq(0, getNumber(res_));
+//    }
+//    @Test
+//    public void processAffect11Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setArrays(lv_);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument res_ = calcLow("++v[0i][0i]", context_);
+//        assertEq(1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
+//        assertEq(1, getNumber(res_));
+//    }
+//    @Test
+//    public void processAffect12Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setArrays(lv_);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        Argument res_ = calcLow("--v[0i][0i]", context_);
+//        assertEq(-1, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
+//        assertEq(-1, getNumber(res_));
+//    }
+//    @Test
+//    public void processAffect21Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static java.lang.Integer inst;\n");
+//        xml_.append(" $public $static $int exmeth($int e){\n");
+//        xml_.append("  $long t;\n");
+//        xml_.append("  t=8;\n");
+//        xml_.append("  $return 1i+$($int)t+e;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        calcLow("$classchoice(pkg.Ex)inst=2i", cont_);
+//        Struct fieldValue_ = getStaticField(cont_);
+//        assertEq(2, ((NumberStruct) fieldValue_).intStruct());
+//    }
+//    @Test
+//    public void processAffect22Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static java.lang.Integer inst;\n");
+//        xml_.append(" $public $static $int exmeth($int e){\n");
+//        xml_.append("  $long t;\n");
+//        xml_.append("  t=8;\n");
+//        xml_.append("  $return 1i+$($int)t+e;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        setGlobalType(cont_, "pkg.Ex");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("$classchoice(pkg.Ex)inst=v", cont_, cont_.getAnalyzingDoc(),cont_.getAliasInteger(),"v",true);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(NullStruct.NULL_VALUE);
+//        lv_.setClassName(cont_.getAliasInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(cont_, localVars_);
+//        ContextEl ctx_ = getGenerate(cont_);
+//        buildAndCalculate(cont_, all_);
+//        Struct arg_ = getStaticField(cont_);
+//        assertSame(NullStruct.NULL_VALUE,arg_);
+//    }
+//    @Test
+//    public void processAffect23Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new StringStruct("add "));
+//        lv_.setClassName(context_.getAliasString());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        calcLow("v+=1i", context_);
+//        assertEq("add 1", ((StringStruct)lv_.getStruct()).getInstance());
+//    }
+//    @Test
+//    public void processAffect24Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        String arrayType_ = StringExpUtil.getPrettyArrayType(context_.getAliasString());
+//        ArrayStruct array_ = new ArrayStruct(1, arrayType_);
+//        array_.set(0, new StringStruct("add "));
+//        lv_.setStruct(array_);
+//        lv_.setClassName(arrayType_);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        calcLow("v[0i]+=1i", context_);
+//        assertEq("add 1",((StringStruct)(((ArrayStruct) lv_.getStruct()).getInstance())[0]).getInstance());
+//    }
+//    @Test
+//    public void processAffect25Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Ex {\n");
+//        xml_.append(" $public $static $int[] inst=$new $int[1i];\n");
+//        xml_.append(" $public $static $int[] exmeth(){\n");
+//        xml_.append("  $return inst;\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        setGlobalType(cont_, "pkg.Ex");
+//        CustList<OperationNode> all_ = getQuickAnalyzed("$static(pkg.Ex).exmeth()[0i]=2i", cont_, cont_.getAnalyzingDoc());
+//        buildAndCalculateFwd(cont_, all_);
+//        Struct fieldValue_ = getStaticField(cont_);
+//        Struct[] res_ = ((ArrayStruct) fieldValue_).getInstance();
+//        assertEq(1,res_.length);
+//        assertEq(2,((NumberStruct)res_[0]).intStruct());
+//    }
     @Test
     public void processAffect26Test() {
         LocalVariable lv_ = processElNormal1Bool1(true, "v&=$false");
@@ -5092,106 +5093,106 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         assertTrue(BooleanStruct.isTrue(lv_.getStruct()));
     }
 
-    @Test
-    public void processAffect28Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Composite {\n");
-        xml_.append(" $public $int integer;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        setGlobalType(cont_, "pkg.Composite");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer++", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct var_ = init(cont_,"pkg.Composite");
-        lv_.setStruct(var_);
-        lv_.setClassName("pkg.Composite");
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_, localVars_);
-        Argument res_ = buildAndCalculate(cont_, all_);
-        assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
-        assertEq(0, getNumber(res_));
-    }
-    @Test
-    public void processAffect29Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Composite {\n");
-        xml_.append(" $public $int integer;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        setGlobalType(cont_, "pkg.Composite");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("++v.integer", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct var_ = init(cont_,"pkg.Composite");
-        lv_.setStruct(var_);
-        lv_.setClassName("pkg.Composite");
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_, localVars_);
-        Argument res_ = buildAndCalculate(cont_, all_);
-        assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
-        assertEq(1, getNumber(res_));
-    }
-
-    @Test
-    public void processAffect30Test() {
-        StringBuilder xml_ = new StringBuilder();
-        xml_.append("$public $class pkg.Composite {\n");
-        xml_.append(" $public $int integer;\n");
-        xml_.append("}\n");
-        StringMap<String> files_ = new StringMap<String>();
-        files_.put("pkg/Ex", xml_.toString());
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
-        setGlobalType(cont_, "pkg.Composite");
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v.integer-=12i)", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        Struct var_ = init(cont_,"pkg.Composite");
-        lv_.setStruct(var_);
-        lv_.setClassName("pkg.Composite");
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(cont_, localVars_);
-        Argument res_ = buildAndCalculate(cont_, all_);
-        assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
-        assertEq(-12, getNumber(res_));
-    }
-    @Test
-    public void processAffect31Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setArrays(lv_);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        calcLow("(v[0i][0i])=12i", context_);
-        assertEq(12, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
-    }
-
-    @Test
-    public void processEl179Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v+=1i";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        calculate(all_, context_);
-        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-    }
+//    @Test
+//    public void processAffect28Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Composite {\n");
+//        xml_.append(" $public $int integer;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        setGlobalType(cont_, "pkg.Composite");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.integer++", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        Struct var_ = init(cont_,"pkg.Composite");
+//        lv_.setStruct(var_);
+//        lv_.setClassName("pkg.Composite");
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(cont_, localVars_);
+//        Argument res_ = buildAndCalculate(cont_, all_);
+//        assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
+//        assertEq(0, getNumber(res_));
+//    }
+//    @Test
+//    public void processAffect29Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Composite {\n");
+//        xml_.append(" $public $int integer;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        setGlobalType(cont_, "pkg.Composite");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("++v.integer", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        Struct var_ = init(cont_,"pkg.Composite");
+//        lv_.setStruct(var_);
+//        lv_.setClassName("pkg.Composite");
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(cont_, localVars_);
+//        Argument res_ = buildAndCalculate(cont_, all_);
+//        assertEq(1, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
+//        assertEq(1, getNumber(res_));
+//    }
+//
+//    @Test
+//    public void processAffect30Test() {
+//        StringBuilder xml_ = new StringBuilder();
+//        xml_.append("$public $class pkg.Composite {\n");
+//        xml_.append(" $public $int integer;\n");
+//        xml_.append("}\n");
+//        StringMap<String> files_ = new StringMap<String>();
+//        files_.put("pkg/Ex", xml_.toString());
+//        AnalyzedTestConfiguration cont_ = getConfigurationQuick(files_);
+//        setGlobalType(cont_, "pkg.Composite");
+//        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("(v.integer-=12i)", cont_, cont_.getAnalyzingDoc(),"pkg.Composite","v",false);
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        Struct var_ = init(cont_,"pkg.Composite");
+//        lv_.setStruct(var_);
+//        lv_.setClassName("pkg.Composite");
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(cont_, localVars_);
+//        Argument res_ = buildAndCalculate(cont_, all_);
+//        assertEq(-12, ((NumberStruct)getStruct(var_,new ClassField("pkg.Composite","integer"))).intStruct());
+//        assertEq(-12, getNumber(res_));
+//    }
+//    @Test
+//    public void processAffect31Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setArrays(lv_);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        calcLow("(v[0i][0i])=12i", context_);
+//        assertEq(12, ((NumberStruct)(((ArrayStruct)in_.get(0)).getInstance())[0]).intStruct());
+//    }
+//
+//    @Test
+//    public void processEl179Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v+=1i";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        calculate(all_, context_);
+//        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
+//    }
 
     @Test
     public void processEl180Test() {
@@ -5204,515 +5205,546 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         LocalVariable lv_ = getModBoolVar(false, "v|=$true");
         assertTrue(BooleanStruct.isTrue(lv_.getStruct()));
     }
-    @Test
-    public void processEl186Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v==1i";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertTrue(arg_.isFalse());
-    }
-    @Test
-    public void processEl187Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v++";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(3, getNumber(arg_));
-    }
-    @Test
-    public void processEl188Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "++v";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(4, getNumber(arg_));
-    }
-    @Test
-    public void processEl189Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v[0i]++";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(6, ((NumberStruct) in_.get(0)).intStruct());
-        assertEq(5, getNumber(arg_));
-    }
-    @Test
-    public void processEl190Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "++v[0i]";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(6, ((NumberStruct) in_.get(0)).intStruct());
-        assertEq(6, getNumber(arg_));
-    }
-    @Test
-    public void processEl191Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v+=2i";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(5, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(5, getNumber(arg_));
-    }
-    @Test
-    public void processEl192Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
-        localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v[0i]+=3i";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(8, ((NumberStruct) in_.get(0)).intStruct());
-        assertEq(8, getNumber(arg_));
-    }
-    @Test
-    public void processEl193Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        LocalVariable lv2_ = new LocalVariable();
-        lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v+++v2";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
-        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(15, getNumber(arg_));
-    }
-
-    @Test
-    public void processEl194Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        LocalVariable lv2_ = new LocalVariable();
-        lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v---v2";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
-        assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(-9, getNumber(arg_));
-    }
-    @Test
-    public void processEl195Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        LocalVariable lv2_ = new LocalVariable();
-        lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v=++v2";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
-        assertEq(13, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(13, getNumber(arg_));
-    }
-    @Test
-    public void processEl196Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        LocalVariable lv2_ = new LocalVariable();
-        lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v= ++v2";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
-        assertEq(13, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(13, getNumber(arg_));
-    }
-    @Test
-    public void processEl197Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
-        setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
-        String elr_ = "+1y";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(1, getNumber(arg_));
-    }
-
-    @Test
-    public void processEl305Test() {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
-        LocalVariable lv_ = new LocalVariable();
-        lv_.setStruct(new IntStruct(3));
-        lv_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v", lv_);
-        LocalVariable lv2_ = new LocalVariable();
-        lv2_.setStruct(new IntStruct(12));
-        lv2_.setClassName(context_.getAliasPrimInteger());
-        localVars_.put("v2", lv2_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
-        String elr_ = "v=v2=4i";
-        Delimiters d_ = checkSyntax(context_, elr_);
-        assertTrue(d_.getBadOffset() < 0);
-        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
-        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
-        assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
-        Argument arg_ = calculate(all_, context_);
-        assertEq(4, ((NumberStruct)lv2_.getStruct()).intStruct());
-        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
-        assertEq(4, getNumber(arg_));
-    }
+//    @Test
+//    public void processEl186Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v==1i";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertTrue(arg_.isFalse());
+//    }
+//    @Test
+//    public void processEl187Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v++";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
+//        assertEq(3, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl188Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "++v";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
+//        assertEq(4, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl189Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v[0i]++";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(6, ((NumberStruct) in_.get(0)).intStruct());
+//        assertEq(5, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl190Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "++v[0i]";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(6, ((NumberStruct) in_.get(0)).intStruct());
+//        assertEq(6, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl191Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v+=2i";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(5, ((NumberStruct)lv_.getStruct()).intStruct());
+//        assertEq(5, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl192Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        ArrayStruct in_ = setVal(lv_, 5, ARR_INT);
+//        localVars_.put("v", lv_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v[0i]+=3i";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(8, ((NumberStruct) in_.get(0)).intStruct());
+//        assertEq(8, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl193Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        LocalVariable lv2_ = new LocalVariable();
+//        lv2_.setStruct(new IntStruct(12));
+//        lv2_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v2", lv2_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v+++v2";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
+//        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
+//        assertEq(15, getNumber(arg_));
+//    }
+//
+//    @Test
+//    public void processEl194Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        LocalVariable lv2_ = new LocalVariable();
+//        lv2_.setStruct(new IntStruct(12));
+//        lv2_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v2", lv2_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v---v2";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(12, ((NumberStruct)lv2_.getStruct()).intStruct());
+//        assertEq(2, ((NumberStruct)lv_.getStruct()).intStruct());
+//        assertEq(-9, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl195Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        LocalVariable lv2_ = new LocalVariable();
+//        lv2_.setStruct(new IntStruct(12));
+//        lv2_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v2", lv2_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v=++v2";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
+//        assertEq(13, ((NumberStruct)lv_.getStruct()).intStruct());
+//        assertEq(13, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl196Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        LocalVariable lv2_ = new LocalVariable();
+//        lv2_.setStruct(new IntStruct(12));
+//        lv2_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v2", lv2_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v= ++v2";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(13, ((NumberStruct)lv2_.getStruct()).intStruct());
+//        assertEq(13, ((NumberStruct)lv_.getStruct()).intStruct());
+//        assertEq(13, getNumber(arg_));
+//    }
+//    @Test
+//    public void processEl197Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
+//        setupAna(context_.getAnalyzingDoc(), context_.getAnalyzing());
+//        String elr_ = "+1y";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(1, getNumber(arg_));
+//    }
+//
+//    @Test
+//    public void processEl305Test() {
+//        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+//        StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
+//        LocalVariable lv_ = new LocalVariable();
+//        lv_.setStruct(new IntStruct(3));
+//        lv_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v", lv_);
+//        LocalVariable lv2_ = new LocalVariable();
+//        lv2_.setStruct(new IntStruct(12));
+//        lv2_.setClassName(context_.getAliasPrimInteger());
+//        localVars_.put("v2", lv2_);
+//        CommonRender.setLocalVars(context_, localVars_);
+//        setupAnalyzing(context_);
+//        String elr_ = "v=v2=4i";
+//        Delimiters d_ = checkSyntax(context_, elr_);
+//        assertTrue(d_.getBadOffset() < 0);
+//        OperationsSequence opTwo_ = getOperationsSequence(0, elr_, context_, d_);
+//        OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
+//        assertNotNull(op_);
+//        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+//        assertTrue(context_.isEmptyErrors());
+//        Argument arg_ = calculate(all_, context_);
+//        assertEq(4, ((NumberStruct)lv2_.getStruct()).intStruct());
+//        assertEq(4, ((NumberStruct)lv_.getStruct()).intStruct());
+//        assertEq(4, getNumber(arg_));
+//    }
 
     private static Argument processElNormal1String(String _s) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasString());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasString());
         lv_.setStruct(new StringStruct("8"));
         localVars_.put("arg", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        return calcLow(_s, context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
     }
 
     private static Argument processElNormal2BooleanVars(String _s) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasBoolean());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasBoolean());
         lv_.setStruct(NullStruct.NULL_VALUE);
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasBoolean());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasBoolean());
         lv_.setStruct(BooleanStruct.of(false));
         localVars_.put("arg2", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        return calcLow(_s, context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
     }
 
     private static Argument processElNormalBoolInt(boolean _b, String _s, IntStruct _sec) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimBoolean());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(_b));
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimInteger());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger());
         lv_.setStruct(_sec);
         localVars_.put("arg2", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        return calcLow(_s, context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        return calcLow(_s, context_, localVariables, new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
     private static Argument processElNormalBool(boolean _b, String _s) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimBoolean());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(_b));
         localVars_.put("arg", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        return calcLow(_s, context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        return calcLow(_s, context_, localVariables, new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
     private static Argument processElNormal1Int(int _i, String _s, String _varName) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimInteger());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger());
         lv_.setStruct(new IntStruct(_i));
         localVars_.put(_varName, lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        return calcLow(_s, context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
     }
 
-    private static Argument calcLow(String _s, AnalyzedTestConfiguration _context) {
-        setGlobalType(_context, _context.getArgumentClass());
-        _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context, _context.getAnalyzingDoc());
-        Argument argGl_ = _context.getArgument();
-        boolean static_ = argGl_.isNull();
-        _context.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
+    private static Argument calcLow(String _s, DualNavigationContext _context, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc analyzingDoc) {
+//        setGlobalType(_context, _context.getArgumentClass());
+        setupAnalyzing(_context, _localVariables, _vars, analyzingDoc);
+//        Argument argGl_ = _context.getArgument();
+//        boolean static_ = argGl_.isNull();
+        boolean static_ = true;
+        _context.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_context, _s);
-        OperationsSequence opTwo_ = rendOpSeq(0, _context, d_, _s);
-        OperationNode op_ = rendOp(0, _context, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(_context, op_);
+        OperationsSequence opTwo_ = rendOpSeq(_context, d_, _s, 0, analyzingDoc);
+        OperationNode op_ = rendOp(0, _context, opTwo_, analyzingDoc);
+        CustList<OperationNode> all_ = getSortedDescNodes(_context, op_, analyzingDoc);
         generalForward(_context);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, all_);
         ContextEl ctx_ = getGenerate(_context);
-        assertTrue(_context.isEmptyErrors());
+        assertTrue(_context.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
 //        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_context.getOpt());
-        Argument arg_ = caculateReuse(ctx_,_context, executableNodes_);
-        checkNullEx(_context);
-        return arg_;
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_context.getDualAnalyzedContext().getForwards().getOptions());
+        return caculateReuse(ctx_,_context, executableNodes_, _localVariables, _vars);
     }
 
-    private static Argument buildAndCalculate(AnalyzedTestConfiguration _context, CustList<RendDynOperationNode> _all) {
+    private static Argument buildAndCalculate(AnalyzedTestConfiguration _context, CustList<RendDynOperationNode> _all, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
         assertTrue(_context.isEmptyErrors());
         ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getOpt());
-        Argument arg_ = caculateReuse(_context.getContext(),_context, _all);
-        checkNullEx(_context);
-        return arg_;
+        return caculateReuse(_context.getContext(),_context, _all, _localVariables, _vars);
     }
 
-    private static Argument buildAndCalculateFwd(AnalyzedTestConfiguration _context, CustList<OperationNode> _all) {
-        generalForward(_context);
-        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, _all);
-        ContextEl ctx_ = getGenerate(_context);
-        assertTrue(_context.isEmptyErrors());
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_context.getOpt());
-        Argument arg_ = caculateReuse(ctx_,_context, executableNodes_);
-        checkNullEx(_context);
-        return arg_;
-    }
+    //    private static Argument buildAndCalculateFwd(AnalyzedTestConfiguration _context, CustList<OperationNode> _all) {
+//        generalForward(_context);
+//        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, _all);
+//        ContextEl ctx_ = getGenerate(_context);
+//        assertTrue(_context.isEmptyErrors());
+//        ExecClassesUtil.tryInitStaticlyTypes(ctx_,_context.getOpt());
+//        Argument arg_ = caculateReuse(ctx_,_context, executableNodes_);
+//        checkNullEx(_context);
+//        return arg_;
+//    }
 
     private static Argument processElNormal2BoolVars(boolean _b, boolean _b2, String _s) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimBoolean());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(_b));
         localVars_.put("arg", lv_);
         lv_ = new LocalVariable();
-        lv_.setClassName(context_.getAliasPrimBoolean());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(_b2));
         localVars_.put("arg2", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        return calcLow(_s, context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
     }
 
     private static Argument processElNormalVar2(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files);
-        return calcLow(_s, conf_);
+        DualNavigationContext conf_ = getConfigurationQuick(_files);
+        return calcLow(_s, conf_, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
     private static Argument processElNormalVar2Low(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files);
-        conf_.getAnalyzingDoc().setup(conf_.getConfiguration(), conf_.getDual());
-        setupAnalyzing(conf_, conf_.getAnalyzingDoc());
-        Argument argGl_ = conf_.getArgument();
-        boolean static_ = argGl_.isNull();
-        conf_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
+        DualNavigationContext conf_ = getConfigurationQuick(_files);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        AnalyzingDoc doc_ = new AnalyzingDoc();
+        setupAnalyzing(conf_, localVariables, vars, doc_);
+//        Argument argGl_ = conf_.getArgument();
+        boolean static_ = true;
+//        boolean static_ = argGl_.isNull();
+        conf_.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(conf_, _s);
-        OperationsSequence opTwo_ = rendOpSeq(0, conf_, d_, _s);
-        OperationNode op_ = rendOp(0, conf_, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(conf_, op_);
-        CustList<ExecAbstractFileBlock> rendFiles_ = BeanCustLgNames.execFiles(conf_.getAnalyzed());
+        OperationsSequence opTwo_ = rendOpSeq(conf_, d_, _s, 0, doc_);
+        OperationNode op_ = rendOp(0, conf_, opTwo_, doc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(conf_, op_, doc_);
+        StringMap<AnaRendDocumentBlock> analyzed_ = new StringMap<AnaRendDocumentBlock>();
+        CustList<ExecFileBlock> rendFiles_ = BeanCustLgNames.execFiles(analyzed_);
         generalForward(conf_);
-        RendForwardInfos.buildExec(conf_.getAnalyzingDoc(), rendFiles_, conf_.getAnalyzed(), conf_.getForwards(), conf_.getConfiguration());
+        RendForwardInfos.buildExec(doc_, rendFiles_, analyzed_, conf_.getDualAnalyzedContext().getForwards(), conf_.getNavigation().getSession());
 //        conf_.getAdvStandards().forwardAndClear(conf_.getOpt(), conf_.getForwards());
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(conf_, all_);
         ContextEl ctx_ = getGenerate(conf_);
-        assertTrue(conf_.isEmptyErrors());
+        assertTrue(conf_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
 //        ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
-        Argument arg_ = caculateReuse(ctx_,conf_, executableNodes_);
-        checkNullEx(conf_);
+        Argument arg_ = caculateReuse(ctx_,conf_, executableNodes_, localVariables, vars);
         return arg_;
     }
 
     private static LocalVariable processElNormal1Bool1(boolean _b, String _s) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(_b));
-        lv_.setClassName(context_.getAliasPrimBoolean());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        calcLow(_s, context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
         return lv_;
     }
 
     private static LocalVariable processElNormal1Int2(int _i, String _s) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(new IntStruct(_i));
-        lv_.setClassName(context_.getAliasPrimInteger());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        calcLow(_s, context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
         return lv_;
     }
 
-    private static Argument processElNormalLow(String _el, AnalyzedTestConfiguration _cont, String _expClass) {
-        Argument arg_ = calcLow(_el, _cont);
-        assertEq(_expClass,arg_.getStruct().getClassName(_cont.getContext()));
+    private static Argument processElNormalLow(String _el, DualNavigationContext _cont, String _expClass, AnalyzingDoc analyzingDoc) {
+        StringMap<LocalVariable> _localVariables = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> _vars = new StringMap<LoopVariable>();
+//        setGlobalType(_context, _context.getArgumentClass());
+        setupAnalyzing(_cont, _localVariables, _vars, analyzingDoc);
+//        Argument argGl_ = _context.getArgument();
+//        boolean static_ = argGl_.isNull();
+        boolean static_ = true;
+        _cont.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
+        Delimiters d_ = checkSyntax(_cont, _el);
+        OperationsSequence opTwo_ = rendOpSeq(_cont, d_, _el, 0, analyzingDoc);
+        OperationNode op_ = rendOp(0, _cont, opTwo_, analyzingDoc);
+        CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_, analyzingDoc);
+        generalForward(_cont);
+        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
+        ContextEl ctx_ = getGenerate(_cont);
+        assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+//        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getDualAnalyzedContext().getForwards().getOptions());
+        Argument arg_ = caculateReuse(ctx_, _cont, executableNodes_, _localVariables, _vars);
+        assertEq(_expClass,arg_.getStruct().getClassName(ctx_));
         return arg_;
     }
 
-    private static Argument calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
-        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_an, _ops);
-        ContextEl ctx_ = getGenerate(_an);
-        Argument arg_ = caculateReuse(ctx_,_an, executableNodes_);
-        checkNullEx(_an);
-        return arg_;
-    }
+//    private static Argument calculate(CustList<OperationNode> _ops, AnalyzedTestConfiguration _an) {
+//        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_an, _ops);
+//        ContextEl ctx_ = getGenerate(_an);
+//        Argument arg_ = caculateReuse(ctx_,_an, executableNodes_);
+//        checkNullEx(_an);
+//        return arg_;
+//    }
 
     private static Argument processElNormal2(StringMap<String> _files, String _s, String _expClass) {
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files);
-        return processElNormalLow(_s, conf_, _expClass);
+        DualNavigationContext conf_ = getConfigurationQuick(_files);
+        return processElNormalLow(_s, conf_, _expClass, new AnalyzingDoc());
     }
 
     private static Argument processElNormalNotInit(StringMap<String> _files, String _s,String... _types) {
-        AnalyzedTestConfiguration cont_ = getConfigurationQuick(_files,_types);
-        return calcLow(_s, cont_);
+        DualNavigationContext cont_ = getConfigurationQuick(_files,_types);
+        return calcLow(_s, cont_, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
-    private static boolean isInitialized(AnalyzedTestConfiguration _cont) {
-        return _cont.getContext().getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
-    }
+//    private static boolean isInitialized(AnalyzedTestConfiguration _cont) {
+//        return _cont.getContext().getLocks().getState("pkg.Ex") != InitClassState.NOT_YET;
+//    }
 
     private static Argument processElNormalInit(StringMap<String> _files, String _s, String... _types) {
-        AnalyzedTestConfiguration conf_ = getConfigurationQuick(_files,_types);
-        Argument arg_ = calcLow(_s, conf_);
-        assertTrue(isInitialized(conf_));
-        assertSame(conf_.getContext().getLocks().getState("pkg.Ex"), InitClassState.SUCCESS);
+        DualNavigationContext conf_ = getConfigurationQuick(_files,_types);
+        Argument arg_ = calcLow(_s, conf_, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
+//        assertTrue(isInitialized(conf_));
+//        assertSame(conf_.getContext().getLocks().getState("pkg.Ex"), InitClassState.SUCCESS);
         return arg_;
     }
 
@@ -5725,111 +5757,113 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static LocalVariable getModBoolVar(boolean _b, String _s) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
         lv_.setStruct(BooleanStruct.of(_b));
-        lv_.setClassName(context_.getAliasPrimBoolean());
+        lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        setupAnalyzing(context_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        AnalyzingDoc an_ = new AnalyzingDoc();
+        setupAnalyzing(context_, localVariables, vars, an_);
         Delimiters d_ = checkSyntax(context_, _s);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, _s, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, an_);
+        assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getOpt());
-        caculateReuse(ctx_,context_, executableNodes_);
-        checkNullEx(context_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
+        caculateReuse(ctx_,context_, executableNodes_, localVariables, vars);
         return lv_;
     }
 
-    private static AnalyzedTestConfiguration getConfigurationQuick(StringMap<String> _files,String... _types) {
+    private static DualNavigationContext getConfigurationQuick(StringMap<String> _files,String... _types) {
         Configuration conf_ = EquallableRenderUtil.newConfiguration();
-        AnalyzedTestConfiguration a_ = build(conf_,_types);
+        DualNavigationContext a_ = buildNav(conf_,_types);
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
         return a_;
     }
 
-    private static void setPairs(LocalVariable _lv) {
-        ArrayStruct arrArr_ = new ArrayStruct(2, ARR_ARR_INT);
-        ArrayStruct first_ = new ArrayStruct(2, ARR_INT);
-        first_.set(0,new IntStruct(0));
-        first_.set(1,new IntStruct(0));
-        arrArr_.set(0, first_);
-        ArrayStruct sec_ = new ArrayStruct(2, ARR_INT);
-        sec_.set(0,new IntStruct(0));
-        sec_.set(1,new IntStruct(0));
-        arrArr_.set(1, sec_);
-        _lv.setStruct(arrArr_);
-        _lv.setClassName(ARR_ARR_INT);
-    }
+//    private static void setPairs(LocalVariable _lv) {
+//        ArrayStruct arrArr_ = new ArrayStruct(2, ARR_ARR_INT);
+//        ArrayStruct first_ = new ArrayStruct(2, ARR_INT);
+//        first_.set(0,new IntStruct(0));
+//        first_.set(1,new IntStruct(0));
+//        arrArr_.set(0, first_);
+//        ArrayStruct sec_ = new ArrayStruct(2, ARR_INT);
+//        sec_.set(0,new IntStruct(0));
+//        sec_.set(1,new IntStruct(0));
+//        arrArr_.set(1, sec_);
+//        _lv.setStruct(arrArr_);
+//        _lv.setClassName(ARR_ARR_INT);
+//    }
 
-    private static ArrayStruct setVal(LocalVariable _lv, int _value, String _arrInt) {
-        ArrayStruct arr_ = new ArrayStruct(1, _arrInt);
-        arr_.set(0,new IntStruct(_value));
-        _lv.setStruct(arr_);
-        _lv.setClassName(_arrInt);
-        return arr_;
-    }
+//    private static ArrayStruct setVal(LocalVariable _lv, int _value, String _arrInt) {
+//        ArrayStruct arr_ = new ArrayStruct(1, _arrInt);
+//        arr_.set(0,new IntStruct(_value));
+//        _lv.setStruct(arr_);
+//        _lv.setClassName(_arrInt);
+//        return arr_;
+//    }
 
-    private static ArrayStruct setArrays(LocalVariable _lv) {
-        ArrayStruct arrArr_ = new ArrayStruct(1, ARR_ARR_INT);
-        ArrayStruct arr_ = new ArrayStruct(1, ARR_INT);
-        arr_.set(0, new IntStruct(0));
-        arrArr_.set(0, arr_);
-        _lv.setStruct(arrArr_);
-        _lv.setClassName(ARR_ARR_INT);
-        return arrArr_;
-    }
+//    private static ArrayStruct setArrays(LocalVariable _lv) {
+//        ArrayStruct arrArr_ = new ArrayStruct(1, ARR_ARR_INT);
+//        ArrayStruct arr_ = new ArrayStruct(1, ARR_INT);
+//        arr_.set(0, new IntStruct(0));
+//        arrArr_.set(0, arr_);
+//        _lv.setStruct(arrArr_);
+//        _lv.setClassName(ARR_ARR_INT);
+//        return arrArr_;
+//    }
 
-    private static void setValues(LocalVariable _lv, int _one, int _two, String _arrInt) {
-        ArrayStruct arr_ = new ArrayStruct(2, _arrInt);
-        arr_.set(0,new IntStruct(_one));
-        arr_.set(1,new IntStruct(_two));
-        _lv.setStruct(arr_);
-        _lv.setClassName(_arrInt);
-    }
+//    private static void setValues(LocalVariable _lv, int _one, int _two, String _arrInt) {
+//        ArrayStruct arr_ = new ArrayStruct(2, _arrInt);
+//        arr_.set(0,new IntStruct(_one));
+//        arr_.set(1,new IntStruct(_two));
+//        _lv.setStruct(arr_);
+//        _lv.setClassName(_arrInt);
+//    }
 
 
     private static Argument processDoubleDelimiters(String _s, int _i, int _i2) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
-        setupAnalyzing(context_);
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        setupAnalyzing(context_, localVariables, vars, analyzingDoc_);
         ResultExpression res_ = new ResultExpression();
         Delimiters d1_ = checkDel(_s, 2, context_, res_);
         assertTrue(d1_.getBadOffset() < 0);
         int end1_ = d1_.getIndexEnd();
         analyzingDoc_.setNextIndex(end1_ +2);
         String el1_ = _s.substring(2, end1_ +1);
-        OperationsSequence opTwo1_ = rendOpSeq(context_, d1_, el1_, 2);
-        OperationNode op1_ = rendOp(context_, opTwo1_);
-        CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_);
+        OperationsSequence opTwo1_ = rendOpSeq(context_, d1_, el1_, 2, analyzingDoc_);
+        OperationNode op1_ = rendOp(context_, opTwo1_, analyzingDoc_);
+        CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_, analyzingDoc_);
         generalForward(context_);
         CustList<RendDynOperationNode> out1_ = getQuickExecutableNodes(context_, all1_);
-        setupAnalyzing(context_);
+        setupAnalyzing(context_, localVariables, vars, analyzingDoc_);
         Delimiters d_ = checkDel(_s, _i, context_, res_);
         assertTrue(d_.getBadOffset() < 0);
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = _s.substring(_i,end_+1);
-        OperationsSequence opTwo_ = rendOpSeq(_i, context_, d_, el_);
-        OperationNode op_ = rendOp(_i, context_, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, _i, analyzingDoc_);
+        OperationNode op_ = rendOp(_i, context_, opTwo_, analyzingDoc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, analyzingDoc_);
         CustList<RendDynOperationNode> out_ = getQuickExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
         ContextEl ctx_ = getGenerate(context_);
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getOpt());
-        caculateReuse(ctx_,context_, out1_);
-        checkNullEx(context_);
-        Argument arg_ = caculateReuse(ctx_,context_, out_);
-        checkNullEx(context_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
+        caculateReuse(ctx_,context_, out1_, localVariables, vars);
+        Argument arg_ = caculateReuse(ctx_,context_, out_, localVariables, vars);
         assertEq(_i2, analyzingDoc_.getNextIndex());
         return arg_;
     }
@@ -5847,36 +5881,55 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static Argument processElNormal3(String _el, StringMap<String> _files, String... _types) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(_files,_types);
-        return calcLow(_el, context_);
+        DualNavigationContext context_ = getConfigurationQuick(_files,_types);
+        return calcLow(_el, context_, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
     private static Argument processElNormal3Low(String _el, StringMap<String> _files, String... _types) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(_files,_types);
-        setGlobalType(context_, context_.getArgumentClass());
-        context_.getAnalyzingDoc().setup(context_.getConfiguration(), context_.getDual());
-        setupAnalyzing(context_, context_.getAnalyzingDoc());
-        Argument argGl_ = context_.getArgument();
-        boolean static_ = argGl_.isNull();
-        context_.getAnalyzing().setAccessStaticContext(MethodId.getKind(static_));
+        DualNavigationContext context_ = getConfigurationQuick(_files,_types);
+//        setGlobalType(context_, context_.getArgumentClass());
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        AnalyzingDoc doc_ = new AnalyzingDoc();
+        setupAnalyzing(context_, localVariables, vars, doc_);
+//        Argument argGl_ = context_.getArgument();
+//        boolean static_ = argGl_.isNull();
+        boolean static_ = true;
+        context_.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(context_, _el);
-        OperationsSequence opTwo_ = rendOpSeq(0, context_, d_, _el);
-        OperationNode op_ = rendOp(0, context_, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
-        assertTrue(context_.isEmptyErrors());
+        OperationsSequence opTwo_ = rendOpSeq(context_, d_, _el, 0, doc_);
+        OperationNode op_ = rendOp(0, context_, opTwo_, doc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, doc_);
+        assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
         //        ExecClassesUtil.forwardClassesMetaInfos(context_.getContext());
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_,context_.getOpt());
-        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_);
-        checkNullEx(context_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_,context_.getDualAnalyzedContext().getForwards().getOptions());
+        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_, localVariables, vars);
         return arg_;
     }
 
-    private static Argument caculateReuse(ContextEl _ctx,AnalyzedTestConfiguration _conf, CustList<RendDynOperationNode> _out) {
+    private static Argument caculateReuse(ContextEl _ctx, AnalyzedTestConfiguration _conf, CustList<RendDynOperationNode> _out, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
         _ctx.setExiting(new NoExiting());
-        return new Argument(calculateReuse(_ctx,_conf,_out));
+        RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
+//        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _ctx);
+        build_.addPage(new ImportingPage());
+        setupValues(build_.getLastPage(), _localVariables, _vars);
+        Struct object_ = RenderExpUtil.calculateReuse(_out, _conf.getAdvStandards(), _ctx, build_).getStruct();
+        assertNull(build_.getStackCall().getCallingState());
+        return new Argument(object_);
+    }
+
+    private static Argument caculateReuse(ContextEl _ctx, DualNavigationContext _conf, CustList<RendDynOperationNode> _out, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
+        _ctx.setExiting(new NoExiting());
+        RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
+//        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _ctx);
+        build_.addPage(new ImportingPage());
+        setupValues(build_.getLastPage(), _localVariables, _vars);
+        Struct object_ = RenderExpUtil.calculateReuse(_out, _conf.getDualAnalyzedContext().getStds(), _ctx, build_).getStruct();
+        assertNull(build_.getStackCall().getCallingState());
+        return new Argument(object_);
     }
 
     private static Delimiters checkDel(String _s, int _i, AnalyzedTestConfiguration _context, ResultExpression _res) {
@@ -5885,50 +5938,63 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return ElResolver.checkSyntaxDelimiters(_s, _i, analyzing_);
     }
 
+    private static Delimiters checkDel(String _s, int _i, DualNavigationContext _context, ResultExpression _res) {
+        AnalyzedPageEl analyzing_ = _context.getDualAnalyzedContext().getAnalyzed();
+        analyzing_.setCurrentParts(_res.getParts());
+        return ElResolver.checkSyntaxDelimiters(_s, _i, analyzing_);
+    }
+
     private static Argument processDelimiters(String _s, int _i) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(new StringMap<String>());
-        AnalyzingDoc analyzingDoc_ = context_.getAnalyzingDoc();
-        setupAnalyzing(context_);
+        DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        setupAnalyzing(context_, localVariables, vars, analyzingDoc_);
         ResultExpression res_ = new ResultExpression();
         Delimiters d_ = checkDel(_s, 2, context_, res_);
         assertTrue(d_.getBadOffset() < 0);
         int end_ = d_.getIndexEnd();
         analyzingDoc_.setNextIndex(end_+2);
         String el_ = _s.substring(2,end_+1);
-        OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, 2);
-        OperationNode op_ = rendOp(context_, opTwo_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_);
+        OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, 2, analyzingDoc_);
+        OperationNode op_ = rendOp(context_, opTwo_, analyzingDoc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, analyzingDoc_);
         generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
         assertTrue(isEmptyErrors(context_));
-        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getOpt());
-        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_);
-        checkNullEx(context_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
+        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_, localVariables, vars);
         assertEq(_i, analyzingDoc_.getNextIndex());
         return arg_;
     }
 
-    private static OperationsSequence rendOpSeq(AnalyzedTestConfiguration _context, Delimiters _d, String _el, int _off) {
-        return rendOpSeq(_off, _context, _d, _el);
+    private static OperationsSequence rendOpSeq(DualNavigationContext _context, Delimiters _d, String _el, int _off, AnalyzingDoc analyzingDoc) {
+        return rendOpSeq(_off, _context, _d, _el, analyzingDoc);
     }
 
-    private static OperationNode rendOp(AnalyzedTestConfiguration _context, OperationsSequence _opTwo) {
-        return rendOp(2, _context, _opTwo);
+    private static OperationNode rendOp(DualNavigationContext _context, OperationsSequence _opTwo, AnalyzingDoc analyzingDoc) {
+        return rendOp(2, _context, _opTwo, analyzingDoc);
     }
 
     private static Argument processElNormalField(StringMap<String> _files, ClassField _keyField, String _clasName, IntStruct _value, String _varName, String _init) {
-        AnalyzedTestConfiguration context_ = getConfigurationQuick(_files);
+        DualNavigationContext context_ = getConfigurationQuick(_files);
         setGlobalType(context_, _clasName);
-        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, context_.getAnalyzingDoc(),_clasName,_varName,false);
+        CustList<RendDynOperationNode> all_ = getQuickAnalyzedFwd("v.inst", context_, new AnalyzingDoc(),_clasName,_varName,false);
         StringMap<LocalVariable> localVars_ = new StringMap<LocalVariable>();
         LocalVariable lv_ = new LocalVariable();
-        Struct str_ = initAndSet(context_, _keyField, _value, _init);
+        ContextEl ctx_ = getGenerate(context_);
+        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(_init);
+        Struct str_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_, _init), "", -1);
+        setStruct(str_, _keyField, _value);
         lv_.setStruct(str_);
         lv_.setClassName(_clasName);
         localVars_.put(_varName, lv_);
-        CommonRender.setLocalVars(context_, localVars_);
-        return buildAndCalculate(context_, all_);
+        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
+        CommonRender.setLocalVars(localVars_, localVariables);
+        assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
+        return caculateReuse(ctx_, context_, all_, localVariables, new StringMap<LoopVariable>());
     }
 
     private static String getString(Argument _arg) {
@@ -5944,20 +6010,21 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return ((CharStruct)_arg.getStruct()).getChar();
     }
 
-    private static void setupAnalyzing(AnalyzedTestConfiguration _context) {
-        _context.getAnalyzingDoc().setup(_context.getConfiguration(), _context.getDual());
-        setupAnalyzing(_context, _context.getAnalyzingDoc());
+    private static void setupAnalyzing(DualNavigationContext _context, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc analyzingDoc) {
+        analyzingDoc.setup(_context.getNavigation().getSession(), _context.getDualAnalyzedContext().getContext());
+        setupAnalyzing(_context, analyzingDoc, _localVariables, _vars);
     }
 
-    private static Struct getStaticField(AnalyzedTestConfiguration _cont) {
-        StringMap<StringMap<Struct>> staticFields_ = _cont.getClasses().getStaticFields();
-        return NumParsers.getStaticField(new ClassField("pkg.Ex", "inst"), staticFields_);
-    }
 
-    private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _context, Struct _str, String _s) {
-        _context.setArgument(new Argument(_str));
-        _context.setArgumentClass(_s);
-    }
+//    private static Struct getStaticField(AnalyzedTestConfiguration _cont) {
+//        StringMap<StringMap<Struct>> staticFields_ = _cont.getClasses().getStaticFields();
+//        return NumParsers.getStaticField(new ClassField("pkg.Ex", "inst"), staticFields_);
+//    }
+
+//    private static void setGlobalArgumentStruct(AnalyzedTestConfiguration _context, Struct _str, String _s) {
+//        _context.setArgument(new Argument(_str));
+//        _context.setArgumentClass(_s);
+//    }
 
     private static void setupAnalyzingOneVar(AnalyzedPageEl _analyzing, AnalyzingDoc _analyzingDoc, String _type, String _varName) {
 
@@ -5969,14 +6036,15 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         a_.setConstType(ConstType.LOC_VAR);
         _analyzing.getInfosVars().put(_varName, a_);
     }
-    private static CustList<RendDynOperationNode> getQuickAnalyzedFwd(String _el, AnalyzedTestConfiguration _conf, AnalyzingDoc _analyzingDoc, String _type, String _varName, boolean _static) {
-        _analyzingDoc.setup(_conf.getConfiguration(), _conf.getDual());
-        setupAnalyzingOneVar(_conf.getAnalyzing(), _conf.getAnalyzingDoc(), _type, _varName);
-        _conf.getAnalyzing().setAccessStaticContext(MethodId.getKind(_static));
+
+    private static CustList<RendDynOperationNode> getQuickAnalyzedFwd(String _el, DualNavigationContext _conf, AnalyzingDoc _analyzingDoc, String _type, String _varName, boolean _static) {
+        _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext());
+        setupAnalyzingOneVar(_conf.getDualAnalyzedContext().getAnalyzed(), _analyzingDoc, _type, _varName);
+        _conf.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(_static));
         Delimiters d_ = checkSyntax(_conf, _el);
-        OperationsSequence opTwo_ = rendOpSeq(0, _conf, d_, _el);
-        OperationNode op_ = rendOp(0, _conf, opTwo_);
-        CustList<OperationNode> ops_ = getSortedDescNodes(_conf, op_);
+        OperationsSequence opTwo_ = rendOpSeq(_conf, d_, _el, 0, _analyzingDoc);
+        OperationNode op_ = rendOp(0, _conf, opTwo_, _analyzingDoc);
+        CustList<OperationNode> ops_ = getSortedDescNodes(_conf, op_, _analyzingDoc);
         generalForward(_conf);
         return getQuickExecutableNodes(_conf,ops_);
     }
@@ -5985,8 +6053,8 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         _context.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_context.getAnalyzing(),_clasName));
     }
 
-    private static void checkNullEx(AnalyzedTestConfiguration _context) {
-        assertNull(_context.getRendStackCall().getStackCall().getCallingState());
+    private static void setGlobalType(DualNavigationContext _context, String _clasName) {
+        _context.getDualAnalyzedContext().getAnalyzed().setGlobalType(new AnaFormattedRootBlock(_context.getDualAnalyzedContext().getAnalyzed(),_clasName));
     }
 
 

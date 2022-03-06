@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.*;
 import code.formathtml.common.RendBlockUtil;
 import code.sml.Document;
@@ -468,8 +469,8 @@ public final class RenderOffsetsTest extends CommonRender {
         assertEq(24, RendBlockUtil.retrieve(24, doc_.getEscapedChar()));
     }
     private static AnaRendDocumentBlock newRendDocumentBlock(String _docText) {
-        AnalyzedTestConfiguration a_ = build();
+        DualNavigationContext a_ = buildNav();
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(_docText).getDocument();
-        return AnaRendDocumentBlock.newRendDocumentBlock(0,"c:", doc_, _docText, a_.getAnalyzing().getPrimTypes(), "page1.html", a_.getAnalyzingDoc());
+        return AnaRendDocumentBlock.newRendDocumentBlock(0,"c:", doc_, _docText, a_.getDualAnalyzedContext().getStds().getPrimTypes(), "page1.html",new AnalyzingDoc());
     }
 }

@@ -667,7 +667,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
-        ContextEl generate_ = du_.getForwards().generate(new Options());
+        ContextEl generate_ = du_.getForwards().generate();
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
@@ -696,7 +696,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
-        ContextEl generate_ = du_.getForwards().generate(new Options());
+        ContextEl generate_ = du_.getForwards().generate();
         n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.composite.string\" n-i=\"0\" value=\"\"/></form></body></html>", n_.getHtmlText());
     }
@@ -809,8 +809,22 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
     private static NativeAnalyzedTestConfiguration buildNat(Configuration _conf) {
         Options opt_ = new Options();
-        NativeAnalyzedTestContext cont_ = buildStdOne(opt_);
-        return new NativeAnalyzedTestConfiguration(cont_.getForwards().generate(opt_),_conf,cont_, cont_.getForwards(), cont_.getStds());
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
+        basicStandards(lgNames_);
+        AnalysisMessages a_ = new AnalysisMessages();
+        KeyWords kw_ = new KeyWords();
+        int tabWidth_ = 4;
+        NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgNames_.getContent());
+        Forwards forwards_ = new Forwards(lgNames_, fileBuilder_, opt_);
+//        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
+        lgNames_.buildBeans();
+        lgNames_.buildOther();
+        page_.setStandards(lgNames_.getContent());
+        page_.setStds(lgNames_);
+        RendBlockHelp.setupOverrides(page_.getStds());
+        DualConfigurationContext dual = new DualConfigurationContext();
+        return new NativeAnalyzedTestConfiguration(forwards_.generate(),_conf, forwards_, lgNames_, page_, dual);
     }
 
 //    @Test
@@ -887,7 +901,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         conf_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
         conf_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        new Composite();
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1269,7 +1283,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        new Composite();
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1687,7 +1701,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         conf_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(conf_);
-        conf_.getAdv().setDataBase(new Composite());
+        new Composite();
         nav_.setLanguage(locale_);
         setSess(conf_, nav_);
         nav_.setFiles(files_);
@@ -1801,10 +1815,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     private static void initSessionNat(NativeAnalyzedTestConfiguration _conf,Navigation _nav) {
         StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
         CustBeanLgNames standards_ = _conf.getAdv();
-        for (EntryCust<String, Bean> e: standards_.beansForTest().entryList()) {
+        for (EntryCust<String, Struct> e: _conf.getConfiguration().getBuiltBeans().entryList()) {
             BeanInfo i_ = new BeanInfo();
-            i_.setClassName(e.getValue().getClassName());
-            i_.setScope(e.getValue().getScope());
+            i_.setClassName(((BeanStruct)e.getValue()).getBean().getClassName());
+            i_.setScope(((BeanStruct)e.getValue()).getBean().getScope());
             map_.addEntry(e.getKey(),i_);
         }
         _nav.getSession().setBeansInfos(map_);
@@ -1835,7 +1849,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf.getConfiguration());
         RendStackCall build_ = _conf.build(InitPhase.NOTHING, _conf.getContext());
         _conf.getAdv().preInitBeans(_conf.getConfiguration());
-        standards_.beansForTest().clear();
+//        standards_.beansForTest().clear();
         _nav.initializeRendSession(_conf.getContext(), _conf.getAdv(), build_);
     }
 
@@ -1844,7 +1858,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         conf_.getConfiguration().getFiles().addAllEntries(_files);
         setupNative(_folder, _relative, conf_.getDual());
-        putBean(_bean, "bean_one", conf_.getAdv());
+        putBean(_bean, "bean_one", conf_.getAdv(),conf_.getConfiguration());
         StringMap<BeanInfo> beansInfos_ = conf_.getConfiguration().getBeansInfos();
         addBeanInfo(conf_,"bean_one",new BeanStruct(_bean), beansInfos_);
         AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
@@ -1862,7 +1876,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NativeAnalyzedTestConfiguration conf_ = contextElSec();
 
         setupNative(_folder, _relative, conf_.getDual());
-        putBean(_bean, "bean_one", conf_.getAdv());
+        putBean(_bean, "bean_one", conf_.getAdv(),conf_.getConfiguration());
         StringMap<BeanInfo> beansInfos_ = conf_.getConfiguration().getBeansInfos();
         addBeanInfo(conf_,"bean_one",new BeanStruct(_bean), beansInfos_);
         AnalyzingDoc analyzingDoc_ = conf_.getAnalyzingDoc();
@@ -1934,24 +1948,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         _cont.getConfiguration().setRendDocumentBlock(doc_);
     }
 
-    private static NativeAnalyzedTestContext buildStdOne(Options _opt) {
-        CustBeanLgNames lgNames_ = new CustBeanLgNames();
-        basicStandards(lgNames_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgNames_.getContent());
-        Forwards forwards_ = new Forwards(lgNames_, fileBuilder_, _opt);
-//        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), _opt, lgNames_.getContent(), page_);
-        lgNames_.buildBeans();
-        lgNames_.buildOther();
-        page_.setStandards(lgNames_.getContent());
-        page_.setStds(lgNames_);
-        RendBlockHelp.setupOverrides(page_.getStds());
-        return new NativeAnalyzedTestContext(page_, forwards_, lgNames_);
-    }
-
     private static void addBeanInfo(NativeAnalyzedTestConfiguration _conf, String _id, Struct _str, StringMap<BeanInfo> _beansInfos) {
         BeanInfo b_ = new BeanInfo();
         b_.setClassName(_str.getClassName(_conf.getContext()));
@@ -1968,8 +1964,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setup(_folder, _relative, _context);
     }
 
-    private static void putBean(Bean _beanTwo, String _key, LgNames _stds) {
-        ((CustBeanLgNames) _stds).beansForTest().put(_key, _beanTwo);
+    private static void putBean(Bean _beanTwo, String _key, LgNames _stds, Configuration _configuration) {
+        _configuration.getBuiltBeans().put(_key, new BeanStruct(_beanTwo));
+//        ((CustBeanLgNames) _stds).beansForTest().put(_key, _beanTwo);
     }
 
     private static void setupNative(String _folder, String _relative, NativeAnalyzedTestConfiguration _context) {
@@ -1995,18 +1992,19 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static BeanOne getBean(NativeAnalyzedTestConfiguration _conf, String _key) {
-        return (BeanOne) _conf.getAdv().beansForTest().getVal(_key);
+        return (BeanOne) ((BeanStruct) _conf.getConfiguration().getBuiltBeans().getVal(_key)).getBean();
+//        return (BeanOne) _conf.getAdv().beansForTest().getVal(_key);
     }
 //    private static BeanFive getBeanFive(NativeAnalyzedTestConfiguration _conf, String _key) {
 //        return (BeanFive)_conf.getAdv().getBeans().getVal(_key);
 //    }
 
     private static BeanTwo getBeanTwo(NativeAnalyzedTestConfiguration _conf, String _key) {
-        return (BeanTwo) _conf.getAdv().beansForTest().getVal(_key);
+        return (BeanTwo) ((BeanStruct) _conf.getConfiguration().getBuiltBeans().getVal(_key)).getBean();
     }
 
     private static void putBean(Bean _beanTwo, NativeAnalyzedTestConfiguration _conf, String _key) {
-        putBean(_beanTwo, _key, _conf.getAdv());
+        putBean(_beanTwo, _key, _conf.getAdv(),_conf.getConfiguration());
     }
 
     private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanNatLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {

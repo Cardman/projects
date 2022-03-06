@@ -155,8 +155,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     private static final String TYPE_STRING_LIST_SEC = "code.util.StringList2";
     private static final String ALIAS_LS = "ls";
     private static final String ALIAS_LSE = "lse";
-    private final StringMap<Bean> beansForTest = new StringMap<Bean>();
-    private Composite dataBase;
+
     public CustBeanLgNames() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
@@ -2070,19 +2069,15 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
 //        bean_.setDataBase(dataBase);
         if (bean_ instanceof BeanOne) {
             ((BeanOne) bean_).setForms(new StringMapObjectSample());
-            beansForTest.addEntry("bean_one",bean_);
         }
         if (bean_ instanceof BeanTwo) {
             ((BeanTwo) bean_).setForms(new StringMapObjectSample());
-            beansForTest.addEntry("bean_two",bean_);
         }
         bean_.setLanguage(_language);
         bean_.setScope(_bean.getScope());
         return strBean_;
     }
-    public void setDataBase(Composite _c) {
-        dataBase = _c;
-    }
+
     public ArrayStruct getTree(AbsMap<String, Integer> _tree,ContextEl _cont) {
         ArrayStruct arr_ = new ArrayStruct(_tree.size(),StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
         int i_ = 0;
@@ -2092,8 +2087,5 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             i_++;
         }
         return arr_;
-    }
-    public StringMap<Bean> beansForTest() {
-        return beansForTest;
     }
 }

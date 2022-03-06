@@ -42,7 +42,7 @@ public abstract class AbstractPageEl {
 
     private int offset;
     private final StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
-    private ExecAbstractFileBlock file;
+    private ExecFileBlock file;
 
     private AbstractWrapper wrapper;
     private Argument returnedArgument = Argument.createVoid();
@@ -264,11 +264,11 @@ public abstract class AbstractPageEl {
         internVars.put(StringUtil.nullToEmpty(_key),LocalVariable.newLocalVariable(_struct,_context));
     }
 
-    public ExecAbstractFileBlock getFile() {
+    public ExecFileBlock getFile() {
         return file;
     }
 
-    public void setFile(ExecAbstractFileBlock _execFile) {
+    public void setFile(ExecFileBlock _execFile) {
         file = _execFile;
     }
 

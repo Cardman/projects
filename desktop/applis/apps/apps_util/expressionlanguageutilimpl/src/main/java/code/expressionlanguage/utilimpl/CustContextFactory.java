@@ -14,6 +14,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
@@ -22,7 +23,7 @@ import code.util.StringMap;
 
 public final class CustContextFactory {
     private CustContextFactory(){}
-    public static ResultsRunnableContext buildDefKw(String _lang,
+    public static ResultContext buildDefKw(String _lang,
                                                     Options _options, ExecutingOptions _exec, LgNamesWithNewAliases _undefinedLgNames, StringMap<String> _files) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
@@ -60,17 +61,17 @@ public final class CustContextFactory {
                                LgNamesUtils _definedLgNames, StringMap<String> _files,
                                ProgressingTests _progressingTests) {
         _progressingTests.init(_exec);
-        ResultsRunnableContext res_ = build(_options, _exec, _mess,_definedKw,
+        ResultContext res_ = build(_options, _exec, _mess,_definedKw,
                 _definedLgNames, _files);
-        RunnableContextEl rCont_ = res_.getRunnable();
+        ContextEl rCont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         FileInfos infos_ = _definedLgNames.getInfos();
         CustContextFactory.reportErrors(_options, _exec, reportedMessages_, infos_);
-        if (rCont_ == null) {
+        if (!(rCont_ instanceof RunnableContextEl)) {
             _progressingTests.showErrors(reportedMessages_,_options,_exec,infos_);
             return;
         }
-        _progressingTests.showWarnings(rCont_,reportedMessages_,_options,_exec,infos_);
+        _progressingTests.showWarnings((RunnableContextEl) rCont_,reportedMessages_,_options,_exec,infos_);
         AbstractIssuer issuer_ = _definedLgNames.getInfos().getLogger().getIssuer();
         if (issuer_ != null) {
             issuer_.log("OK");
@@ -81,21 +82,21 @@ public final class CustContextFactory {
                 NullStruct.NULL_VALUE, className_, "", -1);
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
-        ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,rCont_,_progressingTests,_definedLgNames);
-        rCont_.getCurrentThreadFactory().newStartedThread(showUpdates_);
+        ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,(RunnableContextEl) rCont_,_progressingTests,_definedLgNames);
+        ((RunnableContextEl) rCont_).getCurrentThreadFactory().newStartedThread(showUpdates_);
         ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
         ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
         ExecFormattedRootBlock aClass_ = ExecFormattedRootBlock.build(_definedLgNames.getCustAliases().getAliasExecute(),rCont_.getClasses());
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
                 aClass_,
-                rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
+                (RunnableContextEl) rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
         showUpdates_.stop();
         if (_options.isCovering()) {
             for (EntryCust<String,String> f:ExecFileBlock.export(rCont_).entryList()) {
                 infos_.getReporter().coverFile(_exec, f.getKey(), f.getValue());
             }
         }
-        _progressingTests.setResults(rCont_,arg_, _definedLgNames);
+        _progressingTests.setResults((RunnableContextEl) rCont_,arg_, _definedLgNames);
     }
     public static void reportErrors(Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
         if (_options.isGettingErrors()) {
@@ -104,13 +105,15 @@ public final class CustContextFactory {
             }
         }
     }
-    public static ResultsRunnableContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesWithNewAliases _definedLgNames, StringMap<String> _files) {
+    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesWithNewAliases _definedLgNames, StringMap<String> _files) {
         _definedLgNames.setExecutingOptions(_exec);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         CustFileBuilder fileBuilder_ = CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, fileBuilder_, _options);
+        page_.setLogErr(forwards_.getGenerator());
+        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_options, _files, _exec.getSrcFolder(), page_, forwards_);
-        return new ResultsRunnableContext((RunnableContextEl) reportedMessages_, page_.getMessages());
+        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+        return new ResultContext(reportedMessages_, page_.getMessages());
     }
 }

@@ -297,39 +297,39 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
 
     private static boolean hasEr(StringMap<String> _files, String _s) {
         Configuration conf_ = EquallableRenderUtil.newConfiguration();
-        AnalyzedTestConfiguration a_ = build(conf_);
+        DualNavigationContext a_ = buildNav(conf_);
 
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
-        getCheckedConfiguration(a_, _s);
-        return !a_.getAnalyzing().isEmptyErrors();
+        getCheckedConfiguration(a_, _s, new AnalyzingDoc());
+        return !a_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors();
     }
 
     private static AnalyzedPageEl getCheckedConfigurationVar(String _intType, String _s, StringMap<String> _files) {
         Configuration conf_ = EquallableRenderUtil.newConfiguration();
-        AnalyzedTestConfiguration a_ = build(conf_);
+        DualNavigationContext a_ = buildNav(conf_);
 
         getHeaders(_files, a_);
         assertTrue(isEmptyErrors(a_));
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);
-        processFail(_s, a_, new PairVar("v", lv_));
-        return a_.getAnalyzing();
+        processFail(_s, a_, new AnalyzingDoc(), new PairVar("v", lv_));
+        return a_.getDualAnalyzedContext().getAnalyzed();
     }
 
-    private static AnalyzedTestConfiguration getCheckedConfiguration(AnalyzedTestConfiguration _configuration, String _s) {
-        processFail(_s, _configuration);
+    private static DualNavigationContext getCheckedConfiguration(DualNavigationContext _configuration, String _s,AnalyzingDoc _doc) {
+        processFail(_s, _configuration, _doc);
         return _configuration;
     }
 
-    private static void processFail(String _el, AnalyzedTestConfiguration _cont,PairVar... _vars) {
-        AnalyzedPageEl page_ = _cont.getAnalyzing();
+
+    private static void processFail(String _el, DualNavigationContext _cont, AnalyzingDoc analyzingDoc, PairVar... _vars) {
+        AnalyzedPageEl page_ = _cont.getDualAnalyzedContext().getAnalyzed();
         boolean accept_ = page_.isAcceptCommaInstr();
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
-        AnalyzingDoc analyzingDoc_ = _cont.getAnalyzingDoc();
-        analyzingDoc_.setup(_cont.getConfiguration(), _cont.getDual());
-        AnalyzingDoc.setupInts(page_, analyzingDoc_);
+        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext());
+        AnalyzingDoc.setupInts(page_, analyzingDoc);
         page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
         for (PairVar e: _vars) {
             AnaLocalVariable a_ = new AnaLocalVariable();
@@ -341,9 +341,9 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         page_.setCurrentVarSetting(currentVarSetting_);
         page_.setAccessStaticContext(MethodId.getKind(true));
         Delimiters d_ = checkSyntax(_cont, _el);
-        OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el);
-        OperationNode op_ = rendOp(0, _cont, opTwo_);
-        getSortedDescNodes(_cont, op_);
+        OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el, analyzingDoc);
+        OperationNode op_ = rendOp(0, _cont, opTwo_, analyzingDoc);
+        getSortedDescNodes(_cont, op_, analyzingDoc);
     }
 
 }

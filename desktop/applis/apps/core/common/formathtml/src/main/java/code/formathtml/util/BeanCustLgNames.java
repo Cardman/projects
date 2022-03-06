@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.blocks.ExecAbstractFileBlock;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -24,7 +23,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.fwd.DefExecFileListBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
@@ -36,6 +34,7 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
+import code.formathtml.DualNavigationContext;
 import code.formathtml.ImportingPage;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -409,28 +408,42 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return ValidatorStandard.tr(_list);
     }
 
-    public ContextEl setupAll(Navigation _nav, DualAnalyzedContext _dual) {
+    public ContextEl setupAll(DualNavigationContext _dual) {
+        Navigation nav_ = _dual.getNavigation();
+        Configuration session_ = nav_.getSession();
+        StringMap<String> files_ = nav_.getFiles();
+        StringList languages_ = nav_.getLanguages();
+        String language_ = nav_.getLanguage();
+        return setupAll(_dual.getDualAnalyzedContext(), session_, files_, languages_, language_);
+    }
+
+    public ContextEl setupAll(DualAnalyzedContext _dual, Configuration session_, StringMap<String> files_, StringList languages_, String language_) {
         AnalyzedPageEl page_ = _dual.getAnalyzed();
         Forwards forwards_ = _dual.getForwards();
-        setupRendClasses(_nav.getFiles(), page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources(),_dual.getContext().getRenderFiles());
+        setupRendClasses(files_, page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources(), _dual.getContext().getRenderFiles());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
-        _nav.initInstancesPattern(page_, analyzingDoc_);
-        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedRenders(page_, this, analyzingDoc_, _dual.getContext());
+        session_.initInstancesPattern(page_, analyzingDoc_);
+        DualConfigurationContext _dual1 = _dual.getContext();
+        preInitBeans(session_);
+        analyzingDoc_.setRendAnalysisMessages(_dual1.getAnalysisMessages());
+        analyzingDoc_.setLanguages(languages_);
+        session_.setCurrentLanguage(language_);
+        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, page_, _dual1);
         if (!page_.isEmptyErrors()) {
             return null;
         }
-        CustList<ExecAbstractFileBlock> rendFiles_ = execFiles(d_);
-        ForwardInfos.generalForward(page_, forwards_, new DefExecFileListBuilder(page_,forwards_));
-        RendForwardInfos.buildExec(analyzingDoc_, rendFiles_, d_, forwards_, _nav.getSession());
-        Options options_ = page_.getOptions();
-        ContextEl context_ = forwardAndClear(_dual.getContext().getOptions(), forwards_);
+        CustList<ExecFileBlock> rendFiles_ = execFiles(d_);
+        ForwardInfos.generalForward(page_, forwards_);
+        RendForwardInfos.buildExec(analyzingDoc_, rendFiles_, d_, forwards_, session_);
+        Options options_ = forwards_.getOptions();
+        ContextEl context_ = forwardAndClear(forwards_);
         ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
         return context_;
     }
 
-    public static CustList<ExecAbstractFileBlock> execFiles(StringMap<AnaRendDocumentBlock> _analyzed){
-        CustList<ExecAbstractFileBlock> exec_ = new CustList<ExecAbstractFileBlock>();
+    public static CustList<ExecFileBlock> execFiles(StringMap<AnaRendDocumentBlock> _analyzed){
+        CustList<ExecFileBlock> exec_ = new CustList<ExecFileBlock>();
         for (EntryCust<String, AnaRendDocumentBlock> e: _analyzed.entryList()) {
             AnaRendDocumentBlock value_ = e.getValue();
             FileMetricsCore metricsCore_ = value_.getFileBlock().getMetricsCore();
@@ -439,8 +452,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         return exec_;
     }
-    public ContextEl forwardAndClear(Options _options, Forwards _forward) {
-        ContextEl ctx_ = _forward.generate(_options);
+    public ContextEl forwardAndClear(Forwards _forward) {
+        ContextEl ctx_ = _forward.generate();
         Classes.forwardAndClear(ctx_);
         buildIterables(ctx_.getClasses());
         return ctx_;
@@ -456,6 +469,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         StringList intersect_ = StringUtil.intersect(content_, _render);
         StringUtil.removeAllElements(content_,intersect_);
+        StringUtil.removeObj(content_,_filesConfName);
         StringMap<String> classFiles_ = new StringMap<String>();
         for (String f: content_) {
             for (EntryCust<String, String> e: _files.entryList()) {
