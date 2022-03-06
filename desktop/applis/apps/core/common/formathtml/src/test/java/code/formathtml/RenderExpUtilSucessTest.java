@@ -14,7 +14,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -5600,12 +5599,6 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return caculateReuse(ctx_,_context, executableNodes_, _localVariables, _vars);
     }
 
-    private static Argument buildAndCalculate(AnalyzedTestConfiguration _context, CustList<RendDynOperationNode> _all, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
-        assertTrue(_context.isEmptyErrors());
-        ExecClassesUtil.tryInitStaticlyTypes(_context.getContext(),_context.getOpt());
-        return caculateReuse(_context.getContext(),_context, _all, _localVariables, _vars);
-    }
-
     //    private static Argument buildAndCalculateFwd(AnalyzedTestConfiguration _context, CustList<OperationNode> _all) {
 //        generalForward(_context);
 //        CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, _all);
@@ -5868,18 +5861,6 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return arg_;
     }
 
-    private static Struct initAndSet(AnalyzedTestConfiguration _context, ClassField _keyField, Struct _value, String _className) {
-        Struct str_ = init(_context, _className);
-        setStruct(str_, _keyField, _value);
-        return str_;
-    }
-
-    private static Struct init(AnalyzedTestConfiguration _context, String _className) {
-        ContextEl ctx_ = getGenerate(_context);
-        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody(_className);
-        return ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(classBody_,_className), "", -1);
-    }
-
     private static Argument processElNormal3(String _el, StringMap<String> _files, String... _types) {
         DualNavigationContext context_ = getConfigurationQuick(_files,_types);
         return calcLow(_el, context_, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());
@@ -5910,17 +5891,6 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return arg_;
     }
 
-    private static Argument caculateReuse(ContextEl _ctx, AnalyzedTestConfiguration _conf, CustList<RendDynOperationNode> _out, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
-        _ctx.setExiting(new NoExiting());
-        RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-//        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _ctx);
-        build_.addPage(new ImportingPage());
-        setupValues(build_.getLastPage(), _localVariables, _vars);
-        Struct object_ = RenderExpUtil.calculateReuse(_out, _conf.getAdvStandards(), _ctx, build_).getStruct();
-        assertNull(build_.getStackCall().getCallingState());
-        return new Argument(object_);
-    }
-
     private static Argument caculateReuse(ContextEl _ctx, DualNavigationContext _conf, CustList<RendDynOperationNode> _out, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
         _ctx.setExiting(new NoExiting());
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
@@ -5930,12 +5900,6 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Struct object_ = RenderExpUtil.calculateReuse(_out, _conf.getDualAnalyzedContext().getStds(), _ctx, build_).getStruct();
         assertNull(build_.getStackCall().getCallingState());
         return new Argument(object_);
-    }
-
-    private static Delimiters checkDel(String _s, int _i, AnalyzedTestConfiguration _context, ResultExpression _res) {
-        AnalyzedPageEl analyzing_ = _context.getAnalyzing();
-        analyzing_.setCurrentParts(_res.getParts());
-        return ElResolver.checkSyntaxDelimiters(_s, _i, analyzing_);
     }
 
     private static Delimiters checkDel(String _s, int _i, DualNavigationContext _context, ResultExpression _res) {
@@ -6047,10 +6011,6 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CustList<OperationNode> ops_ = getSortedDescNodes(_conf, op_, _analyzingDoc);
         generalForward(_conf);
         return getQuickExecutableNodes(_conf,ops_);
-    }
-
-    private static void setGlobalType(AnalyzedTestConfiguration _context, String _clasName) {
-        _context.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_context.getAnalyzing(),_clasName));
     }
 
     private static void setGlobalType(DualNavigationContext _context, String _clasName) {

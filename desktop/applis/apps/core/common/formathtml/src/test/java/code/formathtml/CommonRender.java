@@ -91,20 +91,12 @@ public abstract class CommonRender extends EquallableRenderUtil {
         _localVariables.addAllEntries(_localVars);
     }
 
-    protected static boolean isEmptyErrors(AnalyzedTestConfiguration _cont) {
-        return isEmptyErrors(_cont.getAnalyzing());
-    }
-
     protected static boolean isEmptyErrors(DualNavigationContext _cont) {
         return isEmptyErrors(_cont.getDualAnalyzedContext().getAnalyzed());
     }
 
     protected static boolean isEmptyErrors(AnalyzedPageEl _cont) {
         return _cont.isEmptyErrors();
-    }
-
-    protected static void getHeaders(StringMap<String> _files, AnalyzedTestConfiguration _cont) {
-        Classes.validateWithoutInit(_files, _cont.getAnalyzing());
     }
 
     protected static void getHeaders(StringMap<String> _files, DualNavigationContext _cont) {
@@ -454,8 +446,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         _configuration.setFirstUrl(_firstUrl);
     }
 
-    protected static void setFirst(AnalyzedTestConfigurationBis _conf, String _firstUrl) {
-        setFirst(_firstUrl, _conf.getConfiguration());
+    protected static void setFirst(DualNavigationContext _conf, String _firstUrl) {
+        setFirst(_firstUrl, _conf.getNavigation().getSession());
     }
 
 

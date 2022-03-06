@@ -40,20 +40,20 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
+        DualNavigationContext a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        a_.getDual().setFilesConfName("conf");
-        a_.getDual().getRenderFiles().add("page1.html");
-        a_.getDual().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().setFilesConfName("conf");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init(a_.getDual());
-        Navigation n_ = new Navigation();
+        conf_.init(a_.getDualAnalyzedContext().getContext());
+        Navigation n_ = a_.getNavigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
         ContextEl res_ = setupRendClassesInitStdMess(a_, n_);
@@ -81,20 +81,20 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
+        DualNavigationContext a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        a_.getDual().setFilesConfName("conf");
-        a_.getDual().getRenderFiles().add("page1.html");
-        a_.getDual().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().setFilesConfName("conf");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init(a_.getDual());
-        Navigation n_ = new Navigation();
+        conf_.init(a_.getDualAnalyzedContext().getContext());
+        Navigation n_ = a_.getNavigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
         assertNull(setupRendClassesInitStdMess(a_, n_));
@@ -119,20 +119,20 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
+        DualNavigationContext a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        a_.getDual().setFilesConfName("conf");
-        a_.getDual().getRenderFiles().add("page1.html");
-        a_.getDual().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().setFilesConfName("conf");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init(a_.getDual());
-        Navigation n_ = new Navigation();
+        conf_.init(a_.getDualAnalyzedContext().getContext());
+        Navigation n_ = a_.getNavigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
         assertNull(setupRendClassesInitStdMess(a_, n_));
@@ -156,20 +156,20 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
+        DualNavigationContext a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        a_.getDual().setFilesConfName("conf2");
-        a_.getDual().getRenderFiles().add("page1.html");
-        a_.getDual().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().setFilesConfName("conf2");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init(a_.getDual());
-        Navigation n_ = new Navigation();
+        conf_.init(a_.getDualAnalyzedContext().getContext());
+        Navigation n_ = a_.getNavigation();
         n_.setDataBaseStruct(NullStruct.NULL_VALUE);
         n_.setSession(conf_);
         n_.setFiles(files_);
@@ -554,20 +554,20 @@ public final class RenderInitNavTest extends CommonRender {
         files_.put("conf",file_.toString());
         Configuration conf_ =  EquallableRenderUtil.newConfiguration();
         conf_.setPrefix("c");
-        AnalyzedTestConfigurationBis a_ = buildNav(conf_);
+        DualNavigationContext a_ = buildNav(conf_);
         setFirst(a_,"page1.html");
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
         files_.put("page2.html", htmlTwo_);
-        a_.getDual().setFilesConfName("conf");
-        a_.getDual().getRenderFiles().add("page1.html");
-        a_.getDual().getRenderFiles().add("page2.html");
+        a_.getDualAnalyzedContext().getContext().setFilesConfName("conf");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
+        a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
         conf_.getBeansInfos().addEntry("bean_one",i_);
-        conf_.init(a_.getDual());
-        Navigation n_ = new Navigation();
+        conf_.init(a_.getDualAnalyzedContext().getContext());
+        Navigation n_ = a_.getNavigation();
         n_.setSession(conf_);
         n_.setFiles(files_);
         ContextEl res_ = setupRendClassesInitStdMess(a_, n_);
@@ -1193,7 +1193,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.getDisplayedStrings().setExponent("E");
     }
 
-    private static AnalyzedTestConfigurationBis buildNav(Configuration _conf) {
+    private static DualNavigationContext buildNav(Configuration _conf) {
         Options opt_ = new Options();
         opt_.setReadOnly(true);
         BeanCustLgNames lgNames_ = new BeanCustLgNamesImpl();
@@ -1254,16 +1254,17 @@ public final class RenderInitNavTest extends CommonRender {
         ValidatorStandard.setupOverrides(page_);
         assertTrue(page_.isEmptyStdError());
         DualConfigurationContext dual_ = new DualConfigurationContext();
-        return new AnalyzedTestConfigurationBis(fwd_,_conf, lgNames_, dual_, page_);
-    }
-    private static ContextEl setupRendClassesInitStdMess(AnalyzedTestConfigurationBis _a, Navigation _n) {
-        DualConfigurationContext d_ = _a.getDual();
-        DualAnalyzedContext dual_ = new DualAnalyzedContext(_a.getFwd(),_a.getAnalyzing(),_a.getAdvStandards(),d_);
-        return _a.getAdvStandards().setupAll(new DualNavigationContext(_n, dual_));
+        Navigation nav_ = new Navigation();
+        nav_.setSession(_conf);
+        return new DualNavigationContext(nav_, new DualAnalyzedContext(fwd_,page_,lgNames_,dual_));
     }
 
-    private void init(ContextEl _ctx,AnalyzedTestConfigurationBis _a, Navigation _n) {
-        _n.initializeRendSession(_ctx, _a.getAdvStandards(), new RendStackCall(InitPhase.NOTHING,_ctx));
+    private static ContextEl setupRendClassesInitStdMess(DualNavigationContext _a, Navigation _n) {
+        return ((BeanCustLgNames)_a.getDualAnalyzedContext().getStds()).setupAll(_a);
+    }
+
+    private void init(ContextEl _ctx,DualNavigationContext _a, Navigation _n) {
+        _n.initializeRendSession(_ctx, _a.getDualAnalyzedContext().getStds(), new RendStackCall(InitPhase.NOTHING,_ctx));
     }
 
     private static ContextEl setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {

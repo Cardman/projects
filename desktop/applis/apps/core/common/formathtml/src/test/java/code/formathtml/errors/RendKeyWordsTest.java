@@ -2,13 +2,12 @@ package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.options.Options;
-import code.formathtml.*;
+import code.formathtml.BeanCustLgNamesImpl;
+import code.formathtml.EquallableRenderUtil;
+import code.formathtml.InitializationLgNamesRender;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultBeanAliases;
-import code.formathtml.util.DualConfigurationContext;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -23,8 +22,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
+        AnalyzedPageEl ac_ = build(kw_, lgName_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -34,11 +32,11 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         StringMap<String> tags_ = r_.allTags();
         validateTagContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
-        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+        assertTrue(!ac_.isEmptyStdError());
     }
 
-    private static void validateTagContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
-        _r.validateTagContents(_tags, _conf.getAnalyzing());
+    private static void validateTagContents(AnalyzedPageEl _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateTagContents(_tags, _conf);
     }
 
     @Test
@@ -49,8 +47,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
+        AnalyzedPageEl ac_ = build(kw_, lgName_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -61,7 +58,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         StringMap<String> tags_ = r_.allAttrs();
         validateAttrContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
-        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+        assertTrue(!ac_.isEmptyStdError());
     }
     @Test
     public void fail3() {
@@ -71,8 +68,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
+        AnalyzedPageEl ac_ = build(kw_, lgName_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -80,11 +76,11 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         StringMap<String> tags_ = r_.allValues();
         validateValueContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
-        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+        assertTrue(!ac_.isEmptyStdError());
     }
 
-    private static void validateValueContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
-        _r.validateValueContents(_tags, _conf.getAnalyzing());
+    private static void validateValueContents(AnalyzedPageEl _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateValueContents(_tags, _conf);
     }
 
     @Test
@@ -95,8 +91,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
+        AnalyzedPageEl ac_ = build(kw_, lgName_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -105,11 +100,11 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         StringMap<String> tags_ = r_.allStyleValues();
         validateStyleValueContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
-        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+        assertTrue(!ac_.isEmptyStdError());
     }
 
-    private static void validateStyleValueContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
-        _r.validateStyleValueContents(_tags, _conf.getAnalyzing());
+    private static void validateStyleValueContents(AnalyzedPageEl _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateStyleValueContents(_tags, _conf);
     }
 
     @Test
@@ -120,8 +115,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
+        AnalyzedPageEl ac_ = build(kw_, lgName_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -130,7 +124,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         StringMap<String> tags_ = r_.allStyleAttrs();
         validateAttrContents(ac_, r_, tags_);
         validateDuplicates(ac_, r_, tags_);
-        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+        assertTrue(!ac_.isEmptyStdError());
     }
 
     @Test
@@ -141,8 +135,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
+        AnalyzedPageEl ac_ = build(kw_, lgName_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -150,7 +143,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         r_.setStyleUnitPx("0");
         StringMap<String> tags_ = r_.allStyleUnits();
         validateStyle(ac_, r_, tags_);
-        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+        assertTrue(!ac_.isEmptyStdError());
     }
 
     @Test
@@ -161,8 +154,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
+        AnalyzedPageEl ac_ = build(kw_, lgName_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -170,7 +162,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         r_.setStyleUnitPx("/");
         StringMap<String> tags_ = r_.allStyleUnits();
         validateStyle(ac_, r_, tags_);
-        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+        assertTrue(!ac_.isEmptyStdError());
     }
     @Test
     public void fail8() {
@@ -180,8 +172,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         KeyWords kw_ = new KeyWords();
         BeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
-        Options opts_ = new Options();
-        AnalyzedTestConfiguration ac_ = build(kw_, lgName_, opts_);
+        AnalyzedPageEl ac_ = build(kw_, lgName_);
 
         validateMess(def_, ac_);
         RendKeyWords r_ = new RendKeyWords();
@@ -336,34 +327,31 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         r_.setAttrWidth("");
         StringMap<String> tags_ = r_.allStyleUnits();
         validateStyle(ac_, r_, tags_);
-        assertTrue(!ac_.getAnalyzing().isEmptyStdError());
+        assertTrue(!ac_.isEmptyStdError());
     }
 
-    private static void validateStyle(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
-        _r.validateStyleUnitContents(_tags, _conf.getAnalyzing());
+    private static void validateStyle(AnalyzedPageEl _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateStyleUnitContents(_tags, _conf);
     }
 
-    private static void validateMess(RendAnalysisMessages _def, AnalyzedTestConfiguration _s) {
-        AnalysisMessages.validateMessageContents(_def.allMessages(), _s.getAnalyzing());
+    private static void validateMess(RendAnalysisMessages _def, AnalyzedPageEl _s) {
+        AnalysisMessages.validateMessageContents(_def.allMessages(), _s);
     }
 
-    private static AnalyzedTestConfiguration build(KeyWords _kw, BeanCustLgNames _lgName, Options _opts) {
+    private static AnalyzedPageEl build(KeyWords _kw, BeanCustLgNames _lgName) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setLogErr(_lgName);
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(_kw);
-        Forwards forwards_ = new Forwards(_lgName, null, _opts);
-        Configuration conf_ = new Configuration();
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        return new AnalyzedTestConfiguration(conf_, forwards_, _lgName, dual_,_opts, page_);
+        return page_;
     }
 
-    private static void validateAttrContents(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
-        _r.validateAttrContents(_tags, _conf.getAnalyzing());
+    private static void validateAttrContents(AnalyzedPageEl _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateAttrContents(_tags, _conf);
     }
 
-    private static void validateDuplicates(AnalyzedTestConfiguration _conf, RendKeyWords _r, StringMap<String> _tags) {
-        _r.validateDuplicates(_tags, _conf.getAnalyzing());
+    private static void validateDuplicates(AnalyzedPageEl _conf, RendKeyWords _r, StringMap<String> _tags) {
+        _r.validateDuplicates(_tags, _conf);
     }
 
     @Test
