@@ -1052,9 +1052,8 @@ public final class TemplatesTest extends ProcessMethodCommon {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);

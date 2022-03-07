@@ -280,9 +280,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -310,9 +309,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -337,9 +335,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -364,9 +361,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -393,9 +389,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -420,9 +415,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -448,9 +442,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -473,9 +466,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -498,9 +490,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -833,12 +824,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords(_lg);
+        KeyWords kwl_;
         if (StringUtil.quickEq(_lg, "en")) {
-            km_.initEnStds(lgName_);
+            kwl_ = KeyWordsMap.en();
+            KeyWordsMap.initEnStds(lgName_);
         } else {
-            km_.initFrStds(lgName_);
+            kwl_ = KeyWordsMap.fr();
+            KeyWordsMap.initFrStds(lgName_);
         }
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
@@ -935,12 +927,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords(_lg);
+        KeyWords kwl_;
         if (StringUtil.quickEq(_lg, "en")) {
-            km_.initEnStds(lgName_);
+            kwl_ = KeyWordsMap.en();
+            KeyWordsMap.initEnStds(lgName_);
         } else {
-            km_.initFrStds(lgName_);
+            kwl_ = KeyWordsMap.fr();
+            KeyWordsMap.initFrStds(lgName_);
         }
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
@@ -965,12 +958,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords(_lg);
+        KeyWords kwl_;
         if (StringUtil.quickEq(_lg, "en")) {
-            km_.initEnStds(lgName_);
+            kwl_ = KeyWordsMap.en();
+            KeyWordsMap.initEnStds(lgName_);
         } else {
-            km_.initFrStds(lgName_);
+            kwl_ = KeyWordsMap.fr();
+            KeyWordsMap.initFrStds(lgName_);
         }
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
@@ -1302,9 +1296,8 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords("en");
-        km_.initEnStds(lgName_);
+        KeyWords kwl_ = KeyWordsMap.en();
+        KeyWordsMap.initEnStds(lgName_);
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
         opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
@@ -1513,12 +1506,13 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
-        KeyWordsMap km_ = new KeyWordsMap();
-        KeyWords kwl_ = km_.getKeyWords(_lg);
+        KeyWords kwl_;
         if (StringUtil.quickEq(_lg, "en")) {
-            km_.initEnStds(lgName_);
+            kwl_ = KeyWordsMap.en();
+            KeyWordsMap.initEnStds(lgName_);
         } else {
-            km_.initFrStds(lgName_);
+            kwl_ = KeyWordsMap.fr();
+            KeyWordsMap.initFrStds(lgName_);
         }
         new DefaultConstantsCalculator(lgName_.getNbAlias());
         opt_.setTabWidth(4);
