@@ -3449,11 +3449,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_,page_,forwards_,kwl_,opt_,lgName_);
         assertTrue(page_.isEmptyStdError());
         buildAllBracesBodies(files_, page_);
         assertTrue(!isEmptyErrors(page_));
@@ -4663,11 +4659,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
         assertTrue(page_.isEmptyStdError());
         validateWithoutInit(_files, page_);
         assertTrue( isEmptyErrors(page_));

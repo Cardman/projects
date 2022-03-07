@@ -189,11 +189,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         validate(_files,page_,forwards_);
         return !isEmptyErrors(page_);
@@ -215,11 +211,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndCheckNoReportErrors(_files, page_,forwards_);
     }
@@ -239,11 +231,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndCheckReportErrors(_files, page_,forwards_);
     }
@@ -264,11 +252,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndCheckReportErrors(_files, page_,forwards_);
     }
@@ -289,11 +273,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndCheckReportErrors(_files, page_,forwards_);
     }
@@ -318,11 +298,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndCheckReportWarnings(_files, page_,forwards_);
     }
@@ -344,11 +320,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndCheckReportErrors(_files, page_,forwards_);
     }
@@ -370,11 +342,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndCheckReportErrors(_files, page_,forwards_);
     }
@@ -398,11 +366,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -424,11 +388,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -451,11 +411,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -475,11 +431,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -499,11 +451,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -524,11 +472,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -548,11 +492,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         validateAll(_files, page_,forwards_);
         ReportedMessages reportedMessages_ = page_.getMessages();
@@ -579,11 +519,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -603,11 +539,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -627,11 +559,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         validateAll(_files, page_,forwards_);
         return isEmptyErrors(page_);
@@ -653,11 +581,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -676,11 +600,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -700,11 +620,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -728,11 +644,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         page_.addResources(_all);
         return validateAndRet(_srcFiles, page_,forwards_);
@@ -753,11 +665,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -778,11 +686,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -803,11 +707,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -839,11 +739,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -908,11 +804,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         validateWithoutInit(_files, page_);
         ReportedMessages headers_ = page_.getMessages();
@@ -942,11 +834,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -973,11 +861,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return invalid(_files, page_);
     }
@@ -998,11 +882,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -1022,11 +902,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validQuick(_files, page_,forwards_);
     }
@@ -1062,11 +938,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         validateWithoutInit(_files, page_);
         assertTrue(!isEmptyErrors(page_));
@@ -1087,11 +959,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
@@ -1114,11 +982,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
@@ -1176,11 +1040,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -1201,11 +1061,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -1227,11 +1083,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_, forwards_);
     }
@@ -1251,11 +1103,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         page_.getDisplayedStrings().setTrueString("\"");
         page_.getDisplayedStrings().setFalseString("&");
@@ -1279,11 +1127,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -1305,11 +1149,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -1329,11 +1169,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateCovAndRet(_files, page_,forwards_);
     }
@@ -1360,11 +1196,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return validateAndRet(_files, page_,forwards_);
     }
@@ -1407,11 +1239,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         ContextEl ctx_ = validateAll(_files, page_,forwards_);
         ReportedMessages methodHeaders_ = page_.getMessages();
@@ -1436,11 +1264,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return invalid(_files, page_);
     }
@@ -1462,11 +1286,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return invalid(_files, page_);
     }
@@ -1491,11 +1311,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kw_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return invalid(_files, page_);
     }
@@ -1521,11 +1337,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
         page_.setLogErr(forwards_.getGenerator());
-        AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validatedStds(forwards_, a_, kwl_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
-        ParsedArgument.buildCustom(opt_, kwl_);
-        lgName_.build();
-        ValidatorStandard.setupOverrides(page_);
+        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
         assertTrue(page_.isEmptyStdError());
         return invalid(_files, page_);
     }
@@ -1541,5 +1353,9 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static boolean isInitialized(ContextEl _cont, String _cl) {
         return _cont.getLocks().getState(_cl) != InitClassState.NOT_YET;
     }
+
+    protected static void validatedStds(AnalysisMessages a_, AnalyzedPageEl page_, Forwards forwards_, KeyWords kw_, Options opt_, LgNames lgName_) {
+        ContextFactory.validateStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+   }
 
 }
