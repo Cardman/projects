@@ -152,7 +152,7 @@ public final class Navigation {
                     .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
             Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
-            ip_.setGlobalArgumentStruct(bean_,_ctx);
+            _advStandards.setGlobalArgumentStruct(bean_,_ctx,_rendStack);
             Struct return_;
             if (htmlPage_.isForm()) {
                 return_ = RendRequestUtil.redirectForm(new Argument(bean_),(int)htmlPage_.getUrl(), _advStandards, _ctx, _rendStack, htmlPage_);
@@ -300,7 +300,7 @@ public final class Navigation {
             }
             newObj_ = res_.getResult();
             Struct procObj_ = e.getValue().getUpdated();
-            _rendStackCall.getLastPage().setGlobalArgumentStruct(procObj_,_ctx);
+            _advStandards.setGlobalArgumentStruct(procObj_,_ctx,_rendStackCall);
             RendRequestUtil.setRendObject(e.getValue(), newObj_, _advStandards, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;

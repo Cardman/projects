@@ -199,7 +199,7 @@ public final class RendBlockHelp {
         }
         CustList<AbstractWrapper> wrap_ = new CustList<AbstractWrapper>();
         CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(opsRead_, _advStandards, _ctx, _rendStackCall);
+        IdMap<RendDynOperationNode, ArgumentsPair> args_ = _advStandards.getAllArgs(opsRead_, _ctx, _rendStackCall);
         RendDynOperationNode root_ = args_.lastKey();
 //        if (root_ instanceof NatIdOperation) {
 //            res_ = NatAbstractAffectOperation.getIdOp((RendMethodOperation) root_);

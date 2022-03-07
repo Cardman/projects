@@ -96,7 +96,7 @@ final class RendRequestUtil {
                 i_++;
             }
         }
-        String wrap_ = ExecInherits.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _context.getStandards());
+        String wrap_ = ExecInherits.toWrapper(_nodeContainer.getNodeInformation().getInputClass(), _advStandards);
         lv_ = LocalVariable.newLocalVariable(_attribute,wrap_);
         ip_.putValueVar(attrName_, _advStandards.newWrapper(lv_));
         RenderExpUtil.calculateReuse(wr_, _advStandards, _context, _rendStackCall);

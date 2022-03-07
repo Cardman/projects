@@ -3,6 +3,7 @@ package code.formathtml.util;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -52,7 +53,7 @@ public abstract class BeanLgNames extends LgNames {
             String varNameConvert_ = _container.getVarNameConvert();
             LocalVariable lv_ = newLocVar(_container);
             _rendStackCall.getLastPage().putValueVar(varNameConvert_, newWrapper(lv_));
-            _rendStackCall.getLastPage().setGlobalArgumentStruct(_container.getBean(),_context);
+            setGlobalArgumentStruct(_container.getBean(),_context,_rendStackCall);
             Argument res_ = RenderExpUtil.calculateReuse(ops_, this, _context, _rendStackCall);
             _rendStackCall.getLastPage().removeRefVar(varNameConvert_);
             ResultErrorStd out_ = new ResultErrorStd();
@@ -129,4 +130,6 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, RendStackCall _rendStack);
 
+    public abstract IdMap<RendDynOperationNode, ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, ContextEl _ctx, RendStackCall _rendStackCall);
+    public abstract void setGlobalArgumentStruct(Struct _obj, ContextEl _ctx, RendStackCall _rendStackCall);
 }

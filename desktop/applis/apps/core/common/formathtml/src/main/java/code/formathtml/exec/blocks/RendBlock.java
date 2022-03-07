@@ -342,7 +342,7 @@ public abstract class RendBlock {
         CustList<AbstractWrapper> wrap_ = new CustList<AbstractWrapper>();
         StringList objClasses_ = new StringList();
         CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(opsRead_, _advStandards, _ctx, _rendStackCall);
+        IdMap<RendDynOperationNode, ArgumentsPair> args_ = _advStandards.getAllArgs(opsRead_, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return Argument.createVoid();
         }

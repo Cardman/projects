@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -20,8 +21,10 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.util.*;
@@ -111,6 +114,16 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         Struct obj_ = resError_.getResult();
         return validator_.validate(obj_);
+    }
+
+    @Override
+    public IdMap<RendDynOperationNode, ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, ContextEl _ctx, RendStackCall _rendStackCall) {
+        return RenderExpUtil.getAllArgs(_nodes,this,_ctx,_rendStackCall);
+    }
+
+    @Override
+    public void setGlobalArgumentStruct(Struct _obj, ContextEl _ctx, RendStackCall _rendStackCall) {
+        _rendStackCall.getLastPage().getPageEl().setGlobalArgumentStruct(_obj);
     }
 
     public abstract ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance);

@@ -17,6 +17,7 @@ import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -51,10 +52,7 @@ import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
@@ -580,6 +578,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         _rendStack.clearPages();
         return getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack);
+    }
+
+    @Override
+    public IdMap<RendDynOperationNode, ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, ContextEl _ctx, RendStackCall _rendStackCall) {
+        return RenderExpUtil.getAllArgs(_nodes,this,_ctx,_rendStackCall);
+    }
+
+    @Override
+    public void setGlobalArgumentStruct(Struct _obj, ContextEl _ctx, RendStackCall _rendStackCall) {
+        _rendStackCall.getLastPage().setGlobalArgumentStruct(_obj, _ctx);
     }
 
     public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
