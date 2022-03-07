@@ -242,7 +242,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         all_.addEntry(du_.getFilesConfName(), StringUtil.join(_files.getKeys(),"\n"));
         _dualNav.getNavigation().setFiles(all_);
         setFirst("page1.html", _dualNav.getNavigation().getSession());
-        return ((BeanCustLgNames)dual_.getStds()).setupAll(_dualNav);
+        return dual_.getStds().setupAll(_dualNav);
     }
 
     private static Options newOptions() {
@@ -354,7 +354,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         ContextEl ctx_ = ana(_filesSec, files_, a_);
         assertTrue(isEmptyErrors(a_));
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
-        calcBean(ctx_, ops_, 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
         return ctx_;
     }
 
@@ -377,7 +377,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanOne", "bean_one", _dual.getNavigation().getSession());
         ContextEl ctx_ = ana(_filesSec, _fileRend, _dual);
         CustList<RendDynOperationNode> ops_ = _dual.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
-        calcBean(ctx_, ops_, 0, (BeanCustLgNames) _dual.getDualAnalyzedContext().getStds(), _dual.getNavigation().getSession());
+        calcBean(ctx_, ops_, 0, _dual.getDualAnalyzedContext().getStds(), _dual.getNavigation().getSession());
         return ctx_;
     }
 
@@ -426,7 +426,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         setup(_folder, _relative, _filesThree, a_);
         ContextEl ctx_ = elOneBean(_filesSec, filRend(oneFile(_html), _filesThree), a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        String res_ = successRes(build_,ctx_, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        String res_ = successRes(build_,ctx_, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
         assertEq(1, build_.getHtmlPage().getAnchorsArgs().size());
         assertEq("2", build_.getHtmlPage().getAnchorsArgs().last().last());
         return res_;
@@ -806,8 +806,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         assertTrue(isEmptyErrors(a_));
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
-        calcBean(ctx_, ops_, 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
-        calcBean(ctx_, ops2_, 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops2_, 1, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
 
         return successRes(ctx_, a_);
     }
@@ -823,8 +823,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         assertTrue(isEmptyErrors(a_));
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
-        calcBean(ctx_, ops_, 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
-        calcBean(ctx_, ops2_, 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops2_, 1, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
 
         return failRes(ctx_, a_);
     }
@@ -838,7 +838,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         ContextEl ctx_ = ana(_filesSec, files_, a_);
         assertTrue(isEmptyErrors(a_));
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
-        calcBean(ctx_, ops_, 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
 
         return successRes(ctx_, a_);
     }
@@ -857,9 +857,9 @@ public abstract class CommonRender extends EquallableRenderUtil {
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
         CustList<RendDynOperationNode> ops3_ = a_.getNavigation().getSession().getBeansInfos().getValue(2).getExps();
-        calcBean(ctx_, ops_,0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
-        calcBean(ctx_, ops2_, 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
-        calcBean(ctx_, ops3_, 2, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops_,0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops2_, 1, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops3_, 2, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
 
         return failRes(ctx_, a_);
     }
@@ -902,9 +902,9 @@ public abstract class CommonRender extends EquallableRenderUtil {
         CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
         CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
         CustList<RendDynOperationNode> ops3_ = a_.getNavigation().getSession().getBeansInfos().getValue(2).getExps();
-        calcBean(ctx_, ops_, 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
-        calcBean(ctx_, ops2_, 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
-        calcBean(ctx_, ops3_, 2, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops2_, 1, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops3_, 2, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
 
 
         return successRes(ctx_, a_);
@@ -954,11 +954,11 @@ public abstract class CommonRender extends EquallableRenderUtil {
     }
 
     private static String successRes(ContextEl _ctx, DualNavigationContext _a) {
-        return successRes(new RendStackCall(InitPhase.NOTHING, _ctx),_ctx, (BeanCustLgNames) _a.getDualAnalyzedContext().getStds(), _a.getNavigation().getSession());
+        return successRes(new RendStackCall(InitPhase.NOTHING, _ctx),_ctx, _a.getDualAnalyzedContext().getStds(), _a.getNavigation().getSession());
     }
 
     protected static String successRes(RendStackCall _st, ContextEl _ctx, DualNavigationContext _nav) {
-        String res_ = res(_ctx, _st, (BeanCustLgNames) _nav.getDualAnalyzedContext().getStds(), _nav.getNavigation().getSession());
+        String res_ = res(_ctx, _st, _nav.getDualAnalyzedContext().getStds(), _nav.getNavigation().getSession());
         assertNull(_st.getStackCall().getCallingState());
         return res_;
     }
@@ -971,7 +971,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
     private static Struct failRes(ContextEl _ctx, DualNavigationContext _a) {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING,_ctx);
-        res(_ctx, build_, (BeanCustLgNames) _a.getDualAnalyzedContext().getStds(), _a.getNavigation().getSession());
+        res(_ctx, build_, _a.getDualAnalyzedContext().getStds(), _a.getNavigation().getSession());
         CallingState str_ = build_.getStackCall().getCallingState();
         return ((CustomFoundExc) str_).getStruct();
     }

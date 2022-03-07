@@ -5,11 +5,11 @@ import code.expressionlanguage.fwd.Forwards;
 
 public final class DualAnalyzedContext {
     private final AnalyzedPageEl analyzed;
-    private final BeanLgNames stds;
+    private final BeanCustLgNames stds;
     private final DualConfigurationContext context;
     private final Forwards forwards;
 
-    public DualAnalyzedContext(Forwards _forwards,AnalyzedPageEl _analyzed, BeanLgNames _stds,DualConfigurationContext _context) {
+    public DualAnalyzedContext(Forwards _forwards,AnalyzedPageEl _analyzed, BeanCustLgNames _stds,DualConfigurationContext _context) {
         forwards = _forwards;
         analyzed = _analyzed;
         stds = _stds;
@@ -24,7 +24,7 @@ public final class DualAnalyzedContext {
         return context;
     }
 
-    public BeanLgNames getStds() {
+    public BeanCustLgNames getStds() {
         return stds;
     }
 

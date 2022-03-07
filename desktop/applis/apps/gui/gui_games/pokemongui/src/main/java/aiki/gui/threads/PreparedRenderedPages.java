@@ -6,11 +6,11 @@ import code.bean.nat.NativeConfigurationLoader;
 import code.bean.nat.fwd.AdvNatBlockBuilder;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.bean.nat.BeanNatLgNames;
-import code.formathtml.util.AbstractConfigurationLoader;
-import code.formathtml.util.DualAnalyzedContext;
+import code.formathtml.util.DualConfigurationContext;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
@@ -44,13 +44,16 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         PokemonStandards stds_ = new PokemonStandards();
         beanNatLgNames = stds_;
 //        String content_ = ResourceFiles.ressourceFichier(conf);
-        AbstractConfigurationLoader nat_ = new NativeConfigurationLoader(stds_, init);
-        DualAnalyzedContext du_ = navigation.innerLoad("", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_,null);
-//        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds_, init);
+        Configuration session_ = new Configuration();
+        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(stds_.getContent()));
+        Forwards forwards_ = nat_.getForwards(d_);
+        session_.init(d_);
+        navigation.setSession(session_);
+        //        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
         StringMap<String> files_ = new StringMap<String>();
-        Configuration session_ = navigation.getSession();
         StringMap<Document> docs_ = new StringMap<Document>();
-        for (String a: du_.getContext().getAddedFiles()) {
+        for (String a: d_.getAddedFiles()) {
             String name_ = StringUtil.concat(relative, a);
             Document doc_ = built.getVal(name_);
             if (doc_ != null) {
@@ -61,8 +64,8 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
             }
         }
         for (String l: navigation.getLanguages()) {
-            for (String a: du_.getContext().getProperties().values()) {
-                String folder_ = du_.getContext().getMessagesFolder();
+            for (String a: d_.getProperties().values()) {
+                String folder_ = d_.getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_,l,a);
                 files_.put(fileName_,builtMessages.getVal(StringUtil.concat(relative,fileName_)));
 //                files_.put(fileName_,ResourceFiles.ressourceFichier(StringUtil.concat(relative,fileName_)));
@@ -73,8 +76,8 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         docs_.addEntry(realFilePath_,built.getVal(rel_));
 //        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
-        stds_.setupAll(docs_,navigation, navigation.getSession(), du_, new AdvNatBlockBuilder(stds_));
-        context = du_.getForwards().generate();
+        stds_.setupAll(docs_,navigation, navigation.getSession(), new AdvNatBlockBuilder(stds_), d_);
+        this.context = forwards_.generate();
     }
 
     public Navigation getNavigation() {

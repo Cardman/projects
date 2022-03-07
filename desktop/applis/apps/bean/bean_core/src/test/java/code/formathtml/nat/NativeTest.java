@@ -13,6 +13,7 @@ import code.bean.nat.fwd.AdvNatBlockBuilder;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.InitPhase;
@@ -661,16 +662,17 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         files_.put("page2.html", htmlTwo_);
         docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
         docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-        String xmlConf_ = confCom();
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
-        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(xmlConf_);
-        Document doc_ = res_.getDocument();
-        DualAnalyzedContext du_ = n_.innerLoad("", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_, doc_);
+        Configuration session_ = new Configuration();
+        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
+        Forwards forwards_ = nat_.getForwards(d_);
+        session_.init(d_);
+        n_.setSession(session_);
         n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
-        ContextEl generate_ = du_.getForwards().generate();
-        n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
+        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
+        ContextEl generate_ = forwards_.generate();
+        n_.initializeRendSession(generate_, lgNames_, new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
@@ -692,16 +694,17 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         files_.put("page2.html", htmlTwo_);
         docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
         docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
-        String xmlConf_ = confCom();
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
-        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(xmlConf_);
-        Document doc_ = res_.getDocument();
-        DualAnalyzedContext du_ = n_.innerLoad("", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_, doc_);
+        Configuration session_ = new Configuration();
+        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
+        Forwards forwards_ = nat_.getForwards(d_);
+        session_.init(d_);
+        n_.setSession(session_);
         n_.setFiles(files_);
-        lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
-        ContextEl generate_ = du_.getForwards().generate();
-        n_.initializeRendSession(generate_, du_.getStds(), new RendStackCall(InitPhase.NOTHING, generate_));
+        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
+        ContextEl generate_ = forwards_.generate();
+        n_.initializeRendSession(generate_, lgNames_, new RendStackCall(InitPhase.NOTHING, generate_));
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.composite.string\" n-i=\"0\" value=\"\"/></form></body></html>", n_.getHtmlText());
     }
 
@@ -766,7 +769,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),null,a_.getAdv(),a_.getDual()), new DefNatBlockBuilder());
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), a_.getDual());
         RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
@@ -805,7 +808,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
-        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DualAnalyzedContext(a_.getForwards(),null,a_.getAdv(),a_.getDual()), new DefNatBlockBuilder());
+        a_.getAdv().setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), a_.getDual());
         RendStackCall build_ = a_.build(InitPhase.NOTHING, a_.getContext());
         n_.initializeRendSession(a_.getContext(), a_.getAdv(), build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());

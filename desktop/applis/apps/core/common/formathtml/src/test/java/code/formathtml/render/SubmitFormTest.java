@@ -1051,19 +1051,5 @@ public final class SubmitFormTest extends CommonRender {
         return files_;
     }
 
-    private static StringMap<AnaRendDocumentBlock> analyzedRenders(Navigation _nav, AnalyzedPageEl _page, BeanLgNames _stds, AnalyzingDoc _anaDoc, DualConfigurationContext _dual) {
-        _nav.setLanguages(new StringList(_nav.getLanguage()));
-        _anaDoc.setup(_nav.getSession(), _dual);
-        setupAna(_anaDoc, _page);
-        _nav.getSession().initInstancesPattern(_page, _anaDoc);
-        _nav.getSession().setPrefix("c:");
-        Configuration _session = _nav.getSession();
-        _stds.preInitBeans(_session);
-        _anaDoc.setRendAnalysisMessages(_dual.getAnalysisMessages());
-        _anaDoc.setLanguages(_nav.getLanguages());
-        _session.setCurrentLanguage(_nav.getLanguage());
-        return _session.analyzedRenders(_nav.getFiles(), _anaDoc, _page, _dual);
-    }
-
 
 }

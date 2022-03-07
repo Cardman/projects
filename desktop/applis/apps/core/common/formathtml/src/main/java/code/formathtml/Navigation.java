@@ -56,13 +56,13 @@ public final class Navigation {
     private Document document;
     private HtmlPage htmlPage;
 
-    public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad) {
+    public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_cont);
         Document doc_ = res_.getDocument();
         return loadConfiguration(_lgCode, _lgNames, _fileBuilder, _confLoad, doc_);
     }
 
-    public DualAnalyzedContext loadConfiguration(String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad, Document _doc) {
+    public DualAnalyzedContext loadConfiguration(String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad, Document _doc) {
         if (_doc == null) {
             AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
             DualConfigurationContext context_ = new DualConfigurationContext();
@@ -72,7 +72,7 @@ public final class Navigation {
         return innerLoad(_lgCode, _lgNames, _fileBuilder, _confLoad, _doc);
     }
 
-    public DualAnalyzedContext innerLoad(String _lgCode, BeanLgNames _lgNames, AbstractFileBuilder _fileBuilder, AbstractConfigurationLoader _confLoad, Document _doc) {
+    public DualAnalyzedContext innerLoad(String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad, Document _doc) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         session = new Configuration();
         DualAnalyzedContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_,_lgNames);

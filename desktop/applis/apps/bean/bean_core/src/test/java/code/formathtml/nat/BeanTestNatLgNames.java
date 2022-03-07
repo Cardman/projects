@@ -56,21 +56,6 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
         }
     }
 
-    public ReportedMessages setupAll(Navigation _nav, Configuration _conf, StringMap<String> _files, DualAnalyzedContext _dual) {
-        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        analyzingDoc_.setContent(this);
-        AnalyzedPageEl page_ = _dual.getAnalyzed();
-        initInstancesPattern(_nav.getSession(),analyzingDoc_);
-        DualConfigurationContext _dual1 = _dual.getContext();
-        Configuration _session = _nav.getSession();
-        ((BeanLgNames) this).preInitBeans(_session);
-        analyzingDoc_.setRendAnalysisMessages(_dual1.getAnalysisMessages());
-        analyzingDoc_.setLanguages(_nav.getLanguages());
-        _session.setCurrentLanguage(_nav.getLanguage());
-        StringMap<AnaRendDocumentBlock> d_ = _session.analyzedRenders(_nav.getFiles(), analyzingDoc_, page_, _dual1);
-        RendForwardInfos.buildExec(analyzingDoc_, new CustList<ExecFileBlock>(), d_, _dual.getForwards(), _conf);
-        return page_.getMessages();
-    }
     public static void initInstancesPattern(Configuration _conf, AnalyzingDoc _anaDoc) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();

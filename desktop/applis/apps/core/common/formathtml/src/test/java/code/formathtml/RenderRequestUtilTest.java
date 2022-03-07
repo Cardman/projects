@@ -47,10 +47,10 @@ public final class RenderRequestUtilTest extends CommonRender {
         ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), dual_);
 
         RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
-        successRes(build,ctx_, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(), dual_.getNavigation().getSession());
+        successRes(build,ctx_, dual_.getDualAnalyzedContext().getStds(), dual_.getNavigation().getSession());
         addInnerPage(build);
         Struct build_ = dual_.getNavigation().getSession().getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 0, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(), ctx_, build);
+        Struct value_ = redirect(new Argument(build_), 0, dual_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(2,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -82,10 +82,10 @@ public final class RenderRequestUtilTest extends CommonRender {
         ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_),dual_);
 
         RendStackCall st = new RendStackCall(InitPhase.NOTHING, ctx_);
-        successRes(st,ctx_, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(),  dual_.getNavigation().getSession());
+        successRes(st,ctx_, dual_.getDualAnalyzedContext().getStds(),  dual_.getNavigation().getSession());
         addInnerPage(st);
         Struct build_ =  dual_.getNavigation().getSession().getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 0, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(), ctx_, st);
+        Struct value_ = redirect(new Argument(build_), 0, dual_.getDualAnalyzedContext().getStds(), ctx_, st);
         assertEq(2,((NumberStruct)value_).intStruct());
     }
 
@@ -119,10 +119,10 @@ public final class RenderRequestUtilTest extends CommonRender {
         ContextEl ctx_ = elOneBean(filesSec_, filRend(oneFile(html_), files_), dual_);
 
         RendStackCall build = new RendStackCall(InitPhase.NOTHING, ctx_);
-        successRes(build,ctx_,(BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(),  dual_.getNavigation().getSession());
+        successRes(build,ctx_, dual_.getDualAnalyzedContext().getStds(),  dual_.getNavigation().getSession());
         addInnerPage(build);
         Struct build_ =  dual_.getNavigation().getSession().getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 0, (BeanCustLgNames) dual_.getDualAnalyzedContext().getStds(), ctx_, build);
+        Struct value_ = redirect(new Argument(build_), 0, dual_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(10,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -160,7 +160,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        Struct value_ = redirect(new Argument(build_), 0, a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
 
@@ -203,7 +203,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        Struct value_ = redirect(new Argument(build_), 1, a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -244,7 +244,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        Struct value_ = redirect(new Argument(build_), 1, a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(4,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -286,7 +286,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        Struct value_ = redirect(new Argument(build_), 1, a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(20,((NumberStruct)value_).intStruct());
     }
     @Test
@@ -327,7 +327,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        Struct value_ = redirect(new Argument(build_), 1, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        Struct value_ = redirect(new Argument(build_), 1, a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertEq(8,((NumberStruct)value_).intStruct());
     }
 
@@ -367,7 +367,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        redirect(new Argument(build_), 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        redirect(new Argument(build_), 0, a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertNotNull(getException(build));
     }
 
@@ -406,7 +406,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        redirect(new Argument(build_), 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        redirect(new Argument(build_), 0, a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertNotNull(getException(build));
     }
     @Test
@@ -444,7 +444,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
-        redirect(new Argument(build_), 0, (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_, build);
+        redirect(new Argument(build_), 0, a_.getDualAnalyzedContext().getStds(), ctx_, build);
         assertNotNull(getException(build));
     }
 
@@ -489,7 +489,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         addInnerPage(build);
         NodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
         NodeContainer nContBis_ = build.getFormParts().getContainersMap().firstValue().getValue(1);
-        setRendObject(nCont_, new IntStruct(2), (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_);
+        setRendObject(nCont_, new IntStruct(2), a_.getDualAnalyzedContext().getStds(), ctx_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(2, ((NumberStruct)getStruct(build_,nCont_.getIdField())).intStruct());
         assertEq(6, ((NumberStruct)getStruct(build_,nContBis_.getIdField())).intStruct());
@@ -533,7 +533,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         NodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
-        setRendObject(nCont_, new IntStruct(2), (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_);
+        setRendObject(nCont_, new IntStruct(2), a_.getDualAnalyzedContext().getStds(), ctx_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         Struct dto_ = getStruct(build_,new ClassField("pkg.BeanOne", "first"));
         assertEq(2, ((NumberStruct)getStruct(dto_,nCont_.getIdField())).intStruct());
@@ -577,7 +577,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         NodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
-        setRendObject(nCont_, new IntStruct(9), (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_);
+        setRendObject(nCont_, new IntStruct(9), a_.getDualAnalyzedContext().getStds(), ctx_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(9, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[0]).intStruct());
         assertEq(4, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[1]).intStruct());
@@ -631,7 +631,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         NodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
-        setRendObject(nCont_, new IntStruct(9), (BeanCustLgNames) a_.getDualAnalyzedContext().getStds(), ctx_);
+        setRendObject(nCont_, new IntStruct(9), a_.getDualAnalyzedContext().getStds(), ctx_);
         Struct build_ = conf_.getBuiltBeans().getVal("bean_one");
         assertEq(9, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[0]).intStruct());
         assertEq(4, ((NumberStruct)((ArrayStruct) getStruct(build_,new ClassField("pkg.BeanOne","numbers"))).getInstance()[1]).intStruct());

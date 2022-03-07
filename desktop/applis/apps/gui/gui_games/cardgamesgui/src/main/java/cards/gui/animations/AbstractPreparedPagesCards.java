@@ -6,10 +6,10 @@ import code.bean.nat.NativeConfigurationLoader;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.formathtml.util.AbstractConfigurationLoader;
-import code.formathtml.util.DualAnalyzedContext;
+import code.formathtml.util.DualConfigurationContext;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
@@ -32,22 +32,25 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         built = _built;
     }
 
-    public void prepareDoc(Document _doc, AbstractNativeInit _init, StringMap<String> _other) {
+    public void prepareDoc(AbstractNativeInit _init, StringMap<String> _other) {
         navigation = new Navigation();
         navigation.setSession(new Configuration());
         navigation.setLanguage(lg);
         navigation.setLanguages(Constants.getAvailableLanguages());
-        AbstractConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, _init);
-        DualAnalyzedContext du_ = navigation.innerLoad("", beanNatLgNames, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()), nat_,_doc);
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, _init);
+        Configuration session_ = new Configuration();
+        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()));
+        Forwards forwards_ = nat_.getForwards(d_);
+        session_.init(d_);
+        navigation.setSession(session_);
         StringMap<String> files_ = new StringMap<String>();
-        Configuration session_ = navigation.getSession();
-        for (String a : du_.getContext().getAddedFiles()) {
+        for (String a : d_.getAddedFiles()) {
             files_.put(a, _other.getVal(a));
 //            files_.put(a, ResourceFiles.ressourceFichier(a));
         }
         for (String l : navigation.getLanguages()) {
-            for (String a : du_.getContext().getProperties().values()) {
-                String folder_ = du_.getContext().getMessagesFolder();
+            for (String a : d_.getProperties().values()) {
+                String folder_ = d_.getMessagesFolder();
                 String fileName_ = ResourcesMessagesUtil.getPropertiesPath(folder_, l, a);
 //                files_.put(fileName_, ResourceFiles.ressourceFichier(fileName_));
                 files_.put(fileName_, _other.getVal(fileName_));
@@ -59,8 +62,8 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         docs_.addEntry(realFilePath_,doc_);
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
-        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), du_, new DefNatBlockBuilder());
-        context = du_.getForwards().generate();
+        beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), new DefNatBlockBuilder(), d_);
+        this.context = forwards_.generate();
     }
 
     static String getRealFilePath(String _lg, String _link) {

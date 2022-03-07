@@ -313,7 +313,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         assertTrue(isEmptyErrors(a_));
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);
-        processFail(_s, a_, new AnalyzingDoc(), new PairVar("v", lv_));
+        processFail(_s, a_, new AnalyzingDoc(), lv_, "v");
         return a_.getDualAnalyzedContext().getAnalyzed();
     }
 
@@ -323,7 +323,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     }
 
 
-    private static void processFail(String _el, DualNavigationContext _cont, AnalyzingDoc analyzingDoc, PairVar... _vars) {
+    private static void processFail(String _el, DualNavigationContext _cont, AnalyzingDoc analyzingDoc, AnaLocalVariable _local, String _name) {
         AnalyzedPageEl page_ = _cont.getDualAnalyzedContext().getAnalyzed();
         boolean accept_ = page_.isAcceptCommaInstr();
         String currentVarSetting_ = page_.getCurrentVarSetting();
@@ -331,12 +331,27 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
         analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext());
         AnalyzingDoc.setupInts(page_, analyzingDoc);
         page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
-        for (PairVar e: _vars) {
-            AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(e.getLocal().getClassName());
-            a_.setConstType(ConstType.LOC_VAR);
-            page_.getInfosVars().put(e.getName(), a_);
-        }
+        AnaLocalVariable a_ = new AnaLocalVariable();
+        a_.setClassName(_local.getClassName());
+        a_.setConstType(ConstType.LOC_VAR);
+        page_.getInfosVars().put(_name, a_);
+        page_.setAcceptCommaInstr(accept_);
+        page_.setCurrentVarSetting(currentVarSetting_);
+        page_.setAccessStaticContext(MethodId.getKind(true));
+        Delimiters d_ = checkSyntax(_cont, _el);
+        OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el, analyzingDoc);
+        OperationNode op_ = rendOp(0, _cont, opTwo_, analyzingDoc);
+        getSortedDescNodes(_cont, op_, analyzingDoc);
+    }
+
+    private static void processFail(String _el, DualNavigationContext _cont, AnalyzingDoc analyzingDoc) {
+        AnalyzedPageEl page_ = _cont.getDualAnalyzedContext().getAnalyzed();
+        boolean accept_ = page_.isAcceptCommaInstr();
+        String currentVarSetting_ = page_.getCurrentVarSetting();
+        String globalClass_ = page_.getGlobalClass();
+        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext());
+        AnalyzingDoc.setupInts(page_, analyzingDoc);
+        page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
         page_.setAcceptCommaInstr(accept_);
         page_.setCurrentVarSetting(currentVarSetting_);
         page_.setAccessStaticContext(MethodId.getKind(true));

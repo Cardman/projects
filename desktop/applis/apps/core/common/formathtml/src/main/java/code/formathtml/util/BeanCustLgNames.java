@@ -414,22 +414,19 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         StringMap<String> files_ = nav_.getFiles();
         StringList languages_ = nav_.getLanguages();
         String language_ = nav_.getLanguage();
-        return setupAll(_dual.getDualAnalyzedContext(), session_, files_, languages_, language_);
-    }
-
-    public ContextEl setupAll(DualAnalyzedContext _dual, Configuration session_, StringMap<String> files_, StringList languages_, String language_) {
-        AnalyzedPageEl page_ = _dual.getAnalyzed();
-        Forwards forwards_ = _dual.getForwards();
-        setupRendClasses(files_, page_, _dual.getContext().getFilesConfName(), _dual.getContext().getAddedResources(), _dual.getContext().getRenderFiles());
+        DualAnalyzedContext ana_ = _dual.getDualAnalyzedContext();
+        AnalyzedPageEl page_ = ana_.getAnalyzed();
+        Forwards forwards_ = ana_.getForwards();
+        DualConfigurationContext confCont_ = ana_.getContext();
+        setupRendClasses(files_, page_, confCont_.getFilesConfName(), confCont_.getAddedResources(), confCont_.getRenderFiles());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         session_.initInstancesPattern(page_, analyzingDoc_);
-        DualConfigurationContext _dual1 = _dual.getContext();
         preInitBeans(session_);
-        analyzingDoc_.setRendAnalysisMessages(_dual1.getAnalysisMessages());
+        analyzingDoc_.setRendAnalysisMessages(confCont_.getAnalysisMessages());
         analyzingDoc_.setLanguages(languages_);
         session_.setCurrentLanguage(language_);
-        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, page_, _dual1);
+        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, page_, confCont_);
         if (!page_.isEmptyErrors()) {
             return null;
         }
