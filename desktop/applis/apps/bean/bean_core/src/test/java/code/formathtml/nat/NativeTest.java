@@ -664,7 +664,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String xmlConf_ = confCom();
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
-        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(xmlConf_);
+        Document doc_ = res_.getDocument();
+        DualAnalyzedContext du_ = n_.innerLoad("", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_, doc_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
         ContextEl generate_ = du_.getForwards().generate();
@@ -693,7 +695,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String xmlConf_ = confCom();
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
-        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(xmlConf_);
+        Document doc_ = res_.getDocument();
+        DualAnalyzedContext du_ = n_.innerLoad("", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_, doc_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
         ContextEl generate_ = du_.getForwards().generate();
