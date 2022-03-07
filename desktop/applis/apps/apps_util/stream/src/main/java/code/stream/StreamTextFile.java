@@ -18,17 +18,17 @@ public final class StreamTextFile {
     private StreamTextFile() {
     }
 
-    public static StringList getExcludedFolders(AbstractFileCoreStream _fileCoreStream, String _current, String _path) {
-        if (_fileCoreStream.newFile(_current+_path).exists()) {
-            return new StringList();
-        }
-        for (String p: StringUtil.splitChars(_path,';')) {
-            if (p.endsWith(".exe")) {
-                return new StringList("jre");
-            }
-        }
-        return new StringList();
-    }
+//    public static StringList getExcludedFolders(AbstractFileCoreStream _fileCoreStream, String _current, String _path) {
+//        if (_fileCoreStream.newFile(_current+_path).exists()) {
+//            return new StringList();
+//        }
+//        for (String p: StringUtil.splitChars(_path,';')) {
+//            if (p.endsWith(".exe")) {
+//                return new StringList("jre");
+//            }
+//        }
+//        return new StringList();
+//    }
     public static StringList allSortedFiles(String _folder,AbstractFileCoreStream _fact) {
         AbstractFile abstractFile_ = _fact.newFile(_folder);
         FileInfo f_ = new FileInfo(abstractFile_,_fact);
