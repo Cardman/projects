@@ -131,8 +131,37 @@ public final class StringExpUtil {
     }
 
     public static String getFormattedType(String _type, StringMap<String> _varTypes) {
-        AbstractReplacingType repl_ = new TryReplacingType();
-        return repl_.formattedType(_type,_varTypes);
+        if (_type.startsWith("[#")||_type.startsWith("#")) {
+            AbstractReplacingType replLoc_ = new TryReplacingType();
+            return replLoc_.formattedType(_type, _varTypes);
+        }
+        StringBuilder outType_ = new StringBuilder();
+        StackType stType_ = new StackType();
+        StringBuilder out_ = new StringBuilder();
+        StringBuilder id_ = new StringBuilder();
+        int i_ = IndexConstants.FIRST_INDEX;
+        int len_ = _type.length();
+        while (i_ < len_) {
+            char curChar_ = _type.charAt(i_);
+            String resType_ = stType_.loopAllTypes(id_, out_, curChar_);
+            if (resType_.isEmpty()) {
+                i_++;
+                continue;
+            }
+            outType_.append(id_);
+            id_.delete(0,id_.length());
+            AbstractReplacingType replLoc_ = new TryReplacingType();
+            String res_ = replLoc_.formattedType(resType_, _varTypes);
+            if (res_.isEmpty()) {
+                outType_.append("?");
+            } else {
+                outType_.append(res_);
+            }
+            outType_.append(curChar_);
+            i_++;
+        }
+        outType_.append(id_);
+        return outType_.toString();
     }
 
     public static String getReflectFormattedType(String _type, StringMap<String> _varTypes) {

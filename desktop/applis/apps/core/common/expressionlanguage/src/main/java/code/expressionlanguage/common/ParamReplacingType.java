@@ -14,7 +14,7 @@ public final class ParamReplacingType extends AbstractReplacingType {
         String sub_ = _type.substring(diese_+1, _i);
         String value_ = _varTypes.getVal(sub_);
         if (value_ == null) {
-            sub_ = _type.substring(diese_, _i);
+            _str.append('#');
             _str.append(sub_);
             return false;
         }

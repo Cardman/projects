@@ -25,6 +25,24 @@ final class StackType {
         }
     }
 
+    String loopAllTypes(StringBuilder _id, StringBuilder _out, char _curChar) {
+        if (count > 0) {
+            changeStack(_curChar);
+            if (count == 1 && _curChar == StringExpUtil.COMMA || count == 0) {
+                String res_ = _out.toString();
+                _out.delete(0, _out.length());
+                return res_;
+            }
+            _out.append(_curChar);
+            return "";
+        }
+        if (_curChar == StringExpUtil.LT) {
+            count++;
+        }
+        _id.append(_curChar);
+        return "";
+    }
+
     void loopAllTypes(StringList _types, StringBuilder _id, StringBuilder _out, char _curChar) {
         if (count > 0) {
             changeStack(_curChar);

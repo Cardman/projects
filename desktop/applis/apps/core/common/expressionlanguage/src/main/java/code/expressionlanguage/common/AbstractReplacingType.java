@@ -43,8 +43,8 @@ public abstract class AbstractReplacingType {
             }
             str_.append(ch_);
         }
-        if (variable) {
-            replace(_type, _varTypes, str_,len_);
+        if (variable && replace(_type, _varTypes, str_, len_)) {
+            return "";
         }
         return str_.toString();
     }

@@ -422,7 +422,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "?#W";
-        assertEq("?java.lang.Number", format(cont_, first_, second_));
+        assertEq("?#W", format(cont_, first_, second_));
     }
 
 
@@ -435,7 +435,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<!java.lang.Number>";
         String second_ = "!#W";
-        assertEq("!java.lang.Number", format(cont_, first_, second_));
+        assertEq("!#W", format(cont_, first_, second_));
     }
 
 
@@ -470,7 +470,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = unfullValidateOverridingMethods(files_);
         String first_ = "pkg.Ex<java.lang.Number>";
         String second_ = "?#W";
-        assertEq("?java.lang.Number", format(cont_, first_, second_));
+        assertEq("?#W", format(cont_, first_, second_));
     }
 
 
@@ -956,7 +956,42 @@ public final class TemplatesTest extends ProcessMethodCommon {
         String first_ = "pkg.Ex<?java.lang.Number>";
         String second_ = "pkg.ExTwo<?[#T>";
         String res_ = format(cont_, first_, second_);
+        assertEq("pkg.ExTwo<?>",res_);
+    }
+
+    @Test
+    public void getFullTypeByBases9Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:pkg.ExTwo<T[]> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<S>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.ExTwo<[#T>";
+        String res_ = format(cont_, first_, second_);
         assertEq("pkg.ExTwo<?[java.lang.Number>",res_);
+    }
+
+
+    @Test
+    public void getFullTypeByBases10Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:pkg.ExTwo<T[]> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<S>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<?java.lang.Number>";
+        String second_ = "pkg.ExTwo<#T>";
+        String res_ = format(cont_, first_, second_);
+        assertEq("pkg.ExTwo<?java.lang.Number>",res_);
     }
 
 
@@ -964,10 +999,40 @@ public final class TemplatesTest extends ProcessMethodCommon {
 
 
 
+    @Test
+    public void getFullTypeByBases11Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:pkg.ExTwo<T[]> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<S>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<!java.lang.Number>";
+        String second_ = "pkg.ExTwo<![#T>";
+        String res_ = format(cont_, first_, second_);
+        assertEq("pkg.ExTwo<?>",res_);
+    }
 
 
-
-
+    @Test
+    public void getFullTypeByBases12Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T>:pkg.ExTwo<T[]> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<S>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number>";
+        String second_ = "[#T";
+        String res_ = format(cont_, first_, second_);
+        assertEq("[java.lang.Number",res_);
+    }
 
 
 

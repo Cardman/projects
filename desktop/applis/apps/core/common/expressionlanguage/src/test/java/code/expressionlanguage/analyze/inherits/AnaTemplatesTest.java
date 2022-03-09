@@ -7291,11 +7291,10 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         StringMap<StringList> map_ = new StringMap<StringList>();
         map_.put("T", new StringList(c_.getAliasObject()));
         StringList res_ = getSuperTypesSet(c_, map_, new StringList("pkg.ExTwo<?T>"));
-        assertEq(5, res_.size());
+        assertEq(4, res_.size());
         assertTrue(StringUtil.contains(res_, "pkg.ExTwo<?>"));
         assertTrue(StringUtil.contains(res_, "pkg.ExThree<?>"));
         assertTrue(StringUtil.contains(res_, "pkg.ExTwo<?T>"));
-        assertTrue(StringUtil.contains(res_, "pkg.ExThree<java.lang.$iterable<?T>>"));
         assertTrue(StringUtil.contains(res_, "java.lang.Object"));
     }
     @Test

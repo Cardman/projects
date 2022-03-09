@@ -17,7 +17,7 @@ public final class ReflectReplacingType extends AbstractReplacingType {
         if (value_ != null) {
             replaceReflectedType(_str, value_);
         } else {
-            sub_ = _type.substring(diese_, _i);
+            _str.append('#');
             _str.append(sub_);
         }
     }
