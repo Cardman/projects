@@ -158,6 +158,11 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
     }
 
     @Override
+    public AbstractProgramInfos light() {
+        return this;
+    }
+
+    @Override
     public int getScreenHeight() {
         return 0;
     }
