@@ -224,6 +224,11 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         return fileCoreStream;
     }
 
+    @Override
+    public AbstractZipFact getZipFact() {
+        return streams.getZipFact();
+    }
+
     public TechStreams getStreams() {
         return streams;
     }

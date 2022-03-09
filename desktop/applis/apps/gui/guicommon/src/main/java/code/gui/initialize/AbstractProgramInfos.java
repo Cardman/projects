@@ -8,6 +8,7 @@ import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbsClipStream;
 import code.stream.AbstractFileCoreStream;
+import code.stream.core.AbstractZipFact;
 import code.stream.core.TechStreams;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
@@ -25,6 +26,7 @@ public interface AbstractProgramInfos {
     StringMap<AbstractAtomicInteger> getCounts();
     AbstractGenerator getGenerator();
     AbstractThreadFactory getThreadFactory();
+    AbstractZipFact getZipFact();
     TechStreams getStreams();
     AbstractFileCoreStream getFileCoreStream();
     AbstractInterceptor getInterceptor();

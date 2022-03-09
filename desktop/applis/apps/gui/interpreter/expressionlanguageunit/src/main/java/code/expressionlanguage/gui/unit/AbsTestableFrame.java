@@ -21,7 +21,7 @@ public abstract class AbsTestableFrame implements TestableFrame {
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = frames.getValidator();
         return FileInfos.buildMemoryFromFile(frames.getGenerator(),
-                validator_,issuer, getInputs(), frames.getStreams().getZipFact(), frames.getThreadFactory());
+                validator_,issuer, getInputs(), frames.getZipFact(), frames.getThreadFactory());
     }
 
     public AbstractInterceptor getIntercept() {

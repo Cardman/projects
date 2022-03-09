@@ -37,12 +37,14 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
     private final AbstractInterceptor interceptor;
     private final AbstractSocketFactory socketFactory;
     private final AbsLightFrameFactory lightFrameFactory;
+    private final DefZipFact zipFact;
 
     protected LightProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator,AbstractAdvGraphicListGenerator _graphicListGenerator, AbstractGenerator _gene) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = null;
         lightFrameFactory = new DefLigFrameFactory();
-        streams = new TechStreams(null,null,new DefZipFact(new DefZipFactory()));
+        zipFact = new DefZipFact(new DefZipFactory());
+        streams = new TechStreams(null,null, zipFact);
         interceptor = new DefInterceptor(new DefErrGenerator());
         socketFactory = null;
         compoFactory = new DefCompoFactory();
@@ -101,6 +103,11 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
 
     public TechStreams getStreams() {
         return streams;
+    }
+
+    @Override
+    public DefZipFact getZipFact() {
+        return zipFact;
     }
 
     @Override
