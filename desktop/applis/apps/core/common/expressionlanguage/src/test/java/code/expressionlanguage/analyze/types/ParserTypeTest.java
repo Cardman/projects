@@ -892,20 +892,11 @@ public final class ParserTypeTest extends ProcessMethodCommon {
     private static AnalyzedPageEl unfullValidateInheritingClassesDeps(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        LgNames lgName_ = getLgNames();
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kwl_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kwl_,page_);
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
         validateInheritingClassesId(page_);

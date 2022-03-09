@@ -6694,22 +6694,9 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     private static ContextEl contextEl(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
-        ContextEl ctx_ = validateAll(_files, page_,forwards_);
-        assertTrue(isEmptyErrors(page_));
-        return ctx_;
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 }

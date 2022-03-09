@@ -264,10 +264,8 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         InitializationLgNames.basicStandards(lgName_);
         AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
         Options _opt = new Options();
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        _opt.setTabWidth(tabWidth_);
+        _opt.setTabWidth(4);
         _opt.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());

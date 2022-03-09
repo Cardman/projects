@@ -10800,20 +10800,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     private static AnalyzedPageEl unfullValidateOverridingMethods(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kw_,page_);
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
         validateInheritingClasses(page_);
@@ -10824,19 +10815,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     private static AnalyzedPageEl unfullValidateOverridingMethodsIds(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
+        getForwards(opt_,lgName_,kw_,page_);
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
         validateInheritingClasses(page_);
@@ -10849,19 +10832,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
     private static AnalyzedPageEl simpleContextEl() {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
+        getForwards(opt_,lgName_,kw_,page_);
         StringMap<String> files_ = page_.buildFiles();
         buildFilesBodies(page_, files_);
         parseFiles(page_);
@@ -10878,20 +10853,11 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kw_,page_);
         return AnaInherits.isOkQualFields(_string,page_);
     }
 

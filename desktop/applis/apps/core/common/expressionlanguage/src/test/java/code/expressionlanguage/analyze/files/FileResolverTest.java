@@ -9651,13 +9651,9 @@ public final class FileResolverTest extends ProcessMethodCommon {
         file_.append("  $return t;.;\n");
         file_.append(" }\n");
         file_.append("}\n");
-        AnalyzedPageEl context_ = simpleCtxPage();
-        parseFile(file_, context_, "my_file", false);
-        assertTrue(isEmptyErrors(context_));
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("my_file",file_.toString());
-        validateWithoutInit(files_,context_);
-        assertTrue(!isEmptyErrors(context_));
+        assertTrue(hasErr(files_));
     }
     @Test
     public void parseFile4FailTest() {
@@ -9849,20 +9845,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        LgNames lgName_ = getLgNames();
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kwl_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kwl_,page_);
         for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -9877,20 +9864,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
 
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        LgNames lgName_ = getLgNames();
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kwl_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kwl_,page_);
         for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -9902,20 +9880,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         //key words in some language
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.fr();
-        KeyWordsMap.initFrStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        LgNames lgName_ = getLgNames();
+        KeyWords kwl_ = getKeyWords("fr",lgName_);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kwl_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kwl_,page_);
         for (EntryCust<String, String> e: page_.buildFiles().entryList()) {
             String name_ = e.getKey();
             String content_ = e.getValue();
@@ -10001,20 +9970,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
 
     protected static AnalyzedPageEl simpleCtxPage() {
         Options opt_ = newOptions();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kw_,page_);
         parsePredefFiles(page_);
         return page_;
     }
@@ -10022,20 +9982,11 @@ public final class FileResolverTest extends ProcessMethodCommon {
         Options opt_ = newOptions();
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kw_,page_);
         parsePredefFiles(page_);
         return page_;
     }

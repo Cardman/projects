@@ -3437,20 +3437,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        LgNames lgName_ = getLgNames();
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kwl_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kwl_,page_);
         buildAllBracesBodies(files_, page_);
         assertTrue(!isEmptyErrors(page_));
     }
@@ -4647,20 +4638,11 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
     private static AnalyzedPageEl quickValidate(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_,page_,forwards_,kw_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kw_,page_);
         validateWithoutInit(_files, page_);
         assertTrue( isEmptyErrors(page_));
         return page_;

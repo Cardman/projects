@@ -30,8 +30,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordAbstract("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -45,8 +44,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordIntern("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -61,8 +59,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordAbstract("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -76,8 +73,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordAbstract("1a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -91,8 +87,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordEscBound("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -108,8 +103,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordEscBound("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -126,8 +120,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbHexEnd("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -145,8 +138,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbHexEnd("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -164,8 +156,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbHexEnd("_");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -183,8 +174,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbBin("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -203,8 +193,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbBin("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -223,8 +212,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbBin("_");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -243,8 +231,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbBin("0a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -263,8 +250,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbExpBin("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -283,8 +269,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbExpBin("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -303,8 +288,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbExpBin("_");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -323,8 +307,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbExpBin("1");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -343,8 +326,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbExpBin("a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -363,8 +345,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbExpBin("A");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -383,8 +364,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbHexEnd("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -403,8 +383,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbHexEnd("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -423,8 +402,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbHexEnd("1");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -443,8 +421,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbHexEnd("a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -463,8 +440,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbHexEnd("A");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -483,8 +459,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -505,8 +480,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -527,8 +501,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("$if");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -549,8 +522,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getPrimTypes().setAliasPrimInteger("0a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -571,8 +543,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("$if");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -595,8 +566,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -619,8 +589,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("ab");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -643,8 +612,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("0a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -667,8 +635,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("a..b");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -691,8 +658,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("$int");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -715,8 +681,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().setDefaultPkg("pkg");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -739,8 +704,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("java");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -763,8 +727,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getCharSeq().setAliasLength("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -789,8 +752,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getCharSeq().setAliasLength("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -815,8 +777,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getCharSeq().setAliasLength("0a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -841,8 +802,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getCharSeq().setAliasLength("$if");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -867,8 +827,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getCharSeq().setAliasLength("$int");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -893,8 +852,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -921,8 +879,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -949,8 +906,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("0a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -977,8 +933,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("$int");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1005,8 +960,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasMaxValueField("$if");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1033,8 +987,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordCase("$abstract");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1062,8 +1015,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordEscBound("n");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1092,8 +1044,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordEscBound("nou");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1122,8 +1073,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordEscUnicode("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1152,8 +1102,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordEscUnicode("f");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1182,8 +1131,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordEscBound("");
         kw_.setKeyWordEscUnicode("f0");
@@ -1213,8 +1161,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordEscUnicode("f0");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1243,8 +1190,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbSufLong("Y");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1277,8 +1223,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         kw_.setKeyWordNbBin("x");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1312,8 +1257,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getPrimTypes().setAliasPrimBoolean("$byte");
         lgName_.getContent().getNbAlias().setAliasMaxValueField("MIN_VALUE");
@@ -1354,8 +1298,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1378,8 +1321,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getNbAlias().setAliasInteger("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1402,8 +1344,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getPredefTypes().setAliasIterableTableVarFirst(",E");
         lgName_.getContent().getPredefTypes().setAliasIterableTableVarSecond("0E");
@@ -1448,8 +1389,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getPredefTypes().setAliasIterableTableVarFirst("E");
         lgName_.getContent().getPredefTypes().setAliasIterableTableVarSecond("E");
@@ -1491,8 +1431,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1517,8 +1456,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("<");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1543,8 +1481,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("0a");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1569,8 +1506,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("$if");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1595,8 +1531,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getPredefTypes().getParams().setAliasSeedGenerator0Get0("$int");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1621,8 +1556,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         lgName_.getContent().getPredefTypes().setAliasHasNextPair("hasNext");
         AnalyzedPageEl s_ = getCtx(kw_, lgName_);
@@ -1663,8 +1597,7 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail67Test() {
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         kw_.setKeyWordNbDig0("");
         kw_.setKeyWordNbDig1("0");
@@ -1698,8 +1631,7 @@ public class LgNamesTest extends ProcessMethodCommon {
     @Test
     public void fail68Test() {
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
 
         kw_.setKeyWordNbDig0("F");
         kw_.setKeyWordNbDig1("F");
@@ -1770,8 +1702,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         lgName_.getCharSeq().getParams().setAliasCharSequence0SubSequence0("");
         lgName_.getCharSeq().getParams().setAliasCharSequence0SubSequence1("");
         lgName_.getCharSeq().getParams().setAliasCharSequence0CharAt0("");
@@ -2382,8 +2313,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         srcFiles_.put("src/Ex", xml_.toString());
         StringMap<String> others_ = new StringMap<String>();
@@ -2429,8 +2359,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         
         
         KeyWords kw_ = new KeyWords();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         
         srcFiles_.put("src/Ex", xml_.toString());
         StringMap<String> others_ = new StringMap<String>();

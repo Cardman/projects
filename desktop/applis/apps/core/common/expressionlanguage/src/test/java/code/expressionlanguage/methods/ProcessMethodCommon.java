@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.*;
-import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
@@ -177,21 +176,16 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static boolean covErr(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+        
         validate(_files,page_,forwards_);
+        page_.getMessages().displayErrors();
         return !isEmptyErrors(page_);
     }
 
@@ -199,83 +193,47 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+        
         return validateAndCheckNoReportErrors(_files, page_,forwards_);
     }
     protected static StringMap<String> ctxErrReadOnly(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndCheckReportErrors(_files, page_,forwards_);
+
+        return repErrs(_files, opt_, lgName_, kw_);
     }
     protected static StringMap<String> ctxErrReadOnlyImpl(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndCheckReportErrors(_files, page_,forwards_);
+
+        return repErrs(_files, opt_, lgName_, kw_);
     }
 
     protected static StringMap<String> ctxErrStdReadOnly(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndCheckReportErrors(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return repErrs(_files, opt_, lgName_, kwl_);
     }
 
     protected static StringMap<String> ctxWarnStdReadOnly(StringMap<String> _files) {
@@ -286,20 +244,14 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         warningShow_.setUnusedParameterStaticMethod(true);
         opt_.setWarningShow(warningShow_);
         opt_.setGettingErrors(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
+        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
+        
         return validateAndCheckReportWarnings(_files, page_,forwards_);
     }
 
@@ -308,21 +260,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndCheckReportErrors(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return repErrs(_files, opt_, lgName_, kwl_);
     }
     protected static StringMap<String> ctxErrStdReadOnlyImpl2(StringMap<String> _files) {
         Options opt_ = newOptions();
@@ -330,21 +272,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setGettingErrors(true);
         opt_.setDisplayImplicit(true);
         opt_.setEncodeHeader(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndCheckReportErrors(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return repErrs(_files, opt_, lgName_, kwl_);
     }
 
     protected static StringMap<String> export(ContextEl _cont) {
@@ -354,21 +286,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return cov(_files, opt_, lgName_, kwl_);
     }
 
     protected static ContextEl covEnReadOnlyImpl(StringMap<String> _files) {
@@ -376,21 +298,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return cov(_files, opt_, lgName_, kwl_);
     }
 
     protected static ContextEl covEnReadOnlyImpl2(StringMap<String> _files) {
@@ -399,230 +311,121 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return cov(_files, opt_, lgName_, kwl_);
     }
 
     protected static ContextEl covEn(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return cov(_files, opt_, lgName_, kwl_);
     }
 
     protected static ContextEl covValEn(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return getContextEl(_files, opt_, lgName_, kwl_);
     }
 
     protected static ContextEl contextElEnum(StringMap<String> _files) {
         Options opt_ = newOptions();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
+        LgNames lgName_ = getLgNames();
         lgName_.getContent().getPredefTypes().setAliasEnumName("name");
         lgName_.getContent().getPredefTypes().setAliasEnumOrdinal("ordinal");
-        AnalysisMessages a_ = new AnalysisMessages();
+        
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected static boolean ctxMustInitFail(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        validateAll(_files, page_,forwards_);
-        ReportedMessages reportedMessages_ = page_.getMessages();
-        reportedMessages_.displayErrors();
-        return !reportedMessages_.isAllEmptyErrors();
+
+        return inval(_files,opt_,lgName_,kw_);
     }
 
-    protected static ContextEl validateAll(StringMap<String> _files, AnalyzedPageEl _cont, Forwards _fwd) {
-        return Classes.validateAll(_files, _cont, _fwd);
+    protected static ResultContext validateAll(StringMap<String> _files, AnalyzedPageEl _cont, Forwards _fwd) {
+        return new ResultContext(Classes.validateAll(_files, _cont, _fwd),_cont.getMessages());
     }
 
     protected static ContextEl ctxMustInit(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected static ContextEl contextElToString(StringMap<String> _files) {
         Options opt_ = newOptions();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordToString("toSpecString");
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected static boolean ok(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+
         validateAll(_files, page_,forwards_);
         return isEmptyErrors(page_);
     }
 
     protected static ContextEl ctxNoErrExp(StringMap<String> _files) {
         Options opt_ = newOptions();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
         kw_.setKeyWordNbExpBin("power");
         kw_.setKeyWordNbExpDec("exp");
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected static ContextEl contextElDefault(StringMap<String> _files, int _i) {
         Options opt_ = newOptions();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(_i);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+        
+        return getResContextEl(_files,opt_,lgName_,kw_,_i).getContext();
     }
 
     protected static ContextEl contextElTypes(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_, "pkg.ExTwo", "pkg.ExThree", "pkg.ExFour", "Biz");
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected static void addTypesInit(Options _opt, String... _types) {
@@ -632,88 +435,52 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl ctxResOk(StringMap<String> _srcFiles, StringMap<String> _all) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+        
         page_.addResources(_all);
-        return validateAndRet(_srcFiles, page_,forwards_);
+        return validateAndRet(_srcFiles, page_,forwards_).getContext();
     }
 
     protected static ContextEl ctxOk(StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         addTypesInit(opt_, _types);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected static ContextEl ctxOkRead(StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected static ContextEl ctxOkReadSeed(StringMap<String> _files, String _seed) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setSeedElts(_seed);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
-    private static ContextEl validateAndRet(StringMap<String> _files, AnalyzedPageEl _cont, Forwards _fwd) {
-        ContextEl ctx_ = validateAll(_files, _cont, _fwd);
+    protected static ResultContext validateAndRet(StringMap<String> _files, AnalyzedPageEl _cont, Forwards _fwd) {
+        ResultContext ctx_ = validateAll(_files, _cont, _fwd);
         assertTrue(isEmptyErrors(_cont));
         return ctx_;
     }
@@ -721,27 +488,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl ctxLgOk(String _lg,StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         addTypesInit(opt_, _types);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_;
-        if (StringUtil.quickEq(_lg, "en")) {
-            kwl_ = KeyWordsMap.en();
-            KeyWordsMap.initEnStds(lgName_);
-        } else {
-            kwl_ = KeyWordsMap.fr();
-            KeyWordsMap.initFrStds(lgName_);
-        }
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords(_lg, lgName_);
+
+        return getContextEl(_files, opt_, lgName_, kwl_);
     }
 
     protected static ContextEl forwardAndClear(Forwards _cont) {
@@ -792,118 +543,57 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected boolean failValidateValue(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        validateWithoutInit(_files, page_);
-        ReportedMessages headers_ = page_.getMessages();
-        headers_.displayErrors();
-        return !isEmptyErrors(page_);
+
+        return inval(_files,opt_,lgName_,kw_);
     }
 
     protected static ContextEl ctxLgReadOnlyOk(String _lg,StringMap<String> _files, String... _types) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_, _types);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_;
-        if (StringUtil.quickEq(_lg, "en")) {
-            kwl_ = KeyWordsMap.en();
-            KeyWordsMap.initEnStds(lgName_);
-        } else {
-            kwl_ = KeyWordsMap.fr();
-            KeyWordsMap.initFrStds(lgName_);
-        }
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords(_lg, lgName_);
+
+        return getContextEl(_files, opt_, lgName_, kwl_);
     }
 
     protected static boolean hasErrLgReadOnly(String _lg,StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_;
-        if (StringUtil.quickEq(_lg, "en")) {
-            kwl_ = KeyWordsMap.en();
-            KeyWordsMap.initEnStds(lgName_);
-        } else {
-            kwl_ = KeyWordsMap.fr();
-            KeyWordsMap.initFrStds(lgName_);
-        }
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return invalid(_files, page_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords(_lg, lgName_);
+
+        return inval(_files,opt_,lgName_,kwl_);
     }
 
     protected static ContextEl ctxReadOnlyOk(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
 
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected ContextEl validateStaticFields(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+        
         return validQuick(_files, page_,forwards_);
     }
 
@@ -926,64 +616,28 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected StringMap<StringMap<Struct>> validateStaticFieldsFail(StringMap<String> _files) {
         Options opt_ = newOptions();
 
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        validateWithoutInit(_files, page_);
-        assertTrue(!isEmptyErrors(page_));
+        Forwards forwards_ = getForwards(opt_, lgName_, kw_, page_);
+
+        assertTrue(invalid(_files, page_));
         return forwards_.getStaticFields();
     }
 
     protected boolean failValidateInheritingClassesValue(StringMap<String> _files) {
         Options opt_ = newOptions();
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        parseCustomFiles(_files, page_);
-        assertTrue( isEmptyErrors(page_));
-        validateInheritingClasses(page_);
-        return !isEmptyErrors(page_);
-    }
+        LgNames lgName_ = getLgNames();
 
-    protected boolean failValidateInheritingClassesSingleValue(StringMap<String> _files) {
-        Options opt_ = newOptions();
-
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
+
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
+        getForwards(opt_,lgName_,kw_,page_);
+        
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
         validateInheritingClasses(page_);
@@ -1028,42 +682,22 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static ContextEl cov(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+
+        return cov(_files, opt_, lgName_, kw_);
     }
 
     protected static ContextEl covReadOnly(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+
+        return cov(_files, opt_, lgName_, kw_);
     }
 
     protected static ContextEl covReadOnlyImpl(StringMap<String> _files) {
@@ -1071,43 +705,21 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.setReadOnly(true);
         opt_.setCovering(true);
         opt_.setDisplayImplicit(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_, forwards_);
+
+        return cov(_files, opt_, lgName_, kw_);
     }
 
     protected static ContextEl covDisplay(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+        lgName_.getDisplayedStrings().setTrueString("\"");
+        lgName_.getDisplayedStrings().setFalseString("&");
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        page_.getDisplayedStrings().setTrueString("\"");
-        page_.getDisplayedStrings().setFalseString("&");
-        return validateCovAndRet(_files, page_,forwards_);
+        return cov(_files, opt_,lgName_,kw_);
     }
 
     protected static ContextEl covCom(StringMap<String> _files) {
@@ -1115,21 +727,11 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+
+        return cov(_files, opt_, lgName_, kw_);
     }
 
     protected static ContextEl covEnCom(StringMap<String> _files) {
@@ -1137,68 +739,32 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_ = KeyWordsMap.en();
-        KeyWordsMap.initEnStds(lgName_);
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords("en",lgName_);
+
+        return cov(_files, opt_, lgName_, kwl_);
     }
 
     protected static ContextEl covVal(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateCovAndRet(_files, page_,forwards_);
+
+        return cov(_files, opt_, lgName_, kw_);
     }
 
-
-    private static ContextEl validateCovAndRet(StringMap<String> _files, AnalyzedPageEl _page, Forwards _fwd) {
-        ResultContext ctx_ = validate(_files, _page, _fwd);
-        assertTrue(isEmptyErrors(_page));
-        return ctx_.getContext();
-    }
 
     protected static ContextEl covVal2(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setCovering(true);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return validateAndRet(_files, page_,forwards_);
+
+        return getContextEl(_files, opt_, lgName_, kw_);
     }
 
     protected static String getString(Argument _arg) {
@@ -1227,46 +793,25 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         warningShow_.setUnusedParameterStaticMethod(true);
         opt_.setWarningShow(warningShow_);
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        ContextEl ctx_ = validateAll(_files, page_,forwards_);
-        ReportedMessages methodHeaders_ = page_.getMessages();
-        assertTrue(isEmptyErrors(page_));
+
+        ResultContext ctx_ = getResContextEl(_files, opt_,lgName_, kw_);
+        ReportedMessages methodHeaders_ = ctx_.getReportedMessages();
         assertTrue(methodHeaders_.displayMessageErrors()+methodHeaders_.displayErrors()+methodHeaders_.displayStdErrors()+methodHeaders_.displayWarnings(),!methodHeaders_.isEmptyWarnings());
-        return ctx_;
+        return ctx_.getContext();
     }
 
     protected static boolean hasErrReadOnly(StringMap<String> _files) {
         Options opt_ = newOptions();
         opt_.setReadOnly(true);
 
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return invalid(_files, page_);
+
+        return inval(_files,opt_,lgName_,kw_);
     }
 
     protected static boolean hasErrDefCom(StringMap<String> _files) {
@@ -1274,24 +819,14 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         opt_.getComments().add(new CommentDelimiters("\\\\",new StringList("\r\n","\r","\n")));
         opt_.getComments().add(new CommentDelimiters("\\*",new StringList("*\\")));
 
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return invalid(_files, page_);
+        
+        return inval(_files,opt_,lgName_,kw_);
     }
 
-    private static boolean invalid(StringMap<String> _files, AnalyzedPageEl _cont) {
+    protected static boolean invalid(StringMap<String> _files, AnalyzedPageEl _cont) {
         validateWithoutInit(_files, _cont);
         return !isEmptyErrors(_cont);
     }
@@ -1299,47 +834,32 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     protected static boolean hasErr(StringMap<String> _files) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
-        LgNames lgName_ = new CustLgNames();
-        InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
+        LgNames lgName_ = getLgNames();
+
         KeyWords kw_ = new KeyWords();
-        int tabWidth_ = 4;
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(tabWidth_);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kw_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return invalid(_files, page_);
+
+        return inval(_files, opt_, lgName_, kw_);
     }
 
     protected static boolean hasErrLg(StringMap<String> _files, String _lg) {
         Options opt_ = newOptions();
         addTypesInit(opt_);
+        LgNames lgName_ = getLgNames();
+
+        KeyWords kwl_ = getKeyWords(_lg, lgName_);
+
+        return inval(_files,opt_,lgName_,kwl_);
+    }
+
+    protected static Forwards getForwards(LgNames lgName_, Options opt_) {
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
+        return new Forwards(lgName_, fileBuilder_, opt_);
+    }
+
+    protected static LgNames getLgNames() {
         LgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
-        AnalysisMessages a_ = new AnalysisMessages();
-        KeyWords kwl_;
-        if (StringUtil.quickEq(_lg, "en")) {
-            kwl_ = KeyWordsMap.en();
-            KeyWordsMap.initEnStds(lgName_);
-        } else {
-            kwl_ = KeyWordsMap.fr();
-            KeyWordsMap.initFrStds(lgName_);
-        }
-        new DefaultConstantsCalculator(lgName_.getNbAlias());
-        opt_.setTabWidth(4);
-        opt_.setStack(IndexConstants.INDEX_NOT_FOUND_ELT);
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards forwards_ = new Forwards(lgName_, fileBuilder_, opt_);
-        page_.setLogErr(forwards_.getGenerator());
-        validatedStds(a_, page_, forwards_, kwl_, opt_, lgName_);
-        assertTrue(page_.isEmptyStdError());
-        return invalid(_files, page_);
+        return lgName_;
     }
 
     protected static boolean isSuccessfulInitialized(ContextEl _cont, String _s) {
@@ -1354,8 +874,79 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return _cont.getLocks().getState(_cl) != InitClassState.NOT_YET;
     }
 
+    protected static Forwards getForwards(Options opt_, LgNames lgName_, KeyWords kw_, AnalyzedPageEl page_) {
+        Forwards forwards_ = getForwards(lgName_, opt_);
+
+        validatedStds(page_, forwards_, kw_, opt_, lgName_);
+        return forwards_;
+    }
+
+    protected static void validatedStds(AnalyzedPageEl page_, Forwards forwards_, KeyWords kw_, Options opt_, LgNames lgName_) {
+        validatedStds(new AnalysisMessages(),page_,forwards_,kw_,opt_,lgName_);
+        assertTrue(page_.isEmptyStdError());
+    }
     protected static void validatedStds(AnalysisMessages a_, AnalyzedPageEl page_, Forwards forwards_, KeyWords kw_, Options opt_, LgNames lgName_) {
+        page_.setLogErr(forwards_.getGenerator());
         ContextFactory.validateStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
    }
+
+    protected static ContextEl getContextEl(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_) {
+        return getResContextEl(_files, opt_, lgName_, kw_).getContext();
+    }
+
+    private static ContextEl cov(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_) {
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+
+        ResultContext ctx_ = validate(_files, page_, forwards_);
+        assertTrue(isEmptyErrors(page_));
+        return ctx_.getContext();
+    }
+
+    private static ResultContext getResContextEl(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_) {
+        return getResContextEl(_files, opt_, lgName_, kw_, IndexConstants.INDEX_NOT_FOUND_ELT);
+    }
+
+    private static ResultContext getResContextEl(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_, int _stack) {
+        setOpts(opt_, _stack);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+
+        return validateAndRet(_files, page_, forwards_);
+    }
+
+    private static boolean inval(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_) {
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        getForwards(opt_,lgName_,kw_,page_);
+
+        return invalid(_files, page_);
+    }
+
+    private static StringMap<String> repErrs(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kwl_) {
+        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
+
+        return validateAndCheckReportErrors(_files, page_, forwards_);
+    }
+
+    protected static void setOpts(Options opt_, int _i) {
+        opt_.setTabWidth(4);
+        opt_.setStack(_i);
+    }
+
+    protected static KeyWords getKeyWords(String _lg, LgNames lgName_) {
+        KeyWords kwl_;
+        if (StringUtil.quickEq(_lg, "en")) {
+            kwl_ = KeyWordsMap.en();
+            KeyWordsMap.initEnStds(lgName_);
+        } else {
+            kwl_ = KeyWordsMap.fr();
+            KeyWordsMap.initFrStds(lgName_);
+        }
+        return kwl_;
+    }
 
 }
