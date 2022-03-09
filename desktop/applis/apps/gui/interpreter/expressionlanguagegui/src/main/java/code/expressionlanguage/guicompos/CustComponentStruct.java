@@ -12,6 +12,7 @@ import code.gui.events.AbsMouseMotionListener;
 import code.gui.events.AbsMouseWheelListener;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
@@ -28,7 +29,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     protected CustComponentStruct(String _className) {
         className = _className;
     }
-    public static void invokeLater(RunnableContextEl _run, AbstractProgramInfos _frames, Struct _r) {
+    public static void invokeLater(RunnableContextEl _run, AbstractLightProgramInfos _frames, Struct _r) {
         if (_r instanceof Runnable) {
             if (_run.getExecutingOptions().isInvokeDirect()) {
                 _run.getCurrentThreadFactory().newStartedThread((Runnable) _r);

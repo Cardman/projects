@@ -5,7 +5,7 @@ import code.gui.events.OtherAnswerTextEvent;
 import code.gui.events.OtherClosingDialogEvent;
 import code.gui.events.OtherCrossClosingDialogEvent;
 import code.gui.images.AbstractImage;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.AbstractLightProgramInfos;
 
 public final class OtherConfirmDialog {
 
@@ -21,9 +21,9 @@ public final class OtherConfirmDialog {
     private AbsTextField field;
 
     private String typedText;
-    private final AbstractProgramInfos infos;
+    private final AbstractLightProgramInfos infos;
 
-    public OtherConfirmDialog(AbstractProgramInfos _infos) {
+    public OtherConfirmDialog(AbstractLightProgramInfos _infos) {
         infos = _infos;
         dialog =_infos.getLightFrameFactory().newOtherDialog();
         dialog.addWindowListener(new OtherCrossClosingDialogEvent(this));

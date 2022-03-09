@@ -6,6 +6,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -160,7 +161,7 @@ public final class FrameUtil {
     public static void invokeLater(Runnable _r, AbsCompoFactory _compoFactory) {
         _compoFactory.invokeLater(_r);
     }
-    public static void invokeLater(Runnable _r, AbstractProgramInfos _compoFactory) {
+    public static void invokeLater(Runnable _r, AbstractLightProgramInfos _compoFactory) {
         _compoFactory.getCompoFactory().invokeLater(_r);
     }
 

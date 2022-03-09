@@ -5,14 +5,15 @@ import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.expressionlanguage.utilcompo.AbstractIssuer;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.MemInputFiles;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractThreadFactory;
 
 public abstract class AbsTestableFrame implements TestableFrame {
-    private final AbstractProgramInfos frames;
+    private final AbstractLightProgramInfos frames;
     private final AbstractIssuer issuer;
 
-    protected AbsTestableFrame(AbstractProgramInfos _frames, AbstractIssuer _issuer) {
+    protected AbsTestableFrame(AbstractLightProgramInfos _frames, AbstractIssuer _issuer) {
         this.frames = _frames;
         this.issuer = _issuer;
     }
@@ -31,7 +32,7 @@ public abstract class AbsTestableFrame implements TestableFrame {
         return frames.getThreadFactory();
     }
 
-    public AbstractProgramInfos getFrames() {
+    public AbstractLightProgramInfos getFrames() {
         return frames;
     }
 

@@ -46,8 +46,7 @@ public final class GuiProcess implements GuiRunnable {
     private String mName;
     private AbstractProgramInfos programInfos;
 
-    public static GuiProcess build(String _conf, String _content, GuiInterpreterElements _currentElements) {
-        AbstractProgramInfos programInfos_ = _currentElements.getProgramInfos();
+    public static GuiProcess build(String _conf, String _content, GuiInterpreterElements _currentElements,AbstractProgramInfos _original) {
         StringList mainArgs_ = new StringList(_conf);
         StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
@@ -62,7 +61,7 @@ public final class GuiProcess implements GuiRunnable {
         }
         String archive_ = linesFiles_.first();
         UniformingString app_ = new DefaultUniformingString();
-        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_, programInfos_.getFileCoreStream(), programInfos_.getStreams());
+        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_, _original.getFileCoreStream(), _original.getStreams());
         if (result_.getType() == OutputType.NOTHING) {
             return null;
         }
@@ -83,34 +82,34 @@ public final class GuiProcess implements GuiRunnable {
         }
 
 
-        ExecutingOptions exec_ = new ExecutingOptions(programInfos_.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions(_original.getThreadFactory().newAtomicBoolean());
         Options opt_ = new Options();
         RunningTest.setupOptionals(3, opt_, exec_,linesFiles_);
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();
             mainArgs_.add(0, _conf);
         }
-        AbstractNameValidating validator_ = programInfos_.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, programInfos_.getFileCoreStream(), programInfos_.getStreams()), new DefaultFileSystem(app_, validator_, programInfos_.getFileCoreStream(), programInfos_.getStreams()), new DefaultReporter(validator_, app_, false, new TechInfos(programInfos_.getThreadFactory(), programInfos_.getStreams()), programInfos_.getFileCoreStream()), programInfos_.getGenerator(), programInfos_.getStreams().getZipFact(), programInfos_.getThreadFactory());
+        AbstractNameValidating validator_ = _original.getValidator();
+        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _original.getFileCoreStream(), _original.getStreams()), new DefaultFileSystem(app_, validator_, _original.getFileCoreStream(), _original.getStreams()), new DefaultReporter(validator_, app_, false, new TechInfos(_original.getThreadFactory(), _original.getStreams()), _original.getFileCoreStream()), _original.getGenerator(), _original.getStreams().getZipFact(), _original.getThreadFactory());
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {
             return null;
         }
         opt_.setReadOnly(true);
-        LgNamesGui stds_ = new LgNamesGui(fileInfos_,programInfos_.getInterceptor());
+        LgNamesGui stds_ = new LgNamesGui(fileInfos_, _original.getInterceptor());
         ResultContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, _currentElements);
         ContextEl cont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getInfos());
-        String time_ = Clock.getDateTimeText("_", "_", "_", programInfos_.getThreadFactory());
+        String time_ = Clock.getDateTimeText("_", "_", "_", _original.getThreadFactory());
         if (!(cont_ instanceof GuiContextEl)) {
             MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();
             byte[] bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
             if (bytes_ != null) {
-                StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip(), programInfos_.getFileCoreStream());
-                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_, programInfos_.getStreams());
+                StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip(), _original.getFileCoreStream());
+                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_, _original.getStreams());
             }
             return null;
         }
@@ -120,7 +119,7 @@ public final class GuiProcess implements GuiRunnable {
         pr_.context = (GuiContextEl) cont_;
         pr_.clName = clName_;
         pr_.mName = mName_;
-        pr_.programInfos = programInfos_;
+        pr_.programInfos = _original;
         return pr_;
     }
     @Override

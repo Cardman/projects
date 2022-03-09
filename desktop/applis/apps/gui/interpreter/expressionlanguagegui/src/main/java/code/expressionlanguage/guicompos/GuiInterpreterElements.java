@@ -1,16 +1,17 @@
 package code.expressionlanguage.guicompos;
 
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class GuiInterpreterElements {
-    private final AbstractProgramInfos programInfos;
+    private final AbstractLightProgramInfos programInfos;
     private GuiRunnable guiRunnable;
 
     public GuiInterpreterElements(AbstractProgramInfos _programInfos) {
         this.programInfos = _programInfos;
     }
 
-    public AbstractProgramInfos getProgramInfos() {
+    public AbstractLightProgramInfos getProgramInfos() {
         return programInfos;
     }
 

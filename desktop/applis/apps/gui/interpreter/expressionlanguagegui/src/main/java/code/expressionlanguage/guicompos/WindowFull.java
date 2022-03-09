@@ -86,7 +86,7 @@ public final class WindowFull extends GroupFrame {
             return;
         }
         String txt_ = conf.getText().trim();
-        GuiRunnable current_ = GuiProcess.build("", txt_, getCurrentElements());
+        GuiRunnable current_ = GuiProcess.build("", txt_, getCurrentElements(),getFrames());
         currentElements.setGuiRunnable(current_);
         if (current_ == null) {
             return;
@@ -101,7 +101,7 @@ public final class WindowFull extends GroupFrame {
         if (content_ == null) {
             return;
         }
-        GuiRunnable current_ = GuiProcess.build(_fichier, content_, getCurrentElements());
+        GuiRunnable current_ = GuiProcess.build(_fichier, content_, getCurrentElements(),getFrames());
         currentElements.setGuiRunnable(current_);
         if (current_ == null) {
             return;

@@ -1,6 +1,7 @@
 package code.vi.sys.impl;
 
 
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.vi.prot.impl.AdvGraphicComboBoxGenerator;
 import code.vi.prot.impl.AdvGraphicListGeneratorStr;
@@ -13,7 +14,7 @@ public final class OtherProgramInfos extends ProgramInfos {
     }
 
     @Override
-    public AbstractProgramInfos light() {
+    public AbstractLightProgramInfos light() {
         return new LigOtherProgramInfos(getGenerator());
     }
 }

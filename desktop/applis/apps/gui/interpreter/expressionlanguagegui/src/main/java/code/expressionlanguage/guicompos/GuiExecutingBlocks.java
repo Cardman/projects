@@ -18,10 +18,7 @@ import code.gui.GuiConstants;
 import code.gui.OtherConfirmDialog;
 import code.gui.events.AbsWindowListener;
 import code.gui.images.AbstractImageFactory;
-import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbsLightFrameFactory;
-import code.gui.initialize.AbstractAdvGraphicListGenerator;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.*;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -73,7 +70,7 @@ public final class GuiExecutingBlocks {
     public void initApplicationParts(StringList _mainArgs, GuiInterpreterElements _currentElements) {
         mainArgs = _mainArgs;
         guiInterpreterElements = _currentElements;
-        AbstractProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
+        AbstractLightProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
         textLabel = programInfos_.getCompoFactory().newPlainLabel("");
         confirm = new OtherConfirmDialog(programInfos_);
     }
@@ -529,7 +526,7 @@ public final class GuiExecutingBlocks {
         }
     }
 
-    public AbstractProgramInfos getFrames() {
+    public AbstractLightProgramInfos getFrames() {
         return guiInterpreterElements.getProgramInfos();
     }
 
