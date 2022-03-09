@@ -32,6 +32,7 @@ public interface AbstractProgramInfos {
     AbstractNameValidating getValidator();
     AbstractGraphicStringListGenerator getGeneGraphicList();
     AbstractGraphicComboBoxGenerator getGeneComboBox();
+    AbstractAdvGraphicListGenerator getGeneStrCompo();
     AbsCompoFactory getCompoFactory();
     AbstractImageFactory getImageFactory();
 

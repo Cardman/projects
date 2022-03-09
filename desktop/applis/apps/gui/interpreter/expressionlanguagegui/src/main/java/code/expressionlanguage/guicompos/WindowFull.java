@@ -30,9 +30,9 @@ public final class WindowFull extends GroupFrame {
     private final StringMap<String> messages;
     private final GuiInterpreterElements currentElements;
 
-    protected WindowFull(String _lg, AbstractProgramInfos _list, GuiFactroy _guiFactroy) {
+    protected WindowFull(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
-        currentElements = new GuiInterpreterElements(getFrames(),_guiFactroy);
+        currentElements = new GuiInterpreterElements(getFrames());
         setAccessFile("launcher.mainwindow");
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/gui/messages", getLanguageKey(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmGuiGr.ms().getVal(fileName_);

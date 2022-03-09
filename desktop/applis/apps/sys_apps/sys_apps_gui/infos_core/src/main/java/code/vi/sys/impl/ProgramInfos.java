@@ -59,6 +59,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     private final AbsCompoFactory compoFactory;
     private final AbstractImageFactory imageFactory;
     private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
+    private final AbstractAdvGraphicListGenerator geneStrCompo;
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
     private final TechStreams streams;
@@ -68,7 +69,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     private final AbsLightFrameFactory lightFrameFactory;
     private final StringList excludedFolders;
 
-    protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
+    protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator,AbstractAdvGraphicListGenerator _graphicListGenerator) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = new DefaultFileCoreStream();
         DefFrameFactory frameFactory_ = new DefFrameFactory();
@@ -81,6 +82,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         imageFactory = new DefImageFactory();
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
+        geneStrCompo = _graphicListGenerator;
         homePath = StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME));
         tmpUserFolder = StringUtil.concat(initialize(),SEPARATEUR);
         generator = new AdvancedGenerator();
@@ -249,6 +251,11 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
     @Override
     public AbstractGraphicComboBoxGenerator getGeneComboBox() {
         return graphicComboBoxGenerator;
+    }
+
+    @Override
+    public AbstractAdvGraphicListGenerator getGeneStrCompo() {
+        return geneStrCompo;
     }
 
     @Override

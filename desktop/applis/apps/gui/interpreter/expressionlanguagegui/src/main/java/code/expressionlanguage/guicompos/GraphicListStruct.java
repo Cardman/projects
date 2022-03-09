@@ -22,7 +22,7 @@ public final class GraphicListStruct extends InputStruct {
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         super(_className);
         GuiExecutingBlocks guiEx_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks();
-        grList = guiEx_.getFact().getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(guiEx_.getImageFactory(),_ctx.getExecutionInfos()), new DefSpecSelectionCtx(_ctx.getExecutionInfos()));
+        grList = guiEx_.getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(guiEx_.getImageFactory(),_ctx.getExecutionInfos()), new DefSpecSelectionCtx(_ctx.getExecutionInfos()));
         init(_ctx);
     }
 

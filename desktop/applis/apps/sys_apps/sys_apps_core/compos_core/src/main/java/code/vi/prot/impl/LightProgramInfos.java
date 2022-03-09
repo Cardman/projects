@@ -30,6 +30,7 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
     private final AbsCompoFactory compoFactory;
     private final AbstractImageFactory imageFactory;
     private final AbstractGraphicComboBoxGenerator graphicComboBoxGenerator;
+    private final AbstractAdvGraphicListGenerator geneStrCompo;
     private final AbstractThreadFactory threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
     private final TechStreams streams;
@@ -37,7 +38,7 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
     private final AbstractSocketFactory socketFactory;
     private final AbsLightFrameFactory lightFrameFactory;
 
-    protected LightProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator, AbstractGenerator _gene) {
+    protected LightProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator,AbstractAdvGraphicListGenerator _graphicListGenerator, AbstractGenerator _gene) {
         threadFactory = new DefaultThreadFactory();
         fileCoreStream = null;
         lightFrameFactory = new DefLigFrameFactory();
@@ -48,6 +49,7 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
         imageFactory = new DefImageFactory();
         graphicStringListGenerator = _graphicStringListGenerator;
         graphicComboBoxGenerator = _graphicComboBoxGenerator;
+        geneStrCompo = _graphicListGenerator;
         homePath = "";
         tmpUserFolder = "";
         generator = _gene;
@@ -126,6 +128,10 @@ public abstract class LightProgramInfos implements AbstractProgramInfos {
         return graphicComboBoxGenerator;
     }
 
+    @Override
+    public AbstractAdvGraphicListGenerator getGeneStrCompo() {
+        return geneStrCompo;
+    }
     @Override
     public AbsClipStream openClip(byte[] _file) {
         return null;

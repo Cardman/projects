@@ -20,6 +20,7 @@ import code.gui.events.AbsWindowListener;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsLightFrameFactory;
+import code.gui.initialize.AbstractAdvGraphicListGenerator;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringList;
@@ -542,8 +543,8 @@ public final class GuiExecutingBlocks {
     public AbsLightFrameFactory getLightFrameFactory() {
         return guiInterpreterElements.getProgramInfos().getLightFrameFactory();
     }
-    public GuiFactroy getFact(){
-        return guiInterpreterElements.getGuiFactroy();
+    public AbstractAdvGraphicListGenerator getGraphicListGenerator(){
+        return guiInterpreterElements.getProgramInfos().getGeneStrCompo();
     }
     public FrameStruct getFrame() {
         return frame;

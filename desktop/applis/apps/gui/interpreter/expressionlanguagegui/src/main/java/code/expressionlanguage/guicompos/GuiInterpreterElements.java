@@ -4,20 +4,14 @@ import code.gui.initialize.AbstractProgramInfos;
 
 public final class GuiInterpreterElements {
     private final AbstractProgramInfos programInfos;
-    private final GuiFactroy guiFactroy;
     private GuiRunnable guiRunnable;
 
-    public GuiInterpreterElements(AbstractProgramInfos _programInfos, GuiFactroy _guiFactroy) {
+    public GuiInterpreterElements(AbstractProgramInfos _programInfos) {
         this.programInfos = _programInfos;
-        this.guiFactroy = _guiFactroy;
     }
 
     public AbstractProgramInfos getProgramInfos() {
         return programInfos;
-    }
-
-    public GuiFactroy getGuiFactroy() {
-        return guiFactroy;
     }
 
     public GuiRunnable getGuiRunnable() {
