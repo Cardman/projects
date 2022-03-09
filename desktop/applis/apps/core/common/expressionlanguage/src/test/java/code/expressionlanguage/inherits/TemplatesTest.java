@@ -1069,6 +1069,39 @@ public final class TemplatesTest extends ProcessMethodCommon {
     }
 
 
+    @Test
+    public void getFullTypeByBases15Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T,U,V>:pkg.ExTwo<T[],U[],V[]> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<S,R,Q>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number,java.lang.String,java.lang.Object>";
+        String second_ = "pkg.ExTwo<[#T>..Inner<[#U,[#V>";
+        String res_ = format(cont_, first_, second_);
+        assertEq("pkg.ExTwo<[java.lang.Number>..Inner<[java.lang.String,[java.lang.Object>",res_);
+    }
+
+    @Test
+    public void getFullTypeByBases16Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.Ex<T,U,V>:pkg.ExTwo<T[],U[],V[]> {}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        xml_ = new StringBuilder();
+        xml_.append("$public $interface pkg.ExTwo<S,R,Q>{}\n");
+        files_.put("pkg/ExTwo", xml_.toString());
+        ContextEl cont_ = unfullValidateOverridingMethods(files_);
+        String first_ = "pkg.Ex<java.lang.Number,java.lang.String,java.lang.Object>";
+        String second_ = "pkg.ExTwo<[#T,[#U>..Inner<[#V>";
+        String res_ = format(cont_, first_, second_);
+        assertEq("pkg.ExTwo<[java.lang.Number,[java.lang.String>..Inner<[java.lang.Object>",res_);
+    }
 
 
 
