@@ -35,7 +35,7 @@ public abstract class NatAbstractAffectOperation extends RendMethodOperation imp
     public static RendDynOperationNode getIdOp(RendMethodOperation _operation) {
         RendDynOperationNode root_ = _operation.getFirstChild();
         while (root_ instanceof NatIdOperation) {
-            root_ = root_.getFirstChild();
+            root_ = ((NatIdOperation)root_).getFirstChild();
         }
         return root_;
     }

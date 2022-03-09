@@ -359,12 +359,6 @@ public abstract class RendDynOperationNode {
         siblingSet = _siblingSet;
     }
 
-    public abstract RendDynOperationNode getFirstChild();
-
-    public void setOrder(int _order) {
-        content.setOrder(_order);
-    }
-
     public ImplicitMethods getImplicits() {
         return implicits;
     }

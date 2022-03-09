@@ -99,7 +99,6 @@ public final class RenderInitStdsTest extends CommonRender {
         Navigation nav_ = new Navigation();
         nav_.setSession(conf_);
         DualNavigationContext a_ = new DualNavigationContext(nav_, new DualAnalyzedContext(forwards_,page_,_beanLgNames,dual_));
-        CommonRender.getHeaders(_files, a_);
         return isEmptyErrors(a_);
     }
 

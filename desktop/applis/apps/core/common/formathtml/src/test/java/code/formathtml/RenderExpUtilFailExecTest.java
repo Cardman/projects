@@ -2215,14 +2215,6 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
         return build_;
     }
 
-    private static DualNavigationContext getConfigurationQuick(StringMap<String> _files, String... _types) {
-        Configuration conf_ = EquallableRenderUtil.newConfiguration();
-        DualNavigationContext a_ = buildNav(conf_,_types);
-        Classes.validateWithoutInit(_files, a_.getDualAnalyzedContext().getAnalyzed());
-        assertTrue(isEmptyErrors(a_));
-        return a_;
-    }
-
     private static Struct ex(StringMap<String> _files, String _el) {
         DualNavigationContext configurationQuick = getConfigurationQuick(_files);
         return checkEx3(configurationQuick, _el, new StringMap<LocalVariable>(), new StringMap<LoopVariable>(), new AnalyzingDoc());

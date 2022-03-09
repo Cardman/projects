@@ -5516,7 +5516,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(new StringStruct("8"));
         localVars_.put("arg", lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
         return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
     }
@@ -5533,7 +5533,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(BooleanStruct.of(false));
         localVars_.put("arg2", lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
         return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
     }
@@ -5550,7 +5550,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(_sec);
         localVars_.put("arg2", lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         return calcLow(_s, context_, localVariables, new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
@@ -5562,7 +5562,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(BooleanStruct.of(_b));
         localVars_.put("arg", lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         return calcLow(_s, context_, localVariables, new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
@@ -5574,7 +5574,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(new IntStruct(_i));
         localVars_.put(_varName, lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
         return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
     }
@@ -5622,7 +5622,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(BooleanStruct.of(_b2));
         localVars_.put("arg2", lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
         return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
     }
@@ -5667,7 +5667,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
         calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
         return lv_;
@@ -5681,7 +5681,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger());
         localVars_.put("v", lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
         calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
         return lv_;
@@ -5757,7 +5757,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         localVars_.put("v", lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
         AnalyzingDoc an_ = new AnalyzingDoc();
         setupAnalyzing(context_, localVariables, vars, an_);
@@ -5776,13 +5776,6 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return lv_;
     }
 
-    private static DualNavigationContext getConfigurationQuick(StringMap<String> _files,String... _types) {
-        Configuration conf_ = EquallableRenderUtil.newConfiguration();
-        DualNavigationContext a_ = buildNav(conf_,_types);
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
-        return a_;
-    }
 
 //    private static void setPairs(LocalVariable _lv) {
 //        ArrayStruct arrArr_ = new ArrayStruct(2, ARR_ARR_INT);
@@ -5955,7 +5948,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(_clasName);
         localVars_.put(_varName, lv_);
         StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRender.setLocalVars(localVars_, localVariables);
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
         assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
         return caculateReuse(ctx_, context_, all_, localVariables, new StringMap<LoopVariable>());

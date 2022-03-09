@@ -31,7 +31,7 @@ public abstract class RendMethodOperation extends RendDynOperationNode {
             int index_ = -1;
             boolean wr_ = false;
             if (c instanceof RendNamedArgumentOperation) {
-                RendDynOperationNode ch_ = c.getFirstChild();
+                RendDynOperationNode ch_ = ((RendNamedArgumentOperation)c).getFirstChild();
                 index_ = ((RendNamedArgumentOperation)c).getIndex();
                 wr_ = ch_ instanceof RendWrappOperation;
             } else if (c instanceof RendWrappOperation) {

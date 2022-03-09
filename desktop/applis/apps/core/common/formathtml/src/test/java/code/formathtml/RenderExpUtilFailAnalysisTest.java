@@ -7,12 +7,13 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class RenderExpUtilFailAnalysisTest extends CommonRender {
+public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
     private static final String ARR_INT = "[$int";
     @Test
     public void processEl448Test() {
@@ -296,21 +297,13 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRender {
     }
 
     private static boolean hasEr(StringMap<String> _files, String _s) {
-        Configuration conf_ = EquallableRenderUtil.newConfiguration();
-        DualNavigationContext a_ = buildNav(conf_);
-
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        DualNavigationContext a_ = getConfigurationQuick(_files);
         getCheckedConfiguration(a_, _s, new AnalyzingDoc());
         return !a_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors();
     }
 
     private static AnalyzedPageEl getCheckedConfigurationVar(String _intType, String _s, StringMap<String> _files) {
-        Configuration conf_ = EquallableRenderUtil.newConfiguration();
-        DualNavigationContext a_ = buildNav(conf_);
-
-        getHeaders(_files, a_);
-        assertTrue(isEmptyErrors(a_));
+        DualNavigationContext a_ = getConfigurationQuick(_files);
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(_intType);
         processFail(_s, a_, new AnalyzingDoc(), lv_, "v");

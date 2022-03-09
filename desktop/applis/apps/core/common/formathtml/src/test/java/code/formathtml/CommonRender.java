@@ -57,54 +57,12 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return nav_;
     }
 
-    protected static void setupAnalyzing(DualNavigationContext _analyzing, AnalyzingDoc _analyzingDoc, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
-
-        String globalClass_ = _analyzing.getDualAnalyzedContext().getAnalyzed().getGlobalClass();
-        setupAna(_analyzingDoc, _analyzing.getDualAnalyzedContext().getAnalyzed());
-        _analyzing.getDualAnalyzedContext().getAnalyzed().setGlobalType(new AnaFormattedRootBlock(_analyzing.getDualAnalyzedContext().getAnalyzed(),globalClass_));
-        for (EntryCust<String, LocalVariable> e: _localVariables.entryList()) {
-            AnaLocalVariable a_ = new AnaLocalVariable();
-            a_.setClassName(e.getValue().getClassName());
-            a_.setConstType(ConstType.LOC_VAR);
-            _analyzing.getDualAnalyzedContext().getAnalyzed().getInfosVars().put(e.getKey(), a_);
-        }
-        for (EntryCust<String,LoopVariable> e: _vars.entryList()) {
-            AnaLoopVariable a_ = new AnaLoopVariable();
-            a_.setIndexClassName(e.getValue().getIndexClassName());
-            _analyzing.getDualAnalyzedContext().getAnalyzed().getLoopsVars().put(e.getKey(), a_);
-        }
-    }
-
-    protected static void setupValues(ImportingPage _lastPage, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars) {
-        for (EntryCust<String, LocalVariable> e: _localVariables.entryList()) {
-            _lastPage.getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
-        }
-        for (EntryCust<String,LoopVariable> e: _vars.entryList()) {
-            _lastPage.getPageEl().getVars().addEntry(e.getKey(),e.getValue());
-        }
-//        _lastPage.setGlobalArgumentStruct(_analyzing.getArgument().getStruct(), _context);
-    }
-    protected static void setLocalVars(StringMap<LocalVariable> _localVars, StringMap<LocalVariable> _localVariables) {
-//        for (EntryCust<String, LocalVariable> e: _localVars.entryList()) {
-//            _importingPage.getLastPage().getPageEl().getRefParams().addEntry(e.getKey(),new VariableWrapper(e.getValue()));
-//        }
-        _localVariables.addAllEntries(_localVars);
-    }
-
     protected static boolean isEmptyErrors(DualNavigationContext _cont) {
         return isEmptyErrors(_cont.getDualAnalyzedContext().getAnalyzed());
     }
 
     protected static boolean isEmptyErrors(AnalyzedPageEl _cont) {
         return _cont.isEmptyErrors();
-    }
-
-    protected static void getHeaders(StringMap<String> _files, DualNavigationContext _cont) {
-        Classes.validateWithoutInit(_files, _cont.getDualAnalyzedContext().getAnalyzed());
-    }
-
-    protected static void setupAna(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
-        AnalyzingDoc.setupInts(_page, _analyzingDoc);
     }
 
     protected static Struct getStruct(Struct _struct, ClassField _cl) {
@@ -121,47 +79,6 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
     private static void setFiles(StringMap<String> _filesThree, Configuration _configuration) {
         _configuration.setFiles(_filesThree);
-    }
-
-    protected static CustList<OperationNode> getQuickAnalyzed(String _el, DualNavigationContext _conf, AnalyzingDoc _analyzingDoc) {
-        _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext());
-        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
-        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
-        setupAnalyzing(_conf, _analyzingDoc, localVariables_, vars_);
-//        Argument argGl_ = _conf.getArgument();
-        boolean static_ = true;
-        _conf.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
-        Delimiters d_ = checkSyntax(_conf, _el);
-        OperationsSequence opTwo_ = rendOpSeq(0, _conf, d_, _el, _analyzingDoc);
-        OperationNode op_ = rendOp(0, _conf, opTwo_, _analyzingDoc);
-        return getSortedDescNodes(_conf, op_, _analyzingDoc);
-    }
-
-    protected static OperationNode rendOp(int _i, DualNavigationContext _conf, OperationsSequence _opTwo, AnalyzingDoc analyzingDoc) {
-        return RenderAnalysis.createOperationNode(_i, IndexConstants.FIRST_INDEX, null, _opTwo, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed());
-    }
-
-    protected static OperationsSequence rendOpSeq(int _i, DualNavigationContext _conf, Delimiters _d, String _el, AnalyzingDoc analyzingDoc) {
-        return RenderAnalysis.getOperationsSequence(_i, _el, _d, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed());
-    }
-
-    protected static CustList<OperationNode> getSortedDescNodes(DualNavigationContext _conf, OperationNode _op, AnalyzingDoc analyzingDoc) {
-        return RenderAnalysis.getSortedDescNodes(_op, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed());
-    }
-
-    protected static OperationsSequence getOperationsSequence(int _offset, String _el, DualNavigationContext _ctx, Delimiters _d) {
-        return ElResolver.getOperationsSequence(_offset, _el, _d, _ctx.getDualAnalyzedContext().getAnalyzed());
-    }
-
-    protected static Delimiters checkSyntax(DualNavigationContext _ctx, String _elr) {
-        ResultExpression res_ = new ResultExpression();
-        AnalyzedPageEl analyzing_ = _ctx.getDualAnalyzedContext().getAnalyzed();
-        analyzing_.setCurrentParts(res_.getParts());
-        return ElResolver.checkSyntax(_elr, 0, analyzing_);
-    }
-
-    protected static OperationNode getOperationNode(int _ind, byte _ch, MethodOperation _par, OperationsSequence _opTwo, DualNavigationContext _ctx) {
-        return OperationNode.createOperationNode(_ind, _ch, _par, _opTwo, _ctx.getDualAnalyzedContext().getAnalyzed());
     }
 
     protected static void setup(String _folder, String _relative, DualConfigurationContext _dual) {
@@ -982,40 +899,5 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return BeanCustLgNames.getRes(_configuration.getRendDocumentBlock(), _configuration, _advStandards, _ctx, _rendStackCall);
     }
 
-    protected static CustList<RendDynOperationNode> getReducedNodes(RendDynOperationNode _root) {
-        CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
-        RendDynOperationNode current_ = _root;
-        while (current_ != null) {
-            RendDynOperationNode op_ = current_.getFirstChild();
-            if (op_ != null) {
-                if (current_.getArgument() == null) {
-                    current_ = op_;
-                    continue;
-                }
-            }
-            while (true) {
-                current_.setOrder(out_.size());
-                out_.add(current_);
-                op_ = current_.getNextSibling();
-                if (op_ != null) {
-                    current_ = op_;
-                    break;
-                }
-                op_ = current_.getParent();
-                if (op_ == _root) {
-                    op_.setOrder(out_.size());
-                    out_.add(op_);
-                    current_ = null;
-                    break;
-                }
-                if (op_ == null) {
-                    current_ = null;
-                    break;
-                }
-                current_ = op_;
-            }
-        }
-        return out_;
-    }
 
 }

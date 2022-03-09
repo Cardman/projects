@@ -76,7 +76,7 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
     public static RendDynOperationNode getIdOp(RendAbstractAffectOperation _operation) {
         RendDynOperationNode root_ = anc(_operation);
         if (root_ instanceof RendNamedArgumentOperation) {
-            root_ = root_.getFirstChild();
+            root_ = ((RendNamedArgumentOperation)root_).getFirstChild();
         }
         return deepId(root_);
     }
@@ -84,7 +84,7 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
     public static RendDynOperationNode deepId(RendDynOperationNode _root) {
         RendDynOperationNode root_ = _root;
         while (root_ instanceof RendIdOperation) {
-            root_ = root_.getFirstChild();
+            root_ = ((RendIdOperation)root_).getFirstChild();
         }
         return root_;
     }
@@ -92,7 +92,7 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
     public static RendDynOperationNode getCastIdOp(RendAbstractAffectOperation _operation) {
         RendDynOperationNode root_ = getIdOp(_operation);
         if (root_ instanceof RendCastOperation) {
-            root_ = root_.getFirstChild();
+            root_ = ((RendCastOperation)root_).getFirstChild();
         }
         return deepId(root_);
     }
