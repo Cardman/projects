@@ -20,16 +20,16 @@ public final class TryReplacingType extends AbstractReplacingType {
         return false;
     }
 
-    private static boolean tryReplaceType(StringBuilder _str, String _value) {
+    private boolean tryReplaceType(StringBuilder _str, String _value) {
         int j_ = getMaxIndex(_str, _str.length() - 1);
         if (_value.startsWith(SUB_TYPE)) {
-            if (isSubOrSubChar(_str, j_)) {
+            if (koType(_str, j_)) {
                 return true;
             }
             _str.insert(j_ + 1, SUB_TYPE);
             _str.append(_value.substring(SUB_TYPE.length()));
         } else if (_value.startsWith(SUP_TYPE)) {
-            if (isSubOrSubChar(_str, j_)) {
+            if (koType(_str, j_)) {
                 return true;
             }
             _str.insert(j_ + 1, SUP_TYPE);
@@ -38,6 +38,10 @@ public final class TryReplacingType extends AbstractReplacingType {
             _str.append(_value);
         }
         return false;
+    }
+
+    private boolean koType(StringBuilder _str, int _j) {
+        return isSubOrSubChar(_str, _j) || !isVariable();
     }
 
 }

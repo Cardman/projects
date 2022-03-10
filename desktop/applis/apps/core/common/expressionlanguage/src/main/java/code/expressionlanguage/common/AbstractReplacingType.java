@@ -61,6 +61,11 @@ public abstract class AbstractReplacingType {
         }
         return StringExpUtil.isDollarWordChar(_ch);
     }
+
+    protected boolean isVariable() {
+        return variable;
+    }
+
     protected int getDiese() {
         return diese;
     }
