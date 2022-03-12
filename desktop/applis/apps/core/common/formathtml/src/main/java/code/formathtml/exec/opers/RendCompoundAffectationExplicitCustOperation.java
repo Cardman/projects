@@ -27,6 +27,7 @@ public final class RendCompoundAffectationExplicitCustOperation extends RendComp
     @Override
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         ArgumentWrapper argumentWrapper_ = RendExplicitOperatorOperation.checkParametersOperatorsFormatted(this, pair, staticEltContent, _nodes, _context, _rendStack);
+        setWrapper(_nodes, argumentWrapper_);
         process(this,_nodes, _advStandards, _context, _rendStack,argumentWrapper_.getValue());
     }
 

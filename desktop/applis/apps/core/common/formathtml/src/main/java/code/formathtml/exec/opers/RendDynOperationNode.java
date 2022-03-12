@@ -154,12 +154,16 @@ public abstract class RendDynOperationNode {
 
 
     public final void setSimpleArgument(ArgumentWrapper _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
-        AbstractWrapper wrapper_ = _argument.getWrapper();
-        if (wrapper_ != null) {
-            getArgumentPair(_nodes,this).setWrapper(wrapper_);
-        }
+        setWrapper(_nodes, _argument);
         setQuickConvertSimpleArgument(_argument.getValue(), _nodes, _context, _rendStackCall);
         setNextSiblingsArg(_nodes, _context, _rendStackCall);
+    }
+
+    protected void setWrapper(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ArgumentWrapper _wrapper) {
+        AbstractWrapper wr_ = _wrapper.getWrapper();
+        if (wr_ != null) {
+            getArgumentPair(_nodes,this).setWrapper(wr_);
+        }
     }
 
     public final void setSimpleArgument(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStackCall) {
