@@ -295,6 +295,32 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
     }
 
     @Test
+    public void calculateArgument10_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $operator++ $int (Ex a){\n");
+        xml_.append("  $return a.a+1;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $int a;\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  Ex one = $new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  $if ($operator(++,Ex)(one) != 6i){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 2i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument11Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
