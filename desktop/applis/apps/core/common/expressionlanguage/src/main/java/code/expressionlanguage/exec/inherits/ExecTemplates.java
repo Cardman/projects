@@ -956,24 +956,8 @@ public final class ExecTemplates {
         return new Argument(locVar_.getStruct());
     }
 
-    public static Argument setWrapValue(ContextEl _context, ExecVariableContent _varCont, Argument _value, StackCall _stackCall) {
-        return setWrapValue(_context,_varCont,_value, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
-    }
-    public static Argument setWrapValue(ContextEl _context, ExecVariableContent _varCont, Argument _value, Cache _cache, StringMap<AbstractWrapper> _vars, StackCall _stackCall) {
-        return setWrapValue(_context,_varCont.getVariableName(),_value,_varCont.getDeep(), _cache, _vars, _stackCall);
-    }
     public static Argument setWrapValue(ContextEl _context, String _val, Argument _value, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams, StackCall _stackCall) {
-        if (_context.callsOrException(_stackCall)) {
-            return new Argument();
-        }
-        if (_cache != null) {
-            AbstractWrapper wr_ = _cache.getLocalWrapper(_val, _deep);
-            if (wr_ != null) {
-                wr_.setValue(_stackCall, _context,_value);
-                return _value;
-            }
-        }
-        AbstractWrapper wr_ = _refParams.getVal(_val);
+        AbstractWrapper wr_ = getWrapper(_val,_deep,_cache,_refParams);
         return trySetArgument(_context,_value,wr_, _stackCall);
     }
 

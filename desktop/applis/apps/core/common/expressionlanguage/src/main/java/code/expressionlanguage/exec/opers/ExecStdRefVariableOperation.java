@@ -47,7 +47,7 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
 
     @Override
     public Argument calculateSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stack) {
-        return trySetArgument(_conf, _right, _stack);
+        return trySetArgument(_nodes,_conf, _right, _stack);
     }
 
     @Override
@@ -55,8 +55,9 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
         return variableContent.isVariable();
     }
 
-    private Argument trySetArgument(ContextEl _conf, Argument _res, StackCall _stackCall) {
-        return ExecTemplates.setWrapValue(_conf,variableContent, _res, _stackCall);
+    private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, StackCall _stackCall) {
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
+        return ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
     }
     public boolean isDeclare() {
         return declare;

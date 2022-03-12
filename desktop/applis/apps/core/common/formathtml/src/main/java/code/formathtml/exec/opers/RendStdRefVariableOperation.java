@@ -53,11 +53,12 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
 
     @Override
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        return trySetArgument(_context, _right, _rendStack);
+        return trySetArgument(_nodes,_context, _right, _rendStack);
     }
 
-    private Argument trySetArgument(ContextEl _conf, Argument _res, RendStackCall _rendStackCall) {
-        return processCall(ExecTemplates.setWrapValue(_conf,variableContent, _res, _rendStackCall.getLastPage().getPageEl().getCache(), _rendStackCall.getLastPage().getPageEl().getRefParams(), _rendStackCall.getStackCall()),_conf,_rendStackCall).getValue();
+    private Argument trySetArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, RendStackCall _rendStackCall) {
+        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
+        return processCall(ExecTemplates.trySetArgument(_conf, _res, pair_, _rendStackCall.getStackCall()),_conf,_rendStackCall).getValue();
     }
 
     public boolean isDeclare() {
