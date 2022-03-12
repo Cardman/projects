@@ -1147,6 +1147,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         for (int i = 0; i < len_; i++) {
             int index_ = rcs_.getKey(i);
             String value_ = rcs_.getValue(i);
+            boolean wc_ = false;
             String result_;
             if (this instanceof InnerElementBlock) {
                 int o_ = 1;
@@ -1183,7 +1184,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             } else {
                 int off_ = StringUtil.getFirstPrintableCharIndex(value_);
                 AnaResultPartType resType_ = ResolvingSuperTypes.processAnalyzeHeader(value_.trim(), this, off_ + index_, _page, true);
-                ResolvingSuperTypes.loopWildCards(this, off_ + index_, _page, resType_);
+                wc_ = ResolvingSuperTypes.loopWildCards(this, off_ + index_, _page, resType_);
                 result_ = resType_.getResult();
                 results.add(resType_);
             }
@@ -1194,7 +1195,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             } else {
                 importedDirectSuperClass = result_;
             }
-            if (r_ != null) {
+            if (r_ != null&&!wc_) {
                 importedDirectSuperTypes.add(new AnaFormattedRootBlock(r_, result_));
             }
         }

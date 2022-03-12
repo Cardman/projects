@@ -6641,4 +6641,27 @@ public final class ProcessMethodReferenceTest extends ProcessMethodCommon {
         assertTrue(hasErrReadOnly(files_));
     }
 
+    @Test
+    public void calculateArgument78FailTest() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public class Inner {\n");
+        xml_.append("  public int field;\n");
+        xml_.append("  public(int p){\n");
+        xml_.append("   field=p;\n");
+        xml_.append("  }\n");
+        xml_.append("  public normal int get(){\n");
+        xml_.append("   return field;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Fct<int,Ex.Inner> c = new Ex().$lambda(Inner,new,int...,int);\n");
+        xml_.append("  Ex.Inner instance = c.call(14i);\n");
+        xml_.append("  return instance.get();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrLgReadOnly("en",files_));
+    }
 }

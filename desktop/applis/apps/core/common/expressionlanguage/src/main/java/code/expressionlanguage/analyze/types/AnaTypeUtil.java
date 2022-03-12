@@ -540,7 +540,7 @@ public final class AnaTypeUtil {
                     continue;
                 }
                 for (AnaFormattedRootBlock t: g_.getImportedDirectSuperTypesInfo()) {
-                    String format_ = AnaInherits.quickFormat(g_,s, t.getFormatted());
+                    String format_ = AnaInherits.format(g_,s, t.getFormatted());
                     addIfNotFound(visited_, new_, format_);
                 }
             }

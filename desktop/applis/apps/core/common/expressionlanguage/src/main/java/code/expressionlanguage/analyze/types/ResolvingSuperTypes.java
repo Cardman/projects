@@ -27,7 +27,8 @@ public final class ResolvingSuperTypes {
         _page.getAvailableVariables().putAllMap(variables_);
     }
 
-    public static void loopWildCards(RootBlock _ana, int _location, AnalyzedPageEl _page, AnaResultPartType _resType) {
+    public static boolean loopWildCards(RootBlock _ana, int _location, AnalyzedPageEl _page, AnaResultPartType _resType) {
+        boolean wc_ = false;
         for (String p:StringExpUtil.getWildCards(_resType.getResult())){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_ana.getFile());
@@ -38,7 +39,9 @@ public final class ResolvingSuperTypes {
                     _resType.getResult());
             _page.addLocError(call_);
             _ana.addNameErrors(call_);
+            wc_ = true;
         }
+        return wc_;
     }
 
     public static AnaResultPartType processAnalyzeHeader(String _in, RootBlock _ana, int _location, AnalyzedPageEl _page, boolean _rootName) {

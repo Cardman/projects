@@ -3417,7 +3417,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static void <a name=\"m42\">exmeth</a> (){\n" +
-                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m94\">Rec</a>&lt;?&gt;,new,<a title=\"pkg.Rec.field\" href=\"#m112\">field</a>);\n" +
+                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m94\">Rec</a>&lt;?&gt;,new,field);\n" +
                 " }\n" +
                 "}\n" +
                 "@class <a name=\"m94\">pkg.Rec</a>&lt;<a name=\"m102\">T</a>&gt; {\n" +
@@ -3857,7 +3857,7 @@ public final class ErrorsZTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
                 " public static void <a name=\"m42\">exmeth</a> (){\n" +
-                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m98\">Rec</a>&lt;?&gt;,new,<a title=\"pkg.Rec.field\" href=\"#m116\">field</a>);\n" +
+                "  <a title=\"The argument ? of the type pkg.Rec&lt;?&gt; is bound. It cannot be used in constructor call.\" class=\"e\">$lambda</a>(<a title=\"pkg.Rec\" href=\"#m98\">Rec</a>&lt;?&gt;,new,field);\n" +
                 " }\n" +
                 "}\n" +
                 "@interface <a name=\"m98\">pkg.Rec</a>&lt;<a name=\"m106\">T</a>&gt; {\n" +

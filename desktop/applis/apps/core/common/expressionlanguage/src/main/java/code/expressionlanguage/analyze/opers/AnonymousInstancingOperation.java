@@ -137,16 +137,8 @@ public final class AnonymousInstancingOperation extends
             addErr(call_.getBuiltError());
             return;
         }
-        for (String p:StringExpUtil.getWildCards(_realClassName)){
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //part type len
-            call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                    p,
-                    _realClassName);
-            _page.getLocalizer().addError(call_);
-            addErr(call_.getBuiltError());
+        if (StandardInstancingOperation.chWc(this,_realClassName,_page)) {
+            return;
         }
         CustList<String> args_ = StringExpUtil.getAllTypes(_realClassName).mid(1);
         CustList<TypeVar> cts_ = ((RootBlock) g_).getParamTypesMapValues();

@@ -261,11 +261,8 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         return StringExpUtil.getPrettyArrayType(idMethod_.getParametersType(lastIndex_));
     }
     public static void tryInfer(OperationNode _current, AnalyzedPageEl _page) {
-        AnaClassArgumentMatching arg_ = _current.getResultClass();
         MethodOperation m_ = _current.getParent();
-        boolean list_ = false;
         if (m_ instanceof ArgumentListInstancing){
-            list_ = true;
             m_ = m_.getParent().getParent();
         }
         if (m_ instanceof NamedArgumentOperation){
@@ -275,11 +272,6 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             if (call_ instanceof RetrieveMethod) {
                 RetrieveMethod f_ = (RetrieveMethod) call_;
                 NameParametersFilter filter_ = buildQuickFilter(_page,call_);
-                CustList<OperationNode> positional_ = filter_.getPositional();
-                int posSize_ = positional_.size();
-                CustList<NamedArgumentOperation> namedPrev_ = filter_.getParameterFilter();
-                int nbNames_ = namedPrev_.size()-1;
-                String returnType_ = emptIfVar(_page, filter_.getReturnType());
                 if (StringUtil.quickEq(filter_.getStaticCall(),"<>")) {
                     CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
                     int len_ = methodInfos_.size();
@@ -290,35 +282,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                             if (!isValidNameIndex(filter_,methodInfo_,name_)) {
                                 continue;
                             }
-                            if (methodInfo_.getConstraints().getKind() != MethodAccessKind.STATIC_CALL) {
-                                continue;
-                            }
-                            CustList<Matching> cts_ = new CustList<Matching>();
-                            for (int c = 0; c < posSize_; c++) {
-                                cts_.addAllElts(
-                                        AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), c, methodInfo_.getConstraints(),
-                                                methodInfo_.getClassName(),
-                                                _page.getCurrentConstraints().getCurrentConstraints(),
-                                                positional_.get(c).getResultClass(), methodInfo_.getOriginalReturnType(), returnType_, _page)
-                                );
-                            }
-                            for (int c = 0; c < nbNames_; c++) {
-                                NamedArgumentOperation calcName_ = namedPrev_.get(c);
-                                String namePr_ = calcName_.getName();
-                                int ind_ = StringUtil.indexOf(methodInfo_.getParametersNames(), namePr_);
-                                cts_.addAllElts(
-                                        AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), ind_, methodInfo_.getConstraints(),
-                                                methodInfo_.getClassName(),
-                                                _page.getCurrentConstraints().getCurrentConstraints(),
-                                                calcName_.getResultClass(), methodInfo_.getOriginalReturnType(), returnType_, _page)
-                                );
-                            }
-                            int ind_ = StringUtil.indexOf(methodInfo_.getParametersNames(), name_);
-                            String infer_ = AnaTemplates.tryInferMethodByOneArg(methodInfo_.getClassName(), ind_, methodInfo_.getConstraints(),
-                                    methodInfo_.getClassName(),
-                                    _page.getCurrentConstraints().getCurrentConstraints(),
-                                    arg_, methodInfo_.getOriginalReturnType(), returnType_, _page);
-                            tryReformat(_page, methodInfo_, infer_);
+                            tryRef(_page, methodInfo_, methodInfo_.getClassName(),filter_);
                         }
                     }
                 } else {
@@ -331,35 +295,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                             if (!isValidNameIndex(filter_,methodInfo_,name_)) {
                                 continue;
                             }
-                            if (methodInfo_.getConstraints().getKind() != MethodAccessKind.STATIC_CALL) {
-                                continue;
-                            }
-                            CustList<Matching> cts_ = new CustList<Matching>();
-                            for (int c = 0; c < posSize_; c++) {
-                                cts_.addAllElts(
-                                        AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), c, methodInfo_.getConstraints(),
-                                                filter_.getStaticCall(),
-                                                _page.getCurrentConstraints().getCurrentConstraints(),
-                                                positional_.get(c).getResultClass(), methodInfo_.getOriginalReturnType(), returnType_, _page)
-                                );
-                            }
-                            for (int c = 0; c < nbNames_; c++) {
-                                NamedArgumentOperation calcName_ = namedPrev_.get(c);
-                                String namePr_ = calcName_.getName();
-                                int ind_ = StringUtil.indexOf(methodInfo_.getParametersNames(), namePr_);
-                                cts_.addAllElts(
-                                        AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), ind_, methodInfo_.getConstraints(),
-                                                filter_.getStaticCall(),
-                                                _page.getCurrentConstraints().getCurrentConstraints(),
-                                                calcName_.getResultClass(), methodInfo_.getOriginalReturnType(), returnType_, _page)
-                                );
-                            }
-                            int ind_ = StringUtil.indexOf(methodInfo_.getParametersNames(), name_);
-                            String infer_ = AnaTemplates.tryInferMethodByOneArg(methodInfo_.getClassName(), ind_, methodInfo_.getConstraints(),
-                                    filter_.getStaticCall(),
-                                    _page.getCurrentConstraints().getCurrentConstraints(),
-                                    arg_, methodInfo_.getOriginalReturnType(), returnType_, _page);
-                            tryReformat(_page, methodInfo_, infer_);
+                            tryRef(_page, methodInfo_, filter_.getStaticCall(),filter_);
                         }
                     }
                 }
@@ -368,42 +304,16 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             return;
         }
         if (m_ instanceof RetrieveMethod){
-            CustList<OperationNode> childrenNodes_ = m_.getChildrenNodes();
+            NameParametersFilter filter_ = buildQuickFilter(_page,m_);
             RetrieveMethod f_ = (RetrieveMethod) m_;
-            OperationNode firstChild_ = f_.getFirstChild();
-            int deltaCount_ = getDeltaCount(list_,firstChild_);
-            int indexChild_ = _current.getIndexChild()-deltaCount_;
             CustList<CustList<MethodInfo>> methodInfos_ = f_.getMethodInfos();
             int len_ = methodInfos_.size();
-            FormattedFilter filter_ = getFormattedFilter(_page, m_);
-            String returnType_ = emptIfVar(_page, filter_.getReturnType());
-            int nbCh_ = Math.min(childrenNodes_.size()-1,indexChild_);
-            if (StringUtil.quickEq(filter_.getStCall(),"<>")) {
+            if (StringUtil.quickEq(filter_.getStaticCall(),"<>")) {
                 for (int i = 0; i < len_; i++) {
                     int gr_ = methodInfos_.get(i).size();
                     for (int j = 0; j < gr_; j++) {
                         MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        if (methodInfo_.getConstraints().getKind() != MethodAccessKind.STATIC_CALL) {
-                            continue;
-                        }
-                        CustList<Matching> cts_ = new CustList<Matching>();
-                        for (int c = 0; c < nbCh_; c++) {
-                            cts_.addAllElts(
-                                    AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), c, methodInfo_.getConstraints(),
-                                            methodInfo_.getClassName(),
-                                            _page.getCurrentConstraints().getCurrentConstraints(),
-                                            childrenNodes_.get(c).getResultClass(), methodInfo_.getOriginalReturnType(), returnType_, _page)
-                            );
-                        }
-                        cts_.addAllElts(
-                                AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), indexChild_, methodInfo_.getConstraints(),
-                                        methodInfo_.getClassName(),
-                                        _page.getCurrentConstraints().getCurrentConstraints(),
-                                        arg_, methodInfo_.getOriginalReturnType(), returnType_, _page)
-                        );
-                        String infer_ = AnaTemplates.tryInferMethodByOneArg(cts_,methodInfo_.getClassName(),
-                                _page.getCurrentConstraints().getCurrentConstraints(), _page);
-                        tryReformat(_page, methodInfo_, infer_);
+                        tryRef(_page, methodInfo_, methodInfo_.getClassName(),filter_);
                     }
                 }
             } else {
@@ -411,34 +321,47 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
                     int gr_ = methodInfos_.get(i).size();
                     for (int j = 0; j < gr_; j++) {
                         MethodInfo methodInfo_ = methodInfos_.get(i).get(j);
-                        if (methodInfo_.getConstraints().getKind() != MethodAccessKind.STATIC_CALL) {
-                            continue;
-                        }
-                        CustList<Matching> cts_ = new CustList<Matching>();
-                        for (int c = 0; c < nbCh_; c++) {
-                            cts_.addAllElts(
-                                    AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), c, methodInfo_.getConstraints(),
-                                            filter_.getStCall(),
-                                            _page.getCurrentConstraints().getCurrentConstraints(),
-                                            childrenNodes_.get(c).getResultClass(), methodInfo_.getOriginalReturnType(), returnType_, _page)
-                            );
-                        }
-                        cts_.addAllElts(
-                                AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), indexChild_, methodInfo_.getConstraints(),
-                                        filter_.getStCall(),
-                                        _page.getCurrentConstraints().getCurrentConstraints(),
-                                        arg_, methodInfo_.getOriginalReturnType(), returnType_, _page)
-                        );
-                        String infer_ = AnaTemplates.tryInferMethodByOneArg(cts_,
-                                filter_.getStCall(),
-                                _page.getCurrentConstraints().getCurrentConstraints(),
-                                _page);
-                        tryReformat(_page, methodInfo_, infer_);
+                        tryRef(_page, methodInfo_, filter_.getStaticCall(),filter_);
                     }
                 }
             }
 
         }
+    }
+
+    private static void tryRef(AnalyzedPageEl _page, MethodInfo methodInfo_, String _staticCall, NameParametersFilter _filter) {
+        if (methodInfo_.getConstraints().getKind() != MethodAccessKind.STATIC_CALL) {
+            return;
+        }
+        CustList<OperationNode> positional_ = _filter.getPositional();
+        int posSize_ = positional_.size();
+
+        CustList<NamedArgumentOperation> namedPrev_ = _filter.getParameterFilter();
+        int nbNames_ = namedPrev_.size();
+        String returnType_ = emptIfVar(_page, _filter.getReturnType());
+        CustList<Matching> cts_ = new CustList<Matching>();
+        for (int c = 0; c < posSize_; c++) {
+            cts_.addAllElts(
+                    AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), c, methodInfo_.getConstraints(),
+                            _staticCall,
+                            _page.getCurrentConstraints().getCurrentConstraints(),
+                            positional_.get(c).getResultClass(), methodInfo_.getOriginalReturnType(), returnType_, _page)
+            );
+        }
+        for (int c = 0; c < nbNames_; c++) {
+            NamedArgumentOperation calcName_ = namedPrev_.get(c);
+            String namePr_ = calcName_.getName();
+            int indLoc_ = StringUtil.indexOf(methodInfo_.getParametersNames(), namePr_);
+            cts_.addAllElts(
+                    AnaTemplates.tryInferMethodByOneArgList(methodInfo_.getClassName(), indLoc_, methodInfo_.getConstraints(),
+                            _staticCall,
+                            _page.getCurrentConstraints().getCurrentConstraints(),
+                            calcName_.getFirstChild().getResultClass(), methodInfo_.getOriginalReturnType(), returnType_, _page)
+            );
+        }
+        String infer_ = AnaTemplates.tryInferMethodByOneArg(cts_, _staticCall,
+                _page.getCurrentConstraints().getCurrentConstraints(), _page);
+        tryReformat(_page, methodInfo_, infer_);
     }
 
     private static void tryReformat(AnalyzedPageEl _page, MethodInfo _methodInfo, String _infer) {

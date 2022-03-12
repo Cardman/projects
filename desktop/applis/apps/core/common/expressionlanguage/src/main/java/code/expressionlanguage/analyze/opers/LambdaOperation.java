@@ -1467,10 +1467,20 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordId_ = keyWords_.getKeyWordId();
         checkAccessStatic(_page);
-        if (isIntermediateDottedOperation()) {
-            for (String o: previousResultClass.getNames()) {
-                checkWildCards(o,_page);
+        String clFrom_;
+        AnaFormattedRootBlock form_;
+        if (!isIntermediateDottedOperation()) {
+            int offset_ = className.indexOf('(') + 1;
+            offset_ += StringExpUtil.getOffset(_args.first());
+            AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
+            partOffsetsBegin.add(result_);
+            clFrom_ = result_.getResult(_page);
+            if (clFrom_.startsWith(ARR)) {
+                processArray(_args, _len, _page, clFrom_.substring(ARR.length()));
+                return;
             }
+            form_ = new AnaFormattedRootBlock(_page, clFrom_);
+        } else {
             for (String o: previousResultClass.getNames()) {
                 if (o.startsWith(ARR)) {
                     FoundErrorInterpret call_ = new FoundErrorInterpret();
@@ -1483,165 +1493,107 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     addErr(call_.getBuiltError());
                 }
             }
-            if (match(_args, _len, keyWordId_, 2)) {
-                StringList bounds_ = new StringList();
-                for (String c: previousResultClass.getNames()) {
-                    bounds_.addAllElts(InvokingOperation.getBounds(c, _page));
+            boolean wc_ = false;
+            for (String o: previousResultClass.getNames()) {
+                if (checkWildCards(o,_page)) {
+                    wc_ = true;
                 }
-                int offset_ = className.indexOf('(')+1;
+            }
+            if (match(_args, _len, keyWordId_, 2)) {
+                int offset_ = className.indexOf('(') + 1;
                 offset_ += StringExpUtil.getOffset(_args.first());
                 AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
-                String type_ = result_.getResult(_page);
                 partOffsetsBegin.add(result_);
-                StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(type_);
-                String param_ = StringUtil.join(innerParts_.left(innerParts_.size() - 2), "");
-                Mapping map_ = new Mapping();
-                map_.setArg(new AnaClassArgumentMatching(bounds_));
-                map_.setParam(param_);
-                StringMap<StringList> maps_ = new StringMap<StringList>();
-                getRefConstraints(maps_, _page);
-                map_.setMapping(maps_);
-                if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                clFrom_ = result_.getResult(_page);
+                form_ = new AnaFormattedRootBlock(_page, clFrom_);
+            } else {
+                StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
+                String cl_ = _args.first().trim();
+                String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
+                if (!wc_) {
+                    for (String o: previousResultClass.getNames()) {
+                        OwnerListResultInfo owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
+                        if (owners_.onlyOneElt()) {
+                            ownersMap_.put(o, owners_.firstElt());
+                        }
+                    }
+                }
+                if (ownersMap_.size() != 1) {
+                    FoundErrorInterpret static_ = new FoundErrorInterpret();
+                    static_.setFile(_page.getCurrentFile());
+                    static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                     //key word len
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(bounds_,ExportCst.JOIN_TYPES),
-                            param_);
-                    _page.getLocalizer().addError(cast_);
-                    addErr(cast_.getBuiltError());
-                }
-                AnaFormattedRootBlock form_ = new AnaFormattedRootBlock(_page, type_);
-                if (form_.getRootBlock() instanceof RecordBlock) {
-                    lambdaCommonContent.setShiftArgument(true);
-                    processRecord(false,3, _args, _len, _page, form_);
+                    static_.buildError(_page.getAnalysisMessages().getNotResolvedOwner(),
+                            idClass_
+                    );
+                    _page.getLocalizer().addError(static_);
+                    addErr(static_.getBuiltError());
+                    setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     return;
                 }
-                String clType_ = StringExpUtil.getIdFromAllTypes(type_);
-                argsRes_ = resolveArguments(false,3, clType_, MethodAccessKind.INSTANCE, _args, _page);
-                if (argsRes_ == null) {
-                    return;
-                }
-                feed_ = MethodId.to(clType_, argsRes_);
-                ko(type_, argsRes_, methodTypes_, _page);
-                processCtor(methodTypes_, vararg_, feed_, type_, _page);
-                return;
-            }
-            String cl_ = _args.first().trim();
-            String idClass_ = StringExpUtil.getIdFromAllTypes(cl_);
-            StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
-            for (String o: previousResultClass.getNames()) {
-                OwnerListResultInfo owners_ = AnaTypeUtil.getGenericOwners(o, idClass_, _page);
-                if (owners_.onlyOneElt()) {
-                    ownersMap_.put(o, owners_.firstElt());
-                }
-            }
-            if (ownersMap_.size() == 1) {
                 OwnerResultInfo info_ = ownersMap_.values().first();
-                if (info_.getOwned() instanceof RecordBlock) {
-                    lambdaCommonContent.setShiftArgument(true);
-                    cl_ = buildTypeName(_args.first(), _page, cl_, info_);
-                    processRecord(false,2, _args, _len, _page, new AnaFormattedRootBlock(info_.getOwned(), cl_));
-                    return;
-                }
+                clFrom_ = buildTypeName(_args.first(), _page, cl_, info_);
+                form_ = new AnaFormattedRootBlock(info_.getOwned(), clFrom_);
             }
-            int i_ = 2;
-            argsRes_ = resolveArguments(i_, _args, _page);
-            if (argsRes_ == null) {
-                return;
+        }
+        boolean wc_ = checkWildCards(clFrom_, _page);
+        if (wc_) {
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
+        if (isIntermediateDottedOperation() && match(_args, _len, keyWordId_, 2)) {
+            StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(clFrom_);
+            String param_ = StringUtil.join(innerParts_.left(innerParts_.size() - 2), "");
+            StringList bounds_ = new StringList();
+            for (String c : previousResultClass.getNames()) {
+                bounds_.addAllElts(InvokingOperation.getBounds(c, _page));
             }
-            vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, i_);
-            if (ownersMap_.size() != 1) {
-                FoundErrorInterpret static_ = new FoundErrorInterpret();
-                static_.setFile(_page.getCurrentFile());
-                static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            Mapping map_ = new Mapping();
+            map_.setArg(new AnaClassArgumentMatching(bounds_));
+            map_.setParam(param_);
+            StringMap<StringList> maps_ = new StringMap<StringList>();
+            getRefConstraints(maps_, _page);
+            map_.setMapping(maps_);
+            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
+                FoundErrorInterpret cast_ = new FoundErrorInterpret();
+                cast_.setFile(_page.getCurrentFile());
+                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
                 //key word len
-                static_.buildError(_page.getAnalysisMessages().getNotResolvedOwner(),
-                        idClass_
-                );
-                _page.getLocalizer().addError(static_);
-                addErr(static_.getBuiltError());
-                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                return;
+                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                        StringUtil.join(bounds_, ExportCst.JOIN_TYPES),
+                        param_);
+                _page.getLocalizer().addError(cast_);
+                addErr(cast_.getBuiltError());
             }
-            cl_ = buildTypeName(_args.first(), _page, cl_, ownersMap_.values().first());
-            processCtor(methodTypes_, vararg_, null, cl_, _page);
-            return;
         }
-        //!isIntermediateDottedOperation()
-        String type_;
-        int offset_ = className.indexOf('(')+1;
-        offset_ += StringExpUtil.getOffset(_args.first());
-        AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(offset_, _args.first().trim(), _page);
-        String clFrom_ = result_.getResult(_page);
-        partOffsetsBegin.add(result_);
-        if (clFrom_.startsWith(ARR)) {
-            processArray(_args, _len, _page, clFrom_.substring(ARR.length()));
-            return;
+        boolean notint_ = !isIntermediateDottedOperation();
+        int incr_;
+        if (match(_args, _len, keyWordId_, 2)) {
+            incr_ = 3;
+        } else {
+            incr_ = 2;
         }
-        AnaGeneType h_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(clFrom_));
-        if (h_ instanceof RecordBlock) {
-            AnaFormattedRootBlock form_ = new AnaFormattedRootBlock((RootBlock) h_,clFrom_);
-            checkWildCards(clFrom_, _page);
-            processRecord(true,2,_args, _len, _page, form_);
+        if (form_.getRootBlock() instanceof RecordBlock) {
+            processRecord(notint_,incr_,_args, _len, _page, form_);
             return;
         }
         if (match(_args, _len, keyWordId_, 2)) {
-            type_ = clFrom_;
-            String cl_ = StringExpUtil.getIdFromAllTypes(type_);
-            argsRes_ = resolveArguments(false,3, cl_, MethodAccessKind.INSTANCE, _args, _page);
+            String cl_ = StringExpUtil.getIdFromAllTypes(clFrom_);
+            argsRes_ = resolveArguments(false,incr_, cl_, MethodAccessKind.INSTANCE, _args, _page);
             if (argsRes_ == null) {
                 return;
             }
             feed_ = MethodId.to(cl_, argsRes_);
-            ko(type_, argsRes_, methodTypes_, _page);
+            ko(clFrom_, argsRes_, methodTypes_, _page);
         } else {
-            int i_ = 2;
-            argsRes_ = resolveArguments(i_, _args, _page);
+            argsRes_ = resolveArguments(incr_, _args, _page);
             if (argsRes_ == null) {
                 return;
             }
-            vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, i_);
+            vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, incr_);
         }
-        if (noDefCtor(h_)) {
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //_fromType len
-            call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
-                    StringExpUtil.getIdFromAllTypes(clFrom_));
-            _page.getLocalizer().addError(call_);
-            addErr(call_.getBuiltError());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
-        checkWildCards(clFrom_, _page);
-        ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(vararg_, clFrom_,
-                h_,
-                feed_, _page, methodTypes_);
-        if (ctorRes_ == null) {
-            buildLambdaCtorErr(_page,clFrom_,methodTypes_);
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
-        initIdCtor(ctorRes_);
-        ConstructorId fid_ = ctorRes_.getConstId();
-        StringList parts_ = new StringList();
-        if (!h_.withoutInstance()) {
-            //From analyze
-            StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(clFrom_);
-            parts_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
-        }
+        processCtor(notint_,methodTypes_,vararg_,feed_, clFrom_, _page);
 
-        appendArgsCtor(fid_, parts_);
-        parts_.add(clFrom_);
-        StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
-        fct_.append(StringExpUtil.TEMPLATE_BEGIN);
-        fct_.append(StringUtil.join(parts_, StringExpUtil.TEMPLATE_SEP));
-        fct_.append(StringExpUtil.TEMPLATE_END);
-        lambdaCommonContent.setResult(fct_.toString());
-        setResultClass(new AnaClassArgumentMatching(fct_.toString()));
     }
 
     private void checkAccessStatic(AnalyzedPageEl _page) {
@@ -1659,6 +1611,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
 
     private void processRecord(boolean _notint, int _from,StringList _args, int _len, AnalyzedPageEl _page, AnaFormattedRootBlock _form) {
+        if (!_notint) {
+            lambdaCommonContent.setShiftArgument(true);
+        }
         RootBlock h_ = _form.getRootBlock();
         String clFrom_ = _form.getFormatted();
         CustList<ClassField> names_ = new CustList<ClassField>();
@@ -1800,8 +1755,10 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaMemberNumberContentId = _ctorRes.getMemberId();
     }
 
-    private void processCtor(StringList _methodTypes, int _vararg, ConstructorId _feed, String _cl, AnalyzedPageEl _page) {
-        lambdaCommonContent.setShiftArgument(true);
+    private void processCtor(boolean _notint, StringList _methodTypes, int _vararg, ConstructorId _feed, String _cl, AnalyzedPageEl _page) {
+        if (!_notint) {
+            lambdaCommonContent.setShiftArgument(true);
+        }
         String id_ = StringExpUtil.getIdFromAllTypes(_cl);
         AnaGeneType h_ = _page.getAnaGeneType(id_);
         if (noDefCtor(h_)) {
@@ -1816,7 +1773,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             addErr(call_.getBuiltError());
             return;
         }
-        checkWildCards(_cl, _page);
         ConstrustorIdVarArg ctorRes_ = getDeclaredCustConstructorLambda(_vararg, _cl,
                 h_,
                 _feed, _page, _methodTypes);
@@ -1828,6 +1784,11 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         initIdCtor(ctorRes_);
         ConstructorId fid_ = ctorRes_.getConstId();
         StringList parts_ = new StringList();
+        if (_notint&&!h_.withoutInstance()) {
+            //From analyze
+            StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(_cl);
+            parts_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
+        }
         appendArgsCtor(fid_, parts_);
         parts_.add(_cl);
         StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
@@ -1838,18 +1799,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         setResultClass(new AnaClassArgumentMatching(fct_.toString()));
     }
 
-    private void checkWildCards(String _class, AnalyzedPageEl _page) {
-        for (String p : StringExpUtil.getWildCards(_class)) {
-            FoundErrorInterpret call_ = new FoundErrorInterpret();
-            call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
-            //_fromType len
-            call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
-                    p,
-                    _class);
-            _page.getLocalizer().addError(call_);
-            addErr(call_.getBuiltError());
-        }
+    private boolean checkWildCards(String _class, AnalyzedPageEl _page) {
+        return StandardInstancingOperation.chWc(this,_class,_page);
     }
 
     private void buildLambdaCtorErr(AnalyzedPageEl _page, String _clCurName, StringList _args) {

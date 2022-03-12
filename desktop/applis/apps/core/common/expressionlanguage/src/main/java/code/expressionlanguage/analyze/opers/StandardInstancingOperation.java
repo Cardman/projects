@@ -125,8 +125,15 @@ public final class StandardInstancingOperation extends
         }
         String idClass_ = StringExpUtil.getIdFromAllTypes(realClassName_);
         int offset_ = idClass_.length() + 1;
+        boolean wc_ = false;
         for (String o: arg_.getNames()) {
-            chWc(this,o,_page);
+            if (chWc(this,o,_page)){
+                wc_ = true;
+            }
+        }
+        if (wc_) {
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
         }
         StringMap<OwnerResultInfo> ownersMap_ = new StringMap<OwnerResultInfo>();
         for (String o: arg_.getNames()) {
@@ -202,7 +209,11 @@ public final class StandardInstancingOperation extends
             addErr(call_.getBuiltError());
             return;
         }
-        chWc(this,_realClassName, _page);
+        boolean wc_ = chWc(this, _realClassName, _page);
+        if (wc_) {
+            setResultClass(new AnaClassArgumentMatching(_realClassName));
+            return;
+        }
         if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
@@ -286,7 +297,8 @@ public final class StandardInstancingOperation extends
         setResultClass(new AnaClassArgumentMatching(_realClassName));
     }
 
-    static void chWc(OperationNode _op,String _realClassName, AnalyzedPageEl _page) {
+    static boolean chWc(OperationNode _op,String _realClassName, AnalyzedPageEl _page) {
+        boolean wc_ = false;
         for (String p:StringExpUtil.getWildCards(_realClassName)){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
@@ -297,7 +309,9 @@ public final class StandardInstancingOperation extends
                     _realClassName);
             _page.getLocalizer().addError(call_);
             _op.addErr(call_.getBuiltError());
+            wc_ = true;
         }
+        return wc_;
     }
 
     private NameParametersFilter buildQuickStrictFilter(AnalyzedPageEl _page,String _real,RootBlock _root, MethodOperation _par) {
