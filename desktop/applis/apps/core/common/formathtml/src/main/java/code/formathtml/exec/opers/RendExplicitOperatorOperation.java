@@ -30,11 +30,15 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(offsetOper, _rendStack);
-        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(staticFctContent.getFormattedType(), staticFctContent.getKind(), _rendStack);
-        String lastType_ = ExecFormattedRootBlock.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, ExecInvokingOperation.fectchArgs(lastType_, staticFctContent.getNaturalVararg(), null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), classNameFound_, staticFctContent.getKind(), _rendStack.getStackCall());
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
+        ArgumentWrapper argres_ = checkParametersOperatorsFormatted(this, pair, staticFctContent, _nodes, _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
+    }
+
+    static ArgumentWrapper checkParametersOperatorsFormatted(RendMethodOperation _curr, ExecTypeFunction _pair, ExecStaticFctContent _elt,IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(_elt.getElts(), _rendStack);
+        String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_,_elt);
+        ExecInvokingOperation.checkParametersOperatorsFormatted(_context.getExiting(), _context, _pair, ExecInvokingOperation.fectchArgs(lastType_, _elt.getNaturalVararg(), null, _context, _rendStack.getStackCall(), _curr.buildInfos(_nodes)), classNameFound_, _elt.getKind(), _rendStack.getStackCall());
+        return RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);
     }
 
 }

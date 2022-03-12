@@ -180,7 +180,7 @@ public abstract class RendDynOperationNode {
         ArgumentsPair pair_ = getArgumentPair(_nodes,this);
         pair_.argumentImpl(_argument);
         if (!implicitsTest.isEmpty()) {
-            Argument res_ = tryConvert(implicitsTest.get(0),implicitsTest.getOwnerClass(), _argument, _context, _rendStack);
+            Argument res_ = tryConvert(implicitsTest, _argument, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
@@ -211,10 +211,8 @@ public abstract class RendDynOperationNode {
 
     private void defCalcArg(Argument _argument, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _out) {
         Argument out_ = _out;
-        int s_ = implicits.size();
-        for (int i = 0; i < s_; i++) {
-            ExecTypeFunction c = implicits.get(i);
-            Argument res_ = tryConvert(c, implicits.getOwnerClass(), out_, _context, _rendStack);
+        if (implicits.isValidIndex(0)) {
+            Argument res_ = tryConvert(implicits, out_, _context, _rendStack);
             if (res_ == null) {
                 return;
             }
@@ -241,18 +239,19 @@ public abstract class RendDynOperationNode {
         _nodes.getValue(getOrder()).setArgument(_out);
     }
 
-    static Argument tryConvert(ExecTypeFunction _c, ExecFormattedRootBlock _owner, Argument _argument, ContextEl _context, RendStackCall _rend) {
-        ExecFormattedRootBlock format_ = StackCall.formatVarType(_rend,_owner);
+    static Argument tryConvert(ImplicitMethods _i, Argument _argument, ContextEl _context, RendStackCall _rend) {
+        ExecTypeFunction c_ = _i.get(0);
+        ExecFormattedRootBlock format_ = StackCall.formatVarType(_rend, _i.getOwnerClass());
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         Parameters parameters_ = new Parameters();
         if (!_context.callsOrException(_rend.getStackCall())) {
             ArgumentListCall l_ = new ArgumentListCall(args_);
-            parameters_ = ExecTemplates.okArgsSet(_c.getFct(), format_,null, l_, _context, _rend.getStackCall());
+            parameters_ = ExecTemplates.okArgsSet(c_.getFct(), format_,null, l_, _context, _rend.getStackCall());
         }
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }
-        Argument out_ = ProcessMethod.calculate(new CustomFoundMethod(Argument.createVoid(), format_, _c, parameters_), _context, _rend.getStackCall()).getValue();
+        Argument out_ = ProcessMethod.calculate(new CustomFoundMethod(Argument.createVoid(), format_, c_, parameters_), _context, _rend.getStackCall()).getValue();
         if (_context.callsOrException(_rend.getStackCall())) {
             return null;
         }

@@ -19,6 +19,9 @@ public final class OverridesTypeUtil {
     private OverridesTypeUtil() {
     }
 
+    public static StringMap<GeneStringOverridable> getConcreteMethodsToCall(RootBlock _type, NamedCalledFunctionBlock _realId, AnalyzedPageEl _page) {
+        return getConcreteMethodsToCall(_type, _realId.getId(),_page);
+    }
     public static StringMap<GeneStringOverridable> getConcreteMethodsToCall(RootBlock _type, MethodId _realId, AnalyzedPageEl _page) {
         StringMap<GeneStringOverridable> eq_ = new StringMap<GeneStringOverridable>();
         for (RootBlock c: _page.getAllFoundTypes()) {

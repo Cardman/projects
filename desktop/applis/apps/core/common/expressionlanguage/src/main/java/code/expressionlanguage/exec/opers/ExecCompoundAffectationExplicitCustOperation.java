@@ -7,17 +7,17 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
+import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class ExecCompoundAffectationCustOperation extends ExecCompoundAffectationOperation {
+public final class ExecCompoundAffectationExplicitCustOperation extends ExecCompoundAffectationOperation {
 
-    private final ExecStaticEltContent staticEltContent;
+    private final ExecStaticFctContent staticEltContent;
     private final ExecTypeFunction pair;
 
 
-    public ExecCompoundAffectationCustOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
+    public ExecCompoundAffectationExplicitCustOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ExecStaticFctContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
         super(_opCont, _operatorContent, _converter, _names, _staticPostEltContent);
         pair = _pair;
         staticEltContent = _staticEltContent;
@@ -26,7 +26,7 @@ public final class ExecCompoundAffectationCustOperation extends ExecCompoundAffe
 
     @Override
     protected void calculateSpec(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, staticEltContent, _stack);
+        ExecExplicitOperatorOperation.checkParametersOperatorsFormatted(this,pair,staticEltContent,_nodes,_conf,_stack);
     }
 
 }

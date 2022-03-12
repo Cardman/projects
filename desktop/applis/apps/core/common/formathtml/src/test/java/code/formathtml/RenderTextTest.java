@@ -406,7 +406,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;'/><c:set value='$operator(+,pkg.BeanOne.Inner)=($id(pkg.BeanOne.Inner,pkg.BeanOne.Inner),t:$(pkg.BeanOne.Inner)i,v:&quot;iere&quot;)'/>{i.textField},{pkg.BeanOne.v}</body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;'/><c:set value='$operator(+,pkg.BeanOne.Inner)=($id($static,pkg.BeanOne.Inner,pkg.BeanOne.Inner),t:$(pkg.BeanOne.Inner)i,v:&quot;iere&quot;)'/>{i.textField},{pkg.BeanOne.v}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -441,7 +441,7 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;'/><c:set value='$operator(+,pkg.BeanOne.Inner)=($id(pkg.BeanOne.Inner,pkg.BeanOne.Inner),v:&quot;iere&quot;,t:$(pkg.BeanOne.Inner)i)'/>{i.textField},{pkg.BeanOne.v}</body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Inner' value='i=&quot;man&quot;'/><c:set value='$operator(+,pkg.BeanOne.Inner)=($id($static,pkg.BeanOne.Inner,pkg.BeanOne.Inner),v:&quot;iere&quot;,t:$(pkg.BeanOne.Inner)i)'/>{i.textField},{pkg.BeanOne.v}</body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

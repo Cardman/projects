@@ -1,7 +1,7 @@
 package code.formathtml.exec.opers;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -17,14 +17,12 @@ public final class RendQuickCustOperation extends RendQuickOperation implements 
     private final ExecTypeFunction pair;
     private final ExecStaticEltContent staticEltContent;
     private final ImplicitMethods converter;
-    private final ExecFormattedRootBlock formattedType;
 
     public RendQuickCustOperation(ExecOperationContent _content, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, boolean _absorbingValue) {
         super(_content, _absorbingValue);
         staticEltContent = _staticEltContent;
         pair = _pair;
         converter = _converter;
-        formattedType = _staticEltContent.getFormattedType();
     }
 
     @Override
@@ -36,10 +34,10 @@ public final class RendQuickCustOperation extends RendQuickOperation implements 
             setQuickConvertSimpleArgument(f_, _nodes, _context, _rendStack);
             return;
         }
-        checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, formattedType, staticEltContent.getKind(), _rendStack);
+        checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, staticEltContent, _rendStack);
         Argument argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
         if (converter != null) {
-            Argument res_ = tryConvert(converter.get(0),converter.getOwnerClass(), argres_, _context, _rendStack);
+            Argument res_ = tryConvert(converter, argres_, _context, _rendStack);
             if (res_ == null) {
                 return;
             }

@@ -16,23 +16,24 @@ public final class ExecExplicitOperatorOperation extends ExecSettableCallFctOper
     private final ExecStaticFctContent staticFctContent;
 
     private final int offsetOper;
-    private final ExecFormattedRootBlock formattedType;
-
     public ExecExplicitOperatorOperation(ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, int _offsetOper, ExecTypeFunction _pair, ExecArrContent _exArr) {
         super(_opCont, _intermediateDottedOperation,_exArr);
         staticFctContent = _staticFctContent;
         offsetOper = _offsetOper;
         pair = _pair;
-        formattedType = _staticFctContent.getFormattedType();
     }
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         int off_ = getOffsetOper();
         setRelOffsetPossibleLastPage(off_, _stack);
-        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(formattedType, staticFctContent.getKind(), _stack);
-        String lastType_ = ExecFormattedRootBlock.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
-        checkParametersOperatorsFormatted(_conf.getExiting(), _conf, pair, fectchArgs(lastType_, staticFctContent.getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), classNameFound_, staticFctContent.getKind(), _stack);
+        checkParametersOperatorsFormatted(this,pair,staticFctContent,_nodes, _conf, _stack);
+    }
+
+    static void checkParametersOperatorsFormatted(ExecMethodOperation _curr, ExecTypeFunction _pair, ExecStaticFctContent _elt,IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(_elt.getElts(), _stack);
+        String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_, _elt);
+        checkParametersOperatorsFormatted(_conf.getExiting(), _conf, _pair, fectchArgs(lastType_, _elt.getNaturalVararg(),null, _conf, _stack, _curr.buildInfos(_nodes)), classNameFound_, _elt.getKind(), _stack);
     }
 
     public int getOffsetOper() {

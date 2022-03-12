@@ -1,8 +1,6 @@
 package code.expressionlanguage.fwd.opers;
 
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.Forwards;
 
 public final class ExecStaticPostEltContent {
@@ -18,11 +16,8 @@ public final class ExecStaticPostEltContent {
         return post;
     }
 
-    public ExecFormattedRootBlock getFormattedType() {
-        return staticEltContent.getFormattedType();
+    public ExecStaticEltContent getStaticEltContent() {
+        return staticEltContent;
     }
 
-    public MethodAccessKind getKind() {
-        return staticEltContent.getKind();
-    }
 }

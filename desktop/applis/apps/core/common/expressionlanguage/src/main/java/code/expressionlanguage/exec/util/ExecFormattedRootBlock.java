@@ -8,6 +8,8 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
+import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 
 public final class ExecFormattedRootBlock {
     private final ExecRootBlock rootBlock;
@@ -45,18 +47,20 @@ public final class ExecFormattedRootBlock {
         return new ExecFormattedRootBlock(_superType, ExecInherits.getFullObject(_subType,_superType.getFormatted(),_context));
     }
 
-    public static ExecFormattedRootBlock formatType(ExecFormattedRootBlock _type, MethodAccessKind _kind, AbstractStackCall _stackCall) {
-        if (_kind == MethodAccessKind.STATIC_CALL) {
-            return StackCall.formatVarType(_stackCall,_type);
+    public static ExecFormattedRootBlock formatType(ExecStaticEltContent _elt, AbstractStackCall _stackCall) {
+        ExecFormattedRootBlock formattedType_ = _elt.getFormattedType();
+        if (_elt.getKind() == MethodAccessKind.STATIC_CALL) {
+            return StackCall.formatVarType(_stackCall, formattedType_);
         }
-        return _type;
+        return formattedType_;
     }
 
-    public static String formatType(ExecFormattedRootBlock _rootBlock, String _formatted, MethodAccessKind _kind) {
-        if (_kind == MethodAccessKind.STATIC_CALL) {
-            return ExecInherits.quickFormat(_rootBlock, _formatted);
+    public static String formatLastType(ExecFormattedRootBlock _rootBlock, ExecStaticFctContent _elt) {
+        String lastType_ = _elt.getLastType();
+        if (_elt.getElts().getKind() == MethodAccessKind.STATIC_CALL) {
+            return ExecInherits.quickFormat(_rootBlock, lastType_);
         }
-        return _formatted;
+        return lastType_;
     }
 
     public ExecRootBlock getRootBlock() {

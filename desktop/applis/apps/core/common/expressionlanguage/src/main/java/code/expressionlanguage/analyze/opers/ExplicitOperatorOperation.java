@@ -384,11 +384,23 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     private ClassMethodIdReturn findMethodWithName(AnalyzedPageEl _page, NameParametersFilter _name) {
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
+        ClassMethodIdAncestor feed_ = null;
+        if (idMethod_ != null) {
+            ClassMethodId id_ = idMethod_.getClassMethodId();
+            MethodId mid_ = id_.getConstraints();
+            MethodAccessKind static_;
+            if (from.isEmpty()) {
+                static_ = MethodId.getKind(MethodAccessKind.STATIC, mid_.getKind());
+            } else {
+                static_ = MethodId.getKind(MethodAccessKind.STATIC_CALL, mid_.getKind());
+            }
+            ClassMethodId classMethodId_ = new ClassMethodId(from, MethodId.to(static_, methodFound,mid_));
+            feed_ = new ClassMethodIdAncestor(classMethodId_,idMethod_.getAncestor());
+        }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
-        ClassMethodId id_ = possibleId(idMethod_);
         errIfWildCard(_page);
-        ClassMethodIdReturn cust_ = tryFindOperator(_page, varargOnly_, varargParam_, id_, _name);
+        ClassMethodIdReturn cust_ = tryFindOperator(_page, varargOnly_, varargParam_, feed_, _name);
         if (cust_ == null) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
             undefined_.setFile(_page.getCurrentFile());
@@ -414,9 +426,6 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         ClassMethodId id_ = null;
         if (_idMethod != null) {
             id_ = _idMethod.getClassMethodId();
-            MethodId s_ = id_.getConstraints();
-            MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), s_.getKind());
-            id_ = new ClassMethodId(from,MethodId.to(static_,methodFound,s_));
         }
         return id_;
     }
@@ -434,14 +443,14 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         }
     }
 
-    private ClassMethodIdReturn tryFindOperator(AnalyzedPageEl _page, int _varargOnly, String _varargParam, ClassMethodId _id, NameParametersFilter _name) {
+    private ClassMethodIdReturn tryFindOperator(AnalyzedPageEl _page, int _varargOnly, String _varargParam, ClassMethodIdAncestor _id, NameParametersFilter _name) {
         ClassMethodIdReturn cust_;
         if (from.isEmpty()) {
-            cust_ = getOperator(isLvalue(), _id, _varargOnly, opSearch, _varargParam, _name, _page);
+            cust_ = getOperator(isLvalue(), possibleId(_id), _varargOnly, opSearch, _varargParam, _name, _page);
         } else {
-            cust_ = tryGetDeclaredCustMethod(-1, MethodAccessKind.STATIC_CALL,
+            cust_ = tryGetDeclaredCustMethod(_varargOnly, MethodAccessKind.STATIC_CALL,
                     new StringList(from), opSearch, false,
-                    _varargParam, _name, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalClass()));
+                    _varargParam, _name, _page, new ScopeFilter(_id, true, false, isLvalue(), _page.getGlobalClass()));
         }
         return cust_;
     }

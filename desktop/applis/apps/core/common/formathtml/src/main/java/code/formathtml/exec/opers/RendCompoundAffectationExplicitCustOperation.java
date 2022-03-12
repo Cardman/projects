@@ -1,24 +1,24 @@
 package code.formathtml.exec.opers;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
-import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
+import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
-public final class RendCompoundAffectationCustOperation extends RendCompoundAffectationOperation {
+public final class RendCompoundAffectationExplicitCustOperation extends RendCompoundAffectationOperation {
 
     private final ExecTypeFunction pair;
-    private final ExecStaticEltContent staticEltContent;
+    private final ExecStaticFctContent staticEltContent;
 
-    public RendCompoundAffectationCustOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
+    public RendCompoundAffectationExplicitCustOperation(ExecOperationContent _content, ExecOperatorContent _operatorContent, ExecStaticFctContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
         super(_content, _operatorContent, _converter, _names, _staticPostEltContent);
         pair = _pair;
         staticEltContent = _staticEltContent;
@@ -26,9 +26,8 @@ public final class RendCompoundAffectationCustOperation extends RendCompoundAffe
 
     @Override
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, staticEltContent, _rendStack);
-        Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
-        process(this, _nodes, _advStandards, _context, _rendStack, res_);
+        ArgumentWrapper argumentWrapper_ = RendExplicitOperatorOperation.checkParametersOperatorsFormatted(this, pair, staticEltContent, _nodes, _context, _rendStack);
+        process(this,_nodes, _advStandards, _context, _rendStack,argumentWrapper_.getValue());
     }
 
 }

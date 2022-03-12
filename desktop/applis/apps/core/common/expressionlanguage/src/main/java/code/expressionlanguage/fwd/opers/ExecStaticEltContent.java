@@ -17,13 +17,19 @@ public final class ExecStaticEltContent {
     private final ExecFormattedRootBlock formattedType;
 
     public ExecStaticEltContent(AnaCallFctContent _className, Forwards _fwd) {
-        kind = kind(_className.getFunction().getFunction());
-        formattedType = build(_fwd,_className.getFormattedType());
+        this(kind(_className.getFunction().getFunction()),build(_fwd,_className.getFormattedType()));
     }
 
     public ExecStaticEltContent(ClassMethodIdMemberIdTypeFct _id, Forwards _fwd) {
-        kind = kind(_id.getFunction().getFunction());
-        formattedType = build(_fwd, _id.getImplicit());
+        this(kind(_id.getFunction().getFunction()),build(_fwd, _id.getImplicit()));
+    }
+
+    private ExecStaticEltContent(MethodAccessKind _k, ExecFormattedRootBlock _f) {
+        kind = _k;
+        formattedType = _f;
+    }
+    public static ExecStaticEltContent initByNotNull(AnaCallFctContent _className, Forwards _fwd) {
+        return new ExecStaticEltContent(MethodId.getKind(((NamedCalledFunctionBlock)_className.getFunction().getFunction()).getModifier()),FetchMemberUtil.fwdFormatType(_className.getFormattedType(), _fwd));
     }
 
     static ExecFormattedRootBlock build(Forwards _fwd, AnaFormattedRootBlock _implicit) {

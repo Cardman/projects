@@ -23,11 +23,12 @@ public final class RendSemiAffectationNatOperation extends RendSemiAffectationOp
     protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         Argument leftStore_ = getArgument(_nodes,getFirstNode(this));
         Argument before_ = firstArg(this,_nodes);
-        if (getConverterTo() != null) {
-            String tres_ = getConverterTo().get(0).getFct().getImportedParametersTypes().get(0);
+        ImplicitMethods converterTo_ = getConverterTo();
+        if (converterTo_ != null) {
+            String tres_ = converterTo_.get(0).getFct().getImportedParametersTypes().get(0);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
             Argument res_ = ExecNumericOperation.calculateIncrDecr(leftStore_, getOperatorContent().getOper(), cast_);
-            Argument conv_ = tryConvert(getConverterTo().get(0), getConverterTo().getOwnerClass(), res_, _context, _rendStack);
+            Argument conv_ = tryConvert(converterTo_, res_, _context, _rendStack);
             if (conv_ == null) {
                 return;
             }

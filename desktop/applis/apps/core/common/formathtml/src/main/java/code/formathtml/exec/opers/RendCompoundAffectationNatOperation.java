@@ -26,11 +26,12 @@ public final class RendCompoundAffectationNatOperation extends RendCompoundAffec
         RendDynOperationNode right_ = getLastNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);
         Argument rightArg_ = getArgument(_nodes,right_);
-        if (getConverter() != null) {
-            String tres_ = getConverter().get(0).getFct().getImportedParametersTypes().get(0);
+        ImplicitMethods converter_ = getConverter();
+        if (converter_ != null) {
+            String tres_ = converter_.get(0).getFct().getImportedParametersTypes().get(0);
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _context.getStandards().getPrimTypes());
             Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, getOperatorContent().getOper(), cast_, _context, _rendStack);
-            Argument conv_ = tryConvert(getConverter().get(0),getConverter().getOwnerClass(), res_, _context, _rendStack);
+            Argument conv_ = tryConvert(converter_, res_, _context, _rendStack);
             if (conv_ == null) {
                 return;
             }

@@ -1642,7 +1642,7 @@ public final class ProcessMethodInferenceTest extends ProcessMethodCommon {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
         xml_.append(" $public $static $int catching(){\n");
-        xml_.append("  $for (ExTwo<$int> e: $operator(+,Ex)($id(ExTwo<$int>,ExTwo<$int>...),$new ExTwo<>(9),$new ExTwo<>(10))){\n");
+        xml_.append("  $for (ExTwo<$int> e: $operator(+,Ex)($id($static,ExTwo<$int>,ExTwo<$int>...),$new ExTwo<>(9),$new ExTwo<>(10))){\n");
         xml_.append("   $return e.field;\n");
         xml_.append("  }\n");
         xml_.append("  $return 0i;\n");

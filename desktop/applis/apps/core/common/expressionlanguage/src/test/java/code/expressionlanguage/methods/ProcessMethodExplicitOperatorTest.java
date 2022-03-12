@@ -307,7 +307,7 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         xml_.append("  one.a=5i;\n");
         xml_.append("  Ex two = $new Ex();\n");
         xml_.append("  two.a=3i;\n");
-        xml_.append("  $if ($operator(+,Ex)($id(Ex,Ex),one, two) != 8i){\n");
+        xml_.append("  $if ($operator(+,Ex)($id($static,Ex,Ex),one, two) != 8i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 2i;\n");
@@ -336,7 +336,7 @@ public final class ProcessMethodExplicitOperatorTest extends ProcessMethodCommon
         xml_.append("  one.a=5i;\n");
         xml_.append("  Ex two = $new Ex();\n");
         xml_.append("  two.a=3i;\n");
-        xml_.append("  $if ($operator(+,Ex)($id(Ex,Ex...),one, two) != 8i){\n");
+        xml_.append("  $if ($operator(+,Ex)($id($static,Ex,Ex...),one, two) != 8i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");
         xml_.append("  $return 2i;\n");

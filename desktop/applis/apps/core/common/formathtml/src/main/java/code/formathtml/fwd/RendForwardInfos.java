@@ -576,7 +576,7 @@ public final class RendForwardInfos {
                     return new RendEnumMethOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctCommonContent(a_.getCallFctContent()), new ExecArrContent(a_.getArrContent()),rootBlock_);
                 }
                 return new RendStaticFctOperation(pair_,
-                        new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new ExecStaticFctContent(a_.getCallFctContent(), _forwards), new ExecArrContent(a_.getArrContent()));
+                        new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), ExecStaticFctContent.initByNotNull(a_.getCallFctContent(), _forwards), new ExecArrContent(a_.getArrContent()));
             }
         }
         return procOperands5(_anaNode, _forwards);
@@ -759,7 +759,7 @@ public final class RendForwardInfos {
                 AnaOperatorContent cont_ = new AnaOperatorContent();
                 cont_.setOper(m_.getMethodFound()+'=');
                 cont_.setOpOffset(m_.getOffsetOper());
-                return new RendCompoundAffectationCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(cont_), new ExecStaticEltContent(callFctContent_, _forwards), pair_, FetchMemberUtil.fetchImplicits(m_.getConv(), _forwards), names_, m_.isPost());
+                return new RendCompoundAffectationExplicitCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(cont_), new ExecStaticFctContent(callFctContent_, _forwards), pair_, FetchMemberUtil.fetchImplicits(m_.getConv(), _forwards), names_, m_.isPost());
             }
             return new RendExplicitOperatorOperation(new ExecOperationContent(m_.getContent()), m_.isIntermediateDottedOperation(), new ExecStaticFctContent(m_.getCallFctContent(), _forwards), FetchMemberUtil.fetchFunctionOpPair(m_.getCallFctContent().getMemberId(), _forwards), m_.getOffsetOper(), new ExecArrContent(m_.getArrContent()));
         }

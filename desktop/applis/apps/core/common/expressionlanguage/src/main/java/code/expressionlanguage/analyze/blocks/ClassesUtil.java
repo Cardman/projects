@@ -115,8 +115,7 @@ public final class ClassesUtil {
                 if (o.hiddenInstance() || o.isFinalMethod()) {
                     continue;
                 }
-                MethodId id_ = o.getId();
-                StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(e, id_, _page);
+                StringMap<GeneStringOverridable> map_ = OverridesTypeUtil.getConcreteMethodsToCall(e, o, _page);
                 map_.putAllMap(o.getOverrides());
                 anaRed_.addEntry(o,map_);
             }

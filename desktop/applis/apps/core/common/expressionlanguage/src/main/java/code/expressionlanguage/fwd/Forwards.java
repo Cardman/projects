@@ -7,9 +7,11 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.coverage.Coverage;
+import code.expressionlanguage.fwd.blocks.FwdRootBlockMembers;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -18,7 +20,7 @@ public final class Forwards {
     private String aliasPrimBoolean="";
     private String aliasBoolean="";
     private final IdMap<InnerElementBlock,ExecInnerElementBlock> mapInnerEltTypes = new IdMap<InnerElementBlock,ExecInnerElementBlock>();
-    private final IdMap<RootBlock,Members> mapMembers = new IdMap<RootBlock,Members>();
+    private final CustList<FwdRootBlockMembers> mapMembers = new CustList<FwdRootBlockMembers>();
     private final IdMap<OperatorBlock,ExecOperatorBlock> mapOperators = new IdMap<OperatorBlock,ExecOperatorBlock>();
     private final IdMap<NamedCalledFunctionBlock,ExecAnonymousFunctionBlock> mapAnonLambda = new IdMap<NamedCalledFunctionBlock,ExecAnonymousFunctionBlock>();
     private final IdMap<SwitchMethodBlock,ExecAbstractSwitchMethod> mapSwitchMethods = new IdMap<SwitchMethodBlock,ExecAbstractSwitchMethod>();
@@ -80,7 +82,7 @@ public final class Forwards {
     }
 
     public void addMember(RootBlock _type, Members _mem) {
-        mapMembers.addEntry(_type, _mem);
+        mapMembers.add(new FwdRootBlockMembers(_type, _mem));
     }
     public boolean isMember(int _root) {
         return mapMembers.isValidIndex(_root);
@@ -89,11 +91,11 @@ public final class Forwards {
         return getMember(_root.getNumberAll());
     }
     public Members getMember(int _root) {
-        return mapMembers.getValue(_root);
+        return mapMembers.get(_root).getMembers();
     }
 
-    public Iterable<EntryCust<RootBlock, Members>> getMembers() {
-        return mapMembers.entryList();
+    public CustList<FwdRootBlockMembers> getMembers() {
+        return mapMembers;
     }
     public void addOperator(OperatorBlock _type, ExecOperatorBlock _mem) {
         mapOperators.addEntry(_type, _mem);

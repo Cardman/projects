@@ -1,6 +1,5 @@
 package code.expressionlanguage.fwd.opers;
 
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.Forwards;
 
@@ -11,8 +10,14 @@ public final class ExecStaticFctContent {
     private final ExecStaticEltContent elts;
 
     public ExecStaticFctContent(AnaCallFctContent _a, Forwards _fwd) {
-        common = new ExecStaticFctCommonContent(_a);
-        elts = new ExecStaticEltContent(_a,_fwd);
+        this(new ExecStaticFctCommonContent(_a),new ExecStaticEltContent(_a,_fwd));
+    }
+    private ExecStaticFctContent(ExecStaticFctCommonContent _c, ExecStaticEltContent _e) {
+        common = _c;
+        elts = _e;
+    }
+    public static ExecStaticFctContent initByNotNull(AnaCallFctContent _a, Forwards _fwd) {
+        return new ExecStaticFctContent(new ExecStaticFctCommonContent(_a),ExecStaticEltContent.initByNotNull(_a, _fwd));
     }
 
     public int getNaturalVararg() {
@@ -27,8 +32,8 @@ public final class ExecStaticFctContent {
         return common.getMethodName();
     }
 
-    public ExecFormattedRootBlock getFormattedType() {
-        return elts.getFormattedType();
+    public ExecStaticEltContent getElts() {
+        return elts;
     }
 
     public MethodAccessKind getKind() {

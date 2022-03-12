@@ -20,13 +20,11 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
     private final ExecStaticFctContent staticFctContent;
 
     private final ExecTypeFunction pair;
-    private final ExecFormattedRootBlock formattedType;
 
     public ExecStaticFctOperation(ExecTypeFunction _pair, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecStaticFctContent _staticFctContent, ExecArrContent _arrContent) {
         super(_opCont, _intermediateDottedOperation,_arrContent);
         staticFctContent = _staticFctContent;
         pair = _pair;
-        formattedType = _staticFctContent.getFormattedType();
     }
 
     @Override
@@ -34,12 +32,12 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
                           ContextEl _conf, StackCall _stack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(formattedType, staticFctContent.getKind(), _stack);
+        ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(staticFctContent.getElts(), _stack);
         Argument res_;
         if (_conf.getExiting().hasToExit(_stack, classNameFound_.getRootBlock())) {
             res_ = Argument.createVoid();
         } else {
-            String lastType_ = ExecFormattedRootBlock.formatType(classNameFound_, staticFctContent.getLastType(), staticFctContent.getKind());
+            String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_,staticFctContent);
             res_ = prep(_conf, _stack, classNameFound_, lastType_, buildInfos(_nodes), staticFctContent, pair);
         }
         setResult(res_, _conf, _nodes, _stack);

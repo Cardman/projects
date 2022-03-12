@@ -929,7 +929,7 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
         xml_.append("  one.a=5i;\n");
         xml_.append("  Ex<$int> two = $new Ex<>();\n");
         xml_.append("  two.a=3i;\n");
-        xml_.append("  $operator(+,Ex<$int>)=($id(Ex<$int>,Ex<$int>),(Ex<$int>)one,two);\n");
+        xml_.append("  $operator(+,Ex<$int>)=($id($static,Ex<$int>,Ex<$int>),(Ex<$int>)one,two);\n");
         xml_.append("  $if (one.a != 8i){\n");
         xml_.append("   $return 1i;\n");
         xml_.append("  }\n");

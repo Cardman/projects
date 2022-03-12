@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -17,13 +16,11 @@ public final class ExecQuickCustOperation extends ExecQuickOperation {
 
     private final ExecStaticEltContent staticEltContent;
     private final ExecTypeFunction pair;
-    private final ExecFormattedRootBlock formattedType;
 
     public ExecQuickCustOperation(ExecOperationContent _opCont, ExecStaticEltContent _staticEltContent, ExecTypeFunction _pair, ImplicitMethods _converter, boolean _absorbingValue) {
         super(_opCont, _converter, _absorbingValue);
         staticEltContent = _staticEltContent;
         pair = _pair;
-        formattedType = _staticEltContent.getFormattedType();
     }
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
@@ -35,7 +32,7 @@ public final class ExecQuickCustOperation extends ExecQuickOperation {
             setQuickConvertSimpleArgument(f_, _conf, _nodes, _stack);
             return;
         }
-        checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, formattedType, staticEltContent.getKind(), _stack);
+        checkParametersOperators(_conf.getExiting(),_conf, pair, _nodes, staticEltContent, _stack);
     }
 
 

@@ -26,6 +26,23 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
         staticPostEltContent = _staticPostEltContent;
     }
 
+    static void process(RendCompoundAffectationOperation _curr, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack, Argument _res) {
+        Argument res_ = _res;
+        ImplicitMethods converter_ = _curr.getConverter();
+        if (converter_ != null) {
+            Argument conv_ = tryConvert(converter_, res_, _context, _rendStack);
+            if (conv_ == null) {
+                return;
+            }
+            res_ = conv_;
+        }
+        Argument leftArg_ = firstArg(_curr, _nodes);
+        _curr.calculateChSetting(_nodes, res_, _advStandards, _context, _rendStack);
+        Argument arg_ = RendSemiAffectationOperation.getPrePost(_curr.isStaticPostEltContent(),leftArg_, res_);
+//        Argument arg_ = endCalculate(_nodes,leftArg_, res_, _advStandards, _context, _rendStack,isStaticPostEltContent());
+        _curr.setSimpleArgument(arg_, _nodes, _context, _rendStack);
+    }
+
     @Override
     protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, getSettableAnc());
