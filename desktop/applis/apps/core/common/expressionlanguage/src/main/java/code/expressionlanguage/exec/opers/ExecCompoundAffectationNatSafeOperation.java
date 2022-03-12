@@ -35,6 +35,7 @@ public final class ExecCompoundAffectationNatSafeOperation extends ExecCompoundA
         Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getNames(), _stack);
         Argument arg_ = calculateChSetting(_nodes,_conf,res_,_stack);
         pair_.setEndCalculate(true);
+        pair_.setIndexer(_conf.callsOrException(_stack));
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

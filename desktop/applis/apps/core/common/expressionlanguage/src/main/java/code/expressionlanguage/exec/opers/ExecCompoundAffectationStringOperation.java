@@ -27,6 +27,7 @@ public final class ExecCompoundAffectationStringOperation extends ExecCompoundAf
         Argument res_ = ExecCatOperation.localSumDiff(leftArg_, rightArg_, _conf);
         Argument arg_ = calculateChSetting(_nodes,_conf,res_,_stack);
         pair_.setEndCalculate(true);
+        pair_.setIndexer(_conf.callsOrException(_stack));
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

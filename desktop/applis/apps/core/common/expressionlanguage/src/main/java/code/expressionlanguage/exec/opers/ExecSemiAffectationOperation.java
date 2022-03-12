@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.ArrayCustWrapper;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.util.IdMap;
@@ -50,22 +49,18 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
         if (!pair_.isEndCalculate()) {
             pair_.setEndCalculate(true);
             _current.calculateChSetting(_nodes, _conf,_right, _stack);
+            pair_.setIndexer(_conf.callsOrException(_stack));
             Argument arg_ = ExecSemiAffectationOperation.getPrePost(_post, stored_, _right);
 //            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, _current.getSettable(), _post, _stack);
             _current.setSimpleArgument(arg_, _conf, _nodes, _stack);
             return;
         }
-        if (isIndexer(_current.getSettable(),_nodes)) {
+        if (pair_.isIndexer()) {
             Argument out_ = callIndexer(_right, pair_, stored_, _post);
             _current.setSimpleArgument(out_, _conf, _nodes, _stack);
             return;
         }
         _current.setSimpleArgument(_right, _conf, _nodes, _stack);
-    }
-
-    static boolean isIndexer(ExecOperationNode _settable, IdMap<ExecOperationNode, ArgumentsPair> _nodes){
-        ArgumentsPair pairSet_ = ExecHelper.getArgumentPair(_nodes, _settable);
-        return _settable instanceof ExecCustArrOperation || pairSet_.getWrapper() instanceof ArrayCustWrapper;
     }
 
     static Argument callIndexer(Argument _right, ArgumentsPair _pair, Argument _stored, boolean _post) {

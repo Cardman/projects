@@ -15,6 +15,7 @@ public final class ArgumentsPair {
     private int indexImplicitConv;
     private boolean endCalculate;
     private boolean calledIndexer;
+    private boolean indexer;
     public Argument getArgument() {
         return argument;
     }
@@ -110,4 +111,11 @@ public final class ArgumentsPair {
         calledIndexer = _calledIndexer;
     }
 
+    public boolean isIndexer() {
+        return indexer;
+    }
+
+    public void setIndexer(boolean _ind) {
+        this.indexer = _ind;
+    }
 }
