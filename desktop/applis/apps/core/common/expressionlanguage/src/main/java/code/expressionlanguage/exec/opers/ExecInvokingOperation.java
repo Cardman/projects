@@ -426,6 +426,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return defaultValueLambda(_conf, _ls);
         }
         CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
+        if (StringUtil.quickEq(_ls.getMethodName(),":")) {
+            ArgumentWrapper formal_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
+            return new Argument(ExecTemplates.getWrap(formal_.getWrapper()).getValue(_stackCall,_conf));
+        }
         if (StringUtil.quickEq(_ls.getMethodName(),"=")) {
             ArgumentWrapper formal_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
             Argument right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));

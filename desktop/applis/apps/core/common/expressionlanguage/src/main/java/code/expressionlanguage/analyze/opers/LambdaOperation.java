@@ -814,6 +814,26 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 setResultClass(new AnaClassArgumentMatching(fct_.toString()));
                 return;
             }
+            if (_len == 2 && StringUtil.quickEq(name_, ":")) {
+                int offset_ = className.indexOf('(')+1;
+                offset_ += StringExpUtil.getOffset(_args.first());
+                String type_ = resolveCorrectTypeAccessible(true, _args.first().trim(), _page, offset_,partOffsetsBegin);
+                found(type_);
+                StringBuilder fct_ = new StringBuilder(_page.getAliasFct());
+                fct_.append(StringExpUtil.TEMPLATE_BEGIN);
+                fct_.append('~');
+                fct_.append(type_);
+                fct_.append(StringExpUtil.TEMPLATE_SEP);
+                fct_.append(type_);
+                fct_.append(StringExpUtil.TEMPLATE_END);
+                lambdaCommonContent.setResult(fct_.toString());
+                StringList params_ = new StringList();
+                params_.add(type_);
+                MethodId id_ = new MethodId(MethodAccessKind.STATIC, ":", params_);
+                method = new ClassMethodId(type_, id_);
+                setResultClass(new AnaClassArgumentMatching(fct_.toString()));
+                return;
+            }
             if (_len == 2 && StringUtil.quickEq(name_, "=")) {
                 int offset_ = className.indexOf('(')+1;
                 offset_ += StringExpUtil.getOffset(_args.first());
