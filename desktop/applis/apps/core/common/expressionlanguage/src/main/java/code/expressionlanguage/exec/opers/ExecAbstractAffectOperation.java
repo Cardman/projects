@@ -47,7 +47,11 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
     protected abstract void calculateAffect(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                                             ContextEl _conf, StackCall _stack);
     Argument calculateChSetting(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall) {
-        return calculateChSetting(getSettable(),_nodes,_conf,_right,_stackCall);
+        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
+        Argument argument_ = calculateChSetting(getSettable(), _nodes, _conf, _right, _stackCall);
+        pair_.setEndCalculate(true);
+        pair_.setIndexer(_conf.callsOrException(_stackCall));
+        return argument_;
     }
     static Argument calculateChSetting(ExecOperationNode _set,
                                        IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _right, StackCall _stackCall){

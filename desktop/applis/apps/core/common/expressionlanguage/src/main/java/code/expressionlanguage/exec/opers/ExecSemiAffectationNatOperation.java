@@ -36,9 +36,6 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
         Argument before_ = firstArg(this,_nodes);
         calculateChSetting(_nodes, _conf,res_, _stack);
         Argument arg_ = getPrePost(isPost(), before_, res_);
-        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
-        pair_.setEndCalculate(true);
-        pair_.setIndexer(_conf.callsOrException(_stack));
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

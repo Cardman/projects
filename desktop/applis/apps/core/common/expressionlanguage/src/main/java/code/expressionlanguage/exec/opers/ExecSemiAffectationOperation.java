@@ -47,9 +47,7 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
             return;
         }
         if (!pair_.isEndCalculate()) {
-            pair_.setEndCalculate(true);
             _current.calculateChSetting(_nodes, _conf,_right, _stack);
-            pair_.setIndexer(_conf.callsOrException(_stack));
             Argument arg_ = ExecSemiAffectationOperation.getPrePost(_post, stored_, _right);
 //            Argument arg_ = endCalculate(_conf, _nodes, _right, stored_, _current.getSettable(), _post, _stack);
             _current.setSimpleArgument(arg_, _conf, _nodes, _stack);

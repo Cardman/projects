@@ -25,7 +25,6 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
         setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         Argument leftArg_ = getFirstArgument(_nodes,this);
         Argument rightArg_ = getLastArgument(_nodes,this);
-        ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes,this);
         ImplicitMethods implicits_ = getConverter();
         int indexImplicit_ = pairBefore_.getIndexImplicitConv();
@@ -38,8 +37,6 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
         }
         Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb(), _stack);
         Argument set_ = calculateChSetting(_nodes,_conf,res_,_stack);
-        pair_.setEndCalculate(true);
-        pair_.setIndexer(_conf.callsOrException(_stack));
         setSimpleArgument(set_, _conf, _nodes, _stack);
     }
 

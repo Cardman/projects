@@ -58,7 +58,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         String cl_ = callFctContent.getMethodName();
-        setStaticAccess(_page.getStaticContext());
+        setStaticAccess(MethodAccessKind.STATIC_CALL);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         int firstRightPar_ = cl_.indexOf(PAR_RIGHT);
         int secondLeftPar_ = cl_.indexOf(PAR_LEFT, firstRightPar_);
@@ -212,7 +212,6 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             apply_ = true;
         }
         filterByReturnType("",apply_,methodInfos, _page, getParentMatching(this));
-        setStaticAccess(MethodAccessKind.STATIC_CALL);
     }
 
     @Override
