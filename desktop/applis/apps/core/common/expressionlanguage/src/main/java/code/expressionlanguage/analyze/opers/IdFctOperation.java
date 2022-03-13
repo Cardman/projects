@@ -68,8 +68,8 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         }
         String extr_ = className.substring(className.indexOf('(')+1, className.lastIndexOf(')'));
         StringList args_ = StringExpUtil.getAllSepCommaTypes(extr_);
-        MethodAccessKind static_ = MethodAccessKind.STATIC;
-        boolean retRef_ = false;
+        MethodAccessKind static_;
+        boolean retRef_;
         int i_ = 0;
         String cl_ = "";
         int anc_ = 0;
@@ -100,6 +100,13 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
                 MethodAccessId idUpdate_ = new MethodAccessId(0);
                 idUpdate_.setupInfosId(0,args_,keyWordStatic_,keyWordStaticCall_);
                 static_ = idUpdate_.getKind();
+                retRef_ = idUpdate_.isRetRef();
+                i_ = idUpdate_.getIndex();
+                anc_ = idUpdate_.getAncestor();
+            } else {
+                MethodAccessId idUpdate_ = new MethodAccessId(0);
+                idUpdate_.setupAncestorId(args_,0);
+                static_ = MethodAccessKind.STATIC;
                 retRef_ = idUpdate_.isRetRef();
                 i_ = idUpdate_.getIndex();
                 anc_ = idUpdate_.getAncestor();

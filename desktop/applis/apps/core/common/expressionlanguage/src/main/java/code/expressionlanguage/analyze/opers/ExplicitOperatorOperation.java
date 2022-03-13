@@ -212,6 +212,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             apply_ = true;
         }
         filterByReturnType("",apply_,methodInfos, _page, getParentMatching(this));
+        setStaticAccess(MethodAccessKind.STATIC_CALL);
     }
 
     @Override
