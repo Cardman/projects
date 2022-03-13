@@ -8,16 +8,15 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 
-public final class MethodParamChecker extends AbstractMethodParamChecker {
+public final class IndexerFormatParamChecker extends AbstractMethodParamChecker {
 
-    public MethodParamChecker(ExecTypeFunction _pair, ArgumentListCall _args,
-                              MethodAccessKind _kind) {
+    public IndexerFormatParamChecker(ExecTypeFunction _pair, ArgumentListCall _args,
+                                         MethodAccessKind _kind) {
         super(_pair, _args, _kind);
     }
-
     @Override
     public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
-        return redir(_conf, _previous, _stackCall, _classFormat, getMethod(), getArgs(), getPair());
+        return simpleRedir(_previous, _stackCall, _classFormat, getPair());
     }
 
 }

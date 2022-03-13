@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.opers.ExecImplicitOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -18,6 +18,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
 
 public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPageEl {
 
@@ -77,6 +78,19 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
             accessKind = metaInfo.getKind();
         }
         return true;
+    }
+    protected AbstractMethodParamChecker init(ArgumentListCall _list) {
+        if (metaInfo.getName().startsWith("[]")) {
+            return new IndexerFormatParamChecker(getPair(), _list, getAccessKind());
+        }
+        return new MethodParamChecker(getPair(), _list, getAccessKind());
+    }
+
+    protected AbstractFormatParamChecker initRefl(CustList<Argument> _args, Argument _right) {
+        if (metaInfo.getName().startsWith("[]")) {
+            return new ReflectIndexerFormatParamChecker(getPair(), _args,_right, getAccessKind());
+        }
+        return new ReflectMethodParamChecker(getPair(), _args,_right, getAccessKind());
     }
 
     ExecFormattedRootBlock getClassName() {

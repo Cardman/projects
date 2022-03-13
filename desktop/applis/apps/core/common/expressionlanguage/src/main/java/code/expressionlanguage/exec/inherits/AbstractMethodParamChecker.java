@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -26,15 +27,27 @@ public abstract class AbstractMethodParamChecker extends AbstractFormatParamChec
         this.args = _args;
     }
 
-    @Override
-    public Argument redirect(ContextEl _conf, ExecFormattedRootBlock _classNameFound, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat) {
+    protected static Argument redir(ContextEl _conf, Argument _previous, StackCall _stackCall, FormattedParameters _classFormat, ExecNamedFunctionBlock _method, ArgumentListCall _args, ExecTypeFunction _pair) {
         Struct prev_ = _previous.getStruct();
-        if (prev_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance) prev_).getNamed() == method) {
+        if (prev_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance) prev_).getNamed() == _method) {
             Argument fctInst_ = new Argument(((AbstractFunctionalInstance) prev_).getFunctional());
-            return ExecInvokingOperation.prepareCallDyn(fctInst_, args, _conf, _stackCall);
+            return ExecInvokingOperation.prepareCallDyn(fctInst_, _args, _conf, _stackCall);
         }
-        _stackCall.setCallingState(new CustomFoundMethod(_previous, _classFormat.getFormattedClass(), pair, _classFormat.getParameters()));
+        return simpleRedir(_previous, _stackCall, _classFormat, _pair);
+    }
+
+    protected static Argument simpleRedir(Argument _previous, StackCall _stackCall, FormattedParameters _classFormat, ExecTypeFunction _pair) {
+        _stackCall.setCallingState(new CustomFoundMethod(_previous, _classFormat.getFormattedClass(), _pair, _classFormat.getParameters()));
         return Argument.createVoid();
+    }
+
+    @Override
+    public Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
+        return getParameters(_classFormat, _cache, _conf, _stackCall, method, args);
+    }
+
+    protected static Parameters getParameters(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall, ExecNamedFunctionBlock _method, ArgumentListCall _args) {
+        return ExecTemplates.okArgsSet(_method, _classFormat, _cache, _args, _conf, _stackCall);
     }
 
     protected ExecTypeFunction getPair() {
