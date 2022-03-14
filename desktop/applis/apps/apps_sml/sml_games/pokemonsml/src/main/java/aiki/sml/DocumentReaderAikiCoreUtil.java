@@ -993,6 +993,7 @@ public final class DocumentReaderAikiCoreUtil {
             data_.setMessages(_f.getData());
         }
         _f.setData(data_);
+        _p.setPercent(100);
         _f.setLoadedData(true);
     }
     // Load rom first
