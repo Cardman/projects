@@ -4431,6 +4431,24 @@ public final class ExpressionLanguageBisTest extends ProcessMethodCommon {
         assertEq(0, getNumber(ret_));
     }
     @Test
+    public void calculateArgument234_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $double exmeth (){\n");
+        xml_.append("  $double t = 1d;\n");
+        xml_.append("  $return Double.sgn(t);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1.0, getDouble(ret_));
+    }
+    @Test
     public void calculateArgument235Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

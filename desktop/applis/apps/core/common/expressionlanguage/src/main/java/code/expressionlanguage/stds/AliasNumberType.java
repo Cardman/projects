@@ -223,6 +223,9 @@ public final class AliasNumberType {
         method_ = new StandardMethod(aliasIsNan, params_, aliasPrimBoolean_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0IsNan0()), new FctDoubleIsNan1());
         methods_.add( method_);
         numbersDotValuesFields(fields_, aliasPrimDouble_);
+        params_ = new StringList(aliasPrimDouble_);
+        method_ = new StandardMethod(aliasSignum, params_, aliasPrimDouble_, false, MethodModifier.STATIC,new StringList(params.getAliasDouble0Signum0()),new FctNbDoubleSgn());
+        methods_.add( method_);
         standards_.addEntry(aliasDouble, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();

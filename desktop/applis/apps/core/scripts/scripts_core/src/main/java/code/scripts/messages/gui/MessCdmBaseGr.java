@@ -1576,6 +1576,7 @@ private static final String CODE_0_5_1241="FormatType1Print0=a\n";
 private static final String CODE_0_5_1242="FormatType1Print1=b\n";
 private static final String CODE_0_5_1243="Math0Eval0=a\n";
 private static final String CODE_0_5_1244="Math0Eval1=b\n";
+private static final String CODE_0_5_1245="Double0Signum0=a\n";
 private static final String CODE_0_6_0="Interface=interface\n";
 private static final String CODE_0_6_1="Continue=iterer\n";
 private static final String CODE_0_6_2="Abstract=abstrait\n";
@@ -3138,6 +3139,7 @@ private static final String CODE_0_8_1241="FormatType1Print0=a\n";
 private static final String CODE_0_8_1242="FormatType1Print1=b\n";
 private static final String CODE_0_8_1243="Math0Eval0=a\n";
 private static final String CODE_0_8_1244="Math0Eval1=b\n";
+private static final String CODE_0_8_1245="Double0Signum0=a\n";
 private static final String CODE_0_9_0="{public} {class} {Iter}<{T}> :{iteratorType}<{T}>'{'\n";
 private static final String CODE_0_9_1=" {private} {List}<{T}> {listItr};\n";
 private static final String CODE_0_9_2=" {private} {int} {lengthItrLi};\n";
@@ -5566,6 +5568,7 @@ f+=CODE_0_5_1241;
 f+=CODE_0_5_1242;
 f+=CODE_0_5_1243;
 f+=CODE_0_5_1244;
+f+=CODE_0_5_1245;
 return f;
 }
 static String resourcesLgAliasesFrKeywords(){
@@ -7137,6 +7140,7 @@ f+=CODE_0_8_1241;
 f+=CODE_0_8_1242;
 f+=CODE_0_8_1243;
 f+=CODE_0_8_1244;
+f+=CODE_0_8_1245;
 return f;
 }
 static String resourcesLgCollectionsList(){

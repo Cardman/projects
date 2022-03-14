@@ -1081,6 +1081,7 @@ public final class LgNamesContent {
         getNbAlias().getParams().setAliasLong1ToStringMethod0(get(_util,_cust, AliasParamNumber.LONG_1_TO_STRING_METHOD_0));
         getNbAlias().getParams().setAliasLong1ToStringMethod1(get(_util,_cust, AliasParamNumber.LONG_1_TO_STRING_METHOD_1));
         getNbAlias().getParams().setAliasLong0Signum0(get(_util,_cust, AliasParamNumber.LONG_0_SIGNUM_0));
+        getNbAlias().getParams().setAliasDouble0Signum0(get(_util,_cust, AliasParamNumber.DOUBLE_0_SIGNUM_0));
         getNbAlias().getParams().setAliasLong0ParseLong0(get(_util,_cust, AliasParamNumber.LONG_0_PARSE_LONG_0));
         getNbAlias().getParams().setAliasLong1ParseLong0(get(_util,_cust, AliasParamNumber.LONG_1_PARSE_LONG_0));
         getNbAlias().getParams().setAliasLong1ParseLong1(get(_util,_cust, AliasParamNumber.LONG_1_PARSE_LONG_1));
@@ -2080,6 +2081,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_TO_STRING_METHOD_0, getNbAlias().getParams().getAliasLong0ToStringMethod0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_TO_STRING_METHOD_0, getNbAlias().getParams().getAliasLong1ToStringMethod0()),new KeyValueMemberName(AliasParamNumber.LONG_1_TO_STRING_METHOD_1, getNbAlias().getParams().getAliasLong1ToStringMethod1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_SIGNUM_0, getNbAlias().getParams().getAliasLong0Signum0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.DOUBLE_0_SIGNUM_0, getNbAlias().getParams().getAliasDouble0Signum0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_PARSE_LONG_0, getNbAlias().getParams().getAliasLong0ParseLong0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_0, getNbAlias().getParams().getAliasLong1ParseLong0()),new KeyValueMemberName(AliasParamNumber.LONG_1_PARSE_LONG_1, getNbAlias().getParams().getAliasLong1ParseLong1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamNumber.LONG_0_COMPARE_TO_0, getNbAlias().getParams().getAliasLong0CompareTo0())));

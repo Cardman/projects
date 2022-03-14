@@ -60,6 +60,7 @@ public final class AliasParamNumber {
     public static final String LONG_1_TO_STRING_METHOD_0="Long1ToStringMethod0";
     public static final String LONG_1_TO_STRING_METHOD_1="Long1ToStringMethod1";
     public static final String LONG_0_SIGNUM_0="Long0Signum0";
+    public static final String DOUBLE_0_SIGNUM_0="Double0Signum0";
     public static final String LONG_0_PARSE_LONG_0="Long0ParseLong0";
     public static final String LONG_1_PARSE_LONG_0="Long1ParseLong0";
     public static final String LONG_1_PARSE_LONG_1="Long1ParseLong1";
@@ -181,6 +182,7 @@ public final class AliasParamNumber {
     private String aliasLong1ToStringMethod0="a";
     private String aliasLong1ToStringMethod1="b";
     private String aliasLong0Signum0="a";
+    private String aliasDouble0Signum0="a";
     private String aliasLong0ParseLong0="a";
     private String aliasLong1ParseLong0="a";
     private String aliasLong1ParseLong1="b";
@@ -714,6 +716,14 @@ public final class AliasParamNumber {
 
     public void setAliasLong0Signum0(String _v) {
         this.aliasLong0Signum0 = _v;
+    }
+
+    public String getAliasDouble0Signum0() {
+        return aliasDouble0Signum0;
+    }
+
+    public void setAliasDouble0Signum0(String _v) {
+        this.aliasDouble0Signum0 = _v;
     }
 
     public String getAliasLong0ParseLong0() {

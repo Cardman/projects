@@ -6020,6 +6020,11 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void processEl103064_Test() {
+        Argument arg_ = directCalculate("Double.sgn(1d)");
+        assertEq(1.0, getDouble(arg_));
+    }
+    @Test
     public void processEl103065Test() {
         Argument arg_ = directCalculate("Byte.bin(($byte)0)");
         assertEq("0", getString(arg_));
