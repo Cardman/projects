@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.inherits.AbstractParamChecker;
+import code.expressionlanguage.exec.inherits.ReflectMethodParamChecker;
 import code.expressionlanguage.exec.inherits.SwitchParamChecker;
 import code.expressionlanguage.structs.MethodMetaInfo;
 import code.util.CustList;
@@ -22,7 +23,7 @@ public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
         if (callee_ instanceof ExecAbstractSwitchMethod) {
             ab_ = new SwitchParamChecker((ExecAbstractSwitchMethod) callee_, _args,getAccessKind());
         } else {
-            ab_ = initRefl(_args,_right);
+            ab_ = new ReflectMethodParamChecker(getPair(), _args, _right, getAccessKind());
         }
         return ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }

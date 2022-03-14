@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.IndexerFormatParamChecker;
+import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
@@ -83,7 +83,7 @@ public final class ExecCustArrOperation extends ExecInvokingOperation implements
         ExecOverrideInfo polymorph_ = polymorphOrSuper(_instFctContent.isStaticChoiceMethod(), _conf,pr_, _instFctContent.getFormattedType(),fct_);
         fct_ = polymorph_.getPair();
         ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
-        return new IndexerFormatParamChecker(fct_, fetchFormattedArgs(_conf, _stackCall, pr_, type_, _instFctContent, _right, _infos), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stackCall);
+        return new MethodParamChecker(fct_, fetchFormattedArgs(_conf, _stackCall, pr_, type_, _instFctContent, _right, _infos), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stackCall);
     }
 
     public ExecInstFctContent getInstFctContent() {

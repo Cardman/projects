@@ -253,7 +253,7 @@ public final class ForwardInfos {
         boolean instEltCount_ = false;
         for (AnaFormattedRootBlock s: _allSuperClass) {
             RootBlock superBl_ = s.getRootBlock();
-            feedFunctBodies(_forwards, _e, s, superBl_, _aliasFct);
+            feedFunctBodies(_forwards, _e, s, _aliasFct);
             for (AbsBk b: ClassesUtil.getDirectChildren(superBl_)) {
                 if ((b instanceof FieldBlock)) {
                     if (((FieldBlock)b).isStaticField()) {
@@ -269,10 +269,14 @@ public final class ForwardInfos {
         _e.getMembers().getRootBlock().setWithInstanceElements(instEltCount_);
     }
 
-    private static void feedFunctBodies(Forwards _forwards, FwdRootBlockMembers _e, AnaFormattedRootBlock _s, RootBlock _superBl, String _aliasFct) {
-        for (NamedCalledFunctionBlock b: _superBl.getOverridableBlocks()) {
+    private static void feedFunctBodies(Forwards _forwards, FwdRootBlockMembers _e, AnaFormattedRootBlock _s, String _aliasFct) {
+        RootBlock rootBlock_ = _s.getRootBlock();
+        for (NamedCalledFunctionBlock b: rootBlock_.getOverridableBlocks()) {
+            if (b.getKind() == MethodKind.SET_INDEX || b.getKind() == MethodKind.GET_INDEX) {
+                continue;
+            }
             if (b.isAbstractMethod()) {
-                Members mem_ = _forwards.getMember(_superBl);
+                Members mem_ = _forwards.getMember(rootBlock_);
                 ExecRootBlock ex_ = mem_.getRootBlock();
                 ExecOverridableBlock value_ = mem_.getOvNamed(b);
                 ExecOverrideInfo val_ = ex_.getRedirections().getVal(value_, _e.getRootBlock().getFullName());
