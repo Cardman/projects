@@ -15,6 +15,7 @@ import code.maths.*;
 import code.maths.montecarlo.*;
 import code.util.*;
 import aiki.facade.enums.*;
+import code.util.consts.Constants;
 import code.util.core.*;
 import aiki.sml.init.*;
 import aiki.sml.imgs.*;
@@ -120,21 +121,38 @@ public final class LoadRes{
 
     private static final String BALL_DEF = "BALL_DEF";
 	private LoadRes(){}
-	public static void loadResources(AbstractGenerator _gene, FacadeGame _f, PerCent _p,LoadFlag _l) {
-        DataBase data_ = new DataBase(_gene);
-        data_.setLanguages(_f.getLanguages());
-        data_.setDisplayLanguages(_f.getDisplayLanguages());
-        _l.set(true);
-        data_.setLanguage(_f.getLanguage());
-        loadResources(data_,_p, _f.getLanguage());
-        if (_f.getData() != null) {
-            data_.setMessages(_f.getData());
+
+    public static StringMap<String> dis() {
+        StringMap<String> displayLanguages_ = new StringMap<String>();
+        for (String s: Constants.getAvailableLanguages()) {
+            displayLanguages_.put(s, Constants.getDisplayLanguage(s));
         }
-        _f.setData(data_);
+        return displayLanguages_;
+    }
+    public static void loadResources(AbstractGenerator _gene, FacadeGame _f, PerCent _p, LoadFlag _l, LoadingData _loading) {
+        DataBase data_ = _loading.loadResource(_gene, _p, _l);
+        LoadRes.postLoad(_f, data_);
+    }
+    public static DataBase loadResource(AbstractGenerator _gene, PerCent _p, LoadFlag _l, StringList _languages, StringMap<String> _displayLanguages) {
+        DataBase data_ = new DataBase(_gene);
+        data_.setLanguages(_languages);
+        data_.setDisplayLanguages(_displayLanguages);
+        _l.set(true);
+        loadResources(data_, _p);
+        return data_;
+    }
+
+    public static void postLoad(FacadeGame _f, DataBase _data) {
+        if (_f.getData() != null) {
+            _data.setMessages(_f.getData());
+        }
+        _data.setLanguage(_f.getLanguage());
+        _f.setData(_data);
         _f.setLoadedData(true);
         _f.setZipName(DataBase.EMPTY_STRING);
     }
-    public static void loadResources(DataBase _d,PerCent _perCentLoading, String _lg) {
+
+    public static void loadResources(DataBase _d, PerCent _perCentLoading) {
         int delta_ = (100 - _perCentLoading.getPercent()) / 6;
 
         _d.initializeMembers();

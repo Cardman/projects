@@ -5,10 +5,7 @@ package aiki.gui;
 
 
 
-import aiki.db.DataBase;
-import aiki.db.ImageHeroKey;
-import aiki.db.LoadFlag;
-import aiki.db.PerCent;
+import aiki.db.*;
 import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
@@ -276,10 +273,7 @@ public final class WindowAiki extends NetGroupFrame {
         facade = new FacadeGame();
         StringList lgs_ = Constants.getAvailableLanguages();
         facade.setLanguages(lgs_);
-        StringMap<String> displayLanguages_ = new StringMap<String>();
-        for (String s: lgs_) {
-            displayLanguages_.put(s, Constants.getDisplayLanguage(s));
-        }
+        StringMap<String> displayLanguages_ = LoadRes.dis();
         facade.setDisplayLanguages(displayLanguages_);
         facade.setSimplyLanguage(_lg);
         setImageIconFrame(LaunchingPokemon.getIcon(getImageFactory()));
@@ -547,19 +541,19 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     /**thread safe method*/
-    public void loadOnlyRom(String _file, PerCent _p) {
+    public void loadOnlyRom(String _file, PerCent _p, LoadingData _loadingData) {
         if (!_file.isEmpty()) {
             //startThread = true;
             StringMap<String> files_ = StreamFolderFile.getFiles(_file,getFileCoreStream(),getStreams());
             DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_file, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
+                LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
             }
             if (!loadFlag.get()) {
                 return;
             }
         } else {
-            DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
+            LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
             if (!loadFlag.get()) {
                 return;
             }
@@ -569,7 +563,7 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     /**thread safe method*/
-    public void loadRomGame(LoadingGame _configuration, String _path, StringList _files, boolean _param, PerCent _p) {
+    public void loadRomGame(LoadingGame _configuration, String _path, StringList _files, boolean _param, PerCent _p, LoadingData _loadingData) {
         String path_;
         if (!_configuration.getLastRom().isEmpty()) {
             String lastRom_ = StringUtil.replaceBackSlash(_configuration.getLastRom());
@@ -583,13 +577,13 @@ public final class WindowAiki extends NetGroupFrame {
             StringMap<String> files_ = StreamFolderFile.getFiles(path_,getFileCoreStream(),getStreams());
             DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,path_, files_,_p,loadFlag);
             if (!facade.isLoadedData()) {
-                DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
+                LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
             }
             if (!loadFlag.get()) {
                 return;
             }
         } else {
-            DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
+            LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _loadingData);
             if (!loadFlag.get()) {
                 return;
             }
@@ -827,7 +821,7 @@ public final class WindowAiki extends NetGroupFrame {
         }
         PerCent p_ = new PerCentIncr(getThreadFactory().newAtomicInteger());
         loadFlag.set(true);
-        LoadingThread load_ = new LoadingThread(this, fileName_,p_);
+        LoadingThread load_ = new LoadingThread(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages()));
         LoadGame opening_ = new LoadGame(this,p_);
         getThreadFactory().newStartedThread(load_);
         getThreadFactory().newStartedThread(opening_);
@@ -1091,11 +1085,11 @@ public final class WindowAiki extends NetGroupFrame {
         SoftApplicationCore.saveCoords(LaunchingPokemon.getTempFolder(getFrames()),Resources.COORDS, point_.getXcoord(),point_.getYcoord(),getStreams());
     }
 
-    public void processLoad(String _fileName, PerCent _p) {
+    public void processLoad(String _fileName, PerCent _p, LoadingData _load) {
         StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
         DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
         if (!facade.isLoadedData()) {
-            DocumentReaderAikiCoreUtil.loadResources(getGenerator(),facade,_p,loadFlag);
+            LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _load);
         }
         if (!loadFlag.get()) {
             return;

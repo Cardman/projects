@@ -1,6 +1,7 @@
 package aiki.main;
 
 import aiki.db.DataBase;
+import aiki.sml.LoadingData;
 import aiki.db.PerCent;
 import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
@@ -9,7 +10,6 @@ import code.gui.FrameUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
 /**This class thread is independant from EDT,
@@ -23,13 +23,15 @@ public final class CreateMainWindowParam implements Runnable {
     private String path;
 
     private StringList files;
+    private final LoadingData loadingData;
 
     /**This class thread is independant from EDT*/
-    public CreateMainWindowParam(WindowAiki _window, LoadingGame _load, String _path, StringList _files) {
+    public CreateMainWindowParam(WindowAiki _window, LoadingGame _load, String _path, StringList _files, LoadingData _loading) {
         window = _window;
         load = _load;
         path = _path;
         files = _files;
+        loadingData = _loading;
     }
 
     @Override
@@ -55,9 +57,9 @@ public final class CreateMainWindowParam implements Runnable {
         OpeningGame opening_ = new OpeningGame(window,p_);
         window.getThreadFactory().newStartedThread(opening_);
         if (!load.getLastSavedGame().isEmpty()) {
-            window.loadRomGame(load, path, files, true,p_);
+            window.loadRomGame(load, path, files, true,p_,loadingData);
         } else {
-            window.loadOnlyRom(path_,p_);
+            window.loadOnlyRom(path_,p_,loadingData);
         }
         if (!window.getLoadFlag().get()) {
             stoppedLoading_ = true;

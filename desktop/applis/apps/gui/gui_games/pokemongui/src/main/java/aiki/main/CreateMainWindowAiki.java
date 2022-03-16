@@ -1,6 +1,7 @@
 package aiki.main;
 import aiki.beans.*;
 import aiki.gui.threads.PreparedRenderedPages;
+import aiki.sml.DefLoadingData;
 import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
 import aiki.sml.Resources;
@@ -82,9 +83,9 @@ public final class CreateMainWindowAiki implements Runnable {
         window_.pack();
         window_.setVisible(true);
         if (!withParam.isEmpty()) {
-            window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, path, withParam));
+            window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, path, withParam, new DefLoadingData(window_.getFacade().getLanguages(),window_.getFacade().getDisplayLanguages())));
         } else {
-            window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, path));
+            window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, path, new DefLoadingData(window_.getFacade().getLanguages(),window_.getFacade().getDisplayLanguages())));
         }
     }
 }

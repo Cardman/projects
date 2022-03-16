@@ -1,8 +1,5 @@
 package aiki.sml;
-import aiki.db.DataBase;
-import aiki.db.ImageHeroKey;
-import aiki.db.LoadFlag;
-import aiki.db.PerCent;
+import aiki.db.*;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SearchingMode;
 import aiki.fight.Combos;
@@ -1015,21 +1012,7 @@ public final class DocumentReaderAikiCoreUtil {
         data_.getMap().initializeLinks();
         return data_;
     }
-    public static void loadResources(AbstractGenerator _gene, FacadeGame _f, PerCent _p,LoadFlag _l) {
-        LoadRes.loadResources(_gene,_f,_p,_l);
-        /*DataBase data_ = new DataBase(_gene);
-        data_.setLanguages(_f.getLanguages());
-        data_.setDisplayLanguages(_f.getDisplayLanguages());
-        _l.set(true);
-        data_.setLanguage(_f.getLanguage());
-        loadResources(data_,_p, _f.getLanguage());
-        if (_f.getData() != null) {
-            data_.setMessages(_f.getData());
-        }
-        _f.setData(data_);
-        _f.setLoadedData(true);
-        _f.setZipName(DataBase.EMPTY_STRING);*/
-    }
+
     public static void initMessages(DataBase _d,String _lg) {
         StringMap<String> map_ = MessPkGr.ms();
         _d.setMessagesPokemonPlayer(getMessagesFromLocaleClass(map_,Resources.MESSAGES_FOLDER, _lg, PokemonPlayer.POKEMON_PLAYER));
