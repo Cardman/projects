@@ -23,9 +23,6 @@ public final class DefaultLocalizer {
         context.addLocWarning(_warning);
     }
 
-    public void addErrors(CustList<FoundErrorInterpret> _errors) {
-        context.addLocErrors(_errors);
-    }
     public void addError(FoundErrorInterpret _error) {
         context.addLocError(_error);
     }

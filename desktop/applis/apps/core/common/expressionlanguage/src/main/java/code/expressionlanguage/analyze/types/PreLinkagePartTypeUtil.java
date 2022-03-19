@@ -73,9 +73,6 @@ public final class PreLinkagePartTypeUtil {
         return new AnaResultPartType();
     }
 
-    public static AnaResultPartType processAccessKoRootAnalyze(FoundErrorInterpret _err, String _input, int _loc, int _indexInType, AnalyzedPageEl _page) {
-        return processAccessKoRootAnalyze(false,_err, _input, _loc, _indexInType, _page);
-    }
     public static AnaResultPartType processAccessKoRootAnalyze(boolean _voidType, FoundErrorInterpret _err, String _input, int _loc, int _indexInType, AnalyzedPageEl _page) {
         if (_page.isGettingParts()) {
             AccessedBlock r_ = _page.getImporting();

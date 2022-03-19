@@ -30,6 +30,10 @@ public final class ResolvedIdType {
         return dels;
     }
 
+    public ResolvedIdTypeContent getContent() {
+        return content;
+    }
+
     public AnaGeneType getGeneType() {
         return content.getGeneType();
     }

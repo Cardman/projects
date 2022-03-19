@@ -212,7 +212,7 @@ public final class AnaTypeUtil {
             ClassesUtil.globalType(_page,c);
             StringList ints_ = c.getInstInitInterfaces();
             int len_ = ints_.size();
-            CustList<ResolvedIdType> resolvedIdTypes_ = new CustList<ResolvedIdType>();
+            CustList<ResolvedIdTypeContent> resolvedIdTypes_ = new CustList<ResolvedIdTypeContent>();
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getInstInitInterfacesOffset().get(i);
                 _page.setCurrentBlock(c);
@@ -221,10 +221,10 @@ public final class AnaTypeUtil {
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(c.getRefMappings());
                 ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, ints_.get(i), _page);
-                resolvedIdTypes_.add(resolvedIdType_);
+                resolvedIdTypes_.add(resolvedIdType_.getContent());
                 String base_ = resolvedIdType_.getFullName();
                 c.getPartsInstInitInterfacesOffset().add(resolvedIdType_.getDels());
-                RootBlock r_ = _page.getAnaClassBody(base_);
+                AnaGeneType r_ = resolvedIdType_.getContent().getGeneType();
                 AnaFormattedRootBlock found_ = AnaInherits.getOverridingFullTypeByBases(c, r_);
                 if (!(r_ instanceof InterfaceBlock)||found_ == null) {
                     FoundErrorInterpret enum_;
@@ -264,7 +264,7 @@ public final class AnaTypeUtil {
                 _page.addLocError(enum_);
                 c.addNameErrors(enum_);
             }
-            CustList<ResolvedIdType> resolvedIdTypes_ = new CustList<ResolvedIdType>();
+            CustList<ResolvedIdTypeContent> resolvedIdTypes_ = new CustList<ResolvedIdTypeContent>();
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 _page.setCurrentBlock(c);
@@ -273,10 +273,10 @@ public final class AnaTypeUtil {
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(c.getRefMappings());
                 ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(0, ints_.get(i), _page);
-                resolvedIdTypes_.add(resolvedIdType_);
+                resolvedIdTypes_.add(resolvedIdType_.getContent());
                 String base_ = resolvedIdType_.getFullName();
                 c.getPartsStaticInitInterfacesOffset().add(resolvedIdType_.getDels());
-                RootBlock r_ = _page.getAnaClassBody(base_);
+                AnaGeneType r_ = resolvedIdType_.getContent().getGeneType();
                 AnaFormattedRootBlock found_ = AnaInherits.getOverridingFullTypeByBases(c, r_);
                 if (!(r_ instanceof InterfaceBlock)||found_ == null) {
                     FoundErrorInterpret enum_;
@@ -292,7 +292,7 @@ public final class AnaTypeUtil {
                     }
                 } else {
 //                    type_.getStaticInitImportedInterfaces().add(base_);
-                    c.getStaticInitImportedInterfaces().add(r_);
+                    c.getStaticInitImportedInterfaces().add((RootBlock) r_);
                 }
             }
             checkInherits(_page, c, resolvedIdTypes_, c.getStaticInitInterfacesOffset());
@@ -310,14 +310,16 @@ public final class AnaTypeUtil {
         }
     }
 
-    private static void checkInherits(AnalyzedPageEl _page, RootBlock _root, CustList<ResolvedIdType> _resolvedIdTypes, Ints _offsets) {
+    private static void checkInherits(AnalyzedPageEl _page, RootBlock _root, CustList<ResolvedIdTypeContent> _resolvedIdTypes, Ints _offsets) {
         CustList<FoundErrorInterpret> errors_ = new CustList<FoundErrorInterpret>();
         checkInherits(_page, _resolvedIdTypes, _offsets,errors_, _root.getFile());
-        _page.addLocErrors(errors_);
-        _root.addNameErrorsList(errors_);
+        for (FoundErrorInterpret f: errors_) {
+            _page.addLocError(f);
+            _root.addNameErrors(f);
+        }
     }
 
-    public static void checkInherits(AnalyzedPageEl _page, CustList<ResolvedIdType> _resolvedIdTypes, Ints _offsets, CustList<FoundErrorInterpret> _errors, FileBlock _file) {
+    public static void checkInherits(AnalyzedPageEl _page, CustList<ResolvedIdTypeContent> _resolvedIdTypes, Ints _offsets, CustList<FoundErrorInterpret> _errors, FileBlock _file) {
         int len_ = _resolvedIdTypes.size();
         for (int i = 0; i < len_; i++) {
             String sup_ = _resolvedIdTypes.get(i).getFullName();
