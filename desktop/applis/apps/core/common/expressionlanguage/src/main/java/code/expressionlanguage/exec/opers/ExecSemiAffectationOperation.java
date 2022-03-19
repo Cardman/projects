@@ -13,12 +13,10 @@ import code.util.StringList;
 
 public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation {
     private final boolean post;
-    private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converterTo;
 
     protected ExecSemiAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, boolean _post, ImplicitMethods _converterTo, StringList _names) {
-        super(_opCont, _operatorContent.getOpOffset(), _names);
-        operatorContent = _operatorContent;
+        super(_opCont, _operatorContent, _names);
         converterTo = _converterTo;
         post = _post;
     }
@@ -34,11 +32,11 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
     @Override
     public void endCalculate(ContextEl _conf,
                              IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        setRelOffsetPossibleLastPage(getOperatorContent().getOpOffset(), _stack);
         end(this,_conf, _nodes, _right, _stack,converterTo,post);
     }
 
     protected static void end(ExecAbstractAffectOperation _current,ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack, ImplicitMethods _impl, boolean _post) {
+        _current.setRelOffsetPossibleLastPage(_current.getOperatorContent().getOpOffset(), _stack);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,_current);
         Argument stored_ = firstArg(_current,_nodes);
         int indexImplicit_ = pair_.getIndexImplicitConv();
@@ -81,10 +79,6 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
             return _stored;
         }
         return _right;
-    }
-
-    protected ExecOperatorContent getOperatorContent() {
-        return operatorContent;
     }
 
     public boolean isPost() {

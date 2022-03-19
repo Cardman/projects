@@ -15,13 +15,11 @@ import code.util.core.StringUtil;
 
 public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffectOperation implements CallExecSimpleOperation,CompoundedOperator {
 
-    private final ExecOperatorContent operatorContent;
     private final ImplicitMethods converter;
     private final boolean staticPostEltContent;
 
     protected ExecCompoundAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _operatorContent, ImplicitMethods _converter, StringList _names, boolean _staticPostEltContent) {
-        super(_opCont, _operatorContent.getOpOffset(), _names);
-        operatorContent = _operatorContent;
+        super(_opCont, _operatorContent, _names);
         converter = _converter;
         staticPostEltContent = _staticPostEltContent;
     }
@@ -33,7 +31,7 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
         if (argumentPair_.isArgumentTest()){
             pair_.setIndexImplicitConv(-1);
             Argument tow_ = Argument.getNullableValue(argumentPair_.getArgument());
-            if (sh(operatorContent)) {
+            if (sh(getOperatorContent())) {
                 pair_.setEndCalculate(true);
                 setSimpleArgument(tow_, _conf, _nodes, _stack);
                 return;
@@ -54,17 +52,12 @@ public abstract class ExecCompoundAffectationOperation extends ExecAbstractAffec
 
     @Override
     public void endCalculate(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stack) {
-        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
         ExecSemiAffectationOperation.end(this,_conf,_nodes,_right,_stack,converter,staticPostEltContent);
-    }
-
-    protected ExecOperatorContent getOperatorContent() {
-        return operatorContent;
     }
 
     @Override
     public String getOper() {
-        return operatorContent.getOper();
+        return getOperatorContent().getOper();
     }
 
     public ImplicitMethods getConverter() {

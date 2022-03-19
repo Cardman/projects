@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.util.IdMap;
 import code.util.StringList;
@@ -16,11 +17,11 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
     private ExecOperationNode settable;
     private ExecOperationNode settableAnc;
     private ExecMethodOperation settableParent;
-    private final int offset;
+    private final ExecOperatorContent operatorContent;
     private final StringList names;
-    protected ExecAbstractAffectOperation(ExecOperationContent _m, int _offset, StringList _names) {
+    protected ExecAbstractAffectOperation(ExecOperationContent _m, ExecOperatorContent _offset, StringList _names) {
         super(_m);
-        offset = _offset;
+        operatorContent = _offset;
         names = _names;
     }
 
@@ -32,7 +33,7 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        setRelOffsetPossibleLastPage(offset, _stack);
+        setRelOffsetPossibleLastPage(operatorContent.getOpOffset(), _stack);
         if (getSettableParent() instanceof ExecSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
             ArgumentsPair pairBefore_ = ExecHelper.getArgumentPair(_nodes, this);
             pairBefore_.setEndCalculate(true);
@@ -152,6 +153,10 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         return settableParent;
     }
 
+
+    protected ExecOperatorContent getOperatorContent() {
+        return operatorContent;
+    }
     public ExecOperationNode getSettableAnc() {
         return settableAnc;
     }

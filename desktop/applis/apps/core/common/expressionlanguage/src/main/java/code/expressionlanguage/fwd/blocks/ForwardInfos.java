@@ -1692,7 +1692,10 @@ public final class ForwardInfos {
         if (_anaNode instanceof AffectationOperation) {
             AffectationOperation a_ = (AffectationOperation) _anaNode;
             StringList names_ = _anaNode.getResultClass().getNames();
-            return new ExecAffectationOperation(new ExecOperationContent(a_.getContent()), a_.getOpOffset(), names_);
+            AnaOperatorContent cont_ = new AnaOperatorContent();
+            cont_.setOpOffset(a_.getOpOffset());
+            cont_.setOper("=");
+            return new ExecAffectationOperation(new ExecOperationContent(a_.getContent()), new ExecOperatorContent(cont_), names_);
         }
         return new ExecDeclaringOperation(new ExecOperationContent(_anaNode.getContent()));
     }

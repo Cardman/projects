@@ -8,13 +8,14 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
+import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 
 public final class ExecAffectationOperation extends ExecAbstractAffectOperation {
 
-    public ExecAffectationOperation(ExecOperationContent _opCont, int _opOffset,StringList _names) {
+    public ExecAffectationOperation(ExecOperationContent _opCont, ExecOperatorContent _opOffset, StringList _names) {
         super(_opCont, _opOffset, _names);
     }
 
