@@ -153,6 +153,8 @@ public final class AnalyzedPageEl {
     private LgNamesContent content;
     private BuildableLgNames logErr;
     private AbsLineDeclarator lineDeclarator;
+    private final CustList<OperatorBlock> sortedNbOperators = new CustList<OperatorBlock>();
+    private boolean sortNbOperators;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -1255,4 +1257,15 @@ public final class AnalyzedPageEl {
         this.lineDeclarator = _lineDeclarator;
     }
 
+    public CustList<OperatorBlock> getSortedNbOperators() {
+        return sortedNbOperators;
+    }
+
+    public boolean isSortNbOperators() {
+        return sortNbOperators;
+    }
+
+    public void setSortNbOperators(boolean _sortNbOperators) {
+        this.sortNbOperators = _sortNbOperators;
+    }
 }

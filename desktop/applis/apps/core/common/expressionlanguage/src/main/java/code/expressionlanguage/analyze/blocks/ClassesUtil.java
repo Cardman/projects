@@ -260,29 +260,9 @@ public final class ClassesUtil {
         validateEl(_page);
         _page.getSortedOperators().addAllElts(_page.getAllOperators());
         _page.getSortedOperators().sortElts(new AnaOperatorCmp());
-        for (OperatorBlock o: _page.getSortedOperators()) {
-            for (RootBlock c: o.getAnonymousTypes()) {
-                StringMap<Integer> countsAnon_ = _page.getCountsAnon();
-                Integer val_ = countsAnon_.getVal(c.getName());
-                if (val_ == null) {
-                    countsAnon_.put(c.getName(),1);
-                    c.setSuffix("*1");
-                } else {
-                    countsAnon_.put(c.getName(),val_+1);
-                    c.setSuffix("*"+(val_+1));
-                }
-            }
-            for (RootBlock c: o.getLocalTypes()) {
-                StringMap<Integer> counts_ = _page.getCounts();
-                Integer val_ = counts_.getVal(c.getName());
-                if (val_ == null) {
-                    counts_.put(c.getName(),1);
-                    c.setSuffix("+1");
-                } else {
-                    counts_.put(c.getName(),val_+1);
-                    c.setSuffix("+"+(val_+1));
-                }
-            }
+        CustList<OperatorBlock> sortedOperators_ = getOperatorBlocks(_page);
+        for (OperatorBlock o: sortedOperators_) {
+            nbTypesOpers(_page, o);
         }
         _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
         _page.getFoundTypes().clear();
@@ -337,6 +317,41 @@ public final class ClassesUtil {
         _page.setAnnotAnalysis(false);
 
         processAnonymous(_page);
+    }
+
+    private static void nbTypesOpers(AnalyzedPageEl _page, OperatorBlock _o) {
+        for (RootBlock c: _o.getAnonymousTypes()) {
+            StringMap<Integer> countsAnon_ = _page.getCountsAnon();
+            Integer val_ = countsAnon_.getVal(c.getName());
+            if (val_ == null) {
+                countsAnon_.put(c.getName(),1);
+                c.setSuffix("*1");
+            } else {
+                countsAnon_.put(c.getName(),val_+1);
+                c.setSuffix("*"+(val_+1));
+            }
+        }
+        for (RootBlock c: _o.getLocalTypes()) {
+            StringMap<Integer> counts_ = _page.getCounts();
+            Integer val_ = counts_.getVal(c.getName());
+            if (val_ == null) {
+                counts_.put(c.getName(),1);
+                c.setSuffix("+1");
+            } else {
+                counts_.put(c.getName(),val_+1);
+                c.setSuffix("+"+(val_+1));
+            }
+        }
+    }
+
+    private static CustList<OperatorBlock> getOperatorBlocks(AnalyzedPageEl _page) {
+        CustList<OperatorBlock> sortedOperators_;
+        if (_page.isSortNbOperators()) {
+            sortedOperators_ = _page.getSortedNbOperators();
+        } else {
+            sortedOperators_ = _page.getSortedOperators();
+        }
+        return sortedOperators_;
     }
 
     public static void processAnonymous(AnalyzedPageEl _page) {
@@ -739,6 +754,7 @@ public final class ClassesUtil {
             _page.setCurrentFile(block_);
             FileResolver.parseFile(block_, fileName_,file_, _page);
         }
+        trySortNbOpers(_page);
         StringList basePkgFound_ = _page.getBasePackagesFound();
         StringList pkgFound_ = _page.getPackagesFound();
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
@@ -757,6 +773,48 @@ public final class ClassesUtil {
             fetchByFile(basePkgFound_, pkgFound_, value_, _page);
         }
         processMapping(_page);
+    }
+
+    private static void trySortNbOpers(AnalyzedPageEl _page) {
+        StringMap<FileBlock> files_ = _page.getFilesBodies();
+        int opCount_ = 0;
+        int opCountNb_ = 0;
+        StringList list_ = new StringList();
+        for (EntryCust<String,FileBlock> f: files_.entryList()) {
+            FileBlock value_ = f.getValue();
+            for (AbsBk b: getDirectChildren(value_)) {
+                if (b instanceof OperatorBlock) {
+                    OperatorBlock op_ = (OperatorBlock) b;
+                    String labelNumber_ = op_.getLabelNumber();
+                    if (!labelNumber_.isEmpty()) {
+                        list_.add(labelNumber_);
+                        opCountNb_++;
+                    }
+                    opCount_++;
+                }
+            }
+        }
+        if (opCountNb_ != opCount_ || list_.hasDuplicates()) {
+            return;
+        }
+        feedNb(_page);
+    }
+
+    private static void feedNb(AnalyzedPageEl _page) {
+        StringMap<FileBlock> files_ = _page.getFilesBodies();
+        CustList<OperatorBlock> opers_ = new CustList<OperatorBlock>();
+        for (EntryCust<String,FileBlock> f: files_.entryList()) {
+            FileBlock value_ = f.getValue();
+            for (AbsBk b: getDirectChildren(value_)) {
+                if (b instanceof OperatorBlock) {
+                    OperatorBlock op_ = (OperatorBlock) b;
+                    opers_.add(op_);
+                }
+            }
+        }
+        opers_.sortElts(new AnaOperatorLabelCmp());
+        _page.getSortedNbOperators().addAllElts(opers_);
+        _page.setSortNbOperators(true);
     }
 
     public static void fetchOuterTypesCountOpers(AnalyzedPageEl _page, FileBlock _value) {

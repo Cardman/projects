@@ -15,6 +15,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
     private final StringList allReservedInners = new StringList();
     private final CustList<RootBlock> localTypes = new CustList<RootBlock>();
     private final CustList<AnonymousTypeBlock> anonymousTypes = new CustList<AnonymousTypeBlock>();
+    private final String labelNumber;
     private int countsAnonFct;
     private final StringList imports = new StringList();
 
@@ -25,6 +26,7 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
                          int _offset) {
         super(_header,_retRef, new OffsetAccessInfo(0, AccessEnum.PUBLIC),
                 _retType, _fctName, _offset);
+        labelNumber = _header.getInfo().trim();
     }
 
     @Override
@@ -92,6 +94,10 @@ public final class OperatorBlock extends NamedFunctionBlock implements AccessedB
 
     public void setOperatorNumber(int _operatorNumber) {
         this.operatorNumber = _operatorNumber;
+    }
+
+    public String getLabelNumber() {
+        return labelNumber;
     }
 
     @Override
