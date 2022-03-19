@@ -181,6 +181,21 @@ public final class ResolvingTypes {
 
     public static ResolvedIdType resolveAccessibleIdTypeBlock(int _loc, String _in, AnalyzedPageEl _page) {
         int rc_ = _page.getLocalizer().getCurrentLocationIndex();
+        AccessedBlock r_ = _page.getImporting();
+        int rootLoc_ = rc_ + _loc;
+        StrTypes operators_ = new StrTypes();
+        CustList<AnaResultPartType> found_ = new CustList<AnaResultPartType>();
+        CustList<AnaResultPartType> err_ = new CustList<AnaResultPartType>();
+        CustList<FoundErrorInterpret> errors_ = new CustList<FoundErrorInterpret>();
+        ResolvedIdType resolvedIdType_ = resolveAccessibleIdTypeBlockWithoutErr(_in, _page, operators_, found_, err_, errors_, rootLoc_);
+        CustList<AnaResultPartType> all_ = new CustList<AnaResultPartType>(found_);
+        all_.addAllElts(err_);
+        _page.getLocalizer().addErrors(errors_);
+        AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(_in, all_, operators_, r_, rootLoc_, _page);
+        return new ResolvedIdType(resolvedIdType_.getFullName(),resolvedIdType_.getGeneType(), result_);
+    }
+
+    public static ResolvedIdType resolveAccessibleIdTypeBlockWithoutErr(String _in, AnalyzedPageEl _page, StrTypes _operators, CustList<AnaResultPartType> _found, CustList<AnaResultPartType> _err, CustList<FoundErrorInterpret> _errors, int _rootLoc) {
         String tr_ = _in.trim();
         String void_ = _page.getAliasVoid();
         AccessedBlock r_ = _page.getImporting();
@@ -196,40 +211,35 @@ public final class ResolvingTypes {
         String res_ = StringExpUtil.removeDottedSpaces(base_);
         StandardType std_ = _page.getStandardsTypes().getVal(res_);
         if (std_ != null) {
-            AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(_in, new CustList<AnaResultPartType>(), new StrTypes(), r_, rc_+_loc, _page);
-            return new ResolvedIdType(res_,std_, result_);
+            return new ResolvedIdType(res_,std_, null);
         }
-        CustList<AnaResultPartType> dels_ = new CustList<AnaResultPartType>();
-        int rootLoc_ = rc_ + _loc;
         if (StringUtil.quickEq(tr_, void_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(rc_);
+            un_.setIndexFile(_rootLoc);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getVoidType(),
                     void_);
-            _page.getLocalizer().addError(un_);
-            dels_.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(true,un_,void_, rootLoc_,firstOff_,_page));
-            AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(_in, dels_, new StrTypes(), r_, rootLoc_, _page);
-            return new ResolvedIdType("",null, result_);
+            _errors.add(un_);
+            _err.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(true,un_,void_, _rootLoc,firstOff_,_page));
+            return new ResolvedIdType("",null, null);
         }
         if (tr_.isEmpty()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(rc_);
+            un_.setIndexFile(_rootLoc);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
-            _page.getLocalizer().addError(un_);
-            dels_.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(un_," ", rootLoc_,firstOff_,_page));
-            AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(_in, dels_, new StrTypes(), r_, rootLoc_, _page);
-            return new ResolvedIdType("",null, result_);
+            _errors.add(un_);
+            _err.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(un_," ", _rootLoc,firstOff_,_page));
+            return new ResolvedIdType("",null, null);
         }
         RootBlock b_ = _page.getAnaClassBody(res_);
         AnaGeneType resType_ = b_;
         if (b_ == null) {
             MappingLocalType resolved_ = _page.getMappingLocal().getVal(base_);
             if (resolved_ != null) {
-                dels_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(base_,resolved_.getType(),resolved_.getFullName(),r_,rootLoc_,firstOff_,_page));
+                _found.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(base_,resolved_.getType(),resolved_.getFullName(),r_,_rootLoc,firstOff_,_page));
                 res_ = resolved_.getFullName();
                 resType_ = resolved_.getType();
             } else {
@@ -238,30 +248,28 @@ public final class ResolvingTypes {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
                     undef_.setFile(_page.getCurrentFile());
-                    undef_.setIndexFile(rc_);
+                    undef_.setIndexFile(_rootLoc);
                     //_in len
                     undef_.buildError(_page.getAnalysisMessages().getUnknownType(),
                             _in);
-                    _page.getLocalizer().addError(undef_);
-                    dels_.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(undef_,base_, rootLoc_,firstOff_,_page));
-                    AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(_in, dels_, new StrTypes(), r_, rootLoc_, _page);
-                    return new ResolvedIdType("",null, result_);
+                    _errors.add(undef_);
+                    _err.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(undef_,base_, _rootLoc,firstOff_,_page));
+                    return new ResolvedIdType("",null, null);
                 }
                 resType_ = id_.getGeneType();
-                dels_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(base_,resType_,id_.getFullName(),r_, rootLoc_,firstOff_,_page));
+                _found.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(base_,resType_,id_.getFullName(),r_, _rootLoc,firstOff_,_page));
                 res_ = id_.getFullName();
             }
         } else {
-            dels_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(base_,b_,res_,r_, rootLoc_,firstOff_,_page));
+            _found.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(base_,b_,res_,r_, _rootLoc,firstOff_,_page));
         }
-        StrTypes operators_ = new StrTypes();
         int offsetType_ = firstFull_.length();
         int size_ = inners_.size();
         for (int i = 2; i < size_; i += 2) {
             String i_ = inners_.get(i);
             String resId_;
             String oper_ = inners_.get(i - 1);
-            operators_.addEntry(offsetType_,oper_);
+            _operators.addEntry(offsetType_,oper_);
             int delta_ = oper_.length();
             if (StringUtil.quickEq(".", oper_)) {
                 resId_ = StringUtil.concat(res_,"..",i_.trim());
@@ -274,24 +282,21 @@ public final class ResolvingTypes {
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFile(_page.getCurrentFile());
-                undef_.setIndexFile(rc_);
+                undef_.setIndexFile(_rootLoc);
                 //_in len
                 undef_.buildError(_page.getAnalysisMessages().getUnknownType(),
                         _in);
-                _page.getLocalizer().addError(undef_);
-                dels_.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(undef_,i_.trim(), rootLoc_,offsetType_+delta_,_page));
-                AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(_in, dels_, operators_, r_, rootLoc_, _page);
-                return new ResolvedIdType("",null, result_);
+                _errors.add(undef_);
+                _err.add(PreLinkagePartTypeUtil.processAccessKoRootAnalyze(undef_,i_.trim(), _rootLoc,offsetType_+delta_,_page));
+                return new ResolvedIdType("",null, null);
             }
             resType_ = inner_;
-            dels_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(i_.trim(),inner_,resId_,r_,rootLoc_,offsetType_+delta_,_page));
+            _found.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(i_.trim(),inner_,resId_,r_,_rootLoc,offsetType_+delta_,_page));
             res_ = resId_;
             offsetType_ += i_.length() + delta_;
         }
-        AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(_in, dels_, operators_, r_, rootLoc_, _page);
-        return new ResolvedIdType(res_,resType_, result_);
+        return new ResolvedIdType(res_,resType_, null);
     }
-
 
     public static AnaResultPartType resolveCorrectType(String _in, AnalyzedPageEl _page) {
         return resolveCorrectType(0, _in, _page);

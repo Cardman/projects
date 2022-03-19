@@ -6,7 +6,10 @@ import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
+import code.expressionlanguage.exec.blocks.ExecFileBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ImplicitMethods;
@@ -609,7 +612,7 @@ public final class RendForwardInfos {
             if (typeCtor_ == null) {
                 return new RendDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingDirContent(s_.getInstancingCommonContent()));
             }
-            return new RendStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(s_.getInstancingStdContent().getNamedFields(),_forwards)));
+            return new RendStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(s_.getInstancingStdContent().getNamedFields(),_forwards), FetchMemberUtil.fwdFormatTypes(s_.getInstancingStdContent().getSups(), _forwards)));
         }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor s_ = (InterfaceFctConstructor) _anaNode;
@@ -950,7 +953,7 @@ public final class RendForwardInfos {
         int recordType_ = _anaNode.getRecordType();
         ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(recordType_, _forwards);
         if (rootBlock_ != null) {
-            return new RendRecordConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, rootBlock_, FetchMemberUtil.namedFieldsContent(_anaNode.getNamedFields(), _forwards));
+            return new RendRecordConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, rootBlock_, FetchMemberUtil.namedFieldsContent(_anaNode.getNamedFields(), _forwards), FetchMemberUtil.fwdFormatTypes(_anaNode.getSups(), _forwards));
         }
         if (_anaNode.getMethod() == null && _anaNode.getRealId() == null) {
             return new RendFieldLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, new ExecLambdaFieldContent(_anaNode.getFieldId(), _anaNode.getLambdaFieldContent(), _anaNode.getLambdaMemberNumberContentId(), _forwards));

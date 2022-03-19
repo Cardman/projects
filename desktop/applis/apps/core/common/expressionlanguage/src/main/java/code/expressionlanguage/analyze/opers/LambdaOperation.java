@@ -57,6 +57,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private StandardType standardType;
     private StandardConstructor standardConstructor;
     private final CustList<AnaNamedFieldContent> namedFields = new CustList<AnaNamedFieldContent>();
+    private final CustList<AnaFormattedRootBlock> sups = new CustList<AnaFormattedRootBlock>();
+    private final CustList<AnaResultPartType> partsInstInitInterfaces = new CustList<AnaResultPartType>();
 
     public LambdaOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
@@ -1647,9 +1649,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         for (int i = 0; i < _from; i++) {
             offsetArg_ += _args.get(i).length() + 1;
         }
+        int next_ = _from;
         for (int i = _from; i < _len; i++) {
             String arg_ = _args.get(i);
             String name_ = arg_.trim();
+            if (StringUtil.quickEq(name_,_page.getKeyWords().getKeyWordInterfaces())) {
+                offsetArg_ += arg_.length() + 1;
+                next_ = i;
+                break;
+            }
             String fieldName_;
             ClassField idField_ = null;
             int e_;
@@ -1717,7 +1725,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 names_.add(idField_);
             }
             offsetArg_ += arg_.length()+1;
+            next_ = i;
         }
+        Ints offsets_ = new Ints();
+        StringList supInts_ = new StringList();
+        for (int i = next_ + 1; i < _len; i++) {
+            String arg_ = _args.get(i);
+            supInts_.add(arg_);
+            int offsetFirst_ = StringExpUtil.getOffset(arg_);
+            offsets_.add(offsetArg_ + offsetFirst_+_page.getLocalizer().getCurrentLocationIndex());
+            offsetArg_ += arg_.length()+1;
+        }
+        CustList<AnaFormattedRootBlock> anaFormattedRootBlocks_ = StandardInstancingOperation.getAnaFormattedRootBlocks(_page, h_, supInts_, offsets_, partsInstInitInterfaces);
+        getSups().addAllElts(anaFormattedRootBlocks_);
         lambdaMemberNumberContentId = new MemberId();
         recordType = h_.getNumberAll();
         lambdaMemberNumberContentId.setRootNumber(recordType);
@@ -2840,5 +2860,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public CustList<AnaNamedFieldContent> getNamedFields() {
         return namedFields;
+    }
+
+    public CustList<AnaFormattedRootBlock> getSups() {
+        return sups;
+    }
+
+    public CustList<AnaResultPartType> getPartsInstInitInterfaces() {
+        return partsInstInitInterfaces;
     }
 }

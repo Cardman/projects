@@ -128,7 +128,7 @@ public final class ExecutingUtil {
     public static AbstractPageEl createRecordInstancing(ContextEl _context, CustomFoundRecordConstructor _e) {
         ExecFormattedRootBlock cl_ = _e.getClassName();
         CustList<Argument> args_ = _e.getArguments();
-        NewRecordPageEl page_ = new NewRecordPageEl(_e.getNamedFields(),args_,cl_);
+        NewRecordPageEl page_ = new NewRecordPageEl(_e.getNamedFields(),args_,cl_, _e.getList());
         Struct str_ = _e.getArgument().getStruct();
         String fieldName_ = _e.getFieldName();
         int ordinal_ = _e.getChildIndex();
@@ -274,7 +274,7 @@ public final class ExecutingUtil {
         } else if (_ref instanceof CustomReflectRecordConstructor) {
             CustomReflectRecordConstructor c_ = (CustomReflectRecordConstructor) _ref;
             CustList<Argument> args_ = c_.getArguments();
-            pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getInstance(), c_.getRoot(), c_.getNamedFields(),c_.getClassName());
+            pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getInstance(), c_.getRoot(), c_.getNamedFields(),c_.getClassName(), c_.getInts());
         } else if (_ref instanceof CustomReflectGetField) {
             CustomReflectGetField c_ = (CustomReflectGetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();

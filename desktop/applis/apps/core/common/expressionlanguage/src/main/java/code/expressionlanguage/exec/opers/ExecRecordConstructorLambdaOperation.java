@@ -18,11 +18,13 @@ public final class ExecRecordConstructorLambdaOperation extends ExecAbstractLamb
 
     private final ExecRootBlock pair;
     private final CustList<ExecNamedFieldContent> namedFields;
+    private final CustList<ExecFormattedRootBlock> supInts;
 
-    public ExecRecordConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecRootBlock _pair, CustList<ExecNamedFieldContent> _namedFields) {
+    public ExecRecordConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecRootBlock _pair, CustList<ExecNamedFieldContent> _namedFields, CustList<ExecFormattedRootBlock> _supIntsList) {
         super(_opCont, _lamCont);
         pair = _pair;
         namedFields = _namedFields;
+        supInts = _supIntsList;
     }
 
     @Override
@@ -31,14 +33,14 @@ public final class ExecRecordConstructorLambdaOperation extends ExecAbstractLamb
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         ExecFormattedRootBlock ownerType_ = formatVarType(_stack);
         String clArg_ = formatVarTypeRes(_stack);
-        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_,ownerType_, clArg_, pair, namedFields));
+        Argument res_ = new Argument(newLambda(getLambdaCommonContent(),previous_,ownerType_, clArg_, pair, namedFields, supInts));
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 
-    public static Struct newLambda(ExecLambdaCommonContent _cont,Argument _previous, ExecFormattedRootBlock _ownerType,
+    public static Struct newLambda(ExecLambdaCommonContent _cont, Argument _previous, ExecFormattedRootBlock _ownerType,
                                    String _clArg,
-                                   ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields) {
-        return new LambdaRecordConstructorStruct(_cont,_previous,_root, _clArg, _ownerType, _namedFields);
+                                   ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, CustList<ExecFormattedRootBlock> _supInts) {
+        return new LambdaRecordConstructorStruct(_cont,_previous,_root, _clArg, _ownerType, _namedFields, _supInts);
     }
 
 }

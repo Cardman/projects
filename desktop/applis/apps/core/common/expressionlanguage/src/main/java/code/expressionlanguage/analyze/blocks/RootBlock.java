@@ -1819,6 +1819,12 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return importedDirectSuperInterfaces;
     }
 
+    public void addNameErrorsList(CustList<FoundErrorInterpret> _errors) {
+        for (FoundErrorInterpret e: _errors) {
+            addNameErrors(e);
+        }
+    }
+
     public void addNameErrors(FoundErrorInterpret _error) {
         addNameErrors(_error.getBuiltError());
     }

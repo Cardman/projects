@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.fwd.opers.ExecInstancingStdContent;
 import code.expressionlanguage.fwd.opers.ExecNamedFieldContent;
 import code.util.CustList;
 
@@ -21,25 +22,32 @@ public final class CustomFoundRecordConstructor implements CallingState {
     private final int childIndex;
 
     private final CustList<Argument> arguments;
+    private final CustList<ExecFormattedRootBlock> list;
 
-    public CustomFoundRecordConstructor(Argument _argument,ExecFormattedRootBlock _className,
+    public CustomFoundRecordConstructor(Argument _argument, ExecFormattedRootBlock _className,
                                         ExecTypeFunction _pair,
                                         CustList<ExecNamedFieldContent> _named,
-                                        CustList<Argument> _arguments) {
-        this(_argument,_className,_pair, _named,"",-1,_arguments);
-    }
-
-    public CustomFoundRecordConstructor(Argument _argument,ExecFormattedRootBlock _className,
-                                        ExecTypeFunction _pair,
-                                        CustList<ExecNamedFieldContent> _named,
-                                        String _fieldName, int _childIndex,
-                                        CustList<Argument> _arguments) {
+                                        CustList<Argument> _arguments, CustList<ExecFormattedRootBlock> _listSup) {
         argument = _argument;
         className = _className;
         pair = _pair;
         namedFields = _named;
-        fieldName = _fieldName;
-        childIndex = _childIndex;
+        fieldName = "";
+        childIndex = -1;
+        arguments = _arguments;
+        list = _listSup;
+    }
+
+    public CustomFoundRecordConstructor(Argument _argument, ExecFormattedRootBlock _className,
+                                        ExecTypeFunction _pair, ExecInstancingStdContent _instancingStdContent,
+                                        CustList<Argument> _arguments) {
+        argument = _argument;
+        className = _className;
+        pair = _pair;
+        namedFields = _instancingStdContent.getNamedFields();
+        fieldName = _instancingStdContent.getFieldName();
+        childIndex = _instancingStdContent.getBlockIndex();
+        list = _instancingStdContent.getSupInts();
         arguments = _arguments;
     }
 
@@ -54,6 +62,10 @@ public final class CustomFoundRecordConstructor implements CallingState {
 
     public CustList<ExecNamedFieldContent> getNamedFields() {
         return namedFields;
+    }
+
+    public CustList<ExecFormattedRootBlock> getList() {
+        return list;
     }
 
     public int getChildIndex() {

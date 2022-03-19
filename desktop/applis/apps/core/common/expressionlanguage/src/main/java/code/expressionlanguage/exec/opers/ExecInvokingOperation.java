@@ -396,12 +396,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
                 ExecRootBlock type_ = l_.getRoot();
                 if (withInstance(type_)) {
                     Argument instance_ = ExecHelper.getFirstArgument(values_);
-                    _stackCall.setCallingState(new CustomReflectRecordConstructor(instance_,l_.getRoot(), l_.getNamedFields(), clName_,values_.mid(1),true));
+                    _stackCall.setCallingState(new CustomReflectRecordConstructor(instance_,l_.getRoot(), l_.getNamedFields(), clName_,values_.mid(1),true, l_.getInts()));
                     return new Argument();
                 }
             }
             Argument instance_ = l_.getInstanceCall();
-            _stackCall.setCallingState(new CustomReflectRecordConstructor(instance_,l_.getRoot(), l_.getNamedFields(), clName_,values_,true));
+            _stackCall.setCallingState(new CustomReflectRecordConstructor(instance_,l_.getRoot(), l_.getNamedFields(), clName_,values_,true, l_.getInts()));
             return new Argument();
         }
         if (ls_ instanceof LambdaConstructorStruct) {

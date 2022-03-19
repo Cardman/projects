@@ -14,8 +14,8 @@ public final class NewRecordPageEl extends AbstractCallingInstancingPageEl {
 
     private final CustList<ExecNamedFieldContent> named;
     private final CustList<Argument> args;
-    public NewRecordPageEl(CustList<ExecNamedFieldContent> _named, CustList<Argument> _args, ExecFormattedRootBlock _global) {
-        super(_global);
+    public NewRecordPageEl(CustList<ExecNamedFieldContent> _named, CustList<Argument> _args, ExecFormattedRootBlock _global, CustList<ExecFormattedRootBlock> _ls) {
+        super(_global, _ls);
         named = _named;
         args = _args;
     }

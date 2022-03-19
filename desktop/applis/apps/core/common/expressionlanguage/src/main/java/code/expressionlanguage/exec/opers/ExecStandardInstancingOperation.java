@@ -56,7 +56,7 @@ public final class ExecStandardInstancingOperation extends
         if (_instancingCommonContent.getPair().getType() instanceof ExecRecordBlock) {
             CustList<Argument> arguments_ = getArguments(_infos);
             Argument prev_ = instance(_instancingCommonContent.getPair().getType(),_previous);
-            _stack.setCallingState(new CustomFoundRecordConstructor(prev_,_className, _instancingCommonContent.getPair(), _instancingStdContent.getNamedFields(), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex(), arguments_));
+            _stack.setCallingState(new CustomFoundRecordConstructor(prev_,_className, _instancingCommonContent.getPair(),_instancingStdContent, arguments_));
             res_ = Argument.createVoid();
         } else {
             res_ = new InstanceParamChecker(_instancingCommonContent.getPair(), fectchInstFormattedArgs(_className, _instancingCommonContent, _conf, _stack, _infos), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex()).checkParams(_className, _previous, null, _conf, _stack);

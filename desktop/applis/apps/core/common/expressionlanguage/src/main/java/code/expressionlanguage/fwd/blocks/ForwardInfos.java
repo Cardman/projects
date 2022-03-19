@@ -207,11 +207,7 @@ public final class ForwardInfos {
         }
         for (FwdRootBlockMembers e: _forwards.getMembers()) {
             CustList<AnaFormattedRootBlock> allGenericSuperTypes_ = e.getRootBlock().getAllGenericSuperTypesInfo();
-            CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
-            for (AnaFormattedRootBlock s: allGenericSuperTypes_) {
-                l_.add(FetchMemberUtil.fwdFormatType(s, _forwards));
-            }
-            e.getMembers().getRootBlock().getAllGenericSuperTypes().addAllElts(l_);
+            e.getMembers().getRootBlock().getAllGenericSuperTypes().addAllElts(FetchMemberUtil.fwdFormatTypes(allGenericSuperTypes_,_forwards));
         }
     }
 
@@ -500,9 +496,7 @@ public final class ForwardInfos {
             for (RootBlock r: e.getRootBlock().getStaticInitImportedInterfaces()) {
                 e.getMembers().getRootBlock().getStaticInitImportedInterfaces().add(FetchMemberUtil.fetchType(r, _forwards));
             }
-            for (AnaFormattedRootBlock r: e.getRootBlock().getInstanceInitImportedInterfaces()) {
-                e.getMembers().getRootBlock().getInstanceInitImportedInterfaces().add(FetchMemberUtil.fwdFormatType(r,_forwards));
-            }
+            e.getMembers().getRootBlock().getInstanceInitImportedInterfaces().addAllElts(FetchMemberUtil.fwdFormatTypes(e.getRootBlock().getInstanceInitImportedInterfaces(),_forwards));
         }
     }
 
@@ -1351,7 +1345,7 @@ public final class ForwardInfos {
             StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
             ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchPossibleTypeCtor(s_.getMemberId(), _forwards);
             if (typeCtor_ != null) {
-                return new ExecStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(s_.getInstancingStdContent().getNamedFields(),_forwards)));
+                return new ExecStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(s_.getInstancingStdContent().getNamedFields(),_forwards), FetchMemberUtil.fwdFormatTypes(s_.getInstancingStdContent().getSups(), _forwards)));
             }
             return new ExecDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingDirContent(s_.getInstancingCommonContent()));
         }
@@ -1738,7 +1732,7 @@ public final class ForwardInfos {
         int recordType_ = _anaNode.getRecordType();
         ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(recordType_, _forwards);
         if (rootBlock_ != null) {
-            return new ExecRecordConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, rootBlock_, FetchMemberUtil.namedFieldsContent(_anaNode.getNamedFields(), _forwards));
+            return new ExecRecordConstructorLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, rootBlock_, FetchMemberUtil.namedFieldsContent(_anaNode.getNamedFields(), _forwards), FetchMemberUtil.fwdFormatTypes(_anaNode.getSups(), _forwards));
         }
         if (_anaNode.getMethod() == null && _anaNode.getRealId() == null) {
             return new ExecFieldLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, new ExecLambdaFieldContent(_anaNode.getFieldId(), _anaNode.getLambdaFieldContent(), _anaNode.getLambdaMemberNumberContentId(), _forwards));

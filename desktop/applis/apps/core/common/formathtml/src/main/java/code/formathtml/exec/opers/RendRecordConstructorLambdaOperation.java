@@ -18,11 +18,13 @@ public final class RendRecordConstructorLambdaOperation extends RendAbstractLamb
 
     private final ExecRootBlock pair;
     private final CustList<ExecNamedFieldContent> namedFields;
+    private final CustList<ExecFormattedRootBlock> supInts;
 
-    public RendRecordConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecRootBlock _pair, CustList<ExecNamedFieldContent> _namedFields) {
+    public RendRecordConstructorLambdaOperation(ExecOperationContent _opCont, ExecLambdaCommonContent _lamCont, ExecRootBlock _pair, CustList<ExecNamedFieldContent> _namedFields, CustList<ExecFormattedRootBlock> _supIntsList) {
         super(_opCont, _lamCont);
         pair = _pair;
         namedFields = _namedFields;
+        supInts = _supIntsList;
     }
 
     @Override
@@ -30,7 +32,7 @@ public final class RendRecordConstructorLambdaOperation extends RendAbstractLamb
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = formatVarTypeRes(_rendStack);
         ExecFormattedRootBlock ownerType_ = formatVarType(_rendStack);
-        Argument res_ = new Argument(ExecRecordConstructorLambdaOperation.newLambda(getLambdaCommonContent(),previous_,ownerType_, clArg_, pair, namedFields));
+        Argument res_ = new Argument(ExecRecordConstructorLambdaOperation.newLambda(getLambdaCommonContent(),previous_,ownerType_, clArg_, pair, namedFields, supInts));
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }
 }

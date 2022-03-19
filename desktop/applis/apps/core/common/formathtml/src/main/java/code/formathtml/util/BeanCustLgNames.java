@@ -399,7 +399,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         AnaInstancingCommonContent cont_ = new AnaInstancingCommonContent(id_.getName());
         cont_.setConstId(id_);
         ExecTypeFunction pair_ = new ExecTypeFunction(formattedType_, null);
-        opsMap.add(new RendStandardInstancingOperation(new ExecOperationContent(0, clMatch_, 0), new ExecInstancingCustContent(cont_,pair_, formattedType_), new ExecInstancingStdContent(new AnaInstancingStdContent(), new CustList<ExecNamedFieldContent>())));
+        opsMap.add(new RendStandardInstancingOperation(new ExecOperationContent(0, clMatch_, 0), new ExecInstancingCustContent(cont_,pair_, formattedType_), new ExecInstancingStdContent(new AnaInstancingStdContent(), new CustList<ExecNamedFieldContent>(), new CustList<ExecFormattedRootBlock>())));
     }
 
     private static String tr(StringList _list) {

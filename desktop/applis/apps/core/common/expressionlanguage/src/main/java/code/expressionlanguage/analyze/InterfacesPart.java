@@ -85,16 +85,16 @@ public final class InterfacesPart {
 
     private void loopStatic(int _offset, String _info) {
         for (String p : StringUtil.splitChars(_info, SEP_CALLING)) {
-            staticInitInterfaces.add(p);
-            staticInitInterfacesOffset.add(interfaceOffest+_offset);
+            staticInitInterfaces.add(p.trim());
+            staticInitInterfacesOffset.add(interfaceOffest+StringExpUtil.getOffset(p)+_offset);
             interfaceOffest += p.length() + 1;
         }
     }
 
     private void loopInst(int _offset, String _info) {
         for (String p : StringUtil.splitChars(_info, SEP_CALLING)) {
-            instInitInterfaces.add(p);
-            instInitInterfacesOffset.add(interfaceOffest + _offset);
+            instInitInterfaces.add(p.trim());
+            instInitInterfacesOffset.add(interfaceOffest+StringExpUtil.getOffset(p) + _offset);
             interfaceOffest += p.length() + 1;
         }
     }

@@ -968,6 +968,11 @@ public final class AnalyzedPageEl {
         addWarning(_warning);
     }
 
+    public void addLocErrors(CustList<FoundErrorInterpret> _errors) {
+        for (FoundErrorInterpret e: _errors) {
+            addLocError(e);
+        }
+    }
     public void addLocError(FoundErrorInterpret _error) {
         _error.setLocationFile(getLocationFile(_error.getIndexFile(),_error.getFile(), getTabWidth()));
         addError(_error);

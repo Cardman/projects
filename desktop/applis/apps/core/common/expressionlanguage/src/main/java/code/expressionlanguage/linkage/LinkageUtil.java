@@ -3237,6 +3237,7 @@ public final class LinkageUtil {
                     addParts(_vars, constructor_,
                             beginInst_, lengthInst_,
                             errs_, errs_);
+                    addTypes(_vars,instStd_.getPartsInstInitInterfaces());
                     _vars.addParts(buildByInst(inst_));
                 } else {
                     StringList mergedErrs_ = new StringList(instStd_.getErrorsFields());
@@ -3371,6 +3372,7 @@ public final class LinkageUtil {
                         name_.length(), ref_
                 );
             }
+            addTypes(_vars, ((LambdaOperation) _val).getPartsInstInitInterfaces());
         }
     }
 

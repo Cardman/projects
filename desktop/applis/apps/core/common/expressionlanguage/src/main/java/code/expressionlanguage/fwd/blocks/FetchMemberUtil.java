@@ -78,6 +78,13 @@ public final class FetchMemberUtil {
     public static MethodId formatType(AnaFormattedRootBlock _format, MethodId _dest) {
         return _dest.quickFormat(AnaInherits.getVarTypes(_format));
     }
+    public static CustList<ExecFormattedRootBlock> fwdFormatTypes(CustList<AnaFormattedRootBlock> _in,Forwards _forwards) {
+        CustList<ExecFormattedRootBlock> l_ = new CustList<ExecFormattedRootBlock>();
+        for (AnaFormattedRootBlock s: _in) {
+            l_.add(FetchMemberUtil.fwdFormatType(s, _forwards));
+        }
+        return l_;
+    }
     public static ExecFormattedRootBlock fwdFormatType(AnaFormattedRootBlock _format,Forwards _forwards) {
         return new ExecFormattedRootBlock(_forwards.getMember(_format.getRootBlock()).getRootBlock(),_format.getFormatted());
     }

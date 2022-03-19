@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
+import code.util.CustList;
 
 public final class DefaultLocalizer {
     private final AnalyzedPageEl context;
@@ -22,6 +23,9 @@ public final class DefaultLocalizer {
         context.addLocWarning(_warning);
     }
 
+    public void addErrors(CustList<FoundErrorInterpret> _errors) {
+        context.addLocErrors(_errors);
+    }
     public void addError(FoundErrorInterpret _error) {
         context.addLocError(_error);
     }

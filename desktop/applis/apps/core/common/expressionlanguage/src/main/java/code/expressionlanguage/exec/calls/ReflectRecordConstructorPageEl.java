@@ -12,6 +12,7 @@ import code.util.CustList;
 
 public final class ReflectRecordConstructorPageEl extends AbstractReflectConstructorPageEl {
 
+    private final CustList<ExecFormattedRootBlock> listSup;
     private boolean calledMethod;
     private final ExecRootBlock root;
     private final Argument instance;
@@ -20,12 +21,13 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
 
     private final CustList<Argument> arguments;
 
-    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className) {
+    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className, CustList<ExecFormattedRootBlock> _list) {
         arguments = _arguments;
         root = _root;
         instance = _instance;
         namedFields = _namedFields;
         className = _className;
+        listSup = _list;
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
@@ -35,7 +37,7 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         setWrapException(false);
         if (!calledMethod) {
             calledMethod = true;
-            _stack.setCallingState(new CustomFoundRecordConstructor(ExecStandardInstancingOperation.instance(root,instance),className, className.getRootBlock().getEmptyCtorPair(), namedFields, arguments));
+            _stack.setCallingState(new CustomFoundRecordConstructor(ExecStandardInstancingOperation.instance(root,instance),className, className.getRootBlock().getEmptyCtorPair(), namedFields, arguments, listSup));
             return false;
         }
         return true;

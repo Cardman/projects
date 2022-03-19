@@ -311,13 +311,15 @@ public final class AnaTypeUtil {
     }
 
     private static void checkInherits(AnalyzedPageEl _page, RootBlock _root, CustList<ResolvedIdType> _resolvedIdTypes, Ints _offsets) {
+        CustList<FoundErrorInterpret> errors_ = new CustList<FoundErrorInterpret>();
+        checkInherits(_page, _resolvedIdTypes, _offsets,errors_, _root.getFile());
+        _page.addLocErrors(errors_);
+        _root.addNameErrorsList(errors_);
+    }
+
+    public static void checkInherits(AnalyzedPageEl _page, CustList<ResolvedIdType> _resolvedIdTypes, Ints _offsets, CustList<FoundErrorInterpret> _errors, FileBlock _file) {
         int len_ = _resolvedIdTypes.size();
         for (int i = 0; i < len_; i++) {
-            int offsetSup_ = _offsets.get(i);
-            _page.setCurrentBlock(_root);
-            ClassesUtil.globalType(_page, _root);
-            _page.setGlobalOffset(offsetSup_);
-            _page.zeroOffset();
             String sup_ = _resolvedIdTypes.get(i).getFullName();
             RootBlock rs_ = _page.getAnaClassBody(sup_);
             if (rs_ == null) {
@@ -325,11 +327,6 @@ public final class AnaTypeUtil {
             }
             RootBlock rsSup_ = rs_;
             for (int j = i + 1; j < len_; j++) {
-                int offsetSub_ = _offsets.get(j);
-                _page.setCurrentBlock(_root);
-                ClassesUtil.globalType(_page, _root);
-                _page.setGlobalOffset(offsetSub_);
-                _page.zeroOffset();
                 String sub_ = _resolvedIdTypes.get(j).getFullName();
                 rs_ = _page.getAnaClassBody(sub_);
                 if (rs_ == null) {
@@ -338,33 +335,46 @@ public final class AnaTypeUtil {
                 if (rsSup_.isSubTypeOf(rs_)) {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
-                    undef_.setFile(_root.getFile());
+                    undef_.setFile(_file);
                     int offset_ = _offsets.get(j);
                     undef_.setIndexFile(offset_);
                     //interface j len
                     undef_.buildError(_page.getAnalysisMessages().getCallIntInherits(),
                             sup_,
                             sub_);
-                    _page.addLocError(undef_);
-                    _root.addNameErrors(undef_);
+                    _errors.add(undef_);
                 }
             }
         }
     }
 
     private static void ins(AnalyzedPageEl _page, RootBlock _c) {
+        StringList trimmedInt_ = getInts(_c);
+        StringList filteredStatic_ = feedInst(_page, _c);
+        lookForErrors(_page, _c, trimmedInt_, filteredStatic_);
+    }
+
+    public static StringList getInts(RootBlock _c) {
         CustList<AnaFormattedRootBlock> ints_ = _c.getInstanceInitImportedInterfaces();
+        return getStrings(ints_);
+    }
+
+    public static StringList getStrings(CustList<AnaFormattedRootBlock> _ints) {
         StringList trimmedInt_ = new StringList();
-        for (AnaFormattedRootBlock i: ints_) {
+        for (AnaFormattedRootBlock i: _ints) {
             trimmedInt_.add(i.getRootBlock().getFullName());
         }
+        return trimmedInt_;
+    }
+
+    public static StringList feedInst(AnalyzedPageEl _page, RootBlock _c) {
         StringList all_ = _c.getAllSuperTypes();
         StringList allCopy_ = new StringList(all_);
         StringList filteredStatic_ = new StringList();
         for (String i: allCopy_) {
             feedInst(_page, filteredStatic_, i);
         }
-        lookForErrors(_page, _c, trimmedInt_, filteredStatic_);
+        return filteredStatic_;
     }
 
     public static void feedInst(AnalyzedPageEl _page, StringList _filterInst, String _i) {

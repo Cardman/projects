@@ -2839,7 +2839,7 @@ public final class ProcessMethodRecordTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Rec");
         CustList<ExecNamedFieldContent> named_ = new CustList<ExecNamedFieldContent>();
         named_.add(new ExecNamedFieldContent(new AnaNamedFieldContent("field","$int","pkg.Rec",null),classBody_));
-        ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(new CustomFoundRecordConstructor(Argument.createVoid(), new ExecFormattedRootBlock(classBody_, "pkg.Rec"), new ExecTypeFunction(classBody_, null), named_, args_), cont_, stackCall_);
+        ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(new CustomFoundRecordConstructor(Argument.createVoid(), new ExecFormattedRootBlock(classBody_, "pkg.Rec"), new ExecTypeFunction(classBody_, null), named_, args_, new CustList<ExecFormattedRootBlock>()), cont_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();
         assertNull(stackCall_.getCallingState());
         assertNull(argumentWrapper_.getWrapper());

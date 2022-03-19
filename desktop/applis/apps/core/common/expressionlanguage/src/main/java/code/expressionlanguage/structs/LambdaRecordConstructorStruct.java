@@ -19,8 +19,9 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
     private final boolean safeInstance;
     private final CustList<ExecNamedFieldContent> namedFields;
     private final boolean shiftInstance;
+    private final CustList<ExecFormattedRootBlock> ints;
 
-    public LambdaRecordConstructorStruct(ExecLambdaCommonContent _cont, Argument _previous, ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, CustList<ExecNamedFieldContent> _namedFields) {
+    public LambdaRecordConstructorStruct(ExecLambdaCommonContent _cont, Argument _previous, ExecRootBlock _root, String _className, ExecFormattedRootBlock _formClassName, CustList<ExecNamedFieldContent> _namedFields, CustList<ExecFormattedRootBlock> _supInts) {
         root = _root;
         instanceCall = Argument.getNullableValue(_previous);
         className = StringUtil.nullToEmpty(_className);
@@ -28,6 +29,7 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
         namedFields = _namedFields;
         safeInstance = _cont.isSafeInstance();
         shiftInstance = _cont.isShiftArgument();
+        ints = _supInts;
     }
 
 
@@ -40,6 +42,10 @@ public final class LambdaRecordConstructorStruct extends WithoutParentIdStruct i
 
     public ExecRootBlock getRoot() {
         return root;
+    }
+
+    public CustList<ExecFormattedRootBlock> getInts() {
+        return ints;
     }
 
     public ExecFormattedRootBlock getFormClassName() {

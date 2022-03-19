@@ -21,7 +21,9 @@ import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -34,6 +36,7 @@ public final class StandardInstancingOperation extends
     private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private InnerTypeOrElement innerElt;
     private StringList errorsFields = new StringList();
+    private final CustList<AnaResultPartType> partsInstInitInterfaces = new CustList<AnaResultPartType>();
 
     public StandardInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -270,6 +273,9 @@ public final class StandardInstancingOperation extends
                 setResultClass(new AnaClassArgumentMatching(_realClassName));
                 return;
             }
+
+            CustList<AnaFormattedRootBlock> used_ = getAnaFormattedRootBlocks(_page, (RootBlock) g_, getStaticInitInterfaces(), getStaticInitInterfacesOffset(), getPartsInstInitInterfaces());
+            instancingStdContent.getSups().addAllElts(used_);
             getMemberId().setRootNumber(((RecordBlock)g_).getNumberAll());
             AnaTypeFct constructor_ = new AnaTypeFct();
             constructor_.setType((RecordBlock)g_);
@@ -295,6 +301,41 @@ public final class StandardInstancingOperation extends
         }
         result(_realClassName, g_, ctorRes_);
         setResultClass(new AnaClassArgumentMatching(_realClassName));
+    }
+
+    static CustList<AnaFormattedRootBlock> getAnaFormattedRootBlocks(AnalyzedPageEl _page, RootBlock _root, StringList _staticInitInterfaces, Ints _staticInitInterfacesOffset, CustList<AnaResultPartType> _partsInstInitInterfaces) {
+        CustList<AnaFormattedRootBlock> used_ = new CustList<AnaFormattedRootBlock>();
+        CustList<ResolvedIdType> resolvedIdTypes_ = new CustList<ResolvedIdType>();
+        int l_ = _staticInitInterfaces.size();
+        for (int i = 0; i < l_; i++) {
+            int rc_ = _staticInitInterfacesOffset.get(i);
+            AccessedBlock r_ = _page.getImporting();
+            StrTypes operators_ = new StrTypes();
+            CustList<AnaResultPartType> found_ = new CustList<AnaResultPartType>();
+            CustList<AnaResultPartType> err_ = new CustList<AnaResultPartType>();
+            CustList<FoundErrorInterpret> errors_ = new CustList<FoundErrorInterpret>();
+            String in_ = _staticInitInterfaces.get(i).trim();
+            ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlockWithoutErr(in_, _page, operators_, found_, err_, errors_, rc_);
+            resolvedIdTypes_.add(resolvedIdType_);
+            AnaGeneType supGene_ = resolvedIdType_.getGeneType();
+            AnaFormattedRootBlock foundSup_ = AnaInherits.getOverridingFullTypeByBases(_root, supGene_);
+            if (supGene_ instanceof InterfaceBlock && foundSup_ != null) {
+                used_.add(foundSup_);
+            }
+            AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(in_, found_, operators_, r_, rc_, _page);
+            _partsInstInitInterfaces.add(result_);
+        }
+        CustList<FoundErrorInterpret> errorsInh_ = new CustList<FoundErrorInterpret>();
+        AnaTypeUtil.checkInherits(_page, resolvedIdTypes_, _staticInitInterfacesOffset, errorsInh_, _page.getCurrentFile());
+        if (!errorsInh_.isEmpty()) {
+            used_.clear();
+        }
+        StringList trimmedInt_ = AnaTypeUtil.getStrings(used_);
+        StringList filteredStatic_ = AnaTypeUtil.feedInst(_page, _root);
+        if (!StringUtil.equalsSet(filteredStatic_, trimmedInt_)) {
+            used_.clear();
+        }
+        return used_;
     }
 
     static boolean chWc(OperationNode _op,String _realClassName, AnalyzedPageEl _page) {
@@ -387,6 +428,10 @@ public final class StandardInstancingOperation extends
 
     public CustList<ConstructorInfo> getCtors() {
         return ctors;
+    }
+
+    public CustList<AnaResultPartType> getPartsInstInitInterfaces() {
+        return partsInstInitInterfaces;
     }
 
 }
