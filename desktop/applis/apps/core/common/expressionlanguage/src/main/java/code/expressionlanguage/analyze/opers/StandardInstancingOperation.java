@@ -3,9 +3,11 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -15,10 +17,11 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaInstancingStdContent;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -313,7 +316,7 @@ public final class StandardInstancingOperation extends
             StrTypes operators_ = new StrTypes();
             CustList<FoundTypeIdDto> found_ = new CustList<FoundTypeIdDto>();
             String in_ = _staticInitInterfaces.get(i).trim();
-            ResolvedIdTypeContent resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlockWithoutErr(in_, _page, operators_, found_, new CustList<FoundTypeErrorDto>(), rc_);
+            ResolvedIdTypeContent resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlockWithoutErr(in_, _page, operators_, found_, new CustList<FoundTypeErrorDto>());
             resolvedIdTypes_.add(resolvedIdType_);
             AnaGeneType supGene_ = resolvedIdType_.getGeneType();
             AnaFormattedRootBlock foundSup_ = AnaInherits.getOverridingFullTypeByBases(_root, supGene_);
@@ -327,8 +330,8 @@ public final class StandardInstancingOperation extends
             AnaResultPartType result_ = PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(in_, all_, operators_, r_, rc_, _page);
             _partsInstInitInterfaces.add(result_);
         }
-        CustList<FoundErrorInterpret> errorsInh_ = new CustList<FoundErrorInterpret>();
-        AnaTypeUtil.checkInherits(_page, resolvedIdTypes_, _staticInitInterfacesOffset, errorsInh_, _page.getCurrentFile());
+        CustList<FoundTypeErrorDto> errorsInh_ = new CustList<FoundTypeErrorDto>();
+        AnaTypeUtil.checkInherits(_page, resolvedIdTypes_, _staticInitInterfacesOffset, errorsInh_);
         if (!errorsInh_.isEmpty()) {
             used_.clear();
         }

@@ -311,15 +311,20 @@ public final class AnaTypeUtil {
     }
 
     private static void checkInherits(AnalyzedPageEl _page, RootBlock _root, CustList<ResolvedIdTypeContent> _resolvedIdTypes, Ints _offsets) {
-        CustList<FoundErrorInterpret> errors_ = new CustList<FoundErrorInterpret>();
-        checkInherits(_page, _resolvedIdTypes, _offsets,errors_, _root.getFile());
-        for (FoundErrorInterpret f: errors_) {
-            _page.addLocError(f);
-            _root.addNameErrors(f);
+        CustList<FoundTypeErrorDto> errors_ = new CustList<FoundTypeErrorDto>();
+        checkInherits(_page, _resolvedIdTypes, _offsets,errors_);
+        for (FoundTypeErrorDto f: errors_) {
+            FoundErrorInterpret undef_;
+            undef_ = new FoundErrorInterpret();
+            undef_.setFile(_root.getFile());
+            undef_.setIndexFile(f.getIndexInType());
+            undef_.setBuiltError(f.getSolved());
+            _page.addLocError(undef_);
+            _root.addNameErrors(undef_);
         }
     }
 
-    public static void checkInherits(AnalyzedPageEl _page, CustList<ResolvedIdTypeContent> _resolvedIdTypes, Ints _offsets, CustList<FoundErrorInterpret> _errors, FileBlock _file) {
+    public static void checkInherits(AnalyzedPageEl _page, CustList<ResolvedIdTypeContent> _resolvedIdTypes, Ints _offsets, CustList<FoundTypeErrorDto> _errors) {
         int len_ = _resolvedIdTypes.size();
         for (int i = 0; i < len_; i++) {
             String sup_ = _resolvedIdTypes.get(i).getFullName();
@@ -335,16 +340,10 @@ public final class AnaTypeUtil {
                     continue;
                 }
                 if (rsSup_.isSubTypeOf(rs_)) {
-                    FoundErrorInterpret undef_;
-                    undef_ = new FoundErrorInterpret();
-                    undef_.setFile(_file);
                     int offset_ = _offsets.get(j);
-                    undef_.setIndexFile(offset_);
-                    //interface j len
-                    undef_.buildError(_page.getAnalysisMessages().getCallIntInherits(),
+                    _errors.add(new FoundTypeErrorDto(offset_,"",FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getCallIntInherits(),
                             sup_,
-                            sub_);
-                    _errors.add(undef_);
+                            sub_)));
                 }
             }
         }

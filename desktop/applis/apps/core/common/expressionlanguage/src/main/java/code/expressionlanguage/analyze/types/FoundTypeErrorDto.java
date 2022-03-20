@@ -1,18 +1,16 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-
 public class FoundTypeErrorDto {
     private final int indexInType;
     private final String input;
-    private final FoundErrorInterpret solved;
+    private final String solved;
     private final boolean voidType;
 
-    public FoundTypeErrorDto(int _index, String _in, FoundErrorInterpret _out) {
+    public FoundTypeErrorDto(int _index, String _in, String _out) {
         this(_index,_in,_out,false);
     }
 
-    public FoundTypeErrorDto(int _index, String _in, FoundErrorInterpret _out, boolean _voidTy) {
+    public FoundTypeErrorDto(int _index, String _in, String _out, boolean _voidTy) {
         this.indexInType = _index;
         this.input = _in;
         this.solved = _out;
@@ -27,7 +25,7 @@ public class FoundTypeErrorDto {
         return input;
     }
 
-    public FoundErrorInterpret getSolved() {
+    public String getSolved() {
         return solved;
     }
 
