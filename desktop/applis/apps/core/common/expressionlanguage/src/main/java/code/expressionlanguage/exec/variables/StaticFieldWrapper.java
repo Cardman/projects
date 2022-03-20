@@ -9,16 +9,18 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.structs.Struct;
 
 public final class StaticFieldWrapper extends FieldWrapper {
+    private final ExecRootBlock root;
     public StaticFieldWrapper(String _fieldType, ExecRootBlock _rootBlock, ClassField _id) {
-        super(_fieldType, _rootBlock, _id);
+        super(_fieldType, _id);
+        root = _rootBlock;
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        ExecTemplates.setStaticField(_conf.getExiting(),getRootBlock(), getFieldType(), _right, _conf, _stack, getId());
+        ExecTemplates.setStaticField(_conf.getExiting(),root, getFieldType(), _right, _conf, _stack, getId());
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
 
-        return ExecTemplates.getStaticField(_conf.getExiting(),getRootBlock(), getFieldType(), _conf, _stack, getId()).getStruct();
+        return ExecTemplates.getStaticField(_conf.getExiting(),root, getFieldType(), _conf, _stack, getId()).getStruct();
     }
     public String getClassName(StackCall _stack, ContextEl _conf) {
         return getFieldType();

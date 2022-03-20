@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
@@ -27,12 +28,13 @@ public final class ExecWrappOperation extends ExecMethodOperation implements Ato
             ExecSettableFieldOperation ch_ = (ExecSettableFieldOperation)chFirst_;
             ExecSettableOperationContent settableFieldContent_ = ch_.getSettableFieldContent();
             FieldWrapper f_;
-            if (!settableFieldContent_.isStaticField()) {
+            if (ch_ instanceof ExecSettableFieldInstOperation) {
+                ExecTypeReturn pair_ = ((ExecSettableFieldInstOperation) ch_).getPair();
                 Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
-                f_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(),ExecTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _stack).getClassName(_conf),settableFieldContent_.getRealType(),ch_.getRootBlock(),
-                        settableFieldContent_.getClassField());
+                f_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(),ExecTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _stack).getClassName(_conf),settableFieldContent_.getRealType(),
+                        settableFieldContent_.getClassField(), pair_);
             } else {
-                f_ = new StaticFieldWrapper(settableFieldContent_.getRealType(),ch_.getRootBlock(),
+                f_ = new StaticFieldWrapper(settableFieldContent_.getRealType(),((ExecSettableFieldStatOperation)ch_).getRootBlock(),
                         settableFieldContent_.getClassField());
             }
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);

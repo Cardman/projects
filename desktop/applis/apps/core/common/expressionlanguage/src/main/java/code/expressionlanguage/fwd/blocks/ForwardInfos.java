@@ -1474,8 +1474,7 @@ public final class ForwardInfos {
 
     private static ExecOperationNode procOperands(OperationNode _anaNode, Forwards _forwards) {
         if (_anaNode instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
-            return new ExecSettableFieldOperation(FetchMemberUtil.fetchType(s_.getFieldType(), _forwards), new ExecOperationContent(s_.getContent()), new ExecFieldOperationContent(s_.getFieldContent()), new ExecSettableOperationContent(s_.getSettableFieldContent()));
+            return procUseField((SettableAbstractFieldOperation) _anaNode, _forwards);
         }
         if (_anaNode instanceof ArrayFieldOperation) {
             ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
@@ -1516,6 +1515,14 @@ public final class ForwardInfos {
             }
         }
         return procGeneOperators(_anaNode, _forwards);
+    }
+
+    private static ExecSettableFieldOperation procUseField(SettableAbstractFieldOperation _anaNode, Forwards _forwards) {
+        AnaSettableOperationContent settableFieldContent_ = _anaNode.getSettableFieldContent();
+        if (settableFieldContent_.isStaticField()) {
+            return new ExecSettableFieldStatOperation(FetchMemberUtil.fetchType(_anaNode.getFieldType(), _forwards), new ExecOperationContent(_anaNode.getContent()), new ExecFieldOperationContent(_anaNode.getFieldContent()), new ExecSettableOperationContent(settableFieldContent_));
+        }
+        return new ExecSettableFieldInstOperation(FetchMemberUtil.fetchType(_anaNode.getFieldType(), _forwards), new ExecOperationContent(_anaNode.getContent()), new ExecFieldOperationContent(_anaNode.getFieldContent()), new ExecSettableOperationContent(settableFieldContent_));
     }
 
     private static ExecMethodOperation explicitOperator(OperationNode _anaNode, Forwards _forwards) {

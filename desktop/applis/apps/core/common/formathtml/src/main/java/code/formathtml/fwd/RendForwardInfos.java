@@ -726,8 +726,7 @@ public final class RendForwardInfos {
 
     private static RendDynOperationNode procOperands(OperationNode _anaNode, Forwards _forwards) {
         if (_anaNode instanceof SettableAbstractFieldOperation) {
-            SettableAbstractFieldOperation s_ = (SettableAbstractFieldOperation) _anaNode;
-            return new RendSettableFieldOperation(new ExecOperationContent(s_.getContent()), new ExecFieldOperationContent(s_.getFieldContent()), new ExecSettableOperationContent(s_.getSettableFieldContent()), FetchMemberUtil.fetchType(s_.getFieldType(), _forwards));
+            return procUseField((SettableAbstractFieldOperation) _anaNode, _forwards);
         }
         if (_anaNode instanceof ArrayFieldOperation) {
             ArrayFieldOperation s_ = (ArrayFieldOperation) _anaNode;
@@ -780,6 +779,14 @@ public final class RendForwardInfos {
             }
         }
         return procGeneOperators(_anaNode, _forwards);
+    }
+
+    private static RendSettableFieldOperation procUseField(SettableAbstractFieldOperation _anaNode, Forwards _forwards) {
+        AnaSettableOperationContent settableFieldContent_ = _anaNode.getSettableFieldContent();
+        if (settableFieldContent_.isStaticField()) {
+            return new RendSettableFieldStatOperation(new ExecOperationContent(_anaNode.getContent()), new ExecFieldOperationContent(_anaNode.getFieldContent()), new ExecSettableOperationContent(settableFieldContent_), FetchMemberUtil.fetchType(_anaNode.getFieldType(), _forwards));
+        }
+        return new RendSettableFieldInstOperation(new ExecOperationContent(_anaNode.getContent()), new ExecFieldOperationContent(_anaNode.getFieldContent()), new ExecSettableOperationContent(settableFieldContent_), FetchMemberUtil.fetchType(_anaNode.getFieldType(), _forwards));
     }
 
     private static RendLeafOperation finalVariable(FinalVariableOperation _anaNode) {
@@ -1105,7 +1112,7 @@ public final class RendForwardInfos {
         ExecRootBlock rootBlock_ = FetchMemberUtil.fetchType(_settable.getFieldType(), _forwards);
         AnaFieldOperationContent cont_ = new AnaFieldOperationContent(0);
         cont_.setIntermediate(true);
-        RendSettableFieldOperation rendField_ = new RendSettableFieldOperation(new ExecOperationContent(1,pr_,1),
+        RendSettableFieldOperation rendField_ = new RendSettableFieldInstOperation(new ExecOperationContent(1,pr_,1),
                 new ExecFieldOperationContent(cont_), new ExecSettableOperationContent(_settable.getSettableFieldContent()),rootBlock_);
         rendPrevVar_.setSiblingSet(rendField_);
         rendDot_.appendChild(rendPrevVar_);
