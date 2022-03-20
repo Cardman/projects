@@ -2,7 +2,7 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
@@ -106,7 +106,9 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                             if (href_.indexOf('(') == IndexConstants.INDEX_NOT_FOUND_ELT) {
                                 href_ = StringUtil.concat(href_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
                             }
-                            callExpsLoc_.add(RenderAnalysis.getRootAnalyzedOperations(href_, 1, _anaDoc, _page,resultExpression));
+                            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(href_, 1, _anaDoc, _page, resultExpression);
+                            checkRootLoc(_anaDoc, _page, href_, root_,varNames_);
+                            callExpsLoc_.add(root_);
                         } else {
                             callExpsLoc_.add(null);
                         }
@@ -129,6 +131,40 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                 _page.getInfosVars().removeKey(v);
             }
 
+        }
+    }
+
+    private void checkRootLoc(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, String href_, OperationNode root_, StringList varNames_) {
+        int offMessage_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
+        if (!(root_ instanceof AbstractCallFctOperation)) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFile(_page.getCurrentFile());
+            badEl_.setIndexFile(offMessage_);
+            badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
+                    href_);
+            AnalyzingDoc.addError(badEl_, _page);
+        } else {
+            InvokingOperation inv_ = (InvokingOperation) root_;
+            for (OperationNode o: inv_.getChildrenNodes()) {
+                if (!(o instanceof IdOperation)||!((IdOperation)o).isStandard()||!(o.getFirstChild() instanceof VariableOperationUse)) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFile(_page.getCurrentFile());
+                    badEl_.setIndexFile(offMessage_);
+                    badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
+                            href_);
+                    AnalyzingDoc.addError(badEl_, _page);
+                } else {
+                    VariableOperationUse u_ = (VariableOperationUse) o.getFirstChild();
+                    if (!StringUtil.contains(varNames_,u_.getRealVariableName())) {
+                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                        badEl_.setFile(_page.getCurrentFile());
+                        badEl_.setIndexFile(offMessage_);
+                        badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
+                                href_);
+                        AnalyzingDoc.addError(badEl_, _page);
+                    }
+                }
+            }
         }
     }
 

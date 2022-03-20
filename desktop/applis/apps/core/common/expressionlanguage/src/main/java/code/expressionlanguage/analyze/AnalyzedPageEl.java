@@ -2,10 +2,18 @@ package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.assign.blocks.AssBlock;
+import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.analyze.errors.stds.StdWordError;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
-import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
+import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
+import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.SwitchOperation;
 import code.expressionlanguage.analyze.syntax.IntermediaryResults;
@@ -14,17 +22,8 @@ import code.expressionlanguage.analyze.types.InaccessibleType;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
-import code.expressionlanguage.analyze.assign.blocks.AssBlock;
-import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
-import code.expressionlanguage.analyze.errors.stds.StdWordError;
-import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.WarningShow;
@@ -131,9 +130,6 @@ public final class AnalyzedPageEl {
     private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
     private CustList<SegmentStringPart> currentParts = new CustList<SegmentStringPart>();
-    private final CustList<AnonymousInstancingOperation> anonymous = new CustList<AnonymousInstancingOperation>();
-    private final CustList<AnonymousInstancingOperation> anonymousList = new CustList<AnonymousInstancingOperation>();
-    private final CustList<AnonymousLambdaOperation> anonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final CustList<SwitchOperation> allSwitchMethods = new CustList<SwitchOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
@@ -1068,17 +1064,6 @@ public final class AnalyzedPageEl {
         this.currentParts = _currentParts;
     }
 
-    public CustList<AnonymousInstancingOperation> getAnonymous() {
-        return anonymous;
-    }
-
-    public CustList<AnonymousInstancingOperation> getAnonymousList() {
-        return anonymousList;
-    }
-
-    public CustList<AnonymousLambdaOperation> getAnonymousLambda() {
-        return anonymousLambda;
-    }
     public CustList<AnonymousLambdaOperation> getAllAnonymousLambda() {
         return allAnonymousLambda;
     }

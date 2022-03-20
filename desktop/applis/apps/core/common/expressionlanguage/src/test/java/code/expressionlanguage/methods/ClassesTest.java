@@ -14,6 +14,7 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -58,6 +59,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         g2_.add(new ResolvedIdTypeContent(page_.getAliasObject(),page_.getAnaGeneType(page_.getAliasObject())));
         g2_.add(new ResolvedIdTypeContent(page_.getAliasObject(),page_.getAnaGeneType(page_.getAliasObject())));
         assertTrue(ResolvedIdType.onlyOneElt(g2_));
+        assertNotNull(NumParsers.getAnnotated(null));
         ClassesUtil.getDirectChildren(null);
         AnaTypeUtil.getDirectMemberTypes(null);
         ContextUtil.getParamTypesMapValues(null);

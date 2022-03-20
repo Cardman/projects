@@ -441,7 +441,75 @@ public final class RenderMessageTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
     }
-
+    @Test
+    public void process3FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$cl+1+$click\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"/></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int[] array;");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  array={1,2};");
+        file_.append(" }");
+        file_.append(" $public $void click(){");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process4FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click((o,p),(1),p,(q))\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0'/><c:message value=\"msg_example,three\"/></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int[] array;");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  array={1,2};");
+        file_.append(" }");
+        file_.append(" $public $void click(){");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
+    public void process5FailTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click((o,p),(1),p,(q),(tmpLoc))\">two</a>After\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0'/><c:message value=\"msg_example,three\"><p value='0'></p></c:message></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $int[] array;");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  array={1,2};");
+        file_.append(" }");
+        file_.append(" $public $void click(){");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertTrue(hasErrOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
     private boolean hasErrOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
         return hasCommErrOneBean(_folder,_relative,_html,_files,_filesSec);
     }

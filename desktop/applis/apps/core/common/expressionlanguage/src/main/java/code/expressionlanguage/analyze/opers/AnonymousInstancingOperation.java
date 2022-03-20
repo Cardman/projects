@@ -41,13 +41,12 @@ public final class AnonymousInstancingOperation extends
                                         MethodOperation _m, OperationsSequence _op, AnonymousTypeBlock _block) {
         super(_index, _indexChild, _m, _op);
         instancingAnonContent = new AnaInstancingAnonContent(_block);
+        _block.setInstancingOperation(this);
     }
 
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
-        _page.getAnonymous().add(this);
-        _page.getAnonymousList().add(this);
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
         String afterNew_ = getMethodName().trim().substring(newKeyWord_.length());

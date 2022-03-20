@@ -2497,4 +2497,28 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErrLg(files_,"en"));
     }
+
+    @Test
+    public void calculateFail() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Int l = new Int(){\n");
+        xml_.append("   public int field=++extField;\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  }+(];\n");
+        xml_.append("  return l.field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErrLgReadOnly("en", files_));
+    }
 }

@@ -1241,7 +1241,10 @@ public final class NumParsers {
     }
 
     public static AnnotatedStruct getAnnotated(Struct _struct) {
-        return (AnnotatedStruct) _struct;
+        if (_struct instanceof AnnotatedStruct) {
+            return (AnnotatedStruct) _struct;
+        }
+        return new ClassMetaInfo();
     }
 
     public static MethodMetaInfo getMethod(Struct _struct) {

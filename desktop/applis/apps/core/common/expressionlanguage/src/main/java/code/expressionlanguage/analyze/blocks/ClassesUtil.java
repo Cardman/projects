@@ -358,7 +358,7 @@ public final class ClassesUtil {
         StringList basePkgFound_ = _page.getBasePackagesFound();
         StringList pkgFound_ = _page.getPackagesFound();
         for (IntermediaryResults s:_page.getNextResults()) {
-            for (AnonymousInstancingOperation e: _page.getAnonymous()) {
+            for (AnonymousInstancingOperation e: listInst(s.getAnonymousTypes())) {
                 AnonymousTypeBlock block_ = e.getBlock();
                 String base_ = e.getBase();
                 String enumClassName_ = _page.getAliasEnumType();
@@ -402,13 +402,11 @@ public final class ClassesUtil {
             processMapping(_page);
             validateInheritingClasses(_page);
             validateIds(_page);
-            for (AnonymousInstancingOperation e: _page.getAnonymous()) {
+            for (AnonymousInstancingOperation e: listInst(s.getAnonymousTypes())) {
                 _page.setGlobalType(e.getGlType());
                 _page.setCurrentFile(e.getBlock().getFile());
                 e.postAnalyze(_page);
             }
-            _page.getAnonymous().clear();
-            _page.getAnonymousLambda().clear();
             validateEl(_page);
             for (NamedCalledFunctionBlock e:s.getAnonymousFunctions()) {
                 _page.setupFctChars(e);
@@ -456,6 +454,16 @@ public final class ClassesUtil {
             }
             _page.setAnnotAnalysis(false);
         }
+    }
+    private static CustList<AnonymousInstancingOperation> listInst(CustList<AnonymousTypeBlock> _ls) {
+        CustList<AnonymousInstancingOperation> out_ = new CustList<AnonymousInstancingOperation>();
+        for (AnonymousTypeBlock a: _ls) {
+            AnonymousInstancingOperation instancingOperation_ = a.getInstancingOperation();
+            if (instancingOperation_ != null) {
+                out_.add(instancingOperation_);
+            }
+        }
+        return out_;
     }
 
     public static void tryBuildAllBracedClassesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
