@@ -7,16 +7,15 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.structs.MethodMetaInfo;
 
-public final class LambdaVariableGetValuePageEl extends AbstractRefectLambdaMethodPageEl {
+public final class LambdaVariableGetValuePageEl extends AbstractLambdaVariable {
 
-    public LambdaVariableGetValuePageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo, new DefPreparer());
+    public LambdaVariableGetValuePageEl(ArgumentListCall _array) {
+        super(_array);
     }
 
-    Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(_list.getArgumentWrappers());
+    Argument prepare(ContextEl _context, ArgumentListCall _array, StackCall _stack) {
+        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(_array.getArgumentWrappers());
         return new Argument(ExecTemplates.getWrap(firstArgumentWrapper_.getWrapper()).getValue(_stack,_context));
     }
 

@@ -11,8 +11,8 @@ public final class CustomReflectMethod extends CustomAbstractReflectMethod {
     private final Argument instance;
     private final Argument array;
     public CustomReflectMethod(ReflectingType _reflect, MethodMetaInfo _gl,
-                               Argument _instance,Argument _array, boolean _lambda) {
-        super(_gl, _lambda);
+                               Argument _instance, Argument _array) {
+        super(_gl, false);
         reflect = _reflect;
         instance = _instance;
         array = _array;

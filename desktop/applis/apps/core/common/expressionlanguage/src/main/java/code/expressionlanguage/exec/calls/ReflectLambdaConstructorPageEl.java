@@ -25,6 +25,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
         array = _array;
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
+        setLambda(true);
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {

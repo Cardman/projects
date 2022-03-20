@@ -5,9 +5,8 @@ import code.expressionlanguage.structs.MethodMetaInfo;
 
 public final class CustomReflectMethodDefVal extends CustomAbstractReflectMethod {
 
-    public CustomReflectMethodDefVal(MethodMetaInfo _gl,
-                                     boolean _lambda) {
-        super(_gl, _lambda);
+    public CustomReflectMethodDefVal(MethodMetaInfo _gl) {
+        super(_gl, false);
     }
 
     @Override

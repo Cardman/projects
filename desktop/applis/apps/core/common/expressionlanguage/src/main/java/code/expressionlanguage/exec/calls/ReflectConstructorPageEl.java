@@ -31,6 +31,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         argument = _argument;
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
+        setLambda(false);
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {

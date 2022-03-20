@@ -12,6 +12,7 @@ public final class LambdaRdCodRefectMethodPageEl extends AbstractBasicReflectPag
 
     public LambdaRdCodRefectMethodPageEl(Argument _argument) {
         argument = _argument;
+        setLambda(false);
     }
 
     @Override

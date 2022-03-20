@@ -28,6 +28,7 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         namedFields = _namedFields;
         className = _className;
         listSup = _list;
+        setLambda(true);
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {

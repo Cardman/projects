@@ -11,8 +11,8 @@ public final class CustomReflectConstructor extends AbstractReflectElement {
 
     private final Argument argument;
     public CustomReflectConstructor(ConstructorMetaInfo _gl,
-                                    Struct _struct, boolean _lambda) {
-        super(_lambda);
+                                    Struct _struct) {
+        super(false);
         gl = _gl;
         argument = new Argument(_struct);
     }

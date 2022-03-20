@@ -6665,7 +6665,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
         MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_, new ExecFormattedRootBlock((ExecRootBlock)null, "java.lang.$math"));
         ArrayStruct s_ = args();
-        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
+        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();
@@ -6680,7 +6680,7 @@ public final class ProcessMethodReflectionTest extends ProcessMethodCommon {
         StandardMethod stdMeth_ = std(cont_.getStandards().getStandards().getVal("java.lang.$math"), id_);
         MethodMetaInfo m_ = new MethodMetaInfo(stdMeth_, new ExecFormattedRootBlock((ExecRootBlock)null, "java.lang.$math"));
         ArrayStruct s_ = args();
-        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_),false);
+        CustomReflectMethod ref_ = new CustomReflectMethod(ReflectingType.STD_FCT,m_,Argument.createVoid(),new Argument(s_));
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
         ArgumentWrapper argumentWrapper_ = ProcessMethod.calculate(ref_, cont_, stackCall_);
         Argument out_ = argumentWrapper_.getValue();

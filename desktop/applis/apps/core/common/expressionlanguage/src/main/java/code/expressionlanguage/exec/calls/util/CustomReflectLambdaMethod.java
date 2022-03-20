@@ -13,8 +13,8 @@ public final class CustomReflectLambdaMethod extends CustomAbstractReflectMethod
     private final ArgumentListCall array;
 
     public CustomReflectLambdaMethod(ReflectingType _reflect, MethodMetaInfo _gl,
-                                     Argument _instance, ArgumentListCall _array, boolean _lambda) {
-        super(_gl, _lambda);
+                                     Argument _instance, ArgumentListCall _array) {
+        super(_gl, true);
         reflect = _reflect;
         instance = _instance;
         array = _array;

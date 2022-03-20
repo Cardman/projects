@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.Struct;
 public final class FctMethodGetDefaultValue extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        _stackCall.setCallingState(new CustomReflectMethodDefVal((MethodMetaInfo)_instance, false));
+        _stackCall.setCallingState(new CustomReflectMethodDefVal((MethodMetaInfo)_instance));
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

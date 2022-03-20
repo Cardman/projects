@@ -148,15 +148,6 @@ public final class MethodMetaInfo extends AbAnMeStruct implements AnnotatedParam
         casts = new Casts(false,false);
     }
 
-    public MethodMetaInfo(String _meth) {
-        super(new SingleRetType(""), AccessEnum.PUBLIC,"");
-        invokable = true;
-        MethodId realId_ = new MethodId(MethodAccessKind.STATIC, _meth, new CustList<String>());
-        pairIds = new PairMethodIds(realId_,tryFormatId(ExecFormattedRootBlock.defValue(), realId_));
-        callers = buildCallerInfo(ExecFormattedRootBlock.defValue(), null, MethodModifier.STATIC, null);
-        cache = null;
-        casts = new Casts(false,false);
-    }
     private static CallersInfo buildCallerInfo(ExecFormattedRootBlock _formatted, ExecMemberCallingsBlock _meth, MethodModifier _modif) {
         return new CallersInfo(_modif, _meth, new ExecTypeFunction(_formatted, null), _formatted, null);
     }

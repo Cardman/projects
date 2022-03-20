@@ -257,8 +257,8 @@ public final class ExecutingUtil {
         return page_;
     }
 
-    public static AbstractReflectPageEl createReflectMethod(AbstractReflectElement _ref) {
-        AbstractReflectPageEl pageLoc_;
+    public static AbstractPageEl createReflectMethod(AbstractReflectElement _ref) {
+        AbstractPageEl pageLoc_;
         ReflectingType reflect_ = _ref.getReflect();
         if (_ref instanceof CustomReflectLambdaConstructor) {
             CustomReflectLambdaConstructor c_ = (CustomReflectLambdaConstructor) _ref;
@@ -280,12 +280,14 @@ public final class ExecutingUtil {
             FieldMetaInfo metaInfo_ = c_.getGl();
             Argument args_ = c_.getArgument();
             pageLoc_ = new ReflectGetFieldPageEl(args_, metaInfo_);
+            ((ReflectGetFieldPageEl)pageLoc_).setLambda(_ref.isLambda());
         } else if (_ref instanceof CustomReflectSetField) {
             CustomReflectSetField c_ = (CustomReflectSetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();
             Argument first_ = c_.getFirst();
             Argument last_ = c_.getLast();
             pageLoc_ = new ReflectSetFieldPageEl(first_,last_, metaInfo_);
+            ((ReflectSetFieldPageEl)pageLoc_).setLambda(_ref.isLambda());
         } else if (_ref instanceof CustomReflectMethodDefVal) {
             CustomReflectMethodDefVal c_ = (CustomReflectMethodDefVal) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();
@@ -298,6 +300,8 @@ public final class ExecutingUtil {
         } else if (_ref instanceof CustomReflectLambdaRdCod) {
             CustomReflectLambdaRdCod c_ = (CustomReflectLambdaRdCod) _ref;
             pageLoc_ = new LambdaRdCodRefectMethodPageEl(c_.getArgument());
+        } else if (_ref instanceof CustomReflectLambdaVarMethod) {
+            pageLoc_ = lambdaMethVar((CustomReflectLambdaVarMethod) _ref);
         } else if (_ref instanceof CustomReflectLambdaMethod) {
             pageLoc_ = lambdaMeth((CustomReflectLambdaMethod) _ref);
         } else if (_ref instanceof CustomReflectMethod) {
@@ -310,23 +314,22 @@ public final class ExecutingUtil {
             setFile(pageLoc_, bl_);
             ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_ == ReflectingType.ANNOTATION_PARAM);
         }
-        pageLoc_.setLambda(_ref.isLambda());
         ReadWrite rwLoc_ = new ReadWrite();
         pageLoc_.setReadWrite(rwLoc_);
         return pageLoc_;
     }
 
-    private static void setFile(AbstractReflectPageEl _pageLoc, ExecBlock _bl) {
+    private static void setFile(AbstractPageEl _pageLoc, ExecBlock _bl) {
         if (_bl != null) {
             _pageLoc.setFile(_bl.getFile());
         }
     }
 
-    private static AbstractReflectPageEl reflectMethod(CustomReflectMethod _ref) {
+    private static AbstractPageEl reflectMethod(CustomReflectMethod _ref) {
         ReflectingType reflect_ = _ref.getReflect();
-        AbstractReflectPageEl pageLoc_;
+        AbstractPageEl pageLoc_;
         MethodMetaInfo metaInfo_ = _ref.getGl();
-        AbstractRefectMethodPageEl refMet_;
+        AbstractPageEl refMet_;
         Argument instance_ = _ref.getInstance();
         Argument array_ = _ref.getArray();
         if (reflect_ == ReflectingType.METHOD) {
@@ -350,11 +353,22 @@ public final class ExecutingUtil {
         return pageLoc_;
     }
 
-    private static AbstractReflectPageEl lambdaMeth(CustomReflectLambdaMethod _ref) {
+    private static AbstractPageEl lambdaMethVar(CustomReflectLambdaVarMethod _ref) {
         ReflectingType reflect_ = _ref.getReflect();
-        AbstractReflectPageEl pageLoc_;
+        AbstractPageEl refMet_;
+        ArgumentListCall array_ = _ref.getArray();
+        if (reflect_ == ReflectingType.VAR_GET) {
+            refMet_ = new LambdaVariableGetValuePageEl(array_);
+        } else {
+            refMet_ = new LambdaVariableSetValuePageEl(array_);
+        }
+        return refMet_;
+    }
+    private static AbstractPageEl lambdaMeth(CustomReflectLambdaMethod _ref) {
+        ReflectingType reflect_ = _ref.getReflect();
+        AbstractPageEl pageLoc_;
         MethodMetaInfo metaInfo_ = _ref.getGl();
-        AbstractRefectLambdaMethodPageEl refMet_;
+        AbstractPageEl refMet_;
         Argument instance_ = _ref.getInstance();
         ArgumentListCall array_ = _ref.getArray();
         if (reflect_ == ReflectingType.METHOD) {
@@ -371,10 +385,6 @@ public final class ExecutingUtil {
             refMet_ = new LambdaDirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
         } else if (reflect_ == ReflectingType.ENUM_METHODS) {
             refMet_ = new LambdaDirectEnumMethods(instance_,array_, metaInfo_);
-        } else if (reflect_ == ReflectingType.VAR_GET) {
-            refMet_ = new LambdaVariableGetValuePageEl(instance_,array_, metaInfo_);
-        } else if (reflect_ == ReflectingType.VAR_SET) {
-            refMet_ = new LambdaVariableSetValuePageEl(instance_,array_, metaInfo_);
         } else {
             refMet_ = new LambdaAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
         }

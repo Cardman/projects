@@ -13,8 +13,8 @@ public final class CustomReflectAnnotations extends AbstractReflectElement {
 
     private final CustList<Argument> arguments;
     public CustomReflectAnnotations(ReflectingType _reflect, AnnotatedStruct _gl,
-                                    CustList<Argument> _arguments, boolean _lambda) {
-        super(_lambda);
+                                    CustList<Argument> _arguments) {
+        super(false);
         reflect = _reflect;
         gl = _gl;
         arguments = _arguments;

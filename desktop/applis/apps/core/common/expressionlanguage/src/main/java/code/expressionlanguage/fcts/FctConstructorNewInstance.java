@@ -19,7 +19,7 @@ public final class FctConstructorNewInstance extends FctReflection {
         if (!ctor_.isInvokable()) {
             _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,ctor_, _stackCall)));
         } else {
-            _stackCall.setCallingState(new CustomReflectConstructor(ctor_, inst_, false));
+            _stackCall.setCallingState(new CustomReflectConstructor(ctor_, inst_));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

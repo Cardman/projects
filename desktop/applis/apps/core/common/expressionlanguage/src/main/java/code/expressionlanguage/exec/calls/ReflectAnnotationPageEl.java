@@ -41,6 +41,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         arguments = _arguments;
         annotated = _annotated;
         setGlobalArgumentStruct(_annotated);
+        setLambda(false);
     }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {

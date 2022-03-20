@@ -18,7 +18,7 @@ public final class FctAnnotatedGetAnnotationsParam1 extends FctReflection {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         AnnotatedStruct annotated_ = NumParsers.getAnnotated(_instance);
-        _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION_PARAM, annotated_, new CustList<Argument>(_firstArgs.getArgumentWrappers().get(0).getValue()), false));
+        _stackCall.setCallingState(new CustomReflectAnnotations(ReflectingType.ANNOTATION_PARAM, annotated_, new CustList<Argument>(_firstArgs.getArgumentWrappers().get(0).getValue())));
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }
