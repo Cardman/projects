@@ -126,6 +126,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private String validateVarArgForm;
     private String validateVarArgClassField;
     private String vlidateVarArgNameField;
+    private final RendExecutingBlocks rendExecutingBlocks = new RendExecutingBlocks();
 
     protected BeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
@@ -133,7 +134,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public void buildOther() {
-        beanAliases.buildOther(getContent());
+        beanAliases.buildOther(getContent(), getRendExecutingBlocks());
+    }
+
+    public RendExecutingBlocks getRendExecutingBlocks() {
+        return rendExecutingBlocks;
     }
 
     private void buildIterables(Classes _classes) {
@@ -431,6 +436,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         CustList<ExecFileBlock> rendFiles_ = execFiles(d_);
         ForwardInfos.generalForward(page_, forwards_);
         RendForwardInfos.buildExec(analyzingDoc_, rendFiles_, d_, forwards_, session_);
+        rendExecutingBlocks.getRenders().addAllEntries(session_.getRenders());
         Options options_ = forwards_.getOptions();
         ContextEl context_ = forwardAndClear(forwards_);
         ExecClassesUtil.tryInitStaticlyTypes(context_, options_);

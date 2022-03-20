@@ -1241,16 +1241,7 @@ public final class NumParsers {
     }
 
     public static AnnotatedStruct getAnnotated(Struct _struct) {
-        if (_struct instanceof MethodMetaInfo) {
-            return (MethodMetaInfo) _struct;
-        }
-        if (_struct instanceof ConstructorMetaInfo) {
-            return (ConstructorMetaInfo) _struct;
-        }
-        if (_struct instanceof FieldMetaInfo) {
-            return (FieldMetaInfo) _struct;
-        }
-        return getClass(_struct);
+        return (AnnotatedStruct) _struct;
     }
 
     public static MethodMetaInfo getMethod(Struct _struct) {

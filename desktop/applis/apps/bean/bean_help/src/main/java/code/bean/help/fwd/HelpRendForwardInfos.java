@@ -4,6 +4,7 @@ import code.bean.help.analyze.HelpResultText;
 import code.bean.help.analyze.blocks.*;
 import code.bean.help.exec.blocks.*;
 import code.bean.nat.BeanNatCommonLgNames;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.formathtml.*;
 import code.formathtml.analyze.*;
 import code.formathtml.analyze.blocks.*;
@@ -18,7 +19,7 @@ public final class HelpRendForwardInfos {
     private HelpRendForwardInfos() {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(null,_ana.getElt(), _ana.getBeanName());
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(null,_ana.getElt(), _ana.getBeanName(), ExecFormattedRootBlock.defValue());
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
             RendBlock loc_ = newHelpRendBlock(pair_.getRead());

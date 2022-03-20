@@ -26,7 +26,7 @@ public class BeanAliasGroups extends DefaultAliasGroups {
     @Override
     public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
         StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeMethodNames().entryList()) {
+        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeMethodNames(getContent().getReflect()).entryList()) {
             methods_.addEntry(e.getKey(),e.getValue());
         }
         return methods_;

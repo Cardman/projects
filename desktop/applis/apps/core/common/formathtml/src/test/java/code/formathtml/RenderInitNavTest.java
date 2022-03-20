@@ -1235,6 +1235,8 @@ public final class RenderInitNavTest extends CommonRender {
         lgNames_.getBeanAliases().setAliasSetDataBase("setDataBase");
         lgNames_.getBeanAliases().setAliasBeforeDisplaying("beforeDisplaying");
         lgNames_.getBeanAliases().setAliasMessage("code.bean.Message");
+        lgNames_.getBeanAliases().setAliasDocument("code.bean.Document");
+        lgNames_.getBeanAliases().setAliasDocumentAll("all");
         lgNames_.getBeanAliases().setAliasNewMessage("newStandardMessage");
         lgNames_.getBeanAliases().setAliasMessageFormat("format");
         lgNames_.getBeanAliases().setAliasMessageGetArgs("getArgs");

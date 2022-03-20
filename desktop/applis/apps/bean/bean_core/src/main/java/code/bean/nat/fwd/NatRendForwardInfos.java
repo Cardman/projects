@@ -9,6 +9,7 @@ import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.*;
 import code.formathtml.analyze.*;
@@ -26,7 +27,7 @@ public final class NatRendForwardInfos {
     private NatRendForwardInfos() {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(null,_ana.getElt(), _ana.getBeanName());
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(null,_ana.getElt(), _ana.getBeanName(), ExecFormattedRootBlock.defValue());
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
             RendBlock loc_ = newRendBlock(pair_.getRead());

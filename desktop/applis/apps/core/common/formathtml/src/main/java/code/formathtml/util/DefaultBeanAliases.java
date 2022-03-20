@@ -54,6 +54,8 @@ public final class DefaultBeanAliases {
     private static final String GET_DATA_BASE = "GetDataBase";
     private static final String BEFORE_DISPLAYING = "BeforeDisplaying";
     private static final String STRING_MAP_OBJECT = "StringMapObject";
+    private static final String DOCUMENT = "Document";
+    private static final String DOCUMENT_All = "DocumentAll";
     private static final String MESSAGE = "Message";
     private static final String NEW_MESSAGE = "NewMessage";
     private static final String MESSAGE_FORMAT = "MessageFormat";
@@ -101,6 +103,8 @@ public final class DefaultBeanAliases {
     private String aliasBeforeDisplaying= "beforeDisplaying";
     private String aliasStringMapObject="code.formathtml.nat.StringMapObject";
     private String aliasMessage="code.bean.Message";
+    private String aliasDocument="code.bean.Document";
+    private String aliasDocumentAll="all";
     private String aliasNewMessage="newStandardMessage";
     private String aliasMessageFormat="format";
     private String aliasMessageGetArgs="getArgs";
@@ -452,7 +456,7 @@ public final class DefaultBeanAliases {
         return ValidatorStandard.tr(allKeysWords_, _var);
     }
 
-    public void buildOther(LgNamesContent _content) {
+    public void buildOther(LgNamesContent _content, RendExecutingBlocks _rendExecutingBlocks) {
         CustList<CstFieldInfo> fields_;
         StringList params_;
         StandardMethod method_;
@@ -479,6 +483,15 @@ public final class DefaultBeanAliases {
         method_ = new StandardMethod(aliasMessageSetArgs, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.NORMAL, new StringList(beanAliasParameters.getAliasMessage0SetArgs0()),new FctMessageSetArgs(aliasMessage));
         methods_.add( method_);
         _content.getStandards().addEntry(aliasMessage, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        std_ = new StandardClass(aliasDocument, fields_, constructors_, methods_, _content.getReflect().getAliasAnnotated(), StdClassModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDocumentAll, params_, StringExpUtil.getPrettyArrayType(aliasDocument), false, MethodModifier.STATIC,new FctDocumentAll(_rendExecutingBlocks,aliasDocument));
+        methods_.add( method_);
+        _content.getStandards().addEntry(aliasDocument, std_);
+
     }
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
@@ -525,6 +538,8 @@ public final class DefaultBeanAliases {
         setAliasBeforeDisplaying(LgNamesContent.get(_util, _cust, BEFORE_DISPLAYING));
         setAliasStringMapObject(LgNamesContent.get(_util, _cust, STRING_MAP_OBJECT));
         setAliasMessage(LgNamesContent.get(_util, _cust, MESSAGE));
+        setAliasDocument(LgNamesContent.get(_util, _cust, DOCUMENT));
+        setAliasDocumentAll(LgNamesContent.get(_util, _cust, DOCUMENT_All));
         setAliasNewMessage(LgNamesContent.get(_util, _cust, NEW_MESSAGE));
         setAliasMessageFormat(LgNamesContent.get(_util, _cust, MESSAGE_FORMAT));
         setAliasMessageGetArgs(LgNamesContent.get(_util, _cust, MESSAGE_GET_ARGS));
@@ -534,19 +549,23 @@ public final class DefaultBeanAliases {
     public StringMap<String> allRefTypes() {
         StringMap<String> types_ = new StringMap<String>();
         types_.addEntry(MESSAGE,getAliasMessage());
+        types_.addEntry(DOCUMENT,getAliasDocument());
         types_.addEntry(VALIDATOR,getAliasValidator());
         types_.addEntry(STRING_MAP_OBJECT,getAliasStringMapObject());
         types_.addEntry(BEAN,getAliasBean());
         return types_;
     }
 
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AliasReflection _reflect) {
         StringMap<CustList<KeyValueMemberName>> methods_ = new StringMap<CustList<KeyValueMemberName>>();
         methods_.addEntry(getAliasMessage(),
                 new CustList<KeyValueMemberName>(new KeyValueMemberName(NEW_MESSAGE,getAliasNewMessage()),
                         new KeyValueMemberName(MESSAGE_FORMAT,getAliasMessageFormat()),
                         new KeyValueMemberName(MESSAGE_GET_ARGS,getAliasMessageGetArgs()),
                         new KeyValueMemberName(MESSAGE_SET_ARGS,getAliasMessageSetArgs())));
+        CustList<KeyValueMemberName> lis_ = LgNamesContent.listAnnot(_reflect);
+        lis_.add(new KeyValueMemberName(DOCUMENT_All,getAliasDocumentAll()));
+        methods_.addEntry(getAliasDocument(), lis_);
         methods_.addEntry(getAliasValidator(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(VALIDATE,getAliasValidate())));
         methods_.addEntry(getAliasStringMapObject(),new CustList<KeyValueMemberName>(
@@ -903,6 +922,22 @@ public final class DefaultBeanAliases {
 
     public void setAliasMessage(String _aliasMessage) {
         aliasMessage = _aliasMessage;
+    }
+
+    public String getAliasDocument() {
+        return aliasDocument;
+    }
+
+    public void setAliasDocument(String _doc) {
+        this.aliasDocument = _doc;
+    }
+
+    public String getAliasDocumentAll() {
+        return aliasDocumentAll;
+    }
+
+    public void setAliasDocumentAll(String _doc) {
+        this.aliasDocumentAll = _doc;
     }
 
     public String getAliasNewMessage() {

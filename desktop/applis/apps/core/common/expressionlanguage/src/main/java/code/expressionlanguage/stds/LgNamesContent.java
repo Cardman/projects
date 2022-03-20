@@ -1370,17 +1370,13 @@ public final class LgNamesContent {
                 new KeyValueMemberName(ERROR_TO_STRING, getCoreNames().getAliasErrorToString()),
                 new KeyValueMemberName(GET_MESSAGE, getCoreNames().getAliasGetMessage()),
                 new KeyValueMemberName(GET_CAUSE, getCoreNames().getAliasGetCause())));
-        map_.addEntry(getReflect().getAliasAnnotated(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(GET_FILE_NAME, getReflect().getAliasGetFileName()),
-                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA, getReflect().getAliasGetDeclaredAnonymousLambda()),
-                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getReflect().getAliasGetDeclaredSwitchMethods()),
-                new KeyValueMemberName(GET_ANNOTATIONS, getReflect().getAliasGetAnnotations()),
-                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS, getReflect().getAliasGetAnnotationsParameters())));
+        map_.addEntry(getReflect().getAliasAnnotated(), listAnnot(getReflect()));
         map_.addEntry(getReflect().getAliasAnnotationType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_STRING, getReflect().getAliasGetString())));
         map_.addEntry(getReflect().getAliasClassType(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS, getReflect().getAliasGetAnnotations()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS, getReflect().getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARING_CLASS,getReflect().getAliasGetDeclaringClass()),
                 new KeyValueMemberName(DEFAULT_INSTANCE, getReflect().getAliasDefaultInstance()),
                 new KeyValueMemberName(ENUM_VALUE_OF, getReflect().getAliasEnumValueOf()),
                 new KeyValueMemberName(FOR_NAME, getReflect().getAliasForName()),
@@ -1842,6 +1838,17 @@ public final class LgNamesContent {
                 new KeyValueMemberName(TRIM_TO_SIZE,getCharSeq().getAliasTrimToSize())));
         return map_;
     }
+
+    public static CustList<KeyValueMemberName> listAnnot(AliasReflection _reflect) {
+        return new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(GET_FILE_NAME, _reflect.getAliasGetFileName()),
+                new KeyValueMemberName(GET_DECLARING_CLASS, _reflect.getAliasGetDeclaringClass()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA, _reflect.getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS, _reflect.getAliasGetDeclaredSwitchMethods()),
+                new KeyValueMemberName(GET_ANNOTATIONS, _reflect.getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS, _reflect.getAliasGetAnnotationsParameters()));
+    }
+
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
         CustList<CustList<KeyValueMemberName>> map_ = new CustList<CustList<KeyValueMemberName>>();
         map_.add(new CustList<KeyValueMemberName>(

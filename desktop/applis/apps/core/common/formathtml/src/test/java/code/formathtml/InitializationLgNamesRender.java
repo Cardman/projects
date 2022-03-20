@@ -48,6 +48,8 @@ public final class InitializationLgNamesRender extends EquallableRenderUtil {
         _lgNames.getBeanAliases().setAliasSetDataBase("setDataBase");
         _lgNames.getBeanAliases().setAliasBeforeDisplaying("beforeDisplaying");
         _lgNames.getBeanAliases().setAliasMessage("code.bean.Message");
+        _lgNames.getBeanAliases().setAliasDocument("code.bean.Document");
+        _lgNames.getBeanAliases().setAliasDocumentAll("all");
         _lgNames.getBeanAliases().setAliasNewMessage("newStandardMessage");
         _lgNames.getBeanAliases().setAliasMessageFormat("format");
         _lgNames.getBeanAliases().setAliasMessageGetArgs("getArgs");

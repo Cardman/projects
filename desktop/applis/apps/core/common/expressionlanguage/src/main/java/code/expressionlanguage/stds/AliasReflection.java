@@ -387,9 +387,6 @@ public final class AliasReflection {
         method_ = new StandardMethod(aliasGetParameterNames, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctCallerGetParameterNames());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL,new FctAnnotatedGetDeclaring());
-        methods_.add( method_);
-        params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, new FctConstructorGetName());
         methods_.add( method_);
         params_ = new StringList();
@@ -432,9 +429,6 @@ public final class AliasReflection {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetName, params_, aliasString_, false, MethodModifier.FINAL, new FctFieldGetName());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetDeclaring());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsPackage, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctAnnotatedIsPackage());
@@ -512,9 +506,6 @@ public final class AliasReflection {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetParameterNames, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctCallerGetParameterNames());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL, new FctAnnotatedGetDeclaring());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDefaultValue, params_, aliasObject_, false, MethodModifier.FINAL, new FctMethodGetDefaultValue());
@@ -621,6 +612,9 @@ public final class AliasReflection {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredSwitchMethods, params_, StringExpUtil.getPrettyArrayType(aliasMethod), false, MethodModifier.FINAL,new FctAnnotatedGetDeclaredSwitchMethods0());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetDeclaringClass, params_, aliasClassType, false, MethodModifier.FINAL,new FctAnnotatedGetDeclaring());
         methods_.add( method_);
         _stds.getStandards().addEntry(aliasAnnotated, stdcl_);
     }

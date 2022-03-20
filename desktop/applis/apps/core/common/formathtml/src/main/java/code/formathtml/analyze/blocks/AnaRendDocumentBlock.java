@@ -31,6 +31,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private StringList imports = new StringList();
     private final IntTreeMap<Integer> escapedChar;
     private MethodAccessKind accessKind;
+    private AnaFormattedRootBlock declClass = AnaFormattedRootBlock.defValue();
     public AnaRendDocumentBlock(int _n, Element _elt, String _file, int _offset, String _fileName, CustList<EncodedChar> _chars) {
         super(_offset);
         this.nb = _n;
@@ -72,6 +73,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             AnaFormattedRootBlock globalType_ = new AnaFormattedRootBlock(_page, clName_);
             _page.setGlobalType(globalType_);
             _page.setImporting(globalType_.getRootBlock());
+            declClass = globalType_;
         } else {
             accessKind = MethodAccessKind.STATIC;
             _page.setGlobalType(AnaFormattedRootBlock.defValue());
@@ -184,6 +186,10 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
                 }
             }
         }
+    }
+
+    public AnaFormattedRootBlock getDeclClass() {
+        return declClass;
     }
 
     public Element getElt() {

@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
@@ -12,6 +13,7 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
@@ -39,7 +41,7 @@ public final class RendForwardInfos {
     private RendForwardInfos() {
     }
     private static RendDocumentBlock build(ExecFileBlock _fileBlock, AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_fileBlock, _ana.getElt(), _ana.getBeanName());
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_fileBlock, _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards));
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
             RendBlock loc_ = newRendBlock(pair_.getRead(), _forwards);
@@ -47,6 +49,14 @@ public final class RendForwardInfos {
             nextPair(pair_);
         }
         return rendDoc_;
+    }
+
+    private static ExecFormattedRootBlock fwdType(AnaRendDocumentBlock _ana, Forwards _forwards) {
+        AnaFormattedRootBlock declClass_ = _ana.getDeclClass();
+        if (declClass_.getRootBlock() == null) {
+            return ExecFormattedRootBlock.defValue();
+        }
+        return FetchMemberUtil.fwdFormatType(declClass_, _forwards);
     }
 
     public static void nextPair(RendAnaExec _pair) {
