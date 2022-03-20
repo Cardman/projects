@@ -42,7 +42,7 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         setNullReadWrite();
     }
 
-    public boolean checkCondition(ContextEl _context, StackCall _stack) {
+    private boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!keep(_context, _stack)) {
             return false;
         }

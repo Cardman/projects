@@ -238,7 +238,7 @@ public final class ForwardInfos {
             RootBlock root_ = e.getRootBlock();
             CustList<AnaFormattedRootBlock> allSuperClass_ = new CustList<AnaFormattedRootBlock>(new AnaFormattedRootBlock(root_));
             allSuperClass_.addAllElts(root_.getAllGenericSuperTypesInfo());
-            if (!feedableFunctBodies(_forwards, e, allSuperClass_) || root_.mustImplement()) {
+            if (root_.mustImplement()) {
                 continue;
             }
             instEltCount(_forwards, e, allSuperClass_, _aliasFct);
@@ -279,34 +279,6 @@ public final class ForwardInfos {
                 }
             }
         }
-    }
-
-    private static boolean feedableFunctBodies(Forwards _forwards, FwdRootBlockMembers _e, CustList<AnaFormattedRootBlock> _allSuperClass) {
-        for (AnaFormattedRootBlock s: _allSuperClass) {
-            if (!feedableFunctBody(_forwards, _e, s)){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean feedableFunctBody(Forwards _forwards, FwdRootBlockMembers _e, AnaFormattedRootBlock _s) {
-        RootBlock rootBlock_ = _s.getRootBlock();
-        for (NamedCalledFunctionBlock b: rootBlock_.getOverridableBlocks()) {
-            if (!(b.getKind() == MethodKind.SET_INDEX || b.getKind() == MethodKind.GET_INDEX)) {
-                continue;
-            }
-            if (b.isAbstractMethod()) {
-                Members mem_ = _forwards.getMember(rootBlock_);
-                ExecRootBlock ex_ = mem_.getRootBlock();
-                ExecOverridableBlock value_ = mem_.getOvNamed(b);
-                ExecOverrideInfo val_ = ex_.getRedirections().getVal(value_, _e.getRootBlock().getFullName());
-                if (val_ == null) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     private static void feedFct(AnalyzedPageEl _page, Forwards _forwards, Coverage _coverage, CustList<ExecFileBlock> _files) {

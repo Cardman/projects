@@ -427,14 +427,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         CustList<ArgumentWrapper> argumentWrappers_ = _values.getArgumentWrappers();
         if (StringUtil.quickEq(_ls.getMethodName(),":")) {
-            ArgumentWrapper formal_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
-            return new Argument(ExecTemplates.getWrap(formal_.getWrapper()).getValue(_stackCall,_conf));
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.VAR_GET,new MethodMetaInfo(_ls.getMethodName()),Argument.createVoid(), _values,true));
+            return new Argument();
         }
         if (StringUtil.quickEq(_ls.getMethodName(),"=")) {
-            ArgumentWrapper formal_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
-            Argument right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));
-            ExecTemplates.getWrap(formal_.getWrapper()).setValue(_stackCall,_conf,right_);
-            return right_;
+            _stackCall.setCallingState(new CustomReflectLambdaMethod(ReflectingType.VAR_SET,new MethodMetaInfo(_ls.getMethodName()),Argument.createVoid(), _values,true));
+            return new Argument();
         }
         CustList<ArgumentWrapper> formal_;
         Argument right_;

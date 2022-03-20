@@ -371,6 +371,10 @@ public final class ExecutingUtil {
             refMet_ = new LambdaDirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
         } else if (reflect_ == ReflectingType.ENUM_METHODS) {
             refMet_ = new LambdaDirectEnumMethods(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.VAR_GET) {
+            refMet_ = new LambdaVariableGetValuePageEl(instance_,array_, metaInfo_);
+        } else if (reflect_ == ReflectingType.VAR_SET) {
+            refMet_ = new LambdaVariableSetValuePageEl(instance_,array_, metaInfo_);
         } else {
             refMet_ = new LambdaAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
         }
