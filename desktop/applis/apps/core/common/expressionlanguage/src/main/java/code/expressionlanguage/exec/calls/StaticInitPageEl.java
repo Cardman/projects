@@ -2,7 +2,6 @@ package code.expressionlanguage.exec.calls;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.expressionlanguage.exec.blocks.ExecInfoBlock;
@@ -50,9 +49,8 @@ public final class StaticInitPageEl extends AbstractInitPageEl {
     }
 
     public void sucessClass(ContextEl _context) {
-        String curClass_ = getGlobalClass().getFormatted();
-        String curClassBase_ = StringExpUtil.getIdFromAllTypes(curClass_);
-        _context.getLocks().successClass(curClassBase_);
+        ExecRootBlock curClass_ = getGlobalClass().getRootBlock();
+        _context.getLocks().successClass(curClass_);
     }
 
     public Argument getFwd() {

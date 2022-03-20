@@ -1,8 +1,9 @@
 package code.expressionlanguage.exec;
+
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.calls.util.*;
+import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.NullStruct;
 
@@ -12,10 +13,10 @@ public final class ProcessMethod {
     }
 
     public static void initializeClass(String _class, ExecRootBlock _rootBlock, ContextEl _cont, StackCall _stackCall) {
-        if (_cont.getLocks().getState(_class) == InitClassState.SUCCESS) {
+        if (_cont.getLocks().getState(_rootBlock) == InitClassState.SUCCESS) {
             return;
         }
-        _cont.getLocks().initClass(_class);
+        _cont.getLocks().initClass(_rootBlock);
         loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,new ExecFormattedRootBlock(_rootBlock,_class),null));
     }
     public static void initializeClassPre(String _class, ExecRootBlock _rootBlock, ContextEl _cont, StackCall _stackCall) {

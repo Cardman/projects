@@ -1,12 +1,22 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.*;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.EquallableElUtil;
+import code.expressionlanguage.InitializationLgNames;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultFileBuilder;
+import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.files.*;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.DefaultAccess;
+import code.expressionlanguage.analyze.files.DefaultAccessType;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.common.*;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.util.CallingState;
@@ -15,7 +25,8 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -26,7 +37,9 @@ import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -863,7 +876,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static boolean isSuccessfulInitialized(ContextEl _cont, String _s) {
-        return _cont.getLocks().getState(_s) == InitClassState.SUCCESS;
+        return _cont.getLocks().getState((ExecRootBlock) _cont.getClassBody(_s)) == InitClassState.SUCCESS;
     }
 
     protected static boolean isEmptyErrors(AnalyzedPageEl _cont) {
@@ -871,7 +884,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     protected static boolean isInitialized(ContextEl _cont, String _cl) {
-        return _cont.getLocks().getState(_cl) != InitClassState.NOT_YET;
+        return _cont.getLocks().getState((ExecRootBlock) _cont.getClassBody(_cl)) != InitClassState.NOT_YET;
     }
 
     protected static Forwards getForwards(Options opt_, LgNames lgName_, KeyWords kw_, AnalyzedPageEl page_) {

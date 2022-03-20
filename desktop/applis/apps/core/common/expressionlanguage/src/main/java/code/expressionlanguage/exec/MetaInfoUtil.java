@@ -80,16 +80,16 @@ public final class MetaInfoUtil {
         }
         if (_className instanceof ExecRootBlock) {
             DefaultLockingClass locks_ = _cont.getLocks();
+            InitClassState res_ = locks_.getState((ExecRootBlock) _className);
             if (_stackCall.getInitializingTypeInfos().isInitEnums()) {
-                InitClassState res_ = locks_.getState(_className.getFullName());
                 if (res_ != InitClassState.SUCCESS) {
                     _stackCall.getInitializingTypeInfos().failInitEnums();
                     return true;
                 }
                 return false;
             }
-            InitClassState res_ = locks_.getProgressingState(_className.getFullName());
             if (res_ == InitClassState.NOT_YET) {
+                locks_.initClass((ExecRootBlock) _className);
                 _stackCall.setCallingState(new NotInitializedClass(new ExecFormattedRootBlock((ExecRootBlock) _className,_className.getFullName()),(ExecRootBlock) _className, _arg));
                 return true;
             }

@@ -1,11 +1,12 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitClassState;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.ProcessMethod;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.structs.*;
 import code.util.StringMap;
 import org.junit.Test;
@@ -1122,12 +1123,13 @@ public final class ProcessMethodInstanceEnumTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = ctxOkRead(files_);
         assertTrue(!isInitialized(cont_, "pkg.Ex"));
-        InitClassState state_ = cont_.getLocks().getState("pkg.Ex");
+        ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
+        InitClassState state_ = cont_.getLocks().getState(classBody_);
         assertSame(InitClassState.NOT_YET, state_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,cont_);
-        ProcessMethod.initializeClass("pkg.Ex",cont_.getClasses().getClassBody("pkg.Ex"), cont_, stackCall_);
+        ProcessMethod.initializeClass("pkg.Ex", classBody_, cont_, stackCall_);
         assertTrue(isInitialized(cont_, "pkg.Ex"));
-        state_ = cont_.getLocks().getState("pkg.Ex");
+        state_ = cont_.getLocks().getState(classBody_);
         assertSame(InitClassState.ERROR, state_);
         Struct exc_ = getTrueException(stackCall_);
         assertTrue(exc_ instanceof CausingErrorStruct);
