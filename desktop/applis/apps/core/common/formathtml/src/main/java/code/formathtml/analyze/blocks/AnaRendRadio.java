@@ -51,6 +51,7 @@ public final class AnaRendRadio extends AnaRendInput {
             _page.setGlobalOffset(attr_);
             _page.zeroOffset();
             rootConverterFieldValue = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpression);
+            AnaRendBlock.checkVars(attr_,varNames_,rootConverterFieldValue,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

@@ -76,6 +76,7 @@ public final class AnaRendForm extends AnaRendElement {
             }
             _page.zeroOffset();
             root = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page,resultExpression);
+            AnaRendBlock.checkVars(rowsGrId_,varNames_,root,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

@@ -163,6 +163,7 @@ public final class ResultText {
             }
             _page.zeroOffset();
             r_.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page, r_.resultExpression);
+            AnaRendBlock.checkVars(colsGrId_,varNames_,r_.opExpAnchorRoot,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

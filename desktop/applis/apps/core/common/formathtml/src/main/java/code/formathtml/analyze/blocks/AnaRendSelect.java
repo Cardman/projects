@@ -113,6 +113,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.setGlobalOffset(offConvValue_);
             _page.zeroOffset();
             rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
+            AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverter,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
@@ -167,6 +168,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                 _page.setGlobalOffset(offConvValue_);
                 _page.zeroOffset();
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
+                AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverter,_page,_anaDoc);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -195,6 +197,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                 _page.setGlobalOffset(offConvValue_);
                 _page.zeroOffset();
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
+                AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverter,_page,_anaDoc);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -226,6 +229,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.setGlobalOffset(offConvValue_);
             _page.zeroOffset();
             rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverterField);
+            AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverterField,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
@@ -257,6 +261,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.setGlobalOffset(offConvValue_);
             _page.zeroOffset();
             rootConverterFieldValue = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverterFieldValue);
+            AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverterFieldValue,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

@@ -68,6 +68,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                 _page.setGlobalOffset(attr_);
                 _page.zeroOffset();
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
+                AnaRendBlock.checkVars(attr_,varNames_,rootConverter,_page,_anaDoc);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -124,6 +125,7 @@ public abstract class AnaRendInput extends AnaRendElement {
             _page.setGlobalOffset(attr_);
             _page.zeroOffset();
             rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverterField);
+            AnaRendBlock.checkVars(attr_,varNames_,rootConverterField,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
