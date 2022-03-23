@@ -3,6 +3,7 @@ package code.formathtml.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
@@ -447,9 +448,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         CustList<ExecFileBlock> exec_ = new CustList<ExecFileBlock>();
         for (EntryCust<String, AnaRendDocumentBlock> e: _analyzed.entryList()) {
             AnaRendDocumentBlock value_ = e.getValue();
-            FileMetricsCore metricsCore_ = value_.getFileBlock().getMetricsCore();
+            FileBlock fileBlock_ = value_.getFileBlock();
+            FileMetricsCore metricsCore_ = fileBlock_.getMetricsCore();
             String key_ = e.getKey();
-            exec_.add(new ExecFileBlock(metricsCore_,key_,value_.getFileBlock().getFileEscapedCalc()));
+            exec_.add(new ExecFileBlock(metricsCore_,key_, fileBlock_.getFileEscapedCalc()));
         }
         return exec_;
     }

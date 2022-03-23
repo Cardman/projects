@@ -112,6 +112,9 @@ public final class Configuration {
 
     private static void buildDocs(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, StringMap<AnaRendDocumentBlock> _d, StringMap<BeanInfo> _beansInfosBefore) {
         for (AnaRendDocumentBlock v : _d.values()) {
+            v.initMetrics(_analyzingDoc,_page);
+        }
+        for (AnaRendDocumentBlock v : _d.values()) {
             v.buildFctInstructions(_analyzingDoc, _page, _beansInfosBefore);
         }
     }

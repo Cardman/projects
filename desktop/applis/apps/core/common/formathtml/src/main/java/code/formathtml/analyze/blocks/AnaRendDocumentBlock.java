@@ -56,9 +56,22 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         return accessKind;
     }
 
+    public void initMetrics(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        String alias_ = StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrAlias());
+        imports = StringUtil.splitChar(elt.getAttribute(alias_),';');
+        fileBlock.setNumberFile(_page.getFilesBodies().size());
+        _page.putFileBlock(fileName, fileBlock);
+        fileBlock.processLinesTabsWithError(file, _page);
+        int o_ = getAttributeDelimiter(alias_);
+        for (String o: imports) {
+            fileBlock.getImports().add(o);
+            fileBlock.getImportsOffset().add(o_);
+            o_ += o.length() +1;
+        }
+    }
+
     public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, StringMap<BeanInfo> _beansInfosBefore) {
         setBeanName(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
-        initMetrics(_anaDoc, _page);
         _page.setGlobalOffset(getOffset());
         _page.zeroOffset();
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
@@ -123,18 +136,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
                 }
                 en_ = par_;
             }
-        }
-    }
-
-    private void initMetrics(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String alias_ = StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrAlias());
-        imports = StringUtil.splitChar(elt.getAttribute(alias_),';');
-        fileBlock.processLinesTabsWithError(file, _page);
-        int o_ = getAttributeDelimiter(alias_);
-        for (String o: imports) {
-            fileBlock.getImports().add(o);
-            fileBlock.getImportsOffset().add(o_);
-            o_ += o.length() +1;
         }
     }
 
