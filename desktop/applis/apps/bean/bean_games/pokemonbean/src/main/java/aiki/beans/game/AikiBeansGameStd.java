@@ -1,20 +1,15 @@
 package aiki.beans.game;
 
-import aiki.beans.LgIntStruct;
+import code.bean.nat.LgIntStruct;
 import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
-import aiki.beans.RateStruct;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.RateStruct;
+import code.bean.nat.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.*;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -112,28 +107,28 @@ public final class AikiBeansGameStd {
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
         fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(ALLOW_CATCHING_KO,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(WIN_TRAINER_EXP,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(RATE_WINNING_EXP_PTS_FIGHT,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(END_FIGHT_IF_ONE_TEAM_KO,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(IV_PLAYER,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(IV_FOE,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(END_FIGHT_IF_ONE_TEAM_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(IV_PLAYER, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(IV_FOE, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(RATE_WIN_MONEY_BASE,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(RATE_LOOSE_MONEY_WIN,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(RESTORED_MOVES_END_FIGHT,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(ENABLED_CLOSING,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(RANDOM_WILD_FIGHT,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(STILL_POSSIBLE_FLEE,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(RESTORED_MOVES_END_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(ENABLED_CLOSING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(RANDOM_WILD_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(STILL_POSSIBLE_FLEE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(DAMAGE_RATES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DAMAGE_RATE_PLAYER,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(DAMAGE_RATE_PLAYER,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatLgNames.TYPE_MAP,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CHANGE,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CHANGE,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_DIFFICULTY_BEAN, type_);
     }
@@ -146,53 +141,53 @@ public final class AikiBeansGameStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_GAME_PROGRESSION_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
-        fields_.add(new StandardField(FINISHED_GAME,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(HERO_IMAGE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(HERO_IMAGE_OPPOSITE_SEX,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(END_GAME_IMAGE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(NICKNAME,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(FINISHED_GAME,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(HERO_IMAGE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(HERO_IMAGE_OPPOSITE_SEX,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(END_GAME_IMAGE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(UN_BEATEN_IMPORTANT_TRAINERS, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(BEATEN_IMPORTANT_TRAINERS, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(REMAINING_OTHER_TRAINER_PLACES, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(UN_VISITED_PLACES, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(VISITED_PLACES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(NB_REMAINING_NOT_MAX_LEVEL,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(NB_REMAINING_NOT_MAX_HAPPINESS,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(NB_REMAINING_EGGS,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(REMAIN_STEPS_REPEL,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(NB_REMAINING_NOT_MAX_LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(NB_REMAINING_NOT_MAX_HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(NB_REMAINING_EGGS, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(REMAIN_STEPS_REPEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(MONEY,PokemonStandards.TYPE_LG_INT,false,false));
         fields_.add(new StandardField(FULL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(NOT_AT_ALL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(PARTIAL_FAMILIES_BASE_NOT_CAUGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_REMAINING_OTHER_TRAINERS_PLACE_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_REMAINING_OTHER_TRAINERS_PLACE_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_FULL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_FULL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_POKEMON_FULL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_POKEMON_FULL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_NOT_ALL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_NOT_ALL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_POKEMON_NOT_ALL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_POKEMON_NOT_ALL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL_NOT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL_NOT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_POKEMON_PARTIAL_NOT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_POKEMON_PARTIAL_NOT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_KEY_POKEMON,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_POKEMON_PARTIAL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_POKEMON_PARTIAL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
     }
@@ -205,38 +200,37 @@ public final class AikiBeansGameStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
-        fields_.add(new StandardField(NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(ABILITY,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(USED_BALL_CATCHING,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(ITEM,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(USED_BALL_CATCHING,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(REMAINING_HP,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(REMAINING_HP_PER_CENT,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(REMAINING_HP_PER_CENT,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(FULL_HP,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(NICKNAME,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(WON_EXP_SINCE_LAST_LEVEL,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(NECESSARY_POINTS_NEXT_LEVEL,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(HAPPINESS,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(NB_STEPS_TEAM_LEAD,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(NB_STEPS_TEAM_LEAD, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(STATUS, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(STATISTICS, BeanNatLgNames.TYPE_LIST,false,false));
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_EVO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_EVO,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_POKEMON_PLAYER_BEAN, type_);
     }
-    public static ResultErrorStd getResultDifficultyBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultDifficultyBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WIN_POINTS_FIGHT)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getWinPointsFight()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getWinPointsFight()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
@@ -300,7 +294,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATES)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getDamageRates()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getDamageRates()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
@@ -308,7 +302,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
-            res_.setResult(PokemonStandards.getRateRate(_cont,instance_.getDamageRatePlayerTable()));
+            res_.setResult(PokemonStandards.getRateRate(instance_.getDamageRatePlayerTable()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
@@ -316,13 +310,12 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {
-            res_.setResult(PokemonStandards.getRateRate(_cont,instance_.getDamageRateFoeTable()));
+            res_.setResult(PokemonStandards.getRateRate(instance_.getDamageRateFoeTable()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultGameProgressionBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultGameProgressionBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         GameProgressionBean instance_ = (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -355,15 +348,15 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REMAINING_OTHER_TRAINER_PLACES)) {
-            res_.setResult(PokemonStandards.getShortInt(_cont,instance_.getRemainingOtherTrainerPlaces()));
+            res_.setResult(PokemonStandards.getShortInt(instance_.getRemainingOtherTrainerPlaces()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,UN_VISITED_PLACES)) {
-            res_.setResult(std_.getStringArray(instance_.getUnVisitedPlaces()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getUnVisitedPlaces()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,VISITED_PLACES)) {
-            res_.setResult(std_.getStringArray(instance_.getVisitedPlaces()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getVisitedPlaces()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NB_REMAINING_NOT_MAX_LEVEL)) {
@@ -387,21 +380,20 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,FULL_FAMILIES_BASE)) {
-            res_.setResult(PokemonStandards.getStrListStrList(_cont,instance_.getFullFamiliesBase()));
+            res_.setResult(PokemonStandards.getStrListStrList(instance_.getFullFamiliesBase()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,NOT_AT_ALL_FAMILIES_BASE)) {
-            res_.setResult(PokemonStandards.getStrListStrList(_cont,instance_.getNotAtAllFamiliesBase()));
+            res_.setResult(PokemonStandards.getStrListStrList(instance_.getNotAtAllFamiliesBase()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PARTIAL_FAMILIES_BASE_NOT_CAUGHT)) {
-            res_.setResult(PokemonStandards.getStrListStrList(_cont,instance_.getPartialFamiliesBaseNotCaught()));
+            res_.setResult(PokemonStandards.getStrListStrList(instance_.getPartialFamiliesBaseNotCaught()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultPokemonPlayerBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultPokemonPlayerBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         PokemonPlayerBean instance_ = (PokemonPlayerBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -414,7 +406,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getEvolutions()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getEvolutions()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LEVEL)) {
@@ -470,15 +462,15 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPES)) {
-            res_.setResult(std_.getStringArray(instance_.getTypes()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getTypes()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,STATUS)) {
-            res_.setResult(std_.getStringArray(instance_.getStatus()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getStatus()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MOVES)) {
-            res_.setResult(PokemonStandards.getUsesStr(_cont,instance_.getMoves()));
+            res_.setResult(PokemonStandards.getUsesStr(instance_.getMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,STATISTICS)) {
@@ -487,7 +479,7 @@ public final class AikiBeansGameStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultDifficultyBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultDifficultyBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -507,12 +499,12 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,WIN_TRAINER_EXP)) {
-            instance_.setWinTrainerExp(PokemonStandards.convertToRate(_val));
+            instance_.setWinTrainerExp(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setRateWinningExpPtsFight(PokemonStandards.convertToRate(_val));
+            instance_.setRateWinningExpPtsFight(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -532,12 +524,12 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_WIN_MONEY_BASE)) {
-            instance_.setRateWinMoneyBase(PokemonStandards.convertToRate(_val));
+            instance_.setRateWinMoneyBase(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_LOOSE_MONEY_WIN)) {
-            instance_.setRateLooseMoneyWin(PokemonStandards.convertToRate(_val));
+            instance_.setRateLooseMoneyWin(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -578,7 +570,7 @@ public final class AikiBeansGameStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodDifficultyBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodDifficultyBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -589,8 +581,7 @@ public final class AikiBeansGameStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodGameProgressionBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodGameProgressionBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         GameProgressionBean instance_ = (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -623,7 +614,7 @@ public final class AikiBeansGameStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_KEY_POKEMON)) {
-            res_.setResult(std_.getStringArray(instance_.getKeyPokemon(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getKeyPokemon(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_PARTIAL)) {
@@ -636,7 +627,7 @@ public final class AikiBeansGameStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPokemonPlayerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodPokemonPlayerBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         PokemonPlayerBean instance_ = (PokemonPlayerBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

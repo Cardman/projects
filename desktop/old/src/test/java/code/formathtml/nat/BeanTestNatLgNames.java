@@ -5,13 +5,11 @@ import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.StandardInstancingOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.analyze.instr.Delimiters;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
@@ -19,15 +17,10 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
-import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.DualAnalyzedContext;
 import code.formathtml.util.DualConfigurationContext;
 import code.formathtml.util.NodeContainer;
 import code.util.*;
@@ -73,7 +66,6 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
 
 
     private static void setStoredForms(BeanStruct _bean, StringMapObjectSample _storedForms) {
-        _bean.setForms(_storedForms);
     }
 
     @Override
@@ -130,7 +122,7 @@ public abstract class BeanTestNatLgNames extends BeanNatCommonLgNames {
     public abstract BeanStruct getOtherResultBean(ContextEl _cont,
                                                       ConstructorId _method);
 
-    public abstract ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance);
+    public abstract ResultErrorStd getOtherResult(ClassField _classField, Struct _instance);
 
     public abstract void setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _value);
 

@@ -53,7 +53,7 @@ public final class NatRendForEachTable extends RendParentBlock implements RendWi
         }
         Struct its_ = processLoopTable(_stds, _ctx, _rendStack);
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        Argument arg_ = RendBlockHelp.iteratorMultTable(its_, _ctx);
+        Argument arg_ = RendBlockHelp.iteratorMultTable(its_);
         RendLoopBlockStack l_ = RendForEachTable.addedStack(ip_, its_, length_, arg_, label, this);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         LoopVariable lv_ = new LoopVariable();
@@ -91,7 +91,7 @@ public final class NatRendForEachTable extends RendParentBlock implements RendWi
         ImportingPage ip_ = _rendStack.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         StringMap<AbstractWrapper> varsInfos_ = ip_.getRefParams();
-        ConditionReturn has_ = iteratorHasNext(_ctx, _loopBlock);
+        ConditionReturn has_ = iteratorHasNext(_loopBlock);
         boolean hasNext_ = has_ == ConditionReturn.YES;
         if (hasNext_) {
             incrementLoop(_loopBlock, vars_,varsInfos_, _ctx, _rendStack);
@@ -104,23 +104,23 @@ public final class NatRendForEachTable extends RendParentBlock implements RendWi
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         Struct iterator_ = _l.getContent().getStructIterator();
         ImportingPage call_ = _rendStackCall.getLastPage();
-        Argument nextPair_ = RendBlockHelp.nextCom(iterator_, _ctx);
+        Argument nextPair_ = RendBlockHelp.nextCom(iterator_);
         Struct value_ = nextPair_.getStruct();
-        Argument arg_ = RendBlockHelp.first(value_, _ctx);
+        Argument arg_ = RendBlockHelp.first(value_);
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
         AbstractWrapper lInfo_ = _varsInfos.getVal(variableNameFirst);
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
-        arg_ = RendBlockHelp.second(value_, _ctx);
+        arg_ = RendBlockHelp.second(value_);
         lv_ = _vars.getVal(variableNameSecond);
         lInfo_ = _varsInfos.getVal(variableNameSecond);
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
     }
-    private static ConditionReturn iteratorHasNext(ContextEl _ctx, RendLoopBlockStack _rendLastStack) {
+    private static ConditionReturn iteratorHasNext(RendLoopBlockStack _rendLastStack) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();
-        Argument arg_ = RendBlockHelp.nasNextCom(strIter_, _ctx);
+        Argument arg_ = RendBlockHelp.nasNextCom(strIter_);
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }

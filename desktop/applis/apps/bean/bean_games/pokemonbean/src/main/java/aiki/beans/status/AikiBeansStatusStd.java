@@ -1,17 +1,12 @@
 package aiki.beans.status;
 
 import aiki.beans.*;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -70,42 +65,42 @@ public final class AikiBeansStatusStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_STATUS_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(ANIM_STATUS,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(END_ROUND,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(END_ROUND_RANK,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(ANIM_STATUS,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(SINGLE_STATUS,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(INCREMENTING_DAMAGE_BY_ROUNDS,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(SINGLE_STATUS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(INCREMENTING_DAMAGE_BY_ROUNDS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(CATCHING_RATE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(DISABLED_EFF_IF_SWITCH,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(INCREMENT_END_ROUND,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(INCREMENTING_END_ROUND,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(DISABLED_EFF_IF_SWITCH,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(INCREMENT_END_ROUND, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(INCREMENTING_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(MULT_STAT, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(REASONS, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(MAP_VARS_FAIL, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(RATE_FOR_USING_A_MOVE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(NOT_ATTACK,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(NOT_ATTACK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(RATE_FOR_USING_A_MOVE_IF_FOE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(NOT_ATTACK_FOE,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(NOT_ATTACK_FOE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(RATE_FOR_FULL_HEAL_IF_MOVE,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(LAW_FOR_USING_A_MOVE_NB_ROUND, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(POWER,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(ATTACK,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(DEFENSE,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(ATTACK,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(DEFENSE,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(EFFECTS_PARTNER, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_INDEX,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_INDEX,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(INCREMENT_END_ROUND_INT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(INCREMENT_END_ROUND_INT,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_SINGLE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_SINGLE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_EFFECT_PARTNER,params_,PokemonStandards.TYPE_EFFECT_PARTNER_STATUS, false, MethodModifier.NORMAL);
@@ -121,21 +116,20 @@ public final class AikiBeansStatusStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_STATUS_SET_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_STATUS,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(TYPED_STATUS,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(SORTED_STATUS, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEARCH,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_STATUS_SET_BEAN, type_);
     }
-    public static ResultErrorStd getResultStatusBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultStatusBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         StatusBean instance_ = (StatusBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -156,11 +150,11 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(std_.getStringArray(instance_.getReasonsEndRound()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReasonsEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFailEndRound()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsFailEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SINGLE_STATUS)) {
@@ -188,15 +182,15 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT)) {
-            res_.setResult(PokemonStandards.getStaRate(_cont,instance_.getMultStat()));
+            res_.setResult(PokemonStandards.getStaRate(instance_.getMultStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS)) {
-            res_.setResult(std_.getStringArray(instance_.getReasons()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReasons()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFail()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsFail()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_FOR_USING_A_MOVE)) {
@@ -220,7 +214,7 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LAW_FOR_USING_A_MOVE_NB_ROUND)) {
-            res_.setResult(PokemonStandards.getLgIntRate(_cont,instance_.getLawForUsingAMoveNbRound()));
+            res_.setResult(PokemonStandards.getLgIntRate(instance_.getLawForUsingAMoveNbRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POWER)) {
@@ -241,8 +235,7 @@ public final class AikiBeansStatusStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultStatusSetBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultStatusSetBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         StatusSetBean instance_ = (StatusSetBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -251,12 +244,12 @@ public final class AikiBeansStatusStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SORTED_STATUS)) {
-            res_.setResult(std_.getStringArray(instance_.getSortedStatus()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getSortedStatus()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultStatusSetBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultStatusSetBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         StatusSetBean instance_ = (StatusSetBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -267,7 +260,7 @@ public final class AikiBeansStatusStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStatusBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodStatusBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         StatusBean instance_ = (StatusBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -293,7 +286,7 @@ public final class AikiBeansStatusStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStatusSetBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodStatusSetBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         StatusSetBean instance_ = (StatusSetBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

@@ -880,10 +880,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(className_,TYPE_COMPOSITE)) {
             CompositeStruct i_ = ((CompositeStruct)_instance);
-//            if (StringUtil.quickEq(fieldName_,DISPLAYED)) {
-//                res_.setResult(BooleanStruct.of(i_.isDisplayed()));
-//                return res_;
-//            }
+            if (StringUtil.quickEq(fieldName_,DISPLAYED)) {
+                res_.setResult(BooleanStruct.of(i_.isDisplayed()));
+                return res_;
+            }
             if (StringUtil.quickEq(fieldName_,INTEGER)) {
                 res_.setResult(new IntStruct(i_.getInteger()));
                 return res_;
@@ -897,12 +897,11 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
 //                return res_;
 //            }
             if (StringUtil.quickEq(fieldName_,STRING)) {
-                res_.setResult(NullStruct.NULL_VALUE);
-//                if (i_.getString() == null) {
-//                    res_.setResult(NullStruct.NULL_VALUE);
-//                    return res_;
-//                }
-//                res_.setResult(new StringStruct(i_.getString()));
+                if (i_.getString() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(new StringStruct(i_.getString()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,STRINGS)|| StringUtil.quickEq(fieldName_,STRINGS_SEC)) {
@@ -946,7 +945,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,MESSAGE)) {
-                res_.setResult(new StringStruct("Test {0}"));
+                res_.setResult(new StringStruct(((BeanStruct)_instance).getMessage()));
                 return res_;
             }
 //            if (StringUtil.quickEq(fieldName_,NUMBERS)) {
@@ -954,11 +953,11 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
 //                return res_;
 //            }
             if (StringUtil.quickEq(fieldName_,SELECTED_STRING)) {
-//                if ( ((BeanStruct)_instance).getSelectedString() == null) {
-//                    res_.setResult(NullStruct.NULL_VALUE);
-//                    return res_;
-//                }
-                res_.setResult(new StringStruct("ONE"));
+                if ( ((BeanStruct)_instance).getSelectedString() == null) {
+                    res_.setResult(NullStruct.NULL_VALUE);
+                    return res_;
+                }
+                res_.setResult(new StringStruct( ((BeanStruct)_instance).getSelectedString()));
                 return res_;
             }
 //            if (StringUtil.quickEq(fieldName_,TRANSLATIONS)) {
@@ -1195,16 +1194,16 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
 //                res_.setResult(NullStruct.NULL_VALUE);
 //                return res_;
 //            }
-//            if (StringUtil.quickEq(fieldName_,MESSAGE)) {
-//                ((BeanStruct)_instance).setMessage((String)(Object)_val);
-//                res_.setResult(NullStruct.NULL_VALUE);
-//                return res_;
-//            }
-//            if (StringUtil.quickEq(fieldName_,SELECTED_STRING)) {
-//                ((BeanStruct)_instance).setSelectedString((String)(Object)_val);
-//                res_.setResult(NullStruct.NULL_VALUE);
-//                return res_;
-//            }
+            if (StringUtil.quickEq(fieldName_,MESSAGE)) {
+                ((BeanStruct)_instance).setMessage((String)(Object)_val);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
+            if (StringUtil.quickEq(fieldName_,SELECTED_STRING)) {
+                ((BeanStruct)_instance).setSelectedString((String)(Object)_val);
+                res_.setResult(NullStruct.NULL_VALUE);
+                return res_;
+            }
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
 //            BeanTwo i_ = (BeanTwo)instance_;
@@ -1827,10 +1826,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             res_.setResult(new BeanStruct(new BeanOne()));
             return res_;
         }
-//        if (StringUtil.quickEq(className_,TYPE_BEAN_FIVE)) {
-//            res_.setResult(new BeanStruct(new BeanFive()));
-//            return res_;
-//        }
+        if (StringUtil.quickEq(className_,TYPE_BEAN_FIVE)) {
+            res_.setResult(new BeanStruct(new BeanFive()));
+            return res_;
+        }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             res_.setResult(new BeanStruct(new BeanTwo()));
             return res_;
@@ -1872,10 +1871,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
 //                return res_;
 //            }
 //        }
-//        if (StringUtil.quickEq(className_,TYPE_STRING_LIST)) {
-//            res_.setResult(new StdStruct(new StringList(),TYPE_STRING_LIST));
-//            return res_;
-//        }
+        if (StringUtil.quickEq(className_,TYPE_STRING_LIST)) {
+            res_.setResult(new StdStruct(new StringList(),TYPE_STRING_LIST));
+            return res_;
+        }
         if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
             res_.setResult(new BeanStruct(new BeanOne()));
             return res_;
@@ -1884,30 +1883,30 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             res_.setResult(new BeanStruct(new BeanTwo()));
             return res_;
         }
-//        if (StringUtil.quickEq(className_,TYPE_BEAN_THREE)) {
-//            res_.setResult(new BeanStruct(new BeanThree()));
-//            return res_;
-//        }
-//        if (StringUtil.quickEq(className_,TYPE_BEAN_FOUR)) {
-//            res_.setResult(new BeanStruct(new BeanFour()));
-//            return res_;
-//        }
-//        if (StringUtil.quickEq(className_,TYPE_BEAN_FIVE)) {
-//            res_.setResult(new BeanStruct(new BeanFive()));
-//            return res_;
-//        }
-//        if (StringUtil.quickEq(className_,TYPE_BEAN_SIX)) {
-//            res_.setResult(new BeanStruct(new BeanSix()));
-//            return res_;
-//        }
-//        if (StringUtil.quickEq(className_,TYPE_BEAN_SEVEN)) {
-//            res_.setResult(new BeanStruct(new BeanSeven()));
-//            return res_;
-//        }
-//        if (StringUtil.quickEq(className_,TYPE_BEAN_EIGHT)) {
-//            res_.setResult(new BeanStruct(new BeanEight()));
-//            return res_;
-//        }
+        if (StringUtil.quickEq(className_,TYPE_BEAN_THREE)) {
+            res_.setResult(new BeanStruct(new BeanThree()));
+            return res_;
+        }
+        if (StringUtil.quickEq(className_,TYPE_BEAN_FOUR)) {
+            res_.setResult(new BeanStruct(new BeanFour()));
+            return res_;
+        }
+        if (StringUtil.quickEq(className_,TYPE_BEAN_FIVE)) {
+            res_.setResult(new BeanStruct(new BeanFive()));
+            return res_;
+        }
+        if (StringUtil.quickEq(className_,TYPE_BEAN_SIX)) {
+            res_.setResult(new BeanStruct(new BeanSix()));
+            return res_;
+        }
+        if (StringUtil.quickEq(className_,TYPE_BEAN_SEVEN)) {
+            res_.setResult(new BeanStruct(new BeanSeven()));
+            return res_;
+        }
+        if (StringUtil.quickEq(className_,TYPE_BEAN_EIGHT)) {
+            res_.setResult(new BeanStruct(new BeanEight()));
+            return res_;
+        }
 //        if (StringUtil.quickEq(className_,TYPE_ENUM_NUMBERS)) {
 //            res_.setResult(new StdStruct(new EnumNumbers(),TYPE_ENUM_NUMBERS));
 //            return res_;
@@ -1935,7 +1934,92 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         return res_;
     }
 
-    //    @Override
+    private String getOtherBeanStructClassName(Object _struct) {
+        if (_struct instanceof int[]) {
+            return StringExpUtil.getPrettyArrayType(getContent().getPrimTypes().getAliasPrimInteger());
+        }
+        if (_struct instanceof Integer[]) {
+            return StringExpUtil.getPrettyArrayType(getContent().getNbAlias().getAliasInteger());
+        }
+        if (_struct instanceof int[][]) {
+            return StringExpUtil.getPrettyArrayType(getContent().getPrimTypes().getAliasPrimInteger(),2);
+        }
+        if (_struct instanceof Integer[][]) {
+            return StringExpUtil.getPrettyArrayType(getContent().getNbAlias().getAliasInteger(),2);
+        }
+        if (_struct instanceof Object[][]) {
+            return StringExpUtil.getPrettyArrayType(getAliasObject(), 2);
+        }
+        if (_struct instanceof String[]) {
+            return StringExpUtil.getPrettyArrayType(getAliasString());
+        }
+        if (_struct instanceof Object[]) {
+            return StringExpUtil.getPrettyArrayType(getAliasObject());
+        }
+        if (_struct instanceof EnumNumber) {
+            return TYPE_ENUM_NUMBER;
+        }
+        if (_struct instanceof EnumNumbers) {
+            return TYPE_ENUM_NUMBERS;
+        }
+        if (_struct instanceof Composite) {
+            return TYPE_COMPOSITE;
+        }
+        if (_struct instanceof EncapsFields) {
+            return TYPE_ENCAPS_FIELDS;
+        }
+        if (_struct instanceof BeanOne) {
+            return TYPE_BEAN_ONE;
+        }
+        if (_struct instanceof BeanTwo) {
+            return TYPE_BEAN_TWO;
+        }
+        if (_struct instanceof BeanThree) {
+            return TYPE_BEAN_THREE;
+        }
+        if (_struct instanceof BeanFour) {
+            return TYPE_BEAN_FOUR;
+        }
+        if (_struct instanceof BeanFive) {
+            return TYPE_BEAN_FIVE;
+        }
+        if (_struct instanceof BeanSix) {
+            return TYPE_BEAN_SIX;
+        }
+        if (_struct instanceof BeanSeven) {
+            return TYPE_BEAN_SEVEN;
+        }
+        if (_struct instanceof BeanEight) {
+            return TYPE_BEAN_EIGHT;
+        }
+        if (_struct instanceof RateSample) {
+            return TYPE_RATE;
+        }
+        if (_struct instanceof RateEq) {
+            return TYPE_RATE_EQ;
+        }
+        if (_struct instanceof StringList) {
+            return TYPE_STRING_LIST;
+        }
+        if (_struct instanceof Ints) {
+            return TYPE_INTS;
+        }
+        if (_struct instanceof GeneObjects) {
+            return TYPE_GENE_OBJECTS;
+        }
+        if (_struct instanceof GeneObjs) {
+            return TYPE_GENE_OBJS;
+        }
+        if (_struct instanceof PickableList) {
+            return TYPE_PICKABLE_LIST;
+        }
+        if (_struct instanceof SimpleDataBase) {
+            return TYPE_SIMPLE_DATA_BASE;
+        }
+        return getAliasObject();
+    }
+
+//    @Override
 //    public ResultErrorStd getStructToBeValidated(StringList _values,
 //                                                 String _className) {
 //        ResultErrorStd res_ = new ResultErrorStd();

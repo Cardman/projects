@@ -607,6 +607,54 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, beanName_, bean_);
     }
 
+    public ResultErrorStd convert(NodeContainer _container, ContextEl _context, RendStackCall _rendStackCall) {
+        CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
+        if (!ops_.isEmpty()) {
+            String varNameConvert_ = _container.getVarNameConvert();
+            LocalVariable lv_ = newLocVar(_container);
+            _rendStackCall.getLastPage().putValueVar(varNameConvert_, newWrapper(lv_));
+            setGlobalArgumentStruct(_container.getBean(),_context,_rendStackCall);
+            Argument res_ = RenderExpUtil.calculateReuse(ops_, this, _context, _rendStackCall);
+            _rendStackCall.getLastPage().removeRefVar(varNameConvert_);
+            ResultErrorStd out_ = new ResultErrorStd();
+            if (_context.callsOrException(_rendStackCall.getStackCall())) {
+                return out_;
+            }
+            out_.setResult(res_.getStruct());
+            return out_;
+        }
+        String className_ = _container.getNodeInformation().getInputClass();
+        StringList values_ = _container.getValue();
+        return getStructToBeValidated(values_, className_, _context, _rendStackCall);
+    }
+    private LocalVariable newLocVar(NodeContainer _container) {
+        StringList values_ = _container.getValue();
+        if (_container.isArrayConverter()) {
+            int len_ = values_.size();
+            ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(getAliasString()));
+            for (int i = 0; i < len_; i++) {
+                arr_.set(i, new StringStruct(values_.get(i)));
+            }
+            return LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasString()));
+        }
+        if (!values_.isEmpty()) {
+            return LocalVariable.newLocalVariable(new StringStruct(values_.first()), getAliasString());
+        }
+        return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE, getAliasString());
+    }
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack) {
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(_className, getAliasString())) {
+            res_.setResult(wrapStd(_values));
+            return res_;
+        }
+        if (_values.isEmpty() || _values.first().trim().isEmpty()) {
+            res_.setResult(NullStruct.NULL_VALUE);
+            return res_;
+        }
+        return getStructToBeValidatedPrim(_values, _className, _ctx, _stack, res_);
+    }
+
     private void processInitBeans(Configuration _conf, String _dest, String _beanName, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStackCall) {
         int s_ = _conf.getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
@@ -784,7 +832,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return true;
     }
 
-    @Override
     public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd _res) {
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
         if (cast_ == PrimitiveTypes.BOOL_WRAP) {

@@ -2,6 +2,7 @@ package code.formathtml.nat;
 
 import code.bean.Bean;
 import code.bean.nat.PairStruct;
+import code.bean.nat.StringMapObjectSample;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.ArrayStruct;

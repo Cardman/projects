@@ -8,8 +8,6 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -28,6 +26,7 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.util.*;
+import code.maths.Rate;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -42,7 +41,19 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public static final String TYPE_ENTRY = "$custentry";
     public static final String TYPE_ITERATOR = "code.util.SimpleItr";
     public static final String TYPE_COUNTABLE = "code.util.ints.Countable";
-    private static final String TYPE_ENTRIES = "$custentries";
+    public static final String TYPE_ENTRIES = "$custentries";
+
+    public static final String OBJECT = "java.lang.Object";
+    public static final String VOID = "$void";
+    public static final String PRIM_BOOLEAN = "$boolean";
+    public static final String PRIM_BYTE = "$byte";
+    public static final String PRIM_INTEGER = "$int";
+    public static final String PRIM_LONG = "$long";
+    public static final String STRING = "java.lang.String";
+    public static final String CST_NULL_STRING = "";
+    public static final String TYPE_RATE = "r";
+    public static final String TYPE_LG_INT = "li";
+
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = "//";
     private final StringMap<String> iterables = new StringMap<String>();
@@ -79,17 +90,45 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue(), _ctx, _rendStack.getStackCall()));
+            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue()));
             index_++;
         }
     }
 
-    protected abstract Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall);
-
-    public Struct getOtherResultLoc(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct[] _args) {
-        return getOtherResultBean(_cont, _instance, _method, _args).getResult();
+    @Override
+    public ResultErrorStd convert(NodeContainer _container, ContextEl _context, RendStackCall _rendStackCall) {
+        String className_ = _container.getNodeInformation().getInputClass();
+        StringList values_ = _container.getValue();
+        return getStructToBeValidated(values_, className_);
     }
-    public abstract ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
+
+    public ResultErrorStd getStructToBeValidated(StringList _values, String _className) {
+        if (StringUtil.quickEq(_className,TYPE_RATE)) {
+            ResultErrorStd res_ = new ResultErrorStd();
+            String value_ = oneElt(_values);
+            res_.setResult( new RateStruct(RateStruct.convertToRate(str(value_)),TYPE_RATE));
+            return res_;
+        }
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(_className, STRING)) {
+            res_.setResult(wrapStd(_values));
+            return res_;
+        }
+        return getStructToBeValidatedPrim(_values, _className, res_);
+    }
+    private Struct str(String _value) {
+        if (!Rate.isValid(_value)) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new RateStruct(new Rate(_value),TYPE_RATE);
+    }
+
+    protected abstract Struct newSimpleBean(String _language, BeanInfo _bean);
+
+    public Struct getOtherResultLoc(Struct _instance, ClassMethodId _method, Struct[] _args) {
+        return getOtherResultBean(_instance, _method, _args).getResult();
+    }
+    public abstract ResultErrorStd getOtherResultBean(Struct _instance,
                                                       ClassMethodId _method, Struct... _args);
 
     protected static Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
@@ -108,10 +147,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         StringList v_ = _cont.getValue();
         NodeInformations nInfos_ = _cont.getNodeInformation();
         String className_ = nInfos_.getInputClass();
-        ResultErrorStd resError_ = getStructToBeValidated(v_, className_, _ctx, _rendStack);
-        if (_ctx.callsOrException(_rendStack.getStackCall())) {
-            return null;
-        }
+        ResultErrorStd resError_ = getStructToBeValidated(v_, className_);
         Struct obj_ = resError_.getResult();
         return validator_.validate(obj_);
     }
@@ -126,7 +162,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         _rendStackCall.getLastPage().getPageEl().setGlobalArgumentStruct(_obj);
     }
 
-    public abstract ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance);
+    public abstract ResultErrorStd getOtherResult(ClassField _classField, Struct _instance);
 
     public void buildBeans() {
         CustList<StandardField> fields_;
@@ -136,36 +172,36 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         methods_ = new CustList<SpecNatMethod>();
         StringList params_;
         SpecNatMethod method_;
-        std_ = new SpecialNatClass(TYPE_BEAN, fields_, methods_, getAliasObject());
-        params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT, new NatStringIsEmpty());
+        std_ = new SpecialNatClass(TYPE_BEAN, fields_, methods_, OBJECT);
+        params_ = new StringList(STRING);
+        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT, new NatStringIsEmpty());
         methods_.add(method_);
         stds.addEntry(TYPE_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
-        cl_ = new SpecialNatClass(TYPE_LIST, fields_, methods_, getAliasObject());
+        cl_ = new SpecialNatClass(TYPE_LIST, fields_, methods_, OBJECT);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         params_ = new StringList();
-        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT);
         methods_.add(method_);
-        getIterables().put(TYPE_LIST, getAliasObject());
+        getIterables().put(TYPE_LIST, OBJECT);
         stds.addEntry(TYPE_LIST, cl_);
         methods_ = new CustList<SpecNatMethod>();
-        cl_ = new SpecialNatClass(TYPE_MAP, fields_, methods_, getAliasObject());
+        cl_ = new SpecialNatClass(TYPE_MAP, fields_, methods_, OBJECT);
         params_ = new StringList();
-        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, getAliasPrimBoolean(), false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT);
         methods_.add(method_);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_ENTRIES);
-        getIterables().put(TYPE_MAP, getAliasObject());
+        getIterables().put(TYPE_MAP, OBJECT);
         stds.addEntry(TYPE_MAP, cl_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, methods_, OBJECT);
         stds.addEntry(TYPE_ITERATOR, std_);
         methods_ = new CustList<SpecNatMethod>();
-        cl_ = new SpecialNatClass(TYPE_VALIDATOR, fields_, methods_, getAliasObject());
+        cl_ = new SpecialNatClass(TYPE_VALIDATOR, fields_, methods_, OBJECT);
         stds.addEntry(TYPE_VALIDATOR, cl_);
     }
 
@@ -178,21 +214,21 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public AbstractWrapper newWrapper(LocalVariable _local){
         return new VariableWrapperNat(_local);
     }
-    public ResultErrorStd getName(ContextEl _cont, Struct _instance) {
-        return getOtherName(_cont, _instance);
+    public ResultErrorStd getName(Struct _instance) {
+        return getOtherName(_instance);
     }
-    public abstract ResultErrorStd getOtherName(ContextEl _cont, Struct _instance);
+    public abstract ResultErrorStd getOtherName(Struct _instance);
 //    @Override
 //    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
 //        ((BeanStruct)_arg).getBean().beforeDisplaying();
 //    }
 
 
-    public ArrayStruct getStringArray(StringList _ls) {
-        return getArray(_ls,getAliasString());
+    public static ArrayStruct getStringArray(StringList _ls) {
+        return getArray(_ls,STRING);
     }
 
-    public ArrayStruct getLongsArray(CustList<Longs> _ls) {
+    public static ArrayStruct getLongsArray(CustList<Longs> _ls) {
         ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LIST));
         int j_ = 0;
         for (Longs s:_ls) {
@@ -202,8 +238,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return arr_;
     }
 
-    public ArrayStruct getLongArray(Longs _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(getAliasPrimLong()));
+    public static ArrayStruct getLongArray(Longs _ls) {
+        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(PRIM_LONG));
         int j_ = 0;
         for (Long s:_ls) {
             arr_.set(j_,new LongStruct(s));
@@ -222,17 +258,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return arr_;
     }
 
-    @Override
-    public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd _res) {
-        if (StringUtil.quickEq(_className,getAliasPrimBoolean())) {
+    public ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ResultErrorStd _res) {
+        if (StringUtil.quickEq(_className,PRIM_BOOLEAN)) {
             _res.setResult(BooleanStruct.of(StringUtil.quickEq(_values.first(),ON)));
             return _res;
         }
         LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
-        if (!val_.isValid()) {
-            _stack.getStackCall().setCallingState(new CustomFoundExc(new ErrorStruct(_ctx, _values.first(), getContent().getCoreNames().getAliasNbFormat(), _stack.getStackCall())));
-            return _res;
-        }
         _res.setResult(new LongStruct(val_.getValue()));
         return _res;
     }
@@ -261,7 +292,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         _page.setStds(this);
         //
 
-        //        standards_.addEntry(getCoreNames().getAliasObject(), std_);
+        //        standards_.addEntry(getCoreNames().OBJECT, std_);
         buildBeans();
         buildOther();
         _page.setStandards(getContent());
@@ -281,21 +312,30 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return validators;
     }
 
-    public static PairStruct getPairStruct(Struct _arg, ContextEl _ctx) {
+    public static PairStruct getPairStruct(Struct _arg) {
         if (_arg instanceof PairStruct) {
             return (PairStruct)_arg;
         }
-        String typeInst_ = _ctx.getStandards().getCoreNames().getAliasObject();
-        return new PairStruct(StringUtil.concat(TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN,typeInst_,",",typeInst_,StringExpUtil.TEMPLATE_END),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE);
+        return new PairStruct(StringUtil.concat(TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN,OBJECT,",",OBJECT,StringExpUtil.TEMPLATE_END),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE);
     }
 
-    public static SimpleItrStruct getSimpleItrStruct(Struct _arg, ContextEl _ctx) {
+    public static SimpleItrStruct getSimpleItrStruct(Struct _arg) {
         if (_arg instanceof SimpleItrStruct) {
             return (SimpleItrStruct)_arg;
         }
-        ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
-        String typeInst_ = StringUtil.nullToEmpty(StringExpUtil.getQuickComponentType(array_.getClassName(_ctx)));
-        return new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN,typeInst_,StringExpUtil.TEMPLATE_END),array_);
+        ArrayStruct array_ = getArray(_arg);
+        return new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN, OBJECT,StringExpUtil.TEMPLATE_END),array_);
+    }
+
+    public static ArrayStruct getArray(Struct _arg) {
+        ArrayStruct array_;
+        if (_arg instanceof ArrayStruct) {
+            array_ = (ArrayStruct) _arg;
+        } else {
+            String arr_ = StringExpUtil.getPrettyArrayType(OBJECT);
+            array_ = new ArrayStruct(0, arr_);
+        }
+        return array_;
     }
 
 }

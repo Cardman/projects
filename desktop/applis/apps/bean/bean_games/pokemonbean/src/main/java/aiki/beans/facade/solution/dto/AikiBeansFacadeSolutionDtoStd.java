@@ -1,16 +1,12 @@
 package aiki.beans.facade.solution.dto;
 
 import aiki.beans.PokemonStandards;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -41,9 +37,9 @@ public final class AikiBeansFacadeSolutionDtoStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_PLACE_TRAINER_DTO, fields_, methods_, _std.getAliasObject());
-        fields_.add(new StandardField(TRAINER,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(PLACE,_std.getAliasString(),false,false));
+        type_ = new SpecialNatClass(TYPE_PLACE_TRAINER_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(TRAINER,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(PLACE,BeanNatCommonLgNames.STRING,false,false));
         _std.getStds().addEntry(TYPE_PLACE_TRAINER_DTO, type_);
     }
     private static void buildStepDto(PokemonStandards _std) {
@@ -54,7 +50,7 @@ public final class AikiBeansFacadeSolutionDtoStd {
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_STEP_DTO, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_STEP_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_POKEMON,params_, BeanNatLgNames.TYPE_MAP, false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -69,13 +65,13 @@ public final class AikiBeansFacadeSolutionDtoStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_WILD_POKEMON_DTO, fields_, methods_, _std.getAliasObject());
-        fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false));
+        type_ = new SpecialNatClass(TYPE_WILD_POKEMON_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false));
         _std.getStds().addEntry(TYPE_WILD_POKEMON_DTO, type_);
     }
-    public static ResultErrorStd getResultPlaceTrainerDto(ContextEl _cont, ClassField _classField, PlaceTrainerDto _inst) {
+    public static ResultErrorStd getResultPlaceTrainerDto(ClassField _classField, PlaceTrainerDto _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,TRAINER)) {
@@ -88,7 +84,7 @@ public final class AikiBeansFacadeSolutionDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultWildPokemonDto(ContextEl _cont, ClassField _classField, WildPokemonDto _inst) {
+    public static ResultErrorStd getResultWildPokemonDto(ClassField _classField, WildPokemonDto _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,IMAGE)) {
@@ -105,12 +101,11 @@ public final class AikiBeansFacadeSolutionDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStepDto(ContextEl _cont, ClassMethodId _method, StepDto _inst, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodStepDto(ClassMethodId _method, StepDto _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_POKEMON)) {
-            res_.setResult(PokemonStandards.getPlLevWildPkDto(_cont,_inst.getPokemon()));
+            res_.setResult(PokemonStandards.getPlLevWildPkDto(_inst.getPokemon()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NAMES)) {

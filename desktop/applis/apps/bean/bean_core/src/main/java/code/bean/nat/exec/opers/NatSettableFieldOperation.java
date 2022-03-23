@@ -39,31 +39,31 @@ public final class NatSettableFieldOperation extends
         Struct default_ = previous_.getStruct();
         NatCaller callerSet_ = settableFieldContent.getField().getCallerGet();
         if (callerSet_ != null) {
-            result_ = new Argument(callerSet_.re(_context, default_, new Struct[]{}));
+            result_ = new Argument(callerSet_.re(default_, new Struct[]{}));
             Argument arg_ = new ArgumentWrapper(result_, null).getValue();
             calcArg(_nodes, arg_);
             return;
         }
-        ResultErrorStd res_ = ((BeanNatCommonLgNames)_advStandards).getOtherResult(_context, fieldId_, default_);
+        ResultErrorStd res_ = ((BeanNatCommonLgNames)_advStandards).getOtherResult(fieldId_, default_);
         result_ = new Argument(res_.getResult());
         Argument arg_ = new ArgumentWrapper(result_, null).getValue();
         calcArg(_nodes, arg_);
     }
 
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        return processField(_nodes, _right,_advStandards,_context, _rendStack);
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, RendStackCall _rendStack) {
+        return processField(_nodes, _right,_advStandards, _rendStack);
     }
 
-    private Argument processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
+    private Argument processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
         Argument prev_ = getPreviousArg(this, _nodes, _rendStackCall);
         int off_ = getOff();
         _rendStackCall.setOffset(off_);
         ClassField fieldId_ = getClassField();
         NatCaller callerSet_ = settableFieldContent.getField().getCallerSet();
         if (callerSet_ != null) {
-            return new Argument(callerSet_.re(_context,prev_.getStruct(), new Struct[]{_right.getStruct()}));
+            return new Argument(callerSet_.re(prev_.getStruct(), new Struct[]{_right.getStruct()}));
         }
-        ((BeanNatLgNames)_advStandards).setOtherResult(_context, fieldId_, prev_.getStruct(), _right.getStruct());
+        ((BeanNatLgNames)_advStandards).setOtherResult(fieldId_, prev_.getStruct(), _right.getStruct());
         return new ArgumentWrapper(_right, null).getValue();
     }
 

@@ -1,14 +1,9 @@
 package aiki.beans;
 
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -51,32 +46,32 @@ public final class AikiBeansStd {
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_WELCOME_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_POKEDEX,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_POKEDEX,params_, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_ITEMS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_ITEMS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEE_ALL_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEE_ALL_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEE_LEARNT_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEE_LEARNT_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEE_NOT_LEARNT_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEE_NOT_LEARNT_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_ABILITIES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_ABILITIES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_SIMULATION,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_SIMULATION,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_WELCOME_BEAN, type_);
     }
-    public static ResultErrorStd invokeMethodWelcomeBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodWelcomeBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         WelcomeBean instance_ = (WelcomeBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

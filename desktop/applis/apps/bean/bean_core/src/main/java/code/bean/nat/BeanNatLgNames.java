@@ -5,7 +5,6 @@ import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -56,18 +55,27 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
 
     @Override
     public String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack) {
-        return processString(_arg, _ctx);
+        return processString(_arg);
     }
 
-    public static String processString(Argument _arg, ContextEl _ctx) {
-        return ExecCatOperation.getDisplayable(_arg, _ctx).getInstance();
+    public static String processString(Argument _arg) {
+        Struct struct_ = _arg.getStruct();
+        if (struct_ instanceof NumberStruct) {
+            return Long.toString(((NumberStruct)struct_).longStruct());
+        }
+        if (struct_ instanceof StringStruct) {
+            return ((StringStruct)struct_).getInstance();
+        }
+        if (struct_ instanceof NatDisplayableStruct) {
+            return ((NatDisplayableStruct)struct_).getDisplayedString().getInstance();
+        }
+        return CST_NULL_STRING;
     }
 
-    public abstract ResultErrorStd getOtherResultBean(ContextEl _cont,
-                                             ConstructorId _method, Struct... _args);
+    public abstract ResultErrorStd getOtherResultBean(ConstructorId _method, Struct... _args);
 
 
-    public abstract ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val);
+    public abstract ResultErrorStd setOtherResult(ClassField _classField, Struct _instance, Struct _val);
 
     public NatAnalyzedCode getNatCode() {
         return natCode;

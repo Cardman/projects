@@ -19,13 +19,13 @@ public final class NatAffectationOperation extends NatAbstractAffectOperation {
     protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode right_ = getLastNode(this);
         Argument rightArg_ = getArgument(_nodes,right_);
-        Argument arg_ = calculateChSetting(getSettable(),_nodes, rightArg_, _advStandards, _context, _rendStack);
+        Argument arg_ = calculateChSetting(getSettable(),_nodes, rightArg_, _advStandards, _rendStack);
         calcArg(_nodes, arg_);
     }
 
     static Argument calculateChSetting(RendDynOperationNode _set,
-                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall){
-        Argument arg_ = ((NatSettableFieldOperation) _set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, RendStackCall _rendStackCall){
+        Argument arg_ = ((NatSettableFieldOperation) _set).calculateSetting(_nodes, _right, _advStandards, _rendStackCall);
         return Argument.getNullableValue(arg_);
     }
 }

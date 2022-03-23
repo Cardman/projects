@@ -8,7 +8,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -126,10 +125,10 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.add( new StandardField(NICKNAMES, TYPE_LIST, false, false));
         StringList params_;
         params_ = new StringList();
-        method_ = new SpecNatMethod(PLAY_CLASSIC_GAME, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(PLAY_CLASSIC_GAME, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(PLAY_VARIANT_MODE_GAME, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(PLAY_VARIANT_MODE_GAME, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_NICKNAMES, params_, TYPE_LIST, false, MethodModifier.NORMAL);
@@ -140,12 +139,12 @@ public final class TarotStandards extends BeanNatLgNames {
         getStds().addEntry(TYPE_TAROT_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RATE, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_RATE, fields_, methods_, OBJECT);
         std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStds().addEntry(TYPE_RATE, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_BID_TAROT, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_BID_TAROT, fields_, methods_, OBJECT);
         std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStds().addEntry(TYPE_BID_TAROT, std_);
         fields_ = new CustList<StandardField>();
@@ -159,8 +158,8 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.add( new StandardField(DIFF_ATTACK_DEFENSE_BONUSES, getPrimInt(), false, false));
         fields_.add( new StandardField(BASE_POINTS, getPrimInt(), false, false));
         fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimInt(), false, false));
-        fields_.add( new StandardField(PLAYER_SMALL, getAliasString(), false, false));
-        fields_.add( new StandardField(SMALL, getAliasString(), false, false));
+        fields_.add( new StandardField(PLAYER_SMALL, STRING, false, false));
+        fields_.add( new StandardField(SMALL, STRING, false, false));
         fields_.add( new StandardField(LINES_DECLARING, TYPE_LIST, false, false));
         fields_.add( new StandardField(PLAYERS_SCORES, TYPE_LIST, false, false));
         fields_.add( new StandardField(ORDERED_PLAYERS, TYPE_LIST, false, false));
@@ -169,24 +168,24 @@ public final class TarotStandards extends BeanNatLgNames {
         getStds().addEntry(TYPE_DETAILS_RESULTS_TAROT_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_SUM_DECLARING_PLAYER, fields_, methods_, getAliasObject());
-        fields_.add( new StandardField(NICKNAME, getAliasString(), false, false));
-        fields_.add( new StandardField(STATUS, getAliasString(), false, false));
+        std_ = new SpecialNatClass(TYPE_SUM_DECLARING_PLAYER, fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NICKNAME, STRING, false, false));
+        fields_.add( new StandardField(STATUS, STRING, false, false));
         fields_.add( new StandardField(HANDFULS, TYPE_MAP, false, false));
         fields_.add( new StandardField(MISERES, TYPE_MAP, false, false));
         fields_.add( new StandardField(SUM, getPrimInt(), false, false));
         getStds().addEntry(TYPE_SUM_DECLARING_PLAYER, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_SCORES_PLAYERS, fields_, methods_, getAliasObject());
-        fields_.add( new StandardField(NICKNAME, getAliasString(), false, false));
+        std_ = new SpecialNatClass(TYPE_SCORES_PLAYERS, fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NICKNAME, STRING, false, false));
         fields_.add( new StandardField(RATE, TYPE_RATE, false, false));
         fields_.add( new StandardField(SCORE, getPrimInt(), false, false));
         getStds().addEntry(TYPE_SCORES_PLAYERS, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RANKING_PLAYER_VARIANT_GAME, fields_, methods_, getAliasObject());
-        fields_.add( new StandardField(NICKNAME, getAliasString(), false, false));
+        std_ = new SpecialNatClass(TYPE_RANKING_PLAYER_VARIANT_GAME, fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NICKNAME, STRING, false, false));
         fields_.add( new StandardField(POSITION_DIFF, getPrimInt(), false, false));
         fields_.add( new StandardField(POSITION_OUDLERS, getPrimInt(), false, false));
         fields_.add( new StandardField(POSITION_CHARACTERS, getPrimInt(), false, false));
@@ -195,8 +194,8 @@ public final class TarotStandards extends BeanNatLgNames {
         getStds().addEntry(TYPE_RANKING_PLAYER_VARIANT_GAME, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_POINTS_PLAYER_VARIANT_GAME, fields_, methods_, getAliasObject());
-        fields_.add( new StandardField(NICKNAME, getAliasString(), false, false));
+        std_ = new SpecialNatClass(TYPE_POINTS_PLAYER_VARIANT_GAME, fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NICKNAME, STRING, false, false));
         fields_.add( new StandardField(RATE, getPrimInt(), false, false));
         fields_.add( new StandardField(MINIMUM_POINTS, getPrimInt(), false, false));
         fields_.add( new StandardField(SCORE, getPrimInt(), false, false));
@@ -205,54 +204,54 @@ public final class TarotStandards extends BeanNatLgNames {
         getStds().addEntry(TYPE_POINTS_PLAYER_VARIANT_GAME, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_BONUSES_PLAYERS, fields_, methods_, getAliasObject());
-        fields_.add( new StandardField(NICKNAME, getAliasString(), false, false));
+        std_ = new SpecialNatClass(TYPE_BONUSES_PLAYERS, fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NICKNAME, STRING, false, false));
         fields_.add( new StandardField(BONUS, getPrimInt(), false, false));
         getStds().addEntry(TYPE_BONUSES_PLAYERS, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_RESULTS_TAROT_BEAN, fields_, methods_, TYPE_TAROT_BEAN);
         params_ = new StringList();
-        method_ = new SpecNatMethod(WIN, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(WIN, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(EQUALITY, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(EQUALITY, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(LOOSE, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(LOOSE, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SUCCESSFUL_BID, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SUCCESSFUL_BID, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(MID_BID, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(MID_BID, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(FAILED_BID, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(FAILED_BID, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SUCCESSFUL_DECLARED_SLAM_ATTACK, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SUCCESSFUL_DECLARED_SLAM_ATTACK, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SUCCESSFUL_NO_DECLARED_SLAM_ATTACK, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SUCCESSFUL_NO_DECLARED_SLAM_ATTACK, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(FAILED_SLAM_ATTACK, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(FAILED_SLAM_ATTACK, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(NO_SLAM_ATTACK, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(NO_SLAM_ATTACK, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SLAM_DEFENSE, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SLAM_DEFENSE, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(NO_SLAM_DEFENSE, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(NO_SLAM_DEFENSE, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(ABSOLUTE_DIFF, params_, getPrimInt(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(BID_STRING, params_, getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(BID_STRING, params_, STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         fields_.add( new StandardField(NUMBER_OUDLERS_TAKER, getPrimInt(), false, false));
         fields_.add( new StandardField(NEEDLY_SCORES_TAKER, getPrimInt(), false, false));
@@ -265,37 +264,37 @@ public final class TarotStandards extends BeanNatLgNames {
         fields_.add( new StandardField(MAX_DIFFERENCE, getPrimInt(), false, false));
         fields_.add( new StandardField(INITIAL_USER_POSITION, getPrimInt(), false, false));
         fields_.add( new StandardField(FINAL_USER_POSITION, getPrimInt(), false, false));
-        fields_.add( new StandardField(TAKER, getAliasString(), false, false));
-        fields_.add( new StandardField(ALONE_TRUMP_ACE_PLAYER, getAliasString(), false, false));
+        fields_.add( new StandardField(TAKER, STRING, false, false));
+        fields_.add( new StandardField(ALONE_TRUMP_ACE_PLAYER, STRING, false, false));
         fields_.add( new StandardField(CALLED_PLAYERS, TYPE_LIST, false, false));
         fields_.add( new StandardField(CALLED_CARDS_LIST, TYPE_LIST, false, false));
         fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, false, false));
         getStds().addEntry(TYPE_RESULTS_TAROT_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
         fields_.add( new StandardField(NUMBER, getPrimInt(), false, false));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false));
         getStds().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_RULES_TAROT_BEAN, fields_, methods_, TYPE_TAROT_BEAN);
-        fields_.add( new StandardField(CARTES_BATTUES, getAliasString(), false, false));
-        fields_.add( new StandardField(REPARTITION, getAliasString(), false, false));
-        fields_.add( new StandardField(MODE, getAliasString(), false, false));
-        fields_.add( new StandardField(FIN_PARTIE_TAROT, getAliasString(), false, false));
+        fields_.add( new StandardField(CARTES_BATTUES, STRING, false, false));
+        fields_.add( new StandardField(REPARTITION, STRING, false, false));
+        fields_.add( new StandardField(MODE, STRING, false, false));
+        fields_.add( new StandardField(FIN_PARTIE_TAROT, STRING, false, false));
         fields_.add( new StandardField(MISERES, TYPE_LIST, false, false));
         fields_.add( new StandardField(CONTRATS, TYPE_LIST, false, false));
         fields_.add( new StandardField(POIGNEES_AUTORISEES, TYPE_MAP, false, false));
-        fields_.add( new StandardField(DISCARD_AFTER_CALL, getAliasPrimBoolean(), false, false));
+        fields_.add( new StandardField(DISCARD_AFTER_CALL, PRIM_BOOLEAN, false, false));
         getStds().addEntry(TYPE_RULES_TAROT_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RESULTS_TAROT, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_RESULTS_TAROT, fields_, methods_, OBJECT);
         getStds().addEntry(TYPE_RESULTS_TAROT, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RULES_TAROT, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_RULES_TAROT, fields_, methods_, OBJECT);
         getStds().addEntry(TYPE_RULES_TAROT, std_);
     }
 
@@ -313,8 +312,7 @@ public final class TarotStandards extends BeanNatLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont,
-                                             ConstructorId _method, Struct... _args) {
+    public ResultErrorStd getOtherResultBean(ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_method.getName(), TYPE_DETAILS_RESULTS_TAROT_BEAN)) {
             DetailsResultsTarotBean details_ = new DetailsResultsTarotBean();
@@ -337,7 +335,7 @@ public final class TarotStandards extends BeanNatLgNames {
         return res_;
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public ResultErrorStd getOtherResult(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (_instance instanceof TarotSumDeclaringPlayerStruct) {
@@ -355,11 +353,11 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, HANDFULS)) {
-                res_.setResult(getStringShortTree(instance_.getHandfuls(),_cont));
+                res_.setResult(getStringShortTree(instance_.getHandfuls()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, MISERES)) {
-                res_.setResult(getStringShortTree(instance_.getMiseres(), _cont));
+                res_.setResult(getStringShortTree(instance_.getMiseres()));
                 return res_;
             }
             return res_;
@@ -367,7 +365,7 @@ public final class TarotStandards extends BeanNatLgNames {
         if (_instance instanceof ScoresPlayersStruct) {
             ScoresPlayers instance_ = ((ScoresPlayersStruct)_instance).getScoresPlayers();
             if (StringUtil.quickEq(fieldName_, SUM)) {
-                res_.setResult(new RateTarotStruct(instance_.getRate(),TYPE_RATE));
+                res_.setResult(new RateStruct(instance_.getRate(),TYPE_RATE));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, NICKNAME)) {
@@ -379,7 +377,7 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, RATE)) {
-                res_.setResult(new RateTarotStruct(instance_.getRate(),TYPE_RATE));
+                res_.setResult(new RateStruct(instance_.getRate(),TYPE_RATE));
                 return res_;
             }
             return res_;
@@ -431,11 +429,11 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, DIFFERENCE_SCORE)) {
-                res_.setResult(new RateTarotStruct(instance_.getDifferenceScore(), TYPE_RATE));
+                res_.setResult(new RateStruct(instance_.getDifferenceScore(), TYPE_RATE));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, POINTS_TRICKS)) {
-                res_.setResult(new RateTarotStruct(instance_.getPointsTricks(), TYPE_RATE));
+                res_.setResult(new RateStruct(instance_.getPointsTricks(), TYPE_RATE));
                 return res_;
             }
             return res_;
@@ -642,7 +640,7 @@ public final class TarotStandards extends BeanNatLgNames {
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, POIGNEES_AUTORISEES)) {
-                res_.setResult(getStringIntegerTree(instance_.getPoigneesAutorisees(),_cont));
+                res_.setResult(getStringIntegerTree(instance_.getPoigneesAutorisees()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_, MISERES)) {
@@ -653,8 +651,8 @@ public final class TarotStandards extends BeanNatLgNames {
         return res_;
     }
     @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
-            ClassMethodId _method, Struct... _args) {
+    public ResultErrorStd getOtherResultBean(Struct _instance,
+                                             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (((TarotBeanStruct)_instance).getInstance() instanceof TarotBean) {
             if (StringUtil.quickEq(_method.getConstraints().getName(), PLAY_CLASSIC_GAME)) {
@@ -796,47 +794,46 @@ public final class TarotStandards extends BeanNatLgNames {
         }
         return arr_;
     }
-    public static ArrayStruct getStringShortTree(StringMap<Short> _map, ContextEl _cont) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+    public static ArrayStruct getStringShortTree(StringMap<Short> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(OBJECT));
         int i_ = 0;
         for (EntryCust<String, Short> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ShortStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ShortStruct(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }
         return arr_;
     }
-    public static ArrayStruct getStringIntegerTree(StringMap<Integer> _map, ContextEl _cont) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(_cont.getStandards().getCoreNames().getAliasObject()));
+    public static ArrayStruct getStringIntegerTree(StringMap<Integer> _map) {
+        ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(OBJECT));
         int i_ = 0;
         for (EntryCust<String, Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(_cont.getStandards().getCoreNames().getAliasObject(),new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }
         return arr_;
     }
 
-    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
+    public ResultErrorStd getOtherName(Struct _instance) {
         return new ResultErrorStd();
     }
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public ResultErrorStd setOtherResult(ClassField _classField, Struct _instance, Struct _val) {
         return new ResultErrorStd();
     }
 
     public String getPrimInt() {
         return getContent().getPrimTypes().getAliasPrimInteger();
     }
-    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+    protected Struct newSimpleBean(String _language, BeanInfo _bean) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));
-        ResultErrorStd res_ = getOtherResultBean(_ctx, id_, args_);
+        ResultErrorStd res_ = getOtherResultBean(id_, args_);
         Struct strBean_ = res_.getResult();
         TarotBeanStruct str_ = (TarotBeanStruct) strBean_;
         TarotBean bean_ = str_.getBean();
         bean_.setDataBase(dataBase,dataBaseRules);
         bean_.setLanguage(_language);
-        bean_.setScope(_bean.getScope());
         return strBean_;
     }
     public void setDataBase(ResultsTarot _dataBase){

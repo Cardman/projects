@@ -9,7 +9,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -67,35 +66,35 @@ public final class PresidentStandards extends BeanNatLgNames {
         getStds().addEntry(TYPE_PRESIDENT_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
         fields_.add( new StandardField(NUMBER, getPrimInt(), false, false));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false));
         getStds().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_RULES_PRESIDENT_BEAN, fields_, methods_, TYPE_BEAN);
-        fields_.add( new StandardField(CARTES_BATTUES, getAliasString(), false, false));
-        fields_.add( new StandardField(EQUALTY, getAliasString(), false, false));
-        fields_.add( new StandardField(POSSIBLE_REVERSING, getAliasPrimBoolean(), false, false));
-        fields_.add( new StandardField(HAS_TO_PLAY, getAliasPrimBoolean(), false, false));
-        fields_.add( new StandardField(LOOSING_IF_FINISH_BY_BEST_CARDS, getAliasPrimBoolean(), false, false));
-        fields_.add( new StandardField(SWITCH_CARDS, getAliasPrimBoolean(), false, false));
-        fields_.add( new StandardField(LOOSER_STARTS_FIRST, getAliasPrimBoolean(), false, false));
+        fields_.add( new StandardField(CARTES_BATTUES, STRING, false, false));
+        fields_.add( new StandardField(EQUALTY, STRING, false, false));
+        fields_.add( new StandardField(POSSIBLE_REVERSING, PRIM_BOOLEAN, false, false));
+        fields_.add( new StandardField(HAS_TO_PLAY, PRIM_BOOLEAN, false, false));
+        fields_.add( new StandardField(LOOSING_IF_FINISH_BY_BEST_CARDS, PRIM_BOOLEAN, false, false));
+        fields_.add( new StandardField(SWITCH_CARDS, PRIM_BOOLEAN, false, false));
+        fields_.add( new StandardField(LOOSER_STARTS_FIRST, PRIM_BOOLEAN, false, false));
         fields_.add( new StandardField(NB_PLAYERS, getPrimInt(), false, false));
         fields_.add( new StandardField(NB_STACKS, getPrimInt(), false, false));
         fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, getPrimInt(), false, false));
         fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, getPrimInt(), false, false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(SAME_AMOUNT, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SAME_AMOUNT, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add(method_);
         getStds().addEntry(TYPE_RULES_PRESIDENT_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RESULTS_PRESIDENT, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_RESULTS_PRESIDENT, fields_, methods_, OBJECT);
         getStds().addEntry(TYPE_RESULTS_PRESIDENT, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RULES_PRESIDENT, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_RULES_PRESIDENT, fields_, methods_, OBJECT);
         getStds().addEntry(TYPE_RULES_PRESIDENT, std_);
     }
 
@@ -113,8 +112,7 @@ public final class PresidentStandards extends BeanNatLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont,
-                                             ConstructorId _method, Struct... _args) {
+    public ResultErrorStd getOtherResultBean(ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_method.getName(), TYPE_PRESIDENT_BEAN)) {
             PresidentBean details_ = new PresidentBean();
@@ -131,7 +129,7 @@ public final class PresidentStandards extends BeanNatLgNames {
         return res_;
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public ResultErrorStd getOtherResult(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (_instance instanceof PresidentLineDealStruct) {
@@ -217,8 +215,8 @@ public final class PresidentStandards extends BeanNatLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
-            ClassMethodId _method, Struct... _args) {
+    public ResultErrorStd getOtherResultBean(Struct _instance,
+                                             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (((PresidentBeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
             if (StringUtil.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
@@ -229,20 +227,20 @@ public final class PresidentStandards extends BeanNatLgNames {
         return res_;
     }
 
-    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
+    public ResultErrorStd getOtherName(Struct _instance) {
         return new ResultErrorStd();
     }
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public ResultErrorStd setOtherResult(ClassField _classField, Struct _instance, Struct _val) {
         return new ResultErrorStd();
     }
 
     public String getPrimInt() {
         return getContent().getPrimTypes().getAliasPrimInteger();
     }
-    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+    protected Struct newSimpleBean(String _language, BeanInfo _bean) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));
-        ResultErrorStd res_ = getOtherResultBean(_ctx, id_, args_);
+        ResultErrorStd res_ = getOtherResultBean(id_, args_);
         Struct strBean_ = res_.getResult();
         PresidentBeanStruct str_ = (PresidentBeanStruct) strBean_;
         Bean bean_ = str_.getBean();
@@ -253,7 +251,6 @@ public final class PresidentStandards extends BeanNatLgNames {
             ((RulesPresidentBean)bean_).setDataBase(dataBaseRules);
         }
         bean_.setLanguage(_language);
-        bean_.setScope(_bean.getScope());
         return strBean_;
     }
     public void setDataBase(ResultsPresident _dataBase){

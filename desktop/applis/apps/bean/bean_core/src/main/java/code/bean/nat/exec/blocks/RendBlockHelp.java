@@ -7,7 +7,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.stds.ResultErrorStd;
@@ -240,7 +239,7 @@ public final class RendBlockHelp {
                 }
             } else {
                 o_ = convertField(o_);
-                String value_ = BeanNatLgNames.processString(o_, _ctx);
+                String value_ = BeanNatLgNames.processString(o_);
                 _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
             }
         }
@@ -255,43 +254,43 @@ public final class RendBlockHelp {
         return new Argument(o_);
     }
 
-    static Argument iteratorMultTable(Struct _arg, ContextEl _ctx) {
-        ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
+    static Argument iteratorMultTable(Struct _arg) {
+        ArrayStruct array_ = BeanNatCommonLgNames.getArray(_arg);
         return new Argument(new SimpleItrStruct(StringUtil.concat(BeanNatCommonLgNames.TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN, BeanNatCommonLgNames.TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN, "?,?",StringExpUtil.TEMPLATE_END,StringExpUtil.TEMPLATE_END),array_));
     }
 
-    static Argument nasNextCom(Struct _arg, ContextEl _ctx) {
-        SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg, _ctx);
+    static Argument nasNextCom(Struct _arg) {
+        SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg);
         return new Argument(BooleanStruct.of(simpleItrStruct_.hasNext()));
     }
 
-    static Argument nextCom(Struct _arg, ContextEl _ctx) {
-        SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg, _ctx);
+    static Argument nextCom(Struct _arg) {
+        SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg);
         Struct resObj_ = simpleItrStruct_.next();
         return new Argument(resObj_);
     }
 
-    static Argument first(Struct _arg, ContextEl _ctx) {
-        PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg, _ctx);
+    static Argument first(Struct _arg) {
+        PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg);
         Struct resObj_ = pairStruct_.getFirst();
         return new Argument(resObj_);
     }
 
-    static Argument second(Struct _arg, ContextEl _ctx) {
-        PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg, _ctx);
+    static Argument second(Struct _arg) {
+        PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg);
         Struct resObj_ = pairStruct_.getSecond();
         return new Argument(resObj_);
     }
 
-    static Argument iterator(Struct _arg, ContextEl _ctx) {
-        ArrayStruct array_ = ExecArrayFieldOperation.getArray(_arg, _ctx);
+    static Argument iterator(Struct _arg) {
+        ArrayStruct array_ = BeanNatCommonLgNames.getArray(_arg);
         return new Argument(new SimpleItrStruct(StringUtil.concat(BeanNatCommonLgNames.TYPE_ITERATOR, StringExpUtil.TEMPLATE_BEGIN,"?",StringExpUtil.TEMPLATE_END),array_));
     }
 
-    static String getStringKey(Struct _instance, BeanLgNames _advStandards, ContextEl _ctx) {
-        ResultErrorStd res_ = ((BeanNatLgNames)_advStandards).getName(_ctx, _instance);
+    static String getStringKey(Struct _instance, BeanLgNames _advStandards) {
+        ResultErrorStd res_ = ((BeanNatLgNames)_advStandards).getName(_instance);
         Struct str_ = res_.getResult();
-        return BeanNatLgNames.processString(new Argument(str_), _ctx);
+        return BeanNatLgNames.processString(new Argument(str_));
     }
 
     public static void processLink(Configuration _cont, Element _nextWrite, Element _read, ExecTextPart _textPart, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {

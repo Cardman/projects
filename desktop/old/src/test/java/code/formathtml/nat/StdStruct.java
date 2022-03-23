@@ -30,6 +30,10 @@ public final class StdStruct extends CommNatStruct {
         super(_className);
         instance = _instance;
     }
+    public StdStruct(Composite _instance, String _className) {
+        super(_className);
+        instance = _instance;
+    }
     public StdStruct(Displayable _instance, String _className) {
         super(_className);
         instance = _instance;

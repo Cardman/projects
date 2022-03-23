@@ -1,16 +1,11 @@
 package aiki.beans.facade.fight;
 
 import aiki.beans.PokemonStandards;
-import aiki.beans.RateStruct;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.RateStruct;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -57,22 +52,22 @@ public final class AikiBeansFacadeFightStd {
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_KEY_HYPOTHESIS, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_KEY_HYPOTHESIS, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         type_.getDirectInterfaces().add(BeanNatLgNames.TYPE_DISPLAYABLE);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_PLAYER_POKEMON,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_PLAYER_POKEMON,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TARGET_POKEMON,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TARGET_POKEMON,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_BELONGS_TO_USER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_BELONGS_TO_USER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_NUMBER_TARGET,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_NUMBER_TARGET,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_DAMAGE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
@@ -87,7 +82,7 @@ public final class AikiBeansFacadeFightStd {
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_MULT_POWER_MOVES, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_MULT_POWER_MOVES, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_MULT_INFLICTED,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -104,27 +99,27 @@ public final class AikiBeansFacadeFightStd {
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_STATISTIC_INFO, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_STATISTIC_INFO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_DISPLAY_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_DISPLAY_STATISTIC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_BASE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_BASE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_STATIS_BASE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_EV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_EV,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_IV,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_IV,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_BOOST,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_BOOST,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_STATIS_BOOST,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_STATIS_BOOST,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_STATISTIC_INFO, type_);
     }
@@ -136,7 +131,7 @@ public final class AikiBeansFacadeFightStd {
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_SUFFERED_DAMAGE_CATEGORY, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_SUFFERED_DAMAGE_CATEGORY, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_ROUND,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -145,7 +140,7 @@ public final class AikiBeansFacadeFightStd {
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_SUFFERED_DAMAGE_CATEGORY, type_);
     }
-    public static ResultErrorStd invokeMethodKeyHypothesis(ContextEl _cont, ClassMethodId _method, KeyHypothesis _inst, Struct... _args) {
+    public static ResultErrorStd invokeMethodKeyHypothesis(ClassMethodId _method, KeyHypothesis _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_PLAYER_POKEMON)) {
@@ -174,7 +169,7 @@ public final class AikiBeansFacadeFightStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMultPowerMoves(ContextEl _cont, ClassMethodId _method, MultPowerMoves _inst, Struct... _args) {
+    public static ResultErrorStd invokeMethodMultPowerMoves(ClassMethodId _method, MultPowerMoves _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_MULT_INFLICTED)) {
@@ -187,7 +182,7 @@ public final class AikiBeansFacadeFightStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodStatisticInfo(ContextEl _cont, ClassMethodId _method, StatisticInfo _inst, Struct... _args) {
+    public static ResultErrorStd invokeMethodStatisticInfo(ClassMethodId _method, StatisticInfo _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_DISPLAY_STATISTIC)) {
@@ -220,7 +215,7 @@ public final class AikiBeansFacadeFightStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSufferedDamageCategory(ContextEl _cont, ClassMethodId _method, SufferedDamageCategory _inst, Struct... _args) {
+    public static ResultErrorStd invokeMethodSufferedDamageCategory(ClassMethodId _method, SufferedDamageCategory _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_ROUND)) {

@@ -42,7 +42,7 @@ public final class NatRendMessage extends RendParentBlock implements RendWithEl 
         for (int i = 0; i< l_; i++) {
             Argument arg_ = RenderExpUtil.calculateReuse(opExp.get(i), _stds, _ctx, _rendStack);
             String res_;
-            res_ = BeanNatLgNames.processString(arg_, _ctx);
+            res_ = BeanNatLgNames.processString(arg_);
             objects_.add(res_);
             anchorArg_.add(res_);
         }

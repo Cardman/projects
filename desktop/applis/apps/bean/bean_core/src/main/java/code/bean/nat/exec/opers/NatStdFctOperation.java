@@ -58,11 +58,11 @@ public final class NatStdFctOperation extends NatSettableCallFctOperation implem
         }
         NatCaller caller_ = standardMethod.getCaller();
         if (caller_ != null) {
-            Argument argres_ = new Argument(caller_.re( _context, instance_, args_));
+            Argument argres_ = new Argument(caller_.re(instance_, args_));
             calcArg(_nodes, argres_);
             return;
         }
-        Argument argres_ = new Argument(((BeanNatCommonLgNames)_advStandards).getOtherResultLoc( _context, instance_,classMethodId, args_));
+        Argument argres_ = new Argument(((BeanNatCommonLgNames)_advStandards).getOtherResultLoc(instance_,classMethodId, args_));
         calcArg(_nodes, argres_);
     }
 

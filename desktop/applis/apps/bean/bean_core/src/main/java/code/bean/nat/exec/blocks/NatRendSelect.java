@@ -45,7 +45,7 @@ public final class NatRendSelect extends RendParentBlock implements RendWithEl {
         String name_ = elt.getAttribute(_cont.getRendKeyWords().getAttrName());
         processOptionsMapEnumName(_cont, map_.getStruct(),
                 doc_, docElementSelect_,
-                value_.getStruct(), _stds, _ctx);
+                value_.getStruct(), _stds);
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
         processIndexes(_cont,elt,docElementSelect_, _stds, _ctx, _rendStack);
         RendSelect.possibleSelect(_cont,_rendStack,docElementSelect_);
@@ -53,26 +53,26 @@ public final class NatRendSelect extends RendParentBlock implements RendWithEl {
     }
 
     private static void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
-                                           Document _docSelect, Element _docElementSelect, Struct _returnedVarValue, BeanLgNames _advStandards, ContextEl _ctx) {
+                                                  Document _docSelect, Element _docElementSelect, Struct _returnedVarValue, BeanLgNames _advStandards) {
         CustList<Struct> obj_ = values(_returnedVarValue);
-        Argument arg_ = RendBlockHelp.iteratorMultTable(_extractedMap, _ctx);
+        Argument arg_ = RendBlockHelp.iteratorMultTable(_extractedMap);
         Struct l_;
         l_ = arg_.getStruct();
-        processOptions(_conf, _docSelect, _docElementSelect, obj_, l_, _advStandards, _ctx);
+        processOptions(_conf, _docSelect, _docElementSelect, obj_, l_, _advStandards);
     }
 
-    private static void processOptions(Configuration _conf, Document _docSelect, Element _docElementSelect, CustList<Struct> _obj, Struct _l, BeanLgNames _advStandards, ContextEl _ctx) {
+    private static void processOptions(Configuration _conf, Document _docSelect, Element _docElementSelect, CustList<Struct> _obj, Struct _l, BeanLgNames _advStandards) {
         while (true) {
-            Argument hasNext_ = RendBlockHelp.nasNextCom(_l, _ctx);
+            Argument hasNext_ = RendBlockHelp.nasNextCom(_l);
             if (BooleanStruct.isFalse(hasNext_.getStruct())) {
                 break;
             }
-            Argument nextPair_ = RendBlockHelp.nextCom(_l, _ctx);
+            Argument nextPair_ = RendBlockHelp.nextCom(_l);
             Struct entry_ = nextPair_.getStruct();
-            Argument first_ = RendBlockHelp.first(entry_, _ctx);
+            Argument first_ = RendBlockHelp.first(entry_);
             Struct o_ = first_.getStruct();
             Element option_ = _docSelect.createElement(_conf.getRendKeyWords().getKeyWordOption());
-            String value_ = RendBlockHelp.getStringKey(o_, _advStandards, _ctx);
+            String value_ = RendBlockHelp.getStringKey(o_, _advStandards);
             option_.setAttribute(_conf.getRendKeyWords().getAttrValue(),value_);
             for (Struct n: _obj) {
                 if (n.sameReference(o_)) {
@@ -80,8 +80,8 @@ public final class NatRendSelect extends RendParentBlock implements RendWithEl {
                     break;
                 }
             }
-            Argument second_ = RendBlockHelp.second(entry_, _ctx);
-            String txt_ = BeanNatLgNames.processString(second_, _ctx);
+            Argument second_ = RendBlockHelp.second(entry_);
+            String txt_ = BeanNatLgNames.processString(second_);
             option_.appendChild(_docSelect.createTextNode(txt_));
             _docElementSelect.appendChild(option_);
         }

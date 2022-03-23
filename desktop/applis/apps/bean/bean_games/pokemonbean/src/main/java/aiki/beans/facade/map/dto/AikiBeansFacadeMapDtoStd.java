@@ -2,6 +2,7 @@ package aiki.beans.facade.map.dto;
 
 import aiki.beans.PlaceStruct;
 import aiki.beans.PokemonStandards;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
@@ -10,7 +11,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -34,14 +34,14 @@ public final class AikiBeansFacadeMapDtoStd {
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_PLACE_INDEX, fields_, methods_, _std.getAliasObject());
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
+        type_ = new SpecialNatClass(TYPE_PLACE_INDEX, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_PLACE,params_,PokemonStandards.TYPE_PLACE, false, MethodModifier.NORMAL);
         methods_.add(method_);
         _std.getStds().addEntry(TYPE_PLACE_INDEX, type_);
     }
-    public static ResultErrorStd getResultPlaceIndex(ContextEl _cont, ClassField _classField, PlaceIndex _inst) {
+    public static ResultErrorStd getResultPlaceIndex(ClassField _classField, PlaceIndex _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,INDEX)) {
@@ -50,7 +50,7 @@ public final class AikiBeansFacadeMapDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodPlaceIndex(ContextEl _cont, ClassMethodId _method, PlaceIndex _inst, Struct... _args) {
+    public static ResultErrorStd invokeMethodPlaceIndex(ClassMethodId _method, PlaceIndex _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_PLACE)) {

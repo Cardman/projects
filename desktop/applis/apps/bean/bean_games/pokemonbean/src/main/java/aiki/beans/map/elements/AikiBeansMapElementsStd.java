@@ -1,17 +1,13 @@
 package aiki.beans.map.elements;
 
 import aiki.beans.*;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -62,68 +58,68 @@ public final class AikiBeansMapElementsStd {
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_AREA_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(AREA,PokemonStandards.TYPE_AREA_APPARITION,false,false));
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_GENDER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_GENDER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_MOVES_AT_LEVEL,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_NAME_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_NAME_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_NAME_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_NAME_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ABILITY_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ABILITY_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ABILITY_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ABILITY_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ITEM_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ITEM_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_MOVES_AT_LEVEL_FISHING,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_MOVE_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_MOVE_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_MOVE_FISHING,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_MOVE_FISHING,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_AREA_BEAN, type_);
     }
@@ -138,44 +134,44 @@ public final class AikiBeansMapElementsStd {
         type_ = new SpecialNatClass(TYPE_LEGENDARY_POKEMON_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(POKEMON,PokemonStandards.TYPE_WILD_PK,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_GENDER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_GENDER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_LEVEL,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_LEVEL,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_MOVES_AT_LEVEL,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_LEGENDARY_POKEMON_BEAN, type_);
     }
-    public static ResultErrorStd getResultAreaBean(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultAreaBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         AreaBean instance_ = (AreaBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -185,7 +181,7 @@ public final class AikiBeansMapElementsStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultLegendaryPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultLegendaryPokemonBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -195,8 +191,7 @@ public final class AikiBeansMapElementsStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAreaBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodAreaBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         AreaBean instance_ = (AreaBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -233,7 +228,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(std_.getStringArray(instance_.getMovesAtLevel(NumParsers.convertToNumber(_args[0]).intStruct())));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMovesAtLevel(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
@@ -273,7 +268,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL_FISHING)) {
-            res_.setResult(std_.getStringArray(instance_.getMovesAtLevelFishing(NumParsers.convertToNumber(_args[0]).intStruct())));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMovesAtLevelFishing(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE_FISHING)) {
@@ -286,8 +281,7 @@ public final class AikiBeansMapElementsStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodLegendaryPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodLegendaryPokemonBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         LegendaryPokemonBean instance_ = (LegendaryPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -328,7 +322,7 @@ public final class AikiBeansMapElementsStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AT_LEVEL)) {
-            res_.setResult(std_.getStringArray(instance_.getMovesAtLevel()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMovesAtLevel()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {

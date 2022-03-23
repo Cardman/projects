@@ -1,17 +1,13 @@
 package aiki.beans.simulation;
 
 import aiki.beans.*;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.LgIntStruct;
+import code.bean.nat.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.*;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -273,34 +269,34 @@ public final class AikiBeansSimulationStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ADD_POKEMON_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(NAME_PK,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(NAME_PK,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(ABILITIES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(ABILITY,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(GENDERS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(TYPED_NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(TYPED_TYPE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(TYPED_TYPE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(WHOLE_WORD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(BOOLEANS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(HAS_EVO,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(IS_EVO,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(IS_LEG,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(HAS_EVO,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(IS_EVO,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(IS_LEG,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(POKEDEX, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(ADD,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ADD,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEARCH,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_MINI_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_MINI_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_LINK,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_LINK,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_ADD_POKEMON_BEAN, type_);
     }
@@ -313,39 +309,39 @@ public final class AikiBeansSimulationStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EDIT_POKEMON_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(NAME_PK,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(NAME_PK,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(EXPERIENCE,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(BALLS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(BALL,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(HAPPINESS,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(BALL,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(REMAINING_HP,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(HEAL,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(HEAL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(EV, BeanNatLgNames.TYPE_MAP,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(TRANSLATE_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(TRANSLATE_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(TRANSLATE_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(TRANSLATE_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CHOOSE_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CHOOSE_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(ADD_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ADD_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(DELETE_MOVES,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(DELETE_MOVES,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(EDIT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(EDIT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TRANSLATED_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TRANSLATED_STATISTIC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_EDIT_POKEMON_BEAN, type_);
     }
@@ -358,22 +354,22 @@ public final class AikiBeansSimulationStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EDIT_POKEMON_MOVES_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_NAME,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(CATEGORIES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(TYPED_TYPE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(PLAYER,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(AVAILABLE_MOVES_ONLY,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(TYPED_TYPE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(WHOLE_WORD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(PLAYER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(AVAILABLE_MOVES_ONLY,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEARCH,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(ADD_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ADD_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_EDIT_POKEMON_MOVES_BEAN, type_);
     }
@@ -388,39 +384,39 @@ public final class AikiBeansSimulationStd {
         type_ = new SpecialNatClass(TYPE_EDIT_TRAINER_POKEMON_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(GENDERS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(GENDER,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(LEVEL,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(ADD,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(ALLY_PK,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(ADD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(ALLY_PK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CHOOSE_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CHOOSE_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CHOOSE_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CHOOSE_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CHOOSE_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CHOOSE_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(ADD_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ADD_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(DELETE_MOVES,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(DELETE_MOVES,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_TRAINER_PK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_TRAINER_PK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TRANSLATED_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TRANSLATED_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TRANSLATED_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TRANSLATED_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TRANSLATED_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TRANSLATED_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_EDIT_TRAINER_POKEMON_BEAN, type_);
     }
@@ -433,19 +429,19 @@ public final class AikiBeansSimulationStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SELECT_ABILITY_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_ABILITY,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(TYPED_ABILITY,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(SORTED_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEARCH,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_SELECT_ABILITY_BEAN, type_);
     }
@@ -458,24 +454,24 @@ public final class AikiBeansSimulationStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SELECT_ITEM_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(TYPED_PRICE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(TYPED_CLASS,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(TYPED_PRICE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(TYPED_CLASS,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(ITEMS, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEARCH,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_MINI_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_MINI_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_LINK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_LINK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_SELECT_ITEM_BEAN, type_);
     }
@@ -488,25 +484,25 @@ public final class AikiBeansSimulationStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SELECT_POKEMON_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(TYPED_TYPE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(WHOLE_WORD,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(TYPED_TYPE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(WHOLE_WORD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(BOOLEANS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(HAS_EVO,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(IS_EVO,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(IS_LEG,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(HAS_EVO,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(IS_EVO,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(IS_LEG,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(POKEDEX, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEARCH,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_MINI_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_MINI_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_LINK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_LINK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_SELECT_POKEMON_BEAN, type_);
     }
@@ -520,267 +516,267 @@ public final class AikiBeansSimulationStd {
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SIMULATION_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(ALLOW_CATCHING_KO,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(WIN_TRAINER_EXP,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(RATE_WINNING_EXP_PTS_FIGHT,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(END_FIGHT_IF_ONE_TEAM_KO,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(IV_PLAYER,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(IV_FOE,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(END_FIGHT_IF_ONE_TEAM_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(IV_PLAYER, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(IV_FOE, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(RATE_WIN_MONEY_BASE,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(RATE_LOOSE_MONEY_WIN,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(RESTORED_MOVES_END_FIGHT,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(ENABLED_CLOSING,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(RANDOM_WILD_FIGHT,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(STILL_POSSIBLE_FLEE,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(RESTORED_MOVES_END_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(ENABLED_CLOSING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(RANDOM_WILD_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(STILL_POSSIBLE_FLEE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(DAMAGE_RATES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DAMAGE_RATE_PLAYER,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(DAMAGE_RATE_PLAYER,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(FREE_TEAMS,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(MULTIPLICITY,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(FREE_TEAMS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(MULTIPLICITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(ENVIRONMENTS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(ENVIRONMENT,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(ENVIRONMENT,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(FOE_TEAM, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(SELECTED_FOE_PK,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(SELECTED_FOE_ACTION,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(SELECTED_FOE_PK, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(SELECTED_FOE_ACTION,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(ALLY_TEAM, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(SELECTED_ALLY_PK,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(SELECTED_ALLY_ACTION,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(SELECTED_ALLY_PK, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(SELECTED_ALLY_ACTION,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(OK,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(OK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(SELECTED_PK,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(SELECTED_ACTION,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(SELECTED_PK, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(SELECTED_ACTION,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(AVAILABLE_EVOS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(CHOSEN_EVO,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(LEVEL_EVO,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(CHOSEN_EVO,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(LEVEL_EVO, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(ROUND, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(SELECTED_ROUND,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(SELECTED_ROUND,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(PLACES_FIGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(PLACE_FIGHT,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(DISPLAY_IF_ERROR,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(PLACE_FIGHT,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(DISPLAY_IF_ERROR,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(ABILITIES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(CURRENT_ABILITY,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(CURRENT_ABILITY,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(KEPT_MOVES, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(MOVES_SET, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(SELECTED_MOVE,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(ALLY_CHOICE,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(SELECTED_MOVE, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(ALLY_CHOICE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(TARGET_FIGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(TARGET,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(TARGET,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(COMMENTS, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(TEAM_AFTER_FIGHT, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(EVOLUTIONS_AFTER_FIGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(EVOLUTION_AFTER_FIGHT,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(EVOLUTION_AFTER_FIGHT,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(ABILITIES_AFTER_FIGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(ABILITY_AFTER_FIGHT,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(ABILITY_AFTER_FIGHT,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(KEPT_MOVES_AFTER_FIGHT, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_REAL_STEP_NUMBER,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_REAL_STEP_NUMBER,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(QUIT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(QUIT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_DIFF_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_DIFF_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_DIFF_CHOICE,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_DIFF_CHOICE,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_FOE_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_FOE_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(ADD_PK_TRAINER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ADD_PK_TRAINER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SELECT_FOE_PK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SELECT_FOE_PK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE_FOE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_NAME_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_NAME_FOE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_LEVEL_FOE,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_LEVEL_FOE,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ABILITY_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ABILITY_FOE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_GENDER_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_GENDER_FOE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM_FOE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_MOVES_FOE,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SELECT_ALLY_PK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SELECT_ALLY_PK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE_ALLY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE_ALLY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_NAME_ALLY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_NAME_ALLY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_LEVEL_ALLY,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_LEVEL_ALLY,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ABILITY_ALLY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ABILITY_ALLY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_GENDER_ALLY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_GENDER_ALLY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM_ALLY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM_ALLY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_MOVES_ALLY,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(IS_MULTI_LAYER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(IS_MULTI_LAYER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(LAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_LEVEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_LEVEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_LEVEL_ZERO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TRAINER_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_LEVEL_ZERO,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_DIFF_CHOICE,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TRAINER_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_FOE_CHOICE_FREE,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_DIFF_CHOICE,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_FOE_CHOICE,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_FOE_CHOICE_FREE,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_TEAM_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_FOE_CHOICE,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(ADD,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_TEAM_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SELECT_PK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ADD,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList();
+        method_ = new SpecNatMethod(SELECT_PK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_LEVEL,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_LEVEL,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_GENDER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_GENDER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_MOVES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_TEAM,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_TEAM,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_TEAM,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_TEAM,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_FOE_CHOICE_SKIP_EVOLUTIONS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_FOE_CHOICE_SKIP_EVOLUTIONS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_EVOLUTIONS_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_EVOLUTIONS_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(DISPLAY_EVOLUTIONS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(DISPLAY_EVOLUTIONS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SELECTED_INDEX,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SELECTED_INDEX,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_EVO,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_EVO,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_EVO,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_EVO,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_EVOLUTIONS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_EVOLUTIONS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_EVOLUTIONS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_EVOLUTIONS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_FRONT_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_FRONT_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_FRONT_FIGHTER,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_FRONT_FIGHTER,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_FRONT_FIGHTERS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_FRONT_FIGHTERS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_FRONT_FIGHTERS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_FRONT_FIGHTERS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_MOVES_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_MOVES_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SELECTED_INDEX_FOR_MOVES,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SELECTED_INDEX_FOR_MOVES,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_AVAILABLE_MOVES,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_AVAILABLE_MOVES,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_MOVES,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_MOVES,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_AVAILABLE_ABILITIES,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_AVAILABLE_ABILITIES,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_MOVES,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_MOVES,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_MOVES_SETS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_MOVES_SETS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_MOVES_SETS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_MOVES_SETS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_MOVES_FIGHT_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_MOVES_FIGHT_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_MOVES_CHOICE,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_MOVES_CHOICE,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_MOVES_EVOS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_MOVES_EVOS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SIMULATE_FIGHT,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SIMULATE_FIGHT,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_SIMULATION_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_SIMULATION_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_KO_PLAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
@@ -792,94 +788,94 @@ public final class AikiBeansSimulationStd {
         method_ = new SpecNatMethod(GET_KO_FOES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_RULES_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_RULES_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_RULES_MOVES_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_RULES_MOVES_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_RULES_LEARN_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_RULES_LEARN_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_RULES_SWITCH_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_RULES_SWITCH_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_SENDING_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_SENDING_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_RANDOM_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_RANDOM_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_USING_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_USING_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_HARD_SIMULATION_ISSUE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_HARD_SIMULATION_ISSUE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_ISSUE_AFTER_FIGHT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_ISSUE_AFTER_FIGHT,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE_AFTER_FIGHT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE_AFTER_FIGHT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_NAME_AFTER_FIGHT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_NAME_AFTER_FIGHT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_LEVEL_AFTER_FIGHT,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_LEVEL_AFTER_FIGHT,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ABILITY_AFTER_FIGHT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ABILITY_AFTER_FIGHT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_GENDER_AFTER_FIGHT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_GENDER_AFTER_FIGHT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM_AFTER_FIGHT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM_AFTER_FIGHT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_MOVES_AFTER_FIGHT,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_REMAINING_LIFE_RATE,params_,PokemonStandards.TYPE_LG_INT, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(NUMBER_NECESSARY_POINTS_FOR_GROWING_LEVEL,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CHANGE_FIGHT,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CHANGE_FIGHT,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_FIGHT_AFTER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_FIGHT_AFTER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(NEXT_FIGHT,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(NEXT_FIGHT,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(DISPLAY_COMMENTS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(DISPLAY_COMMENTS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(HIDE_COMMENTS,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(HIDE_COMMENTS,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_EVOLUTION_AFTER_FIGHT_STATE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_EVOLUTION_AFTER_FIGHT_STATE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SELECT_PK_AFTER_FIGHT,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SELECT_PK_AFTER_FIGHT,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_EVOLUTION_AFTER_FIGHT,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_EVOLUTION_AFTER_FIGHT,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL_EVOLUTIONS_AFTER_FIGHT,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL_EVOLUTIONS_AFTER_FIGHT,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_MOVES_ABILITY_AFTER_FIGHT,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_MOVES_ABILITY_AFTER_FIGHT,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CHANGE_FIGHT_WHILE_END,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CHANGE_FIGHT_WHILE_END,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_MOVES_AFTER_FIGHT,params_,_std.getAliasVoid(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_MOVES_AFTER_FIGHT,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_SIMULATION_BEAN, type_);
     }
@@ -892,31 +888,30 @@ public final class AikiBeansSimulationStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_SIMULATION_LEVEL_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(POSSIBLE_MULTI_LAYER,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(PLACE_NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(LEVEL_INDEX,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(OUTSIDE,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(ROAD,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(GYM,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(POKEMON_CENTER,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(NO_FIGHT,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(POSSIBLE_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(PLACE_NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(LEVEL_INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(OUTSIDE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(ROAD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(GYM,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(POKEMON_CENTER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(NO_FIGHT, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(TILES, BeanNatLgNames.TYPE_MAP,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CANCEL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CANCEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_MAP_WIDTH,params_,_std.getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_MAP_WIDTH,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(IS_FIRST_ROW,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(IS_FIRST_ROW,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_TILE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_TILE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_SIMULATION_LEVEL_BEAN, type_);
     }
-    public static ResultErrorStd getResultAddPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultAddPokemonBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         AddPokemonBean instance_ = (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -925,7 +920,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getAbilities()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getAbilities()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ABILITY)) {
@@ -933,7 +928,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,GENDERS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getGenders()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getGenders()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,GENDER)) {
@@ -957,7 +952,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BOOLEANS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getBooleans()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getBooleans()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HAS_EVO)) {
@@ -978,8 +973,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultEditPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultEditPokemonBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         EditPokemonBean instance_ = (EditPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1000,7 +994,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BALLS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getBalls()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getBalls()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BALL)) {
@@ -1020,13 +1014,12 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EV)) {
-            res_.setResult(PokemonStandards.getEvLine(_cont,instance_.getEv()));
+            res_.setResult(PokemonStandards.getEvLine(instance_.getEv()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultEditPokemonMovesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultEditPokemonMovesBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         EditPokemonMovesBean instance_ = (EditPokemonMovesBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1035,7 +1028,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CATEGORIES)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getCategories()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getCategories()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CATEGORY)) {
@@ -1064,8 +1057,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultEditTrainerPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultEditTrainerPokemonBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1074,7 +1066,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,GENDERS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getGenders()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getGenders()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,GENDER)) {
@@ -1095,8 +1087,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultSelectAbilityBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultSelectAbilityBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectAbilityBean instance_ = (SelectAbilityBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1105,13 +1096,12 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SORTED_ABILITIES)) {
-            res_.setResult(std_.getStringArray(instance_.getSortedAbilities()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getSortedAbilities()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultSelectItemBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultSelectItemBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectItemBean instance_ = (SelectItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1133,8 +1123,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultSelectPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultSelectPokemonBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectPokemonBean instance_ = (SelectPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1151,7 +1140,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BOOLEANS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getBooleans()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getBooleans()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HAS_EVO)) {
@@ -1172,13 +1161,12 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultSimulationBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultSimulationBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         SimulationBean instance_ = (SimulationBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,WIN_POINTS_FIGHT)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getWinPointsFight()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getWinPointsFight()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
@@ -1242,7 +1230,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATES)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getDamageRates()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getDamageRates()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
@@ -1250,7 +1238,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
-            res_.setResult(PokemonStandards.getRateRate(_cont,instance_.getDamageRatePlayerTable()));
+            res_.setResult(PokemonStandards.getRateRate(instance_.getDamageRatePlayerTable()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
@@ -1258,7 +1246,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {
-            res_.setResult(PokemonStandards.getRateRate(_cont,instance_.getDamageRateFoeTable()));
+            res_.setResult(PokemonStandards.getRateRate(instance_.getDamageRateFoeTable()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,FREE_TEAMS)) {
@@ -1270,7 +1258,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ENVIRONMENTS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getEnvironments()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getEnvironments()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ENVIRONMENT)) {
@@ -1322,7 +1310,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,AVAILABLE_EVOS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getAvailableEvos()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getAvailableEvos()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CHOSEN_EVO)) {
@@ -1334,7 +1322,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ROUND)) {
-            res_.setResult(PokemonStandards.getIntIntMap(_cont,instance_.getRound()));
+            res_.setResult(PokemonStandards.getIntIntMap(instance_.getRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SELECTED_ROUND)) {
@@ -1342,7 +1330,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PLACES_FIGHT)) {
-            res_.setResult(PokemonStandards.getIntStr(_cont,instance_.getPlacesFight()));
+            res_.setResult(PokemonStandards.getIntStr(instance_.getPlacesFight()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,PLACE_FIGHT)) {
@@ -1354,7 +1342,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getAbilities()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getAbilities()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CURRENT_ABILITY)) {
@@ -1378,7 +1366,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TARGET_FIGHT)) {
-            res_.setResult(PokemonStandards.getIntStr(_cont,instance_.getTargetFight()));
+            res_.setResult(PokemonStandards.getIntStr(instance_.getTargetFight()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TARGET)) {
@@ -1386,7 +1374,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,COMMENTS)) {
-            res_.setResult(std_.getStringArray(instance_.getComments()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getComments()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TEAM_AFTER_FIGHT)) {
@@ -1394,7 +1382,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVOLUTIONS_AFTER_FIGHT)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getEvolutionsAfterFight()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getEvolutionsAfterFight()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVOLUTION_AFTER_FIGHT)) {
@@ -1402,7 +1390,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ABILITIES_AFTER_FIGHT)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getAbilitiesAfterFight()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getAbilitiesAfterFight()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,ABILITY_AFTER_FIGHT)) {
@@ -1415,8 +1403,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultSimulationLevelBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultSimulationLevelBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         SimulationLevelBean instance_ = (SimulationLevelBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1453,12 +1440,12 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TILES)) {
-            res_.setResult(PokemonStandards.getPtStr(_cont,instance_.getTiles()));
+            res_.setResult(PokemonStandards.getPtStr(instance_.getTiles()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultAddPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultAddPokemonBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         AddPokemonBean instance_ = (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1509,12 +1496,12 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultEditPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultEditPokemonBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         EditPokemonBean instance_ = (EditPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,EXPERIENCE)) {
-            instance_.setExperience(PokemonStandards.convertToRate(_val));
+            instance_.setExperience(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1529,7 +1516,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REMAINING_HP)) {
-            instance_.setRemainingHp(PokemonStandards.convertToRate(_val));
+            instance_.setRemainingHp(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1540,7 +1527,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultEditPokemonMovesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultEditPokemonMovesBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         EditPokemonMovesBean instance_ = (EditPokemonMovesBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1571,7 +1558,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultEditTrainerPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultEditTrainerPokemonBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1592,7 +1579,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultSelectAbilityBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultSelectAbilityBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectAbilityBean instance_ = (SelectAbilityBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1603,7 +1590,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultSelectItemBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultSelectItemBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectItemBean instance_ = (SelectItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1624,7 +1611,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultSelectPokemonBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultSelectPokemonBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         SelectPokemonBean instance_ = (SelectPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1660,7 +1647,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultSimulationBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultSimulationBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         SimulationBean instance_ = (SimulationBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1680,12 +1667,12 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,WIN_TRAINER_EXP)) {
-            instance_.setWinTrainerExp(PokemonStandards.convertToRate(_val));
+            instance_.setWinTrainerExp(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setRateWinningExpPtsFight(PokemonStandards.convertToRate(_val));
+            instance_.setRateWinningExpPtsFight(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1705,12 +1692,12 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_WIN_MONEY_BASE)) {
-            instance_.setRateWinMoneyBase(PokemonStandards.convertToRate(_val));
+            instance_.setRateWinMoneyBase(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RATE_LOOSE_MONEY_WIN)) {
-            instance_.setRateLooseMoneyWin(PokemonStandards.convertToRate(_val));
+            instance_.setRateLooseMoneyWin(RateStruct.convertToRate(_val));
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }
@@ -1846,7 +1833,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAddPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodAddPokemonBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         AddPokemonBean instance_ = (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1874,7 +1861,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEditPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodEditPokemonBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         EditPokemonBean instance_ = (EditPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1913,7 +1900,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEditPokemonMovesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodEditPokemonMovesBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         EditPokemonMovesBean instance_ = (EditPokemonMovesBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1932,7 +1919,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEditTrainerPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodEditTrainerPokemonBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         EditTrainerPokemonBean instance_ = (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1979,7 +1966,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSelectAbilityBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodSelectAbilityBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         SelectAbilityBean instance_ = (SelectAbilityBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -2001,7 +1988,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSelectItemBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodSelectItemBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         SelectItemBean instance_ = (SelectItemBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -2027,7 +2014,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSelectPokemonBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodSelectPokemonBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         SelectPokemonBean instance_ = (SelectPokemonBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -2049,8 +2036,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSimulationBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodSimulationBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         SimulationBean instance_ = (SimulationBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -2108,7 +2094,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_FOE)) {
-            res_.setResult(std_.getStringArray(instance_.getMovesFoe(NumParsers.convertToNumber(_args[0]).intStruct())));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMovesFoe(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,SELECT_ALLY_PK)) {
@@ -2140,7 +2126,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_ALLY)) {
-            res_.setResult(std_.getStringArray(instance_.getMovesAlly(NumParsers.convertToNumber(_args[0]).intStruct())));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMovesAlly(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
@@ -2148,7 +2134,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(PokemonStandards.getLayers(_cont,instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct())));
+            res_.setResult(PokemonStandards.getLayers(instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
@@ -2215,7 +2201,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES)) {
-            res_.setResult(std_.getStringArray(instance_.getMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CANCEL_TEAM)) {
@@ -2349,15 +2335,15 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_KO_PLAYERS)) {
-            res_.setResult(std_.getStringArray(instance_.getKoPlayers()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getKoPlayers()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NOT_KO_FRONT_FOES)) {
-            res_.setResult(std_.getStringArray(instance_.getNotKoFrontFoes()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getNotKoFrontFoes()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_KO_FOES)) {
-            res_.setResult(std_.getStringArray(instance_.getKoFoes()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getKoFoes()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,IS_RULES_ISSUE)) {
@@ -2421,7 +2407,7 @@ public final class AikiBeansSimulationStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_MOVES_AFTER_FIGHT)) {
-            res_.setResult(std_.getStringArray(instance_.getMovesAfterFight(NumParsers.convertToNumber(_args[0]).intStruct())));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMovesAfterFight(NumParsers.convertToNumber(_args[0]).intStruct())));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_REMAINING_LIFE_RATE)) {
@@ -2492,7 +2478,7 @@ public final class AikiBeansSimulationStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSimulationLevelBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodSimulationLevelBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         SimulationLevelBean instance_ = (SimulationLevelBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

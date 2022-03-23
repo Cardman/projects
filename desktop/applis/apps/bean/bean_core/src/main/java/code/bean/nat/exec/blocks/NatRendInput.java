@@ -36,7 +36,7 @@ public final class NatRendInput extends NatRendElement {
         Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _ctx, _rendStack);
         if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()), _cont.getRendKeyWords().getValueRadio())) {
             Struct res_ = arg_.getStruct();
-            String strObj_ = RendBlockHelp.getStringKey(res_, _stds, _ctx);
+            String strObj_ = RendBlockHelp.getStringKey(res_, _stds);
             RendRadio.procDefValue(_cont,elt_,strObj_);
         }
     }

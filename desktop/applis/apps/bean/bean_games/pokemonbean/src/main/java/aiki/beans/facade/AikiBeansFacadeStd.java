@@ -1,6 +1,7 @@
 package aiki.beans.facade;
 
 import aiki.beans.PokemonStandards;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
@@ -20,7 +21,7 @@ public final class AikiBeansFacadeStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_FORMATTING, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_FORMATTING, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_FORMATTING, type_);
     }
 }

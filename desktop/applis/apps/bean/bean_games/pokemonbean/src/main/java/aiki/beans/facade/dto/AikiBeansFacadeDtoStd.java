@@ -1,16 +1,12 @@
 package aiki.beans.facade.dto;
 
 import aiki.beans.PokemonStandards;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -53,10 +49,10 @@ public final class AikiBeansFacadeDtoStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_ITEM_LINE, fields_, methods_, _std.getAliasObject());
-        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(PRICE,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(DESCRIPTION_CLASS,_std.getAliasString(),false,false));
+        type_ = new SpecialNatClass(TYPE_ITEM_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(PRICE, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(DESCRIPTION_CLASS,BeanNatCommonLgNames.STRING,false,false));
         _std.getStds().addEntry(TYPE_ITEM_LINE, type_);
     }
     private static void buildItemTypeLine(PokemonStandards _std) {
@@ -65,7 +61,7 @@ public final class AikiBeansFacadeDtoStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_ITEM_TYPE_LINE, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_ITEM_TYPE_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_ITEM_TYPE_LINE, type_);
     }
     private static void buildKeptMovesAfterFight(PokemonStandards _std) {
@@ -74,7 +70,7 @@ public final class AikiBeansFacadeDtoStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
     }
     private static void buildMoveLine(PokemonStandards _std) {
@@ -85,16 +81,16 @@ public final class AikiBeansFacadeDtoStd {
         StringList params_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_MOVE_LINE, fields_, methods_, _std.getAliasObject());
-        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(PP,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(CATEGORY,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(PRIORITY,_std.getAliasPrimInteger(),false,false));
+        type_ = new SpecialNatClass(TYPE_MOVE_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_DAMAGE_MOVE,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_DAMAGE_MOVE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_DIRECT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_DIRECT,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_TYPES,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
@@ -107,10 +103,10 @@ public final class AikiBeansFacadeDtoStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_POKEMON_LINE, fields_, methods_, _std.getAliasObject());
-        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
+        type_ = new SpecialNatClass(TYPE_POKEMON_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(EVOLUTIONS,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         _std.getStds().addEntry(TYPE_POKEMON_LINE, type_);
     }
     private static void buildWeatherTypeLine(PokemonStandards _std) {
@@ -119,10 +115,10 @@ public final class AikiBeansFacadeDtoStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_WEATHER_TYPE_LINE, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_WEATHER_TYPE_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_WEATHER_TYPE_LINE, type_);
     }
-    public static ResultErrorStd getResultItemLine(ContextEl _cont, ClassField _classField, ItemLine _inst) {
+    public static ResultErrorStd getResultItemLine(ClassField _classField, ItemLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
@@ -139,7 +135,7 @@ public final class AikiBeansFacadeDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultMoveLine(ContextEl _cont, ClassField _classField, MoveLine _inst) {
+    public static ResultErrorStd getResultMoveLine(ClassField _classField, MoveLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
@@ -160,8 +156,7 @@ public final class AikiBeansFacadeDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultPokemonLine(ContextEl _cont, ClassField _classField, PokemonLine _inst) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultPokemonLine(ClassField _classField, PokemonLine _inst) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
@@ -169,7 +164,7 @@ public final class AikiBeansFacadeDtoStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPES)) {
-            res_.setResult(std_.getStringArray(_inst.getTypes()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(_inst.getTypes()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
@@ -178,8 +173,7 @@ public final class AikiBeansFacadeDtoStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodMoveLine(ContextEl _cont, ClassMethodId _method, MoveLine _inst, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodMoveLine(ClassMethodId _method, MoveLine _inst, Struct... _args) {
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,IS_DAMAGE_MOVE)) {
@@ -191,7 +185,7 @@ public final class AikiBeansFacadeDtoStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_TYPES)) {
-            res_.setResult(std_.getStringArray(_inst.getTypes()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(_inst.getTypes()));
             return res_;
         }
         return res_;

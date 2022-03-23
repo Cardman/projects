@@ -2,7 +2,9 @@ package code.formathtml.nat;
 
 import code.bean.Bean;
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.BeanStruct;
 import code.bean.nat.DefaultInitialization;
+import code.bean.nat.StringMapObjectSample;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
@@ -20,7 +22,6 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.EquallableBeanCoreUtil;
-import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
@@ -202,10 +203,10 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         assertEq("page1.html", n_.getCurrentUrl());
         assertEq("bean_one", n_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.typedString\" n-i=\"0\" value=\"ONE_TWO\"/></form></body></html>", n_.getHtmlText());
-        SimpleOne beanTwo_ = (SimpleOne) lgNames_.getBean("bean_one").getBean();
-        StringMapObjectSample map_ = beanTwo_.getForms();
-        assertEq(0, map_.size());
-        assertEq("ONE_TWO", beanTwo_.getTypedString());
+//        SimpleOne beanTwo_ = (SimpleOne) lgNames_.getBean("bean_one").getBean();
+//        StringMapObjectSample map_ = beanTwo_.getForms();
+////        assertEq(0, map_.size());
+//        assertEq("ONE_TWO", beanTwo_.getTypedString());
     }
     // @Test
     public void process6Test() {
@@ -281,11 +282,11 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         assertEq("page1.html", n_.getCurrentUrl());
         assertEq("bean_one", n_.getCurrentBeanName());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"page1.html\" n-f=\"0\"><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"0\" value=\"ONE_\"/><input type=\"text\" name=\"bean_one.e.typedString\" n-i=\"1\" value=\"TWO_\"/></form></body></html>", n_.getHtmlText());
-        SimpleOne beanTwo_ = (SimpleOne) lgNames_.getBean("bean_one").getBean();
-        StringMapObjectSample map_ = beanTwo_.getForms();
-        assertEq(0, map_.size());
-        assertEq("ONE_", beanTwo_.getTypedStrings().first().getTypedString());
-        assertEq("TWO_", beanTwo_.getTypedStrings().last().getTypedString());
+//        SimpleOne beanTwo_ = (SimpleOne) lgNames_.getBean("bean_one").getBean();
+//        StringMapObjectSample map_ = beanTwo_.getForms();
+////        assertEq(0, map_.size());
+//        assertEq("ONE_", beanTwo_.getTypedStrings().first().getTypedString());
+//        assertEq("TWO_", beanTwo_.getTypedStrings().last().getTypedString());
     }
     private String getNatRes(String _folder, String _relative, String _html, SimpleOne _bean) {
         NativeOtherAnalyzedTestConfiguration conf_ = contextElSec();
@@ -313,12 +314,12 @@ public final class NativeSecondTest extends EquallableBeanCoreUtil {
         NativeOtherAnalyzedTestContext cont_ = buildStdOne(opt_);
         return new NativeOtherAnalyzedTestConfiguration(_conf,cont_, cont_.getForwards(), cont_.getStds());
     }
-    private static void setupBeansAfter(NativeOtherAnalyzedTestConfiguration _conf) {
-        cleanBeans(_conf);
-        for (EntryCust<String, Struct> e: _conf.getConfiguration().getBuiltBeans().entryList()) {
-            putBean(((BeanStruct) e.getValue()).getInstance(), _conf, e.getKey());
-        }
-    }
+//    private static void setupBeansAfter(NativeOtherAnalyzedTestConfiguration _conf) {
+//        cleanBeans(_conf);
+//        for (EntryCust<String, Struct> e: _conf.getConfiguration().getBuiltBeans().entryList()) {
+//            putBean(((BeanStruct) e.getValue()).getInstance(), _conf, e.getKey());
+//        }
+//    }
 
     private static void cleanBeans(NativeOtherAnalyzedTestConfiguration _conf) {
 //        _conf.getAdv().getBeans().clear();

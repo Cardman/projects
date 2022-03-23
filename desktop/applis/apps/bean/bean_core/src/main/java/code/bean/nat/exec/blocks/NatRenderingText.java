@@ -47,6 +47,6 @@ public final class NatRenderingText {
 
     private static String calculate(CustList<RendDynOperationNode> _e, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
         Argument argument_ = RenderExpUtil.calculateReuse(_e, _advStandards, _ctx, _rendStackCall);
-        return BeanNatLgNames.processString(argument_, _ctx);
+        return BeanNatLgNames.processString(argument_);
     }
 }

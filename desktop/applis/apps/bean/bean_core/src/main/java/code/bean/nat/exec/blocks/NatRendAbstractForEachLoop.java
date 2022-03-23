@@ -54,7 +54,7 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
             return;
         }
         Struct its_ = processLoop(_stds, _ctx, _rendStack);
-        RendLoopBlockStack l_ = newLoopBlockStack(_ctx,label,its_);
+        RendLoopBlockStack l_ = newLoopBlockStack(label,its_);
         l_.setLabel(label);
         l_.setBlock(this);
         l_.setCurrentVisitedBlock(this);
@@ -83,7 +83,7 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
         ImportingPage ip_ = _rendStack.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         StringMap<AbstractWrapper> varsInfos_ = ip_.getRefParams();
-        ConditionReturn hasNext_ = hasNext(_ctx,_loopBlock);
+        ConditionReturn hasNext_ = hasNext(_loopBlock);
         if (hasNext_ == ConditionReturn.YES) {
             incrementLoop(_loopBlock, vars_,varsInfos_, _ctx, _rendStack);
         } else {
@@ -99,28 +99,28 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
 
 //        abs_.setGlobalOffset(variableNameOffset);
         LoopVariable lv_ = _vars.getVal(variableName);
-        Argument arg_ = retrieveValue(_ctx,_l);
+        Argument arg_ = retrieveValue(_l);
         AbstractWrapper lInfo_ = _varsInfos.getVal(variableName);
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         abs_.getRendReadWrite().setRead(getFirstChild());
     }
-    protected RendLoopBlockStack newLoopBlockStack(ContextEl _cont, String _label, Struct _its) {
+    protected RendLoopBlockStack newLoopBlockStack(String _label, Struct _its) {
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        Argument arg_ = RendBlockHelp.iterator(_its, _cont);
+        Argument arg_ = RendBlockHelp.iterator(_its);
         return RendForEachIterable.newRendLoopBlockStack(_label,_its,length_,arg_,this);
     }
-    protected Argument retrieveValue(ContextEl _ctx, RendLoopBlockStack _l) {
-        return RendBlockHelp.nextCom(_l.getContent().getStructIterator(), _ctx);
+    protected Argument retrieveValue(RendLoopBlockStack _l) {
+        return RendBlockHelp.nextCom(_l.getContent().getStructIterator());
     }
 
-    protected ConditionReturn hasNext(ContextEl _ctx, RendLoopBlockStack _l) {
-        return iteratorHasNext(_ctx,_l);
+    protected ConditionReturn hasNext(RendLoopBlockStack _l) {
+        return iteratorHasNext(_l);
     }
 
-    private static ConditionReturn iteratorHasNext(ContextEl _ctx, RendLoopBlockStack _rendLastStack) {
+    private static ConditionReturn iteratorHasNext(RendLoopBlockStack _rendLastStack) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();
-        Argument arg_ = RendBlockHelp.nasNextCom(strIter_, _ctx);
+        Argument arg_ = RendBlockHelp.nasNextCom(strIter_);
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
         }

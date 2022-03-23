@@ -1,6 +1,6 @@
 package code.formathtml.sample;
 import code.bean.Bean;
-import code.formathtml.nat.StringMapObjectSample;
+import code.bean.nat.StringMapObjectSample;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.Ints;
@@ -10,11 +10,11 @@ import code.util.TreeMap;
 import code.util.core.StringUtil;
 
 
-public class BeanFive extends Bean {
+public class BeanSeven extends Bean {
 
     private Composite composite = new Composite();
 
-    private EnumNumbers combobox = new EnumNumbers(EnumNumber.values());
+    private CustList<EnumNumber> combobox = new CustList<EnumNumber>(EnumNumber.values());
 
     private TreeMap<EnumNumber, String> translations = new TreeMap<EnumNumber, String>(new ComparatorEnumNumber());
 
@@ -22,22 +22,26 @@ public class BeanFive extends Bean {
 
     private EnumNumber chosenNumber = EnumNumber.ONE;
 
-    private EnumNumbers chosenNumbers = new EnumNumbers(EnumNumber.ONE,EnumNumber.FOUR);
+    private CustList<EnumNumber> chosenNumbers = new CustList<EnumNumber>(EnumNumber.ONE,EnumNumber.FOUR);
 
     private String message="Test {0}";
 
-    private NatStringTreeMap< Integer> tree = new NatStringTreeMap< Integer>();
+    private NatTreeMapStringInteger tree = new NatTreeMapStringInteger();
 
     private StringMap<Integer> map = new StringMap<Integer>();
 
     private String selectedString = "ONE";
 
-    private StringList selectedStrings = new StringList("ONE","FOUR");
+    private final CustList<Composite> composites = new CustList<Composite>();
 
-    private StringList chosenNumbersNull;
-    private StringMapObjectSample forms = new StringMapObjectSample();
+    private String commonClass = "abba";
 
-    public BeanFive() {
+    private StringList strings = new StringList();
+
+    private final Ints arrayInt;
+    private StringMapObjectSample forms;
+
+    public BeanSeven() {
         composite.setStrings(new StringList());
         for (EnumNumber e: EnumNumber.values()) {
             translations.put(e, Integer.toString(e.ordinal() + 1));
@@ -45,7 +49,19 @@ public class BeanFive extends Bean {
         numbers.put("ONE", new Ints(1));
         numbers.put("TWO", new Ints(2,3));
         numbers.put("THREE", new Ints(4,5,6));
-        setClassName("code.formathtml.classes.BeanFive");
+        for (int i = 0; i < 2; i++) {
+            Composite c_ = new Composite();
+            c_.setString(String.valueOf(i));
+            composites.add(c_);
+        }
+        strings.add("FIRST");
+        strings.add("SECOND");
+        tree.put("keyone", 1);
+        tree.put("keytwo", 2);
+        arrayInt = new Ints();
+        arrayInt.add(1);
+        arrayInt.add(3);
+        setClassName("code.formathtml.classes.BeanSeven");
     }
 
     public StringMapObjectSample getForms() {
@@ -56,6 +72,44 @@ public class BeanFive extends Bean {
         forms = _forms;
     }
 
+//    public void validateStringsSave() {
+//        getForms().put("strings", new StringList(strings));
+//    }
+
+//    public void validateIntsSave() {
+//        Ints nbs_ = new Ints();
+//        for (Object i: arrayInt.list().toArray()) {
+//            nbs_.add((Integer) i);
+//        }
+//        getForms().put("numbers", nbs_);
+//    }
+    public StringList getStrings() {
+        return strings;
+    }
+    public Ints getArrayInt() {
+        return arrayInt;
+    }
+
+    public double getDouble(Double _double) {
+        return 2 * _double;
+    }
+
+    public String goTwoArgs(int _a, int _b) {
+        return StringUtil.concatNbs("bean",_a+_b);
+    }
+
+    public String getSpanClasses(Long _one, Long _two, Long _three) {
+        return StringUtil.concat("a",_one.toString(),"b",_two.toString(),"c",_three.toString());
+    }
+
+    public String getSpanClass(Long _one) {
+        return StringUtil.concatNbs("page",_one);
+    }
+
+    public CustList<Composite> getComposites() {
+        return composites;
+    }
+
     public String getTrans(Long _index) {
         return translations.getValue(_index.intValue());
     }
@@ -64,27 +118,20 @@ public class BeanFive extends Bean {
         return composite;
     }
 
+    public boolean hasMoreThanOne() {
+        return composite.getStrings().size() > 1;
+    }
+
     public void setComposite(Composite _composite) {
         composite = _composite;
     }
 
-    public String invokeMethod(Long _index) {
-        composite.getStrings().add(_index.toString());
-        return "returned value";
-    }
-
-    public NatStringTreeMap< Integer> getTree() {
+    public NatTreeMapStringInteger getTree() {
         return tree;
     }
 
     public StringMap<Integer> getMap() {
         return map;
-    }
-
-    public StringList getKeys() {
-        StringList list_ = new StringList(map.getKeys());
-        list_.sort();
-        return list_;
     }
 
     public int getDouble(Long _index) {
@@ -105,25 +152,8 @@ public class BeanFive extends Bean {
         return EnumNumber.values()[EnumNumber.values().length - chosenNumber.ordinal() - 1];
     }
 
-    public CustList<EnumNumber> getDefaultChoices() {
-        if (chosenNumber == null) {
-            return new CustList<EnumNumber>(EnumNumber.THREE, EnumNumber.TWO);
-        }
-        return new CustList<EnumNumber>(EnumNumber.values()[EnumNumber.values().length - chosenNumber.ordinal() - 1]);
-    }
-
     public String goToPage() {
         return "page";
-    }
-
-    public String go() {
-        getForms().put("selectedStrings", selectedStrings);
-        getForms().put("chosenNumbers", chosenNumbers);
-        getForms().put("chosenNumbersNull", chosenNumbersNull);
-        if (selectedStrings.size() <= 2) {
-            return "change";
-        }
-        return "no_change";
     }
 
     public String goToNullPage() {
@@ -134,11 +164,11 @@ public class BeanFive extends Bean {
         return StringUtil.concatNbs("page",_index);
     }
 
-    public EnumNumbers getCombobox() {
+    public CustList<EnumNumber> getCombobox() {
         return combobox;
     }
 
-    public void setCombobox(EnumNumbers _combobox) {
+    public void setCombobox(CustList<EnumNumber> _combobox) {
         combobox = _combobox;
     }
 
@@ -166,11 +196,11 @@ public class BeanFive extends Bean {
         chosenNumber = _chosenNumber;
     }
 
-    public EnumNumbers getChosenNumbers() {
+    public CustList<EnumNumber> getChosenNumbers() {
         return chosenNumbers;
     }
 
-    public void setChosenNumbers(EnumNumbers _chosenNumbers) {
+    public void setChosenNumbers(CustList<EnumNumber> _chosenNumbers) {
         chosenNumbers = _chosenNumbers;
     }
 
@@ -190,28 +220,24 @@ public class BeanFive extends Bean {
         selectedString = _selectedString;
     }
 
-    public StringList getSelectedStrings() {
-        return selectedStrings;
+    public String getCommonClass() {
+        return commonClass;
     }
 
-    public void setSelectedStrings(StringList _selectedStrings) {
-        selectedStrings = _selectedStrings;
+    public void setCommonClass(String _commonClass) {
+        commonClass = _commonClass;
     }
 
-    public StringList getChosenNumbersNull() {
-        return chosenNumbersNull;
-    }
-
-    public void setChosenNumbersNull(StringList _chosenNumbersNull) {
-        chosenNumbersNull = _chosenNumbersNull;
-    }
-
-    public void setTree(NatStringTreeMap< Integer> _tree) {
+    public void setTree(NatTreeMapStringInteger _tree) {
         tree = _tree;
     }
 
     public void setMap(StringMap<Integer> _map) {
         map = _map;
+    }
+
+    public void setStrings(StringList _strings) {
+        strings = _strings;
     }
 
     @Override

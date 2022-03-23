@@ -1,11 +1,9 @@
 package code.formathtml.util;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.Message;
 import code.expressionlanguage.Argument;
@@ -47,61 +45,7 @@ public abstract class BeanLgNames extends LgNames {
 
     public abstract AbstractWrapper newWrapper(LocalVariable _local);
 
-    public ResultErrorStd convert(NodeContainer _container, ContextEl _context, RendStackCall _rendStackCall) {
-        CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
-        if (!ops_.isEmpty()) {
-            String varNameConvert_ = _container.getVarNameConvert();
-            LocalVariable lv_ = newLocVar(_container);
-            _rendStackCall.getLastPage().putValueVar(varNameConvert_, newWrapper(lv_));
-            setGlobalArgumentStruct(_container.getBean(),_context,_rendStackCall);
-            Argument res_ = RenderExpUtil.calculateReuse(ops_, this, _context, _rendStackCall);
-            _rendStackCall.getLastPage().removeRefVar(varNameConvert_);
-            ResultErrorStd out_ = new ResultErrorStd();
-            if (_context.callsOrException(_rendStackCall.getStackCall())) {
-                return out_;
-            }
-            out_.setResult(res_.getStruct());
-            return out_;
-        }
-        String className_ = _container.getNodeInformation().getInputClass();
-        StringList values_ = _container.getValue();
-        return getStructToBeValidated(values_, className_, _context, _rendStackCall);
-    }
-    protected LocalVariable newLocVar(NodeContainer _container) {
-        StringList values_ = _container.getValue();
-        if (_container.isArrayConverter()) {
-            int len_ = values_.size();
-            ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(getAliasString()));
-            for (int i = 0; i < len_; i++) {
-                arr_.set(i, new StringStruct(values_.get(i)));
-            }
-            return LocalVariable.newLocalVariable(arr_,StringExpUtil.getPrettyArrayType(getAliasString()));
-        }
-        if (!values_.isEmpty()) {
-            return LocalVariable.newLocalVariable(new StringStruct(values_.first()), getAliasString());
-        }
-        return LocalVariable.newLocalVariable(NullStruct.NULL_VALUE, getAliasString());
-    }
-    public ResultErrorStd getStructToBeValidated(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(_className, getAliasString())) {
-            String v_;
-            if (_values.isEmpty()) {
-                v_ = null;
-            } else {
-                v_ = _values.first();
-            }
-            res_.setResult(wrapStd(v_));
-            return res_;
-        }
-        if (_values.isEmpty() || _values.first().trim().isEmpty()) {
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return getStructToBeValidatedPrim(_values, _className, _ctx, _stack, res_);
-    }
-
-    public abstract ResultErrorStd getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack, ResultErrorStd _res);
+    public abstract ResultErrorStd convert(NodeContainer _container, ContextEl _context, RendStackCall _rendStackCall);
 
     public String getAliasPrimBoolean() {
         return getContent().getPrimTypes().getAliasPrimBoolean();
@@ -116,6 +60,21 @@ public abstract class BeanLgNames extends LgNames {
     }
     public String getAliasString() {
         return getContent().getCharSeq().getAliasString();
+    }
+
+    public static Struct wrapStd(StringList _element) {
+        String v_ = oneElt(_element);
+        return wrapStd(v_);
+    }
+
+    public static String oneElt(StringList _element) {
+        String v_;
+        if (_element.isEmpty()) {
+            v_ = null;
+        } else {
+            v_ = _element.first();
+        }
+        return v_;
     }
 
     public static Struct wrapStd(String _element) {

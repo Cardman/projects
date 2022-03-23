@@ -1,17 +1,12 @@
 package aiki.beans.abilities;
 
 import aiki.beans.*;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -224,16 +219,16 @@ public final class AikiBeansAbilitiesStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ABILITIES_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_ABILITY,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(TYPED_ABILITY,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(SORTED_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SEARCH,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_ABILITIES_BEAN, type_);
     }
@@ -246,40 +241,40 @@ public final class AikiBeansAbilitiesStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_ABILITY_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(DISPLAY_NAME,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(END_ROUND,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(END_ROUND_RANK,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(SENDING,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(EFFECT_SEND_BEAN,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(ACHIEVED_DISAPPEARED_PK,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(BREAK_PROTECTION,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(SENDING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(EFFECT_SEND_BEAN,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(ACHIEVED_DISAPPEARED_PK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(BREAK_PROTECTION,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(BREAK_PROTECTION_MOVES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(CANCEL_SEC_EFFECT_OTHER,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(CANCEL_SEC_EFFECT_OWNER,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(CHGT_TYPE_BY_DAMAGE,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(CANCEL_SEC_EFFECT_OTHER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(CANCEL_SEC_EFFECT_OWNER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(CHGT_TYPE_BY_DAMAGE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(CHGT_TYPE_BY_WEATHER, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(COPY_MOVES_TYPES,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(FORBID_USE_BERRY_AGAINST_FOES,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(GIVE_ITEM_TO_ALLY_HAVING_USED,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(HEALED_STATUS_BY_SWITCH,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(IGN_FOE_STATIS_BOOST,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(IMMU_CH,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(IMMU_DAMAGE_ALLY_MOVES,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(IMMU_DAMAGE_RECOIL,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(IMMU_DAMAGE_TRAPPING_MOVES,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(IMMU_RECHARGE_ROUND,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(COPY_MOVES_TYPES,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(FORBID_USE_BERRY_AGAINST_FOES,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(GIVE_ITEM_TO_ALLY_HAVING_USED,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(HEALED_STATUS_BY_SWITCH,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(IGN_FOE_STATIS_BOOST,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(IMMU_CH,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(IMMU_DAMAGE_ALLY_MOVES,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(IMMU_DAMAGE_RECOIL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(IMMU_DAMAGE_TRAPPING_MOVES,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(IMMU_RECHARGE_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(IMMU_RECHARGE_ROUND_MOVES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(IMMU_SUFFERED_DAMAGE_LOW_EFF,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(MUMY,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(NB_HITS,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(PLATE,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(IMMU_SUFFERED_DAMAGE_LOW_EFF,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(INFLICTING_DAMAGE_INSTEAD_OF_SUFFERING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(MUMY,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(NB_HITS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(PLATE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(SLOWING,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(TAKE_ITEM_BY_DAMAGING_MOVE,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(SLOWING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(TAKE_ITEM_BY_DAMAGING_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(HEAL_HP_WHILE_USING_BERRY,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(MAX_HP_FOR_USING_BERRY,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(MULT_ALLY_DAMAGE,PokemonStandards.TYPE_RATE,false,false));
@@ -291,8 +286,8 @@ public final class AikiBeansAbilitiesStd {
         fields_.add(new StandardField(MULT_VAR_BOOST,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(RECOIL_DAMAGE_FOE,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(RECOIL_DAMAGE_FOE_BY_KO_OWNER,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(DECREASE_NEC_STEPS_HATCH,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(NB_USED_PP,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(DECREASE_NEC_STEPS_HATCH, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(NB_USED_PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(IMMU_MOVE, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(IMMU_ALLY_FROM_MOVES, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(IMMU_WEATHER, BeanNatLgNames.TYPE_LIST,false,false));
@@ -300,10 +295,10 @@ public final class AikiBeansAbilitiesStd {
         fields_.add(new StandardField(IGN_FOE_TEAM_MOVE, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(IMMU_ABILITY, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(IMMU_STATUS_BEGIN_ROUND, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(TYPE_FOR_MOVES,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(TYPE_FOR_MOVES,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(CHANGING_BOOST_TYPES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(MULT_POWER,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(MULT_DAMAGE,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(MULT_POWER,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(MULT_DAMAGE,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(HEAL_HP_BY_WEATHER, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(HEAL_HP_BY_TYPE_IF_WEATHER, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(IMMU_LOW_STAT, BeanNatLgNames.TYPE_LIST,false,false));
@@ -339,285 +334,284 @@ public final class AikiBeansAbilitiesStd {
         fields_.add(new StandardField(HEALED_HP_RATE_BY_SWITCH,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(POKEMON, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_INDEX,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_INDEX,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_EFFECT_SENDING,params_,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_BREAK_PROTECTION_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_BREAK_PROTECTION_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_BREAK_PROTECTION_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_BREAK_PROTECTION_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(IS_CHGT_TYPE_BY_WEATHER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(IS_CHGT_TYPE_BY_WEATHER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_CHGT_TYPE_BY_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_CHGT_TYPE_BY_WEATHER_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_CHGT_TYPE_BY_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_CHGT_TYPE_BY_WEATHER_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_CHGT_TYPE_BY_WEATHER_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_CHGT_TYPE_BY_WEATHER_VALUE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_RECHARGE_ROUND_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_RECHARGE_ROUND_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_RECHARGE_ROUND_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_RECHARGE_ROUND_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_REVERSE_POWER_TYPES_ABILITIES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_REVERSE_POWER_TYPES_ABILITIES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_REVERSE_POWER_TYPES_ABILITIES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(DECREASE_NEC_STEPS_HATCH_INT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_REVERSE_POWER_TYPES_ABILITIES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(NB_USED_PP_INT,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(DECREASE_NEC_STEPS_HATCH_INT,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList();
+        method_ = new SpecNatMethod(NB_USED_PP_INT,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_ALLY_FROM_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_ALLY_FROM_MOVES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_ALLY_FROM_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_ALLY_FROM_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IGN_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IGN_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IGN_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IGN_FOE_TEAM_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IGN_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IGN_FOE_TEAM_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IGN_FOE_TEAM_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IGN_FOE_TEAM_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_STATUS_BEGIN_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS_BEGIN_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_STATUS_BEGIN_ROUND,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_CHANGING_BOOST_TYPES_OLD,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS_BEGIN_ROUND,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_CHANGING_BOOST_TYPES_NEW,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_CHANGING_BOOST_TYPES_OLD,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(IS_HEAL_HP_BY_WEATHER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_CHANGING_BOOST_TYPES_NEW,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_HEAL_HP_BY_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(IS_HEAL_HP_BY_WEATHER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_HEAL_HP_BY_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_HEAL_HP_BY_WEATHER_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(IS_HEAL_HP_BY_TYPE_IF_WEATHER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_HEAL_HP_BY_WEATHER_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_HEAL_HP_BY_TYPE_IF_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(IS_HEAL_HP_BY_TYPE_IF_WEATHER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_HEAL_HP_BY_TYPE_IF_WEATHER_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STAT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_HEAL_HP_BY_TYPE_IF_WEATHER_KEY_SEC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_LOW_STAT_IF_STATUS_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STAT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STAT_IF_STATUS_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_LOW_STAT_IF_STATUS_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STAT_IF_STATUS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STAT_IF_STATUS_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STATIS_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STAT_IF_STATUS_VALUE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STATIS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STATIS_TYPES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MAX_STATISTICS_IF_CH,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_LOW_STATIS_VALUE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(IS_STATUS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MAX_STATISTICS_IF_CH,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_SINGLE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(IS_STATUS,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_SINGLE_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_SINGLE_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(IS_MOVE_BY_WEATHER,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_SINGLE_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_MOVE_BY_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(IS_MOVE_BY_WEATHER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_MOVE_BY_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_MOVE_BY_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_TYPE_BY_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_MOVE_BY_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(IS_MOVE_BY_STATUS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_TYPE_BY_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_STATUS_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(IS_MOVE_BY_STATUS,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_STATUS_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_IMMU_STATUS_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS_TYPES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_IMMU_STATUS_TYPES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_DIVIDE_STATUS_ROUND_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_IMMU_STATUS_VALUE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_DIVIDE_STATUS_ROUND_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_DIVIDE_STATUS_ROUND_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_FORWARD_STATUS_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_DIVIDE_STATUS_ROUND_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_FORWARD_STATUS_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_FORWARD_STATUS_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_FORWARD_STATUS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_FORWARD_STATUS_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_FORWARD_STATUS_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_FORWARD_STATUS_VALUE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_BREAK_FOE_IMMUNE_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_FORWARD_STATUS_VALUE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_BREAK_FOE_IMMUNE_VALUE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_BREAK_FOE_IMMUNE_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_BREAK_FOE_IMMUNE_VALUE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_DAMGE_TYPE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_DAMAGE_CAT_KEY_SEC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_DAMGE_TYPE_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_DAMGE_TYPE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_CAT_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_DAMGE_TYPE_SEC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_CAT_KEY_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_CAT_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_STATUT_RANK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_CAT_KEY_SEC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_MULT_STAT_IF_STATUT_RANK_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_STATUT_RANK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_STATUT_RANK_SEC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_MULT_STAT_IF_STATUT_RANK_SEC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_BONUS_STAT_RANK,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_STATUT_RANK_SEC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_BOOST_STAT_RANK_END_ROUND,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_BONUS_STAT_RANK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_BOOST_STAT_RANK_PROTECTED,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_BOOST_STAT_RANK_END_ROUND,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_LOW_STAT_FOE_HIT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_BOOST_STAT_RANK_PROTECTED,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_KO_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_LOW_STAT_FOE_HIT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_LOW_STAT,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_KO_FOE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT_ALLY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_IF_LOW_STAT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_INCREASED_PRIO,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_STAT_ALLY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_INCREASED_PRIO_TYPES,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_INCREASED_PRIO,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_DAMAGE_FOE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_INCREASED_PRIO_TYPES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_MULT_POWER_MOVES_TYPES_GLOBAL_KEY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_DAMAGE_FOE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_FAIL_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_MULT_POWER_MOVES_TYPES_GLOBAL_KEY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_FAIL_STATUS,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_FAIL_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_POKEMON,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_FAIL_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_POKEMON,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_POKEMON,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_POKEMON,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_ABILITY_BEAN, type_);
     }
-    public static ResultErrorStd getResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultAbilitiesBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         AbilitiesBean instance_ = (AbilitiesBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -626,13 +620,12 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SORTED_ABILITIES)) {
-            res_.setResult(std_.getStringArray(instance_.getSortedAbilities()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getSortedAbilities()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultAbilityBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultAbilityBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         AbilityBean instance_ = (AbilityBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -649,11 +642,11 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(std_.getStringArray(instance_.getReasonsEndRound()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReasonsEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFailEndRound()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsFailEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SENDING)) {
@@ -673,7 +666,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BREAK_PROTECTION_MOVES)) {
-            res_.setResult(std_.getStringArray(instance_.getBreakProtectionMoves()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getBreakProtectionMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CANCEL_SEC_EFFECT_OTHER)) {
@@ -689,7 +682,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CHGT_TYPE_BY_WEATHER)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getChgtTypeByWeather()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getChgtTypeByWeather()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,COPY_MOVES_TYPES)) {
@@ -733,7 +726,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_RECHARGE_ROUND_MOVES)) {
-            res_.setResult(std_.getStringArray(instance_.getImmuRechargeRoundMoves()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getImmuRechargeRoundMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_SUFFERED_DAMAGE_LOW_EFF)) {
@@ -761,7 +754,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REVERSE_EFFECTS_POWER_MOVES_TYPES_GLOBAL_ABILITIES)) {
-            res_.setResult(std_.getStringArray(instance_.getReverseEffectsPowerMovesTypesGlobalAbilities()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReverseEffectsPowerMovesTypesGlobalAbilities()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SLOWING)) {
@@ -825,31 +818,31 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_MOVE)) {
-            res_.setResult(std_.getStringArray(instance_.getImmuMove()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getImmuMove()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_ALLY_FROM_MOVES)) {
-            res_.setResult(std_.getStringArray(instance_.getImmuAllyFromMoves()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getImmuAllyFromMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_WEATHER)) {
-            res_.setResult(std_.getStringArray(instance_.getImmuWeather()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getImmuWeather()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IGN_ABILITY)) {
-            res_.setResult(std_.getStringArray(instance_.getIgnAbility()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getIgnAbility()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IGN_FOE_TEAM_MOVE)) {
-            res_.setResult(std_.getStringArray(instance_.getIgnFoeTeamMove()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getIgnFoeTeamMove()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_ABILITY)) {
-            res_.setResult(std_.getStringArray(instance_.getImmuAbility()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getImmuAbility()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_STATUS_BEGIN_ROUND)) {
-            res_.setResult(std_.getStringArray(instance_.getImmuStatusBeginRound()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getImmuStatusBeginRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,TYPE_FOR_MOVES)) {
@@ -857,7 +850,7 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CHANGING_BOOST_TYPES)) {
-            res_.setResult(PokemonStandards.getStrTpDam(_cont,instance_.getChangingBoostTypes()));
+            res_.setResult(PokemonStandards.getStrTpDam(instance_.getChangingBoostTypes()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_POWER)) {
@@ -869,51 +862,51 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEAL_HP_BY_WEATHER)) {
-            res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getHealHpByWeather()));
+            res_.setResult(PokemonStandards.getStrRate(instance_.getHealHpByWeather()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEAL_HP_BY_TYPE_IF_WEATHER)) {
-            res_.setResult(PokemonStandards.getWeatherTypeRateMap(_cont,instance_.getHealHpByTypeIfWeather()));
+            res_.setResult(PokemonStandards.getWeatherTypeRateMap(instance_.getHealHpByTypeIfWeather()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_LOW_STAT)) {
-            res_.setResult(PokemonStandards.getSta(_cont,instance_.getImmuLowStat()));
+            res_.setResult(PokemonStandards.getSta(instance_.getImmuLowStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_LOW_STAT_IF_STATUS)) {
-            res_.setResult(PokemonStandards.getSiSa(_cont,instance_.getImmuLowStatIfStatus()));
+            res_.setResult(PokemonStandards.getSiSa(instance_.getImmuLowStatIfStatus()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_LOW_STATIS_TYPES)) {
-            res_.setResult(PokemonStandards.getStrListStaList(_cont,instance_.getImmuLowStatisTypes()));
+            res_.setResult(PokemonStandards.getStrListStaList(instance_.getImmuLowStatisTypes()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAX_STATISTICS_IF_CH)) {
-            res_.setResult(PokemonStandards.getSta(_cont,instance_.getMaxStatisticsIfCh()));
+            res_.setResult(PokemonStandards.getSta(instance_.getMaxStatisticsIfCh()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SINGLE_STATUS)) {
-            res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getSingleStatus()));
+            res_.setResult(PokemonStandards.getStrRate(instance_.getSingleStatus()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_MOVE_TYPES_BY_WEATHER)) {
-            res_.setResult(PokemonStandards.getStrStrList(_cont,instance_.getImmuMoveTypesByWeather()));
+            res_.setResult(PokemonStandards.getStrStrList(instance_.getImmuMoveTypesByWeather()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_STATUS)) {
-            res_.setResult(PokemonStandards.getStrStrList(_cont,instance_.getImmuStatus()));
+            res_.setResult(PokemonStandards.getStrStrList(instance_.getImmuStatus()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,IMMU_STATUS_TYPES)) {
-            res_.setResult(PokemonStandards.getStrStrList(_cont,instance_.getImmuStatusTypes()));
+            res_.setResult(PokemonStandards.getStrStrList(instance_.getImmuStatusTypes()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DIVIDE_STATUS_ROUND)) {
-            res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getDivideStatusRound()));
+            res_.setResult(PokemonStandards.getStrRate(instance_.getDivideStatusRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,FORWARD_STATUS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getForwardStatus()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getForwardStatus()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BREAK_FOE_IMMUNE)) {
@@ -925,75 +918,75 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT)) {
-            res_.setResult(PokemonStandards.getStaStr(_cont,instance_.getMultStat()));
+            res_.setResult(PokemonStandards.getStaStr(instance_.getMultStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_DAMAGE_CAT)) {
-            res_.setResult(PokemonStandards.getStatisticCategoryByteMap(_cont,instance_.getMultStatIfDamageCat()));
+            res_.setResult(PokemonStandards.getStatisticCategoryByteMap(instance_.getMultStatIfDamageCat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_DAMGE_TYPE)) {
-            res_.setResult(PokemonStandards.getStatisticTypeByteMap(_cont,instance_.getMultStatIfDamgeType()));
+            res_.setResult(PokemonStandards.getStatisticTypeByteMap(instance_.getMultStatIfDamgeType()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_CAT)) {
-            res_.setResult(PokemonStandards.getStatisticCategoryRateMap(_cont,instance_.getMultStatIfCat()));
+            res_.setResult(PokemonStandards.getStatisticCategoryRateMap(instance_.getMultStatIfCat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_STATUT_RANK)) {
-            res_.setResult(PokemonStandards.getStatisticStatusByteMap(_cont,instance_.getMultStatIfStatutRank()));
+            res_.setResult(PokemonStandards.getStatisticStatusByteMap(instance_.getMultStatIfStatutRank()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BONUS_STAT_RANK)) {
-            res_.setResult(PokemonStandards.getStaByte(_cont,instance_.getBonusStatRank()));
+            res_.setResult(PokemonStandards.getStaByte(instance_.getBonusStatRank()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BOOST_STAT_RANK_END_ROUND)) {
-            res_.setResult(PokemonStandards.getStaByte(_cont,instance_.getBoostStatRankEndRound()));
+            res_.setResult(PokemonStandards.getStaByte(instance_.getBoostStatRankEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,BOOST_STAT_RANK_PROTECTED)) {
-            res_.setResult(PokemonStandards.getStaByte(_cont,instance_.getBoostStatRankProtected()));
+            res_.setResult(PokemonStandards.getStaByte(instance_.getBoostStatRankProtected()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,LOW_STAT_FOE_HIT)) {
-            res_.setResult(PokemonStandards.getStaByte(_cont,instance_.getLowStatFoeHit()));
+            res_.setResult(PokemonStandards.getStaByte(instance_.getLowStatFoeHit()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_KO_FOE)) {
-            res_.setResult(PokemonStandards.getStaByte(_cont,instance_.getMultStatIfKoFoe()));
+            res_.setResult(PokemonStandards.getStaByte(instance_.getMultStatIfKoFoe()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT_IF_LOW_STAT)) {
-            res_.setResult(PokemonStandards.getStaByte(_cont,instance_.getMultStatIfLowStat()));
+            res_.setResult(PokemonStandards.getStaByte(instance_.getMultStatIfLowStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STAT_ALLY)) {
-            res_.setResult(PokemonStandards.getStaRate(_cont,instance_.getMultStatAlly()));
+            res_.setResult(PokemonStandards.getStaRate(instance_.getMultStatAlly()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,INCREASED_PRIO)) {
-            res_.setResult(PokemonStandards.getStrShort(_cont,instance_.getIncreasedPrio()));
+            res_.setResult(PokemonStandards.getStrShort(instance_.getIncreasedPrio()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,INCREASED_PRIO_TYPES)) {
-            res_.setResult(PokemonStandards.getStrShort(_cont,instance_.getIncreasedPrioTypes()));
+            res_.setResult(PokemonStandards.getStrShort(instance_.getIncreasedPrioTypes()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_DAMAGE_FOE)) {
-            res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getMultDamageFoe()));
+            res_.setResult(PokemonStandards.getStrRate(instance_.getMultDamageFoe()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_POWER_MOVES_TYPES_GLOBAL)) {
-            res_.setResult(PokemonStandards.getStrRate(_cont,instance_.getMultPowerMovesTypesGlobal()));
+            res_.setResult(PokemonStandards.getStrRate(instance_.getMultPowerMovesTypesGlobal()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,FAIL_STATUS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getFailStatus()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getFailStatus()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVars()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVars()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,HEALED_HP_RATE_BY_SWITCH)) {
@@ -1001,12 +994,12 @@ public final class AikiBeansAbilitiesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,POKEMON)) {
-            res_.setResult(std_.getStringArray(instance_.getPokemon()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getPokemon()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultAbilitiesBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultAbilitiesBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         AbilitiesBean instance_ = (AbilitiesBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -1017,7 +1010,7 @@ public final class AikiBeansAbilitiesStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAbilitiesBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodAbilitiesBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         AbilitiesBean instance_ = (AbilitiesBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -1035,7 +1028,7 @@ public final class AikiBeansAbilitiesStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAbilityBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodAbilityBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         AbilityBean instance_ = (AbilityBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

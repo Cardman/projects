@@ -1,13 +1,10 @@
 package code.formathtml.nat;
 
 import code.bean.Bean;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -29,13 +26,13 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
     private static final String TYPE_INPUT = "simple.Input";
 
     @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public ResultErrorStd getOtherResultBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         return null;
     }
 
     @Override
-    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
-        String str_ = processString(new Argument(_instance), _cont, null);
+    public ResultErrorStd getOtherName(Struct _instance) {
+        String str_ = processString(new Argument(_instance), null, null);
         ResultErrorStd res_ = new ResultErrorStd();
         res_.setResult(new StringStruct(str_));
         return res_;
@@ -48,7 +45,7 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
     }
 
     @Override
-    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+    protected Struct newSimpleBean(String _language, BeanInfo _bean) {
         SimpleOne bean_ = newBeanOne();
         return new BeanStruct(bean_);
     }
@@ -112,11 +109,11 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
 //    }
     @Override
     public void beforeDisplaying(Struct _arg) {
-        ((BeanStruct)_arg).getBean().beforeDisplaying();
+//        ((BeanStruct)_arg).getBean().beforeDisplaying();
     }
 
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public ResultErrorStd getOtherResult(ClassField _classField, Struct _instance) {
         return null;
     }
 
@@ -172,10 +169,10 @@ public final class BeanTestNatLgNamesImpl extends BeanTestNatLgNames {
     protected BeanStruct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         BeanStruct res_ = getOtherResultBean(_ctx, id_);
-        Bean bean_ = res_.getBean();
-        res_.setForms(new StringMapObjectSample());
-        bean_.setLanguage(_language);
-        bean_.setScope(_bean.getScope());
+//        Bean bean_ = res_.getBean();
+        new StringMapObjectSample();
+//        bean_.setLanguage(_language);
+//        bean_.setScope(_bean.getScope());
         return res_;
     }
 

@@ -1,5 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.bean.nat.analyze.opers.NatOperationNode;
@@ -73,7 +74,7 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements N
     private String getInferredIt(String _names) {
         String it_ = caller.getIterables().getVal(_names);
         it_ = StringUtil.nullToEmpty(it_);
-        if (StringUtil.quickEq(it_, caller.getAliasObject())) {
+        if (StringUtil.quickEq(it_, BeanNatCommonLgNames.OBJECT)) {
             it_ = importedClassName;
         }
         return it_;

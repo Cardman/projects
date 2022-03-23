@@ -8,7 +8,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -89,7 +88,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         std_ = new SpecialNatClass(TYPE_BELOTE_BEAN, fields_, methods_, TYPE_BEAN);
         StringList params_;
         params_ = new StringList();
-        method_ = new SpecNatMethod(PLAY_GAME, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(PLAY_GAME, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_NICKNAMES, params_, TYPE_LIST, false, MethodModifier.NORMAL);
@@ -105,41 +104,41 @@ public final class BeloteStandards extends BeanNatLgNames {
         getStds().addEntry(TYPE_DETAILS_RESULTS_BELOTE_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_SUM_DECLARING_PLAYER, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_SUM_DECLARING_PLAYER, fields_, methods_, OBJECT);
         fields_.add( new StandardField(DECLARING, TYPE_LIST, false, false));
         fields_.add( new StandardField(SUM, getPrimInt(), false, false));
-        fields_.add( new StandardField(NICKNAME, getAliasString(), false, false));
-        fields_.add( new StandardField(STATUT, getAliasString(), false, false));
+        fields_.add( new StandardField(NICKNAME, STRING, false, false));
+        fields_.add( new StandardField(STATUT, STRING, false, false));
         getStds().addEntry(TYPE_SUM_DECLARING_PLAYER, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_DECLARING_PLAYER_VALUE, fields_, methods_, getAliasObject());
-        fields_.add( new StandardField(DECLARING, getAliasString(), false, false));
+        std_ = new SpecialNatClass(TYPE_DECLARING_PLAYER_VALUE, fields_, methods_, OBJECT);
+        fields_.add( new StandardField(DECLARING, STRING, false, false));
         fields_.add( new StandardField(VALUE, getPrimInt(), false, false));
         getStds().addEntry(TYPE_DECLARING_PLAYER_VALUE, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_RESULTS_BELOTE_BEAN, fields_, methods_, TYPE_BELOTE_BEAN);
         params_ = new StringList();
-        method_ = new SpecNatMethod(WIN, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(WIN, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(EQUALITY, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(EQUALITY, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(LOOSE, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(LOOSE, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SUCCESSFUL_BID, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SUCCESSFUL_BID, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(MID_BID, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(MID_BID, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(FAILED_BID, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(FAILED_BID, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SLAM, params_, getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SLAM, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(ABSOLUTE_DIFF, params_, getPrimInt(), false, MethodModifier.NORMAL);
@@ -151,46 +150,46 @@ public final class BeloteStandards extends BeanNatLgNames {
         fields_.add( new StandardField(POINTS_DEFENSE_TEMPORAIRE, getPrimInt(), false, false));
         fields_.add( new StandardField(POINTS_DEFENSE_DEFINITIF, getPrimInt(), false, false));
         fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimInt(), false, false));
-        fields_.add( new StandardField(TAKER_NICKNAME, getAliasString(), false, false));
-        fields_.add( new StandardField(BID_STRING, getAliasString(), false, false));
+        fields_.add( new StandardField(TAKER_NICKNAME, STRING, false, false));
+        fields_.add( new StandardField(BID_STRING, STRING, false, false));
         fields_.add( new StandardField(CALLED_PLAYERS_LIST, TYPE_LIST, false, false));
         fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, false, false));
         getStds().addEntry(TYPE_RESULTS_BELOTE_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
         fields_.add( new StandardField(NUMBER, getPrimInt(), false, false));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false));
         getStds().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_RULES_BELOTE_BEAN, fields_, methods_, TYPE_BELOTE_BEAN);
-        fields_.add( new StandardField(CARTES_BATTUES, getAliasString(), false, false));
-        fields_.add( new StandardField(DEAL_ALL, getAliasPrimBoolean(), false, false));
+        fields_.add( new StandardField(CARTES_BATTUES, STRING, false, false));
+        fields_.add( new StandardField(DEAL_ALL, PRIM_BOOLEAN, false, false));
         fields_.add( new StandardField(ANNONCES_AUTORISEES, TYPE_LIST, false, false));
         fields_.add( new StandardField(ENCHERES_AUTORISEES, TYPE_LIST, false, false));
-        fields_.add( new StandardField(SOUS_COUPE_ADV, getAliasPrimBoolean(), false, false));
-        fields_.add( new StandardField(GESTION_COUPE_PARTENAIRE, getAliasString(), false, false));
-        fields_.add( new StandardField(REPARTITION, getAliasString(), false, false));
-        fields_.add( new StandardField(COMPTE_POINTS_CLASSIQUE, getAliasPrimBoolean(), false, false));
+        fields_.add( new StandardField(SOUS_COUPE_ADV, PRIM_BOOLEAN, false, false));
+        fields_.add( new StandardField(GESTION_COUPE_PARTENAIRE, STRING, false, false));
+        fields_.add( new StandardField(REPARTITION, STRING, false, false));
+        fields_.add( new StandardField(COMPTE_POINTS_CLASSIQUE, PRIM_BOOLEAN, false, false));
         getStds().addEntry(TYPE_RULES_BELOTE_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_BID_BELOTE, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_BID_BELOTE, fields_, methods_, OBJECT);
         std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStds().addEntry(TYPE_BID_BELOTE, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_DECLARES_BELOTE, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_DECLARES_BELOTE, fields_, methods_, OBJECT);
         std_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStds().addEntry(TYPE_DECLARES_BELOTE, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RESULTS_BELOTE, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_RESULTS_BELOTE, fields_, methods_, OBJECT);
         getStds().addEntry(TYPE_RESULTS_BELOTE, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RULES_BELOTE, fields_, methods_, getAliasObject());
+        std_ = new SpecialNatClass(TYPE_RULES_BELOTE, fields_, methods_, OBJECT);
         getStds().addEntry(TYPE_RULES_BELOTE, std_);
     }
     @Override
@@ -207,8 +206,7 @@ public final class BeloteStandards extends BeanNatLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont,
-                                             ConstructorId _method, Struct... _args) {
+    public ResultErrorStd getOtherResultBean(ConstructorId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(_method.getName(), TYPE_DETAILS_RESULTS_BELOTE_BEAN)) {
             DetailsResultsBeloteBean details_ = new DetailsResultsBeloteBean();
@@ -231,7 +229,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         return res_;
     }
     @Override
-    public ResultErrorStd getOtherResult(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public ResultErrorStd getOtherResult(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         String fieldName_ = _classField.getFieldName();
         if (_instance instanceof BeloteLineDealStruct) {
@@ -371,8 +369,8 @@ public final class BeloteStandards extends BeanNatLgNames {
     }
 
     @Override
-    public ResultErrorStd getOtherResultBean(ContextEl _cont, Struct _instance,
-            ClassMethodId _method, Struct... _args) {
+    public ResultErrorStd getOtherResultBean(Struct _instance,
+                                             ClassMethodId _method, Struct... _args) {
         ResultErrorStd res_ = new ResultErrorStd();
         if (((BeloteBeanStruct)_instance).getInstance() instanceof BeloteBean) {
             if (StringUtil.quickEq(_method.getConstraints().getName(), PLAY_GAME)) {
@@ -425,26 +423,25 @@ public final class BeloteStandards extends BeanNatLgNames {
         }
         return res_;
     }
-    public ResultErrorStd getOtherName(ContextEl _cont, Struct _instance) {
+    public ResultErrorStd getOtherName(Struct _instance) {
         return new ResultErrorStd();
     }
-    public ResultErrorStd setOtherResult(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public ResultErrorStd setOtherResult(ClassField _classField, Struct _instance, Struct _val) {
         return new ResultErrorStd();
     }
 
     public String getPrimInt() {
         return getContent().getPrimTypes().getAliasPrimInteger();
     }
-    protected Struct newSimpleBean(String _language, BeanInfo _bean, ContextEl _ctx, StackCall _stackCall) {
+    protected Struct newSimpleBean(String _language, BeanInfo _bean) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));
-        ResultErrorStd res_ = getOtherResultBean(_ctx, id_, args_);
+        ResultErrorStd res_ = getOtherResultBean(id_, args_);
         Struct strBean_ = res_.getResult();
         BeloteBeanStruct str_ = (BeloteBeanStruct) strBean_;
         BeloteBean bean_ = str_.getBean();
         bean_.setDataBase(dataBase,dataBaseRules);
         bean_.setLanguage(_language);
-        bean_.setScope(_bean.getScope());
         return strBean_;
     }
     public static ArrayStruct getSumDeclaringPlayerArray(CustList<BeloteSumDeclaringPlayer> _ls) {

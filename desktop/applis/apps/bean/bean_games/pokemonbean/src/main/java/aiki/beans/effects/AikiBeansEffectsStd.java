@@ -1,17 +1,12 @@
 package aiki.beans.effects;
 
 import aiki.beans.*;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.*;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -77,7 +72,7 @@ public final class AikiBeansEffectsStd {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMBO_DTO, fields_, methods_, _std.getAliasObject());
+        type_ = new SpecialNatClass(TYPE_COMBO_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMBO_DTO, type_);
     }
     private static void buildCombosBean(PokemonStandards _std) {
@@ -89,7 +84,7 @@ public final class AikiBeansEffectsStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_COMBOS_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(COMBO,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(COMBO,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(COMBOS,AikiBeansEffectsStd.TYPE_COMBO_DTO,false,false));
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_COMBOS_KEY,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
@@ -106,21 +101,21 @@ public final class AikiBeansEffectsStd {
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_COMBO_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(INDEX,_std.getAliasPrimInteger(),false,false));
-        fields_.add(new StandardField(END_ROUND,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(END_ROUND_RANK,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(MULT_EVT_RATE_SEC_EFF,PokemonStandards.TYPE_RATE,false,false));
         fields_.add(new StandardField(MULT_STATISTIC_FOE, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(REPEATED_ROUNDS_LAW, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(COMBOS,AikiBeansEffectsStd.TYPE_COMBO_DTO,false,false));
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TR_STATISTIC,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TR_STATISTIC,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_EFFECT_COMBO_BEAN, type_);
     }
@@ -134,50 +129,50 @@ public final class AikiBeansEffectsStd {
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_EFFECT_WHILE_SENDING_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(EFFECT,PokemonStandards.TYPE_EFFECT_WHILE_SENDING,false,false));
-        fields_.add(new StandardField(DISABLE_WEATHER,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(ENABLED_WEATHER,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(COPYING_ABILITY,_std.getAliasPrimBoolean(),false,false));
-        fields_.add(new StandardField(PLATE,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(DISABLE_WEATHER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(ENABLED_WEATHER,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(COPYING_ABILITY,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(PLATE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(MULT_WEIGHT,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(STATISTIC,_std.getAliasPrimBoolean(),false,false));
+        fields_.add(new StandardField(STATISTIC,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(REASONS, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(MAP_VARS_FAIL, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(EVT_RATE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(EVT_RATE_PER_CENT,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(EVT_RATE_PER_CENT,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(STATIS_VAR_RANK, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(MAP_VARS_STATISTICS, BeanNatLgNames.TYPE_MAP,false,false));
         fields_.add(new StandardField(SWAP_BOOST_STATIS, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(CANCEL_LOW_STAT, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(DEFAULT_BOOST,_std.getAliasPrimInteger(),false,false));
+        fields_.add(new StandardField(DEFAULT_BOOST, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
         fields_.add(new StandardField(CANCEL_CHGT_STAT, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(COPY_BOOST, BeanNatLgNames.TYPE_LIST,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TR_WEATHER,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TR_WEATHER,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(RANDOM_STATIS,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(RANDOM_STATIS,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_ALWAYS_ENABLED,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_ALWAYS_ENABLED,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(NOT_EMPTY_VAR_BOOST,params_,_std.getAliasPrimBoolean(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(NOT_EMPTY_VAR_BOOST,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_FAIL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_FAIL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_RATE,params_,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_SWAP_FAIL,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_SWAP_FAIL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_EFFECT_WHILE_SENDING_BEAN, type_);
     }
-    public static ResultErrorStd getResultCombosBean(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultCombosBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         CombosBean instance_ = (CombosBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -191,13 +186,12 @@ public final class AikiBeansEffectsStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultEffectComboBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultEffectComboBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         EffectComboBean instance_ = (EffectComboBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(fieldName_,MOVES)) {
-            res_.setResult(std_.getStringArray(instance_.getMoves()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMoves()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,INDEX)) {
@@ -213,11 +207,11 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(std_.getStringArray(instance_.getReasonsEndRound()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReasonsEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFailEndRound()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsFailEndRound()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_EVT_RATE_SEC_EFF)) {
@@ -225,7 +219,7 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MULT_STATISTIC_FOE)) {
-            res_.setResult(PokemonStandards.getStaRate(_cont,instance_.getMultStatisticFoe()));
+            res_.setResult(PokemonStandards.getStaRate(instance_.getMultStatisticFoe()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,RANK_INCREMENT_NB_ROUND)) {
@@ -233,13 +227,12 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REPEATED_ROUNDS_LAW)) {
-            res_.setResult(PokemonStandards.getLgIntRate(_cont,instance_.getRepeatedRoundsLaw()));
+            res_.setResult(PokemonStandards.getLgIntRate(instance_.getRepeatedRoundsLaw()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd getResultEffectWhileSendingBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultEffectWhileSendingBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -268,11 +261,11 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,REASONS)) {
-            res_.setResult(std_.getStringArray(instance_.getReasons()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReasons()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsFail()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsFail()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,EVT_RATE)) {
@@ -284,19 +277,19 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,STATIS_VAR_RANK)) {
-            res_.setResult(PokemonStandards.getStrByte(_cont,instance_.getStatisVarRank()));
+            res_.setResult(PokemonStandards.getStrByte(instance_.getStatisVarRank()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,MAP_VARS_STATISTICS)) {
-            res_.setResult(PokemonStandards.getStrStr(_cont,instance_.getMapVarsStatistics()));
+            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsStatistics()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SWAP_BOOST_STATIS)) {
-            res_.setResult(std_.getStringArray(instance_.getSwapBoostStatis()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getSwapBoostStatis()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CANCEL_LOW_STAT)) {
-            res_.setResult(std_.getStringArray(instance_.getCancelLowStat()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getCancelLowStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,DEFAULT_BOOST)) {
@@ -304,16 +297,16 @@ public final class AikiBeansEffectsStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,CANCEL_CHGT_STAT)) {
-            res_.setResult(std_.getStringArray(instance_.getCancelChgtStat()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getCancelChgtStat()));
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,COPY_BOOST)) {
-            res_.setResult(std_.getStringArray(instance_.getCopyBoost()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getCopyBoost()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd setResultEffectComboBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultEffectComboBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         EffectComboBean instance_ = (EffectComboBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -329,7 +322,7 @@ public final class AikiBeansEffectsStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultEffectWhileSendingBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultEffectWhileSendingBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -340,18 +333,17 @@ public final class AikiBeansEffectsStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodCombosBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodCombosBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         CombosBean instance_ = (CombosBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_COMBOS_KEY)) {
-            res_.setResult(PokemonStandards.getStrList(_cont,instance_.getCombosKey()));
+            res_.setResult(PokemonStandards.getStrList(instance_.getCombosKey()));
             return res_;
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEffectComboBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodEffectComboBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         EffectComboBean instance_ = (EffectComboBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -365,7 +357,7 @@ public final class AikiBeansEffectsStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodEffectWhileSendingBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodEffectWhileSendingBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         EffectWhileSendingBean instance_ = (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();

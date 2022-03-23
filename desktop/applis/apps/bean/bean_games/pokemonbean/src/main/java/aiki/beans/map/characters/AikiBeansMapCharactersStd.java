@@ -1,17 +1,13 @@
 package aiki.beans.map.characters;
 
 import aiki.beans.*;
-import code.bean.nat.BeanNatLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -71,32 +67,32 @@ public final class AikiBeansMapCharactersStd {
         type_ = new SpecialNatClass(TYPE_ALLY_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false));
         fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY,false,false));
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_IMAGE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ABILITY,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger(),_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_ALLY_BEAN, type_);
     }
@@ -112,20 +108,20 @@ public final class AikiBeansMapCharactersStd {
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_ITEMS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_ALL_TM,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_TM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_TM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_DEALER_BEAN, type_);
     }
@@ -136,12 +132,12 @@ public final class AikiBeansMapCharactersStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_DUAL_FIGHT_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(IMAGE_MINI,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(IMAGE_MINI_SECOND,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(PAGE_ALLY,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(IMAGE_MINI_SECOND,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(PAGE_ALLY,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY,false,false));
-        fields_.add(new StandardField(PAGE_TEAM,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TEMP_TRAINER,false,false));
         _std.getStds().addEntry(TYPE_DUAL_FIGHT_BEAN, type_);
     }
@@ -157,20 +153,20 @@ public final class AikiBeansMapCharactersStd {
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_ITEMS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_ITEM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_ALL_TM,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(CLICK_TM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(CLICK_TM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        params_ = new StringList(_std.getAliasPrimInteger());
-        method_ = new SpecNatMethod(GET_TM,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
+        method_ = new SpecNatMethod(GET_TM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_SELLER_BEAN, type_);
     }
@@ -183,22 +179,22 @@ public final class AikiBeansMapCharactersStd {
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         type_ = new SpecialNatClass(TYPE_TRAINER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(IMAGE,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(IMAGE_MINI,_std.getAliasString(),false,false));
-        fields_.add(new StandardField(PAGE_TEAM,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING,false,false));
+        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false));
-        fields_.add(new StandardField(MOVE,_std.getAliasString(),false,false));
+        fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING,false,false));
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_TEAMS_REWARDS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_NAME,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TR_MOVE,params_,_std.getAliasString(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TR_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
         methods_.add( method_);
         _std.getStds().addEntry(TYPE_TRAINER_BEAN, type_);
     }
@@ -211,8 +207,7 @@ public final class AikiBeansMapCharactersStd {
         type_ = new SpecialNatClass(TYPE_TRAINER_ONE_FIGHT_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         _std.getStds().addEntry(TYPE_TRAINER_ONE_FIGHT_BEAN, type_);
     }
-    public static ResultErrorStd getResultAllyBean(ContextEl _cont, ClassField _classField, Struct _instance) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd getResultAllyBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         AllyBean instance_ = (AllyBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -222,7 +217,7 @@ public final class AikiBeansMapCharactersStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultDualFightBean(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultDualFightBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         DualFightBean instance_ = (DualFightBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -256,7 +251,7 @@ public final class AikiBeansMapCharactersStd {
         }
         return res_;
     }
-    public static ResultErrorStd getResultTrainerBean(ContextEl _cont, ClassField _classField, Struct _instance) {
+    public static ResultErrorStd getResultTrainerBean(ClassField _classField, Struct _instance) {
         ResultErrorStd res_ = new ResultErrorStd();
         TrainerBean instance_ = (TrainerBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -282,7 +277,7 @@ public final class AikiBeansMapCharactersStd {
         }
         return res_;
     }
-    public static ResultErrorStd setResultAllyBean(ContextEl _cont, ClassField _classField, Struct _instance, Struct _val) {
+    public static ResultErrorStd setResultAllyBean(ClassField _classField, Struct _instance, Struct _val) {
         ResultErrorStd res_ = new ResultErrorStd();
         AllyBean instance_ = (AllyBean) ((PokemonBeanStruct)_instance).getInstance();
         String fieldName_ = _classField.getFieldName();
@@ -293,7 +288,7 @@ public final class AikiBeansMapCharactersStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodAllyBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
+    public static ResultErrorStd invokeMethodAllyBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         AllyBean instance_ = (AllyBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
@@ -335,13 +330,12 @@ public final class AikiBeansMapCharactersStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodDealerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodDealerBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         DealerBean instance_ = (DealerBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_ITEMS)) {
-            res_.setResult(std_.getStringArray(instance_.getItems()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getItems()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
@@ -353,7 +347,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ALL_TM)) {
-            res_.setResult(std_.getStringArray(instance_.getAllTm()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getAllTm()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TM)) {
@@ -366,13 +360,12 @@ public final class AikiBeansMapCharactersStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodSellerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodSellerBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         SellerBean instance_ = (SellerBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_ITEMS)) {
-            res_.setResult(std_.getStringArray(instance_.getItems()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getItems()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
@@ -384,7 +377,7 @@ public final class AikiBeansMapCharactersStd {
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_ALL_TM)) {
-            res_.setResult(std_.getStringArray(instance_.getAllTm()));
+            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getAllTm()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,CLICK_TM)) {
@@ -397,13 +390,12 @@ public final class AikiBeansMapCharactersStd {
         }
         return res_;
     }
-    public static ResultErrorStd invokeMethodTrainerBean(ContextEl _cont, Struct _instance, ClassMethodId _method, Struct... _args) {
-        BeanNatLgNames std_ = (BeanNatLgNames) _cont.getStandards();
+    public static ResultErrorStd invokeMethodTrainerBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         TrainerBean instance_ = (TrainerBean) ((PokemonBeanStruct)_instance).getInstance();
         String methodName_ = _method.getConstraints().getName();
         ResultErrorStd res_ = new ResultErrorStd();
         if (StringUtil.quickEq(methodName_,GET_TEAMS_REWARDS)) {
-            res_.setResult(PokemonStandards.getPkTeam(_cont,instance_.getTeamsRewards()));
+            res_.setResult(PokemonStandards.getPkTeam(instance_.getTeamsRewards()));
             return res_;
         }
         if (StringUtil.quickEq(methodName_,GET_NAME)) {
