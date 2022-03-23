@@ -2,7 +2,6 @@ package code.vi.prot.impl.other;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 
-import code.adv.SafeRemoveAdvUtil;
 import code.gui.*;
 import code.vi.prot.impl.gui.CustComponent;
 import code.util.*;
@@ -93,7 +92,7 @@ public final class CustComboBox extends CustComponent implements GraphicComboGrI
     }
 
     private void innerRemoveAtIndex(int _index) {
-        SafeRemoveAdvUtil.safeRemove(new SafeRemoveImpl(combo),_index);
+        combo.removeItemAt(_index);
     }
 
     @Override

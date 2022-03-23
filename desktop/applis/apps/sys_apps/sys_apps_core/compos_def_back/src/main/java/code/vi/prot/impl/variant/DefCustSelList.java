@@ -3,8 +3,8 @@ package code.vi.prot.impl.variant;
 import code.gui.AbsPreparedLabel;
 import code.gui.CustCellRender;
 import code.gui.FrameUtil;
-import code.vi.prot.impl.gui.CustComponent;
 import code.util.CustList;
+import code.vi.prot.impl.gui.CustComponent;
 
 import javax.swing.*;
 import java.awt.*;

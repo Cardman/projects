@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
+import code.gui.initialize.AbstractAdvGraphicListGenerator;
 import code.util.CustList;
 import code.util.Ints;
 
@@ -21,9 +22,18 @@ public final class GraphicListStruct extends InputStruct {
 
     public GraphicListStruct(GuiContextEl _ctx,String _className,boolean _simple) {
         super(_className);
-        GuiExecutingBlocks guiEx_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks();
-        grList = guiEx_.getGraphicListGenerator().create(_simple, new AdvGraphicListPainter(guiEx_.getImageFactory(),_ctx.getExecutionInfos()), new DefSpecSelectionCtx(_ctx.getExecutionInfos()));
+        grList = init(_ctx,_simple);
         init(_ctx);
+    }
+    private static AbsGraphicListStr init(GuiContextEl _ctx,boolean _simple) {
+        GuiExecutingBlocks guiEx_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks();
+        AbstractAdvGraphicListGenerator graphicListGenerator_ = guiEx_.getGraphicListGenerator();
+        AdvGraphicListPainter abs_ = new AdvGraphicListPainter(guiEx_.getImageFactory(), _ctx.getExecutionInfos());
+        DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getExecutionInfos());
+        if (_simple) {
+            return graphicListGenerator_.createSimple(abs_, create_);
+        }
+        return graphicListGenerator_.createMult(abs_, create_);
     }
 
     private void init(GuiContextEl _ctx) {

@@ -1,8 +1,9 @@
 package code.vi.prot.impl.variant;
 
-import code.adv.ValueChangingUtil;
 import code.gui.AbstractSelectionListener;
+import code.gui.FrameUtil;
 import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -14,7 +15,7 @@ public final class DefLocalListSelectionListener implements ListSelectionListene
         listener = _listener;
     }
     public void valueChanged(ListSelectionEvent _e){
-        ValueChangingUtil.act(new DefValueChangingImpl(listener,_e));
+        FrameUtil.act(listener,new SelectionInfo(_e.getFirstIndex(),_e.getLastIndex(),false),_e.getValueIsAdjusting());
     }
 
     public ListSelection getListener() {

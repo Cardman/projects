@@ -1,6 +1,4 @@
 package code.vi.prot.impl.other;
-import code.adv.BoolIntChoiceImpl;
-import code.adv.BoolIntChoiceUtil;
 import code.gui.*;
 import code.vi.prot.impl.gui.CustComponent;
 import code.vi.prot.impl.gui.ScrollPane;
@@ -18,18 +16,14 @@ public class CustGrList<T> extends CustComponent implements AbsGraphicList<T>,Ab
 	private final CustList<T> elts = new CustList<>();
 	private final IdMap<ListSelection,LocalListSelectionListener> listeners = new IdMap<>();
 
-    public CustGrList(boolean _simple,CustCellRender<T> _render) {
-        setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
-                ListSelectionModel.SINGLE_SELECTION,
-                ListSelectionModel.MULTIPLE_INTERVAL_SELECTION));
+    public CustGrList(int _simple,CustCellRender<T> _render) {
+        setup(_simple);
         CustSelList<T> custSelList_ = new CustSelList<>(elts,_render);
         list.setCellRenderer(custSelList_);
     }
 
-    protected CustGrList(boolean _simple,ListCellRenderer<T> _render) {
-        setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
-                ListSelectionModel.SINGLE_SELECTION,
-                ListSelectionModel.MULTIPLE_INTERVAL_SELECTION));
+    protected CustGrList(int _simple,ListCellRenderer<T> _render) {
+        setup(_simple);
         list.setCellRenderer(_render);
     }
     private void setup(int _value) {

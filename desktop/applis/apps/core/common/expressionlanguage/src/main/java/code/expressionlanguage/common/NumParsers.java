@@ -2149,6 +2149,10 @@ public final class NumParsers {
         if (_char == 953) {
             return 837;
         }
+        return toMinCase2(_char);
+    }
+
+    private static int toMinCase2(char _char) {
         if (_char == 956) {
             return 181;
         }
@@ -2161,6 +2165,10 @@ public final class NumParsers {
         if (_char == 8486) {
             return 937;
         }
+        return toMinCase1(_char);
+    }
+
+    private static int toMinCase1(char _char) {
         if (_char == 8490) {
             return 75;
         }

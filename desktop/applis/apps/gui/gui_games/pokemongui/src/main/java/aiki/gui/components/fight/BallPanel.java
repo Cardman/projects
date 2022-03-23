@@ -25,7 +25,7 @@ public final class BallPanel {
 
     public BallPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
         renderer = new BallRenderer(_window.getFrames().getImageFactory(),_facade);
-        listeBall = _window.getAikiFactory().getGeneBallNumberRate().create(_window.getImageFactory(),true,renderer);
+        listeBall = _window.getAikiFactory().getGeneBallNumberRate().createSimple(_window.getImageFactory(),renderer);
         facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
         container.setLoweredBorder();

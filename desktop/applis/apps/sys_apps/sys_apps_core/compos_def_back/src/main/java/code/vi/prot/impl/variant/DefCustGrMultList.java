@@ -2,10 +2,10 @@ package code.vi.prot.impl.variant;
 
 import code.gui.*;
 import code.gui.images.AbstractImageFactory;
-import code.vi.prot.impl.gui.CustComponent;
-import code.vi.prot.impl.gui.Panel;
 import code.util.CustList;
 import code.util.Ints;
+import code.vi.prot.impl.gui.CustComponent;
+import code.vi.prot.impl.gui.Panel;
 
 import javax.swing.*;
 
@@ -13,8 +13,8 @@ public final class DefCustGrMultList extends CustComponent implements AbsInputGr
 
     private final DefCustGrList<String> compo;
 
-    public DefCustGrMultList(boolean _simple, AbstractImageFactory _fact) {
-        compo = new DefCustGrList<String>(_simple, new DefaultCellRender(_fact, Panel.newPageBox()));
+    public DefCustGrMultList(AbstractImageFactory _fact) {
+        compo = new DefCustGrList<String>(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION, new DefaultCellRender(_fact, Panel.newPageBox()));
     }
 
     public void add(String _elt) {

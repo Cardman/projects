@@ -839,4 +839,15 @@ public final class FrameUtil {
             LabelButtonUtil.paintDefaultLabel(_g, _text, w_, _render, h_, GuiConstants.BLACK, GuiConstants.WHITE);
         }
     }
+    public static void act(ListSelection _list,SelectionInfo _e, boolean _skip) {
+        if (_skip) {
+            return;
+        }
+        _list.valueChanged(_e);
+    }
+    public static void act(ListSelection _list,SelectionInfo _e, int _state, int _value) {
+        if (_state == _value) {
+            _list.valueChanged(_e);
+        }
+    }
 }

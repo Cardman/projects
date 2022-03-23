@@ -26,7 +26,7 @@ public final class ItemsPanel {
     private final AbsPanel container;
 
     public ItemsPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
-        liste = _window.getAikiFactory().getGeneItPanel().create(_window.getImageFactory(),true,new ItemRenderer(_window.getFrames().getImageFactory(),_facade));
+        liste = _window.getAikiFactory().getGeneItPanel().createSimple(_window.getImageFactory(),new ItemRenderer(_window.getFrames().getImageFactory(),_facade));
         facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
         amount = _window.getFrames().getCompoFactory().newPlainLabel("");

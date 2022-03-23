@@ -25,7 +25,7 @@ public final class PresidentCardsScrollableList extends CardsScrollableList {
 
     public PresidentCardsScrollableList(WindowCards _parent, int _nb, int _pmax, String _titre) {
         super(_parent.getCompoFactory());
-        liste = _parent.getCardFactories().getGenePresident().create(_parent.getImageFactory(),false,new CardPresidentCellRenderer(_parent));
+        liste = _parent.getCardFactories().getGenePresident().createMult(_parent.getImageFactory(),new CardPresidentCellRenderer(_parent));
         setMax(_pmax);
         AbsPlainLabel titrePanneau_ = _parent.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);

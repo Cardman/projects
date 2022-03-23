@@ -5,10 +5,18 @@ import code.gui.AbsGraphicListStr;
 import code.gui.SpecSelectionCtx;
 import code.gui.initialize.AbstractAdvGraphicListGenerator;
 
+import javax.swing.*;
+
 public final class DefAdvGraphicListGeneratorStr implements AbstractAdvGraphicListGenerator {
+
     @Override
-    public AbsGraphicListStr create(boolean _simple, AbsGraphicListPainter _abs, SpecSelectionCtx _create) {
-        return new DefCustGrListStr(_simple,_create);
+    public AbsGraphicListStr createMult(AbsGraphicListPainter _abs, SpecSelectionCtx _create) {
+        return new DefCustGrListStr(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION,_create);
+    }
+
+    @Override
+    public AbsGraphicListStr createSimple(AbsGraphicListPainter _abs, SpecSelectionCtx _create) {
+        return new DefCustGrListStr( ListSelectionModel.SINGLE_SELECTION,_create);
     }
 
     @Override

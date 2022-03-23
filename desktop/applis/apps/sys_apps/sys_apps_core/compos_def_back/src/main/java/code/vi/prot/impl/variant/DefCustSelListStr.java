@@ -7,8 +7,8 @@ import code.expressionlanguage.structs.Struct;
 import code.gui.AbsPreparedLabel;
 import code.gui.SpecSelectionStruct;
 import code.gui.images.MetaDimension;
-import code.vi.prot.impl.gui.CustComponent;
 import code.util.CustList;
+import code.vi.prot.impl.gui.CustComponent;
 
 import javax.swing.*;
 import java.awt.*;

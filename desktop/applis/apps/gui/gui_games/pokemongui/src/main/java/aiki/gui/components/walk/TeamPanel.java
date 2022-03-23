@@ -46,7 +46,7 @@ public final class TeamPanel {
     public TeamPanel(WindowAiki _parent, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single) {
         facade = _facade;
         PokemonRenderer render_ = new PokemonRenderer(_parent.getFrames(), facade, _single);
-        liste = _parent.getAikiFactory().getGeneUsPkPanel().create(_parent.getImageFactory(), true,render_);
+        liste = _parent.getAikiFactory().getGeneUsPkPanel().createSimple(_parent.getImageFactory(), render_);
         container = render_.getFact().getCompoFactory().newBorder();
         container.setLoweredBorder();
         AbsPlainLabel titrePanneau_ = render_.getFact().getCompoFactory().newPlainLabel(_titre);

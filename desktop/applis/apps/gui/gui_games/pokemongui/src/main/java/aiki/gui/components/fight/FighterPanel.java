@@ -24,7 +24,7 @@ public final class FighterPanel {
     private final AbsPanel container;
 
     public FighterPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<Fighter> _fighters) {
-        liste = _window.getAikiFactory().getGeneFighter().create(_window.getImageFactory(),true,new FighterRenderer(_window.getFrames().getImageFactory(),_facade));
+        liste = _window.getAikiFactory().getGeneFighter().createSimple(_window.getImageFactory(),new FighterRenderer(_window.getFrames().getImageFactory(),_facade));
         facade = _facade;
         container = _window.getFrames().getCompoFactory().newBorder();
         container.setLoweredBorder();

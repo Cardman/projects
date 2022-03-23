@@ -1,16 +1,15 @@
 package code.vi.prot.impl.variant;
 
-import code.adv.SafeRemoveAdvUtil;
 import code.gui.AbsCustComponent;
 import code.gui.FrameUtil;
 import code.gui.GraphicComboGrInt;
 import code.gui.ListSelection;
-import code.vi.prot.impl.gui.CustComponent;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.StringUtil;
+import code.vi.prot.impl.gui.CustComponent;
 
 import javax.swing.*;
 
@@ -99,7 +98,7 @@ public final class DefCustComboBox extends CustComponent implements GraphicCombo
     }
 
     private void innerRemoveAtIndex(int _index) {
-        SafeRemoveAdvUtil.safeRemove(new DefSafeRemoveImpl(comboDef),_index);
+        comboDef.removeItemAt(_index);
     }
 
     @Override

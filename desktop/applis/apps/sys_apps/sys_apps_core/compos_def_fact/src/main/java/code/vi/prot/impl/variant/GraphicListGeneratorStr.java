@@ -6,8 +6,13 @@ import code.gui.initialize.AbstractAdvGraphicListGenerator;
 public final class GraphicListGeneratorStr implements AbstractAdvGraphicListGenerator {
 
     @Override
-    public AbsGraphicListStr create(boolean _simple, AbsGraphicListPainter _abs, SpecSelectionCtx _create) {
-        return new GraphicListStr(_simple, _abs,_create);
+    public AbsGraphicListStr createMult(AbsGraphicListPainter _abs, SpecSelectionCtx _create) {
+        return new GraphicListStr(false, _abs,_create);
+    }
+
+    @Override
+    public AbsGraphicListStr createSimple(AbsGraphicListPainter _abs, SpecSelectionCtx _create) {
+        return new GraphicListStr(true, _abs,_create);
     }
 
     @Override

@@ -27,7 +27,7 @@ public final class PokemonPanel {
     private final AbsPanel container;
     public PokemonPanel(WindowAiki _parent, int _nb, String _titre, FacadeGame _facade, String _noEvo) {
         renderer = new PokemonDataRenderer(_parent.getFrames().getImageFactory(),_facade, _noEvo);
-        liste = _parent.getAikiFactory().getGenePkPanel().create(_parent.getImageFactory(),true,renderer);
+        liste = _parent.getAikiFactory().getGenePkPanel().createSimple(_parent.getImageFactory(),renderer);
         facade = _facade;
         container = _parent.getFrames().getCompoFactory().newBorder();
         container.setLoweredBorder();

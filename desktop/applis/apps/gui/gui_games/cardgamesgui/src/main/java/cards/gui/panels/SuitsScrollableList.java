@@ -27,7 +27,7 @@ public final class SuitsScrollableList extends ScrollableList {
         AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(messages.getVal(SUITS));
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
 //        suits = _couleurs;
-        liste= _window.getCardFactories().getGeneSuit().create(_window.getImageFactory(),false,new SuitCellRenderer(_window));
+        liste= _window.getCardFactories().getGeneSuit().createMult(_window.getImageFactory(),new SuitCellRenderer(_window));
         for (Suit couleur_ : _couleurs) {
             liste.add(couleur_);
         }

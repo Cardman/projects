@@ -25,7 +25,7 @@ public final class TarotCardsScrollableList extends CardsScrollableList {
 
     public TarotCardsScrollableList(WindowCards _window, int _nb, int _pmax, String _titre) {
         super(_window.getCompoFactory());
-        liste = _window.getCardFactories().getGeneTarot().create(_window.getImageFactory(),false,new CardTarotCellRenderer(_window));
+        liste = _window.getCardFactories().getGeneTarot().createMult(_window.getImageFactory(),new CardTarotCellRenderer(_window));
         setMax(_pmax);
         AbsPlainLabel titrePanneau_ = _window.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);

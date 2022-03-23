@@ -9,7 +9,7 @@ import code.gui.SpecSelectionStruct;
 import javax.swing.*;
 
 public final class DefCustGrListStr extends DefCustGrList<Struct> implements AbsCustGraphicListStr {
-    public DefCustGrListStr(boolean _simple, SpecSelectionCtx _create) {
+    public DefCustGrListStr(int _simple, SpecSelectionCtx _create) {
         super(_simple,new DefDefSelListStr(_create,new DefaultListCellRenderer()));
     }
 

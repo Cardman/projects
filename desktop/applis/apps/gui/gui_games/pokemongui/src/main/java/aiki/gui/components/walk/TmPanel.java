@@ -25,7 +25,7 @@ public final class TmPanel {
 
     private final AbsPanel container;
     public TmPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
-        liste = _window.getAikiFactory().getGeneTmPanel().create(_window.getImageFactory(),true,new TmRenderer(_window.getFrames().getImageFactory(),_facade));
+        liste = _window.getAikiFactory().getGeneTmPanel().createSimple(_window.getImageFactory(),new TmRenderer(_window.getFrames().getImageFactory(),_facade));
         facade = _facade;
         amount = _window.getFrames().getCompoFactory().newPlainLabel("");
         container = _window.getFrames().getCompoFactory().newBorder();

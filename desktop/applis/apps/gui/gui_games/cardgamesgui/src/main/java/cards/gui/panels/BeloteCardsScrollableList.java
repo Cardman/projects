@@ -27,7 +27,7 @@ public final class BeloteCardsScrollableList extends CardsScrollableList {
 
     public BeloteCardsScrollableList(WindowCards _parent, int _nb, int _pmax, String _titre) {
         super(_parent.getCompoFactory());
-        liste = _parent.getCardFactories().getGeneBelote().create(_parent.getImageFactory(),false,new CardBeloteCellRenderer(_parent));
+        liste = _parent.getCardFactories().getGeneBelote().createMult(_parent.getImageFactory(),new CardBeloteCellRenderer(_parent));
         setMax(_pmax);
         AbsPlainLabel titrePanneau_ = _parent.getCompoFactory().newPlainLabel(_titre);
         getContainer().add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);

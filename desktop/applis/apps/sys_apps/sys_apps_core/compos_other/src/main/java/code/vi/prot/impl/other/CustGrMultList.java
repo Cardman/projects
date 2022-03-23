@@ -13,8 +13,8 @@ public final class CustGrMultList extends CustComponent implements AbsInputGraph
 
     private final CustGrList<String> compo;
 
-    public CustGrMultList(boolean _simple, AbstractImageFactory _fact) {
-        compo = new CustGrList<>(_simple, new DefaultCellRender(_fact, Panel.newPageBox()));
+    public CustGrMultList(AbstractImageFactory _fact) {
+        compo = new CustGrList<>(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION, new DefaultCellRender(_fact, Panel.newPageBox()));
     }
 
     public void add(String _elt) {

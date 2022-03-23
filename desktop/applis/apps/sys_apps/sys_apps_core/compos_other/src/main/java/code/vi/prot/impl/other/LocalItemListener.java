@@ -1,12 +1,13 @@
 package code.vi.prot.impl.other;
 
-import code.adv.ValueChangingSecondUtil;
 import code.gui.AbstractSelectionListener;
+import code.gui.FrameUtil;
 import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
-import java.awt.event.ItemListener;
+import javax.swing.*;
 import java.awt.event.ItemEvent;
-import javax.swing.JComboBox;
+import java.awt.event.ItemListener;
 
 public class LocalItemListener implements ItemListener, AbstractSelectionListener {
 	private final JComboBox<String> combo;
@@ -16,7 +17,7 @@ public class LocalItemListener implements ItemListener, AbstractSelectionListene
 		listener = _listener;
 	}
 	public void itemStateChanged(ItemEvent _e){
-		ValueChangingSecondUtil.act(new ValueChangingSecondImpl(combo,listener,_e),ItemEvent.SELECTED);
+		FrameUtil.act(listener,new SelectionInfo(combo.getSelectedIndex(),combo.getSelectedIndex(),false),_e.getStateChange(),ItemEvent.SELECTED);
 	}
 
 	public ListSelection getListener() {

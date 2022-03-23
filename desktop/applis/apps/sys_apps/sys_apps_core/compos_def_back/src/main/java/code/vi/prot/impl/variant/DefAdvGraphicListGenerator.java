@@ -5,10 +5,17 @@ import code.gui.CustCellRender;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractGraphicListGenerator;
 
+import javax.swing.*;
+
 public final class DefAdvGraphicListGenerator<T> implements AbstractGraphicListGenerator<T> {
+
     @Override
-    public AbsGraphicList<T> create(AbstractImageFactory _fact, boolean _simple, CustCellRender<T> _render) {
-        return new DefCustGrList<T>(_simple,_render);
+    public AbsGraphicList<T> createMult(AbstractImageFactory _fact, CustCellRender<T> _render) {
+        return new DefCustGrList<T>(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION,_render);
     }
 
+    @Override
+    public AbsGraphicList<T> createSimple(AbstractImageFactory _fact, CustCellRender<T> _render) {
+        return new DefCustGrList<T>(ListSelectionModel.SINGLE_SELECTION,_render);
+    }
 }

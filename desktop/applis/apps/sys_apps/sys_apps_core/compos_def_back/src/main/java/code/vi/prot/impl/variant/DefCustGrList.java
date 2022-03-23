@@ -1,13 +1,11 @@
 package code.vi.prot.impl.variant;
 
-import code.adv.BoolIntChoiceImpl;
-import code.adv.BoolIntChoiceUtil;
 import code.gui.*;
-import code.vi.prot.impl.gui.CustComponent;
-import code.vi.prot.impl.gui.ScrollPane;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
+import code.vi.prot.impl.gui.CustComponent;
+import code.vi.prot.impl.gui.ScrollPane;
 
 import javax.swing.*;
 
@@ -20,18 +18,14 @@ public class DefCustGrList<T> extends CustComponent implements AbsGraphicList<T>
     private final CustList<T> eltsDef = new CustList<T>();
     private final IdMap<ListSelection,DefLocalListSelectionListener> listenersDef = new IdMap<ListSelection,DefLocalListSelectionListener>();
 
-    public DefCustGrList(boolean _simple, CustCellRender<T> _render) {
-        setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
-                ListSelectionModel.SINGLE_SELECTION,
-                ListSelectionModel.MULTIPLE_INTERVAL_SELECTION));
+    public DefCustGrList(int _simple, CustCellRender<T> _render) {
+        setup(_simple);
         DefCustSelList<T> custSelList_ = new DefCustSelList<T>(eltsDef,_render);
         listDef.setCellRenderer(custSelList_);
     }
 
-    protected DefCustGrList(boolean _simple,ListCellRenderer _render) {
-        setup(BoolIntChoiceUtil.choice(new BoolIntChoiceImpl(_simple),
-                ListSelectionModel.SINGLE_SELECTION,
-                ListSelectionModel.MULTIPLE_INTERVAL_SELECTION));
+    protected DefCustGrList(int _simple,ListCellRenderer _render) {
+        setup(_simple);
         listDef.setCellRenderer(_render);
     }
     private void setup(int _value) {

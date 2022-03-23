@@ -1,8 +1,9 @@
 package code.vi.prot.impl.variant;
 
-import code.adv.ValueChangingSecondUtil;
 import code.gui.AbstractSelectionListener;
+import code.gui.FrameUtil;
 import code.gui.ListSelection;
+import code.gui.SelectionInfo;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
@@ -16,7 +17,7 @@ public final class DefLocalItemListener implements ItemListener, AbstractSelecti
         listener = _listener;
     }
     public void itemStateChanged(ItemEvent _e){
-        ValueChangingSecondUtil.act(new DefValueChangingSecondImpl(combo,listener,_e),ItemEvent.SELECTED);
+        FrameUtil.act(listener,new SelectionInfo(combo.getSelectedIndex(),combo.getSelectedIndex(),false),_e.getStateChange(),ItemEvent.SELECTED);
     }
 
     public ListSelection getListener() {
