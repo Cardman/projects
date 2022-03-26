@@ -1992,38 +1992,7 @@ public class FightHelpBean extends CommonBean {
     private void initFormulaElements() {
         DataBase data_ = getDataBase();
         String catchingFormulaCopy_ = data_.getCatchingFormula();
-        StringBuilder str_ = new StringBuilder();
-        int len_ = catchingFormulaCopy_.length();
-        int i_ = 0;
-        while (i_ < len_) {
-            char cur_ = catchingFormulaCopy_.charAt(i_);
-            if (MathExpUtil.isWordChar(cur_)) {
-                boolean dig_ = cur_ >= '0' && cur_ <= '9';
-                int j_ = i_;
-                while (MathExpUtil.isWordChar(cur_)) {
-                    j_++;
-                    cur_ = catchingFormulaCopy_.charAt(j_);
-                }
-                String word_ = catchingFormulaCopy_.substring(i_, j_);
-                if (dig_) {
-                    str_.append(word_);
-                    i_ = j_;
-                    continue;
-                }
-                String next_ = catchingFormulaCopy_.substring(j_).trim();
-                if (!next_.isEmpty() && next_.charAt(0) == CST_LEFT_PAR) {
-                    str_.append(word_);
-                    i_ = j_;
-                    continue;
-                }
-                str_.append(DataBase.VAR_PREFIX);
-                str_.append(word_);
-                i_ = j_;
-                continue;
-            }
-            str_.append(cur_);
-            i_++;
-        }
+        StringBuilder str_ = getStringBuilder(catchingFormulaCopy_);
         catchingFormulaCopy_ = str_.toString();
         catchingFormula = data_.getFormula(catchingFormulaCopy_, getLanguage());
         varCatchingFormula = new NatStringTreeMap<String>();
@@ -2049,6 +2018,42 @@ public class FightHelpBean extends CommonBean {
             lawsRates.put(d.name(), tree_);
         }
         statisticAnim = Statistic.getStatisticsWithBoost();
+    }
+
+    private static StringBuilder getStringBuilder(String _catchingFormula) {
+        StringBuilder str_ = new StringBuilder();
+        int len_ = _catchingFormula.length();
+        int i_ = 0;
+        while (i_ < len_) {
+            char cur_ = _catchingFormula.charAt(i_);
+            if (MathExpUtil.isWordChar(cur_)) {
+                boolean dig_ = cur_ >= '0' && cur_ <= '9';
+                int j_ = i_;
+                while (MathExpUtil.isWordChar(cur_)&&j_+1<len_) {
+                    j_++;
+                    cur_ = _catchingFormula.charAt(j_);
+                }
+                String word_ = _catchingFormula.substring(i_, j_);
+                if (dig_) {
+                    str_.append(word_);
+                    i_ = Math.max(j_,i_+1);
+                    continue;
+                }
+                String next_ = _catchingFormula.substring(j_).trim();
+                if (!next_.isEmpty() && next_.charAt(0) == CST_LEFT_PAR) {
+                    str_.append(word_);
+                    i_ = Math.max(j_,i_+1);
+                    continue;
+                }
+                str_.append(DataBase.VAR_PREFIX);
+                str_.append(word_);
+                i_ = Math.max(j_,i_+1);
+                continue;
+            }
+            str_.append(cur_);
+            i_++;
+        }
+        return str_;
     }
 
     public String getTrStatistic(int _index) {
