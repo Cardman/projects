@@ -14,7 +14,7 @@ private static final String C_P_189_7="{displayName}";
 private static final String C_P_189_8="msg_evoteam,team";
 private static final String C_P_189_9="displayBase";
 private static final String C_P_189_10="{other}";
-private static final String C_P_189_11="$clickStone({index})";
+private static final String C_P_189_11="$clickTeam({index})";
 private PageDataPokemonEvolutionsEvoteam(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
