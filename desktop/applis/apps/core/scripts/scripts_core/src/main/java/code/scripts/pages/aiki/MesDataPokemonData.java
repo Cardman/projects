@@ -25,7 +25,7 @@ private static final String C_P_72_29="The catching rate of {0} is {1}.\n";
 private static final String C_P_72_2="Pokedex\n";
 private static final String C_P_72_30="The possible genders of {0} are the following:<br/>\n";
 private static final String C_P_72_31="{0} evolves by the following way:<br/>\n";
-private static final String C_P_72_32="{0} has for base of evolution <a c:command=\"$clickBase\">{1}</a>.\n";
+private static final String C_P_72_32="{0} has for base of evolution:\n";
 private static final String C_P_72_33="{0} has for courb of full experience from the first level {1}<br/>.\n";
 private static final String C_P_72_34="{0} has for base of experience points by being a wild pokemon: {1}.\n";
 private static final String C_P_72_35="The base values of statistics of {0} and the ev of statistics are the following:<br/>\n";
@@ -75,7 +75,7 @@ private static final String C_P_72_74="Les capacit&eacute;s possibles pour {0} s
 private static final String C_P_72_75="Le taux de capture de {0} est de {1}.\n";
 private static final String C_P_72_76="Les genres possibles de {0} sont les suivants:<br/>\n";
 private static final String C_P_72_77="{0} &eacute;volue de la fa&ccedil;on suivante:<br/>\n";
-private static final String C_P_72_78="{0} a pour base d''&eacute;volution <a c:command=\"$clickBase\">{1}</a>.\n";
+private static final String C_P_72_78="{0} a pour base d''&eacute;volution:\n";
 private static final String C_P_72_79="{0} a pour courbe d''exp&eacute;rience totale depuis le premier niveau {1}<br/>.\n";
 private static final String C_P_72_7="Evolution\n";
 private static final String C_P_72_80="{0} a pour base de points d''exp&eacute;rience en tant que pok&eacute;mon sauvage: {1}.\n";

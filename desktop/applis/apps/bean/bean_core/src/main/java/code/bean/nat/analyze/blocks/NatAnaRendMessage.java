@@ -1,5 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.bean.nat.analyze.NatRenderAnalysis;
@@ -53,7 +54,7 @@ public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRe
         varNames = varNames_;
         for (String v:varNames_) {
             AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(_page.getAliasPrimInteger());
+            lv_.setClassName(BeanNatCommonLgNames.PRIM_INTEGER);
             _page.getInfosVars().addEntry(v,lv_);
             formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
         }

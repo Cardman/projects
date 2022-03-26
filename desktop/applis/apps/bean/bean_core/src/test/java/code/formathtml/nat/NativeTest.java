@@ -872,7 +872,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     private static NatAnalyzedCode page(CustBeanLgNames lgNames_) {
         NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
-        page_.setStandards(lgNames_.getContent());
         page_.setStds(lgNames_);
         RendBlockHelp.setupOverrides(page_.getStds());
         return page_;

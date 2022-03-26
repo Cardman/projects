@@ -88,7 +88,6 @@ import aiki.util.Point;
 import code.bean.Bean;
 import code.bean.nat.LgIntStruct;
 import code.bean.nat.*;
-import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.opers.NatStdFctOperation;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -830,12 +829,12 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     }
 
     @Override
-    public void setBeanForms(Configuration _conf, Struct _mainBean, NatRendImport _node, boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
-        beanForms(_conf, _mainBean, _keepField, _beanName, _ctx, _rendStack);
+    public void setBeanForms(Configuration _conf, Struct _mainBean, String _beanName) {
+        beanForms(_conf, _mainBean, _beanName);
     }
 
     private void beanForms(Configuration _conf, Struct _mainBean,
-                           boolean _keepField, String _beanName, ContextEl _ctx, RendStackCall _rendStack) {
+                           String _beanName) {
         if (_mainBean == null) {
             return;
         }
@@ -843,10 +842,10 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
         if (bean_ == null) {
             return;
         }
-        gearFw(_conf, _mainBean, _keepField, bean_, _ctx, _rendStack);
+        gearFw(_mainBean, bean_);
     }
 
-    protected void gearFw(Configuration _conf, Struct _mainBean, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
+    void gearFw(Struct _mainBean, Struct _bean) {
         StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
         StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
         forms_.putAllMap(formsMap_);

@@ -288,14 +288,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public Forwards setupNative(NatAnalyzedCode _page, DualConfigurationContext _context) {
         Options options_ = _context.getOptions();
         Forwards forwards_ = new Forwards(this, null, options_);
-        _page.setStandards(getContent());
         _page.setStds(this);
         //
 
         //        standards_.addEntry(getCoreNames().OBJECT, std_);
         buildBeans();
         buildOther();
-        _page.setStandards(getContent());
 
         RendBlockHelp.setupOverrides(getStds());
         return forwards_;

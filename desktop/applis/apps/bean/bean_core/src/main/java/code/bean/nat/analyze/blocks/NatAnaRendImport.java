@@ -44,10 +44,6 @@ public final class NatAnaRendImport extends AnaRendParentBlock implements NatRen
         return pageOffset;
     }
 
-    public Element getElt() {
-        return elt;
-    }
-
     public StringList getTexts() {
         return texts;
     }

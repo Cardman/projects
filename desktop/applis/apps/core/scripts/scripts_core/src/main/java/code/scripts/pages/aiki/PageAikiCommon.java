@@ -99,4 +99,7 @@ return _doc0.createElement(_value);
 static void ad(Element _elt,Node _value){
 _elt.appendChild(_value);
 }
+static void br(Element _elt,Document _doc){
+_elt.appendChild(_doc.createElement(BR));
+}
 }

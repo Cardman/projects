@@ -13,8 +13,8 @@ private static final String C_P_183_6="";
 private static final String C_P_183_7="{displayName}";
 private static final String C_P_183_8="msg_evoitem,item";
 private static final String C_P_183_9="displayBase";
-private static final String C_P_183_10="item";
-private static final String C_P_183_11="index";
+private static final String C_P_183_10="{item}";
+private static final String C_P_183_11="$clickItem({index})";
 private PageDataPokemonEvolutionsEvoitem(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -63,17 +63,14 @@ CustList<Attr> attrs2_=al(1);
 attrs2_.add(at(VALUE,C_P_183_9));
 at(elt5_,attrs2_);
 ad(elt4_,elt5_);
-Element elt6_=el(_doc88,PARAM);
-CustList<Attr> attrs3_=al(1);
-attrs3_.add(at(VALUE,C_P_183_10));
-at(elt6_,attrs3_);
-ad(elt4_,elt6_);
-Element elt7_=el(_doc88,PARAM);
-CustList<Attr> attrs4_=al(1);
-attrs4_.add(at(VALUE,C_P_183_11));
-at(elt7_,attrs4_);
-ad(elt4_,elt7_);
 ad(elt3_,elt4_);
+Element elt12a_=el(_doc88,A);
+CustList<Attr> attrs12a_=al(1);
+attrs12a_.add(at(C_COMMAND,C_P_183_11));
+at(elt12a_,attrs12a_);
+Text txt3_=tx(_doc88,C_P_183_10);
+ad(elt12a_,txt3_);
+ad(elt3_,elt12a_);
 ad(elt0_,elt3_);
 ad(_body,elt0_);
 }

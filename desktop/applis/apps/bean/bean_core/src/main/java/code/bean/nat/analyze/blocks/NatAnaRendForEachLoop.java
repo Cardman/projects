@@ -64,7 +64,7 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements N
         if (!importedClassName.isEmpty()) {
             lInfo_.setClassName(importedClassName);
         } else {
-            lInfo_.setClassName(_page.getAliasObject());
+            lInfo_.setClassName(BeanNatCommonLgNames.OBJECT);
         }
         lInfo_.setConstType(ConstType.FIX_VAR);
         lInfo_.setFinalVariable(true);

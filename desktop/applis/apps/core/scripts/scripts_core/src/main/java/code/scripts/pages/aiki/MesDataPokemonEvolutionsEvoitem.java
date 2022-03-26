@@ -1,7 +1,7 @@
 package code.scripts.pages.aiki;
 final class MesDataPokemonEvolutionsEvoitem{
-private static final String C_P_74_0="{0} holds the item <a c:command=\"$clickItem({2})\">{1}</a> by growing a level.\n";
-private static final String C_P_74_1="{0} porte l''objet <a c:command=\"$clickItem({2})\">{1}</a> en montant d''un niveau.\n";
+private static final String C_P_74_0="The following item must be hold by {0}, which has to grow a level:\n";
+private static final String C_P_74_1="L''objet suivant doit &ecirc;tre port&eacute; par {0}, qui doit monter d''un niveau:\n";
 private static final String M_P_74_ITEM="item";
 private static final char SEP='=';
 private MesDataPokemonEvolutionsEvoitem(){}

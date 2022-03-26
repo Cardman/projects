@@ -94,7 +94,7 @@ public final class NatRendForwardInfos {
         if (_current instanceof NatAnaRendImport){
             NatAnaRendImport f_ = (NatAnaRendImport) _current;
             ExecTextPart part_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            return new NatRendImport(f_.getElt(),part_,f_.getPageOffset(), f_.getNatImpLgNames());
+            return new NatRendImport(part_,f_.getPageOffset(), f_.getNatImpLgNames());
         }
         return element(_current);
     }

@@ -12,18 +12,15 @@ import code.formathtml.exec.blocks.*;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.util.BeanLgNames;
-import code.sml.Element;
 import code.util.CustList;
 
 public final class NatRendImport extends RendParentBlock implements RendWithEl {
-    private final Element elt;
 
     private final ExecTextPart textPart;
 
     private final int pageOffset;
     private final AbstractNatImpLgNames natImpLgNames;
-    public NatRendImport(Element _elt, ExecTextPart _textPart, int _pageOffset, AbstractNatImpLgNames _natImpLgNames) {
-        this.elt = _elt;
+    public NatRendImport(ExecTextPart _textPart, int _pageOffset, AbstractNatImpLgNames _natImpLgNames) {
         this.textPart = _textPart;
         this.pageOffset = _pageOffset;
         natImpLgNames = _natImpLgNames;
@@ -44,10 +41,9 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
         RendDocumentBlock val_ = _cont.getRenders().getVal(link_);
         String beanName_ = val_.getBeanName();
         Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
-        boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _rendStack.getMainBean();
-        natImpLgNames.setBeanForms(_cont, mainBean_, this, keepField_,
-                beanName_, _ctx, _rendStack);
+        natImpLgNames.setBeanForms(_cont, mainBean_,
+                beanName_);
         for (RendBlock p: getDirectChildren(this)) {
             for (RendBlock c: getDirectChildren(p)) {
                 if (!(c instanceof NatRendClass)) {

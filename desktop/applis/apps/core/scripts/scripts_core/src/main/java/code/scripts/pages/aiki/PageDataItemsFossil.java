@@ -15,7 +15,8 @@ private static final String C_P_120_8="aiki.beans.items";
 private static final String C_P_120_9="ItemBean";
 private static final String C_P_120_10="$intern.name=name";
 private static final String C_P_120_11="msg_fossil,fossil";
-private static final String C_P_120_12="getTrPokemon()";
+private static final String C_P_120_12_LK="$clickPokemon";
+private static final String C_P_120_12="{getTrPokemon()}";
 private static final String C_P_120_13="level";
 private PageDataItemsFossil(){}
 static Document build(){
@@ -84,17 +85,19 @@ Element elt1_=el(_doc25,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
 attrs0_.add(at(VALUE,C_P_120_11));
 at(elt1_,attrs0_);
-Element elt2_=el(_doc25,PARAM);
-CustList<Attr> attrs1_=al(1);
-attrs1_.add(at(VALUE,C_P_120_12));
-at(elt2_,attrs1_);
-ad(elt1_,elt2_);
 Element elt3_=el(_doc25,PARAM);
 CustList<Attr> attrs2_=al(1);
 attrs2_.add(at(VALUE,C_P_120_13));
 at(elt3_,attrs2_);
 ad(elt1_,elt3_);
 ad(elt0_,elt1_);
+Element elt12a_=el(_doc25,A);
+CustList<Attr> attrs12a_=al(1);
+attrs12a_.add(at(C_COMMAND,C_P_120_12_LK));
+at(elt12a_,attrs12a_);
+Text txt3_=tx(_doc25,C_P_120_12);
+ad(elt12a_,txt3_);
+ad(elt0_,elt12a_);
 ad(_body,elt0_);
 }
 }

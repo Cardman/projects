@@ -1,5 +1,6 @@
 package code.bean.nat.analyze.opers;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 
@@ -12,7 +13,7 @@ public final class UnaryBooleanNatOperation extends AbstractUnaryNatOperation {
 
     @Override
     public void analyzeUnary(NatAnalyzedCode _page) {
-        String booleanPrimType_ = _page.getAliasPrimBoolean();
+        String booleanPrimType_ = BeanNatCommonLgNames.PRIM_BOOLEAN;
         setResultClass(booleanPrimType_);
     }
 
