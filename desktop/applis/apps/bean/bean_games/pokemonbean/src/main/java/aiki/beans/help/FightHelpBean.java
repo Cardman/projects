@@ -2029,9 +2029,9 @@ public class FightHelpBean extends CommonBean {
             if (MathExpUtil.isWordChar(cur_)) {
                 boolean dig_ = cur_ >= '0' && cur_ <= '9';
                 int j_ = i_;
-                while (MathExpUtil.isWordChar(cur_)&&j_+1<len_) {
-                    j_++;
+                while (MathExpUtil.isWordChar(cur_)&&j_<len_) {
                     cur_ = _catchingFormula.charAt(j_);
+                    j_++;
                 }
                 String word_ = _catchingFormula.substring(i_, j_);
                 if (dig_) {
