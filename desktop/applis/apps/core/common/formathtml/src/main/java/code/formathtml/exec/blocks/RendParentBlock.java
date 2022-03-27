@@ -3,11 +3,12 @@ package code.formathtml.exec.blocks;
 import code.formathtml.ImportingPage;
 import code.util.CustList;
 
-public abstract class RendParentBlock extends RendBlock {
+public abstract class RendParentBlock extends RendBlock implements RendParentBlockInt {
 
     private RendBlock firstChild;
     private final CustList<RendAbstractDeclareVariable> decl = new CustList<RendAbstractDeclareVariable>();
 
+    @Override
     public final void appendChild(RendBlock _child) {
         _child.setParent(this);
         if (_child instanceof RendAbstractDeclareVariable) {

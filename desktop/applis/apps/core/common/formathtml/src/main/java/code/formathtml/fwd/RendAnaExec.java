@@ -1,13 +1,13 @@
 package code.formathtml.fwd;
 
 import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.exec.blocks.RendParentBlock;
+import code.formathtml.exec.blocks.RendParentBlockInt;
 
 public final class RendAnaExec {
     private AnaRendBlock read;
-    private RendParentBlock write;
+    private RendParentBlockInt write;
 
-    public RendAnaExec(AnaRendBlock _read, RendParentBlock _write) {
+    public RendAnaExec(AnaRendBlock _read, RendParentBlockInt _write) {
         this.read = _read;
         this.write = _write;
     }
@@ -20,11 +20,11 @@ public final class RendAnaExec {
         this.read = _read;
     }
 
-    public RendParentBlock getWrite() {
+    public RendParentBlockInt getWrite() {
         return write;
     }
 
-    public void setWrite(RendParentBlock _write) {
+    public void setWrite(RendParentBlockInt _write) {
         this.write = _write;
     }
 }

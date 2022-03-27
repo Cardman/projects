@@ -1,16 +1,16 @@
 package code.formathtml;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.blocks.*;
 import code.formathtml.stacks.*;
-import code.formathtml.util.*;
+import code.formathtml.util.NodeContainer;
 import code.util.*;
 
 public final class ImportingPage {
@@ -26,8 +26,6 @@ public final class ImportingPage {
 
     private RendReadWrite rendReadWrite;
 
-    private int tabWidth;
-
     private int offset;
     private int opOffset;
 
@@ -39,16 +37,12 @@ public final class ImportingPage {
         initGlobal(null, null);
     }
 
-
-    public int realIndex(ExecFileBlock _fileBlock) {
-        return _fileBlock.getFileEscapedCalc().realIndex(opOffset + offset);
+    public int getTrace() {
+        return opOffset + offset;
     }
 
-    public ExecFileBlock file() {
-        if (document == null) {
-            return null;
-        }
-        return document.getFileBlock();
+    public RendDocumentBlock getDocument() {
+        return document;
     }
 
     public void doc(RendDocumentBlock _doc) {
@@ -170,14 +164,6 @@ public final class ImportingPage {
             }
         }
         rendBlockStacks.removeQuicklyLast();
-    }
-
-    public int getTabWidth() {
-        return tabWidth;
-    }
-
-    public void setTabWidth(int _tabWidth) {
-        tabWidth = _tabWidth;
     }
 
     public Struct getInternGlobal() {

@@ -5647,9 +5647,8 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         OperationNode op_ = rendOp(0, conf_, opTwo_, doc_);
         CustList<OperationNode> all_ = getSortedDescNodes(conf_, op_, doc_);
         StringMap<AnaRendDocumentBlock> analyzed_ = new StringMap<AnaRendDocumentBlock>();
-        CustList<ExecFileBlock> rendFiles_ = BeanCustLgNames.execFiles(analyzed_);
         generalForward(conf_);
-        RendForwardInfos.buildExec(doc_, rendFiles_, analyzed_, conf_.getDualAnalyzedContext().getForwards(), conf_.getNavigation().getSession());
+        RendForwardInfos.buildExec(doc_, analyzed_, conf_.getDualAnalyzedContext().getForwards(), conf_.getNavigation().getSession());
 //        conf_.getAdvStandards().forwardAndClear(conf_.getOpt(), conf_.getForwards());
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(conf_, all_);
         ContextEl ctx_ = getGenerate(conf_);

@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
@@ -40,8 +39,8 @@ import code.util.core.StringUtil;
 public final class RendForwardInfos {
     private RendForwardInfos() {
     }
-    private static RendDocumentBlock build(ExecFileBlock _fileBlock, AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_fileBlock, _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards));
+    private static RendDocumentBlock build(AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getFileName(),_ana.getEsc(),_ana.getFileBlock().getMetricsCore(), _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards));
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
             RendBlock loc_ = newRendBlock(pair_.getRead(), _forwards);
@@ -81,7 +80,7 @@ public final class RendForwardInfos {
         }
     }
 
-    private static RendParentBlock complete(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlock _curPar, RendBlock _loc) {
+    private static RendParentBlockInt complete(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlockInt _curPar, RendBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof RendStdElement && StringUtil.quickEq(((RendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                 _rendDoc.getBodies().add(_loc);
@@ -89,8 +88,8 @@ public final class RendForwardInfos {
 //            _loc.setEscapedChars(_en.getEscapedChars());
             _curPar.appendChild(_loc);
         }
-        if (_loc instanceof RendParentBlock) {
-            return (RendParentBlock) _loc;
+        if (_loc instanceof RendParentBlockInt) {
+            return (RendParentBlockInt) _loc;
         }
         return _curPar;
     }
@@ -1164,17 +1163,16 @@ public final class RendForwardInfos {
         }
     }
 
-    public static void buildExec(AnalyzingDoc _analyzingDoc, CustList<ExecFileBlock> _rendFiles, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf) {
-        buildExec(_rendFiles,_d, _forwards, _conf, _analyzingDoc);
+    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf) {
+        buildExec(_d, _forwards, _conf, _analyzingDoc);
         initBeansInstances(_analyzingDoc, _forwards);
         initValidatorsInstance(_analyzingDoc, _forwards);
     }
 
-    private static void buildExec(CustList<ExecFileBlock> _rendFiles, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, AnalyzingDoc _anaDoc) {
+    private static void buildExec(StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, AnalyzingDoc _anaDoc) {
         for (EntryCust<String,AnaRendDocumentBlock> v: _d.entryList()) {
             AnaRendDocumentBlock value_ = v.getValue();
-            ExecFileBlock val_ = _rendFiles.get(value_.getNb());
-            RendDocumentBlock rendDoc_ = build(val_, value_, _forwards, _anaDoc);
+            RendDocumentBlock rendDoc_ = build(value_, _forwards, _anaDoc);
             _conf.getRenders().put(v.getKey(), rendDoc_);
         }
         String currentUrl2_ = _conf.getFirstUrl();

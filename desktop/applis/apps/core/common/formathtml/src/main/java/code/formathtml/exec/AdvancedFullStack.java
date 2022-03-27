@@ -2,14 +2,14 @@ package code.formathtml.exec;
 
 import code.expressionlanguage.AbstractFullStack;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.MetaInfoUtil;
+import code.expressionlanguage.exec.RowColumnIndex;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StackTraceElementStruct;
 import code.formathtml.ImportingPage;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 
 public final class AdvancedFullStack implements AbstractFullStack {
     private final ContextEl cont;
@@ -41,18 +41,15 @@ public final class AdvancedFullStack implements AbstractFullStack {
     }
 
     private static StackTraceElementStruct newStackTraceElement(ImportingPage _page, ContextEl _context) {
-        ExecFileBlock file_ = _page.file();
+        RendDocumentBlock file_ = _page.getDocument();
         if (file_ != null) {
-            FileMetrics metrics_ = file_.getMetrics(_page.getTabWidth());
-            int indexFileType_ = _page.realIndex(file_);
-            int row_ = metrics_.getRowFile(indexFileType_);
-            int col_ = metrics_.getColFile(indexFileType_,row_);
+            RowColumnIndex rci_ = RowColumnIndex.calculate(file_, _page.getTrace(), _context.getTabWidth());
             String fileName_ = file_.getFileName();
             String currentClassName_ = _page.getGlobalArgument().getStruct().getClassName(_context);
-            return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,"");
+            return new StackTraceElementStruct(fileName_,rci_,currentClassName_,"");
         }
         String currentClassName_ = _page.getGlobalArgument().getStruct().getClassName(_context);
-        return new StackTraceElementStruct("",0,0,0,currentClassName_,"");
+        return new StackTraceElementStruct("",RowColumnIndex.def(),currentClassName_,"");
     }
 
 }

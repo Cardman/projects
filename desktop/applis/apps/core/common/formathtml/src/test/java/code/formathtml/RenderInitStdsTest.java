@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
@@ -14,6 +15,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.*;
@@ -78,6 +80,7 @@ public final class RenderInitStdsTest extends CommonRender {
         assertNull(RendBlock.getParentNode((Element)null));
         RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
         RendDynOperationNode.getFirstNode(null);
+        new RendDocumentBlock("",null,null,null,"", ExecFormattedRootBlock.defValue()).getParent();
         assertNull(RendDynOperationNode.getParentOrNull(null));
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {

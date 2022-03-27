@@ -60,11 +60,11 @@ public abstract class AnaRendBlock {
         offset = _offset;
     }
 
-    public static AnaRendDocumentBlock newRendDocumentBlock(int _nb,String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, AnalyzingDoc _anaDoc) {
+    public static AnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, AnalyzingDoc _anaDoc) {
         RendKeyWords rend_ = _anaDoc.getRendKeyWords();
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(_nb,documentElement_,_docText,0, _currentUrl,_anaDoc.getEncoded());
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl,_anaDoc.getEncoded());
         int indexGlobal_ = indexOfBeginNode(curNode_, _docText, 0);
         AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, rend_);
         out_.appendChild(curWrite_);

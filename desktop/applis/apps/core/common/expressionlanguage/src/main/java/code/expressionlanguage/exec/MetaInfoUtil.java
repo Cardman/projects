@@ -2,7 +2,6 @@ package code.expressionlanguage.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.*;
@@ -46,32 +45,25 @@ public final class MetaInfoUtil {
 
     public static StackTraceElementStruct newStackTraceElement(ContextEl _cont, int _index, StackCall _stackCall) {
         AbstractPageEl call_ = _stackCall.getCall(_index);
-        int indexFileType_;
         ExecFileBlock f_ = call_.getFile();
+        RowColumnIndex rci_;
         String fileName_;
-        int row_;
-        int col_;
         if (f_ != null) {
             fileName_ = f_.getFileName();
             int trace_ = call_.getTraceIndex();
-            indexFileType_ = f_.getFileEscapedCalc().realIndex(trace_);
-            FileMetrics metrics_ = f_.getMetrics(_cont.getTabWidth());
-            row_ = metrics_.getRowFile(indexFileType_);
-            col_ = metrics_.getColFile(indexFileType_,row_);
+            rci_ = RowColumnIndex.calculate(f_, trace_, _cont.getTabWidth());
         } else {
             fileName_ = "";
-            indexFileType_ = 0;
-            row_ = 0;
-            col_ = 0;
+            rci_ = RowColumnIndex.def();
         }
         String currentClassName_ = call_.getGlobalClass().getFormatted();
         ExecBlock bl_ = call_.getBlockRoot();
         if (bl_ instanceof ExecReturnableWithSignature) {
             String signature_ =((ExecReturnableWithSignature)bl_).getSignature(_cont);
-            return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,signature_);
+            return new StackTraceElementStruct(fileName_,rci_,currentClassName_,signature_);
         }
         String signature_ = "";
-        return new StackTraceElementStruct(fileName_,row_,col_,indexFileType_,currentClassName_,signature_);
+        return new StackTraceElementStruct(fileName_,rci_,currentClassName_,signature_);
     }
 
     public static boolean hasToExit(ContextEl _cont, GeneType _className, Argument _arg, StackCall _stackCall) {

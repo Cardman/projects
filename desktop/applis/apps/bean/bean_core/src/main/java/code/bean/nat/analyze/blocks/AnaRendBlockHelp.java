@@ -99,7 +99,7 @@ public final class AnaRendBlockHelp {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(0,documentElement_,_docText,0, _currentUrl, new CustList<EncodedChar>());
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl, new CustList<EncodedChar>());
         AnaRendBlock curWriteNat_ = newRendBlockEsc(indexGlobal_, _prefix, curNode_,_docText, _rendKeyWords, _caller, _builder);
         out_.appendChild(curWriteNat_);
         while (curWriteNat_ != null) {

@@ -434,9 +434,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (!page_.isEmptyErrors()) {
             return null;
         }
-        CustList<ExecFileBlock> rendFiles_ = execFiles(d_);
         ForwardInfos.generalForward(page_, forwards_);
-        RendForwardInfos.buildExec(analyzingDoc_, rendFiles_, d_, forwards_, session_);
+        RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, session_);
         rendExecutingBlocks.getRenders().addAllEntries(session_.getRenders());
         Options options_ = forwards_.getOptions();
         ContextEl context_ = forwardAndClear(forwards_);
@@ -444,17 +443,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return context_;
     }
 
-    public static CustList<ExecFileBlock> execFiles(StringMap<AnaRendDocumentBlock> _analyzed){
-        CustList<ExecFileBlock> exec_ = new CustList<ExecFileBlock>();
-        for (EntryCust<String, AnaRendDocumentBlock> e: _analyzed.entryList()) {
-            AnaRendDocumentBlock value_ = e.getValue();
-            FileBlock fileBlock_ = value_.getFileBlock();
-            FileMetricsCore metricsCore_ = fileBlock_.getMetricsCore();
-            String key_ = e.getKey();
-            exec_.add(new ExecFileBlock(metricsCore_,key_, fileBlock_.getFileEscapedCalc()));
-        }
-        return exec_;
-    }
     public ContextEl forwardAndClear(Forwards _forward) {
         ContextEl ctx_ = _forward.generate();
         Classes.forwardAndClear(ctx_);

@@ -57,7 +57,6 @@ public abstract class RendBlock {
         _rendStackCall.getStackCall().setFullStack(new AdvancedFullStack(_ctx, _rendStackCall));
         ImportingPage ip_ = new ImportingPage();
         int tabWidth_ = _conf.getTabWidth();
-        ip_.setTabWidth(tabWidth_);
 //        ip_.setReadUrl(_currentUrl);
         ip_.setBeanName(_beanName);
         ip_.doc(_rend);
@@ -69,7 +68,7 @@ public abstract class RendBlock {
         appendChild(doc_, (Element)null, _rend.getElt());
         RendReadWrite rw_ = new RendReadWrite();
         rw_.setConf(_rendStackCall.getFormParts());
-        rw_.setRead(_rend.getFirstChild());
+        rw_.setRead(_rend.getDocElt());
         rw_.setDocument(doc_);
         ip_.setRendReadWrite(rw_);
         while (true) {

@@ -29,7 +29,7 @@ public final class FctDocumentAll implements StdCaller {
         int size_ = renders_.size();
         ArrayStruct arr_ = new ArrayStruct(size_, StringExpUtil.getPrettyArrayType(aliasDoc));
         for (int i = 0; i < size_; i++) {
-            arr_.set(i,  new DocumentStruct(aliasDoc,renders_.getValue(i).getFileBlock().getFileName(),renders_.getValue(i).getDecl()));
+            arr_.set(i,  new DocumentStruct(aliasDoc,renders_.getValue(i).getFileName(),renders_.getValue(i).getDecl()));
         }
         return new ArgumentWrapper(arr_);
     }

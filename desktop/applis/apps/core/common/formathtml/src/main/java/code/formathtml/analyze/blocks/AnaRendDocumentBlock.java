@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.common.AbstractFileEscapedCalc;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -21,30 +22,26 @@ import code.util.core.StringUtil;
 
 public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock,WithContext {
 
-    private final int nb;
     private final Element elt;
 
     private final String file;
     private final String fileName;
+    private final AbstractFileEscapedCalc esc;
     private final FileBlock fileBlock;
     private String beanName;
     private StringList imports = new StringList();
     private final IntTreeMap<Integer> escapedChar;
     private MethodAccessKind accessKind;
     private AnaFormattedRootBlock declClass = AnaFormattedRootBlock.defValue();
-    public AnaRendDocumentBlock(int _n, Element _elt, String _file, int _offset, String _fileName, CustList<EncodedChar> _chars) {
+    public AnaRendDocumentBlock(Element _elt, String _file, int _offset, String _fileName, CustList<EncodedChar> _chars) {
         super(_offset);
-        this.nb = _n;
         IntTreeMap<Integer> escaped_ = getIndexesSpecChars(_file, _chars);
-        fileBlock = new FileBlock(_offset, false, _fileName, new AdvFileEscapedCalc(escaped_));
+        esc = new AdvFileEscapedCalc(escaped_);
+        fileBlock = new FileBlock(_offset, false, _fileName, esc);
         elt = _elt;
         file = _file;
         fileName = _fileName;
         escapedChar = escaped_;
-    }
-
-    public int getNb() {
-        return nb;
     }
 
     public IntTreeMap<Integer> getEscapedChar() {
@@ -187,6 +184,14 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
                 }
             }
         }
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public AbstractFileEscapedCalc getEsc() {
+        return esc;
     }
 
     public AnaFormattedRootBlock getDeclClass() {

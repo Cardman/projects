@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.RowColumnIndex;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -14,6 +15,9 @@ public final class StackTraceElementStruct extends WithoutParentStruct implement
     private final String currentClassName;
     private final String signature;
 
+    public StackTraceElementStruct(String _fileName, RowColumnIndex _rci, String _currentClassName, String _signature) {
+        this(_fileName,_rci.getRow(),_rci.getColumn(),_rci.getIndex(),_currentClassName,_signature);
+    }
     public StackTraceElementStruct(String _fileName, int _row, int _col, int _indexFileType, String _currentClassName, String _signature) {
         fileName = _fileName;
         row = _row;

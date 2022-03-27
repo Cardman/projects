@@ -91,7 +91,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        ImportingPage newIp_ = newImportingPage(_cont, _rendStack, ip_, val_, beanName_);
+        ImportingPage newIp_ = newImportingPage(_rendStack, ip_, val_, beanName_);
         if (newBean_ != null) {
             newIp_.setGlobalArgumentStruct(newBean_,_ctx);
         }
@@ -111,9 +111,8 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         }
     }
 
-    public static ImportingPage newImportingPage(Configuration _cont, RendStackCall _rendStack, ImportingPage _ip, RendDocumentBlock _val, String _beanName) {
+    public static ImportingPage newImportingPage(RendStackCall _rendStack, ImportingPage _ip, RendDocumentBlock _val, String _beanName) {
         ImportingPage newIp_ = new ImportingPage();
-        newIp_.setTabWidth(_cont.getTabWidth());
         newIp_.setOffset(0);
         newIp_.doc(_val);
 //        newIp_.setReadUrl(_link);

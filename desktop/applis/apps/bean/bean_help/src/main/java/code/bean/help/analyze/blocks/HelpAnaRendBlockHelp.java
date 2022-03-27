@@ -21,7 +21,7 @@ public final class HelpAnaRendBlockHelp {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(0,documentElement_,_docText,0, _currentUrl, new CustList<EncodedChar>());
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl, new CustList<EncodedChar>());
         AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_, _prefix, curNode_, _rendKeyWords);
         out_.appendChild(curWrite_);
         while (curWrite_ != null) {
