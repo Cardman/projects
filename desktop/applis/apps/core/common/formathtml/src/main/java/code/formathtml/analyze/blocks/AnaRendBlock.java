@@ -4,9 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.opers.MethodOperation;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.VariableOperationUse;
+import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -592,40 +590,36 @@ public abstract class AnaRendBlock {
         return varLoc_;
     }
     public static void checkVars(int _off,StringList _varNames, OperationNode _root, AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
-        OperationNode op_ = _root;
-        while (op_ != null) {
-            if (op_ instanceof VariableOperationUse) {
-                VariableOperationUse u_ = (VariableOperationUse) op_;
-                if (!StringUtil.contains(_varNames,u_.getRealVariableName())) {
+        if (!(_root instanceof AbstractCallFctOperation)) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFile(_page.getCurrentFile());
+            badEl_.setIndexFile(_off);
+            badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
+                    "");
+            AnalyzingDoc.addError(badEl_, _page);
+        } else {
+            InvokingOperation inv_ = (InvokingOperation) _root;
+            for (OperationNode o: inv_.getChildrenNodes()) {
+                if (!(o instanceof IdOperation)||!((IdOperation)o).isStandard()||!(o.getFirstChild() instanceof VariableOperationUse)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(_off+u_.getFullIndexInEl());
+                    badEl_.setIndexFile(_off);
                     badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
-                            u_.getRealVariableName());
+                            "");
                     AnalyzingDoc.addError(badEl_, _page);
+                } else {
+                    VariableOperationUse u_ = (VariableOperationUse) o.getFirstChild();
+                    if (!StringUtil.contains(_varNames,u_.getRealVariableName())) {
+                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                        badEl_.setFile(_page.getCurrentFile());
+                        badEl_.setIndexFile(_off);
+                        badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
+                                "");
+                        AnalyzingDoc.addError(badEl_, _page);
+                    }
                 }
             }
-            OperationNode firstChild_ = op_.getFirstChild();
-            if (firstChild_ != null) {
-                op_ = firstChild_;
-                continue;
-            }
-            while (op_ != null) {
-                OperationNode nextSibling_ = op_.getNextSibling();
-                if (nextSibling_ != null) {
-                    op_ = nextSibling_;
-                    break;
-                }
-                MethodOperation parent_ = op_.getParent();
-                op_ = goUp(parent_, _root);
-            }
         }
-    }
-    private static OperationNode goUp(OperationNode _parent, OperationNode _root) {
-        if (_parent == _root) {
-            return null;
-        }
-        return _parent;
     }
 
     public static CustList<AnaRendBlock> getDirectChildren(AnaRendBlock _block) {
