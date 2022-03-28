@@ -15,28 +15,29 @@ import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.util.DualConfigurationContext;
 import code.sml.Document;
 import code.util.EntryCust;
 import code.util.StringMap;
 
 public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
     private final NatAnalyzedCode natCode = NatAnalyzedCode.setInnerAnalyzing();
-    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, AbstractNatBlockBuilder _builder, DualConfigurationContext _context) {
+    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, AbstractNatBlockBuilder _builder, NatDualConfigurationContext _context) {
+        setNavigation(_context.getNavigation());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         StringMap<BeanInfo> beansInfos_ = new StringMap<BeanInfo>();
         initInstancesPattern(_nav.getSession(), beansInfos_);
         _conf.getBeansInfos().addAllEntries(beansInfos_);
         preInitBeans(_nav.getSession());
-        analyzingDoc_.setRendAnalysisMessages(_context.getAnalysisMessages());
+        analyzingDoc_.setRendAnalysisMessages(new RendAnalysisMessages());
         analyzingDoc_.setLanguages(_nav.getLanguages());
         _nav.getSession().setCurrentLanguage(_nav.getLanguage());
 
         _nav.getSession().getRenders().clear();
         _nav.getSession().setFiles(_nav.getFiles());
-        analyzingDoc_.setup(_nav.getSession(), _context);
+        analyzingDoc_.setup(_nav.getSession(), _context.getProperties(), _context.getMessagesFolder());
 
 
         natCode.setStds(this);

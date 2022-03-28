@@ -2,8 +2,8 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.ResultText;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;

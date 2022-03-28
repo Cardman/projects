@@ -2,14 +2,13 @@ package cards.gui.animations;
 
 import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NativeConfigurationLoader;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.formathtml.util.DualConfigurationContext;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
@@ -39,9 +38,9 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         navigation.setLanguages(Constants.getAvailableLanguages());
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, _init);
         Configuration session_ = new Configuration();
-        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(beanNatLgNames.getContent()));
-        Forwards forwards_ = nat_.getForwards(d_);
-        session_.init(d_);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        Forwards forwards_ = nat_.getForwards();
+        d_.init(session_);
         navigation.setSession(session_);
         StringMap<String> files_ = new StringMap<String>();
         for (String a : d_.getAddedFiles()) {

@@ -5,7 +5,6 @@ import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -2159,7 +2158,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
     private static RendStackCall processElLow(String _el, DualNavigationContext _cont, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc analyzingDoc) {
 //        String gl_ = _cont.getArgument().getStruct().getClassName(_cont.getContext());
 //        _cont.getAnalyzing().setGlobalType(new AnaFormattedRootBlock(_cont.getAnalyzing(),gl_));
-        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext());
+        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext().getProperties(), _cont.getDualAnalyzedContext().getContext().getMessagesFolder());
         setupAnalyzing(_cont, analyzingDoc, _localVariables, _vars);
 //        Argument argGl_ = _cont.getArgument();
         boolean static_ = true;

@@ -2,6 +2,7 @@ package code.bean.help;
 
 import code.bean.help.analyze.blocks.HelpAnaRendBlockHelp;
 import code.bean.help.fwd.HelpRendForwardInfos;
+import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -16,7 +17,6 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.util.DualConfigurationContext;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringMap;
@@ -27,7 +27,7 @@ public final class HelpCaller {
 
     }
 
-    public static Document text(DualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
+    public static Document text(NatDualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
         HelpContextEl ctx_ = new HelpContextEl();
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         StringMap<String> files_ = new StringMap<String>();
@@ -54,7 +54,7 @@ public final class HelpCaller {
 
         _navigation.getSession().getRenders().clear();
         _navigation.getSession().setFiles(_navigation.getFiles());
-        analyzingDoc_.setup(_navigation.getSession(), _contextConf);
+        analyzingDoc_.setup(_navigation.getSession(), _contextConf.getProperties(), _contextConf.getMessagesFolder());
         String file_ = _uniq.export();
         AnaRendDocumentBlock anaDoc_ = HelpAnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), _uniq, file_, _realFilePath, analyzingDoc_.getRendKeyWords());
         buildFctInstructions(anaDoc_,analyzingDoc_, page_);

@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.functionid.MethodId;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.util.StringMap;
@@ -321,7 +320,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
         boolean accept_ = page_.isAcceptCommaInstr();
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
-        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext());
+        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext().getProperties(), _cont.getDualAnalyzedContext().getContext().getMessagesFolder());
         AnalyzingDoc.setupInts(page_, analyzingDoc);
         page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
         AnaLocalVariable a_ = new AnaLocalVariable();
@@ -342,7 +341,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
         boolean accept_ = page_.isAcceptCommaInstr();
         String currentVarSetting_ = page_.getCurrentVarSetting();
         String globalClass_ = page_.getGlobalClass();
-        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext());
+        analyzingDoc.setup(_cont.getNavigation().getSession(), _cont.getDualAnalyzedContext().getContext().getProperties(), _cont.getDualAnalyzedContext().getContext().getMessagesFolder());
         AnalyzingDoc.setupInts(page_, analyzingDoc);
         page_.setGlobalType(new AnaFormattedRootBlock(page_,globalClass_));
         page_.setAcceptCommaInstr(accept_);

@@ -18,6 +18,7 @@ import code.util.core.StringUtil;
 public final class AnaRendForm extends AnaRendElement {
     private CustList<OperationNode> roots;
     private OperationNode root;
+    private String sgn = "";
     private final ResultExpression resultExpression = new ResultExpression();
 
 
@@ -30,6 +31,7 @@ public final class AnaRendForm extends AnaRendElement {
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()));
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrAction());
         roots = new CustList<OperationNode>();
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
@@ -73,7 +75,8 @@ public final class AnaRendForm extends AnaRendElement {
             String pref_ = r_.quickRender(lk_, formArg_);
             _page.zeroOffset();
             root = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page,resultExpression);
-            AnaRendBlock.checkVars(rowsGrId_,varNames_,root,_page,_anaDoc);
+            sgn = AnaRendBlock.checkVars(rowsGrId_,varNames_,root,_page,_anaDoc);
+            _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),sgn);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

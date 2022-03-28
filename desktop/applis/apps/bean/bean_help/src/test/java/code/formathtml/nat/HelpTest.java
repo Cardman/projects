@@ -1,6 +1,7 @@
 package code.formathtml.nat;
 
 import code.bean.help.HelpCaller;
+import code.bean.nat.NatDualConfigurationContext;
 import code.formathtml.Configuration;
 import code.formathtml.EquallableBeanHelpUtil;
 import code.formathtml.Navigation;
@@ -140,7 +141,7 @@ public final class HelpTest extends EquallableBeanHelpUtil {
         navigation_.setSession(session_);
         navigation_.setLanguage("en");
         navigation_.setLanguages(new StringList("en"));
-        DualConfigurationContext contextConf_ = new DualConfigurationContext();
+        NatDualConfigurationContext contextConf_ = new NatDualConfigurationContext();
         contextConf_.setMessagesFolder(_messagesFolder);
         contextConf_.setProperties(_properties);
         contextConf_.setAddedFiles(_add);

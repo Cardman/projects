@@ -32,7 +32,7 @@ public final class RenderFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click()\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -62,7 +62,7 @@ public final class RenderFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click($int)\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process3Test() {
@@ -152,7 +152,7 @@ public final class RenderFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" n-f=\"0\"/><form action=\"\" c:command=\"$bean_one\" n-f=\"1\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click()\" n-f=\"0\"/><form action=\"\" c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click2()\" n-f=\"1\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {

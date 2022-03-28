@@ -127,20 +127,30 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private String vlidateVarArgNameField;
     private final RendExecutingBlocks rendExecutingBlocks = new RendExecutingBlocks();
 
+    private StringMap<StringMap<StringMap<String>>> navigation = new StringMap<StringMap<StringMap<String>>>();
+
     protected BeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
     }
 
-    public String getRendUrlDest(String _method, Struct _return, ContextEl _context, RendStackCall _stackCall, StringMap<StringMap<String>> navigation_) {
-        StringMap<String> cases_ = navigation_.getVal(_method);
-        if (cases_ == null) {
-            return null;
-        }
+    public String getRendUrlDest(String _bean, String _method, Struct _return, ContextEl _context, RendStackCall _stackCall) {
         String case_ = processString(new Argument(_return), _context, _stackCall);
         if (_context.callsOrException(_stackCall.getStackCall())) {
             return null;
         }
-        return cases_.getVal(case_);
+        return select(_bean, _method, case_, navigation);
+    }
+
+    public static String select(String _bean, String _method, String _ca, StringMap<StringMap<StringMap<String>>> _navigation) {
+        StringMap<StringMap<String>> casesList_ = _navigation.getVal(_bean);
+        if (casesList_ == null) {
+            return null;
+        }
+        StringMap<String> val_ = casesList_.getVal(_method);
+        if (val_ == null) {
+            return null;
+        }
+        return val_.getVal(_ca);
     }
 
     @Override
@@ -425,6 +435,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public ContextEl setupAll(DualNavigationContext _dual) {
         Navigation nav_ = _dual.getNavigation();
         Configuration session_ = nav_.getSession();
+        navigation = session_.getNavigation();
         StringMap<String> files_ = nav_.getFiles();
         StringList languages_ = nav_.getLanguages();
         String language_ = nav_.getLanguage();
@@ -573,7 +584,8 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return "";
         }
         String actionCommand_ = _ancElt.getAttribute(StringUtil.concat(_configuration.getPrefix(),_configuration.getRendKeyWords().getAttrCommand()));
-        if (actionCommand_.contains(CALL_METHOD)) {
+        String sgn_ = _ancElt.getAttribute(StringUtil.concat(_configuration.getPrefix(),_configuration.getRendKeyWords().getAttrSgn()));
+        if (!sgn_.isEmpty()) {
             _rendStack.clearPages();
             ImportingPage ip_ = new ImportingPage();
             _rendStack.addPage(ip_);
@@ -590,7 +602,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             String urlDest_ = getCurrentUrl();
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(actionCommand_.length());
-                urlDest_ = getRendUrlDest(beanName_, return_, _ctx, _rendStack, _configuration.getNavigation());
+                urlDest_ = getRendUrlDest(beanName_,sgn_, return_, _ctx, _rendStack);
                 if (_ctx.callsOrException(_rendStack.getStackCall())) {
                     return "";
                 }

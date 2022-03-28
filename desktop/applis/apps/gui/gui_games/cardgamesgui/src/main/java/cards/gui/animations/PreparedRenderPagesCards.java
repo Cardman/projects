@@ -1,6 +1,7 @@
 package cards.gui.animations;
 
 import code.bean.help.HelpCaller;
+import code.bean.nat.NatDualConfigurationContext;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.render.MetaDocument;
@@ -22,8 +23,8 @@ public final class PreparedRenderPagesCards {
     private final String lg;
     private Navigation navigation;
 
-    private final DualConfigurationContext contextConf;
-    public PreparedRenderPagesCards(StringMap<Document> _built, StringMap<String> _ms, Configuration _session, DualConfigurationContext _contextConf, String _firstUrl) {
+    private final NatDualConfigurationContext contextConf;
+    public PreparedRenderPagesCards(StringMap<Document> _built, StringMap<String> _ms, Configuration _session, NatDualConfigurationContext _contextConf, String _firstUrl) {
         lg = "";
         built = _built;
         ms = _ms;
@@ -42,7 +43,7 @@ public final class PreparedRenderPagesCards {
         metaDocument = MetaDocument.newInstance(rendStackCall_, getNavigation().getSession().getRendKeyWords());
     }
 
-    private Document textSt(DualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms) {
+    private Document textSt(NatDualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms) {
         return HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, lg);
     }
 

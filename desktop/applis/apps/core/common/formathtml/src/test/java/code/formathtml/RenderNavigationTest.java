@@ -275,9 +275,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -294,7 +293,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -334,9 +333,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -353,13 +351,13 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
         processRendAnchorRequest2(a_,ctx_);
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>",a_.getNavigation().getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>",a_.getNavigation().getHtmlText());
     }
     @Test
     public void anchor1Test() {
@@ -388,9 +386,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -407,7 +404,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -445,9 +442,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -464,7 +460,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -501,9 +497,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click()",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -520,7 +515,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -528,7 +523,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
     }
     @Test
     public void anchor4Test() {
@@ -557,9 +552,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click2()",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click2()").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click2()").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -576,7 +570,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -584,7 +578,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
     }
 
     @Test
@@ -614,9 +608,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.click()",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one.click()").addEntry("val2", "page4.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page4.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -633,7 +626,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -641,7 +634,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
     }
     @Test
     public void anchor6Test() {
@@ -675,9 +668,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -695,7 +687,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -732,9 +724,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val1", "page2.html#sampleName");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html#sampleName","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -751,7 +742,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -791,9 +782,8 @@ public final class RenderNavigationTest extends CommonRender {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(folder_, relative_, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val1", "page2.html");
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one").addEntry("val2", "page3.html");
+        initNav(a_.getNavigation().getSession().getNavigation());
+        lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int,$int)","val1", "page2.html","val2", "page3.html");
         Navigation nav_1 = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
@@ -810,7 +800,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int,$int)\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -869,7 +859,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -941,7 +931,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -964,7 +954,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
     }
@@ -1025,7 +1015,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1051,7 +1041,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select multiple=\"multiple\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(1, ((NumberStruct)getStruct(choice_,new ClassField("pkg.CustList","length"))).intStruct());
         array_ = getStruct(choice_,new ClassField("pkg.CustList", "list"));
@@ -1102,7 +1092,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1133,7 +1123,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
@@ -1184,7 +1174,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1215,7 +1205,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(-1, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
@@ -1269,7 +1259,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1300,7 +1290,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
@@ -1356,7 +1346,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1379,7 +1369,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
     }
@@ -1432,7 +1422,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1454,7 +1444,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertSame(NullStruct.NULL_VALUE,choice_);
     }
@@ -1505,7 +1495,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1583,7 +1573,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1650,7 +1640,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">2</textarea></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">2</textarea></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1673,7 +1663,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">1</textarea></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><textarea n-i=\"0\" name=\"bean_one.choice\">1</textarea></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(1, ((NumberStruct) choice_).intStruct());
     }
@@ -1731,7 +1721,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1754,7 +1744,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
     }
@@ -1813,7 +1803,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1836,7 +1826,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -1895,7 +1885,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -1918,7 +1908,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\">Description one</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\">Description one</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -1986,7 +1976,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2009,7 +1999,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\">desc an arg</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,three\">desc an arg</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -2068,7 +2058,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">TWO</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">TWO</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2091,7 +2081,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">ONE</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><textarea id=\"myId\" c:validator=\"valRef\" n-i=\"0\" name=\"bean_one.choice\">ONE</textarea><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -2151,7 +2141,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2180,7 +2170,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
@@ -2242,7 +2232,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2271,7 +2261,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"1\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
@@ -2326,7 +2316,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2351,7 +2341,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input c:validator=\"valRef\" c:groupId=\"myId\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
@@ -2415,7 +2405,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"text\" name=\"bean_one.textField\" n-i=\"1\" value=\"text\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"2\" checked=\"checked\"/><textarea n-i=\"3\" name=\"bean_one.textArea\">text</textarea><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><input type=\"text\" name=\"bean_one.textField\" n-i=\"1\" value=\"text\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"2\" checked=\"checked\"/><textarea n-i=\"3\" name=\"bean_one.textArea\">text</textarea><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2456,7 +2446,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"text\" name=\"bean_one.textField\" n-i=\"1\" value=\"tf\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"2\" checked=\"checked\"/><textarea n-i=\"3\" name=\"bean_one.textArea\">ta</textarea><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"ONE\"/><input type=\"text\" name=\"bean_one.textField\" n-i=\"1\" value=\"tf\"/><input type=\"checkbox\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceBool\" n-i=\"2\" checked=\"checked\"/><textarea n-i=\"3\" name=\"bean_one.textArea\">ta</textarea><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceBool"));
@@ -2518,7 +2508,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2541,7 +2531,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"text\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"TWO\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -2600,7 +2590,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">NOT DELETE</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">NOT DELETE</span></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2623,7 +2613,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -2682,7 +2672,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"> </span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"> </span></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2705,7 +2695,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -2764,7 +2754,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2787,7 +2777,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span>NOT DELETE</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -2903,7 +2893,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -2934,7 +2924,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" c:validator=\"valRef\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\">Description two</span></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
@@ -2997,7 +2987,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -3028,7 +3018,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
@@ -3360,7 +3350,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -3391,7 +3381,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
@@ -3441,7 +3431,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate($int,$int)\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -3472,7 +3462,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate($int,$int)\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"2\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"4\"/><input type=\"radio\" name=\"bean_one.indexTwo\" n-i=\"1\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(14, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
@@ -3514,7 +3504,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -3537,7 +3527,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).doubleStruct());
 
@@ -3577,7 +3567,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -3600,7 +3590,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
 
@@ -3640,7 +3630,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -3663,7 +3653,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
 
@@ -3741,7 +3731,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -3764,7 +3754,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6, ((NumberStruct) choice_).doubleStruct());
 
@@ -4004,7 +3994,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -4026,7 +4016,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
 
@@ -4066,7 +4056,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -4089,7 +4079,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input c:className=\"$char\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq('6', ((CharStruct) choice_).getChar());
 
@@ -4128,7 +4118,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -4151,7 +4141,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\"/><input type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
 
@@ -4217,7 +4207,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -4248,7 +4238,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
@@ -4423,7 +4413,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"2\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"4\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
@@ -4454,7 +4444,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" id=\"myId\" name=\"bean_one.choice\" n-i=\"0\" value=\"6\"/><input type=\"range\" id=\"myId2\" name=\"bean_one.choiceSec\" n-i=\"1\" value=\"8\"/><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/><span c:for=\"myId2\" c:valueMessage=\"msg_example,two\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
@@ -4783,7 +4773,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></form><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -4806,7 +4796,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select id=\"myId\" c:validator=\"valRef\" name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select><span c:for=\"myId\" c:valueMessage=\"msg_example,one\">Description one</span></form><span c:for=\"myId\" c:valueMessage=\"msg_example,one\"/></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
     }
@@ -4871,7 +4861,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -4949,7 +4939,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.numbers[0]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.numbers[0]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -4972,7 +4962,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.numbers[0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.numbers[0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(9, ((NumberStruct) choice_).longStruct());
     }
@@ -5036,7 +5026,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5059,7 +5049,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(9, ((NumberStruct) choice_).longStruct());
     }
@@ -5123,7 +5113,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[1,-1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[1,-1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5146,7 +5136,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[1,-1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[1,-1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(9, ((NumberStruct) choice_).longStruct());
     }
@@ -5210,7 +5200,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5233,7 +5223,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(9, ((NumberStruct) choice_).longStruct());
     }
@@ -5297,7 +5287,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:-1,i:1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:-1,i:1]\" n-i=\"0\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5320,7 +5310,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:-1,i:1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:-1,i:1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(9, ((NumberStruct) choice_).longStruct());
     }
@@ -5384,7 +5374,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:1,i:-1]\" n-i=\"1\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"2\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:1,i:-1]\" n-i=\"1\" value=\"2\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5407,7 +5397,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:1,i:-1]\" n-i=\"1\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[i:1,j:-1]\" n-i=\"0\" value=\"9\"/><input type=\"number\" c:validator=\"valRef\" name=\"bean_one.$this[j:1,i:-1]\" n-i=\"1\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(9, ((NumberStruct) choice_).longStruct());
     }
@@ -5456,7 +5446,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:0,j:1]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:0,j:1]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5480,7 +5470,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:0,j:1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i:0,j:1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(9, ((NumberStruct) choice_).longStruct());
@@ -5530,7 +5520,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[j:1,i:0]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[j:1,i:0]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5554,7 +5544,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[j:1,i:0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[j:1,i:0]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(9, ((NumberStruct) choice_).longStruct());
@@ -5604,7 +5594,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),$that(j)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),$that(j)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5628,7 +5618,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),$that(j)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),$that(j)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(9, ((NumberStruct) choice_).longStruct());
@@ -5678,7 +5668,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),j]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),j]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5702,7 +5692,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),j]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$that(i),j]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(9, ((NumberStruct) choice_).longStruct());
@@ -5752,7 +5742,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i,$that(j)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i,$that(j)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5776,7 +5766,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i,$that(j)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[i,$that(j)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(9, ((NumberStruct) choice_).longStruct());
@@ -5826,7 +5816,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0,1]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0,1]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5850,7 +5840,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0,1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[0,1]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(9, ((NumberStruct) choice_).longStruct());
@@ -5900,7 +5890,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$id(pkg.BeanOne,$int...)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$id(pkg.BeanOne,$int...)]\" n-i=\"0\" value=\"4\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5924,7 +5914,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$id(pkg.BeanOne,$int...)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input type=\"number\" c:validator=\"valRef\" id=\"myId\" name=\"bean_one.$this[$id(pkg.BeanOne,$int...)]\" n-i=\"0\" value=\"9\"/></form></body></html>", nav_.getHtmlText());
         choice_ = ((ArrayStruct) getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(9, ((NumberStruct) choice_).longStruct());
@@ -5963,7 +5953,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -5986,7 +5976,7 @@ public final class RenderNavigationTest extends CommonRender {
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\" checked=\"checked\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(nav_.getSession().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(6.0, ((DoubleStruct) choice_).doubleStruct());
 
@@ -6026,7 +6016,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2.0\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4.0\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6.0\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -6084,7 +6074,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><form c:command=\"$bean_one\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate($long)\" action=\"\" n-f=\"0\"><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"2\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"4\" checked=\"checked\"/><input c:className=\"$double\" type=\"radio\" name=\"bean_one.index\" n-i=\"0\" value=\"6\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
@@ -6209,6 +6199,16 @@ public final class RenderNavigationTest extends CommonRender {
         assertTrue(initSessionFail(locale_, folder_, relative_, files_, new StringMap<String>(), "page", "pkg.BeanOne"));
     }
 
+    private static void initNav(StringMap<StringMap<StringMap<String>>> _nav) {
+        StringMap<StringMap<String>> sub_ = new StringMap<StringMap<String>>();
+        _nav.addEntry("bean_one", sub_);
+    }
+    private static void lg(StringMap<StringMap<StringMap<String>>> _nav, String _d, String _key1, String _value1, String _key2, String _value2) {
+        StringMap<String> v_ = new StringMap<String>();
+        v_.addEntry(_key1,_value1);
+        v_.addEntry(_key2,_value2);
+        _nav.getVal("bean_one").addEntry(_d, v_);
+    }
     protected static Struct getException(RendStackCall _cont) {
         CallingState str_ = _cont.getStackCall().getCallingState();
         return ((CustomFoundExc) str_).getStruct();

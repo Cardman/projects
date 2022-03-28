@@ -26,6 +26,7 @@ public final class ResultText {
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
+    private String sgn = "";
     private final Ints expOffsets = new Ints();
     private final Ints expEnds = new Ints();
     private final ResultExpression resultExpression = new ResultExpression();
@@ -118,6 +119,7 @@ public final class ResultText {
     public static ResultText buildAnchor(AnaRendBlock _r, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()));
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         ResultText r_ = new ResultText();
         r_.opExpRoot = new CustList<OperationNode>();
@@ -160,7 +162,8 @@ public final class ResultText {
             String pref_ = r_.quickRender(lk_, formArg_);
             _page.zeroOffset();
             r_.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page, r_.resultExpression);
-            AnaRendBlock.checkVars(colsGrId_,varNames_,r_.opExpAnchorRoot,_page,_anaDoc);
+            r_.sgn = AnaRendBlock.checkVars(colsGrId_,varNames_,r_.opExpAnchorRoot,_page,_anaDoc);
+            _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),r_.sgn);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

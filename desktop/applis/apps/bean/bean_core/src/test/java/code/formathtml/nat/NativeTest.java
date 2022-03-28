@@ -36,9 +36,9 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.*;
 import code.maths.LgInt;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
+import code.scripts.confs.BeanPageCardsSample;
+import code.scripts.pages.cards.PageCardsCommon;
+import code.sml.*;
 import code.util.*;
 import org.junit.Test;
 
@@ -48,13 +48,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     @Test
     public void bases() {
         CustBeanLgNames lgNames_ = stds();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         Configuration conf = conf("c:");
         NatAnalyzedCode init = init(lgNames_);
-        //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, conf, lgNames_, init, new DualConfigurationContext());
+        //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, conf, lgNames_, init, new NatDualConfigurationContext());
 
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        setLocalFiles(analyzingDoc_,init, conf, new DualConfigurationContext());
+        setLocalFiles(analyzingDoc_,init, conf, new NatDualConfigurationContext());
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDoc_, new StringMap<AnaRendDocumentBlock>(), conf);
         setFirst(conf);
@@ -80,6 +80,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         navigation.lastValue().addEntry("","");
         BeanNatCommonLgNames.getString(new StringStruct(""),"", navigation,"");
         BeanNatCommonLgNames.getString(NullStruct.NULL_VALUE,"", new StringMap<StringMap<String>>(),"");
+        assertNotNull(new BeanPageCardsSample().self());
+        PageCardsCommon.at("","");
+        FullDocument fullDocument = DocumentBuilder.newDocumentBuilder().newDocument();
+        Element element = fullDocument.createElement("");
+        fullDocument.appendChild(element);
+        PageCardsCommon.at(element,new CustList<Attr>());
+        PageCardsCommon.al(0);
+        PageCardsCommon.el(fullDocument,"");
+        PageCardsCommon.ad(element,fullDocument.createElement(""));
+        PageCardsCommon.tx(fullDocument,"");
     }
 ////    @Test
 //    public void process0FailTest() {
@@ -730,9 +740,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
-        Forwards forwards_ = nat_.getForwards(d_);
-        session_.init(d_);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        Forwards forwards_ = nat_.getForwards();
+        d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
@@ -762,9 +772,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
-        Forwards forwards_ = nat_.getForwards(d_);
-        session_.init(d_);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        Forwards forwards_ = nat_.getForwards();
+        d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
@@ -796,9 +806,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
-        Forwards forwards_ = nat_.getForwards(d_);
-        session_.init(d_);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        Forwards forwards_ = nat_.getForwards();
+        d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
@@ -830,9 +840,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
-        Forwards forwards_ = nat_.getForwards(d_);
-        session_.init(d_);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        Forwards forwards_ = nat_.getForwards();
+        d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
         n_.getSession().setFirstUrl("page1.html");
@@ -865,9 +875,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
-        Forwards forwards_ = nat_.getForwards(d_);
-        session_.init(d_);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        Forwards forwards_ = nat_.getForwards();
+        d_.init(session_);
         n_.setSession(session_);
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
@@ -897,7 +907,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        String xmlConf_ = confCom();
 //        Navigation n_ = new Navigation();
 //        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, null);
-//        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), nat_);
+//        DualAnalyzedContext du_ = n_.loadConfiguration(xmlConf_, "", lgNames_, null, nat_);
 //        n_.setFiles(files_);
 //        lgNames_.setupAll(docs_,n_, n_.getSession(), du_, new DefNatBlockBuilder());
 //        ContextEl generate_ = du_.getForwards().generate(new Options());
@@ -921,8 +931,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
         Configuration conf_ = conf("c");
         CustBeanLgNames lgNames_ = stds();
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         init(lgNames_);
         conf_.setFirstUrl("page2.html");
         dual_.getRenderFiles().add("page1.html");
@@ -935,7 +945,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         i_.setScope("session");
         i_.setClassName("code.formathtml.classes.BeanTwo");
         conf_.getBeansInfos().addEntry("bean_two",i_);
-        conf_.init(dual_);
+        dual_.init(conf_);
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
@@ -962,8 +972,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
         Configuration conf_ = conf("c");
         CustBeanLgNames lgNames_ = stds();
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         init(lgNames_);
         conf_.setFirstUrl("page2.html");
         dual_.getRenderFiles().add("page1.html");
@@ -976,7 +986,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         i_.setScope("session");
         i_.setClassName("code.formathtml.classes.BeanTwo");
         conf_.getBeansInfos().addEntry("bean_two",i_);
-        conf_.init(dual_);
+        dual_.init(conf_);
         Navigation n_ = new Navigation();
         setSess(conf_, n_);
         n_.setFiles(files_);
@@ -1069,8 +1079,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        BeanFive beanTwo_ = new BeanFive();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1079,10 +1089,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setupNative2(folder_, relative_, config_, dual_);
 
 
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("change", "page1.html");
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
 //        new Composite();
         nav_.setLanguage(locale_);
@@ -1168,8 +1178,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         v2_.setTypedString("TITLE");
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         NatAnalyzedCode init_ = init(lgNames_);
 
         config_.setFirstUrl("page1.html");
@@ -1209,8 +1219,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         v2_.setTypedString("TITLE");
         CustBeanLgNames lgNames_ = stds();
         NatAnalyzedCode init_ = init(lgNames_);
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
-        DualConfigurationContext dual_ = new DualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
         setupNative(folder_, relative_, dual_);
         Configuration configuration_ = conf("c:");
         preinit(lgNames_, configuration_);
@@ -1238,16 +1248,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         files_.put("page1.html", htmlTwo_);
         BeanOne beanTwo_ = new BeanOne();
         CustBeanLgNames lgNames_ = stds();
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         Configuration config_ = conf("c:");
 
 
         putBean("bean_one", new BeanStruct(beanTwo_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_one.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_one.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_one.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_one.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1293,16 +1303,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
         putBean("bean_two", new BeanStruct(beanTwo_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1349,16 +1359,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
         putBean("bean_two", new BeanStruct(beanTwo_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1414,17 +1424,17 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
         putBean("bean_two", new BeanStruct(beanTwo_), lgNames_, config_);
         putBean("bean_one", new BeanStruct(beanOne_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1478,8 +1488,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanOne bean_ = new BeanOne();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1487,7 +1497,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setupNative2(folder_, relative_, config_, dual_);
 
 
-        config_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(config_);
 //        new Composite();
         nav_.setLanguage(locale_);
@@ -1605,16 +1615,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
         putBean("bean_two", new BeanStruct(beanTwo_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1660,16 +1670,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
         putBean("bean_two", new BeanStruct(beanTwo_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1715,16 +1725,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
         putBean("bean_two", new BeanStruct(beanTwo_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1770,16 +1780,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
         putBean("bean_two", new BeanStruct(beanTwo_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1879,16 +1889,16 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
         putBean("bean_two", new BeanStruct(beanTwo_), lgNames_, config_);
         setupVal(folder_, relative_, config_, dual_, lgNames_);
-        config_.setNavigation(new StringMap<StringMap<String>>());
-        config_.getNavigation().put("bean_two.go", new StringMap<String>());
-        config_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
         Navigation nav_ = newNavigation(config_);
         nav_.setLanguage(locale_);
         nav_.setFiles(files_);
@@ -1963,8 +1973,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanOne bean_ = new BeanOne();
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
         //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
 
 
@@ -1972,7 +1982,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setupNative2(folder_, relative_, config_, dual_);
 
 
-        config_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.setNavigation(new StringMap<StringMap<String>>());
         Navigation nav_ = newNavigation(config_);
 //        new Composite();
         nav_.setLanguage(locale_);
@@ -2077,7 +2087,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //
 //    }
 
-    private static RendStackCall initSessionNat(Navigation _nav, CustBeanLgNames _adv, DualConfigurationContext _dual, ContextEl _context) {
+    private static RendStackCall initSessionNat(Navigation _nav, CustBeanLgNames _adv, NatDualConfigurationContext _dual, ContextEl _context) {
         StringMap<BeanInfo> map_ = new StringMap<BeanInfo>();
         Configuration configuration_ = _nav.getSession();
         for (EntryCust<String, Struct> e: configuration_.getBuiltBeans().entryList()) {
@@ -2091,7 +2101,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         configuration_.getFiles().addAllEntries(_nav.getFiles());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(_adv);
-        analyzingDoc_.setup(configuration_, _dual);
+        analyzingDoc_.setup(configuration_, _dual.getProperties(), _dual.getMessagesFolder());
         NatAnalyzedCode init_ = init(_adv);
         setupAna(analyzingDoc_, init_);
         BeanNatLgNames.initInstancesPattern(configuration_, map_);
@@ -2123,9 +2133,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     private String getNatRes(String _folder, String _relative, String _html, StringMap<String> _files, BeanStruct _v) {
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
         NatAnalyzedCode initNat_ = init(lgNames_);
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
 
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(lgNames_);
@@ -2147,9 +2157,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     private String getNatRes(String _folder, String _relative, String _html, BeanStruct _v) {
         CustBeanLgNames lgNames_ = stds();
         Configuration con_ = conf("c:");
-        DualConfigurationContext dual_ = new DualConfigurationContext();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
         NatAnalyzedCode init_ = init(lgNames_);
-        ContextEl generate_ = new Forwards(lgNames_, DefaultFileBuilder.newInstance(lgNames_.getContent()), new Options()).generate();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
 
         setupNative2(_folder, _relative, dual_);
         putBean("bean_one", _v, lgNames_, con_);
@@ -2174,7 +2184,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         return conf_;
     }
 
-    private static RendDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, BeanStruct _v1, BeanStruct _v2, Configuration _configuration, AnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, DualConfigurationContext _dual) {
+    private static RendDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, BeanStruct _v1, BeanStruct _v2, Configuration _configuration, AnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
         StringMap<BeanInfo> beansInfos_ = _configuration.getBeansInfos();
         addBeanInfo("bean_one", _v1, beansInfos_, _configuration);
         addBeanInfo("bean_two", _v2, beansInfos_, _configuration);
@@ -2187,9 +2197,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         return _configuration.getRenders().getVal("page1.html");
     }
 
-    private static void setLocalFiles(AnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing, Configuration _configuration, DualConfigurationContext _dual) {
+    private static void setLocalFiles(AnalyzingDoc _analyzingDoc, NatAnalyzedCode _analyzing, Configuration _configuration, NatDualConfigurationContext _dual) {
         _configuration.setCurrentLanguage("en");
-        _analyzingDoc.setup(_configuration, _dual);
+        _analyzingDoc.setup(_configuration, _dual.getProperties(), _dual.getMessagesFolder());
         setInnerLocalFiles(_analyzingDoc, _analyzing);
     }
 
@@ -2197,7 +2207,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         _analyzingDoc.setLanguages(new StringList("en"));
         setupAna(_analyzingDoc, _analyzing);
     }
-    private static StringMap<AnaRendDocumentBlock> analyze(Configuration _conf, AnalyzingDoc _analyzingDoc, StringMap<BeanInfo> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, Configuration _configuration, DualConfigurationContext _dual, String... _html) {
+    private static StringMap<AnaRendDocumentBlock> analyze(Configuration _conf, AnalyzingDoc _analyzingDoc, StringMap<BeanInfo> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, Configuration _configuration, NatDualConfigurationContext _dual, String... _html) {
         int c_ = 1;
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
         for (String h: _html) {
@@ -2229,7 +2239,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
 
-    private static void setupNative2(String _folder, String _relative, DualConfigurationContext _context) {
+    private static void setupNative2(String _folder, String _relative, NatDualConfigurationContext _context) {
         setupNative(_folder, _relative, _context);
     }
 
@@ -2238,15 +2248,15 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        ((CustBeanLgNames) _stds).beansForTest().put(_key, _beanTwo);
     }
 
-    private static void setupNative(String _folder, String _relative, DualConfigurationContext _dual) {
+    private static void setupNative(String _folder, String _relative, NatDualConfigurationContext _dual) {
         setup(_folder, _relative, _dual);
     }
 
-    private static void setupNative2(String _folder, String _relative, Configuration _configuration, DualConfigurationContext _dual) {
+    private static void setupNative2(String _folder, String _relative, Configuration _configuration, NatDualConfigurationContext _dual) {
         _configuration.setFirstUrl("page2.html");
         setupNative(_folder, _relative, _dual);
     }
-    private static void setupVal(String _folder, String _relative, Configuration _configuration, DualConfigurationContext _dual, CustBeanLgNames _adv) {
+    private static void setupVal(String _folder, String _relative, Configuration _configuration, NatDualConfigurationContext _dual, CustBeanLgNames _adv) {
         _configuration.setFirstUrl("page1.html");
         setupNative(_folder, _relative, _dual);
         _adv.getValidators().put("rate_val", new MyValidator());
@@ -2300,12 +2310,12 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         _configuration.setFiles(_files);
     }
 
-    private static void setup(String _folder, String _relative, DualConfigurationContext _conf) {
+    private static void setup(String _folder, String _relative, NatDualConfigurationContext _conf) {
         setup(_folder, _conf);
         _conf.getProperties().put("msg_example", _relative);
     }
 
-    private static void setup(String _folder, DualConfigurationContext _conf) {
+    private static void setup(String _folder, NatDualConfigurationContext _conf) {
         _conf.setMessagesFolder(_folder);
         _conf.setProperties(new StringMap<String>());
     }

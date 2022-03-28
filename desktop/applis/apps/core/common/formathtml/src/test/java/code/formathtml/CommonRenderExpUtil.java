@@ -34,7 +34,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
     }
 
     protected static CustList<OperationNode> getQuickAnalyzed(String _el, DualNavigationContext _conf, AnalyzingDoc _analyzingDoc) {
-        _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext());
+        _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext().getProperties(), _conf.getDualAnalyzedContext().getContext().getMessagesFolder());
         StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
         StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
         setupAnalyzing(_conf, _analyzingDoc, localVariables_, vars_);

@@ -3,6 +3,7 @@ package cards.gui.animations;
 import cards.gui.dialogs.FileConst;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
+import code.bean.nat.NatDualConfigurationContext;
 import code.formathtml.Configuration;
 import code.formathtml.util.DualConfigurationContext;
 import code.gui.AbsMenuItem;
@@ -38,7 +39,7 @@ public final class HelpInitializer implements Runnable {
     @Override
     public void run() {
         StringMap<Configuration> cf_ = HelpScriptPages.cf();
-        StringMap<DualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
+        StringMap<NatDualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
         StringMap<StringMap<String>> ms_ = CardsInit.ms();

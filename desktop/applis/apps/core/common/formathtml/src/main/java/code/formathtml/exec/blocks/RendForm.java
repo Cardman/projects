@@ -46,6 +46,7 @@ public final class RendForm extends RendElement implements RendFormInt {
         _rendStack.getFormParts().getFormsArgs().add(arg_);
         String beanName_ = _rendStack.getLastPage().getBeanName();
         elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
+        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));

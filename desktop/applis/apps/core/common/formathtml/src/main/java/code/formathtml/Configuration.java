@@ -34,7 +34,7 @@ public final class Configuration {
 
     private StringMap<BeanInfo> beansInfos = new StringMap<BeanInfo>();
 
-    private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
+    private StringMap<StringMap<StringMap<String>>> navigation = new StringMap<StringMap<StringMap<String>>>();
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
@@ -53,10 +53,15 @@ public final class Configuration {
     private StringMap<String> files = new StringMap<String>();
 
     public void init(DualConfigurationContext _dual) {
-        prefix = StringUtil.concat(prefix,SEP);
+        updatePref();
         _dual.getRenderFiles().removeAllString(firstUrl);
         _dual.getRenderFiles().add(firstUrl);
     }
+
+    public void updatePref() {
+        prefix = StringUtil.concat(prefix,SEP);
+    }
+
     public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
         String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
         ResultExpression res_ = new ResultExpression();
@@ -76,7 +81,7 @@ public final class Configuration {
     public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, DualConfigurationContext _dual) {
         renders.clear();
         setFiles(_files);
-        _analyzingDoc.setup(this, _dual);
+        _analyzingDoc.setup(this, _dual.getProperties(), _dual.getMessagesFolder());
         AnalyzingDoc.setupInts(_page, _analyzingDoc);
 
 
@@ -135,11 +140,11 @@ public final class Configuration {
         beansInfos = _beansInfos;
     }
 
-    public StringMap<StringMap<String>> getNavigation() {
+    public StringMap<StringMap<StringMap<String>>> getNavigation() {
         return navigation;
     }
 
-    public void setNavigation(StringMap<StringMap<String>> _navigation) {
+    public void setNavigation(StringMap<StringMap<StringMap<String>>> _navigation) {
         navigation = _navigation;
     }
 

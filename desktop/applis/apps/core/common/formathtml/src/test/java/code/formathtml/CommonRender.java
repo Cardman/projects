@@ -428,8 +428,12 @@ public abstract class CommonRender extends EquallableRenderUtil {
         setFirst("page1.html", a_.getNavigation().getSession());
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
         setNavigation(a_.getNavigation().getSession());
-        a_.getNavigation().getSession().getNavigation().addEntry("bean_one.validate",new StringMap<String>());
-        a_.getNavigation().getSession().getNavigation().getVal("bean_one.validate").addEntry("val1","page2.html");
+        StringMap<StringMap<StringMap<String>>> navigation_ = a_.getNavigation().getSession().getNavigation();
+        StringMap<StringMap<String>> sub_ = new StringMap<StringMap<String>>();
+        StringMap<String> ca_ = new StringMap<String>();
+        ca_.addEntry("val1","page2.html");
+        sub_.addEntry("pkg.BeanOne.validate()", ca_);
+        navigation_.addEntry("bean_one", sub_);
         Navigation nav_ = a_.getNavigation();
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         BeanInfo i_ = new BeanInfo();
@@ -861,7 +865,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
     }
 
     protected static void setNavigation(Configuration _configuration) {
-        _configuration.setNavigation(new StringMap<StringMap<String>>());
+        _configuration.setNavigation(new StringMap<StringMap<StringMap<String>>>());
     }
 
     protected static Configuration getConfiguration() {

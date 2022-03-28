@@ -3,7 +3,6 @@ package code.bean.nat;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
-import code.formathtml.util.DualConfigurationContext;
 
 public final class NativeConfigurationLoader {
     private final BeanNatLgNames stds;
@@ -14,19 +13,18 @@ public final class NativeConfigurationLoader {
         init = _init;
     }
 
-    public Forwards getForwards(DualConfigurationContext d_) {
-        return stds.setupNative(stds.getNatCode(), d_);
+    public Forwards getForwards() {
+        return stds.setupNative(stds.getNatCode());
     }
 
-    public DualConfigurationContext getDualConfigurationContext(Configuration _configuration, AbstractFileBuilder _fileBuilder) {
-        DualConfigurationContext d_ = new DualConfigurationContext();
-        d_.setFileBuilder(_fileBuilder);
+    public NatDualConfigurationContext getDualConfigurationContext(Configuration _configuration, AbstractFileBuilder _fileBuilder) {
+        NatDualConfigurationContext d_ = new NatDualConfigurationContext();
         specificLoadBegin(_configuration, d_);
         return d_;
     }
 
-    public void specificLoadBegin(Configuration _configuration, DualConfigurationContext _context) {
-        init.initConf(_configuration);
+    public void specificLoadBegin(Configuration _configuration, NatDualConfigurationContext _context) {
+        init.initConf(_configuration,_context);
         init.initAna(_context);
     }
 }

@@ -104,6 +104,7 @@ public final class RendKeyWords {
     private static final String ATTR_ID="AttrId";
     private static final String ATTR_ALIAS="AttrAlias";
     private static final String ATTR_COMMAND="AttrCommand";
+    private static final String ATTR_SGN="AttrSgn";
     private static final String ATTR_VARVALUE="AttrVarValue";
     private static final String ATTR_GROUPID="AttrGroupId";
     private static final String ATTR_VALIDATOR="AttrValidator";
@@ -266,6 +267,7 @@ public final class RendKeyWords {
     private String attrName = "name";
     private String attrHref = "href";
     private String attrCommand = "command";
+    private String attrSgn = "sgn";
     private String attrAction = "action";
     private String attrTitle = "title";
     private String attrFor = "for";
@@ -389,6 +391,7 @@ public final class RendKeyWords {
         setAttrEscaped(LgNamesContent.get(_util, _cust, ATTR_ESCAPED));
         setAttrHref(LgNamesContent.get(_util, _cust, ATTR_HREF));
         setAttrCommand(LgNamesContent.get(_util, _cust, ATTR_COMMAND));
+        setAttrSgn(LgNamesContent.get(_util, _cust, ATTR_SGN));
         setAttrMessage(LgNamesContent.get(_util, _cust, ATTR_MESSAGE));
         setAttrDefault(LgNamesContent.get(_util, _cust, ATTR_DEFAULT));
         setAttrPrepare(LgNamesContent.get(_util, _cust, ATTR_PREPARE));
@@ -678,6 +681,7 @@ public final class RendKeyWords {
         keyWords_.addEntry(ATTR_INIT,attrInit);
         keyWords_.addEntry(ATTR_VALUE,attrValue);
         keyWords_.addEntry(ATTR_COMMAND,attrCommand);
+        keyWords_.addEntry(ATTR_SGN,attrSgn);
         keyWords_.addEntry(ATTR_CONDITION,attrCondition);
         keyWords_.addEntry(ATTR_HREF,attrHref);
         keyWords_.addEntry(ATTR_MESSAGE,attrMessage);
@@ -1478,6 +1482,14 @@ public final class RendKeyWords {
 
     public void setAttrCommand(String _attrCommand) {
         this.attrCommand = _attrCommand;
+    }
+
+    public String getAttrSgn() {
+        return attrSgn;
+    }
+
+    public void setAttrSgn(String _attrSgn) {
+        this.attrSgn = _attrSgn;
     }
 
     public String getAttrAction() {

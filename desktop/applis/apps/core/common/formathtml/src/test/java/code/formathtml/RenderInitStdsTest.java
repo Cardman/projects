@@ -81,6 +81,15 @@ public final class RenderInitStdsTest extends CommonRender {
         RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
         RendDynOperationNode.getFirstNode(null);
         assertNull(RendDynOperationNode.getParentOrNull(null));
+        BeanCustLgNames.select("","","",new StringMap<StringMap<StringMap<String>>>());
+        StringMap<StringMap<StringMap<String>>> navigation = new StringMap<StringMap<StringMap<String>>>();
+        navigation.addEntry("", new StringMap<StringMap<String>>());
+        BeanCustLgNames.select("","","", navigation);
+        StringMap<String> ca = new StringMap<String>();
+        navigation.getVal("").addEntry("", ca);
+        BeanCustLgNames.select("","","", navigation);
+        ca.addEntry("","");
+        BeanCustLgNames.select("","","", navigation);
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);

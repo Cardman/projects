@@ -126,6 +126,25 @@ public final class ReadConfiguration {
         return bean_;
     }
 
+    public static StringMap<StringMap<StringMap<String>>> loadStringMapStringsList(Element _elt) {
+        StringMap<StringMap<StringMap<String>>> navigation_;
+        navigation_ = new StringMap<StringMap<StringMap<String>>>();
+        StringList keys_ = new StringList();
+        CustList<StringMap<StringMap<String>>> values_ = new CustList<StringMap<StringMap<String>>>();
+        for (Element c: _elt.getChildElements()) {
+            if (c.hasAttribute("key")) {
+                keys_.add(c.getAttribute("value"));
+            } else {
+                values_.add(loadStringMapStrings(c));
+            }
+        }
+        int len_ = keys_.size();
+        for (int i = 0; i < len_; i++) {
+            navigation_.put(keys_.get(i), values_.get(i));
+        }
+        return navigation_;
+    }
+
     public static StringMap<StringMap<String>> loadStringMapStrings(Element _elt) {
         StringMap<StringMap<String>> navigation_;
         navigation_ = new StringMap<StringMap<String>>();

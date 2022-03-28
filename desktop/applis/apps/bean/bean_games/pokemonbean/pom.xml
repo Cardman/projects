@@ -27,5 +27,10 @@
 			<artifactId>scripts_core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>bean_scripts</groupId>
+			<artifactId>bean_scripts</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

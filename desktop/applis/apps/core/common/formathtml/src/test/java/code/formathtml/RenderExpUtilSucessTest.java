@@ -15,7 +15,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -28,7 +27,6 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
-import code.formathtml.util.BeanCustLgNames;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -5967,7 +5965,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static void setupAnalyzing(DualNavigationContext _context, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc analyzingDoc) {
-        analyzingDoc.setup(_context.getNavigation().getSession(), _context.getDualAnalyzedContext().getContext());
+        analyzingDoc.setup(_context.getNavigation().getSession(), _context.getDualAnalyzedContext().getContext().getProperties(), _context.getDualAnalyzedContext().getContext().getMessagesFolder());
         setupAnalyzing(_context, analyzingDoc, _localVariables, _vars);
     }
 
@@ -5994,7 +5992,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     }
 
     private static CustList<RendDynOperationNode> getQuickAnalyzedFwd(String _el, DualNavigationContext _conf, AnalyzingDoc _analyzingDoc, String _type, String _varName, boolean _static) {
-        _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext());
+        _analyzingDoc.setup(_conf.getNavigation().getSession(), _conf.getDualAnalyzedContext().getContext().getProperties(), _conf.getDualAnalyzedContext().getContext().getMessagesFolder());
         setupAnalyzingOneVar(_conf.getDualAnalyzedContext().getAnalyzed(), _analyzingDoc, _type, _varName);
         _conf.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(_static));
         Delimiters d_ = checkSyntax(_conf, _el);

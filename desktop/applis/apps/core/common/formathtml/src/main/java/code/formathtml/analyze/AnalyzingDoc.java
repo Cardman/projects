@@ -10,7 +10,6 @@ import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.DualConfigurationContext;
 import code.sml.DocumentBuilder;
 import code.sml.EncodedChar;
 import code.util.*;
@@ -51,14 +50,23 @@ public final class AnalyzingDoc {
         _analyzing.addError(_error);
     }
 
-    public void setup(Configuration _conf, DualConfigurationContext _dual) {
+    public void setup(Configuration _conf, StringMap<String> _properties, String _messagesFolder) {
         rendKeyWords = _conf.getRendKeyWords();
         prefix = _conf.getPrefix();
-        properties = _dual.getProperties();
-        messagesFolder = _dual.getMessagesFolder();
+        setProperties(_properties);
+        setMessagesFolder(_messagesFolder);
         files = _conf.getFiles();
         beansInfosBefore = _conf.getBeansInfos();
     }
+
+    public void setProperties(StringMap<String> _p) {
+        this.properties = _p;
+    }
+
+    public void setMessagesFolder(String _m) {
+        this.messagesFolder = _m;
+    }
+
     public static void setupInts(AnalyzedPageEl _page, AnalyzingDoc _analyzingDoc) {
         _page.getMappingLocal().clear();
         _page.setCurrentBlock(null);

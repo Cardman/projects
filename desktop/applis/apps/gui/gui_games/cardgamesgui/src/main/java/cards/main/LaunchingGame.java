@@ -17,10 +17,7 @@ import cards.tarot.beans.TarotStandards;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.pages.cards.MessBelotePage;
-import code.scripts.pages.cards.MessPresidentPage;
-import code.scripts.pages.cards.MessTarotPage;
-import code.scripts.pages.cards.PageCards;
+import code.scripts.pages.cards.*;
 import code.sml.Document;
 import code.threads.AbstractThread;
 import code.util.EntryCust;
@@ -51,10 +48,9 @@ public final class LaunchingGame implements Runnable {
 
     @Override
     public void run() {
-        StringMap<Document> built_ = PageCards.build();
-        StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote(built_);
-        StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident(built_);
-        StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(built_);
+        StringMap<StringMap<PreparedPagesCards>> belote_ = generateAnalyzedBelote(PagesBelotes.build());
+        StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident(PagesPresidents.build());
+        StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(PagesTarots.build());
         WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_,cardFactories);
 
         SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);

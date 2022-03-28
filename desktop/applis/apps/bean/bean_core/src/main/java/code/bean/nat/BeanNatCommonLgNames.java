@@ -35,7 +35,6 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.DualConfigurationContext;
 import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.maths.Rate;
@@ -77,6 +76,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     private final StringMap<Validator> validators = new StringMap<Validator>();
 
     private final StringMap<SpecialNatClass> stds = new StringMap<SpecialNatClass>();
+
+    private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
 
     protected BeanNatCommonLgNames() {
         super(new DefaultGenerator());
@@ -267,7 +268,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             ip_.setOffset(indexPoint_+1);
             setGlobalArgumentStruct(bean_,_ctx,_rendStack);
             Struct return_ = redirect(_htmlPage,bean_,_ctx,_rendStack);
-            String urlDest_ = getString(return_, getCurrentUrl(), _configuration.getNavigation(), StringUtil.concat(beanName_, DOT, methodName_, suffix_));
+            String urlDest_ = getString(return_, getCurrentUrl(), getNavigation(), StringUtil.concat(beanName_, DOT, methodName_, suffix_));
             _rendStack.clearPages();
             String res_ = processAfterInvoke(_configuration, urlDest_, beanName_, bean_, _language, _ctx, _rendStack);
             setCurrentBeanName(_rendStack.getBeanName());
@@ -280,6 +281,14 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         setCurrentBeanName(_rendStack.getBeanName());
         setCurrentUrl(actionCommand_);
         return res_;
+    }
+
+    public StringMap<StringMap<String>> getNavigation() {
+        return navigation;
+    }
+
+    public void setNavigation(StringMap<StringMap<String>> _navigation) {
+        navigation = _navigation;
     }
 
     public static String suff(String _action) {
@@ -408,8 +417,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return new NativeContextEl(new CommonExecutionInfos(null,new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this, _options.getClasses(), _options.getCoverage(),new DefaultLockingClass(),new DefaultInitializer()));
     }
 
-    public Forwards setupNative(NatAnalyzedCode _page, DualConfigurationContext _context) {
-        Options options_ = _context.getOptions();
+    public Forwards setupNative(NatAnalyzedCode _page) {
+        Options options_ = new Options();
         Forwards forwards_ = new Forwards(this, null, options_);
         _page.setStds(this);
         //
