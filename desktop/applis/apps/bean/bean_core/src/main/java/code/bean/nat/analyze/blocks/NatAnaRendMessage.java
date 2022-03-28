@@ -1,11 +1,8 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
@@ -13,7 +10,6 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRendBuildEl {
 
@@ -42,24 +38,14 @@ public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRe
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         int l_ = roots.size();
-        StringList formArg_ = new StringList();
         StringList varNames_ = new StringList();
         for (int i = 0; i< l_; i++) {
             String varLoc_ = AnaRendBlockHelp.lookForVar(varNames_);
             varNames_.add(varLoc_);
         }
         varNames = varNames_;
-        for (String v:varNames_) {
-            AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(BeanNatCommonLgNames.PRIM_INTEGER);
-            _page.getInfosVars().addEntry(v,lv_);
-            formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
-        }
         for (EntryCust<String,String> e: preformatted.entryList()) {
             callsRoots.addEntry(e.getKey(),new CustList<NatOperationNode>());
-        }
-        for (String v:varNames_) {
-            _page.getInfosVars().removeKey(v);
         }
 
     }
