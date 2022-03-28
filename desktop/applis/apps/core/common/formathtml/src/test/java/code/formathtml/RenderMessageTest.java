@@ -447,7 +447,7 @@ public final class RenderMessageTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$cl+1+$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:message value=\"msg_example,three\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -470,7 +470,7 @@ public final class RenderMessageTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click((o,p),(1),p,(q))\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0'/><c:message value=\"msg_example,three\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -493,7 +493,7 @@ public final class RenderMessageTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click((o,p),(1),p,(q),(tmpLoc))\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$int' value='q=0'/><c:message value=\"msg_example,three\"><p value='0'></p></c:message></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><<c:set className='$int' value='q=0,q=0'/><c:message value=\"msg_example,three\"><p value='0'></p></c:message></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

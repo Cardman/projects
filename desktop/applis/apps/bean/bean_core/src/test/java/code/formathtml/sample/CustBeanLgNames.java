@@ -275,6 +275,9 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         params_ = new StringList(getAliasObject());
         method_ = new SpecNatMethod("length",params_, getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.NORMAL);
         methods_.add( method_);
+        params_ = new StringList(getAliasObject(),getAliasObject());
+        method_ = new SpecNatMethod("length2",params_, getContent().getPrimTypes().getAliasPrimInteger(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GO_TO_PAGE,params_, getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
@@ -948,6 +951,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
                 res_.setResult(new IntStruct(NumParsers.getString(_args[0]).getInstance().length()));
                 return res_;
             }
+             if (StringUtil.quickEq(methodName_,"length2")) {
+                 res_.setResult(new IntStruct(NumParsers.getString(_args[0]).getInstance().length()));
+                 return res_;
+             }
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             if (StringUtil.quickEq(methodName_,GO)) {

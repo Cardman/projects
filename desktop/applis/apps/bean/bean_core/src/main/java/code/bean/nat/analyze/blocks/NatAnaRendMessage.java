@@ -1,19 +1,18 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
 import code.sml.Element;
-import code.util.*;
-import code.util.core.IndexConstants;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRendBuildEl {
@@ -42,8 +41,6 @@ public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRe
             roots.add(NatRenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page));
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
-        String lt_ = Character.toString(AnaRendBlockHelp.LT_BEGIN_TAG);
-        String gt_ = Character.toString(AnaRendBlockHelp.GT_TAG);
         int l_ = roots.size();
         StringList formArg_ = new StringList();
         StringList varNames_ = new StringList();
@@ -59,24 +56,7 @@ public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRe
             formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
         }
         for (EntryCust<String,String> e: preformatted.entryList()) {
-            String preRend_;
-            String concat_ = StringUtil.concat(lt_,AnaRendBlockHelp.TMP_BLOCK_TAG,gt_,e.getValue(),AnaRendBlockHelp.LT_END_TAG,AnaRendBlockHelp.TMP_BLOCK_TAG,gt_);
-            preRend_=StringUtil.simpleStringsFormat(concat_, formArg_);
-            DocumentResult res2_ = DocumentBuilder.parseSaxNotNullRowCol(preRend_);
-            Document docLoc2_ = res2_.getDocument();
-            CustList<NatOperationNode> callExpsLoc_ = new CustList<NatOperationNode>();
-            for (Element a: docLoc2_.getElementsByTagName(_anaDoc.getRendKeyWords().getKeyWordAnchor())){
-                String href_ = a.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-                if (href_.startsWith(AnaRendBlockHelp.CALL_METHOD)) {
-                    if (href_.indexOf('(') == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                        href_ = StringUtil.concat(href_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
-                    }
-                    callExpsLoc_.add(NatRenderAnalysis.getRootAnalyzedOperations(href_, 1, _anaDoc, _page));
-                } else {
-                    callExpsLoc_.add(null);
-                }
-            }
-            callsRoots.addEntry(e.getKey(),callExpsLoc_);
+            callsRoots.addEntry(e.getKey(),new CustList<NatOperationNode>());
         }
         for (String v:varNames_) {
             _page.getInfosVars().removeKey(v);

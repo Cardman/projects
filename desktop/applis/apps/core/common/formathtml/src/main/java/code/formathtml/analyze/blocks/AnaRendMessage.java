@@ -7,10 +7,7 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
-import code.sml.Element;
+import code.sml.*;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -100,18 +97,10 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                 Document docLoc2_ = res2_.getDocument();
                 CustList<OperationNode> callExpsLoc_ = new CustList<OperationNode>();
                 if (docLoc2_ != null) {
-                    for (Element a: docLoc2_.getElementsByTagName(_anaDoc.getRendKeyWords().getKeyWordAnchor())){
-                        String href_ = a.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-                        if (href_.startsWith(CALL_METHOD)) {
-                            if (href_.indexOf('(') == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                                href_ = StringUtil.concat(href_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
-                            }
-                            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(href_, 1, _anaDoc, _page, resultExpression);
-                            checkRootLoc(_anaDoc, _page, href_, root_,varNames_);
-                            callExpsLoc_.add(root_);
-                        } else {
-                            callExpsLoc_.add(null);
-                        }
+                    ElementList anc_ = docLoc2_.getElementsByTagName(_anaDoc.getRendKeyWords().getKeyWordAnchor());
+                    int nb_ = anc_.size();
+                    for (int i = 0; i < nb_; i++) {
+                        callExpsLoc_.add(null);
                     }
                 }
                 DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
@@ -131,40 +120,6 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                 _page.getInfosVars().removeKey(v);
             }
 
-        }
-    }
-
-    private void checkRootLoc(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, String href_, OperationNode root_, StringList varNames_) {
-        int offMessage_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
-        if (!(root_ instanceof AbstractCallFctOperation)) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFile(_page.getCurrentFile());
-            badEl_.setIndexFile(offMessage_);
-            badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
-                    href_);
-            AnalyzingDoc.addError(badEl_, _page);
-        } else {
-            InvokingOperation inv_ = (InvokingOperation) root_;
-            for (OperationNode o: inv_.getChildrenNodes()) {
-                if (!(o instanceof IdOperation)||!((IdOperation)o).isStandard()||!(o.getFirstChild() instanceof VariableOperationUse)) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(offMessage_);
-                    badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
-                            href_);
-                    AnalyzingDoc.addError(badEl_, _page);
-                } else {
-                    VariableOperationUse u_ = (VariableOperationUse) o.getFirstChild();
-                    if (!StringUtil.contains(varNames_,u_.getRealVariableName())) {
-                        FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                        badEl_.setFile(_page.getCurrentFile());
-                        badEl_.setIndexFile(offMessage_);
-                        badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
-                                href_);
-                        AnalyzingDoc.addError(badEl_, _page);
-                    }
-                }
-            }
         }
     }
 
