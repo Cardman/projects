@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
@@ -37,7 +38,7 @@ public final class AnaRendRadio extends AnaRendInput {
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
         String converterFieldValue_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
-        if (!converterFieldValue_.trim().isEmpty()) {
+        if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
             String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
@@ -51,7 +52,6 @@ public final class AnaRendRadio extends AnaRendInput {
             _page.setGlobalOffset(attr_);
             _page.zeroOffset();
             rootConverterFieldValue = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpression);
-            AnaRendBlock.checkVars(attr_,varNames_,rootConverterFieldValue,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

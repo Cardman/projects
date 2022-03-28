@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
@@ -63,7 +64,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
             m_.setArg(r_.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                if (converterValue_.trim().isEmpty()) {
+                if (!StringExpUtil.isDollarWord(converterValue_.trim())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(getOffset());
@@ -84,7 +85,6 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
                 _page.setGlobalOffset(attr_);
                 _page.zeroOffset();
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
-                AnaRendBlock.checkVars(attr_,varNames_,rootConverter,_page,_anaDoc);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -102,7 +102,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
             }
         }
         String converterField_ = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
-        if (!converterField_.trim().isEmpty()) {
+        if (StringExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
@@ -116,7 +116,6 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
             _page.setGlobalOffset(attr_);
             _page.zeroOffset();
             rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverterField);
-            AnaRendBlock.checkVars(attr_,varNames_,rootConverterField,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

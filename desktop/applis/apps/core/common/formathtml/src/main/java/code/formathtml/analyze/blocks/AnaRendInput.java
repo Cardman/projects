@@ -8,9 +8,10 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.StringExpUtil;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.StringList;
@@ -50,7 +51,7 @@ public abstract class AnaRendInput extends AnaRendElement {
         idName = r_.getIdName();
         className = r_.getClassName();
         String converterValue_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
-        if (!converterValue_.trim().isEmpty()) {
+        if (StringExpUtil.isDollarWord(converterValue_.trim())) {
             Mapping m_ = new Mapping();
             m_.setArg(r_.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
@@ -68,7 +69,6 @@ public abstract class AnaRendInput extends AnaRendElement {
                 _page.setGlobalOffset(attr_);
                 _page.zeroOffset();
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
-                AnaRendBlock.checkVars(attr_,varNames_,rootConverter,_page,_anaDoc);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -111,7 +111,7 @@ public abstract class AnaRendInput extends AnaRendElement {
             }
         }
         String converterField_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
-        if (!converterField_.trim().isEmpty()) {
+        if (StringExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
@@ -125,7 +125,6 @@ public abstract class AnaRendInput extends AnaRendElement {
             _page.setGlobalOffset(attr_);
             _page.zeroOffset();
             rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverterField);
-            AnaRendBlock.checkVars(attr_,varNames_,rootConverterField,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

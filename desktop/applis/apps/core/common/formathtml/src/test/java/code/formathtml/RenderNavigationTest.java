@@ -241,7 +241,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(4)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({4})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -300,7 +300,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(4)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({4})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -359,7 +359,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(4)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({4})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -416,7 +416,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(1)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({1})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -472,7 +472,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(1)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({1})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -528,7 +528,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(1)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({1})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -585,7 +585,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(1)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({1})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_one'><body>Next</body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -641,7 +641,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(4)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({4})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_two'><body>Next</body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -703,7 +703,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click(4)\"/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a c:command=\"$click({4})\"/></body></html>";
         String htmlTwo_ = "<html c:bean='bean_one'><body><a name='sampleName'>Next</a></body></html>";
         String htmlThree_ = "<html c:bean='bean_one'><body>After</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
@@ -3396,7 +3396,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form c:command=\"$validate(2,4)\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n\"/></c:for><c:for var=\"n\" list=\"numbersTwo\"><input type=\"radio\" name=\"indexTwo\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><form c:command=\"$validate({2},{4})\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" c:varValue=\"n\"/></c:for><c:for var=\"n\" list=\"numbersTwo\"><input type=\"radio\" name=\"indexTwo\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

@@ -91,7 +91,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
         rootMap = RenderAnalysis.getRootAnalyzedOperations(map_, 0, _anaDoc, _page,resultExpressionMap);
         String converterValue_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrConvertValue());
         if (multiple) {
-            if (converterValue_.trim().isEmpty()) {
+            if (!StringExpUtil.isDollarWord(converterValue_.trim())) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(getOffset());
@@ -113,7 +113,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.setGlobalOffset(offConvValue_);
             _page.zeroOffset();
             rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
-            AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverter,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
@@ -147,7 +146,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             m_.setArg(r_.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                if (converterValue_.trim().isEmpty()) {
+                if (!StringExpUtil.isDollarWord(converterValue_.trim())) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(getOffset());
@@ -168,7 +167,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                 _page.setGlobalOffset(offConvValue_);
                 _page.zeroOffset();
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
-                AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverter,_page,_anaDoc);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -183,7 +181,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                             StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
                     AnalyzingDoc.addError(badEl_, _page);
                 }
-            } else if (!converterValue_.trim().isEmpty()) {
+            } else if (StringExpUtil.isDollarWord(converterValue_.trim())) {
                 String string_ = _page.getAliasString();
                 StringList varNames_ = new StringList();
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
@@ -197,7 +195,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                 _page.setGlobalOffset(offConvValue_);
                 _page.zeroOffset();
                 rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
-                AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverter,_page,_anaDoc);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -215,7 +212,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             }
         }
         String converterField_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrConvertField());
-        if (!converterField_.trim().isEmpty()) {
+        if (StringExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
@@ -229,7 +226,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.setGlobalOffset(offConvValue_);
             _page.zeroOffset();
             rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverterField);
-            AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverterField,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
@@ -247,7 +243,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             }
         }
         String converterFieldValue_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrConvertFieldValue());
-        if (!converterFieldValue_.trim().isEmpty()) {
+        if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
             String object_ = _page.getAliasObject();
             StringList varNames_ = new StringList();
             String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
@@ -261,7 +257,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.setGlobalOffset(offConvValue_);
             _page.zeroOffset();
             rootConverterFieldValue = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverterFieldValue);
-            AnaRendBlock.checkVars(offConvValue_,varNames_,rootConverterFieldValue,_page,_anaDoc);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
