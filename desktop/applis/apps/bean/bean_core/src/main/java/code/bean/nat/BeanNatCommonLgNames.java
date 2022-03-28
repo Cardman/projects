@@ -5,19 +5,28 @@ import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.validator.Validator;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.LongInfo;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.CommonExecutionMetricsInfos;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.*;
-import code.expressionlanguage.stds.*;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
+import code.formathtml.HtmlPage;
+import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendBlock;
@@ -25,10 +34,14 @@ import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
-import code.formathtml.util.*;
+import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DualConfigurationContext;
+import code.formathtml.util.NodeContainer;
+import code.formathtml.util.NodeInformations;
 import code.maths.Rate;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class BeanNatCommonLgNames extends BeanLgNames {
@@ -53,6 +66,9 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public static final String CST_NULL_STRING = "";
     public static final String TYPE_RATE = "r";
     public static final String TYPE_LG_INT = "li";
+    protected static final char BEGIN_ARGS = '(';
+    protected static final char SEP_ARGS = ',';
+    protected static final char END_ARGS = ')';
 
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = "//";
@@ -78,6 +94,16 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
 
+    protected static boolean isPartOfArgument(char _char) {
+        if (_char == SEP_ARGS) {
+            return false;
+        }
+        if (_char == BEGIN_ARGS) {
+            return false;
+        }
+        return _char != END_ARGS;
+    }
+
     public abstract void beforeDisplaying(Struct _arg);
     @Override
     public void preInitBeans(Configuration _conf) {
@@ -86,8 +112,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
     }
 
-    @Override
-    public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack) {
+    public void initBeans(Configuration _conf, String _language) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
             _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue()));
@@ -209,7 +234,103 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public StringMap<SpecialNatClass> getStds() {
         return stds;
     }
+    public String initializeRendSessionDoc(ContextEl _ctx, String _language, Configuration _configuration, Struct _db, RendStackCall _rendStackCall) {
+        _rendStackCall.init();
+        initBeans(_configuration,_language);
+        String currentUrl_ = _configuration.getFirstUrl();
+        Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
+        _rendStackCall.clearPages();
+        String res_ = processAfterInvoke(_configuration, currentUrl_, getCurrentBeanName(), bean_, _language, _ctx, _rendStackCall);
+        setCurrentBeanName(_rendStackCall.getBeanName());
+        setCurrentUrl(currentUrl_);
+        return res_;
+    }
+    @Override
+    public String processRendAnchorRequest(String _anchorRef, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack) {
+        if (_anchorRef.contains(CALL_METHOD)) {
+            _rendStack.clearPages();
+            ImportingPage ip_ = new ImportingPage();
+            _rendStack.addPage(ip_);
+            int indexPoint_ = _anchorRef.indexOf(DOT);
+            String action_ = _anchorRef
+                    .substring(indexPoint_ + 1);
+            String methodName_ = methName(action_);
+            String suffix_ = suff(action_);
+            String beanName_ = _anchorRef
+                    .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
+            Struct bean_ = getBeanOrNull(_configuration,beanName_);
+            ip_.setOffset(indexPoint_+1);
+            setGlobalArgumentStruct(bean_,_ctx,_rendStack);
+            Struct return_ = redirect(_htmlPage,bean_,_ctx,_rendStack);
+            String urlDest_ = getString(return_, getCurrentUrl(), _configuration.getNavigation(), StringUtil.concat(beanName_, DOT, methodName_, suffix_));
+            _rendStack.clearPages();
+            String res_ = processAfterInvoke(_configuration, urlDest_, beanName_, bean_, _language, _ctx, _rendStack);
+            setCurrentBeanName(_rendStack.getBeanName());
+            setCurrentUrl(urlDest_);
+            return res_;
+        }
+        if (_anchorRef.isEmpty()) {
+            return "";
+        }
+        Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
+        _rendStack.clearPages();
+        String res_ = processAfterInvoke(_configuration, _anchorRef, getCurrentBeanName(), bean_, _language, _ctx, _rendStack);
+        setCurrentBeanName(_rendStack.getBeanName());
+        setCurrentUrl(_anchorRef);
+        return res_;
+    }
 
+    public static String suff(String _action) {
+        String suffix_;
+        if (_action.indexOf(BEGIN_ARGS) == IndexConstants.INDEX_NOT_FOUND_ELT) {
+            suffix_ = EMPTY_STRING;
+        } else {
+            suffix_ = _action.substring(_action.indexOf(BEGIN_ARGS));
+            StringBuilder str_ = getStringBuilder(suffix_);
+            suffix_ = str_.toString();
+        }
+        return suffix_;
+    }
+
+    public static String methName(String _action) {
+        String methodName_;
+        if (_action.indexOf(BEGIN_ARGS) == IndexConstants.INDEX_NOT_FOUND_ELT) {
+            methodName_ = _action;
+        } else {
+            methodName_ = _action.substring(IndexConstants.FIRST_INDEX, _action.indexOf(BEGIN_ARGS));
+        }
+        return methodName_;
+    }
+
+    public static String getString(Struct _ret, String _currentUrl, StringMap<StringMap<String>> _navigation, String _concat) {
+        String urlDest_ = _currentUrl;
+        if (_ret != NullStruct.NULL_VALUE) {
+            String result_ = null;
+            StringMap<String> cases_ = _navigation.getVal(_concat);
+            if (cases_ != null) {
+                String case_ = BeanNatLgNames.processString(new Argument(_ret));
+                result_ = cases_.getVal(case_);
+            }
+            urlDest_ = result_;
+            if (urlDest_ == null) {
+                urlDest_ = _currentUrl;
+            }
+        }
+        return urlDest_;
+    }
+
+    private static StringBuilder getStringBuilder(String _suf) {
+        StringBuilder str_ = new StringBuilder();
+        for (char c: _suf.toCharArray()) {
+            if (isPartOfArgument(c)) {
+                continue;
+            }
+            str_.append(c);
+        }
+        return str_;
+    }
+
+    protected abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack);
     @Override
     public AbstractWrapper newWrapper(LocalVariable _local){
         return new VariableWrapperNat(_local);

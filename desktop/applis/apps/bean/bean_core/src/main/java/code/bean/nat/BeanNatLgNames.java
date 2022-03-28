@@ -4,19 +4,22 @@ import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
+import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.RendStackCall;
-import code.expressionlanguage.*;
-import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
-import code.formathtml.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.DualConfigurationContext;
 import code.sml.Document;
-import code.util.*;
+import code.util.EntryCust;
+import code.util.StringMap;
 
 public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
     private final NatAnalyzedCode natCode = NatAnalyzedCode.setInnerAnalyzing();
@@ -50,11 +53,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         }
 //        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf);
-    }
-
-    @Override
-    public String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack) {
-        return processString(_arg);
     }
 
     public static String processString(Argument _arg) {

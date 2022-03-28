@@ -37,18 +37,15 @@ public final class RendForm extends RendElement implements RendFormInt {
         StringList alt_ = RenderingText.renderAltList(textPart, _stds, _ctx, _rendStack);
         StringList arg_ = new StringList();
         feedList(alt_, arg_);
-        String render_ = StringUtil.join(alt_,"");
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             _rendStack.getFormParts().getFormsArgs().add(new StringList());
-            _rendStack.getFormParts().getFormsNames().add(EMPTY_STRING);
             currentForm_ = _rendStack.getFormParts().getCurrentForm();
             elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
             return;
         }
         _rendStack.getFormParts().getFormsArgs().add(arg_);
-        _rendStack.getFormParts().getFormsNames().add(render_);
         String beanName_ = _rendStack.getLastPage().getBeanName();
-        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
+        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
@@ -79,7 +76,6 @@ public final class RendForm extends RendElement implements RendFormInt {
         if (_elt.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
             _elt.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         }
-        _rendStack.getFormParts().getFormsNames().add(EMPTY_STRING);
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         _elt.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
     }

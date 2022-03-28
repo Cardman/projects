@@ -18,13 +18,13 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 
-final class RendRequestUtil {
+public final class RendRequestUtil {
 
     private RendRequestUtil() {
     }
 
 
-    static Struct redirect(Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall, HtmlPage _htmlPage) {
+    public static Struct redirect(Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall, HtmlPage _htmlPage) {
         StringList varNames_ = _htmlPage.getAnchorsVars().get(_url);
         CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
         StringList args_ = _htmlPage.getAnchorsArgs().get(_url);
@@ -48,7 +48,7 @@ final class RendRequestUtil {
         return arg_.getStruct();
     }
 
-    static Struct redirectForm(Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall, HtmlPage _htmlPage) {
+    public static Struct redirectForm(Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall, HtmlPage _htmlPage) {
         StringList varNames_ = _htmlPage.getFormsVars().get(_url);
         CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsFormExps().get(_url);
         StringList args_ = _htmlPage.getFormsArgs().get(_url);

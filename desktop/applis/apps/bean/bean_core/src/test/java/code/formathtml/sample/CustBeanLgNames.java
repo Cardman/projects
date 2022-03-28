@@ -811,7 +811,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     public void beforeDisplaying(Struct _arg) {
         ((BeanStruct)_arg).beforeDisplaying();
     }
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         StringMapObjectSample forms_ = new StringMapObjectSample();

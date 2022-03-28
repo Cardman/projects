@@ -1,49 +1,34 @@
 package code.formathtml;
+
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.stds.ResultErrorStd;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.Message;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.*;
 import code.sml.*;
-import code.util.EntryCust;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public final class Navigation {
 
-    private static final char BEGIN_ARGS = '(';
-    private static final char SEP_ARGS = ',';
-    private static final char END_ARGS = ')';
-
     private static final String REF_TAG = "#";
-
-    private static final String DOT = ".";
-
-    private static final String CALL_METHOD = "$";
 
     private static final String EMPTY_STRING = "";
 
     private Configuration session;
 
-    private String currentBeanName = "";
-
     private String htmlText = "";
 
     private String referenceScroll = "";
-
-    private String currentUrl = "";
 
     private String language = "";
     private StringList languages = new StringList();
@@ -107,15 +92,11 @@ public final class Navigation {
         if (_doc == null) {
             return;
         }
-        _rendStackCall.init();
-        _stds.initBeans(session,language,dataBaseStruct, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(_ctx, language, session, dataBaseStruct, _rendStackCall);
+        if (textToBeChanged_.isEmpty()) {
             return;
         }
-        String currentUrl_ = session.getFirstUrl();
-        Struct bean_ = getBeanOrNull(currentBeanName);
-        _rendStackCall.clearPages();
-        processAfterInvoke(currentUrl_,currentBeanName,bean_, _stds, _ctx, _rendStackCall);
+        setupText(textToBeChanged_,_stds, _rendStackCall);
     }
 
     public StringMap<String> getFiles() {
@@ -123,94 +104,10 @@ public final class Navigation {
     }
 
     public void processRendAnchorRequest(String _anchorRef, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack) {
-        if (_anchorRef.contains(CALL_METHOD)) {
-            _rendStack.clearPages();
-            HtmlPage htmlPage_ = htmlPage;
-            ImportingPage ip_ = new ImportingPage();
-            _rendStack.addPage(ip_);
-            int indexPoint_ = _anchorRef.indexOf(DOT);
-            String action_ = _anchorRef
-                    .substring(indexPoint_ + 1);
-            String methodName_;
-            String suffix_;
-            if (action_.indexOf(BEGIN_ARGS) == IndexConstants.INDEX_NOT_FOUND_ELT) {
-                methodName_ = action_;
-                suffix_ = EMPTY_STRING;
-            } else {
-                methodName_ = action_.substring(IndexConstants.FIRST_INDEX, action_.indexOf(BEGIN_ARGS));
-                suffix_ = action_.substring(action_.indexOf(BEGIN_ARGS));
-                StringBuilder str_ = new StringBuilder();
-                for (char c: suffix_.toCharArray()) {
-                    if (isPartOfArgument(c)) {
-                        continue;
-                    }
-                    str_.append(c);
-                }
-                suffix_ = str_.toString();
-            }
-            String beanName_ = _anchorRef
-                    .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
-            Struct bean_ = getBeanOrNull(beanName_);
-            ip_.setOffset(indexPoint_+1);
-            _advStandards.setGlobalArgumentStruct(bean_,_ctx,_rendStack);
-            Struct return_;
-            if (htmlPage_.isForm()) {
-                return_ = RendRequestUtil.redirectForm(new Argument(bean_),(int)htmlPage_.getUrl(), _advStandards, _ctx, _rendStack, htmlPage_);
-            } else {
-                return_=RendRequestUtil.redirect(new Argument(bean_),(int)htmlPage_.getUrl(), _advStandards, _ctx, _rendStack, htmlPage_);
-            }
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
-            }
-            String urlDest_ = currentUrl;
-            if (return_ != NullStruct.NULL_VALUE) {
-                ip_.setOffset(_anchorRef.length());
-                urlDest_ = getRendUrlDest(StringUtil.concat(beanName_, DOT, methodName_,suffix_), return_, _advStandards, _ctx, _rendStack);
-                if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                    return;
-                }
-                if (urlDest_ == null) {
-                    urlDest_ = currentUrl;
-                }
-            }
-            _rendStack.clearPages();
-            processAfterInvoke(urlDest_,beanName_,bean_, _advStandards, _ctx, _rendStack);
-            return;
+        String res_ = _advStandards.processRendAnchorRequest(_anchorRef, language, session, htmlPage, _ctx, _rendStack);
+        if (!res_.isEmpty()) {
+            setupText(res_,_advStandards,_rendStack);
         }
-        if (_anchorRef.isEmpty()) {
-            return;
-        }
-        Struct bean_ = getBeanOrNull(currentBeanName);
-        _rendStack.clearPages();
-        processAfterInvoke(_anchorRef,currentBeanName,bean_, _advStandards, _ctx, _rendStack);
-    }
-
-    private Struct getBeanOrNull(String _currentBeanName) {
-        Struct bean_ = getBean(_currentBeanName);
-        if (bean_ == null) {
-            bean_ = NullStruct.NULL_VALUE;
-        }
-        return bean_;
-    }
-
-    private void processAfterInvoke(String _dest, String _beanName, Struct _bean, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall){
-        String textToBeChanged_ = _advStandards.processAfterInvoke(session,_dest,_beanName,_bean,currentUrl,language, _context, _rendStackCall);
-        if (textToBeChanged_.isEmpty()) {
-            return;
-        }
-        currentBeanName = _rendStackCall.getBeanName();
-        currentUrl = _dest;
-        setupText(textToBeChanged_, _rendStackCall);
-    }
-
-    private static boolean isPartOfArgument(char _char) {
-        if (_char == SEP_ARGS) {
-            return false;
-        }
-        if (_char == BEGIN_ARGS) {
-            return false;
-        }
-        return _char != END_ARGS;
     }
 
     public void processRendFormRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -271,7 +168,7 @@ public final class Navigation {
         }
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-            processRendFormErrors(doc_, formElement_, lg_, errors_, errorsArgs_, _rendStackCall);
+            processRendFormErrors(doc_,_advStandards, formElement_, lg_, errors_, errorsArgs_, _rendStackCall);
             _rendStackCall.clearPages();
             return;
         }
@@ -308,7 +205,7 @@ public final class Navigation {
         }
     }
 
-    private void processRendFormErrors(Document _doc, Element _formElement, long _id,
+    private void processRendFormErrors(Document _doc, BeanLgNames _advStandards, Element _formElement, long _id,
                                        StringMap<String> _errors, StringMap<StringList> _errorsArgs, RendStackCall _rendStackCall) {
         HtmlPage htmlPage_ = htmlPage;
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
@@ -403,7 +300,7 @@ public final class Navigation {
             Text text_ = _doc.createTextNode(nCont_.getNodeInformation().getValue().first());
             elt_.appendChild(text_);
         }
-        setupText(_doc.export(), _rendStackCall);
+        setupText(_doc.export(),_advStandards, _rendStackCall);
     }
 
     private static NodeContainer getValue(LongTreeMap<NodeContainer> _containers, String _idInput) {
@@ -419,7 +316,7 @@ public final class Navigation {
         return val_;
     }
 
-    private void setupText(String _text, RendStackCall _rendStackCall) {
+    private void setupText(String _text, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
         Document doc_ = _rendStackCall.getDocument();
         document = doc_;
         htmlPage = _rendStackCall.getHtmlPage();
@@ -437,29 +334,13 @@ public final class Navigation {
             }
         }
         htmlText = _text;
-        StringList tokens_ = StringUtil.splitStrings(currentUrl, REF_TAG);
+        StringList tokens_ = StringUtil.splitStrings(_advStandards.getCurrentUrl(), REF_TAG);
         if (tokens_.size() > IndexConstants.ONE_ELEMENT) {
             referenceScroll = tokens_.get(IndexConstants.SECOND_INDEX);
-            currentUrl = tokens_.first();
+            _advStandards.setCurrentUrl(tokens_.first());
         } else {
             referenceScroll = EMPTY_STRING;
         }
-    }
-
-    private String getRendUrlDest(String _method, Struct _return, BeanLgNames _advStandards, ContextEl _context, RendStackCall _stackCall) {
-        StringMap<String> cases_ = session.getNavigation().getVal(_method);
-        if (cases_ == null) {
-            return null;
-        }
-        String case_ = _advStandards.processString(new Argument(_return), _context, _stackCall);
-        if (_context.callsOrException(_stackCall.getStackCall())) {
-            return null;
-        }
-        return cases_.getVal(case_);
-    }
-
-    private Struct getBean(String _beanName) {
-        return session.getBuiltBeans().getVal(_beanName);
     }
 
     public HtmlPage getHtmlPage() {
@@ -472,14 +353,6 @@ public final class Navigation {
 
     public void setSession(Configuration _session) {
         session = _session;
-    }
-
-    public String getCurrentBeanName() {
-        return currentBeanName;
-    }
-
-    public String getCurrentUrl() {
-        return currentUrl;
     }
 
     public void setFiles(StringMap<String> _files) {

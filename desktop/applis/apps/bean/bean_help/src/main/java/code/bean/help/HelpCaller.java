@@ -5,6 +5,7 @@ import code.bean.help.fwd.HelpRendForwardInfos;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
@@ -26,7 +27,9 @@ public final class HelpCaller {
 
     }
 
-    public static String text(DualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, HelpContextEl _ctx, RendStackCall _rendStackCall) {
+    public static Document text(DualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
+        HelpContextEl ctx_ = new HelpContextEl();
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = _navigation.getSession();
         for (String a : _contextConf.getAddedFiles()) {
@@ -47,7 +50,7 @@ public final class HelpCaller {
         StringMap<BeanInfo> beansInfos_ = new StringMap<BeanInfo>();
         conf_.getBeansInfos().addAllEntries(beansInfos_);
         analyzingDoc_.setLanguages(_navigation.getLanguages());
-        _navigation.getSession().setCurrentLanguage(_navigation.getLanguage());
+        _navigation.getSession().setCurrentLanguage(_language);
 
         _navigation.getSession().getRenders().clear();
         _navigation.getSession().setFiles(_navigation.getFiles());
@@ -56,16 +59,17 @@ public final class HelpCaller {
         AnaRendDocumentBlock anaDoc_ = HelpAnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), _uniq, file_, _realFilePath, analyzingDoc_.getRendKeyWords());
         buildFctInstructions(anaDoc_,analyzingDoc_, page_);
         HelpRendForwardInfos.buildExec(analyzingDoc_, conf_, _realFilePath, anaDoc_);
-        _rendStackCall.init();
+        rendStackCall_.init();
         ImportingPage ip_ = new ImportingPage();
-        _rendStackCall.addPage(ip_);
+        rendStackCall_.addPage(ip_);
         String dest_ = _navigation.getSession().getFirstUrl();
         RendDocumentBlock rendDocumentBlock_ = _navigation.getSession().getRenders().getVal(dest_);
-        _rendStackCall.clearPages();
-        _rendStackCall.getFormParts().initForms();
+        rendStackCall_.clearPages();
+        rendStackCall_.getFormParts().initForms();
         String beanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = _navigation.getSession().getBuiltBeans().getVal(beanName_);
-        return RendBlock.res(rendDocumentBlock_, _navigation.getSession(), null, _ctx, _rendStackCall, beanName_,bean_);
+        RendBlock.res(rendDocumentBlock_, _navigation.getSession(), null, ctx_, rendStackCall_, beanName_, bean_);
+        return rendStackCall_.getDocument();
     }
 
     public static void buildFctInstructions(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {

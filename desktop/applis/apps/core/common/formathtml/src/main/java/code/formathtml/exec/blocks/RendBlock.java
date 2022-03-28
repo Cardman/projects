@@ -142,13 +142,12 @@ public abstract class RendBlock {
         StringList alt_ = RenderingText.renderAltList(_textPart, _advStandards, _ctx, _rendStackCall);
         StringList arg_ = arg(alt_);
         _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
-        String render_ = StringUtil.join(alt_,"");
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             incrAncNb(_cont, _nextWrite, _rendStackCall);
             return;
         }
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
-        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
+        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNb(_cont, _nextWrite, _rendStackCall);
     }

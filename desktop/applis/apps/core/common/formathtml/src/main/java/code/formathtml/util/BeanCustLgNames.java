@@ -3,12 +3,10 @@ package code.formathtml.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
@@ -35,17 +33,17 @@ import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
-import code.formathtml.DualNavigationContext;
-import code.formathtml.ImportingPage;
-import code.formathtml.Navigation;
+import code.formathtml.*;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.exec.blocks.*;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.exec.blocks.RendImport;
+import code.formathtml.exec.blocks.RendImportForm;
 import code.formathtml.exec.opers.*;
 import code.formathtml.fwd.RendForwardInfos;
 import code.formathtml.structs.BeanInfo;
@@ -131,6 +129,18 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     protected BeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
+    }
+
+    public String getRendUrlDest(String _method, Struct _return, ContextEl _context, RendStackCall _stackCall, StringMap<StringMap<String>> navigation_) {
+        StringMap<String> cases_ = navigation_.getVal(_method);
+        if (cases_ == null) {
+            return null;
+        }
+        String case_ = processString(new Argument(_return), _context, _stackCall);
+        if (_context.callsOrException(_stackCall.getStackCall())) {
+            return null;
+        }
+        return cases_.getVal(case_);
     }
 
     @Override
@@ -490,7 +500,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
     }
 
-    @Override
     public void initBeans(Configuration _conf, String _language, Struct _db, ContextEl _ctx, RendStackCall _rendStack) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
@@ -544,7 +553,71 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
+    public String initializeRendSessionDoc(ContextEl _ctx, String _language, Configuration _configuration, Struct _db, RendStackCall _rendStackCall) {
+        _rendStackCall.init();
+        initBeans(_configuration,_language,_db, _ctx, _rendStackCall);
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return "";
+        }
+        String currentUrl_ = _configuration.getFirstUrl();
+        Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
+        _rendStackCall.clearPages();
+        String res_ = processAfterInvoke(_configuration, currentUrl_, getCurrentBeanName(), bean_, _language, _ctx, _rendStackCall);
+        setup(res_,_rendStackCall,currentUrl_);
+        return res_;
+    }
+
+    @Override
+    public String processRendAnchorRequest(String _anchorRef, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack) {
+        if (_anchorRef.contains(CALL_METHOD)) {
+            _rendStack.clearPages();
+            ImportingPage ip_ = new ImportingPage();
+            _rendStack.addPage(ip_);
+            int indexPoint_ = _anchorRef.indexOf(DOT);
+            String beanName_ = _anchorRef
+                    .substring(_anchorRef.indexOf(CALL_METHOD) + 1);
+            Struct bean_ = getBeanOrNull(_configuration,beanName_);
+            ip_.setOffset(indexPoint_+1);
+            setGlobalArgumentStruct(bean_,_ctx,_rendStack);
+            Struct return_ = redirect(_htmlPage,bean_,_ctx,_rendStack);
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+                return "";
+            }
+            String urlDest_ = getCurrentUrl();
+            if (return_ != NullStruct.NULL_VALUE) {
+                ip_.setOffset(_anchorRef.length());
+                urlDest_ = getRendUrlDest(beanName_, return_, _ctx, _rendStack, _configuration.getNavigation());
+                if (_ctx.callsOrException(_rendStack.getStackCall())) {
+                    return "";
+                }
+                if (urlDest_ == null) {
+                    urlDest_ = getCurrentUrl();
+                }
+            }
+            _rendStack.clearPages();
+            String res_ = processAfterInvoke(_configuration, urlDest_, beanName_, bean_, _language, _ctx, _rendStack);
+            setup(res_,_rendStack,urlDest_);
+            return res_;
+        }
+        if (_anchorRef.isEmpty()) {
+            return "";
+        }
+        Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
+        _rendStack.clearPages();
+        String res_ = processAfterInvoke(_configuration, _anchorRef,getCurrentBeanName(),bean_, _language, _ctx, _rendStack);
+        setup(res_,_rendStack,_anchorRef);
+        return res_;
+    }
+
+    private void setup(String _res, RendStackCall _rendStack, String _dest) {
+        if (_res.isEmpty()) {
+            return;
+        }
+        setCurrentBeanName(_rendStack.getBeanName());
+        setCurrentUrl(_dest);
+    }
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack) {
+        String curl_ = getCurrentUrl();
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         Struct forms_ = NullStruct.NULL_VALUE;
@@ -554,7 +627,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return "";
         }
-        processInitBeans(_conf,_dest,_beanName, _currentUrl, _language, _ctx, _rendStack);
+        processInitBeans(_conf,_dest,_beanName, curl_, _language, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return "";
         }
@@ -1029,7 +1102,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _rendStackCall.getLastPage().clearInternVars();
     }
 
-    @Override
     public String processString(Argument _arg, ContextEl _ctx, RendStackCall _stack) {
         return processStr(_arg, _ctx, _stack);
     }

@@ -1,11 +1,8 @@
 package cards.gui.animations;
 
 import code.bean.help.HelpCaller;
-import code.bean.help.HelpContextEl;
-import code.expressionlanguage.exec.InitPhase;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.util.DualConfigurationContext;
 import code.sml.Document;
@@ -41,16 +38,12 @@ public final class PreparedRenderPagesCards {
         getNavigation().setSession(session);
         getNavigation().setLanguage(lg);
         getNavigation().setLanguages(new StringList(lg));
-        RendStackCall rendStackCall_ = textSt(contextConf, getNavigation(), realPath(getNavigation()), built.getVal(firstUrl), ms);
-        Document doc_ = rendStackCall_.getDocument();
-        metaDocument = MetaDocument.newInstance(doc_, getNavigation().getSession().getRendKeyWords());
+        Document rendStackCall_ = textSt(contextConf, getNavigation(), realPath(getNavigation()), built.getVal(firstUrl), ms);
+        metaDocument = MetaDocument.newInstance(rendStackCall_, getNavigation().getSession().getRendKeyWords());
     }
 
-    private RendStackCall textSt(DualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms) {
-        HelpContextEl ctx_ = new HelpContextEl();
-        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, ctx_, rendStackCall_);
-        return rendStackCall_;
+    private Document textSt(DualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms) {
+        return HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, lg);
     }
 
     private String realPath(Navigation _navigation) {

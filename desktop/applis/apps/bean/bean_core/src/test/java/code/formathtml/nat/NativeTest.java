@@ -20,6 +20,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.StringStruct;
 import code.formathtml.*;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
@@ -71,6 +72,15 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         assertEq("",new VariableWrapperNat(LocalVariable.newLocalVariable(struct_,"")).getClassName(null,null));
         BeanNatLgNames.processString(new Argument(struct_));
         NatRendImport.beforeDisp(null, null);
+        BeanNatCommonLgNames.methName("(0,1)");
+        BeanNatCommonLgNames.suff("(0,1)");
+        BeanNatCommonLgNames.getString(new StringStruct(""),"",new StringMap<StringMap<String>>(),"_");
+        StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
+        navigation.addEntry("", new StringMap<String>());
+        BeanNatCommonLgNames.getString(new StringStruct(""),"", navigation,"");
+        navigation.lastValue().addEntry("","");
+        BeanNatCommonLgNames.getString(new StringStruct(""),"", navigation,"");
+        BeanNatCommonLgNames.getString(NullStruct.NULL_VALUE,"", new StringMap<StringMap<String>>(),"");
     }
 ////    @Test
 //    public void process0FailTest() {
@@ -733,6 +743,74 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     @Test
+    public void process7_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page1.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        StringMap<Document> docs_ = new StringMap<Document>();
+        StringMap<String> files_ = new StringMap<String>();
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
+        lgNames_.getValidators().addEntry("my_val",new MyValidator());
+        basicStandards(lgNames_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
+        Navigation n_ = new Navigation();
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
+        Configuration session_ = new Configuration();
+        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
+        Forwards forwards_ = nat_.getForwards(d_);
+        session_.init(d_);
+        n_.setSession(session_);
+        n_.setFiles(files_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
+        ContextEl generate_ = forwards_.generate();
+        RendStackCall rendStackCall = new RendStackCall(InitPhase.NOTHING, generate_);
+        n_.initializeRendSession(generate_, lgNames_, rendStackCall);
+        n_.processRendAnchorRequest("page1.html",lgNames_,generate_,rendStackCall);
+        assertEq("<html><body>HEAD<a c:command=\"page1.html\" href=\"\" n-a=\"0\"/></body></html>", n_.getHtmlText());
+    }
+
+    @Test
+    public void processOtherTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page1.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        StringMap<Document> docs_ = new StringMap<Document>();
+        StringMap<String> files_ = new StringMap<String>();
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
+        lgNames_.getValidators().addEntry("my_val",new MyValidator());
+        basicStandards(lgNames_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
+        Navigation n_ = new Navigation();
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
+        Configuration session_ = new Configuration();
+        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
+        Forwards forwards_ = nat_.getForwards(d_);
+        session_.init(d_);
+        n_.setSession(session_);
+        n_.setFiles(files_);
+        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
+        ContextEl generate_ = forwards_.generate();
+        RendStackCall rendStackCall = new RendStackCall(InitPhase.NOTHING, generate_);
+        n_.initializeRendSession(generate_, lgNames_, rendStackCall);
+        n_.processRendAnchorRequest("",lgNames_,generate_,rendStackCall);
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+    }
+
+    @Test
     public void process_7_Test() {
         String locale_ = "en";
         String folder_ = "messages";
@@ -831,7 +909,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, generate_);
         n_.initializeRendSession(generate_, lgNames_, build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
-        assertEq("page2.html", n_.getCurrentUrl());
+        assertEq("page2.html", lgNames_.getCurrentUrl());
     }
     @Test
     public void processNat_Test() {
@@ -872,7 +950,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, generate_);
         n_.initializeRendSession(generate_, lgNames_, build_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
-        assertEq("page2.html", n_.getCurrentUrl());
+        assertEq("page2.html", lgNames_.getCurrentUrl());
     }
 
     private static CustBeanLgNames stds() {
@@ -928,12 +1006,12 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        conf_.getDual().getRenderFiles().add("page1.html");
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
-//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("page2.html", lgNames_.getCurrentUrl());
 //        nav_.getHtmlPage().setUrl(0);
 //        form(conf_, nav_);
 //        setupBeansAfter(conf_);
-//        assertEq("page1.html", nav_.getCurrentUrl());
-//        assertEq("bean_one", nav_.getCurrentBeanName());
+//        assertEq("page1.html", lgNames_.getCurrentUrl());
+//        assertEq("bean_one", lgNames_.getCurrentBeanName());
 //        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
 //        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
 //        assertEq("",nav_.getTitle());
@@ -979,7 +1057,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_, generate_);
         assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
-        assertEq("page2.html", nav_.getCurrentUrl());
+        assertEq("page2.html", lgNames_.getCurrentUrl());
 
     }
 
@@ -1021,12 +1099,12 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        conf_.getDual().getRenderFiles().add("page1.html");
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionDoc(conf_,nav_, beans_);
-//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("page2.html", lgNames_.getCurrentUrl());
 //        nav_.getHtmlPage().setUrl(0);
 //        form(conf_, nav_);
 //        setupBeansAfter(conf_);
-//        assertEq("page1.html", nav_.getCurrentUrl());
-//        assertEq("bean_one", nav_.getCurrentBeanName());
+//        assertEq("page1.html", lgNames_.getCurrentUrl());
+//        assertEq("bean_one", lgNames_.getCurrentBeanName());
 //        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
 //        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
 //        assertEq("",nav_.getTitle());
@@ -1156,8 +1234,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_one", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one.goToPage\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"text\" name=\"bean_one.selectedString\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,err\">ONE_TWO is not a no zero rate</span></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBean(conf_, "bean_one");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1212,8 +1290,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,err\">err</span></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1274,8 +1352,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,err\">err</span><input id=\"txt2\" type=\"text\" name=\"bean_two.typedString\" n-i=\"1\" value=\"TYPED_STRING\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1341,8 +1419,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"number\" name=\"bean_two.typedInt\" c:validator=\"rate_val\" n-i=\"0\" value=\"ONE_TWO\"/><span c:for=\"txt\" c:valueMessage=\"msg_example,err\">Err</span><input id=\"txt2\" type=\"text\" name=\"bean_one.selectedString\" n-i=\"1\" value=\"ONE\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1382,7 +1460,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_, generate_);
-        assertEq("page2.html", nav_.getCurrentUrl());
+        assertEq("page2.html", lgNames_.getCurrentUrl());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.selectedString\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
@@ -1413,7 +1491,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        nav_.setFiles(files_);
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
-//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("page2.html", lgNames_.getCurrentUrl());
 //        assertEq("<html><body>returned value</body></html>", nav_.getHtmlText());
 //
 //    }
@@ -1444,7 +1522,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        nav_.setFiles(files_);
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
-//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("page2.html", lgNames_.getCurrentUrl());
 //        assertEq("<html><body>returned value</body></html>", nav_.getHtmlText());
 //
 //    }
@@ -1475,7 +1553,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        nav_.setFiles(files_);
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
-//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("page2.html", lgNames_.getCurrentUrl());
 //        assertEq("<html><body>5</body></html>", nav_.getHtmlText());
 //
 //    }
@@ -1523,8 +1601,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"10\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1578,8 +1656,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"0\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1633,8 +1711,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"checkbox\" name=\"bean_two.checked\" n-i=\"0\" checked=\"checked\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1688,8 +1766,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"0\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1742,8 +1820,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        nav_.getHtmlPage().setUrl(0);
 //        form(conf_, nav_);
 //        setupBeansAfter(conf_);
-//        assertEq("page1.html", nav_.getCurrentUrl());
-//        assertEq("bean_two", nav_.getCurrentBeanName());
+//        assertEq("page1.html", lgNames_.getCurrentUrl());
+//        assertEq("bean_two", lgNames_.getCurrentBeanName());
 //        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"code.formathtml.classes.Rate\" type=\"text\" name=\"bean_two.rate\" n-i=\"0\" value=\"1/2\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObject map_ = beanTwo_.getForms();
@@ -1797,8 +1875,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(0);
         form(lgNames_, nav_, rendStackCall_, generate_);
-        assertEq("page1.html", nav_.getCurrentUrl());
-        assertEq("bean_two", nav_.getCurrentBeanName());
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"$short\" type=\"number\" name=\"bean_two.typedShort\" n-i=\"0\" value=\"12\"/></form></body></html>", nav_.getHtmlText());
 //        beanTwo_ = getBeanTwo(conf_, "bean_two");
 //        StringMapObjectSample map_ = beanTwo_.getForms();
@@ -1834,7 +1912,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        nav_.setFiles(files_);
 //        conf_.getDual().getRenderFiles().add("page1.html");
 //        initSessionNat(conf_,nav_);
-//        assertEq("page1.html", nav_.getCurrentUrl());
+//        assertEq("page1.html", lgNames_.getCurrentUrl());
 //
 //    }
 
@@ -1867,7 +1945,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_, generate_);
-        assertEq("page2.html", nav_.getCurrentUrl());
+        assertEq("page2.html", lgNames_.getCurrentUrl());
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
@@ -1905,13 +1983,13 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        conf_.getDual().getRenderFiles().add("page1.html");
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
-////        assertEq("page2.html", nav_.getCurrentUrl());
+////        assertEq("page2.html", lgNames_.getCurrentUrl());
 ////        nav_.getHtmlPage().setUrl(0);
 ////        form(conf_, nav_);
 ////        setupBeansAfter(conf_);
 //        ((BeanNatLgNames)conf_.getContext().getStandards()).rendRefresh(nav_, conf_.getContext(), conf_.getStackCall());
-//        assertEq("page2.html", nav_.getCurrentUrl());
-//        assertEq("bean_one", nav_.getCurrentBeanName());
+//        assertEq("page2.html", lgNames_.getCurrentUrl());
+//        assertEq("bean_one", lgNames_.getCurrentBeanName());
 //        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
 ////        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
 //        assertEq("",nav_.getTitle());
@@ -1952,12 +2030,12 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        conf_.getDual().getRenderFiles().add("page1.html");
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
-//        assertEq("page2.html", nav_.getCurrentUrl());
+//        assertEq("page2.html", lgNames_.getCurrentUrl());
 //        nav_.getHtmlPage().setUrl(0);
 //        form(conf_, nav_);
 //        setupBeansAfter(conf_);
-//        assertEq("page1.html", nav_.getCurrentUrl());
-//        assertEq("bean_one", nav_.getCurrentBeanName());
+//        assertEq("page1.html", lgNames_.getCurrentUrl());
+//        assertEq("bean_one", lgNames_.getCurrentBeanName());
 //        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
 //        assertSame(getBean(conf_, "bean_one").getForms(), getBeanFive(conf_, "bean_two").getForms());
 //        assertEq("",nav_.getTitle());

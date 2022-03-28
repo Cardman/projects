@@ -17,7 +17,6 @@ public final class FormParts {
     private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> formsArgs = new CustList<StringList>();
     private CustList<StringList> formsVars = new CustList<StringList>();
-    private StringList formsNames = new StringList();
     private LongMap<StringList> formatIdMap = new LongMap<StringList>();
     private CustList<StringList> formatIdMapStack = new CustList<StringList>();
     private Longs formsNb = new Longs();
@@ -38,7 +37,6 @@ public final class FormParts {
         inputs = new Longs();
         formsArgs = new CustList<StringList>();
         formsVars = new CustList<StringList>();
-        formsNames = new StringList();
         currentForm = 0;
     }
     public LongMap<LongTreeMap<NodeContainer>> getContainersMap() {
@@ -75,10 +73,6 @@ public final class FormParts {
 
     public CustList<StringList> getFormsVars() {
         return formsVars;
-    }
-
-    public StringList getFormsNames() {
-        return formsNames;
     }
 
     public LongMap<StringList> getFormatIdMap() {

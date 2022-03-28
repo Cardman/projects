@@ -197,7 +197,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         ((BeloteBeanStruct)_arg).getBean().beforeDisplaying();
     }
 
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStack) {
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
         RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);

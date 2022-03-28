@@ -26,7 +26,7 @@ public final class RenderAnchorTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><a c:command=\"$bean_one.click\" href=\"\" n-a=\"0\">two</a></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\">two</a></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -52,7 +52,7 @@ public final class RenderAnchorTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><a c:command=\"$bean_one.click(5)\" href=\"\" n-a=\"0\">two</a></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\">two</a></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process3Test() {
