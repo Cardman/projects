@@ -6199,15 +6199,15 @@ public final class RenderNavigationTest extends CommonRender {
         assertTrue(initSessionFail(locale_, folder_, relative_, files_, new StringMap<String>(), "page", "pkg.BeanOne"));
     }
 
-    private static void initNav(StringMap<StringMap<StringMap<String>>> _nav) {
-        StringMap<StringMap<String>> sub_ = new StringMap<StringMap<String>>();
-        _nav.addEntry("bean_one", sub_);
+    private static void initNav(StringMap<StringMap<String>> _nav) {
+//        StringMap<StringMap<String>> sub_ = new StringMap<StringMap<String>>();
+//        _nav.addEntry("bean_one", sub_);
     }
-    private static void lg(StringMap<StringMap<StringMap<String>>> _nav, String _d, String _key1, String _value1, String _key2, String _value2) {
+    private static void lg(StringMap<StringMap<String>> _nav, String _d, String _key1, String _value1, String _key2, String _value2) {
         StringMap<String> v_ = new StringMap<String>();
         v_.addEntry(_key1,_value1);
         v_.addEntry(_key2,_value2);
-        _nav.getVal("bean_one").addEntry(_d, v_);
+        _nav.put(_d, v_);
     }
     protected static Struct getException(RendStackCall _cont) {
         CallingState str_ = _cont.getStackCall().getCallingState();

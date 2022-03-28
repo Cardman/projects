@@ -3,23 +3,22 @@ package code.formathtml;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.VirtualImportingBlock;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
-
-import code.expressionlanguage.structs.Struct;
-import code.formathtml.errors.RendKeyWords;
-import code.formathtml.util.*;
+import code.formathtml.util.DualConfigurationContext;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
-import code.util.*;
+import code.util.EntryCust;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class Configuration {
@@ -34,7 +33,7 @@ public final class Configuration {
 
     private StringMap<BeanInfo> beansInfos = new StringMap<BeanInfo>();
 
-    private StringMap<StringMap<StringMap<String>>> navigation = new StringMap<StringMap<StringMap<String>>>();
+    private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
 
     private int tabWidth = DEFAULT_TAB_WIDTH;
 
@@ -64,17 +63,16 @@ public final class Configuration {
 
     public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
         String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-        ResultExpression res_ = new ResultExpression();
         _page.setImportingAcces(new VirtualImportingBlock());
         for (EntryCust<String, BeanInfo> e: getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page, res_);
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page);
             info_.setResolvedClassName(info_.getClassName());
             _anaDoc.getBeansInfos().addEntry(root_,info_);
         }
         for (EntryCust<String,ValidatorInfo> e: getLateValidators().entryList()) {
             ValidatorInfo v_ = e.getValue();
-            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page, res_);
+            OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", v_.getClassName(), "()"), 0, _anaDoc, _page);
             _anaDoc.getLateValidators().addEntry(root_,v_);
         }
     }
@@ -140,11 +138,11 @@ public final class Configuration {
         beansInfos = _beansInfos;
     }
 
-    public StringMap<StringMap<StringMap<String>>> getNavigation() {
+    public StringMap<StringMap<String>> getNavigation() {
         return navigation;
     }
 
-    public void setNavigation(StringMap<StringMap<StringMap<String>>> _navigation) {
+    public void setNavigation(StringMap<StringMap<String>> _navigation) {
         navigation = _navigation;
     }
 

@@ -87,7 +87,7 @@ public final class DefaultConfigurationLoader {
                 continue;
             }
             if (StringUtil.quickEq(fieldName_, "navigation")) {
-                _configuration.setNavigation(ReadConfiguration.loadStringMapStringsList(c));
+                _configuration.setNavigation(ReadConfiguration.loadStringMapStrings(c));
                 continue;
             }
 

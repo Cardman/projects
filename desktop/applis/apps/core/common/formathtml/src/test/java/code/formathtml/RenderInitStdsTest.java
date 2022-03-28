@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ContextFactory;
@@ -15,7 +14,6 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.*;
@@ -81,15 +79,14 @@ public final class RenderInitStdsTest extends CommonRender {
         RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
         RendDynOperationNode.getFirstNode(null);
         assertNull(RendDynOperationNode.getParentOrNull(null));
-        BeanCustLgNames.select("","","",new StringMap<StringMap<StringMap<String>>>());
-        StringMap<StringMap<StringMap<String>>> navigation = new StringMap<StringMap<StringMap<String>>>();
-        navigation.addEntry("", new StringMap<StringMap<String>>());
-        BeanCustLgNames.select("","","", navigation);
+        BeanCustLgNames.select("","",new StringMap<StringMap<String>>());
+        StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
+        BeanCustLgNames.select("","", navigation);
         StringMap<String> ca = new StringMap<String>();
-        navigation.getVal("").addEntry("", ca);
-        BeanCustLgNames.select("","","", navigation);
+        navigation.addEntry("", ca);
+        BeanCustLgNames.select("","", navigation);
         ca.addEntry("","");
-        BeanCustLgNames.select("","","", navigation);
+        BeanCustLgNames.select("","", navigation);
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
         return contextEl(new StringMap<String>(),new Options(),_beanLgNames,_mess,_kw, _calculator);

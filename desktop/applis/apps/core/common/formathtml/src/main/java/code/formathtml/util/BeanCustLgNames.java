@@ -127,30 +127,26 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     private String vlidateVarArgNameField;
     private final RendExecutingBlocks rendExecutingBlocks = new RendExecutingBlocks();
 
-    private StringMap<StringMap<StringMap<String>>> navigation = new StringMap<StringMap<StringMap<String>>>();
+    private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
 
     protected BeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
     }
 
-    public String getRendUrlDest(String _bean, String _method, Struct _return, ContextEl _context, RendStackCall _stackCall) {
+    public String getRendUrlDest(String _method, Struct _return, ContextEl _context, RendStackCall _stackCall) {
         String case_ = processString(new Argument(_return), _context, _stackCall);
         if (_context.callsOrException(_stackCall.getStackCall())) {
             return null;
         }
-        return select(_bean, _method, case_, navigation);
+        return select(_method, case_, navigation);
     }
 
-    public static String select(String _bean, String _method, String _ca, StringMap<StringMap<StringMap<String>>> _navigation) {
-        StringMap<StringMap<String>> casesList_ = _navigation.getVal(_bean);
+    public static String select(String _method, String _ca, StringMap<StringMap<String>> _navigation) {
+        StringMap<String> casesList_ = _navigation.getVal(_method);
         if (casesList_ == null) {
             return null;
         }
-        StringMap<String> val_ = casesList_.getVal(_method);
-        if (val_ == null) {
-            return null;
-        }
-        return val_.getVal(_ca);
+        return casesList_.getVal(_ca);
     }
 
     @Override
@@ -602,7 +598,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             String urlDest_ = getCurrentUrl();
             if (return_ != NullStruct.NULL_VALUE) {
                 ip_.setOffset(actionCommand_.length());
-                urlDest_ = getRendUrlDest(beanName_,sgn_, return_, _ctx, _rendStack);
+                urlDest_ = getRendUrlDest(sgn_, return_, _ctx, _rendStack);
                 if (_ctx.callsOrException(_rendStack.getStackCall())) {
                     return "";
                 }
