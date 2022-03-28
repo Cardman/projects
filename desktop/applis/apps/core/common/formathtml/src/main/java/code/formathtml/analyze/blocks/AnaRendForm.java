@@ -71,9 +71,6 @@ public final class AnaRendForm extends AnaRendElement {
                 i_++;
             }
             String pref_ = r_.quickRender(lk_, formArg_);
-            if (pref_.indexOf('(') < 0) {
-                pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
-            }
             _page.zeroOffset();
             root = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page,resultExpression);
             AnaRendBlock.checkVars(rowsGrId_,varNames_,root,_page,_anaDoc);

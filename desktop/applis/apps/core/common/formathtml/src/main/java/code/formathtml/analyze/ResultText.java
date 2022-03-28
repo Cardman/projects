@@ -158,9 +158,6 @@ public final class ResultText {
                 i_++;
             }
             String pref_ = r_.quickRender(lk_, formArg_);
-            if (pref_.indexOf('(') < 0) {
-                pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
-            }
             _page.zeroOffset();
             r_.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page, r_.resultExpression);
             AnaRendBlock.checkVars(colsGrId_,varNames_,r_.opExpAnchorRoot,_page,_anaDoc);
