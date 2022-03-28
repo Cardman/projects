@@ -2,7 +2,6 @@ package code.gui.document;
 
 import code.formathtml.render.MetaAnimatedImage;
 import code.gui.AbsPreparedLabel;
-import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.threads.ThreadUtil;
 import code.sml.Element;
@@ -10,7 +9,6 @@ import code.util.CustList;
 
 
 public final class DualAnimatedImage extends DualImage {
-    private String href;
 
     private int index;
 
@@ -24,18 +22,10 @@ public final class DualAnimatedImage extends DualImage {
         super(_container, _component, _page);
         images = _component.getImages();
         Element anchor_ = _component.getAnchor();
-        href = "";
         if (anchor_ != null) {
             AbsPreparedLabel label_ = getLabel();
             label_.setHandCursor();
-            label_.addMouseListener(new AnchorEvent(anchor_, _page, this));
-            if (!anchor_.getAttribute("command").isEmpty()) {
-                href = anchor_.getAttribute("command");
-            } else if (!anchor_.getAttribute("href").isEmpty()) {
-                href = anchor_.getAttribute("href");
-            } else {
-                href = "";
-            }
+            label_.addMouseListener(new AnchorEvent(anchor_, _page));
         }
         delay = _component.getDelay();
         if (delay <= 0) {
@@ -79,8 +69,5 @@ public final class DualAnimatedImage extends DualImage {
             y_++;
         }
         getLabel().setIcon(getPage().getGene().getImageFactory(), imgBuf_);
-    }
-    public String getHref() {
-        return href;
     }
 }

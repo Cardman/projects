@@ -568,14 +568,18 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     @Override
-    public String processRendAnchorRequest(String _anchorRef, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack) {
-        if (_anchorRef.contains(CALL_METHOD)) {
+    public String processRendAnchorRequest(Element _ancElt, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack) {
+        if (_ancElt == null) {
+            return "";
+        }
+        String actionCommand_ = _ancElt.getAttribute(StringUtil.concat(_configuration.getPrefix(),_configuration.getRendKeyWords().getAttrCommand()));
+        if (actionCommand_.contains(CALL_METHOD)) {
             _rendStack.clearPages();
             ImportingPage ip_ = new ImportingPage();
             _rendStack.addPage(ip_);
-            int indexPoint_ = _anchorRef.indexOf(DOT);
-            String beanName_ = _anchorRef
-                    .substring(_anchorRef.indexOf(CALL_METHOD) + 1);
+            int indexPoint_ = actionCommand_.indexOf(DOT);
+            String beanName_ = actionCommand_
+                    .substring(actionCommand_.indexOf(CALL_METHOD) + 1);
             Struct bean_ = getBeanOrNull(_configuration,beanName_);
             ip_.setOffset(indexPoint_+1);
             setGlobalArgumentStruct(bean_,_ctx,_rendStack);
@@ -585,7 +589,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             String urlDest_ = getCurrentUrl();
             if (return_ != NullStruct.NULL_VALUE) {
-                ip_.setOffset(_anchorRef.length());
+                ip_.setOffset(actionCommand_.length());
                 urlDest_ = getRendUrlDest(beanName_, return_, _ctx, _rendStack, _configuration.getNavigation());
                 if (_ctx.callsOrException(_rendStack.getStackCall())) {
                     return "";
@@ -599,13 +603,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             setup(res_,_rendStack,urlDest_);
             return res_;
         }
-        if (_anchorRef.isEmpty()) {
-            return "";
-        }
         Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
         _rendStack.clearPages();
-        String res_ = processAfterInvoke(_configuration, _anchorRef,getCurrentBeanName(),bean_, _language, _ctx, _rendStack);
-        setup(res_,_rendStack,_anchorRef);
+        String res_ = processAfterInvoke(_configuration, actionCommand_,getCurrentBeanName(),bean_, _language, _ctx, _rendStack);
+        setup(res_,_rendStack,actionCommand_);
         return res_;
     }
 

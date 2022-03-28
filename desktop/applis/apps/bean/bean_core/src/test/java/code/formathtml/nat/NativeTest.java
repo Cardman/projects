@@ -3,7 +3,6 @@ package code.formathtml.nat;
 import code.bean.nat.*;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.bean.nat.analyze.opers.MethodNatOperation;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
@@ -748,7 +747,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page1.html\" href=\"\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page3.html\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
@@ -772,8 +771,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ContextEl generate_ = forwards_.generate();
         RendStackCall rendStackCall = new RendStackCall(InitPhase.NOTHING, generate_);
         n_.initializeRendSession(generate_, lgNames_, rendStackCall);
-        n_.processRendAnchorRequest("page1.html",lgNames_,generate_,rendStackCall);
-        assertEq("<html><body>HEAD<a c:command=\"page1.html\" href=\"\" n-a=\"0\"/></body></html>", n_.getHtmlText());
+        n_.processRendAnchorRequest(lgNames_,generate_,rendStackCall);
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
     @Test
@@ -806,10 +805,45 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         ContextEl generate_ = forwards_.generate();
         RendStackCall rendStackCall = new RendStackCall(InitPhase.NOTHING, generate_);
         n_.initializeRendSession(generate_, lgNames_, rendStackCall);
-        n_.processRendAnchorRequest("",lgNames_,generate_,rendStackCall);
+        n_.processRendAnchorRequest(lgNames_,generate_,rendStackCall);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
+    @Test
+    public void processOther2Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page1.html\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        StringMap<Document> docs_ = new StringMap<Document>();
+        StringMap<String> files_ = new StringMap<String>();
+        CustBeanLgNames lgNames_ = new CustBeanLgNames();
+        lgNames_.getValidators().addEntry("my_val",new MyValidator());
+        basicStandards(lgNames_);
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", htmlTwo_);
+        docs_.addEntry("page1.html",DocumentBuilder.parseSax(html_));
+        docs_.addEntry("page2.html",DocumentBuilder.parseSax(htmlTwo_));
+        Navigation n_ = new Navigation();
+        NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
+        Configuration session_ = new Configuration();
+        DualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, DefaultFileBuilder.newInstance(lgNames_.getContent()));
+        Forwards forwards_ = nat_.getForwards(d_);
+        session_.init(d_);
+        n_.setSession(session_);
+        n_.setFiles(files_);
+        n_.getSession().setFirstUrl("page1.html");
+        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
+        ContextEl generate_ = forwards_.generate();
+        RendStackCall rendStackCall = new RendStackCall(InitPhase.NOTHING, generate_);
+        n_.initializeRendSession(generate_, lgNames_, rendStackCall);
+        n_.getHtmlPage().setUrl(0);
+        n_.processRendAnchorRequest(lgNames_,generate_,rendStackCall);
+        assertEq("<html><body>HEAD<a c:command=\"page1.html\" href=\"\" n-a=\"0\"/></body></html>", n_.getHtmlText());
+    }
     @Test
     public void process_7_Test() {
         String locale_ = "en";

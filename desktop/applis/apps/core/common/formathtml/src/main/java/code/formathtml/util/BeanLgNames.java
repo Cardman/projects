@@ -17,6 +17,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.Message;
 import code.maths.montecarlo.AbstractGenerator;
+import code.sml.Element;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -98,7 +99,7 @@ public abstract class BeanLgNames extends LgNames {
     }
 
     public abstract String initializeRendSessionDoc(ContextEl _ctx, String _language, Configuration _configuration, Struct _db, RendStackCall _rendStackCall);
-    public abstract String processRendAnchorRequest(String _anchorRef, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack);
+    public abstract String processRendAnchorRequest(Element _ancElt, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack);
     public Struct redirect(HtmlPage _htmlPage, Struct _bean, ContextEl _ctx, RendStackCall _rendStack){
         Struct ret_;
         if (_htmlPage.isForm()) {

@@ -16,12 +16,9 @@ public final class AnchorEvent extends AbsMouseListenerRel {
 
     private RenderedPage page;
 
-    private DualLeaf leaf;
-
-    public AnchorEvent(Element _anchor, RenderedPage _page, DualLeaf _leaf) {
+    public AnchorEvent(Element _anchor, RenderedPage _page) {
         anchor = _anchor;
         page = _page;
-        leaf = _leaf;
     }
 
     @Override
@@ -30,14 +27,6 @@ public final class AnchorEvent extends AbsMouseListenerRel {
             d.getImageThread().setAnimated(false);
         }
         Navigation nav_ = page.getNavigation();
-        String anchorRef_ = "";
-        if (leaf instanceof DualAnchoredLabel) {
-            anchorRef_ = ((DualAnchoredLabel)leaf).getHref();
-        } else if (leaf instanceof DualSimpleImage) {
-            anchorRef_ = ((DualSimpleImage)leaf).getHref();
-        } else if (leaf instanceof DualAnimatedImage) {
-            anchorRef_ = ((DualAnimatedImage)leaf).getHref();
-        }
         long na_ = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (anchor.hasAttribute("n-a")) {
             na_ = NumberUtil.parseLongZero(anchor.getAttribute("n-a"));
@@ -45,7 +34,7 @@ public final class AnchorEvent extends AbsMouseListenerRel {
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(false);
         htmlPage_.setUrl(na_);
-        page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, anchorRef_, false));
+        page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, false));
         page.animateProcess();
     }
 }

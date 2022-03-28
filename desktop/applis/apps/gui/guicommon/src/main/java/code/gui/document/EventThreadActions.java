@@ -6,8 +6,6 @@ import code.formathtml.exec.RendStackCall;
 
 public final class EventThreadActions extends AbstractThreadActions {
 
-    private String anchor;
-
 
     private boolean form;
 
@@ -15,10 +13,9 @@ public final class EventThreadActions extends AbstractThreadActions {
         super(_page);
     }
 
-    static EventThreadActions inst(RenderedPage _page, String _anchor, boolean _form) {
+    static EventThreadActions inst(RenderedPage _page, boolean _form) {
         EventThreadActions t_ = new EventThreadActions(_page);
         t_.getPage().start();
-        t_.anchor = _anchor;
         t_.form = _form;
         return t_;
     }
@@ -33,7 +30,7 @@ public final class EventThreadActions extends AbstractThreadActions {
             afterAction(ctx_,rendStackCall_);
             return;
         }
-        getPage().getNavigation().processRendAnchorRequest(anchor, getPage().getStandards(), ctx_, rendStackCall_);
+        getPage().getNavigation().processRendAnchorRequest(getPage().getStandards(), ctx_, rendStackCall_);
         afterAction(ctx_,rendStackCall_);
     }
 }

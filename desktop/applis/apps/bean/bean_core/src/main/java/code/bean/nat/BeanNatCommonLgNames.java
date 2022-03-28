@@ -40,6 +40,7 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.maths.Rate;
 import code.maths.montecarlo.DefaultGenerator;
+import code.sml.Element;
 import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -246,18 +247,22 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return res_;
     }
     @Override
-    public String processRendAnchorRequest(String _anchorRef, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack) {
-        if (_anchorRef.contains(CALL_METHOD)) {
+    public String processRendAnchorRequest(Element _ancElt, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack) {
+        if (_ancElt == null) {
+            return "";
+        }
+        String actionCommand_ = _ancElt.getAttribute(StringUtil.concat(_configuration.getPrefix(),_configuration.getRendKeyWords().getAttrCommand()));
+        if (actionCommand_.contains(CALL_METHOD)) {
             _rendStack.clearPages();
             ImportingPage ip_ = new ImportingPage();
             _rendStack.addPage(ip_);
-            int indexPoint_ = _anchorRef.indexOf(DOT);
-            String action_ = _anchorRef
+            int indexPoint_ = actionCommand_.indexOf(DOT);
+            String action_ = actionCommand_
                     .substring(indexPoint_ + 1);
             String methodName_ = methName(action_);
             String suffix_ = suff(action_);
-            String beanName_ = _anchorRef
-                    .substring(_anchorRef.indexOf(CALL_METHOD) + 1, indexPoint_);
+            String beanName_ = actionCommand_
+                    .substring(actionCommand_.indexOf(CALL_METHOD) + 1, indexPoint_);
             Struct bean_ = getBeanOrNull(_configuration,beanName_);
             ip_.setOffset(indexPoint_+1);
             setGlobalArgumentStruct(bean_,_ctx,_rendStack);
@@ -269,14 +274,11 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             setCurrentUrl(urlDest_);
             return res_;
         }
-        if (_anchorRef.isEmpty()) {
-            return "";
-        }
         Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
         _rendStack.clearPages();
-        String res_ = processAfterInvoke(_configuration, _anchorRef, getCurrentBeanName(), bean_, _language, _ctx, _rendStack);
+        String res_ = processAfterInvoke(_configuration, actionCommand_, getCurrentBeanName(), bean_, _language, _ctx, _rendStack);
         setCurrentBeanName(_rendStack.getBeanName());
-        setCurrentUrl(_anchorRef);
+        setCurrentUrl(actionCommand_);
         return res_;
     }
 

@@ -10,6 +10,8 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.*;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
 import code.util.*;
 import org.junit.Test;
 
@@ -48,7 +50,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "page2.html");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
@@ -91,7 +93,7 @@ public final class RenderNavigationTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html><body><a c:command=\"page2.html\"/></body></html>";
+        String html_ = "<html><body><a c:command=\"page3.html\"/></body></html>";
         String htmlTwo_ = "<html><body>Next</body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         filesSec_.put(CUST_ITER_PATH, getCustomIterator());
@@ -109,25 +111,31 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
-        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"page3.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("",nav_.getReferenceScroll());
-        assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><a c:command=\"page3.html\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
     }
 
-    private static void processRendAnchorRequest(DualNavigationContext _nav, ContextEl _ctx, String _s) {
-        _nav.getNavigation().processRendAnchorRequest(_s, _nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
+    private static void processRendAnchorRequest(DualNavigationContext _nav, ContextEl _ctx) {
+        _nav.getNavigation().processRendAnchorRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
     }
 
-    private static Struct processRendAnchorRequestExc(DualNavigationContext _nav, ContextEl _ctx, String _s) {
+    private static void processRendAnchorRequest2(DualNavigationContext _nav, ContextEl _ctx) {
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        doc_.appendChild(doc_.createElement(""));
+        _nav.getNavigation().processRendAnchorRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), doc_);
+    }
+
+    private static Struct processRendAnchorRequestExc(DualNavigationContext _nav, ContextEl _ctx) {
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _nav.getNavigation().processRendAnchorRequest(_s,_nav.getDualAnalyzedContext().getStds(), _ctx, rendStackCall_);
+        _nav.getNavigation().processRendAnchorRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, rendStackCall_);
         return getException(rendStackCall_);
     }
 
@@ -291,7 +299,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
-        assertNotNull(processRendAnchorRequestExc(a_,ctx_, "$bean_one"));
+        assertNotNull(processRendAnchorRequestExc(a_,ctx_));
     }
 
     @Test
@@ -350,7 +358,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "bean_one");
+        processRendAnchorRequest2(a_,ctx_);
         assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>",a_.getNavigation().getHtmlText());
     }
     @Test
@@ -404,7 +412,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "$bean_one");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
@@ -461,7 +469,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "$bean_one");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page3.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body>After</body></html>", nav_.getHtmlText());
@@ -517,7 +525,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "$bean_one.click(1)");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -573,7 +581,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "$bean_one.click(1)");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -630,7 +638,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "$bean_one.click(1)");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_one\" href=\"\" n-a=\"0\"/></body></html>", nav_.getHtmlText());
@@ -692,7 +700,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
         
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "$bean_one");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_two", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body>Next</body></html>", nav_.getHtmlText());
@@ -748,7 +756,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "$bean_one");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("sampleName", nav_.getReferenceScroll());
@@ -807,7 +815,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getReferenceScroll());
 
         nav_.getHtmlPage().setUrl(0);
-        processRendAnchorRequest(a_,ctx_, "$bean_one");
+        processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body>Next</body></html>", nav_.getHtmlText());

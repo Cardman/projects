@@ -28,7 +28,7 @@ public final class FormEvent extends AbsMouseListenerRel {
             d.getImageThread().setAnimated(false);
         }
         SubmitForm.submit(form_,page.getNavigation());
-        page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, "", true));
+        page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, true));
         page.animateProcess();
     }
 }

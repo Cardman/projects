@@ -103,8 +103,18 @@ public final class Navigation {
         return files;
     }
 
-    public void processRendAnchorRequest(String _anchorRef, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack) {
-        String res_ = _advStandards.processRendAnchorRequest(_anchorRef, language, session, htmlPage, _ctx, _rendStack);
+    public void processRendAnchorRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack) {
+        Document doc_ = getDocument();
+        processRendAnchorRequest(_advStandards, _ctx, _rendStack, doc_);
+    }
+
+    public void processRendAnchorRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack, Document doc_) {
+        Element ancElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, getSession().getRendKeyWords().getAttrNa(), Long.toString(htmlPage.getUrl()));
+        processRendAnchorRequest(_advStandards, _ctx, _rendStack,ancElement_);
+    }
+
+    public void processRendAnchorRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack, Element ancElement_) {
+        String res_ = _advStandards.processRendAnchorRequest(ancElement_, language, session, htmlPage, _ctx, _rendStack);
         if (!res_.isEmpty()) {
             setupText(res_,_advStandards,_rendStack);
         }
@@ -120,7 +130,6 @@ public final class Navigation {
         containersMap_ = htmlPage_.getContainers();
         long lg_ = htmlPage_.getUrl();
         Document doc_ = document;
-        String actionCommand_;
         //retrieving form that is submitted
         Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, session.getRendKeyWords().getAttrNf(), Long.toString(lg_));
         if (formElement_ == null) {
@@ -130,7 +139,6 @@ public final class Navigation {
         htmlPage_.setForm(true);
 
         //As soon as the form is retrieved, then process on it and exit from the loop
-        actionCommand_ = formElement_.getAttribute(StringUtil.concat(session.getPrefix(),session.getRendKeyWords().getAttrCommand()));
 
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
@@ -181,7 +189,7 @@ public final class Navigation {
         }
 
         //invoke application
-        processRendAnchorRequest(actionCommand_, _advStandards, _ctx, _rendStackCall);
+        processRendAnchorRequest(_advStandards, _ctx, _rendStackCall,formElement_);
     }
 
     private void updateRendBean(LongTreeMap<NodeContainer> _containers, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
