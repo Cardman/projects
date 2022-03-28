@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -26,14 +26,14 @@ public final class RendSettableFieldStatOperation extends
     protected Argument getField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         String fieldType_ = getRealType();
         ClassField fieldId_ = getClassField();
-        return ExecTemplates.getStaticField(_context.getExiting(), getRootBlock(), fieldType_, _context, _rendStack.getStackCall(), fieldId_);
+        return ExecFieldTemplates.getStaticField(_context.getExiting(), getRootBlock(), fieldType_, _context, _rendStack.getStackCall(), fieldId_);
     }
 
     @Override
     protected Argument setField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
         String fieldType_ = getRealType();
         ClassField fieldId_ = getClassField();
-        return ExecTemplates.setStaticField(_context.getExiting(), getRootBlock(), fieldType_, _right, _context, _rendStack.getStackCall(), fieldId_);
+        return ExecFieldTemplates.setStaticField(_context.getExiting(), getRootBlock(), fieldType_, _right, _context, _rendStack.getStackCall(), fieldId_);
     }
 
     public ExecRootBlock getRootBlock() {

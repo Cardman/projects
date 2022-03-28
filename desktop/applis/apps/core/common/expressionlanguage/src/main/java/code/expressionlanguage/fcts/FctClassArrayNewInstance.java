@@ -7,8 +7,8 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.*;
 import code.util.Ints;
@@ -44,7 +44,7 @@ public final class FctClassArrayNewInstance extends FctReflection {
             int dim_ = NumParsers.convertToNumber(s).intStruct();
             dims_.add(dim_);
         }
-        Struct res_ = ExecTemplates.newCustomArrayOrExc(clDyn_, dims_, _cont, _stackCall);
+        Struct res_ = ExecArrayTemplates.newCustomArrayOrExc(clDyn_, dims_, _cont, _stackCall);
         if (res_ instanceof ErrorStruct) {
             _stackCall.setCallingState(new CustomFoundExc(res_));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.opers.ExecWrappOperation;
 import code.expressionlanguage.exec.variables.*;
@@ -32,7 +32,7 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
             if (ch_ instanceof RendSettableFieldInstOperation) {
                 ExecTypeReturn pair_ = ((RendSettableFieldInstOperation) ch_).getPair();
                 Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
-                f_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(),ExecTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _rendStack.getStackCall()).getClassName(_context),settableFieldContent_.getRealType(),
+                f_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(), ExecFieldTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _rendStack.getStackCall()).getClassName(_context),settableFieldContent_.getRealType(),
                         settableFieldContent_.getClassField(), pair_);
             } else {
                 ExecRootBlock rootBlock_ = ((RendSettableFieldStatOperation) ch_).getRootBlock();
@@ -58,7 +58,7 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
             RendCustArrOperation ch_ = (RendCustArrOperation)chFirst_;
             Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-            ArrayCustWrapper a_ = new ArrayCustWrapper(previousArgument_,ExecTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _rendStack.getStackCall()).getClassName(_context),ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
+            ArrayCustWrapper a_ = new ArrayCustWrapper(previousArgument_, ExecFieldTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _rendStack.getStackCall()).getClassName(_context),ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _rendStack);
             return;

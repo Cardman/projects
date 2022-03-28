@@ -6,7 +6,7 @@ import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.stds.LgNames;
@@ -44,7 +44,7 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
             setWrapException(false);
             return false;
         }
-        String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_,_context);
+        String res_ = ExecInheritsAdv.correctClassPartsDynamicWildCard(className_,_context);
         if (res_.isEmpty()) {
             String null_;
             null_ = stds_.getContent().getCoreNames().getAliasIllegalType();

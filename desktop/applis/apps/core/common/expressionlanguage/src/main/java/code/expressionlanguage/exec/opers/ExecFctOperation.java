@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -47,7 +47,7 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
     public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, CustList<ExecOperationInfo> _infos, ExecInstFctContent _instFctContent, ExecTypeFunction _pair) {
         ExecFormattedRootBlock formattedType_ = _instFctContent.getFormattedType();
         Struct argPrev_ = _previous.getStruct();
-        Argument prev_ = new Argument(ExecTemplates.getParent(_instFctContent.getAnc(), argPrev_, _conf, _stack));
+        Argument prev_ = new Argument(ExecFieldTemplates.getParent(_instFctContent.getAnc(), argPrev_, _conf, _stack));
         Argument res_;
         if (_conf.callsOrException(_stack)) {
             res_ = new Argument();

@@ -8,7 +8,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.InstancingStep;
 import code.expressionlanguage.exec.inherits.DefaultParamChecker;
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -37,14 +37,14 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
         Argument mainArgument_ = Argument.getNullableValue(pair_.getArgument());
         if (getIndexChild() == 1) {
             //init and test
-            Struct lda_ = ExecTemplates.checkObject(_conf.getStandards().getContent().getReflect().getAliasFct(), mainArgument_.getStruct(), _conf, _stack);
+            Struct lda_ = ExecInheritsAdv.checkObject(_conf.getStandards().getContent().getReflect().getAliasFct(), mainArgument_.getStruct(), _conf, _stack);
             if (_conf.callsOrException(_stack)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes, _stack);
                 return;
             }
             String form_ = _stack.formatVarType(className);
             Struct struct_ = ExecCastOperation.wrapFct(form_, true, _conf, lda_);
-            Argument ref_ = new Argument(ExecTemplates.checkObject(form_, struct_, _conf, _stack));
+            Argument ref_ = new Argument(ExecInheritsAdv.checkObject(form_, struct_, _conf, _stack));
             if (_conf.callsOrException(_stack)) {
                 setSimpleArgument(Argument.createVoid(), _conf, _nodes, _stack);
                 return;

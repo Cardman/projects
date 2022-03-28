@@ -7,10 +7,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.AbstractParamChecker;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.ReflectStaticCallParamChecker;
-import code.expressionlanguage.exec.inherits.SwitchParamChecker;
+import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -29,7 +26,7 @@ public final class StaticCallMethodPageEl extends AbstractRefectMethodPageEl {
     @Override
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
         ExecFormattedRootBlock className_ = getClassName();
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_.getFormatted(), _context);
+        String res_ = ExecInheritsAdv.correctClassPartsDynamicNotWildCard(className_.getFormatted(), _context);
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();

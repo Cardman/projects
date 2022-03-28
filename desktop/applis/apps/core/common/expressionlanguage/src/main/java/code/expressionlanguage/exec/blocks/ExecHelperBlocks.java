@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.calls.AbstractCallingInstancingPageEl;
 import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -337,7 +337,7 @@ public final class ExecHelperBlocks {
         }
         if (ip_.sizeEl() <= index_) {
             for (String v : _variableNames) {
-                ExecTemplates.incrIndexLoop(_conf,v, -1, ip_.getCache(), ip_.getVars(), _stack);
+                ExecVariableTemplates.incrIndexLoop(_conf,v, -1, ip_.getCache(), ip_.getVars(), _stack);
             }
         }
         ConditionReturn keep_ = evaluateCondition(_conf, index_, _stack, _exp, _block);
@@ -485,8 +485,8 @@ public final class ExecHelperBlocks {
             return;
         }
         abs_.clearCurrentEls();
-        ExecTemplates.setWrapValue(_conf, _bk.getVariableName(), arg_,-1, abs_.getCache(), abs_.getRefParams(), _stackCall);
-        ExecTemplates.incrIndexLoop(_conf, _bk.getVariableName(), -1, abs_.getCache(), abs_.getVars(), _stackCall);
+        ExecVariableTemplates.setWrapValue(_conf, _bk.getVariableName(), arg_,-1, abs_.getCache(), abs_.getRefParams(), _stackCall);
+        ExecVariableTemplates.incrIndexLoop(_conf, _bk.getVariableName(), -1, abs_.getCache(), abs_.getVars(), _stackCall);
         if (_conf.callsOrException(_stackCall)) {
             return;
         }
@@ -640,8 +640,8 @@ public final class ExecHelperBlocks {
             return;
         }
         if (call_.sizeEl() < 4) {
-            ExecTemplates.setWrapValue(_conf, _variableNameFirst, arg_,-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
-            ExecTemplates.incrIndexLoop(_conf, _variableNameFirst, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
+            ExecVariableTemplates.setWrapValue(_conf, _variableNameFirst, arg_,-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+            ExecVariableTemplates.incrIndexLoop(_conf, _variableNameFirst, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
             if (_conf.callsOrException(_stackCall)) {
                 return;
             }
@@ -653,8 +653,8 @@ public final class ExecHelperBlocks {
         if (_conf.callsOrException(_stackCall)) {
             return;
         }
-        ExecTemplates.setWrapValue(_conf, _variableNameSecond, arg_,-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
-        ExecTemplates.incrIndexLoop(_conf, _variableNameSecond, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
+        ExecVariableTemplates.setWrapValue(_conf, _variableNameSecond, arg_,-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+        ExecVariableTemplates.incrIndexLoop(_conf, _variableNameSecond, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
         if (_conf.callsOrException(_stackCall)) {
             return;
         }
@@ -773,11 +773,11 @@ public final class ExecHelperBlocks {
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         _l.getContent().incr();
         String variableName_ = _loop.getVariableName();
-        Argument struct_ = ExecTemplates.getWrapValue(_conf, variableName_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+        Argument struct_ = ExecVariableTemplates.getWrapValue(_conf, variableName_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
         long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getContent().getStep();
         Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(_loop.getImportedClassName(), _conf.getStandards().getPrimTypes()), new LongStruct(o_));
-        ExecTemplates.setWrapValue(_conf, variableName_, new Argument(element_),-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
-        ExecTemplates.incrIndexLoop(_conf, variableName_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
+        ExecVariableTemplates.setWrapValue(_conf, variableName_, new Argument(element_),-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
+        ExecVariableTemplates.incrIndexLoop(_conf, variableName_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
         goToFirstBlock(_l.getContent(),_loop,_stackCall.getLastPage());
     }
 

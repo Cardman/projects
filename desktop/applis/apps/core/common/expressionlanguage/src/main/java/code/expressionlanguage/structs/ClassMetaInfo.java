@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.ClassNameCmp;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.opers.ExecCastOperation;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -674,7 +674,7 @@ public final class ClassMetaInfo extends AbsAnnotatedStruct implements AnaDispla
             }
             classesNames_.add(NumParsers.getClass(s).formatted.getFormatted());
         }
-        String res_ = ExecTemplates.getMadeVarTypes(_base.formatted.getFormatted(), classesNames_, _context);
+        String res_ = ExecInheritsAdv.getMadeVarTypes(_base.formatted.getFormatted(), classesNames_, _context);
         if (res_ == null) {
             return NullStruct.NULL_VALUE;
         }

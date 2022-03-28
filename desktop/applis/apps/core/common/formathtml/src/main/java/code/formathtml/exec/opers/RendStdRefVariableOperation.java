@@ -2,7 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -31,10 +31,10 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _rendStack);
         ImportingPage ip_ = _rendStack.getLastPage();
-        AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent,null,ip_.getRefParams());
+        AbstractWrapper val_ = ExecVariableTemplates.getWrapper(variableContent,null,ip_.getRefParams());
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
-        Argument arg_ = processCall(ExecTemplates.getArgValue(val_, _context, _rendStack.getStackCall()),_context,_rendStack).getValue();
+        Argument arg_ = processCall(ExecVariableTemplates.getArgValue(val_, _context, _rendStack.getStackCall()),_context,_rendStack).getValue();
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _nodes, _context, _rendStack);
         } else {
@@ -58,7 +58,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
 
     private Argument trySetArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, RendStackCall _rendStackCall) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        return processCall(ExecTemplates.trySetArgument(_conf, _res, pair_, _rendStackCall.getStackCall()),_conf,_rendStackCall).getValue();
+        return processCall(ExecVariableTemplates.trySetArgument(_conf, _res, pair_, _rendStackCall.getStackCall()),_conf,_rendStackCall).getValue();
     }
 
     public boolean isDeclare() {

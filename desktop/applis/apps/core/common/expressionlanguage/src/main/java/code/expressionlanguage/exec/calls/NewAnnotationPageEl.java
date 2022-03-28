@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.AnnotationTypeInfo;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotationMethodBlock;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -37,7 +37,7 @@ public final class NewAnnotationPageEl extends AbstractCallingInstancingPageEl {
             String t_ = i_.getType();
             if (i_.isWrap()) {
                 ArrayStruct a_ = new ArrayStruct(1, t_);
-                ExecTemplates.setCheckedElements(new CustList<Argument>(value_),a_,_context, _stack);
+                ExecArrayTemplates.setCheckedElements(new CustList<Argument>(value_),a_,_context, _stack);
                 ExecAnnotationMethodBlock.setValue(getBlockRootType(),className_,name_,t_,_context,new Argument(a_), _stack);
                 if (_context.callsOrException(_stack)) {
                     return;

@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecThisContent;
@@ -26,7 +26,7 @@ public final class ExecThisOperation extends ExecLeafOperation implements Atomic
         AbstractPageEl ip_ = _stack.getLastPage();
         Argument a_;
         if (isIntermediateDottedOperation()) {
-            a_ = new Argument(ExecTemplates.getParent(thisContent.getNbAncestors(), ip_.getGlobalStruct(), _conf, _stack));
+            a_ = new Argument(ExecFieldTemplates.getParent(thisContent.getNbAncestors(), ip_.getGlobalStruct(), _conf, _stack));
         } else {
             a_ = new Argument(ip_.getGlobalStruct());
         }

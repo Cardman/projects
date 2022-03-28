@@ -6,6 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRecordBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
+import code.expressionlanguage.exec.inherits.AbstractParamChecker;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
@@ -65,7 +66,7 @@ public final class ExecStandardInstancingOperation extends
     }
 
     public static Argument instance(ExecRootBlock _type, Argument _previous) {
-        if (!withInstance(_type)) {
+        if (!AbstractParamChecker.withInstance(_type)) {
             return Argument.createVoid();
         }
         return _previous;

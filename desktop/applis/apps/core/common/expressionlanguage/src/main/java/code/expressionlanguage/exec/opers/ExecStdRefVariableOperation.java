@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -29,10 +29,10 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _stack);
-        AbstractWrapper val_ = ExecTemplates.getWrapper(variableContent, _stack);
+        AbstractWrapper val_ = ExecVariableTemplates.getWrapper(variableContent, _stack);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
-        Argument arg_ = ExecTemplates.getArgValue(val_, _conf, _stack);
+        Argument arg_ = ExecVariableTemplates.getArgValue(val_, _conf, _stack);
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
         } else {
@@ -57,7 +57,7 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
 
     private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, StackCall _stackCall) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        return ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
+        return ExecVariableTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
     }
     public boolean isDeclare() {
         return declare;

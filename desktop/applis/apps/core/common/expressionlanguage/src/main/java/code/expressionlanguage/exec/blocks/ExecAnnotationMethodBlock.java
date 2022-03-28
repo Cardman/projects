@@ -7,7 +7,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractInitPageEl;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.opers.ExecAnnotationMethodOperation;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -70,7 +70,7 @@ public final class ExecAnnotationMethodBlock extends ExecNamedFunctionBlock {
         AbstractPageEl ip_ = _stackCall.getLastPage();
         Argument gl_ = ip_.getGlobalArgument();
         Argument arg_ = ExecAnnotationMethodOperation.swallowCopy(_arg.getStruct());
-        ExecTemplates.setInstanceField(gl_, arg_, _cont, _stackCall, new ClassField(_cl, _name), new ExecTypeReturn(_rootBlock, _returnType));
+        ExecFieldTemplates.setInstanceField(gl_, arg_, _cont, _stackCall, new ClassField(_cl, _name), new ExecTypeReturn(_rootBlock, _returnType));
     }
 
     public int getDefaultValueOffset() {

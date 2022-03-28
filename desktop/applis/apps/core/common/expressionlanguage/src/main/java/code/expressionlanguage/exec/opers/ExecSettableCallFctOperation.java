@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
@@ -42,6 +42,6 @@ public abstract class ExecSettableCallFctOperation extends ExecInvokingOperation
 
     private Argument trySetArgument(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, StackCall _stackCall) {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        return ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
+        return ExecVariableTemplates.trySetArgument(_conf, _res, pair_, _stackCall);
     }
 }

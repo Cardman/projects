@@ -10,8 +10,8 @@ import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -531,13 +531,13 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             Argument mapArg_ = RenderExpUtil.calculateReuse(opsMap, this, _ctx, _rendStack);
             ExecRootBlock rootBlock_ = _ctx.getClasses().getClassBody(beanAliases.getAliasBean());
-            ExecTemplates.setInstanceField(
+            ExecFieldTemplates.setInstanceField(
                     new Argument(strBean_),mapArg_, _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasForms()), new ExecTypeReturn(rootBlock_, beanAliases.getAliasStringMapObject()));
-            ExecTemplates.setInstanceField(
+            ExecFieldTemplates.setInstanceField(
                     new Argument(strBean_),new Argument(_db), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasDataBaseField()), new ExecTypeReturn(rootBlock_, getAliasObject()));
-            ExecTemplates.setInstanceField(
+            ExecFieldTemplates.setInstanceField(
                     new Argument(strBean_),new Argument(new StringStruct(_language)), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasLanguage()), new ExecTypeReturn(rootBlock_, getAliasString()));
-            ExecTemplates.setInstanceField(
+            ExecFieldTemplates.setInstanceField(
                     new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()), new ExecTypeReturn(rootBlock_, getAliasString()));
             _rendStack.removeLastPage();
             _conf.getBuiltBeans().setValue(index_,strBean_);

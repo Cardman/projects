@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecExplicitCommonContent;
@@ -31,6 +31,6 @@ public final class ExecImplicitOperation extends ExecMethodOperation implements 
 
     public static Argument getArgument(String _paramName, ContextEl _conf, StackCall _stackCall, ArgumentListCall _list) {
         Struct objArg_ = ArgumentWrapper.helpArg(ExecHelper.getFirstArgumentWrapper(_list.getArgumentWrappers())).getStruct();
-        return new Argument(ExecTemplates.checkObject(_paramName, objArg_, _conf, _stackCall));
+        return new Argument(ExecInheritsAdv.checkObject(_paramName, objArg_, _conf, _stackCall));
     }
 }

@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -37,7 +37,7 @@ public final class ExecForEachArray extends ExecAbstractForEachLoop {
     protected Argument retrieveValue(ContextEl _conf, LoopBlockStack _l, StackCall _stack) {
         Struct container_ = _l.getContent().getContainer();
         LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
-        return new Argument(ExecTemplates.getElement(container_, lg_, _conf, _stack));
+        return new Argument(ExecArrayTemplates.getElement(container_, lg_, _conf, _stack));
     }
 
     @Override

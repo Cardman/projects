@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.*;
@@ -140,7 +140,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
-        if (!ExecTemplates.checkQuick(_rendStackCall.formatVarType(importedClassName), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
+        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassName), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
             return;
         }
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);

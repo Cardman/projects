@@ -4,7 +4,7 @@ import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -17,7 +17,7 @@ public final class FctClassArraySet extends FctReflection {
         Struct arg_ = argumentWrappers_.get(0).getValue().getStruct();
         Struct index_ = argumentWrappers_.get(1).getValue().getStruct();
         Struct val_ = argumentWrappers_.get(2).getValue().getStruct();
-        ExecTemplates.setElement(arg_, index_, val_, _cont, _stackCall);
+        ExecArrayTemplates.setElement(arg_, index_, val_, _cont, _stackCall);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

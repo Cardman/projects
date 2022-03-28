@@ -2,7 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -31,8 +31,8 @@ public final class RendArrayElementOperation extends
 
         Ints dims_ = new Ints();
         dims_.add(nbCh_);
-        Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _context);
-        ExecTemplates.setCheckedElements(arguments_,str_, _context, _rendStack.getStackCall());
+        Struct str_ = ExecArrayTemplates.newCustomArray(className_, dims_, _context);
+        ExecArrayTemplates.setCheckedElements(arguments_,str_, _context, _rendStack.getStackCall());
         Argument res_ = new Argument(str_);
         setSimpleArgument(res_, _nodes, _context, _rendStack);
     }

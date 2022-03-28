@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.structs.Struct;
 
@@ -22,15 +22,15 @@ public final class InstanceFieldWrapper extends FieldWrapper {
         pair = _pair;
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        ExecTemplates.setSafeInstanceField(anc,new Argument(container), _right, _conf, _stack, getId(), pair);
+        ExecFieldTemplates.setSafeInstanceField(anc,new Argument(container), _right, _conf, _stack, getId(), pair);
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
-        return ExecTemplates.getSafeInstanceField(anc,new Argument(container),  _conf, _stack, getId()).getStruct();
+        return ExecFieldTemplates.getSafeInstanceField(anc,new Argument(container),  _conf, _stack, getId()).getStruct();
     }
 
     @Override
     public String getClassName(StackCall _stack, ContextEl _conf) {
-        return ExecTemplates.formatType(_conf,pair.getRootBlock(),getFieldType(),className);
+        return ExecFieldTemplates.formatType(_conf,pair.getRootBlock(),getFieldType(),className);
     }
 }

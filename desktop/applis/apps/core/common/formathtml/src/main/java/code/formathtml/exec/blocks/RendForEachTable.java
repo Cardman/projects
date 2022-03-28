@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -158,7 +158,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
-        if (!ExecTemplates.checkQuick(_rendStackCall.formatVarType(importedClassNameFirst), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
+        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassNameFirst), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
@@ -169,7 +169,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
-        if (!ExecTemplates.checkQuick(_rendStackCall.formatVarType(importedClassNameSecond), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
+        if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassNameSecond), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
             return;
         }
         lv_ = _vars.getVal(variableNameSecond);

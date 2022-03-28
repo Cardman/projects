@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.blocks.ExecInterfaceBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -38,7 +38,7 @@ public final class ExecCastOperation extends ExecMethodOperation implements Atom
         Struct str_ = ExecHelper.getFirstArgument(arguments_).getStruct();
         String paramName_ = _stack.formatVarType(typeCheckContent.getClassName());
         Struct objArg_ = wrapFct(paramName_,false, _conf, str_);
-        Struct conv_ = ExecTemplates.checkObject(paramName_, objArg_, _conf, _stack);
+        Struct conv_ = ExecInheritsAdv.checkObject(paramName_, objArg_, _conf, _stack);
         setSimpleArgument(new Argument(conv_), _conf, _nodes, _stack);
     }
 

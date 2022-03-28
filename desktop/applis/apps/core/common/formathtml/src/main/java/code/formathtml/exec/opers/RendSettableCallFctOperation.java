@@ -2,7 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -29,6 +29,6 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
 
     private Argument trySetArgument(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _conf, Argument _res, RendStackCall _stackCall) {
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        return processCall(ExecTemplates.trySetArgument(_conf, _res, pair_, _stackCall.getStackCall()),_conf,_stackCall).getValue();
+        return processCall(ExecVariableTemplates.trySetArgument(_conf, _res, pair_, _stackCall.getStackCall()),_conf,_stackCall).getValue();
     }
 }

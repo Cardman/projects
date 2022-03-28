@@ -24,7 +24,7 @@ public final class CastParamChecker extends AbstractParamChecker {
 
     @Override
     public ExecFormattedRootBlock checkFormmattedParams(ExecFormattedRootBlock _classNameFound, Argument _previous, ContextEl _conf, StackCall _stackCall) {
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(_classNameFound.getFormatted(), _conf);
+        String res_ = ExecInheritsAdv.correctClassPartsDynamicNotWildCard(_classNameFound.getFormatted(), _conf);
         if (res_.isEmpty()) {
             String null_;
             null_ = _conf.getStandards().getContent().getCoreNames().getAliasIllegalType();

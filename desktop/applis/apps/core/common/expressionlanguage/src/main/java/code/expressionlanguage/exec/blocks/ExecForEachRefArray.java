@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.expressionlanguage.exec.stacks.LoopBlockStack;
 import code.expressionlanguage.exec.variables.ArrayWrapper;
@@ -36,7 +36,7 @@ public final class ExecForEachRefArray extends ExecAbstractForEachLoop {
         LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.getRefParams().set(getVariableName(),new ArrayWrapper(container_,lg_));
-        return new Argument(ExecTemplates.getElement(container_, lg_, _conf, _stack));
+        return new Argument(ExecArrayTemplates.getElement(container_, lg_, _conf, _stack));
     }
 
     @Override

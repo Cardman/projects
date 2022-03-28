@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.WithCache;
 import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -37,7 +37,7 @@ public final class ShownCache extends Cache {
             String cl_ = ExecInherits.quickFormat(_classNameFound, v.getType());
             NamedWrapper namedWrapper_ = locWrappers().get(i_);
             AbstractWrapper wrapper_ = namedWrapper_.getWrapper();
-            Struct struct_ = ExecTemplates.checkObjectEx(cl_, wrapper_.getClassName(_stackCall, _context), _context, _stackCall);
+            Struct struct_ = ExecInheritsAdv.checkObjectEx(cl_, wrapper_.getClassName(_stackCall, _context), _context, _stackCall);
             if (struct_ != null) {
                 return struct_;
             }

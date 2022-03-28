@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
@@ -37,7 +37,7 @@ public final class ExecStdFctOperation extends ExecSettableCallFctOperation {
         Argument res_ = null;
         if (!_stdFctContent.isStaticMethod()) {
             Struct argPrev_ = _previous.getStruct();
-            prev_ = new Argument(ExecTemplates.getParent(0, argPrev_, _conf, _stack));
+            prev_ = new Argument(ExecFieldTemplates.getParent(0, argPrev_, _conf, _stack));
             if (_conf.callsOrException(_stack)) {
                 res_ = new Argument();
             }

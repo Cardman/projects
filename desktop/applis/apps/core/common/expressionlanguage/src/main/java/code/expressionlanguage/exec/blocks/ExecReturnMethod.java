@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
 import code.util.CustList;
 
@@ -27,7 +27,7 @@ public final class ExecReturnMethod extends ExecAbstractExpressionReturnMethod {
         }
         ip_.clearCurrentEls();
         String type_ = _stack.formatVarType(returnMethod);
-        if (!ExecTemplates.checkQuick(type_,arg_.getStruct().getClassName(_cont),_cont, _stack)) {
+        if (!ExecInheritsAdv.checkQuick(type_,arg_.getStruct().getClassName(_cont),_cont, _stack)) {
             return;
         }
         ip_.setReturnedArgument(arg_);

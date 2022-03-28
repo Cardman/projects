@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
@@ -18,11 +18,11 @@ public final class ArrayWrapper implements AbstractWrapper {
         index = _index;
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        ExecTemplates.setElement(container,index,_right.getStruct(),_conf, _stack);
+        ExecArrayTemplates.setElement(container,index,_right.getStruct(),_conf, _stack);
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
-        return ExecTemplates.getElement(container,index,_conf, _stack);
+        return ExecArrayTemplates.getElement(container,index,_conf, _stack);
     }
 
     @Override

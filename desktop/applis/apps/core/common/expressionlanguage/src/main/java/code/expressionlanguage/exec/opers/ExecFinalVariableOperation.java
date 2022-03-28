@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
@@ -22,7 +22,7 @@ public final class ExecFinalVariableOperation extends ExecLeafOperation implemen
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
                           ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _stack);
-        Argument arg_ = ExecTemplates.getIndexLoop(_conf, variableContent, _stack);
+        Argument arg_ = ExecVariableTemplates.getIndexLoop(_conf, variableContent, _stack);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

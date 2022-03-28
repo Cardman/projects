@@ -6,7 +6,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -51,7 +51,7 @@ public final class ExecDimensionArrayInstancing extends
         for (int d: args_) {
             dims_.add(d);
         }
-        Struct newArr_ = ExecTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf, _stack);
+        Struct newArr_ = ExecArrayTemplates.newCustomArrayOrExc(offs_,className_, dims_, _conf, _stack);
         Argument res_;
         if (newArr_ instanceof ErrorStruct) {
             _stack.setCallingState(new CustomFoundExc(newArr_));

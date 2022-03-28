@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.opers.ExecImplicitOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -106,7 +106,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     Argument direct(ContextEl _context, StackCall _stack, ArgumentListCall _l) {
         MethodMetaInfo method_ = getMetaInfo();
         String className_ = method_.getFormatted().getFormatted();
-        String res_ = ExecTemplates.correctClassPartsDynamicNotWildCard(className_, _context);
+        String res_ = ExecInheritsAdv.correctClassPartsDynamicNotWildCard(className_, _context);
         if (res_.isEmpty()) {
             String null_;
             null_ = _context.getStandards().getContent().getCoreNames().getAliasIllegalType();

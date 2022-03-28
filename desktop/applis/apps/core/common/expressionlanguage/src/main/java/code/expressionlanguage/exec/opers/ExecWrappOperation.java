@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -31,7 +31,7 @@ public final class ExecWrappOperation extends ExecMethodOperation implements Ato
             if (ch_ instanceof ExecSettableFieldInstOperation) {
                 ExecTypeReturn pair_ = ((ExecSettableFieldInstOperation) ch_).getPair();
                 Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
-                f_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(),ExecTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _stack).getClassName(_conf),settableFieldContent_.getRealType(),
+                f_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(), ExecFieldTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _stack).getClassName(_conf),settableFieldContent_.getRealType(),
                         settableFieldContent_.getClassField(), pair_);
             } else {
                 f_ = new StaticFieldWrapper(settableFieldContent_.getRealType(),((ExecSettableFieldStatOperation)ch_).getRootBlock(),
@@ -57,7 +57,7 @@ public final class ExecWrappOperation extends ExecMethodOperation implements Ato
             ExecCustArrOperation ch_ = (ExecCustArrOperation)chFirst_;
             Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-            ArrayCustWrapper a_ = new ArrayCustWrapper(previousArgument_,ExecTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _stack).getClassName(_conf),ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
+            ArrayCustWrapper a_ = new ArrayCustWrapper(previousArgument_, ExecFieldTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _stack).getClassName(_conf),ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, ch_).getArgument(),_conf,_nodes, _stack);
             return;

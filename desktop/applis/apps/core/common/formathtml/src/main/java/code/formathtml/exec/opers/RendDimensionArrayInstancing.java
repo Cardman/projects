@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -87,6 +87,6 @@ public final class RendDimensionArrayInstancing extends
             dims_.add(s);
             j_++;
         }
-        return ExecTemplates.newCustomArray(_className, dims_, _context);
+        return ExecArrayTemplates.newCustomArray(_className, dims_, _context);
     }
 }

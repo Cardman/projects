@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
@@ -27,14 +27,14 @@ public final class ExecSettableFieldInstOperation extends
     protected Argument getField(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         ClassField fieldId_ = getSettableFieldContent().getClassField();
-        return ExecTemplates.getSafeInstanceField(getSettableFieldContent().getAnc(), previous_, _conf, _stack, fieldId_);
+        return ExecFieldTemplates.getSafeInstanceField(getSettableFieldContent().getAnc(), previous_, _conf, _stack, fieldId_);
     }
 
     @Override
     protected Argument setField(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stackCall) {
         Argument prev_ = getPreviousArg(this, _nodes, _stackCall);
         ClassField fieldId_ = getSettableFieldContent().getClassField();
-        return ExecTemplates.setSafeInstanceField(getSettableFieldContent().getAnc(), prev_, _right, _conf, _stackCall, fieldId_, pair);
+        return ExecFieldTemplates.setSafeInstanceField(getSettableFieldContent().getAnc(), prev_, _right, _conf, _stackCall, fieldId_, pair);
     }
 
     public ExecTypeReturn getPair() {

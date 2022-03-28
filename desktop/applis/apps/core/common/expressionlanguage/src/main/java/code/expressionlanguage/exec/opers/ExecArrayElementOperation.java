@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -29,8 +29,8 @@ public final class ExecArrayElementOperation extends
         int nbCh_ = arguments_.size();
 
         Ints dims_ = new Ints(nbCh_);
-        Struct str_ = ExecTemplates.newCustomArray(className_, dims_, _conf);
-        ExecTemplates.setCheckedElements(arguments_,str_, _conf, _stack);
+        Struct str_ = ExecArrayTemplates.newCustomArray(className_, dims_, _conf);
+        ExecArrayTemplates.setCheckedElements(arguments_,str_, _conf, _stack);
         Argument res_ = new Argument(str_);
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }

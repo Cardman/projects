@@ -3,7 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.variables.ArrayWrapper;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
@@ -36,7 +36,7 @@ public final class RendForEachRefArray extends RendAbstractForEachLoop {
         Struct container_ = _l.getContent().getContainer();
         LongStruct lg_ = new LongStruct(_l.getContent().getIndex());
         ip_.getRefParams().set(getVariableName(),new ArrayWrapper(container_,lg_));
-        return new Argument(ExecTemplates.getElement(container_, lg_, _ctx, _rendStack.getStackCall()));
+        return new Argument(ExecArrayTemplates.getElement(container_, lg_, _ctx, _rendStack.getStackCall()));
     }
 
     @Override

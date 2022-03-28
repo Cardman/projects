@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -37,9 +37,9 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
             Struct o_ = getArgument(_nodes,op_).getStruct();
             op_.setRelativeOffsetPossibleLastPage(_stack);
             if (o_ instanceof RangeStruct) {
-                array_ = ExecTemplates.getRange(array_, o_, _conf, _stack);
+                array_ = ExecArrayTemplates.getRange(array_, o_, _conf, _stack);
             } else {
-                array_ = ExecTemplates.getElement(array_, o_, _conf, _stack);
+                array_ = ExecArrayTemplates.getElement(array_, o_, _conf, _stack);
             }
             if (_conf.callsOrException(_stack)) {
                 a_ = new Argument();
@@ -81,9 +81,9 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
     public static void setParts(ContextEl _conf, Argument _right, StackCall _stack, Struct _array, Argument _index) {
         Struct o_ = _index.getStruct();
         if (o_ instanceof RangeStruct) {
-            ExecTemplates.setRange(_array, (RangeStruct) o_, _right.getStruct(), _conf, _stack);
+            ExecArrayTemplates.setRange(_array, (RangeStruct) o_, _right.getStruct(), _conf, _stack);
         } else {
-            ExecTemplates.setElement(_array, o_, _right.getStruct(), _conf, _stack);
+            ExecArrayTemplates.setElement(_array, o_, _right.getStruct(), _conf, _stack);
         }
     }
 

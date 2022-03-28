@@ -9,7 +9,7 @@ import code.expressionlanguage.exec.MetaInfoUtil;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.DfInstancer;
 import code.expressionlanguage.stds.LgNames;
@@ -26,7 +26,7 @@ public abstract class FctClassDefaultInstanceAbs extends FctReflection {
         String id_ = StringExpUtil.getIdFromAllTypes(className_);
         GeneType type_ = _cont.getClassBody(id_);
         if (type_ != null) {
-            String res_ = ExecTemplates.correctClassPartsDynamicWildCard(className_, _cont);
+            String res_ = ExecInheritsAdv.correctClassPartsDynamicWildCard(className_, _cont);
             if (res_.isEmpty()) {
                 String null_ = lgNames_.getContent().getCoreNames().getAliasIllegalType();
                 _stackCall.setCallingState(new CustomFoundExc(getClassIssue(_cont, className_, null_, _stackCall)));

@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -29,7 +28,7 @@ public abstract class AbstractFormatParamChecker extends AbstractParamChecker {
         Struct prev_ = _previous.getStruct();
         if (prev_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance) prev_).getNamed() == _method) {
             Argument fctInst_ = new Argument(((AbstractFunctionalInstance) prev_).getFunctional());
-            return ExecInvokingOperation.prepareCallDyn(fctInst_, _args, _conf, _stackCall);
+            return AbstractParamChecker.prepareCallDyn(fctInst_, _args, _conf, _stackCall);
         }
         _stackCall.setCallingState(new CustomFoundMethod(_previous, _classFormat.getFormattedClass(), _pair, _classFormat.getParameters()));
         return Argument.createVoid();
