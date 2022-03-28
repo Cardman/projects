@@ -20,6 +20,13 @@ public final class RenderTextTest extends CommonRender {
         assertEq("<html/>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
+    public void processEmpty_Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<c:set value='0'/>";
+        assertEq("<c:set value=\"0\"/>", getRes2(folder_, relative_, html_, new StringMap<String>()));
+    }
+    @Test
     public void process0Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";

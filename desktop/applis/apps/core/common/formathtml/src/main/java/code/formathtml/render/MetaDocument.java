@@ -5,10 +5,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FormInputCoords;
-import code.sml.Document;
-import code.sml.Element;
-import code.sml.Node;
-import code.sml.Text;
+import code.sml.*;
 import code.util.BooleanList;
 import code.util.CollCapacity;
 import code.util.CustList;
@@ -57,19 +54,23 @@ public final class MetaDocument {
                 processStyle(s.getTextContent());
             }
         }
-        Element body_ = _document.getElementsByTagName(_rend.getKeyWordBody()).first();
         root = new MetaBlock(null);
         stacks = new StringList();
         MetaLine mainLine_ = new MetaLine(root);
         root.appendChild(mainLine_);
         currentParent = mainLine_;
-        Node current_ = body_;
         containers = new CustList<MetaContainer>();
         tables = new CustList<MetaTable>();
         partGroup = 0;
         rowGroup = 0;
         lis = new Ints();
         ordered = new CustList<Boolean>();
+        ElementList bodies_ = _document.getElementsByTagName(_rend.getKeyWordBody());
+        if (bodies_.isEmpty()) {
+            return;
+        }
+        Element body_ = bodies_.first();
+        Node current_ = body_;
         while (true) {
             MetaStyle styleLoc_ = new MetaStyle();
             Element parStyle_ = current_.getParentNode();

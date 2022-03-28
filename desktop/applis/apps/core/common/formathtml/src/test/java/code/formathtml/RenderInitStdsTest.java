@@ -80,7 +80,6 @@ public final class RenderInitStdsTest extends CommonRender {
         assertNull(RendBlock.getParentNode((Element)null));
         RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
         RendDynOperationNode.getFirstNode(null);
-        new RendDocumentBlock("",null,null,null,"", ExecFormattedRootBlock.defValue()).getParent();
         assertNull(RendDynOperationNode.getParentOrNull(null));
     }
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
