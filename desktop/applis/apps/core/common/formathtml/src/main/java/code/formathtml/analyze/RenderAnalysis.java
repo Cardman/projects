@@ -61,6 +61,12 @@ public final class RenderAnalysis {
     public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
         _page.setCurrentAnonymousResults(new CustList<AnonymousResult>());
         _page.setCurrentParts(_res.getParts());
+        OperationNode root_ = getRootAnalyzedOperations(_el, _index, _anaDoc, _page);
+        _res.setRoot(root_);
+        return root_;
+    }
+
+    public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         Delimiters d_ = ElResolver.checkSyntax(_el, _index, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
@@ -86,7 +92,6 @@ public final class RenderAnalysis {
         getSortedDescNodes(op_, _anaDoc, _page);
         return op_;
     }
-
     public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;

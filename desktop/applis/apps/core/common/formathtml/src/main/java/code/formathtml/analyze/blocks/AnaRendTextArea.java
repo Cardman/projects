@@ -5,13 +5,12 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.StringExpUtil;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.StringList;
@@ -21,8 +20,6 @@ import code.util.core.StringUtil;
 public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRendBuildEl {
     private OperationNode rootRead;
     private OperationNode rootValue;
-    private final ResultExpression resultExpressionConverter = new ResultExpression();
-    private final ResultExpression resultExpressionConverterField = new ResultExpression();
 
     private OperationNode rootConverter;
     private OperationNode rootConverterField;
@@ -84,7 +81,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
                 int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
                 _page.setGlobalOffset(attr_);
                 _page.zeroOffset();
-                rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverter);
+                rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
                 for (String v:varNames_) {
                     _page.getInfosVars().removeKey(v);
                 }
@@ -115,7 +112,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
             _page.setGlobalOffset(attr_);
             _page.zeroOffset();
-            rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page,resultExpressionConverterField);
+            rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }

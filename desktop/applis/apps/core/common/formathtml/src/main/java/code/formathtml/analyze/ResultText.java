@@ -161,7 +161,7 @@ public final class ResultText {
             }
             String pref_ = r_.quickRender(lk_, formArg_);
             _page.zeroOffset();
-            r_.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page, r_.resultExpression);
+            r_.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
             r_.sgn = AnaRendBlock.checkVars(colsGrId_,varNames_,r_.opExpAnchorRoot,_page,_anaDoc);
             _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),r_.sgn);
             for (String v:varNames_) {
