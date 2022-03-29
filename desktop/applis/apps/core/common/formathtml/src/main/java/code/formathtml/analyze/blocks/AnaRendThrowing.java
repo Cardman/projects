@@ -32,6 +32,14 @@ public final class AnaRendThrowing extends AnaRendLeaf implements AnaRendBuildEl
         return root;
     }
 
+    public String getExpression() {
+        return expression;
+    }
+
+    public ResultExpression getRes() {
+        return resultExpression;
+    }
+
     public int getExpressionOffset() {
         return expressionOffset;
     }

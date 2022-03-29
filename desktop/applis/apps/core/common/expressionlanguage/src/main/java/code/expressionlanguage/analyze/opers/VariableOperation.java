@@ -63,14 +63,14 @@ public final class VariableOperation extends LeafOperation implements
             _page.setVariableIssue(true);
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(_page.getCurrentFile());
-            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            b_.setIndexFile(_page);
             //variable name len
             b_.setBuiltError(res_.getMessage());
             _page.getLocalizer().addError(b_);
             nameErrors.add(b_.getBuiltError());
             return;
         }
-        ref = _page.getLocalizer().getCurrentLocationIndex();
+        ref = _page.getIndex();
         String c_ = _page.getCurrentVarSetting();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();

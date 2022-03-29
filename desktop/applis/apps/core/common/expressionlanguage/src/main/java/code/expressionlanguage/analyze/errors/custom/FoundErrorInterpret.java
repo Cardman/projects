@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.errors.custom;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.util.core.StringUtil;
 
 public final class FoundErrorInterpret {
@@ -58,6 +60,18 @@ public final class FoundErrorInterpret {
 
     public int getIndexFile() {
         return indexFile;
+    }
+
+    public void setIndexFile(AnalyzedPageEl _indexFile) {
+        setIndexFile(_indexFile,0);
+    }
+
+    public void setIndexFile(AnalyzedPageEl _indexFile, int _off) {
+        indexFile = _indexFile.getTraceIndex()+_off;
+    }
+
+    public void setIndexFile(AnonymousInstancingOperation _indexFile) {
+        indexFile = _indexFile.getIndex();
     }
 
     public void setIndexFile(int _indexFile) {

@@ -1,5 +1,7 @@
 package code.expressionlanguage.analyze.opers.util;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.opers.StaticCallAccessOperation;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.util.CustList;
 
@@ -23,7 +25,15 @@ public final class ResolvedInstance {
         this(false,_result, _parts,0,0,"");
     }
 
-    public ResolvedInstance(ResolvedInstance _prep, int _lt, int _gt, String _infer) {
+    public ResolvedInstance(ResolvedInstance _prep, AnalyzedPageEl _ana, int _lt, int _gt, String _infer) {
+        this(_prep,_ana.getIndex()+_lt,_ana.getIndex()+_gt,_infer);
+    }
+
+    public ResolvedInstance(StaticCallAccessOperation _op, String _infer) {
+        this(_op.getPartOffsets(),_op.getLt(),_op.getGt(),_infer);
+    }
+
+    private ResolvedInstance(ResolvedInstance _prep, int _lt, int _gt, String _infer) {
         this(true,_prep.result, _prep.parts,_lt,_gt,_infer);
     }
 

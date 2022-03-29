@@ -98,7 +98,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
             b_.setFile(_page.getCurrentFile());
-            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            b_.setIndexFile(_page);
             //param name len
             b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                     name_);
@@ -823,7 +823,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFile(_page.getCurrentFile());
-        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        undefined_.setIndexFile(_page);
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page.getDisplayedStrings()));
@@ -838,7 +838,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFile(_page.getCurrentFile());
-        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        undefined_.setIndexFile(_page);
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, classesNames_).getSignature(_page.getDisplayedStrings()));
@@ -853,7 +853,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFile(_page.getCurrentFile());
-        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        undefined_.setIndexFile(_page);
         //key word len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
                 new ConstructorId(_clCurName, classesNames_, false).getSignature(_page.getDisplayedStrings()));

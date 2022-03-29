@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.errors.custom;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.util.core.StringUtil;
 
@@ -60,5 +61,9 @@ public final class FoundWarningInterpret {
 
     public void setIndexFile(int _indexFile) {
         indexFile = _indexFile;
+    }
+
+    public void setIndexFile(AnalyzedPageEl _page) {
+        indexFile = _page.getTraceIndex();
     }
 }

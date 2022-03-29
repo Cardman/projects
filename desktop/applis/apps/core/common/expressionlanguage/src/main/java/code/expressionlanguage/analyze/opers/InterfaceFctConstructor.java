@@ -38,7 +38,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         if (!(candidate_ instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
@@ -54,7 +54,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         if (!StringExpUtil.customCast(className_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
@@ -66,7 +66,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         if (!(sub_ instanceof InterfaceBlock)|| !sub_.withoutInstance()) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
@@ -77,7 +77,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         if (superClass_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
@@ -94,7 +94,7 @@ public final class InterfaceFctConstructor extends AbstractInvokingConstructor {
         if (index_ <= 0) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(getFullIndexInEl());
+            call_.setIndexFile(_page);
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorEnd());
             _page.getLocalizer().addError(call_);

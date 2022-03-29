@@ -31,7 +31,7 @@ public final class ArrayFieldOperation extends AbstractFieldOperation {
         }
         FoundErrorInterpret und_ = new FoundErrorInterpret();
         und_.setFile(_page.getCurrentFile());
-        und_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        und_.setIndexFile(_page);
         //str_ len
         und_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
                 str_,

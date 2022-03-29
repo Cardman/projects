@@ -199,7 +199,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         String start_;
         AccessedBlock r_ = _page.getImporting();
         AnaGeneType startType_ = _page.getAnaGeneType(trim_);
-        int loc_ = _from + _page.getLocalizer().getCurrentLocationIndex();
+        int loc_ = _from + _page.getIndex();
         if (startType_ != null) {
             for (char c: trim_.toCharArray()) {
                 if (c == '.') {

@@ -56,7 +56,7 @@ public final class AnonymousInstancingOperation extends
             j_ =  afterNew_.indexOf('}',afterNew_.indexOf('{'));
         }
         tryAnalyze(_page);
-        index = _page.getLocalizer().getCurrentLocationIndex();
+        index = _page.getTraceIndex();
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         String realClassName_ = getMethodName().trim().substring(newKeyWord_.length());
         if (j_ > -1) {
@@ -79,7 +79,7 @@ public final class AnonymousInstancingOperation extends
             if (tokenErrorMessage_.isError()) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFile(_page.getCurrentFile());
-                static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                static_.setIndexFile(_page);
                 //original type len
                 static_.setBuiltError(tokenErrorMessage_.getMessage());
                 _page.getLocalizer().addError(static_);
@@ -102,7 +102,7 @@ public final class AnonymousInstancingOperation extends
         }
         FoundErrorInterpret static_ = new FoundErrorInterpret();
         static_.setFile(_page.getCurrentFile());
-        static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        static_.setIndexFile(_page);
         //key word len
         static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                 realClassName_);
@@ -128,7 +128,7 @@ public final class AnonymousInstancingOperation extends
         if (!(g_ instanceof RootBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
@@ -176,26 +176,15 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, superType_);
         base = base_;
-        RootBlock parentType_ = instancingAnonContent.getBlock().getParentType();
-        OperatorBlock operator_ = instancingAnonContent.getBlock().getOperator();
-        if (parentType_ != null) {
-            instancingAnonContent.getBlock().getAllReservedInners().addAllElts(parentType_.getAllReservedInners());
-        }
-        if (operator_ != null) {
-            instancingAnonContent.getBlock().getAllReservedInners().addAllElts(operator_.getAllReservedInners());
-        }
+        AccessedBlock acc_ = instancingAnonContent.getBlock().getAccessedBlock();
+        instancingAnonContent.getBlock().getAllReservedInners().addAllElts(acc_.getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymous().add(instancingAnonContent.getBlock());
             instancingAnonContent.getBlock().getMappings().putAllMap(currentFct_.getRefMappings());
             instancingAnonContent.getBlock().getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            if (parentType_ != null) {
-                instancingAnonContent.getBlock().getMappings().putAllMap(parentType_.getRefMappings());
-            }
-            if (operator_ != null) {
-                instancingAnonContent.getBlock().getMappings().putAllMap(operator_.getRefMappings());
-            }
+            instancingAnonContent.getBlock().getMappings().putAllMap(acc_.getRefMappings());
         }
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {

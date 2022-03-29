@@ -343,6 +343,17 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
         return enumValues;
     }
 
+    public boolean isCaseWhen() {
+        return !value.trim().isEmpty();
+    }
+    public ResultExpression getRes() {
+        return resultExpression;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
     public int getValueOffset() {
         return valueOffset;
     }

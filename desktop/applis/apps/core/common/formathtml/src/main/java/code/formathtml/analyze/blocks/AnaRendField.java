@@ -45,6 +45,14 @@ public final class AnaRendField extends AnaRendParentBlock implements AnaRendBui
         return prepareOffset;
     }
 
+    public String getPrepare() {
+        return prepare;
+    }
+
+    public ResultExpression getRes() {
+        return resultExpression;
+    }
+
     public OperationNode getRoot() {
         return root;
     }

@@ -40,7 +40,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         if (isUnexpected(_page)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordThat());
@@ -69,7 +69,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         //key word len
         FoundErrorInterpret varg_ = new FoundErrorInterpret();
         varg_.setFile(_page.getCurrentFile());
-        varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        varg_.setIndexFile(_page);
         //key word len
         varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                 _page.getKeyWords().getKeyWordThat());
@@ -116,7 +116,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         if (settableFieldContent_.isFinalField()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordThat());
@@ -129,7 +129,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         if (_var.isFinalVariable()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordThat());

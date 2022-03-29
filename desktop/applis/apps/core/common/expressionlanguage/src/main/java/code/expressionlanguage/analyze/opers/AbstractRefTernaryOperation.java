@@ -60,7 +60,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
                     testFct = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());
                     //after first arg separator len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -72,8 +72,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         }
         StringList deep_ = getErrs();
         if (!deep_.isEmpty()) {
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            getPartOffsetsChildren().add(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,1));
+            getPartOffsetsChildren().add(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,1));
         }
         opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         opOne_.getResultClass().setCheckOnlyNullPe(true);
@@ -82,7 +81,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         if (!(opTwo_ instanceof WrappOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordThat());
@@ -92,7 +91,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         if (!(opThree_ instanceof WrappOperation)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordThat());
@@ -104,8 +103,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
         if (!clMatchTwo_.matchClass(clMatchThree_)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            cast_.setIndexFile(i_);
+            cast_.setIndexFile(_page);
             //character before
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringUtil.join(clMatchTwo_.getNames(),ExportCst.JOIN_TYPES),

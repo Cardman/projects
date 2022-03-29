@@ -170,24 +170,24 @@ public final class AssBlockUtil {
             return new AssSimForIterativeLoop(get(_normal,_anaNode), get(_group,_anaNode),(ForIterativeLoop)_anaNode);
         }
         if (_anaNode instanceof ConditionBlock) {
-            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((ConditionBlock) _anaNode).getRoot());
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((ConditionBlock) _anaNode).getRoot(), ((ConditionBlock) _anaNode).getConditionOffset());
         }
         if (_anaNode instanceof SwitchBlock) {
-            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((SwitchBlock) _anaNode).getRoot());
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((SwitchBlock) _anaNode).getRoot(), ((SwitchBlock) _anaNode).getValueOffset());
         }
         if (_anaNode instanceof ReturnMethod) {
-            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((ReturnMethod) _anaNode).getRoot());
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((ReturnMethod) _anaNode).getRoot(), ((ReturnMethod) _anaNode).getExpressionOffset());
         }
         if (_anaNode instanceof Throwing) {
-            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((Throwing) _anaNode).getRoot());
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode), ((Throwing) _anaNode).getRoot(), ((Throwing) _anaNode).getExpressionOffset());
         }
         if (_anaNode instanceof ForEachLoop) {
-            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),((ForEachLoop)_anaNode).getRoot());
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),((ForEachLoop)_anaNode).getRoot(),((ForEachLoop)_anaNode).getExpressionOffset());
         }
         if (_anaNode instanceof ForEachTable) {
-            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),((ForEachTable)_anaNode).getRoot());
+            return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),((ForEachTable)_anaNode).getRoot(),((ForEachTable)_anaNode).getExpressionOffset());
         }
-        return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),null);
+        return new AssSimBracedBlock(get(_normal,_anaNode), get(_group,_anaNode),null,0);
     }
 
     private static AssMemberCallingsBlock getAssMemberCalling(BlocksFlags _normal, BlocksFlags _group, AbsBk _anaNode) {

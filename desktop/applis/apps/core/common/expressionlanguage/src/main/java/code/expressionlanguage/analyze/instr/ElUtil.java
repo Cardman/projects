@@ -60,7 +60,7 @@ public final class ElUtil {
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
-            badEl_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badEl_.setIndexFile(_page);
             //badOffset char
             badEl_.buildError(_page.getAnalysisMessages().getEmptyPart());
             _page.addLocError(badEl_);
@@ -102,7 +102,7 @@ public final class ElUtil {
         if (_el.trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
-            badEl_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badEl_.setIndexFile(_page);
             //badOffset char
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
@@ -252,7 +252,7 @@ public final class ElUtil {
                     FoundErrorInterpret b_;
                     b_ = new FoundErrorInterpret();
                     b_.setFile(_page.getCurrentFile());
-                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    b_.setIndexFile(_page);
                     b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                     _page.addLocError(b_);
                     _current.addErr(b_.getBuiltError());
@@ -263,7 +263,7 @@ public final class ElUtil {
                         FoundErrorInterpret b_;
                         b_ = new FoundErrorInterpret();
                         b_.setFile(_page.getCurrentFile());
-                        b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        b_.setIndexFile(_page);
                         b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                         _page.addLocError(b_);
                         _current.addErr(b_.getBuiltError());

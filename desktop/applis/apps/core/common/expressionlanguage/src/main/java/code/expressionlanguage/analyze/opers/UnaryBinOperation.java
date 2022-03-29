@@ -41,7 +41,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
             _page.setOkNumOp(false);
             String exp_ = _page.getAliasNumber();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             un_.setFile(_page.getCurrentFile());
             //oper
             un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),

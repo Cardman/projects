@@ -973,6 +973,174 @@ public final class RenderTextAdvTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body>6</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
     }
+
+    @Test
+    public void process_inn1Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body>{$new pkg.BeanOne.Inner(){}.textField}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne<T>:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public String textField=\"txt\";");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>txt</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+    }
+
+    @Test
+    public void process_inn2Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body>{pkg.BeanOne.t(()-&gt;\"txt\")}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne<T>:code.bean.Bean{");
+        file_.append(" $public $static String t($Fct<String> a) {");
+        file_.append("  $return a.call();");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>txt</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+    }
+
+    @Test
+    public void process_inn3Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body>{$switch(\"txt\"){$case \"txt\";$return \"txt\";$default;$return \"txt\";}}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne<T>:code.bean.Bean{");
+        file_.append(" $public $static String t($Fct<String> a) {");
+        file_.append("  $return a.call();");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>txt</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+    }
+
+    @Test
+    public void process_inn4Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html><body>{pkg.BeanOne.t(()-&gt;\"txt\")}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne<T>:code.bean.Bean{");
+        file_.append(" $public $static String t($Fct<String> a) {");
+        file_.append("  $return a.call();");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>txt</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+    }
+
+    @Test
+    public void process_inn5Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html><body>{$new pkg.BeanOne.Inner(){}.textField}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne<T>:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public String textField=\"txt\";");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>txt</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+    }
+
+    @Test
+    public void process_inn6Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html><body>{$switch(\"txt\"){$case \"txt\";$return \"txt\";$default;$return \"txt\";}}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne<T>:code.bean.Bean{");
+        file_.append(" $public $static String t($Fct<String> a) {");
+        file_.append("  $return a.call();");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>txt</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+    }
+
+    @Test
+    public void process_inn7Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html><body>{$new pkg.BeanOne.Inner(){$void m(){$class Inn{}}}.textField}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne<T>:code.bean.Bean{");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public String textField=\"txt\";");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>txt</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+    }
+
+    @Test
+    public void process_inn8Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html><body>{pkg.BeanOne.t(()-&gt;{$class Inn{}$return\"txt\";})}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne<T>:code.bean.Bean{");
+        file_.append(" $public $static String t($Fct<String> a) {");
+        file_.append("  $return a.call();");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>txt</body></html>", getCommOneBeanParam(html_, files_, filesSec_));
+    }
     private static String getCustomPair() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.CustPair<U,V> :$pair<U,V>{\n");

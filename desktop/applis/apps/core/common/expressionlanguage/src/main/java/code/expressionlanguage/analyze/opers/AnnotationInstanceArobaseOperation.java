@@ -67,14 +67,13 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
         if (isIntermediateDottedOperation()){
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            un_.setIndexFile(i_);
+            un_.setIndexFile(_page);
             un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     _page.getAliasObject());
             _page.getLocalizer().addError(un_);
-            setPartOffsetsErr(new InfoErrorDto(un_.getBuiltError(),i_,1));
+            setPartOffsetsErr(new InfoErrorDto(un_,_page,1));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -88,13 +87,12 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
         if (StringUtil.quickEq(instancingAnnotContent.getClassName(), objCl_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            call_.setIndexFile(i_);
+            call_.setIndexFile(_page);
             //text header after @
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorAnnotation(),
                     instancingAnnotContent.getMethodName().trim().substring(AROBASE.length()).trim());
             _page.getLocalizer().addError(call_);
-            setPartOffsetsErr(new InfoErrorDto(call_.getBuiltError(),i_,1));
+            setPartOffsetsErr(new InfoErrorDto(call_,_page,1));
             setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
             return;
         }
@@ -142,7 +140,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                     cast_.setFile(_page.getCurrentFile());
                     StrTypes operators_ = getOperations().getOperators();
                     int k_ = operators_.firstKey();
-                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
+                    cast_.setIndexFile(_page,k_);
                     //first parenthese
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(arg_.getNames(),ExportCst.JOIN_TYPES),
@@ -150,8 +148,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                     _page.getLocalizer().addError(cast_);
                     addErr(cast_.getBuiltError());
                     StringList deep_ = getErrs();
-                    int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-                    setPartOffsetsErrPar(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,1));
+                    setPartOffsetsErrPar(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,k_,1));
                 }
                 AnnotationTypeInfo i_ = new AnnotationTypeInfo();
                 i_.setType(paramName_);
@@ -163,14 +160,13 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             cast_.setFile(_page.getCurrentFile());
             StrTypes operators_ = getOperations().getOperators();
             int k_ = operators_.lastKey();
-            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
+            cast_.setIndexFile(_page,k_);
             //last parenthese
             cast_.buildError(_page.getAnalysisMessages().getAnnotFieldNotUniq());
             _page.getLocalizer().addError(cast_);
             addErr(cast_.getBuiltError());
             StringList deep_ = getErrs();
-            int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-            setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,1));
+            setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,k_,1));
             setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
             return;
         }
@@ -179,7 +175,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             cast_.setFile(_page.getCurrentFile());
             StrTypes operators_ = getOperations().getOperators();
             int k_ = operators_.lastKey();
-            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+k_);
+            cast_.setIndexFile(_page,k_);
             //last parenthese
             cast_.buildError(_page.getAnalysisMessages().getAnnotFieldNotUniq());
             _page.getLocalizer().addError(cast_);
@@ -202,7 +198,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             if (e.getValue() > 1) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFile(_page.getCurrentFile());
-                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                cast_.setIndexFile(_page);
                 //key len at operation
                 cast_.buildError(_page.getAnalysisMessages().getDupSuppliedAnnotField(),
                         e.getKey().getFieldName()
@@ -235,7 +231,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                 if (!operators_.isEmpty()) {
                     k_ = operators_.lastKey();
                 }
-                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex()+ k_);
+                cast_.setIndexFile(_page,k_);
                 //last parenthese
                 cast_.buildError(_page.getAnalysisMessages().getAnnotFieldMust(),
                         e.getKey());
@@ -248,11 +244,9 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             StrTypes operators_ = getOperations().getOperators();
             if (!operators_.isEmpty()) {
                 int k_ = operators_.lastKey();
-                int i_ = _page.getLocalizer().getCurrentLocationIndex()+k_;
-                setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,1));
+                setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,k_,1));
             } else {
-                int i_ = _page.getLocalizer().getCurrentLocationIndex();
-                setPartOffsetsErr(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,1));
+                setPartOffsetsErr(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,1));
             }
         }
         for (AssocationOperation e: suppliedFields_) {
@@ -281,7 +275,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                     //ERROR
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    cast_.setIndexFile(_page);
                     //equal char
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(arg_.getNames(),ExportCst.JOIN_TYPES),

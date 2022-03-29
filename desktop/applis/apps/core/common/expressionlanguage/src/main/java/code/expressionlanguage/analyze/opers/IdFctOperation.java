@@ -41,13 +41,12 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         if (isNotChildOfCall(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            varg_.setIndexFile(i_);
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordId());
             _page.getLocalizer().addError(varg_);
-            partOffsetsErr = new InfoErrorDto(varg_.getBuiltError(),i_,_page.getKeyWords().getKeyWordId().length());
+            partOffsetsErr = new InfoErrorDto(varg_,_page,_page.getKeyWords().getKeyWordId().length());
 //            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
 //            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordId().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -56,13 +55,12 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         if (!isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            varg_.setIndexFile(i_);
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordId());
             _page.getLocalizer().addError(varg_);
-            partOffsetsErr = new InfoErrorDto(varg_.getBuiltError(),i_,_page.getKeyWords().getKeyWordId().length());
+            partOffsetsErr = new InfoErrorDto(varg_,_page,_page.getKeyWords().getKeyWordId().length());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -194,14 +192,14 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
                     //last type => error
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
                     varg_.setFile(_page.getCurrentFile());
-                    int i_ = off_ + _page.getLocalizer().getCurrentLocationIndex() + full_.lastIndexOf("...");
-                    varg_.setIndexFile(i_);
+                    int offSum_ = off_ + full_.lastIndexOf("...");
+                    varg_.setIndexFile(_page, offSum_);
                     //three dots
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
 //                    _partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
 //                    _partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
-                    return new ResolvedId(null,new InfoErrorDto(varg_.getBuiltError(),i_,3),types_);
+                    return new ResolvedId(null,new InfoErrorDto(varg_.getBuiltError(),_page,offSum_,3),types_);
                 }
                 vararg_ = len_- _from;
                 type_ = arg_.substring(0, arg_.length()-VARARG_SUFFIX.length()).trim();

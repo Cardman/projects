@@ -34,13 +34,12 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         if (StringUtil.quickEq(oper.trim(), NEG_BOOL)) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
-            int index_ = _page.getLocalizer().getCurrentLocationIndex();
-            badEl_.setIndexFile(index_);
+            badEl_.setIndexFile(_page);
             //oper len
             badEl_.buildError(_page.getAnalysisMessages().getBadOperatorRef(),
                     oper.trim());
             _page.getLocalizer().addError(badEl_);
-            getPartOffsetsChildren().add(new InfoErrorDto(badEl_.getBuiltError(),index_,1));
+            getPartOffsetsChildren().add(new InfoErrorDto(badEl_,_page,1));
         }
         String custOp_ = oper.trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();

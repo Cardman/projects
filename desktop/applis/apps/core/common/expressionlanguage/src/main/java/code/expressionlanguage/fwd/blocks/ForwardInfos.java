@@ -1762,7 +1762,7 @@ public final class ForwardInfos {
         return new ExecMethodLambdaOperation(new ExecOperationContent(_anaNode.getContent()), lamCont_, lambdaMethodContent_);
     }
 
-    private static ExecTypeFunction buildAnonFctPair(Forwards _forwards, AnonymousLambdaOperation _s) {
+    public static ExecTypeFunction buildAnonFctPair(Forwards _forwards, AnonymousLambdaOperation _s) {
         NamedCalledFunctionBlock method_ = _s.getBlock();
         ExecAnonymousFunctionBlock r_ = _forwards.getAnonLambda(method_);
         return new ExecTypeFunction(FetchMemberUtil.fetchType(_s.getLambdaCommonContent().getFoundFormatted().getRootBlock(), _forwards), r_);

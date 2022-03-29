@@ -25,7 +25,7 @@ public final class BadTernaryOperation extends MethodOperation {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringUtil.getFirstPrintableCharIndex(fct_), _page);
         FoundErrorInterpret badNb_ = new FoundErrorInterpret();
         badNb_.setFile(_page.getCurrentFile());
-        badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        badNb_.setIndexFile(_page);
         //=> move to BadTernaryOperation (underline key word)
         badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
                 Long.toString(BOOLEAN_ARGS),
@@ -35,8 +35,7 @@ public final class BadTernaryOperation extends MethodOperation {
         _page.getLocalizer().addError(badNb_);
         addErr(badNb_.getBuiltError());
         StringList deep_ = getErrs();
-        int i_ = _page.getLocalizer().getCurrentLocationIndex();
-        setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,_page.getKeyWords().getKeyWordBool().length()));
+        setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,_page.getKeyWords().getKeyWordBool().length()));
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 

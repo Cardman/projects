@@ -129,14 +129,13 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             StrTypes operators_ = getOperations().getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
-            un_.setIndexFile(i_);
+            un_.setIndexFile(_page,offFirstOp_);
             un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     type_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),i_,1);
+            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),_page,offFirstOp_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -146,14 +145,13 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             StrTypes operators_ = getOperations().getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
-            un_.setIndexFile(i_);
+            un_.setIndexFile(_page,offFirstOp_);
             un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     n_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),i_,1);
+            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),_page,offFirstOp_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -162,14 +160,13 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
             StrTypes operators_ = getOperations().getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = _page.getLocalizer().getCurrentLocationIndex()+offFirstOp_;
-            un_.setIndexFile(i_);
+            un_.setIndexFile(_page,offFirstOp_);
             un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     cp_);
             _page.getLocalizer().addError(un_);
-            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),i_,1);
+            partOffsetsErr=new InfoErrorDto(un_.getBuiltError(),_page,offFirstOp_,1);
             setResultClass(new AnaClassArgumentMatching(StringExpUtil.getPrettyArrayType(_page.getAliasObject())));
             return;
         }
@@ -193,14 +190,13 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
-                    int i_ = _page.getLocalizer().getCurrentLocationIndex();
-                    cast_.setIndexFile(i_);
+                    cast_.setIndexFile(_page);
                     //first separator char child
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(argType_.getNames(),ExportCst.JOIN_TYPES),
                             classNameFinal_);
                     _page.getLocalizer().addError(cast_);
-                    parts_=(new InfoErrorDto(cast_.getBuiltError(),i_,1));
+                    parts_=(new InfoErrorDto(cast_,_page,1));
                 }
             }
             if (AnaTypeUtil.isPrimitive(classNameFinal_, _page)) {

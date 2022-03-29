@@ -17,22 +17,27 @@ public final class AnaRendImport extends AnaRendParentBlock implements AnaRendBu
     private StringList texts = new StringList();
 
     private final int pageOffset;
+    private final ResultText res;
     AnaRendImport(Element _elt, OffsetStringInfo _page, int _offset) {
         super(_offset);
         pageOffset = _page.getOffset();
         elt = _elt;
+        res = new ResultText();
     }
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        ResultText res_ = new ResultText();
         _page.setGlobalOffset(pageOffset);
         _page.zeroOffset();
         String pageName_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrPage());
         int rowsGrId_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrPage());
-        res_.buildIdAna(pageName_, rowsGrId_, _anaDoc, _page);
-        roots = res_.getOpExpRoot();
-        texts = res_.getTexts();
+        res.buildIdAna(pageName_, rowsGrId_, _anaDoc, _page);
+        roots = res.getOpExpRoot();
+        texts = res.getTexts();
+    }
+
+    public ResultText getRes() {
+        return res;
     }
 
     public int getPageOffset() {

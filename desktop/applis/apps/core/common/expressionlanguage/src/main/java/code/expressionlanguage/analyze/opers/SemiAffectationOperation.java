@@ -42,7 +42,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             setRelativeOffsetPossibleAnalyzable(leftEl_.getIndexInEl(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //operator
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
                     operatorContent.getOper());
@@ -58,7 +58,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setIndexFile(_page);
                 //field name len
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
@@ -84,7 +84,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 } else {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    cast_.setIndexFile(_page);
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
@@ -100,7 +100,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            cast_.setIndexFile(_page);
             //operator
             cast_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(clMatchLeft_.getNames(), ExportCst.JOIN_TYPES));

@@ -1575,7 +1575,6 @@ public final class PartTypeUtilTest extends ProcessMethodCommon {
 
     private static String processAnalyzeLineWithoutErr(String _input, AnalyzedPageEl _an, RootBlock _rooted) {
         AnalyzedPageEl page_ = _an;
-        page_.setImportingTypes(_rooted);
         return AnaPartTypeUtil.processAnalyzeLineWithoutErr(_input, _rooted, _rooted, 0, page_).getResult();
     }
     protected static AnalyzedPageEl unfullValidateInheriting(StringMap<String> _files) {

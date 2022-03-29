@@ -115,7 +115,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
             //error
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(curBlock_.getFile());
-            call_.setIndexFile(getFullIndexInEl());
+            call_.setIndexFile(_page);
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorEnd());
             _page.getLocalizer().addError(call_);
@@ -125,7 +125,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 //error
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFile(curBlock_.getFile());
-                call_.setIndexFile(getFullIndexInEl());
+                call_.setIndexFile(_page);
                 //key word len
                 call_.buildError(_page.getAnalysisMessages().getCallCtor());
                 _page.getLocalizer().addError(call_);
@@ -134,7 +134,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
                 //error
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFile(curBlock_.getFile());
-                call_.setIndexFile(getFullIndexInEl());
+                call_.setIndexFile(_page);
                 //key word len
                 call_.buildError(_page.getAnalysisMessages().getCallCtorBeforeBlock());
                 _page.getLocalizer().addError(call_);
@@ -149,7 +149,7 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
         if (curBlock_.getParent().getFirstChild() != curBlock_) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(curBlock_.getFile());
-            call_.setIndexFile(getFullIndexInEl());
+            call_.setIndexFile(_page);
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorFirstLine());
             _page.getLocalizer().addError(call_);

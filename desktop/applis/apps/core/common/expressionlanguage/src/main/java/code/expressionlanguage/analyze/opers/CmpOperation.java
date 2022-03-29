@@ -41,8 +41,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(in_), _page);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());
-            int index_ = _page.getLocalizer().getCurrentLocationIndex();
-            badNb_.setIndexFile(index_);
+            badNb_.setIndexFile(_page);
             //first oper
             badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
                     Long.toString(2),
@@ -53,7 +52,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             for (int i = 0; i < in_;i++) {
                 getPartOffsetsChildren().add(new InfoErrorDto(""));
             }
-            getPartOffsetsChildren().add(new InfoErrorDto(badNb_.getBuiltError(),index_,getOperations().getOperators().getValue(in_).length()));
+            getPartOffsetsChildren().add(new InfoErrorDto(badNb_,_page,getOperations().getOperators().getValue(in_).length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
@@ -97,8 +96,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
         String res_ = _page.getAliasPrimBoolean();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        int index_ = _page.getLocalizer().getCurrentLocationIndex();
-        un_.setIndexFile(index_);
+        un_.setIndexFile(_page);
         un_.setFile(_page.getCurrentFile());
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
@@ -108,7 +106,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                 ),ExportCst.JOIN_OPERANDS),
                 getOp());
         _page.getLocalizer().addError(un_);
-        getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),index_, operatorContent.getOper().length()));
+        getPartOffsetsChildren().add(new InfoErrorDto(un_,_page, operatorContent.getOper().length()));
         setResultClass(new AnaClassArgumentMatching(res_, _page.getPrimitiveTypes()));
     }
     public boolean isStringCompare() {

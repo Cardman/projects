@@ -20,7 +20,7 @@ public final class ErrorPartOperation extends LeafOperation {
         String argClName_;
         FoundErrorInterpret emptyPart_ = new FoundErrorInterpret();
         emptyPart_.setFile(_page.getCurrentFile());
-        emptyPart_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        emptyPart_.setIndexFile(_page);
         //if parent is null => all text
         //if parent is not null => use parent header
         emptyPart_.buildError(_page.getAnalysisMessages().getEmptyExpressionPart());

@@ -522,7 +522,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         stackCall_.addInternPage(instancingClass_);
-        ExecTemplates.okArgsSetSwCall( ex_, cont_, stackCall_, Argument.createVoid());
+        ExecTemplates.okArgsSetSwCall( ex_, cont_, stackCall_, Argument.createVoid(), stackCall_.getLastPage().getGlobalClass(), stackCall_.getLastPage().getContentEx());
         assertNotNull(getTrueException(stackCall_));
     }
     @Test

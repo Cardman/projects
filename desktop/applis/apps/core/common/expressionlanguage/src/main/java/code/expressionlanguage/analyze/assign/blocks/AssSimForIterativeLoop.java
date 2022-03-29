@@ -9,22 +9,34 @@ import code.util.*;
 
 public final class AssSimForIterativeLoop extends AssBracedStack implements AssBuildableElMethod {
 
-    private CustList<AssOperationNode> opInit;
+    private final int initOffset;
+    private final int expressionOffset;
+    private final int stepOffset;
+    private final CustList<AssOperationNode> opInit;
 
-    private CustList<AssOperationNode> opExp;
+    private final CustList<AssOperationNode> opExp;
 
-    private CustList<AssOperationNode> opStep;
+    private final CustList<AssOperationNode> opStep;
     AssSimForIterativeLoop(boolean _completeNormally, boolean _completeNormallyGroup, ForIterativeLoop _for) {
         super(_completeNormally, _completeNormallyGroup);
         opInit = AssUtil.getSimExecutableNodes(_for.getRootInit());
         opExp = AssUtil.getSimExecutableNodes(_for.getRootExp());
         opStep = AssUtil.getSimExecutableNodes(_for.getRootStep());
+        initOffset = _for.getInitOffset();
+        expressionOffset = _for.getExpressionOffset();
+        stepOffset = _for.getStepOffset();
     }
 
     @Override
     public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
+        _page.setGlobalOffset(initOffset);
+        _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,opInit.last(),this, _page);
+        _page.setGlobalOffset(expressionOffset);
+        _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,opExp.last(),this, _page);
+        _page.setGlobalOffset(stepOffset);
+        _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,opStep.last(),this, _page);
     }
 

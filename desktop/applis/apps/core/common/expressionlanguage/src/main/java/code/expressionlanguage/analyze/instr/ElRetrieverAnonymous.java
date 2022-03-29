@@ -17,17 +17,18 @@ public final class ElRetrieverAnonymous {
     private ElRetrieverAnonymous() {
     }
 
-    public static void commonCheckQuick(String _string, int _minIndex, AnalyzedPageEl _page, ResultExpression _res) {
+    public static int commonCheckQuick(String _string, int _minIndex, AnalyzedPageEl _page, ResultExpression _res) {
         _page.getAnonymousResults().clear();
         _page.getParts().clear();
         String currentPkg_ = _page.getCurrentPkg();
         FileBlock currentFile_ = _page.getCurrentFile();
-        stackBegin(_string,_minIndex, currentFile_,currentPkg_,_page, new CurrentExpElts(currentPkg_, currentFile_, _page.getLocalizer().getCurrentLocationIndex()));
+        int next_ = stackBegin(_string, _minIndex, currentFile_, currentPkg_, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex()));
         _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
         _res.setParts(new CustList<SegmentStringPart>(_page.getParts()));
+        return next_;
     }
 
-    private static void stackBegin(String _string, int _from, FileBlock _file, String _pkg, AnalyzedPageEl _page, CurrentExpElts _curElts) {
+    private static int stackBegin(String _string, int _from, FileBlock _file, String _pkg, AnalyzedPageEl _page, CurrentExpElts _curElts) {
         boolean constTextString_ = false;
         boolean constTextChar_ = false;
         boolean constString_ = false;
@@ -181,6 +182,7 @@ public final class ElRetrieverAnonymous {
             }
             from_ = next_;
         }
+        return from_;
     }
 
     private static int stack(String _string, int _from, AnalyzedPageEl _page, CurrentExpElts _curElts) {

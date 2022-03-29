@@ -44,8 +44,7 @@ public final class RangeOperation extends MethodOperation {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(in_), _page);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());
-            int index_ = _page.getLocalizer().getCurrentLocationIndex();
-            badNb_.setIndexFile(index_);
+            badNb_.setIndexFile(_page);
             //first oper
             badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
                     Long.toString(3),
@@ -56,7 +55,7 @@ public final class RangeOperation extends MethodOperation {
             for (int i = 0; i < in_;i++) {
                 getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>());
             }
-            getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(badNb_.getBuiltError(),index_,getOperations().getOperators().getValue(in_).length())));
+            getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(badNb_,_page,getOperations().getOperators().getValue(in_).length())));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasRange()));
             return;
         }
@@ -74,8 +73,7 @@ public final class RangeOperation extends MethodOperation {
                     _page.setOkNumOp(false);
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    int index_ = _page.getLocalizer().getCurrentLocationIndex();
-                    un_.setIndexFile(index_);
+                    un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());
                     //oper
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
@@ -85,7 +83,7 @@ public final class RangeOperation extends MethodOperation {
                             ),ExportCst.JOIN_OPERANDS),
                             "???");
                     _page.getLocalizer().addError(un_);
-                    err_.add(new InfoErrorDto(un_.getBuiltError(),index_,1));
+                    err_.add(new InfoErrorDto(un_,_page,1));
                 }
             }
             if (!clMatchRight_.isNumericInt(_page)) {
@@ -97,8 +95,7 @@ public final class RangeOperation extends MethodOperation {
                     _page.setOkNumOp(false);
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    int index_ = _page.getLocalizer().getCurrentLocationIndex();
-                    un_.setIndexFile(index_);
+                    un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());
                     //oper
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
@@ -108,7 +105,7 @@ public final class RangeOperation extends MethodOperation {
                             ),ExportCst.JOIN_OPERANDS),
                             "???");
                     _page.getLocalizer().addError(un_);
-                    err_.add(new InfoErrorDto(un_.getBuiltError(),index_ +2,1));
+                    err_.add(new InfoErrorDto(un_.getBuiltError(),_page,2,1));
                 }
             }
             if (!err_.isEmpty()) {
@@ -130,15 +127,14 @@ public final class RangeOperation extends MethodOperation {
                         _page.setOkNumOp(false);
                         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(1), _page);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
-                        int index_ = _page.getLocalizer().getCurrentLocationIndex();
-                        un_.setIndexFile(index_);
+                        un_.setIndexFile(_page);
                         un_.setFile(_page.getCurrentFile());
                         //oper
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                                 StringUtil.join(clMatchStep_.getNames(),ExportCst.JOIN_TYPES),
                                 "???");
                         _page.getLocalizer().addError(un_);
-                        getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(un_.getBuiltError(),index_ +2,1)));
+                        getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(un_.getBuiltError(),_page,2,1)));
                     }
                 }
                 clMatchStep_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchStep_, _page), _page.getPrimitiveTypes());
@@ -153,15 +149,14 @@ public final class RangeOperation extends MethodOperation {
                     _page.setOkNumOp(false);
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    int index_ = _page.getLocalizer().getCurrentLocationIndex();
-                    un_.setIndexFile(index_);
+                    un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());
                     //oper
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
                             StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES),
                             "???");
                     _page.getLocalizer().addError(un_);
-                    getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(un_.getBuiltError(),index_,1)));
+                    getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(un_,_page,1)));
                 }
             }
             clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());

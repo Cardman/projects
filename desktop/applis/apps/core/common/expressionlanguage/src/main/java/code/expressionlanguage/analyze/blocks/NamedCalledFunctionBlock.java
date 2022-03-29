@@ -54,8 +54,8 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     private final StringMap<GeneStringOverridable> overrides = new StringMap<GeneStringOverridable>();
     private int nameOverrideNumber;
     private String returnTypeGet = "";
+    private AccessedBlock accessedBlock;
     private RootBlock parentType;
-    private OperatorBlock operator;
     private int indexEnd;
     private final StringList allReservedInners = new StringList();
     private int numberLambda;
@@ -298,7 +298,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             }
             ClassMethodId id_ = null;
             AnaTypeFct fct_ = null;
-            int rc_ = _page.getLocalizer().getCurrentLocationIndex() +off_+delta_;
             RootBlock formattedDestType_ = formInfoDest_.getRootBlock();
             CustList<NamedCalledFunctionBlock> methods_ = formattedDestType_.getOverridableBlocks();
             for (NamedCalledFunctionBlock m: methods_) {
@@ -325,7 +324,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                 }
             }
             allPartSuperTypes_.addAllElts(superPartOffsets_);
-            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,id_,fct_, rc_, nameLocId_.length()));
+            allInternTypesParts.add(new PartOffsetsClassMethodId(allPartTypes_,allPartSuperTypes_,id_,fct_, _page,off_+delta_, nameLocId_.length()));
             sum_ += o.length()+1;
         }
     }
@@ -363,7 +362,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         }
         FoundErrorInterpret cast_ = new FoundErrorInterpret();
         cast_.setFile(_page.getCurrentFile());
-        cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        cast_.setIndexFile(_page);
         //return type len
         cast_.buildError(_page.getAnalysisMessages().getUnexpectedRetType(),
                 itype_,getSignature(_page));
@@ -473,20 +472,20 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         this.returnTypeGet = _returnTypeGet;
     }
 
-    public OperatorBlock getOperator() {
-        return operator;
-    }
-
-    public void setOperator(OperatorBlock _operator) {
-        operator = _operator;
-    }
-
     public RootBlock getParentType() {
         return parentType;
     }
 
     public void setParentType(RootBlock _parentType) {
         this.parentType = _parentType;
+    }
+
+    public AccessedBlock getAccessedBlock() {
+        return accessedBlock;
+    }
+
+    public void setAccessedBlock(AccessedBlock _accessedBlock) {
+        this.accessedBlock = _accessedBlock;
     }
 
     public StringList getAllReservedInners() {

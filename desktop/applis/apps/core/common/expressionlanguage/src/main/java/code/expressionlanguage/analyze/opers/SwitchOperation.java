@@ -260,26 +260,15 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         if (isParentSetter(parent_)&&indCh_==0) {
             switchMethod.setRetRef(true);
         }
-        RootBlock globalType_ = switchMethod.getParentType();
-        OperatorBlock operator_ = switchMethod.getOperator();
-        if (globalType_ != null) {
-            switchMethod.getAllReservedInners().addAllElts(globalType_.getAllReservedInners());
-        }
-        if (operator_ != null) {
-            switchMethod.getAllReservedInners().addAllElts(operator_.getAllReservedInners());
-        }
+        AccessedBlock acc_ = switchMethod.getAccessedBlock();
+        switchMethod.getAllReservedInners().addAllElts(acc_.getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getSwitchMethods().add(switchMethod);
             switchMethod.getMappings().putAllMap(currentFct_.getRefMappings());
             switchMethod.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            if (globalType_ != null) {
-                switchMethod.getMappings().putAllMap(globalType_.getRefMappings());
-            }
-            if (operator_ != null) {
-                switchMethod.getMappings().putAllMap(operator_.getRefMappings());
-            }
+            switchMethod.getMappings().putAllMap(acc_.getRefMappings());
         }
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {

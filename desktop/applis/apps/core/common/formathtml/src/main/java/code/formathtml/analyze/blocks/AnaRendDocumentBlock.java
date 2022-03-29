@@ -1,12 +1,13 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.accessing.OperatorAccessor;
+import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AbstractFileEscapedCalc;
-import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -20,7 +21,11 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlock,AccessingImportingBlock,WithContext {
+public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlockMembers,WithContext {
+    private final StringList allReservedInners = new StringList();
+    private final CustList<RootBlock> localTypes = new CustList<RootBlock>();
+    private final CustList<AnonymousTypeBlock> anonymousTypes = new CustList<AnonymousTypeBlock>();
+    private int countsAnonFct;
 
     private final Element elt;
 
@@ -53,7 +58,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         return accessKind;
     }
 
-    public void initMetrics(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    public void initMetrics(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, StringMap<BeanInfo> _beansInfosBefore) {
         String alias_ = StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrAlias());
         imports = StringUtil.splitChar(elt.getAttribute(alias_),';');
         fileBlock.setNumberFile(_page.getFilesBodies().size());
@@ -65,10 +70,19 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             fileBlock.getImportsOffset().add(o_);
             o_ += o.length() +1;
         }
+        setBeanName(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
+        String clName_ = getResolvedClassName(_beansInfosBefore);
+        AnaFormattedRootBlock globalType_ = new AnaFormattedRootBlock(_page, clName_);
+        RootBlock rootBlock_ = globalType_.getRootBlock();
+        if (rootBlock_ != null) {
+            accessKind = MethodAccessKind.INSTANCE;
+            declClass = globalType_;
+        } else {
+            accessKind = MethodAccessKind.STATIC;
+        }
     }
 
-    public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, StringMap<BeanInfo> _beansInfosBefore) {
-        setBeanName(elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
+    public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(getOffset());
         _page.zeroOffset();
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
@@ -76,25 +90,21 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         _page.setCurrentFile(fileBlock);
         _page.setCurrentFct(null);
         _page.setCurrentCtx(this);
-        if (_beansInfosBefore.contains(beanName)) {
-            accessKind = MethodAccessKind.INSTANCE;
+        RootBlock rootBlock_ = declClass.getRootBlock();
+        if (rootBlock_ != null) {
             _page.setAccessStaticContext(MethodAccessKind.INSTANCE);
-            String clName_ = _beansInfosBefore.getVal(beanName).getResolvedClassName();
-            AnaFormattedRootBlock globalType_ = new AnaFormattedRootBlock(_page, clName_);
-            _page.setGlobalType(globalType_);
-            _page.setImporting(globalType_.getRootBlock());
-            declClass = globalType_;
+            _page.setGlobalType(declClass);
+            _page.setImporting(rootBlock_);
+            _page.setImportingTypes(this);
+            _page.setImportingAcces(new TypeAccessor(rootBlock_.getFullName()));
         } else {
-            accessKind = MethodAccessKind.STATIC;
             _page.setGlobalType(AnaFormattedRootBlock.defValue());
-            _page.setImporting(null);
+            _page.setImporting(this);
+            _page.setImportingTypes(this);
+            _page.setImportingAcces(new OperatorAccessor());
         }
         AnaRendBlock en_ = this;
         StringList labels_ = new StringList();
-        _page.setImportingAcces(this);
-        _page.getImportingTypes().clear();
-        _page.getImportingTypes().add(getImports());
-        _page.getImportingTypes().add(getFileImports());
         while (true) {
             if (en_ instanceof ImportForEachLoop) {
                 _page.setCurrentAnaBlockForEachLoop((ImportForEachLoop) en_);
@@ -136,7 +146,16 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         }
     }
 
-    public FileBlock getFileBlock() {
+    private String getResolvedClassName(StringMap<BeanInfo> _beansInfosBefore) {
+        BeanInfo val_ = _beansInfosBefore.getVal(beanName);
+        if (val_ == null) {
+            return "";
+        }
+        return StringUtil.nullToEmpty(val_.getResolvedClassName());
+    }
+
+    @Override
+    public FileBlock getFile() {
         return fileBlock;
     }
 
@@ -146,13 +165,38 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     @Override
-    public boolean isTypeHidden(Accessed _class, AnalyzedPageEl _analyzable) {
-        return _class.getAccess() != AccessEnum.PUBLIC;
+    public StringList getImports() {
+        return imports;
     }
 
     @Override
-    public StringList getImports() {
-        return imports;
+    public CustList<AnonymousTypeBlock> getAnonymousTypes() {
+        return anonymousTypes;
+    }
+
+    @Override
+    public CustList<RootBlock> getLocalTypes() {
+        return localTypes;
+    }
+
+    @Override
+    public StringList getAllReservedInners() {
+        return allReservedInners;
+    }
+
+    @Override
+    public StringMap<MappingLocalType> getRefMappings() {
+        return new StringMap<MappingLocalType>();
+    }
+
+    @Override
+    public int getCountsAnonFct() {
+        return countsAnonFct;
+    }
+
+    @Override
+    public void setCountsAnonFct(int _v) {
+        this.countsAnonFct = _v;
     }
 
     private static void checkBreakable(AnaRendBlock _block, StringList _labels, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

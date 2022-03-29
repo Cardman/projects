@@ -456,6 +456,36 @@ public abstract class AnaRendBlock {
         }
         return pres_;
     }
+
+    public static StringMap<String> getPreQuick(String _value, AnalyzingDoc _analyzingDoc) {
+        StringList elts_ = StringUtil.splitStrings(_value, COMMA);
+        String var_ = elts_.first();
+        String fileName_ = getProperty(var_, _analyzingDoc);
+        if (fileName_ == null) {
+            return new StringMap<String>();
+        }
+        StringMap<String> pres_ = new StringMap<String>();
+        for (String l: _analyzingDoc.getLanguages()) {
+            StringMap<String> files_ = _analyzingDoc.getFiles();
+            String content_ = tryGetContent(l, fileName_, files_, _analyzingDoc);
+            int index_ = indexCorrectMessages(content_);
+            String cont_ = content_;
+            if (cont_ == null) {
+                cont_ = EMPTY_STRING;
+            }
+            if (index_ >= 0) {
+                return new StringMap<String>();
+            }
+            StringMap<String> messages_ = getMessages(cont_);
+            String key_ = elts_.last();
+            String format_ = getQuickFormat(messages_, key_);
+            if (format_ == null) {
+                return new StringMap<String>();
+            }
+            pres_.addEntry(l,format_);
+        }
+        return pres_;
+    }
     protected static String escapeParam(String _arg) {
         StringMap<String> rep_ = new StringMap<String>();
         String quote_ = Character.toString(QUOTE);
@@ -474,14 +504,6 @@ public abstract class AnaRendBlock {
             begin_ = val_.getBegin();
         }
         return new OffsetStringInfo(begin_,_elt.getAttribute(_key));
-    }
-
-    static void removeUseLess(Element _read, StringList _list, RendKeyWords _rendKeyWords) {
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (_read.hasAttribute(StringUtil.concat(_rendKeyWords.getAttrParam(),Long.toString(i_)))) {
-            _list.removeAllString(StringUtil.concat(_rendKeyWords.getAttrParam(),Long.toString(i_)));
-            i_++;
-        }
     }
 
     public static String getQuickFormat(StringMap<String> _messages, String _key) {

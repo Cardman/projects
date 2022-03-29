@@ -25,7 +25,6 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
     private final StringMap<Document> locDoc = new StringMap<Document>();
     private StringList varNames = new StringList();
     private final CustList<ResultExpression> resultExpressionList = new CustList<ResultExpression>();
-    private final ResultExpression resultExpression = new ResultExpression();
     private final CustList<AnaRendElement> children = new CustList<AnaRendElement>();
 
 
@@ -43,6 +42,7 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
         if (preformatted.isEmpty()) {
             return;
         }
+        int index_ = 0;
         for (AnaRendElement e: children) {
             int attributeDelimiter_ = e.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
             String attribute_ = e.getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
@@ -65,11 +65,11 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
             } else {
                 escaped.add(false);
             }
-            ResultExpression res_ = new ResultExpression();
-            resultExpressionList.add(res_);
+            ResultExpression res_ = resultExpressionList.get(index_);
             _page.setGlobalOffset(attributeDelimiter_);
             _page.zeroOffset();
             roots.add(RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page,res_));
+            index_++;
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {
         if (elt.getAttribute(_anaDoc.getRendKeyWords().getAttrEscaped()).isEmpty()) {
@@ -121,6 +121,10 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
             }
 
         }
+    }
+
+    public CustList<ResultExpression> getResultExpressionList() {
+        return resultExpressionList;
     }
 
     public CustList<AnaRendElement> getChildren() {

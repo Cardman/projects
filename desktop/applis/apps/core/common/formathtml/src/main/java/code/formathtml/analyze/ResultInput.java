@@ -185,6 +185,14 @@ public final class ResultInput {
         }
     }
 
+    public ResultExpression getResultExpressionRead() {
+        return resultExpressionRead;
+    }
+
+    public ResultExpression getResultExpressionValue() {
+        return resultExpressionValue;
+    }
+
     public String getVarName() {
         return varName;
     }

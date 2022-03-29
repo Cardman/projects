@@ -161,8 +161,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             if (skipGenericImports((RootBlock)_local, _page)) {
                 return;
             }
-        }
-        if (_local instanceof OperatorBlock) {
+        } else {
             String type_ = getTypeName().trim();
             MappingLocalType resolved_ = _page.getMappingLocal().getVal(type_);
             if (resolved_ != null) {
@@ -237,8 +236,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             if (skipImports(_ready,(RootBlock)_local, _page)) {
                 return;
             }
-        }
-        if (_local instanceof OperatorBlock) {
+        } else {
             String type_ = getTypeName().trim();
             MappingLocalType resolved_ = _page.getMappingLocal().getVal(type_);
             if (resolved_ != null) {

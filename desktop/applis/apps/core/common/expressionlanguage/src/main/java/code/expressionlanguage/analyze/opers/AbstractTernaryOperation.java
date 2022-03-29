@@ -54,7 +54,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
                     testFct = trueOp_.getPair();
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());
                     //after first arg separator len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -66,8 +66,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
         }
         StringList deep_ = getErrs();
         if (!deep_.isEmpty()) {
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            getPartOffsetsChildren().add(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,1));
+            getPartOffsetsChildren().add(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,1));
         }
         opOne_.getResultClass().setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         opOne_.getResultClass().setCheckOnlyNullPe(true);

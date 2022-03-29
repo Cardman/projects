@@ -11,7 +11,7 @@ import code.expressionlanguage.common.DisplayedStrings;
 import code.util.*;
 import code.util.core.IndexConstants;
 
-public final class OperatorBlock extends NamedFunctionBlock implements AccessedBlock,ReturnableWithSignature {
+public final class OperatorBlock extends NamedFunctionBlock implements AccessedBlockMembers,ReturnableWithSignature {
     private final StringList allReservedInners = new StringList();
     private final CustList<RootBlock> localTypes = new CustList<RootBlock>();
     private final CustList<AnonymousTypeBlock> anonymousTypes = new CustList<AnonymousTypeBlock>();

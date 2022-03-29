@@ -105,7 +105,7 @@ public final class ReachOperationUtil {
             StringList deep_ = info_.getWarns();
             if (!deep_.isEmpty()) {
                 int offLoc_ = info_.getOperations().getOperators().firstKey();
-                int i_ = offLoc_ + _page.getLocalizer().getCurrentLocationIndex();
+                int i_ = offLoc_ + _page.getIndex();
                 ((MethodOperation)info_).getPartOffsetsChildren().add(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),i_,1,true));
             }
         }

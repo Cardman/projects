@@ -2,7 +2,7 @@ package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LoopVariable;
@@ -13,7 +13,7 @@ import code.util.EntryCust;
 import code.util.StringMap;
 
 public final class HiddenCache extends Cache {
-    public HiddenCache(AbstractPageEl _cont) {
+    public HiddenCache(PageElContent _cont) {
         this(_cont.getRefParams(),_cont.getVars(),_cont.getCache());
     }
     public HiddenCache(StringMap<AbstractWrapper> _refPar, StringMap<LoopVariable> _loop, Cache _cache) {

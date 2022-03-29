@@ -5,6 +5,7 @@ import code.formathtml.analyze.ResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
 import code.sml.NamedNodeMap;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -20,6 +21,19 @@ public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRe
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        for (EntryCust<String,ResultText> e: attributesText.entryList()) {
+            String attr_ = read.getAttribute(e.getKey());
+            int rowsGrId_ = getAttributeDelimiter(e.getKey());
+            e.getValue().buildIdAna(attr_, rowsGrId_, _anaDoc, _page);
+        }
+        processAttributes(_doc,read, _anaDoc, _page);
+        for (EntryCust<String,ResultText> e: attributes.entryList()) {
+            String attr_ = read.getAttribute(e.getKey());
+            int rowsGrId_ = getAttributeDelimiter(e.getKey());
+            e.getValue().buildIdAna(attr_, rowsGrId_, _anaDoc, _page);
+        }
+    }
+    public StringList attrList(AnalyzingDoc _anaDoc){
         String prefixWrite_ = _anaDoc.getPrefix();
         StringList attributesNames_ = new StringList();
         NamedNodeMap mapAttr_ = read.getAttributes();
@@ -28,36 +42,13 @@ public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRe
             attributesNames_.add(mapAttr_.item(i).getName());
         }
         attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getAttrId());
-        String id_ = read.getAttribute(_anaDoc.getRendKeyWords().getAttrId());
-        if (!id_.isEmpty()) {
-            ResultText r_ = new ResultText();
-            int off_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrId());
-            r_.buildIdAna(id_, off_, _anaDoc, _page);
-            attributesText.put(_anaDoc.getRendKeyWords().getAttrId(),r_);
-        }
         String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
         attributesNames_.removeAllString(prefGr_);
-        String groupId_ = read.getAttribute(prefGr_);
-        if (!groupId_.isEmpty()) {
-            ResultText r_ = new ResultText();
-            int off_ = getAttributeDelimiter(prefGr_);
-            r_.buildIdAna(groupId_, off_, _anaDoc, _page);
-            attributesText.put(prefGr_,r_);
-        }
-        processAttributes(_doc,read,attributesNames_, _anaDoc, _page);
-        for (String a: attributesNames_) {
-            String attr_ = read.getAttribute(a);
-            if (attr_.trim().isEmpty()) {
-                continue;
-            }
-            ResultText r_ = new ResultText();
-            int rowsGrId_ = getAttributeDelimiter(a);
-            r_.buildIdAna(attr_, rowsGrId_, _anaDoc, _page);
-            attributes.addEntry(a,r_);
-        }
+        return attributesNames_;
     }
 
-    protected abstract void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
+    public abstract StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
+    protected abstract void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page);
 
     public final Element getRead() {
         return read;

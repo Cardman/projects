@@ -89,7 +89,7 @@ public final class StandardInstancingOperation extends
         }
         realClassName_ = realClassName_.trim();
         InterfacesPart ints_ = new InterfacesPart(realClassName_,local_);
-        ints_.parse(_page.getKeyWords(),"",0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
+        ints_.parse(_page.getKeyWords(),"",0,newKeyWord_.length()+local_+ _page.getIndex());
         local_ = ints_.getLocIndex();
         realClassName_ = ints_.getPart();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_+newKeyWord_.length()+local_, _page);
@@ -120,7 +120,7 @@ public final class StandardInstancingOperation extends
         if (arg_.isArray()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
-            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            static_.setIndexFile(_page);
             //key word len
             static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     realClassName_);
@@ -151,7 +151,7 @@ public final class StandardInstancingOperation extends
         if (ownersMap_.size() != 1) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
-            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            static_.setIndexFile(_page);
             //idClass_ len
             static_.buildError(_page.getAnalysisMessages().getNotResolvedOwner(),
                     idClass_
@@ -176,7 +176,7 @@ public final class StandardInstancingOperation extends
         RootBlock root_ = sup_.getOwned();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
         AccessedBlock r_ = _page.getImporting();
-        setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_,_page.getLocalizer().getCurrentLocationIndex(),_page), results_));
+        setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_,_page.getIndex(),_page), results_));
         realClassName_ = check(root_,sup_.getOwnedName(), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
     }
@@ -206,7 +206,7 @@ public final class StandardInstancingOperation extends
         if (g_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                     _realClassName);
@@ -223,7 +223,7 @@ public final class StandardInstancingOperation extends
         if (ContextUtil.isAbstractType(g_) && !ContextUtil.isEnumType(g_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
                     base_);
@@ -248,7 +248,7 @@ public final class StandardInstancingOperation extends
                 if (!(o instanceof NamedArgumentOperation) || o.getFirstChild() instanceof WrappOperation) {
                     FoundErrorInterpret call_ = new FoundErrorInterpret();
                     call_.setFile(_page.getCurrentFile());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    call_.setIndexFile(_page);
                     //type len
                     call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
                             base_);
@@ -265,7 +265,7 @@ public final class StandardInstancingOperation extends
                 FoundErrorInterpret b_;
                 b_ = new FoundErrorInterpret();
                 b_.setFile(_page.getCurrentFile());
-                b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                b_.setIndexFile(_page);
                 //param name len
                 b_.buildError(_page.getAnalysisMessages().getDuplicatedParamName(),
                         name_);
@@ -348,7 +348,7 @@ public final class StandardInstancingOperation extends
         for (String p:StringExpUtil.getWildCards(_realClassName)){
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //part type len
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorBound(),
                     p,
@@ -404,9 +404,8 @@ public final class StandardInstancingOperation extends
         if (ContextUtil.isEnumType(_type)) {
             if (innerElt == null) {
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
-                int fileIndex_ = _page.getLocalizer().getCurrentLocationIndex();
                 call_.setFile(_page.getCurrentFile());
-                call_.setIndexFile(fileIndex_);
+                call_.setIndexFile(_page);
                 //type len
                 call_.buildError(_page.getAnalysisMessages().getIllegalCtorEnum());
                 _page.getLocalizer().addError(call_);

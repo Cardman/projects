@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -52,7 +53,9 @@ public final class ImportingPage {
     public SimplePageEl getPageEl() {
         return pageEl;
     }
-
+    public PageElContent getContent() {
+        return pageEl.getContent();
+    }
     public void setOffset(int _offset) {
         offset = _offset;
     }

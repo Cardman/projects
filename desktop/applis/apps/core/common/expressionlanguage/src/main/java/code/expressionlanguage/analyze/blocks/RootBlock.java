@@ -27,8 +27,8 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public abstract class RootBlock extends BracedBlock implements AccessedBlock,AnnotableBlock,AnaGeneType,AnaInheritedType {
-    private OperatorBlock operator;
 
+    private AccessedBlock accessedBlock;
     private final StringList nameErrors = new StringList();
 
     private final AnaRootBlockContent rootBlockContent;
@@ -318,6 +318,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
 
     public final void setParentType(RootBlock _parentType) {
         rootBlockContent.setParentType(_parentType);
+        setAccessedBlock(_parentType);
     }
 
     public final CustList<RootBlock> getAllParentTypes() {
@@ -1967,12 +1968,13 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         return generic_;
     }
-    public OperatorBlock getOperator() {
-        return operator;
+
+    public AccessedBlock getAccessedBlock() {
+        return accessedBlock;
     }
 
-    public void setOperator(OperatorBlock _operator) {
-        operator = _operator;
+    public void setAccessedBlock(AccessedBlock _accessedBlock) {
+        this.accessedBlock = _accessedBlock;
     }
 
     public CustList<ResultExpression> getResList() {

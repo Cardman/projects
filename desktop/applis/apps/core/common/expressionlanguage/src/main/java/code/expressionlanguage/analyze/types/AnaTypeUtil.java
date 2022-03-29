@@ -230,7 +230,7 @@ public final class AnaTypeUtil {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
                     enum_.setFile(c.getFile());
-                    enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    enum_.setIndexFile(_page);
                     //interface len
                     enum_.buildError(_page.getAnalysisMessages().getCallIntOnly(),
                             base_);
@@ -257,7 +257,7 @@ public final class AnaTypeUtil {
                 FoundErrorInterpret enum_;
                 enum_ = new FoundErrorInterpret();
                 enum_.setFile(c.getFile());
-                enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                enum_.setIndexFile(_page);
                 //original id len
                 enum_.buildError(_page.getAnalysisMessages().getCallIntNoNeed(),
                         c.getFullName());
@@ -282,7 +282,7 @@ public final class AnaTypeUtil {
                     FoundErrorInterpret enum_;
                     enum_ = new FoundErrorInterpret();
                     enum_.setFile(c.getFile());
-                    enum_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    enum_.setIndexFile(_page);
                     //interface len
                     enum_.buildError(_page.getAnalysisMessages().getCallIntOnly(),
                             base_);

@@ -22,19 +22,8 @@ public final class AnaRendRadio extends AnaRendInput {
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         processAnaInput(_read, _anaDoc, _page);
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrClassName()));
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
         String converterFieldValue_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
         if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
             String object_ = _page.getAliasObject();
@@ -66,6 +55,22 @@ public final class AnaRendRadio extends AnaRendInput {
                 AnalyzingDoc.addError(badEl_, _page);
             }
         }
+    }
+    @Override
+    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        StringList list_ = attrList(_anaDoc);
+        list_.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
+        list_.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
+        list_.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrClassName()));
+        list_.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValidator()));
+        list_.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
+        return list_;
     }
 
     public OperationNode getRootConverterFieldValue() {

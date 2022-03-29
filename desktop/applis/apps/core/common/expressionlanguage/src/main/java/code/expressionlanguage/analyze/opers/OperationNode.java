@@ -2399,7 +2399,7 @@ public abstract class OperationNode {
         StaticCallAccessOperation staticCallOp_ = _filter.getStaticCallOp();
         if (staticCallOp_ != null) {
             if (!_filter.getStaticCall().isEmpty()) {
-                staticCallOp_.setPartOffsets(new ResolvedInstance(staticCallOp_.getPartOffsets(),staticCallOp_.getLt(), staticCallOp_.getGt(), _found.getClassName()));
+                staticCallOp_.setPartOffsets(new ResolvedInstance(staticCallOp_, _found.getClassName()));
             }
         }
         CustList<CustList<ClassMethodIdReturn>> implicits_ = _found.getImplicits();
@@ -3494,12 +3494,6 @@ public abstract class OperationNode {
 
     public final void setOrder(int _order) {
         content.setOrder(_order);
-    }
-
-    public final int getFullIndexInEl() {
-        String meth_ = getOperations().getFctName();
-        int off_ = StringUtil.getFirstPrintableCharIndex(meth_);
-        return off_+ content.getIndexInEl();
     }
 
     public final int getIndexInEl() {

@@ -47,6 +47,14 @@ public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
         return root;
     }
 
+    public ResultExpression getRes() {
+        return resultExpression;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
     public int getExpressionOffset() {
         return expressionOffset;
     }

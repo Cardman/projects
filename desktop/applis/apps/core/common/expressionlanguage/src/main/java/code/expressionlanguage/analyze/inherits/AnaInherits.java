@@ -559,10 +559,9 @@ public final class AnaInherits {
     public static String check(StringList _errs, RootBlock _root, String _className, StringList _parts, StringMap<StringList> _inherit, AnalyzedPageEl _page) {
         String res_ = tryGetAllInners(_root,_className, _parts, _inherit, _page);
         if (res_.isEmpty()) {
-            int rc_ = _page.getLocalizer().getCurrentLocationIndex();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(rc_);
+            un_.setIndexFile(_page);
             //original type len
             String realClassName_ = getRealClassName(_className, _parts);
             un_.buildError(_page.getAnalysisMessages().getBadParamerizedType(),

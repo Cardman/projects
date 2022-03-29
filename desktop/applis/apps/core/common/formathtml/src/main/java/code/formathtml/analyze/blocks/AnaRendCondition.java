@@ -57,8 +57,16 @@ public abstract class AnaRendCondition extends AnaRendParentBlock implements Ana
         exp_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
     }
 
+    public String getCondition() {
+        return condition;
+    }
+
     public int getConditionOffset() {
         return conditionOffset;
+    }
+
+    public ResultExpression getRes() {
+        return resultExpression;
     }
 
     public OperationNode getRoot() {

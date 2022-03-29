@@ -80,7 +80,7 @@ public final class AssSettableFieldOperation extends AssLeafOperation {
                         setRelativeOffsetPossibleAnalyzable(_page);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFile(_page.getCurrentFile());
-                        un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        un_.setIndexFile(_page);
                         un_.buildError(_page.getAnalysisMessages().getFinalField(),
                                 cl_.getFieldName());
                         _page.getLocalizer().addError(un_);

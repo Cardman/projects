@@ -3,6 +3,7 @@ package code.formathtml.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
@@ -448,6 +449,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         analyzingDoc_.setLanguages(languages_);
         session_.setCurrentLanguage(language_);
         StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, page_, confCont_);
+        Classes.postValidate(page_);
         if (!page_.isEmptyErrors()) {
             return null;
         }
@@ -495,7 +497,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         //!classFiles_.isEmpty()
         _page.addResources(resFiles_);
-        Classes.validateWithoutInit(classFiles_, _page);
+        ClassesUtil.buildAllBracesBodies(classFiles_, _page);
     }
     @Override
     public void preInitBeans(Configuration _conf) {

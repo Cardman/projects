@@ -137,6 +137,14 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
         return root;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public ResultExpression getRes() {
+        return resultExpression;
+    }
+
     public int getValueOffset() {
         return valueOffset;
     }

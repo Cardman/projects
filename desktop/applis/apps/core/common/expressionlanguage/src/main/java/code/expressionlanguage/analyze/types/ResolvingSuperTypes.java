@@ -58,10 +58,7 @@ public final class ResolvingSuperTypes {
         }
         initVariables(_ana, _page);
         String gl_ = _ana.getGenericString();
-        AccessedBlock scope_ = _ana.getParentType();
-        if (scope_ == null) {
-            scope_ = _ana.getOperator();
-        }
+        AccessedBlock scope_ = _ana.getAccessedBlock();
         _page.getCurrentBadIndexes().clear();
         _page.setImportingAcces(new TypeAccessor(_ana.getFullName()));
         _page.setImportingTypes(_ana);
@@ -90,10 +87,7 @@ public final class ResolvingSuperTypes {
 
     public static String resolveBaseInherits(String _idSup, RootBlock _ana, StringList _readyTypes, AnalyzedPageEl _page) {
         String id_ = StringExpUtil.getIdFromAllTypes(_idSup);
-        AccessedBlock scope_ = _ana.getParentType();
-        if (scope_ == null) {
-            scope_= _ana.getOperator();
-        }
+        AccessedBlock scope_ = _ana.getAccessedBlock();
         InheritReadyTypes inh_ = new InheritReadyTypes(_readyTypes);
         _page.setImportingTypes(_ana);
         _page.getMappingLocal().clear();

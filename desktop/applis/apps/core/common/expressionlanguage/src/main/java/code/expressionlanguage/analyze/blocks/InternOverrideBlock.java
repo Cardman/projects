@@ -133,7 +133,6 @@ public final class InternOverrideBlock extends Leaf {
                 }
                 CustList<NamedCalledFunctionBlock> methods_ = formattedType_.getOverridableBlocks();
                 CustList<GeneStringOverridable> list_ = new CustList<GeneStringOverridable>();
-                int rc_ = _page.getLocalizer().getCurrentLocationIndex()+delta_;
                 ClassMethodId id_ = null;
                 AnaTypeFct fct_ = null;
                 for (NamedCalledFunctionBlock m: methods_) {
@@ -147,7 +146,7 @@ public final class InternOverrideBlock extends Leaf {
                         break;
                     }
                 }
-                listPart_.add(new PartOffsetsClassMethodId(new CustList<AnaResultPartType>(),superPartOffsets_,id_,fct_, rc_,nameLocId_.length()));
+                listPart_.add(new PartOffsetsClassMethodId(new CustList<AnaResultPartType>(),superPartOffsets_,id_,fct_, _page,delta_,nameLocId_.length()));
                 CustList<GeneStringOverridable> methodIds_ = ov_.getMethodIds();
                 methodIds_.addAllElts(list_);
                 localSum_ += s.length()+1;

@@ -31,7 +31,7 @@ public final class ReachForEachTable extends ReachBracedBlock implements ReachLo
         if (Argument.isNullValue(argument_)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
-            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            static_.setIndexFile(_page);
             //separator char
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getAliasNullPe());

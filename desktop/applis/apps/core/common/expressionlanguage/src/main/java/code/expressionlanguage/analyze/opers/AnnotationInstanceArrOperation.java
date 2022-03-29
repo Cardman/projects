@@ -99,14 +99,13 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
         String eltType_ = StringExpUtil.getQuickComponentType(arrayInstancingContent.getClassName());
         if (eltType_ == null) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            un_.setIndexFile(i_);
+            un_.setIndexFile(_page);
             un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     arrayInstancingContent.getClassName());
             _page.getLocalizer().addError(un_);
-            setPartOffsetsErr(new InfoErrorDto(un_.getBuiltError(),i_,1));
+            setPartOffsetsErr(new InfoErrorDto(un_,_page,1));
             setResultClass(new AnaClassArgumentMatching(arrayInstancingContent.getClassName()));
             return;
         }
@@ -116,7 +115,6 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
             int index_ = getPartOffsetsChildren().size();
             StrTypes operators_ = getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
             InfoErrorDto parts_ = new InfoErrorDto("");
             AnaClassArgumentMatching argType_ = o.getResultClass();
             mapping_.setArg(argType_);
@@ -124,13 +122,13 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
             if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFile(_page.getCurrentFile());
-                cast_.setIndexFile(i_);
+                cast_.setIndexFile(_page);
                 //first separator char child
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(argType_.getNames(),ExportCst.JOIN_TYPES),
                         eltType_);
                 _page.getLocalizer().addError(cast_);
-                parts_=new InfoErrorDto(cast_.getBuiltError(),i_,1);
+                parts_=new InfoErrorDto(cast_,_page,1);
             }
             if (AnaTypeUtil.isPrimitive(eltType_, _page)) {
                 o.getResultClass().setUnwrapObject(eltType_, _page.getPrimitiveTypes());

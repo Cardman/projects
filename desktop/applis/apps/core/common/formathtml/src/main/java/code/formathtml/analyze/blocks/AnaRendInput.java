@@ -30,27 +30,26 @@ public abstract class AnaRendInput extends AnaRendElement {
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
-    private ResultInput resultInput;
-    AnaRendInput(Element _elt, int _offset) {
+    private final ResultInput resultInput;
+    protected AnaRendInput(Element _elt, int _offset) {
         super(_elt, _offset);
+        resultInput = new ResultInput();
     }
 
     protected void processAnaInput(Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        ResultInput r_ = new ResultInput();
-        r_.build(this, _read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
-        varNames = r_.getVarNamesParams();
-        resultInput = r_;
-        rootRead = r_.getOpsReadRoot();
-        rootValue = r_.getOpsValueRoot();
-        varName = r_.getVarName();
-        id = r_.getId();
-        idClass = r_.getIdClass();
-        idName = r_.getIdName();
-        className = r_.getClassName();
+        resultInput.build(this, _read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
+        varNames = resultInput.getVarNamesParams();
+        rootRead = resultInput.getOpsReadRoot();
+        rootValue = resultInput.getOpsValueRoot();
+        varName = resultInput.getVarName();
+        id = resultInput.getId();
+        idClass = resultInput.getIdClass();
+        idName = resultInput.getIdName();
+        className = resultInput.getClassName();
         String converterValue_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
         if (StringExpUtil.isDollarWord(converterValue_.trim())) {
             Mapping m_ = new Mapping();
-            m_.setArg(r_.getOpsReadRoot().getResultClass());
+            m_.setArg(resultInput.getOpsReadRoot().getResultClass());
             m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 String string_ = _page.getAliasString();
@@ -70,7 +69,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                     _page.getInfosVars().removeKey(v);
                 }
                 m_.setArg(rootConverter.getResultClass());
-                m_.setParam(r_.getOpsReadRoot().getResultClass());
+                m_.setParam(resultInput.getOpsReadRoot().getResultClass());
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
@@ -95,7 +94,7 @@ public abstract class AnaRendInput extends AnaRendElement {
                     AnalyzingDoc.addError(badEl_, _page);
                 }
             } else if (rootRead != null) {
-                if (isNotConvertible(_page, r_.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
+                if (isNotConvertible(_page, resultInput.getOpsReadRoot().getResultClass().getSingleNameOrEmpty())) {
                     int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());

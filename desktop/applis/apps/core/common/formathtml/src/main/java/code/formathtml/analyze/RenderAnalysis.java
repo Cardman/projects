@@ -1,7 +1,6 @@
 package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -27,7 +26,7 @@ public final class RenderAnalysis {
     }
 
     public static OperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
-        _page.setCurrentAnonymousResults(new CustList<AnonymousResult>());
+        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _minIndex, _page);
         int badOffset_ = d_.getBadOffset();
@@ -59,7 +58,7 @@ public final class RenderAnalysis {
     }
 
     public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
-        _page.setCurrentAnonymousResults(new CustList<AnonymousResult>());
+        _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
         OperationNode root_ = getRootAnalyzedOperations(_el, _index, _anaDoc, _page);
         _res.setRoot(root_);
@@ -168,7 +167,7 @@ public final class RenderAnalysis {
                 if (((ThisOperation)_current).isIntermediateDottedOperation()) {
                     FoundErrorInterpret badNb_ = new FoundErrorInterpret();
                     badNb_.setFile(_page.getCurrentFile());
-                    badNb_.setIndexFile(_page.getTraceIndex());
+                    badNb_.setIndexFile(_page);
                     badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
                     AnalyzingDoc.addError(badNb_, _page);
                     return;
@@ -182,7 +181,7 @@ public final class RenderAnalysis {
                     if (field_.getSettableFieldContent().isFinalField()) {
                         FoundErrorInterpret badNb_ = new FoundErrorInterpret();
                         badNb_.setFile(_page.getCurrentFile());
-                        badNb_.setIndexFile(_page.getTraceIndex());
+                        badNb_.setIndexFile(_page);
                         StringBuilder id_ = new StringBuilder();
                         id_.append(field_.getSettableFieldContent().getClassField().getClassName());
                         id_.append(";");
@@ -196,7 +195,7 @@ public final class RenderAnalysis {
         } else {
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());
-            badNb_.setIndexFile(_page.getTraceIndex());
+            badNb_.setIndexFile(_page);
             badNb_.buildError(_anaDoc.getRendAnalysisMessages().getUnexpectedExp());
             AnalyzingDoc.addError(badNb_, _page);
         }

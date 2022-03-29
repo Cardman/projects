@@ -61,7 +61,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         if (!(r_ instanceof EnumBlock)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //className len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     clName_);
@@ -76,7 +76,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         Accessed a_ = new Accessed(r_.getAccess(), r_.getPackageName(), r_.getParentType(), r_);
         if (!ContextUtil.canAccessType(curClassBase_,a_, _page)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setIndexFile(_page);
             badAccess_.setFile(_page.getCurrentFile());
             //className len
             badAccess_.buildError(_page.getAnalysisMessages().getInaccessibleType(),
@@ -90,7 +90,7 @@ public final class EnumValueOfOperation extends AbstractUnaryOperation {
         if (!argCl_.matchClass(stringType_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //separator after className
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(argCl_.getNames(), ExportCst.JOIN_TYPES));

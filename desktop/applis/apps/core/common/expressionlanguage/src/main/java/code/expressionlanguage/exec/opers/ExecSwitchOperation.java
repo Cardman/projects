@@ -21,6 +21,6 @@ public final class ExecSwitchOperation extends ExecSettableCallFctOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         ExecOperationNode o_ = getFirstChild();
         Argument value_ = getArgument(_nodes,o_);
-        ExecTemplates.okArgsSetSwCall(switchMethod,_conf,_stack,value_);
+        ExecTemplates.okArgsSetSwCall(switchMethod,_conf,_stack,value_, _stack.getLastPage().getGlobalClass(), _stack.getLastPage().getContentEx());
     }
 }

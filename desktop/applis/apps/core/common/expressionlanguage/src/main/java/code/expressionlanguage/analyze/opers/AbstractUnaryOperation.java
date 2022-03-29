@@ -21,7 +21,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
             CustList<OperationNode> children_ = getChildrenNodes();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //first operator part
             un_.buildError(_page.getAnalysisMessages().getSplitDiff(),
                     Long.toString(1),

@@ -403,7 +403,10 @@ public final class AnalyzedPageEl {
         return _file.getFileEscapedCalc().realIndex(_index);
     }
     public int getTraceIndex() {
-        return getTraceIndex(currentFile, globalOffset + getOffset() + translatedOffset);
+        return getTraceIndex(currentFile, getIndex());
+    }
+    public int getIndex() {
+        return globalOffset + getOffset() + translatedOffset;
     }
 
     public AbsBk getCurrentBlock() {
@@ -437,34 +440,33 @@ public final class AnalyzedPageEl {
     }
 
     public void setupFctChars(NamedCalledFunctionBlock _fct) {
-        setFctChars(_fct.getParentType(), _fct.getOperator());
+        setFctChars(_fct.getAccessedBlock());
     }
 
     public void setupFctChars(SwitchMethodBlock _fct) {
-        setFctChars(_fct.getParentType(), _fct.getOperator());
+        setFctChars(_fct.getAccessedBlock());
     }
 
-    private void setFctChars(RootBlock _parentType, OperatorBlock _operator) {
-        setImporting(null);
-        setImportingTypes(null);
+    private void setFctChars(AccessedBlock _acc) {
         ClassesUtil.globalType(this);
-        setCurrentPkg("");
-        setCurrentFile(null);
-        if (_parentType != null) {
-            setImporting(_parentType);
-            setImportingAcces(new TypeAccessor(_parentType.getFullName()));
-            setImportingTypes(_parentType);
-            ClassesUtil.globalType(this, _parentType);
-            setCurrentPkg(_parentType.getPackageName());
-            setCurrentFile(_parentType.getFile());
+        setImporting(_acc);
+        setImportingAcces(acc(_acc));
+        ClassesUtil.globalType(this, _acc);
+        setCurrentPkg(pkg(_acc));
+        setCurrentFile(_acc.getFile());
+    }
+
+    public String pkg(AccessedBlock _acc) {
+        if (_acc instanceof RootBlock) {
+            return ((RootBlock)_acc).getPackageName();
         }
-        if (_operator != null) {
-            setImporting(_operator);
-            setImportingAcces(new OperatorAccessor());
-            setImportingTypes(_operator);
-            setCurrentPkg(getDefaultPkg());
-            setCurrentFile(_operator.getFile());
+        return getDefaultPkg();
+    }
+    public static AccessingImportingBlock acc(AccessedBlock _acc) {
+        if (_acc instanceof RootBlock) {
+            return new TypeAccessor(((RootBlock)_acc).getFullName());
         }
+        return new OperatorAccessor();
     }
     public String getCurrentPkg() {
         return currentPkg;
@@ -583,14 +585,13 @@ public final class AnalyzedPageEl {
                 importingTypes.add(r.getImports());
             }
             for (RootBlock r:types_){
-                OperatorBlock operator_ = r.getOperator();
+                AccessedBlock operator_ = r.getAccessedBlock();
                 if (operator_ != null) {
                     importingTypes.add(operator_.getImports());
                 }
             }
             importingTypes.add(r_.getFileImports());
-        }
-        if (_importingTypes instanceof OperatorBlock) {
+        } else {
             importingTypes.add(_importingTypes.getImports());
             importingTypes.add(_importingTypes.getFileImports());
         }

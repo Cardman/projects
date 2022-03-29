@@ -1,6 +1,7 @@
 package code.formathtml;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.structs.Struct;
@@ -9,6 +10,7 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.VirtualImportingBlock;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.analyze.syntax.RendSplitExpressionUtil;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
@@ -91,7 +93,7 @@ public final class Configuration {
             if (document_ == null) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(_page.getCurrentFile());
-                badEl_.setIndexFile(_page.getTraceIndex());
+                badEl_.setIndexFile(_page);
                 badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getBadDocument(),
                         res_.getLocation().display());
                 AnalyzingDoc.addError(badEl_, _page);
@@ -105,7 +107,7 @@ public final class Configuration {
         if (d_.getVal(currentUrl_) == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
-            badEl_.setIndexFile(_page.getTraceIndex());
+            badEl_.setIndexFile(_page);
             badEl_.buildError(_analyzingDoc.getRendAnalysisMessages().getInexistantFile(),
                     currentUrl_);
             AnalyzingDoc.addError(badEl_, _page);
@@ -115,11 +117,13 @@ public final class Configuration {
 
     private static void buildDocs(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, StringMap<AnaRendDocumentBlock> _d, StringMap<BeanInfo> _beansInfosBefore) {
         for (AnaRendDocumentBlock v : _d.values()) {
-            v.initMetrics(_analyzingDoc,_page);
+            v.initMetrics(_analyzingDoc,_page,_beansInfosBefore);
         }
+        _page.setNextResults(RendSplitExpressionUtil.getNextResults(_analyzingDoc,_page,_d.values()));
         for (AnaRendDocumentBlock v : _d.values()) {
-            v.buildFctInstructions(_analyzingDoc, _page, _beansInfosBefore);
+            v.buildFctInstructions(_analyzingDoc, _page);
         }
+        ClassesUtil.processAnonymous(_page);
     }
 
     public String getFirstUrl() {

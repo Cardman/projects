@@ -27,7 +27,7 @@ public final class InternGlobalOperation extends LeafOperation {
         if (_page.isStaticContext()) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
-            static_.setIndexFile(_page.getTraceIndex());
+            static_.setIndexFile(_page);
             static_.buildError(_page.getAnalysisMessages().getStaticAccess(),
                     _page.getKeyWords().getKeyWordThis());
             AnalyzingDoc.addError(static_, _page);

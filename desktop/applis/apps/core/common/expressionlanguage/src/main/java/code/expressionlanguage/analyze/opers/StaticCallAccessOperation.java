@@ -40,7 +40,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         if (!realCl_.trim().isEmpty()) {
             String form_ = AnaTemplates.getInferForm(realCl_);
             if (form_ != null) {
-                int trace_ = _page.getLocalizer().getCurrentLocationIndex();
+                int trace_ = _page.getIndex();
                 int rel_ = trace_ + str_.indexOf(PAR_LEFT) + 1;
                 lt = rel_ + realCl_.indexOf('<');
                 gt = rel_ + realCl_.indexOf('>') + 1;
@@ -81,7 +81,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         String type_ = getResultClass().getSingleNameOrEmpty();
         if (type_.startsWith(AnaTemplates.ARR_BEG_STRING)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setIndexFile(_page);
             badAccess_.setFile(_page.getCurrentFile());
             //type len
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -91,7 +91,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         }
         if (type_.startsWith(AnaInherits.PREFIX_VAR_TYPE)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setIndexFile(_page);
             badAccess_.setFile(_page.getCurrentFile());
             //type len
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -101,7 +101,7 @@ public final class StaticCallAccessOperation extends LeafOperation {
         }
         if (stCall.isEmpty()&&StringExpUtil.isWildCard(type_)) {
             FoundErrorInterpret badAccess_ = new FoundErrorInterpret();
-            badAccess_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badAccess_.setIndexFile(_page);
             badAccess_.setFile(_page.getCurrentFile());
             //type len
             badAccess_.buildError(_page.getAnalysisMessages().getUnexpectedType(),

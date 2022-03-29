@@ -34,13 +34,12 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
         if (isNotChildOfCallDyn(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            varg_.setIndexFile(i_);
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordVararg());
             _page.getLocalizer().addError(varg_);
-            partOffsetsErr = new InfoErrorDto(varg_.getBuiltError(),i_,_page.getKeyWords().getKeyWordVararg().length());
+            partOffsetsErr = new InfoErrorDto(varg_,_page,_page.getKeyWords().getKeyWordVararg().length());
 //            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
 //            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
@@ -50,13 +49,12 @@ public final class VarargOperation extends LeafOperation implements FunctFilterO
         if (!isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            varg_.setIndexFile(i_);
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordVararg());
             _page.getLocalizer().addError(varg_);
-            partOffsetsErr = new InfoErrorDto(varg_.getBuiltError(),i_,_page.getKeyWords().getKeyWordVararg().length());
+            partOffsetsErr = new InfoErrorDto(varg_,_page,_page.getKeyWords().getKeyWordVararg().length());
 //            partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
 //            partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+ _page.getKeyWords().getKeyWordVararg().length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));

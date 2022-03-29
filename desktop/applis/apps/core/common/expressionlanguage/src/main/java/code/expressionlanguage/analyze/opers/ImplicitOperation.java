@@ -38,7 +38,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         if (types_.size() > 3) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFile(_page.getCurrentFile());
-            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badCall_.setIndexFile(_page);
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
                     Long.toString(3),
@@ -75,10 +75,9 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
             String lastType_ = resolved_.getResult(_page);
             AnaGeneType geneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(explicitContent.getClassName()));
             if (geneType_ == null) {
-                int rc_ = _page.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(rc_);
+                un_.setIndexFile(_page, leftPar_ +1);
                 //_in len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                         explicitContent.getClassName());
@@ -102,10 +101,9 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         }
         AnaGeneType geneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(explicitContent.getClassName()));
         if (geneType_ == null) {
-            int rc_ = _page.getLocalizer().getCurrentLocationIndex() + leftPar_ +1;
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(rc_);
+            un_.setIndexFile(_page, leftPar_ +1);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     explicitContent.getClassName());
@@ -145,7 +143,7 @@ public final class ImplicitOperation extends AbstractUnaryOperation {
         }
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFile(_page.getCurrentFile());
-        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        undefined_.setIndexFile(_page);
         //_name len
         String exp_ = _page.getKeyWords().getKeyWordCast();
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),

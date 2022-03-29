@@ -89,6 +89,10 @@ public abstract class AbstractPageEl {
         this.contentEx.setCache(_cache);
     }
 
+    public PageElContent getContentEx() {
+        return contentEx;
+    }
+
     public final void forwardTo(AbstractPageEl _page, ContextEl _context, StackCall _stack) {
         _page.receive(wrapper, returnedArgument, _context, _stack);
     }

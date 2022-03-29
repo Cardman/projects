@@ -72,28 +72,14 @@ public final class SplitExpressionUtil {
                 }
             }
             for (NamedCalledFunctionBlock c: anonymousFunctions_) {
-                RootBlock parentType_ = c.getParentType();
-                if (parentType_ != null) {
-                    parentType_.setCountsAnonFct(parentType_.getCountsAnonFct() + 1);
-                    c.setIntenName(Long.toString(parentType_.getCountsAnonFct()));
-                }
-                OperatorBlock operator_ = c.getOperator();
-                if (operator_ != null) {
-                    operator_.setCountsAnonFct(operator_.getCountsAnonFct() + 1);
-                    c.setIntenName(Long.toString(operator_.getCountsAnonFct()));
-                }
+                AccessedBlock operator_ = c.getAccessedBlock();
+                operator_.setCountsAnonFct(operator_.getCountsAnonFct() + 1);
+                c.setIntenName(Long.toString(operator_.getCountsAnonFct()));
             }
             for (SwitchMethodBlock c: switchMethods_) {
-                RootBlock parentType_ = c.getParentType();
-                if (parentType_ != null) {
-                    parentType_.setCountsAnonFct(parentType_.getCountsAnonFct() + 1);
-                    c.setIntenName(Long.toString(parentType_.getCountsAnonFct()));
-                }
-                OperatorBlock operator_ = c.getOperator();
-                if (operator_ != null) {
-                    operator_.setCountsAnonFct(operator_.getCountsAnonFct() + 1);
-                    c.setIntenName(Long.toString(operator_.getCountsAnonFct()));
-                }
+                AccessedBlock operator_ = c.getAccessedBlock();
+                operator_.setCountsAnonFct(operator_.getCountsAnonFct() + 1);
+                c.setIntenName(Long.toString(operator_.getCountsAnonFct()));
             }
             for (RootBlock c: anonymousTypes_) {
                 all_.addAllElts(walkType(c));
@@ -154,10 +140,10 @@ public final class SplitExpressionUtil {
                                 ((RootBlock) current_).setSuffix("+"+(val_+1));
                             }
                         } else {
-                            OperatorBlock op_ = SplitExpressionUtil.tryGetOperator(_type);
-                            if (op_ != null) {
-                                ((RootBlock) current_).setOperator(op_);
-                                op_.getLocalTypes().add((RootBlock) current_);
+                            AccessedBlock op_ = SplitExpressionUtil.tryGetOperator(_type);
+                            if (op_ instanceof AccessedBlockMembers) {
+                                ((RootBlock) current_).setAccessedBlock(op_);
+                                ((AccessedBlockMembers)op_).getLocalTypes().add((RootBlock) current_);
                             }
                         }
                     }
@@ -491,46 +477,53 @@ public final class SplitExpressionUtil {
     }
 
     private static void feedResult(MemberCallingsBlock _mem, ResultExpression _resultExpression, IntermediaryResults _int, RootBlock _type) {
-        OperatorBlock op_ = tryGetOperator(_mem);
+        AccessedBlock op_ = tryGetOperator(_mem);
+        feed(_resultExpression, _int, _type, op_);
+    }
+
+    public static void feed(ResultExpression _resultExpression, IntermediaryResults _int, RootBlock _type, AccessedBlock _op) {
         for (AnonymousResult a: _resultExpression.getAnonymousResults()) {
             AbsBk type_ = a.getType();
             if (AbsBk.isAnonBlock(type_)) {
                 ((NamedCalledFunctionBlock)type_).setParentType(_type);
+                ((NamedCalledFunctionBlock)type_).setAccessedBlock(_type);
                 if (((NamedCalledFunctionBlock)type_).getParentType() == null) {
-                    ((NamedCalledFunctionBlock)type_).setOperator(op_);
+                    ((NamedCalledFunctionBlock)type_).setAccessedBlock(_op);
                 }
                 _int.getAnonymousFunctions().add((NamedCalledFunctionBlock)type_);
             }
             if (type_ instanceof AnonymousTypeBlock) {
                 ((AnonymousTypeBlock)type_).setParentType(_type);
-                if (op_ != null) {
-                    op_.getAnonymousTypes().add((AnonymousTypeBlock)type_);
+                ((AnonymousTypeBlock)type_).setAccessedBlock(_type);
+                if (_op instanceof AccessedBlockMembers) {
+                    ((AccessedBlockMembers) _op).getAnonymousTypes().add((AnonymousTypeBlock)type_);
                 }
                 if (((AnonymousTypeBlock)type_).getParentType() == null) {
-                    ((AnonymousTypeBlock)type_).setOperator(op_);
+                    ((AnonymousTypeBlock)type_).setAccessedBlock(_op);
                 }
                 _int.getAnonymousTypes().add((AnonymousTypeBlock)type_);
             }
             if (type_ instanceof SwitchMethodBlock) {
                 ((SwitchMethodBlock)type_).setParentType(_type);
+                ((SwitchMethodBlock)type_).setAccessedBlock(_type);
                 if (((SwitchMethodBlock)type_).getParentType() == null) {
-                    ((SwitchMethodBlock)type_).setOperator(op_);
+                    ((SwitchMethodBlock)type_).setAccessedBlock(_op);
                 }
                 _int.getSwitchMethods().add((SwitchMethodBlock)type_);
             }
         }
     }
 
-    private static OperatorBlock tryGetOperator(BracedBlock _mem) {
-        OperatorBlock op_ = null;
+    private static AccessedBlock tryGetOperator(BracedBlock _mem) {
+        AccessedBlock op_ = null;
         if (AbsBk.isAnonBlock(_mem)) {
-            op_ = ((NamedCalledFunctionBlock) _mem).getOperator();
+            op_ = ((NamedCalledFunctionBlock) _mem).getAccessedBlock();
         }
         if (_mem instanceof OperatorBlock) {
             op_ = (OperatorBlock) _mem;
         }
         if (_mem instanceof SwitchMethodBlock) {
-            op_ = ((SwitchMethodBlock) _mem).getOperator();
+            op_ = ((SwitchMethodBlock) _mem).getAccessedBlock();
         }
         return op_;
     }

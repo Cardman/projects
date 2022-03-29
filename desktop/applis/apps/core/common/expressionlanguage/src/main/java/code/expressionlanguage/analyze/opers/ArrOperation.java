@@ -162,7 +162,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 if (clMeth_.isAbstractMethod()) {
                     setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
                     FoundErrorInterpret abs_ = new FoundErrorInterpret();
-                    abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    abs_.setIndexFile(_page);
                     abs_.setFile(_page.getCurrentFile());
                     //method name len
                     abs_.buildError(
@@ -183,10 +183,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             getPartOffsetsChildren().add(new InfoErrorDto(""));
             StrTypes operators_ =  getOperations().getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
-            int i_ = _page.getLocalizer().getCurrentLocationIndex() + operators_.getKey(1);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());
-            badNb_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badNb_.setIndexFile(_page);
             //second separator char
             badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
                     Long.toString(1),
@@ -194,7 +193,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     "[]"
             );
             _page.getLocalizer().addError(badNb_);
-            getPartOffsetsChildren().add(new InfoErrorDto(badNb_.getBuiltError(),i_,1));
+            getPartOffsetsChildren().add(new InfoErrorDto(badNb_.getBuiltError(),_page,operators_.getKey(1),1));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -203,7 +202,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation
                 ||right_ instanceof FirstOptOperation || getDeltaCount(right_) != 0) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -218,7 +217,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         if (indexClass_.matchClass(_page.getAliasRange())) {
             if (!class_.isArray()) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setIndexFile(_page);
                 un_.setFile(_page.getCurrentFile());
                 //first separator char
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -238,7 +237,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                 indexClass_.implicitInfos(res_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setIndexFile(_page);
                 un_.setFile(_page.getCurrentFile());
                 //first separator char
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -249,7 +248,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         if (!class_.isArray()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             un_.setFile(_page.getCurrentFile());
             //first separator char
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),

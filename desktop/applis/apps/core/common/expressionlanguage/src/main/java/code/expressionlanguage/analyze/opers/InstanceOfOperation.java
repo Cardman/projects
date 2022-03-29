@@ -35,10 +35,9 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
         String compo_ = StringExpUtil.getQuickComponentBaseType(sub_).getComponent();
         boolean exact_ = compo_.contains(StringExpUtil.TEMPLATE_BEGIN);
         if (sub_.isEmpty()) {
-            int rc_ = _page.getLocalizer().getCurrentLocationIndex() + begin_ + off_;
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(rc_);
+            un_.setIndexFile(_page, begin_ + off_);
             //_in len
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
             _page.getLocalizer().addError(un_);

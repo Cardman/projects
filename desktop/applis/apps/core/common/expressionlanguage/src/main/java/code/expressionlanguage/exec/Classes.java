@@ -91,6 +91,10 @@ public final class Classes {
             return;
         }
         ClassesUtil.buildAllBracesBodies(_files, _page);
+        postValidate(_page);
+    }
+
+    public static void postValidate(AnalyzedPageEl _page) {
         ClassesUtil.postValidation(_page);
         if (_page.isGettingErrors()) {
             _page.getToStringOwners().add(_page.getAliasObject());

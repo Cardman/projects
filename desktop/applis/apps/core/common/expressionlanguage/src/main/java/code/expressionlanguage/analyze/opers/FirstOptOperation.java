@@ -78,7 +78,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements P
         if (isNotChildOfCallDyn(m_)) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordFirstopt());
@@ -90,7 +90,7 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements P
         if (isFirstChildInParent()) {
             FoundErrorInterpret varg_ = new FoundErrorInterpret();
             varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            varg_.setIndexFile(_page);
             //key word len
             varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
                     _page.getKeyWords().getKeyWordFirstopt());

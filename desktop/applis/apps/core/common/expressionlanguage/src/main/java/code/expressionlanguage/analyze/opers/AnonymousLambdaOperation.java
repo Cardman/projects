@@ -229,26 +229,15 @@ public final class AnonymousLambdaOperation extends
         AnaFormattedRootBlock copy_ = AnaFormattedRootBlock.copy(_page.getGlobalType());
         lambdaCommonContent.setFoundFormatted(copy_);
         lambdaCommonContent.setFileName(_page.getLocalizer().getCurrentFileName());
-        RootBlock globalType_ = copy_.getRootBlock();
-        OperatorBlock operator_ = block.getOperator();
-        if (globalType_ != null) {
-            block.getAllReservedInners().addAllElts(globalType_.getAllReservedInners());
-        }
-        if (operator_ != null) {
-            block.getAllReservedInners().addAllElts(operator_.getAllReservedInners());
-        }
+        AccessedBlock acc_ = block.getAccessedBlock();
+        block.getAllReservedInners().addAllElts(acc_.getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
             currentFct_.getAnonymousFct().add(block);
             block.getMappings().putAllMap(currentFct_.getRefMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
-            if (globalType_ != null) {
-                block.getMappings().putAllMap(globalType_.getRefMappings());
-            }
-            if (operator_ != null) {
-                block.getMappings().putAllMap(operator_.getRefMappings());
-            }
+            block.getMappings().putAllMap(acc_.getRefMappings());
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();

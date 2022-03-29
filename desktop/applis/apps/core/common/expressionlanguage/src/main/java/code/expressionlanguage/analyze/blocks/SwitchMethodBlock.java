@@ -29,7 +29,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     private final CustList<CustList<ResultExpression>> resLists = new CustList<CustList<ResultExpression>>();
 
     private RootBlock parentType;
-    private OperatorBlock operator;
+    private AccessedBlock accessedBlock;
     private int indexEnd;
     private final StringList allReservedInners = new StringList();
 
@@ -123,12 +123,12 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
         this.parentType = _parentType;
     }
 
-    public OperatorBlock getOperator() {
-        return operator;
+    public AccessedBlock getAccessedBlock() {
+        return accessedBlock;
     }
 
-    public void setOperator(OperatorBlock _operator) {
-        this.operator = _operator;
+    public void setAccessedBlock(AccessedBlock _accessedBlock) {
+        this.accessedBlock = _accessedBlock;
     }
 
     public int getIndexEnd() {

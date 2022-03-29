@@ -27,7 +27,6 @@ public final class AffectationOperation extends MethodOperation {
     private boolean synthetic;
 
     private int opOffset;
-    private int foundOffset;
 
     public AffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -67,13 +66,12 @@ public final class AffectationOperation extends MethodOperation {
         if (!isLeftValue(elt_)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //oper
             un_.buildError(_page.getAnalysisMessages().getUnexpectedAffect(),
                     "=");
             _page.getLocalizer().addError(un_);
-            int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
-            getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),opLocat_,1));
+            getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,1));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -108,16 +106,13 @@ public final class AffectationOperation extends MethodOperation {
                 if (!clMatchLeftPoss_.matchClass(clMatchRight_)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    cast_.setIndexFile(_page);
                     //oper
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                             StringUtil.join(clMatchLeftPoss_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
-                    int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
-                    getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,1));
-                } else {
-                    foundOffset = _page.getLocalizer().getCurrentLocationIndex();
+                    getPartOffsetsChildren().add(new InfoErrorDto(cast_,_page,1));
                 }
                 return;
             }
@@ -131,13 +126,12 @@ public final class AffectationOperation extends MethodOperation {
             if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setIndexFile(_page);
                 //field name len
                 un_.buildError(_page.getAnalysisMessages().getFinalField(),
                         cst_.getFieldName());
                 _page.getLocalizer().addError(un_);
-                int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
-                getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),opLocat_,1));
+                getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,1));
                 return;
             }
         }
@@ -152,14 +146,13 @@ public final class AffectationOperation extends MethodOperation {
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            cast_.setIndexFile(_page);
             //oper
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                     StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(cast_);
-            int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
-            getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,1));
+            getPartOffsetsChildren().add(new InfoErrorDto(cast_,_page,1));
             return;
         }
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
@@ -174,17 +167,15 @@ public final class AffectationOperation extends MethodOperation {
             } else {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFile(_page.getCurrentFile());
-                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                cast_.setIndexFile(_page);
                 //oper
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
                         StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
-                int opLocat_ = _page.getLocalizer().getCurrentLocationIndex();
-                getPartOffsetsChildren().add(new InfoErrorDto(cast_.getBuiltError(),opLocat_,1));
+                getPartOffsetsChildren().add(new InfoErrorDto(cast_,_page,1));
             }
         }
-        foundOffset = _page.getLocalizer().getCurrentLocationIndex();
         if (AnaTypeUtil.isPrimitive(clMatchLeft_, _page)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getPrimitiveTypes());
         }
@@ -195,7 +186,7 @@ public final class AffectationOperation extends MethodOperation {
         if (StringUtil.quickEq(_import, _page.getKeyWords().getKeyWordVar())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //'var' len
             un_.buildError(_page.getAnalysisMessages().getUnassignedInferingType(),
                     _import,
@@ -287,7 +278,4 @@ public final class AffectationOperation extends MethodOperation {
         return settableOp;
     }
 
-    public int getFoundOffset() {
-        return foundOffset;
-    }
 }

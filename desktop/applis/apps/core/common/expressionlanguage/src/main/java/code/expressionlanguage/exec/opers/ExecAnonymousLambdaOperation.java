@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.util.HiddenCache;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
@@ -26,8 +27,12 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
     public Struct newAnonymousLambda(CallersInfo _info, ExecLambdaCommonContent _common, ExecLambdaMethodContent _anonCont, Argument _previous,
                                      AbstractPageEl _lastPage, StackCall _stackCall) {
         String clArg_ = formatVarTypeRes(_stackCall);
-        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_info,new HiddenCache(_lastPage), _common,_anonCont);
-        return new LambdaMethodStruct(metaInfo_,_previous,_common,_anonCont,clArg_);
+        return newAnonymousLambda(_info, _common, _anonCont, _previous, _lastPage.getContentEx(), clArg_);
+    }
+
+    public static LambdaMethodStruct newAnonymousLambda(CallersInfo _info, ExecLambdaCommonContent _common, ExecLambdaMethodContent _anonCont, Argument _previous, PageElContent _lastPage, String clArg_) {
+        MethodMetaInfo metaInfo_ = new MethodMetaInfo(_info,new HiddenCache(_lastPage), _common, _anonCont);
+        return new LambdaMethodStruct(metaInfo_, _previous, _common, _anonCont, clArg_);
     }
 
     @Override

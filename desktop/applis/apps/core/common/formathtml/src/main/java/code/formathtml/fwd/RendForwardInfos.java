@@ -1,5 +1,6 @@
 package code.formathtml.fwd;
 
+import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
@@ -7,6 +8,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -18,6 +20,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.FetchMemberUtil;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
 import code.formathtml.Configuration;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -40,7 +43,7 @@ public final class RendForwardInfos {
     private RendForwardInfos() {
     }
     private static RendDocumentBlock build(AnaRendDocumentBlock _ana, Forwards _forwards, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getFileName(),_ana.getEsc(),_ana.getFileBlock().getMetricsCore(), _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards));
+        RendDocumentBlock rendDoc_ = new RendDocumentBlock(_ana.getFileName(),_ana.getEsc(),_ana.getFile().getMetricsCore(), _ana.getElt(), _ana.getBeanName(), fwdType(_ana, _forwards));
         RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
         while (pair_.getRead() != null) {
             RendBlock loc_ = newRendBlock(pair_.getRead(), _forwards);
@@ -623,6 +626,11 @@ public final class RendForwardInfos {
             }
             return new RendStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(s_.getInstancingStdContent().getNamedFields(),_forwards), FetchMemberUtil.fwdFormatTypes(s_.getInstancingStdContent().getSups(), _forwards)));
         }
+        if (_anaNode instanceof AnonymousInstancingOperation) {
+            AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
+            ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchTypeCtor(s_.getMemberId(), _forwards);
+            return new RendAnonymousInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards));
+        }
         if (_anaNode instanceof InterfaceFctConstructor) {
             InterfaceFctConstructor s_ = (InterfaceFctConstructor) _anaNode;
             return new RendInterfaceFctConstructor(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInvokingConstructorContent(s_.getInvokingConstructorContent(), _forwards), s_.getClassName(), FetchMemberUtil.fetchTypeCtor(s_.getMemberId(), _forwards));
@@ -639,6 +647,12 @@ public final class RendForwardInfos {
                 return new RendCustArrOperation(a_.isIntermediateDottedOperation(), get_,set_, new ExecOperationContent(a_.getContent()), new ExecArrContent(a_.getArrContent()), new ExecInstFctContent(a_.getCallFctContent(), a_.getAnc(), a_.isStaticChoiceMethod(), _forwards));
             }
             return new RendArrOperation(a_.isIntermediateDottedOperation(), new ExecOperationContent(a_.getContent()), new ExecArrContent(a_.getArrContent()));
+        }
+        if (_anaNode instanceof SwitchOperation) {
+            SwitchOperation s_ = (SwitchOperation) _anaNode;
+            SwitchMethodBlock switchMethod_ = s_.getSwitchMethod();
+            ExecAbstractSwitchMethod r_ = _forwards.getSwitchMethod(switchMethod_);
+            return new RendSwitchOperation(new ExecOperationContent(s_.getContent()), new ExecArrContent(s_.getArrContent()), r_);
         }
         if (_anaNode instanceof IdOperation) {
             IdOperation d_ = (IdOperation) _anaNode;
@@ -704,6 +718,11 @@ public final class RendForwardInfos {
         }
         if (InvokingOperation.getDeltaCount(_anaNode) != 0) {
             return new RendConstLeafOperation(true,new ExecOperationContent(_anaNode.getContent()));
+        }
+        if (_anaNode instanceof AnonymousLambdaOperation) {
+            AnonymousLambdaOperation s_ = (AnonymousLambdaOperation) _anaNode;
+            ExecTypeFunction pair_ = ForwardInfos.buildAnonFctPair(_forwards, s_);
+            return new RendAnonymousLambdaOperation(new ExecOperationContent(s_.getContent()), new ExecLambdaCommonContent(s_.getLambdaCommonContent(), _forwards), new ExecLambdaMethodContent(s_.getMethod(), pair_));
         }
         if (_anaNode instanceof LambdaOperation) {
             return lambda((LambdaOperation) _anaNode, _forwards);

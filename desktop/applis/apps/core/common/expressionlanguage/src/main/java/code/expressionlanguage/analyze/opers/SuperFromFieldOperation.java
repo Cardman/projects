@@ -50,7 +50,7 @@ public final class SuperFromFieldOperation implements AnaSettableAbstractFieldOp
         map_.setMapping(mapping_);
         if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            cast_.setIndexFile(_page);
             cast_.setFile(_page.getCurrentFile());
             //type len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),

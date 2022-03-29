@@ -39,4 +39,7 @@ public final class SimplePageEl {
         return content.getCache();
     }
 
+    public PageElContent getContent() {
+        return content;
+    }
 }

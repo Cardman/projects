@@ -116,19 +116,15 @@ public final class ResultText {
         texts.add(str_.toString());
     }
 
-    public static ResultText buildAnchor(AnaRendBlock _r, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()));
+    public static void buildAnchor(AnaRendBlock _r, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultText _res) {
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-        ResultText r_ = new ResultText();
-        r_.opExpRoot = new CustList<OperationNode>();
-        r_.texts = new StringList();
+        _res.opExpRoot = new CustList<OperationNode>();
+        _res.texts = new StringList();
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int colsGrId_ = _r.getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-            r_.buildIdAna(lk_, colsGrId_, _anaDoc, _page);
-            CustList<OperationNode> opExpRoot_ = r_.getOpExpRoot();
+            _res.buildIdAna(lk_, colsGrId_, _anaDoc, _page);
+            CustList<OperationNode> opExpRoot_ = _res.getOpExpRoot();
             for (OperationNode e: opExpRoot_) {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.getResultClass());
@@ -150,7 +146,7 @@ public final class ResultText {
                 String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
             }
-            r_.varNames = varNames_;
+            _res.varNames = varNames_;
             int i_ = 0;
             for (String v:varNames_) {
                 AnaLocalVariable lv_ = new AnaLocalVariable();
@@ -159,16 +155,15 @@ public final class ResultText {
                 formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
                 i_++;
             }
-            String pref_ = r_.quickRender(lk_, formArg_);
+            String pref_ = _res.quickRender(lk_, formArg_);
             _page.zeroOffset();
-            r_.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
-            r_.sgn = AnaRendBlock.checkVars(colsGrId_,varNames_,r_.opExpAnchorRoot,_page,_anaDoc);
-            _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),r_.sgn);
+            _res.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
+            _res.sgn = AnaRendBlock.checkVars(colsGrId_,varNames_,_res.opExpAnchorRoot,_page,_anaDoc);
+            _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),_res.sgn);
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
         }
-        return r_;
     }
     public String quickRender(String _expression,StringList _args) {
         StringBuilder str_ = new StringBuilder();
@@ -192,6 +187,10 @@ public final class ResultText {
             i_++;
         }
         return str_.toString();
+    }
+
+    public ResultExpression getResultExpression() {
+        return resultExpression;
     }
 
     public StringList getTexts() {

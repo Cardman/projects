@@ -36,7 +36,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (!(candidate_ instanceof InterfaceBlock)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
@@ -48,7 +48,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (superClass_ == null) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //type len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntFromSuperInt());
             _page.getLocalizer().addError(call_);
@@ -67,7 +67,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
         if (br_.getParent() instanceof InterfaceBlock) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(curLine_.getFile());
-            call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
+            call_.setIndexFile(_page);
             //key word len
             call_.buildError(_page.getAnalysisMessages().getCallCtorIntNotFromInt());
             _page.getLocalizer().addError(call_);
@@ -93,7 +93,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                         //error
                         FoundErrorInterpret call_ = new FoundErrorInterpret();
                         call_.setFile(curLine_.getFile());
-                        call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
+                        call_.setIndexFile(_page);
                         //key word len
                         call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
                         _page.getLocalizer().addError(call_);
@@ -103,7 +103,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                             //error
                             FoundErrorInterpret call_ = new FoundErrorInterpret();
                             call_.setFile(curLine_.getFile());
-                            call_.setIndexFile(getFullIndexInEl()+ curLine_.getExpressionOffset());
+                            call_.setIndexFile(_page);
                             //key word len
                             call_.buildError(_page.getAnalysisMessages().getCallCtorIntAfterSuperThis());
                             _page.getLocalizer().addError(call_);
@@ -143,7 +143,7 @@ public final class InterfaceInvokingConstructor extends AbstractInvokingConstruc
                 FoundErrorInterpret undef_;
                 undef_ = new FoundErrorInterpret();
                 undef_.setFile(_n.getFile());
-                undef_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                undef_.setIndexFile(_page);
                 //current type len
                 undef_.buildError(_page.getAnalysisMessages().getCallCtorIntInherits(),
                         sup_,

@@ -212,6 +212,30 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
         return labelOffset;
     }
 
+    public ResultExpression getResInit() {
+        return resultExpressionInit;
+    }
+
+    public ResultExpression getResExp() {
+        return resultExpressionExp;
+    }
+
+    public ResultExpression getResStep() {
+        return resultExpressionStep;
+    }
+
+    public String getInit() {
+        return init;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public String getStep() {
+        return step;
+    }
+
     public int getInitOffset() {
         return initOffset;
     }

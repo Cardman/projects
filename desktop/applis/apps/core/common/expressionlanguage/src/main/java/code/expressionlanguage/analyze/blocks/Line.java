@@ -79,7 +79,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         if (!(_root instanceof DeclaringOperation)&&!(_root instanceof AffectationOperation)&&!(_root instanceof ErrorPartOperation)) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(_page.getCurrentFile());
-            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            b_.setIndexFile(_page);
             //variable name len
             b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
             _page.getLocalizer().addError(b_);
@@ -89,7 +89,7 @@ public final class Line extends Leaf implements BuildableElMethod {
                 if (!(c instanceof AffectationOperation)) {
                     FoundErrorInterpret b_ = new FoundErrorInterpret();
                     b_.setFile(_page.getCurrentFile());
-                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    b_.setIndexFile(_page);
                     //variable name len
                     b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                     _page.getLocalizer().addError(b_);
@@ -97,7 +97,7 @@ public final class Line extends Leaf implements BuildableElMethod {
                 } else if (!(((AffectationOperation) c).getChildrenNodes().last() instanceof WrappOperation)) {
                     FoundErrorInterpret b_ = new FoundErrorInterpret();
                     b_.setFile(_page.getCurrentFile());
-                    b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    b_.setIndexFile(_page);
                     //variable name len
                     b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
                     _page.getLocalizer().addError(b_);
@@ -107,7 +107,7 @@ public final class Line extends Leaf implements BuildableElMethod {
         } else if (_root instanceof AffectationOperation&&!(((AffectationOperation) _root).getChildrenNodes().last() instanceof WrappOperation)) {
             FoundErrorInterpret b_ = new FoundErrorInterpret();
             b_.setFile(_page.getCurrentFile());
-            b_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            b_.setIndexFile(_page);
             //variable name len
             b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
             _page.getLocalizer().addError(b_);

@@ -58,10 +58,9 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
         if (!_in.isEmpty()) {
             return _in;
         }
-        int rc_ = _page.getLocalizer().getCurrentLocationIndex() + _loc;
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setFile(_page.getCurrentFile());
-        un_.setIndexFile(rc_);
+        un_.setIndexFile(_page,_loc);
         //original type len
         un_.buildError(_page.getAnalysisMessages().getUnknownType(),
                 _orig);

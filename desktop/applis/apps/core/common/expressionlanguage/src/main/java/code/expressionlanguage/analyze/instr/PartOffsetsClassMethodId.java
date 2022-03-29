@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
@@ -14,6 +15,10 @@ public final class PartOffsetsClassMethodId {
     private final int begin;
     private final int length;
     private final InfoErrorDto info;
+
+    public PartOffsetsClassMethodId(CustList<AnaResultPartType> _types, CustList<AnaResultPartType> _superTypes, ClassMethodId _id, AnaTypeFct _fct, AnalyzedPageEl _page, int _begin, int _length) {
+        this(_types,_superTypes,_id,_fct,_page.getIndex()+_begin,_length,new InfoErrorDto(""));
+    }
 
     public PartOffsetsClassMethodId(CustList<AnaResultPartType> _types, CustList<AnaResultPartType> _superTypes, ClassMethodId _id, AnaTypeFct _fct,int _begin, int _length) {
         this(_types,_superTypes,_id,_fct,_begin,_length,new InfoErrorDto(""));

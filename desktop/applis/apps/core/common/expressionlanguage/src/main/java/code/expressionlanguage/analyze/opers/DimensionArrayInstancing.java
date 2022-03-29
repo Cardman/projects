@@ -203,7 +203,6 @@ public final class DimensionArrayInstancing extends
             m_ = m_.getParent().getParent();
             list_ = true;
         }
-        int rc_ = _page.getLocalizer().getCurrentLocationIndex();
         if (m_ instanceof NamedArgumentOperation){
             NamedArgumentOperation n_ = (NamedArgumentOperation) m_;
             String inferRecord_ = n_.infer();
@@ -212,7 +211,7 @@ public final class DimensionArrayInstancing extends
                 if (format_ != null) {
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,format_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,format_);
                     typeInfer = format_;
                 }
                 return;
@@ -243,7 +242,7 @@ public final class DimensionArrayInstancing extends
                     String infer_ = candidates_.first();
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -269,7 +268,7 @@ public final class DimensionArrayInstancing extends
                     String infer_ = candidates_.first();
                     int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                     int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -301,7 +300,7 @@ public final class DimensionArrayInstancing extends
                 String infer_ = candidates_.first();
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -330,7 +329,7 @@ public final class DimensionArrayInstancing extends
                 String infer_ = candidates_.first();
                 int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
                 int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -349,7 +348,7 @@ public final class DimensionArrayInstancing extends
         }
         int begin_ = newKeyWord_.length()+local_+className_.indexOf('<');
         int end_ = newKeyWord_.length()+local_+className_.indexOf('>')+1;
-        resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +begin_, rc_ +end_,infer_);
+        resolvedInstance = new ResolvedInstance(resolvedInstance, _page,begin_, end_,infer_);
         typeInfer = infer_;
     }
     private static String tryParamFormatEmp(NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer) {
@@ -393,14 +392,13 @@ public final class DimensionArrayInstancing extends
                     resCh_.implicitInfos(res_);
                 } else {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    int i_ = _page.getLocalizer().getCurrentLocationIndex();
-                    un_.setIndexFile(i_);
+                    un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());
                     //first part child bracket
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             StringUtil.join(resCh_.getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(un_);
-                    parts_=new InfoErrorDto(un_.getBuiltError(),i_,1);
+                    parts_=new InfoErrorDto(un_,_page,1);
                 }
             }
             resCh_.setUnwrapObjectNb(PrimitiveTypes.INT_WRAP);

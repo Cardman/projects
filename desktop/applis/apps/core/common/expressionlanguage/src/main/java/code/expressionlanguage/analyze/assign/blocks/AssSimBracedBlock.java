@@ -9,10 +9,12 @@ import code.util.CustList;
 
 public final class AssSimBracedBlock extends AssBracedBlock implements AssBuildableElMethod {
 
-    private CustList<AssOperationNode> ops;
-    AssSimBracedBlock(boolean _completeNormally, boolean _completeNormallyGroup, OperationNode _root) {
+    private final CustList<AssOperationNode> ops;
+    private final int offset;
+    AssSimBracedBlock(boolean _completeNormally, boolean _completeNormallyGroup, OperationNode _root, int _off) {
         super(_completeNormally,_completeNormallyGroup);
         ops = AssUtil.getSimExecutableNodes(_root);
+        offset = _off;
     }
 
     @Override
@@ -20,6 +22,8 @@ public final class AssSimBracedBlock extends AssBracedBlock implements AssBuilda
         if (ops.isEmpty()) {
             return;
         }
+        _page.setGlobalOffset(offset);
+        _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,ops.last(),this, _page);
     }
 }

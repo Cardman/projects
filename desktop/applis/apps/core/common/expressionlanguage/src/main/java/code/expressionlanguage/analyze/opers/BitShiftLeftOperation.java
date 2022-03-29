@@ -35,8 +35,7 @@ public final class BitShiftLeftOperation extends NumericOperation {
         _page.setOkNumOp(false);
         String exp_ = _page.getAliasNumber();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
-        int index_ = _page.getLocalizer().getCurrentLocationIndex();
-        un_.setIndexFile(index_);
+        un_.setIndexFile(_page);
         un_.setFile(_page.getCurrentFile());
         //oper
         un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
@@ -46,7 +45,7 @@ public final class BitShiftLeftOperation extends NumericOperation {
                 ),ExportCst.JOIN_OPERANDS),
                 getOp());
         _page.getLocalizer().addError(un_);
-        getPartOffsetsChildren().add(new InfoErrorDto(un_.getBuiltError(),index_,getOp().length()));
+        getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,getOp().length()));
         AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
         res_.setResult(arg_);
         return res_;

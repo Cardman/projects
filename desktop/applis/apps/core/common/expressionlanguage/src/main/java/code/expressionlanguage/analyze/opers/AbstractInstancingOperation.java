@@ -73,7 +73,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
 
         InterfacesPart ints_ = new InterfacesPart(className_,local_);
-        ints_.parse(_page.getKeyWords(),"",0,newKeyWord_.length()+local_+ _page.getLocalizer().getCurrentLocationIndex());
+        ints_.parse(_page.getKeyWords(),"",0,newKeyWord_.length()+local_+ _page.getIndex());
         staticInitInterfaces = ints_.getStaticInitInterfaces();
         staticInitInterfacesOffset = ints_.getStaticInitInterfacesOffset();
         local_ = ints_.getLocIndex();
@@ -274,7 +274,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             return;
         }
         String inferForm_ = AnaTemplates.getInferForm(className_);
-        int rc_ = _page.getLocalizer().getCurrentLocationIndex();
+        int rc_ = _page.getIndex();
         if (inferForm_ == null) {
 //            CustList<PartOffset> partOffsets_ = new CustList<PartOffset>();
             if (!isIntermediateDottedOperation()) {
@@ -343,7 +343,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (!inferRecord_.isEmpty()) {
                 String format_ = tryFormatRec(inferRecord_,nbParentsInfer_, type_,vars_, _page);
                 if (format_ != null) {
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,format_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance,_page,lt_, gt_,format_);
                     typeInfer = format_;
                 }
                 return;
@@ -373,7 +373,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
 //                    partOffsets.addAllElts(partOffsets_);
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, _page,lt_, gt_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -398,7 +398,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 if (candidates_.onlyOneElt()) {
                     String infer_ = candidates_.first();
 //                    partOffsets.addAllElts(partOffsets_);
-                    resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
+                    resolvedInstance = new ResolvedInstance(resolvedInstance, _page,lt_, gt_,infer_);
                     typeInfer = infer_;
                 }
             }
@@ -429,7 +429,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
 //                partOffsets.addAllElts(partOffsets_);
-                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, _page,lt_, gt_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -457,7 +457,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (candidates_.onlyOneElt()) {
                 String infer_ = candidates_.first();
 //                partOffsets.addAllElts(partOffsets_);
-                resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
+                resolvedInstance = new ResolvedInstance(resolvedInstance, _page,lt_, gt_,infer_);
                 typeInfer = infer_;
             }
             return;
@@ -474,7 +474,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             return;
         }
 //        partOffsets.addAllElts(partOffsets_);
-        resolvedInstance = new ResolvedInstance(resolvedInstance, rc_ +lt_, rc_ +gt_,infer_);
+        resolvedInstance = new ResolvedInstance(resolvedInstance, _page,lt_, gt_,infer_);
         typeInfer = infer_;
     }
     protected static String tryParamFormatEmpInst(AbstractInstancingOperation _current,NameParametersFilter _filter, Parametrable _param, String _name, int _nbParentsInfer, AnalyzedPageEl _page) {
@@ -532,7 +532,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             if (_staticAccess != MethodAccessKind.INSTANCE) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFile(_page.getCurrentFile());
-                static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                static_.setIndexFile(_page);
                 //original type len
                 static_.buildError(_page.getAnalysisMessages().getIllegalCtorUnknown(),
                         _realClassName);
@@ -547,7 +547,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)){
                     FoundErrorInterpret static_ = new FoundErrorInterpret();
                     static_.setFile(_page.getCurrentFile());
-                    static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    static_.setIndexFile(_page);
                     //original type len
                     static_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             glClass_,

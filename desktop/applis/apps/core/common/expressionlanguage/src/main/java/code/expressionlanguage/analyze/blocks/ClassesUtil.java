@@ -367,7 +367,7 @@ public final class ClassesUtil {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
                     undef_.setFile(block_.getFile());
-                    undef_.setIndexFile(e.getIndex());
+                    undef_.setIndexFile(e);
                     //original type len
                     undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                             block_.getFullName(),
@@ -379,7 +379,7 @@ public final class ClassesUtil {
                     FoundErrorInterpret undef_;
                     undef_ = new FoundErrorInterpret();
                     undef_.setFile(block_.getFile());
-                    undef_.setIndexFile(e.getIndex());
+                    undef_.setIndexFile(e);
                     //original type len
                     undef_.buildError(_page.getAnalysisMessages().getReservedType(),
                             block_.getFullName(),
@@ -925,7 +925,7 @@ public final class ClassesUtil {
                         cur_.getAllReservedInners().add(r.getName());
                     }
                     RootBlock possibleParent_ = cur_.getParentType();
-                    OperatorBlock operator_ = cur_.getOperator();
+                    AccessedBlock operator_ = cur_.getAccessedBlock();
                     MemberCallingsBlock outerFuntion_ = cur_.getOuterFuntionInType();
                     cur_.getAllReservedInners().addAllElts(allReservedInnersRoot_);
                     if (!(cur_ instanceof AnonymousTypeBlock)) {
@@ -938,13 +938,10 @@ public final class ClassesUtil {
                             cur_.getAllReservedInners().addAllElts(allReservedInners_);
                         }
                         if (possibleParent_ != null) {
-                            StringList allReservedInners_ = possibleParent_.getAllReservedInners();
-                            reverv_.addAllElts(allReservedInners_);
-                            cur_.getAllReservedInners().addAllElts(allReservedInners_);
                             parFullName_ = possibleParent_.getFullName();
                             parGenericString_ = possibleParent_.getGenericString();
                         }
-                        if (possibleParent_ != null || operator_ != null) {
+                        if (operator_ != null) {
                             String s_ = cur_.getName();
                             if (StringUtil.contains(allReservedInnersRoot_, s_)) {
                                 FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -2168,9 +2165,11 @@ public final class ClassesUtil {
         }
     }
 
-    public static void globalType(AnalyzedPageEl _page, RootBlock _c) {
-        _page.setGlobalType(new AnaFormattedRootBlock(_c));
-        _page.setCurrentFile(_c.getFile());
+    public static void globalType(AnalyzedPageEl _page, AccessedBlock _c) {
+        if (_c instanceof RootBlock) {
+            _page.setGlobalType(new AnaFormattedRootBlock((RootBlock) _c));
+            _page.setCurrentFile(_c.getFile());
+        }
     }
 
     private static void procBadIndexes(AnalyzedPageEl _page, CustList<BracedBlock> _braced) {

@@ -314,6 +314,13 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         return variableNameFirst;
     }
 
+    public String getExpression() {
+        return expression;
+    }
+
+    public ResultExpression getRes() {
+        return resultExpression;
+    }
     public int getExpressionOffset() {
         return expressionOffset;
     }

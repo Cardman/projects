@@ -15,10 +15,6 @@ public final class DefaultLocalizer {
         return AnalyzedPageEl.getFileName(context.getCurrentFile());
     }
 
-    public int getCurrentLocationIndex() {
-        return context.getTraceIndex();
-    }
-
     public void addWarning(FoundWarningInterpret _warning) {
         context.addLocWarning(_warning);
     }

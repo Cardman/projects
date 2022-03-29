@@ -17,20 +17,25 @@ public final class AnaRendText extends AnaRendLeaf implements AnaRendBuildEl {
     private CustList<OperationNode> roots;
 
     private StringList texts = new StringList();
+    private final ResultText res;
     AnaRendText(OffsetStringInfo _left, int _offset) {
         super(_offset);
         expression = _left.getInfo();
         expressionOffset = _left.getOffset();
+        res  = new ResultText();
     }
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(expressionOffset);
         _page.zeroOffset();
-        ResultText res_ = new ResultText();
-        res_.buildIdAna(expression, expressionOffset, _anaDoc, _page);
-        roots = res_.getOpExpRoot();
-        texts = res_.getTexts();
+        res.buildIdAna(expression, expressionOffset, _anaDoc, _page);
+        roots = res.getOpExpRoot();
+        texts = res.getTexts();
+    }
+
+    public ResultText getRes() {
+        return res;
     }
 
     public CustList<OperationNode> getRoots() {
@@ -39,6 +44,10 @@ public final class AnaRendText extends AnaRendLeaf implements AnaRendBuildEl {
 
     public StringList getTexts() {
         return texts;
+    }
+
+    public String getExpression() {
+        return expression;
     }
 
     public int getExpressionOffset() {

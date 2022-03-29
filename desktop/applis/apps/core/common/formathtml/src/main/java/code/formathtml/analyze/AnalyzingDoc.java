@@ -72,7 +72,7 @@ public final class AnalyzingDoc {
         _page.setCurrentBlock(null);
         _page.setCurrentAnaBlockForEachLoop(null);
         _page.setCurrentAnaBlockForEachTable(null);
-        _page.setProcessKeyWord(new AdvancedProcessKeyWord(_page, _analyzingDoc));
+//        _page.setProcessKeyWord(new AdvancedProcessKeyWord(_page, _analyzingDoc));
     }
 
     public String getAliasCharSequence() {

@@ -40,7 +40,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
         if (!clMatch_.isBoolType(_page)) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             un_.setFile(_page.getCurrentFile());
             //operator
             un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),

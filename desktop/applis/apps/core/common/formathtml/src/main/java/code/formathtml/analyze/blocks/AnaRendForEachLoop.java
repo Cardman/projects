@@ -266,6 +266,14 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         return variableName;
     }
 
+    public String getExpression() {
+        return expression;
+    }
+
+    public ResultExpression getRes() {
+        return resultExpression;
+    }
+
     public int getExpressionOffset() {
         return expressionOffset;
     }

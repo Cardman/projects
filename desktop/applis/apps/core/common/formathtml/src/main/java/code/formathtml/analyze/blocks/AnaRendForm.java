@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
@@ -19,30 +18,26 @@ public final class AnaRendForm extends AnaRendElement {
     private CustList<OperationNode> roots;
     private OperationNode root;
     private String sgn = "";
-    private final ResultExpression resultExpression = new ResultExpression();
 
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
-    AnaRendForm(Element _elt, int _offset) {
+    private final ResultText res = new ResultText();
+    public AnaRendForm(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()));
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrAction());
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         roots = new CustList<OperationNode>();
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-        ResultText r_ = new ResultText();
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-            r_.buildIdAna(lk_, rowsGrId_, _anaDoc, _page);
-            texts = r_.getTexts();
-            roots = r_.getOpExpRoot();
-            for (OperationNode e: r_.getOpExpRoot()) {
+            res.buildIdAna(lk_, rowsGrId_, _anaDoc, _page);
+            texts = res.getTexts();
+            roots = res.getOpExpRoot();
+            for (OperationNode e: res.getOpExpRoot()) {
                 Mapping m_ = new Mapping();
                 m_.setArg(e.getResultClass());
                 m_.setParam(_page.getAliasLong());
@@ -72,15 +67,32 @@ public final class AnaRendForm extends AnaRendElement {
                 formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
                 i_++;
             }
-            String pref_ = r_.quickRender(lk_, formArg_);
+            String pref_ = res.quickRender(lk_, formArg_);
             _page.zeroOffset();
             root = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
             sgn = AnaRendBlock.checkVars(rowsGrId_,varNames_,root,_page,_anaDoc);
-            _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),sgn);
+            _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),getSgn());
             for (String v:varNames_) {
                 _page.getInfosVars().removeKey(v);
             }
         }
+    }
+
+    public ResultText getRes() {
+        return res;
+    }
+
+    public String getSgn() {
+        return sgn;
+    }
+
+    @Override
+    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        StringList list_ = attrList(_anaDoc);
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()));
+        list_.removeAllString(_anaDoc.getRendKeyWords().getAttrAction());
+        return list_;
     }
 
     public StringList getTexts() {

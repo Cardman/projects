@@ -265,7 +265,7 @@ public abstract class ReachOperationNode {
         if (Argument.isNullValue(_arg)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
-            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            static_.setIndexFile(_page);
             //leaf or header parent or first operator
             static_.buildError(_page.getAnalysisMessages().getNullValue(),
                     _page.getAliasNullPe());

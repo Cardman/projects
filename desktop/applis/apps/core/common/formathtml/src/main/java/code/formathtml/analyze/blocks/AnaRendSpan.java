@@ -14,21 +14,20 @@ public final class AnaRendSpan extends AnaRendElement {
     private StringMap<String> formatted=new StringMap<String>();
     private CustList<OperationNode> roots;
     private StringList texts;
+    private final ResultText res;
 
-    AnaRendSpan(Element _elt, int _offset) {
+    public AnaRendSpan(Element _elt, int _offset) {
         super(_elt, _offset);
+        res = new ResultText();
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
+    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String id_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
         int off_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        ResultText result_ = new ResultText();
-        result_.buildIdAna(id_, off_, _anaDoc, _page);
-        roots = result_.getOpExpRoot();
-        texts = result_.getTexts();
+        res.buildIdAna(id_, off_, _anaDoc, _page);
+        roots = res.getOpExpRoot();
+        texts = res.getTexts();
         for (String l: _anaDoc.getLanguages()) {
             formatted.addEntry(l,EMPTY_STRING);
         }
@@ -37,6 +36,18 @@ public final class AnaRendSpan extends AnaRendElement {
             int offMessage_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
             formatted = getPre(valueMessage_,offMessage_, _anaDoc, _page);
         }
+    }
+
+    @Override
+    public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        StringList list_ = attrList(_anaDoc);
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
+        list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
+        return list_;
+    }
+
+    public ResultText getRes() {
+        return res;
     }
 
     public StringList getTexts() {

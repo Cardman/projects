@@ -208,15 +208,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         stCall_.check(_page);
                         FoundErrorInterpret badCall_ = new FoundErrorInterpret();
                         badCall_.setFile(_page.getCurrentFile());
-                        badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        badCall_.setIndexFile(_page);
                         //last parenthesis
                         badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
                                 Long.toString(2),
                                 Long.toString(len_)
                         );
                         _page.getLocalizer().addError(badCall_);
-                        int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                        errPart(badCall_, i_, 1);
+                        int i_ = className.lastIndexOf(')');
+                        errPart(badCall_, _page, i_, 1);
                         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                         return;
                     }
@@ -244,15 +244,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         if (noDefCtor(h_)) {
                             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
                             badCall_.setFile(_page.getCurrentFile());
-                            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            badCall_.setIndexFile(_page);
                             //last parenthesis
                             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
                                     Long.toString(2),
                                     Long.toString(len_)
                             );
                             _page.getLocalizer().addError(badCall_);
-                            int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            errPart(badCall_, i_, 1);
+                            int i_ = className.lastIndexOf(')');
+                            errPart(badCall_, _page, i_,1);
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -337,15 +337,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         }
                         FoundErrorInterpret badCall_ = new FoundErrorInterpret();
                         badCall_.setFile(_page.getCurrentFile());
-                        badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                        badCall_.setIndexFile(_page);
                         //last parenthesis
                         badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
                                 Long.toString(2),
                                 Long.toString(len_)
                         );
                         _page.getLocalizer().addError(badCall_);
-                        int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                        errPart(badCall_, i_, 1);
+                        int i_ = className.lastIndexOf(')');
+                        errPart(badCall_, _page, i_, 1);
                         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                         return;
                     }
@@ -357,15 +357,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             tryCheck(_page);
                             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
                             badCall_.setFile(_page.getCurrentFile());
-                            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            badCall_.setIndexFile(_page);
                             //last parenthesis
                             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
                                     Long.toString(2),
                                     Long.toString(len_)
                             );
                             _page.getLocalizer().addError(badCall_);
-                            int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            errPart(badCall_, i_, 1);
+                            int i_ = className.lastIndexOf(')');
+                            errPart(badCall_, _page,  i_, 1);
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -417,7 +417,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                         initIdMethod(id_);
                         String foundClass_ = id_.getRealClass();
                         if (!stCall_.getStCall().isEmpty()) {
-                            stCall_.setPartOffsets(new ResolvedInstance(stCall_.getPartOffsets(),stCall_.getLt(), stCall_.getGt(), foundClass_));
+                            stCall_.setPartOffsets(new ResolvedInstance(stCall_, foundClass_));
                         }
                         String fct_ = formatReturn(_page, id_);
                         setResultClass(new AnaClassArgumentMatching(fct_));
@@ -432,15 +432,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                             tryCheck(_page);
                             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
                             badCall_.setFile(_page.getCurrentFile());
-                            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                            badCall_.setIndexFile(_page);
                             //last parenthesis
                             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
                                     Long.toString(2),
                                     Long.toString(len_)
                             );
                             _page.getLocalizer().addError(badCall_);
-                            int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-                            errPart(badCall_, i_, 1);
+                            int i_ = className.lastIndexOf(')');
+                            errPart(badCall_, _page,  i_, 1);
                             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                             return;
                         }
@@ -486,15 +486,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             tryCheck(_page);
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFile(_page.getCurrentFile());
-            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badCall_.setIndexFile(_page);
             //last parenthesis
             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
                     Long.toString(2),
                     Long.toString(len_)
             );
             _page.getLocalizer().addError(badCall_);
-            int i_ = _page.getLocalizer().getCurrentLocationIndex()+className.lastIndexOf(')');
-            errPart(badCall_, i_, 1);
+            int i_ = className.lastIndexOf(')');
+            errPart(badCall_, _page, i_, 1);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -502,8 +502,8 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         generalProcess(args_, _page);
     }
 
-    private void errPart(FoundErrorInterpret _err, int _begin, int _length) {
-        partOffsetsErrEnd = new InfoErrorDto(_err.getBuiltError(), _begin, _length);
+    private void errPart(FoundErrorInterpret _err, AnalyzedPageEl _page, int _begin, int _length) {
+        partOffsetsErrEnd = new InfoErrorDto(_err.getBuiltError(),_page, _begin, _length);
     }
 
     private void initIdMethod(ClassMethodIdReturn _id) {
@@ -644,10 +644,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     resMethod_ = tryGetDeclaredTests(type_, _page, _page.getFalses());
                 }
                 if (resMethod_ == null) {
-                    int rc_ = _page.getLocalizer().getCurrentLocationIndex() + offset_;
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(rc_);
+                    un_.setIndexFile(_page, offset_);
                     //_in len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             type_);
@@ -672,10 +671,9 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 boolean varargFct_ = argsRes_.isVararg();
                 AnaGeneType geneType_ = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(type_));
                 if (geneType_ == null) {
-                    int rc_ = _page.getLocalizer().getCurrentLocationIndex() + offset_;
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(rc_);
+                    un_.setIndexFile(_page, offset_);
                     //_in len
                     un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                             type_);
@@ -713,7 +711,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (argsRes_.getParametersTypesLength() > 2) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFile(_page.getCurrentFile());
-                static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                static_.setIndexFile(_page);
                 //key word len
                 static_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
                         Long.toString(2),
@@ -727,7 +725,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (argsRes_.getParametersTypesLength() > 1 && feed_ == null) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFile(_page.getCurrentFile());
-                static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                static_.setIndexFile(_page);
                 //key word len
                 static_.buildError(_page.getAnalysisMessages().getSplitComaLow(),
                         Long.toString(1),
@@ -790,7 +788,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    cast_.setIndexFile(_page);
                     //key word len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             arg_,
@@ -1146,7 +1144,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            cast_.setIndexFile(_page);
             //key word len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringUtil.join(bounds_,ExportCst.JOIN_TYPES),
@@ -1293,7 +1291,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String bk_ = tryGetArr(_methodTypes, comp_);
             if (bk_ == null) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setIndexFile(_page);
                 un_.setFile(_page.getCurrentFile());
                 //argument len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -1342,7 +1340,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         for (String p : _methodTypes) {
             if (!AnaClassArgumentMatching.isNumericInt(p, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setIndexFile(_page);
                 un_.setFile(_page.getCurrentFile());
                 //arg len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -1370,7 +1368,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private void buildErrNoRefMethod(MethodAccessKind _staticContext, String _name, AnalyzedPageEl _page, StringList _argsClass) {
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFile(_page.getCurrentFile());
-        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        undefined_.setIndexFile(_page);
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                 new MethodId(_staticContext, _name, _argsClass).getSignature(_page.getDisplayedStrings()));
@@ -1395,7 +1393,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (format_.isEmpty()) {
                 FoundErrorInterpret static_ = new FoundErrorInterpret();
                 static_.setFile(_page.getCurrentFile());
-                static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                static_.setIndexFile(_page);
                 //key word id len
                 static_.buildError(_page.getAnalysisMessages().getBadParameTypeForId(),
                         s_);
@@ -1414,7 +1412,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (errOwner(_type,_id)) {
             FoundErrorInterpret static_ = new FoundErrorInterpret();
             static_.setFile(_page.getCurrentFile());
-            static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            static_.setIndexFile(_page);
             //key word id len
             static_.buildError(_page.getAnalysisMessages().getBadParameTypeForId(),
                     _type);
@@ -1444,7 +1442,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private void addErrArray(StringList _str, AnalyzedPageEl _page) {
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFile(_page.getCurrentFile());
-        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        undefined_.setIndexFile(_page);
         //_name len
         undefined_.buildError(_page.getAnalysisMessages().getArrayCloneOnly(),
                 _page.getAliasClone(),
@@ -1465,7 +1463,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private void processAbstract(boolean _staticChoiceMethod, ClassMethodIdReturn _id, AnalyzedPageEl _page) {
         if (isAbstract(_staticChoiceMethod, _id)) {
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
-            abs_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            abs_.setIndexFile(_page);
             abs_.setFile(_page.getCurrentFile());
             //method name len
             abs_.buildError(
@@ -1507,7 +1505,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (o.startsWith(ARR)) {
                     FoundErrorInterpret call_ = new FoundErrorInterpret();
                     call_.setFile(_page.getCurrentFile());
-                    call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    call_.setIndexFile(_page);
                     //key word len
                     call_.buildError(_page.getAnalysisMessages().getIllegalCtorArray(),
                             o);
@@ -1543,7 +1541,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (ownersMap_.size() != 1) {
                     FoundErrorInterpret static_ = new FoundErrorInterpret();
                     static_.setFile(_page.getCurrentFile());
-                    static_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                    static_.setIndexFile(_page);
                     //key word len
                     static_.buildError(_page.getAnalysisMessages().getNotResolvedOwner(),
                             idClass_
@@ -1579,7 +1577,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFile(_page.getCurrentFile());
-                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                cast_.setIndexFile(_page);
                 //key word len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(bounds_, ExportCst.JOIN_TYPES),
@@ -1622,7 +1620,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (isStaticAccess(getParent())) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(previousResultClass.getNames(),ExportCst.JOIN_TYPES));
@@ -1705,7 +1703,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFile(_page.getCurrentFile());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                call_.setIndexFile(_page);
                 //_fromType len
                 call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
                         id_);
@@ -1715,7 +1713,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 String id_ = StringExpUtil.getIdFromAllTypes(clFrom_);
                 FoundErrorInterpret call_ = new FoundErrorInterpret();
                 call_.setFile(_page.getCurrentFile());
-                call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                call_.setIndexFile(_page);
                 //_fromType len
                 call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
                         id_);
@@ -1733,7 +1731,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String arg_ = _args.get(i);
             supInts_.add(arg_);
             int offsetFirst_ = StringExpUtil.getOffset(arg_);
-            offsets_.add(offsetArg_ + offsetFirst_+_page.getLocalizer().getCurrentLocationIndex());
+            offsets_.add(offsetArg_ + offsetFirst_+_page.getIndex());
             offsetArg_ += arg_.length()+1;
         }
         CustList<AnaFormattedRootBlock> anaFormattedRootBlocks_ = StandardInstancingOperation.getAnaFormattedRootBlocks(_page, h_, supInts_, offsets_, partsInstInitInterfaces);
@@ -1760,7 +1758,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         String inner_ = StringExpUtil.getIdFromAllTypes(_sup.getOwnedName());
         RootBlock root_ = _sup.getOwned();
         AccessedBlock r_ = _page.getImporting();
-        partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_, _page.getLocalizer().getCurrentLocationIndex()+offset_, _page));
+        partOffsetsPre.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_, _page.getIndex()+offset_, _page));
         offset_ += idClass_.length() + 1;
         StringList partsArgs_ = new StringList();
         for (String a: StringExpUtil.getAllTypes(_cl).mid(1)) {
@@ -1804,7 +1802,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (noDefCtor(h_)) {
             FoundErrorInterpret call_ = new FoundErrorInterpret();
             call_.setFile(_page.getCurrentFile());
-            call_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            call_.setIndexFile(_page);
             //key word len or _fromType
             call_.buildError(_page.getAnalysisMessages().getIllegalCtorAbstract(),
                     id_);
@@ -1846,7 +1844,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private void buildLambdaCtorErr(AnalyzedPageEl _page, String _clCurName, StringList _args) {
         FoundErrorInterpret undefined_ = new FoundErrorInterpret();
         undefined_.setFile(_page.getCurrentFile());
-        undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+        undefined_.setIndexFile(_page);
         //key word len
         undefined_.buildError(_page.getAnalysisMessages().getUndefinedCtor(),
                 new ConstructorId(_clCurName, _args, false).getSignature(_page.getDisplayedStrings()));
@@ -1862,15 +1860,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (_len < 3) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFile(_page.getCurrentFile());
-            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badCall_.setIndexFile(_page);
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
                     Long.toString(3),
                     Long.toString(_len)
             );
             _page.getLocalizer().addError(badCall_);
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            errPart(badCall_, i_, _page.getKeyWords().getKeyWordLambda().length());
+            errPart(badCall_, _page, 0, _page.getKeyWords().getKeyWordLambda().length());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2052,7 +2049,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFile(_page.getCurrentFile());
-                cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                cast_.setIndexFile(_page);
                 //key word len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(bounds_,ExportCst.JOIN_TYPES),
@@ -2104,7 +2101,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            cast_.setIndexFile(_page);
             //key word len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     StringUtil.join(bounds_,ExportCst.JOIN_TYPES),
@@ -2182,7 +2179,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            cast_.setIndexFile(_page);
             //field name len
             cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                     _arg,
@@ -2229,20 +2226,19 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
 
     private void buildErrLambda(int _offset,AnaClassArgumentMatching _class, String _name, AnalyzedPageEl _page) {
-        int i_ = _page.getLocalizer().getCurrentLocationIndex() + _offset;
         FoundErrorInterpret access_ = new FoundErrorInterpret();
         access_.setFile(_page.getCurrentFile());
-        access_.setIndexFile(i_);
+        access_.setIndexFile(_page,_offset);
         //_name len
         access_.buildError(_page.getAnalysisMessages().getUndefinedAccessibleField(),
                 _name,
                 StringUtil.join(_class.getNames(),ExportCst.JOIN_TYPES));
         _page.getLocalizer().addError(access_);
-        addBuiltErr(access_,i_,_name);
+        addBuiltErr(access_,_page,_offset,_name);
     }
 
-    private void addBuiltErr(FoundErrorInterpret _err, int _i, String _name) {
-        errPart(_err, _i, Math.max(1, _name.length()));
+    private void addBuiltErr(FoundErrorInterpret _err, AnalyzedPageEl _page,int _i, String _name) {
+        errPart(_err, _page, _i, Math.max(1, _name.length()));
     }
 
     private static String getParentType(String _converted, AnalyzedPageEl _page) {
@@ -2265,7 +2261,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (_finalField) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //field name len
             un_.buildError(_page.getAnalysisMessages().getFinalField(),
                     _classField.getFieldName());
@@ -2283,13 +2279,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (isIntermediateDottedOperation() && !previousResultClass.getNames().onlyOneElt()) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
-            un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            un_.setIndexFile(_page);
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     StringUtil.join(previousResultClass.getNames(),ExportCst.JOIN_TYPES));
             _page.getLocalizer().addError(un_);
-            int i_ = _page.getLocalizer().getCurrentLocationIndex();
-            errPart(un_, i_, _page.getKeyWords().getKeyWordLambda().length());
+            errPart(un_, _page, 0, _page.getKeyWords().getKeyWordLambda().length());
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2319,12 +2314,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (!StringExpUtil.isOper(operator_)) {
             FoundErrorInterpret badMeth_ = new FoundErrorInterpret();
             badMeth_.setFile(_page.getCurrentFile());
-            badMeth_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badMeth_.setIndexFile(_page);
             //key word len
             badMeth_.buildError(_page.getAnalysisMessages().getBadOperatorName(),
                     operator_);
             _page.getLocalizer().addError(badMeth_);
-            int j_ = _page.getLocalizer().getCurrentLocationIndex()+sum_;
+            int j_ = sum_;
             if (!operator_.isEmpty()&&displayErr_) {
                 j_++;
             }
@@ -2332,7 +2327,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (!displayErr_) {
                 lenErr_ = 1;
             }
-            errPart(badMeth_, j_, lenErr_);
+            errPart(badMeth_, _page, j_, lenErr_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2381,13 +2376,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (id_ == null) {
                 FoundErrorInterpret undefined_ = new FoundErrorInterpret();
                 undefined_.setFile(_page.getCurrentFile());
-                undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                undefined_.setIndexFile(_page);
                 //_name len
                 undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                         new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page.getDisplayedStrings()));
                 _page.getLocalizer().addError(undefined_);
-                int k_ = _page.getLocalizer().getCurrentLocationIndex()+sum_+1;
-                partOffsetsErrMiddle = new InfoErrorDto(undefined_.getBuiltError(),k_,Math.max(1,operator_.length()));
+                int k_ = sum_+1;
+                partOffsetsErrMiddle = new InfoErrorDto(undefined_.getBuiltError(),_page,k_,Math.max(1,operator_.length()));
                 setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                 return;
             }
@@ -2410,13 +2405,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (id_ == null) {
             FoundErrorInterpret undefined_ = new FoundErrorInterpret();
             undefined_.setFile(_page.getCurrentFile());
-            undefined_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            undefined_.setIndexFile(_page);
             //_name len
             undefined_.buildError(_page.getAnalysisMessages().getUndefinedMethod(),
                     new MethodId(MethodAccessKind.STATIC, "", methodTypes_).getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(undefined_);
-            int k_ = _page.getLocalizer().getCurrentLocationIndex()+sum_+1;
-            partOffsetsErrMiddle = new InfoErrorDto(undefined_.getBuiltError(),k_,Math.max(1,operator_.length()));
+            int k_ = sum_+1;
+            partOffsetsErrMiddle = new InfoErrorDto(undefined_.getBuiltError(),_page,k_,Math.max(1,operator_.length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -2468,7 +2463,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             parts_.add(arg_);
             if (!AnaClassArgumentMatching.isNumericInt(arg_,_page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+                un_.setIndexFile(_page);
                 un_.setFile(_page.getCurrentFile());
                 //arg_ len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
@@ -2481,7 +2476,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (parts_.isEmpty()) {
             FoundErrorInterpret badCall_ = new FoundErrorInterpret();
             badCall_.setFile(_page.getCurrentFile());
-            badCall_.setIndexFile(_page.getLocalizer().getCurrentLocationIndex());
+            badCall_.setIndexFile(_page);
             //key word len
             badCall_.buildError(_page.getAnalysisMessages().getSplitComa(),
                     Long.toString(3),
@@ -2537,14 +2532,14 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     //last type => error
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
                     varg_.setFile(_page.getCurrentFile());
-                    int i_ = off_ + _page.getLocalizer().getCurrentLocationIndex() + full_.lastIndexOf("...");
-                    varg_.setIndexFile(i_);
+                    int i_ = off_ + full_.lastIndexOf("...");
+                    varg_.setIndexFile(_page,off_+full_.lastIndexOf("..."));
                     //three dots
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
 //                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
-                    errPart(varg_,i_,3);
+                    errPart(varg_, _page, i_,3);
 //                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
 //                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
 //                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
@@ -2597,13 +2592,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     //last type => error
                     FoundErrorInterpret varg_ = new FoundErrorInterpret();
                     varg_.setFile(_page.getCurrentFile());
-                    int i_ = offset_ + _page.getLocalizer().getCurrentLocationIndex() + param_.lastIndexOf("...");
-                    varg_.setIndexFile(i_);
+                    int i_ = offset_ + param_.lastIndexOf("...");
+                    varg_.setIndexFile(_page, offset_ + param_.lastIndexOf("..."));
                     //three dots
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-                    errPart(varg_,i_,3);
+                    errPart(varg_, _page, i_,3);
 //                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
 //                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
 //                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));

@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecSwitchInstanceMethod;
-import code.expressionlanguage.exec.calls.AbstractPageEl;
+import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
@@ -74,20 +74,18 @@ public final class ExecTemplates {
         return p_;
     }
 
-    public static void okArgsSetSwCall(ExecAbstractSwitchMethod _id, ContextEl _conf, StackCall _stackCall, Argument _value) {
-        AbstractPageEl last_ = _stackCall.getLastPage();
-        Argument instance_ = last_.getGlobalArgument();
-        ExecFormattedRootBlock glClass_ = last_.getGlobalClass();
+    public static void okArgsSetSwCall(ExecAbstractSwitchMethod _id, ContextEl _conf, StackCall _stackCall, Argument _value, ExecFormattedRootBlock _globalClass, PageElContent _contentEx) {
+        Argument instance_ = _contentEx.getGlobalArgument();
         if (_id instanceof ExecSwitchInstanceMethod) {
-            Parameters out_ = okArgsExSw(_id, glClass_, new HiddenCache(last_), _conf, _stackCall, _value);
+            Parameters out_ = okArgsExSw(_id, _globalClass, new HiddenCache(_contentEx), _conf, _stackCall, _value);
             if (out_.getError() == null) {
-                _stackCall.setCallingState(new CustomFoundSwitch(instance_, glClass_, _id, out_.getCache(), _value));
+                _stackCall.setCallingState(new CustomFoundSwitch(instance_, _globalClass, _id, out_.getCache(), _value));
             } else {
                 _stackCall.setCallingState(new CustomFoundExc(out_.getError()));
             }
             return;
         }
-        _stackCall.setCallingState(new CustomFoundSwitch(instance_,glClass_, _id, new HiddenCache(last_),_value));
+        _stackCall.setCallingState(new CustomFoundSwitch(instance_, _globalClass, _id, new HiddenCache(_contentEx),_value));
     }
 
     public static Parameters okArgsSetSw(ExecAbstractSwitchMethod _id, ExecFormattedRootBlock _classNameFound, Cache _cache, ContextEl _conf, StackCall _stackCall, CustList<Argument> _arguments) {
