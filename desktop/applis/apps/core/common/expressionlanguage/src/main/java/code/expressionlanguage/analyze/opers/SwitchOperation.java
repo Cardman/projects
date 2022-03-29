@@ -264,11 +264,14 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         switchMethod.getAllReservedInners().addAllElts(acc_.getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
-            currentFct_.getSwitchMethods().add(switchMethod);
             switchMethod.getMappings().putAllMap(currentFct_.getRefMappings());
             switchMethod.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
             switchMethod.getMappings().putAllMap(acc_.getRefMappings());
+        }
+        AccessedFct imp_ = _page.getAccessedFct();
+        if (imp_ != null) {
+            imp_.getSwitchMethods().add(switchMethod);
         }
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {

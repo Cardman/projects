@@ -193,6 +193,41 @@ public final class RenderReflectionTest extends CommonRender {
         assertEq("<html><body>0</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
+    @Test
+    public void process11Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/><c:set value='*a[0]'/>{a[0].getDeclaredLocalTypes().length}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>0</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+
+    @Test
+    public void process12Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/><c:set value='*a[0]'/>{a[0].getDeclaredAnonymousTypes().length}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>0</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
     private String getResOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

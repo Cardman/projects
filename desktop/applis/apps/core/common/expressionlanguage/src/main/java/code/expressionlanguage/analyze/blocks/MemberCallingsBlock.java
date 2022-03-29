@@ -12,7 +12,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public abstract class MemberCallingsBlock extends BracedBlock implements FunctionBlock,ReturnableWithSignature,WithContext {
+public abstract class MemberCallingsBlock extends BracedBlock implements AccessedFct,FunctionBlock,ReturnableWithSignature,WithContext {
 
     private final StringMap<MappingLocalType> mappings = new StringMap<MappingLocalType>();
     private final CustList<RootBlock> reserved = new CustList<RootBlock>();

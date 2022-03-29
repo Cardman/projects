@@ -55,7 +55,9 @@ public final class DefaultBeanAliases {
     private static final String BEFORE_DISPLAYING = "BeforeDisplaying";
     private static final String STRING_MAP_OBJECT = "StringMapObject";
     private static final String DOCUMENT = "Document";
-    private static final String DOCUMENT_All = "DocumentAll";
+    private static final String DOCUMENT_ALL = "DocumentAll";
+    private static final String GET_DECLARED_LOCAL_TYPES = "GetDeclaredLocalTypes";
+    private static final String GET_DECLARED_ANONYMOUS_TYPES = "GetDeclaredAnonymousTypes";
     private static final String MESSAGE = "Message";
     private static final String NEW_MESSAGE = "NewMessage";
     private static final String MESSAGE_FORMAT = "MessageFormat";
@@ -490,6 +492,12 @@ public final class DefaultBeanAliases {
         params_ = new StringList();
         method_ = new StandardMethod(aliasDocumentAll, params_, StringExpUtil.getPrettyArrayType(aliasDocument), false, MethodModifier.STATIC,new FctDocumentAll(_rendExecutingBlocks,aliasDocument));
         methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(_content.getReflect().getAliasGetDeclaredLocalTypes(), params_, StringExpUtil.getPrettyArrayType(_content.getReflect().getAliasClassType()), false, MethodModifier.FINAL, new FctDocumentGetDeclaredLocalTypes());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(_content.getReflect().getAliasGetDeclaredAnonymousTypes(), params_, StringExpUtil.getPrettyArrayType(_content.getReflect().getAliasClassType()), false, MethodModifier.FINAL, new FctDocumentGetDeclaredAnonymousTypes());
+        methods_.add( method_);
         _content.getStandards().addEntry(aliasDocument, std_);
 
     }
@@ -539,7 +547,7 @@ public final class DefaultBeanAliases {
         setAliasStringMapObject(LgNamesContent.get(_util, _cust, STRING_MAP_OBJECT));
         setAliasMessage(LgNamesContent.get(_util, _cust, MESSAGE));
         setAliasDocument(LgNamesContent.get(_util, _cust, DOCUMENT));
-        setAliasDocumentAll(LgNamesContent.get(_util, _cust, DOCUMENT_All));
+        setAliasDocumentAll(LgNamesContent.get(_util, _cust, DOCUMENT_ALL));
         setAliasNewMessage(LgNamesContent.get(_util, _cust, NEW_MESSAGE));
         setAliasMessageFormat(LgNamesContent.get(_util, _cust, MESSAGE_FORMAT));
         setAliasMessageGetArgs(LgNamesContent.get(_util, _cust, MESSAGE_GET_ARGS));
@@ -564,7 +572,9 @@ public final class DefaultBeanAliases {
                         new KeyValueMemberName(MESSAGE_GET_ARGS,getAliasMessageGetArgs()),
                         new KeyValueMemberName(MESSAGE_SET_ARGS,getAliasMessageSetArgs())));
         CustList<KeyValueMemberName> lis_ = LgNamesContent.listAnnot(_reflect);
-        lis_.add(new KeyValueMemberName(DOCUMENT_All,getAliasDocumentAll()));
+        lis_.add(new KeyValueMemberName(DOCUMENT_ALL,getAliasDocumentAll()));
+        lis_.add(new KeyValueMemberName(GET_DECLARED_LOCAL_TYPES,_reflect.getAliasGetDeclaredLocalTypes()));
+        lis_.add(new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,_reflect.getAliasGetDeclaredAnonymousTypes()));
         methods_.addEntry(getAliasDocument(), lis_);
         methods_.addEntry(getAliasValidator(),new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(VALIDATE,getAliasValidate())));

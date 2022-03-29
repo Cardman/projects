@@ -233,11 +233,14 @@ public final class AnonymousLambdaOperation extends
         block.getAllReservedInners().addAllElts(acc_.getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
-            currentFct_.getAnonymousFct().add(block);
             block.getMappings().putAllMap(currentFct_.getRefMappings());
             block.getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
             block.getMappings().putAllMap(acc_.getRefMappings());
+        }
+        AccessedFct imp_ = _page.getAccessedFct();
+        if (imp_ != null) {
+            imp_.getAnonymousFct().add(block);
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();

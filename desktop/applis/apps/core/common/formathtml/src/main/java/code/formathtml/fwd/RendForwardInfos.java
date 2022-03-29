@@ -50,6 +50,7 @@ public final class RendForwardInfos {
             pair_.setWrite(complete(_anaDoc, rendDoc_, pair_.getWrite(), loc_));
             nextPair(pair_);
         }
+        ForwardInfos.feedFct(_ana,rendDoc_,_forwards);
         return rendDoc_;
     }
 

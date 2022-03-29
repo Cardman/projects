@@ -180,11 +180,14 @@ public final class AnonymousInstancingOperation extends
         instancingAnonContent.getBlock().getAllReservedInners().addAllElts(acc_.getAllReservedInners());
         MemberCallingsBlock currentFct_ = _page.getCurrentFct();
         if (currentFct_ != null) {
-            currentFct_.getAnonymous().add(instancingAnonContent.getBlock());
             instancingAnonContent.getBlock().getMappings().putAllMap(currentFct_.getRefMappings());
             instancingAnonContent.getBlock().getAllReservedInners().addAllElts(currentFct_.getMappings().getKeys());
         } else {
             instancingAnonContent.getBlock().getMappings().putAllMap(acc_.getRefMappings());
+        }
+        AccessedFct imp_ = _page.getAccessedFct();
+        if (imp_ != null) {
+            imp_.getAnonymous().add(instancingAnonContent.getBlock());
         }
         AbsBk currentBlock_ = _page.getCurrentBlock();
         if (currentBlock_ instanceof InfoBlock) {

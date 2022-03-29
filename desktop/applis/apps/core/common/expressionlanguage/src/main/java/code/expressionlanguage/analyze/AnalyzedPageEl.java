@@ -59,6 +59,7 @@ public final class AnalyzedPageEl {
     private final AnaCache cache = new AnaCache();
 
     private MemberCallingsBlock currentFct;
+    private AccessedFct accessedFct;
     private WithContext currentCtx;
     private AccessedBlock importing;
     private AccessingImportingBlock importingAcces;
@@ -542,7 +543,16 @@ public final class AnalyzedPageEl {
 
     public void setCurrentFct(MemberCallingsBlock _currentFct) {
         currentFct = _currentFct;
+        setAccessedFct(_currentFct);
         setCurrentCtx(_currentFct);
+    }
+
+    public AccessedFct getAccessedFct() {
+        return accessedFct;
+    }
+
+    public void setAccessedFct(AccessedFct _v) {
+        this.accessedFct = _v;
     }
 
     public WithContext getCurrentCtx() {

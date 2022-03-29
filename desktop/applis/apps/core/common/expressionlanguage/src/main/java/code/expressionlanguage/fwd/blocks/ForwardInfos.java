@@ -497,7 +497,7 @@ public final class ForwardInfos {
         }
     }
 
-    private static void feedFct(MemberCallingsBlock _b1, ExecMemberCallingsBlock _value, Forwards _forwards) {
+    public static void feedFct(AccessedFct _b1, ExecAccessedFct _value, Forwards _forwards) {
         for (SwitchMethodBlock a: _b1.getSwitchMethods()) {
             _value.getSwitchMethods().add(_forwards.getSwitchMethod(a));
         }

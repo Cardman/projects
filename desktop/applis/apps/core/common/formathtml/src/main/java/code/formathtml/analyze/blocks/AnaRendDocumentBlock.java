@@ -21,7 +21,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedBlockMembers,WithContext {
+public final class AnaRendDocumentBlock extends AnaRendParentBlock implements AccessedFct,AccessedBlockMembers,WithContext {
     private final StringList allReservedInners = new StringList();
     private final CustList<RootBlock> localTypes = new CustList<RootBlock>();
     private final CustList<AnonymousTypeBlock> anonymousTypes = new CustList<AnonymousTypeBlock>();
@@ -38,6 +38,10 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private final IntTreeMap<Integer> escapedChar;
     private MethodAccessKind accessKind;
     private AnaFormattedRootBlock declClass = AnaFormattedRootBlock.defValue();
+    private final CustList<RootBlock> reserved = new CustList<RootBlock>();
+    private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
+    private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
+    private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
     public AnaRendDocumentBlock(Element _elt, String _file, int _offset, String _fileName, CustList<EncodedChar> _chars) {
         super(_offset);
         IntTreeMap<Integer> escaped_ = getIndexesSpecChars(_file, _chars);
@@ -103,6 +107,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
             _page.setImportingTypes(this);
             _page.setImportingAcces(new OperatorAccessor());
         }
+        _page.setAccessedFct(this);
         AnaRendBlock en_ = this;
         StringList labels_ = new StringList();
         while (true) {
@@ -177,6 +182,26 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     @Override
     public CustList<RootBlock> getLocalTypes() {
         return localTypes;
+    }
+
+    @Override
+    public CustList<AnonymousTypeBlock> getAnonymous() {
+        return anonymous;
+    }
+
+    @Override
+    public CustList<RootBlock> getReserved() {
+        return reserved;
+    }
+
+    @Override
+    public CustList<NamedCalledFunctionBlock> getAnonymousFct() {
+        return anonymousFct;
+    }
+
+    @Override
+    public CustList<SwitchMethodBlock> getSwitchMethods() {
+        return switchMethods;
     }
 
     @Override

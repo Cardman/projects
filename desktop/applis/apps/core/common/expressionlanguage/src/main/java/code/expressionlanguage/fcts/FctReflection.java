@@ -163,7 +163,7 @@ public abstract class FctReflection implements StdCaller {
         return str_;
     }
 
-    public static void fetchLocalTypes(StringList _methods, ExecMemberCallingsBlock _callee) {
+    public static void fetchLocalTypes(StringList _methods, ExecAccessedFct _callee) {
         if (_callee != null) {
             for (ExecRootBlock c: _callee.getReserved()) {
                 _methods.add(c.getFullName());
@@ -171,7 +171,7 @@ public abstract class FctReflection implements StdCaller {
         }
     }
 
-    public static void fetchAnonymous(StringList _methods, ExecMemberCallingsBlock _callee) {
+    public static void fetchAnonymous(StringList _methods, ExecAccessedFct _callee) {
         if (_callee != null) {
             for (ExecRootBlock c: _callee.getAnonymous()) {
                 _methods.add(c.getFullName());

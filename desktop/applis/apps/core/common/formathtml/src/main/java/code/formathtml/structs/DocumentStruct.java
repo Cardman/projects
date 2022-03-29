@@ -11,6 +11,7 @@ import code.expressionlanguage.structs.AbsAnnotatedStruct;
 import code.expressionlanguage.structs.AnnotatedStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -19,13 +20,19 @@ public final class DocumentStruct extends AbsAnnotatedStruct implements Annotate
     private final String aliasDoc;
     private final CustList<ExecAnonymousFunctionBlock> anon;
     private final CustList<ExecAbstractSwitchMethod> sw;
+    private final RendDocumentBlock docInfo;
 
-    public DocumentStruct(String _doc, String _fileName, ExecFormattedRootBlock _formatted) {
-        super(AccessEnum.PUBLIC, _fileName);
-        formatted = _formatted;
+    public DocumentStruct(String _doc, RendDocumentBlock _doInfo) {
+        super(AccessEnum.PUBLIC, _doInfo.getFileName());
+        formatted = _doInfo.getDecl();
         aliasDoc = _doc;
-        anon = new CustList<ExecAnonymousFunctionBlock>();
-        sw = new CustList<ExecAbstractSwitchMethod>();
+        anon = _doInfo.getAnonymousLambda();
+        sw = _doInfo.getSwitchMethods();
+        docInfo = _doInfo;
+    }
+
+    public RendDocumentBlock getDocInfo() {
+        return docInfo;
     }
 
     @Override
