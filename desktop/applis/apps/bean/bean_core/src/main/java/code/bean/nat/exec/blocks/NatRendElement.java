@@ -54,14 +54,14 @@ public abstract class NatRendElement extends RendParentBlock implements RendElem
         addEltStack(ip_,rw_,created_,this);
     }
 
-    public static void addEltStack(NatImportingPage _ip, RendReadWrite _rw, Element _created, RendParentBlock _block) {
-        RendIfStack if_ = new RendIfStack();
-        if_.setLabel("");
-        if_.setLastBlock(_block);
-        if_.setBlock(_block);
-        if_.setCurrentVisitedBlock(_block);
-        _ip.addBlock(if_);
-        if_.setEntered(true);
+    public static void addEltStack(NatImportingPage _nip, RendReadWrite _rw, Element _created, RendParentBlock _block) {
+        RendIfStack nif_ = new RendIfStack();
+        nif_.setLabel("");
+        nif_.setLastBlock(_block);
+        nif_.setBlock(_block);
+        nif_.setCurrentVisitedBlock(_block);
+        _nip.addBlock(nif_);
+        nif_.setEntered(true);
         _rw.setRead(_block.getFirstChild());
         _rw.setWrite(_created);
     }

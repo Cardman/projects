@@ -19,19 +19,11 @@ public final class NatImportingPage {
     private final StringMap<VariableWrapperNat> refParams = new StringMap<VariableWrapperNat>();
     private Struct internGlobal;
 
-    private final CustList<RendAbstractStask> rendBlockStacks = new CustList<RendAbstractStask>();
+    private final CustList<RendAbstractStask> natBlockStacks = new CustList<RendAbstractStask>();
 
     private String beanName;
 
     private RendReadWrite rendReadWrite;
-
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String _beanName) {
-        beanName = _beanName;
-    }
 
     public RendReadWrite getRendReadWrite() {
         return rendReadWrite;
@@ -43,6 +35,14 @@ public final class NatImportingPage {
 
     public void setRendReadWrite(RendReadWrite _rendReadWrite) {
         rendReadWrite = _rendReadWrite;
+    }
+
+    public String getBeanName() {
+        return beanName;
+    }
+
+    public void setBeanName(String _beanName) {
+        beanName = _beanName;
     }
 
     public Argument getGlobalArgument() {
@@ -67,12 +67,17 @@ public final class NatImportingPage {
 
 
     public void addBlock(RendAbstractStask _b) {
-        rendBlockStacks.add(_b);
+        natBlockStacks.add(_b);
     }
 
     public void removeRendLastBlock() {
-        RendAbstractStask last_ = rendBlockStacks.last();
+        RendAbstractStask last_ = natBlockStacks.last();
 //        last_.getCurrentVisitedBlock().removeAllVars(this);
+        local(last_);
+        natBlockStacks.removeQuicklyLast();
+    }
+
+    private void local(RendAbstractStask last_) {
         if (last_ instanceof RendIfStack) {
             if (((RendIfStack)last_).getBlock() instanceof RendElem) {
                 rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
@@ -92,26 +97,17 @@ public final class NatImportingPage {
                 formsNb_.removeQuicklyLast();
             }
         }
-        rendBlockStacks.removeQuicklyLast();
-    }
-
-    public Struct getInternGlobal() {
-        return internGlobal;
-    }
-
-    public void setInternGlobal(Struct _internGlobal) {
-        internGlobal = _internGlobal;
     }
 
     public RendAbstractStask tryGetRendLastStack() {
         if (hasBlock()) {
-            return rendBlockStacks.last();
+            return natBlockStacks.last();
         }
         return null;
     }
 
     public boolean hasBlock() {
-        return !rendBlockStacks.isEmpty();
+        return !natBlockStacks.isEmpty();
     }
 
     public RendLoopBlockStack getLastLoopIfPossible(RendBlock _bl) {
@@ -135,6 +131,14 @@ public final class NatImportingPage {
 
     public void putValueVar(String _var, VariableWrapperNat _local) {
         refParams.put(_var,_local);
+    }
+
+    public Struct getInternGlobal() {
+        return internGlobal;
+    }
+
+    public void setInternGlobal(Struct _internGlobal) {
+        internGlobal = _internGlobal;
     }
 
 }

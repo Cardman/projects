@@ -23,10 +23,6 @@ public final class NatRendStackCall {
         document = null;
     }
 
-    public HtmlPage getHtmlPage() {
-        return htmlPage;
-    }
-
     public Document getDocument() {
         return document;
     }
@@ -35,6 +31,9 @@ public final class NatRendStackCall {
         document = _document;
     }
 
+    public HtmlPage getHtmlPage() {
+        return htmlPage;
+    }
 
     public void clearPages() {
         importing.clear();
@@ -60,19 +59,19 @@ public final class NatRendStackCall {
         return formParts;
     }
 
-    public Struct getMainBean() {
-        return mainBean;
-    }
-
-    public void setMainBean(Struct _mainBean) {
-        mainBean = _mainBean;
-    }
-
     public String getBeanName() {
         return beanName;
     }
 
     public void setBeanName(String _beanName) {
         beanName = _beanName;
+    }
+
+    public Struct getMainBean() {
+        return mainBean;
+    }
+
+    public void setMainBean(Struct _mainBean) {
+        mainBean = _mainBean;
     }
 }

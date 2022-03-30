@@ -65,19 +65,19 @@ public final class NatRendForEachTable extends RendParentBlock implements NatRen
         processLastElementLoop(l_, _rendStack);
     }
 
-    public static RendLoopBlockStack addedStack(NatImportingPage _ip, Struct _its, long _length, Argument _arg, String _label, RendParentBlock _block) {
+    public static RendLoopBlockStack addedStack(NatImportingPage _nip, Struct _its, long _length, Argument _arg, String _label, RendParentBlock _block) {
         Struct iterStr_ = _arg.getStruct();
-        RendLoopBlockStack l_ = new RendLoopBlockStack();
-        l_.setLabel(_label);
-        l_.getContent().setIndex(-1);
-        l_.getContent().setFinished(false);
-        l_.setBlock(_block);
-        l_.setCurrentVisitedBlock(_block);
-        l_.getContent().setStructIterator(iterStr_);
-        l_.getContent().setMaxIteration(_length);
-        l_.getContent().setContainer(_its);
-        _ip.addBlock(l_);
-        return l_;
+        RendLoopBlockStack nl_ = new RendLoopBlockStack();
+        nl_.setLabel(_label);
+        nl_.getContent().setIndex(-1);
+        nl_.getContent().setFinished(false);
+        nl_.setBlock(_block);
+        nl_.setCurrentVisitedBlock(_block);
+        nl_.getContent().setStructIterator(iterStr_);
+        nl_.getContent().setMaxIteration(_length);
+        nl_.getContent().setContainer(_its);
+        _nip.addBlock(nl_);
+        return nl_;
     }
     Struct processLoopTable(BeanLgNames _advStandards, NatRendStackCall _rendStackCall) {
         Argument arg_ = Argument.getNullableValue(((BeanNatCommonLgNames)_advStandards).getAllArgs(exp.getList(), _rendStackCall).lastValue().getArgument());

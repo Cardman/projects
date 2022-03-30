@@ -1,7 +1,6 @@
 package code.scripts.confs;
 
 import code.bean.nat.NatDualConfigurationContext;
-import code.formathtml.util.DualConfigurationContext;
 import code.util.*;
 
 public final class HelpScriptPagesImgs {
