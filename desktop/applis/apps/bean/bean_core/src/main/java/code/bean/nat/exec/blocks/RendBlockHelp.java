@@ -93,7 +93,7 @@ public final class RendBlockHelp {
             return;
         }
         RendParentBlock par_ = _rendBlock.getParent();
-        RendAbstractStask lastStackNat_ = ip_.tryGetRendLastStack();
+        RendAbstractStask lastStackNat_ = ip_.tryGetNatLastStack();
         if (lastStackNat_ != null) {
             rw_.setRead(par_);
             if (lastStackNat_ instanceof RendLoopBlockStack) {
@@ -157,7 +157,7 @@ public final class RendBlockHelp {
     public static void processElseIf(BeanLgNames _stds, NatRendCondition _cond, NatRendStackCall _rendStackCall) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
-        RendAbstractStask if_ = ip_.tryGetRendLastStack();
+        RendAbstractStask if_ = ip_.tryGetNatLastStack();
         if (!(if_ instanceof RendIfStack)) {
             ip_.setNullRendReadWrite();
             return;
@@ -185,7 +185,7 @@ public final class RendBlockHelp {
 
     public static void processEnt(RendParentBlock _cond, NatRendStackCall _rendStackCall) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
-        RendAbstractStask ifNat_ = ip_.tryGetRendLastStack();
+        RendAbstractStask ifNat_ = ip_.tryGetNatLastStack();
         if (!(ifNat_ instanceof RendEnteredStack)) {
             ip_.setNullRendReadWrite();
             return;

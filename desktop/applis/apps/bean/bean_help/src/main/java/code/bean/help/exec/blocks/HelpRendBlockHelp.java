@@ -29,7 +29,7 @@ public final class HelpRendBlockHelp {
             return;
         }
         RendParentBlock par_ = _rendBlock.getParent();
-        RendAbstractStask lastStack_ = ip_.tryGetRendLastStack();
+        RendAbstractStask lastStack_ = ip_.tryGetNatLastStack();
         if (lastStack_ != null) {
             rw_.setRead(par_);
             nextIfStack(rw_, (RendIfStack) lastStack_);

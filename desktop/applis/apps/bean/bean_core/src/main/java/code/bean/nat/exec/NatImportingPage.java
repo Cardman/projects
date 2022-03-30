@@ -23,18 +23,18 @@ public final class NatImportingPage {
 
     private String beanName;
 
-    private RendReadWrite rendReadWrite;
+    private RendReadWrite natReadWrite;
 
     public RendReadWrite getRendReadWrite() {
-        return rendReadWrite;
+        return natReadWrite;
     }
 
     public void setNullRendReadWrite() {
-        rendReadWrite = null;
+        natReadWrite = null;
     }
 
     public void setRendReadWrite(RendReadWrite _rendReadWrite) {
-        rendReadWrite = _rendReadWrite;
+        natReadWrite = _rendReadWrite;
     }
 
     public String getBeanName() {
@@ -80,18 +80,18 @@ public final class NatImportingPage {
     private void local(RendAbstractStask last_) {
         if (last_ instanceof RendIfStack) {
             if (((RendIfStack)last_).getBlock() instanceof RendElem) {
-                rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
+                natReadWrite.setWrite(RendBlock.getParentNode(natReadWrite));
             }
             if (((RendIfStack)last_).getBlock() instanceof RendFormInt) {
-                CustList<LongTreeMap<NodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
-                Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
+                CustList<LongTreeMap<NodeContainer>> map_ = natReadWrite.getConf().getContainersMapStack();
+                Longs formsNb_ = natReadWrite.getConf().getFormsNb();
                 Long nb_ = formsNb_.last();
                 LongTreeMap<NodeContainer> containers_ = map_.last();
-                rendReadWrite.getConf().getContainersMap().put(nb_, containers_);
-                CustList<StringList> formatId_ = rendReadWrite.getConf().getFormatIdMapStack();
+                natReadWrite.getConf().getContainersMap().put(nb_, containers_);
+                CustList<StringList> formatId_ = natReadWrite.getConf().getFormatIdMapStack();
                 StringList fid_ = formatId_.last();
-                rendReadWrite.getConf().getFormatIdMap().put(nb_,fid_);
-                rendReadWrite.getConf().getInputs().removeLast();
+                natReadWrite.getConf().getFormatIdMap().put(nb_,fid_);
+                natReadWrite.getConf().getInputs().removeLast();
                 map_.removeQuicklyLast();
                 formatId_.removeQuicklyLast();
                 formsNb_.removeQuicklyLast();
@@ -99,7 +99,7 @@ public final class NatImportingPage {
         }
     }
 
-    public RendAbstractStask tryGetRendLastStack() {
+    public RendAbstractStask tryGetNatLastStack() {
         if (hasBlock()) {
             return natBlockStacks.last();
         }
@@ -112,7 +112,7 @@ public final class NatImportingPage {
 
     public RendLoopBlockStack getLastLoopIfPossible(RendBlock _bl) {
         RendLoopBlockStack c_ = null;
-        RendAbstractStask last_ = tryGetRendLastStack();
+        RendAbstractStask last_ = tryGetNatLastStack();
         if (last_ instanceof RendLoopBlockStack) {
             c_ = (RendLoopBlockStack) last_;
         }
@@ -122,7 +122,7 @@ public final class NatImportingPage {
         return null;
     }
     public boolean matchStatement(RendBlock _bl) {
-        RendAbstractStask last_ = tryGetRendLastStack();
+        RendAbstractStask last_ = tryGetNatLastStack();
         if (!(last_ instanceof RendConditionBlockStack)) {
             return false;
         }
