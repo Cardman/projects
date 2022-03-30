@@ -14,6 +14,7 @@ import code.stream.AbstractFile;
 import code.stream.AbstractFileCoreStream;
 import code.stream.FileListInfo;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -53,20 +54,14 @@ public final class VideoLoading {
                 }
             } else {
                 CustList<AbstractImage> imgs_ = new CustList<AbstractImage>();
-                int i_ = IndexConstants.FIRST_INDEX;
-                while (true) {
+                for (EntryCust<String, String> e: MessPkVideoGr.ms().entryList()) {
+                    if (!e.getKey().startsWith(VIDEO_DEFAULT)) {
+                        continue;
+                    }
                     int[][] txtFile_ = BaseSixtyFourUtil.getImageByString(
-                            MessPkVideoGr.ms().getVal(StringUtil.concat(VIDEO_DEFAULT,Long.toString(i_),
-                                    DataBase.IMG_FILES_RES_EXT_TXT)));
-                    if (txtFile_.length == 0) {
-                        break;
-                    }
+                            e.getValue());
                     AbstractImage image_ = ConverterGraphicBufferedImage.decodeToImage(_abInfo.getImageFactory(),txtFile_);
-                    if (image_ == null) {
-                        break;
-                    }
                     imgs_.add(image_);
-                    i_++;
                 }
                 images.add(imgs_);
             }
