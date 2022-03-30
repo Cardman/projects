@@ -1,8 +1,8 @@
 package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.bean.nat.fwd.opers.NatAnaCallFctContent;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
+import code.bean.nat.fwd.opers.NatAnaCallFctContent;
 
 public final class FctNatOperation extends InvokingNatOperation {
 

@@ -1,7 +1,6 @@
 package code.bean.nat.exec.opers;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
@@ -16,7 +15,7 @@ public final class NatAffectationOperation extends NatAbstractAffectOperation {
     }
 
     @Override
-    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, RendStackCall _rendStack) {
         RendDynOperationNode right_ = getLastNode(this);
         Argument rightArg_ = getArgument(_nodes,right_);
         Argument arg_ = calculateChSetting(getSettable(),_nodes, rightArg_, _advStandards, _rendStack);

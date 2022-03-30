@@ -1,15 +1,15 @@
 package code.bean.nat.analyze;
 
+import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.AffectationNatOperation;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.opers.NatSettableElResult;
 import code.bean.nat.analyze.opers.SettableAbstractFieldNatOperation;
-import code.expressionlanguage.common.ClassField;
 import code.bean.nat.fwd.opers.NatAnaSettableOperationContent;
+import code.expressionlanguage.common.ClassField;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.StringList;

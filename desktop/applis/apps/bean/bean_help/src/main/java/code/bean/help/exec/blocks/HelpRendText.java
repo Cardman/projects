@@ -1,6 +1,6 @@
 package code.bean.help.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -8,9 +8,10 @@ import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendLeaf;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
-import code.sml.*;
+import code.sml.Document;
+import code.sml.Text;
 
-public final class HelpRendText extends RendLeaf {
+public final class HelpRendText extends RendLeaf implements NatRendWithEl {
 
     private final ExecTextPart textPart;
 
@@ -19,7 +20,7 @@ public final class HelpRendText extends RendLeaf {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
         ImportingPage lastPage_ = _rendStack.getLastPage();
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
         Document doc_ = rend_.getDocument();

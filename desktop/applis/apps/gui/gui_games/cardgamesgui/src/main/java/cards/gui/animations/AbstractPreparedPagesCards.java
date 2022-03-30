@@ -5,8 +5,6 @@ import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NativeConfigurationLoader;
 import code.bean.nat.fwd.DefNatBlockBuilder;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.gui.document.PreparedAnalyzed;
@@ -21,7 +19,6 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
     private static final String IMPLICIT_LANGUAGE = "//";
     private final String lg;
     private final BeanNatLgNames beanNatLgNames;
-    private ContextEl context;
     private Navigation navigation;
     private final StringMap<Document> built;
 
@@ -38,8 +35,8 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         navigation.setLanguages(Constants.getAvailableLanguages());
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(beanNatLgNames, _init);
         Configuration session_ = new Configuration();
-        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
-        Forwards forwards_ = nat_.getForwards();
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
+        nat_.getForwards();
         d_.init(session_);
         navigation.setSession(session_);
         StringMap<String> files_ = new StringMap<String>();
@@ -62,7 +59,6 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
         session_.setFirstUrl(realFilePath_);
         navigation.setFiles(files_);
         beanNatLgNames.setupAll(docs_,navigation, navigation.getSession(), new DefNatBlockBuilder(), d_);
-        this.context = forwards_.generate();
     }
 
     static String getRealFilePath(String _lg, String _link) {
@@ -79,11 +75,6 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
 
     protected String getLg() {
         return lg;
-    }
-
-    @Override
-    public ContextEl getContext() {
-        return context;
     }
 
     @Override

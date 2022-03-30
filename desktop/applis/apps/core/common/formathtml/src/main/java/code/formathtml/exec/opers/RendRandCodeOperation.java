@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendRandCodeOperation extends RendMethodOperation implements RendCalculableOperation {
@@ -15,7 +14,7 @@ public final class RendRandCodeOperation extends RendMethodOperation implements 
         opOffset = _opOffset;
     }
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode opOne_ = getFirstNode(this);
         Argument a_ = getArgument(_nodes,opOne_);
         setRelOffsetPossibleLastPage(opOffset, _rendStack);

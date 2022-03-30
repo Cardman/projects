@@ -37,7 +37,7 @@ public final class RendSubmit extends RendElement {
         StringList objects_ = new StringList();
         for (EntryCust<String,ExecTextPart> e:opExp.entryList()) {
             ExecTextPart r_ = e.getValue();
-            objects_.add(RenderingText.render(r_, _stds, _ctx, _rendStack));
+            objects_.add(RenderingText.render(r_, _ctx, _rendStack));
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

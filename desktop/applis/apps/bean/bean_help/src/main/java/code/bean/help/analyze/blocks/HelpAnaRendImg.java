@@ -1,7 +1,7 @@
 package code.bean.help.analyze.blocks;
 
-import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.help.analyze.HelpResultText;
+import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.sml.Element;

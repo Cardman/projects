@@ -9,7 +9,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -26,7 +25,7 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
         staticPostEltContent = _staticPostEltContent;
     }
 
-    static void process(RendCompoundAffectationOperation _curr, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack, Argument _res) {
+    static void process(RendCompoundAffectationOperation _curr, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _res) {
         Argument res_ = _res;
         ImplicitMethods converter_ = _curr.getConverter();
         if (converter_ != null) {
@@ -37,14 +36,14 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
             res_ = conv_;
         }
         Argument leftArg_ = firstArg(_curr, _nodes);
-        _curr.calculateChSetting(_nodes, res_, _advStandards, _context, _rendStack);
+        _curr.calculateChSetting(_nodes, res_, _context, _rendStack);
         Argument arg_ = RendSemiAffectationOperation.getPrePost(_curr.isStaticPostEltContent(),leftArg_, res_);
 //        Argument arg_ = endCalculate(_nodes,leftArg_, res_, _advStandards, _context, _rendStack,isStaticPostEltContent());
         _curr.setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 
     @Override
-    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, getSettableAnc());
         Argument leftArg_ = Argument.getNullableValue(argumentPair_.getArgument());
         if (argumentPair_.isArgumentTest()){
@@ -52,14 +51,14 @@ public abstract class RendCompoundAffectationOperation extends RendAbstractAffec
                 setSimpleArgument(leftArg_, _nodes, _context, _rendStack);
                 return;
             }
-            Argument arg_ = calculateChSetting(_nodes, leftArg_, _advStandards, _context, _rendStack);
+            Argument arg_ = calculateChSetting(_nodes, leftArg_, _context, _rendStack);
             setSimpleArgument(arg_, _nodes, _context, _rendStack);
             return;
         }
-        calculateSpec(_nodes, _advStandards, _context, _rendStack);
+        calculateSpec(_nodes, _context, _rendStack);
     }
 
-    protected abstract void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
+    protected abstract void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack);
 
     public boolean isStaticPostEltContent() {
         return staticPostEltContent;

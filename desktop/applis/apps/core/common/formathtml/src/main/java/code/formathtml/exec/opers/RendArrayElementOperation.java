@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.opers.ExecArrayInstancingContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
@@ -21,7 +20,7 @@ public final class RendArrayElementOperation extends
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         int off_ = getMethodName();
         setRelOffsetPossibleLastPage(off_, _rendStack);

@@ -3,12 +3,11 @@ package code.bean.nat.exec.opers;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.exec.opers.RendCalculableOperation;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendMethodOperation;
 import code.util.IdMap;
 
-public abstract class NatAbstractDotOperation extends RendMethodOperation implements RendCalculableOperation {
+public abstract class NatAbstractDotOperation extends RendMethodOperation implements NatRendCalculableOperation {
     protected NatAbstractDotOperation(ExecOperationContent _content) {
         super(_content);
     }

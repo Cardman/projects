@@ -2,7 +2,6 @@ package cards.tarot.beans;
 
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
-import code.bean.Bean;
 import code.bean.nat.*;
 import code.bean.nat.exec.opers.NatStdFctOperation;
 import code.expressionlanguage.Argument;
@@ -309,7 +308,7 @@ public final class TarotStandards extends BeanNatLgNames {
         _rendStack.addPage(ip_);
         RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, _ctx, _rendStack);
+        return getRes(rendDocumentBlock_,_conf, _rendStack);
     }
 
     @Override

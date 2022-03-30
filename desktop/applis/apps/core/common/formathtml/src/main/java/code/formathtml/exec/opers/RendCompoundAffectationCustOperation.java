@@ -9,7 +9,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -25,10 +24,10 @@ public final class RendCompoundAffectationCustOperation extends RendCompoundAffe
     }
 
     @Override
-    protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, staticEltContent, _rendStack);
         Argument res_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack).getValue();
-        process(this, _nodes, _advStandards, _context, _rendStack, res_);
+        process(this, _nodes, _context, _rendStack, res_);
     }
 
 }

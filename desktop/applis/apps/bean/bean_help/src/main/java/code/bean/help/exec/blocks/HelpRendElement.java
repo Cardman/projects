@@ -1,6 +1,6 @@
 package code.bean.help.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -10,11 +10,13 @@ import code.formathtml.exec.blocks.RendElement;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
-import code.sml.*;
+import code.sml.Document;
+import code.sml.Element;
+import code.sml.Node;
 import code.util.EntryCust;
 import code.util.StringMap;
 
-public abstract class HelpRendElement extends RendParentBlock implements RendElem {
+public abstract class HelpRendElement extends RendParentBlock implements RendElem, NatRendWithEl {
     private final Element read;
     private final StringMap<ExecTextPart> helpAttributes;
 
@@ -28,7 +30,7 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
@@ -37,7 +39,7 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
         }
         Document ownerDocument_ = rw_.getDocument();
         Element created_ = appendChild(ownerDocument_, rw_, read);
-        processExecAttr(_cont,created_,read, _stds, _ctx, _rendStack);
+        processExecAttr(_cont,created_,read, _stds, _rendStack);
         for (EntryCust<String, ExecTextPart> e: helpAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
             String txt_ = HelpRenderingText.render(res_);
@@ -46,6 +48,6 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
         RendElement.addEltStack(ip_,rw_,created_,this);
     }
 
-    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack);
+    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack);
 
 }

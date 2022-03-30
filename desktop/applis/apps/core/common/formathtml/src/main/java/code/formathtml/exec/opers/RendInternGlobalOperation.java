@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendInternGlobalOperation extends RendLeafOperation implements RendCalculableOperation {
@@ -18,7 +17,7 @@ public final class RendInternGlobalOperation extends RendLeafOperation implement
 
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(off, _rendStack);
         Struct struct_ = _rendStack.getInternGlobal();
         Argument arg_ = new Argument(struct_);

@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -21,7 +20,7 @@ public final class RendCompoundAffectationNatSafeOperation extends RendCompoundA
 
 
     @Override
-    protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    protected void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode left_ = getFirstNode(this);
         RendDynOperationNode right_ = getLastNode(this);
         Argument leftArg_ = getArgument(_nodes,left_);
@@ -31,7 +30,7 @@ public final class RendCompoundAffectationNatSafeOperation extends RendCompoundA
             return;
         }
         Argument res_ = RendNumericOperation.calculateAffect(leftArg_, rightArg_, getNames(), _context,_rendStack);
-        Argument arg_ = calculateChSetting(_nodes,res_,_advStandards,_context,_rendStack);
+        Argument arg_ = calculateChSetting(_nodes,res_, _context,_rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

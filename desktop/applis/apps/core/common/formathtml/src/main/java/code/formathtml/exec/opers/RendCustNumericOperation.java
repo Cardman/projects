@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendCustNumericOperation extends RendNumericOperation {
@@ -23,7 +22,7 @@ public final class RendCustNumericOperation extends RendNumericOperation {
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(getOpOffset(), _rendStack);
         checkParametersOperatorsFormatted(_context.getExiting(), _context, pair, _nodes, staticEltContent, _rendStack);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(Argument.createVoid(), _context, _rendStack);

@@ -5888,7 +5888,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //        RendStackCall build_ = _conf.build(InitPhase.NOTHING, _ctx);
         build_.addPage(new ImportingPage());
         setupValues(build_.getLastPage(), _localVariables, _vars);
-        Struct object_ = RenderExpUtil.calculateReuse(_out, _conf.getDualAnalyzedContext().getStds(), _ctx, build_).getStruct();
+        Struct object_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_out, _ctx, build_).lastValue().getArgument()).getStruct();
         assertNull(build_.getStackCall().getCallingState());
         return new Argument(object_);
     }

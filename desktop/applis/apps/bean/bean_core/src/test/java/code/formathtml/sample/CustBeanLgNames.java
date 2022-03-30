@@ -86,6 +86,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     private static final String SET_TYPED_INT = "setTypedInt";
     private static final String GO_TEXT_AREA = "goTextArea";
     private static final String GO = "go";
+    private static final String GO2 = "go2";
     private static final String GET_CHOSEN_NUMBERS = "getChosenNumbers";
     private static final String TYPED_STRING = "typedString";
     private static final String TYPED_INT = "typedInt";
@@ -346,6 +347,9 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         methods_.add( method_);
         params_ = new StringList(getContent().getNbAlias().getAliasLong());
         method_ = new SpecNatMethod(GO,params_, getAliasString(), false, MethodModifier.NORMAL);
+        methods_.add( method_);
+        params_ = new StringList(getContent().getNbAlias().getAliasLong());
+        method_ = new SpecNatMethod(GO2,params_, getAliasString(), false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
         method_ = new SpecNatMethod(GO_TEXT_AREA,params_, getAliasString(), false, MethodModifier.NORMAL);
@@ -826,7 +830,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             ((BeanStruct) bean_).setForms(forms_);
         }
         _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, _ctx, _rendStack);
+        return getRes(rendDocumentBlock_,_conf, _rendStack);
     }
 
     @Override
@@ -958,10 +962,8 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             if (StringUtil.quickEq(methodName_,GO)) {
-                if (_method.getConstraints().getParametersTypesLength() == 0) {
-                    res_.setResult(new StringStruct(((BeanStruct)_instance).go()));
-                    return res_;
-                }
+                res_.setResult(new StringStruct(((BeanStruct)_instance).go()));
+                return res_;
             }
         }
         return res_;

@@ -2,7 +2,6 @@ package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-
 import code.maths.litteralcom.StrTypes;
 
 public final class AffectationNatOperation extends MethodNatOperation {

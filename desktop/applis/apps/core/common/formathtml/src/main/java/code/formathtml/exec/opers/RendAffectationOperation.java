@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -17,7 +16,7 @@ public final class RendAffectationOperation extends RendAbstractAffectOperation 
     }
 
     @Override
-    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         if (getSettable() instanceof RendStdRefVariableOperation && ((RendStdRefVariableOperation) getSettable()).isDeclare()) {
             CustList<RendDynOperationNode> childrenNodes_ = getChildrenNodes();
             ArgumentsPair pairRight_ = getArgumentPair(_nodes, getNode(childrenNodes_, childrenNodes_.size() - 1));
@@ -27,7 +26,7 @@ public final class RendAffectationOperation extends RendAbstractAffectOperation 
         }
         RendDynOperationNode right_ = getLastNode(this);
         Argument rightArg_ = getArgument(_nodes,right_);
-        Argument arg_ = calculateChSetting(_nodes, rightArg_, _advStandards, _context, _rendStack);
+        Argument arg_ = calculateChSetting(_nodes, rightArg_, _context, _rendStack);
         setSimpleArgument(arg_, _nodes, _context, _rendStack);
     }
 

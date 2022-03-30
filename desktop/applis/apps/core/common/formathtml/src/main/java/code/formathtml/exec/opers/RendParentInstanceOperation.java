@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecParentInstanceContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -23,7 +22,7 @@ public final class RendParentInstanceOperation extends RendLeafOperation impleme
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(parentInstanceContent.getOff(), _rendStack);
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         Struct struct_ = previous_.getStruct();

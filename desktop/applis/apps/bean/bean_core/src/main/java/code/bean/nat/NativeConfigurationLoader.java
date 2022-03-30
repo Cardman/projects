@@ -1,6 +1,5 @@
 package code.bean.nat;
 
-import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 
@@ -17,7 +16,7 @@ public final class NativeConfigurationLoader {
         return stds.setupNative(stds.getNatCode());
     }
 
-    public NatDualConfigurationContext getDualConfigurationContext(Configuration _configuration, AbstractFileBuilder _fileBuilder) {
+    public NatDualConfigurationContext getDualConfigurationContext(Configuration _configuration) {
         NatDualConfigurationContext d_ = new NatDualConfigurationContext();
         specificLoadBegin(_configuration, d_);
         return d_;

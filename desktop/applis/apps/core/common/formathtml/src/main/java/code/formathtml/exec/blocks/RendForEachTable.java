@@ -6,14 +6,11 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
+import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -60,7 +57,7 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
 //            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
-        Struct its_ = processLoopTable(_stds, _ctx, _rendStack);
+        Struct its_ = processLoopTable(_ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -103,10 +100,10 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         return l_;
     }
 
-    Struct processLoopTable(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    Struct processLoopTable(ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.setOffset(exp.getOffset());
-        Argument arg_ = RenderExpUtil.calculateReuse(exp.getList(), _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(exp.getList(), _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }

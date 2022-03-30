@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -18,7 +17,7 @@ public final class RendEqOperation extends RendMethodOperation implements RendCa
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument first_ = getArgument(_nodes,getFirstNode(this));
         Argument second_ = getArgument(_nodes,getLastNode(this));
         String op_ = oper.trim();

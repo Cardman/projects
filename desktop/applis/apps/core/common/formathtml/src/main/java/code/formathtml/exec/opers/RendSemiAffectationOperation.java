@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -24,15 +23,15 @@ public abstract class RendSemiAffectationOperation extends RendAbstractAffectOpe
     }
 
     @Override
-    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
-        calculateSpec(_nodes, _advStandards, _context, _rendStack);
+    protected void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+        calculateSpec(_nodes, _context, _rendStack);
     }
 
     public ImplicitMethods getConverterTo() {
         return converterTo;
     }
 
-    protected abstract void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
+    protected abstract void calculateSpec(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack);
 
     public boolean isPost() {
         return post;

@@ -36,7 +36,7 @@ public final class RendRadio extends RendInput {
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
-        Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _ctx, _rendStack);
+        Argument arg_ = processIndexes(_cont, _read, elt_, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -44,7 +44,7 @@ public final class RendRadio extends RendInput {
         if (!opsConverterFieldValue.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
             _rendStack.getLastPage().putValueVar(varNameConverterFieldValue, new VariableWrapper(locVar_));
-            Argument argConv_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _stds, _ctx, _rendStack);
+            Argument argConv_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterFieldValue, _ctx, _rendStack).lastValue().getArgument());
             _rendStack.getLastPage().removeRefVar(varNameConverterFieldValue);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;

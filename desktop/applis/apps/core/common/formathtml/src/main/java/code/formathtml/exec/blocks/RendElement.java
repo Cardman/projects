@@ -11,7 +11,7 @@ import code.sml.*;
 import code.util.EntryCust;
 import code.util.StringMap;
 
-public abstract class RendElement extends RendParentBlock implements RendElem {
+public abstract class RendElement extends RendParentBlock implements RendElem, RendWithEl {
     private final Element read;
     private final StringMap<ExecTextPart> execAttributes;
     private final StringMap<ExecTextPart> execAttributesText;
@@ -38,7 +38,7 @@ public abstract class RendElement extends RendParentBlock implements RendElem {
         Element created_ = appendChild(ownerDocument_, rw_, read);
         for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _stds, _ctx, _rendStack);
+            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
@@ -50,7 +50,7 @@ public abstract class RendElement extends RendParentBlock implements RendElem {
         }
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _stds, _ctx, _rendStack);
+            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

@@ -9,7 +9,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendStdRefVariableOperation extends RendLeafOperation implements
@@ -28,7 +27,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _rendStack);
         ImportingPage ip_ = _rendStack.getLastPage();
         AbstractWrapper val_ = ExecVariableTemplates.getWrapper(variableContent,null,ip_.getRefParams());
@@ -52,7 +51,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
         return trySetArgument(_nodes,_context, _right, _rendStack);
     }
 

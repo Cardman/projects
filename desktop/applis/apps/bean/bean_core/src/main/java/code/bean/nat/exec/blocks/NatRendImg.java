@@ -1,7 +1,6 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
@@ -21,8 +20,8 @@ public final class NatRendImg extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        String pageName_ = NatRenderingText.renderNat(textPart, _stds, _ctx, _rendStack);
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
+        String pageName_ = NatRenderingText.renderNat(textPart, _stds, _rendStack);
         prImg(_cont, (Element) _nextWrite, pageName_);
     }
 

@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -24,7 +23,7 @@ public final class RendNullSafeOperation extends RendMethodOperation implements 
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelativeOffsetPossibleLastPage(opOffset, _rendStack);
         RendDynOperationNode first_ = getFirstNode(this);
         Argument f_ = getArgument(_nodes,first_);

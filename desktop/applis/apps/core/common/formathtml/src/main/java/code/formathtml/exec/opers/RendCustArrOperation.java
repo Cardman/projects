@@ -11,7 +11,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -29,7 +28,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
         readWrite = new ExecTypeFunctionPair(_get,_set);
     }
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         if (resultCanBeSet()) {
             Struct array_ = getPreviousArgument(_nodes,this).getStruct();
             Argument a_ = new Argument(array_);
@@ -45,7 +44,7 @@ public final class RendCustArrOperation extends RendInvokingOperation implements
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
         return processCalling(_nodes, _right, _context, _rendStack);
     }
 

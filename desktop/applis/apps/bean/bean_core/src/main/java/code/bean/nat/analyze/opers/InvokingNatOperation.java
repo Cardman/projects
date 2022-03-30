@@ -1,7 +1,7 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.functionid.*;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.maths.litteralcom.StrTypes;
 
 public abstract class InvokingNatOperation extends MethodNatOperation implements NatPossibleIntermediateDotted {

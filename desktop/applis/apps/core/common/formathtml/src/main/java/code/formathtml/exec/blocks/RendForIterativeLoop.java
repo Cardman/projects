@@ -62,14 +62,14 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
 //            processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
-        RendLoopBlockStack l_ = processLoop(_stds, _ctx, _rendStack);
+        RendLoopBlockStack l_ = processLoop(_ctx, _rendStack);
         if (l_ == null) {
             return;
         }
         visitOrFinish(_cont,_stds,_ctx,_rendStack,this,ip_,l_);
     }
 
-    private RendLoopBlockStack processLoop(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private RendLoopBlockStack processLoop(ContextEl _ctx, RendStackCall _rendStackCall) {
         LgNames stds_ = _ctx.getStandards();
         String null_ = stds_.getContent().getCoreNames().getAliasNullPe();
         ImportingPage ip_ = _rendStackCall.getLastPage();
@@ -77,7 +77,7 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
         String var_ = getVariableName();
 
         ip_.setOffset(init.getOffset());
-        Argument argFrom_ = RenderExpUtil.calculateReuse(init.getList(), _advStandards, _ctx, _rendStackCall);
+        Argument argFrom_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(init.getList(), _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return null;
         }
@@ -86,7 +86,7 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
             return null;
         }
         ip_.setOffset(exp.getOffset());
-        Argument argTo_ = RenderExpUtil.calculateReuse(exp.getList(), _advStandards, _ctx, _rendStackCall);
+        Argument argTo_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(exp.getList(), _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return null;
         }
@@ -95,7 +95,7 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
             return null;
         }
         ip_.setOffset(step.getOffset());
-        Argument argStep_ = RenderExpUtil.calculateReuse(step.getList(), _advStandards, _ctx, _rendStackCall);
+        Argument argStep_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(step.getList(), _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return null;
         }

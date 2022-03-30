@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendUnaryBooleanOperation extends RendMethodOperation implements RendCalculableOperation {
@@ -16,7 +15,7 @@ public final class RendUnaryBooleanOperation extends RendMethodOperation impleme
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument arg_ = getArgument(_nodes,getFirstNode(this));
         BooleanStruct o_ = NumParsers.convertToBoolean(arg_.getStruct());
         Argument a_ = new Argument(o_.neg());

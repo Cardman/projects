@@ -10,7 +10,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.RangeStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.IndexConstants;
@@ -25,7 +24,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         CustList<RendDynOperationNode> chidren_ = getChildrenNodes();
         int max_ = chidren_.size();
         if (resultCanBeSet()) {
@@ -63,7 +62,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
         return processArray(_nodes,_right,_context,_rendStack);
     }
 

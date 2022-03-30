@@ -74,11 +74,11 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        Argument value_ = RenderExpUtil.calculateReuse(opsValue, _stds, _ctx, _rendStack);
+        Argument value_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsValue, _ctx, _rendStack).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        Argument map_ = RenderExpUtil.calculateReuse(opsMap, _stds, _ctx, _rendStack);
+        Argument map_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsMap, _ctx, _rendStack).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -101,7 +101,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         boolean id_ = false;
         for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _stds, _ctx, _rendStack);
+            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
@@ -113,14 +113,14 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                     elt.getAttribute(_cont.getRendKeyWords().getAttrValidator()));
         }
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
-        processIndexes(_cont,elt,docElementSelect_, _stds, _ctx, _rendStack);
+        processIndexes(_cont,elt,docElementSelect_, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
         possibleSelect(_cont, _rendStack, docElementSelect_);
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _stds, _ctx, _rendStack);
+            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
@@ -148,7 +148,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
 
     private void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
                                        Document _docSelect, Element _docElementSelect, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
-        Argument argDef_ = RenderExpUtil.calculateReuse(opsDefault, _advStandards, _ctx, _rendStackCall);
+        Argument argDef_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsDefault, _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
@@ -193,7 +193,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                 continue;
             }
             Element option_ = _docSelect.createElement(_conf.getRendKeyWords().getKeyWordOption());
-            String value_ = processOptionValue(o_, _advStandards, _ctx, _rendStackCall);
+            String value_ = processOptionValue(o_, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
@@ -208,7 +208,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
-            String txt_ = processOptionText(second_, _advStandards, _ctx, _rendStackCall);
+            String txt_ = processOptionText(second_, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
@@ -216,26 +216,26 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             _docElementSelect.appendChild(option_);
         }
     }
-    private String processOptionValue(Struct _arg, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private String processOptionValue(Struct _arg, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (opsConverterField.isEmpty()) {
             return getStringKey(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
         _rendStackCall.getLastPage().putValueVar(varNameConverterField, new VariableWrapper(locVar_));
-        Argument arg_ = RenderExpUtil.calculateReuse(opsConverterField, _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterField, _ctx, _rendStackCall).lastValue().getArgument());
         _rendStackCall.getLastPage().removeRefVar(varNameConverterField);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
         }
         return BeanCustLgNames.processStr(arg_, _ctx, _rendStackCall);
     }
-    private String processOptionText(Argument _arg, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private String processOptionText(Argument _arg, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (opsConverterFieldValue.isEmpty()) {
             return BeanCustLgNames.processStr(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
         _rendStackCall.getLastPage().putValueVar(varNameConverterFieldValue, new VariableWrapper(locVar_));
-        Argument arg_ = RenderExpUtil.calculateReuse(opsConverterFieldValue, _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterFieldValue, _ctx, _rendStackCall).lastValue().getArgument());
         _rendStackCall.getLastPage().removeRefVar(varNameConverterFieldValue);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
@@ -270,7 +270,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         }
         return obj_;
     }
-    private void processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private void processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
         FieldUpdates f_ = new FieldUpdates();
         f_.setId(id);
         f_.setIdClass(idClass);
@@ -283,7 +283,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         f_.setOpsConverter(opsConverter);
         f_.setArrayConverter(arrayConverter);
         f_.setClassName(className);
-        fetchName(_cont, _read, _write, f_, _advStandards, _ctx, _rendStackCall);
-        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _advStandards, _ctx, _rendStackCall);
+        fetchName(_cont, _read, _write, f_, _ctx, _rendStackCall);
+        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _ctx, _rendStackCall);
     }
 }

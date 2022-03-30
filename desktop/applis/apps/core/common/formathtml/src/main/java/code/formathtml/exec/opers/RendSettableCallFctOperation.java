@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public abstract class RendSettableCallFctOperation extends RendInvokingOperation implements RendSettableElResult {
@@ -18,7 +17,7 @@ public abstract class RendSettableCallFctOperation extends RendInvokingOperation
     }
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
         return trySetArgument(_nodes, _context, _right, _rendStack);
     }
 

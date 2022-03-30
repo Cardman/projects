@@ -2,19 +2,17 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.BeanNatCommonLgNames;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.*;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
-public final class NatRendImport extends RendParentBlock implements RendWithEl {
+public final class NatRendImport extends RendParentBlock implements NatRendWithEl {
 
     private final ExecTextPart textPart;
 
@@ -27,16 +25,16 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         if (ip_.matchStatement(this)) {
-            RendBlockHelp.processBlockAndRemove(_ctx, _rendStack, this);
+            RendBlockHelp.processBlockAndRemove(_rendStack, this);
             return;
         }
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
         String lg_ = _cont.getCurrentLanguage();
-        String pageName_ = NatRenderingText.renderNat(textPart, _stds, _ctx, _rendStack);
+        String pageName_ = NatRenderingText.renderNat(textPart, _stds, _rendStack);
         String link_ = BeanNatCommonLgNames.getRealFilePath(lg_,pageName_);
         RendDocumentBlock val_ = ((BeanNatCommonLgNames)natImpLgNames).getRenders().getVal(link_);
         String beanName_ = val_.getBeanName();
@@ -55,7 +53,7 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
                         ip_.setOpOffset(0);
                         CustList<RendDynOperationNode> exps_ = ((NatRendField) f).getExps();
                         ip_.setInternGlobal(newBean_);
-                        RenderExpUtil.calculateReuse(exps_, _stds, _ctx, _rendStack);
+                        ((BeanNatCommonLgNames)_stds).getAllArgs(exps_, _rendStack).lastValue();
                         ip_.setInternGlobal(null);
                     }
                 }
@@ -65,7 +63,7 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
         ip_.setOpOffset(0);
         beforeDisp(newBean_, (BeanNatCommonLgNames) _stds);
         ImportingPage newIp_ = RendImport.newImportingPage(_rendStack, ip_, val_, beanName_);
-        newIp_.setGlobalArgumentStruct(newBean_,_ctx);
+        newIp_.setGlobalArgumentStruct(newBean_);
         RendIfStack if_ = new RendIfStack();
         if_.setLabel("");
         if_.setLastBlock(this);

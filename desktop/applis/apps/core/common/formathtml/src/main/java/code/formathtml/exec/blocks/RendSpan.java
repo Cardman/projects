@@ -23,7 +23,7 @@ public final class RendSpan extends RendElement {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        String txt_ = RenderingText.render(result, _stds, _ctx, _rendStack);
+        String txt_ = RenderingText.render(result, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             ((Element)_nextWrite).removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
             return;

@@ -79,7 +79,7 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
             processVisitedLoop(_cont,_stds,c_,this,_ctx,_rendStack);
             return;
         }
-        Struct its_ = processLoop(_stds, _ctx, _rendStack);
+        Struct its_ = processLoop(_ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -101,10 +101,10 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
     }
 
     protected abstract void putVar(ContextEl _ctx, RendStackCall _rendStack,RendLoopBlockStack _l);
-    private Struct processLoop(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private Struct processLoop(ContextEl _ctx, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.setOffset(exp.getOffset());
-        Argument arg_ = RenderExpUtil.calculateReuse(exp.getList(), _advStandards, _ctx, _rendStackCall);
+        Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(exp.getList(), _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }

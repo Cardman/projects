@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendInternVariableOperation extends RendLeafOperation implements RendCalculableOperation {
@@ -20,7 +19,7 @@ public final class RendInternVariableOperation extends RendLeafOperation impleme
         variableName = _varName;
     }
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
         Argument a_ = ExecVariableTemplates.getValueVar(variableName,ip_.getInternVars(),_context,_rendStack.getStackCall());
         setSimpleArgument(a_, _nodes, _context, _rendStack);

@@ -1,10 +1,9 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
@@ -15,7 +14,7 @@ public final class NatRenderingText {
     private NatRenderingText() {
     }
 
-    public static String renderNat(ExecTextPart _texts, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public static String renderNat(ExecTextPart _texts, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
         CustList<CustList<RendDynOperationNode>> opExp_ = _texts.getOpExp();
         StringList texts_ = _texts.getTexts();
         int s_ = opExp_.size();
@@ -23,14 +22,14 @@ public final class NatRenderingText {
         for (int i = 0; i < s_; i++) {
             str_.append(texts_.get(i));
             CustList<RendDynOperationNode> exp_ = opExp_.get(i);
-            String st_ = calculate(exp_, _advStandards, _ctx, _rendStackCall);
+            String st_ = calculate(exp_, _advStandards, _rendStackCall);
             str_.append(st_);
         }
         str_.append(texts_.last());
         return str_.toString();
     }
 
-    public static StringList renderAltListNat(ExecTextPart _textPart, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public static StringList renderAltListNat(ExecTextPart _textPart, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
         CustList<CustList<RendDynOperationNode>> opExp_ = _textPart.getOpExp();
         StringList texts_ = _textPart.getTexts();
         int s_ = opExp_.size();
@@ -38,15 +37,15 @@ public final class NatRenderingText {
         for (int i = 0; i < s_; i++) {
             str_.add(texts_.get(i));
             CustList<RendDynOperationNode> exp_ = opExp_.get(i);
-            String st_ = calculate(exp_, _advStandards, _ctx, _rendStackCall);
+            String st_ = calculate(exp_, _advStandards, _rendStackCall);
             str_.add(st_);
         }
         str_.add(texts_.last());
         return str_;
     }
 
-    private static String calculate(CustList<RendDynOperationNode> _e, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
-        Argument argument_ = RenderExpUtil.calculateReuse(_e, _advStandards, _ctx, _rendStackCall);
+    private static String calculate(CustList<RendDynOperationNode> _e, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
+        Argument argument_ = Argument.getNullableValue(((BeanNatCommonLgNames)_advStandards).getAllArgs(_e, _rendStackCall).lastValue().getArgument());
         return BeanNatLgNames.processString(argument_);
     }
 }

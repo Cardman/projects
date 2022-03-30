@@ -47,7 +47,7 @@ public final class RendTitledAnchor extends RendElement {
         StringList objects_ = new StringList();
         for (EntryCust<String, ExecTextPart> e:opExpTitle.entryList()) {
             ExecTextPart r_ = e.getValue();
-            objects_.add(RenderingText.render(r_, _stds, _ctx, _rendStack));
+            objects_.add(RenderingText.render(r_, _ctx, _rendStack));
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 incrAncNb(_cont, (Element) _nextWrite, _rendStack);
                 return;
@@ -56,7 +56,7 @@ public final class RendTitledAnchor extends RendElement {
         }
         curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
-        processLink(_cont,curWr_,_read,varNames,textPart, opExpAnch, _stds, _ctx, _rendStack);
+        processLink(_cont,curWr_,_read,varNames,textPart, opExpAnch, _ctx, _rendStack);
     }
 
 }

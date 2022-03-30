@@ -29,7 +29,7 @@ public final class RendAnchor extends RendElement {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        processLink(_cont, (Element) _nextWrite, _read, varNames, textPart,opExpAnch, _stds, _ctx, _rendStack);
+        processLink(_cont, (Element) _nextWrite, _read, varNames, textPart,opExpAnch, _ctx, _rendStack);
     }
 
 }

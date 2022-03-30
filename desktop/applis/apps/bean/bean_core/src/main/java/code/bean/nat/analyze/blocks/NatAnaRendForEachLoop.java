@@ -2,12 +2,12 @@ package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanNatLgNames;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
-import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;

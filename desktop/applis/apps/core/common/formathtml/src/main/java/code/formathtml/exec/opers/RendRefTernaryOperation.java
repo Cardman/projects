@@ -9,7 +9,6 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -23,7 +22,7 @@ public final class RendRefTernaryOperation extends RendSettableCallFctOperation 
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(offsetLocal, _rendStack);
         ArgumentsPair ch_ = getChosenArgumentsPair(_nodes);
         AbstractWrapper res_ = ch_.getWrapper();

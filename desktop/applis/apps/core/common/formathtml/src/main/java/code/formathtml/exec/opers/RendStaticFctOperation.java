@@ -10,7 +10,6 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -26,7 +25,7 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
         ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(staticFctContent.getElts(), _rendStack);

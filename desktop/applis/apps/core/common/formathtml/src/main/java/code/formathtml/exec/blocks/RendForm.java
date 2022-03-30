@@ -34,7 +34,7 @@ public final class RendForm extends RendElement implements RendFormInt {
             procCstRef(_cont, _rendStack, elt_);
             return;
         }
-        StringList alt_ = RenderingText.renderAltList(textPart, _stds, _ctx, _rendStack);
+        StringList alt_ = RenderingText.renderAltList(textPart, _ctx, _rendStack);
         StringList arg_ = new StringList();
         feedList(alt_, arg_);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {

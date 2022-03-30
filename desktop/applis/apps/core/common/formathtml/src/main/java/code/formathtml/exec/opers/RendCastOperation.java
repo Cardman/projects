@@ -10,7 +10,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -24,7 +23,7 @@ public final class RendCastOperation extends RendMethodOperation implements Rend
 
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         setRelOffsetPossibleLastPage(typeCheckContent.getOffset(), _rendStack);
         Struct str_ = ExecHelper.getFirstArgument(arguments_).getStruct();

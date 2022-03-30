@@ -4,12 +4,13 @@ import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.common.*;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
+import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
-import code.util.*;
+import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 

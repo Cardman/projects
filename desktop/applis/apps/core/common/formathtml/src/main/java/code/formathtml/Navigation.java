@@ -4,12 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.Message;
 import code.formathtml.util.*;
 import code.sml.*;
@@ -122,8 +120,6 @@ public final class Navigation {
         HtmlPage htmlPage_ = htmlPage;
         ImportingPage ip_ = new ImportingPage();
         _rendStackCall.addPage(ip_);
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
-        containersMap_ = htmlPage_.getContainers();
         long lg_ = htmlPage_.getUrl();
         Document doc_ = document;
         //retrieving form that is submitted
@@ -136,23 +132,19 @@ public final class Navigation {
 
         //As soon as the form is retrieved, then process on it and exit from the loop
 
+        StringMap<Message> map_ = _advStandards.validateAll(htmlPage_, session, _ctx, _rendStackCall);
+        if (map_ == null) {
+            return;
+        }
         StringMap<String> errors_;
         errors_ = new StringMap<String>();
         StringMap<StringList> errorsArgs_;
         errorsArgs_ = new StringMap<StringList>();
-        for (EntryCust<Long, NodeContainer> e: containersMap_.getVal(lg_).entryList()) {
-            NodeContainer nCont_ = e.getValue();
-            NodeInformations nInfos_ = nCont_.getNodeInformation();
-            String valId_ = nInfos_.getValidator();
-            String id_ = nInfos_.getId();
-            Message messageTr_ = _advStandards.validate(session,nCont_,valId_, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                return;
-            }
-            if (messageTr_ != null) {
-                errors_.put(id_, messageTr_.getContent());
-                errorsArgs_.put(id_, messageTr_.getArgs());
-            }
+        for (EntryCust<String, Message> e: map_.entryList()) {
+            Message nCont_ = e.getValue();
+            String id_ = e.getKey();
+            errors_.put(id_, nCont_.getContent());
+            errorsArgs_.put(id_, nCont_.getArgs());
         }
         //begin deleting previous errors
         ElementList spansForm_ = formElement_.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
@@ -176,37 +168,15 @@ public final class Navigation {
             _rendStackCall.clearPages();
             return;
         }
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(lg_);
         //Setting values for bean
-        updateRendBean(containers_, _advStandards, _ctx, _rendStackCall);
+        boolean res_ = _advStandards.updateRendBean(htmlPage_, _ctx, _rendStackCall);
         _rendStackCall.clearPages();
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+        if (!res_) {
             return;
         }
 
         //invoke application
         processRendAnchorRequest(_advStandards, _ctx, _rendStackCall,formElement_);
-    }
-
-    private void updateRendBean(LongTreeMap<NodeContainer> _containers, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
-        for (EntryCust<Long, NodeContainer> e: _containers.entryList()) {
-            NodeContainer nCont_ = e.getValue();
-            if (!nCont_.isEnabled()) {
-                continue;
-            }
-            Struct newObj_;
-            ResultErrorStd res_ = _advStandards.convert(nCont_, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                return;
-            }
-            newObj_ = res_.getResult();
-            Struct procObj_ = e.getValue().getUpdated();
-            _advStandards.setGlobalArgumentStruct(procObj_,_ctx,_rendStackCall);
-            RendRequestUtil.setRendObject(e.getValue(), newObj_, _advStandards, _ctx, _rendStackCall);
-            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                return;
-            }
-        }
     }
 
     private void processRendFormErrors(Document _doc, BeanLgNames _advStandards, Element _formElement, long _id,

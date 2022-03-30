@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -19,7 +18,7 @@ public final class RendSafeDotOperation extends RendAbstractDotOperation {
         names = _names;
     }
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode o_ = getFirstNode(this);
         RendDynOperationNode l_ = getLastNode(this);
         Argument a_ = getArgument(_nodes,o_);

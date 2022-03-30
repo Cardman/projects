@@ -8,7 +8,6 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecValuesContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendValuesOperation extends RendLeafOperation implements RendCalculableOperation {
@@ -21,7 +20,7 @@ public final class RendValuesOperation extends RendLeafOperation implements Rend
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(valuesContent.getArgOffset(), _rendStack);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.tryGetEnumValues(_context.getExiting(), _context, valuesContent.getRootBlock(), ClassCategory.ENUM, _rendStack.getStackCall()), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);

@@ -2,8 +2,11 @@ package code.bean.help.exec.blocks;
 
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.blocks.*;
-import code.formathtml.stacks.*;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendParentBlock;
+import code.formathtml.stacks.RendAbstractStask;
+import code.formathtml.stacks.RendIfStack;
+import code.formathtml.stacks.RendReadWrite;
 
 public final class HelpRendBlockHelp {
     static final String EMPTY_STRING = "";

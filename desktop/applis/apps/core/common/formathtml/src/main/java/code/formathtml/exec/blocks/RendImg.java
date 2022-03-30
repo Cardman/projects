@@ -19,7 +19,7 @@ public final class RendImg extends RendElement {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        String pageName_ = RenderingText.render(textPart, _stds, _ctx, _rendStack);
+        String pageName_ = RenderingText.render(textPart, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }

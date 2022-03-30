@@ -1,5 +1,4 @@
 package code.bean.nat.exec.opers;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
@@ -13,7 +12,7 @@ public final class NatDotOperation extends NatAbstractDotOperation {
         super(_content);
     }
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, RendStackCall _rendStack) {
         calculateDot(_nodes);
     }
 }

@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendWrappOperation extends RendMethodOperation implements RendCalculableOperation {
@@ -20,7 +19,7 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode chFirst_ = getFirstChild();
         if (chFirst_ instanceof RendDotOperation) {
             chFirst_ = getLastNode((RendMethodOperation) chFirst_);

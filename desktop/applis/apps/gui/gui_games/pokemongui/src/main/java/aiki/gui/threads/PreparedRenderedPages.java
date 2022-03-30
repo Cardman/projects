@@ -2,14 +2,12 @@ package aiki.gui.threads;
 
 import aiki.beans.PokemonStandards;
 import code.bean.nat.AbstractNativeInit;
+import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NativeConfigurationLoader;
 import code.bean.nat.fwd.AdvNatBlockBuilder;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.bean.nat.BeanNatLgNames;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
@@ -22,7 +20,6 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
     private Navigation navigation;
     private final String relative;
     private BeanNatLgNames beanNatLgNames;
-    private ContextEl context;
     private final StringMap<Document> built;
     private final StringMap<String> builtMessages;
     private final StringMap<String> builtOther;
@@ -45,8 +42,8 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
 //        String content_ = ResourceFiles.ressourceFichier(conf);
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(stds_, init);
         Configuration session_ = new Configuration();
-        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
-        Forwards forwards_ = nat_.getForwards();
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
+        nat_.getForwards();
         d_.init(session_);
         navigation.setSession(session_);
         //        DualAnalyzedContext du_ = navigation.loadConfiguration(content_, "", stds_, DefaultFileBuilder.newInstance(stds_.getContent()), nat_);
@@ -76,15 +73,10 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
 //        files_.put(realFilePath_,ResourceFiles.ressourceFichier(rel_));
         navigation.setFiles(files_);
         stds_.setupAll(docs_,navigation, navigation.getSession(), new AdvNatBlockBuilder(stds_), d_);
-        this.context = forwards_.generate();
     }
 
     public Navigation getNavigation() {
         return navigation;
-    }
-
-    public ContextEl getContext() {
-        return context;
     }
 
     public BeanNatLgNames getBeanNatLgNames() {

@@ -1,6 +1,5 @@
 package code.bean.nat.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
@@ -17,7 +16,7 @@ public final class NatRendStdElement extends NatRendElement implements RendStdEl
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
         //
     }
 }

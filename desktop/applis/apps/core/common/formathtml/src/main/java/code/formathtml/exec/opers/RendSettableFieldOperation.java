@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public abstract class RendSettableFieldOperation extends
@@ -26,7 +25,7 @@ public abstract class RendSettableFieldOperation extends
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         int off_ = getOff();
         setRelOffsetPossibleLastPage(off_, _rendStack);
         _rendStack.setOffset(off_);
@@ -50,7 +49,7 @@ public abstract class RendSettableFieldOperation extends
     protected abstract Argument getField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack);
 
     @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
         return processField(_nodes, _right, _context, _rendStack);
     }
 

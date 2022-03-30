@@ -68,7 +68,7 @@ public final class RenderInitStdsTest extends CommonRender {
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
         new Navigation().initializeRendSession(null, b_, rendStackCall_);
         rendStackCall_.addPage(new ImportingPage());
-        RendBlock.processDo(null,null,null, rendStackCall_);
+        RendBlock.processDo(null,null, rendStackCall_);
         RendBlock.processElse(conf_,null,null,null, rendStackCall_);
         RendBlock.processElseIf(conf_,null,null,null, rendStackCall_);
         RendBlock.processFinally(conf_,null,null,null, rendStackCall_);

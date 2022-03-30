@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendAnonymousLambdaOperation extends RendAbstractLambdaOperation {
@@ -19,7 +18,7 @@ public final class RendAnonymousLambdaOperation extends RendAbstractLambdaOperat
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = formatVarTypeRes(_rendStack);
         Argument res_ = new Argument(ExecAnonymousLambdaOperation.newAnonymousLambda(format(lambdaAnoContent,_rendStack),getLambdaCommonContent(),lambdaAnoContent,previous_,

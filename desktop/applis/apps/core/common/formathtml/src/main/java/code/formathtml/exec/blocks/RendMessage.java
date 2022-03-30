@@ -16,7 +16,6 @@ import code.util.core.StringUtil;
 
 public final class RendMessage extends RendParentBlock implements RendWithEl {
 
-    private final Element elt;
     private final CustList<CustList<RendDynOperationNode>> opExp;
 
     private final StringMap<String> preformatted;
@@ -28,9 +27,8 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
     private StringList varNames = new StringList();
 
 
-    public RendMessage(Element _elt, CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted, CustList<Boolean> _quoted, CustList<Boolean> _escaped,
+    public RendMessage(CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted, CustList<Boolean> _quoted, CustList<Boolean> _escaped,
                        StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _args, StringMap<Document> _locDoc, StringList _varNames) {
-        this.elt = _elt;
         this.opExp = _opExp;
         this.preformatted = _preformatted;
         this.quoted = _quoted;
@@ -52,7 +50,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 anchorArg_.add(args.get(i));
                 continue;
             }
-            Argument arg_ = RenderExpUtil.calculateReuse(opExp.get(i), _stds, _ctx, _rendStack);
+            Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opExp.get(i), _ctx, _rendStack).lastValue().getArgument());
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

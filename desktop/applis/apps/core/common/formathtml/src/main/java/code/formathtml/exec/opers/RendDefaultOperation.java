@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -24,7 +23,7 @@ public final class RendDefaultOperation extends RendMethodOperation implements R
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         setRelOffsetPossibleLastPage(offset, _rendStack);
         Argument argres_ = new Argument(ExecClassArgumentMatching.convertFormattedWide(ExecHelper.getFirstArgument(arguments_).getStruct(), _context, names, _rendStack));

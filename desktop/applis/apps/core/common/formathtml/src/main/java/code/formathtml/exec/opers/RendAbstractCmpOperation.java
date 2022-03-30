@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperatorContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendAbstractCmpOperation extends RendMethodOperation implements RendCalculableOperation {
@@ -21,7 +20,7 @@ public final class RendAbstractCmpOperation extends RendMethodOperation implemen
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode opOne_ = getFirstNode(this);
         RendDynOperationNode opTwo_ = getLastNode(this);
         Argument first_ = getArgument(_nodes,opOne_);

@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -24,7 +23,7 @@ public final class RendCallDynMethodOperation extends RendSettableCallFctOperati
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         if (StringUtil.quickEq(fctName, _context.getStandards().getContent().getReflect().getAliasMetaInfo())) {
             Argument res_ = ExecInvokingOperation.getMetaInfo(previous_, _context, _rendStack.getStackCall());

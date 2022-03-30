@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecCallFctAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.core.StringUtil;
 
@@ -21,7 +20,7 @@ public final class RendAnnotationMethodOperation extends RendInvokingOperation  
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         Argument res_ = getArgument(previous_, _context, _rendStack);
         setSimpleArgument(res_, _nodes, _context, _rendStack);

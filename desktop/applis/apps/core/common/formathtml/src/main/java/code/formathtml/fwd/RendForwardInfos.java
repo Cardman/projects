@@ -307,7 +307,7 @@ public final class RendForwardInfos {
             AnaRendMessage f_ = (AnaRendMessage) _current;
             CustList<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getRoots(), _forwards);
             StringMap<CustList<CustList<RendDynOperationNode>>> map_ = toExecPartMapExt(f_.getCallsRoots(), _forwards);
-            return new RendMessage(f_.getElt(),partSub_,
+            return new RendMessage(partSub_,
                     f_.getPreformatted(),f_.getQuoted(),f_.getEscaped(),map_,
                     f_.getArgs(),f_.getLocDoc(),
                     f_.getVarNames());

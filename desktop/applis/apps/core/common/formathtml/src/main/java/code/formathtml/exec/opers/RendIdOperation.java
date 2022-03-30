@@ -5,7 +5,6 @@ import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendIdOperation extends RendMethodOperation implements RendCalculableOperation {
@@ -15,7 +14,7 @@ public final class RendIdOperation extends RendMethodOperation implements RendCa
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode o_ = RendAbstractAffectOperation.deepId(getFirstChild());
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;

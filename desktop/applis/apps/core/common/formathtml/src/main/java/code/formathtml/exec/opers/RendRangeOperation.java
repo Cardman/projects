@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.opers.ExecRangeOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -20,7 +19,7 @@ public final class RendRangeOperation extends RendMethodOperation implements Ren
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(opOffset, _rendStack);
         CustList<Argument> args_ = getArguments(_nodes, this);
         Argument r_ = ExecRangeOperation.range(_context,_rendStack.getStackCall(),args_,implicitMiddle);

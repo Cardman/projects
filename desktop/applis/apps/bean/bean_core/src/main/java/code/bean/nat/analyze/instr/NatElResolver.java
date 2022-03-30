@@ -1,8 +1,9 @@
 package code.bean.nat.analyze.instr;
 
 import code.bean.nat.analyze.NatRenderAnalysis;
-import code.expressionlanguage.analyze.instr.*;
-import code.expressionlanguage.common.*;
+import code.expressionlanguage.analyze.instr.ElResolver;
+import code.expressionlanguage.analyze.instr.StackOperators;
+import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.maths.litteralcom.StrTypes;
 import code.util.Ints;

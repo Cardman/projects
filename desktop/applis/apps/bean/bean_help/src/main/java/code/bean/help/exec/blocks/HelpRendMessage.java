@@ -1,17 +1,19 @@
 package code.bean.help.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
+import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendMessage;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.blocks.RendWithEl;
 import code.formathtml.util.BeanLgNames;
-import code.sml.*;
-import code.util.*;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.DocumentResult;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class HelpRendMessage extends RendParentBlock implements RendWithEl {
+public final class HelpRendMessage extends RendParentBlock implements NatRendWithEl {
 
     private final StringMap<String> preformatted;
     private StringList varNames = new StringList();
@@ -24,7 +26,7 @@ public final class HelpRendMessage extends RendParentBlock implements RendWithEl
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
         String preRend_;

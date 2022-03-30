@@ -5,7 +5,6 @@ import code.bean.nat.NatCaller;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.fwd.opers.NatExecStdFctContent;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -13,7 +12,6 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.opers.RendCalculableOperation;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
@@ -21,7 +19,7 @@ import code.util.IdMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public final class NatStdFctOperation extends NatSettableCallFctOperation implements RendCalculableOperation {
+public final class NatStdFctOperation extends NatSettableCallFctOperation implements NatRendCalculableOperation {
 
     private final NatExecStdFctContent stdFctContent;
     private final ClassMethodId classMethodId;
@@ -44,7 +42,7 @@ public final class NatStdFctOperation extends NatSettableCallFctOperation implem
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);

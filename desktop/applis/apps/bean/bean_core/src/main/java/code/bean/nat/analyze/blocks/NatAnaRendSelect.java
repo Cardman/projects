@@ -1,8 +1,8 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.bean.nat.analyze.NatRenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;

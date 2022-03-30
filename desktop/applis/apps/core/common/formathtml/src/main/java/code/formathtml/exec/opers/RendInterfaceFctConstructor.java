@@ -14,7 +14,6 @@ import code.expressionlanguage.fwd.opers.ExecInvokingConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendInterfaceFctConstructor extends RendInvokingOperation implements RendCalculableOperation {
@@ -32,7 +31,7 @@ public final class RendInterfaceFctConstructor extends RendInvokingOperation imp
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(invokingConstructorContent.getOffsetOper(), _rendStack);
         RendDynOperationNode main_ = getMainNode(this);
         ArgumentsPair pair_ = getArgumentPair(_nodes, main_);

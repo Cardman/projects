@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringList;
 
@@ -24,36 +23,36 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         if (getSettableParent() instanceof RendSafeDotOperation && getArgument(_nodes, getSettableParent().getFirstChild()).isNull()) {
             setQuickConvertSimpleArgument(new Argument(ExecClassArgumentMatching.convertFormatted(NullStruct.NULL_VALUE, _context, names,_rendStack)), _nodes, _context, _rendStack);
             return;
         }
-        calculateAffect(_nodes, _advStandards, _context, _rendStack);
+        calculateAffect(_nodes, _context, _rendStack);
     }
 
-    protected abstract void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack);
+    protected abstract void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack);
 
-    Argument calculateChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
-        return calculateChSetting(getSettable(),_nodes,_right,_advStandards,_context,_rendStackCall);
+    Argument calculateChSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStackCall) {
+        return calculateChSetting(getSettable(),_nodes,_right, _context,_rendStackCall);
     }
     static Argument calculateChSetting(RendDynOperationNode _set,
-                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall){
+                                       IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStackCall){
         Argument arg_ = null;
         if (_set instanceof RendStdRefVariableOperation) {
-            arg_ = ((RendStdRefVariableOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+            arg_ = ((RendStdRefVariableOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }
         if (_set instanceof RendSettableFieldOperation) {
-            arg_ = ((RendSettableFieldOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+            arg_ = ((RendSettableFieldOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }
         if (_set instanceof RendCustArrOperation) {
-            arg_ = ((RendCustArrOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+            arg_ = ((RendCustArrOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }
         if (_set instanceof RendArrOperation) {
-            arg_ = ((RendArrOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+            arg_ = ((RendArrOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }
         if (_set instanceof RendSettableCallFctOperation) {
-            arg_ = ((RendSettableCallFctOperation)_set).calculateSetting(_nodes, _right, _advStandards, _context, _rendStackCall);
+            arg_ = ((RendSettableCallFctOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }
         return Argument.getNullableValue(arg_);
     }

@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.DefaultAccess;
@@ -860,7 +861,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
     protected static Struct calculateReuse(ContextEl _ctx, CustList<RendDynOperationNode> _ops, BeanCustLgNames _advStandards) {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
         addInnerPage(build_);
-        return RenderExpUtil.calculateReuse(_ops, _advStandards, _ctx, build_).getStruct();
+        return Argument.getNullableValue(RenderExpUtil.getAllArgs(_ops, _ctx, build_).lastValue().getArgument()).getStruct();
     }
 
     protected static void setNavigation(Configuration _configuration) {

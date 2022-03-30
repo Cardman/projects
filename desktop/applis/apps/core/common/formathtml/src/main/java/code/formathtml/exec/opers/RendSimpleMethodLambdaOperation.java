@@ -9,7 +9,6 @@ import code.expressionlanguage.fwd.opers.ExecLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.ExecLambdaMethodContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendSimpleMethodLambdaOperation extends RendAbstractLambdaOperation {
@@ -21,7 +20,7 @@ public final class RendSimpleMethodLambdaOperation extends RendAbstractLambdaOpe
         lambdaMethodContent = _lambdaMethodContent;
     }
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previousRendClone_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = formatVarTypeRes(_rendStack);
         ExecFormattedRootBlock ownerType_ = formatVarType(_rendStack);

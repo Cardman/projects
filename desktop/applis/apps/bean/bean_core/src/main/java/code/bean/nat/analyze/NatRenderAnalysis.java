@@ -2,12 +2,12 @@ package code.bean.nat.analyze;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatDelimiters;
-import code.bean.nat.analyze.opers.*;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
+import code.bean.nat.analyze.opers.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.formathtml.analyze.*;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.core.IndexConstants;

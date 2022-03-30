@@ -2,11 +2,7 @@ package code.formathtml.util;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -19,8 +15,8 @@ import code.formathtml.structs.Message;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Element;
 import code.util.CustList;
-import code.util.IdMap;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.NumberUtil;
 
 public abstract class BeanLgNames extends LgNames {
@@ -56,10 +52,6 @@ public abstract class BeanLgNames extends LgNames {
     }
 
     public abstract void preInitBeans(Configuration _conf);
-
-    public abstract AbstractWrapper newWrapper(LocalVariable _local);
-
-    public abstract ResultErrorStd convert(NodeContainer _container, ContextEl _context, RendStackCall _rendStackCall);
 
     public String getAliasPrimBoolean() {
         return getContent().getPrimTypes().getAliasPrimBoolean();
@@ -110,10 +102,10 @@ public abstract class BeanLgNames extends LgNames {
         return ret_;
     }
 
-    public abstract Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, RendStackCall _rendStack);
+    public abstract StringMap<Message> validateAll(HtmlPage _htmlPage, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack);
 
-    public abstract IdMap<RendDynOperationNode, ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, ContextEl _ctx, RendStackCall _rendStackCall);
-    public abstract void setGlobalArgumentStruct(Struct _obj, ContextEl _ctx, RendStackCall _rendStackCall);
+    public abstract boolean updateRendBean(HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStackCall);
+    public abstract Struct redir(Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, ContextEl _context, RendStackCall _rendStackCall);
 
     public String getCurrentBeanName() {
         return currentBeanName;

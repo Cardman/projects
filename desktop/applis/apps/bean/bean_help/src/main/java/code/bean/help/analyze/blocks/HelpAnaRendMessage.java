@@ -7,7 +7,8 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
-import code.util.*;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class HelpAnaRendMessage extends AnaRendParentBlock implements NatRendBuildEl {
 

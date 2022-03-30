@@ -9,7 +9,6 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendFctOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
@@ -24,7 +23,7 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = instFctContent.getMethodName();
         setRelOffsetPossibleLastPage(off_, _rendStack);

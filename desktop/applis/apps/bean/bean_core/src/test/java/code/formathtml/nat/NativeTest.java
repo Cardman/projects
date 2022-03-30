@@ -62,9 +62,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         assertNotNull(BeanNatCommonLgNames.getLongsArray(new CustList<Longs>(new Longs(0L))));
         RendStackCall stack_ = new RendStackCall(InitPhase.NOTHING, generate_);
         stack_.addPage(new ImportingPage());
-        RendBlockHelp.processElse(null,null,stack_);
-        RendBlockHelp.processElseIf(null, null, null,stack_);
-        NatStdRefVariableOperation.getValue(null,null,null);
+        RendBlockHelp.processElse(null,stack_);
+        RendBlockHelp.processElseIf(null, null,stack_);
+        NatStdRefVariableOperation.getValue(null, null);
         PairStruct struct_ = new PairStruct("", NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
         assertEq("",new VariableWrapperNat(LocalVariable.newLocalVariable(struct_,"")).getClassName(null,null));
         BeanNatLgNames.processString(new Argument(struct_));
@@ -738,7 +738,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
         Forwards forwards_ = nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
@@ -770,7 +770,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
         Forwards forwards_ = nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
@@ -804,7 +804,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
         Forwards forwards_ = nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
@@ -838,7 +838,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
         Forwards forwards_ = nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
@@ -873,7 +873,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         Navigation n_ = new Navigation();
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(lgNames_, new SampleNativeInit());
         Configuration session_ = new Configuration();
-        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_, null);
+        NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
         Forwards forwards_ = nat_.getForwards();
         d_.init(session_);
         n_.setSession(session_);
@@ -1929,6 +1929,104 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     }
 
+    @Test
+    public void processNav16_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$go\"><input c:className='$short' type=\"number\" name=\"typedShort\" c:varValue=\"typedShort\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        BeanTwo beanTwo_ = new BeanTwo();
+        CustBeanLgNames lgNames_ = stds();
+        Configuration config_ = conf("c:");
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
+
+
+        putBean("bean_two", new BeanStruct(beanTwo_), lgNames_);
+        setupVal(folder_, relative_, config_, dual_, lgNames_);
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        Navigation nav_ = newNavigation(config_);
+        nav_.setLanguage(locale_);
+        nav_.setFiles(files_);
+        dual_.getRenderFiles().add("page1.html");
+        RendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_, generate_);
+        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(false);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("12");
+        ni_.setValue(values_);
+        nav_.getHtmlPage().setUrl(0);
+        form(lgNames_, nav_, rendStackCall_, generate_);
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
+        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input c:className=\"$short\" type=\"number\" name=\"bean_two.typedShort\" n-i=\"0\" value=\"0\"/></form></body></html>", nav_.getHtmlText());
+//        beanTwo_ = getBeanTwo(conf_, "bean_two");
+//        StringMapObjectSample map_ = beanTwo_.getForms();
+//        assertEq(8, map_.size());
+//        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+
+    }
+
+
+    @Test
+    public void processNav_16_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a c:command=\"$go2({typedShort})\">Lk</a></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        BeanTwo beanTwo_ = new BeanTwo();
+        CustBeanLgNames lgNames_ = stds();
+        Configuration config_ = conf("c:");
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
+
+
+        putBean("bean_two", new BeanStruct(beanTwo_), lgNames_);
+        setupVal(folder_, relative_, config_, dual_, lgNames_);
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go2()", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go2()").put("no_change", "page2.html");
+        Navigation nav_ = newNavigation(config_);
+        nav_.setLanguage(locale_);
+        nav_.setFiles(files_);
+        dual_.getRenderFiles().add("page1.html");
+        RendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_, generate_);
+        nav_.getHtmlPage().setUrl(0);
+        nav_.processRendAnchorRequest(lgNames_,generate_,rendStackCall_);
+        assertEq("page1.html", lgNames_.getCurrentUrl());
+        assertEq("bean_two", lgNames_.getCurrentBeanName());
+        assertEq("<html><body><a c:command=\"$bean_two.go2(0)\" href=\"\" n-a=\"0\">Lk</a></body></html>", nav_.getHtmlText());
+//        beanTwo_ = getBeanTwo(conf_, "bean_two");
+//        StringMapObjectSample map_ = beanTwo_.getForms();
+//        assertEq(8, map_.size());
+//        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+
+    }
+
 //    @Test
 //    public void processNav17Test() {
 //        String locale_ = "en";
@@ -2150,7 +2248,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, lgNames_.getRenders());
         setFirst(config_, lgNames_.getRenders());
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, generate_);
-        return getSampleRes(config_, lgNames_.getRenders().getVal("page1.html"), lgNames_, generate_, build_);
+        return getSampleRes(config_, lgNames_.getRenders().getVal("page1.html"), lgNames_, build_);
     }
     private String getNatRes(String _folder, String _relative, String _html, BeanStruct _v) {
         CustBeanLgNames lgNames_ = stds();
@@ -2173,7 +2271,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NatRendForwardInfos.buildExec(analyzingDo_, d_, lgNames_.getRenders());
         setFirst(con_, lgNames_.getRenders());
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, generate_);
-        return getSampleRes(con_, lgNames_.getRenders().getVal("page1.html"), lgNames_, generate_, build_);
+        return getSampleRes(con_, lgNames_.getRenders().getVal("page1.html"), lgNames_, build_);
     }
 
     private Configuration conf(String _prefix) {
@@ -2279,21 +2377,21 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         putBean(_key, _adv, _v);
     }
 
-    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanNatLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
-        return getRes(_conf,_rendDocumentBlock, _stds, _ctx, _rendStackCall);
+    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanNatLgNames _stds, RendStackCall _rendStackCall) {
+        return getRes(_conf,_rendDocumentBlock, _stds, _rendStackCall);
     }
 
     private static String getSampleRes(RendDocumentBlock _rendDocumentBlock, ContextEl _context, Configuration _configuration, CustBeanLgNames _adv) {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _context);
-        return getSampleRes(_configuration, _rendDocumentBlock, _adv, _context, build_);
+        return getSampleRes(_configuration, _rendDocumentBlock, _adv, build_);
     }
 
     private static void preinit(CustBeanLgNames _adv, Configuration _configuration) {
         _adv.preInitBeans(_configuration);
     }
 
-    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanNatLgNames _stds, ContextEl _context, RendStackCall _rendStackCall) {
-        return _stds.getRes(_doc, _conf, _context, _rendStackCall);
+    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanNatLgNames _stds, RendStackCall _rendStackCall) {
+        return _stds.getRes(_doc, _conf, _rendStackCall);
     }
 
     private static Navigation newNavigation(Configuration _configuration) {

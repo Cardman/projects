@@ -11,7 +11,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecInstancingCustContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.core.StringUtil;
@@ -29,7 +28,7 @@ public final class RendAnonymousInstancingOperation extends RendInvokingOperatio
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);

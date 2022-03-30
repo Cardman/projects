@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticEltContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 
@@ -26,7 +25,7 @@ public final class RendQuickCustOperation extends RendQuickOperation implements 
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         RendDynOperationNode first_ = getFirstNode(this);
         ArgumentsPair argumentPair_ = getArgumentPair(_nodes, first_);
         if (argumentPair_.isArgumentTest()){

@@ -11,7 +11,6 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
@@ -21,7 +20,7 @@ public final class RendArrayFieldOperation extends RendAbstractFieldOperation {
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         Struct inst_ = previous_.getStruct();
         Argument arg_;

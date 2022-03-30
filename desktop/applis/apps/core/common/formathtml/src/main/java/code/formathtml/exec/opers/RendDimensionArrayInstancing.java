@@ -14,7 +14,6 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.Ints;
@@ -31,7 +30,7 @@ public final class RendDimensionArrayInstancing extends
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         CustList<Argument> arguments_ = getArguments(_nodes,this);
         Argument res_;
         CustList<RendDynOperationNode> filter_ = getChildrenNodes();

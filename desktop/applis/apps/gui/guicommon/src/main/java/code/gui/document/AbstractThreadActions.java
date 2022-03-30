@@ -53,6 +53,10 @@ public abstract class AbstractThreadActions implements Runnable {
             finish();
             return;
         }
+        afterActionWithoutRemove();
+    }
+
+    protected void afterActionWithoutRemove() {
         if (!page.isProcessing()) {
             return;
         }

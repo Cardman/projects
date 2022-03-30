@@ -37,7 +37,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         }
         ip_.setOffset(pageOffset);
         ip_.setOpOffset(0);
-        String pageName_ = RenderingText.render(textPart, _stds, _ctx, _rendStack);
+        String pageName_ = RenderingText.render(textPart, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -54,7 +54,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         Struct newBean_ = ((BeanCustLgNames)_stds).getBuiltBeans().getVal(beanName_);
         boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _rendStack.getMainBean();
-        if (!((BeanCustLgNames)_stds).setBeanForms(_cont, mainBean_, this, keepField_,
+        if (!((BeanCustLgNames)_stds).setBeanForms(mainBean_, this, keepField_,
                 beanName_, _ctx, _rendStack)) {
             return;
         }
@@ -75,7 +75,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
                             ip_.setOpOffset(0);
                             CustList<RendDynOperationNode> exps_ = ((RendField) f).getExps();
                             ip_.setInternGlobal(newBean_);
-                            RenderExpUtil.calculateReuse(exps_, _stds, _ctx, _rendStack);
+                            RenderExpUtil.getAllArgs(exps_, _ctx, _rendStack).lastValue();
                             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                                 return;
                             }

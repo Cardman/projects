@@ -108,7 +108,7 @@ public final class PresidentStandards extends BeanNatLgNames {
         _rendStack.addPage(ip_);
         RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, _ctx, _rendStack);
+        return getRes(rendDocumentBlock_,_conf, _rendStack);
     }
 
     @Override

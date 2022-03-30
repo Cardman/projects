@@ -825,7 +825,7 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
             ((WithForms) ((PokemonBeanStruct) bean_).getBean()).setForms(stringMapObject_);
         }
         _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, _ctx, _rendStack);
+        return getRes(rendDocumentBlock_,_conf, _rendStack);
     }
 
     @Override

@@ -2,11 +2,10 @@ package code.bean.nat.exec.opers;
 
 import code.bean.nat.fwd.opers.NatExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.exec.opers.RendCalculableOperation;
 import code.formathtml.exec.opers.RendLeafOperation;
 import code.formathtml.exec.opers.RendPossibleIntermediateDotted;
 
-public abstract class NatAbstractFieldOperation extends RendLeafOperation implements RendCalculableOperation, RendPossibleIntermediateDotted {
+public abstract class NatAbstractFieldOperation extends RendLeafOperation implements NatRendCalculableOperation, RendPossibleIntermediateDotted {
 
     private final NatExecFieldOperationContent fieldOperationContent;
 

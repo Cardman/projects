@@ -3,7 +3,7 @@ package code.formathtml.exec.blocks;
 import code.formathtml.ImportingPage;
 import code.util.StringList;
 
-public abstract class RendAbstractDeclareVariable extends RendLeaf {
+public abstract class RendAbstractDeclareVariable extends RendLeaf implements RendWithEl{
 
     private final StringList variableNames;
 

@@ -92,8 +92,12 @@ public final class ImportingPage {
     }
 
     public void setGlobalArgumentStruct(Struct _obj, ContextEl _ctx) {
-        pageEl.setGlobalArgumentStruct(_obj);
+        setGlobalArgumentStruct(_obj);
         initGlobal(_obj, _ctx);
+    }
+
+    public void setGlobalArgumentStruct(Struct _obj) {
+        pageEl.setGlobalArgumentStruct(_obj);
     }
 
     private void initGlobal(Struct _struct, ContextEl _ctx) {

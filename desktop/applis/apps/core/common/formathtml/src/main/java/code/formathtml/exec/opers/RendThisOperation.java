@@ -7,7 +7,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.SimplePageEl;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendThisOperation extends RendLeafOperation implements RendCalculableOperation {
@@ -20,7 +19,7 @@ public final class RendThisOperation extends RendLeafOperation implements RendCa
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(off, _rendStack);
         SimplePageEl ip_ = _rendStack.getPageEl();
         Struct struct_ = ip_.getGlobalStruct();

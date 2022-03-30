@@ -11,7 +11,6 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecStaticFctContent;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendExplicitOperatorOperation extends RendSettableCallFctOperation implements RendCalculableOperation {
@@ -28,7 +27,7 @@ public final class RendExplicitOperatorOperation extends RendSettableCallFctOper
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(offsetOper, _rendStack);
         ArgumentWrapper argres_ = checkParametersOperatorsFormatted(this, pair, staticFctContent, _nodes, _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);

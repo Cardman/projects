@@ -97,15 +97,12 @@ public final class RenderedPage implements ProcessingSession {
         start();
         navigation = _stds.getNavigation();
         contextCreator = new NativeContextCreator();
-        ContextEl ctx_ = _stds.getContext();
-        setContext(ctx_);
-        navigation.initializeRendSession(ctx_, standards, new RendStackCall(InitPhase.NOTHING,ctx_));
+        navigation.initializeRendSession(null, standards, new RendStackCall(InitPhase.NOTHING,null));
         setupText();
     }
 
     public void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg) {
         navigation = _prepared.getNavigation();
-        setContext(_prepared.getContext());
         navigation.setLanguage(_lg);
         standards = _prepared.getBeanNatLgNames();
         contextCreator = new NativeContextCreator();

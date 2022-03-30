@@ -9,7 +9,6 @@ import code.expressionlanguage.fwd.opers.ExecLambdaConstructorContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.exec.opers.*;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class RendTypeConstructorLambdaOperation extends RendAbstractLambdaOperation {
@@ -22,7 +21,7 @@ public final class RendTypeConstructorLambdaOperation extends RendAbstractLambda
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
         String clArg_ = formatVarTypeRes(_rendStack);
         ExecFormattedRootBlock ownerType_ = formatVarType(_rendStack);

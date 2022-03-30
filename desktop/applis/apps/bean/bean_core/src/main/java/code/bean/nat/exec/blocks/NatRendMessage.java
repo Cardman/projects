@@ -1,21 +1,23 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanNatLgNames;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.blocks.RendMessage;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.blocks.RendWithEl;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
-import code.sml.*;
-import code.util.*;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.DocumentResult;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class NatRendMessage extends RendParentBlock implements RendWithEl {
+public final class NatRendMessage extends RendParentBlock implements NatRendWithEl {
 
     private final CustList<CustList<RendDynOperationNode>> opExp;
 
@@ -35,12 +37,12 @@ public final class NatRendMessage extends RendParentBlock implements RendWithEl 
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
         int l_ = args.size();
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
         for (int i = 0; i< l_; i++) {
-            Argument arg_ = RenderExpUtil.calculateReuse(opExp.get(i), _stds, _ctx, _rendStack);
+            Argument arg_ = Argument.getNullableValue(((BeanNatCommonLgNames)_stds).getAllArgs(opExp.get(i), _rendStack).lastValue().getArgument());
             String res_;
             res_ = BeanNatLgNames.processString(arg_);
             objects_.add(res_);
@@ -54,7 +56,7 @@ public final class NatRendMessage extends RendParentBlock implements RendWithEl 
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
         Document docLoc_ = res_.getDocument();
         RendMessage.injectDoc(_cont,_rendStack,anchorArg_,docLoc_,callsExps,varNames);
-        RendBlockHelp.processBlock(_ctx, _rendStack, this);
+        RendBlockHelp.processBlock(_rendStack, this);
     }
 
 }

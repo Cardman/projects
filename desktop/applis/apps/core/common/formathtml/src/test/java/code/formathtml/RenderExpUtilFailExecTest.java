@@ -2210,7 +2210,7 @@ public final class RenderExpUtilFailExecTest extends CommonRenderExpUtil {
 //        RendStackCall build_ = _an.build(InitPhase.NOTHING, ctx_);
         build_.addPage(new ImportingPage());
         setupValues(build_.getLastPage(), _localVariables, _vars);
-        RenderExpUtil.calculateReuse(executableNodes_, _an.getDualAnalyzedContext().getStds(), ctx_, build_);
+        RenderExpUtil.getAllArgs(executableNodes_, ctx_, build_).lastValue();
         return build_;
     }
 

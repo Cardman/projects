@@ -1,9 +1,9 @@
 package code.bean.help.analyze.blocks;
 
+import code.bean.help.analyze.HelpResultText;
 import code.bean.nat.analyze.blocks.NatAnaRendElement;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.blocks.NatRendBuildEl;
-import code.bean.help.analyze.HelpResultText;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;

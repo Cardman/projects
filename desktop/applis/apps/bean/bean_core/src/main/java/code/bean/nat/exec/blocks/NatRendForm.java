@@ -1,6 +1,5 @@
 package code.bean.nat.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
@@ -10,7 +9,9 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.Node;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class NatRendForm extends NatRendElement implements RendFormInt {
@@ -27,7 +28,7 @@ public final class NatRendForm extends NatRendElement implements RendFormInt {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
         RendForm.feedFormParts(_rendStack, opForm, varNames);
         long currentForm_;
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
@@ -36,7 +37,7 @@ public final class NatRendForm extends NatRendElement implements RendFormInt {
             RendForm.procCstRef(_cont,_rendStack,elt_);
             return;
         }
-        StringList alt_ = NatRenderingText.renderAltListNat(textPart, _stds, _ctx, _rendStack);
+        StringList alt_ = NatRenderingText.renderAltListNat(textPart, _stds, _rendStack);
         StringList arg_ = new StringList();
         RendForm.feedList(alt_,arg_);
         String render_ = StringUtil.join(alt_,"");

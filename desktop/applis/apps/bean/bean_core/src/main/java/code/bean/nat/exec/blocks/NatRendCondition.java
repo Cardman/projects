@@ -2,11 +2,10 @@ package code.bean.nat.exec.blocks;
 
 import code.formathtml.exec.blocks.RendOperationNodeListOff;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.blocks.RendWithEl;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 
-public abstract class NatRendCondition extends RendParentBlock implements RendWithEl {
+public abstract class NatRendCondition extends RendParentBlock implements NatRendWithEl {
 
 
     private final RendOperationNodeListOff condition;

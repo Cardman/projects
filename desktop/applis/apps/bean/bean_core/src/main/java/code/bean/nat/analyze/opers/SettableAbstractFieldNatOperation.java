@@ -1,9 +1,8 @@
 package code.bean.nat.analyze.opers;
 
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-
 import code.bean.nat.fwd.opers.NatAnaSettableOperationContent;
+import code.expressionlanguage.functionid.MethodAccessKind;
 
 public abstract class SettableAbstractFieldNatOperation extends
         AbstractFieldNatOperation implements NatSettableElResult {
