@@ -36,7 +36,6 @@ import code.formathtml.util.NodeInformations;
 import code.maths.Rate;
 import code.maths.montecarlo.DefaultGenerator;
 import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -166,16 +165,16 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return beansStruct.getVal(_beanName);
     }
 
-    public void processRendFormRequest(Navigation _nav, NatRendStackCall _rendStackCall) {
-        _rendStackCall.clearPages();
-        _rendStackCall.setDocument(_nav.getDocument());
+    public void processRendFormRequest(Navigation _nav, Element _elt) {
+        NatRendStackCall st_ = new NatRendStackCall();
+        st_.clearPages();
+        st_.setDocument(_nav.getDocument());
         HtmlPage htmlPage_ = _nav.getHtmlPage();
         NatImportingPage ip_ = new NatImportingPage();
-        _rendStackCall.addPage(ip_);
+        st_.addPage(ip_);
         long lg_ = htmlPage_.getUrl();
         Document doc_ = _nav.getDocument();
         //retrieving form that is submitted
-        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, _nav.getSession().getRendKeyWords().getAttrNf(), Long.toString(lg_));
         htmlPage_.setForm(true);
 
         //As soon as the form is retrieved, then process on it and exit from the loop
@@ -185,20 +184,20 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         StringMap<StringList> errorsArgs_ = new StringMap<StringList>();
         _nav.feedErr(map_, errors_, errorsArgs_);
         //begin deleting previous errors
-        _nav.delPrevious(doc_, formElement_);
+        _nav.delPrevious(doc_, _elt);
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-            _nav.processRendFormErrors(this, formElement_, lg_, errors_, errorsArgs_, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
-            _rendStackCall.clearPages();
+            _nav.processRendFormErrors(this, _elt, lg_, errors_, errorsArgs_, st_.getDocument(), st_.getHtmlPage());
+            st_.clearPages();
             return;
         }
         //Setting values for bean
-        updateRendBean(htmlPage_, _rendStackCall);
-        _rendStackCall.clearPages();
+        updateRendBean(htmlPage_, st_);
+        st_.clearPages();
 
         //invoke application
-        String res_ = processRendAnchorRequest(formElement_, _nav, _rendStackCall);
-        _nav.setupText(res_, this, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
+        String res_ = processRendAnchorRequest(_elt, _nav, st_);
+        _nav.setupText(res_, this, st_.getDocument(), st_.getHtmlPage());
     }
 
     public StringMap<Message> validateAll(HtmlPage _htmlPage) {
@@ -374,6 +373,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public StringMap<SpecialNatClass> getStds() {
         return stds;
     }
+    public String initializeRendSessionDoc(Navigation _nav) {
+        NatRendStackCall rendStackCall_ = new NatRendStackCall();
+        String textToBeChanged_ = initializeRendSessionDoc(_nav, rendStackCall_);
+        _nav.setupText(textToBeChanged_, this, rendStackCall_.getDocument(), rendStackCall_.getHtmlPage());
+        return textToBeChanged_;
+    }
     public String initializeRendSessionDoc(Navigation _nav, NatRendStackCall _rendStackCall) {
         _rendStackCall.init();
         Configuration session_ = _nav.getSession();
@@ -388,6 +393,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return res_;
     }
 
+    public String processRendAnchorRequest(Element _ancElt, Navigation _nav) {
+        NatRendStackCall rendStackCall_ = new NatRendStackCall();
+        String res_ = processRendAnchorRequest(_ancElt, _nav, rendStackCall_);
+        _nav.setupText(res_, this, rendStackCall_.getDocument(), rendStackCall_.getHtmlPage());
+        return res_;
+    }
     public String processRendAnchorRequest(Element _ancElt, Navigation _nav, NatRendStackCall _rendStack) {
         if (_ancElt == null) {
             return "";

@@ -34,7 +34,7 @@ public final class AnchorEvent extends AbsMouseListenerRel {
         HtmlPage htmlPage_ = nav_.getHtmlPage();
         htmlPage_.setForm(false);
         htmlPage_.setUrl(na_);
-        page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, false));
+        page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, false,anchor));
         page.animateProcess();
     }
 }

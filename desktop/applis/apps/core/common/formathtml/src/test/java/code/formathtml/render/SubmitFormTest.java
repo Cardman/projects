@@ -9,6 +9,7 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.util.*;
+import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -84,6 +85,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.getSelectedIndexes().add(0);
         SubmitForm.submit(intForm_,nav_);
         processRendFormRequest(a_,ctx_);
+        assertNotNull(intForm_.getElt());
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
@@ -899,7 +901,7 @@ public final class SubmitFormTest extends CommonRender {
 
 
     private static void processRendFormRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getNavigation().getHtmlPage().getUrl())));
     }
 
     private static String getCustomPair() {

@@ -50,7 +50,6 @@ import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.*;
 import code.util.core.NumberUtil;
@@ -1026,7 +1025,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return expsSecondCust;
     }
 
-    public void processRendFormRequest(Navigation _nav, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public void processRendFormRequest(Navigation _nav, ContextEl _ctx, RendStackCall _rendStackCall, Element _elt) {
         _rendStackCall.clearPages();
         _rendStackCall.setDocument(_nav.getDocument());
         HtmlPage htmlPage_ = _nav.getHtmlPage();
@@ -1035,11 +1034,6 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         long lg_ = htmlPage_.getUrl();
         Document doc_ = _nav.getDocument();
         //retrieving form that is submitted
-        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, _nav.getSession().getRendKeyWords().getAttrNf(), Long.toString(lg_));
-        if (formElement_ == null) {
-            _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(NullStruct.NULL_VALUE));
-            return;
-        }
         htmlPage_.setForm(true);
 
         //As soon as the form is retrieved, then process on it and exit from the loop
@@ -1052,10 +1046,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         StringMap<StringList> errorsArgs_ = new StringMap<StringList>();
         _nav.feedErr(map_, errors_, errorsArgs_);
         //begin deleting previous errors
-        _nav.delPrevious(doc_, formElement_);
+        _nav.delPrevious(doc_, _elt);
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-            _nav.processRendFormErrors(this, formElement_, lg_, errors_, errorsArgs_, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
+            _nav.processRendFormErrors(this, _elt, lg_, errors_, errorsArgs_, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
             _rendStackCall.clearPages();
             return;
         }
@@ -1067,7 +1061,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
 
         //invoke application
-        String res_1 = processRendAnchorRequest(formElement_, _nav, _ctx, _rendStackCall);
+        String res_1 = processRendAnchorRequest(_elt, _nav, _ctx, _rendStackCall);
         _nav.setupText(res_1, this, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
     }
 

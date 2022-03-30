@@ -1,6 +1,5 @@
 package code.gui.document;
 
-import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -96,9 +95,7 @@ public final class RenderedPage implements ProcessingSession {
         start();
         navigation = _stds.getNavigation();
         contextCreator = new NativeContextCreator();
-        NatRendStackCall _rendStackCall = new NatRendStackCall();
-        String textToBeChanged_ = _stds.getBeanNatLgNames().initializeRendSessionDoc(navigation, _rendStackCall);
-        navigation.setupText(textToBeChanged_, standards, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
+        _stds.getBeanNatLgNames().initializeRendSessionDoc(navigation);
         setupText();
     }
 

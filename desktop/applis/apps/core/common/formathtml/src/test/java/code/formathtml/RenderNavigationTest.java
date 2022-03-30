@@ -890,7 +890,6 @@ public final class RenderNavigationTest extends CommonRender {
         values_.add("ONE");
         ni_.setValue(values_);
         nav_.getHtmlPage().setUrl(-1);
-        processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
     }
     @Test
@@ -6110,12 +6109,12 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void processRendFormRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getNavigation().getHtmlPage().getUrl())));
     }
 
     private static Struct processRendFormRequestExc(DualNavigationContext _nav, ContextEl _ctx) {
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, rendStackCall_);
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, rendStackCall_, DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getNavigation().getHtmlPage().getUrl())));
         return getException(rendStackCall_);
     }
 

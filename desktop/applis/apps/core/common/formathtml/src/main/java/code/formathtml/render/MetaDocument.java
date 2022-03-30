@@ -417,7 +417,7 @@ public final class MetaDocument {
                     formIndex.add(lg_);
                     MetaContainer surline_ = new MetaLine(curPar_);
                     surline_.setStyle(styleLoc_);
-                    MetaForm form_ = new MetaForm(surline_, lg_);
+                    MetaForm form_ = new MetaForm(surline_, lg_,elt_);
                     form_.setStyle(styleLoc_);
                     MetaContainer line_ = new MetaLine(form_);
                     line_.setStyle(styleLoc_);
