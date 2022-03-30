@@ -1,7 +1,7 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
@@ -28,7 +28,7 @@ public final class NatRendAnchor extends NatRendElement {
 
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack) {
         RendBlockHelp.feed(varNames, opExpAnch, _rendStack);
         RendBlockHelp.processLink(_cont, (Element) _nextWrite, _read, textPart, _stds, _rendStack);
     }

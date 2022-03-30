@@ -5,15 +5,14 @@ import code.bean.help.fwd.HelpRendForwardInfos;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
+import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.exec.InitPhase;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Document;
@@ -27,7 +26,7 @@ public final class HelpCaller {
     }
 
     public static Document text(NatDualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
-        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, null);
+        NatRendStackCall rendStackCall_ = new NatRendStackCall();
         StringMap<String> files_ = new StringMap<String>();
         Configuration session_ = _navigation.getSession();
         for (String a : _contextConf.getAddedFiles()) {
@@ -57,7 +56,7 @@ public final class HelpCaller {
         buildFctInstructions(anaDoc_,analyzingDoc_, page_);
         RendDocumentBlock rendDocumentBlock_ = HelpRendForwardInfos.buildExec(analyzingDoc_, anaDoc_);
         rendStackCall_.init();
-        ImportingPage ip_ = new ImportingPage();
+        NatImportingPage ip_ = new NatImportingPage();
         rendStackCall_.addPage(ip_);
         rendStackCall_.clearPages();
         rendStackCall_.getFormParts().initForms();

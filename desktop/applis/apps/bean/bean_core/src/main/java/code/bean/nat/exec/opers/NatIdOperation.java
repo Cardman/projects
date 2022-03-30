@@ -1,9 +1,10 @@
 package code.bean.nat.exec.opers;
+
+import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendMethodOperation;
 import code.formathtml.util.BeanLgNames;
@@ -16,7 +17,7 @@ public final class NatIdOperation extends RendMethodOperation implements NatRend
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack) {
         RendDynOperationNode o_ = NatAbstractAffectOperation.getIdOp(this);
         Argument a_ = getArgument(_nodes,o_);
         ArgumentsPair pairCh_ = getArgumentPair(_nodes, o_);

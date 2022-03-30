@@ -1,22 +1,12 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.HtmlPage;
-import code.formathtml.RendRequestUtil;
-import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.structs.Message;
 import code.maths.montecarlo.AbstractGenerator;
-import code.sml.Element;
-import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.NumberUtil;
 
 public abstract class BeanLgNames extends LgNames {
@@ -89,23 +79,6 @@ public abstract class BeanLgNames extends LgNames {
         }
         return new StringStruct(_element);
     }
-
-    public abstract String initializeRendSessionDoc(ContextEl _ctx, String _language, Configuration _configuration, Struct _db, RendStackCall _rendStackCall);
-    public abstract String processRendAnchorRequest(Element _ancElt, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack);
-    public Struct redirect(HtmlPage _htmlPage, Struct _bean, ContextEl _ctx, RendStackCall _rendStack){
-        Struct ret_;
-        if (_htmlPage.isForm()) {
-            ret_ = RendRequestUtil.redirectForm(new Argument(_bean),(int)_htmlPage.getUrl(), this, _ctx, _rendStack, _htmlPage);
-        } else {
-            ret_=RendRequestUtil.redirect(new Argument(_bean),(int)_htmlPage.getUrl(), this, _ctx, _rendStack, _htmlPage);
-        }
-        return ret_;
-    }
-
-    public abstract StringMap<Message> validateAll(HtmlPage _htmlPage, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack);
-
-    public abstract boolean updateRendBean(HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStackCall);
-    public abstract Struct redir(Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, ContextEl _context, RendStackCall _rendStackCall);
 
     public String getCurrentBeanName() {
         return currentBeanName;

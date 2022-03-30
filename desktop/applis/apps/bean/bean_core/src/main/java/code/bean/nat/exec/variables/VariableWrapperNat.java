@@ -1,17 +1,20 @@
 package code.bean.nat.exec.variables;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.structs.Struct;
 
-public final class VariableWrapperNat extends NatAbstractVariableWrapper {
-
+public final class VariableWrapperNat {
+    private final LocalVariable local;
     public VariableWrapperNat(LocalVariable _local) {
-        super(_local);
+        local = _local;
+    }
+    public void setValue(Argument _right) {
+        local.setStruct(_right.getStruct());
     }
 
-    @Override
-    public String getClassName(StackCall _stackCall, ContextEl _contextEl) {
-        return "";
+    public Struct getValue() {
+        return local.getStruct();
     }
+
 }

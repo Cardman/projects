@@ -66,7 +66,9 @@ public final class RenderInitStdsTest extends CommonRender {
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
         err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(-1), generate_, rendStackCall_).getClassName(generate_);
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
-        new Navigation().initializeRendSession(null, b_, rendStackCall_);
+        Navigation navigation1 = new Navigation();
+        String textToBeChanged_ = b_.initializeRendSessionDoc(null, navigation1, rendStackCall_);
+        navigation1.setupText(textToBeChanged_, b_, rendStackCall_.getDocument(), rendStackCall_.getHtmlPage());
         rendStackCall_.addPage(new ImportingPage());
         RendBlock.processDo(null,null, rendStackCall_);
         RendBlock.processElse(conf_,null,null,null, rendStackCall_);

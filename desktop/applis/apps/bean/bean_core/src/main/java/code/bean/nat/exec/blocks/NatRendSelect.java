@@ -2,11 +2,11 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.blocks.RendSelect;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -37,7 +37,7 @@ public final class NatRendSelect extends RendParentBlock implements NatRendWithE
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
         Argument value_ = Argument.getNullableValue(((BeanNatCommonLgNames)_stds).getAllArgs(opsValue, _rendStack).lastValue().getArgument());
         Argument map_ = Argument.getNullableValue(((BeanNatCommonLgNames)_stds).getAllArgs(opsMap, _rendStack).lastValue().getArgument());
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
@@ -49,7 +49,7 @@ public final class NatRendSelect extends RendParentBlock implements NatRendWithE
                 value_.getStruct(), _stds);
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
         processIndexes(_cont,elt,docElementSelect_, _stds, _rendStack);
-        RendSelect.possibleSelect(_cont,_rendStack,docElementSelect_);
+        RendSelect.possibleSelect(_cont, docElementSelect_, _rendStack.getFormParts(), _rendStack.getHtmlPage());
         RendBlockHelp.processBlock(_rendStack, this);
     }
 
@@ -93,7 +93,7 @@ public final class NatRendSelect extends RendParentBlock implements NatRendWithE
         obj_.add(_returnedVarValue);
         return obj_;
     }
-    private void processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
+    private void processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, NatRendStackCall _rendStackCall) {
         RendBlockHelp.fetchName(_cont, _read, _write, fieldUpdates, _advStandards, _rendStackCall);
         RendBlockHelp.fetchValue(_cont,_read,_write,opsValue, _advStandards, _rendStackCall);
     }

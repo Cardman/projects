@@ -19,8 +19,7 @@ public final class FinalVariableNatOperation extends LeafNatOperation {
     public FinalVariableNatOperation(int _indexInEl, int _indexChild,
                                      MethodNatOperation _m, NatOperationsSequence _op, String _className, boolean _varIndex) {
         super(_indexInEl, _indexChild, _m, _op);
-        int relativeOff_ = _op.getOffset();
-        variableContent = new NatAnaVariableContent(relativeOff_);
+        variableContent = new NatAnaVariableContent();
         className = _className;
         varIndex = _varIndex;
     }

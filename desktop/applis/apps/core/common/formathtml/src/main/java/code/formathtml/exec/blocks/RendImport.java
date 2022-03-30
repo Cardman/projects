@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.formathtml.FormParts;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
@@ -91,7 +92,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        ImportingPage newIp_ = newImportingPage(_rendStack, ip_, val_, beanName_);
+        ImportingPage newIp_ = newImportingPage(ip_, val_, beanName_, _rendStack.getFormParts());
         if (newBean_ != null) {
             newIp_.setGlobalArgumentStruct(newBean_,_ctx);
         }
@@ -111,14 +112,14 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         }
     }
 
-    public static ImportingPage newImportingPage(RendStackCall _rendStack, ImportingPage _ip, RendDocumentBlock _val, String _beanName) {
+    public static ImportingPage newImportingPage(ImportingPage _ip, RendDocumentBlock _val, String _beanName, FormParts _formParts) {
         ImportingPage newIp_ = new ImportingPage();
         newIp_.setOffset(0);
         newIp_.doc(_val);
 //        newIp_.setReadUrl(_link);
         newIp_.setBeanName(_beanName);
         RendReadWrite rwLoc_ = new RendReadWrite();
-        rwLoc_.setConf(_rendStack.getFormParts());
+        rwLoc_.setConf(_formParts);
         RendReadWrite rw_ = _ip.getRendReadWrite();
         rwLoc_.setDocument(rw_.getDocument());
         rwLoc_.setWrite(rw_.getWrite());

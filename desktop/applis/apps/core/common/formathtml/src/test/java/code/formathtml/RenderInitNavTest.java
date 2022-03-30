@@ -250,7 +250,10 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         ContextEl ctx_ = setupRendClassesInit(n_, lgNames_, page_);
-        n_.initializeRendSession(ctx_, page_.getStds(), new RendStackCall(InitPhase.NOTHING, ctx_));
+        BeanCustLgNames _stds = page_.getStds();
+        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING, ctx_);
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, n_, _rendStackCall);
+        n_.setupText(textToBeChanged_, _stds, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
         assertEq(2,page_.getContext().getAddedFiles().size());
         assertEq(0,n_.getLanguages().size());
@@ -337,7 +340,10 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         ContextEl ctx_ = setupRendClassesInit(n_, lgNames_, page_);
-        n_.initializeRendSession(ctx_, page_.getStds(), new RendStackCall(InitPhase.NOTHING, ctx_));
+        BeanCustLgNames _stds = page_.getStds();
+        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING, ctx_);
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, n_, _rendStackCall);
+        n_.setupText(textToBeChanged_, _stds, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
@@ -429,7 +435,10 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         ContextEl ctx_ = setupRendClassesInit(n_, lgNames_, page_);
-        n_.initializeRendSession(ctx_, page_.getStds(), new RendStackCall(InitPhase.NOTHING, ctx_));
+        BeanCustLgNames _stds = page_.getStds();
+        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING, ctx_);
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, n_, _rendStackCall);
+        n_.setupText(textToBeChanged_, _stds, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
@@ -525,7 +534,10 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         ContextEl ctx_ = setupRendClassesInit(n_, lgNames_, page_);
-        n_.initializeRendSession(ctx_, page_.getStds(), new RendStackCall(InitPhase.NOTHING, ctx_));
+        BeanCustLgNames _stds = page_.getStds();
+        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING, ctx_);
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, n_, _rendStackCall);
+        n_.setupText(textToBeChanged_, _stds, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>content</body></html>",n_.getHtmlText());
     }
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
@@ -1266,7 +1278,10 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private void init(ContextEl _ctx,DualNavigationContext _a, Navigation _n) {
-        _n.initializeRendSession(_ctx, _a.getDualAnalyzedContext().getStds(), new RendStackCall(InitPhase.NOTHING,_ctx));
+        BeanCustLgNames _stds = _a.getDualAnalyzedContext().getStds();
+        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING,_ctx);
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(_ctx, _n, _rendStackCall);
+        _n.setupText(textToBeChanged_, _stds, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
     }
 
     private static ContextEl setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {

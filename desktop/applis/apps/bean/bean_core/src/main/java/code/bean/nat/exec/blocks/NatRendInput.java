@@ -1,9 +1,9 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendRadio;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -30,7 +30,7 @@ public final class NatRendInput extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
         Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _rendStack);
         if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()), _cont.getRendKeyWords().getValueRadio())) {
@@ -40,7 +40,7 @@ public final class NatRendInput extends NatRendElement {
         }
     }
 
-    Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
+    Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, NatRendStackCall _rendStackCall) {
         Argument arg_ = RendBlockHelp.fetchName(_cont, _read, _write, fieldUpdates, _advStandards, _rendStackCall);
         RendBlockHelp.fetchValue(_cont,_read,_write,opsValue, _advStandards, _rendStackCall);
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));

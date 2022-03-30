@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.FormParts;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
@@ -26,12 +27,12 @@ public final class RendForm extends RendElement implements RendFormInt {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        feedFormParts(_rendStack, opForm, varNames);
+        feedFormParts(opForm, varNames, _rendStack.getFormParts());
         long currentForm_;
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(CALL_METHOD)) {
-            procCstRef(_cont, _rendStack, elt_);
+            procCstRef(_cont, elt_, _rendStack.getFormParts());
             return;
         }
         StringList alt_ = RenderingText.renderAltList(textPart, _ctx, _rendStack);
@@ -52,16 +53,16 @@ public final class RendForm extends RendElement implements RendFormInt {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
     }
 
-    public static void feedFormParts(RendStackCall _rendStack, CustList<RendDynOperationNode> _opForm, StringList _varNames) {
-        long currentForm_ = _rendStack.getFormParts().getCurrentForm();
-        _rendStack.getFormParts().getContainersMapStack().add(new LongTreeMap< NodeContainer>());
-        _rendStack.getFormParts().getFormatIdMapStack().add(new StringList());
-        _rendStack.getFormParts().getFormsNb().add(currentForm_);
-        _rendStack.getFormParts().getInputs().add(0L);
+    public static void feedFormParts(CustList<RendDynOperationNode> _opForm, StringList _varNames, FormParts _formParts) {
+        long currentForm_ = _formParts.getCurrentForm();
+        _formParts.getContainersMapStack().add(new LongTreeMap< NodeContainer>());
+        _formParts.getFormatIdMapStack().add(new StringList());
+        _formParts.getFormsNb().add(currentForm_);
+        _formParts.getInputs().add(0L);
         currentForm_++;
-        _rendStack.getFormParts().setCurrentForm(currentForm_);
-        _rendStack.getFormParts().getCallsFormExps().add(_opForm);
-        _rendStack.getFormParts().getFormsVars().add(_varNames);
+        _formParts.setCurrentForm(currentForm_);
+        _formParts.getCallsFormExps().add(_opForm);
+        _formParts.getFormsVars().add(_varNames);
     }
 
     public static void feedList(StringList _alt, StringList _arg) {
@@ -71,13 +72,13 @@ public final class RendForm extends RendElement implements RendFormInt {
         }
     }
 
-    public static void procCstRef(Configuration _cont, RendStackCall _rendStack, Element _elt) {
+    public static void procCstRef(Configuration _cont, Element _elt, FormParts _formParts) {
         long currentForm_;
-        _rendStack.getFormParts().getFormsArgs().add(new StringList());
+        _formParts.getFormsArgs().add(new StringList());
         if (_elt.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
             _elt.setAttribute(_cont.getRendKeyWords().getAttrAction(), EMPTY_STRING);
         }
-        currentForm_ = _rendStack.getFormParts().getCurrentForm();
+        currentForm_ = _formParts.getCurrentForm();
         _elt.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
     }
 

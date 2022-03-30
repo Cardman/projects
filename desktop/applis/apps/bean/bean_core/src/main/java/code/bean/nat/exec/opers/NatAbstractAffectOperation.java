@@ -1,8 +1,8 @@
 package code.bean.nat.exec.opers;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendMethodOperation;
 import code.formathtml.util.BeanLgNames;
@@ -17,11 +17,11 @@ public abstract class NatAbstractAffectOperation extends RendMethodOperation imp
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack) {
         calculateAffect(_nodes, _advStandards, _rendStack);
     }
 
-    protected abstract void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, RendStackCall _rendStack);
+    protected abstract void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack);
     public void setup() {
         settable = tryGetSettable(this);
     }

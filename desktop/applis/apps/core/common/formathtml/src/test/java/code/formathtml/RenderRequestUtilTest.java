@@ -10,8 +10,12 @@ import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
 
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -616,7 +620,11 @@ public final class RenderRequestUtilTest extends CommonRender {
 
 
     private static Struct redirect(Argument _bean, int _url, BeanCustLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
-        return RendRequestUtil.redirect(_bean, _url, _advStandards, _context, _rendStackCall, _rendStackCall.getHtmlPage());
+        HtmlPage _htmlPage = _rendStackCall.getHtmlPage();
+        StringList varNames_ = _htmlPage.getAnchorsVars().get(_url);
+        CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
+        StringList args_ = _htmlPage.getAnchorsArgs().get(_url);
+        return ((BeanCustLgNames) _advStandards).redir(_bean, varNames_, exps_, args_, _context, _rendStackCall);
     }
 
 }

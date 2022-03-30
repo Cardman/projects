@@ -8,6 +8,8 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
+import code.formathtml.FormParts;
+import code.formathtml.HtmlPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -117,7 +119,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        possibleSelect(_cont, _rendStack, docElementSelect_);
+        possibleSelect(_cont, docElementSelect_, _rendStack.getFormParts(), _rendStack.getHtmlPage());
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _ctx, _rendStack);
@@ -129,12 +131,12 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         processBlock(_cont, _stds, _ctx, _rendStack);
     }
 
-    public static void possibleSelect(Configuration _cont, RendStackCall _rendStack, Element _docElementSelect) {
-        Longs stack_ = _rendStack.getFormParts().getFormsNb();
+    public static void possibleSelect(Configuration _cont, Element _docElementSelect, FormParts _formParts, HtmlPage _htmlPage) {
+        Longs stack_ = _formParts.getFormsNb();
         if (!stack_.isEmpty()) {
             FormInputCoords inputs_ = new FormInputCoords();
             inputs_.setForm(stack_.last());
-            inputs_.setInput(_rendStack.getFormParts().getIndexes().getNb());
+            inputs_.setInput(_formParts.getIndexes().getNb());
             StringList allOptions_ = new StringList();
             ElementList elts_ = _docElementSelect.getElementsByTagName(_cont.getRendKeyWords().getKeyWordOption());
             int nbElts_ = elts_.getLength();
@@ -142,7 +144,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                 Element opt_ = elts_.item(i);
                 allOptions_.add(opt_.getAttribute(_cont.getRendKeyWords().getAttrValue()));
             }
-            _rendStack.getHtmlPage().getSelects().put(inputs_, allOptions_);
+            _htmlPage.getSelects().put(inputs_, allOptions_);
         }
     }
 

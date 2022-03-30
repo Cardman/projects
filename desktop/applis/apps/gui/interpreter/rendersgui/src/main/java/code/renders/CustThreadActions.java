@@ -21,8 +21,10 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.formathtml.DualNavigationContext;
+import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefaultConfigurationLoader;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.AbstractThreadActions;
@@ -132,7 +134,10 @@ public final class CustThreadActions extends AbstractThreadActions {
                 }
             }
         }
-        getPage().getNavigation().initializeRendSession(ctx_, du_.getStds(), rendStackCall_);
+        Navigation navigation = getPage().getNavigation();
+        BeanCustLgNames _stds = du_.getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, rendStackCall_);
+        navigation.setupText(textToBeChanged_, _stds, rendStackCall_.getDocument(), rendStackCall_.getHtmlPage());
         afterActionWithoutRemove(ctx_, rendStackCall_);
     }
 }

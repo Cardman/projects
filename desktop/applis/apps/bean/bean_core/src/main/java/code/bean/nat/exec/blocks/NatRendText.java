@@ -1,8 +1,8 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendLeaf;
 import code.formathtml.stacks.RendReadWrite;
@@ -19,8 +19,8 @@ public final class NatRendText extends RendLeaf implements NatRendWithEl{
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
-        ImportingPage lastPage_ = _rendStack.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
+        NatImportingPage lastPage_ = _rendStack.getLastPage();
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
         Document doc_ = rend_.getDocument();
         Text t_ = doc_.createTextNode(RendBlockHelp.EMPTY_STRING);

@@ -2,13 +2,18 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
-import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.blocks.*;
+import code.formathtml.FormParts;
+import code.formathtml.exec.blocks.ExecTextPart;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.stacks.RendIfStack;
+import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
@@ -16,23 +21,19 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
 
     private final ExecTextPart textPart;
 
-    private final int pageOffset;
     private final AbstractNatImpLgNames natImpLgNames;
-    public NatRendImport(ExecTextPart _textPart, int _pageOffset, AbstractNatImpLgNames _natImpLgNames) {
+    public NatRendImport(ExecTextPart _textPart, AbstractNatImpLgNames _natImpLgNames) {
         this.textPart = _textPart;
-        this.pageOffset = _pageOffset;
         natImpLgNames = _natImpLgNames;
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
-        ImportingPage ip_ = _rendStack.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
+        NatImportingPage ip_ = _rendStack.getLastPage();
         if (ip_.matchStatement(this)) {
             RendBlockHelp.processBlockAndRemove(_rendStack, this);
             return;
         }
-        ip_.setOffset(pageOffset);
-        ip_.setOpOffset(0);
         String lg_ = _cont.getCurrentLanguage();
         String pageName_ = NatRenderingText.renderNat(textPart, _stds, _rendStack);
         String link_ = BeanNatCommonLgNames.getRealFilePath(lg_,pageName_);
@@ -49,8 +50,6 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
                 }
                 for (RendBlock f: getDirectChildren(c)) {
                     if (f instanceof NatRendField) {
-                        ip_.setOffset(((NatRendField) f).getPrepareOffset());
-                        ip_.setOpOffset(0);
                         CustList<RendDynOperationNode> exps_ = ((NatRendField) f).getExps();
                         ip_.setInternGlobal(newBean_);
                         ((BeanNatCommonLgNames)_stds).getAllArgs(exps_, _rendStack).lastValue();
@@ -59,10 +58,8 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
                 }
             }
         }
-        ip_.setOffset(pageOffset);
-        ip_.setOpOffset(0);
         beforeDisp(newBean_, (BeanNatCommonLgNames) _stds);
-        ImportingPage newIp_ = RendImport.newImportingPage(_rendStack, ip_, val_, beanName_);
+        NatImportingPage newIp_ = newImportingPage(ip_, val_, beanName_, _rendStack.getFormParts());
         newIp_.setGlobalArgumentStruct(newBean_);
         RendIfStack if_ = new RendIfStack();
         if_.setLabel("");
@@ -72,6 +69,19 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
         ip_.addBlock(if_);
         if_.setEntered(true);
         _rendStack.addPage(newIp_);
+    }
+
+    public static NatImportingPage newImportingPage(NatImportingPage _ip, RendDocumentBlock _val, String _beanName, FormParts _formParts) {
+        NatImportingPage newIp_ = new NatImportingPage();
+        newIp_.setBeanName(_beanName);
+        RendReadWrite rwLoc_ = new RendReadWrite();
+        rwLoc_.setConf(_formParts);
+        RendReadWrite rw_ = _ip.getRendReadWrite();
+        rwLoc_.setDocument(rw_.getDocument());
+        rwLoc_.setWrite(rw_.getWrite());
+        rwLoc_.setRead(_val.getBodies().first().getFirstChild());
+        newIp_.setRendReadWrite(rwLoc_);
+        return newIp_;
     }
     public static void beforeDisp(Struct _arg, BeanNatCommonLgNames _advStandards) {
         if (_arg == null) {

@@ -3,9 +3,10 @@ package cards.tarot.beans;
 import cards.tarot.ResultsTarot;
 import cards.tarot.RulesTarot;
 import code.bean.nat.*;
+import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatStdFctOperation;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -15,7 +16,6 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
@@ -303,8 +303,8 @@ public final class TarotStandards extends BeanNatLgNames {
         ((TarotBeanStruct)_arg).getBean().beforeDisplaying();
     }
 
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack) {
-        ImportingPage ip_ = new ImportingPage();
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
+        NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         _rendStack.clearPages();

@@ -1,6 +1,8 @@
 package code.bean.nat;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
+import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.opers.NatRendCalculableOperation;
@@ -23,9 +25,7 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
-import code.formathtml.ImportingPage;
-import code.formathtml.RendRequestUtil;
-import code.formathtml.exec.RendStackCall;
+import code.formathtml.Navigation;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
@@ -35,6 +35,8 @@ import code.formathtml.util.NodeContainer;
 import code.formathtml.util.NodeInformations;
 import code.maths.Rate;
 import code.maths.montecarlo.DefaultGenerator;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -82,7 +84,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         super(new DefaultGenerator());
     }
 
-    public String getRes(RendDocumentBlock _rend, Configuration _conf, RendStackCall _rendStackCall) {
+    public String getRes(RendDocumentBlock _rend, Configuration _conf, NatRendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().initForms();
         String beanName_ = _rend.getBeanName();
         Struct bean_ = beansStruct.getVal(beanName_);
@@ -164,8 +166,42 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return beansStruct.getVal(_beanName);
     }
 
-    @Override
-    public StringMap<Message> validateAll(HtmlPage _htmlPage, Configuration _conf, ContextEl _ctx, RendStackCall _rendStack) {
+    public void processRendFormRequest(Navigation _nav, NatRendStackCall _rendStackCall) {
+        _rendStackCall.clearPages();
+        _rendStackCall.setDocument(_nav.getDocument());
+        HtmlPage htmlPage_ = _nav.getHtmlPage();
+        NatImportingPage ip_ = new NatImportingPage();
+        _rendStackCall.addPage(ip_);
+        long lg_ = htmlPage_.getUrl();
+        Document doc_ = _nav.getDocument();
+        //retrieving form that is submitted
+        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, _nav.getSession().getRendKeyWords().getAttrNf(), Long.toString(lg_));
+        htmlPage_.setForm(true);
+
+        //As soon as the form is retrieved, then process on it and exit from the loop
+
+        StringMap<Message> map_ = validateAll(htmlPage_);
+        StringMap<String> errors_ = new StringMap<String>();
+        StringMap<StringList> errorsArgs_ = new StringMap<StringList>();
+        _nav.feedErr(map_, errors_, errorsArgs_);
+        //begin deleting previous errors
+        _nav.delPrevious(doc_, formElement_);
+        //end deleting previous errors
+        if (!errors_.isEmpty()) {
+            _nav.processRendFormErrors(this, formElement_, lg_, errors_, errorsArgs_, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
+            _rendStackCall.clearPages();
+            return;
+        }
+        //Setting values for bean
+        updateRendBean(htmlPage_, _rendStackCall);
+        _rendStackCall.clearPages();
+
+        //invoke application
+        String res_ = processRendAnchorRequest(formElement_, _nav, _rendStackCall);
+        _nav.setupText(res_, this, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
+    }
+
+    public StringMap<Message> validateAll(HtmlPage _htmlPage) {
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = _htmlPage.getContainers();
         long lg_ = _htmlPage.getUrl();
@@ -183,8 +219,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return map_;
     }
 
-    @Override
-    public boolean updateRendBean(HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public void updateRendBean(HtmlPage _htmlPage, NatRendStackCall _rendStackCall) {
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = _htmlPage.getContainers();
         long lg_ = _htmlPage.getUrl();
@@ -201,17 +236,16 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             setGlobalArgumentStruct(procObj_, _rendStackCall);
             setRendObject(e.getValue(), newObj_, _rendStackCall);
         }
-        return true;
     }
 
 
     public void setRendObject(NodeContainer _nodeContainer,
-                              Struct _attribute, RendStackCall _rendStackCall) {
+                              Struct _attribute, NatRendStackCall _rendStackCall) {
         Struct obj_ = _nodeContainer.getUpdated();
         String attrName_ = _nodeContainer.getVarName();
         String prev_ = _nodeContainer.getVarPrevName();
         CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
-        ImportingPage ip_ = _rendStackCall.getLastPage();
+        NatImportingPage ip_ = _rendStackCall.getLastPage();
         LocalVariable lv_ = LocalVariable.newLocalVariable(obj_, _nodeContainer.getUpdatedClass());
         ip_.putValueVar(prev_, new VariableWrapperNat(lv_));
         String wrap_ = ExecInherits.toWrapper(_nodeContainer.getNodeInformation().getInputClass(),this);
@@ -221,9 +255,26 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         ip_.removeRefVar(prev_);
         ip_.removeRefVar(attrName_);
     }
-    @Override
-    public Struct redir(Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, ContextEl _context, RendStackCall _rendStackCall) {
-        ImportingPage ip_ = _rendStackCall.getLastPage();
+    public Struct redirect(HtmlPage _htmlPage, Struct _bean, NatRendStackCall _rendStack){
+        Struct ret_;
+        if (_htmlPage.isForm()) {
+            int _url = (int)_htmlPage.getUrl();
+            StringList varNames_ = _htmlPage.getFormsVars().get(_url);
+            CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsFormExps().get(_url);
+            StringList args_ = _htmlPage.getFormsArgs().get(_url);
+            ret_ = redir(new Argument(_bean), varNames_, exps_, args_, _rendStack);
+        } else {
+            int _url = (int)_htmlPage.getUrl();
+            StringList varNames_ = _htmlPage.getAnchorsVars().get(_url);
+            CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
+            StringList args_ = _htmlPage.getAnchorsArgs().get(_url);
+            ret_= redir(new Argument(_bean), varNames_, exps_, args_, _rendStack);
+        }
+        return ret_;
+    }
+
+    public Struct redir(Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, NatRendStackCall _rendStackCall) {
+        NatImportingPage ip_ = _rendStackCall.getLastPage();
         int s_ = _varNames.size();
         for (int i = 0; i< s_; i++) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(NumberUtil.parseLongZero(_args.get(i))), PRIM_LONG);
@@ -233,7 +284,9 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         setGlobalArgumentStruct(_bean.getStruct(), _rendStackCall);
         Argument argument_ = Argument.getNullableValue(getAllArgs(_exps, _rendStackCall).lastValue().getArgument());
         setGlobalArgumentStruct(globalArgument_.getStruct(), _rendStackCall);
-        RendRequestUtil.removeVars(_varNames, ip_);
+        for (String n: _varNames) {
+            ip_.removeRefVar(n);
+        }
         return argument_.getStruct();
     }
 
@@ -250,12 +303,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return validator_.validate(obj_);
     }
 
-    public IdMap<RendDynOperationNode, ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, RendStackCall _rendStackCall) {
+    public IdMap<RendDynOperationNode, ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, NatRendStackCall _rendStackCall) {
         return getAllArgs(_nodes,this, _rendStackCall);
     }
 
 
-    public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
+    public static IdMap<RendDynOperationNode,ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStackCall) {
         IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
         arguments_ = new IdMap<RendDynOperationNode,ArgumentsPair>();
         for (RendDynOperationNode o: _nodes) {
@@ -270,8 +323,8 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         return arguments_;
     }
-    public void setGlobalArgumentStruct(Struct _obj, RendStackCall _rendStackCall) {
-        _rendStackCall.getLastPage().getPageEl().setGlobalArgumentStruct(_obj);
+    public void setGlobalArgumentStruct(Struct _obj, NatRendStackCall _rendStackCall) {
+        _rendStackCall.getLastPage().setGlobalArgumentStruct(_obj);
     }
 
     public abstract ResultErrorStd getOtherResult(ClassField _classField, Struct _instance);
@@ -321,26 +374,30 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public StringMap<SpecialNatClass> getStds() {
         return stds;
     }
-    public String initializeRendSessionDoc(ContextEl _ctx, String _language, Configuration _configuration, Struct _db, RendStackCall _rendStackCall) {
+    public String initializeRendSessionDoc(Navigation _nav, NatRendStackCall _rendStackCall) {
         _rendStackCall.init();
-        initBeans(_configuration,_language);
-        String currentUrl_ = _configuration.getFirstUrl();
+        Configuration session_ = _nav.getSession();
+        String lg_ = _nav.getLanguage();
+        initBeans(session_,lg_);
+        String currentUrl_ = session_.getFirstUrl();
         Struct bean_ = getBeanOrNull(getCurrentBeanName());
         _rendStackCall.clearPages();
-        String res_ = processAfterInvoke(_configuration, currentUrl_, getCurrentBeanName(), bean_, _language, _ctx, _rendStackCall);
+        String res_ = processAfterInvoke(session_, currentUrl_, getCurrentBeanName(), bean_, lg_, _rendStackCall);
         setCurrentBeanName(_rendStackCall.getBeanName());
         setCurrentUrl(currentUrl_);
         return res_;
     }
-    @Override
-    public String processRendAnchorRequest(Element _ancElt, String _language, Configuration _configuration, HtmlPage _htmlPage, ContextEl _ctx, RendStackCall _rendStack) {
+
+    public String processRendAnchorRequest(Element _ancElt, Navigation _nav, NatRendStackCall _rendStack) {
         if (_ancElt == null) {
             return "";
         }
-        String actionCommand_ = _ancElt.getAttribute(StringUtil.concat(_configuration.getPrefix(),_configuration.getRendKeyWords().getAttrCommand()));
+        Configuration session_ = _nav.getSession();
+        String lg_ = _nav.getLanguage();
+        String actionCommand_ = _ancElt.getAttribute(StringUtil.concat(session_.getPrefix(),session_.getRendKeyWords().getAttrCommand()));
         if (actionCommand_.contains(CALL_METHOD)) {
             _rendStack.clearPages();
-            ImportingPage ip_ = new ImportingPage();
+            NatImportingPage ip_ = new NatImportingPage();
             _rendStack.addPage(ip_);
             int indexPoint_ = actionCommand_.indexOf(DOT);
             String action_ = actionCommand_
@@ -350,19 +407,18 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             String beanName_ = actionCommand_
                     .substring(actionCommand_.indexOf(CALL_METHOD) + 1, indexPoint_);
             Struct bean_ = getBeanOrNull(beanName_);
-            ip_.setOffset(indexPoint_+1);
             setGlobalArgumentStruct(bean_, _rendStack);
-            Struct return_ = redirect(_htmlPage,bean_,_ctx,_rendStack);
+            Struct return_ = redirect(_nav.getHtmlPage(),bean_, _rendStack);
             String urlDest_ = getString(return_, getCurrentUrl(), getNavigation(), StringUtil.concat(beanName_, DOT, methodName_, suffix_));
             _rendStack.clearPages();
-            String res_ = processAfterInvoke(_configuration, urlDest_, beanName_, bean_, _language, _ctx, _rendStack);
+            String res_ = processAfterInvoke(session_, urlDest_, beanName_, bean_, lg_, _rendStack);
             setCurrentBeanName(_rendStack.getBeanName());
             setCurrentUrl(urlDest_);
             return res_;
         }
         Struct bean_ = getBeanOrNull(getCurrentBeanName());
         _rendStack.clearPages();
-        String res_ = processAfterInvoke(_configuration, actionCommand_, getCurrentBeanName(), bean_, _language, _ctx, _rendStack);
+        String res_ = processAfterInvoke(session_, actionCommand_, getCurrentBeanName(), bean_, lg_, _rendStack);
         setCurrentBeanName(_rendStack.getBeanName());
         setCurrentUrl(actionCommand_);
         return res_;
@@ -426,7 +482,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return str_;
     }
 
-    protected abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack);
+    protected abstract String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack);
 
     public ResultErrorStd getName(Struct _instance) {
         return getOtherName(_instance);

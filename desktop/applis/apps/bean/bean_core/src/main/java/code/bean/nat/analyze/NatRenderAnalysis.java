@@ -134,7 +134,7 @@ public final class NatRenderAnalysis {
         if (_anaDoc.isInternGlobal() && StringUtil.quickEq(sub_, INTERN)) {
             NatOperationsSequence op_ = new NatOperationsSequence();
             op_.setOpersNat(new StrTypes());
-            op_.setValue(_string, i_);
+            op_.setValue(_string);
             op_.setDelimiterNat(_d);
             return op_;
         }

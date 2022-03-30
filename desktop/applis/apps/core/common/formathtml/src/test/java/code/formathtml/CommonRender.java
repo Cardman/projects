@@ -516,7 +516,9 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
     protected static RendStackCall initializeRendSession(ContextEl _ctx,Navigation _nav, DualNavigationContext _a) {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _nav.initializeRendSession(_ctx, _a.getDualAnalyzedContext().getStds(), build_);
+        BeanCustLgNames _stds = _a.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(_ctx, _nav, build_);
+        _nav.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         return build_;
     }
 

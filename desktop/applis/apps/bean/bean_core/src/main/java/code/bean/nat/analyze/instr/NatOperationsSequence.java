@@ -17,12 +17,9 @@ public final class NatOperationsSequence {
 
     private NatDelimiters delimiterNat;
 
-    private int offset;
-
-    public void setValue(String _string, int _offset) {
+    public void setValue(String _string) {
         valNat = new StrTypes();
         valNat.addEntry(IndexConstants.FIRST_INDEX, _string);
-        offset = _offset;
     }
 
     public void setupValues(String _string) {
@@ -126,10 +123,6 @@ public final class NatOperationsSequence {
 
     public void setDelimiterNat(NatDelimiters _delimiter) {
         delimiterNat = _delimiter;
-    }
-
-    public int getOffset() {
-        return offset;
     }
 
 }

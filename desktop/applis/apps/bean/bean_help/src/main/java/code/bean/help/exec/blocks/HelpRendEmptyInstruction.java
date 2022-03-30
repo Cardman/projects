@@ -1,8 +1,8 @@
 package code.bean.help.exec.blocks;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 
 public final class HelpRendEmptyInstruction extends HelpRendPossibleEmpty implements NatRendWithEl {
@@ -11,7 +11,7 @@ public final class HelpRendEmptyInstruction extends HelpRendPossibleEmpty implem
 //    }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds,  RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds,  NatRendStackCall _rendStack) {
         HelpRendBlockHelp.processBlock(_rendStack, this);
     }
 }

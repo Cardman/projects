@@ -1,10 +1,10 @@
 package code.bean.nat.exec.opers;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.fwd.opers.NatExecVariableContent;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendLeafOperation;
 import code.formathtml.util.BeanLgNames;
@@ -20,9 +20,8 @@ public final class NatFinalVariableOperation extends RendLeafOperation implement
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, RendStackCall _rendStack) {
-        setRelOffsetPossibleLastPage(variableContent.getOff(), _rendStack);
-        Argument arg_ = NatStdRefVariableOperation.getIndexLoop(variableContent, _rendStack.getPageEl().getVars());
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack) {
+        Argument arg_ = NatStdRefVariableOperation.getIndexLoop(variableContent, _rendStack.getLastPage().getVars());
         calcArg(_nodes, arg_);
     }
 

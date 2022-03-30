@@ -11,7 +11,7 @@ public abstract class AbstractFieldNatOperation extends LeafNatOperation impleme
     protected AbstractFieldNatOperation(int _indexInEl, int _indexChild, MethodNatOperation _m,
                                      NatOperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        fieldContent = new NatAnaFieldOperationContent(_op.getOffset());
+        fieldContent = new NatAnaFieldOperationContent();
         previousResultClass = EMPTY_STRING;
     }
 

@@ -1,11 +1,10 @@
 package code.formathtml;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -21,25 +20,12 @@ public final class RendRequestUtil {
     }
 
 
-    public static Struct redirect(Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall, HtmlPage _htmlPage) {
-        StringList varNames_ = _htmlPage.getAnchorsVars().get(_url);
-        CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
-        StringList args_ = _htmlPage.getAnchorsArgs().get(_url);
-        return _advStandards.redir(_bean, varNames_, exps_, args_, _context, _rendStackCall);
-    }
-
     public static void removeVars(StringList _varNames, ImportingPage ip_) {
         for (String n: _varNames) {
             ip_.removeRefVar(n);
         }
     }
 
-    public static Struct redirectForm(Argument _bean, int _url, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall, HtmlPage _htmlPage) {
-        StringList varNames_ = _htmlPage.getFormsVars().get(_url);
-        CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsFormExps().get(_url);
-        StringList args_ = _htmlPage.getFormsArgs().get(_url);
-        return _advStandards.redir(_bean, varNames_, exps_, args_, _context, _rendStackCall);
-    }
     public static void setRendObject(NodeContainer _nodeContainer,
                               Struct _attribute, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
         Struct obj_ = _nodeContainer.getUpdated();

@@ -191,7 +191,7 @@ public final class NatElResolver {
                 }
                 NatOperationsSequence op_ = new NatOperationsSequence();
                 op_.setOpersNat(new StrTypes());
-                op_.setValue(v.getName(), i_);
+                op_.setValue(v.getName());
                 op_.setDelimiterNat(_d);
                 return op_;
             }
@@ -205,7 +205,7 @@ public final class NatElResolver {
             NatOperationsSequence op_ = new NatOperationsSequence();
             op_.setVarIndex(true);
             op_.setOpersNat(new StrTypes());
-            op_.setValue(name_, i_);
+            op_.setValue(name_);
             op_.setDelimiterNat(_d);
             return op_;
         }

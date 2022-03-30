@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.FormParts;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
@@ -28,12 +29,12 @@ public final class RendSpan extends RendElement {
             ((Element)_nextWrite).removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrFor()));
             return;
         }
-        setupTxt(_cont, _nextWrite, _rendStack, txt_, formatted);
+        setupTxt(_cont, _nextWrite, txt_, formatted, _rendStack.getFormParts());
     }
 
-    public static void setupTxt(Configuration _cont, Node _nextWrite, RendStackCall _rendStack, String _txt, StringMap<String> _formatted) {
+    public static void setupTxt(Configuration _cont, Node _nextWrite, String _txt, StringMap<String> _formatted, FormParts _formParts) {
         ((Element)_nextWrite).setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrFor()), _txt);
-        CustList<StringList> stack_ = _rendStack.getFormParts().getFormatIdMapStack();
+        CustList<StringList> stack_ = _formParts.getFormatIdMapStack();
         if (stack_.isEmpty()) {
             return;
         }

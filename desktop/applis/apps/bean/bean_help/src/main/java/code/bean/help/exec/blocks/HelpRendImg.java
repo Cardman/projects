@@ -1,8 +1,8 @@
 package code.bean.help.exec.blocks;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatRendImg;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
@@ -19,7 +19,7 @@ public final class HelpRendImg extends HelpRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack) {
         String pageName_ = HelpRenderingText.render(textPart);
         NatRendImg.prImg(_cont,(Element)_nextWrite,pageName_);
     }

@@ -1,10 +1,7 @@
 package code.formathtml.render;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.exec.InitPhase;
-import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
@@ -12,7 +9,6 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.util.*;
-import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -68,7 +64,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -149,7 +148,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -226,7 +228,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -284,7 +289,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -375,7 +383,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -451,7 +462,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -527,7 +541,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -585,7 +602,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -666,7 +686,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -753,7 +776,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -838,7 +864,10 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        a_.getNavigation().initializeRendSession(ctx_, a_.getDualAnalyzedContext().getStds(), build_);
+        Navigation navigation = a_.getNavigation();
+        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
+        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+        navigation.setupText(textToBeChanged_, _stds, build_.getDocument(), build_.getHtmlPage());
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -870,7 +899,7 @@ public final class SubmitFormTest extends CommonRender {
 
 
     private static void processRendFormRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        _nav.getNavigation().processRendFormRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
     }
 
     private static String getCustomPair() {

@@ -1,7 +1,7 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -21,7 +21,7 @@ public final class NatRendSubmit extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();

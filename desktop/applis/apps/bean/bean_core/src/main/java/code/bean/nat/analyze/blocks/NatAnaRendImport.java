@@ -3,7 +3,6 @@ package code.bean.nat.analyze.blocks;
 import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.blocks.AnaRendParentBlock;
@@ -18,11 +17,9 @@ public final class NatAnaRendImport extends AnaRendParentBlock implements NatRen
 
     private StringList texts = new StringList();
 
-    private final int pageOffset;
     private final AbstractNatImpLgNames natImpLgNames;
-    NatAnaRendImport(Element _elt, OffsetStringInfo _page, int _offset, AbstractNatImpLgNames _natImpLgNames) {
+    NatAnaRendImport(Element _elt, int _offset, AbstractNatImpLgNames _natImpLgNames) {
         super(_offset);
-        pageOffset = _page.getOffset();
         elt = _elt;
         natImpLgNames = _natImpLgNames;
     }
@@ -38,10 +35,6 @@ public final class NatAnaRendImport extends AnaRendParentBlock implements NatRen
 
     public AbstractNatImpLgNames getNatImpLgNames() {
         return natImpLgNames;
-    }
-
-    public int getPageOffset() {
-        return pageOffset;
     }
 
     public StringList getTexts() {

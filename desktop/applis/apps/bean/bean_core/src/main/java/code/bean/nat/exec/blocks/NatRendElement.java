@@ -1,12 +1,12 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendElem;
-import code.formathtml.exec.blocks.RendElement;
 import code.formathtml.exec.blocks.RendParentBlock;
+import code.formathtml.stacks.RendIfStack;
 import code.formathtml.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -31,8 +31,8 @@ public abstract class NatRendElement extends RendParentBlock implements RendElem
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
-        ImportingPage ip_ = _rendStack.getLastPage();
+    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
+        NatImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
             RendBlockHelp.processBlockAndRemove(_rendStack, this);
@@ -51,9 +51,20 @@ public abstract class NatRendElement extends RendParentBlock implements RendElem
             String txt_ = NatRenderingText.renderNat(res_, _stds, _rendStack);
             created_.setAttribute(e.getKey(),txt_);
         }
-        RendElement.addEltStack(ip_,rw_,created_,this);
+        addEltStack(ip_,rw_,created_,this);
     }
 
-    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack);
+    public static void addEltStack(NatImportingPage _ip, RendReadWrite _rw, Element _created, RendParentBlock _block) {
+        RendIfStack if_ = new RendIfStack();
+        if_.setLabel("");
+        if_.setLastBlock(_block);
+        if_.setBlock(_block);
+        if_.setCurrentVisitedBlock(_block);
+        _ip.addBlock(if_);
+        if_.setEntered(true);
+        _rw.setRead(_block.getFirstChild());
+        _rw.setWrite(_created);
+    }
+    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack);
 
 }

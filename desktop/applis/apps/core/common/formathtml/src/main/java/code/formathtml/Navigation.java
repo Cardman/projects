@@ -1,12 +1,9 @@
 package code.formathtml;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.structs.Message;
 import code.formathtml.util.*;
@@ -82,71 +79,24 @@ public final class Navigation {
         return referenceScroll;
     }
 
-    public void initializeRendSession(ContextEl _context, BeanLgNames _stds, RendStackCall _rendStackCall) {
-        initializeRendSessionDoc(_context, _stds, _rendStackCall);
-    }
-    public void initializeRendSessionDoc(ContextEl _ctx, BeanLgNames _stds, RendStackCall _rendStackCall) {
-        String textToBeChanged_ = _stds.initializeRendSessionDoc(_ctx, language, session, dataBaseStruct, _rendStackCall);
-        if (textToBeChanged_.isEmpty()) {
-            return;
-        }
-        setupText(textToBeChanged_,_stds, _rendStackCall);
+    public Struct getDataBaseStruct() {
+        return dataBaseStruct;
     }
 
     public StringMap<String> getFiles() {
         return files;
     }
 
-    public void processRendAnchorRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack) {
-        Document doc_ = getDocument();
-        processRendAnchorRequest(_advStandards, _ctx, _rendStack, doc_);
-    }
-
-    public void processRendAnchorRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack, Document doc_) {
-        Element ancElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, getSession().getRendKeyWords().getAttrNa(), Long.toString(htmlPage.getUrl()));
-        processRendAnchorRequest(_advStandards, _ctx, _rendStack,ancElement_);
-    }
-
-    public void processRendAnchorRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack, Element ancElement_) {
-        String res_ = _advStandards.processRendAnchorRequest(ancElement_, language, session, htmlPage, _ctx, _rendStack);
-        if (!res_.isEmpty()) {
-            setupText(res_,_advStandards,_rendStack);
-        }
-    }
-
-    public void processRendFormRequest(BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStackCall) {
-        _rendStackCall.clearPages();
-        _rendStackCall.setDocument(document);
-        HtmlPage htmlPage_ = htmlPage;
-        ImportingPage ip_ = new ImportingPage();
-        _rendStackCall.addPage(ip_);
-        long lg_ = htmlPage_.getUrl();
-        Document doc_ = document;
-        //retrieving form that is submitted
-        Element formElement_ = DocumentBuilder.getFirstElementByAttribute(doc_, session.getRendKeyWords().getAttrNf(), Long.toString(lg_));
-        if (formElement_ == null) {
-            _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(NullStruct.NULL_VALUE));
-            return;
-        }
-        htmlPage_.setForm(true);
-
-        //As soon as the form is retrieved, then process on it and exit from the loop
-
-        StringMap<Message> map_ = _advStandards.validateAll(htmlPage_, session, _ctx, _rendStackCall);
-        if (map_ == null) {
-            return;
-        }
-        StringMap<String> errors_;
-        errors_ = new StringMap<String>();
-        StringMap<StringList> errorsArgs_;
-        errorsArgs_ = new StringMap<StringList>();
+    public void feedErr(StringMap<Message> map_, StringMap<String> errors_, StringMap<StringList> errorsArgs_) {
         for (EntryCust<String, Message> e: map_.entryList()) {
             Message nCont_ = e.getValue();
             String id_ = e.getKey();
             errors_.put(id_, nCont_.getContent());
             errorsArgs_.put(id_, nCont_.getArgs());
         }
-        //begin deleting previous errors
+    }
+
+    public void delPrevious(Document doc_, Element formElement_) {
         ElementList spansForm_ = formElement_.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
         int lengthSpansForom_ = spansForm_.getLength();
         for (int j = IndexConstants.FIRST_INDEX; j < lengthSpansForom_; j++) {
@@ -162,25 +112,10 @@ public final class Navigation {
             Text text_ = doc_.createTextNode(RendBlock.SPACE);
             elt_.appendChild(text_);
         }
-        //end deleting previous errors
-        if (!errors_.isEmpty()) {
-            processRendFormErrors(doc_,_advStandards, formElement_, lg_, errors_, errorsArgs_, _rendStackCall);
-            _rendStackCall.clearPages();
-            return;
-        }
-        //Setting values for bean
-        boolean res_ = _advStandards.updateRendBean(htmlPage_, _ctx, _rendStackCall);
-        _rendStackCall.clearPages();
-        if (!res_) {
-            return;
-        }
-
-        //invoke application
-        processRendAnchorRequest(_advStandards, _ctx, _rendStackCall,formElement_);
     }
 
-    private void processRendFormErrors(Document _doc, BeanLgNames _advStandards, Element _formElement, long _id,
-                                       StringMap<String> _errors, StringMap<StringList> _errorsArgs, RendStackCall _rendStackCall) {
+    public void processRendFormErrors(BeanLgNames _advStandards, Element _formElement, long _id,
+                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs, Document _document, HtmlPage _htmlPage) {
         HtmlPage htmlPage_ = htmlPage;
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
@@ -206,7 +141,7 @@ public final class Navigation {
                 if (!message_.isEmpty()) {
                     error_ = StringUtil.simpleStringsFormat(message_,_errorsArgs.getVal(i));
                 }
-                Text text_ = _doc.createTextNode(error_);
+                Text text_ = document.createTextNode(error_);
                 elt_.appendChild(text_);
                 count_++;
             }
@@ -271,10 +206,10 @@ public final class Navigation {
             for (int j = IndexConstants.FIRST_INDEX; j < ch_; j++) {
                 elt_.removeChild(children_.item(j));
             }
-            Text text_ = _doc.createTextNode(nCont_.getNodeInformation().getValue().first());
+            Text text_ = document.createTextNode(nCont_.getNodeInformation().getValue().first());
             elt_.appendChild(text_);
         }
-        setupText(_doc.export(),_advStandards, _rendStackCall);
+        setupText(document.export(),_advStandards, _document, _htmlPage);
     }
 
     private static NodeContainer getValue(LongTreeMap<NodeContainer> _containers, String _idInput) {
@@ -290,13 +225,15 @@ public final class Navigation {
         return val_;
     }
 
-    private void setupText(String _text, BeanLgNames _advStandards, RendStackCall _rendStackCall) {
-        Document doc_ = _rendStackCall.getDocument();
-        document = doc_;
-        htmlPage = _rendStackCall.getHtmlPage();
+    public void setupText(String _text, BeanLgNames _advStandards, Document _document, HtmlPage _htmlPage) {
+        if (_text.isEmpty()) {
+            return;
+        }
+        document = _document;
+        htmlPage = _htmlPage;
         ElementList nodes_;
         title = EMPTY_STRING;
-        nodes_ = doc_.getElementsByTagName(session.getRendKeyWords().getKeyWordHead());
+        nodes_ = _document.getElementsByTagName(session.getRendKeyWords().getKeyWordHead());
         int size_ = nodes_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
             Element node_ = nodes_.item(i);

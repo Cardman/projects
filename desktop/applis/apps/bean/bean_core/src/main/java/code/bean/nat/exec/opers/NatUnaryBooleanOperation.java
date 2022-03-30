@@ -1,11 +1,11 @@
 package code.bean.nat.exec.opers;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendMethodOperation;
 import code.formathtml.util.BeanLgNames;
@@ -17,7 +17,7 @@ public final class NatUnaryBooleanOperation extends RendMethodOperation implemen
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, RendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack) {
         Argument arg_ = getArgument(_nodes,getFirstNode(this));
         BooleanStruct o_ = NumParsers.convertToBoolean(arg_.getStruct());
         Argument a_ = new Argument(o_.neg());

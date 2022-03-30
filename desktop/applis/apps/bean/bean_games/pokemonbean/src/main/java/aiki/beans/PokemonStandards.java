@@ -88,9 +88,10 @@ import aiki.util.Point;
 import code.bean.Bean;
 import code.bean.nat.LgIntStruct;
 import code.bean.nat.*;
+import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatStdFctOperation;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -100,7 +101,6 @@ import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.maths.LgInt;
@@ -810,8 +810,8 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
         ((PokemonBeanStruct) _arg).getBean().beforeDisplaying();
     }
 
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack) {
-        ImportingPage ip_ = new ImportingPage();
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
+        NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         StringMapObject stringMapObject_ = new StringMapObject();
         if (_bean instanceof PokemonBeanStruct&&((PokemonBeanStruct) _bean).getBean() instanceof WithForms) {

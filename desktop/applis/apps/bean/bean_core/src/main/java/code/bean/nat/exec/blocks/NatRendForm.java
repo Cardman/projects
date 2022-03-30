@@ -1,7 +1,7 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendForm;
 import code.formathtml.exec.blocks.RendFormInt;
@@ -28,13 +28,13 @@ public final class NatRendForm extends NatRendElement implements RendFormInt {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
-        RendForm.feedFormParts(_rendStack, opForm, varNames);
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack) {
+        RendForm.feedFormParts(opForm, varNames, _rendStack.getFormParts());
         long currentForm_;
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(RendBlockHelp.CALL_METHOD)) {
-            RendForm.procCstRef(_cont,_rendStack,elt_);
+            RendForm.procCstRef(_cont, elt_, _rendStack.getFormParts());
             return;
         }
         StringList alt_ = NatRenderingText.renderAltListNat(textPart, _stds, _rendStack);

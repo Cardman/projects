@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.FormParts;
 import code.formathtml.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
@@ -88,32 +89,26 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 return;
             }
         }
-        injectDoc(_cont, _rendStack, anchorArg_, docLoc_, callsExps, varNames);
+        _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
+        injectDoc(_cont, anchorArg_, docLoc_, varNames, _rendStack.getLastPage().getBeanName(), _rendStack.getLastPage().getRendReadWrite(), _rendStack.getFormParts());
         processBlock(_cont, _stds, _ctx, _rendStack);
     }
 
-    public static void injectDoc(Configuration _cont, RendStackCall _rendStack, StringList _anchorArg, Document _docLoc, StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _varNames) {
-        _rendStack.getFormParts().getCallsExps().addAllElts(_callsExps.getVal(_cont.getCurrentLanguage()));
-        injectDoc(_cont, _rendStack, _anchorArg, _docLoc, _varNames);
-    }
-
-    public static void injectDoc(Configuration _cont, RendStackCall _rendStack, StringList _anchorArg, Document _docLoc, StringList _varNames) {
-        ImportingPage ip_ = _rendStack.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
-        Element write_ = rw_.getWrite();
+    public static void injectDoc(Configuration _cont, StringList _anchorArg, Document _docLoc, StringList _varNames, String _beanName, RendReadWrite _rendReadWrite, FormParts _formParts) {
+        Element write_ = _rendReadWrite.getWrite();
         Node root_ = _docLoc.getDocumentElement();
         Node read_ = root_.getFirstChild();
-        Document ownerDocument_ = rw_.getDocument();
+        Document ownerDocument_ = _rendReadWrite.getDocument();
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
                 Element created_ = appendChild(ownerDocument_, write_, eltRead_);
-                processImportedNode(_cont,ip_, created_);
+                processImportedNode(_cont, created_, _beanName);
                 if (StringUtil.quickEq(created_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
-                    _rendStack.getFormParts().getAnchorsArgs().add(_anchorArg);
-                    _rendStack.getFormParts().getAnchorsVars().add(_varNames);
+                    _formParts.getAnchorsArgs().add(_anchorArg);
+                    _formParts.getAnchorsVars().add(_varNames);
                 }
-                incrAncNb(_cont, created_, _rendStack);
+                incrAncNb(_cont, created_, _formParts);
                 Node firstChild_ = read_.getFirstChild();
                 if (firstChild_ != null) {
                     write_ = created_;
@@ -147,12 +142,11 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
     }
 
     private static void processImportedNode(Configuration _conf,
-                                            ImportingPage _ip, Element _tag) {
-        String beanName_ = _ip.getBeanName();
+                                            Element _tag, String _beanName) {
         if (StringUtil.quickEq(_tag.getTagName(),_conf.getRendKeyWords().getKeyWordAnchor())) {
             String href_ = _tag.getAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()));
             if (href_.startsWith(CALL_METHOD)) {
-                _tag.setAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,href_.substring(1)));
+                _tag.setAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD, _beanName,DOT,href_.substring(1)));
             }
             if (_tag.hasAttribute(StringUtil.concat(_conf.getPrefix(),_conf.getRendKeyWords().getAttrCommand()))) {
                 _tag.setAttribute(_conf.getRendKeyWords().getAttrHref(), EMPTY_STRING);

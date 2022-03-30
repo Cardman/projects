@@ -2,9 +2,9 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendMessage;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -37,7 +37,7 @@ public final class NatRendMessage extends RendParentBlock implements NatRendWith
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, RendStackCall _rendStack) {
+    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
         int l_ = args.size();
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
@@ -55,7 +55,8 @@ public final class NatRendMessage extends RendParentBlock implements NatRendWith
         String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,preRend_,LT_END_TAG,TMP_BLOCK_TAG,gt_);
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
         Document docLoc_ = res_.getDocument();
-        RendMessage.injectDoc(_cont,_rendStack,anchorArg_,docLoc_,callsExps,varNames);
+        _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
+        RendMessage.injectDoc(_cont, anchorArg_, docLoc_, varNames, _rendStack.getLastPage().getBeanName(), _rendStack.getLastPage().getRendReadWrite(), _rendStack.getFormParts());
         RendBlockHelp.processBlock(_rendStack, this);
     }
 

@@ -124,18 +124,29 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void processRendAnchorRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        _nav.getNavigation().processRendAnchorRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
+        Navigation navigation = _nav.getNavigation();
+        BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
+        RendStackCall _rendStack = new RendStackCall(InitPhase.NOTHING, _ctx);
+        String res_ = _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation.getDocument(), navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(navigation.getHtmlPage().getUrl())), navigation, _ctx, _rendStack);
+        navigation.setupText(res_,_advStandards, _rendStack.getDocument(), _rendStack.getHtmlPage());
     }
 
     private static void processRendAnchorRequest2(DualNavigationContext _nav, ContextEl _ctx) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(doc_.createElement(""));
-        _nav.getNavigation().processRendAnchorRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), doc_);
+        Navigation navigation = _nav.getNavigation();
+        BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
+        RendStackCall _rendStack = new RendStackCall(InitPhase.NOTHING, _ctx);
+        String res_ = _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(doc_, navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(navigation.getHtmlPage().getUrl())), navigation, _ctx, _rendStack);
+        navigation.setupText(res_,_advStandards, _rendStack.getDocument(), _rendStack.getHtmlPage());
     }
 
     private static Struct processRendAnchorRequestExc(DualNavigationContext _nav, ContextEl _ctx) {
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _nav.getNavigation().processRendAnchorRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, rendStackCall_);
+        Navigation navigation = _nav.getNavigation();
+        BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
+        String res_ = _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation.getDocument(), navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(navigation.getHtmlPage().getUrl())), navigation, _ctx, rendStackCall_);
+        navigation.setupText(res_,_advStandards, rendStackCall_.getDocument(), rendStackCall_.getHtmlPage());
         return getException(rendStackCall_);
     }
 
@@ -6099,12 +6110,12 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void processRendFormRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        _nav.getNavigation().processRendFormRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx));
     }
 
     private static Struct processRendFormRequestExc(DualNavigationContext _nav, ContextEl _ctx) {
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _nav.getNavigation().processRendFormRequest(_nav.getDualAnalyzedContext().getStds(), _ctx, rendStackCall_);
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, rendStackCall_);
         return getException(rendStackCall_);
     }
 

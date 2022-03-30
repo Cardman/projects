@@ -1,7 +1,9 @@
 package code.gui.document;
 
-import code.expressionlanguage.exec.InitPhase;
-import code.formathtml.exec.RendStackCall;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.exec.NatRendStackCall;
+import code.formathtml.Navigation;
+import code.formathtml.util.BeanLgNames;
 
 public final class ThreadDirectActions extends AbstractThreadActions {
 
@@ -13,8 +15,11 @@ public final class ThreadDirectActions extends AbstractThreadActions {
     @Override
     public void run() {
         RenderedPage page_ = getPage();
-        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,null);
-        page_.getNavigation().initializeRendSession(null, page_.getStandards(), rendStackCall_);
+        NatRendStackCall rendStackCall_ = new NatRendStackCall();
+        Navigation navigation = page_.getNavigation();
+        BeanLgNames _stds = page_.getStandards();
+        String textToBeChanged_ = ((BeanNatCommonLgNames)_stds).initializeRendSessionDoc(navigation, rendStackCall_);
+        navigation.setupText(textToBeChanged_, _stds, rendStackCall_.getDocument(), rendStackCall_.getHtmlPage());
         afterActionWithoutRemove();
     }
 }

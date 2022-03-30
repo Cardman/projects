@@ -1,7 +1,7 @@
 package code.bean.help.exec.blocks;
 
-import code.formathtml.ImportingPage;
-import code.formathtml.exec.RendStackCall;
+import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.stacks.RendAbstractStask;
@@ -14,14 +14,14 @@ public final class HelpRendBlockHelp {
     private HelpRendBlockHelp(){
     }
 
-    public static void processBlockAndRemove(RendStackCall _rendStackCall, RendBlock _rendBlock) {
-        ImportingPage ip_ = _rendStackCall.getLastPage();
+    public static void processBlockAndRemove(NatRendStackCall _rendStackCall, RendBlock _rendBlock) {
+        NatImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.removeRendLastBlock();
         processBlock(_rendStackCall, _rendBlock);
     }
 
-    public static void processBlock(RendStackCall _rendStackCall, RendBlock _rendBlock) {
-        ImportingPage ip_ = _rendStackCall.getLastPage();
+    public static void processBlock(NatRendStackCall _rendStackCall, RendBlock _rendBlock) {
+        NatImportingPage ip_ = _rendStackCall.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock nextSibling_ = _rendBlock.getNextSibling();
         if (nextSibling_ != null) {
@@ -32,14 +32,13 @@ public final class HelpRendBlockHelp {
         RendAbstractStask lastStack_ = ip_.tryGetRendLastStack();
         if (lastStack_ != null) {
             rw_.setRead(par_);
-            nextIfStack(ip_, rw_, par_, (RendIfStack) lastStack_);
+            nextIfStack(rw_, (RendIfStack) lastStack_);
             return;
         }
         ip_.setNullRendReadWrite();
     }
 
-    private static void nextIfStack(ImportingPage _ip, RendReadWrite _rw, RendParentBlock _par, RendIfStack _lastStack) {
-        _par.removeAllVars(_ip);
+    private static void nextIfStack(RendReadWrite _rw, RendIfStack _lastStack) {
         _rw.setRead(_lastStack.getLastBlock());
     }
 

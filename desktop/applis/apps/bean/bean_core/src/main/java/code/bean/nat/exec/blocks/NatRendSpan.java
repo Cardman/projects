@@ -1,7 +1,7 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendSpan;
 import code.formathtml.util.BeanLgNames;
@@ -20,9 +20,9 @@ public final class NatRendSpan extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, RendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack) {
         String txt_ = NatRenderingText.renderNat(result, _stds, _rendStack);
-        RendSpan.setupTxt(_cont,_nextWrite,_rendStack,txt_,formatted);
+        RendSpan.setupTxt(_cont,_nextWrite, txt_,formatted, _rendStack.getFormParts());
     }
 
 }

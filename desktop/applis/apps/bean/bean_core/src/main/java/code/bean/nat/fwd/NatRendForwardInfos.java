@@ -99,7 +99,7 @@ public final class NatRendForwardInfos {
         if (_current instanceof NatAnaRendImport){
             NatAnaRendImport f_ = (NatAnaRendImport) _current;
             ExecTextPart part_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            return new NatRendImport(part_,f_.getPageOffset(), f_.getNatImpLgNames());
+            return new NatRendImport(part_, f_.getNatImpLgNames());
         }
         return element(_current);
     }
@@ -155,7 +155,7 @@ public final class NatRendForwardInfos {
         if (_current instanceof NatAnaRendField){
             NatAnaRendField f_ = (NatAnaRendField) _current;
             CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot());
-            return new NatRendField(op_,f_.getPrepareOffset());
+            return new NatRendField(op_);
         }
         if (_current instanceof NatAnaRendMessage){
             NatAnaRendMessage f_ = (NatAnaRendMessage) _current;
@@ -400,7 +400,7 @@ public final class NatRendForwardInfos {
     }
 
     private static NatAnaVariableContent generateVariable(String _varLoc) {
-        NatAnaVariableContent cont_ = new NatAnaVariableContent(0);
+        NatAnaVariableContent cont_ = new NatAnaVariableContent();
         cont_.setVariableName(_varLoc);
         return cont_;
     }
@@ -416,7 +416,7 @@ public final class NatRendForwardInfos {
         ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
         NatDotOperation rendDot_ = new NatDotOperation(new ExecOperationContent(0, clResField_, 2));
         NatStdRefVariableOperation rendPrevVar_ = new NatStdRefVariableOperation(new ExecOperationContent(0, pr_, 0), new NatExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
-        NatAnaFieldOperationContent cont_ = new NatAnaFieldOperationContent(0);
+        NatAnaFieldOperationContent cont_ = new NatAnaFieldOperationContent();
         cont_.setIntermediate(true);
         NatSettableFieldOperation rendField_ = new NatSettableFieldOperation(new ExecOperationContent(1,pr_,1),
                 new NatExecFieldOperationContent(cont_), new NatExecSettableOperationContent(_settable.getSettableFieldContent()));

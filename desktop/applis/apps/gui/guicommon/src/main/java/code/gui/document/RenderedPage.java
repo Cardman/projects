@@ -1,10 +1,9 @@
 package code.gui.document;
 
+import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.InitPhase;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.formathtml.exec.RendStackCall;
 import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
@@ -97,7 +96,9 @@ public final class RenderedPage implements ProcessingSession {
         start();
         navigation = _stds.getNavigation();
         contextCreator = new NativeContextCreator();
-        navigation.initializeRendSession(null, standards, new RendStackCall(InitPhase.NOTHING,null));
+        NatRendStackCall _rendStackCall = new NatRendStackCall();
+        String textToBeChanged_ = _stds.getBeanNatLgNames().initializeRendSessionDoc(navigation, _rendStackCall);
+        navigation.setupText(textToBeChanged_, standards, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
         setupText();
     }
 

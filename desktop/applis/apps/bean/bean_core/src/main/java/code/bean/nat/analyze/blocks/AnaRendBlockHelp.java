@@ -265,7 +265,7 @@ public final class AnaRendBlockHelp {
     public static AnaRendParentBlock defBlock(int _begin, String _prefix, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attributes, AbstractNatImpLgNames _natImpLgNames) {
         String tagName_ = _elt.getTagName();
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordImport()))) {
-            return new NatAnaRendImport(_elt,newOffsetStringInfo(_elt, _rendKeyWords.getAttrPage(), _attributes), _begin, _natImpLgNames);
+            return new NatAnaRendImport(_elt, _begin, _natImpLgNames);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordPackage()))) {
             return new NatAnaRendPackage(newOffsetStringInfo(_elt, _rendKeyWords.getAttrName(), _attributes),
