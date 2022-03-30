@@ -85,13 +85,9 @@ public final class Navigation {
     }
 
     public void initializeRendSession(ContextEl _context, BeanLgNames _stds, RendStackCall _rendStackCall) {
-        RendDocumentBlock rendDocumentBlock_ = session.getRendDocumentBlock();
-        initializeRendSessionDoc(_context, rendDocumentBlock_, _stds, _rendStackCall);
+        initializeRendSessionDoc(_context, _stds, _rendStackCall);
     }
-    public void initializeRendSessionDoc(ContextEl _ctx, RendDocumentBlock _doc, BeanLgNames _stds, RendStackCall _rendStackCall) {
-        if (_doc == null) {
-            return;
-        }
+    public void initializeRendSessionDoc(ContextEl _ctx, BeanLgNames _stds, RendStackCall _rendStackCall) {
         String textToBeChanged_ = _stds.initializeRendSessionDoc(_ctx, language, session, dataBaseStruct, _rendStackCall);
         if (textToBeChanged_.isEmpty()) {
             return;

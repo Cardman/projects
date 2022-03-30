@@ -38,11 +38,11 @@ public final class NatRendImport extends RendParentBlock implements RendWithEl {
         String lg_ = _cont.getCurrentLanguage();
         String pageName_ = NatRenderingText.renderNat(textPart, _stds, _ctx, _rendStack);
         String link_ = BeanNatCommonLgNames.getRealFilePath(lg_,pageName_);
-        RendDocumentBlock val_ = _cont.getRenders().getVal(link_);
+        RendDocumentBlock val_ = ((BeanNatCommonLgNames)natImpLgNames).getRenders().getVal(link_);
         String beanName_ = val_.getBeanName();
-        Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
+        Struct newBean_ = ((BeanNatCommonLgNames)natImpLgNames).getBeansStruct().getVal(beanName_);
         Struct mainBean_ = _rendStack.getMainBean();
-        natImpLgNames.setBeanForms(_cont, mainBean_,
+        natImpLgNames.setBeanForms(mainBean_,
                 beanName_);
         for (RendBlock p: getDirectChildren(this)) {
             for (RendBlock c: getDirectChildren(p)) {

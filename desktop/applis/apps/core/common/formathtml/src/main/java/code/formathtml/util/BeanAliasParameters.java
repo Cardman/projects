@@ -33,6 +33,8 @@ public final class BeanAliasParameters {
     private static final String VALIDATOR_0_VALIDATE_5="Validator0Validate5";
     private static final String MESSAGE_1_NEW_MESSAGE_0="Message1NewMessage0";
     private static final String MESSAGE_0_SET_ARGS_0="Message0SetArgs0";
+    private static final String DOCUMENT_0_BEAN_VALUE_0="Document0BeanValue0";
+    private static final String DOCUMENT_0_VALIDATOR_VALUE_0="Document0ValidatorValue0";
 
     private String aliasBean0SetLanguage0="a";
     private String aliasBean0SetScope0="a";
@@ -61,6 +63,8 @@ public final class BeanAliasParameters {
     private String aliasValidator0Validate5="f";
     private String aliasMessage1NewMessage0="a";
     private String aliasMessage0SetArgs0="a";
+    private String aliasDocument0BeanValue0="a";
+    private String aliasDocument0ValidatorValue0="a";
 
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
@@ -91,6 +95,8 @@ public final class BeanAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(VALIDATOR_0_VALIDATE_5,aliasValidator0Validate5)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(MESSAGE_1_NEW_MESSAGE_0,aliasMessage1NewMessage0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(MESSAGE_0_SET_ARGS_0,aliasMessage0SetArgs0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(DOCUMENT_0_BEAN_VALUE_0,aliasDocument0BeanValue0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(DOCUMENT_0_VALIDATOR_VALUE_0,aliasDocument0ValidatorValue0)));
         return m_;
     }
 
@@ -122,6 +128,8 @@ public final class BeanAliasParameters {
         aliasValidator0Validate5=LgNamesContent.get(_util, _cust, VALIDATOR_0_VALIDATE_5);
         aliasMessage1NewMessage0=LgNamesContent.get(_util, _cust, MESSAGE_1_NEW_MESSAGE_0);
         aliasMessage0SetArgs0=LgNamesContent.get(_util, _cust, MESSAGE_0_SET_ARGS_0);
+        aliasDocument0BeanValue0=LgNamesContent.get(_util, _cust, DOCUMENT_0_BEAN_VALUE_0);
+        aliasDocument0ValidatorValue0=LgNamesContent.get(_util, _cust, DOCUMENT_0_VALIDATOR_VALUE_0);
     }
 
     public String getAliasBean0SetDataBase0() {
@@ -230,5 +238,13 @@ public final class BeanAliasParameters {
 
     public String getAliasMessage0SetArgs0() {
         return aliasMessage0SetArgs0;
+    }
+
+    public String getAliasDocument0BeanValue0() {
+        return aliasDocument0BeanValue0;
+    }
+
+    public String getAliasDocument0ValidatorValue0() {
+        return aliasDocument0ValidatorValue0;
     }
 }

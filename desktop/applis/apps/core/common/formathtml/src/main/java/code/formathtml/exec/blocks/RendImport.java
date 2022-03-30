@@ -41,7 +41,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        RendDocumentBlock val_ = _cont.getRenders().getVal(pageName_);
+        RendDocumentBlock val_ = ((BeanCustLgNames)_stds).getRendExecutingBlocks().getRenders().getVal(pageName_);
         if (val_ == null) {
             processBlock(_cont, _stds, _ctx, _rendStack);
             return;
@@ -51,7 +51,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
             return;
         }
         String beanName_ = val_.getBeanName();
-        Struct newBean_ = _cont.getBuiltBeans().getVal(beanName_);
+        Struct newBean_ = ((BeanCustLgNames)_stds).getBuiltBeans().getVal(beanName_);
         boolean keepField_ = elt.hasAttribute(_cont.getRendKeyWords().getAttrKeepFields());
         Struct mainBean_ = _rendStack.getMainBean();
         if (!((BeanCustLgNames)_stds).setBeanForms(_cont, mainBean_, this, keepField_,

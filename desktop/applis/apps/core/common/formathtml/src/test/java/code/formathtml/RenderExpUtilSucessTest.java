@@ -25,6 +25,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
 import code.util.CustList;
@@ -5646,7 +5647,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CustList<OperationNode> all_ = getSortedDescNodes(conf_, op_, doc_);
         StringMap<AnaRendDocumentBlock> analyzed_ = new StringMap<AnaRendDocumentBlock>();
         generalForward(conf_);
-        RendForwardInfos.buildExec(doc_, analyzed_, conf_.getDualAnalyzedContext().getForwards(), conf_.getNavigation().getSession());
+        RendForwardInfos.buildExec(doc_, analyzed_, conf_.getDualAnalyzedContext().getForwards(), conf_.getNavigation().getSession(), new StringMap<RendDocumentBlock>());
 //        conf_.getAdvStandards().forwardAndClear(conf_.getOpt(), conf_.getForwards());
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(conf_, all_);
         ContextEl ctx_ = getGenerate(conf_);

@@ -1183,19 +1183,20 @@ public final class RendForwardInfos {
         }
     }
 
-    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf) {
-        buildExec(_d, _forwards, _conf, _analyzingDoc);
+    public static RendDocumentBlock buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, StringMap<RendDocumentBlock> _renders) {
+        RendDocumentBlock rendDocumentBlock_ = buildExec(_d, _forwards, _conf, _analyzingDoc, _renders);
         initBeansInstances(_analyzingDoc, _forwards);
         initValidatorsInstance(_analyzingDoc, _forwards);
+        return rendDocumentBlock_;
     }
 
-    private static void buildExec(StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, AnalyzingDoc _anaDoc) {
+    private static RendDocumentBlock buildExec(StringMap<AnaRendDocumentBlock> _d, Forwards _forwards, Configuration _conf, AnalyzingDoc _anaDoc, StringMap<RendDocumentBlock> _renders) {
         for (EntryCust<String,AnaRendDocumentBlock> v: _d.entryList()) {
             AnaRendDocumentBlock value_ = v.getValue();
             RendDocumentBlock rendDoc_ = build(value_, _forwards, _anaDoc);
-            _conf.getRenders().put(v.getKey(), rendDoc_);
+            _renders.put(v.getKey(), rendDoc_);
         }
         String currentUrl2_ = _conf.getFirstUrl();
-        _conf.setRendDocumentBlock(_conf.getRenders().getVal(currentUrl2_));
+        return _renders.getVal(currentUrl2_);
     }
 }

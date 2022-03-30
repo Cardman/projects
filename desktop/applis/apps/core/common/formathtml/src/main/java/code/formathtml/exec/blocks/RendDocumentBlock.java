@@ -12,7 +12,7 @@ public final class RendDocumentBlock extends ExecFileBlockAbs implements RendPar
     private String fileName;
     private Element elt;
 
-    private String beanName;
+    private final String beanName;
     private CustList<RendBlock> bodies = new CustList<RendBlock>();
     private ExecFormattedRootBlock decl;
     private RendBlock docElt;

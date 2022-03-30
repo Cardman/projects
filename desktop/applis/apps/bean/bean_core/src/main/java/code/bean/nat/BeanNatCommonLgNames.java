@@ -74,7 +74,9 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     private static final String IMPLICIT_LANGUAGE = "//";
     private final StringMap<String> iterables = new StringMap<String>();
     private final StringMap<Validator> validators = new StringMap<Validator>();
+    private final StringMap<Struct> beansStruct = new StringMap<Struct>();
 
+    private final StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
     private final StringMap<SpecialNatClass> stds = new StringMap<SpecialNatClass>();
 
     private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
@@ -83,13 +85,13 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         super(new DefaultGenerator());
     }
 
-    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanNatCommonLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public String getRes(RendDocumentBlock _rend, Configuration _conf, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().initForms();
         String beanName_ = _rend.getBeanName();
-        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
+        Struct bean_ = beansStruct.getVal(beanName_);
         _rendStackCall.setMainBean(bean_);
-        NatRendImport.beforeDisp(bean_, _stds);
-        return RendBlock.res(_rend, _conf, _stds, _ctx, _rendStackCall, beanName_, bean_);
+        NatRendImport.beforeDisp(bean_, this);
+        return RendBlock.res(_rend, _conf, this, _ctx, _rendStackCall, beanName_, bean_);
     }
 
     public static String getRealFilePath(String _lg, String _link) {
@@ -110,14 +112,14 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     @Override
     public void preInitBeans(Configuration _conf) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().addEntry(e.getKey(), NullStruct.NULL_VALUE);
+            beansStruct.addEntry(e.getKey(), NullStruct.NULL_VALUE);
         }
     }
 
     public void initBeans(Configuration _conf, String _language) {
         int index_ = 0;
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().setValue(index_, newSimpleBean(_language, e.getValue()));
+            beansStruct.setValue(index_, newSimpleBean(_language, e.getValue()));
             index_++;
         }
     }
@@ -158,12 +160,12 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public abstract ResultErrorStd getOtherResultBean(Struct _instance,
                                                       ClassMethodId _method, Struct... _args);
 
-    protected static Struct getBeanOrNull(Configuration _conf,String _currentBeanName) {
-        return getBean(_conf,_currentBeanName);
+    protected Struct getBeanOrNull(String _currentBeanName) {
+        return getBean(_currentBeanName);
     }
 
-    private static Struct getBean(Configuration _conf,String _beanName) {
-        return _conf.getBuiltBeans().getVal(_beanName);
+    private Struct getBean(String _beanName) {
+        return beansStruct.getVal(_beanName);
     }
     @Override
     public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, RendStackCall _rendStack) {
@@ -240,7 +242,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         _rendStackCall.init();
         initBeans(_configuration,_language);
         String currentUrl_ = _configuration.getFirstUrl();
-        Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
+        Struct bean_ = getBeanOrNull(getCurrentBeanName());
         _rendStackCall.clearPages();
         String res_ = processAfterInvoke(_configuration, currentUrl_, getCurrentBeanName(), bean_, _language, _ctx, _rendStackCall);
         setCurrentBeanName(_rendStackCall.getBeanName());
@@ -264,7 +266,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             String suffix_ = suff(action_);
             String beanName_ = actionCommand_
                     .substring(actionCommand_.indexOf(CALL_METHOD) + 1, indexPoint_);
-            Struct bean_ = getBeanOrNull(_configuration,beanName_);
+            Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             setGlobalArgumentStruct(bean_,_ctx,_rendStack);
             Struct return_ = redirect(_htmlPage,bean_,_ctx,_rendStack);
@@ -275,7 +277,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             setCurrentUrl(urlDest_);
             return res_;
         }
-        Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
+        Struct bean_ = getBeanOrNull(getCurrentBeanName());
         _rendStack.clearPages();
         String res_ = processAfterInvoke(_configuration, actionCommand_, getCurrentBeanName(), bean_, _language, _ctx, _rendStack);
         setCurrentBeanName(_rendStack.getBeanName());
@@ -437,6 +439,15 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 //        _navigation.getSession().setCurrentLanguage(_navigation.getLanguage());
 //        _navigation.processRendAnchorRequest(_navigation.getCurrentUrl(), this, _context, _rendStack);
 //    }
+
+
+    public StringMap<Struct> getBeansStruct() {
+        return beansStruct;
+    }
+
+    public StringMap<RendDocumentBlock> getRenders() {
+        return renders;
+    }
 
     public StringMap<Validator> getValidators() {
         return validators;

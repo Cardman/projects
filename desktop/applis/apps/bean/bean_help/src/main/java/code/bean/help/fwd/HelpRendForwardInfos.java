@@ -3,7 +3,6 @@ package code.bean.help.fwd;
 import code.bean.help.analyze.HelpResultText;
 import code.bean.help.analyze.blocks.*;
 import code.bean.help.exec.blocks.*;
-import code.bean.nat.BeanNatCommonLgNames;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.formathtml.*;
 import code.formathtml.analyze.*;
@@ -104,17 +103,9 @@ public final class HelpRendForwardInfos {
         return part_;
     }
 
-    public static void buildExec(AnalyzingDoc _analyzingDoc, Configuration _conf, String _key, AnaRendDocumentBlock _value) {
-        buildExec(_conf, _analyzingDoc, _key, _value);
+    public static RendDocumentBlock buildExec(AnalyzingDoc _analyzingDoc, AnaRendDocumentBlock _value) {
+        return build(_value, _analyzingDoc);
 
-    }
-
-    private static void buildExec(Configuration _conf, AnalyzingDoc _anaDoc, String _key, AnaRendDocumentBlock _value) {
-        RendDocumentBlock rendDoc_ = build(_value, _anaDoc);
-        _conf.getRenders().put(_key, rendDoc_);
-        String currentUrl2_ = _conf.getFirstUrl();
-        String realFilePath2_ = BeanNatCommonLgNames.getRealFilePath(_conf.getCurrentLanguage(), currentUrl2_);
-        _conf.setRendDocumentBlock(_conf.getRenders().getVal(realFilePath2_));
     }
 
 }

@@ -818,27 +818,27 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
             stringMapObject_ = ((WithForms)((PokemonBeanStruct) _bean).getBean()).getForms();
         }
         String currentBeanName_;
-        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
+        RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
-        Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
+        Struct bean_ = getBeanOrNull(currentBeanName_);
         if (bean_ instanceof PokemonBeanStruct&& ((PokemonBeanStruct) bean_).getBean() instanceof WithForms) {
             ((WithForms) ((PokemonBeanStruct) bean_).getBean()).setForms(stringMapObject_);
         }
         _rendStack.clearPages();
-        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack);
+        return getRes(rendDocumentBlock_,_conf, _ctx, _rendStack);
     }
 
     @Override
-    public void setBeanForms(Configuration _conf, Struct _mainBean, String _beanName) {
-        beanForms(_conf, _mainBean, _beanName);
+    public void setBeanForms(Struct _mainBean, String _beanName) {
+        beanForms(_mainBean, _beanName);
     }
 
-    private void beanForms(Configuration _conf, Struct _mainBean,
+    private void beanForms(Struct _mainBean,
                            String _beanName) {
         if (_mainBean == null) {
             return;
         }
-        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+        Struct bean_ = getBeansStruct().getVal(_beanName);
         if (bean_ == null) {
             return;
         }

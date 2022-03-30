@@ -454,8 +454,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             return null;
         }
         ForwardInfos.generalForward(page_, forwards_);
-        RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, session_);
-        rendExecutingBlocks.getRenders().addAllEntries(session_.getRenders());
+        StringMap<RendDocumentBlock> renders_ = new StringMap<RendDocumentBlock>();
+        rendExecutingBlocks.setRendDocumentBlock(RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, session_, renders_));
+        rendExecutingBlocks.getRenders().addAllEntries(renders_);
         Options options_ = forwards_.getOptions();
         ContextEl context_ = forwardAndClear(forwards_);
         ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
@@ -502,10 +503,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     @Override
     public void preInitBeans(Configuration _conf) {
         for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
-            _conf.getBuiltBeans().addEntry(e.getKey(),NullStruct.NULL_VALUE);
+            getBuiltBeans().addEntry(e.getKey(),NullStruct.NULL_VALUE);
         }
         for (EntryCust<String, ValidatorInfo> e: _conf.getLateValidators().entryList()) {
-            _conf.getBuiltValidators().addEntry(e.getKey(),NullStruct.NULL_VALUE);
+            rendExecutingBlocks.getBuiltValidators().addEntry(e.getKey(),NullStruct.NULL_VALUE);
         }
     }
 
@@ -523,7 +524,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             String clName_ = strBean_.getClassName(_ctx);
             if (!ExecInherits.isCorrectExecute(clName_, beanAliases.getAliasBean(), _ctx)) {
                 _rendStack.removeLastPage();
-                _conf.getBuiltBeans().setValue(index_,strBean_);
+                getBuiltBeans().setValue(index_,strBean_);
                 index_++;
                 continue;
             }
@@ -538,7 +539,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             ExecFieldTemplates.setInstanceField(
                     new Argument(strBean_),new Argument(new StringStruct(info_.getScope())), _ctx, _rendStack.getStackCall(), new ClassField(beanAliases.getAliasBean(), beanAliases.getAliasScope()), new ExecTypeReturn(rootBlock_, getAliasString()));
             _rendStack.removeLastPage();
-            _conf.getBuiltBeans().setValue(index_,strBean_);
+            getBuiltBeans().setValue(index_,strBean_);
             index_++;
         }
         index_ = 0;
@@ -551,7 +552,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
                 return;
             }
             Struct strBean_ = arg_.getStruct();
-            _conf.getBuiltValidators().setValue(index_,strBean_);
+            rendExecutingBlocks.getBuiltValidators().setValue(index_,strBean_);
             index_++;
         }
     }
@@ -563,13 +564,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public String initializeRendSessionDoc(ContextEl _ctx, String _language, Configuration _configuration, Struct _db, RendStackCall _rendStackCall) {
+        if (rendExecutingBlocks.getRendDocumentBlock() == null) {
+            return "";
+        }
         _rendStackCall.init();
         initBeans(_configuration,_language,_db, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return "";
         }
         String currentUrl_ = _configuration.getFirstUrl();
-        Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
+        Struct bean_ = getBeanOrNull(getCurrentBeanName());
         _rendStackCall.clearPages();
         String res_ = processAfterInvoke(_configuration, currentUrl_, getCurrentBeanName(), bean_, _language, _ctx, _rendStackCall);
         setup(res_,_rendStackCall,currentUrl_);
@@ -590,7 +594,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             int indexPoint_ = actionCommand_.indexOf(DOT);
             String beanName_ = actionCommand_
                     .substring(actionCommand_.indexOf(CALL_METHOD) + 1);
-            Struct bean_ = getBeanOrNull(_configuration,beanName_);
+            Struct bean_ = getBeanOrNull(beanName_);
             ip_.setOffset(indexPoint_+1);
             setGlobalArgumentStruct(bean_,_ctx,_rendStack);
             Struct return_ = redirect(_htmlPage,bean_,_ctx,_rendStack);
@@ -613,7 +617,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             setup(res_,_rendStack,urlDest_);
             return res_;
         }
-        Struct bean_ = getBeanOrNull(_configuration,getCurrentBeanName());
+        Struct bean_ = getBeanOrNull(getCurrentBeanName());
         _rendStack.clearPages();
         String res_ = processAfterInvoke(_configuration, actionCommand_,getCurrentBeanName(),bean_, _language, _ctx, _rendStack);
         setup(res_,_rendStack,actionCommand_);
@@ -644,12 +648,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         }
         String dest_ = StringUtil.getFirstToken(_dest, REF_TAG);
         String currentBeanName_;
-        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(dest_);
+        RendDocumentBlock rendDocumentBlock_ = rendExecutingBlocks.getRenders().getVal(dest_);
         if (rendDocumentBlock_ == null) {
             return "";
         }
         currentBeanName_ = rendDocumentBlock_.getBeanName();
-        Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
+        Struct bean_ = getBeanOrNull(currentBeanName_);
         if (!_beanName.isEmpty()) {
             setStoredForms(bean_, forms_, _ctx, _rendStack);
         }
@@ -670,10 +674,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _rendStackCall.getLastPage().setGlobalArgumentStruct(_obj, _ctx);
     }
 
-    public static String getRes(RendDocumentBlock _rend, Configuration _conf, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public String getRes(RendDocumentBlock _rend, Configuration _conf, BeanCustLgNames _stds, ContextEl _ctx, RendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().initForms();
         String beanName_ = _rend.getBeanName();
-        Struct bean_ = _conf.getBuiltBeans().getVal(beanName_);
+        Struct bean_ = getBuiltBeans().getVal(beanName_);
         _rendStackCall.setMainBean(bean_);
         _rendStackCall.addPage(new ImportingPage());
         RendImport.befDisp(_stds,_ctx, _rendStackCall, bean_);
@@ -730,30 +734,30 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
 
     private void processInitBeans(Configuration _conf, String _dest, String _beanName, String _currentUrl, String _language, ContextEl _ctx, RendStackCall _rendStackCall) {
-        int s_ = _conf.getBuiltBeans().size();
+        int s_ = getBuiltBeans().size();
         for (int i = 0; i < s_; i++) {
-            String key_ = _conf.getBuiltBeans().getKey(i);
-            boolean reinit_ = reinitRendBean(_conf,_dest, _beanName, key_, _currentUrl, _ctx, _rendStackCall);
+            String key_ = getBuiltBeans().getKey(i);
+            boolean reinit_ = reinitRendBean(_dest, _beanName, key_, _currentUrl, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 break;
             }
             if (!reinit_) {
                 continue;
             }
-            Struct bean_ = _conf.getBuiltBeans().getValue(i);
+            Struct bean_ = getBuiltBeans().getValue(i);
             BeanInfo info_ = _conf.getBeansInfos().getValue(i);
             bean_ = newBean(_language, bean_,info_, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 break;
             }
-            _conf.getBuiltBeans().setValue(i,bean_);
+            getBuiltBeans().setValue(i,bean_);
         }
     }
-    private boolean reinitRendBean(Configuration _conf, String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private boolean reinitRendBean(String _dest, String _beanName, String _currentBean, String _currentUrl, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (!StringUtil.quickEq(_currentBean,_beanName)) {
             return false;
         }
-        Struct bean_ = getBeanOrNull(_conf,_currentBean);
+        Struct bean_ = getBeanOrNull(_currentBean);
         String scope_ = getScope(bean_, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return false;
@@ -787,16 +791,16 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return strBean_;
     }
 
-    private static Struct getBeanOrNull(Configuration _conf, String _currentBeanName) {
-        Struct bean_ = getBean(_conf,_currentBeanName);
+    private Struct getBeanOrNull(String _currentBeanName) {
+        Struct bean_ = getBean(_currentBeanName);
         if (bean_ == null) {
             bean_ = NullStruct.NULL_VALUE;
         }
         return bean_;
     }
 
-    private static Struct getBean(Configuration _conf, String _beanName) {
-        return _conf.getBuiltBeans().getVal(_beanName);
+    private Struct getBean(String _beanName) {
+        return rendExecutingBlocks.getBuiltBeans().getVal(_beanName);
     }
 
     private void forwardDataBase(Struct _bean, Struct _to, ContextEl _ctx, RendStackCall _rendStackCall) {
@@ -864,7 +868,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         if (_mainBean == null) {
             return true;
         }
-        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+        Struct bean_ = getBuiltBeans().getVal(_beanName);
         if (bean_ == null) {
             return true;
         }
@@ -875,6 +879,9 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         return ok_;
     }
 
+    public StringMap<Struct> getBuiltBeans() {
+        return rendExecutingBlocks.getBuiltBeans();
+    }
     protected boolean gearFw(Struct _mainBean, RendImport _node, boolean _keepField, Struct _bean, ContextEl _ctx, RendStackCall _rendStack) {
         Argument forms_ = getForms(_bean, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
@@ -1029,7 +1036,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     @Override
     public Message validate(Configuration _conf, NodeContainer _cont, String _validatorId, ContextEl _ctx, RendStackCall _rendStack) {
-        Struct validator_ = _conf.getBuiltValidators().getVal(_validatorId);
+        Struct validator_ = rendExecutingBlocks.getBuiltValidators().getVal(_validatorId);
         if (validator_ == null) {
             return null;
         }

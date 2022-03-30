@@ -106,9 +106,9 @@ public final class PresidentStandards extends BeanNatLgNames {
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = new ImportingPage();
         _rendStack.addPage(ip_);
-        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
+        RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         _rendStack.clearPages();
-        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack);
+        return getRes(rendDocumentBlock_,_conf, _ctx, _rendStack);
     }
 
     @Override

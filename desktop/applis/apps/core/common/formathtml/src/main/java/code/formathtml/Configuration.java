@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.VirtualImportingBlock;
@@ -12,7 +11,6 @@ import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.analyze.syntax.RendSplitExpressionUtil;
 import code.formathtml.errors.RendKeyWords;
-import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.DualConfigurationContext;
@@ -43,14 +41,8 @@ public final class Configuration {
 
     private String prefix = EMPTY_STRING;
 
-    private final StringMap<Struct> builtBeans = new StringMap<Struct>();
-    private final StringMap<Struct> builtValidators = new StringMap<Struct>();
-
-    private final StringMap<RendDocumentBlock> renders = new StringMap<RendDocumentBlock>();
-
     private String currentLanguage = "";
     private final RendKeyWords rendKeyWords = new RendKeyWords();
-    private RendDocumentBlock rendDocumentBlock;
     private StringMap<String> files = new StringMap<String>();
 
     public void init(DualConfigurationContext _dual) {
@@ -79,7 +71,6 @@ public final class Configuration {
         }
     }
     public StringMap<AnaRendDocumentBlock> analyzedRenders(StringMap<String> _files, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, DualConfigurationContext _dual) {
-        renders.clear();
         setFiles(_files);
         _analyzingDoc.setup(this, _dual.getProperties(), _dual.getMessagesFolder());
         AnalyzingDoc.setupInts(_page, _analyzingDoc);
@@ -175,21 +166,9 @@ public final class Configuration {
         this.lateValidators = _lateValidators;
     }
 
-    public StringMap<Struct> getBuiltBeans() {
-        return builtBeans;
-    }
-
-    public StringMap<Struct> getBuiltValidators() {
-        return builtValidators;
-    }
-
 
     public RendKeyWords getRendKeyWords() {
         return rendKeyWords;
-    }
-
-    public StringMap<RendDocumentBlock> getRenders() {
-        return renders;
     }
 
     public String getCurrentLanguage() {
@@ -200,14 +179,6 @@ public final class Configuration {
         currentLanguage = _currentLanguage;
     }
 
-
-    public RendDocumentBlock getRendDocumentBlock() {
-        return rendDocumentBlock;
-    }
-
-    public void setRendDocumentBlock(RendDocumentBlock _rendDocumentBlock) {
-        this.rendDocumentBlock = _rendDocumentBlock;
-    }
 
     public void setFiles(StringMap<String> _files) {
         files = _files;

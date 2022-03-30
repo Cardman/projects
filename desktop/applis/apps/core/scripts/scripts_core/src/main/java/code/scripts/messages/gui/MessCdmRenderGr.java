@@ -216,7 +216,7 @@ f+="SetDataBase=setDataBase\n";
 f+="GetDataBase=getDataBase\n";
 f+="BeforeDisplaying=beforeDisplaying\n";
 f+="StringMapObject=$core.StringMapObject\n";
-f+="Message=$core.Message\n"+"Document=$core.Document\n"+"DocumentAll=all\n";
+f+="Message=$core.Message\n"+"Document=$core.Document\n"+"DocumentAll=all\n"+"DocumentValidatorArray=validatorArray\n"+"DocumentValidatorValue=validatorValue\n"+"DocumentBeanArray=beanArray\n"+"DocumentBeanValue=beanValue\n"+"DocumentBeanName=beanName\n";
 f+="NewMessage=newStandardMessage\n";
 f+="MessageFormat=format\n";
 f+="MessageGetArgs=getArgs\n";
@@ -248,6 +248,8 @@ f+="Validator0Validate4=e\n";
 f+="Validator0Validate5=f\n";
 f+="Message1NewMessage0=a\n";
 f+="Message0SetArgs0=a\n";
+f+="Document0BeanValue0=a\n";
+f+="Document0ValidatorValue0=a\n";
 return f;
 }
 static String resourcesRendersAliasesEnValues(){
@@ -469,7 +471,7 @@ f+="SetDataBase=majBaseDonnees\n";
 f+="GetDataBase=obtBaseDonnees\n";
 f+="BeforeDisplaying=avantAffiche\n";
 f+="StringMapObject=$coeur.StringMapObject\n";
-f+="Message=$coeur.Message\n"+"Document=$coeur.Document\n"+"DocumentAll=tous\n";
+f+="Message=$coeur.Message\n"+"Document=$coeur.Document\n"+"DocumentAll=tous\n"+"DocumentValidatorArray=validateurTab\n"+"DocumentValidatorValue=validateurValeur\n"+"DocumentBeanArray=graineTab\n"+"DocumentBeanValue=graineValeur\n"+"DocumentBeanName=graineNom\n";
 f+="NewMessage=nvuMessageStandard\n";
 f+="MessageFormat=format\n";
 f+="MessageGetArgs=obtArguments\n";
@@ -501,6 +503,8 @@ f+="Validator0Validate4=e\n";
 f+="Validator0Validate5=f\n";
 f+="Message1NewMessage0=a\n";
 f+="Message0SetArgs0=a\n";
+f+="Document0BeanValue0=a\n";
+f+="Document0ValidatorValue0=a\n";
 return f;
 }
 static String resourcesRendersAliasesFrValues(){

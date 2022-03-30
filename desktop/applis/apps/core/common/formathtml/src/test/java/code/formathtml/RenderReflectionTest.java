@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.formathtml.structs.ValidatorInfo;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -228,6 +229,137 @@ public final class RenderReflectionTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body>0</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
+
+    @Test
+    public void process13Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/>{a[0].beanName()}</body></html>";
+        String html2_ = "<html c:bean=\"bean_two\"><body>CONTENT</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", html2_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>bean_one</body></html>", getResTwoPagesTwo(folder_, relative_, html_,html2_, filesSec_));
+    }
+
+    @Test
+    public void process14Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/>{code.bean.Document.beanValue(a[0].beanName())==$this}</body></html>";
+        String html2_ = "<html c:bean=\"bean_two\"><body>CONTENT</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", html2_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>true</body></html>", getResTwoPagesTwo(folder_, relative_, html_,html2_, filesSec_));
+    }
+
+    @Test
+    public void process15Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/>{code.bean.Document.beanArr().length}</body></html>";
+        String html2_ = "<html c:bean=\"bean_two\"><body>CONTENT</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", html2_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>2</body></html>", getResTwoPagesTwo(folder_, relative_, html_,html2_, filesSec_));
+    }
+
+    @Test
+    public void process16Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/>{code.bean.Document.valArr().length}</body></html>";
+        String html2_ = "<html c:bean=\"bean_two\"><body>CONTENT</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", html2_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class [code.bean.Message;] pkg.MyVal1:code.bean.Validator{");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
+        file_.append("  $return $null;");
+        file_.append(" }");
+        file_.append("}");
+        file_.append("$public $class [code.bean.Message;] pkg.MyVal2:code.bean.Validator{");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
+        file_.append("  $return $null;");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>2</body></html>", getResTwoPagesTwo2(folder_, relative_, html_,html2_, filesSec_));
+    }
+
+    @Test
+    public void process17Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='$var' value='a=code.bean.Document.all()'/>{code.bean.Document.valValue(code.bean.Document.valArr()[0])==code.bean.Document.valValue(code.bean.Document.valArr()[0])}</body></html>";
+        String html2_ = "<html c:bean=\"bean_two\"><body>CONTENT</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        files_.put("page2.html", html2_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append("}");
+        file_.append("$public $class [code.bean.Message;] pkg.MyVal1:code.bean.Validator{");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
+        file_.append("  $return $null;");
+        file_.append(" }");
+        file_.append("}");
+        file_.append("$public $class [code.bean.Message;] pkg.MyVal2:code.bean.Validator{");
+        file_.append(" $public Message validate(Object n,Object o,Object b,Object[] f,String c,String fd){");
+        file_.append("  $return $null;");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>true</body></html>", getResTwoPagesTwo2(folder_, relative_, html_,html2_, filesSec_));
+    }
+
     private String getResOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec, String... _types) {
         return getCommOneBean(_folder,_relative,_html,_files,_filesSec,_types);
     }

@@ -1,6 +1,5 @@
 package code.bean.nat.fwd;
 
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.blocks.*;
@@ -11,7 +10,6 @@ import code.bean.nat.fwd.opers.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.opers.*;
-import code.formathtml.*;
 import code.formathtml.analyze.*;
 import code.formathtml.analyze.blocks.*;
 import code.formathtml.exec.blocks.*;
@@ -440,20 +438,17 @@ public final class NatRendForwardInfos {
 //        }
     }
 
-    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, Configuration _conf) {
-        buildExec(_d, _conf, _analyzingDoc);
+    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, StringMap<RendDocumentBlock> _renders) {
+        buildExec(_d, _analyzingDoc, _renders);
 
         initValidatorsInstance();
     }
 
-    private static void buildExec(StringMap<AnaRendDocumentBlock> _d, Configuration _conf, AnalyzingDoc _anaDoc) {
+    private static void buildExec(StringMap<AnaRendDocumentBlock> _d, AnalyzingDoc _anaDoc, StringMap<RendDocumentBlock> _renders) {
         for (EntryCust<String,AnaRendDocumentBlock> v: _d.entryList()) {
             RendDocumentBlock rendDoc_ = build(v.getValue(), _anaDoc);
-            _conf.getRenders().put(v.getKey(), rendDoc_);
+            _renders.put(v.getKey(), rendDoc_);
         }
-        String currentUrl2_ = _conf.getFirstUrl();
-        String realFilePath2_ = BeanNatCommonLgNames.getRealFilePath(_conf.getCurrentLanguage(), currentUrl2_);
-        _conf.setRendDocumentBlock(_conf.getRenders().getVal(realFilePath2_));
     }
 
     private static FieldUpdates initIn(String _id, String _idClass, String _idName, String _className, String _varName, InputInfo _varNames) {

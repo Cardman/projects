@@ -35,7 +35,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         analyzingDoc_.setLanguages(_nav.getLanguages());
         _nav.getSession().setCurrentLanguage(_nav.getLanguage());
 
-        _nav.getSession().getRenders().clear();
+        getRenders().clear();
         _nav.getSession().setFiles(_nav.getFiles());
         analyzingDoc_.setup(_nav.getSession(), _context.getProperties(), _context.getMessagesFolder());
 
@@ -53,7 +53,7 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
             AnaRendBlockHelp.buildFctInstructions(v,analyzingDoc_, natCode, beansInfos_);
         }
 //        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
-        NatRendForwardInfos.buildExec(analyzingDoc_, d_, _conf);
+        NatRendForwardInfos.buildExec(analyzingDoc_, d_, getRenders());
     }
 
     public static String processString(Argument _arg) {

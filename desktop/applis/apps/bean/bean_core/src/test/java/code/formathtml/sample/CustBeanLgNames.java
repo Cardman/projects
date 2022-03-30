@@ -819,19 +819,19 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             forms_ = ((BeanStruct)_bean).getForms();
         }
         String currentBeanName_;
-        RendDocumentBlock rendDocumentBlock_ = _conf.getRenders().getVal(_dest);
+        RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
-        Struct bean_ = getBeanOrNull(_conf,currentBeanName_);
+        Struct bean_ = getBeanOrNull(currentBeanName_);
         if (bean_ instanceof BeanStruct) {
             ((BeanStruct) bean_).setForms(forms_);
         }
         _rendStack.clearPages();
-        return BeanNatCommonLgNames.getRes(rendDocumentBlock_,_conf, this, _ctx, _rendStack);
+        return getRes(rendDocumentBlock_,_conf, _ctx, _rendStack);
     }
 
     @Override
-    public void setBeanForms(Configuration _conf, Struct _mainBean, String _beanName) {
-        Struct bean_ = _conf.getBuiltBeans().getVal(_beanName);
+    public void setBeanForms(Struct _mainBean, String _beanName) {
+        Struct bean_ = getBeansStruct().getVal(_beanName);
         StringMapObjectSample forms_ = ((BeanStruct)bean_).getForms();
         StringMapObjectSample formsMap_ = ((BeanStruct)_mainBean).getForms();
         forms_.putAllMap(formsMap_);

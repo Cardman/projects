@@ -4,26 +4,11 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.files.DefaultAccessType;
-import code.expressionlanguage.analyze.instr.Delimiters;
-import code.expressionlanguage.analyze.opers.MethodOperation;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
-import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.analyze.instr.ElResolver;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
-import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
@@ -32,16 +17,13 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.*;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class CommonRender extends EquallableRenderUtil {
@@ -133,9 +115,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return getString(a_, ctx_);
     }
 
-    protected static void setFirst(Configuration _configuration) {
-        RendDocumentBlock doc_ = _configuration.getRenders().getVal("page1.html");
-        _configuration.setRendDocumentBlock(doc_);
+    protected static RendDocumentBlock setFirst(Configuration _configuration, StringMap<RendDocumentBlock> _renders) {
+        return _renders.getVal("page1.html");
     }
 
     protected static Struct getCommEx(String _html, StringMap<String> _files) {
@@ -731,6 +712,26 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return successRes(ctx_, a_);
     }
 
+    protected static String getResTwoPagesTwo2(String _folder, String _relative, String _html, String _htmlTwo, StringMap<String> _filesSec) {
+        DualNavigationContext a_ = buildNav();
+
+        setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
+        StringMap<String> files_ = twoFiles(oneFile(_html), "page2.html", _htmlTwo);
+        newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
+        newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
+        addVal(a_.getNavigation(),"valRef1","pkg.MyVal1");
+        addVal(a_.getNavigation(),"valRef2","pkg.MyVal2");
+
+        ContextEl ctx_ = ana(_filesSec, files_, a_);
+        assertTrue(isEmptyErrors(a_));
+        CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
+        CustList<RendDynOperationNode> ops2_ = a_.getNavigation().getSession().getBeansInfos().getValue(1).getExps();
+        calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        calcBean(ctx_, ops2_, 1, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+
+        return successRes(ctx_, a_);
+    }
+
     protected static Struct getExTwoPagesTwo(String _folder, String _relative, String _html, String _htmlTwo, StringMap<String> _filesSec) {
         DualNavigationContext a_ = buildNav();
         
@@ -785,7 +786,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
     private static void calcBean(ContextEl _ctx, CustList<RendDynOperationNode> _ops, int _index, BeanCustLgNames _advStandards, Configuration _configuration) {
         Struct bean_ = calculateReuse(_ctx, _ops, _advStandards);
-        _configuration.getBuiltBeans().setValue(_index, bean_);
+        _advStandards.getBuiltBeans().setValue(_index, bean_);
     }
 
     private static StringMap<String> twoFiles(StringMap<String> _html, String _k, String _html2) {
@@ -896,9 +897,9 @@ public abstract class CommonRender extends EquallableRenderUtil {
     }
 
     private static String res(ContextEl _ctx, RendStackCall _rendStackCall, BeanCustLgNames _advStandards, Configuration _configuration) {
-        setFirst(_configuration);
+        _advStandards.getRendExecutingBlocks().setRendDocumentBlock(setFirst(_configuration, _advStandards.getRendExecutingBlocks().getRenders()));
         _rendStackCall.clearPages();
-        return BeanCustLgNames.getRes(_configuration.getRendDocumentBlock(), _configuration, _advStandards, _ctx, _rendStackCall);
+        return _advStandards.getRes(_advStandards.getRendExecutingBlocks().getRendDocumentBlock(), _configuration, _advStandards, _ctx, _rendStackCall);
     }
 
 

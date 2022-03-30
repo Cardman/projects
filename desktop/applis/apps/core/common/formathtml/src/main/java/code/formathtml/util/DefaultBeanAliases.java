@@ -63,6 +63,11 @@ public final class DefaultBeanAliases {
     private static final String MESSAGE_FORMAT = "MessageFormat";
     private static final String MESSAGE_GET_ARGS = "MessageGetArgs";
     private static final String MESSAGE_SET_ARGS = "MessageSetArgs";
+    private static final String DOCUMENT_BEAN_ARRAY="DocumentBeanArray";
+    private static final String DOCUMENT_BEAN_NAME="DocumentBeanName";
+    private static final String DOCUMENT_BEAN_VALUE="DocumentBeanValue";
+    private static final String DOCUMENT_VALIDATOR_ARRAY="DocumentValidatorArray";
+    private static final String DOCUMENT_VALIDATOR_VALUE="DocumentValidatorValue";
 
     private String aliasBean = "code.bean.Bean";
     private String aliasMapKeys = "keys";
@@ -107,6 +112,11 @@ public final class DefaultBeanAliases {
     private String aliasMessage="code.bean.Message";
     private String aliasDocument="code.bean.Document";
     private String aliasDocumentAll="all";
+    private String aliasDocumentBeanArray="beanArr";
+    private String aliasDocumentBeanName="beanName";
+    private String aliasDocumentBeanValue="beanValue";
+    private String aliasDocumentValidatorArray="valArr";
+    private String aliasDocumentValidatorValue="valValue";
     private String aliasNewMessage="newStandardMessage";
     private String aliasMessageFormat="format";
     private String aliasMessageGetArgs="getArgs";
@@ -498,6 +508,21 @@ public final class DefaultBeanAliases {
         params_ = new StringList();
         method_ = new StandardMethod(_content.getReflect().getAliasGetDeclaredAnonymousTypes(), params_, StringExpUtil.getPrettyArrayType(_content.getReflect().getAliasClassType()), false, MethodModifier.FINAL, new FctDocumentGetDeclaredAnonymousTypes());
         methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDocumentBeanArray, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC,new FctDocumentBeanArray(_rendExecutingBlocks));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDocumentBeanName, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL,new FctDocumentBeanName());
+        methods_.add( method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasDocumentBeanValue, params_, aliasBean, false, MethodModifier.STATIC, new StringList(beanAliasParameters.getAliasDocument0BeanValue0()),new FctDocumentBeanValue(_rendExecutingBlocks));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasDocumentValidatorArray, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC,new FctDocumentValidatorArray(_rendExecutingBlocks));
+        methods_.add( method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasDocumentValidatorValue, params_, aliasValidator, false, MethodModifier.STATIC, new StringList(beanAliasParameters.getAliasDocument0ValidatorValue0()),new FctDocumentValidatorValue(_rendExecutingBlocks));
+        methods_.add( method_);
         _content.getStandards().addEntry(aliasDocument, std_);
 
     }
@@ -552,6 +577,11 @@ public final class DefaultBeanAliases {
         setAliasMessageFormat(LgNamesContent.get(_util, _cust, MESSAGE_FORMAT));
         setAliasMessageGetArgs(LgNamesContent.get(_util, _cust, MESSAGE_GET_ARGS));
         setAliasMessageSetArgs(LgNamesContent.get(_util, _cust, MESSAGE_SET_ARGS));
+        setAliasDocumentBeanArray(LgNamesContent.get(_util, _cust, DOCUMENT_BEAN_ARRAY));
+        setAliasDocumentBeanName(LgNamesContent.get(_util, _cust, DOCUMENT_BEAN_NAME));
+        setAliasDocumentBeanValue(LgNamesContent.get(_util, _cust, DOCUMENT_BEAN_VALUE));
+        setAliasDocumentValidatorArray(LgNamesContent.get(_util, _cust, DOCUMENT_VALIDATOR_ARRAY));
+        setAliasDocumentValidatorValue(LgNamesContent.get(_util, _cust, DOCUMENT_VALIDATOR_VALUE));
     }
 
     public StringMap<String> allRefTypes() {
@@ -573,6 +603,11 @@ public final class DefaultBeanAliases {
                         new KeyValueMemberName(MESSAGE_SET_ARGS,getAliasMessageSetArgs())));
         CustList<KeyValueMemberName> lis_ = LgNamesContent.listAnnot(_reflect);
         lis_.add(new KeyValueMemberName(DOCUMENT_ALL,getAliasDocumentAll()));
+        lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_ARRAY,getAliasDocumentBeanArray()));
+        lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_NAME,getAliasDocumentBeanName()));
+        lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_VALUE,getAliasDocumentBeanValue()));
+        lis_.add(new KeyValueMemberName(DOCUMENT_VALIDATOR_ARRAY,getAliasDocumentValidatorArray()));
+        lis_.add(new KeyValueMemberName(DOCUMENT_VALIDATOR_VALUE,getAliasDocumentValidatorValue()));
         lis_.add(new KeyValueMemberName(GET_DECLARED_LOCAL_TYPES,_reflect.getAliasGetDeclaredLocalTypes()));
         lis_.add(new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,_reflect.getAliasGetDeclaredAnonymousTypes()));
         methods_.addEntry(getAliasDocument(), lis_);
@@ -948,6 +983,46 @@ public final class DefaultBeanAliases {
 
     public void setAliasDocumentAll(String _doc) {
         this.aliasDocumentAll = _doc;
+    }
+
+    public String getAliasDocumentBeanArray() {
+        return aliasDocumentBeanArray;
+    }
+
+    public void setAliasDocumentBeanArray(String _v) {
+        this.aliasDocumentBeanArray = _v;
+    }
+
+    public String getAliasDocumentBeanName() {
+        return aliasDocumentBeanName;
+    }
+
+    public void setAliasDocumentBeanName(String _v) {
+        this.aliasDocumentBeanName = _v;
+    }
+
+    public String getAliasDocumentBeanValue() {
+        return aliasDocumentBeanValue;
+    }
+
+    public void setAliasDocumentBeanValue(String _v) {
+        this.aliasDocumentBeanValue = _v;
+    }
+
+    public String getAliasDocumentValidatorArray() {
+        return aliasDocumentValidatorArray;
+    }
+
+    public void setAliasDocumentValidatorArray(String _v) {
+        this.aliasDocumentValidatorArray = _v;
+    }
+
+    public String getAliasDocumentValidatorValue() {
+        return aliasDocumentValidatorValue;
+    }
+
+    public void setAliasDocumentValidatorValue(String _v) {
+        this.aliasDocumentValidatorValue = _v;
     }
 
     public String getAliasNewMessage() {

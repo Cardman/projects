@@ -7,7 +7,6 @@ import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.ImportingPage;
 import code.formathtml.Navigation;
@@ -52,23 +51,19 @@ public final class HelpCaller {
         analyzingDoc_.setLanguages(_navigation.getLanguages());
         _navigation.getSession().setCurrentLanguage(_language);
 
-        _navigation.getSession().getRenders().clear();
         _navigation.getSession().setFiles(_navigation.getFiles());
         analyzingDoc_.setup(_navigation.getSession(), _contextConf.getProperties(), _contextConf.getMessagesFolder());
         String file_ = _uniq.export();
         AnaRendDocumentBlock anaDoc_ = HelpAnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), _uniq, file_, _realFilePath, analyzingDoc_.getRendKeyWords());
         buildFctInstructions(anaDoc_,analyzingDoc_, page_);
-        HelpRendForwardInfos.buildExec(analyzingDoc_, conf_, _realFilePath, anaDoc_);
+        RendDocumentBlock rendDocumentBlock_ = HelpRendForwardInfos.buildExec(analyzingDoc_, anaDoc_);
         rendStackCall_.init();
         ImportingPage ip_ = new ImportingPage();
         rendStackCall_.addPage(ip_);
-        String dest_ = _navigation.getSession().getFirstUrl();
-        RendDocumentBlock rendDocumentBlock_ = _navigation.getSession().getRenders().getVal(dest_);
         rendStackCall_.clearPages();
         rendStackCall_.getFormParts().initForms();
         String beanName_ = rendDocumentBlock_.getBeanName();
-        Struct bean_ = _navigation.getSession().getBuiltBeans().getVal(beanName_);
-        RendBlock.res(rendDocumentBlock_, _navigation.getSession(), null, ctx_, rendStackCall_, beanName_, bean_);
+        RendBlock.res(rendDocumentBlock_, _navigation.getSession(), null, ctx_, rendStackCall_, beanName_, null);
         return rendStackCall_.getDocument();
     }
 
