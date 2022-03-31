@@ -854,22 +854,20 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     @Override
     public ResultErrorStd getOtherResult(ClassField _classField, Struct _instance) {
         if (_instance instanceof PkLineStruct) {
-            PokemonLine instance_ = ((PkLineStruct) _instance).getWildPk();
-            return AikiBeansFacadeDtoStd.getResultPokemonLine(_classField, instance_);
+            return AikiBeansFacadeDtoStd.getResultPokemonLine(_classField, ((PkLineStruct) _instance).getWildPk());
         }
         if (_instance instanceof ItLineStruct) {
-            ItemLine instance_ = ((ItLineStruct) _instance).getWildPk();
-            return AikiBeansFacadeDtoStd.getResultItemLine(_classField, instance_);
+            return AikiBeansFacadeDtoStd.getResultItemLine(_classField, ((ItLineStruct) _instance).getWildPk());
         }
         if (_instance instanceof MvLineStruct) {
             MoveLine instance_ = ((MvLineStruct) _instance).getWildPk();
             if (instance_ instanceof SelectLineMove) {
-                return AikiBeansFacadeSimulationDtoStd.getResultSelectLineMove(_classField, (SelectLineMove) instance_);
+                return AikiBeansFacadeSimulationDtoStd.getResultSelectLineMove(_classField, (SelectLineMove) ((MvLineStruct) _instance).getWildPk());
             }
             if (instance_ instanceof RadioLineMove) {
-                return AikiBeansFacadeSimulationDtoStd.getResultRadioLineMove(_classField, (RadioLineMove) instance_);
+                return AikiBeansFacadeSimulationDtoStd.getResultRadioLineMove(_classField, (RadioLineMove) ((MvLineStruct) _instance).getWildPk());
             }
-            return AikiBeansFacadeDtoStd.getResultMoveLine(_classField, instance_);
+            return AikiBeansFacadeDtoStd.getResultMoveLine(_classField, ((MvLineStruct) _instance).getWildPk());
         }
         if (_instance instanceof EvLineStruct) {
             return AikiBeansFacadeSimulationDtoStd.getResultEvLine(_classField, ((EvLineStruct) _instance).getEvLine());
