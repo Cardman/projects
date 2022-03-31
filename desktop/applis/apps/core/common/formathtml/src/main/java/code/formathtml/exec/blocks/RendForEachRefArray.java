@@ -8,10 +8,10 @@ import code.expressionlanguage.exec.variables.ArrayWrapper;
 import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.stacks.RendLoopBlockStack;
+import code.formathtml.exec.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 

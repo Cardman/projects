@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringList;

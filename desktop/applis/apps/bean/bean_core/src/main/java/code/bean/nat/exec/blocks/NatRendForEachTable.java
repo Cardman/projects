@@ -12,9 +12,10 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.formathtml.exec.blocks.RendForEachTable;
 import code.formathtml.exec.blocks.RendOperationNodeListOff;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.stacks.RendLoopBlockStack;
+import code.formathtml.exec.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -66,16 +67,7 @@ public final class NatRendForEachTable extends RendParentBlock implements NatRen
     }
 
     public static RendLoopBlockStack addedStack(NatImportingPage _nip, Struct _its, long _length, Argument _arg, String _label, RendParentBlock _block) {
-        Struct iterStr_ = _arg.getStruct();
-        RendLoopBlockStack nl_ = new RendLoopBlockStack();
-        nl_.setLabel(_label);
-        nl_.getContent().setIndex(-1);
-        nl_.getContent().setFinished(false);
-        nl_.setBlock(_block);
-        nl_.setCurrentVisitedBlock(_block);
-        nl_.getContent().setStructIterator(iterStr_);
-        nl_.getContent().setMaxIteration(_length);
-        nl_.getContent().setContainer(_its);
+        RendLoopBlockStack nl_ = RendForEachTable.stElt(_its, _length, _arg, _label, _block);
         _nip.addBlock(nl_);
         return nl_;
     }
@@ -115,6 +107,14 @@ public final class NatRendForEachTable extends RendParentBlock implements NatRen
         lInfo_.setValue(arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         call_.getRendReadWrite().setRead(getFirstChild());
+    }
+
+    public void removeAllVars(NatImportingPage _ip) {
+        StringMap<LoopVariable> v_ = _ip.getVars();
+        v_.removeKey(variableNameFirst);
+        v_.removeKey(variableNameSecond);
+        _ip.removeRefVar(variableNameFirst);
+        _ip.removeRefVar(variableNameSecond);
     }
     private static ConditionReturn iteratorHasNext(RendLoopBlockStack _rendLastStack) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();

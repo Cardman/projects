@@ -2,7 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;

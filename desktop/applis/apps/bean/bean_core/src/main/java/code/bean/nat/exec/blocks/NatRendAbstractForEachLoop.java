@@ -12,11 +12,12 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.blocks.RendForEachIterable;
 import code.formathtml.exec.blocks.RendOperationNodeListOff;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.stacks.RendLoopBlockStack;
+import code.formathtml.exec.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 import code.util.StringMap;
@@ -119,4 +120,9 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
         return variableName;
     }
 
+    public void removeAllVars(NatImportingPage _ip) {
+        StringMap<LoopVariable> v_ = _ip.getVars();
+        v_.removeKey(variableName);
+        _ip.removeRefVar(variableName);
+    }
 }

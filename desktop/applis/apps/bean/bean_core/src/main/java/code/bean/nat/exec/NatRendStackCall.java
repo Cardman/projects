@@ -1,39 +1,12 @@
 package code.bean.nat.exec;
 
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.FormParts;
-import code.formathtml.HtmlPage;
-import code.sml.Document;
+import code.formathtml.exec.AbsRendStackCall;
 import code.util.CustList;
 
-public final class NatRendStackCall {
-    HtmlPage htmlPage = new HtmlPage();
+public final class NatRendStackCall extends AbsRendStackCall {
 
-    private Document document;
-
-    private String beanName;
     private final CustList<NatImportingPage> importing = new CustList<NatImportingPage>();
-
-    private final FormParts formParts = new FormParts();
-
-    private Struct mainBean;
-
-    public void init() {
-        htmlPage = new HtmlPage();
-        document = null;
-    }
-
-    public Document getDocument() {
-        return document;
-    }
-
-    public void setDocument(Document _document) {
-        document = _document;
-    }
-
-    public HtmlPage getHtmlPage() {
-        return htmlPage;
-    }
 
     public void clearPages() {
         importing.clear();
@@ -55,23 +28,4 @@ public final class NatRendStackCall {
         return getLastPage().getInternGlobal();
     }
 
-    public FormParts getFormParts() {
-        return formParts;
-    }
-
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String _beanName) {
-        beanName = _beanName;
-    }
-
-    public Struct getMainBean() {
-        return mainBean;
-    }
-
-    public void setMainBean(Struct _mainBean) {
-        mainBean = _mainBean;
-    }
 }

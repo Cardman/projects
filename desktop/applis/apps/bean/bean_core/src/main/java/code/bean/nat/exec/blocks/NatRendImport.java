@@ -12,8 +12,8 @@ import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.stacks.RendIfStack;
-import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.exec.stacks.RendIfStack;
+import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 

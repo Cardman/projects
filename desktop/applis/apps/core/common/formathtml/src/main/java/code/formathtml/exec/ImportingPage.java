@@ -1,4 +1,4 @@
-package code.formathtml;
+package code.formathtml.exec;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -9,23 +9,21 @@ import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.blocks.*;
-import code.formathtml.stacks.*;
-import code.formathtml.util.NodeContainer;
-import code.util.*;
+import code.formathtml.exec.blocks.RendDocumentBlock;
+import code.formathtml.exec.blocks.RendFinallyEval;
+import code.formathtml.exec.blocks.RendMethodCallingFinally;
+import code.formathtml.exec.blocks.RendParentBlock;
+import code.formathtml.exec.stacks.RendAbruptCallingFinally;
+import code.formathtml.exec.stacks.RendAbstractStask;
+import code.formathtml.exec.stacks.RendRemovableVars;
+import code.formathtml.exec.stacks.RendTryBlockStack;
+import code.util.StringMap;
 
-public final class ImportingPage {
+public final class ImportingPage extends AbsImportingPage {
 
     private final SimplePageEl pageEl = new SimplePageEl();
-    private Struct internGlobal;
-
-    private final CustList<RendAbstractStask> rendBlockStacks = new CustList<RendAbstractStask>();
-
-    private String beanName;
 
     private final StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
-
-    private RendReadWrite rendReadWrite;
 
     private int offset;
     private int opOffset;
@@ -67,26 +65,6 @@ public final class ImportingPage {
         opOffset = _opOffset;
     }
 
-    public String getBeanName() {
-        return beanName;
-    }
-
-    public void setBeanName(String _beanName) {
-        beanName = _beanName;
-    }
-
-    public RendReadWrite getRendReadWrite() {
-        return rendReadWrite;
-    }
-
-    public void setNullRendReadWrite() {
-        rendReadWrite = null;
-    }
-
-    public void setRendReadWrite(RendReadWrite _rendReadWrite) {
-        rendReadWrite = _rendReadWrite;
-    }
-
     public Argument getGlobalArgument() {
         return pageEl.getGlobalArgument();
     }
@@ -120,11 +98,6 @@ public final class ImportingPage {
         return getPageEl().getVars();
     }
 
-
-    public void addBlock(RendAbstractStask _b) {
-        rendBlockStacks.add(_b);
-    }
-
     public static boolean setRemovedCallingFinallyToProcessLoop(ImportingPage _ip, RendRemovableVars _vars, RendMethodCallingFinally _call, Struct _ex) {
         return _vars == null || setRemovedCallingFinallyToProcess(_ip, _vars, _call, _ex);
     }
@@ -149,66 +122,9 @@ public final class ImportingPage {
         return false;
     }
     public void removeRendLastBlock() {
-        RendAbstractStask last_ = rendBlockStacks.last();
+        RendAbstractStask last_ = getRendBlockStacks().last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
-        if (last_ instanceof RendIfStack) {
-            if (((RendIfStack)last_).getBlock() instanceof RendElem) {
-                rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
-            }
-            if (((RendIfStack)last_).getBlock() instanceof RendFormInt) {
-                CustList<LongTreeMap<NodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
-                Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
-                Long nb_ = formsNb_.last();
-                LongTreeMap<NodeContainer> containers_ = map_.last();
-                rendReadWrite.getConf().getContainersMap().put(nb_, containers_);
-                CustList<StringList> formatId_ = rendReadWrite.getConf().getFormatIdMapStack();
-                StringList fid_ = formatId_.last();
-                rendReadWrite.getConf().getFormatIdMap().put(nb_,fid_);
-                rendReadWrite.getConf().getInputs().removeLast();
-                map_.removeQuicklyLast();
-                formatId_.removeQuicklyLast();
-                formsNb_.removeQuicklyLast();
-            }
-        }
-        rendBlockStacks.removeQuicklyLast();
-    }
-
-    public Struct getInternGlobal() {
-        return internGlobal;
-    }
-
-    public void setInternGlobal(Struct _internGlobal) {
-        internGlobal = _internGlobal;
-    }
-
-    public RendAbstractStask tryGetRendLastStack() {
-        if (hasBlock()) {
-            return rendBlockStacks.last();
-        }
-        return null;
-    }
-
-    public boolean hasBlock() {
-        return !rendBlockStacks.isEmpty();
-    }
-
-    public RendLoopBlockStack getLastLoopIfPossible(RendBlock _bl) {
-        RendLoopBlockStack c_ = null;
-        RendAbstractStask last_ = tryGetRendLastStack();
-        if (last_ instanceof RendLoopBlockStack) {
-            c_ = (RendLoopBlockStack) last_;
-        }
-        if (c_ != null && c_.getCurrentVisitedBlock() == _bl) {
-            return c_;
-        }
-        return null;
-    }
-    public boolean matchStatement(RendBlock _bl) {
-        RendAbstractStask last_ = tryGetRendLastStack();
-        if (!(last_ instanceof RendConditionBlockStack)) {
-            return false;
-        }
-        return _bl == ((RendConditionBlockStack)last_).getBlock();
+        removeRendLastBlockSt();
     }
 
     public StringMap<LocalVariable> getInternVars() {

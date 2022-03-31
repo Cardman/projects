@@ -9,9 +9,9 @@ import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.formathtml.ImportingPage;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.stacks.RendAbstractStask;
+import code.formathtml.exec.stacks.RendAbstractStask;
 
 public final class RendLocalThrowing {
 

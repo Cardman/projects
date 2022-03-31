@@ -12,10 +12,10 @@ import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.stacks.RendLoopBlockStack;
+import code.formathtml.exec.stacks.RendLoopBlockStack;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -86,6 +86,12 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
     }
 
     public static RendLoopBlockStack addedStack(ImportingPage _ip, Struct _its, long _length, Argument _arg, String _label, RendParentBlock _block) {
+        RendLoopBlockStack l_ = stElt(_its, _length, _arg, _label, _block);
+        _ip.addBlock(l_);
+        return l_;
+    }
+
+    public static RendLoopBlockStack stElt(Struct _its, long _length, Argument _arg, String _label, RendParentBlock _block) {
         Struct iterStr_ = _arg.getStruct();
         RendLoopBlockStack l_ = new RendLoopBlockStack();
         l_.setLabel(_label);
@@ -96,7 +102,6 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
         l_.getContent().setStructIterator(iterStr_);
         l_.getContent().setMaxIteration(_length);
         l_.getContent().setContainer(_its);
-        _ip.addBlock(l_);
         return l_;
     }
 

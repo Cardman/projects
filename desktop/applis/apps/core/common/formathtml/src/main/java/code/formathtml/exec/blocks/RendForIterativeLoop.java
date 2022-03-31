@@ -16,11 +16,11 @@ import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
-import code.formathtml.stacks.RendLoopBlockStack;
-import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.exec.stacks.RendLoopBlockStack;
+import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 

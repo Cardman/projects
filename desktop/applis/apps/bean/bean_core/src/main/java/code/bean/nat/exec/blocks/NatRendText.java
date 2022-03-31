@@ -5,7 +5,7 @@ import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendLeaf;
-import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Text;

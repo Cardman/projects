@@ -8,7 +8,7 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendElem;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;

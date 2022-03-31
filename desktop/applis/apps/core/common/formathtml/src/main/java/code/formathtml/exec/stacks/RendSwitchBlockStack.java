@@ -1,4 +1,4 @@
-package code.formathtml.stacks;
+package code.formathtml.exec.stacks;
 import code.formathtml.exec.blocks.RendParentBlock;
 
 public final class RendSwitchBlockStack extends RendAbstractStask implements RendConditionBlockStack {

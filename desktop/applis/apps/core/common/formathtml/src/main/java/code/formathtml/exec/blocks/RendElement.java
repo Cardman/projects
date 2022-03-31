@@ -2,10 +2,10 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
-import code.formathtml.ImportingPage;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.stacks.RendIfStack;
-import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.exec.stacks.RendIfStack;
+import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 import code.util.EntryCust;

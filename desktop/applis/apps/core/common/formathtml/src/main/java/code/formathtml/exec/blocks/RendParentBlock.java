@@ -1,6 +1,6 @@
 package code.formathtml.exec.blocks;
 
-import code.formathtml.ImportingPage;
+import code.formathtml.exec.ImportingPage;
 import code.util.CustList;
 
 public abstract class RendParentBlock extends RendBlock implements RendParentBlockInt {

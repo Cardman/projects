@@ -4,9 +4,9 @@ import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.stacks.RendAbstractStask;
-import code.formathtml.stacks.RendIfStack;
-import code.formathtml.stacks.RendReadWrite;
+import code.formathtml.exec.stacks.RendAbstractStask;
+import code.formathtml.exec.stacks.RendIfStack;
+import code.formathtml.exec.stacks.RendReadWrite;
 
 public final class HelpRendBlockHelp {
     static final String EMPTY_STRING = "";
@@ -29,7 +29,7 @@ public final class HelpRendBlockHelp {
             return;
         }
         RendParentBlock par_ = _rendBlock.getParent();
-        RendAbstractStask lastStack_ = ip_.tryGetNatLastStack();
+        RendAbstractStask lastStack_ = ip_.tryGetRendLastStack();
         if (lastStack_ != null) {
             rw_.setRead(par_);
             nextIfStack(rw_, (RendIfStack) lastStack_);
