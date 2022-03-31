@@ -66,7 +66,7 @@ public final class PresidentStandards extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NUMBER, getPrimInt(), false, false));
+        fields_.add( new StandardField(NUMBER, PRIM_INTEGER, false, false));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false));
         getStds().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
@@ -79,10 +79,10 @@ public final class PresidentStandards extends BeanNatLgNames {
         fields_.add( new StandardField(LOOSING_IF_FINISH_BY_BEST_CARDS, PRIM_BOOLEAN, false, false));
         fields_.add( new StandardField(SWITCH_CARDS, PRIM_BOOLEAN, false, false));
         fields_.add( new StandardField(LOOSER_STARTS_FIRST, PRIM_BOOLEAN, false, false));
-        fields_.add( new StandardField(NB_PLAYERS, getPrimInt(), false, false));
-        fields_.add( new StandardField(NB_STACKS, getPrimInt(), false, false));
-        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, getPrimInt(), false, false));
-        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, getPrimInt(), false, false));
+        fields_.add( new StandardField(NB_PLAYERS, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(NB_STACKS, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, PRIM_INTEGER, false, false));
         params_ = new StringList();
         method_ = new SpecNatMethod(SAME_AMOUNT, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add(method_);
@@ -233,9 +233,6 @@ public final class PresidentStandards extends BeanNatLgNames {
         return new ResultErrorStd();
     }
 
-    public String getPrimInt() {
-        return getContent().getPrimTypes().getAliasPrimInteger();
-    }
     protected Struct newSimpleBean(String _language, BeanInfo _bean) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));

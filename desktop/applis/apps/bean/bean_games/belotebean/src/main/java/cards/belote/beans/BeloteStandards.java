@@ -105,7 +105,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_SUM_DECLARING_PLAYER, fields_, methods_, OBJECT);
         fields_.add( new StandardField(DECLARING, TYPE_LIST, false, false));
-        fields_.add( new StandardField(SUM, getPrimInt(), false, false));
+        fields_.add( new StandardField(SUM, PRIM_INTEGER, false, false));
         fields_.add( new StandardField(NICKNAME, STRING, false, false));
         fields_.add( new StandardField(STATUT, STRING, false, false));
         getStds().addEntry(TYPE_SUM_DECLARING_PLAYER, std_);
@@ -113,7 +113,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_DECLARING_PLAYER_VALUE, fields_, methods_, OBJECT);
         fields_.add( new StandardField(DECLARING, STRING, false, false));
-        fields_.add( new StandardField(VALUE, getPrimInt(), false, false));
+        fields_.add( new StandardField(VALUE, PRIM_INTEGER, false, false));
         getStds().addEntry(TYPE_DECLARING_PLAYER_VALUE, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
@@ -140,15 +140,15 @@ public final class BeloteStandards extends BeanNatLgNames {
         method_ = new SpecNatMethod(SLAM, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(ABSOLUTE_DIFF, params_, getPrimInt(), false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ABSOLUTE_DIFF, params_, PRIM_INTEGER, false, MethodModifier.NORMAL);
         methods_.add( method_);
-        fields_.add( new StandardField(POINTS_ATTAQUE_SANS_PRIME, getPrimInt(), false, false));
-        fields_.add( new StandardField(POINTS_ATTAQUE_TEMPORAIRE, getPrimInt(), false, false));
-        fields_.add( new StandardField(POINTS_ATTAQUE_DEFINITIF, getPrimInt(), false, false));
-        fields_.add( new StandardField(POINTS_DEFENSE_SANS_PRIME, getPrimInt(), false, false));
-        fields_.add( new StandardField(POINTS_DEFENSE_TEMPORAIRE, getPrimInt(), false, false));
-        fields_.add( new StandardField(POINTS_DEFENSE_DEFINITIF, getPrimInt(), false, false));
-        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, getPrimInt(), false, false));
+        fields_.add( new StandardField(POINTS_ATTAQUE_SANS_PRIME, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(POINTS_ATTAQUE_TEMPORAIRE, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(POINTS_ATTAQUE_DEFINITIF, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(POINTS_DEFENSE_SANS_PRIME, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(POINTS_DEFENSE_TEMPORAIRE, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(POINTS_DEFENSE_DEFINITIF, PRIM_INTEGER, false, false));
+        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, PRIM_INTEGER, false, false));
         fields_.add( new StandardField(TAKER_NICKNAME, STRING, false, false));
         fields_.add( new StandardField(BID_STRING, STRING, false, false));
         fields_.add( new StandardField(CALLED_PLAYERS_LIST, TYPE_LIST, false, false));
@@ -157,7 +157,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NUMBER, getPrimInt(), false, false));
+        fields_.add( new StandardField(NUMBER, PRIM_INTEGER, false, false));
         fields_.add( new StandardField(SCORES, TYPE_LIST, false, false));
         getStds().addEntry(TYPE_LINE_DEAL, std_);
         fields_ = new CustList<StandardField>();
@@ -429,9 +429,6 @@ public final class BeloteStandards extends BeanNatLgNames {
         return new ResultErrorStd();
     }
 
-    public String getPrimInt() {
-        return getContent().getPrimTypes().getAliasPrimInteger();
-    }
     protected Struct newSimpleBean(String _language, BeanInfo _bean) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));

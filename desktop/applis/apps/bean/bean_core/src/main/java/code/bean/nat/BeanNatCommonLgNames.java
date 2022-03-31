@@ -64,6 +64,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public static final String CST_NULL_STRING = "";
     public static final String TYPE_RATE = "r";
     public static final String TYPE_LG_INT = "li";
+    public static final String IS_EMPTY = "isEmpty";
     protected static final char BEGIN_ARGS = '(';
     protected static final char SEP_ARGS = ',';
     protected static final char END_ARGS = ')';
@@ -338,7 +339,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         SpecNatMethod method_;
         std_ = new SpecialNatClass(TYPE_BEAN, fields_, methods_, OBJECT);
         params_ = new StringList(STRING);
-        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT, new NatStringIsEmpty());
+        method_ = new SpecNatMethod(IS_EMPTY, params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT, new NatStringIsEmpty());
         methods_.add(method_);
         stds.addEntry(TYPE_BEAN, std_);
         fields_ = new CustList<StandardField>();
@@ -347,14 +348,14 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         cl_ = new SpecialNatClass(TYPE_LIST, fields_, methods_, OBJECT);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         params_ = new StringList();
-        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(IS_EMPTY, params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT);
         methods_.add(method_);
         getIterables().put(TYPE_LIST, OBJECT);
         stds.addEntry(TYPE_LIST, cl_);
         methods_ = new CustList<SpecNatMethod>();
         cl_ = new SpecialNatClass(TYPE_MAP, fields_, methods_, OBJECT);
         params_ = new StringList();
-        method_ = new SpecNatMethod(getContent().getCharSeq().getAliasIsEmpty(), params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT);
+        method_ = new SpecNatMethod(IS_EMPTY, params_, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT);
         methods_.add(method_);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_ENTRIES);
