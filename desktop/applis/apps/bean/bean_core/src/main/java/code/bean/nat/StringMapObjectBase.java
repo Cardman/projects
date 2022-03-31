@@ -2,7 +2,6 @@ package code.bean.nat;
 
 import code.bean.Bean;
 import code.maths.Rate;
-import code.util.EntryCust;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -42,21 +41,11 @@ public class StringMapObjectBase {
     }
 
     public void putAllMapBase(StringMapObjectBase _m) {
-        for (EntryCust<String, Rate> e: _m.mapRate.entryList()) {
-            mapRate.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, Integer> e: _m.mapInt.entryList()) {
-            mapInt.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, String> e: _m.mapString.entryList()) {
-            mapString.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, StringList> e: _m.mapStringList.entryList()) {
-            mapStringList.put(e.getKey(), e.getValue());
-        }
-        for (EntryCust<String, BoolVal> e: _m.mapBoolean.entryList()) {
-            mapBoolean.put(e.getKey(), e.getValue());
-        }
+        mapRate.putAllMap(_m.mapRate);
+        mapInt.putAllMap(_m.mapInt);
+        mapString.putAllMap(_m.mapString);
+        mapStringList.putAllMap(_m.mapStringList);
+        mapBoolean.putAllMap(_m.mapBoolean);
     }
     public void removeKeyBase(String _key) {
         mapRate.removeKey(_key);

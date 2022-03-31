@@ -438,7 +438,7 @@ public final class BeloteStandards extends BeanNatLgNames {
         ResultErrorStd res_ = getOtherResultBean(id_, args_);
         Struct strBean_ = res_.getResult();
         BeloteBeanStruct str_ = (BeloteBeanStruct) strBean_;
-        BeloteBean bean_ = str_.getBean();
+        BeloteBean bean_ = str_.getInstance();
         bean_.setDataBase(dataBase,dataBaseRules);
         bean_.setLanguage(_language);
         return strBean_;

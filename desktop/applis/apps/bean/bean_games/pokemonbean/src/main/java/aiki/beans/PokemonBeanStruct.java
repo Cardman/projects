@@ -1,30 +1,24 @@
 package aiki.beans;
 
+import aiki.facade.FacadeGame;
 import code.bean.Bean;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.bean.nat.BeanStruct;
 
-public final class PokemonBeanStruct extends WithoutParentIdStruct {
+public final class PokemonBeanStruct extends BeanStruct {
 
-    private final Bean bean;
     private final WithFacade withFacade;
 
     public PokemonBeanStruct(Bean _bean) {
-        bean = _bean;
+        super(_bean);
         withFacade = (WithFacade) _bean;
     }
 
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return bean.getClassName();
+    public void setDataBase(FacadeGame _dataBase) {
+        withFacade.setDataBase(_dataBase);
     }
-
     public Bean getInstance() {
         return getBean();
     }
 
-    public Bean getBean() {
-        return bean;
-    }
 
 }

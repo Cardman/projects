@@ -830,7 +830,7 @@ public final class TarotStandards extends BeanNatLgNames {
         ResultErrorStd res_ = getOtherResultBean(id_, args_);
         Struct strBean_ = res_.getResult();
         TarotBeanStruct str_ = (TarotBeanStruct) strBean_;
-        TarotBean bean_ = str_.getBean();
+        TarotBean bean_ = str_.getInstance();
         bean_.setDataBase(dataBase,dataBaseRules);
         bean_.setLanguage(_language);
         return strBean_;

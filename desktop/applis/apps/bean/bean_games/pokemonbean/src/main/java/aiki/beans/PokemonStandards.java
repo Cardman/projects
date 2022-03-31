@@ -3624,7 +3624,7 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
         Struct strBean_ = res_.getResult();
         PokemonBeanStruct str_ = (PokemonBeanStruct) strBean_;
         Bean bean_ = str_.getBean();
-        ((WithFacade)bean_).setDataBase(dataBase);
+        str_.setDataBase(dataBase);
         if (bean_ instanceof WithForms) {
             ((WithForms)bean_).setForms(new StringMapObject());
         }

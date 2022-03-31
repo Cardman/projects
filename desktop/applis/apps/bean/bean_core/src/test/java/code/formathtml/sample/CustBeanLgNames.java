@@ -14,7 +14,6 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.bean.nat.BeanStruct;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
@@ -811,26 +810,26 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     }
     @Override
     public void beforeDisplaying(Struct _arg) {
-        ((BeanStruct)_arg).beforeDisplaying();
+        ((SampleBeanStruct)_arg).beforeDisplaying();
     }
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         StringMapObjectBase forms_ = new StringMapObjectBase();
         forms_.put("typedShort",0);
-        if (_bean instanceof BeanStruct) {
-            forms_ = ((BeanStruct)_bean).getForms();
+        if (_bean instanceof SampleBeanStruct) {
+            forms_ = ((SampleBeanStruct)_bean).getForms();
         }
         String currentBeanName_;
         RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
-        if (bean_ instanceof BeanStruct) {
-            StringMap<Integer> oldMap_ = ((BeanStruct) bean_).getMap();
-            NatStringTreeMap<Integer> oldTree_ = ((BeanStruct) bean_).getTree();
-            ((BeanStruct) bean_).setForms(forms_);
-            ((BeanStruct) bean_).getMap().addAllEntries(oldMap_);
-            ((BeanStruct) bean_).getTree().addAllEntries(oldTree_);
+        if (bean_ instanceof SampleBeanStruct) {
+            StringMap<Integer> oldMap_ = ((SampleBeanStruct) bean_).getMap();
+            NatStringTreeMap<Integer> oldTree_ = ((SampleBeanStruct) bean_).getTree();
+            ((SampleBeanStruct) bean_).setForms(forms_);
+            ((SampleBeanStruct) bean_).getMap().addAllEntries(oldMap_);
+            ((SampleBeanStruct) bean_).getTree().addAllEntries(oldTree_);
         }
         _rendStack.clearPages();
         return getRes(rendDocumentBlock_,_conf, _rendStack);
@@ -839,8 +838,8 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     @Override
     public void setBeanForms(Struct _mainBean, String _beanName) {
         Struct bean_ = getBeansStruct().getVal(_beanName);
-        StringMapObjectBase forms_ = ((BeanStruct)bean_).getForms();
-        StringMapObjectBase formsMap_ = ((BeanStruct)_mainBean).getForms();
+        StringMapObjectBase forms_ = ((SampleBeanStruct)bean_).getForms();
+        StringMapObjectBase formsMap_ = ((SampleBeanStruct)_mainBean).getForms();
         forms_.putAllMapBase(formsMap_);
     }
 
@@ -850,7 +849,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         String className_ = _classField.getClassName();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(className_,TYPE_COMPOSITE)) {
-            BeanThree i_ = (BeanThree) ((BeanStruct)_instance).getBean();
+            BeanThree i_ = (BeanThree) ((SampleBeanStruct)_instance).getBean();
             if (StringUtil.quickEq(fieldName_,INTEGER)) {
                 res_.setResult(new IntStruct(i_.getInteger()));
                 return res_;
@@ -867,7 +866,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
             if (StringUtil.quickEq(fieldName_,MAP)) {
-                res_.setResult(getTree(((BeanStruct)_instance).getMap()));
+                res_.setResult(getTree(((SampleBeanStruct)_instance).getMap()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,MESSAGE)) {
@@ -879,41 +878,41 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TREE)) {
-                if (((BeanStruct)_instance).getTree() == null) {
+                if (((SampleBeanStruct)_instance).getTree() == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(getTree(((BeanStruct)_instance).getTree()));
+                res_.setResult(getTree(((SampleBeanStruct)_instance).getTree()));
                 return res_;
             }
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             if (StringUtil.quickEq(fieldName_,CHECKED)) {
-                res_.setResult(BooleanStruct.of(((BeanStruct)_instance).isChecked()));
+                res_.setResult(BooleanStruct.of(((SampleBeanStruct)_instance).isChecked()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_SHORT)) {
-                res_.setResult(new IntStruct(((BeanStruct)_instance).getTypedShort()));
+                res_.setResult(new IntStruct(((SampleBeanStruct)_instance).getTypedShort()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_STRING)) {
-                if ( ((BeanStruct)_instance).getTypedString() == null) {
+                if ( ((SampleBeanStruct)_instance).getTypedString() == null) {
                     res_.setResult(NullStruct.NULL_VALUE);
                     return res_;
                 }
-                res_.setResult(new StringStruct( ((BeanStruct)_instance).getTypedString()));
+                res_.setResult(new StringStruct( ((SampleBeanStruct)_instance).getTypedString()));
                 return res_;
             }
         }
         if (StringUtil.quickEq(fieldName_,COMPOSITE)) {
 //            BeanThree bean_ = new BeanThree();
-//            bean_.setInteger(((BeanStruct)_instance).getComposite().getInteger());
-//            bean_.getStrings().addAllElts(((BeanStruct)_instance).getComposite().getStrings());
-            if (((BeanStruct)_instance).getOthers().isEmpty()) {
-                ((BeanStruct)_instance).getOthers().addEntry("",new BeanThree());
+//            bean_.setInteger(((SampleBeanStruct)_instance).getComposite().getInteger());
+//            bean_.getStrings().addAllElts(((SampleBeanStruct)_instance).getComposite().getStrings());
+            if (((SampleBeanStruct)_instance).getOthers().isEmpty()) {
+                ((SampleBeanStruct)_instance).getOthers().addEntry("",new BeanThree());
             }
-            res_.setResult(new BeanStruct(((BeanStruct)_instance).getComposite()));
-//            res_.setResult(((BeanStruct)_instance).getComposite());
+            res_.setResult(new SampleBeanStruct(((SampleBeanStruct)_instance).getComposite()));
+//            res_.setResult(((SampleBeanStruct)_instance).getComposite());
             return res_;
         }
         return res_;
@@ -926,17 +925,17 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             if (StringUtil.quickEq(fieldName_,CHECKED)) {
-                ((BeanStruct)_instance).setChecked(BooleanStruct.isTrue(_val));
+                ((SampleBeanStruct)_instance).setChecked(BooleanStruct.isTrue(_val));
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_SHORT)) {
-                ((BeanStruct)_instance).setTypedShort(NumParsers.convertToNumber(_val).shortStruct());
+                ((SampleBeanStruct)_instance).setTypedShort(NumParsers.convertToNumber(_val).shortStruct());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_STRING)) {
-                ((BeanStruct)_instance).setTypedString(NumParsers.getString(_val).getInstance());
+                ((SampleBeanStruct)_instance).setTypedString(NumParsers.getString(_val).getInstance());
                 res_.setResult(NullStruct.NULL_VALUE);
                 return res_;
             }
@@ -972,7 +971,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             if (StringUtil.quickEq(methodName_,GO)) {
-                res_.setResult(new StringStruct(((BeanStruct)_instance).go()));
+                res_.setResult(new StringStruct(((SampleBeanStruct)_instance).go()));
                 return res_;
             }
         }
@@ -986,14 +985,14 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             BeanOne bean_ = new BeanOne();
             bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
             bean_.getBaseForms().put("typedShort",0);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new SampleBeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             BeanTwo bean_ = new BeanTwo();
             bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
             bean_.getBaseForms().put("typedShort",0);
-            res_.setResult(new BeanStruct(bean_));
+            res_.setResult(new SampleBeanStruct(bean_));
             return res_;
         }
         return res_;
@@ -1011,7 +1010,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));
         ResultErrorStd res_ = getOtherResultBean(id_, args_);
         Struct strBean_ = res_.getResult();
-        BeanStruct str_ = (BeanStruct) strBean_;
+        SampleBeanStruct str_ = (SampleBeanStruct) strBean_;
         StringMap<Integer> old_ = str_.getMap();
         str_.setForms(new StringMapObjectBase());
         str_.setTypedShort((short) 0);

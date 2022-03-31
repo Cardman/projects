@@ -1,27 +1,16 @@
 package cards.belote.beans;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.bean.nat.BeanStruct;
 
-public final class BeloteBeanStruct extends WithoutParentIdStruct {
-
-    private final BeloteBean bean;
+public final class BeloteBeanStruct extends BeanStruct {
 
     public BeloteBeanStruct(BeloteBean _bean) {
-        bean = _bean;
-    }
-
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return bean.getClassName();
+        super(_bean);
     }
 
     public BeloteBean getInstance() {
-        return getBean();
+        return (BeloteBean)getBean();
     }
 
-    public BeloteBean getBean() {
-        return bean;
-    }
 
 }
