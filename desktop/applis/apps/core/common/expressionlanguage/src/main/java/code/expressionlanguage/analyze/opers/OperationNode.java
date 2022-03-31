@@ -3480,13 +3480,6 @@ public abstract class OperationNode {
         }
         return res_;
     }
-    public final MethodOperation getParent() {
-        return parent;
-    }
-
-    public final OperationsSequence getOperations() {
-        return operations;
-    }
 
     public final int getOrder() {
         return content.getOrder();
@@ -3496,12 +3489,20 @@ public abstract class OperationNode {
         content.setOrder(_order);
     }
 
+    public final MethodOperation getParent() {
+        return parent;
+    }
+
     public final int getIndexInEl() {
         return content.getIndexInEl();
     }
 
     public final int getIndexChild() {
         return content.getIndexChild();
+    }
+
+    public final OperationsSequence getOperations() {
+        return operations;
     }
 
     public final Argument getArgument() {
