@@ -76,6 +76,7 @@ import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
+import aiki.instances.Instances;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.Level;
 import aiki.map.levels.enums.EnvironmentType;
@@ -1285,24 +1286,55 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
         return new ResultErrorStd();
     }
 
+    public static PkTrainer toPkTrainer(Struct _inst) {
+        if (!(_inst instanceof PkStruct)) {
+            return Instances.newPkTrainer();
+        }
+        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+        if (instance_ instanceof PkTrainer) {
+            return (PkTrainer) instance_;
+        }
+        return Instances.newPkTrainer();
+    }
+
+    public static WildPk toWildPk(Struct _inst) {
+        if (!(_inst instanceof PkStruct)) {
+            return Instances.newWildPk();
+        }
+        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+        if (instance_ instanceof WildPk) {
+            return (WildPk) instance_;
+        }
+        return Instances.newWildPk();
+    }
+
+    public static PokemonPlayer toPokemonPlayer(Struct _inst) {
+        if (!(_inst instanceof PkStruct)) {
+            return Instances.newPokemonPlayer();
+        }
+        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+        if (instance_ instanceof PokemonPlayer) {
+            return (PokemonPlayer) instance_;
+        }
+        return Instances.newPokemonPlayer();
+    }
     @Override
     public ResultErrorStd getOtherResultBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         if (_instance instanceof PkStruct) {
             Pokemon instance_ = ((PkStruct)_instance).getWildPk();
             if (instance_ instanceof PkTrainer) {
-                return PokemonStandards.invokeMethodPkTrainer(_method, (PkTrainer) instance_, _args);
+                return PokemonStandards.invokeMethodPkTrainer(_method, (PkTrainer) ((PkStruct)_instance).getWildPk(), _args);
             }
             if (instance_ instanceof WildPk) {
-                return PokemonStandards.invokeMethodWildPk(_method, (WildPk) instance_, _args);
+                return PokemonStandards.invokeMethodWildPk(_method, (WildPk) ((PkStruct)_instance).getWildPk(), _args);
             }
             if (instance_ instanceof PokemonPlayer) {
-                return PokemonStandards.invokeMethodPokemonPlayer(_method, (PokemonPlayer) instance_, _args);
+                return PokemonStandards.invokeMethodPokemonPlayer(_method, (PokemonPlayer) ((PkStruct)_instance).getWildPk(), _args);
             }
-            return PokemonStandards.invokeMethodPokemon(_method, instance_, _args);
+            return PokemonStandards.invokeMethodPokemon(_method, ((PkStruct)_instance).getWildPk(), _args);
         }
         if (_instance instanceof EffectPartnerStatusStruct) {
-            EffectPartnerStatus instance_ = ((EffectPartnerStatusStruct) _instance).getEffectPartnerStatus();
-            return PokemonStandards.invokeMethodEffectPartnerStatus(_method, instance_, _args);
+            return PokemonStandards.invokeMethodEffectPartnerStatus(_method, ((EffectPartnerStatusStruct) _instance).getEffectPartnerStatus(), _args);
         }
         if (_instance instanceof RateStruct) {
             return PokemonStandards.invokeMethodRate(_method, ((RateStruct) _instance).getInstance(), _args);
