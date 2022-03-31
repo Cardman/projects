@@ -6,14 +6,14 @@ import org.junit.Test;
 public final class BeanScriptsTest extends EquallableScriptsBeanUtil {
     @Test
     public void cards(){
-        assertNotNull(HelpCards.build());
+        assertNotNullDoc(HelpCards.build());
         assertNotNull(HelpCards.ms());
     }
     @Test
     public void help() {
-        assertNotNull(HelpScriptConfPages.infoLg());
-        assertNotNull(HelpScriptPages.cf());
-        assertNotNull(HelpScriptPagesImgs.ct());
+        assertNotNullFullDoc(HelpScriptConfPages.infoLg());
+        assertNotNullStrConf(HelpScriptPages.cf());
+        assertNotNullStrNat(HelpScriptPagesImgs.ct());
         assertNotNull(new BeanHelpCardsSample().self());
     }
 }

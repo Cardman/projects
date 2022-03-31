@@ -1,29 +1,36 @@
 package code.scripts.confs;
 
+import code.bean.nat.NatDualConfigurationContext;
+import code.formathtml.Configuration;
+import code.sml.Document;
+import code.sml.FullDocument;
+import code.util.StringMap;
 import org.junit.Assert;
 
 public abstract class EquallableScriptsBeanUtil {
 
-    public static void assertNotNull(Object _value) {
+    public static void assertNotNull(StringMap<StringMap<String>> _value) {
         Assert.assertNotNull(_value);
     }
-    public static void assertNull(Object _value) {
-        Assert.assertNull(_value);
+
+    public static void assertNotNullDoc(StringMap<Document> _value) {
+        Assert.assertNotNull(_value);
     }
-    public static void assertTrue(boolean _value) {
-        Assert.assertTrue(_value);
+
+    public static void assertNotNullFullDoc(StringMap<FullDocument> _value) {
+        Assert.assertNotNull(_value);
     }
-    public static void assertTrue(String _mess,boolean _value) {
-        Assert.assertTrue(_mess,_value);
+
+    public static void assertNotNullStrConf(StringMap<Configuration> _value) {
+        Assert.assertNotNull(_value);
     }
-    public static void assertFalse(boolean _value) {
-        Assert.assertFalse(_value);
+
+    public static void assertNotNullStrNat(StringMap<NatDualConfigurationContext> _value) {
+        Assert.assertNotNull(_value);
     }
-    public static void assertSame(Object _expected, Object _result) {
-        Assert.assertSame(_expected, _result);
-    }
-    public static void assertNotSame(Object _expected, Object _result) {
-        Assert.assertNotSame(_expected, _result);
+
+    public static void assertNotNull(BeanHelpCardsSample _value) {
+        Assert.assertNotNull(_value);
     }
 
     public static void assertEq(boolean _expected, boolean _result) {
@@ -32,10 +39,6 @@ public abstract class EquallableScriptsBeanUtil {
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
-    }
-
-    public static void assertEq(double _expected, double _result) {
-        Assert.assertEquals(Double.toString(_expected),Double.toString(_result));
     }
 
     public static void assertEq(long _expected, long _result) {
