@@ -1,9 +1,8 @@
 package code.util;
 
+import code.util.classestest.KeyExample;
 import code.util.classestest.MyCmp;
 import org.junit.Assert;
-
-import code.util.classestest.KeyExample;
 
 public abstract class EquallableExUtil {
 
@@ -21,11 +20,7 @@ public abstract class EquallableExUtil {
     }
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
-        int expSize_ = _expected.size();
-        Assert.assertEquals(expSize_,_result.size());
-        for (int i = 0; i < expSize_; i++) {
-            Assert.assertEquals(_expected.get(i),_result.get(i));
-        }
+        Assert.assertTrue(_expected.eq(_result));
     }
 
     public static void assertEq(boolean _expected, boolean _result) {
