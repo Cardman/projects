@@ -17,7 +17,7 @@ public final class DualAnchoredLabel extends DualLabel {
         super(_container, _component, _page);
         AbsPreparedLabel label_ = getLabel();
         label_.setHandCursor();
-        label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page));
+        label_.addMouseListener(new AnchorEvent(_component.getAnchor(), _page,_component.getNb()));
     }
 
     @Override

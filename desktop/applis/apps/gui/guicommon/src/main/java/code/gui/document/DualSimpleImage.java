@@ -16,7 +16,7 @@ public final class DualSimpleImage extends DualImage {
         if (anchor_ != null) {
             AbsPreparedLabel label_ = getLabel();
             label_.setHandCursor();
-            label_.addMouseListener(new AnchorEvent(anchor_, _page));
+            label_.addMouseListener(new AnchorEvent(anchor_, _page,_component.getNb()));
         }
     }
 

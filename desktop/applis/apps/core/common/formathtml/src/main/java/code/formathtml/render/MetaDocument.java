@@ -189,7 +189,7 @@ public final class MetaDocument {
                         label_ = new MetaPlainLabel(currentParent, text_, title_, partGroup, rowGroup);
                     } else {
                         String name_ = anchor_.getAttribute(_rend.getAttrName());
-                        label_ = new MetaAnchorLabel(currentParent, text_, title_, anchor_, partGroup, rowGroup);
+                        label_ = new MetaAnchorLabel(currentParent, text_, title_, anchor_, partGroup, rowGroup, _rend);
                         if (!name_.isEmpty()) {
                             anchorsRef.put(name_, (MetaAnchorLabel) label_);
                         }
@@ -217,7 +217,7 @@ public final class MetaDocument {
                             label_ = new MetaPlainLabel(currentParent, text_, title_, partGroup, rowGroup);
                         } else {
                             String name_ = anchor_.getAttribute(_rend.getAttrName());
-                            label_ = new MetaAnchorLabel(currentParent, text_, title_, anchor_, partGroup, rowGroup);
+                            label_ = new MetaAnchorLabel(currentParent, text_, title_, anchor_, partGroup, rowGroup,_rend);
                             if (!name_.isEmpty()) {
                                 anchorsRef.put(name_, (MetaAnchorLabel) label_);
                             }
@@ -295,11 +295,11 @@ public final class MetaDocument {
                     }
                     if (elt_.getAttribute(_rend.getAttrSrc()).contains(SEP_IMG)) {
                         Integer delay_ = NumberUtil.parseInt(elt_.getAttribute(_rend.getAttrDelay()));
-                        MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringUtil.splitStrings(elt_.getAttribute(_rend.getAttrSrc()), SEP_IMG), title_, delay_, anchor_);
+                        MetaAnimatedImage imgs_ = new MetaAnimatedImage(currentParent, StringUtil.splitStrings(elt_.getAttribute(_rend.getAttrSrc()), SEP_IMG), title_, delay_, anchor_,_rend);
                         imgs_.setStyle(styleLoc_);
                         currentParent.appendChild(imgs_);
                     } else {
-                        MetaSimpleImage imgs_ = new MetaSimpleImage(currentParent, elt_.getAttribute(_rend.getAttrSrc()), title_, anchor_);
+                        MetaSimpleImage imgs_ = new MetaSimpleImage(currentParent, elt_.getAttribute(_rend.getAttrSrc()), title_, anchor_,_rend);
                         imgs_.setStyle(styleLoc_);
                         currentParent.appendChild(imgs_);
                     }

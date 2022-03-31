@@ -9,9 +9,9 @@ import code.gui.events.AbsMouseListenerRel;
 
 public final class FormEvent extends AbsMouseListenerRel {
 
-    private DualButton current;
+    private final DualButton current;
 
-    private RenderedPage page;
+    private final RenderedPage page;
 
     public FormEvent(DualButton _current, RenderedPage _page) {
         current = _current;

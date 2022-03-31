@@ -3237,6 +3237,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         assertEq("",imgMeta_.getTitle());
         assertEq(" Link text ",imgMeta_.getText());
         assertNotNull(imgMeta_.getAnchor());
+        assertEq(0, imgMeta_.getNb());
         assertEq(0, out_.getAnchorsRef().size());
     }
     @Test
@@ -3306,6 +3307,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         MetaSimpleImage imgMeta_ = (MetaSimpleImage) cont_.getChildren().get(0);
         assertEq("",imgMeta_.getTitle());
         assertNotNull(imgMeta_.getAnchor());
+        assertEq(0, imgMeta_.getNb());
         int[][] img_ = imgMeta_.getImage();
         assertEq(1, img_.length);
         assertEq(2, img_[0].length);

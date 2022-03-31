@@ -1,5 +1,6 @@
 package code.formathtml.render;
 
+import code.formathtml.errors.RendKeyWords;
 import code.images.BaseSixtyFourUtil;
 import code.sml.Element;
 import code.util.CollCapacity;
@@ -12,8 +13,8 @@ public final class MetaAnimatedImage extends MetaImage {
 
     private final int delay;
 
-    public MetaAnimatedImage(MetaContainer _parent, StringList _images, String _title,int _delay, Element _anchor) {
-        super(_parent, _title, _anchor);
+    public MetaAnimatedImage(MetaContainer _parent, StringList _images, String _title,int _delay, Element _anchor, RendKeyWords _rend) {
+        super(_parent, _title, _anchor,_rend);
         delay = _delay;
         images = new CustList<int[][]>(new CollCapacity(_images.size()));
         for (String s: _images) {
