@@ -24,8 +24,6 @@ public abstract class CommonFightBean extends Bean implements WithFacade, WithFo
 
     private FacadeGame dataBase;
 
-    private StringMapObject forms;
-
     public FacadeGame getDataBase() {
         return db();
     }
@@ -41,11 +39,11 @@ public abstract class CommonFightBean extends Bean implements WithFacade, WithFo
     }
 
     public StringMapObject getForms() {
-        return forms;
+        return (StringMapObject) getBaseForms();
     }
 
     public void setForms(StringMapObject _forms) {
-        forms = _forms;
+        setBaseForms(_forms);
     }
 
     protected static String getFighterAtPosition(FacadeGame _facade, TeamPosition _teamPosition) {
