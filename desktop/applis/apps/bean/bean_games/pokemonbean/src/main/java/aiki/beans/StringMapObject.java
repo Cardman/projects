@@ -123,22 +123,22 @@ public final class StringMapObject extends StringMapObjectBase {
         for (EntryCust<String, Person> e: _m.mapPerson.entryList()) {
             mapPerson.put(e.getKey(), e.getValue());
         }
-        for (EntryCust<String, Point> e: mapPoint.entryList()) {
+        for (EntryCust<String, Point> e: _m.mapPoint.entryList()) {
             mapPoint.put(e.getKey(), e.getValue());
         }
-        for (EntryCust<String, Coords> e: mapCoords.entryList()) {
+        for (EntryCust<String, Coords> e: _m.mapCoords.entryList()) {
             mapCoords.put(e.getKey(), e.getValue());
         }
-        for (EntryCust<String, SimulationSteps> e: mapSimulationSteps.entryList()) {
+        for (EntryCust<String, SimulationSteps> e: _m.mapSimulationSteps.entryList()) {
             mapSimulationSteps.put(e.getKey(), e.getValue());
         }
-        for (EntryCust<String, TeamCrud> e: mapTeamCrud.entryList()) {
+        for (EntryCust<String, TeamCrud> e: _m.mapTeamCrud.entryList()) {
             mapTeamCrud.put(e.getKey(), e.getValue());
         }
-        for (EntryCust<String, Gender> e: mapGender.entryList()) {
+        for (EntryCust<String, Gender> e: _m.mapGender.entryList()) {
             mapGender.put(e.getKey(), e.getValue());
         }
-        for (EntryCust<String, PokemonPlayerDto> e: mapPokemonPlayerDto.entryList()) {
+        for (EntryCust<String, PokemonPlayerDto> e: _m.mapPokemonPlayerDto.entryList()) {
             mapPokemonPlayerDto.put(e.getKey(), e.getValue());
         }
     }
