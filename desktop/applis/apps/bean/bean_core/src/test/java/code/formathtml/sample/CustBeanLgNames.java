@@ -15,7 +15,6 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.bean.nat.BeanStruct;
-import code.bean.nat.StringMapObjectSample;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.util.*;
@@ -817,7 +816,8 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
-        StringMapObjectSample forms_ = new StringMapObjectSample();
+        StringMapObjectBase forms_ = new StringMapObjectBase();
+        forms_.put("typedShort",0);
         if (_bean instanceof BeanStruct) {
             forms_ = ((BeanStruct)_bean).getForms();
         }
@@ -826,7 +826,11 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
         if (bean_ instanceof BeanStruct) {
+            StringMap<Integer> oldMap_ = ((BeanStruct) bean_).getMap();
+            NatStringTreeMap<Integer> oldTree_ = ((BeanStruct) bean_).getTree();
             ((BeanStruct) bean_).setForms(forms_);
+            ((BeanStruct) bean_).getMap().addAllEntries(oldMap_);
+            ((BeanStruct) bean_).getTree().addAllEntries(oldTree_);
         }
         _rendStack.clearPages();
         return getRes(rendDocumentBlock_,_conf, _rendStack);
@@ -835,9 +839,9 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     @Override
     public void setBeanForms(Struct _mainBean, String _beanName) {
         Struct bean_ = getBeansStruct().getVal(_beanName);
-        StringMapObjectSample forms_ = ((BeanStruct)bean_).getForms();
-        StringMapObjectSample formsMap_ = ((BeanStruct)_mainBean).getForms();
-        forms_.putAllMap(formsMap_);
+        StringMapObjectBase forms_ = ((BeanStruct)bean_).getForms();
+        StringMapObjectBase formsMap_ = ((BeanStruct)_mainBean).getForms();
+        forms_.putAllMapBase(formsMap_);
     }
 
     @Override
@@ -846,7 +850,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         String className_ = _classField.getClassName();
         String fieldName_ = _classField.getFieldName();
         if (StringUtil.quickEq(className_,TYPE_COMPOSITE)) {
-            CompositeStruct i_ = ((CompositeStruct)_instance);
+            BeanThree i_ = (BeanThree) ((BeanStruct)_instance).getBean();
             if (StringUtil.quickEq(fieldName_,INTEGER)) {
                 res_.setResult(new IntStruct(i_.getInteger()));
                 return res_;
@@ -889,7 +893,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_SHORT)) {
-                res_.setResult(new ShortStruct(((BeanStruct)_instance).getTypedShort()));
+                res_.setResult(new IntStruct(((BeanStruct)_instance).getTypedShort()));
                 return res_;
             }
             if (StringUtil.quickEq(fieldName_,TYPED_STRING)) {
@@ -902,7 +906,14 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
             }
         }
         if (StringUtil.quickEq(fieldName_,COMPOSITE)) {
-            res_.setResult(((BeanStruct)_instance).getComposite());
+//            BeanThree bean_ = new BeanThree();
+//            bean_.setInteger(((BeanStruct)_instance).getComposite().getInteger());
+//            bean_.getStrings().addAllElts(((BeanStruct)_instance).getComposite().getStrings());
+            if (((BeanStruct)_instance).getOthers().isEmpty()) {
+                ((BeanStruct)_instance).getOthers().addEntry("",new BeanThree());
+            }
+            res_.setResult(new BeanStruct(((BeanStruct)_instance).getComposite()));
+//            res_.setResult(((BeanStruct)_instance).getComposite());
             return res_;
         }
         return res_;
@@ -972,19 +983,17 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         ResultErrorStd res_ = new ResultErrorStd();
         String className_ = _method.getName();
         if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
-            res_.setResult(new BeanStruct(new BeanOne()));
+            BeanOne bean_ = new BeanOne();
+            bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
+            bean_.getBaseForms().put("typedShort",0);
+            res_.setResult(new BeanStruct(bean_));
             return res_;
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
-            res_.setResult(new BeanStruct(new BeanTwo()));
-            return res_;
-        }
-        if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
-            res_.setResult(new BeanStruct(new BeanOne()));
-            return res_;
-        }
-        if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
-            res_.setResult(new BeanStruct(new BeanTwo()));
+            BeanTwo bean_ = new BeanTwo();
+            bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
+            bean_.getBaseForms().put("typedShort",0);
+            res_.setResult(new BeanStruct(bean_));
             return res_;
         }
         return res_;
@@ -1003,7 +1012,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         ResultErrorStd res_ = getOtherResultBean(id_, args_);
         Struct strBean_ = res_.getResult();
         BeanStruct str_ = (BeanStruct) strBean_;
-        str_.setForms(new StringMapObjectSample());
+        StringMap<Integer> old_ = str_.getMap();
+        str_.setForms(new StringMapObjectBase());
+        str_.setTypedShort((short) 0);
+        str_.getMap().addAllEntries(old_);
         return strBean_;
     }
 

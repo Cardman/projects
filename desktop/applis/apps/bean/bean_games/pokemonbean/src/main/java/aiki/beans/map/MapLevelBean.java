@@ -1,59 +1,31 @@
 package aiki.beans.map;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorDirection;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.comparators.ComparatorPoint;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.db.DataBase;
-import aiki.fight.items.Ball;
-import aiki.fight.items.Berry;
-import aiki.fight.items.Boost;
-import aiki.fight.items.EvolvingItem;
-import aiki.fight.items.EvolvingStone;
-import aiki.fight.items.Fossil;
-import aiki.fight.items.HealingHp;
-import aiki.fight.items.HealingHpStatus;
-import aiki.fight.items.HealingItem;
-import aiki.fight.items.HealingPp;
-import aiki.fight.items.HealingStatus;
-import aiki.fight.items.Item;
-import aiki.fight.items.ItemForBattle;
-import aiki.fight.items.Repel;
-import aiki.fight.items.SellingItem;
+import aiki.fight.items.*;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
-import aiki.map.characters.CharacterInRoadCave;
-import aiki.map.characters.DealerItem;
-import aiki.map.characters.DualFight;
-import aiki.map.characters.GerantPokemon;
-import aiki.map.characters.Person;
-import aiki.map.characters.Seller;
-import aiki.map.characters.TrainerMultiFights;
+import aiki.map.characters.*;
 import aiki.map.characters.enums.GeranceType;
 import aiki.map.characters.enums.SellType;
 import aiki.map.enums.Direction;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelWithWildPokemon;
-import aiki.map.places.Campaign;
-import aiki.map.places.Cave;
-import aiki.map.places.City;
-import aiki.map.places.InitializedPlace;
-import aiki.map.places.League;
-import aiki.map.places.Place;
-import aiki.map.places.Road;
+import aiki.map.places.*;
 import aiki.map.util.PlaceInterConnect;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import aiki.util.PointParam;
 import code.images.BaseSixtyFourUtil;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EnumList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -132,15 +104,14 @@ public class MapLevelBean extends CommonBean {
         proponeTile = getForms().getValBool(CST_PROPONE_TILE);
         seeArea = getForms().getValBool(CST_SEE_AREA);
         dirs = new TreeMap<String, Boolean>(new ComparatorDirection());
-        for (String s: getForms().getKeys()) {
-            if (!s.startsWith(CST_PROPONE_LINK_VAR)) {
+        for (EntryCust<String, BoolVal> s: getForms().getMapBoolean().entryList()) {
+            if (!s.getKey().startsWith(CST_PROPONE_LINK_VAR)) {
                 continue;
             }
-            boolean b_ = getForms().getValBool(s);
-            if (!b_) {
+            if (s.getValue() != BoolVal.TRUE) {
                 continue;
             }
-            String dirStr_ = s.substring(CST_PROPONE_LINK_VAR.length());
+            String dirStr_ = s.getKey().substring(CST_PROPONE_LINK_VAR.length());
             dirs.put(dirStr_, true);
         }
     }

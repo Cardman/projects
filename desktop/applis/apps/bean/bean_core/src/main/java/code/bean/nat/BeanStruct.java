@@ -8,95 +8,89 @@ import code.util.core.StringUtil;
 
 public final class BeanStruct extends CommNatStruct {
 
+    public static final String NULLABLE_INT = "nullableInt";
+    public static final String TYPED_STRING = "typedString";
+    public static final String CHECKED = "checked";
+    public static final String TYPED_SHORT = "typedShort";
     private final Bean bean;
 
-    private boolean checked;
-
-    private final CompositeStruct composite = new CompositeStruct("");
-
-    private final NatStringTreeMap< Integer> tree = new NatStringTreeMap< Integer>();
-
-    private final StringMap<Integer> map = new StringMap<Integer>();
-
-    private Rate nullableInt;
-
-    private String typedString;
-
-    private short typedShort;
-    private StringMapObjectSample forms = new StringMapObjectSample();
     public BeanStruct(Bean _bean) {
         super(_bean.getClassName());
+        bean = _bean;
+        setTypedShort((short) 0);
         getMap().put("ONE",1);
         getMap().put("TWO",2);
-        bean = _bean;
     }
     public void beforeDisplaying() {
-        if (typedString == null) {
-            typedString = "TYPED_STRING";
+        if (bean.getBaseForms().getValStr(TYPED_STRING) == null) {
+            bean.getBaseForms().put(TYPED_STRING,"TYPED_STRING");
         } else {
-            typedString = StringUtil.concatNbs(typedString,2);
+            bean.getBaseForms().put(TYPED_STRING,StringUtil.concatNbs(bean.getBaseForms().getValStr(TYPED_STRING),2));
         }
     }
-
     public Bean getBean() {
         return bean;
     }
 
     public String go() {
-        getForms().put("checked", checked);
-        getForms().put("typedString", typedString);
-        getForms().put("nullableInt", nullableInt);
+        getForms().put(CHECKED, bean.getBaseForms().getValBool(CHECKED));
+        getForms().put(TYPED_STRING, bean.getBaseForms().getValStr(TYPED_STRING));
+        getForms().put(NULLABLE_INT, bean.getBaseForms().getValRate(NULLABLE_INT));
         return "change";
     }
-    public CompositeStruct getComposite() {
-        return composite;
+    public Bean getComposite() {
+        return getOthers().lastValue();
+    }
+
+    public StringMap<Bean> getOthers() {
+        return bean.getBaseForms().getBeansOthers();
     }
 
     public NatStringTreeMap<Integer> getTree() {
-        return tree;
+        return getForms().getTree();
     }
 
     public StringMap<Integer> getMap() {
-        return map;
+        return getForms().getMap();
     }
 
     public Rate getNullableInt() {
-        return nullableInt;
+        return bean.getBaseForms().getValRate(NULLABLE_INT);
     }
 
     public void setNullableInt(Rate _v) {
-        this.nullableInt = _v;
+        bean.getBaseForms().put(NULLABLE_INT,_v);
     }
 
     public String getTypedString() {
-        return typedString;
+        return bean.getBaseForms().getValStr(TYPED_STRING);
     }
 
     public boolean isChecked() {
-        return checked;
+        return bean.getBaseForms().getValBool(CHECKED);
     }
 
     public void setChecked(boolean _v) {
-        this.checked = _v;
+        bean.getBaseForms().put(CHECKED,_v);
     }
 
     public void setTypedString(String _v) {
-        this.typedString = _v;
+        bean.getBaseForms().put(TYPED_STRING,_v);
     }
 
-    public StringMapObjectSample getForms() {
-        return forms;
+    public StringMapObjectBase getForms() {
+        return bean.getBaseForms();
     }
 
-    public void setForms(StringMapObjectSample _v) {
-        this.forms = _v;
+    public void setForms(StringMapObjectBase _v) {
+        this.bean.setBaseForms(_v);
     }
 
-    public short getTypedShort() {
-        return typedShort;
+    public int getTypedShort() {
+        return bean.getBaseForms().getValInt(TYPED_SHORT);
     }
 
     public void setTypedShort(short _v) {
-        typedShort = _v;
+        bean.getBaseForms().put(TYPED_SHORT,_v);
     }
 }

@@ -108,7 +108,6 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final char CST_RIGHT_PAR = ')';
     protected static final char CST_PIPE_CHAR = '|';
 
-    private StringMapObject forms;
     private FacadeGame dataBase;
 
     public static Rate rateTrue(MonteCarloBoolean _law) {
@@ -133,11 +132,11 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     public StringMapObject getForms() {
-        return forms;
+        return (StringMapObject) getBaseForms();
     }
 
     public void setForms(StringMapObject _forms) {
-        forms = _forms;
+        setBaseForms(_forms);
     }
 
     protected static String escapedStringQuote(String _string) {

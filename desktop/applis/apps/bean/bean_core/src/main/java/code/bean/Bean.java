@@ -1,10 +1,14 @@
 package code.bean;
 
+import code.bean.nat.StringMapObjectBase;
+
 public abstract class Bean {
 
     private String className = "";
 
     private String language = "";
+
+    private StringMapObjectBase baseForms;
 
     public abstract void beforeDisplaying();
 
@@ -22,5 +26,13 @@ public abstract class Bean {
 
     public void setLanguage(String _language) {
         language = _language;
+    }
+
+    public StringMapObjectBase getBaseForms() {
+        return baseForms;
+    }
+
+    public void setBaseForms(StringMapObjectBase _base) {
+        this.baseForms = _base;
     }
 }
