@@ -650,12 +650,7 @@ public final class AikiBeansMovesStd {
             return res_;
         }
         if (StringUtil.quickEq(fieldName_,SORTED_MOVES)) {
-            ArrayStruct arr_ = BeanNatCommonLgNames.getArray(_val);
-            StringList elts_ = new StringList();
-            for (Struct s: arr_.list()) {
-                elts_.add(NumParsers.getString(s).getInstance());
-            }
-            instance_.setSortedMoves(elts_);
+            instance_.setSortedMoves(_val);
             res_.setResult(NullStruct.NULL_VALUE);
             return res_;
         }

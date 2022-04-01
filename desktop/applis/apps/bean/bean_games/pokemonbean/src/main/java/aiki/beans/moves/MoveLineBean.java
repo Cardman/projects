@@ -1,6 +1,10 @@
 package aiki.beans.moves;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.MoveLine;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
 public class MoveLineBean extends CommonBean {
@@ -74,7 +78,16 @@ public class MoveLineBean extends CommonBean {
         return power;
     }
 
-    public void setSortedMoves(StringList _sortedMoves) {
-        sortedMoves = _sortedMoves;
+    public void setSortedMoves(Struct _sortedMoves) {
+        sortedMoves = arr(_sortedMoves);
+    }
+
+    private static StringList arr(Struct _val) {
+        ArrayStruct arr_ = BeanNatCommonLgNames.getArray(_val);
+        StringList elts_ = new StringList();
+        for (Struct s: arr_.list()) {
+            elts_.add(NumParsers.getString(s).getInstance());
+        }
+        return elts_;
     }
 }
