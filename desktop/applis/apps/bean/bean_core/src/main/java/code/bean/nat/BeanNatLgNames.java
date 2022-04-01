@@ -5,9 +5,6 @@ import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -69,11 +66,6 @@ public abstract class BeanNatLgNames extends BeanNatCommonLgNames {
         }
         return CST_NULL_STRING;
     }
-
-    public abstract ResultErrorStd getOtherResultBean(ConstructorId _method, Struct... _args);
-
-
-    public abstract ResultErrorStd setOtherResult(ClassField _classField, Struct _instance, Struct _val);
 
     public NatAnalyzedCode getNatCode() {
         return natCode;

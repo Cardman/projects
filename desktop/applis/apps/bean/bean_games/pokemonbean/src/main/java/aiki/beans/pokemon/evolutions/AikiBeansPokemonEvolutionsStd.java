@@ -1,23 +1,14 @@
 package aiki.beans.pokemon.evolutions;
 
 import aiki.beans.AikiBeansStd;
-import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
-
-public final class AikiBeansPokemonEvolutionsStd {
+public final class AikiBeansPokemonEvolutionsStd{
     public static final String TYPE_EVOLUTION_BEAN = "aiki.beans.pokemon.evolutions.EvolutionBean";
     public static final String TYPE_EVOLUTION_HAPPINESS_BEAN = "aiki.beans.pokemon.evolutions.EvolutionHappinessBean";
     public static final String TYPE_EVOLUTION_ITEM_BEAN = "aiki.beans.pokemon.evolutions.EvolutionItemBean";
@@ -28,7 +19,6 @@ public final class AikiBeansPokemonEvolutionsStd {
     public static final String TYPE_EVOLUTION_STONE_BEAN = "aiki.beans.pokemon.evolutions.EvolutionStoneBean";
     public static final String TYPE_EVOLUTION_STONE_GENDER_BEAN = "aiki.beans.pokemon.evolutions.EvolutionStoneGenderBean";
     public static final String TYPE_EVOLUTION_TEAM_BEAN = "aiki.beans.pokemon.evolutions.EvolutionTeamBean";
-
     private static final String CLICK_EVO = "clickEvo";
     private static final String CLICK_ITEM = "clickItem";
     private static final String CLICK_MOVE = "clickMove";
@@ -47,7 +37,7 @@ public final class AikiBeansPokemonEvolutionsStd {
     private static final String STONE = "stone";
     private static final String OTHER = "other";
     private static final String TYPE = "type";
-
+    private AikiBeansPokemonEvolutionsStd(){}
     public static void build(PokemonStandards _std) {
         buildEvolutionBean(_std);
         buildEvolutionHappinessBean(_std);
@@ -60,312 +50,83 @@ public final class AikiBeansPokemonEvolutionsStd {
         buildEvolutionStoneGenderBean(_std);
         buildEvolutionTeamBean(_std);
     }
-    private static void buildEvolutionBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(BASE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(DISPLAY_BASE,BeanNatCommonLgNames.STRING,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_EVO,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEvolutionBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EvolutionBeanIndexGet(),new EvolutionBeanIndexSet()));
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new EvolutionBeanDisplayNameGet(),null));
+        fields_.add(new StandardField(DISPLAY_BASE,BeanNatCommonLgNames.STRING,false,false,new EvolutionBeanDisplayBaseGet(),null));
+        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false,null,new EvolutionBeanNameSet()));
+        fields_.add(new StandardField(BASE,BeanNatCommonLgNames.STRING,false,false,null,new EvolutionBeanBaseSet()));
+        methods_.add( new SpecNatMethod(CLICK_EVO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionBeanClickEvo()));
         _std.getStds().addEntry(TYPE_EVOLUTION_BEAN, type_);
     }
-    private static void buildEvolutionHappinessBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_HAPPINESS_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(MIN,BeanNatCommonLgNames.PRIM_LONG,false,false));
+    private static void buildEvolutionHappinessBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_HAPPINESS_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(MIN,BeanNatCommonLgNames.PRIM_LONG,false,false,new EvolutionHappinessBeanMinGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_HAPPINESS_BEAN, type_);
     }
-    private static void buildEvolutionItemBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_ITEM_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEvolutionItemBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_ITEM_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false,new EvolutionItemBeanItemGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionItemBeanClickItem()));
         _std.getStds().addEntry(TYPE_EVOLUTION_ITEM_BEAN, type_);
     }
-    private static void buildEvolutionLevelBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_LEVEL_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
+    private static void buildEvolutionLevelBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_LEVEL_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EvolutionLevelBeanLevelGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_LEVEL_BEAN, type_);
     }
-    private static void buildEvolutionLevelGenderBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN);
-        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false));
+    private static void buildEvolutionLevelGenderBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN);
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false,new EvolutionLevelGenderBeanGenderGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, type_);
     }
-    private static void buildEvolutionMoveBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_MOVE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEvolutionMoveBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_MOVE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING,false,false,new EvolutionMoveBeanMoveGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionMoveBeanClickMove()));
         _std.getStds().addEntry(TYPE_EVOLUTION_MOVE_BEAN, type_);
     }
-    private static void buildEvolutionMoveTypeBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_MOVE_TYPE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(TYPE,BeanNatCommonLgNames.STRING,false,false));
+    private static void buildEvolutionMoveTypeBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_MOVE_TYPE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(TYPE,BeanNatCommonLgNames.STRING,false,false,new EvolutionMoveTypeBeanTypeGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_MOVE_TYPE_BEAN, type_);
     }
-    private static void buildEvolutionStoneBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_STONE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(STONE,BeanNatCommonLgNames.STRING,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_STONE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEvolutionStoneBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_STONE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(STONE,BeanNatCommonLgNames.STRING,false,false,new EvolutionStoneBeanStoneGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_STONE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionStoneBeanClickStone()));
         _std.getStds().addEntry(TYPE_EVOLUTION_STONE_BEAN, type_);
     }
-    private static void buildEvolutionStoneGenderBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_STONE_GENDER_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN);
-        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false));
+    private static void buildEvolutionStoneGenderBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_STONE_GENDER_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN);
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false,new EvolutionStoneGenderBeanGenderGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_STONE_GENDER_BEAN, type_);
     }
-    private static void buildEvolutionTeamBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EVOLUTION_TEAM_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(OTHER,BeanNatCommonLgNames.STRING,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_TEAM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEvolutionTeamBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_TEAM_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(OTHER,BeanNatCommonLgNames.STRING,false,false,new EvolutionTeamBeanOtherGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_TEAM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionTeamBeanClickTeam()));
         _std.getStds().addEntry(TYPE_EVOLUTION_TEAM_BEAN, type_);
-    }
-    public static ResultErrorStd getResultEvolutionBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionBean instance_ = (EvolutionBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new IntStruct(instance_.getIndex()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
-            res_.setResult(new StringStruct(instance_.getDisplayName()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DISPLAY_BASE)) {
-            res_.setResult(new StringStruct(instance_.getDisplayBase()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd getResultEvolutionHappinessBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionHappinessBean instance_ = (EvolutionHappinessBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,MIN)) {
-            res_.setResult(new LongStruct(instance_.getMin()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEvolutionItemBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionItemBean instance_ = (EvolutionItemBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,ITEM)) {
-            res_.setResult(new StringStruct(instance_.getItem()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEvolutionLevelBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionLevelBean instance_ = (EvolutionLevelBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,LEVEL)) {
-            res_.setResult(new IntStruct(instance_.getLevel()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEvolutionLevelGenderBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionLevelGenderBean instance_ = (EvolutionLevelGenderBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,GENDER)) {
-            res_.setResult(new StringStruct(instance_.getGender()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionLevelBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEvolutionMoveBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionMoveBean instance_ = (EvolutionMoveBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEvolutionMoveTypeBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionMoveTypeBean instance_ = (EvolutionMoveTypeBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,TYPE)) {
-            res_.setResult(new StringStruct(instance_.getType()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEvolutionStoneBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionStoneBean instance_ = (EvolutionStoneBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,STONE)) {
-            res_.setResult(new StringStruct(instance_.getStone()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEvolutionStoneGenderBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionStoneGenderBean instance_ = (EvolutionStoneGenderBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,GENDER)) {
-            res_.setResult(new StringStruct(instance_.getGender()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionStoneBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEvolutionTeamBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionTeamBean instance_ = (EvolutionTeamBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,OTHER)) {
-            res_.setResult(new StringStruct(instance_.getOther()));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.getResultEvolutionBean(_classField, _instance);
-    }
-    public static ResultErrorStd setResultEvolutionBean(ClassField _classField, Struct _instance, Struct _val) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EvolutionBean instance_ = (EvolutionBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex(NumParsers.convertToNumber(_val).intStruct());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NAME)) {
-            instance_.setName(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,BASE)) {
-            instance_.setBase(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodEvolutionBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EvolutionBean instance_ = (EvolutionBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_EVO)) {
-            res_.setResult(new StringStruct(instance_.clickEvo(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodEvolutionItemBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EvolutionItemBean instance_ = (EvolutionItemBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
-            res_.setResult(new StringStruct(instance_.clickItem(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_instance, _method, _args);
-    }
-    public static ResultErrorStd invokeMethodEvolutionMoveBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EvolutionMoveBean instance_ = (EvolutionMoveBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_instance, _method, _args);
-    }
-    public static ResultErrorStd invokeMethodEvolutionStoneBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EvolutionStoneBean instance_ = (EvolutionStoneBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_STONE)) {
-            res_.setResult(new StringStruct(instance_.clickStone(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_instance, _method, _args);
-    }
-    public static ResultErrorStd invokeMethodEvolutionTeamBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EvolutionTeamBean instance_ = (EvolutionTeamBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_TEAM)) {
-            res_.setResult(new StringStruct(instance_.clickTeam(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return AikiBeansPokemonEvolutionsStd.invokeMethodEvolutionBean(_instance, _method, _args);
     }
 }

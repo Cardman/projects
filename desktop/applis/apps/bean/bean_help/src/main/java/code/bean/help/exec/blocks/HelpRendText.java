@@ -7,7 +7,6 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendLeaf;
 import code.formathtml.exec.stacks.RendReadWrite;
-import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Text;
 
@@ -20,7 +19,7 @@ public final class HelpRendText extends RendLeaf implements NatRendWithEl {
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
+    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
         NatImportingPage lastPage_ = _rendStack.getLastPage();
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
         Document doc_ = rend_.getDocument();

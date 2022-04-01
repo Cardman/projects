@@ -1,4 +1,5 @@
 package aiki.beans.items;
+
 import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
 import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
@@ -12,11 +13,7 @@ import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import aiki.fight.util.StatisticPokemon;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 public class ItemForBattleBean extends ItemBean {
     static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";

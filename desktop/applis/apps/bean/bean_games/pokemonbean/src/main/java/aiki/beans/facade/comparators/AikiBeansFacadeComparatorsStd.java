@@ -5,10 +5,8 @@ import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.util.CustList;
-
-public final class AikiBeansFacadeComparatorsStd {
+public final class AikiBeansFacadeComparatorsStd{
     public static final String TYPE_COMPARATOR_CATEGORY_MULT = "aiki.beans.facade.comparators.ComparatorCategoryMult";
     public static final String TYPE_COMPARATOR_DIRECTION = "aiki.beans.facade.comparators.ComparatorDirection";
     public static final String TYPE_COMPARATOR_LANGUAGE_ENV_TYPE = "aiki.beans.facade.comparators.ComparatorLanguageEnvType";
@@ -37,8 +35,7 @@ public final class AikiBeansFacadeComparatorsStd {
     public static final String TYPE_COMPARATOR_TYPES_DUO = "aiki.beans.facade.comparators.ComparatorTypesDuo";
     public static final String TYPE_COMPARATOR_WEATHER_TYPE = "aiki.beans.facade.comparators.ComparatorWeatherType";
     public static final String TYPE_COMPARATOR_WILD_POKEMON_DTO = "aiki.beans.facade.comparators.ComparatorWildPokemonDto";
-
-
+    private AikiBeansFacadeComparatorsStd(){}
     public static void build(PokemonStandards _std) {
         buildComparatorCategoryMult(_std);
         buildComparatorDirection(_std);
@@ -69,256 +66,172 @@ public final class AikiBeansFacadeComparatorsStd {
         buildComparatorWeatherType(_std);
         buildComparatorWildPokemonDto(_std);
     }
-    private static void buildComparatorCategoryMult(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_CATEGORY_MULT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorCategoryMult(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_CATEGORY_MULT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_CATEGORY_MULT, type_);
     }
-    private static void buildComparatorDirection(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_DIRECTION, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorDirection(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_DIRECTION, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_DIRECTION, type_);
     }
-    private static void buildComparatorLanguageEnvType(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorLanguageEnvType(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_ENV_TYPE, type_);
     }
-    private static void buildComparatorLanguageGender(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_GENDER, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorLanguageGender(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_GENDER, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_GENDER, type_);
     }
-    private static void buildComparatorLanguageSelectedBoolean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorLanguageSelectedBoolean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_SELECTED_BOOLEAN, type_);
     }
-    private static void buildComparatorLanguageStatisic(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_STATISIC, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorLanguageStatisic(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_STATISIC, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_STATISIC, type_);
     }
-    private static void buildComparatorLanguageString(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_STRING, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorLanguageString(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_STRING, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_STRING, type_);
     }
-    private static void buildComparatorLanguageTargetChoice(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorLanguageTargetChoice(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_LANGUAGE_TARGET_CHOICE, type_);
     }
-    private static void buildComparatorMiniMapCoords(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_MINI_MAP_COORDS, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorMiniMapCoords(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_MINI_MAP_COORDS, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_MINI_MAP_COORDS, type_);
     }
-    private static void buildComparatorMoves(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVES, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorMoves(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVES, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_MOVES, type_);
     }
-    private static void buildComparatorMoveTarget(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVE_TARGET, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorMoveTarget(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVE_TARGET, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_MOVE_TARGET, type_);
     }
-    private static void buildComparatorMoveTeamPosition(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVE_TEAM_POSITION, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorMoveTeamPosition(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_MOVE_TEAM_POSITION, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_MOVE_TEAM_POSITION, type_);
     }
-    private static void buildComparatorPlaceIndex(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_PLACE_INDEX, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorPlaceIndex(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_PLACE_INDEX, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_PLACE_INDEX, type_);
     }
-    private static void buildComparatorPlaceNumber(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_PLACE_NUMBER, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorPlaceNumber(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_PLACE_NUMBER, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_PLACE_NUMBER, type_);
     }
-    private static void buildComparatorPoint(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_POINT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorPoint(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_POINT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_POINT, type_);
     }
-    private static void buildComparatorRadioLineMoves(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_RADIO_LINE_MOVES, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorRadioLineMoves(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_RADIO_LINE_MOVES, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_RADIO_LINE_MOVES, type_);
     }
-    private static void buildComparatorStatistic(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStatistic(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC, type_);
     }
-    private static void buildComparatorStatisticCategory(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_CATEGORY, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStatisticCategory(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_CATEGORY, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_CATEGORY, type_);
     }
-    private static void buildComparatorStatisticInfo(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_INFO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStatisticInfo(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_INFO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_INFO, type_);
     }
-    private static void buildComparatorStatisticInfoPkPlayer(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStatisticInfoPkPlayer(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_INFO_PK_PLAYER, type_);
     }
-    private static void buildComparatorStatisticPokemon(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_POKEMON, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStatisticPokemon(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_POKEMON, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_POKEMON, type_);
     }
-    private static void buildComparatorStatisticTr(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_TR, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStatisticTr(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_TR, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_TR, type_);
     }
-    private static void buildComparatorStatisticType(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_TYPE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStatisticType(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STATISTIC_TYPE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STATISTIC_TYPE, type_);
     }
-    private static void buildComparatorStatusStatistic(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STATUS_STATISTIC, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStatusStatistic(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STATUS_STATISTIC, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STATUS_STATISTIC, type_);
     }
-    private static void buildComparatorStringList(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_STRING_LIST, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorStringList(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_STRING_LIST, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_STRING_LIST, type_);
     }
-    private static void buildComparatorTypesDuo(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_TYPES_DUO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorTypesDuo(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_TYPES_DUO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_TYPES_DUO, type_);
     }
-    private static void buildComparatorWeatherType(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_WEATHER_TYPE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorWeatherType(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_WEATHER_TYPE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_WEATHER_TYPE, type_);
     }
-    private static void buildComparatorWildPokemonDto(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_COMPARATOR_WILD_POKEMON_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+    private static void buildComparatorWildPokemonDto(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMPARATOR_WILD_POKEMON_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_COMPARATOR_WILD_POKEMON_DTO, type_);
     }
 }

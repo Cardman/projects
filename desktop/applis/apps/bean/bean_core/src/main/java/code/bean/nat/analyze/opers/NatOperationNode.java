@@ -161,9 +161,8 @@ public abstract class NatOperationNode {
             if(t == null) {
                 continue;
             }
-            SpecialNatClass root_ = t;
-            for (SpecNatMethod e: root_.getMethods()) {
-                _methods.add(getMethodInfo(e, root_.getFullName(), e.getImportedReturnType()));
+            for (SpecNatMethod e: t.getMethods()) {
+                _methods.add(getMethodInfo(e, e.getImportedReturnType()));
             }
         }
     }
@@ -180,11 +179,10 @@ public abstract class NatOperationNode {
         return typeInfos_;
     }
 
-    private static NatMethodInfo getMethodInfo(SpecNatMethod _m, String _formattedClass, String _importedReturnType) {
+    private static NatMethodInfo getMethodInfo(SpecNatMethod _m, String _importedReturnType) {
         NatMethodInfo mloc_ = new NatMethodInfo();
         mloc_.types(_importedReturnType);
         mloc_.setStandardMethod(_m);
-        mloc_.classMethodId(_formattedClass);
         return mloc_;
     }
 
@@ -203,8 +201,6 @@ public abstract class NatOperationNode {
 
     private static NatClassMethodIdReturn buildResult(NatMethodInfo _m) {
         NatClassMethodIdReturn res_ = new NatClassMethodIdReturn();
-        String baseClassName_ = _m.getClassName();
-        res_.setRealClass(baseClassName_);
         res_.setReturnType(_m.getReturnType());
         res_.setStandardMethod(_m.getStandardMethod());
         return res_;

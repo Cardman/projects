@@ -1,11 +1,15 @@
 package aiki.beans.effects;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.util.ListEffectCombo;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.TreeMap;
 
 public class CombosBean extends CommonBean {
     static final String COMBO="web/html/combo/combo.html";

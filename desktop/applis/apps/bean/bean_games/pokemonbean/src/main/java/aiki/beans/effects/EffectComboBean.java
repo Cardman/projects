@@ -1,4 +1,5 @@
 package aiki.beans.effects;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.db.DataBase;
@@ -9,7 +10,6 @@ import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.EnumMap;
-import code.util.NatCmpTreeMap;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.TreeMap;

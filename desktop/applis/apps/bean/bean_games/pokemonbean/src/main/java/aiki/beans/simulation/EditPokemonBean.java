@@ -1,4 +1,5 @@
 package aiki.beans.simulation;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.comparators.ComparatorStatistic;
@@ -11,11 +12,7 @@ import aiki.fight.items.Ball;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public class EditPokemonBean extends CommonBean {

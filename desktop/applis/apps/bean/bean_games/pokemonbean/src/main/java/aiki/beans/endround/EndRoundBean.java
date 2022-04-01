@@ -1,22 +1,12 @@
 package aiki.beans.endround;
+
 import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.enums.EndTurnType;
 import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundFoe;
-import aiki.fight.moves.effects.EffectEndRoundGlobal;
-import aiki.fight.moves.effects.EffectEndRoundIndividual;
-import aiki.fight.moves.effects.EffectEndRoundMultiRelation;
-import aiki.fight.moves.effects.EffectEndRoundPositionRelation;
-import aiki.fight.moves.effects.EffectEndRoundPositionTargetRelation;
-import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import aiki.fight.moves.effects.EffectEndRoundStatus;
-import aiki.fight.moves.effects.EffectEndRoundStatusRelation;
-import aiki.fight.moves.effects.EffectEndRoundTeam;
+import aiki.fight.moves.effects.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;

@@ -14,7 +14,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendLeafOperation;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -57,7 +56,7 @@ public final class NatStdRefVariableOperation extends RendLeafOperation implemen
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = _rendStack.getLastPage();
         VariableWrapperNat val_ = getWrapper(variableContent, ip_.getRefParams());
 //        ArgumentsPair pair_ = getArgumentPair(_nodes, this);

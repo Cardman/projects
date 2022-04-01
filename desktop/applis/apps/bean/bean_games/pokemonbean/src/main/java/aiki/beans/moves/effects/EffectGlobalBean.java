@@ -1,4 +1,5 @@
 package aiki.beans.moves.effects;
+
 import aiki.beans.facade.comparators.ComparatorStatisticType;
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.comparators.ComparatorTrStrings;
@@ -12,11 +13,7 @@ import aiki.fight.moves.effects.EffectSwitchTypes;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 import code.util.ints.Listable;
 
 public class EffectGlobalBean extends EffectBean {

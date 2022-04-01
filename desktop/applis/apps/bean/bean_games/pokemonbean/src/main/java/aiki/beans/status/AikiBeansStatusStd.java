@@ -1,21 +1,13 @@
 package aiki.beans.status;
 
-import aiki.beans.*;
+import aiki.beans.AikiBeansStd;
+import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
-
-public final class AikiBeansStatusStd {
+public final class AikiBeansStatusStd{
     public static final String TYPE_STATUS_BEAN = "aiki.beans.status.StatusBean";
     public static final String TYPE_STATUS_SET_BEAN = "aiki.beans.status.StatusSetBean";
-
     private static final String CLICK_INDEX = "clickIndex";
     private static final String INCREMENT_END_ROUND_INT = "incrementEndRoundInt";
     private static final String IS_SINGLE = "isSingle";
@@ -51,257 +43,56 @@ public final class AikiBeansStatusStd {
     private static final String EFFECTS_PARTNER = "effectsPartner";
     private static final String TYPED_STATUS = "typedStatus";
     private static final String SORTED_STATUS = "sortedStatus";
-
+    private AikiBeansStatusStd(){}
     public static void build(PokemonStandards _std) {
         buildStatusBean(_std);
         buildStatusSetBean(_std);
     }
-    private static void buildStatusBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_STATUS_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(ANIM_STATUS,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(SINGLE_STATUS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(INCREMENTING_DAMAGE_BY_ROUNDS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(CATCHING_RATE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(DISABLED_EFF_IF_SWITCH,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(INCREMENT_END_ROUND, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(INCREMENTING_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(MULT_STAT, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(REASONS, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(MAP_VARS_FAIL, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(RATE_FOR_USING_A_MOVE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(NOT_ATTACK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(RATE_FOR_USING_A_MOVE_IF_FOE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(NOT_ATTACK_FOE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(RATE_FOR_FULL_HEAL_IF_MOVE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(LAW_FOR_USING_A_MOVE_NB_ROUND, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(POWER,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(ATTACK,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(DEFENSE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(EFFECTS_PARTNER, BeanNatLgNames.TYPE_LIST,false,false));
-        params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_INDEX,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(INCREMENT_END_ROUND_INT,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(IS_SINGLE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_MULT_STAT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(GET_EFFECT_PARTNER,params_,PokemonStandards.TYPE_EFFECT_PARTNER_STATUS, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildStatusBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_STATUS_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new StatusBeanDisplayNameGet(),null));
+        fields_.add(new StandardField(ANIM_STATUS,BeanNatCommonLgNames.STRING,false,false,new StatusBeanAnimStatusGet(),null));
+        fields_.add(new StandardField(END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new StatusBeanEndRoundGet(),null));
+        fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new StatusBeanEndRoundRankGet(),null));
+        fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,new StatusBeanReasonsEndRoundGet(),null));
+        fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false,new StatusBeanMapVarsFailEndRoundGet(),null));
+        fields_.add(new StandardField(SINGLE_STATUS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new StatusBeanSingleStatusGet(),null));
+        fields_.add(new StandardField(INCREMENTING_DAMAGE_BY_ROUNDS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new StatusBeanIncrementingDamageByRoundsGet(),null));
+        fields_.add(new StandardField(CATCHING_RATE,PokemonStandards.TYPE_RATE,false,false,new StatusBeanCatchingRateGet(),null));
+        fields_.add(new StandardField(DISABLED_EFF_IF_SWITCH,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new StatusBeanDisabledEffIfSwitchGet(),null));
+        fields_.add(new StandardField(INCREMENT_END_ROUND, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new StatusBeanIncrementEndRoundGet(),null));
+        fields_.add(new StandardField(INCREMENTING_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new StatusBeanIncrementingEndRoundGet(),null));
+        fields_.add(new StandardField(MULT_STAT, BeanNatLgNames.TYPE_MAP,false,false,new StatusBeanMultStatGet(),null));
+        fields_.add(new StandardField(REASONS, BeanNatLgNames.TYPE_LIST,false,false,new StatusBeanReasonsGet(),null));
+        fields_.add(new StandardField(MAP_VARS_FAIL, BeanNatLgNames.TYPE_MAP,false,false,new StatusBeanMapVarsFailGet(),null));
+        fields_.add(new StandardField(RATE_FOR_USING_A_MOVE,PokemonStandards.TYPE_RATE,false,false,new StatusBeanRateForUsingAMoveGet(),null));
+        fields_.add(new StandardField(NOT_ATTACK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new StatusBeanNotAttackGet(),null));
+        fields_.add(new StandardField(RATE_FOR_USING_A_MOVE_IF_FOE,PokemonStandards.TYPE_RATE,false,false,new StatusBeanRateForUsingAMoveIfFoeGet(),null));
+        fields_.add(new StandardField(NOT_ATTACK_FOE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new StatusBeanNotAttackFoeGet(),null));
+        fields_.add(new StandardField(RATE_FOR_FULL_HEAL_IF_MOVE,PokemonStandards.TYPE_RATE,false,false,new StatusBeanRateForFullHealIfMoveGet(),null));
+        fields_.add(new StandardField(LAW_FOR_USING_A_MOVE_NB_ROUND, BeanNatLgNames.TYPE_MAP,false,false,new StatusBeanLawForUsingAMoveNbRoundGet(),null));
+        fields_.add(new StandardField(POWER,PokemonStandards.TYPE_RATE,false,false,new StatusBeanPowerGet(),null));
+        fields_.add(new StandardField(ATTACK,BeanNatCommonLgNames.STRING,false,false,new StatusBeanAttackGet(),null));
+        fields_.add(new StandardField(DEFENSE,BeanNatCommonLgNames.STRING,false,false,new StatusBeanDefenseGet(),null));
+        fields_.add(new StandardField(EFFECTS_PARTNER, BeanNatLgNames.TYPE_LIST,false,false,new StatusBeanEffectsPartnerGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_INDEX,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new StatusBeanClickIndex()));
+        methods_.add( new SpecNatMethod(INCREMENT_END_ROUND_INT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new StatusBeanIncrementEndRoundInt()));
+        methods_.add( new SpecNatMethod(IS_SINGLE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new StatusBeanIsSingle()));
+        methods_.add( new SpecNatMethod(GET_TR_MULT_STAT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new StatusBeanGetTrMultStat()));
+        methods_.add( new SpecNatMethod(GET_EFFECT_PARTNER,PokemonStandards.TYPE_EFFECT_PARTNER_STATUS, false, MethodModifier.NORMAL,new StatusBeanGetEffectPartner()));
         _std.getStds().addEntry(TYPE_STATUS_BEAN, type_);
     }
-    private static void buildStatusSetBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_STATUS_SET_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_STATUS,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(SORTED_STATUS, BeanNatLgNames.TYPE_LIST,false,false));
-        params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildStatusSetBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_STATUS_SET_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(TYPED_STATUS,BeanNatCommonLgNames.STRING,false,false,new StatusSetBeanTypedStatusGet(),new StatusSetBeanTypedStatusSet()));
+        fields_.add(new StandardField(SORTED_STATUS, BeanNatLgNames.TYPE_LIST,false,false,new StatusSetBeanSortedStatusGet(),null));
+        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new StatusSetBeanSearch()));
+        methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new StatusSetBeanClickStatus()));
+        methods_.add( new SpecNatMethod(GET_TR_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new StatusSetBeanGetTrStatus()));
         _std.getStds().addEntry(TYPE_STATUS_SET_BEAN, type_);
-    }
-    public static ResultErrorStd getResultStatusBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        StatusBean instance_ = (StatusBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
-            res_.setResult(new StringStruct(instance_.getDisplayName()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ANIM_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getAnimStatus()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,END_ROUND)) {
-            res_.setResult(BooleanStruct.of(instance_.getEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,END_ROUND_RANK)) {
-            res_.setResult(new IntStruct(instance_.getEndRoundRank()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReasonsEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsFailEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,SINGLE_STATUS)) {
-            res_.setResult(BooleanStruct.of(instance_.getSingleStatus()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,INCREMENTING_DAMAGE_BY_ROUNDS)) {
-            res_.setResult(BooleanStruct.of(instance_.getIncrementingDamageByRounds()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,CATCHING_RATE)) {
-            res_.setResult(new RateStruct(instance_.getCatchingRate(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DISABLED_EFF_IF_SWITCH)) {
-            res_.setResult(BooleanStruct.of(instance_.getDisabledEffIfSwitch()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,INCREMENT_END_ROUND)) {
-            res_.setResult(new IntStruct(instance_.getIncrementEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,INCREMENTING_END_ROUND)) {
-            res_.setResult(BooleanStruct.of(instance_.getIncrementingEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MULT_STAT)) {
-            res_.setResult(PokemonStandards.getStaRate(instance_.getMultStat()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,REASONS)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReasons()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL)) {
-            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsFail()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_FOR_USING_A_MOVE)) {
-            res_.setResult(new RateStruct(instance_.getRateForUsingAMove(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NOT_ATTACK)) {
-            res_.setResult(BooleanStruct.of(instance_.getNotAttack()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_FOR_USING_A_MOVE_IF_FOE)) {
-            res_.setResult(new RateStruct(instance_.getRateForUsingAMoveIfFoe(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NOT_ATTACK_FOE)) {
-            res_.setResult(BooleanStruct.of(instance_.getNotAttackFoe()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_FOR_FULL_HEAL_IF_MOVE)) {
-            res_.setResult(new RateStruct(instance_.getRateForFullHealIfMove(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,LAW_FOR_USING_A_MOVE_NB_ROUND)) {
-            res_.setResult(PokemonStandards.getLgIntRate(instance_.getLawForUsingAMoveNbRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,POWER)) {
-            res_.setResult(new RateStruct(instance_.getPower(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ATTACK)) {
-            res_.setResult(new StringStruct(instance_.getAttack()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DEFENSE)) {
-            res_.setResult(new StringStruct(instance_.getDefense()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,EFFECTS_PARTNER)) {
-            res_.setResult(PokemonStandards.getEffPartStat(instance_.getEffectsPartner()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd getResultStatusSetBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        StatusSetBean instance_ = (StatusSetBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,TYPED_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTypedStatus()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,SORTED_STATUS)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getSortedStatus()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd setResultStatusSetBean(ClassField _classField, Struct _instance, Struct _val) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        StatusSetBean instance_ = (StatusSetBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,TYPED_STATUS)) {
-            instance_.setTypedStatus(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodStatusBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        StatusBean instance_ = (StatusBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_INDEX)) {
-            res_.setResult(new StringStruct(instance_.clickIndex()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,INCREMENT_END_ROUND_INT)) {
-            res_.setResult(BooleanStruct.of(instance_.incrementEndRoundInt()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_SINGLE)) {
-            res_.setResult(BooleanStruct.of(instance_.isSingle()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_MULT_STAT)) {
-            res_.setResult(new StringStruct(instance_.getTrMultStat(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_EFFECT_PARTNER)) {
-            res_.setResult(new EffectPartnerStatusStruct(instance_.getEffectPartner(),PokemonStandards.TYPE_EFFECT_PARTNER_STATUS));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodStatusSetBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        StatusSetBean instance_ = (StatusSetBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,SEARCH)) {
-            res_.setResult(new StringStruct(instance_.search()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return res_;
     }
 }

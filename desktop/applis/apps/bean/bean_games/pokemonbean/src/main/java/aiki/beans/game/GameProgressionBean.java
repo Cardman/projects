@@ -1,8 +1,9 @@
 package aiki.beans.game;
+
 import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorPlaceNumber;
-import aiki.comparators.ComparatorTrainerPlaceNames;
 import aiki.comparators.ComparatorTrStrings;
+import aiki.comparators.ComparatorTrainerPlaceNames;
 import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.game.GameProgression;

@@ -64,7 +64,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NatRendStackCall stack_ = new NatRendStackCall();
         stack_.addPage(new NatImportingPage());
         RendBlockHelp.processElse(null,stack_);
-        RendBlockHelp.processElseIf(null, null,stack_);
+        RendBlockHelp.processElseIf(null,stack_);
         NatStdRefVariableOperation.getValue(null);
         PairStruct struct_ = new PairStruct("", NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
         BeanNatLgNames.processString(new Argument(struct_));

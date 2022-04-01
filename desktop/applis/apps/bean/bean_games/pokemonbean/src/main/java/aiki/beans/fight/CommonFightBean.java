@@ -1,4 +1,5 @@
 package aiki.beans.fight;
+
 import aiki.beans.StringMapObject;
 import aiki.beans.WithFacade;
 import aiki.beans.WithForms;
@@ -8,7 +9,7 @@ import aiki.game.fight.Fighter;
 import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import code.bean.Bean;
-import code.util.*;
+import code.util.Bytes;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 

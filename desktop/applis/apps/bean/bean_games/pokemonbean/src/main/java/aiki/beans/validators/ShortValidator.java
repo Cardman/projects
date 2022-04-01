@@ -1,10 +1,11 @@
 package aiki.beans.validators;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
-import code.formathtml.structs.Message;
+
 import code.bean.validator.Validator;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.structs.NumberStruct;
+import code.expressionlanguage.structs.Struct;
+import code.formathtml.structs.Message;
 
 public class ShortValidator implements Validator {
 

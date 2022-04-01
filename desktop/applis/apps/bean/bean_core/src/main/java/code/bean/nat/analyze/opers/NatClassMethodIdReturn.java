@@ -4,19 +4,9 @@ import code.bean.nat.SpecNatMethod;
 
 public final class NatClassMethodIdReturn {
 
-    private String realClass;
-
     private String returnType;
 
     private SpecNatMethod standardMethod;
-
-    public String getRealClass() {
-        return realClass;
-    }
-
-    public void setRealClass(String _realClass) {
-        realClass = _realClass;
-    }
 
     public String getReturnType() {
         return returnType;

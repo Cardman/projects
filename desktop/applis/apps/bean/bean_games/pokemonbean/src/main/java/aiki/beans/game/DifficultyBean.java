@@ -1,4 +1,5 @@
 package aiki.beans.game;
+
 import aiki.beans.PokemonStandards;
 import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorDifficultyModelLaw;
@@ -9,12 +10,10 @@ import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.bean.Bean;
-import code.maths.ComparatorLgInt;
 import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.EnumMap;
-import code.util.NatCmpTreeMap;
 import code.util.TreeMap;
 
 public class DifficultyBean extends Bean implements WithFacade {

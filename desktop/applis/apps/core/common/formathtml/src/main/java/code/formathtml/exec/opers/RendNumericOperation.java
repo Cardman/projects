@@ -1,9 +1,9 @@
 package code.formathtml.exec.opers;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.opers.ExecNumericOperation;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.formathtml.exec.RendStackCall;
 import code.util.StringList;
 
@@ -16,9 +16,7 @@ public abstract class RendNumericOperation extends RendMethodOperation implement
     }
 
     static Argument calculateAffect(Argument _left, Argument _right, String _op, byte _cast, ContextEl _context, RendStackCall _stackCall) {
-        ResultErrorStd res_= new ResultErrorStd();
-        ExecNumericOperation.calculateOperator(_context, res_, _op, _left.getStruct(), _right.getStruct(), _cast, _stackCall.getStackCall());
-        return new Argument(res_.getResult());
+        return new Argument(ExecNumericOperation.calculateOperator(_context, _op, _left.getStruct(), _right.getStruct(), _cast, _stackCall.getStackCall()));
     }
 
     static Argument calculateAffect(Argument _left, Argument _right, StringList _cls, ContextEl _conf,RendStackCall _stack) {

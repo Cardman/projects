@@ -8,7 +8,6 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendMessage;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
@@ -37,12 +36,12 @@ public final class NatRendMessage extends RendParentBlock implements NatRendWith
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
+    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
         int l_ = args.size();
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
         for (int i = 0; i< l_; i++) {
-            Argument arg_ = Argument.getNullableValue(((BeanNatCommonLgNames)_stds).getAllArgs(opExp.get(i), _rendStack).lastValue().getArgument());
+            Argument arg_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(opExp.get(i), _rendStack).lastValue().getArgument());
             String res_;
             res_ = BeanNatLgNames.processString(arg_);
             objects_.add(res_);

@@ -1,10 +1,11 @@
 package aiki.beans.endround;
+
 import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.NatCmpTreeMap;
-import code.util.*;
+import code.util.LongTreeMap;
+import code.util.TreeMap;
 
 public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
     private LongTreeMap< Rate> rateDamageFunctionOfNbRounds;

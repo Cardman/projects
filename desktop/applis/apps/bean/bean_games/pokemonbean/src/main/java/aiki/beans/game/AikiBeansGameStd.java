@@ -1,26 +1,13 @@
 package aiki.beans.game;
 
-import code.bean.nat.LgIntStruct;
-import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.RateStruct;
 import code.bean.nat.*;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.*;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
-
-public final class AikiBeansGameStd {
+public final class AikiBeansGameStd{
     public static final String TYPE_DIFFICULTY_BEAN = "aiki.beans.game.DifficultyBean";
     public static final String TYPE_GAME_PROGRESSION_BEAN = "aiki.beans.game.GameProgressionBean";
     public static final String TYPE_POKEMON_PLAYER_BEAN = "aiki.beans.game.PokemonPlayerBean";
-
     private static final String CHANGE = "change";
     private static final String GET_REMAINING_OTHER_TRAINERS_PLACE_NAME = "getRemainingOtherTrainersPlaceName";
     private static final String GET_IMAGE_POKEMON_FULL = "getImagePokemonFull";
@@ -91,550 +78,99 @@ public final class AikiBeansGameStd {
     private static final String STATUS = "status";
     private static final String MOVES = "moves";
     private static final String STATISTICS = "statistics";
-
+    private AikiBeansGameStd(){}
     public static void build(PokemonStandards _std) {
         buildDifficultyBean(_std);
         buildGameProgressionBean(_std);
         buildPokemonPlayerBean(_std);
     }
-    private static void buildDifficultyBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
-        fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(WIN_TRAINER_EXP,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(RATE_WINNING_EXP_PTS_FIGHT,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(END_FIGHT_IF_ONE_TEAM_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(IV_PLAYER, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(IV_FOE, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(RATE_WIN_MONEY_BASE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(RATE_LOOSE_MONEY_WIN,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(RESTORED_MOVES_END_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(ENABLED_CLOSING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(RANDOM_WILD_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(STILL_POSSIBLE_FLEE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(DAMAGE_RATES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DAMAGE_RATE_PLAYER,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatLgNames.TYPE_MAP,false,false));
-        params_ = new StringList();
-        method_ = new SpecNatMethod(CHANGE,params_, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildDifficultyBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
+        fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,new DifficultyBeanWinPointsFightGet(),null));
+        fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDiffWinningExpPtsFightGet(),new DifficultyBeanDiffWinningExpPtsFightSet()));
+        fields_.add(new StandardField(ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanAllowCatchingKoGet(),new DifficultyBeanAllowCatchingKoSet()));
+        fields_.add(new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanAllowedSwitchPlacesEndRoundGet(),new DifficultyBeanAllowedSwitchPlacesEndRoundSet()));
+        fields_.add(new StandardField(WIN_TRAINER_EXP,PokemonStandards.TYPE_RATE,false,false,new DifficultyBeanWinTrainerExpGet(),new DifficultyBeanWinTrainerExpSet()));
+        fields_.add(new StandardField(RATE_WINNING_EXP_PTS_FIGHT,PokemonStandards.TYPE_RATE,false,false,new DifficultyBeanRateWinningExpPtsFightGet(),new DifficultyBeanRateWinningExpPtsFightSet()));
+        fields_.add(new StandardField(END_FIGHT_IF_ONE_TEAM_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanEndFightIfOneTeamKoGet(),new DifficultyBeanEndFightIfOneTeamKoSet()));
+        fields_.add(new StandardField(IV_PLAYER, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new DifficultyBeanIvPlayerGet(),new DifficultyBeanIvPlayerSet()));
+        fields_.add(new StandardField(IV_FOE, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new DifficultyBeanIvFoeGet(),new DifficultyBeanIvFoeSet()));
+        fields_.add(new StandardField(RATE_WIN_MONEY_BASE,PokemonStandards.TYPE_RATE,false,false,new DifficultyBeanRateWinMoneyBaseGet(),new DifficultyBeanRateWinMoneyBaseSet()));
+        fields_.add(new StandardField(RATE_LOOSE_MONEY_WIN,PokemonStandards.TYPE_RATE,false,false,new DifficultyBeanRateLooseMoneyWinGet(),new DifficultyBeanRateLooseMoneyWinSet()));
+        fields_.add(new StandardField(RESTORED_MOVES_END_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanRestoredMovesEndFightGet(),new DifficultyBeanRestoredMovesEndFightSet()));
+        fields_.add(new StandardField(ENABLED_CLOSING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanEnabledClosingGet(),new DifficultyBeanEnabledClosingSet()));
+        fields_.add(new StandardField(RANDOM_WILD_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanRandomWildFightGet(),new DifficultyBeanRandomWildFightSet()));
+        fields_.add(new StandardField(STILL_POSSIBLE_FLEE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanStillPossibleFleeGet(),new DifficultyBeanStillPossibleFleeSet()));
+        fields_.add(new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(),new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet()));
+        fields_.add(new StandardField(DAMAGE_RATES, BeanNatLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRatesGet(),null));
+        fields_.add(new StandardField(DAMAGE_RATE_PLAYER,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDamageRatePlayerGet(),new DifficultyBeanDamageRatePlayerSet()));
+        fields_.add(new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRatePlayerTableGet(),null));
+        fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDamageRateLawFoeGet(),new DifficultyBeanDamageRateLawFoeSet()));
+        fields_.add(new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRateFoeTableGet(),null));
+        methods_.add( new SpecNatMethod(CHANGE, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new DifficultyBeanChange()));
         _std.getStds().addEntry(TYPE_DIFFICULTY_BEAN, type_);
     }
-    private static void buildGameProgressionBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_GAME_PROGRESSION_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
-        fields_.add(new StandardField(FINISHED_GAME,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(HERO_IMAGE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(HERO_IMAGE_OPPOSITE_SEX,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(END_GAME_IMAGE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(UN_BEATEN_IMPORTANT_TRAINERS, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(BEATEN_IMPORTANT_TRAINERS, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(REMAINING_OTHER_TRAINER_PLACES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(UN_VISITED_PLACES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(VISITED_PLACES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(NB_REMAINING_NOT_MAX_LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(NB_REMAINING_NOT_MAX_HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(NB_REMAINING_EGGS, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(REMAIN_STEPS_REPEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(MONEY,PokemonStandards.TYPE_LG_INT,false,false));
-        fields_.add(new StandardField(FULL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(NOT_AT_ALL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(PARTIAL_FAMILIES_BASE_NOT_CAUGHT, BeanNatLgNames.TYPE_MAP,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_REMAINING_OTHER_TRAINERS_PLACE_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_FULL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_POKEMON_FULL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_NOT_ALL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_POKEMON_NOT_ALL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL_NOT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_POKEMON_PARTIAL_NOT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_KEY_POKEMON,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_POKEMON_PARTIAL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildGameProgressionBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_GAME_PROGRESSION_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
+        fields_.add(new StandardField(FINISHED_GAME,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new GameProgressionBeanFinishedGameGet(),null));
+        fields_.add(new StandardField(HERO_IMAGE,BeanNatCommonLgNames.STRING,false,false,new GameProgressionBeanHeroImageGet(),null));
+        fields_.add(new StandardField(HERO_IMAGE_OPPOSITE_SEX,BeanNatCommonLgNames.STRING,false,false,new GameProgressionBeanHeroImageOppositeSexGet(),null));
+        fields_.add(new StandardField(END_GAME_IMAGE,BeanNatCommonLgNames.STRING,false,false,new GameProgressionBeanEndGameImageGet(),null));
+        fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING,false,false,new GameProgressionBeanNicknameGet(),null));
+        fields_.add(new StandardField(UN_BEATEN_IMPORTANT_TRAINERS, BeanNatLgNames.TYPE_LIST,false,false,new GameProgressionBeanUnBeatenImportantTrainersGet(),null));
+        fields_.add(new StandardField(BEATEN_IMPORTANT_TRAINERS, BeanNatLgNames.TYPE_LIST,false,false,new GameProgressionBeanBeatenImportantTrainersGet(),null));
+        fields_.add(new StandardField(REMAINING_OTHER_TRAINER_PLACES, BeanNatLgNames.TYPE_MAP,false,false,new GameProgressionBeanRemainingOtherTrainerPlacesGet(),null));
+        fields_.add(new StandardField(UN_VISITED_PLACES, BeanNatLgNames.TYPE_LIST,false,false,new GameProgressionBeanUnVisitedPlacesGet(),null));
+        fields_.add(new StandardField(VISITED_PLACES, BeanNatLgNames.TYPE_LIST,false,false,new GameProgressionBeanVisitedPlacesGet(),null));
+        fields_.add(new StandardField(NB_REMAINING_NOT_MAX_LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanNbRemainingNotMaxLevelGet(),null));
+        fields_.add(new StandardField(NB_REMAINING_NOT_MAX_HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanNbRemainingNotMaxHappinessGet(),null));
+        fields_.add(new StandardField(NB_REMAINING_EGGS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanNbRemainingEggsGet(),null));
+        fields_.add(new StandardField(REMAIN_STEPS_REPEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanRemainStepsRepelGet(),null));
+        fields_.add(new StandardField(MONEY,PokemonStandards.TYPE_LG_INT,false,false,new GameProgressionBeanMoneyGet(),null));
+        fields_.add(new StandardField(FULL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false,new GameProgressionBeanFullFamiliesBaseGet(),null));
+        fields_.add(new StandardField(NOT_AT_ALL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false,new GameProgressionBeanNotAtAllFamiliesBaseGet(),null));
+        fields_.add(new StandardField(PARTIAL_FAMILIES_BASE_NOT_CAUGHT, BeanNatLgNames.TYPE_MAP,false,false,new GameProgressionBeanPartialFamiliesBaseNotCaughtGet(),null));
+        methods_.add( new SpecNatMethod(GET_REMAINING_OTHER_TRAINERS_PLACE_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetRemainingOtherTrainersPlaceName()));
+        methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_FULL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetImagePokemonFull()));
+        methods_.add( new SpecNatMethod(GET_TR_POKEMON_FULL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonFull()));
+        methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_NOT_ALL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetImagePokemonNotAll()));
+        methods_.add( new SpecNatMethod(GET_TR_POKEMON_NOT_ALL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonNotAll()));
+        methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL_NOT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetImagePokemonPartialNot()));
+        methods_.add( new SpecNatMethod(GET_TR_POKEMON_PARTIAL_NOT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonPartialNot()));
+        methods_.add( new SpecNatMethod(GET_KEY_POKEMON, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new GameProgressionBeanGetKeyPokemon()));
+        methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetImagePokemonPartial()));
+        methods_.add( new SpecNatMethod(GET_TR_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonPartial()));
         _std.getStds().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
     }
-    private static void buildPokemonPlayerBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
-        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(USED_BALL_CATCHING,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(REMAINING_HP,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(REMAINING_HP_PER_CENT,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(FULL_HP,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(WON_EXP_SINCE_LAST_LEVEL,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(NECESSARY_POINTS_NEXT_LEVEL,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(NB_STEPS_TEAM_LEAD, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(STATUS, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(STATISTICS, BeanNatLgNames.TYPE_LIST,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_EVO,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildPokemonPlayerBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
+        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanNameGet(),null));
+        fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanImageGet(),null));
+        fields_.add(new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_MAP,false,false,new PokemonPlayerBeanEvolutionsGet(),null));
+        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerBeanLevelGet(),null));
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanGenderGet(),null));
+        fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanAbilityGet(),null));
+        fields_.add(new StandardField(USED_BALL_CATCHING,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanUsedBallCatchingGet(),null));
+        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanItemGet(),null));
+        fields_.add(new StandardField(REMAINING_HP,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanRemainingHpGet(),null));
+        fields_.add(new StandardField(REMAINING_HP_PER_CENT,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanRemainingHpPerCentGet(),null));
+        fields_.add(new StandardField(FULL_HP,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanFullHpGet(),null));
+        fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanNicknameGet(),null));
+        fields_.add(new StandardField(WON_EXP_SINCE_LAST_LEVEL,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanWonExpSinceLastLevelGet(),null));
+        fields_.add(new StandardField(NECESSARY_POINTS_NEXT_LEVEL,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanNecessaryPointsNextLevelGet(),null));
+        fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerBeanHappinessGet(),null));
+        fields_.add(new StandardField(NB_STEPS_TEAM_LEAD, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerBeanNbStepsTeamLeadGet(),null));
+        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanTypesGet(),null));
+        fields_.add(new StandardField(STATUS, BeanNatLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanStatusGet(),null));
+        fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_MAP,false,false,new PokemonPlayerBeanMovesGet(),null));
+        fields_.add(new StandardField(STATISTICS, BeanNatLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanStatisticsGet(),null));
+        methods_.add( new SpecNatMethod(GET_EVO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonPlayerBeanGetEvo()));
         _std.getStds().addEntry(TYPE_POKEMON_PLAYER_BEAN, type_);
-    }
-    public static ResultErrorStd getResultDifficultyBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,WIN_POINTS_FIGHT)) {
-            res_.setResult(PokemonStandards.getStrStr(instance_.getWinPointsFight()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(BeanLgNames.wrapStd(instance_.getDiffWinningExpPtsFight()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
-            res_.setResult(BooleanStruct.of(instance_.getAllowCatchingKo()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ALLOWED_SWITCH_PLACES_END_ROUND)) {
-            res_.setResult(BooleanStruct.of(instance_.getAllowedSwitchPlacesEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,WIN_TRAINER_EXP)) {
-            res_.setResult(new RateStruct(instance_.getWinTrainerExp(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_WINNING_EXP_PTS_FIGHT)) {
-            res_.setResult(new RateStruct(instance_.getRateWinningExpPtsFight(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,END_FIGHT_IF_ONE_TEAM_KO)) {
-            res_.setResult(BooleanStruct.of(instance_.getEndFightIfOneTeamKo()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IV_PLAYER)) {
-            res_.setResult(new IntStruct(instance_.getIvPlayer()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IV_FOE)) {
-            res_.setResult(new IntStruct(instance_.getIvFoe()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_WIN_MONEY_BASE)) {
-            res_.setResult(new RateStruct(instance_.getRateWinMoneyBase(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_LOOSE_MONEY_WIN)) {
-            res_.setResult(new RateStruct(instance_.getRateLooseMoneyWin(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RESTORED_MOVES_END_FIGHT)) {
-            res_.setResult(BooleanStruct.of(instance_.getRestoredMovesEndFight()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ENABLED_CLOSING)) {
-            res_.setResult(BooleanStruct.of(instance_.getEnabledClosing()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RANDOM_WILD_FIGHT)) {
-            res_.setResult(BooleanStruct.of(instance_.getRandomWildFight()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,STILL_POSSIBLE_FLEE)) {
-            res_.setResult(BooleanStruct.of(instance_.getStillPossibleFlee()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL)) {
-            res_.setResult(BooleanStruct.of(instance_.getSkipLearningMovesWhileNotGrowingLevel()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DAMAGE_RATES)) {
-            res_.setResult(PokemonStandards.getStrStr(instance_.getDamageRates()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            res_.setResult(BeanLgNames.wrapStd(instance_.getDamageRatePlayer()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_PLAYER_TABLE)) {
-            res_.setResult(PokemonStandards.getRateRate(instance_.getDamageRatePlayerTable()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            res_.setResult(BeanLgNames.wrapStd(instance_.getDamageRateLawFoe()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_FOE_TABLE)) {
-            res_.setResult(PokemonStandards.getRateRate(instance_.getDamageRateFoeTable()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd getResultGameProgressionBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        GameProgressionBean instance_ = (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,FINISHED_GAME)) {
-            res_.setResult(BooleanStruct.of(instance_.getFinishedGame()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HERO_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getHeroImage()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HERO_IMAGE_OPPOSITE_SEX)) {
-            res_.setResult(new StringStruct(instance_.getHeroImageOppositeSex()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,END_GAME_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getEndGameImage()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NICKNAME)) {
-            res_.setResult(new StringStruct(instance_.getNickname()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,UN_BEATEN_IMPORTANT_TRAINERS)) {
-            res_.setResult(PokemonStandards.getTrPlNa(instance_.getUnBeatenImportantTrainers()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,BEATEN_IMPORTANT_TRAINERS)) {
-            res_.setResult(PokemonStandards.getTrPlNa(instance_.getBeatenImportantTrainers()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,REMAINING_OTHER_TRAINER_PLACES)) {
-            res_.setResult(PokemonStandards.getShortInt(instance_.getRemainingOtherTrainerPlaces()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,UN_VISITED_PLACES)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getUnVisitedPlaces()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,VISITED_PLACES)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getVisitedPlaces()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NB_REMAINING_NOT_MAX_LEVEL)) {
-            res_.setResult(new IntStruct(instance_.getNbRemainingNotMaxLevel()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NB_REMAINING_NOT_MAX_HAPPINESS)) {
-            res_.setResult(new IntStruct(instance_.getNbRemainingNotMaxHappiness()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NB_REMAINING_EGGS)) {
-            res_.setResult(new IntStruct(instance_.getNbRemainingEggs()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,REMAIN_STEPS_REPEL)) {
-            res_.setResult(new IntStruct(instance_.getRemainStepsRepel()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MONEY)) {
-            res_.setResult(new LgIntStruct(instance_.getMoney(),PokemonStandards.TYPE_LG_INT));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,FULL_FAMILIES_BASE)) {
-            res_.setResult(PokemonStandards.getStrListStrList(instance_.getFullFamiliesBase()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NOT_AT_ALL_FAMILIES_BASE)) {
-            res_.setResult(PokemonStandards.getStrListStrList(instance_.getNotAtAllFamiliesBase()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,PARTIAL_FAMILIES_BASE_NOT_CAUGHT)) {
-            res_.setResult(PokemonStandards.getStrListStrList(instance_.getPartialFamiliesBaseNotCaught()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd getResultPokemonPlayerBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        PokemonPlayerBean instance_ = (PokemonPlayerBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,NAME)) {
-            res_.setResult(new StringStruct(instance_.getName()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getImage()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
-            res_.setResult(PokemonStandards.getStrStr(instance_.getEvolutions()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,LEVEL)) {
-            res_.setResult(new IntStruct(instance_.getLevel()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,GENDER)) {
-            res_.setResult(new StringStruct(instance_.getGender()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getAbility()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,USED_BALL_CATCHING)) {
-            res_.setResult(new StringStruct(instance_.getUsedBallCatching()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ITEM)) {
-            res_.setResult(new StringStruct(instance_.getItem()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,REMAINING_HP)) {
-            res_.setResult(new RateStruct(instance_.getRemainingHp(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,REMAINING_HP_PER_CENT)) {
-            res_.setResult(new StringStruct(instance_.getRemainingHpPerCent()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,FULL_HP)) {
-            res_.setResult(new RateStruct(instance_.getFullHp(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NICKNAME)) {
-            res_.setResult(new StringStruct(instance_.getNickname()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,WON_EXP_SINCE_LAST_LEVEL)) {
-            res_.setResult(new RateStruct(instance_.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NECESSARY_POINTS_NEXT_LEVEL)) {
-            res_.setResult(new RateStruct(instance_.getNecessaryPointsNextLevel(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HAPPINESS)) {
-            res_.setResult(new IntStruct(instance_.getHappiness()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NB_STEPS_TEAM_LEAD)) {
-            res_.setResult(new IntStruct(instance_.getNbStepsTeamLead()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TYPES)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getTypes()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,STATUS)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getStatus()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MOVES)) {
-            res_.setResult(PokemonStandards.getUsesStr(instance_.getMoves()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,STATISTICS)) {
-            res_.setResult(PokemonStandards.getStPkPl(instance_.getStatistics()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd setResultDifficultyBean(ClassField _classField, Struct _instance, Struct _val) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,DIFF_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setDiffWinningExpPtsFight(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ALLOW_CATCHING_KO)) {
-            instance_.setAllowCatchingKo(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ALLOWED_SWITCH_PLACES_END_ROUND)) {
-            instance_.setAllowedSwitchPlacesEndRound(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,WIN_TRAINER_EXP)) {
-            instance_.setWinTrainerExp(RateStruct.convertToRate(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_WINNING_EXP_PTS_FIGHT)) {
-            instance_.setRateWinningExpPtsFight(RateStruct.convertToRate(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,END_FIGHT_IF_ONE_TEAM_KO)) {
-            instance_.setEndFightIfOneTeamKo(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IV_PLAYER)) {
-            instance_.setIvPlayer(NumParsers.convertToNumber(_val).intStruct());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IV_FOE)) {
-            instance_.setIvFoe(NumParsers.convertToNumber(_val).intStruct());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_WIN_MONEY_BASE)) {
-            instance_.setRateWinMoneyBase(RateStruct.convertToRate(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RATE_LOOSE_MONEY_WIN)) {
-            instance_.setRateLooseMoneyWin(RateStruct.convertToRate(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RESTORED_MOVES_END_FIGHT)) {
-            instance_.setRestoredMovesEndFight(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ENABLED_CLOSING)) {
-            instance_.setEnabledClosing(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RANDOM_WILD_FIGHT)) {
-            instance_.setRandomWildFight(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,STILL_POSSIBLE_FLEE)) {
-            instance_.setStillPossibleFlee(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL)) {
-            instance_.setSkipLearningMovesWhileNotGrowingLevel(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_PLAYER)) {
-            instance_.setDamageRatePlayer(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DAMAGE_RATE_LAW_FOE)) {
-            instance_.setDamageRateLawFoe(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodDifficultyBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        DifficultyBean instance_ = (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CHANGE)) {
-            instance_.change();
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodGameProgressionBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        GameProgressionBean instance_ = (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_REMAINING_OTHER_TRAINERS_PLACE_NAME)) {
-            res_.setResult(new StringStruct(instance_.getRemainingOtherTrainersPlaceName(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_FULL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonFull(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_FULL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonFull(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_NOT_ALL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonNotAll(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_NOT_ALL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonNotAll(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_PARTIAL_NOT)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonPartialNot(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_PARTIAL_NOT)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonPartialNot(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_KEY_POKEMON)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getKeyPokemon(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_IMAGE_POKEMON_PARTIAL)) {
-            res_.setResult(new StringStruct(instance_.getImagePokemonPartial(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_POKEMON_PARTIAL)) {
-            res_.setResult(new StringStruct(instance_.getTrPokemonPartial(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodPokemonPlayerBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        PokemonPlayerBean instance_ = (PokemonPlayerBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_EVO)) {
-            res_.setResult(new StringStruct(instance_.getEvo(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return res_;
     }
 }

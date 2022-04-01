@@ -9,7 +9,6 @@ import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendElem;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.stacks.RendReadWrite;
-import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
@@ -30,7 +29,7 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
+    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = _rendStack.getLastPage();
         RendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
@@ -39,7 +38,7 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
         }
         Document ownerDocument_ = rw_.getDocument();
         Element created_ = appendChild(ownerDocument_, rw_, read);
-        processExecAttr(_cont,created_,read, _stds, _rendStack);
+        processExecAttr(_cont,created_,read, _rendStack);
         for (EntryCust<String, ExecTextPart> e: helpAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
             String txt_ = HelpRenderingText.render(res_);
@@ -48,6 +47,6 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
         NatRendElement.addEltStack(ip_,rw_,created_,this);
     }
 
-    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack);
+    protected abstract void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack);
 
 }

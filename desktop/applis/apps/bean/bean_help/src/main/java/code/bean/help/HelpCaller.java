@@ -61,7 +61,7 @@ public final class HelpCaller {
         rendStackCall_.clearPages();
         rendStackCall_.getFormParts().initForms();
         String beanName_ = rendDocumentBlock_.getBeanName();
-        RendBlockHelp.res(rendDocumentBlock_, _navigation.getSession(), null, rendStackCall_, beanName_, null);
+        RendBlockHelp.res(rendDocumentBlock_, _navigation.getSession(), rendStackCall_, beanName_, null);
         return rendStackCall_.getDocument();
     }
 

@@ -105,10 +105,7 @@ public class MapLevelBean extends CommonBean {
         seeArea = getForms().getValBool(CST_SEE_AREA);
         dirs = new TreeMap<String, Boolean>(new ComparatorDirection());
         for (EntryCust<String, BoolVal> s: getForms().getMapBoolean().entryList()) {
-            if (!s.getKey().startsWith(CST_PROPONE_LINK_VAR)) {
-                continue;
-            }
-            if (s.getValue() != BoolVal.TRUE) {
+            if (!s.getKey().startsWith(CST_PROPONE_LINK_VAR) || s.getValue() != BoolVal.TRUE) {
                 continue;
             }
             String dirStr_ = s.getKey().substring(CST_PROPONE_LINK_VAR.length());

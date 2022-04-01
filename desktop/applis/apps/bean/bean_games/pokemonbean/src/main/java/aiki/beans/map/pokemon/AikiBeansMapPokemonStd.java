@@ -1,28 +1,12 @@
 package aiki.beans.map.pokemon;
 
 import aiki.beans.AikiBeansStd;
-import aiki.beans.PersonStruct;
-import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
-import aiki.map.characters.Trainer;
 import code.bean.nat.*;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
-
-public final class AikiBeansMapPokemonStd {
+public final class AikiBeansMapPokemonStd{
     public static final String TYPE_POKEMON_TEAM_BEAN = "aiki.beans.map.pokemon.PokemonTeamBean";
-
     private static final String GET_IMAGE = "getImage";
     private static final String CLICK_NAME = "clickName";
     private static final String GET_NAME = "getName";
@@ -37,131 +21,28 @@ public final class AikiBeansMapPokemonStd {
     private static final String MULTIPLICITY = "multiplicity";
     private static final String TEAM = "team";
     private static final String NO_FIGHT = "noFight";
-
+    private AikiBeansMapPokemonStd(){}
     public static void build(PokemonStandards _std) {
         buildPokemonTeamBean(_std);
     }
-    private static void buildPokemonTeamBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_POKEMON_TEAM_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false));
-        fields_.add(new StandardField(REWARD, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(MULTIPLICITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(NO_FIGHT, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildPokemonTeamBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_TEAM_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(REWARD, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonTeamBeanRewardGet(),null));
+        fields_.add(new StandardField(MULTIPLICITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonTeamBeanMultiplicityGet(),null));
+        fields_.add(new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false,new PokemonTeamBeanTeamGet(),null));
+        fields_.add(new StandardField(NO_FIGHT, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonTeamBeanNoFightGet(),new PokemonTeamBeanNoFightSet()));
+        fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false,null,new PokemonTeamBeanTrainerSet()));
+        methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetImage()));
+        methods_.add( new SpecNatMethod(CLICK_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanClickName()));
+        methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetName()));
+        methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanClickAbility()));
+        methods_.add( new SpecNatMethod(GET_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetAbility()));
+        methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanClickItem()));
+        methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetItem()));
+        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanClickMove()));
+        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetMove()));
         _std.getStds().addEntry(TYPE_POKEMON_TEAM_BEAN, type_);
-    }
-    public static ResultErrorStd getResultPokemonTeamBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        PokemonTeamBean instance_ = (PokemonTeamBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,REWARD)) {
-            res_.setResult(new IntStruct(instance_.getReward()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MULTIPLICITY)) {
-            res_.setResult(new IntStruct(instance_.getMultiplicity()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TEAM)) {
-            res_.setResult(PokemonStandards.getPkTrainerArray(instance_.getTeam()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NO_FIGHT)) {
-            res_.setResult(new IntStruct(instance_.getNoFight()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd setResultPokemonTeamBean(ClassField _classField, Struct _instance, Struct _val) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        PokemonTeamBean instance_ = (PokemonTeamBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,TRAINER)) {
-            instance_.setTrainer((Trainer) ((PersonStruct)_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NO_FIGHT)) {
-            instance_.setNoFight(NumParsers.convertToNumber(_val).intStruct());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodPokemonTeamBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        PokemonTeamBean instance_ = (PokemonTeamBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getImage(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_NAME)) {
-            res_.setResult(new StringStruct(instance_.clickName(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_NAME)) {
-            res_.setResult(new StringStruct(instance_.getName(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
-            res_.setResult(new StringStruct(instance_.clickItem(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(instance_.getItem(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct(),NumParsers.convertToNumber(_args[2]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        return res_;
     }
 }

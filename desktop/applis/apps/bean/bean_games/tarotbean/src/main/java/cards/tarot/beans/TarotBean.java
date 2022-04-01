@@ -1,4 +1,5 @@
 package cards.tarot.beans;
+
 import cards.consts.CoreResourcesAccess;
 import cards.consts.MixCardsChoice;
 import cards.consts.Role;
@@ -8,7 +9,8 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import code.bean.Bean;
 import code.format.Format;
-import code.util.*;
+import code.util.CustList;
+import code.util.Longs;
 import code.util.StringList;
 
 public abstract class TarotBean extends Bean {

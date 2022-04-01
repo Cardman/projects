@@ -136,8 +136,7 @@ public final class CustThreadActions extends AbstractThreadActions {
         }
         Navigation navigation = getPage().getNavigation();
         BeanCustLgNames _stds = du_.getStds();
-        String textToBeChanged_ = _stds.initializeRendSessionDoc(ctx_, navigation, rendStackCall_);
-        navigation.setupText(textToBeChanged_, _stds, rendStackCall_.getDocument(), rendStackCall_.getHtmlPage());
+        _stds.initializeRendSessionDoc(ctx_, navigation, rendStackCall_);
         afterActionWithoutRemove(ctx_, rendStackCall_);
     }
 }

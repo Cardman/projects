@@ -1,4 +1,5 @@
 package aiki.beans.simulation;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorPlaceIndex;
 import aiki.beans.facade.comparators.ComparatorPoint;
@@ -11,19 +12,13 @@ import aiki.map.characters.CharacterInRoadCave;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.levels.LevelWithWildPokemon;
-import aiki.map.places.Campaign;
-import aiki.map.places.Cave;
-import aiki.map.places.City;
-import aiki.map.places.League;
-import aiki.map.places.Place;
-import aiki.map.places.Road;
+import aiki.map.places.*;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import aiki.util.PointParam;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
@@ -230,6 +225,10 @@ public class SimulationLevelBean extends CommonBean {
 
     public int getNoFight() {
         return noFight;
+    }
+
+    public void setNoFight(int _n) {
+        this.noFight = _n;
     }
 
     public TreeMap<Point,String> getTiles() {

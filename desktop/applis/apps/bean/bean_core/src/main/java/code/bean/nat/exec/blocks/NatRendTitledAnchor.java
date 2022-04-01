@@ -4,7 +4,6 @@ import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
@@ -31,7 +30,7 @@ public final class NatRendTitledAnchor extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
@@ -44,7 +43,7 @@ public final class NatRendTitledAnchor extends NatRendElement {
         curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
         RendBlockHelp.feed(varNames, opExpAnch, _rendStack);
-        RendBlockHelp.processLink(_cont, curWr_, _read, textPart, _stds, _rendStack);
+        RendBlockHelp.processLink(_cont, curWr_, _read, textPart, _rendStack);
     }
 
 }

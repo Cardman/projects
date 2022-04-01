@@ -1,8 +1,9 @@
 package aiki.beans.validators;
+
+import code.bean.validator.Validator;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
-import code.bean.validator.Validator;
 
 public class UnselectedRadio implements Validator {
 

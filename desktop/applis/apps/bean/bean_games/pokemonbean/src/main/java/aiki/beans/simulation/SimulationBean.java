@@ -1,4 +1,5 @@
 package aiki.beans.simulation;
+
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.*;
@@ -48,13 +49,7 @@ import code.maths.ComparatorRate;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatCmpTreeMap;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;

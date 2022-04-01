@@ -1,11 +1,7 @@
 package aiki.beans.abilities;
+
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorStatisticCategory;
-import aiki.beans.facade.comparators.ComparatorStatisticType;
-import aiki.beans.facade.comparators.ComparatorStatusStatistic;
-import aiki.beans.facade.comparators.ComparatorTypesDuo;
-import aiki.beans.facade.comparators.ComparatorWeatherType;
-import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
+import aiki.beans.facade.comparators.*;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
@@ -14,12 +10,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.pokemon.PokemonData;
-import aiki.fight.util.StatisticCategory;
-import aiki.fight.util.StatisticStatus;
-import aiki.fight.util.StatisticType;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.TypesDuo;
-import aiki.fight.util.WeatherType;
+import aiki.fight.util.*;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;

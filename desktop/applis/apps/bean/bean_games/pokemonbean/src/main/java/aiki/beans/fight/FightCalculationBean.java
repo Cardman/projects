@@ -1,4 +1,5 @@
 package aiki.beans.fight;
+
 import aiki.beans.facade.comparators.ComparatorMoveTarget;
 import aiki.beans.facade.fight.KeyHypothesis;
 import aiki.db.DataBase;
@@ -9,13 +10,7 @@ import aiki.game.fight.Team;
 import aiki.game.fight.TeamPosition;
 import aiki.game.fight.util.MoveTarget;
 import code.maths.Rate;
-import code.util.EqList;
-import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.ObjectMap;
-import code.util.SortableCustList;
-import code.util.StringMap;
-import code.util.TreeMap;
 
 public class FightCalculationBean extends CommonFightBean {
     private TreeMap<MoveTarget, MoveTarget> allyChoice;

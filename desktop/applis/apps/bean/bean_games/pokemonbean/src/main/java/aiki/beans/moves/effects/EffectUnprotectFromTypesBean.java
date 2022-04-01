@@ -1,11 +1,11 @@
 package aiki.beans.moves.effects;
+
 import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectUnprotectFromTypes;
 import aiki.fight.util.TypesDuo;
 import code.util.CustList;
-import code.util.EqList;
 import code.util.StringList;
 import code.util.StringMap;
 

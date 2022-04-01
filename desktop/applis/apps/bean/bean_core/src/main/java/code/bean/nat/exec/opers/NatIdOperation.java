@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendMethodOperation;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class NatIdOperation extends RendMethodOperation implements NatRendCalculableOperation {
@@ -17,7 +16,7 @@ public final class NatIdOperation extends RendMethodOperation implements NatRend
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, NatRendStackCall _rendStack) {
         RendDynOperationNode o_ = NatAbstractAffectOperation.getIdOp(this);
         Argument a_ = getArgument(_nodes,o_);
         ArgumentsPair pairCh_ = getArgumentPair(_nodes, o_);

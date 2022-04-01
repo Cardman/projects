@@ -8,7 +8,6 @@ import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendMethodOperation;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class NatUnaryBooleanOperation extends RendMethodOperation implements NatRendCalculableOperation {
@@ -17,7 +16,7 @@ public final class NatUnaryBooleanOperation extends RendMethodOperation implemen
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, NatRendStackCall _rendStack) {
         Argument arg_ = getArgument(_nodes,getFirstNode(this));
         BooleanStruct o_ = NumParsers.convertToBoolean(arg_.getStruct());
         Argument a_ = new Argument(o_.neg());

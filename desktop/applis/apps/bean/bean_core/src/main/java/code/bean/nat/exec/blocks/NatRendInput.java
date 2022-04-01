@@ -7,7 +7,6 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendRadio;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
 import code.sml.Node;
@@ -30,19 +29,19 @@ public final class NatRendInput extends NatRendElement {
     }
 
     @Override
-    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, NatRendStackCall _rendStack) {
+    protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
-        Argument arg_ = processIndexes(_cont, _read, elt_, _stds, _rendStack);
+        Argument arg_ = processIndexes(_cont, _read, elt_, _rendStack);
         if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()), _cont.getRendKeyWords().getValueRadio())) {
             Struct res_ = arg_.getStruct();
-            String strObj_ = RendBlockHelp.getStringKey(res_, _stds);
+            String strObj_ = RendBlockHelp.getStringKey(res_);
             RendRadio.procDefValue(_cont,elt_,strObj_);
         }
     }
 
-    Argument processIndexes(Configuration _cont, Element _read, Element _write, BeanLgNames _advStandards, NatRendStackCall _rendStackCall) {
-        Argument arg_ = RendBlockHelp.fetchName(_cont, _read, _write, fieldUpdates, _advStandards, _rendStackCall);
-        RendBlockHelp.fetchValue(_cont,_read,_write,opsValue, _advStandards, _rendStackCall);
+    Argument processIndexes(Configuration _cont, Element _read, Element _write, NatRendStackCall _rendStackCall) {
+        Argument arg_ = RendBlockHelp.fetchName(_cont, _read, _write, fieldUpdates, _rendStackCall);
+        RendBlockHelp.fetchValue(_cont,_read,_write,opsValue, _rendStackCall);
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));

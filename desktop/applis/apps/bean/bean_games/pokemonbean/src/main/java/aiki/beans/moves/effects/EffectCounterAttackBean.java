@@ -1,4 +1,5 @@
 package aiki.beans.moves.effects;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.comparators.ComparatorTrStrings;
@@ -6,11 +7,7 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCounterAttack;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 
 public class EffectCounterAttackBean extends EffectBean {
     private TreeMap<String,Rate> sufferingDamageTypes;

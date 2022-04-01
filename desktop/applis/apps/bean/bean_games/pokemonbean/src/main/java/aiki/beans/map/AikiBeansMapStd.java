@@ -1,27 +1,13 @@
 package aiki.beans.map;
 
 import aiki.beans.AikiBeansStd;
-import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
-
-public final class AikiBeansMapStd {
+public final class AikiBeansMapStd{
     public static final String TYPE_MAP_BEAN = "aiki.beans.map.MapBean";
     public static final String TYPE_MAP_LEVEL_BEAN = "aiki.beans.map.MapLevelBean";
-
     private static final String GET_MAP_WIDTH = "getMapWidth";
     private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String WITHOUT_TITLE = "withoutTitle";
@@ -56,274 +42,56 @@ public final class AikiBeansMapStd {
     private static final String PROPONE_LINK = "proponeLink";
     private static final String DIRS = "dirs";
     private static final String PLACES = "places";
-
+    private AikiBeansMapStd(){}
     public static void build(PokemonStandards _std) {
         buildMapBean(_std);
         buildMapLevelBean(_std);
     }
-    private static void buildMapBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_MAP_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_MULTI_LAYER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(LAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_LEVEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_LEVEL_ZERO,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildMapBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_MAP_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false,new MapBeanPlacesGet(),null));
+        methods_.add( new SpecNatMethod(IS_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapBeanIsMultiLayer()));
+        methods_.add( new SpecNatMethod(LAYERS, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new MapBeanLayers()));
+        methods_.add( new SpecNatMethod(CLICK_LEVEL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapBeanClickLevel()));
+        methods_.add( new SpecNatMethod(CLICK_LEVEL_ZERO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapBeanClickLevelZero()));
         _std.getStds().addEntry(TYPE_MAP_BEAN, type_);
     }
-    private static void buildMapLevelBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_MAP_LEVEL_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(POSSIBLE_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(PLACE_NAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(LEVEL_INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(OUTSIDE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(ROAD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(GYM,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(POKEMON_CENTER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(TILES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(PROPONE_TILE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(PROPONE_LINK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(SEE_AREA,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(DIRS, BeanNatLgNames.TYPE_MAP,false,false));
-        params_ = new StringList();
-        method_ = new SpecNatMethod(GET_MAP_WIDTH,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_FIRST_ROW,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(WITHOUT_TITLE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_TILE_ON_MAP,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_STORAGE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_HEALER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_HOST,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_FOSSILE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_MOVE_TUTORS,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_TILE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_LINK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(SEE_AREA,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_UP,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_DIRECTED_LINK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_DOWN,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_LEFT,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_RIGHT,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildMapLevelBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_MAP_LEVEL_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(POSSIBLE_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanPossibleMultiLayerGet(),null));
+        fields_.add(new StandardField(PLACE_NAME,BeanNatCommonLgNames.STRING,false,false,new MapLevelBeanPlaceNameGet(),null));
+        fields_.add(new StandardField(LEVEL_INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MapLevelBeanLevelIndexGet(),null));
+        fields_.add(new StandardField(OUTSIDE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanOutsideGet(),null));
+        fields_.add(new StandardField(ROAD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanRoadGet(),null));
+        fields_.add(new StandardField(GYM,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanGymGet(),null));
+        fields_.add(new StandardField(POKEMON_CENTER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanPokemonCenterGet(),null));
+        fields_.add(new StandardField(TILES, BeanNatLgNames.TYPE_MAP,false,false,new MapLevelBeanTilesGet(),null));
+        fields_.add(new StandardField(PROPONE_TILE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanProponeTileGet(),null));
+        fields_.add(new StandardField(PROPONE_LINK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanProponeLinkGet(),null));
+        fields_.add(new StandardField(SEE_AREA,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanSeeAreaGet(),null));
+        fields_.add(new StandardField(DIRS, BeanNatLgNames.TYPE_MAP,false,false,new MapLevelBeanDirsGet(),null));
+        methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new MapLevelBeanGetMapWidth()));
+        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFirstRow()));
+        methods_.add( new SpecNatMethod(WITHOUT_TITLE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanWithoutTitle()));
+        methods_.add( new SpecNatMethod(IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsAccessibleByBeatingSomeTrainers()));
+        methods_.add( new SpecNatMethod(CLICK_TILE_ON_MAP,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickTileOnMap()));
+        methods_.add( new SpecNatMethod(IS_STORAGE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsStorage()));
+        methods_.add( new SpecNatMethod(IS_HEALER,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsHealer()));
+        methods_.add( new SpecNatMethod(IS_HOST,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsHost()));
+        methods_.add( new SpecNatMethod(IS_FOSSILE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFossile()));
+        methods_.add( new SpecNatMethod(IS_MOVE_TUTORS,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsMoveTutors()));
+        methods_.add( new SpecNatMethod(CLICK_TILE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickTile()));
+        methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickLink()));
+        methods_.add( new SpecNatMethod(SEE_AREA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanSeeArea()));
+        methods_.add( new SpecNatMethod(IS_UP,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsUp()));
+        methods_.add( new SpecNatMethod(CLICK_DIRECTED_LINK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickDirectedLink()));
+        methods_.add( new SpecNatMethod(IS_DOWN,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsDown()));
+        methods_.add( new SpecNatMethod(IS_LEFT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsLeft()));
+        methods_.add( new SpecNatMethod(IS_RIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsRight()));
         _std.getStds().addEntry(TYPE_MAP_LEVEL_BEAN, type_);
-    }
-    public static ResultErrorStd getResultMapBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        MapBean instance_ = (MapBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,PLACES)) {
-            res_.setResult(PokemonStandards.getPlInd(instance_.getPlaces()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd getResultMapLevelBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        MapLevelBean instance_ = (MapLevelBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,POSSIBLE_MULTI_LAYER)) {
-            res_.setResult(BooleanStruct.of(instance_.getPossibleMultiLayer()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,PLACE_NAME)) {
-            res_.setResult(new StringStruct(instance_.getPlaceName()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,LEVEL_INDEX)) {
-            res_.setResult(new IntStruct(instance_.getLevelIndex()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,OUTSIDE)) {
-            res_.setResult(BooleanStruct.of(instance_.getOutside()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ROAD)) {
-            res_.setResult(BooleanStruct.of(instance_.getRoad()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,GYM)) {
-            res_.setResult(BooleanStruct.of(instance_.getGym()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,POKEMON_CENTER)) {
-            res_.setResult(BooleanStruct.of(instance_.getPokemonCenter()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TILES)) {
-            res_.setResult(PokemonStandards.getPtStr(instance_.getTiles()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,PROPONE_TILE)) {
-            res_.setResult(BooleanStruct.of(instance_.getProponeTile()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,PROPONE_LINK)) {
-            res_.setResult(BooleanStruct.of(instance_.getProponeLink()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,SEE_AREA)) {
-            res_.setResult(BooleanStruct.of(instance_.getSeeArea()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DIRS)) {
-            res_.setResult(PokemonStandards.getStrBool(instance_.getDirs()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodMapBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        MapBean instance_ = (MapBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
-            res_.setResult(BooleanStruct.of(instance_.isMultiLayer(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(PokemonStandards.getLayers(instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
-            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_LEVEL_ZERO)) {
-            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),0)));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodMapLevelBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        MapLevelBean instance_ = (MapLevelBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {
-            res_.setResult(new IntStruct(instance_.getMapWidth()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
-            res_.setResult(BooleanStruct.of(instance_.isFirstRow(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,WITHOUT_TITLE)) {
-            res_.setResult(BooleanStruct.of(instance_.withoutTitle(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS)) {
-            res_.setResult(BooleanStruct.of(instance_.isAccessibleByBeatingSomeTrainers(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_TILE_ON_MAP)) {
-            res_.setResult(new StringStruct(instance_.clickTileOnMap(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_STORAGE)) {
-            res_.setResult(BooleanStruct.of(instance_.isStorage(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_HEALER)) {
-            res_.setResult(BooleanStruct.of(instance_.isHealer(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_HOST)) {
-            res_.setResult(BooleanStruct.of(instance_.isHost(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_FOSSILE)) {
-            res_.setResult(BooleanStruct.of(instance_.isFossile(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_MOVE_TUTORS)) {
-            res_.setResult(BooleanStruct.of(instance_.isMoveTutors(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_TILE)) {
-            res_.setResult(new StringStruct(instance_.clickTile()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickLink()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,SEE_AREA)) {
-            res_.setResult(new StringStruct(instance_.seeArea()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_UP)) {
-            res_.setResult(BooleanStruct.of(instance_.isUp(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_DIRECTED_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickDirectedLink(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_DOWN)) {
-            res_.setResult(BooleanStruct.of(instance_.isDown(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_LEFT)) {
-            res_.setResult(BooleanStruct.of(instance_.isLeft(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_RIGHT)) {
-            res_.setResult(BooleanStruct.of(instance_.isRight(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return res_;
     }
 }

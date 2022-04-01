@@ -38,8 +38,7 @@ public final class EventThreadActions extends AbstractThreadActions {
                 return;
             }
             Navigation navigation = getPage().getNavigation();
-            String res_ = ((BeanCustLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation, ctx_, rendStackCall_);
-            navigation.setupText(res_,((BeanCustLgNames)getPage().getStandards()), rendStackCall_.getDocument(), rendStackCall_.getHtmlPage());
+            ((BeanCustLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation, ctx_, rendStackCall_);
             afterAction(ctx_,rendStackCall_);
             return;
         }

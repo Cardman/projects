@@ -1,18 +1,12 @@
 package aiki.beans.moves.effects;
+
 import aiki.beans.facade.comparators.ComparatorTrStringStatistic;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectDamage;
 import code.maths.ComparatorRate;
 import code.maths.Rate;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.NatCmpTreeMap;
-import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 
 public class EffectDamageBean extends EffectBean {
     private byte chRate;

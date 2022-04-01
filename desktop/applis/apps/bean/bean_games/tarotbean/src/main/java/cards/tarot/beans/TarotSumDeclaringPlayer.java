@@ -1,7 +1,6 @@
 package cards.tarot.beans;
-import cards.tarot.enumerations.Miseres;
+
 import code.util.StringMap;
-import code.util.TreeMap;
 
 public final class TarotSumDeclaringPlayer {
 

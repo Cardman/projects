@@ -1,21 +1,11 @@
 package aiki.beans.endround;
 
 import aiki.beans.AikiBeansStd;
-import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.RateStruct;
 import code.bean.nat.*;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.*;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
-
-public final class AikiBeansEndroundStd {
+public final class AikiBeansEndroundStd{
     public static final String TYPE_EFFECT_END_ROUND_BEAN = "aiki.beans.endround.EffectEndRoundBean";
     public static final String TYPE_EFFECT_END_ROUND_FOE_BEAN = "aiki.beans.endround.EffectEndRoundFoeBean";
     public static final String TYPE_EFFECT_END_ROUND_GLOBAL_BEAN = "aiki.beans.endround.EffectEndRoundGlobalBean";
@@ -29,7 +19,6 @@ public final class AikiBeansEndroundStd {
     public static final String TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN = "aiki.beans.endround.EffectEndRoundStatusRelationBean";
     public static final String TYPE_EFFECT_END_ROUND_TEAM_BEAN = "aiki.beans.endround.EffectEndRoundTeamBean";
     public static final String TYPE_END_ROUND_BEAN = "aiki.beans.endround.EndRoundBean";
-
     private static final String CLICK_MOVE = "clickMove";
     private static final String CLICK_ABILITY = "clickAbility";
     private static final String CLICK_ITEM = "clickItem";
@@ -75,7 +64,7 @@ public final class AikiBeansEndroundStd {
     private static final String END_ROUND_STATUS_HTML = "endRoundStatusHtml";
     private static final String THIEVED_HP_RATE_TARGET_TO_USER = "thievedHpRateTargetToUser";
     private static final String DELETE_ALL_STATUS_ALLY = "deleteAllStatusAlly";
-
+    private AikiBeansEndroundStd(){}
     public static void build(PokemonStandards _std) {
         buildEffectEndRoundBean(_std);
         buildEffectEndRoundFoeBean(_std);
@@ -91,520 +80,132 @@ public final class AikiBeansEndroundStd {
         buildEffectEndRoundTeamBean(_std);
         buildEndRoundBean(_std);
     }
-    private static void buildEffectEndRoundBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(STATUS,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(END_ROUND_HTML,BeanNatCommonLgNames.STRING,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_ITEM,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_MOVES,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEffectEndRoundBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING,false,false,new EffectEndRoundBeanMoveGet(),null));
+        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EffectEndRoundBeanIndexGet(),new EffectEndRoundBeanIndexSet()));
+        fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING,false,false,new EffectEndRoundBeanAbilityGet(),null));
+        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false,new EffectEndRoundBeanItemGet(),null));
+        fields_.add(new StandardField(STATUS,BeanNatCommonLgNames.STRING,false,false,new EffectEndRoundBeanStatusGet(),null));
+        fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_LIST,false,false,new EffectEndRoundBeanMovesGet(),null));
+        fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EffectEndRoundBeanEndRoundRankGet(),null));
+        fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,new EffectEndRoundBeanReasonsEndRoundGet(),null));
+        fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false,new EffectEndRoundBeanMapVarsFailEndRoundGet(),null));
+        fields_.add(new StandardField(END_ROUND_HTML,BeanNatCommonLgNames.STRING,false,false,new EffectEndRoundBeanEndRoundHtmlGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundBeanClickMove()));
+        methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundBeanClickAbility()));
+        methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundBeanClickItem()));
+        methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundBeanClickStatus()));
+        methods_.add( new SpecNatMethod(CLICK_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundBeanClickMoves()));
+        methods_.add( new SpecNatMethod(GET_TR_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundBeanGetTrMoves()));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_BEAN, type_);
     }
-    private static void buildEffectEndRoundFoeBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_FOE_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        fields_.add(new StandardField(INFLICTED_RATE_HP_TARGET,PokemonStandards.TYPE_RATE,false,false));
+    private static void buildEffectEndRoundFoeBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_FOE_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        fields_.add(new StandardField(INFLICTED_RATE_HP_TARGET,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundFoeBeanInflictedRateHpTargetGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_FOE_BEAN, type_);
     }
-    private static void buildEffectEndRoundGlobalBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_GLOBAL_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        fields_.add(new StandardField(DAMAGE_END_ROUND,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(HEALING_END_ROUND_GROUND,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(HEALING_END_ROUND,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(PUTTING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(IMMUNE_TYPES, BeanNatLgNames.TYPE_LIST,false,false));
+    private static void buildEffectEndRoundGlobalBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_GLOBAL_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        fields_.add(new StandardField(DAMAGE_END_ROUND,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundGlobalBeanDamageEndRoundGet(),null));
+        fields_.add(new StandardField(HEALING_END_ROUND_GROUND,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundGlobalBeanHealingEndRoundGroundGet(),null));
+        fields_.add(new StandardField(HEALING_END_ROUND,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundGlobalBeanHealingEndRoundGet(),null));
+        fields_.add(new StandardField(PUTTING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectEndRoundGlobalBeanPuttingKoGet(),null));
+        fields_.add(new StandardField(IMMUNE_TYPES, BeanNatLgNames.TYPE_LIST,false,false,new EffectEndRoundGlobalBeanImmuneTypesGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_GLOBAL_BEAN, type_);
     }
-    private static void buildEffectEndRoundIndividualBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_INDIVIDUAL_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        fields_.add(new StandardField(DELETE_ALL_STATUS,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(RECOIL_DAMAGE,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(HEAL_HP,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(USER_STATUS_END_ROUND,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(MULT_DAMAGE_STATUS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(HEAL_HP_BY_OWNER_TYPES, BeanNatLgNames.TYPE_MAP,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_USER_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TR_USER_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_DAMAGE_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_DAMAGE_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_TYPE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_TYPE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEffectEndRoundIndividualBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_INDIVIDUAL_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        fields_.add(new StandardField(DELETE_ALL_STATUS,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundIndividualBeanDeleteAllStatusGet(),null));
+        fields_.add(new StandardField(RECOIL_DAMAGE,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundIndividualBeanRecoilDamageGet(),null));
+        fields_.add(new StandardField(HEAL_HP,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundIndividualBeanHealHpGet(),null));
+        fields_.add(new StandardField(USER_STATUS_END_ROUND,BeanNatCommonLgNames.STRING,false,false,new EffectEndRoundIndividualBeanUserStatusEndRoundGet(),null));
+        fields_.add(new StandardField(MULT_DAMAGE_STATUS, BeanNatLgNames.TYPE_MAP,false,false,new EffectEndRoundIndividualBeanMultDamageStatusGet(),null));
+        fields_.add(new StandardField(HEAL_HP_BY_OWNER_TYPES, BeanNatLgNames.TYPE_MAP,false,false,new EffectEndRoundIndividualBeanHealHpByOwnerTypesGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_USER_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundIndividualBeanClickUserStatus()));
+        methods_.add( new SpecNatMethod(GET_TR_USER_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundIndividualBeanGetTrUserStatus()));
+        methods_.add( new SpecNatMethod(CLICK_DAMAGE_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundIndividualBeanClickDamageStatus()));
+        methods_.add( new SpecNatMethod(GET_TR_DAMAGE_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundIndividualBeanGetTrDamageStatus()));
+        methods_.add( new SpecNatMethod(IS_TYPE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new EffectEndRoundIndividualBeanIsType()));
+        methods_.add( new SpecNatMethod(GET_TR_TYPE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundIndividualBeanGetTrType()));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_INDIVIDUAL_BEAN, type_);
     }
-    private static void buildEffectEndRoundMultiRelationBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        fields_.add(new StandardField(DAMAGE_BY_STATUS, BeanNatLgNames.TYPE_MAP,false,false));
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_DAMAGE_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_DAMAGE_STATUS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEffectEndRoundMultiRelationBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        fields_.add(new StandardField(DAMAGE_BY_STATUS, BeanNatLgNames.TYPE_MAP,false,false,new EffectEndRoundMultiRelationBeanDamageByStatusGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_DAMAGE_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundMultiRelationBeanClickDamageStatus()));
+        methods_.add( new SpecNatMethod(GET_TR_DAMAGE_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundMultiRelationBeanGetTrDamageStatus()));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_MULTI_RELATION_BEAN, type_);
     }
-    private static void buildEffectEndRoundPositionRelationBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_POSITION_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        fields_.add(new StandardField(HEAL_HP,PokemonStandards.TYPE_RATE,false,false));
+    private static void buildEffectEndRoundPositionRelationBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_POSITION_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        fields_.add(new StandardField(HEAL_HP,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundPositionRelationBeanHealHpGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_POSITION_RELATION_BEAN, type_);
     }
-    private static void buildEffectEndRoundPositionTargetBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(GET_MOVES_SAME_CATEGORY,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_TARGET_RELATION_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_TARGET_RELATION_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEffectEndRoundPositionTargetBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        methods_.add( new SpecNatMethod(GET_MOVES_SAME_CATEGORY, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new EffectEndRoundPositionTargetBeanGetMovesSameCategory()));
+        methods_.add( new SpecNatMethod(CLICK_TARGET_RELATION_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundPositionTargetBeanClickTargetRelationMove()));
+        methods_.add( new SpecNatMethod(GET_TR_TARGET_RELATION_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectEndRoundPositionTargetBeanGetTrTargetRelationMove()));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_POSITION_TARGET_BEAN, type_);
     }
-    private static void buildEffectEndRoundSingleRelationBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        fields_.add(new StandardField(RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(LAW_FOR_ENABLING_EFFECT, BeanNatLgNames.TYPE_MAP,false,false));
+    private static void buildEffectEndRoundSingleRelationBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        fields_.add(new StandardField(RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS, BeanNatLgNames.TYPE_MAP,false,false,new EffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(),null));
+        fields_.add(new StandardField(LAW_FOR_ENABLING_EFFECT, BeanNatLgNames.TYPE_MAP,false,false,new EffectEndRoundSingleRelationBeanLawForEnablingEffectGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN, type_);
     }
-    private static void buildEffectEndRoundSingleStatusBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN);
+    private static void buildEffectEndRoundSingleStatusBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN);
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_SINGLE_STATUS_BEAN, type_);
     }
-    private static void buildEffectEndRoundStatusBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_STATUS_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        fields_.add(new StandardField(INFLICTED_RATE_HP_TARGET,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(END_ROUND_STATUS_HTML,BeanNatCommonLgNames.STRING,false,false));
+    private static void buildEffectEndRoundStatusBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_STATUS_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        fields_.add(new StandardField(INFLICTED_RATE_HP_TARGET,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundStatusBeanInflictedRateHpTargetGet(),null));
+        fields_.add(new StandardField(END_ROUND_STATUS_HTML,BeanNatCommonLgNames.STRING,false,false,new EffectEndRoundStatusBeanEndRoundStatusHtmlGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_STATUS_BEAN, type_);
     }
-    private static void buildEffectEndRoundStatusRelationBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN);
-        fields_.add(new StandardField(THIEVED_HP_RATE_TARGET_TO_USER,PokemonStandards.TYPE_RATE,false,false));
+    private static void buildEffectEndRoundStatusRelationBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN);
+        fields_.add(new StandardField(THIEVED_HP_RATE_TARGET_TO_USER,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN, type_);
     }
-    private static void buildEffectEndRoundTeamBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_TEAM_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
-        fields_.add(new StandardField(DELETE_ALL_STATUS,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(DELETE_ALL_STATUS_ALLY,PokemonStandards.TYPE_RATE,false,false));
+    private static void buildEffectEndRoundTeamBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_TEAM_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
+        fields_.add(new StandardField(DELETE_ALL_STATUS,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundTeamBeanDeleteAllStatusGet(),null));
+        fields_.add(new StandardField(DELETE_ALL_STATUS_ALLY,PokemonStandards.TYPE_RATE,false,false,new EffectEndRoundTeamBeanDeleteAllStatusAllyGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_TEAM_BEAN, type_);
     }
-    private static void buildEndRoundBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_END_ROUND_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(GET_EVTS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_PAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildEndRoundBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_END_ROUND_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        methods_.add( new SpecNatMethod(GET_EVTS, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new EndRoundBeanGetEvts()));
+        methods_.add( new SpecNatMethod(GET_PAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EndRoundBeanGetPage()));
         _std.getStds().addEntry(TYPE_END_ROUND_BEAN, type_);
-    }
-    public static ResultErrorStd getResultEffectEndRoundBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundBean instance_ = (EffectEndRoundBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,MOVE)) {
-            res_.setResult(new StringStruct(instance_.getMove()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,INDEX)) {
-            res_.setResult(new IntStruct(instance_.getIndex()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getAbility()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ITEM)) {
-            res_.setResult(new StringStruct(instance_.getItem()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,STATUS)) {
-            res_.setResult(new StringStruct(instance_.getStatus()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MOVES)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMoves()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,END_ROUND_RANK)) {
-            res_.setResult(new IntStruct(instance_.getEndRoundRank()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,REASONS_END_ROUND)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getReasonsEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MAP_VARS_FAIL_END_ROUND)) {
-            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVarsFailEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,END_ROUND_HTML)) {
-            res_.setResult(new StringStruct(EffectEndRoundBean.END_ROUND_HTML));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd getResultEffectEndRoundFoeBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundFoeBean instance_ = (EffectEndRoundFoeBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,INFLICTED_RATE_HP_TARGET)) {
-            res_.setResult(new RateStruct(instance_.getInflictedRateHpTarget(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEffectEndRoundGlobalBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundGlobalBean instance_ = (EffectEndRoundGlobalBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,DAMAGE_END_ROUND)) {
-            res_.setResult(new RateStruct(instance_.getDamageEndRound(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HEALING_END_ROUND_GROUND)) {
-            res_.setResult(new RateStruct(instance_.getHealingEndRoundGround(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HEALING_END_ROUND)) {
-            res_.setResult(new RateStruct(instance_.getHealingEndRound(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,PUTTING_KO)) {
-            res_.setResult(BooleanStruct.of(instance_.getPuttingKo()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IMMUNE_TYPES)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getImmuneTypes()));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEffectEndRoundIndividualBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundIndividualBean instance_ = (EffectEndRoundIndividualBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,DELETE_ALL_STATUS)) {
-            res_.setResult(new RateStruct(instance_.getDeleteAllStatus(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,RECOIL_DAMAGE)) {
-            res_.setResult(new RateStruct(instance_.getRecoilDamage(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HEAL_HP)) {
-            res_.setResult(new RateStruct(instance_.getHealHp(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,USER_STATUS_END_ROUND)) {
-            res_.setResult(new StringStruct(instance_.getUserStatusEndRound()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MULT_DAMAGE_STATUS)) {
-            res_.setResult(PokemonStandards.getStrRate(instance_.getMultDamageStatus()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HEAL_HP_BY_OWNER_TYPES)) {
-            res_.setResult(PokemonStandards.getStrRate(instance_.getHealHpByOwnerTypes()));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEffectEndRoundMultiRelationBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundMultiRelationBean instance_ = (EffectEndRoundMultiRelationBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,DAMAGE_BY_STATUS)) {
-            res_.setResult(PokemonStandards.getStrRate(instance_.getDamageByStatus()));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEffectEndRoundPositionRelationBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundPositionRelationBean instance_ = (EffectEndRoundPositionRelationBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,HEAL_HP)) {
-            res_.setResult(new RateStruct(instance_.getHealHp(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEffectEndRoundSingleRelationBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundSingleRelationBean instance_ = (EffectEndRoundSingleRelationBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,RATE_DAMAGE_FUNCTION_OF_NB_ROUNDS)) {
-            res_.setResult(PokemonStandards.getLongRate(instance_.getRateDamageFunctionOfNbRounds()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,LAW_FOR_ENABLING_EFFECT)) {
-            res_.setResult(PokemonStandards.getLgIntRate(instance_.getLawForEnablingEffect()));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEffectEndRoundStatusBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundStatusBean instance_ = (EffectEndRoundStatusBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,INFLICTED_RATE_HP_TARGET)) {
-            res_.setResult(new RateStruct(instance_.getInflictedRateHpTarget(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,END_ROUND_STATUS_HTML)) {
-            res_.setResult(new StringStruct(EffectEndRoundStatusBean.END_ROUND_STATUS_HTML));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEffectEndRoundStatusRelationBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundStatusRelationBean instance_ = (EffectEndRoundStatusRelationBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,THIEVED_HP_RATE_TARGET_TO_USER)) {
-            res_.setResult(new RateStruct(instance_.getThievedHpRateTargetToUser(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundStatusBean(_classField, _instance);
-    }
-    public static ResultErrorStd getResultEffectEndRoundTeamBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundTeamBean instance_ = (EffectEndRoundTeamBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,DELETE_ALL_STATUS)) {
-            res_.setResult(new RateStruct(instance_.getDeleteAllStatus(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,DELETE_ALL_STATUS_ALLY)) {
-            res_.setResult(new RateStruct(instance_.getDeleteAllStatusAlly(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return AikiBeansEndroundStd.getResultEffectEndRoundBean(_classField, _instance);
-    }
-    public static ResultErrorStd setResultEffectEndRoundBean(ClassField _classField, Struct _instance, Struct _val) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        EffectEndRoundBean instance_ = (EffectEndRoundBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,INDEX)) {
-            instance_.setIndex(NumParsers.convertToNumber(_val).intStruct());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodEffectEndRoundBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectEndRoundBean instance_ = (EffectEndRoundBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_ITEM)) {
-            res_.setResult(new StringStruct(instance_.clickItem(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_MOVES)) {
-            res_.setResult(new StringStruct(instance_.clickMoves(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_MOVES)) {
-            res_.setResult(new StringStruct(instance_.getTrMoves(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodEffectEndRoundIndividualBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectEndRoundIndividualBean instance_ = (EffectEndRoundIndividualBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_USER_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickUserStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_USER_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrUserStatus()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickDamageStatus(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrDamageStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_TYPE)) {
-            res_.setResult(BooleanStruct.of(instance_.isType(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTrType(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_instance, _method, _args);
-    }
-    public static ResultErrorStd invokeMethodEffectEndRoundMultiRelationBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectEndRoundMultiRelationBean instance_ = (EffectEndRoundMultiRelationBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.clickDamageStatus(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_DAMAGE_STATUS)) {
-            res_.setResult(new StringStruct(instance_.getTrDamageStatus(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_instance, _method, _args);
-    }
-    public static ResultErrorStd invokeMethodEffectEndRoundPositionTargetBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EffectEndRoundPositionTargetBean instance_ = (EffectEndRoundPositionTargetBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_MOVES_SAME_CATEGORY)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMovesSameCategory()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_TARGET_RELATION_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickTargetRelationMove(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_TARGET_RELATION_MOVE)) {
-            res_.setResult(new StringStruct(instance_.getTrTargetRelationMove(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return AikiBeansEndroundStd.invokeMethodEffectEndRoundBean(_instance, _method, _args);
-    }
-    public static ResultErrorStd invokeMethodEndRoundBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        EndRoundBean instance_ = (EndRoundBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_EVTS)) {
-            res_.setResult(PokemonStandards.getEnd(instance_.getEvts()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_PAGE)) {
-            res_.setResult(new StringStruct(instance_.getPage(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return res_;
     }
 }

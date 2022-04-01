@@ -1,4 +1,5 @@
 package aiki.beans.fight;
+
 import aiki.beans.facade.comparators.ComparatorMoveTeamPosition;
 import aiki.beans.facade.comparators.ComparatorStatisticInfo;
 import aiki.beans.facade.fight.MultPowerMoves;
@@ -18,12 +19,7 @@ import aiki.game.fight.util.CopiedMove;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.LgInt;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public class FighterBean extends CommonFightBean {

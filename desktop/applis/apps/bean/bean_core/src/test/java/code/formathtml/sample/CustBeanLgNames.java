@@ -5,13 +5,10 @@ import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatStdFctOperation;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.*;
+import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendDocumentBlock;
@@ -179,11 +176,8 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         cl_ = new SpecialNatClass(TYPE_STRING_LIST, fields_, methods_, TYPE_LIST);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(GET_REVERSE,TYPE_STRING_LIST, false, MethodModifier.NORMAL);
-        methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_STRING_LIST, cl_);
         getIterables().put(TYPE_STRING_LIST, getAliasString());
@@ -191,7 +185,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_STRING_LIST_SEC, cl_);
         getIterables().put(TYPE_STRING_LIST_SEC, OBJECT);
@@ -248,69 +242,69 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         StringList params_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_ONE, fields_, methods_, TYPE_BEAN);
-        fields_.add(new StandardField(CHOSEN_NUMBER, STRING,false,false));
+        fields_.add(new StandardField(CHOSEN_NUMBER, STRING,false,false,new SampleStrFct(),new SampleStrFct()));
         fields_.add(new StandardField(CHOSEN_NUMBERS,TYPE_ENUM_NUMBERS,false,false));
         fields_.add(new StandardField(COMBOBOX,TYPE_ENUM_NUMBERS,false,false));
         fields_.add(new StandardField(COMMON_CLASS, STRING,false,false));
-        fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false));
-        fields_.add(new StandardField(MAP, TYPE_MAP,false,false));
-        fields_.add(new StandardField(MESSAGE, STRING,false,false));
+        fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false, new SampleCompositeInfo(),null));
+        fields_.add(new StandardField(MAP, TYPE_MAP,false,false, new SampleBeanOneMap(),null));
+        fields_.add(new StandardField(MESSAGE, STRING,false,false, new SampleBeanOneMessage(), null));
         fields_.add(new StandardField(NUMBERS, TYPE_MAP,false,false));
-        fields_.add(new StandardField(SELECTED_STRING, STRING,false,false));
+        fields_.add(new StandardField(SELECTED_STRING, STRING,false,false, new SampleBeanOneSelectedString(), null));
         fields_.add(new StandardField(TRANSLATIONS, TYPE_MAP,false,false));
-        fields_.add(new StandardField(TREE, TYPE_MAP,false,false));
+        fields_.add(new StandardField(TREE, TYPE_MAP,false,false, new SampleBeanOneTree(),null));
         fields_.add(new StandardField(STRINGS,TYPE_STRING_LIST,false,false));
         fields_.add(new StandardField(STRINGS_SEC,TYPE_STRING_LIST_SEC,false,false));
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_LIST,params_, TYPE_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_LIST, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(GET_DOUBLE,params_, PRIM_INTEGER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_DOUBLE, PRIM_INTEGER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GO_TO_NULL_PAGE,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO_TO_NULL_PAGE, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(OBJECT);
-        method_ = new SpecNatMethod("length",params_, PRIM_INTEGER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod("length", PRIM_INTEGER, false, MethodModifier.NORMAL, new SampleBeanOneLen());
         methods_.add( method_);
         params_ = new StringList(OBJECT,OBJECT);
-        method_ = new SpecNatMethod("length2",params_, PRIM_INTEGER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod("length2", PRIM_INTEGER, false, MethodModifier.NORMAL, new SampleBeanOneLen());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GO_TO_PAGE,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO_TO_PAGE, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(GO_TO_PAGE,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO_TO_PAGE, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(INVOKE_METHOD,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(INVOKE_METHOD, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(HAS_MORE_THAN_ONE,params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(HAS_MORE_THAN_ONE, PRIM_BOOLEAN, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMPOSITE,params_,TYPE_COMPOSITE, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMPOSITE, TYPE_COMPOSITE, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_DEFAULT_CHOICE,params_,TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_DEFAULT_CHOICE, TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMPOSITES,params_, TYPE_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMPOSITES, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(GET_SPAN_CLASS,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_SPAN_CLASS, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG, PRIM_LONG, PRIM_LONG);
-        method_ = new SpecNatMethod(GET_SPAN_CLASSES,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_SPAN_CLASSES, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(GET_STANDARD,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_STANDARD, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(GET_TRANS,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TRANS, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_STRINGS,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_STRINGS, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_BEAN_ONE, cl_);
     }
@@ -325,40 +319,40 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         StringList params_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_TWO, fields_, methods_, TYPE_BEAN);
-        fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false));
-        fields_.add(new StandardField(CHECKED, PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false, new SampleCompositeInfo(),null));
+        fields_.add(new StandardField(CHECKED, PRIM_BOOLEAN,false,false, new SampleBeanTwoChecked(),new SampleBeanTwoCheckedSet()));
         fields_.add(new StandardField(CHOOSE, STRING,false,false));
         fields_.add(new StandardField(CHOSEN_NUMBER,TYPE_ENUM_NUMBER,false,false));
         fields_.add(new StandardField(FIELD, STRING,false,false));
         fields_.add(new StandardField(NULLABLE_CHECKBOX, PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(NULLABLE_INT, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
         fields_.add(new StandardField(RATE,TYPE_RATE,false,false));
-        fields_.add(new StandardField(TYPED_INT, PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(TYPED_SHORT, PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(TYPED_STRING, STRING,false,false));
+        fields_.add(new StandardField(TYPED_INT, PRIM_INTEGER,false,false,new SampleStrFct(),new SampleStrFct()));
+        fields_.add(new StandardField(TYPED_SHORT, PRIM_INTEGER,false,false, new SampleBeanTwoTypedShort(),new SampleBeanTwoTypedShortSet()));
+        fields_.add(new StandardField(TYPED_STRING, STRING,false,false, new SampleBeanTwoTypedString(),new SampleBeanTwoTypedStringSet()));
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_CHOSEN_NUMBERS,params_, TYPE_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_CHOSEN_NUMBERS, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GO,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO, STRING, false, MethodModifier.NORMAL, new SampleBeanTwoGo());
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(GO,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO, STRING, false, MethodModifier.NORMAL, new SampleBeanTwoGo());
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(GO2,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO2, STRING, false, MethodModifier.NORMAL, new SampleStrFct());
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GO_TEXT_AREA,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO_TEXT_AREA, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(SET_TYPED_INT,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_TYPED_INT, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(SET_TYPED_STRING,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_TYPED_STRING, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_BEAN_TWO, cl_);
     }
@@ -389,13 +383,13 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_FOUR, fields_, methods_, TYPE_BEAN);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(SET_INVISIBLE_FIELD,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_INVISIBLE_FIELD, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(SET_INVISIBLE_INT_FIELD,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_INVISIBLE_INT_FIELD, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(SETTER,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SETTER, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_BEAN_FOUR, cl_);
     }
@@ -417,10 +411,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         fields_.add(new StandardField(TRANSLATIONS, TYPE_MAP,false,false));
         fields_.add(new StandardField(TREE, TYPE_MAP,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(GO,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_DEFAULT_CHOICES,params_, TYPE_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_DEFAULT_CHOICES, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_BEAN_FIVE, cl_);
     }
@@ -452,28 +446,28 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         fields_.add(new StandardField(ARRAY_INT,TYPE_INTS,false,true));
         fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false));
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TREE,params_,TYPE_NAT_TREE_MAP_STRING_INTEGER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TREE, TYPE_NAT_TREE_MAP_STRING_INTEGER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_STRINGS,params_,TYPE_STRING_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_STRINGS, TYPE_STRING_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
 //        params_ = new StringList(getContent().getNbAlias().getAliasDouble());
 //        method_ = new SpecNatMethod(GET_DOUBLE,params_, getContent().getPrimTypes().getAliasPrimDouble(), false, MethodModifier.NORMAL);
 //        methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER, PRIM_INTEGER);
-        method_ = new SpecNatMethod(GO_TWO_ARGS,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GO_TWO_ARGS, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_INTS_SAVE,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_INTS_SAVE, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_MAP,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_MAP, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_STRINGS,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_STRINGS, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(VALIDATE_STRINGS_SAVE,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(VALIDATE_STRINGS_SAVE, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_BEAN_SEVEN, cl_);
     }
@@ -489,61 +483,61 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_EIGHT, fields_, methods_, TYPE_BEAN);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_DATA_BASE,params_,TYPE_SIMPLE_DATA_BASE, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_DATA_BASE, TYPE_SIMPLE_DATA_BASE, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_CHECK_BOX,params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_CHECK_BOX, PRIM_BOOLEAN, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBO_NUMBER,params_,TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBO_NUMBER, TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBO_NUMBER_TWO,params_,TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBO_NUMBER_TWO, TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBO_NUMBERS,params_,TYPE_ENUM_NUMBERS, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBO_NUMBERS, TYPE_ENUM_NUMBERS, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBOBOX,params_, TYPE_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBOBOX, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMPOSITES,params_, TYPE_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMPOSITES, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBOBOX_MAP,params_, TYPE_MAP, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBOBOX_MAP, TYPE_MAP, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TYPED_STRING,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TYPED_STRING, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TYPED_TEXT,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TYPED_TEXT, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_RADIO_LONG,params_, PRIM_LONG, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_RADIO_LONG, PRIM_LONG, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(SETUP,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SETUP, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_BOOLEAN);
-        method_ = new SpecNatMethod(SET_CHECK_BOX,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_CHECK_BOX, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(TYPE_ENUM_NUMBER);
-        method_ = new SpecNatMethod(SET_COMBO_NUMBER,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_COMBO_NUMBER, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(TYPE_ENUM_NUMBER);
-        method_ = new SpecNatMethod(SET_COMBO_NUMBER_TWO,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_COMBO_NUMBER_TWO, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(TYPE_ENUM_NUMBERS);
-        method_ = new SpecNatMethod(SET_COMBO_NUMBERS,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_COMBO_NUMBERS, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(SET_RADIO_LONG,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_RADIO_LONG, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(SET_TYPED_STRING,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_TYPED_STRING, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(SET_TYPED_TEXT,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_TYPED_TEXT, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_BEAN_EIGHT, cl_);
     }
@@ -558,38 +552,38 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_COMPOSITE, fields_, methods_, OBJECT);
         fields_.add(new StandardField(DISPLAYED, PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(INTEGER, PRIM_INTEGER,false,false));
+        fields_.add(new StandardField(INTEGER, PRIM_INTEGER,false,false,new SampleCompositeInteger(),null));
         fields_.add(new StandardField(MAP, TYPE_MAP,false,false));
 //        fields_.add(new StandardField(MY_CHAR, getContent().getPrimTypes().getAliasPrimChar(),false,false));
-        fields_.add(new StandardField(STRING_FCT, STRING,false,false));
-        fields_.add(new StandardField(STRINGS,TYPE_STRING_LIST,false,false));
-        fields_.add(new StandardField(STRINGS_SEC,TYPE_STRING_LIST_SEC,false,false));
+        fields_.add(new StandardField(STRING_FCT, STRING,false,false, new SampleStrFct(),new SampleStrFct()));
+        fields_.add(new StandardField(STRINGS,TYPE_STRING_LIST,false,false, new SampleCompositeStrings(),null));
+        fields_.add(new StandardField(STRINGS_SEC,TYPE_STRING_LIST_SEC,false,false, new SampleCompositeStrings(),null));
         params_ = new StringList();
-        method_ = new SpecNatMethod(INTERN_METHOD,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(INTERN_METHOD, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(PRIVATE_METHOD,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(PRIVATE_METHOD, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_STRING,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_STRING, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_STRINGS,params_,TYPE_STRING_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_STRINGS, TYPE_STRING_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(SUMMUM,params_, PRIM_INTEGER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SUMMUM, PRIM_INTEGER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_STRING_ELT,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_STRING_ELT, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod("sum",params_, PRIM_INTEGER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod("sum", PRIM_INTEGER, false, MethodModifier.NORMAL, new SampleCompositeSum());
         methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(SET_STRING,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_STRING, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList("code.formathtml.util.ValueChangeEvent");
-        method_ = new SpecNatMethod(UPDATE_VALUE,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(UPDATE_VALUE, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStds().addEntry(TYPE_COMPOSITE, cl_);
@@ -607,7 +601,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         cl_ = new SpecialNatClass(TYPE_BEAN_UTIL, fields_, methods_, OBJECT);
         fields_.add(new StandardField(NB_BEANS, PRIM_BOOLEAN,true,true));
         params_ = new StringList(PRIM_INTEGER, PRIM_INTEGER);
-        method_ = new SpecNatMethod(SUM,params_, PRIM_INTEGER, false, MethodModifier.STATIC);
+        method_ = new SpecNatMethod(SUM, PRIM_INTEGER, false, MethodModifier.STATIC, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_BEAN_UTIL, cl_);
     }
@@ -646,10 +640,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_GENE_OBJS, fields_, methods_, TYPE_LIST);
         params_ = new StringList(OBJECT);
-        method_ = new SpecNatMethod(ADD,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ADD, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET,params_, OBJECT, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET, OBJECT, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_GENE_OBJS, cl_);
     }
@@ -664,13 +658,13 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_GENE_OBJECTS, fields_, methods_, TYPE_LIST);
         params_ = new StringList(OBJECT);
-        method_ = new SpecNatMethod(ADD,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(ADD, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(LAST,params_, OBJECT, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(LAST, OBJECT, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(CLEAR,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(CLEAR, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_GENE_OBJECTS, cl_);
     }
@@ -685,10 +679,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_PICKABLE_LIST, fields_, methods_, TYPE_LIST);
         params_ = new StringList(PRIM_INTEGER);
-        method_ = new SpecNatMethod(REMOVE_AND_EXIST_AFTER,params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(REMOVE_AND_EXIST_AFTER, PRIM_BOOLEAN, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_LIST,params_,TYPE_GENE_OBJECTS, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_LIST, TYPE_GENE_OBJECTS, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_PICKABLE_LIST, cl_);
     }
@@ -704,52 +698,52 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_ENCAPS_FIELDS, fields_, methods_, OBJECT);
         params_ = new StringList();
-        method_ = new SpecNatMethod(IS_CHECK_BOX,params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(IS_CHECK_BOX, PRIM_BOOLEAN, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBO_NUMBER,params_,TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBO_NUMBER, TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBO_NUMBER_TWO,params_,TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBO_NUMBER_TWO, TYPE_ENUM_NUMBER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBO_NUMBERS,params_,TYPE_ENUM_NUMBERS, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBO_NUMBERS, TYPE_ENUM_NUMBERS, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBOBOX,params_, TYPE_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBOBOX, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_COMBOBOX_MAP,params_, TYPE_MAP, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_COMBOBOX_MAP, TYPE_MAP, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TYPED_STRING,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TYPED_STRING, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_TYPED_TEXT,params_, STRING, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_TYPED_TEXT, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_RADIO_LONG,params_, PRIM_LONG, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_RADIO_LONG, PRIM_LONG, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_BOOLEAN);
-        method_ = new SpecNatMethod(SET_CHECK_BOX,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_CHECK_BOX, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(TYPE_ENUM_NUMBER);
-        method_ = new SpecNatMethod(SET_COMBO_NUMBER,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_COMBO_NUMBER, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(TYPE_ENUM_NUMBER);
-        method_ = new SpecNatMethod(SET_COMBO_NUMBER_TWO,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_COMBO_NUMBER_TWO, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(TYPE_ENUM_NUMBERS);
-        method_ = new SpecNatMethod(SET_COMBO_NUMBERS,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_COMBO_NUMBERS, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(SET_RADIO_LONG,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_RADIO_LONG, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(SET_TYPED_STRING,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_TYPED_STRING, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         params_ = new StringList(getAliasString());
-        method_ = new SpecNatMethod(SET_TYPED_TEXT,params_, VOID, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(SET_TYPED_TEXT, VOID, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_ENCAPS_FIELDS, cl_);
     }
@@ -776,7 +770,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_RATE_EQ, fields_, methods_, OBJECT);
         params_ = new StringList(TYPE_RATE_EQ);
-        method_ = new SpecNatMethod(EQ,params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(EQ, PRIM_BOOLEAN, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         getStds().addEntry(TYPE_RATE_EQ, cl_);
@@ -804,7 +798,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_SIMPLE_DATA_BASE, fields_, methods_, OBJECT);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_VALUE,params_, PRIM_INTEGER, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_VALUE, PRIM_INTEGER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         getStds().addEntry(TYPE_SIMPLE_DATA_BASE, cl_);
     }
@@ -843,182 +837,39 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         forms_.putAllMapBase(formsMap_);
     }
 
-    @Override
-    public ResultErrorStd getOtherResult(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String className_ = _classField.getClassName();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(className_,TYPE_COMPOSITE)) {
-            BeanThree i_ = (BeanThree) ((SampleBeanStruct)_instance).getBean();
-            if (StringUtil.quickEq(fieldName_,INTEGER)) {
-                res_.setResult(new IntStruct(i_.getInteger()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, STRING_FCT)) {
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,STRINGS)|| StringUtil.quickEq(fieldName_,STRINGS_SEC)) {
-                StringList ls_ = i_.getStrings();
-                res_.setResult(getStringArray(ls_));
-                return res_;
-            }
-        }
-        if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
-            if (StringUtil.quickEq(fieldName_,MAP)) {
-                res_.setResult(getTree(((SampleBeanStruct)_instance).getMap()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,MESSAGE)) {
-                res_.setResult(new StringStruct("Test {0}"));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,SELECTED_STRING)) {
-                res_.setResult(new StringStruct("ONE"));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,TREE)) {
-                if (((SampleBeanStruct)_instance).getTree() == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(getTree(((SampleBeanStruct)_instance).getTree()));
-                return res_;
-            }
-        }
-        if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
-            if (StringUtil.quickEq(fieldName_,CHECKED)) {
-                res_.setResult(BooleanStruct.of(((SampleBeanStruct)_instance).isChecked()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,TYPED_SHORT)) {
-                res_.setResult(new IntStruct(((SampleBeanStruct)_instance).getTypedShort()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,TYPED_STRING)) {
-                if ( ((SampleBeanStruct)_instance).getTypedString() == null) {
-                    res_.setResult(NullStruct.NULL_VALUE);
-                    return res_;
-                }
-                res_.setResult(new StringStruct( ((SampleBeanStruct)_instance).getTypedString()));
-                return res_;
-            }
-        }
-        if (StringUtil.quickEq(fieldName_,COMPOSITE)) {
-//            BeanThree bean_ = new BeanThree();
-//            bean_.setInteger(((SampleBeanStruct)_instance).getComposite().getInteger());
-//            bean_.getStrings().addAllElts(((SampleBeanStruct)_instance).getComposite().getStrings());
-            if (((SampleBeanStruct)_instance).getOthers().isEmpty()) {
-                ((SampleBeanStruct)_instance).getOthers().addEntry("",new BeanThree());
-            }
-            res_.setResult(new SampleBeanStruct(((SampleBeanStruct)_instance).getComposite()));
-//            res_.setResult(((SampleBeanStruct)_instance).getComposite());
-            return res_;
-        }
-        return res_;
-    }
-
-    @Override
-    public ResultErrorStd setOtherResult(ClassField _classField, Struct _instance, Struct _val) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String className_ = _classField.getClassName();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
-            if (StringUtil.quickEq(fieldName_,CHECKED)) {
-                ((SampleBeanStruct)_instance).setChecked(BooleanStruct.isTrue(_val));
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,TYPED_SHORT)) {
-                ((SampleBeanStruct)_instance).setTypedShort(NumParsers.convertToNumber(_val).shortStruct());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_,TYPED_STRING)) {
-                ((SampleBeanStruct)_instance).setTypedString(NumParsers.getString(_val).getInstance());
-                res_.setResult(NullStruct.NULL_VALUE);
-                return res_;
-            }
-        }
-        return res_;
-    }
-
-    @Override
-    public ResultErrorStd getOtherResultBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String className_ = _method.getClassName();
-        String methodName_ = _method.getConstraints().getName();
-        if (StringUtil.quickEq(className_,TYPE_COMPOSITE)) {
-
-            if (StringUtil.quickEq(methodName_,"sum")) {
-                int s_ = 0;
-                for (Struct s: _args) {
-                    s_ += NumParsers.convertToNumber(s).intStruct();
-                }
-                res_.setResult(new IntStruct(s_));
-                return res_;
-            }
-        }
-         if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
-            if (StringUtil.quickEq(methodName_,"length")) {
-                res_.setResult(new IntStruct(NumParsers.getString(_args[0]).getInstance().length()));
-                return res_;
-            }
-             if (StringUtil.quickEq(methodName_,"length2")) {
-                 res_.setResult(new IntStruct(NumParsers.getString(_args[0]).getInstance().length()));
-                 return res_;
-             }
-        }
-        if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
-            if (StringUtil.quickEq(methodName_,GO)) {
-                res_.setResult(new StringStruct(((SampleBeanStruct)_instance).go()));
-                return res_;
-            }
-        }
-        return res_;
-    }
-    @Override
-    public ResultErrorStd getOtherResultBean(ConstructorId _method, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
+    public Struct getOtherResultBean(ConstructorId _method, Struct... _args) {
         String className_ = _method.getName();
         if (StringUtil.quickEq(className_,TYPE_BEAN_ONE)) {
             BeanOne bean_ = new BeanOne();
             bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
             bean_.getBaseForms().put("typedShort",0);
-            res_.setResult(new SampleBeanStruct(bean_));
-            return res_;
+            return(new SampleBeanStruct(bean_));
         }
         if (StringUtil.quickEq(className_,TYPE_BEAN_TWO)) {
             BeanTwo bean_ = new BeanTwo();
             bean_.getBaseForms().getBeansOthers().put("other",new BeanThree());
             bean_.getBaseForms().put("typedShort",0);
-            res_.setResult(new SampleBeanStruct(bean_));
-            return res_;
+            return(new SampleBeanStruct(bean_));
         }
-        return res_;
+        return NullStruct.NULL_VALUE;
     }
 
-    @Override
-    public ResultErrorStd getOtherName(Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        Struct arg_ = Argument.getNull(_instance);
-        res_.setResult(arg_);
-        return res_;
-    }
     protected Struct newSimpleBean(String _language, BeanInfo _bean) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));
-        ResultErrorStd res_ = getOtherResultBean(id_, args_);
-        Struct strBean_ = res_.getResult();
-        SampleBeanStruct str_ = (SampleBeanStruct) strBean_;
-        StringMap<Integer> old_ = str_.getMap();
-        str_.setForms(new StringMapObjectBase());
-        str_.setTypedShort((short) 0);
-        str_.getMap().addAllEntries(old_);
-        return strBean_;
+        Struct strBean_ = getOtherResultBean(id_, args_);
+        return update((SampleBeanStruct) strBean_);
     }
 
-    public ArrayStruct getTree(AbsMap<String, Integer> _tree) {
+    private SampleBeanStruct update(SampleBeanStruct _str) {
+        StringMap<Integer> old_ = _str.getMap();
+        _str.setForms(new StringMapObjectBase());
+        _str.setTypedShort((short) 0);
+        _str.getMap().addAllEntries(old_);
+        return _str;
+    }
+
+    public static ArrayStruct getTree(AbsMap<String, Integer> _tree) {
         ArrayStruct arr_ = new ArrayStruct(_tree.size(),StringExpUtil.getPrettyArrayType(OBJECT));
         int i_ = 0;
         for (EntryCust<String,Integer> e: _tree.entryList()){

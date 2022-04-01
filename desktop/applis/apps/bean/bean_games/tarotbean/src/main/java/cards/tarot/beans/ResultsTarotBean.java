@@ -1,11 +1,13 @@
 package cards.tarot.beans;
+
 import cards.consts.EndGameState;
 import cards.tarot.EndTarotGame;
 import cards.tarot.ResultsTarot;
 import cards.tarot.enumerations.BonusTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.util.CustList;
-import code.util.*;
+import code.util.Longs;
+import code.util.Shorts;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 

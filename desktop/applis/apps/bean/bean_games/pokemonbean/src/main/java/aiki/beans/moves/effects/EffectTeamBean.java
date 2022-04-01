@@ -1,4 +1,5 @@
 package aiki.beans.moves.effects;
+
 import aiki.beans.facade.comparators.ComparatorCategoryMult;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
@@ -6,11 +7,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.util.CategoryMult;
 import code.maths.Rate;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 import code.util.ints.Listable;
 
 public class EffectTeamBean extends EffectBean {

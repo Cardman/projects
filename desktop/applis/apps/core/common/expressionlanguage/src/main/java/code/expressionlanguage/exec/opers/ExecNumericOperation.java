@@ -1,4 +1,5 @@
 package code.expressionlanguage.exec.opers;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
@@ -8,7 +9,6 @@ import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.stds.ResultErrorStd;
 import code.expressionlanguage.structs.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -23,9 +23,7 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
     }
 
     static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, String _op, byte _cast, StackCall _stackCall) {
-        ResultErrorStd res_= new ResultErrorStd();
-        calculateOperator(_conf, res_, _op, _left.getStruct(), _right.getStruct(), _cast, _stackCall);
-        return new Argument(res_.getResult());
+        return new Argument(calculateOperator(_conf, _op, _left.getStruct(), _right.getStruct(), _cast, _stackCall));
     }
 
     public static Argument calculateAffect(Argument _left, ContextEl _conf, Argument _right, StringList _cls, AbstractStackCall _stackCall) {
@@ -49,91 +47,74 @@ public abstract class ExecNumericOperation extends ExecMethodOperation implement
         return o_;
     }
 
-    public static void calculateOperator(ContextEl _cont, ResultErrorStd _res,
-                                         String _op,
-                                         Struct _first, Struct _second, byte _cast, StackCall _stackCall) {
+    public static Struct calculateOperator(ContextEl _cont,
+                                           String _op,
+                                           Struct _first, Struct _second, byte _cast, StackCall _stackCall) {
         String op_ = _op.substring(0, _op.length() - 1);
         if (StringUtil.quickEq(op_, "+")) {
-            _res.setResult(NumParsers.calculateSum(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateSum(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (StringUtil.quickEq(op_, "-")) {
-            _res.setResult(NumParsers.calculateDiff(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateDiff(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (StringUtil.quickEq(op_, "*")) {
-            _res.setResult(NumParsers.calculateMult(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateMult(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (StringUtil.quickEq(op_, "/")) {
-            _res.setResult(calculateDivEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast, _stackCall));
-            return;
+            return calculateDivEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast, _stackCall);
         }
         if (StringUtil.quickEq(op_, "%")) {
-            _res.setResult(calculateModEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast, _stackCall));
-            return;
+            return calculateModEx(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cont, _cast, _stackCall);
         }
         if (StringUtil.quickEq(op_, "&")) {
-            _res.setResult(NumParsers.calculateAnd(_first, _second, _cast));
-            return;
+            return NumParsers.calculateAnd(_first, _second, _cast);
         }
         if (StringUtil.quickEq(op_, "|")) {
-            _res.setResult(NumParsers.calculateOr(_first, _second, _cast));
-            return;
+            return NumParsers.calculateOr(_first, _second, _cast);
         }
         if (StringUtil.quickEq(op_, "^")) {
-            _res.setResult(NumParsers.calculateXor(_first, _second, _cast));
-            return;
+            return NumParsers.calculateXor(_first, _second, _cast);
         }
         if (StringUtil.quickEq(op_, "<<")) {
-            _res.setResult(NumParsers.calculateShiftLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateShiftLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (StringUtil.quickEq(op_, ">>")) {
-            _res.setResult(NumParsers.calculateShiftRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateShiftRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (StringUtil.quickEq(op_, "<<<")) {
-            _res.setResult(NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateBitShiftLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (StringUtil.quickEq(op_, ">>>")) {
-            _res.setResult(NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateBitShiftRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (StringUtil.quickEq(op_, "<<<<")) {
-            _res.setResult(NumParsers.calculateRotateLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateRotateLeft(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (StringUtil.quickEq(op_, ">>>>")) {
-            _res.setResult(NumParsers.calculateRotateRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast));
-            return;
+            return NumParsers.calculateRotateRight(NumParsers.convertToNumber(_first), NumParsers.convertToNumber(_second), _cast);
         }
         if (isAndLogic(op_)) {
-            andLogic(_res, _first, _second);
-            return;
+            return andLogic(_first, _second);
         }
-        orLogic(_res, _first, _second);
+        return orLogic(_first, _second);
     }
 
     private static boolean isAndLogic(String _op) {
         return StringUtil.quickEq(_op, "&&") || StringUtil.quickEq(_op, "&&&");
     }
 
-    private static void orLogic(ResultErrorStd _res, Struct _first, Struct _second) {
+    private static Struct orLogic(Struct _first, Struct _second) {
         if (BooleanStruct.isTrue(_first)) {
-            _res.setResult(NumParsers.convertToBoolean(_first));
-            return;
+            return NumParsers.convertToBoolean(_first);
         }
-        _res.setResult(NumParsers.convertToBoolean(_second));
+        return NumParsers.convertToBoolean(_second);
     }
 
-    private static void andLogic(ResultErrorStd _res, Struct _first, Struct _second) {
+    private static Struct andLogic(Struct _first, Struct _second) {
         if (BooleanStruct.isFalse(_first)) {
-            _res.setResult(NumParsers.convertToBoolean(_first));
-            return;
+            return NumParsers.convertToBoolean(_first);
         }
-        _res.setResult(NumParsers.convertToBoolean(_second));
+        return NumParsers.convertToBoolean(_second);
     }
 
     public static Struct calculateDivEx(NumberStruct _a, NumberStruct _b, ContextEl _an, byte _cast, StackCall _stackCall) {

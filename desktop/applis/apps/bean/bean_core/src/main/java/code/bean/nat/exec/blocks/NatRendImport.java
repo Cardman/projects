@@ -14,7 +14,6 @@ import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendIfStack;
 import code.formathtml.exec.stacks.RendReadWrite;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
 
 public final class NatRendImport extends RendParentBlock implements NatRendWithEl {
@@ -28,16 +27,14 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
+    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = _rendStack.getLastPage();
         if (ip_.matchStatement(this)) {
             RendBlockHelp.processBlockAndRemove(_rendStack, this);
             return;
         }
-        String lg_ = _cont.getCurrentLanguage();
-        String pageName_ = NatRenderingText.renderNat(textPart, _stds, _rendStack);
-        String link_ = BeanNatCommonLgNames.getRealFilePath(lg_,pageName_);
-        RendDocumentBlock val_ = ((BeanNatCommonLgNames)natImpLgNames).getRenders().getVal(link_);
+        String pageName_ = NatRenderingText.renderNat(textPart, _rendStack);
+        RendDocumentBlock val_ = ((BeanNatCommonLgNames)natImpLgNames).getRenders().getVal(pageName_);
         String beanName_ = val_.getBeanName();
         Struct newBean_ = ((BeanNatCommonLgNames)natImpLgNames).getBeansStruct().getVal(beanName_);
         Struct mainBean_ = _rendStack.getMainBean();
@@ -52,13 +49,13 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
                     if (f instanceof NatRendField) {
                         CustList<RendDynOperationNode> exps_ = ((NatRendField) f).getExps();
                         ip_.setInternGlobal(newBean_);
-                        ((BeanNatCommonLgNames)_stds).getAllArgs(exps_, _rendStack).lastValue();
+                        BeanNatCommonLgNames.getAllArgs(exps_, _rendStack).lastValue();
                         ip_.setInternGlobal(null);
                     }
                 }
             }
         }
-        beforeDisp(newBean_, (BeanNatCommonLgNames) _stds);
+        beforeDisp(newBean_, (BeanNatCommonLgNames) natImpLgNames);
         NatImportingPage newIp_ = newImportingPage(ip_, val_, beanName_, _rendStack.getFormParts());
         newIp_.setGlobalArgumentStruct(newBean_);
         RendIfStack if_ = new RendIfStack();

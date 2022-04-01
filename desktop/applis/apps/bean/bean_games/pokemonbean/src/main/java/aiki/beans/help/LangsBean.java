@@ -1,14 +1,15 @@
 package aiki.beans.help;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorLanguageString;
 import aiki.db.DataBase;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Item;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.util.*;
-import aiki.facade.enums.SelectedBoolean;
 import code.util.core.StringUtil;
 
 public class LangsBean extends CommonBean {

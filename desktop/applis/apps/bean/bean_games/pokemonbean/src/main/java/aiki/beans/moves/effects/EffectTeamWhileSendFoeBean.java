@@ -1,17 +1,12 @@
 package aiki.beans.moves.effects;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.comparators.ComparatorStatisticTr;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
-import code.util.EnumList;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 
 public class EffectTeamWhileSendFoeBean extends EffectBean {
     private ShortTreeMap< String> statusByNbUses;

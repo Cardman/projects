@@ -1,4 +1,5 @@
 package aiki.beans.simulation;
+
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorTrString;
@@ -6,11 +7,11 @@ import aiki.beans.facade.dto.PokemonLine;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.facade.CriteriaForSearching;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.images.BaseSixtyFourUtil;
 import code.util.*;
-import aiki.facade.enums.SelectedBoolean;
 import code.util.core.StringUtil;
 
 public class SelectPokemonBean extends CommonBean {

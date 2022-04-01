@@ -1,23 +1,13 @@
 package aiki.beans.pokemon;
 
-import aiki.beans.*;
-import code.bean.nat.LgIntStruct;
+import aiki.beans.AikiBeansStd;
+import aiki.beans.PokemonStandards;
 import code.bean.nat.*;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.ResultErrorStd;
-import code.expressionlanguage.structs.*;
-import code.formathtml.util.BeanLgNames;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
-
-public final class AikiBeansPokemonStd {
+public final class AikiBeansPokemonStd{
     public static final String TYPE_POKEDEX_BEAN = "aiki.beans.pokemon.PokedexBean";
     public static final String TYPE_POKEMON_BEAN = "aiki.beans.pokemon.PokemonBean";
-
     private static final String CLICK_POKEDEX = "clickPokedex";
     private static final String ROUND_WEIGHT = "roundWeight";
     private static final String ROUND_HEIGHT = "roundHeight";
@@ -82,478 +72,85 @@ public final class AikiBeansPokemonStd {
     private static final String IS_EVO = "isEvo";
     private static final String IS_LEG = "isLeg";
     private static final String POKEDEX = "pokedex";
-
+    private AikiBeansPokemonStd(){}
     public static void build(PokemonStandards _std) {
         buildPokedexBean(_std);
         buildPokemonBean(_std);
     }
-    private static void buildPokedexBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_POKEDEX_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(TYPED_TYPE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(WHOLE_WORD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false));
-        fields_.add(new StandardField(TYPED_MIN_NB_POSS_EVOS,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(TYPED_MAX_NB_POSS_EVOS,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(BOOLEANS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(IS_EVO,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(IS_LEG,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(POKEDEX, BeanNatLgNames.TYPE_LIST,false,false));
-        params_ = new StringList();
-        method_ = new SpecNatMethod(SEARCH,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_MINI_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_LINK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildPokedexBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEDEX_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING,false,false,new PokedexBeanTypedNameGet(),new PokedexBeanTypedNameSet()));
+        fields_.add(new StandardField(TYPED_TYPE,BeanNatCommonLgNames.STRING,false,false,new PokedexBeanTypedTypeGet(),new PokedexBeanTypedTypeSet()));
+        fields_.add(new StandardField(WHOLE_WORD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new PokedexBeanWholeWordGet(),new PokedexBeanWholeWordSet()));
+        fields_.add(new StandardField(TYPED_MIN_NB_POSS_EVOS,BeanNatCommonLgNames.STRING,false,false,new PokedexBeanTypedMinNbPossEvosGet(),new PokedexBeanTypedMinNbPossEvosSet()));
+        fields_.add(new StandardField(TYPED_MAX_NB_POSS_EVOS,BeanNatCommonLgNames.STRING,false,false,new PokedexBeanTypedMaxNbPossEvosGet(),new PokedexBeanTypedMaxNbPossEvosSet()));
+        fields_.add(new StandardField(BOOLEANS, BeanNatLgNames.TYPE_MAP,false,false,new PokedexBeanBooleansGet(),null));
+        fields_.add(new StandardField(IS_EVO,BeanNatCommonLgNames.STRING,false,false,new PokedexBeanIsEvoGet(),new PokedexBeanIsEvoSet()));
+        fields_.add(new StandardField(IS_LEG,BeanNatCommonLgNames.STRING,false,false,new PokedexBeanIsLegGet(),new PokedexBeanIsLegSet()));
+        fields_.add(new StandardField(POKEDEX, BeanNatLgNames.TYPE_LIST,false,false,new PokedexBeanPokedexGet(),null));
+        methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokedexBeanSearch()));
+        methods_.add( new SpecNatMethod(GET_MINI_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokedexBeanGetMiniImage()));
+        methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokedexBeanClickLink()));
         _std.getStds().addEntry(TYPE_POKEDEX_BEAN, type_);
     }
-    private static void buildPokemonBean(PokemonStandards _std) {
-        SpecialNatClass type_;
-        CustList<StandardField> fields_;
-        CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
-        methods_ = new CustList<SpecNatMethod>();
-        fields_ = new CustList<StandardField>();
-        type_ = new SpecialNatClass(TYPE_POKEMON_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(BACK_IMAGE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(FRONT_IMAGE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(WEIGHT,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(HEIGHT,PokemonStandards.TYPE_RATE,false,false));
-        fields_.add(new StandardField(POSSIBLE_GENDERS, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(ABILITIES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(CATCHING_RATE, BeanNatCommonLgNames.PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(EVO_BASE,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(EXP_EVO,BeanNatCommonLgNames.STRING,false,false));
-        fields_.add(new StandardField(MAP_VARS, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(EXP_RATE,BeanNatCommonLgNames.PRIM_LONG,false,false));
-        fields_.add(new StandardField(STATISTICS, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(LEV_MOVES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(TECHNICAL_MOVES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(HIDDEN_MOVES, BeanNatLgNames.TYPE_MAP,false,false));
-        fields_.add(new StandardField(MOVE_TUTORS, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(EGG_GROUPS_PK, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(HATCHING_STEPS,PokemonStandards.TYPE_LG_INT,false,false));
-        fields_.add(new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false));
-        fields_.add(new StandardField(IMAGES, BeanNatLgNames.TYPE_MAP,false,false));
-        params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_POKEDEX,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(ROUND_WEIGHT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(ROUND_HEIGHT,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_TR_ABILITY,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_PAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(CLICK_BASE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_BASE,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_EV,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_TECHNICAL_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_HIDDEN_MOVE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_MOVE_TUTORS,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_MOVE_TUTOR,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_EGG_PK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_EGG_PK,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(IS_APPEARING_ANY_WHERE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_APPEARING_PLACE,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_MULTI_LAYER,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(LAYERS,params_, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_APPEARING,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_APPEARING_ZERO,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER, BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_LEVEL,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(CLICK_LEVEL_ZERO,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new SpecNatMethod(GET_MAP_WIDTH,params_, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(IS_FIRST_ROW,params_,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_PLACE_NAME,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
-        params_ = new StringList(BeanNatCommonLgNames.PRIM_INTEGER);
-        method_ = new SpecNatMethod(GET_MINI_MAP_IMAGE,params_,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL);
-        methods_.add( method_);
+    private static void buildPokemonBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanDisplayNameGet(),null));
+        fields_.add(new StandardField(BACK_IMAGE,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanBackImageGet(),null));
+        fields_.add(new StandardField(FRONT_IMAGE,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanFrontImageGet(),null));
+        fields_.add(new StandardField(WEIGHT,PokemonStandards.TYPE_RATE,false,false,new PokemonBeanWeightGet(),null));
+        fields_.add(new StandardField(HEIGHT,PokemonStandards.TYPE_RATE,false,false,new PokemonBeanHeightGet(),null));
+        fields_.add(new StandardField(POSSIBLE_GENDERS, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanPossibleGendersGet(),null));
+        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanTypesGet(),null));
+        fields_.add(new StandardField(ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanAbilitiesGet(),null));
+        fields_.add(new StandardField(CATCHING_RATE, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonBeanCatchingRateGet(),null));
+        fields_.add(new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanEvolutionsGet(),null));
+        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanNameGet(),null));
+        fields_.add(new StandardField(EVO_BASE,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanEvoBaseGet(),null));
+        fields_.add(new StandardField(EXP_EVO,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanExpEvoGet(),null));
+        fields_.add(new StandardField(MAP_VARS, BeanNatLgNames.TYPE_MAP,false,false,new PokemonBeanMapVarsGet(),null));
+        fields_.add(new StandardField(EXP_RATE,BeanNatCommonLgNames.PRIM_LONG,false,false,new PokemonBeanExpRateGet(),null));
+        fields_.add(new StandardField(STATISTICS, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanStatisticsGet(),null));
+        fields_.add(new StandardField(LEV_MOVES, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanLevMovesGet(),null));
+        fields_.add(new StandardField(TECHNICAL_MOVES, BeanNatLgNames.TYPE_MAP,false,false,new PokemonBeanTechnicalMovesGet(),null));
+        fields_.add(new StandardField(HIDDEN_MOVES, BeanNatLgNames.TYPE_MAP,false,false,new PokemonBeanHiddenMovesGet(),null));
+        fields_.add(new StandardField(MOVE_TUTORS, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanMoveTutorsGet(),null));
+        fields_.add(new StandardField(EGG_GROUPS_PK, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanEggGroupsPkGet(),null));
+        fields_.add(new StandardField(HATCHING_STEPS,PokemonStandards.TYPE_LG_INT,false,false,new PokemonBeanHatchingStepsGet(),null));
+        fields_.add(new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false,new PokemonBeanPlacesGet(),null));
+        fields_.add(new StandardField(IMAGES, BeanNatLgNames.TYPE_MAP,false,false,new PokemonBeanImagesGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_POKEDEX,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickPokedex()));
+        methods_.add( new SpecNatMethod(ROUND_WEIGHT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanRoundWeight()));
+        methods_.add( new SpecNatMethod(ROUND_HEIGHT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanRoundHeight()));
+        methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickAbility()));
+        methods_.add( new SpecNatMethod(GET_TR_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanGetTrAbility()));
+        methods_.add( new SpecNatMethod(GET_PAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanGetPage()));
+        methods_.add( new SpecNatMethod(CLICK_BASE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickBase()));
+        methods_.add( new SpecNatMethod(GET_BASE, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new PokemonBeanGetBase()));
+        methods_.add( new SpecNatMethod(GET_EV, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new PokemonBeanGetEv()));
+        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickMove()));
+        methods_.add( new SpecNatMethod(CLICK_TECHNICAL_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickTechnicalMove()));
+        methods_.add( new SpecNatMethod(CLICK_HIDDEN_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickHiddenMove()));
+        methods_.add( new SpecNatMethod(CLICK_MOVE_TUTORS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickMoveTutors()));
+        methods_.add( new SpecNatMethod(GET_MOVE_TUTOR,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanGetMoveTutor()));
+        methods_.add( new SpecNatMethod(CLICK_EGG_PK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickEggPk()));
+        methods_.add( new SpecNatMethod(GET_EGG_PK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanGetEggPk()));
+        methods_.add( new SpecNatMethod(IS_APPEARING_ANY_WHERE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new PokemonBeanIsAppearingAnyWhere()));
+        methods_.add( new SpecNatMethod(IS_APPEARING_PLACE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new PokemonBeanIsAppearingPlace()));
+        methods_.add( new SpecNatMethod(IS_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new PokemonBeanIsMultiLayer()));
+        methods_.add( new SpecNatMethod(LAYERS, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new PokemonBeanLayers()));
+        methods_.add( new SpecNatMethod(IS_APPEARING,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new PokemonBeanIsAppearing()));
+        methods_.add( new SpecNatMethod(IS_APPEARING_ZERO,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new PokemonBeanIsAppearingZero()));
+        methods_.add( new SpecNatMethod(CLICK_LEVEL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickLevel()));
+        methods_.add( new SpecNatMethod(CLICK_LEVEL_ZERO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickLevelZero()));
+        methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new PokemonBeanGetMapWidth()));
+        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new PokemonBeanIsFirstRow()));
+        methods_.add( new SpecNatMethod(GET_PLACE_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanGetPlaceName()));
+        methods_.add( new SpecNatMethod(GET_MINI_MAP_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanGetMiniMapImage()));
         _std.getStds().addEntry(TYPE_POKEMON_BEAN, type_);
-    }
-    public static ResultErrorStd getResultPokedexBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        PokedexBean instance_ = (PokedexBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
-            res_.setResult(new StringStruct(instance_.getTypedName()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TYPED_TYPE)) {
-            res_.setResult(new StringStruct(instance_.getTypedType()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,WHOLE_WORD)) {
-            res_.setResult(BooleanStruct.of(instance_.getWholeWord()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
-            res_.setResult(new StringStruct(instance_.getTypedMinNbPossEvos()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TYPED_MAX_NB_POSS_EVOS)) {
-            res_.setResult(new StringStruct(instance_.getTypedMaxNbPossEvos()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,BOOLEANS)) {
-            res_.setResult(PokemonStandards.getStrStr(instance_.getBooleans()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IS_EVO)) {
-            res_.setResult(BeanLgNames.wrapStd(instance_.getIsEvo()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IS_LEG)) {
-            res_.setResult(BeanLgNames.wrapStd(instance_.getIsLeg()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,POKEDEX)) {
-            res_.setResult(PokemonStandards.getPkLine(instance_.getPokedex()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd getResultPokemonBean(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        PokemonBean instance_ = (PokemonBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,DISPLAY_NAME)) {
-            res_.setResult(new StringStruct(instance_.getDisplayName()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,BACK_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getBackImage()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,FRONT_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getFrontImage()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,WEIGHT)) {
-            res_.setResult(new RateStruct(instance_.getWeight(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HEIGHT)) {
-            res_.setResult(new RateStruct(instance_.getHeight(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,POSSIBLE_GENDERS)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getPossibleGenders()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TYPES)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getTypes()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,ABILITIES)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getAbilities()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,CATCHING_RATE)) {
-            res_.setResult(new IntStruct(instance_.getCatchingRate()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,EVOLUTIONS)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getEvolutions()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,NAME)) {
-            res_.setResult(new StringStruct(instance_.getName()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,EVO_BASE)) {
-            res_.setResult(new StringStruct(instance_.getEvoBase()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,EXP_EVO)) {
-            res_.setResult(new StringStruct(instance_.getExpEvo()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MAP_VARS)) {
-            res_.setResult(PokemonStandards.getStrStr(instance_.getMapVars()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,EXP_RATE)) {
-            res_.setResult(new LongStruct(instance_.getExpRate()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,STATISTICS)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getStatistics()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,LEV_MOVES)) {
-            res_.setResult(PokemonStandards.getLvMv(instance_.getLevMoves()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TECHNICAL_MOVES)) {
-            res_.setResult(PokemonStandards.getShortStr(instance_.getTechnicalMoves()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HIDDEN_MOVES)) {
-            res_.setResult(PokemonStandards.getShortStr(instance_.getHiddenMoves()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,MOVE_TUTORS)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getMoveTutors()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,EGG_GROUPS_PK)) {
-            res_.setResult(BeanNatCommonLgNames.getStringArray(instance_.getEggGroupsPk()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,HATCHING_STEPS)) {
-            res_.setResult(new LgIntStruct(instance_.getHatchingSteps(),PokemonStandards.TYPE_LG_INT));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,PLACES)) {
-            res_.setResult(PokemonStandards.getPlInd(instance_.getPlaces()));
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IMAGES)) {
-            res_.setResult(PokemonStandards.getWcStr(instance_.getImages()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd setResultPokedexBean(ClassField _classField, Struct _instance, Struct _val) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        PokedexBean instance_ = (PokedexBean) ((PokemonBeanStruct)_instance).getInstance();
-        String fieldName_ = _classField.getFieldName();
-        if (StringUtil.quickEq(fieldName_,TYPED_NAME)) {
-            instance_.setTypedName(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TYPED_TYPE)) {
-            instance_.setTypedType(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,WHOLE_WORD)) {
-            instance_.setWholeWord(BooleanStruct.isTrue(_val));
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TYPED_MIN_NB_POSS_EVOS)) {
-            instance_.setTypedMinNbPossEvos(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,TYPED_MAX_NB_POSS_EVOS)) {
-            instance_.setTypedMaxNbPossEvos(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IS_EVO)) {
-            instance_.setIsEvo(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        if (StringUtil.quickEq(fieldName_,IS_LEG)) {
-            instance_.setIsLeg(NumParsers.getString(_val).getInstance());
-            res_.setResult(NullStruct.NULL_VALUE);
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodPokedexBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        PokedexBean instance_ = (PokedexBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,SEARCH)) {
-            res_.setResult(new StringStruct(instance_.search()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MINI_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getMiniImage(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_LINK)) {
-            res_.setResult(new StringStruct(instance_.clickLink(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodPokemonBean(Struct _instance, ClassMethodId _method, Struct... _args) {
-        PokemonBean instance_ = (PokemonBean) ((PokemonBeanStruct)_instance).getInstance();
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,CLICK_POKEDEX)) {
-            res_.setResult(new StringStruct(instance_.clickPokedex()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,ROUND_WEIGHT)) {
-            res_.setResult(new StringStruct(instance_.roundWeight()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,ROUND_HEIGHT)) {
-            res_.setResult(new StringStruct(instance_.roundHeight()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.clickAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TR_ABILITY)) {
-            res_.setResult(new StringStruct(instance_.getTrAbility(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_PAGE)) {
-            res_.setResult(new StringStruct(instance_.getPage(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_BASE)) {
-            res_.setResult(new StringStruct(instance_.clickBase()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_BASE)) {
-            res_.setResult(new IntStruct(instance_.getBase(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_EV)) {
-            res_.setResult(new IntStruct(instance_.getEv(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickMove(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_TECHNICAL_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickTechnicalMove(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_HIDDEN_MOVE)) {
-            res_.setResult(new StringStruct(instance_.clickHiddenMove(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_MOVE_TUTORS)) {
-            res_.setResult(new StringStruct(instance_.clickMoveTutors(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MOVE_TUTOR)) {
-            res_.setResult(new StringStruct(instance_.getMoveTutor(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_EGG_PK)) {
-            res_.setResult(new StringStruct(instance_.clickEggPk(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_EGG_PK)) {
-            res_.setResult(new StringStruct(instance_.getEggPk(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_APPEARING_ANY_WHERE)) {
-            res_.setResult(BooleanStruct.of(instance_.isAppearingAnyWhere()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_APPEARING_PLACE)) {
-            res_.setResult(BooleanStruct.of(instance_.isAppearingPlace(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_MULTI_LAYER)) {
-            res_.setResult(BooleanStruct.of(instance_.isMultiLayer(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,LAYERS)) {
-            res_.setResult(PokemonStandards.getLayers(instance_.layers(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_APPEARING)) {
-            res_.setResult(BooleanStruct.of(instance_.isAppearing(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_APPEARING_ZERO)) {
-            res_.setResult(BooleanStruct.of(instance_.isAppearing(NumParsers.convertToNumber(_args[0]).intStruct(),0)));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_LEVEL)) {
-            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,CLICK_LEVEL_ZERO)) {
-            res_.setResult(new StringStruct(instance_.clickLevel(NumParsers.convertToNumber(_args[0]).intStruct(),0)));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MAP_WIDTH)) {
-            res_.setResult(new IntStruct(instance_.getMapWidth()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_FIRST_ROW)) {
-            res_.setResult(BooleanStruct.of(instance_.isFirstRow(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_PLACE_NAME)) {
-            res_.setResult(new StringStruct(instance_.getPlaceName(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MINI_MAP_IMAGE)) {
-            res_.setResult(new StringStruct(instance_.getMiniMapImage(NumParsers.convertToNumber(_args[0]).intStruct())));
-            return res_;
-        }
-        return res_;
     }
 }

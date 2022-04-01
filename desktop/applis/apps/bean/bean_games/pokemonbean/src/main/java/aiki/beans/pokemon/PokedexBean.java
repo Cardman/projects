@@ -1,4 +1,5 @@
 package aiki.beans.pokemon;
+
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorTrString;
@@ -6,16 +7,11 @@ import aiki.beans.facade.dto.PokemonLine;
 import aiki.comparators.ComparatorTrStrings;
 import aiki.db.DataBase;
 import aiki.facade.CriteriaForSearching;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.images.BaseSixtyFourUtil;
-import code.util.CustList;
-import code.util.EnumMap;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
-import aiki.facade.enums.SelectedBoolean;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 

@@ -1,8 +1,9 @@
 package aiki.beans.validators;
+
 import code.bean.nat.RateStruct;
+import code.bean.validator.Validator;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
-import code.bean.validator.Validator;
 import code.maths.Rate;
 
 public class RateValidator implements Validator {

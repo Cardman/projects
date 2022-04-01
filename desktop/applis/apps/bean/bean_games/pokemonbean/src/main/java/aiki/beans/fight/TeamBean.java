@@ -1,20 +1,11 @@
 package aiki.beans.fight;
+
 import aiki.beans.facade.comparators.ComparatorStringList;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Anticipation;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.StacksOfUses;
-import aiki.game.fight.TargetCoords;
-import aiki.game.fight.Team;
+import aiki.game.fight.*;
 import code.maths.LgInt;
-import code.util.NatStringTreeMap;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 

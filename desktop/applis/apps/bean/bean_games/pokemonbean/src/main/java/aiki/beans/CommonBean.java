@@ -1,10 +1,13 @@
 package aiki.beans;
+
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.bean.Bean;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
-import code.util.*;
+import code.util.NatStringTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 

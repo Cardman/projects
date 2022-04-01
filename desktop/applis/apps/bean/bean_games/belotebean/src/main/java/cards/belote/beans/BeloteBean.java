@@ -1,4 +1,5 @@
 package cards.belote.beans;
+
 import cards.belote.BidBeloteSuit;
 import cards.belote.GameBelote;
 import cards.belote.ResultsBelote;
@@ -10,7 +11,8 @@ import cards.consts.Role;
 import cards.consts.Suit;
 import code.bean.Bean;
 import code.format.Format;
-import code.util.*;
+import code.util.CustList;
+import code.util.Longs;
 import code.util.StringList;
 
 public abstract class BeloteBean extends Bean {

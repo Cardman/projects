@@ -5,7 +5,6 @@ import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendMessage;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
@@ -26,7 +25,7 @@ public final class HelpRendMessage extends RendParentBlock implements NatRendWit
     }
 
     @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, NatRendStackCall _rendStack) {
+    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
         String preRend_;

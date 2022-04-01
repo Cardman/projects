@@ -1,4 +1,5 @@
 package cards.tarot.beans;
+
 import cards.consts.Role;
 import cards.tarot.EndTarotGame;
 import cards.tarot.GameTarot;
@@ -8,12 +9,7 @@ import cards.tarot.comparators.MiseresComparator;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.EnumMap;
 import code.util.*;
-import code.util.StringMap;
-import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
 

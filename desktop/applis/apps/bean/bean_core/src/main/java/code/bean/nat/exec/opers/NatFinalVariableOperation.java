@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.opers.RendLeafOperation;
-import code.formathtml.util.BeanLgNames;
 import code.util.IdMap;
 
 public final class NatFinalVariableOperation extends RendLeafOperation implements NatRendCalculableOperation {
@@ -20,7 +19,7 @@ public final class NatFinalVariableOperation extends RendLeafOperation implement
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, BeanLgNames _advStandards, NatRendStackCall _rendStack) {
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, NatRendStackCall _rendStack) {
         Argument arg_ = NatStdRefVariableOperation.getIndexLoop(variableContent, _rendStack.getLastPage().getVars());
         calcArg(_nodes, arg_);
     }

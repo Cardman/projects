@@ -8,17 +8,17 @@ import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatStdFctOperation;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class PresidentStandards extends BeanNatLgNames {
@@ -52,49 +52,49 @@ public final class PresidentStandards extends BeanNatLgNames {
     @Override
     public void buildOther() {
         buildBeans();
+        buildPresidentBean();
+        buildLineDeal();
+        buildRulesPresidentBean();
+    }
+
+    private void buildPresidentBean() {
         CustList<StandardField> fields_;
         SpecialNatClass std_;
         CustList<SpecNatMethod> methods_;
-        SpecNatMethod method_;
-        StringList params_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
         std_ = new SpecialNatClass(TYPE_PRESIDENT_BEAN, fields_, methods_, TYPE_BEAN);
-        fields_.add( new StandardField(NICKNAMES, TYPE_LIST, false, false));
-        fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, false, false));
+        fields_.add( new StandardField(NICKNAMES, TYPE_LIST, false, false, new PresidentBeanNicknames(), null));
+        fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, false, false, new PresidentBeanLinesDeal(), null));
         getStds().addEntry(TYPE_PRESIDENT_BEAN, std_);
-        fields_ = new CustList<StandardField>();
-        methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NUMBER, PRIM_INTEGER, false, false));
-        fields_.add( new StandardField(SCORES, TYPE_LIST, false, false));
+    }
+
+    private void buildLineDeal() {
+        CustList<StandardField> fields_ = new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_ = new CustList<SpecNatMethod>();
+        SpecialNatClass std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NUMBER, PRIM_INTEGER, false, false, new LineDealNumber(),null));
+        fields_.add( new StandardField(SCORES, TYPE_LIST, false, false, new LineDealScores(),null));
         getStds().addEntry(TYPE_LINE_DEAL, std_);
-        fields_ = new CustList<StandardField>();
-        methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RULES_PRESIDENT_BEAN, fields_, methods_, TYPE_BEAN);
-        fields_.add( new StandardField(CARTES_BATTUES, STRING, false, false));
-        fields_.add( new StandardField(EQUALTY, STRING, false, false));
-        fields_.add( new StandardField(POSSIBLE_REVERSING, PRIM_BOOLEAN, false, false));
-        fields_.add( new StandardField(HAS_TO_PLAY, PRIM_BOOLEAN, false, false));
-        fields_.add( new StandardField(LOOSING_IF_FINISH_BY_BEST_CARDS, PRIM_BOOLEAN, false, false));
-        fields_.add( new StandardField(SWITCH_CARDS, PRIM_BOOLEAN, false, false));
-        fields_.add( new StandardField(LOOSER_STARTS_FIRST, PRIM_BOOLEAN, false, false));
-        fields_.add( new StandardField(NB_PLAYERS, PRIM_INTEGER, false, false));
-        fields_.add( new StandardField(NB_STACKS, PRIM_INTEGER, false, false));
-        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, PRIM_INTEGER, false, false));
-        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, PRIM_INTEGER, false, false));
-        params_ = new StringList();
-        method_ = new SpecNatMethod(SAME_AMOUNT, params_, PRIM_BOOLEAN, false, MethodModifier.NORMAL);
-        methods_.add(method_);
+    }
+
+    private void buildRulesPresidentBean() {
+        CustList<StandardField> fields_ = new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_ = new CustList<SpecNatMethod>();
+        SpecialNatClass std_ = new SpecialNatClass(TYPE_RULES_PRESIDENT_BEAN, fields_, methods_, TYPE_BEAN);
+        fields_.add( new StandardField(CARTES_BATTUES, STRING, false, false, new RulesPresidentBeanCartesBattues(),null));
+        fields_.add( new StandardField(EQUALTY, STRING, false, false, new RulesPresidentBeanEqualty(),null));
+        fields_.add( new StandardField(POSSIBLE_REVERSING, PRIM_BOOLEAN, false, false, new RulesPresidentBeanPossibleReversing(),null));
+        fields_.add( new StandardField(HAS_TO_PLAY, PRIM_BOOLEAN, false, false, new RulesPresidentBeanHasToPlay(),null));
+        fields_.add( new StandardField(LOOSING_IF_FINISH_BY_BEST_CARDS, PRIM_BOOLEAN, false, false, new RulesPresidentBeanLoosingIfFinishByBestCards(),null));
+        fields_.add( new StandardField(SWITCH_CARDS, PRIM_BOOLEAN, false, false, new RulesPresidentBeanSwitchCards(),null));
+        fields_.add( new StandardField(LOOSER_STARTS_FIRST, PRIM_BOOLEAN, false, false, new RulesPresidentBeanLooserStartsFirst(),null));
+        fields_.add( new StandardField(NB_PLAYERS, PRIM_INTEGER, false, false, new RulesPresidentBeanNbPlayers(),null));
+        fields_.add( new StandardField(NB_STACKS, PRIM_INTEGER, false, false, new RulesPresidentBeanNbStacks(),null));
+        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MIN, PRIM_INTEGER, false, false, new RulesPresidentBeanNbCardsPerPlayerMin(),null));
+        fields_.add( new StandardField(NB_CARDS_PER_PLAYER_MAX, PRIM_INTEGER, false, false, new RulesPresidentBeanNbCardsPerPlayerMax(),null));
+        methods_.add(new SpecNatMethod(SAME_AMOUNT, PRIM_BOOLEAN, false, MethodModifier.NORMAL, new RulesPresidentBeanSameAmount()));
         getStds().addEntry(TYPE_RULES_PRESIDENT_BEAN, std_);
-        fields_ = new CustList<StandardField>();
-        methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RESULTS_PRESIDENT, fields_, methods_, OBJECT);
-        getStds().addEntry(TYPE_RESULTS_PRESIDENT, std_);
-        fields_ = new CustList<StandardField>();
-        methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_RULES_PRESIDENT, fields_, methods_, OBJECT);
-        getStds().addEntry(TYPE_RULES_PRESIDENT, std_);
     }
 
     @Override
@@ -110,97 +110,18 @@ public final class PresidentStandards extends BeanNatLgNames {
         return getRes(rendDocumentBlock_,_conf, _rendStack);
     }
 
-    @Override
-    public ResultErrorStd getOtherResultBean(ConstructorId _method, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
+    public Struct getOtherResultBean(ConstructorId _method, Struct... _args) {
         if (StringUtil.quickEq(_method.getName(), TYPE_PRESIDENT_BEAN)) {
             PresidentBean details_ = new PresidentBean();
             details_.setClassName(TYPE_PRESIDENT_BEAN);
-            res_.setResult(new PresidentBeanStruct(details_));
-            return res_;
+            return (new PresidentBeanStruct(details_));
         }
         if (StringUtil.quickEq(_method.getName(), TYPE_RULES_PRESIDENT_BEAN)) {
             RulesPresidentBean details_ = new RulesPresidentBean();
             details_.setClassName(TYPE_RULES_PRESIDENT_BEAN);
-            res_.setResult(new PresidentBeanStruct(details_));
-            return res_;
+            return(new PresidentBeanStruct(details_));
         }
-        return res_;
-    }
-    @Override
-    public ResultErrorStd getOtherResult(ClassField _classField, Struct _instance) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        String fieldName_ = _classField.getFieldName();
-        if (_instance instanceof PresidentLineDealStruct) {
-            PresidentLineDeal instance_ = ((PresidentLineDealStruct)_instance).getLineDeal();
-            if (StringUtil.quickEq(fieldName_, SCORES)) {
-                res_.setResult(getLongArray(instance_.getScores()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, NUMBER)) {
-                res_.setResult(new IntStruct(instance_.getNumber()));
-                return res_;
-            }
-            return res_;
-        }
-        if (((PresidentBeanStruct)_instance).getInstance() instanceof PresidentBean) {
-            if (StringUtil.quickEq(fieldName_, NICKNAMES)) {
-                res_.setResult(getStringArray(((PresidentBean)((PresidentBeanStruct)_instance).getInstance()).getNicknames()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, LINES_DEAL)) {
-                res_.setResult(getLineDealArray(((PresidentBean)((PresidentBeanStruct)_instance).getInstance()).getLinesDeal()));
-                return res_;
-            }
-        }
-        if (((PresidentBeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
-            RulesPresidentBean rules_ = (RulesPresidentBean) ((PresidentBeanStruct)_instance).getInstance();
-            if (StringUtil.quickEq(fieldName_, NB_PLAYERS)) {
-                res_.setResult(new IntStruct(rules_.getNbPlayers()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, NB_STACKS)) {
-                res_.setResult(new IntStruct(rules_.getNbStacks()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MIN)) {
-                res_.setResult(new IntStruct(rules_.getNbCardsPerPlayerMin()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, NB_CARDS_PER_PLAYER_MAX)) {
-                res_.setResult(new IntStruct(rules_.getNbCardsPerPlayerMax()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, CARTES_BATTUES)) {
-                res_.setResult(new StringStruct(rules_.getCartesBattues()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, EQUALTY)) {
-                res_.setResult(new StringStruct(rules_.getEqualty()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, POSSIBLE_REVERSING)) {
-                res_.setResult(BooleanStruct.of(rules_.isPossibleReversing()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, HAS_TO_PLAY)) {
-                res_.setResult(BooleanStruct.of(rules_.isHasToPlay()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, LOOSING_IF_FINISH_BY_BEST_CARDS)) {
-                res_.setResult(BooleanStruct.of(rules_.isLoosingIfFinishByBestCards()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, SWITCH_CARDS)) {
-                res_.setResult(BooleanStruct.of(rules_.isSwitchCards()));
-                return res_;
-            }
-            if (StringUtil.quickEq(fieldName_, LOOSER_STARTS_FIRST)) {
-                res_.setResult(BooleanStruct.of(rules_.isLooserStartsFirst()));
-                return res_;
-            }
-        }
-        return res_;
+        return NullStruct.NULL_VALUE;
     }
 
     public static ArrayStruct getLineDealArray(CustList<PresidentLineDeal> _ls) {
@@ -213,33 +134,15 @@ public final class PresidentStandards extends BeanNatLgNames {
         return arr_;
     }
 
-    @Override
-    public ResultErrorStd getOtherResultBean(Struct _instance,
-                                             ClassMethodId _method, Struct... _args) {
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (((PresidentBeanStruct)_instance).getInstance() instanceof RulesPresidentBean) {
-            if (StringUtil.quickEq(_method.getConstraints().getName(), SAME_AMOUNT)) {
-                res_.setResult(BooleanStruct.of(((RulesPresidentBean)((PresidentBeanStruct)_instance).getInstance()).sameAmount()));
-                return res_;
-            }
-        }
-        return res_;
-    }
-
-    public ResultErrorStd getOtherName(Struct _instance) {
-        return new ResultErrorStd();
-    }
-    public ResultErrorStd setOtherResult(ClassField _classField, Struct _instance, Struct _val) {
-        return new ResultErrorStd();
-    }
-
     protected Struct newSimpleBean(String _language, BeanInfo _bean) {
         ConstructorId id_ = new ConstructorId(_bean.getResolvedClassName(), new StringList(), false);
         Struct[] args_ = NatStdFctOperation.getObjects(Argument.toArgArray(new CustList<Argument>()));
-        ResultErrorStd res_ = getOtherResultBean(id_, args_);
-        Struct strBean_ = res_.getResult();
-        PresidentBeanStruct str_ = (PresidentBeanStruct) strBean_;
-        Bean bean_ = str_.getBean();
+        Struct strBean_ = getOtherResultBean(id_, args_);
+        return update(_language, (PresidentBeanStruct) strBean_);
+    }
+
+    private PresidentBeanStruct update(String _language, PresidentBeanStruct _str) {
+        Bean bean_ = _str.getBean();
         if (bean_ instanceof PresidentBean) {
             ((PresidentBean)bean_).setDataBase(dataBase);
         }
@@ -247,8 +150,9 @@ public final class PresidentStandards extends BeanNatLgNames {
             ((RulesPresidentBean)bean_).setDataBase(dataBaseRules);
         }
         bean_.setLanguage(_language);
-        return strBean_;
+        return _str;
     }
+
     public void setDataBase(ResultsPresident _dataBase){
         dataBase = _dataBase;
     }

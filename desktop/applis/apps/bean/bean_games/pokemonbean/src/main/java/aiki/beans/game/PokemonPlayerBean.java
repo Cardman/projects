@@ -1,4 +1,5 @@
 package aiki.beans.game;
+
 import aiki.beans.WithFacade;
 import aiki.beans.facade.comparators.ComparatorStatisticInfoPkPlayer;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
@@ -14,12 +15,7 @@ import aiki.map.pokemon.enums.Gender;
 import code.bean.Bean;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.EnumMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
-import code.util.TreeMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public class PokemonPlayerBean extends Bean implements WithFacade {
