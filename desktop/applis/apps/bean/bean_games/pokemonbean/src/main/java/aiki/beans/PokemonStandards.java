@@ -806,52 +806,6 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     }
 
     @Override
-    public void beforeDisplaying(Struct _arg) {
-        ((PokemonBeanStruct) _arg).getBean().beforeDisplaying();
-    }
-
-    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = new NatImportingPage();
-        _rendStack.addPage(ip_);
-        StringMapObject stringMapObject_ = new StringMapObject();
-        if (_bean instanceof PokemonBeanStruct&&((PokemonBeanStruct) _bean).getBean() instanceof WithForms) {
-            stringMapObject_ = ((WithForms)((PokemonBeanStruct) _bean).getBean()).getForms();
-        }
-        String currentBeanName_;
-        RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
-        currentBeanName_ = rendDocumentBlock_.getBeanName();
-        Struct bean_ = getBeanOrNull(currentBeanName_);
-        if (bean_ instanceof PokemonBeanStruct&& ((PokemonBeanStruct) bean_).getBean() instanceof WithForms) {
-            ((WithForms) ((PokemonBeanStruct) bean_).getBean()).setForms(stringMapObject_);
-        }
-        _rendStack.clearPages();
-        return getRes(rendDocumentBlock_,_conf, _rendStack);
-    }
-
-    @Override
-    public void setBeanForms(Struct _mainBean, String _beanName) {
-        beanForms(_mainBean, _beanName);
-    }
-
-    private void beanForms(Struct _mainBean,
-                           String _beanName) {
-        if (_mainBean == null) {
-            return;
-        }
-        Struct bean_ = getBeansStruct().getVal(_beanName);
-        if (bean_ == null) {
-            return;
-        }
-        gearFw(_mainBean, bean_);
-    }
-
-    void gearFw(Struct _mainBean, Struct _bean) {
-        StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
-        StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
-        forms_.putAllMap(formsMap_);
-    }
-
-    @Override
     public ResultErrorStd getOtherResult(ClassField _classField, Struct _instance) {
         if (_instance instanceof PkLineStruct) {
             return AikiBeansFacadeDtoStd.getResultPokemonLine(_classField, ((PkLineStruct) _instance).getWildPk());
@@ -1283,39 +1237,6 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
         }
         return new ResultErrorStd();
     }
-
-    public static PkTrainer toPkTrainer(Struct _inst) {
-        if (!(_inst instanceof PkStruct)) {
-            return Instances.newPkTrainer();
-        }
-        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
-        if (instance_ instanceof PkTrainer) {
-            return (PkTrainer) instance_;
-        }
-        return Instances.newPkTrainer();
-    }
-
-    public static WildPk toWildPk(Struct _inst) {
-        if (!(_inst instanceof PkStruct)) {
-            return Instances.newWildPk();
-        }
-        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
-        if (instance_ instanceof WildPk) {
-            return (WildPk) instance_;
-        }
-        return Instances.newWildPk();
-    }
-
-    public static PokemonPlayer toPokemonPlayer(Struct _inst) {
-        if (!(_inst instanceof PkStruct)) {
-            return Instances.newPokemonPlayer();
-        }
-        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
-        if (instance_ instanceof PokemonPlayer) {
-            return (PokemonPlayer) instance_;
-        }
-        return Instances.newPokemonPlayer();
-    }
     @Override
     public ResultErrorStd getOtherResultBean(Struct _instance, ClassMethodId _method, Struct... _args) {
         if (_instance instanceof PkStruct) {
@@ -1675,6 +1596,414 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
             return AikiBeansStatusStd.invokeMethodStatusSetBean(_instance, _method, _args);
         }
         return new ResultErrorStd();
+    }
+
+    public static ResultErrorStd invokeMethodActivityOfMove(ClassMethodId _method, ActivityOfMove _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,IS_ENABLED)) {
+            res_.setResult(BooleanStruct.of(_inst.isEnabled()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,IS_INCREMENT_COUNT)) {
+            res_.setResult(BooleanStruct.of(_inst.isIncrementCount()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_NB_TURN)) {
+            res_.setResult(new IntStruct(_inst.getNbTurn()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodMoveTarget(ClassMethodId _method, MoveTarget _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
+            res_.setResult(new StringStruct(_inst.getMove()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_TARGET)) {
+            res_.setResult(new TargetCoordsStruct(_inst.getTarget(),PokemonStandards.TYPE_TARGET_COORDS));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodTargetCoords(ClassMethodId _method, TargetCoords _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_POSITION)) {
+            res_.setResult(new IntStruct(_inst.getPosition()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodUsesOfMove(ClassMethodId _method, UsesOfMove _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_CURRENT)) {
+            res_.setResult(new IntStruct(_inst.getCurrent()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_MAX)) {
+            res_.setResult(new IntStruct(_inst.getMax()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodCopiedMove(ClassMethodId _method, CopiedMove _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
+            res_.setResult(new StringStruct(_inst.getMove()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_PP)) {
+            res_.setResult(new IntStruct(_inst.getPp()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodMoveTeamPosition(ClassMethodId _method, MoveTeamPosition _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
+            res_.setResult(new StringStruct(_inst.getMove()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodAffectedMove(ClassMethodId _method, AffectedMove _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
+            res_.setResult(new StringStruct(_inst.getMove()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_ACTIVITY)) {
+            res_.setResult(new ActivityOfMoveStruct(_inst.getActivity(),PokemonStandards.TYPE_ACTIVITY_OF_MOVE));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodStacksOfUses(ClassMethodId _method, StacksOfUses _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_NB_ROUNDS)) {
+            res_.setResult(new IntStruct(_inst.getNbRounds()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,IS_FIRST_STACKED)) {
+            res_.setResult(BooleanStruct.of(_inst.isFirstStacked()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,IS_LAST_STACKED)) {
+            res_.setResult(BooleanStruct.of(_inst.isLastStacked()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodAnticipation(ClassMethodId _method, Anticipation _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_TARGET_POSITION)) {
+            res_.setResult(new TargetCoordsStruct(_inst.getTargetPosition(),PokemonStandards.TYPE_TARGET_COORDS));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_DAMAGE)) {
+            res_.setResult(new RateStruct(_inst.getDamage(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,IS_INCREMENTING)) {
+            res_.setResult(BooleanStruct.of(_inst.isIncrementing()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_NB_ROUNDS)) {
+            res_.setResult(new IntStruct(_inst.getNbRounds()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodRate(ClassMethodId _method, Rate _rate, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,IS_ZERO)) {
+            res_.setResult(BooleanStruct.of(_rate.isZero()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,IS_ZERO_OR_GT)) {
+            res_.setResult(BooleanStruct.of(_rate.isZeroOrGt()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,ABS_NB)) {
+            res_.setResult(new RateStruct(_rate.absNb(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodTypeDamageBoost(ClassMethodId _method, TypeDamageBoost _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_BOOST)) {
+            res_.setResult(new RateStruct(_inst.getBoost(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodEfficiencyRate(ClassMethodId _method, EfficiencyRate _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_EFF)) {
+            res_.setResult(new RateStruct(_inst.getEff(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_HP_RATE)) {
+            res_.setResult(new RateStruct(_inst.getHpRate(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodBoostHpRate(ClassMethodId _method, BoostHpRate _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_HP_RATE)) {
+            res_.setResult(new RateStruct(_inst.getHpRate(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_BOOST)) {
+            res_.setResult(new IntStruct(_inst.getBoost()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodPkTrainer(ClassMethodId _method, PkTrainer _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
+            res_.setResult(new IntStruct(_inst.getLevel()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
+            res_.setResult(new StringStruct(_inst.getItem()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_MOVES)) {
+            res_.setResult(getStringArray(_inst.getMoves()));
+            return res_;
+        }
+        return PokemonStandards.invokeMethodPokemon(_method, _inst, _args);
+    }
+    public static ResultErrorStd invokeMethodPokemon(ClassMethodId _method, Pokemon _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
+            res_.setResult(new StringStruct(_inst.getItem()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodAreaApparition(ClassMethodId _method, AreaApparition _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_AVG_NB_STEPS)) {
+            res_.setResult(new IntStruct(_inst.getAvgNbSteps()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_WILD_POKEMON)) {
+            res_.setResult(getWildPkArray(_inst.getWildPokemon()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_WILD_POKEMON_FISHING)) {
+            res_.setResult(getWildPkArray(_inst.getWildPokemonFishing()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodWildPk(ClassMethodId _method, WildPk _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
+            res_.setResult(new IntStruct(_inst.getLevel()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
+            res_.setResult(new StringStruct(_inst.getItem()));
+            return res_;
+        }
+        return PokemonStandards.invokeMethodPokemon(_method, _inst, _args);
+    }
+    public static ResultErrorStd invokeMethodPlace(ClassMethodId _method, Place _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_NAME)) {
+            res_.setResult(new StringStruct(_inst.getName()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodTypesDuo(ClassMethodId _method, TypesDuo _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_DAMAGE_TYPE)) {
+            res_.setResult(new StringStruct(_inst.getDamageType()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_POKEMON_TYPE)) {
+            res_.setResult(new StringStruct(_inst.getPokemonType()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodCategoryMult(ClassMethodId _method, CategoryMult _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_CATEGORY)) {
+            res_.setResult(new StringStruct(_inst.getCategory()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_MULT)) {
+            res_.setResult(new IntStruct(_inst.getMult()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodLevelMove(ClassMethodId _method, LevelMove _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
+            res_.setResult(new IntStruct(_inst.getLevel()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
+            res_.setResult(new StringStruct(_inst.getMove()));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodPokemonPlayer(ClassMethodId _method, PokemonPlayer _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_WON_EXP_SINCE_LAST_LEVEL)) {
+            res_.setResult(new RateStruct(_inst.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
+            res_.setResult(new StringStruct(_inst.getItem()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_HAPPINESS)) {
+            res_.setResult(new IntStruct(_inst.getHappiness()));
+            return res_;
+        }
+        return PokemonStandards.invokeMethodPokemon(_method, _inst, _args);
+    }
+    public static ResultErrorStd invokeMethodEffectPartnerStatus(ClassMethodId _method, EffectPartnerStatus _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_RESTORED_HP_RATE_LOVED_ALLY)) {
+            res_.setResult(new RateStruct(_inst.getRestoredHpRateLovedAlly(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_WEDDING_ALLY)) {
+            res_.setResult(BooleanStruct.of(_inst.getWeddingAlly()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_MULT_DAMAGE_AGAINST_FOE)) {
+            res_.setResult(new RateStruct(_inst.getMultDamageAgainstFoe(),PokemonStandards.TYPE_RATE));
+            return res_;
+        }
+        return res_;
+    }
+    public static ResultErrorStd invokeMethodTrainerPlaceNames(ClassMethodId _method, TrainerPlaceNames _inst, Struct... _args) {
+        String methodName_ = _method.getConstraints().getName();
+        ResultErrorStd res_ = new ResultErrorStd();
+        if (StringUtil.quickEq(methodName_,GET_TRAINER)) {
+            res_.setResult(new StringStruct(_inst.getTrainer()));
+            return res_;
+        }
+        if (StringUtil.quickEq(methodName_,GET_PLACE)) {
+            res_.setResult(new StringStruct(_inst.getPlace()));
+            return res_;
+        }
+        return res_;
+    }
+
+    @Override
+    public void beforeDisplaying(Struct _arg) {
+        ((PokemonBeanStruct) _arg).getBean().beforeDisplaying();
+    }
+
+    public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
+        NatImportingPage ip_ = new NatImportingPage();
+        _rendStack.addPage(ip_);
+        StringMapObject stringMapObject_ = new StringMapObject();
+        if (_bean instanceof PokemonBeanStruct&&((PokemonBeanStruct) _bean).getBean() instanceof WithForms) {
+            stringMapObject_ = ((WithForms)((PokemonBeanStruct) _bean).getBean()).getForms();
+        }
+        String currentBeanName_;
+        RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
+        currentBeanName_ = rendDocumentBlock_.getBeanName();
+        Struct bean_ = getBeanOrNull(currentBeanName_);
+        if (bean_ instanceof PokemonBeanStruct&& ((PokemonBeanStruct) bean_).getBean() instanceof WithForms) {
+            ((WithForms) ((PokemonBeanStruct) bean_).getBean()).setForms(stringMapObject_);
+        }
+        _rendStack.clearPages();
+        return getRes(rendDocumentBlock_,_conf, _rendStack);
+    }
+
+    @Override
+    public void setBeanForms(Struct _mainBean, String _beanName) {
+        beanForms(_mainBean, _beanName);
+    }
+
+    private void beanForms(Struct _mainBean,
+                           String _beanName) {
+        if (_mainBean == null) {
+            return;
+        }
+        Struct bean_ = getBeansStruct().getVal(_beanName);
+        if (bean_ == null) {
+            return;
+        }
+        gearFw(_mainBean, bean_);
+    }
+
+    void gearFw(Struct _mainBean, Struct _bean) {
+        StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
+        StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
+        forms_.putAllMap(formsMap_);
+    }
+
+    public static PkTrainer toPkTrainer(Struct _inst) {
+        if (!(_inst instanceof PkStruct)) {
+            return Instances.newPkTrainer();
+        }
+        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+        if (instance_ instanceof PkTrainer) {
+            return (PkTrainer) instance_;
+        }
+        return Instances.newPkTrainer();
+    }
+
+    public static WildPk toWildPk(Struct _inst) {
+        if (!(_inst instanceof PkStruct)) {
+            return Instances.newWildPk();
+        }
+        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+        if (instance_ instanceof WildPk) {
+            return (WildPk) instance_;
+        }
+        return Instances.newWildPk();
+    }
+
+    public static PokemonPlayer toPokemonPlayer(Struct _inst) {
+        if (!(_inst instanceof PkStruct)) {
+            return Instances.newPokemonPlayer();
+        }
+        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+        if (instance_ instanceof PokemonPlayer) {
+            return (PokemonPlayer) instance_;
+        }
+        return Instances.newPokemonPlayer();
     }
 
     @Override
@@ -2391,335 +2720,6 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
         ResultErrorStd res_ = new ResultErrorStd();
         Struct arg_ = new StringStruct(StringUtil.nullToEmpty(processString(new Argument(_instance))));
         res_.setResult(arg_);
-        return res_;
-    }
-
-    public static ResultErrorStd invokeMethodActivityOfMove(ClassMethodId _method, ActivityOfMove _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,IS_ENABLED)) {
-            res_.setResult(BooleanStruct.of(_inst.isEnabled()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_INCREMENT_COUNT)) {
-            res_.setResult(BooleanStruct.of(_inst.isIncrementCount()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_NB_TURN)) {
-            res_.setResult(new IntStruct(_inst.getNbTurn()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodMoveTarget(ClassMethodId _method, MoveTarget _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(_inst.getMove()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_TARGET)) {
-            res_.setResult(new TargetCoordsStruct(_inst.getTarget(),PokemonStandards.TYPE_TARGET_COORDS));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodTargetCoords(ClassMethodId _method, TargetCoords _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_POSITION)) {
-            res_.setResult(new IntStruct(_inst.getPosition()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodUsesOfMove(ClassMethodId _method, UsesOfMove _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_CURRENT)) {
-            res_.setResult(new IntStruct(_inst.getCurrent()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MAX)) {
-            res_.setResult(new IntStruct(_inst.getMax()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodCopiedMove(ClassMethodId _method, CopiedMove _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(_inst.getMove()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_PP)) {
-            res_.setResult(new IntStruct(_inst.getPp()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodMoveTeamPosition(ClassMethodId _method, MoveTeamPosition _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(_inst.getMove()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodAffectedMove(ClassMethodId _method, AffectedMove _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(_inst.getMove()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_ACTIVITY)) {
-            res_.setResult(new ActivityOfMoveStruct(_inst.getActivity(),PokemonStandards.TYPE_ACTIVITY_OF_MOVE));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodStacksOfUses(ClassMethodId _method, StacksOfUses _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_NB_ROUNDS)) {
-            res_.setResult(new IntStruct(_inst.getNbRounds()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_FIRST_STACKED)) {
-            res_.setResult(BooleanStruct.of(_inst.isFirstStacked()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_LAST_STACKED)) {
-            res_.setResult(BooleanStruct.of(_inst.isLastStacked()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodAnticipation(ClassMethodId _method, Anticipation _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_TARGET_POSITION)) {
-            res_.setResult(new TargetCoordsStruct(_inst.getTargetPosition(),PokemonStandards.TYPE_TARGET_COORDS));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_DAMAGE)) {
-            res_.setResult(new RateStruct(_inst.getDamage(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_INCREMENTING)) {
-            res_.setResult(BooleanStruct.of(_inst.isIncrementing()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_NB_ROUNDS)) {
-            res_.setResult(new IntStruct(_inst.getNbRounds()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodRate(ClassMethodId _method, Rate _rate, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,IS_ZERO)) {
-            res_.setResult(BooleanStruct.of(_rate.isZero()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,IS_ZERO_OR_GT)) {
-            res_.setResult(BooleanStruct.of(_rate.isZeroOrGt()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,ABS_NB)) {
-            res_.setResult(new RateStruct(_rate.absNb(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodTypeDamageBoost(ClassMethodId _method, TypeDamageBoost _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_BOOST)) {
-            res_.setResult(new RateStruct(_inst.getBoost(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodEfficiencyRate(ClassMethodId _method, EfficiencyRate _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_EFF)) {
-            res_.setResult(new RateStruct(_inst.getEff(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_HP_RATE)) {
-            res_.setResult(new RateStruct(_inst.getHpRate(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodBoostHpRate(ClassMethodId _method, BoostHpRate _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_HP_RATE)) {
-            res_.setResult(new RateStruct(_inst.getHpRate(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_BOOST)) {
-            res_.setResult(new IntStruct(_inst.getBoost()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodPkTrainer(ClassMethodId _method, PkTrainer _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new IntStruct(_inst.getLevel()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(_inst.getItem()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MOVES)) {
-            res_.setResult(getStringArray(_inst.getMoves()));
-            return res_;
-        }
-        return PokemonStandards.invokeMethodPokemon(_method, _inst, _args);
-    }
-    public static ResultErrorStd invokeMethodPokemon(ClassMethodId _method, Pokemon _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(_inst.getItem()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodAreaApparition(ClassMethodId _method, AreaApparition _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_AVG_NB_STEPS)) {
-            res_.setResult(new IntStruct(_inst.getAvgNbSteps()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_WILD_POKEMON)) {
-            res_.setResult(getWildPkArray(_inst.getWildPokemon()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_WILD_POKEMON_FISHING)) {
-            res_.setResult(getWildPkArray(_inst.getWildPokemonFishing()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodWildPk(ClassMethodId _method, WildPk _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new IntStruct(_inst.getLevel()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(_inst.getItem()));
-            return res_;
-        }
-        return PokemonStandards.invokeMethodPokemon(_method, _inst, _args);
-    }
-    public static ResultErrorStd invokeMethodPlace(ClassMethodId _method, Place _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_NAME)) {
-            res_.setResult(new StringStruct(_inst.getName()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodTypesDuo(ClassMethodId _method, TypesDuo _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_DAMAGE_TYPE)) {
-            res_.setResult(new StringStruct(_inst.getDamageType()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_POKEMON_TYPE)) {
-            res_.setResult(new StringStruct(_inst.getPokemonType()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodCategoryMult(ClassMethodId _method, CategoryMult _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_CATEGORY)) {
-            res_.setResult(new StringStruct(_inst.getCategory()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MULT)) {
-            res_.setResult(new IntStruct(_inst.getMult()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodLevelMove(ClassMethodId _method, LevelMove _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_LEVEL)) {
-            res_.setResult(new IntStruct(_inst.getLevel()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MOVE)) {
-            res_.setResult(new StringStruct(_inst.getMove()));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodPokemonPlayer(ClassMethodId _method, PokemonPlayer _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_WON_EXP_SINCE_LAST_LEVEL)) {
-            res_.setResult(new RateStruct(_inst.getWonExpSinceLastLevel(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_ITEM)) {
-            res_.setResult(new StringStruct(_inst.getItem()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_HAPPINESS)) {
-            res_.setResult(new IntStruct(_inst.getHappiness()));
-            return res_;
-        }
-        return PokemonStandards.invokeMethodPokemon(_method, _inst, _args);
-    }
-    public static ResultErrorStd invokeMethodEffectPartnerStatus(ClassMethodId _method, EffectPartnerStatus _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_RESTORED_HP_RATE_LOVED_ALLY)) {
-            res_.setResult(new RateStruct(_inst.getRestoredHpRateLovedAlly(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_WEDDING_ALLY)) {
-            res_.setResult(BooleanStruct.of(_inst.getWeddingAlly()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_MULT_DAMAGE_AGAINST_FOE)) {
-            res_.setResult(new RateStruct(_inst.getMultDamageAgainstFoe(),PokemonStandards.TYPE_RATE));
-            return res_;
-        }
-        return res_;
-    }
-    public static ResultErrorStd invokeMethodTrainerPlaceNames(ClassMethodId _method, TrainerPlaceNames _inst, Struct... _args) {
-        String methodName_ = _method.getConstraints().getName();
-        ResultErrorStd res_ = new ResultErrorStd();
-        if (StringUtil.quickEq(methodName_,GET_TRAINER)) {
-            res_.setResult(new StringStruct(_inst.getTrainer()));
-            return res_;
-        }
-        if (StringUtil.quickEq(methodName_,GET_PLACE)) {
-            res_.setResult(new StringStruct(_inst.getPlace()));
-            return res_;
-        }
         return res_;
     }
     public static ArrayStruct getBigByAn(AbsMap<String, ByteTreeMap<Anticipation>> _map) {
