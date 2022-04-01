@@ -180,7 +180,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_DISPLAYABLE);
         params_ = new StringList();
-        method_ = new SpecNatMethod(GET_REVERSE,params_,TYPE_STRING_LIST, false, MethodModifier.NORMAL);
+        method_ = new SpecNatMethod(GET_REVERSE,TYPE_STRING_LIST, false, MethodModifier.NORMAL);
         methods_.add( method_);
         params_ = new StringList(PRIM_INTEGER);
         method_ = new SpecNatMethod(GET,params_, STRING, false, MethodModifier.NORMAL);
