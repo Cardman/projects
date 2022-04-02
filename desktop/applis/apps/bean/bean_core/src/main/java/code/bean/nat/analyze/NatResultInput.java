@@ -1,5 +1,6 @@
 package code.bean.nat.analyze;
 
+import code.bean.nat.NatCaller;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.AffectationNatOperation;
@@ -26,11 +27,11 @@ public final class NatResultInput {
     private String previousResult;
     private StringList varNames = new StringList();
     private InputInfo varNamesParams = new InputInfo();
-    private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String classNameNat = EMPTY_STRING;
     private NatOperationNode settable;
+    private NatCaller callerGet;
 
     public void build(Element _read, String _varValue, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String name_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrName());
@@ -51,9 +52,9 @@ public final class NatResultInput {
         setSettable((NatOperationNode) settable_);
         NatAnaSettableOperationContent settableFieldContent_ = ((SettableAbstractFieldNatOperation) settable_).getSettableFieldContent();
         ClassField clField_ = settableFieldContent_.getClassField();
+        callerGet = settableFieldContent_.getField().getCallerGet();
         idClass = clField_.getClassName();
         idName = clField_.getFieldName();
-        id = StringUtil.concat(idClass,".",idName);
         setResult(((NatOperationNode) settable_).getNames());
         InputInfo info_ = new InputInfo();
         info_.getVarTypes().add(result);
@@ -96,10 +97,6 @@ public final class NatResultInput {
 
     public void setClassNameNat(String _className) {
         classNameNat = _className;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public NatOperationNode getOpsReadRoot() {
@@ -148,5 +145,9 @@ public final class NatResultInput {
 
     public void setVarNames(StringList _varNames) {
         varNames = _varNames;
+    }
+
+    public NatCaller getCallerGet() {
+        return callerGet;
     }
 }

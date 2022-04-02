@@ -87,6 +87,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     private static final String TYPED_SHORT = "typedShort";
     private static final String RATE = "rate";
     private static final String NULLABLE_INT = "nullableInt";
+    private static final String NULLABLE_INT_2 = "nullableInt2";
     private static final String NULLABLE_CHECKBOX = "nullableCheckbox";
     private static final String FIELD = "field";
     private static final String CHOOSE = "choose";
@@ -326,6 +327,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         fields_.add(new StandardField(FIELD, STRING,false,false));
         fields_.add(new StandardField(NULLABLE_CHECKBOX, PRIM_BOOLEAN,false,false));
         fields_.add(new StandardField(NULLABLE_INT, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
+        fields_.add(new StandardField(NULLABLE_INT_2, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
         fields_.add(new StandardField(RATE,TYPE_RATE,false,false));
         fields_.add(new StandardField(TYPED_INT, PRIM_INTEGER,false,false,new SampleStrFct(),new SampleStrFct()));
         fields_.add(new StandardField(TYPED_SHORT, PRIM_INTEGER,false,false, new SampleBeanTwoTypedShort(),new SampleBeanTwoTypedShortSet()));

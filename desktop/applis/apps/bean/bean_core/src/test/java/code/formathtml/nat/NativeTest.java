@@ -4,7 +4,9 @@ import code.bean.nat.*;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
+import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
@@ -1663,6 +1665,121 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     }
 
+    @Test
+    public void processNav12_est() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$go\"><input type=\"number\" name=\"nullableInt\" c:varValue=\"nullableInt\"/><input type=\"number\" name=\"nullableInt\" c:varValue=\"nullableInt\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        BeanTwo beanTwo_ = new BeanTwo();
+        CustBeanLgNames lgNames_ = stds();
+        Configuration config_ = conf("c:");
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
+
+
+        putBean("bean_two", init(beanTwo_), lgNames_);
+        setupVal(folder_, relative_, config_, dual_, lgNames_);
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        Navigation nav_ = newNavigation(config_);
+        nav_.setLanguage(locale_);
+        nav_.setFiles(files_);
+        dual_.getRenderFiles().add("page1.html");
+        NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
+        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("10");
+        ni_.setValue(values_);
+        nav_.getHtmlPage().setUrl(0);
+        form(lgNames_, nav_);
+//        assertEq("page1.html", lgNames_.getCurrentUrl());
+//        assertEq("bean_two", lgNames_.getCurrentBeanName());
+//        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"10\"/></form></body></html>", nav_.getHtmlText());
+//        beanTwo_ = getBeanTwo(conf_, "bean_two");
+//        StringMapObjectSample map_ = beanTwo_.getForms();
+//        assertEq(8, map_.size());
+//        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+
+    }
+
+    @Test
+    public void processNav_12_est() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form c:command=\"$go\"><input type=\"number\" name=\"nullableInt\" c:varValue=\"nullableInt\"/><input type=\"number\" name=\"nullableInt2\" c:varValue=\"nullableInt2\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        BeanTwo beanTwo_ = new BeanTwo();
+        CustBeanLgNames lgNames_ = stds();
+        Configuration config_ = conf("c:");
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        ContextEl generate_ = new Forwards(lgNames_, null, new Options()).generate();
+        //NativeAnalyzedTestConfiguration conf_ = new NativeAnalyzedTestConfiguration(generate_, config_, lgNames_, init(lgNames_), dual_);
+
+
+        putBean("bean_two", init(beanTwo_), lgNames_);
+        setupVal(folder_, relative_, config_, dual_, lgNames_);
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_two.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_two.go").put("no_change", "page2.html");
+        Navigation nav_ = newNavigation(config_);
+        nav_.setLanguage(locale_);
+        nav_.setFiles(files_);
+        dual_.getRenderFiles().add("page1.html");
+        NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
+        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("10");
+        ni_.setValue(values_);
+        nc_ = containers_.getVal(1L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("10");
+        ni_.setValue(values_);
+        nav_.getHtmlPage().setUrl(0);
+        form(lgNames_, nav_);
+//        assertEq("page1.html", lgNames_.getCurrentUrl());
+//        assertEq("bean_two", lgNames_.getCurrentBeanName());
+//        assertEq("<html><body><form c:command=\"$bean_two.go\" action=\"\" n-f=\"0\"><input type=\"number\" name=\"bean_two.nullableInt\" n-i=\"0\" value=\"10\"/></form></body></html>", nav_.getHtmlText());
+//        beanTwo_ = getBeanTwo(conf_, "bean_two");
+//        StringMapObjectSample map_ = beanTwo_.getForms();
+//        assertEq(8, map_.size());
+//        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+
+    }
     @Test
     public void processNav13Test() {
         String locale_ = "en";

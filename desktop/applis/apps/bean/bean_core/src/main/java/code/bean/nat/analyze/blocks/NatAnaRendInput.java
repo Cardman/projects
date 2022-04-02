@@ -1,5 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.NatCaller;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -14,12 +15,13 @@ public final class NatAnaRendInput extends NatAnaRendElement {
     private NatOperationNode rootValue;
     private String varName = AnaRendBlockHelp.EMPTY_STRING;
     private InputInfo varNames = new InputInfo();
-    private String id = AnaRendBlockHelp.EMPTY_STRING;
     private String idClass = AnaRendBlockHelp.EMPTY_STRING;
     private String idName = AnaRendBlockHelp.EMPTY_STRING;
     private String className = AnaRendBlockHelp.EMPTY_STRING;
     private NatResultInput resultInput;
     private final boolean radio;
+    private NatCaller callerGet;
+
     NatAnaRendInput(Element _elt, int _offset, boolean _radio) {
         super(_elt, _offset);
         radio = _radio;
@@ -53,10 +55,14 @@ public final class NatAnaRendInput extends NatAnaRendElement {
         rootRead = r_.getOpsReadRoot();
         rootValue = r_.getOpsValueRoot();
         varName = r_.getVarName();
-        id = r_.getId();
+        callerGet = r_.getCallerGet();
         idClass = r_.getIdClass();
         idName = r_.getIdName();
         className = r_.getClassNameNat();
+    }
+
+    public NatCaller getCallerGet() {
+        return callerGet;
     }
 
     public NatOperationNode getRootRead() {
@@ -77,10 +83,6 @@ public final class NatAnaRendInput extends NatAnaRendElement {
 
     public String getIdName() {
         return idName;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getVarName() {

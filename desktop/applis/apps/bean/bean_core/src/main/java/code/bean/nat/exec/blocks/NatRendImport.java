@@ -49,7 +49,7 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
                     if (f instanceof NatRendField) {
                         CustList<RendDynOperationNode> exps_ = ((NatRendField) f).getExps();
                         ip_.setInternGlobal(newBean_);
-                        BeanNatCommonLgNames.getAllArgs(exps_, _rendStack).lastValue();
+                        BeanNatCommonLgNames.getAllArgs(exps_, _rendStack);
                         ip_.setInternGlobal(null);
                     }
                 }

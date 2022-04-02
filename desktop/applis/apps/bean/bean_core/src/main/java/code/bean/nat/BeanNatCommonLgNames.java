@@ -173,7 +173,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         _nav.delPrevious(doc_, _elt);
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-            _nav.processRendFormErrors(this, _elt, lg_, errors_, errorsArgs_, st_.getDocument(), st_.getHtmlPage());
+            _nav.processRendFormErrors(this, _elt, lg_, errors_, errorsArgs_, st_);
             st_.clearPages();
             return;
         }

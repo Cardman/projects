@@ -232,7 +232,7 @@ public final class RendBlockHelp {
 //            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
         Argument arg_ = Argument.getNullableValue(pair_.getArgument());
         CustList<Struct> allObj_ = obj_;
-        return RendBlock.prStack(_cont,_write,_f, new FetchedObjs(obj_,allObj_,wrap_,objClasses_,stack_,arg_, false), _rendStackCall.getLastPage().getGlobalArgument(), _rendStackCall.getFormParts(), StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), RendBlock.DOT, name_));
+        return RendBlock.prStack(_cont,_write,_f, new FetchedObjs(obj_,allObj_,wrap_,objClasses_,stack_,arg_, false), _rendStackCall.getLastPage().getGlobalArgument(),_rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), RendBlock.DOT, name_));
     }
 
     static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, NatRendStackCall _rendStackCall) {
@@ -318,7 +318,7 @@ public final class RendBlockHelp {
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
-        RendBlock.incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts());
+        RendBlock.incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
     }
 
     public static void feed(StringList _varNames, CustList<RendDynOperationNode> _anc, NatRendStackCall _rendStackCall) {

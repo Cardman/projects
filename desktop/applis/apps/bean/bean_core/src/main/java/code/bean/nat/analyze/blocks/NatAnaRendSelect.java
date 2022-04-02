@@ -1,5 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
+import code.bean.nat.NatCaller;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.opers.NatOperationNode;
@@ -15,12 +16,12 @@ public final class NatAnaRendSelect extends AnaRendParentBlock implements NatRen
     private NatOperationNode rootMap;
     private String varName = AnaRendBlockHelp.EMPTY_STRING;
     private InputInfo varNames = new InputInfo();
-    private String id = AnaRendBlockHelp.EMPTY_STRING;
     private String idClass = AnaRendBlockHelp.EMPTY_STRING;
     private String idName = AnaRendBlockHelp.EMPTY_STRING;
     private final Element elt;
     private String classNameNat = AnaRendBlockHelp.EMPTY_STRING;
     private NatResultInput resultInput;
+    private NatCaller callerGet;
 
     NatAnaRendSelect(Element _elt, int _offset) {
         super(_offset);
@@ -36,12 +37,16 @@ public final class NatAnaRendSelect extends AnaRendParentBlock implements NatRen
         rootValue = r_.getOpsValueRoot();
         varName = r_.getVarName();
         resultInput = r_;
-        id = r_.getId();
+        callerGet = r_.getCallerGet();
         idClass = r_.getIdClass();
         idName = r_.getIdName();
         classNameNat = r_.getClassNameNat();
         String map_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrMap());
         rootMap = NatRenderAnalysis.getRootAnalyzedOperations(map_, 0, _anaDoc, _page);
+    }
+
+    public NatCaller getCallerGet() {
+        return callerGet;
     }
 
     public NatOperationNode getRootValue() {
@@ -66,10 +71,6 @@ public final class NatAnaRendSelect extends AnaRendParentBlock implements NatRen
 
     public String getClassNameNat() {
         return classNameNat;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public Element getElt() {

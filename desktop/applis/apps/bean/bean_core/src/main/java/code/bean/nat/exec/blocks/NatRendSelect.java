@@ -8,7 +8,6 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.blocks.RendSelect;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.FieldUpdates;
@@ -48,7 +47,6 @@ public final class NatRendSelect extends RendParentBlock implements NatRendWithE
                 value_.getStruct());
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
         processIndexes(_cont,elt,docElementSelect_, _rendStack);
-        RendSelect.possibleSelect(_cont, docElementSelect_, _rendStack.getFormParts(), _rendStack.getHtmlPage());
         RendBlockHelp.processBlock(_rendStack, this);
     }
 

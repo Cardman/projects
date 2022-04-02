@@ -49,7 +49,7 @@ public final class RendTitledAnchor extends RendElement {
             ExecTextPart r_ = e.getValue();
             objects_.add(RenderingText.render(r_, _ctx, _rendStack));
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                incrAncNb(_cont, (Element) _nextWrite, _rendStack.getFormParts());
+                incrAncNb(_cont, (Element) _nextWrite, _rendStack.getFormParts().getIndexes());
                 return;
             }
             curWr_.removeAttribute(e.getKey());

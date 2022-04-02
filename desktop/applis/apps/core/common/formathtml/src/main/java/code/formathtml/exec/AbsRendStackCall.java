@@ -3,6 +3,7 @@ package code.formathtml.exec;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.FormParts;
 import code.formathtml.HtmlPage;
+import code.formathtml.util.NodeContainer;
 import code.sml.Document;
 
 public abstract class AbsRendStackCall {
@@ -15,6 +16,9 @@ public abstract class AbsRendStackCall {
     private final FormParts formParts = new FormParts();
 
     private Struct mainBean;
+
+    public abstract NodeContainer create();
+
     public void init() {
         htmlPage = new HtmlPage();
         document = null;

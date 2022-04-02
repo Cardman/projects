@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.exec.AbsRendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.structs.Message;
 import code.formathtml.util.*;
@@ -115,11 +116,10 @@ public final class Navigation {
     }
 
     public void processRendFormErrors(BeanLgNames _advStandards, Element _formElement, long _id,
-                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs, Document _document, HtmlPage _htmlPage) {
-        HtmlPage htmlPage_ = htmlPage;
+                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs, AbsRendStackCall _rend) {
         LongMap<LongTreeMap<NodeContainer>> containersMap_;
-        containersMap_ = htmlPage_.getContainers();
-        StringList idFormats_ = htmlPage_.getFormatIdMap().getVal(_id);
+        containersMap_ = htmlPage.getContainers();
+        StringList idFormats_ = htmlPage.getFormatIdMap().getVal(_id);
         LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(_id);
         for (String i : _errors.getKeys()) {
             int count_ = 0;
@@ -151,7 +151,7 @@ public final class Navigation {
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeContainer nCont_ = getValue(containers_, idInput_);
+            NodeContainer nCont_ = getValue(_rend,containers_, idInput_);
             if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueText())) {
                 elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
                 continue;
@@ -183,7 +183,7 @@ public final class Navigation {
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeContainer nCont_ = getValue(containers_, idInput_);
+            NodeContainer nCont_ = getValue(_rend,containers_, idInput_);
             ElementList options_ = elt_.getElementsByTagName(session.getRendKeyWords().getKeyWordOption());
             int optionsLen_ = options_.getLength();
             for (int j = IndexConstants.FIRST_INDEX; j < optionsLen_; j++) {
@@ -200,7 +200,7 @@ public final class Navigation {
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeContainer nCont_ = getValue(containers_, idInput_);
+            NodeContainer nCont_ = getValue(_rend,containers_, idInput_);
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int j = IndexConstants.FIRST_INDEX; j < ch_; j++) {
@@ -209,10 +209,10 @@ public final class Navigation {
             Text text_ = document.createTextNode(nCont_.getNodeInformation().getValue().first());
             elt_.appendChild(text_);
         }
-        setupText(document.export(),_advStandards, _document, _htmlPage);
+        setupText(document.export(),_advStandards, document, htmlPage);
     }
 
-    private static NodeContainer getValue(LongTreeMap<NodeContainer> _containers, String _idInput) {
+    private static NodeContainer getValue(AbsRendStackCall _rend,LongTreeMap<NodeContainer> _containers, String _idInput) {
         NodeContainer val_;
         if (_idInput.isEmpty()) {
             val_ = null;
@@ -220,7 +220,7 @@ public final class Navigation {
             val_ = _containers.getVal(NumberUtil.parseLongZero(_idInput));
         }
         if (val_ == null) {
-            val_ = new NodeContainer();
+            val_ = _rend.create();
         }
         return val_;
     }

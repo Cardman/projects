@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.DefFieldUpdates;
 import code.formathtml.util.FieldUpdates;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
@@ -48,7 +49,7 @@ public abstract class RendInput extends RendElement {
     }
 
     protected Argument processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
-        FieldUpdates f_ = new FieldUpdates();
+        DefFieldUpdates f_ = new DefFieldUpdates();
         f_.setId(id);
         f_.setIdClass(idClass);
         f_.setIdName(idName);

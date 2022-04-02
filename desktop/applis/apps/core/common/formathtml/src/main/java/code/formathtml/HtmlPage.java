@@ -1,10 +1,10 @@
 package code.formathtml;
+
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.util.FormInputCoords;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
-import code.util.*;
-import code.util.ObjectMap;
+import code.util.LongMap;
+import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
@@ -12,7 +12,6 @@ public final class HtmlPage {
 
     private LongMap<LongTreeMap<NodeContainer>> containers = new LongMap<LongTreeMap<NodeContainer>>();
 
-    private ObjectMap<FormInputCoords,StringList> selects = new ObjectMap<FormInputCoords,StringList>();
     private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> anchorsArgs = new CustList<StringList>();
     private CustList<StringList> anchorsVars = new CustList<StringList>();
@@ -44,10 +43,6 @@ public final class HtmlPage {
 
     public void setContainers(LongMap<LongTreeMap<NodeContainer>> _containers) {
         containers = _containers;
-    }
-
-    public ObjectMap<FormInputCoords,StringList> getSelects() {
-        return selects;
     }
 
     public long getUrl() {

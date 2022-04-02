@@ -6,6 +6,8 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.util.DefNodeContainer;
+import code.formathtml.util.NodeContainer;
 import code.maths.montecarlo.CustomSeedGene;
 import code.util.CustList;
 
@@ -21,6 +23,11 @@ public final class RendStackCall extends AbsRendStackCall implements AbstractSta
 
     public RendStackCall(InitPhase _readOnlyOthers, ContextEl _ctx, CustomSeedGene _cust) {
         stackCall = StackCall.newInstance(_readOnlyOthers, _ctx,_cust);
+    }
+
+    @Override
+    public NodeContainer create() {
+        return new DefNodeContainer();
     }
 
     public String formatVarType(String _varType) {

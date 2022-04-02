@@ -8,8 +8,6 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
-import code.formathtml.FormParts;
-import code.formathtml.HtmlPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
@@ -119,7 +117,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        possibleSelect(_cont, docElementSelect_, _rendStack.getFormParts(), _rendStack.getHtmlPage());
         for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
             ExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _ctx, _rendStack);
@@ -129,23 +126,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
         processBlock(_cont, _stds, _ctx, _rendStack);
-    }
-
-    public static void possibleSelect(Configuration _cont, Element _docElementSelect, FormParts _formParts, HtmlPage _htmlPage) {
-        Longs stack_ = _formParts.getFormsNb();
-        if (!stack_.isEmpty()) {
-            FormInputCoords inputs_ = new FormInputCoords();
-            inputs_.setForm(stack_.last());
-            inputs_.setInput(_formParts.getIndexes().getNb());
-            StringList allOptions_ = new StringList();
-            ElementList elts_ = _docElementSelect.getElementsByTagName(_cont.getRendKeyWords().getKeyWordOption());
-            int nbElts_ = elts_.getLength();
-            for (int i = 0; i < nbElts_; i++) {
-                Element opt_ = elts_.item(i);
-                allOptions_.add(opt_.getAttribute(_cont.getRendKeyWords().getAttrValue()));
-            }
-            _htmlPage.getSelects().put(inputs_, allOptions_);
-        }
     }
 
     private void processOptionsMapEnum(Configuration _conf, Struct _extractedMap,
@@ -273,7 +253,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         return obj_;
     }
     private void processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
-        FieldUpdates f_ = new FieldUpdates();
+        DefFieldUpdates f_ = new DefFieldUpdates();
         f_.setId(id);
         f_.setIdClass(idClass);
         f_.setIdName(idName);

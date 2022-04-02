@@ -4,18 +4,19 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class FieldUpdates {
+public abstract class FieldUpdates {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private String varName = "";
     private InputInfo varNames = new InputInfo();
-    private String id = "";
     private String idClass = "";
     private String idName = "";
     private String className = "";
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private String varNameConverter = "";
     private boolean arrayConverter;
+    protected FieldUpdates() {
+    }
 
     public CustList<RendDynOperationNode> getOpsRead() {
         return opsRead;
@@ -71,15 +72,6 @@ public final class FieldUpdates {
 
     public void setArrayConverter(boolean _arrayConverter) {
         arrayConverter = _arrayConverter;
-    }
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String _id) {
-        this.id = _id;
     }
 
     public String getIdClass() {

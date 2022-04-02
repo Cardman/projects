@@ -6,6 +6,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DefFieldUpdates;
 import code.formathtml.util.FieldUpdates;
 import code.formathtml.util.InputInfo;
 import code.sml.Document;
@@ -62,7 +63,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
         Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordTextarea());
-        FieldUpdates f_ = new FieldUpdates();
+        DefFieldUpdates f_ = new DefFieldUpdates();
         f_.setId(id);
         f_.setIdClass(idClass);
         f_.setIdName(idName);

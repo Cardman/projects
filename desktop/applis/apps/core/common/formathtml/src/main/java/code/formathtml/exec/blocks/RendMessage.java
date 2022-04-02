@@ -108,7 +108,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                     _formParts.getAnchorsArgs().add(_anchorArg);
                     _formParts.getAnchorsVars().add(_varNames);
                 }
-                incrAncNb(_cont, created_, _formParts);
+                incrAncNb(_cont, created_, _formParts.getIndexes());
                 Node firstChild_ = read_.getFirstChild();
                 if (firstChild_ != null) {
                     write_ = created_;

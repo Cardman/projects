@@ -1041,7 +1041,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         _nav.delPrevious(doc_, _elt);
         //end deleting previous errors
         if (!errors_.isEmpty()) {
-            _nav.processRendFormErrors(this, _elt, lg_, errors_, errorsArgs_, _rendStackCall.getDocument(), _rendStackCall.getHtmlPage());
+            _nav.processRendFormErrors(this, _elt, lg_, errors_, errorsArgs_, _rendStackCall);
             _rendStackCall.clearPages();
             return;
         }

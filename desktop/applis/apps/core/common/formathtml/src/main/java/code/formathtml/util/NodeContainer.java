@@ -1,14 +1,14 @@
 package code.formathtml.util;
+
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
 
-public class NodeContainer {
+public abstract class NodeContainer {
 
     private CustList<Struct> object = new CustList<Struct>();
     private CustList<Struct> allObject = new CustList<Struct>();
@@ -17,8 +17,6 @@ public class NodeContainer {
     private Struct bean = NullStruct.NULL_VALUE;
 
     private Struct typedField = NullStruct.NULL_VALUE;
-
-    private String idClass;
     private String idFieldClass;
     private String idFieldName;
     private String varPrevName;
@@ -95,13 +93,8 @@ public class NodeContainer {
         return new ClassField(idFieldClass,idFieldName);
     }
 
-    public String getIdClass() {
-        return idClass;
-    }
-
-    public void setIdClass(String _idClass) {
-        this.idClass = _idClass;
-    }
+    public abstract boolean match(FieldUpdates _f);
+    public abstract void setIdClass(FieldUpdates _idClass);
 
     public String getIdFieldClass() {
         return idFieldClass;

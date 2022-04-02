@@ -16,10 +16,7 @@ import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.FormParts;
-import code.formathtml.exec.ImportingPage;
-import code.formathtml.exec.AdvancedFullStack;
-import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.*;
 import code.formathtml.exec.opers.*;
 import code.formathtml.exec.stacks.*;
 
@@ -145,14 +142,14 @@ public abstract class RendBlock {
         StringList arg_ = arg(alt_);
         _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts());
+            incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
             return;
         }
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
-        incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts());
+        incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
     }
 
     public static StringList arg(StringList _alt) {
@@ -169,17 +166,17 @@ public abstract class RendBlock {
         if (_nextWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
             _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         }
-        incrAncNb(_cont, _nextWrite, _formParts);
+        incrAncNb(_cont, _nextWrite, _formParts.getIndexes());
     }
 
-    public static void incrAncNb(Configuration _cont, Element _nextEltWrite, FormParts _formParts) {
+    public static void incrAncNb(Configuration _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
         if (StringUtil.quickEq(_nextEltWrite.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())
                 && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()))
                 || !_nextEltWrite.getAttribute(_cont.getRendKeyWords().getAttrHref()).isEmpty() )) {
-            long currentAnchor_ = _formParts.getIndexes().getAnchor();
+            long currentAnchor_ = _indexes.getAnchor();
             _nextEltWrite.setAttribute(_cont.getRendKeyWords().getAttrNa(), Long.toString(currentAnchor_));
             currentAnchor_++;
-            _formParts.getIndexes().setAnchor(currentAnchor_);
+            _indexes.setAnchor(currentAnchor_);
         }
     }
 
@@ -412,13 +409,12 @@ public abstract class RendBlock {
             }
             allObj_ = obj_;
         }
-        return prStack(_cont, _write, _f, new FetchedObjs(obj_, allObj_, wrap_, objClasses_, stack_, arg_, indexer_), _rendStackCall.getLastPage().getGlobalArgument(), _rendStackCall.getFormParts(), StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
+        return prStack(_cont, _write, _f, new FetchedObjs(obj_, allObj_, wrap_, objClasses_, stack_, arg_, indexer_), _rendStackCall.getLastPage().getGlobalArgument(),_rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
     }
 
-    public static Argument prStack(Configuration _cont, Element _write, FieldUpdates _f, FetchedObjs _fetch, Argument _globalArgument, FormParts _formParts, String _concat) {
+    public static Argument prStack(Configuration _cont, Element _write, FieldUpdates _f, FetchedObjs _fetch, Argument _globalArgument, AbsRendStackCall _rend, String _concat) {
         long found_ = -1;
         CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
-        String idCl_ = _f.getId();
         String varName_ = _f.getVarName();
         if (_fetch.getStack().isEmpty()) {
             return _fetch.getArg();
@@ -427,20 +423,26 @@ public abstract class RendBlock {
             if (!e.getValue().eqObj(_fetch.getAllObj())) {
                 continue;
             }
-            if (!StringUtil.quickEq(e.getValue().getIdClass(), idCl_)) {
+            if (!e.getValue().match(_f)) {
                 continue;
             }
             found_ = e.getKey();
             break;
         }
-        Struct currentField_ = _fetch.getArg().getStruct();
+        NodeContainer nodeCont_;
         if (found_ == -1) {
-            Longs inputs_ = _formParts.getInputs();
+            nodeCont_ = _rend.create();
+            nodeCont_.setIdClass(_f);
+        } else {
+            nodeCont_ = null;
+        }
+        Struct currentField_ = _fetch.getArg().getStruct();
+        FormParts formParts_ = _rend.getFormParts();
+        if (nodeCont_ != null) {
+            Longs inputs_ = formParts_.getInputs();
             long currentInput_ = inputs_.last();
-            NodeContainer nodeCont_ = new NodeContainer();
             nodeCont_.setIdFieldClass(_f.getIdClass());
             nodeCont_.setIdFieldName(_f.getIdName());
-            nodeCont_.setIdClass(idCl_);
             nodeCont_.setTypedStruct(currentField_);
             nodeCont_.setStruct(_fetch.getObj());
             nodeCont_.setAllObject(_fetch.getAllObj());
@@ -469,13 +471,13 @@ public abstract class RendBlock {
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
             _fetch.getStack().last().put(currentInput_, nodeCont_);
-            _formParts.getIndexes().setNb(currentInput_);
+            formParts_.getIndexes().setNb(currentInput_);
             currentInput_++;
             inputs_.set(inputs_.getLastIndex(),currentInput_);
         } else {
-            _formParts.getIndexes().setNb(found_);
+            formParts_.getIndexes().setNb(found_);
         }
-        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(_formParts.getIndexes().getNb()));
+        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(formParts_.getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _concat);
         return _fetch.getArg();

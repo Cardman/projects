@@ -1,9 +1,11 @@
 package code.bean.nat.fwd;
 
+import code.bean.nat.NatCaller;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.blocks.*;
 import code.bean.nat.analyze.opers.*;
+import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
@@ -179,7 +181,7 @@ public final class NatRendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             return new NatRendSelect(opRead_,opValue_,opsWrite_,opMap_,
                     f_.getElt(),
-                    initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassNameNat(), f_.getVarName(), f_.getVarNames()));
+                    initIn(f_.getCallerGet(), f_.getIdClass(), f_.getIdName(), f_.getClassNameNat(), f_.getVarName(), f_.getVarNames()));
         }
         if (_current instanceof NatAnaRendInput){
             NatAnaRendInput f_ = (NatAnaRendInput) _current;
@@ -191,7 +193,7 @@ public final class NatRendForwardInfos {
                 StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
                 StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
                 return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                        initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
+                        initIn(f_.getCallerGet(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
             }
             NatResultInput resultInput_ = f_.getResultInput();
             CustList<RendDynOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
@@ -200,7 +202,7 @@ public final class NatRendForwardInfos {
             StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<ExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                    initIn(f_.getId(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
+                    initIn(f_.getCallerGet(), f_.getIdClass(), f_.getIdName(), f_.getClassName(), f_.getVarName(), f_.getVarNames()));
         }
         if (_current instanceof NatAnaRendSpan){
             NatAnaRendSpan f_ = (NatAnaRendSpan) _current;
@@ -458,9 +460,8 @@ public final class NatRendForwardInfos {
         }
     }
 
-    private static FieldUpdates initIn(String _id, String _idClass, String _idName, String _className, String _varName, InputInfo _varNames) {
-        FieldUpdates fieldUpdates_ = new FieldUpdates();
-        fieldUpdates_.setId(_id);
+    private static FieldUpdates initIn(NatCaller _caller, String _idClass, String _idName, String _className, String _varName, InputInfo _varNames) {
+        NatFieldUpdates fieldUpdates_ = new NatFieldUpdates(_caller);
         fieldUpdates_.setIdClass(_idClass);
         fieldUpdates_.setIdName(_idName);
         fieldUpdates_.setClassName(_className);
