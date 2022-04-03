@@ -164,7 +164,6 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
     }
     @Override
     public void buildOther() {
-        buildBeans();
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
         CustList<StandardConstructor> constructors_;
@@ -244,18 +243,18 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_ONE, fields_, methods_, TYPE_BEAN);
         fields_.add(new StandardField(CHOSEN_NUMBER, STRING,false,false,new SampleStrFct(),new SampleStrFct()));
-        fields_.add(new StandardField(CHOSEN_NUMBERS,TYPE_ENUM_NUMBERS,false,false));
-        fields_.add(new StandardField(COMBOBOX,TYPE_ENUM_NUMBERS,false,false));
-        fields_.add(new StandardField(COMMON_CLASS, STRING,false,false));
+        fields_.add(new StandardField(CHOSEN_NUMBERS, TYPE_ENUM_NUMBERS, false, false,null,null));
+        fields_.add(new StandardField(COMBOBOX, TYPE_ENUM_NUMBERS, false, false,null,null));
+        fields_.add(new StandardField(COMMON_CLASS, STRING, false, false,null,null));
         fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false, new SampleCompositeInfo(),null));
         fields_.add(new StandardField(MAP, TYPE_MAP,false,false, new SampleBeanOneMap(),null));
         fields_.add(new StandardField(MESSAGE, STRING,false,false, new SampleBeanOneMessage(), null));
-        fields_.add(new StandardField(NUMBERS, TYPE_MAP,false,false));
+        fields_.add(new StandardField(NUMBERS, TYPE_MAP, false, false,null,null));
         fields_.add(new StandardField(SELECTED_STRING, STRING,false,false, new SampleBeanOneSelectedString(), null));
-        fields_.add(new StandardField(TRANSLATIONS, TYPE_MAP,false,false));
+        fields_.add(new StandardField(TRANSLATIONS, TYPE_MAP, false, false,null,null));
         fields_.add(new StandardField(TREE, TYPE_MAP,false,false, new SampleBeanOneTree(),null));
-        fields_.add(new StandardField(STRINGS,TYPE_STRING_LIST,false,false));
-        fields_.add(new StandardField(STRINGS_SEC,TYPE_STRING_LIST_SEC,false,false));
+        fields_.add(new StandardField(STRINGS, TYPE_STRING_LIST, false, false,null,null));
+        fields_.add(new StandardField(STRINGS_SEC, TYPE_STRING_LIST_SEC, false, false,null,null));
         params_ = new StringList(PRIM_INTEGER);
         method_ = new SpecNatMethod(GET_LIST, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
@@ -322,13 +321,13 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         cl_ = new SpecialNatClass(TYPE_BEAN_TWO, fields_, methods_, TYPE_BEAN);
         fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false, new SampleCompositeInfo(),null));
         fields_.add(new StandardField(CHECKED, PRIM_BOOLEAN,false,false, new SampleBeanTwoChecked(),new SampleBeanTwoCheckedSet()));
-        fields_.add(new StandardField(CHOOSE, STRING,false,false));
-        fields_.add(new StandardField(CHOSEN_NUMBER,TYPE_ENUM_NUMBER,false,false));
-        fields_.add(new StandardField(FIELD, STRING,false,false));
-        fields_.add(new StandardField(NULLABLE_CHECKBOX, PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(CHOOSE, STRING, false, false,null,null));
+        fields_.add(new StandardField(CHOSEN_NUMBER, TYPE_ENUM_NUMBER, false, false,null,null));
+        fields_.add(new StandardField(FIELD, STRING, false, false,null,null));
+        fields_.add(new StandardField(NULLABLE_CHECKBOX, PRIM_BOOLEAN, false, false,null,null));
         fields_.add(new StandardField(NULLABLE_INT, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
         fields_.add(new StandardField(NULLABLE_INT_2, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
-        fields_.add(new StandardField(RATE,TYPE_RATE,false,false));
+        fields_.add(new StandardField(RATE, TYPE_RATE, false, false,null,null));
         fields_.add(new StandardField(TYPED_INT, PRIM_INTEGER,false,false,new SampleStrFct(),new SampleStrFct()));
         fields_.add(new StandardField(TYPED_SHORT, PRIM_INTEGER,false,false, new SampleBeanTwoTypedShort(),new SampleBeanTwoTypedShortSet()));
         fields_.add(new StandardField(TYPED_STRING, STRING,false,false, new SampleBeanTwoTypedString(),new SampleBeanTwoTypedStringSet()));
@@ -367,10 +366,10 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_THREE, fields_, methods_, TYPE_BEAN);
-        fields_.add(new StandardField(INDEX, PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(INDEX_TWO, PRIM_INTEGER,false,false));
-        fields_.add(new StandardField(NUMBERS, TYPE_LIST,false,false));
-        fields_.add(new StandardField(NUMBERS_TWO, TYPE_LIST,false,false));
+        fields_.add(new StandardField(INDEX, PRIM_INTEGER, false, false,null,null));
+        fields_.add(new StandardField(INDEX_TWO, PRIM_INTEGER, false, false,null,null));
+        fields_.add(new StandardField(NUMBERS, TYPE_LIST, false, false,null,null));
+        fields_.add(new StandardField(NUMBERS_TWO, TYPE_LIST, false, false,null,null));
         getStds().addEntry(TYPE_BEAN_THREE, cl_);
     }
     private void buildBeanFour() {
@@ -406,12 +405,12 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         StringList params_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_FIVE, fields_, methods_, TYPE_BEAN);
-        fields_.add(new StandardField(CHOSEN_NUMBERS,TYPE_ENUM_NUMBERS,false,false));
-        fields_.add(new StandardField(CHOSEN_NUMBERS_NULL, TYPE_LIST,false,false));
-        fields_.add(new StandardField(COMBOBOX,TYPE_ENUM_NUMBERS,false,false));
-        fields_.add(new StandardField(SELECTED_STRINGS,TYPE_STRING_LIST,false,false));
-        fields_.add(new StandardField(TRANSLATIONS, TYPE_MAP,false,false));
-        fields_.add(new StandardField(TREE, TYPE_MAP,false,false));
+        fields_.add(new StandardField(CHOSEN_NUMBERS, TYPE_ENUM_NUMBERS, false, false,null,null));
+        fields_.add(new StandardField(CHOSEN_NUMBERS_NULL, TYPE_LIST, false, false,null,null));
+        fields_.add(new StandardField(COMBOBOX, TYPE_ENUM_NUMBERS, false, false,null,null));
+        fields_.add(new StandardField(SELECTED_STRINGS, TYPE_STRING_LIST, false, false,null,null));
+        fields_.add(new StandardField(TRANSLATIONS, TYPE_MAP, false, false,null,null));
+        fields_.add(new StandardField(TREE, TYPE_MAP, false, false,null,null));
         params_ = new StringList();
         method_ = new SpecNatMethod(GO, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
@@ -429,9 +428,9 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_SIX, fields_, methods_, TYPE_BEAN);
-        fields_.add(new StandardField(MY_ENUM_ONE,TYPE_ENUM_NUMBER,false,false));
-        fields_.add(new StandardField(MY_ENUM_THREE,TYPE_ENUM_NUMBER,false,false));
-        fields_.add(new StandardField(MY_ENUM_TWO,TYPE_ENUM_NUMBER,false,false));
+        fields_.add(new StandardField(MY_ENUM_ONE, TYPE_ENUM_NUMBER, false, false,null,null));
+        fields_.add(new StandardField(MY_ENUM_THREE, TYPE_ENUM_NUMBER, false, false,null,null));
+        fields_.add(new StandardField(MY_ENUM_TWO, TYPE_ENUM_NUMBER, false, false,null,null));
         getStds().addEntry(TYPE_BEAN_SIX, cl_);
     }
     private void buildBeanSeven() {
@@ -445,8 +444,8 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         StringList params_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_SEVEN, fields_, methods_, TYPE_BEAN);
-        fields_.add(new StandardField(ARRAY_INT,TYPE_INTS,false,true));
-        fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false));
+        fields_.add(new StandardField(ARRAY_INT, TYPE_INTS, false, true,null,null));
+        fields_.add(new StandardField(COMPOSITE, TYPE_COMPOSITE, false, false,null,null));
         params_ = new StringList();
         method_ = new SpecNatMethod(GET_TREE, TYPE_NAT_TREE_MAP_STRING_INTEGER, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
@@ -553,9 +552,9 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         StandardConstructor ctor_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_COMPOSITE, fields_, methods_, OBJECT);
-        fields_.add(new StandardField(DISPLAYED, PRIM_BOOLEAN,false,false));
+        fields_.add(new StandardField(DISPLAYED, PRIM_BOOLEAN, false, false,null,null));
         fields_.add(new StandardField(INTEGER, PRIM_INTEGER,false,false,new SampleCompositeInteger(),null));
-        fields_.add(new StandardField(MAP, TYPE_MAP,false,false));
+        fields_.add(new StandardField(MAP, TYPE_MAP, false, false,null,null));
 //        fields_.add(new StandardField(MY_CHAR, getContent().getPrimTypes().getAliasPrimChar(),false,false));
         fields_.add(new StandardField(STRING_FCT, STRING,false,false, new SampleStrFct(),new SampleStrFct()));
         fields_.add(new StandardField(STRINGS,TYPE_STRING_LIST,false,false, new SampleCompositeStrings(),null));
@@ -601,7 +600,7 @@ public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNat
         StringList params_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_UTIL, fields_, methods_, OBJECT);
-        fields_.add(new StandardField(NB_BEANS, PRIM_BOOLEAN,true,true));
+        fields_.add(new StandardField(NB_BEANS, PRIM_BOOLEAN, true, true,null,null));
         params_ = new StringList(PRIM_INTEGER, PRIM_INTEGER);
         method_ = new SpecNatMethod(SUM, PRIM_INTEGER, false, MethodModifier.STATIC, null);
         methods_.add( method_);

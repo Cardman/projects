@@ -71,7 +71,6 @@ public final class BeloteStandards extends BeanNatLgNames {
     }
     @Override
     public void buildOther() {
-        buildBeans();
         buildBeloteBean();
         buildResultsBeloteBean();
         buildLineDeal();

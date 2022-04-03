@@ -51,7 +51,6 @@ public final class PresidentStandards extends BeanNatLgNames {
     }
     @Override
     public void buildOther() {
-        buildBeans();
         buildPresidentBean();
         buildLineDeal();
         buildRulesPresidentBean();

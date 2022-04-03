@@ -112,7 +112,6 @@ public final class TarotStandards extends BeanNatLgNames {
     }
     @Override
     public void buildOther() {
-        buildBeans();
         buildTarotBean();
         buildResultsTarotBean();
         buildSumDeclaringPlayer();

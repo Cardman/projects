@@ -190,7 +190,6 @@ public final class PokemonStandards extends BeanNatLgNames implements AbstractNa
     }
     @Override
     public void buildOther() {
-        buildBeans();
         AikiBeansAbilitiesStd.build(this);
         AikiBeansStd.build(this);
         AikiBeansEffectsStd.build(this);

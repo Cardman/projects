@@ -13,10 +13,6 @@ public final class StandardField {
     private final NatCaller callerGet;
     private final NatCaller callerSet;
     public StandardField(String _fieldName, String _className,
-                         boolean _staticField, boolean _finalField) {
-        this(_fieldName,_className,_staticField,_finalField,null,null);
-    }
-    public StandardField(String _fieldName, String _className,
                          boolean _staticField, boolean _finalField, NatCaller _callerGet, NatCaller _callerSet) {
         fieldName = _fieldName;
         className = _className;

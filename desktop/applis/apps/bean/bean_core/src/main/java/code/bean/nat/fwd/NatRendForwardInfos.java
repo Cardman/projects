@@ -273,7 +273,7 @@ public final class NatRendForwardInfos {
         return parts_;
     }
 
-    public static CustList<RendDynOperationNode> getExecutableNodes(NatOperationNode _root) {
+    private static CustList<RendDynOperationNode> getExecutableNodes(NatOperationNode _root) {
         if (_root == null){
             return new CustList<RendDynOperationNode>();
         }
