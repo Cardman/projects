@@ -1,12 +1,8 @@
 package code.bean.help.exec.blocks;
 
-import code.bean.nat.exec.NatImportingPage;
-import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.*;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.stacks.RendAbstractStask;
-import code.formathtml.exec.stacks.RendIfStack;
-import code.formathtml.exec.stacks.RendReadWrite;
 
 public final class HelpRendBlockHelp {
     static final String EMPTY_STRING = "";
@@ -22,23 +18,23 @@ public final class HelpRendBlockHelp {
 
     public static void processBlock(NatRendStackCall _rendStackCall, RendBlock _rendBlock) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
+        NatRendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock nextSibling_ = _rendBlock.getNextSibling();
         if (nextSibling_ != null) {
             rw_.setRead(nextSibling_);
             return;
         }
         RendParentBlock par_ = _rendBlock.getParent();
-        RendAbstractStask lastStack_ = ip_.tryGetRendLastStack();
+        NatAbstractStask lastStack_ = ip_.tryGetRendLastStack();
         if (lastStack_ != null) {
             rw_.setRead(par_);
-            nextIfStack(rw_, (RendIfStack) lastStack_);
+            nextIfStack(rw_, (NatIfStack) lastStack_);
             return;
         }
         ip_.setNullRendReadWrite();
     }
 
-    private static void nextIfStack(RendReadWrite _rw, RendIfStack _lastStack) {
+    private static void nextIfStack(NatRendReadWrite _rw, NatIfStack _lastStack) {
         _rw.setRead(_lastStack.getLastBlock());
     }
 

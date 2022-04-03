@@ -1,7 +1,6 @@
 package code.gui.document;
 
 import code.formathtml.HtmlPage;
-import code.formathtml.Navigation;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
@@ -26,8 +25,7 @@ public final class AnchorEvent extends AbsMouseListenerRel {
         for (DualAnimatedImage d: page.getAnims()) {
             d.getImageThread().setAnimated(false);
         }
-        Navigation nav_ = page.getNavigation();
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
+        HtmlPage htmlPage_ = page.getStandards().getPage();
         htmlPage_.setForm(false);
         htmlPage_.setUrl(nb);
         page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, false,anchor));

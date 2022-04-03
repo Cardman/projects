@@ -1,17 +1,27 @@
 package code.bean.nat.exec;
 
+import code.bean.nat.NatHtmlPage;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.AbsRendStackCall;
-import code.formathtml.util.NodeContainer;
 import code.util.CustList;
 
 public final class NatRendStackCall extends AbsRendStackCall {
+    private final NatHtmlPage htmlPage = new NatHtmlPage();
 
     private final CustList<NatImportingPage> importing = new CustList<NatImportingPage>();
+    private final NatFormParts natFormParts;
 
-    @Override
-    public NodeContainer create() {
-        return new NatNodeContainer();
+    public NatRendStackCall() {
+        super();
+        natFormParts = new NatFormParts();
+    }
+
+    public NatHtmlPage getHtmlPage() {
+        return htmlPage;
+    }
+
+    public NatFormParts getFormParts() {
+        return natFormParts;
     }
 
     public void clearPages() {

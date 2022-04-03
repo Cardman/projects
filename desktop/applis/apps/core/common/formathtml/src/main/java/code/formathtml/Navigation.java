@@ -4,12 +4,13 @@ import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.AbsRendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.structs.Message;
 import code.formathtml.util.*;
 import code.sml.*;
-import code.util.*;
+import code.util.EntryCust;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -35,7 +36,6 @@ public final class Navigation {
 
     private String title = EMPTY_STRING;
     private Document document;
-    private HtmlPage htmlPage;
 
     public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_cont);
@@ -116,11 +116,8 @@ public final class Navigation {
     }
 
     public void processRendFormErrors(BeanLgNames _advStandards, Element _formElement, long _id,
-                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs, AbsRendStackCall _rend) {
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
-        containersMap_ = htmlPage.getContainers();
-        StringList idFormats_ = htmlPage.getFormatIdMap().getVal(_id);
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(_id);
+                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs) {
+        StringList idFormats_ = _advStandards.getPage().getFormatIdMap().getVal(_id);
         for (String i : _errors.getKeys()) {
             int count_ = 0;
             ElementList spans_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
@@ -151,13 +148,13 @@ public final class Navigation {
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeContainer nCont_ = getValue(_rend,containers_, idInput_);
+            NodeInformations nCont_ = getValue(_id, idInput_, _advStandards.getPage());
             if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueText())) {
-                elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
+                elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getValue().first());
                 continue;
             }
             if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueCheckbox())) {
-                if (StringUtil.quickEq(nCont_.getNodeInformation().getValue().first(),BeanLgNames.ON)) {
+                if (StringUtil.quickEq(nCont_.getValue().first(),BeanLgNames.ON)) {
                     elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
                 } else {
                     elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
@@ -166,7 +163,7 @@ public final class Navigation {
             }
             if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueRadio())) {
                 String value_ = elt_.getAttribute(session.getRendKeyWords().getAttrValue());
-                if (StringUtil.quickEq(nCont_.getNodeInformation().getValue().first(), value_)) {
+                if (StringUtil.quickEq(nCont_.getValue().first(), value_)) {
                     elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
                 } else {
                     elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
@@ -176,19 +173,19 @@ public final class Navigation {
             if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueSubmit())) {
                 continue;
             }
-            elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getNodeInformation().getValue().first());
+            elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getValue().first());
         }
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSelect());
         lengthInputs_ = inputs_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeContainer nCont_ = getValue(_rend,containers_, idInput_);
+            NodeInformations nCont_ = getValue(_id, idInput_, _advStandards.getPage());
             ElementList options_ = elt_.getElementsByTagName(session.getRendKeyWords().getKeyWordOption());
             int optionsLen_ = options_.getLength();
             for (int j = IndexConstants.FIRST_INDEX; j < optionsLen_; j++) {
                 Element option_ = options_.item(j);
-                if (StringUtil.contains(nCont_.getNodeInformation().getValue(), option_.getAttribute(session.getRendKeyWords().getAttrValue()))) {
+                if (StringUtil.contains(nCont_.getValue(), option_.getAttribute(session.getRendKeyWords().getAttrValue()))) {
                     option_.setAttribute(session.getRendKeyWords().getAttrSelected(), session.getRendKeyWords().getAttrSelected());
                 } else {
                     option_.removeAttribute(session.getRendKeyWords().getAttrSelected());
@@ -200,40 +197,43 @@ public final class Navigation {
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
             Element elt_ = inputs_.item(i);
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
-            NodeContainer nCont_ = getValue(_rend,containers_, idInput_);
+            NodeInformations nCont_ = getValue(_id, idInput_, _advStandards.getPage());
             NodeList children_ = elt_.getChildNodes();
             int ch_ = children_.getLength();
             for (int j = IndexConstants.FIRST_INDEX; j < ch_; j++) {
                 elt_.removeChild(children_.item(j));
             }
-            Text text_ = document.createTextNode(nCont_.getNodeInformation().getValue().first());
+            Text text_ = document.createTextNode(nCont_.getValue().first());
             elt_.appendChild(text_);
         }
-        setupText(document.export(),_advStandards, document, htmlPage);
+        setupText(document.export(),_advStandards);
     }
 
-    private static NodeContainer getValue(AbsRendStackCall _rend,LongTreeMap<NodeContainer> _containers, String _idInput) {
+    private static NodeInformations getValue(long _id, String _idInput, HtmlPage _htmlPage) {
         NodeContainer val_;
         if (_idInput.isEmpty()) {
             val_ = null;
         } else {
-            val_ = _containers.getVal(NumberUtil.parseLongZero(_idInput));
+            val_ = _htmlPage.getContainer(_id,NumberUtil.parseLongZero(_idInput));
         }
         if (val_ == null) {
-            val_ = _rend.create();
+            return new NodeInformations();
         }
-        return val_;
+        return val_.getNodeInformation();
     }
 
-    public void setupText(String _text, BeanLgNames _advStandards, Document _document, HtmlPage _htmlPage) {
+    public boolean setupText(String _text, BeanLgNames _advStandards, Document _document) {
         if (_text.isEmpty()) {
-            return;
+            return false;
         }
         document = _document;
-        htmlPage = _htmlPage;
+        setupText(_text, _advStandards);
+        return true;
+    }
+    public void setupText(String _text, BeanLgNames _advStandards) {
         ElementList nodes_;
         title = EMPTY_STRING;
-        nodes_ = _document.getElementsByTagName(session.getRendKeyWords().getKeyWordHead());
+        nodes_ = document.getElementsByTagName(session.getRendKeyWords().getKeyWordHead());
         int size_ = nodes_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
             Element node_ = nodes_.item(i);
@@ -252,10 +252,6 @@ public final class Navigation {
         } else {
             referenceScroll = EMPTY_STRING;
         }
-    }
-
-    public HtmlPage getHtmlPage() {
-        return htmlPage;
     }
 
     public Configuration getSession() {

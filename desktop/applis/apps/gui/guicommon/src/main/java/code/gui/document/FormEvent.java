@@ -2,8 +2,8 @@ package code.gui.document;
 
 
 import code.formathtml.render.SubmitForm;
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerRel;
 
@@ -27,7 +27,7 @@ public final class FormEvent extends AbsMouseListenerRel {
         for (DualAnimatedImage d: page.getAnims()) {
             d.getImageThread().setAnimated(false);
         }
-        SubmitForm.submit(form_,page.getNavigation());
+        SubmitForm.submit(form_, page.getStandards());
         page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, true,form_.getElt()));
         page.animateProcess();
     }

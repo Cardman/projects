@@ -7,16 +7,13 @@ import code.util.CustList;
 
 public final class NatRendIfCondition extends NatRendCondition {
 
-    private final String label;
-
-    public NatRendIfCondition(CustList<RendDynOperationNode> _op, int _offset, String _label) {
+    public NatRendIfCondition(CustList<RendDynOperationNode> _op, int _offset) {
         super(_op,_offset);
-        label = _label;
     }
 
     @Override
     public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
-        RendBlockHelp.processIf(_rendStack, label, this);
+        RendBlockHelp.processIf(_rendStack, this);
     }
 
 }

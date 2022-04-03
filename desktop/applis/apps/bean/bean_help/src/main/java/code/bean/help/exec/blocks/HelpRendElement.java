@@ -1,14 +1,14 @@
 package code.bean.help.exec.blocks;
 
 import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatRendReadWrite;
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.blocks.NatExecTextPart;
 import code.bean.nat.exec.blocks.NatRendElement;
 import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendElem;
 import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.stacks.RendReadWrite;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
@@ -17,9 +17,9 @@ import code.util.StringMap;
 
 public abstract class HelpRendElement extends RendParentBlock implements RendElem, NatRendWithEl {
     private final Element read;
-    private final StringMap<ExecTextPart> helpAttributes;
+    private final StringMap<NatExecTextPart> helpAttributes;
 
-    protected HelpRendElement(Element _read, StringMap<ExecTextPart> _execAttributes) {
+    protected HelpRendElement(Element _read, StringMap<NatExecTextPart> _execAttributes) {
         this.read = _read;
         this.helpAttributes = _execAttributes;
     }
@@ -31,7 +31,7 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
     @Override
     public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = _rendStack.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
+        NatRendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
             HelpRendBlockHelp.processBlockAndRemove(_rendStack, this);
             return;
@@ -39,8 +39,8 @@ public abstract class HelpRendElement extends RendParentBlock implements RendEle
         Document ownerDocument_ = rw_.getDocument();
         Element created_ = appendChild(ownerDocument_, rw_, read);
         processExecAttr(_cont,created_,read, _rendStack);
-        for (EntryCust<String, ExecTextPart> e: helpAttributes.entryList()) {
-            ExecTextPart res_ = e.getValue();
+        for (EntryCust<String, NatExecTextPart> e: helpAttributes.entryList()) {
+            NatExecTextPart res_ = e.getValue();
             String txt_ = HelpRenderingText.render(res_);
             created_.setAttribute(e.getKey(),txt_);
         }

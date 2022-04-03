@@ -1,48 +1,33 @@
 package code.formathtml;
 
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
 import code.util.LongMap;
-import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public final class HtmlPage {
+public abstract class HtmlPage {
 
-    private LongMap<LongTreeMap<NodeContainer>> containers = new LongMap<LongTreeMap<NodeContainer>>();
-
-    private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> anchorsArgs = new CustList<StringList>();
     private CustList<StringList> anchorsVars = new CustList<StringList>();
 
     private LongMap<StringList> formatIdMap = new LongMap<StringList>();
 
-    private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
     private CustList<StringList> formsArgs = new CustList<StringList>();
     private CustList<StringList> formsVars = new CustList<StringList>();
 
     private long url = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private boolean form;
+    protected HtmlPage() {
+    }
 
-    public void set(FormParts _form) {
-        setContainers(_form.getContainersMap());
+    public void setBase(FormParts _form) {
         setFormatIdMap(_form.getFormatIdMap());
-        setCallsExps(_form.getCallsExps());
         setAnchorsArgs(_form.getAnchorsArgs());
         setAnchorsVars(_form.getAnchorsVars());
-        setCallsFormExps(_form.getCallsFormExps());
         setFormsArgs(_form.getFormsArgs());
         setFormsVars(_form.getFormsVars());
-    }
-
-    public LongMap<LongTreeMap<NodeContainer>> getContainers() {
-        return containers;
-    }
-
-    public void setContainers(LongMap<LongTreeMap<NodeContainer>> _containers) {
-        containers = _containers;
     }
 
     public long getUrl() {
@@ -59,22 +44,6 @@ public final class HtmlPage {
 
     public void setForm(boolean _form) {
         form = _form;
-    }
-
-    public CustList<CustList<RendDynOperationNode>> getCallsExps() {
-        return callsExps;
-    }
-
-    public void setCallsExps(CustList<CustList<RendDynOperationNode>> _callsExps) {
-        callsExps = _callsExps;
-    }
-
-    public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
-        return callsFormExps;
-    }
-
-    public void setCallsFormExps(CustList<CustList<RendDynOperationNode>> _callsFormExps) {
-        callsFormExps = _callsFormExps;
     }
 
     public CustList<StringList> getAnchorsArgs() {
@@ -117,4 +86,5 @@ public final class HtmlPage {
         formatIdMap = _formatIdMap;
     }
 
+    public abstract NodeContainer getContainer(long _formNb, long _nbId);
 }

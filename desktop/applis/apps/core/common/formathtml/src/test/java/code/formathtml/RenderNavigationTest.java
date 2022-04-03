@@ -6,13 +6,18 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.structs.*;
-
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
-import code.formathtml.util.*;
+import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.DefNodeContainer;
+import code.formathtml.util.NodeContainer;
+import code.formathtml.util.NodeInformations;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
-import code.util.*;
+import code.util.LongMap;
+import code.util.LongTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 import org.junit.Test;
 
 public final class RenderNavigationTest extends CommonRender {
@@ -49,7 +54,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -115,7 +120,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -127,7 +132,7 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation navigation = _nav.getNavigation();
         BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
         RendStackCall _rendStack = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation.getDocument(), navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(navigation.getHtmlPage().getUrl())), navigation, _ctx, _rendStack);
+        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation.getDocument(), navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation, _ctx, _rendStack);
     }
 
     private static void processRendAnchorRequest2(DualNavigationContext _nav, ContextEl _ctx) {
@@ -136,14 +141,14 @@ public final class RenderNavigationTest extends CommonRender {
         Navigation navigation = _nav.getNavigation();
         BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
         RendStackCall _rendStack = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(doc_, navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(navigation.getHtmlPage().getUrl())), navigation, _ctx, _rendStack);
+        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(doc_, navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation, _ctx, _rendStack);
     }
 
     private static Struct processRendAnchorRequestExc(DualNavigationContext _nav, ContextEl _ctx) {
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
         Navigation navigation = _nav.getNavigation();
         BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
-        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation.getDocument(), navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(navigation.getHtmlPage().getUrl())), navigation, _ctx, rendStackCall_);
+        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation.getDocument(), navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation, _ctx, rendStackCall_);
         return getException(rendStackCall_);
     }
 
@@ -305,7 +310,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendAnchorRequestExc(a_,ctx_));
     }
 
@@ -363,7 +368,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest2(a_,ctx_);
         assertEq("<html><body><a c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.click($int)\" href=\"\" n-a=\"0\"/></body></html>",a_.getNavigation().getHtmlText());
     }
@@ -416,7 +421,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -472,7 +477,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page3.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -527,7 +532,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -582,7 +587,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -638,7 +643,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -699,7 +704,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
         
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_two", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -754,7 +759,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -812,7 +817,7 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendAnchorRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -873,10 +878,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -886,7 +891,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(-1);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(-1);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
     }
     @Test
@@ -944,10 +949,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -957,7 +962,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1031,10 +1036,10 @@ public final class RenderNavigationTest extends CommonRender {
         Struct array_ = getStruct(choice_,new ClassField("pkg.CustList", "list"));
         assertEq(1, ((ArrayStruct)array_).getInstance().length);
         assertEq("TWO", ((StringStruct) ((ArrayStruct)array_).getInstance()[0]).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1044,7 +1049,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1107,10 +1112,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1126,7 +1131,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("4");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1189,10 +1194,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(-1, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(-1, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1208,7 +1213,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1274,10 +1279,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1293,7 +1298,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("4");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1359,10 +1364,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1372,7 +1377,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1435,10 +1440,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1447,7 +1452,7 @@ public final class RenderNavigationTest extends CommonRender {
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1510,10 +1515,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1529,7 +1534,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("4");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
 
     }
@@ -1588,10 +1593,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1607,7 +1612,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("4");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
 
     }
@@ -1653,10 +1658,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq(2, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1666,7 +1671,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("1");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1734,10 +1739,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1747,7 +1752,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1816,10 +1821,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1829,7 +1834,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1898,10 +1903,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1911,7 +1916,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -1989,10 +1994,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2002,7 +2007,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2071,10 +2076,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2084,7 +2089,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2154,10 +2159,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2173,7 +2178,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2245,10 +2250,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2264,7 +2269,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("on");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2331,10 +2336,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2344,7 +2349,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("6");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2418,10 +2423,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2449,7 +2454,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ta");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2521,10 +2526,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2534,7 +2539,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2603,10 +2608,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2616,7 +2621,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2685,10 +2690,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2698,7 +2703,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2767,10 +2772,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2780,7 +2785,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -2908,10 +2913,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2927,7 +2932,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("8");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3002,10 +3007,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3021,7 +3026,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("8");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3085,7 +3090,7 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         Navigation nav_ = a_.getNavigation();
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
@@ -3143,7 +3148,7 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         Navigation nav_ = a_.getNavigation();
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
@@ -3201,7 +3206,7 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         Navigation nav_ = a_.getNavigation();
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
@@ -3252,7 +3257,7 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall rendStackCall = initializeRendSession(ctx_, a_.getNavigation(), a_);
         assertNull(rendStackCall.getStackCall().getCallingState());
-        a_.getNavigation().getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
@@ -3309,7 +3314,7 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         Navigation nav_ = a_.getNavigation();
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
 
@@ -3365,10 +3370,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3384,7 +3389,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("4");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3446,10 +3451,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "indexTwo"));
         assertEq(6, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3465,7 +3470,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("4");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3517,10 +3522,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3530,7 +3535,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("6");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3580,10 +3585,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3593,7 +3598,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("6/");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3643,10 +3648,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).doubleStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3656,7 +3661,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("6/");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3744,10 +3749,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3757,7 +3762,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("6");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3795,10 +3800,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "textField"));
         assertEq("txt", ((StringStruct)choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3808,7 +3813,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("after");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3846,10 +3851,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "textField"));
         assertEq("txt", ((StringStruct)choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3858,7 +3863,7 @@ public final class RenderNavigationTest extends CommonRender {
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3896,10 +3901,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
         assertTrue(BooleanStruct.isFalse(choice_));
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3909,7 +3914,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("on");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3946,10 +3951,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "boolField"));
         assertTrue(BooleanStruct.isTrue(choice_));
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -3959,7 +3964,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("off");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -4007,10 +4012,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4019,7 +4024,7 @@ public final class RenderNavigationTest extends CommonRender {
         ni_ = nc_.getNodeInformation();
         values_ = new StringList();
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -4069,10 +4074,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq('4', ((CharStruct) choice_).getChar());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4082,7 +4087,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("6");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -4131,10 +4136,10 @@ public final class RenderNavigationTest extends CommonRender {
         
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertSame(NullStruct.NULL_VALUE, choice_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4144,7 +4149,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -4222,10 +4227,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4241,7 +4246,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("8");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -4302,7 +4307,7 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall rendStackCall = initializeRendSession(ctx_, a_.getNavigation(), a_);
         assertNull(rendStackCall.getStackCall().getCallingState());
-        a_.getNavigation().getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
@@ -4357,9 +4362,9 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_, getStringStringMap(folder_, locale_, relative_, content_, html_, html_), a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         assertNull(rendStackCall_.getStackCall().getCallingState());
-        a_.getNavigation().getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         //        checkNoExc(session_);
-//        nav_.getHtmlPage().setUrl(0);
+//        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
 
@@ -4428,10 +4433,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4447,7 +4452,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("8");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -4523,10 +4528,10 @@ public final class RenderNavigationTest extends CommonRender {
         assertEq(2, ((NumberStruct) choice_).intStruct());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choiceSec"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4542,7 +4547,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("8");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page2.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -4604,11 +4609,11 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_, getStringStringMap(folder_, locale_, relative_, content_, html_, html_), a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         assertNull(rendStackCall_.getStackCall().getCallingState());
-        a_.getNavigation().getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
 //        AnalyzedTestNavigation session_ = a_;
 //        Navigation nav_ = session_.getNav();
 //        checkNoExc(session_);
-//        nav_.getHtmlPage().setUrl(0);
+//        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
@@ -4662,9 +4667,9 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_, getStringStringMap(folder_, locale_, relative_, content_, html_, html_), a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         assertNull(rendStackCall_.getStackCall().getCallingState());
-        a_.getNavigation().getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         //        checkNoExc(session_);
-//        nav_.getHtmlPage().setUrl(0);
+//        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
     @Test
@@ -4719,9 +4724,9 @@ public final class RenderNavigationTest extends CommonRender {
         ContextEl ctx_ = ana(filesSec_, getStringStringMap(folder_, locale_, relative_, content_, html_, html_), a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         assertNull(rendStackCall_.getStackCall().getCallingState());
-        a_.getNavigation().getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         //        checkNoExc(session_);
-//        nav_.getHtmlPage().setUrl(0);
+//        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
 
@@ -4786,10 +4791,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4799,7 +4804,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -4874,10 +4879,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4887,7 +4892,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
     }
@@ -4952,10 +4957,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(2, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -4965,7 +4970,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5039,10 +5044,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(2, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5052,7 +5057,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5126,10 +5131,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(2, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5139,7 +5144,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5213,10 +5218,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(2, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5226,7 +5231,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5300,10 +5305,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(2, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5313,7 +5318,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5387,10 +5392,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).getInstance()[0];
         assertEq(2, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5400,7 +5405,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5460,10 +5465,10 @@ public final class RenderNavigationTest extends CommonRender {
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).get(0);
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(4, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5473,7 +5478,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5534,10 +5539,10 @@ public final class RenderNavigationTest extends CommonRender {
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).get(0);
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(4, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5547,7 +5552,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5608,10 +5613,10 @@ public final class RenderNavigationTest extends CommonRender {
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).get(0);
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(4, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5621,7 +5626,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5682,10 +5687,10 @@ public final class RenderNavigationTest extends CommonRender {
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).get(0);
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(4, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5695,7 +5700,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5756,10 +5761,10 @@ public final class RenderNavigationTest extends CommonRender {
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).get(0);
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(4, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5769,7 +5774,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5830,10 +5835,10 @@ public final class RenderNavigationTest extends CommonRender {
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).get(0);
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(4, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5843,7 +5848,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5904,10 +5909,10 @@ public final class RenderNavigationTest extends CommonRender {
         Struct choice_ = ((ArrayStruct) getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "numbers"))).get(0);
         choice_ = ((ArrayStruct)choice_).get(1);
         assertEq(4, ((NumberStruct) choice_).longStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5917,7 +5922,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("9");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -5966,10 +5971,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4.0, ((DoubleStruct) choice_).doubleStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -5979,7 +5984,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("6");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -6029,10 +6034,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4.0, ((DoubleStruct) choice_).doubleStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -6042,7 +6047,7 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("a");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
 
@@ -6087,10 +6092,10 @@ public final class RenderNavigationTest extends CommonRender {
 
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "index"));
         assertEq(4, ((NumberStruct) choice_).intStruct());
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        DefHtmlPage htmlPage_ = (DefHtmlPage)a_.getDualAnalyzedContext().getStds().getCustPage();
+        LongMap<LongTreeMap<DefNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -6100,18 +6105,18 @@ public final class RenderNavigationTest extends CommonRender {
         values_ = new StringList();
         values_.add("a");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
     }
 
     private static void processRendFormRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getNavigation().getHtmlPage().getUrl())));
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())));
     }
 
     private static Struct processRendFormRequestExc(DualNavigationContext _nav, ContextEl _ctx) {
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, rendStackCall_, DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getNavigation().getHtmlPage().getUrl())));
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, rendStackCall_, DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())));
         return getException(rendStackCall_);
     }
 

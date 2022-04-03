@@ -1,16 +1,27 @@
 package code.bean.nat.exec;
 
-import code.bean.nat.NatCaller;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.FieldUpdates;
+import code.util.CustList;
 
 public final class NatFieldUpdates extends FieldUpdates {
-    private final NatCaller use;
+    private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
+    private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
 
-    public NatFieldUpdates(NatCaller _u) {
-        this.use = _u;
+    public CustList<RendDynOperationNode> getOpsRead() {
+        return opsRead;
     }
 
-    public NatCaller getUse() {
-        return use;
+    public void setOpsRead(CustList<RendDynOperationNode> _opsRead) {
+        opsRead = _opsRead;
     }
+
+    public CustList<RendDynOperationNode> getOpsWrite() {
+        return opsWrite;
+    }
+
+    public void setOpsWrite(CustList<RendDynOperationNode> _opsWrite) {
+        opsWrite = _opsWrite;
+    }
+
 }

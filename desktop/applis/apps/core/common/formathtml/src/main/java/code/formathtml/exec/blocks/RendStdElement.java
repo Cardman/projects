@@ -10,7 +10,7 @@ import code.util.StringMap;
 
 public final class RendStdElement extends RendElement implements RendStdEl {
 
-    public RendStdElement(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
+    public RendStdElement(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText) {
         super(_read, _execAttributes, _execAttributesText);
     }
 

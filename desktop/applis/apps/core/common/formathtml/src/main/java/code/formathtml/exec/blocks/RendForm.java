@@ -3,22 +3,26 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.FormParts;
+import code.formathtml.exec.DefFormParts;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
-import code.formathtml.util.NodeContainer;
+import code.formathtml.util.DefNodeContainer;
 import code.sml.Element;
 import code.sml.Node;
-import code.util.*;
+import code.util.CustList;
+import code.util.LongTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class RendForm extends RendElement implements RendFormInt {
     private final CustList<RendDynOperationNode> opForm;
 
     private final StringList varNames;
-    private final ExecTextPart textPart;
+    private final DefExecTextPart textPart;
 
-    public RendForm(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, ExecTextPart _textPart) {
+    public RendForm(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, DefExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.opForm = _opForm;
         this.varNames = _varNames;
@@ -27,7 +31,10 @@ public final class RendForm extends RendElement implements RendFormInt {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        feedFormParts(opForm, varNames, _rendStack.getFormParts());
+        DefFormParts _formParts = _rendStack.getFormParts();
+        _formParts.getContainersMapStack().add(new LongTreeMap<DefNodeContainer>());
+        _formParts.getCallsFormExps().add(opForm);
+        incrForm(varNames, _formParts);
         long currentForm_;
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
@@ -53,15 +60,13 @@ public final class RendForm extends RendElement implements RendFormInt {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
     }
 
-    public static void feedFormParts(CustList<RendDynOperationNode> _opForm, StringList _varNames, FormParts _formParts) {
-        long currentForm_ = _formParts.getCurrentForm();
-        _formParts.getContainersMapStack().add(new LongTreeMap< NodeContainer>());
+    public static void incrForm(StringList _varNames, FormParts _formParts) {
         _formParts.getFormatIdMapStack().add(new StringList());
+        long currentForm_ = _formParts.getCurrentForm();
         _formParts.getFormsNb().add(currentForm_);
         _formParts.getInputs().add(0L);
         currentForm_++;
         _formParts.setCurrentForm(currentForm_);
-        _formParts.getCallsFormExps().add(_opForm);
         _formParts.getFormsVars().add(_varNames);
     }
 

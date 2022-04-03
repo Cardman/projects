@@ -18,14 +18,14 @@ public final class RendTitledAnchor extends RendElement {
     private final CustList<RendDynOperationNode> opExpAnch;
     private StringList varNames = new StringList();
 
-    private final StringMap<ExecTextPart> opExpTitle;
+    private final StringMap<DefExecTextPart> opExpTitle;
 
     private final StringMap<String> preformatted;
-    private final ExecTextPart textPart;
+    private final DefExecTextPart textPart;
 
-    public RendTitledAnchor(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+    public RendTitledAnchor(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
                             CustList<RendDynOperationNode> _opExpAnch, StringList _varNames,
-                            StringMap<ExecTextPart> _opExpTitle, StringMap<String> _preformatted, ExecTextPart _textPart) {
+                            StringMap<DefExecTextPart> _opExpTitle, StringMap<String> _preformatted, DefExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.opExpAnch = _opExpAnch;
         this.varNames = _varNames;
@@ -45,8 +45,8 @@ public final class RendTitledAnchor extends RendElement {
         curWr_.removeAttribute(_cont.getRendKeyWords().getAttrValue());
         curWr_.removeAttribute(_cont.getRendKeyWords().getAttrEscapedAmp());
         StringList objects_ = new StringList();
-        for (EntryCust<String, ExecTextPart> e:opExpTitle.entryList()) {
-            ExecTextPart r_ = e.getValue();
+        for (EntryCust<String, DefExecTextPart> e:opExpTitle.entryList()) {
+            DefExecTextPart r_ = e.getValue();
             objects_.add(RenderingText.render(r_, _ctx, _rendStack));
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 incrAncNb(_cont, (Element) _nextWrite, _rendStack.getFormParts().getIndexes());

@@ -2,7 +2,6 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.sml.Element;
 import code.sml.Node;
@@ -14,11 +13,11 @@ public final class NatRendAnchor extends NatRendElement {
     private final CustList<RendDynOperationNode> opExpAnch;
 
     private final StringList varNames;
-    private final ExecTextPart textPart;
+    private final NatExecTextPart textPart;
 
-    public NatRendAnchor(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+    public NatRendAnchor(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText,
                          CustList<RendDynOperationNode> _opAnc,
-                         StringList _varNames, ExecTextPart _textPart) {
+                         StringList _varNames, NatExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         opExpAnch = _opAnc;
         this.varNames = _varNames;

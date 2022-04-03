@@ -3,14 +3,16 @@ package code.bean.help.fwd;
 import code.bean.help.analyze.HelpResultText;
 import code.bean.help.analyze.blocks.*;
 import code.bean.help.exec.blocks.*;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.bean.nat.exec.blocks.NatDocumentBlock;
+import code.bean.nat.exec.blocks.NatExecTextPart;
+import code.bean.nat.fwd.NatAnaExec;
+import code.bean.nat.fwd.NatRendForwardInfos;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.blocks.*;
+import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.fwd.RendAnaExec;
-import code.formathtml.fwd.RendForwardInfos;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -20,18 +22,18 @@ import code.util.core.StringUtil;
 public final class HelpRendForwardInfos {
     private HelpRendForwardInfos() {
     }
-    private static RendDocumentBlock build(AnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
-        RendDocumentBlock rendDoc_ = new RendDocumentBlock("",null,null,_ana.getElt(), _ana.getBeanName(), ExecFormattedRootBlock.defValue());
-        RendAnaExec pair_ = new RendAnaExec(_ana, rendDoc_);
-        while (pair_.getRead() != null) {
-            RendBlock loc_ = newHelpRendBlock(pair_.getRead());
-            pair_.setWrite(completeHelp(_anaDoc, rendDoc_, pair_.getWrite(), loc_));
-            RendForwardInfos.nextPair(pair_);
+    private static NatDocumentBlock build(AnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
+        NatDocumentBlock rendDoc_ = new NatDocumentBlock(_ana.getElt(), _ana.getBeanName());
+        NatAnaExec pair_ = new NatAnaExec(_ana, rendDoc_);
+        while (pair_.getReadNat() != null) {
+            RendBlock loc_ = newHelpRendBlock(pair_.getReadNat());
+            pair_.setWriteNat(completeHelp(_anaDoc, rendDoc_, pair_.getWriteNat(), loc_));
+            NatRendForwardInfos.nextPair(pair_);
         }
         return rendDoc_;
     }
 
-    private static RendParentBlockInt completeHelp(AnalyzingDoc _anaDoc, RendDocumentBlock _rendDoc, RendParentBlockInt _curPar, RendBlock _loc) {
+    private static RendParentBlock completeHelp(AnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, RendParentBlock _curPar, RendBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof HelpRendStdElement && StringUtil.quickEq(((HelpRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
                 _rendDoc.getBodies().add(_loc);
@@ -48,7 +50,7 @@ public final class HelpRendForwardInfos {
     private static RendBlock newHelpRendBlock(AnaRendBlock _current) {
         if (_current instanceof HelpAnaRendText){
             HelpAnaRendText t_ = (HelpAnaRendText) _current;
-            ExecTextPart part_ = build(t_.getTexts());
+            NatExecTextPart part_ = build(t_.getTexts());
             return new HelpRendText(part_);
         }
         return block2(_current);
@@ -65,8 +67,8 @@ public final class HelpRendForwardInfos {
     private static RendBlock element(AnaRendBlock _current) {
         if (_current instanceof HelpAnaRendImg){
             HelpAnaRendImg f_ = (HelpAnaRendImg) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
-            ExecTextPart partSub_ = build(f_.getTexts());
+            StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
+            NatExecTextPart partSub_ = build(f_.getTexts());
             return new HelpRendImg(f_.getRead(),part_, partSub_);
         }
         if (_current instanceof HelpAnaRendMessage){
@@ -84,29 +86,29 @@ public final class HelpRendForwardInfos {
         }
         if (_current instanceof HelpAnaRendStdElement) {
             HelpAnaRendStdElement f_ = (HelpAnaRendStdElement) _current;
-            StringMap<ExecTextPart> part_ = toExecPartExt(f_.getAttributes());
+            StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             return new HelpRendStdElement(f_.getRead(), part_);
         }
         return null;
     }
 
-    private static StringMap<ExecTextPart> toExecPartExt(StringMap<HelpResultText> _texts) {
-        StringMap<ExecTextPart> m_ = new StringMap<ExecTextPart>();
+    private static StringMap<NatExecTextPart> toExecPartExt(StringMap<HelpResultText> _texts) {
+        StringMap<NatExecTextPart> m_ = new StringMap<NatExecTextPart>();
         for (EntryCust<String, HelpResultText> e: _texts.entryList()) {
             HelpResultText value_ = e.getValue();
             m_.addEntry(e.getKey(), build(value_.getTexts()));
         }
         return m_;
     }
-    static ExecTextPart build(StringList _texts) {
+    static NatExecTextPart build(StringList _texts) {
         CustList<CustList<RendDynOperationNode>> parts_ = new CustList<CustList<RendDynOperationNode>>();
-        ExecTextPart part_ = new ExecTextPart();
+        NatExecTextPart part_ = new NatExecTextPart();
         part_.getTexts().addAllElts(_texts);
         part_.setOpExp(parts_);
         return part_;
     }
 
-    public static RendDocumentBlock buildExec(AnalyzingDoc _analyzingDoc, AnaRendDocumentBlock _value) {
+    public static NatDocumentBlock buildExec(AnalyzingDoc _analyzingDoc, AnaRendDocumentBlock _value) {
         return build(_value, _analyzingDoc);
 
     }

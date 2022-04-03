@@ -1,13 +1,12 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendRadio;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.util.FieldUpdates;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -16,11 +15,11 @@ import code.util.core.StringUtil;
 
 public final class NatRendInput extends NatRendElement {
     private final CustList<RendDynOperationNode> opsValue;
-    private final FieldUpdates fieldUpdates;
+    private final NatFieldUpdates fieldUpdates;
 
-    public NatRendInput(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+    public NatRendInput(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText,
                         CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
-                        FieldUpdates _init) {
+                        NatFieldUpdates _init) {
         super(_read, _execAttributes, _execAttributesText);
         fieldUpdates = _init;
         fieldUpdates.setOpsRead(_opsRead);

@@ -7,8 +7,6 @@ import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.util.CustList;
 import code.util.core.IndexConstants;
@@ -32,15 +30,6 @@ public abstract class NatOperationNode {
         result = "";
         parent = _m;
         operations = _op;
-    }
-
-    /** Returns the id of a type<br/>
-     Sample 1: "int" => ["int"]<br/>
-     Sample 2: "Pair&lt;int,long&gt;" => ["Pair"]<br/>
-     Sample 3: "Solo&lt;Pair&lt;int,long&gt;&gt;" => ["Solo"]<br/>
-     */
-    public static String getIdFromAllTypes(String _type) {
-        return StringExpUtil.getAllTypes(_type).first();
     }
 
     public abstract void analyze(NatAnalyzedCode _page);
@@ -127,9 +116,6 @@ public abstract class NatOperationNode {
             if (StringUtil.quickEq(f.getFieldName(), _scopeField)) {
                 String type_ = f.getImportedClassName();
                 NatFieldResult res_ = new NatFieldResult();
-                String declaringBaseClass_ = getIdFromAllTypes(_scope.getFullName());
-                ClassField classField_ = new ClassField(declaringBaseClass_, _scopeField);
-                res_.getContent().setClassField(classField_);
                 res_.getContent().setField(f);
                 res_.setType(type_);
                 _ancestors.add(res_);
@@ -169,8 +155,7 @@ public abstract class NatOperationNode {
 
     private static CustList<SpecialNatClass> typeLists(String _fromClasses, NatAnalyzedCode _page) {
         CustList<SpecialNatClass> typeInfos_ = new CustList<SpecialNatClass>();
-        String baseCurName_ = getIdFromAllTypes(_fromClasses);
-        SpecialNatClass root_ = _page.getStds().getVal(baseCurName_);
+        SpecialNatClass root_ = _page.getStds().getVal(_fromClasses);
         typeInfos_.add(root_);
         for (String m : root_.getAllSuperTypes()) {
             SpecialNatClass sup_ = _page.getStds().getVal(m);

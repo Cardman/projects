@@ -13,7 +13,7 @@ import code.util.StringMap;
 
 public final class RendStdInput extends RendInput {
 
-    public RendStdInput(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+    public RendStdInput(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
                         CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
                         String _varName, String _varNameConverter, String _varNameConverterField,

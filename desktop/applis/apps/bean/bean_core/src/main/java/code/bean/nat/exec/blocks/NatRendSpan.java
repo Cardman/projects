@@ -2,17 +2,16 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendSpan;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.StringMap;
 
 public final class NatRendSpan extends NatRendElement {
-    private final ExecTextPart result;
+    private final NatExecTextPart result;
     private StringMap<String> formatted=new StringMap<String>();
 
-    public NatRendSpan(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _result, StringMap<String> _formatted) {
+    public NatRendSpan(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, NatExecTextPart _result, StringMap<String> _formatted) {
         super(_read, _execAttributes, _execAttributesText);
         this.result = _result;
         this.formatted = _formatted;

@@ -4,7 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanLgNames;
-import code.sml.*;
+import code.sml.Document;
+import code.sml.Element;
+import code.sml.ElementList;
+import code.sml.Node;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -12,7 +15,7 @@ import code.util.core.StringUtil;
 
 public final class RendStyle extends RendElement {
 
-    public RendStyle(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
+    public RendStyle(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText) {
         super(_read, _execAttributes, _execAttributesText);
     }
 

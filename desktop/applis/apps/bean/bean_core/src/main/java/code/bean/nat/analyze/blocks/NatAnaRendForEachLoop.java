@@ -15,8 +15,6 @@ import code.util.core.StringUtil;
 
 public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements NatRendBuildEl {
 
-    private final String label;
-
     private final String className;
 
     private String importedClassName;
@@ -32,13 +30,12 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements N
     private final BeanNatCommonLgNames caller;
 
     NatAnaRendForEachLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
-                          OffsetStringInfo _expression, OffsetStringInfo _label, int _offset, BeanNatCommonLgNames _caller) {
+                          OffsetStringInfo _expression, int _offset, BeanNatCommonLgNames _caller) {
         super(_offset);
         className = _className.getInfo();
         variableName = _variable.getInfo();
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
-        label = _label.getInfo();
         caller = _caller;
     }
 
@@ -97,9 +94,6 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements N
     public void removeVars(StringMap<AnaLocalVariable> _infosVars, StringMap<AnaLoopVariable> _loopsVars) {
         _infosVars.removeKey(variableName);
         _loopsVars.removeKey(variableName);
-    }
-    public String getRealLabel() {
-        return label;
     }
 
     public String getVariableName() {

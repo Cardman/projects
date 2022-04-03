@@ -1,10 +1,7 @@
 package code.formathtml.util;
 
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -12,19 +9,13 @@ public abstract class NodeContainer {
 
     private CustList<Struct> object = new CustList<Struct>();
     private CustList<Struct> allObject = new CustList<Struct>();
-    private CustList<AbstractWrapper> wrappers = new CustList<AbstractWrapper>();
-    private StringList objectClasses = new StringList();
     private Struct bean = NullStruct.NULL_VALUE;
 
     private Struct typedField = NullStruct.NULL_VALUE;
-    private String idFieldClass;
-    private String idFieldName;
     private String varPrevName;
     private InputInfo varParamName;
     private String varName;
     private String varNameConvert;
-    private CustList<RendDynOperationNode> opsWrite;
-    private CustList<RendDynOperationNode> opsConvert;
     private boolean arrayConverter;
 
     private final NodeInformations nodeInformation = new NodeInformations();
@@ -32,6 +23,8 @@ public abstract class NodeContainer {
     private boolean enabled;
     private boolean indexer;
 
+    protected NodeContainer() {
+    }
     public boolean eqObj(CustList<Struct> _object) {
         int size_ = _object.size();
         if (allObject.size() != size_) {
@@ -48,34 +41,16 @@ public abstract class NodeContainer {
     public Struct getUpdated() {
         return object.first();
     }
-    public String getUpdatedClass() {
-        return objectClasses.first();
-    }
     public CustList<Struct> getStructParam() {
         return object.mid(1);
-    }
-    public CustList<String> getStructParamClass() {
-        return objectClasses.mid(1);
     }
 
     public void setStruct(CustList<Struct> _struct) {
         object = _struct;
     }
 
-    public void setObjectClasses(StringList _objectClasses) {
-        this.objectClasses = _objectClasses;
-    }
-
     public void setAllObject(CustList<Struct> _allObject) {
         allObject = _allObject;
-    }
-
-    public CustList<AbstractWrapper> getWrappers() {
-        return wrappers;
-    }
-
-    public void setWrappers(CustList<AbstractWrapper> _wrappers) {
-        wrappers = _wrappers;
     }
 
     public Struct getTypedStruct() {
@@ -89,30 +64,8 @@ public abstract class NodeContainer {
         return nodeInformation.getValue();
     }
 
-    public ClassField getIdField() {
-        return new ClassField(idFieldClass,idFieldName);
-    }
 
-    public abstract boolean match(FieldUpdates _f);
-    public abstract void setIdClass(FieldUpdates _idClass);
-
-    public String getIdFieldClass() {
-        return idFieldClass;
-    }
-
-    public void setIdFieldClass(String _idFieldClass) {
-        this.idFieldClass = _idFieldClass;
-    }
-
-    public String getIdFieldName() {
-        return idFieldName;
-    }
-
-    public void setIdFieldName(String _idFieldName) {
-        this.idFieldName = _idFieldName;
-    }
-
-    public NodeInformations getNodeInformation() {
+    public final NodeInformations getNodeInformation() {
         return nodeInformation;
     }
 
@@ -148,28 +101,12 @@ public abstract class NodeContainer {
         varName = _varName;
     }
 
-    public CustList<RendDynOperationNode> getOpsWrite() {
-        return opsWrite;
-    }
-
-    public void setOpsWrite(CustList<RendDynOperationNode> _opsWrite) {
-        opsWrite = _opsWrite;
-    }
-
     public String getVarNameConvert() {
         return varNameConvert;
     }
 
     public void setVarNameConvert(String _varNameConvert) {
         varNameConvert = _varNameConvert;
-    }
-
-    public CustList<RendDynOperationNode> getOpsConvert() {
-        return opsConvert;
-    }
-
-    public void setOpsConvert(CustList<RendDynOperationNode> _opsConvert) {
-        opsConvert = _opsConvert;
     }
 
     public boolean isArrayConverter() {

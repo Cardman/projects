@@ -188,7 +188,7 @@ public final class AnaRendBlockHelp {
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordIf()))) {
             return new NatAnaRendIfCondition(newOffsetStringInfo(_elt, _rendKeyWords.getAttrCondition(), _attributes),
-                    newOffsetStringInfo(_elt, _rendKeyWords.getAttrLabel(), _attributes), _begin);
+                    _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordElseif()))) {
             return new NatAnaRendElseIfCondition(newOffsetStringInfo(_elt, _rendKeyWords.getAttrCondition(), _attributes),
@@ -227,7 +227,6 @@ public final class AnaRendBlockHelp {
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrClassName(), _attr),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrVar(), _attr),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrList(), _attr),
-                    newOffsetStringInfo(_elt, _rendKeyWords.getAttrLabel(), _attr),
                     _begin, _caller
             );
         }
@@ -237,7 +236,6 @@ public final class AnaRendBlockHelp {
                 newOffsetStringInfo(_elt, _rendKeyWords.getAttrVarClassName(), _attr),
                 newOffsetStringInfo(_elt, _rendKeyWords.getAttrValue(), _attr),
                 newOffsetStringInfo(_elt, _rendKeyWords.getAttrMap(), _attr),
-                newOffsetStringInfo(_elt, _rendKeyWords.getAttrLabel(), _attr),
                 _begin
         );
     }

@@ -4,7 +4,7 @@ import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
+import code.formathtml.HtmlPage;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.StringList;
 import code.util.core.NumberUtil;
@@ -41,8 +41,7 @@ public abstract class BeanLgNames extends LgNames {
         return NumberUtil.parseInt(value_);
     }
 
-    public abstract void preInitBeans(Configuration _conf);
-
+    public abstract HtmlPage getPage();
     public String getAliasPrimBoolean() {
         return getContent().getPrimTypes().getAliasPrimBoolean();
     }

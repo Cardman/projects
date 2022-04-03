@@ -13,7 +13,7 @@ public final class RenderingText {
     private RenderingText() {
     }
 
-    public static String render(ExecTextPart _texts, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public static String render(DefExecTextPart _texts, ContextEl _ctx, RendStackCall _rendStackCall) {
         CustList<CustList<RendDynOperationNode>> opExp_ = _texts.getOpExp();
         StringList texts_ = _texts.getTexts();
         int s_ = opExp_.size();
@@ -31,7 +31,7 @@ public final class RenderingText {
         return str_.toString();
     }
 
-    public static StringList renderAltList(ExecTextPart _textPart, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public static StringList renderAltList(DefExecTextPart _textPart, ContextEl _ctx, RendStackCall _rendStackCall) {
         CustList<CustList<RendDynOperationNode>> opExp_ = _textPart.getOpExp();
         StringList texts_ = _textPart.getTexts();
         int s_ = opExp_.size();

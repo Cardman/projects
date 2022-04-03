@@ -5,6 +5,7 @@ import cards.tarot.RulesTarot;
 import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.exec.opers.NatStdFctOperation;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
@@ -12,7 +13,6 @@ import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -274,7 +274,7 @@ public final class TarotStandards extends BeanNatCommonLgNames {
     public String processAfterInvoke(Configuration _conf, String _dest, String _beanName, Struct _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
-        RendDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
+        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         _rendStack.clearPages();
         return getRes(rendDocumentBlock_,_conf, _rendStack);
     }

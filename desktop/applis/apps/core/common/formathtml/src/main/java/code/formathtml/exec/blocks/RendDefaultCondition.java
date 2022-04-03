@@ -4,7 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.stacks.RendReadWrite;
+import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.util.BeanLgNames;
 
 public final class RendDefaultCondition extends RendParentBlock implements RendWithEl {
@@ -12,7 +12,7 @@ public final class RendDefaultCondition extends RendParentBlock implements RendW
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
+        DefRendReadWrite rw_ = ip_.getRendReadWrite();
         rw_.setRead(getFirstChild());
         setVisited(ip_,this);
     }

@@ -1,28 +1,25 @@
 package code.formathtml.render;
 
 import code.formathtml.HtmlPage;
-import code.formathtml.Navigation;
+import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.NodeContainer;
 import code.util.Ints;
-import code.util.LongTreeMap;
 import code.util.StringList;
 
 public final class SubmitForm {
     private SubmitForm(){}
-    public static void submit(IntForm _form,Navigation _navigation) {
-        HtmlPage htmlPage_ = _navigation.getHtmlPage();
+    public static void submit(IntForm _form, BeanLgNames _stds) {
+        HtmlPage htmlPage_ = _stds.getPage();
         htmlPage_.setForm(true);
         long formNb_ = _form.getNumber();
         htmlPage_.setUrl(formNb_);
-        LongTreeMap<NodeContainer> inputsMap_;
-        inputsMap_ = htmlPage_.getContainers().getVal(formNb_);
         IntComponent current_ = _form.getFirstChildCompo();
         while (true) {
             if (current_ instanceof IntInput) {
                 IntInput input_ = (IntInput) current_;
                 if (input_.getFormNb() == formNb_) {
                     long nbId_ = input_.getGroup();
-                    NodeContainer nCont_ = inputsMap_.getVal(nbId_);
+                    NodeContainer nCont_ = htmlPage_.getContainer(formNb_,nbId_);
                     if (input_ instanceof IntTextArea) {
                         nCont_.setEnabled(true);
                         IntTextArea area_ = (IntTextArea) input_;

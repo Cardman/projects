@@ -2,7 +2,6 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendImg;
 import code.sml.Element;
 import code.sml.Node;
@@ -10,9 +9,9 @@ import code.util.StringMap;
 
 public final class NatRendImg extends NatRendElement {
 
-    private final ExecTextPart textPart;
+    private final NatExecTextPart textPart;
 
-    public NatRendImg(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _textPart) {
+    public NatRendImg(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, NatExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.textPart = _textPart;
     }

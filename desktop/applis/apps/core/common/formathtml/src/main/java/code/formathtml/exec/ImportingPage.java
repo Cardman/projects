@@ -9,21 +9,20 @@ import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.blocks.RendDocumentBlock;
-import code.formathtml.exec.blocks.RendFinallyEval;
-import code.formathtml.exec.blocks.RendMethodCallingFinally;
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.stacks.RendAbruptCallingFinally;
-import code.formathtml.exec.stacks.RendAbstractStask;
-import code.formathtml.exec.stacks.RendRemovableVars;
-import code.formathtml.exec.stacks.RendTryBlockStack;
-import code.util.StringMap;
+import code.formathtml.exec.blocks.*;
+import code.formathtml.exec.stacks.*;
+import code.formathtml.util.DefNodeContainer;
+import code.util.*;
 
 public final class ImportingPage extends AbsImportingPage {
 
     private final SimplePageEl pageEl = new SimplePageEl();
 
     private final StringMap<LocalVariable> internVars = new StringMap<LocalVariable>();
+
+    private DefRendReadWrite rendReadWrite;
+
+    private final CustList<RendAbstractStask> rendBlockStacks = new CustList<RendAbstractStask>();
 
     private int offset;
     private int opOffset;
@@ -125,6 +124,79 @@ public final class ImportingPage extends AbsImportingPage {
         RendAbstractStask last_ = getRendBlockStacks().last();
         last_.getCurrentVisitedBlock().removeAllVars(this);
         removeRendLastBlockSt();
+    }
+
+    public DefRendReadWrite getRendReadWrite() {
+        return rendReadWrite;
+    }
+
+    public void setNullRendReadWrite() {
+        rendReadWrite = null;
+    }
+
+    public void setRendReadWrite(DefRendReadWrite _rendReadWrite) {
+        rendReadWrite = _rendReadWrite;
+    }
+
+    protected CustList<RendAbstractStask> getRendBlockStacks() {
+        return rendBlockStacks;
+    }
+
+    public void addBlock(RendAbstractStask _b) {
+        rendBlockStacks.add(_b);
+    }
+    protected void removeRendLastBlockSt() {
+        RendAbstractStask last_ = rendBlockStacks.last();
+        if (last_ instanceof RendIfStack) {
+            if (((RendIfStack)last_).getBlock() instanceof RendElem) {
+                rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
+            }
+            if (((RendIfStack)last_).getBlock() instanceof RendFormInt) {
+                CustList<LongTreeMap<DefNodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();
+                Longs formsNb_ = rendReadWrite.getConf().getFormsNb();
+                long nb_ = formsNb_.last();
+                LongTreeMap<DefNodeContainer> containers_ = map_.last();
+                rendReadWrite.getConf().getContainersMap().put(nb_, containers_);
+                CustList<StringList> formatId_ = rendReadWrite.getConf().getFormatIdMapStack();
+                StringList fid_ = formatId_.last();
+                rendReadWrite.getConf().getFormatIdMap().put(nb_,fid_);
+                rendReadWrite.getConf().getInputs().removeLast();
+                map_.removeQuicklyLast();
+                formatId_.removeQuicklyLast();
+                formsNb_.removeQuicklyLast();
+            }
+        }
+        rendBlockStacks.removeQuicklyLast();
+    }
+
+    public RendAbstractStask tryGetRendLastStack() {
+        if (hasBlock()) {
+            return rendBlockStacks.last();
+        }
+        return null;
+    }
+
+    public boolean hasBlock() {
+        return !rendBlockStacks.isEmpty();
+    }
+
+    public RendLoopBlockStack getLastLoopIfPossible(RendBlock _bl) {
+        RendLoopBlockStack c_ = null;
+        RendAbstractStask last_ = tryGetRendLastStack();
+        if (last_ instanceof RendLoopBlockStack) {
+            c_ = (RendLoopBlockStack) last_;
+        }
+        if (c_ != null && c_.getCurrentVisitedBlock() == _bl) {
+            return c_;
+        }
+        return null;
+    }
+    public boolean matchStatement(RendBlock _bl) {
+        RendAbstractStask last_ = tryGetRendLastStack();
+        if (!(last_ instanceof RendConditionBlockStack)) {
+            return false;
+        }
+        return _bl == ((RendConditionBlockStack)last_).getBlock();
     }
 
     public StringMap<LocalVariable> getInternVars() {

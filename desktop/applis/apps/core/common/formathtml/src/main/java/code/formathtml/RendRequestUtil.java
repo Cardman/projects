@@ -10,8 +10,8 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DefNodeContainer;
 import code.formathtml.util.InputInfo;
-import code.formathtml.util.NodeContainer;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -27,8 +27,8 @@ public final class RendRequestUtil {
         }
     }
 
-    public static void setRendObject(NodeContainer _nodeContainer,
-                              Struct _attribute, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
+    public static void setRendObject(DefNodeContainer _nodeContainer,
+                                     Struct _attribute, BeanLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
         Struct obj_ = _nodeContainer.getUpdated();
         String attrName_ = _nodeContainer.getVarName();
         String prev_ = _nodeContainer.getVarPrevName();

@@ -1,31 +1,21 @@
 package code.formathtml.exec;
 
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.FormParts;
-import code.formathtml.HtmlPage;
-import code.formathtml.util.NodeContainer;
 import code.sml.Document;
 
 public abstract class AbsRendStackCall {
-    private HtmlPage htmlPage = new HtmlPage();
 
     private Document document;
 
     private String beanName;
 
-    private final FormParts formParts = new FormParts();
-
     private Struct mainBean;
 
-    public abstract NodeContainer create();
-
-    public void init() {
-        htmlPage = new HtmlPage();
-        document = null;
+    protected AbsRendStackCall() {
     }
 
-    public HtmlPage getHtmlPage() {
-        return htmlPage;
+    public void init() {
+        document = null;
     }
 
     public Document getDocument() {
@@ -34,10 +24,6 @@ public abstract class AbsRendStackCall {
 
     public void setDocument(Document _document) {
         document = _document;
-    }
-
-    public FormParts getFormParts() {
-        return formParts;
     }
 
     public Struct getMainBean() {

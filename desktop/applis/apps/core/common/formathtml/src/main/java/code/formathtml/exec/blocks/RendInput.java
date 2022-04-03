@@ -6,7 +6,6 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.DefFieldUpdates;
-import code.formathtml.util.FieldUpdates;
 import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.CustList;
@@ -28,7 +27,7 @@ public abstract class RendInput extends RendElement {
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
 
-    public RendInput(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText,
+    public RendInput(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
                      CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                      CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField, String _varName, String _varNameConverter,
                      String _varNameConverterField, String _id, String _idClass, String _idName, String _className, InputInfo _list) {

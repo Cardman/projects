@@ -1,26 +1,26 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.common.ClassArgumentMatching;
+import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ErrorStruct;
 import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.exec.variables.LoopVariable;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.exec.stacks.RendLoopBlockStack;
-import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.util.StringMap;
 
@@ -140,7 +140,7 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
 
     public void processLastElementLoop(ContextEl _ctx, RendLoopBlockStack _loopBlock, RendStackCall _rendStack) {
         ImportingPage ip_ = _rendStack.getLastPage();
-        RendReadWrite rw_ = ip_.getRendReadWrite();
+        DefRendReadWrite rw_ = ip_.getRendReadWrite();
         RendBlock forLoopLoc_ = _loopBlock.getCurrentVisitedBlock();
         if (_loopBlock.getContent().hasNextIter()) {
             incrementLoop(_loopBlock, _ctx, _rendStack);

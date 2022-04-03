@@ -14,9 +14,9 @@ import code.util.core.StringUtil;
 
 public final class RendLink extends RendElement {
     private final String content;
-    private final StringMap<ExecTextPart> execOpExpTitle;
+    private final StringMap<DefExecTextPart> execOpExpTitle;
 
-    public RendLink(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, String _content, StringMap<ExecTextPart> _execOpExpTitle) {
+    public RendLink(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, String _content, StringMap<DefExecTextPart> _execOpExpTitle) {
         super(_read, _execAttributes, _execAttributesText);
         this.content = _content;
         this.execOpExpTitle = _execOpExpTitle;
@@ -29,8 +29,8 @@ public final class RendLink extends RendElement {
         Document ownerDocument_ = curWr_.getOwnerDocument();
         if (!execOpExpTitle.isEmpty()) {
             StringList objects_ = new StringList();
-            for (EntryCust<String, ExecTextPart> e:execOpExpTitle.entryList()) {
-                ExecTextPart r_ = e.getValue();
+            for (EntryCust<String, DefExecTextPart> e:execOpExpTitle.entryList()) {
+                DefExecTextPart r_ = e.getValue();
                 objects_.add(RenderingText.render(r_, _ctx, _rendStack));
                 if (_ctx.callsOrException(_rendStack.getStackCall())) {
                     return;

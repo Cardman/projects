@@ -1,18 +1,18 @@
 package code.bean.help.exec.blocks;
 
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.blocks.NatExecTextPart;
 import code.bean.nat.exec.blocks.NatRendImg;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.ExecTextPart;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.StringMap;
 
 public final class HelpRendImg extends HelpRendElement {
 
-    private final ExecTextPart textPart;
+    private final NatExecTextPart textPart;
 
-    public HelpRendImg(Element _read, StringMap<ExecTextPart> _execAttributes, ExecTextPart _textPart) {
+    public HelpRendImg(Element _read, StringMap<NatExecTextPart> _execAttributes, NatExecTextPart _textPart) {
         super(_read, _execAttributes);
         this.textPart = _textPart;
     }

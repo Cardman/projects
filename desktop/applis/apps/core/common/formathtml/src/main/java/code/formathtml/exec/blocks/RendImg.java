@@ -10,9 +10,9 @@ import code.util.StringMap;
 
 public final class RendImg extends RendElement {
 
-    private final ExecTextPart textPart;
+    private final DefExecTextPart textPart;
 
-    public RendImg(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _textPart) {
+    public RendImg(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, DefExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.textPart = _textPart;
     }

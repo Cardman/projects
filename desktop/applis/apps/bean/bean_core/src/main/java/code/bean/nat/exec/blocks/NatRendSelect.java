@@ -1,6 +1,7 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -9,7 +10,6 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendParentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
-import code.formathtml.util.FieldUpdates;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
@@ -19,12 +19,12 @@ public final class NatRendSelect extends RendParentBlock implements NatRendWithE
     private final CustList<RendDynOperationNode> opsValue;
     private final CustList<RendDynOperationNode> opsMap;
     private final Element elt;
-    private final FieldUpdates fieldUpdates;
+    private final NatFieldUpdates fieldUpdates;
 
     public NatRendSelect(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                          CustList<RendDynOperationNode> _opsMap,
                          Element _elt,
-                         FieldUpdates _init) {
+                         NatFieldUpdates _init) {
         fieldUpdates = _init;
         fieldUpdates.setOpsRead(_opsRead);
         fieldUpdates.setOpsWrite(_opsWrite);

@@ -1,14 +1,16 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.exec.NatFormParts;
+import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.ExecTextPart;
 import code.formathtml.exec.blocks.RendForm;
 import code.formathtml.exec.blocks.RendFormInt;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
+import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -17,9 +19,9 @@ public final class NatRendForm extends NatRendElement implements RendFormInt {
     private final CustList<RendDynOperationNode> opForm;
 
     private final StringList varNames;
-    private final ExecTextPart textPart;
+    private final NatExecTextPart textPart;
 
-    public NatRendForm(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, ExecTextPart _textPart) {
+    public NatRendForm(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, NatExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.opForm = _opForm;
         this.varNames = _varNames;
@@ -28,7 +30,10 @@ public final class NatRendForm extends NatRendElement implements RendFormInt {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
-        RendForm.feedFormParts(opForm, varNames, _rendStack.getFormParts());
+        NatFormParts _formParts = _rendStack.getFormParts();
+        _formParts.getContainersMapStack().add(new LongTreeMap<NatNodeContainer>());
+        _formParts.getCallsFormExps().add(opForm);
+        RendForm.incrForm(varNames, _formParts);
         long currentForm_;
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;

@@ -3,7 +3,6 @@ package code.bean.nat;
 import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class SpecialNatClass {
 
@@ -32,20 +31,6 @@ public final class SpecialNatClass {
 
     public StringList getDirectInterfaces() {
         return directInterfaces;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPackageName() {
-        return packageName;
-    }
-
-    public String getFullName() {
-        String pkg_ = getPackageName();
-        String name_ = getName();
-        return StringUtil.spliceIfFirst('.', StringUtil.concat(pkg_,".",name_));
     }
 
     public CustList<SpecNatMethod> getMethods() {

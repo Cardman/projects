@@ -10,7 +10,7 @@ import code.util.StringMap;
 
 public final class RendEscImg extends RendElement {
 
-    public RendEscImg(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText) {
+    public RendEscImg(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText) {
         super(_read, _execAttributes, _execAttributesText);
     }
 

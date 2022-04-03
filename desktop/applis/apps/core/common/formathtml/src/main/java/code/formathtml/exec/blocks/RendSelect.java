@@ -2,19 +2,26 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.exec.variables.LocalVariable;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
-import code.formathtml.util.*;
-import code.sml.*;
-import code.util.*;
+import code.formathtml.util.BeanCustLgNames;
+import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DefFieldUpdates;
+import code.formathtml.util.InputInfo;
+import code.sml.Document;
+import code.sml.Element;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class RendSelect extends RendParentBlock implements RendWithEl {
@@ -26,8 +33,8 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
-    private StringMap<ExecTextPart> execAttributesText = new StringMap<ExecTextPart>();
-    private StringMap<ExecTextPart> execAttributes = new StringMap<ExecTextPart>();
+    private StringMap<DefExecTextPart> execAttributesText = new StringMap<DefExecTextPart>();
+    private StringMap<DefExecTextPart> execAttributes = new StringMap<DefExecTextPart>();
     private String varName = EMPTY_STRING;
     private InputInfo varNames = new InputInfo();
     private String id = EMPTY_STRING;
@@ -44,7 +51,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     public RendSelect(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                       CustList<RendDynOperationNode> _opsMap, CustList<RendDynOperationNode> _opsDefault, CustList<RendDynOperationNode> _opsConverter,
                       CustList<RendDynOperationNode> _opsConverterField, CustList<RendDynOperationNode> _opsConverterFieldValue,
-                      StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _execAttributes,
+                      StringMap<DefExecTextPart> _execAttributesText, StringMap<DefExecTextPart> _execAttributes,
                       String _varName, String _id, String _idClass, String _idName, Element _elt, boolean _multiple,
                       String _varNameConverter, String _varNameConverterField, String _varNameConverterFieldValue,
                       String _className, boolean _arrayConverter, InputInfo _list) {
@@ -99,8 +106,8 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                     doc_, docElementSelect_, _stds, _ctx, _rendStack);
         }
         boolean id_ = false;
-        for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
-            ExecTextPart res_ = e.getValue();
+        for (EntryCust<String, DefExecTextPart> e: execAttributesText.entryList()) {
+            DefExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
@@ -117,8 +124,8 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
-            ExecTextPart res_ = e.getValue();
+        for (EntryCust<String, DefExecTextPart> e: execAttributes.entryList()) {
+            DefExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;

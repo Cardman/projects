@@ -1,14 +1,17 @@
 package code.formathtml.render;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.structs.*;
+import code.formathtml.CommonRender;
+import code.formathtml.DualNavigationContext;
+import code.formathtml.EquallableRenderUtil;
+import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.structs.*;
-import code.formathtml.*;
-import code.formathtml.util.*;
+import code.formathtml.util.BeanCustLgNames;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;
 import org.junit.Test;
@@ -82,7 +85,7 @@ public final class SubmitFormTest extends CommonRender {
         MetaComboBox combo_ = (MetaComboBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.getSelectedIndexes().clear();
         combo_.getSelectedIndexes().add(0);
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
         processRendFormRequest(a_,ctx_);
         assertNotNull(intForm_.getElt());
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -170,7 +173,7 @@ public final class SubmitFormTest extends CommonRender {
         MetaComboList combo_ = (MetaComboList) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.getSelected().clear();
         combo_.getSelected().add(0);
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -242,7 +245,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("", ((StringStruct) choice_).getInstance());
         MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -314,7 +317,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.setChecked(true);
         combo_ = (MetaRadioButton) combo_.getNextSibling();
         combo_.setChecked(false);
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -395,7 +398,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setChecked(true);
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -473,7 +476,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setChecked(false);
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -555,7 +558,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaTextField combo_ = (MetaTextField) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setValue("THREE");
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -615,7 +618,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaTextArea combo_ = (MetaTextArea) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setValue("1");
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -702,7 +705,7 @@ public final class SubmitFormTest extends CommonRender {
         number_.setValue("6");
         MetaSlider range_ = (MetaSlider) number_.getNextSibling();
         range_.setValue("8");
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -789,7 +792,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(1);
         MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
         number_.setValue("6");
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -876,7 +879,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaSlider number_ = (MetaSlider) intForm_.getFirstChildCompo().getNextSibling().getNextSibling().getFirstChildCompo();
         number_.setValue("8");
-        SubmitForm.submit(intForm_,nav_);
+        SubmitForm.submit(intForm_, _stds);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -894,7 +897,7 @@ public final class SubmitFormTest extends CommonRender {
 
 
     private static void processRendFormRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getNavigation().getHtmlPage().getUrl())));
+        _nav.getDualAnalyzedContext().getStds().processRendFormRequest(_nav.getNavigation(), _ctx, new RendStackCall(InitPhase.NOTHING, _ctx), DocumentBuilder.getFirstElementByAttribute(_nav.getNavigation().getDocument(), _nav.getNavigation().getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())));
     }
 
     private static String getCustomPair() {

@@ -5,7 +5,9 @@ import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.opers.NatStdRefVariableOperation;
@@ -22,11 +24,9 @@ import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.EquallableBeanCoreUtil;
-import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.sample.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
@@ -790,7 +790,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
         lgNames_.initializeRendSessionDoc(n_);
-        lgNames_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(n_.getHtmlPage().getUrl())), n_);
+        lgNames_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), n_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
@@ -822,7 +822,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
         lgNames_.initializeRendSessionDoc(n_);
-        lgNames_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(n_.getHtmlPage().getUrl())), n_);
+        lgNames_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), n_);
         assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
@@ -855,8 +855,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         n_.getSession().setFirstUrl("page1.html");
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
         lgNames_.initializeRendSessionDoc(n_);
-        n_.getHtmlPage().setUrl(0);
-        lgNames_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(n_.getHtmlPage().getUrl())), n_);
+        lgNames_.getNatPage().setUrl(0);
+        lgNames_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), n_);
         assertEq("<html><body>HEAD<a c:command=\"page1.html\" href=\"\" n-a=\"0\"/></body></html>", n_.getHtmlText());
     }
     @Test
@@ -1053,7 +1053,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
 //        assertEq("page2.html", lgNames_.getCurrentUrl());
-//        nav_.getHtmlPage().setUrl(0);
+//        lgNames_.getNatPage().setUrl(0);
 //        form(conf_, nav_);
 //        setupBeansAfter(conf_);
 //        assertEq("page1.html", lgNames_.getCurrentUrl());
@@ -1146,7 +1146,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionDoc(conf_,nav_, beans_);
 //        assertEq("page2.html", lgNames_.getCurrentUrl());
-//        nav_.getHtmlPage().setUrl(0);
+//        lgNames_.getNatPage().setUrl(0);
 //        form(conf_, nav_);
 //        setupBeansAfter(conf_);
 //        assertEq("page1.html", lgNames_.getCurrentUrl());
@@ -1194,7 +1194,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(lgNames_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean(html_, htmlTwo_, v1_, v2_, config_, analyzingDoc_, lgNames_, init_, dual_);
+        NatDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean(html_, htmlTwo_, v1_, v2_, config_, analyzingDoc_, lgNames_, init_, dual_);
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>", getSampleRes(rendDocumentBlock_, config_, lgNames_));
 //        assertEq(1, beanTwo_.getForms().size());
 //        assertEq("key", beanTwo_.getForms().getKeys().first());
@@ -1234,7 +1234,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(lgNames_);
-        RendDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean(html_, htmlTwo_, v1_, v2_, configuration_, analyzingDoc_, lgNames_, init_, dual_);
+        NatDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean(html_, htmlTwo_, v1_, v2_, configuration_, analyzingDoc_, lgNames_, init_, dual_);
         String render_ = getSampleRes(rendDocumentBlock_, configuration_, lgNames_);
         assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a>Description <a c:command=\"$bean_two.go\" href=\"\" n-a=\"1\">two</a></body></html>", render_);
 //        assertEq(1, beanTwo_.getForms().size());
@@ -1269,10 +1269,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1282,7 +1282,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("ONE_TWO");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_one", lgNames_.getCurrentBeanName());
@@ -1325,10 +1325,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         lgNames_.getValidators().addEntry("rate_val",new MyValidator());
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap<NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1338,7 +1338,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("ONE_TWO");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1381,10 +1381,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page1.html");
         lgNames_.getValidators().addEntry("rate_val",new MyValidator());
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1400,7 +1400,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("TYPED_STRING");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1448,10 +1448,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         lgNames_.getValidators().addEntry("rate_val",new MyValidator());
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1467,7 +1467,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("ONE");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1636,10 +1636,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1649,7 +1649,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("10");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1691,10 +1691,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1704,7 +1704,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("10");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
 //        assertEq("page1.html", lgNames_.getCurrentUrl());
 //        assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1746,10 +1746,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1765,7 +1765,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("10");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
 //        assertEq("page1.html", lgNames_.getCurrentUrl());
 //        assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1806,10 +1806,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1819,7 +1819,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1861,10 +1861,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1874,7 +1874,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("on");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1916,10 +1916,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -1929,7 +1929,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -1969,10 +1969,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        nav_.setFiles(files_);
 //        conf_.getDual().getRenderFiles().add("page1.html");
 //        initSessionNat(conf_,nav_);
-//        HtmlPage htmlPage_ = nav_.getHtmlPage();
-//        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+//        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+//        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
 //        containersMap_ = htmlPage_.getContainers();
-//        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+//        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
 //        NodeContainer nc_;
 //        NodeInformations ni_;
 //        StringList values_;
@@ -1982,7 +1982,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        values_ = new StringList();
 //        values_.add("1/2");
 //        ni_.setValue(values_);
-//        nav_.getHtmlPage().setUrl(0);
+//        lgNames_.getNatPage().setUrl(0);
 //        form(conf_, nav_);
 //        setupBeansAfter(conf_);
 //        assertEq("page1.html", lgNames_.getCurrentUrl());
@@ -2025,10 +2025,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2038,7 +2038,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("12");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -2080,10 +2080,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         NatRendStackCall rendStackCall_ = initSessionNat(nav_, lgNames_, dual_);
-        HtmlPage htmlPage_ = nav_.getHtmlPage();
-        LongMap<LongTreeMap<NodeContainer>> containersMap_;
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = htmlPage_.getContainers();
-        LongTreeMap< NodeContainer> containers_ = containersMap_.getVal(0L);
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
         NodeContainer nc_;
         NodeInformations ni_;
         StringList values_;
@@ -2093,7 +2093,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         values_ = new StringList();
         values_.add("12");
         ni_.setValue(values_);
-        nav_.getHtmlPage().setUrl(0);
+        lgNames_.getNatPage().setUrl(0);
         form(lgNames_, nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
@@ -2136,8 +2136,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.setFiles(files_);
         dual_.getRenderFiles().add("page1.html");
         initSessionNat(nav_, lgNames_, dual_);
-        nav_.getHtmlPage().setUrl(0);
-        lgNames_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(nav_.getDocument(), nav_.getSession().getRendKeyWords().getAttrNa(), Long.toString(nav_.getHtmlPage().getUrl())), nav_);
+        lgNames_.getNatPage().setUrl(0);
+        lgNames_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(nav_.getDocument(), nav_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), nav_);
         assertEq("page1.html", lgNames_.getCurrentUrl());
         assertEq("bean_two", lgNames_.getCurrentBeanName());
         assertEq("<html><body><a c:command=\"$bean_two.go2(0)\" href=\"\" n-a=\"0\">Lk</a></body></html>", nav_.getHtmlText());
@@ -2247,7 +2247,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
 ////        assertEq("page2.html", lgNames_.getCurrentUrl());
-////        nav_.getHtmlPage().setUrl(0);
+////        lgNames_.getNatPage().setUrl(0);
 ////        form(conf_, nav_);
 ////        setupBeansAfter(conf_);
 //        ((BeanNatLgNames)conf_.getContext().getStandards()).rendRefresh(nav_, conf_.getContext(), conf_.getStackCall());
@@ -2294,7 +2294,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        conf_.getDual().getRenderFiles().add("page2.html");
 //        initSessionNat(conf_,nav_);
 //        assertEq("page2.html", lgNames_.getCurrentUrl());
-//        nav_.getHtmlPage().setUrl(0);
+//        lgNames_.getNatPage().setUrl(0);
 //        form(conf_, nav_);
 //        setupBeansAfter(conf_);
 //        assertEq("page1.html", lgNames_.getCurrentUrl());
@@ -2402,7 +2402,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         return conf_;
     }
 
-    private static RendDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, SampleBeanStruct _v1, SampleBeanStruct _v2, Configuration _configuration, AnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
+    private static NatDocumentBlock buildRendWithTwoNativeBean(String _html, String _htmlTwo, SampleBeanStruct _v1, SampleBeanStruct _v2, Configuration _configuration, AnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
         StringMap<BeanInfo> beansInfos_ = _configuration.getBeansInfos();
         addBeanInfo(_adv,"bean_one", _v1, beansInfos_, _configuration);
         addBeanInfo(_adv,"bean_two", _v2, beansInfos_, _configuration);
@@ -2440,7 +2440,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         }
         return d_;
     }
-    protected static RendDocumentBlock setFirst(Configuration _configuration, StringMap<RendDocumentBlock> _renders) {
+    protected static NatDocumentBlock setFirst(Configuration _configuration, StringMap<NatDocumentBlock> _renders) {
         return _renders.getVal("page1.html");
     }
 
@@ -2499,11 +2499,11 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         putBean(_key, _adv, _v);
     }
 
-    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
+    private static String getSampleRes(Configuration _conf, NatDocumentBlock _rendDocumentBlock, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
         return getRes(_conf,_rendDocumentBlock, _stds, _rendStackCall);
     }
 
-    private static String getSampleRes(RendDocumentBlock _rendDocumentBlock, Configuration _configuration, CustBeanLgNames _adv) {
+    private static String getSampleRes(NatDocumentBlock _rendDocumentBlock, Configuration _configuration, CustBeanLgNames _adv) {
         NatRendStackCall build_ = new NatRendStackCall();
         return getSampleRes(_configuration, _rendDocumentBlock, _adv, build_);
     }
@@ -2512,7 +2512,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         _adv.preInitBeans(_configuration);
     }
 
-    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
+    private static String getRes(Configuration _conf, NatDocumentBlock _doc, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
         return _stds.getRes(_doc, _conf, _rendStackCall);
     }
 
@@ -2542,7 +2542,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static void form(CustBeanLgNames _stds, Navigation _nav) {
-        _stds.processRendFormRequest(_nav, DocumentBuilder.getFirstElementByAttribute(_nav.getDocument(), _nav.getSession().getRendKeyWords().getAttrNf(), Long.toString(_nav.getHtmlPage().getUrl())));
+        _stds.processRendFormRequest(_nav, DocumentBuilder.getFirstElementByAttribute(_nav.getDocument(), _nav.getSession().getRendKeyWords().getAttrNf(), Long.toString(_stds.getNatPage().getUrl())));
     }
 
     private static String confCom() {

@@ -2,7 +2,6 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.ExecTextPart;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
@@ -14,7 +13,7 @@ public final class NatRendSubmit extends NatRendElement {
 
     private final StringMap<String> preformatted;
 
-    public NatRendSubmit(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, StringMap<String> _preformatted) {
+    public NatRendSubmit(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, StringMap<String> _preformatted) {
         super(_read, _execAttributes, _execAttributesText);
         this.preformatted = _preformatted;
     }

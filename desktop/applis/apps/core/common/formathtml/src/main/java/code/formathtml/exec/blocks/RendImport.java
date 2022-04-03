@@ -4,11 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.FormParts;
+import code.formathtml.exec.DefFormParts;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.exec.stacks.RendIfStack;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanCustLgNames;
@@ -19,11 +20,11 @@ import code.util.CustList;
 public final class RendImport extends RendParentBlock implements RendWithEl {
     private final Element elt;
 
-    private final ExecTextPart textPart;
+    private final DefExecTextPart textPart;
 
     private final int pageOffset;
 
-    public RendImport(Element _elt, ExecTextPart _textPart, int _pageOffset) {
+    public RendImport(Element _elt, DefExecTextPart _textPart, int _pageOffset) {
         this.elt = _elt;
         this.textPart = _textPart;
         this.pageOffset = _pageOffset;
@@ -112,13 +113,13 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
         }
     }
 
-    public static ImportingPage newImportingPage(ImportingPage _ip, RendDocumentBlock _val, String _beanName, FormParts _formParts) {
+    public static ImportingPage newImportingPage(ImportingPage _ip, RendDocumentBlock _val, String _beanName, DefFormParts _formParts) {
         ImportingPage newIp_ = new ImportingPage();
         newIp_.setOffset(0);
         newIp_.doc(_val);
 //        newIp_.setReadUrl(_link);
         newIp_.setBeanName(_beanName);
-        RendReadWrite rwLoc_ = new RendReadWrite();
+        DefRendReadWrite rwLoc_ = new DefRendReadWrite();
         rwLoc_.setConf(_formParts);
         RendReadWrite rw_ = _ip.getRendReadWrite();
         rwLoc_.setDocument(rw_.getDocument());

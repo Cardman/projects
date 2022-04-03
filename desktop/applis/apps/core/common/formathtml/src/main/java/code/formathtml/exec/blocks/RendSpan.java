@@ -13,10 +13,10 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class RendSpan extends RendElement {
-    private final ExecTextPart result;
+    private final DefExecTextPart result;
     private StringMap<String> formatted=new StringMap<String>();
 
-    public RendSpan(Element _read, StringMap<ExecTextPart> _execAttributes, StringMap<ExecTextPart> _execAttributesText, ExecTextPart _result, StringMap<String> _formatted) {
+    public RendSpan(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, DefExecTextPart _result, StringMap<String> _formatted) {
         super(_read, _execAttributes, _execAttributesText);
         this.result = _result;
         this.formatted = _formatted;

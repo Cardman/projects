@@ -6,15 +6,16 @@ import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
-import code.sml.*;
+import code.sml.Document;
+import code.sml.Text;
 
 public final class RendText extends RendLeaf implements RendWithEl {
 
     private final int expressionOffset;
 
-    private final ExecTextPart textPart;
+    private final DefExecTextPart textPart;
 
-    public RendText(ExecTextPart _textPart, int _offset) {
+    public RendText(DefExecTextPart _textPart, int _offset) {
         expressionOffset = _offset;
         textPart = _textPart;
     }

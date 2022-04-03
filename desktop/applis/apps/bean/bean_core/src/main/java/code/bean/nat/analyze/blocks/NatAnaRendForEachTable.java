@@ -13,8 +13,6 @@ import code.util.StringMap;
 
 public final class NatAnaRendForEachTable extends AnaRendParentBlock implements NatRendBuildEl {
 
-    private final String label;
-
     private final String classNameFirst;
 
     private String importedClassNameFirst;
@@ -35,7 +33,7 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock implements 
 
     NatAnaRendForEachTable(OffsetStringInfo _className, OffsetStringInfo _variable,
                            OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                           OffsetStringInfo _expression, OffsetStringInfo _label, int _offset) {
+                           OffsetStringInfo _expression, int _offset) {
         super(_offset);
         classNameFirst = _className.getInfo();
         variableNameFirst = _variable.getInfo();
@@ -43,7 +41,6 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock implements 
         variableNameSecond = _variableSec.getInfo();
         expression = _expression.getInfo();
         expressionOffset = _expression.getOffset();
-        label = _label.getInfo();
     }
 
     @Override
@@ -80,9 +77,6 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock implements 
         _loopsVars.removeKey(variableNameFirst);
         _infosVars.removeKey(variableNameSecond);
         _loopsVars.removeKey(variableNameSecond);
-    }
-    public String getRealLabel() {
-        return label;
     }
 
     public String getVariableNameSecond() {

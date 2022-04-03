@@ -21,7 +21,6 @@ public final class SettableFieldNatOperation extends
 //        getSettableFieldContent().setAnc(r_.getContent().getAnc());
 //        getSettableFieldContent().setFinalField(r_.getContent().isFinalField());
 //        getSettableFieldContent().setStaticField(r_.getContent().isStaticField());
-        getSettableFieldContent().setClassField(r_.getContent().getClassField());
         getSettableFieldContent().setField(r_.getContent().getField());
 //        getSettableFieldContent().setRealType(r_.getContent().getRealType());
         String c_ = r_.getType();

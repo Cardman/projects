@@ -7,7 +7,6 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
-import code.formathtml.util.FieldUpdates;
 import code.formathtml.util.InputInfo;
 import code.sml.Document;
 import code.sml.Element;
@@ -22,8 +21,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
-    private StringMap<ExecTextPart> execAttributesText = new StringMap<ExecTextPart>();
-    private StringMap<ExecTextPart> execAttributes = new StringMap<ExecTextPart>();
+    private StringMap<DefExecTextPart> execAttributesText = new StringMap<DefExecTextPart>();
+    private StringMap<DefExecTextPart> execAttributes = new StringMap<DefExecTextPart>();
 
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
@@ -37,7 +36,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
 
     public RendTextArea(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
-                        StringMap<ExecTextPart> _execAttributesText, StringMap<ExecTextPart> _execAttributes,
+                        StringMap<DefExecTextPart> _execAttributesText, StringMap<DefExecTextPart> _execAttributes,
                         String _varNameConverter, String _varNameConverterField,
                         String _varName, String _id, String _idClass, String _idName, String _className, Element _elt, InputInfo _list) {
         this.opsRead = _opsRead;
@@ -74,8 +73,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         f_.setClassName(className);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
-        for (EntryCust<String, ExecTextPart> e: execAttributesText.entryList()) {
-            ExecTextPart res_ = e.getValue();
+        for (EntryCust<String, DefExecTextPart> e: execAttributesText.entryList()) {
+            DefExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
@@ -91,8 +90,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        for (EntryCust<String, ExecTextPart> e: execAttributes.entryList()) {
-            ExecTextPart res_ = e.getValue();
+        for (EntryCust<String, DefExecTextPart> e: execAttributes.entryList()) {
+            DefExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
