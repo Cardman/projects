@@ -1,7 +1,6 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.formathtml.Configuration;
@@ -43,7 +42,7 @@ public final class NatRendMessage extends RendParentBlock implements NatRendWith
         for (int i = 0; i< l_; i++) {
             Argument arg_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(opExp.get(i), _rendStack).lastValue().getArgument());
             String res_;
-            res_ = BeanNatLgNames.processString(arg_);
+            res_ = BeanNatCommonLgNames.processString(arg_);
             objects_.add(res_);
             anchorArg_.add(res_);
         }

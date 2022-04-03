@@ -2,7 +2,10 @@ package aiki.beans.map.characters;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMapCharactersStd{
@@ -49,7 +52,7 @@ public final class AikiBeansMapCharactersStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_ALLY_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false,new AllyBeanTeamGet(),null));
+        fields_.add(new StandardField(TEAM, BeanNatCommonLgNames.TYPE_LIST,false,false,new AllyBeanTeamGet(),null));
         fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY,false,false,null,new AllyBeanAllySet()));
         methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanGetImage()));
         methods_.add( new SpecNatMethod(CLICK_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanClickName()));
@@ -66,10 +69,10 @@ public final class AikiBeansMapCharactersStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_DEALER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        methods_.add( new SpecNatMethod(GET_ITEMS, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new DealerBeanGetItems()));
+        methods_.add( new SpecNatMethod(GET_ITEMS, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new DealerBeanGetItems()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new DealerBeanClickItem()));
         methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new DealerBeanGetItem()));
-        methods_.add( new SpecNatMethod(GET_ALL_TM, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new DealerBeanGetAllTm()));
+        methods_.add( new SpecNatMethod(GET_ALL_TM, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new DealerBeanGetAllTm()));
         methods_.add( new SpecNatMethod(CLICK_TM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new DealerBeanClickTm()));
         methods_.add( new SpecNatMethod(GET_TM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new DealerBeanGetTm()));
         _std.getStds().addEntry(TYPE_DEALER_BEAN, type_);
@@ -91,10 +94,10 @@ public final class AikiBeansMapCharactersStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_SELLER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        methods_.add( new SpecNatMethod(GET_ITEMS, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new SellerBeanGetItems()));
+        methods_.add( new SpecNatMethod(GET_ITEMS, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new SellerBeanGetItems()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SellerBeanClickItem()));
         methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SellerBeanGetItem()));
-        methods_.add( new SpecNatMethod(GET_ALL_TM, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new SellerBeanGetAllTm()));
+        methods_.add( new SpecNatMethod(GET_ALL_TM, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new SellerBeanGetAllTm()));
         methods_.add( new SpecNatMethod(CLICK_TM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SellerBeanClickTm()));
         methods_.add( new SpecNatMethod(GET_TM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SellerBeanGetTm()));
         _std.getStds().addEntry(TYPE_SELLER_BEAN, type_);
@@ -108,7 +111,7 @@ public final class AikiBeansMapCharactersStd{
         fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanPageTeamGet(),null));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false,new TrainerBeanTrainerGet(),null));
         fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanMoveGet(),null));
-        methods_.add( new SpecNatMethod(GET_TEAMS_REWARDS, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new TrainerBeanGetTeamsRewards()));
+        methods_.add( new SpecNatMethod(GET_TEAMS_REWARDS, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new TrainerBeanGetTeamsRewards()));
         methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerBeanGetName()));
         methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerBeanClickMove()));
         methods_.add( new SpecNatMethod(GET_TR_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerBeanGetTrMove()));

@@ -21,7 +21,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class PresidentStandards extends BeanNatLgNames {
+public final class PresidentStandards extends BeanNatCommonLgNames {
 
     private static final String SAME_AMOUNT = "sameAmount";
     private static final String NB_CARDS_PER_PLAYER_MAX = "nbCardsPerPlayerMax";

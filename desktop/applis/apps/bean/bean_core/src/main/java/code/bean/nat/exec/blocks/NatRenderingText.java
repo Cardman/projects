@@ -1,7 +1,6 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.formathtml.exec.blocks.ExecTextPart;
@@ -45,6 +44,6 @@ public final class NatRenderingText {
 
     private static String calculate(CustList<RendDynOperationNode> _e, NatRendStackCall _rendStackCall) {
         Argument argument_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(_e, _rendStackCall).lastValue().getArgument());
-        return BeanNatLgNames.processString(argument_);
+        return BeanNatCommonLgNames.processString(argument_);
     }
 }

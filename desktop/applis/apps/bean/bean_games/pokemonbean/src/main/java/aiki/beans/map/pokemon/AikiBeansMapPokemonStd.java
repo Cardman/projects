@@ -2,7 +2,10 @@ package aiki.beans.map.pokemon;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMapPokemonStd{
@@ -31,7 +34,7 @@ public final class AikiBeansMapPokemonStd{
         SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_TEAM_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(REWARD, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonTeamBeanRewardGet(),null));
         fields_.add(new StandardField(MULTIPLICITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonTeamBeanMultiplicityGet(),null));
-        fields_.add(new StandardField(TEAM, BeanNatLgNames.TYPE_LIST,false,false,new PokemonTeamBeanTeamGet(),null));
+        fields_.add(new StandardField(TEAM, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonTeamBeanTeamGet(),null));
         fields_.add(new StandardField(NO_FIGHT, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonTeamBeanNoFightGet(),new PokemonTeamBeanNoFightSet()));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false,null,new PokemonTeamBeanTrainerSet()));
         methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetImage()));

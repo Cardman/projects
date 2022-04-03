@@ -1,7 +1,10 @@
 package aiki.beans.game;
 
 import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansGameStd{
@@ -87,8 +90,8 @@ public final class AikiBeansGameStd{
     private static void buildDifficultyBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
-        fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,new DifficultyBeanWinPointsFightGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
+        fields_.add(new StandardField(WIN_POINTS_FIGHT, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyBeanWinPointsFightGet(),null));
         fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDiffWinningExpPtsFightGet(),new DifficultyBeanDiffWinningExpPtsFightSet()));
         fields_.add(new StandardField(ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanAllowCatchingKoGet(),new DifficultyBeanAllowCatchingKoSet()));
         fields_.add(new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanAllowedSwitchPlacesEndRoundGet(),new DifficultyBeanAllowedSwitchPlacesEndRoundSet()));
@@ -104,36 +107,36 @@ public final class AikiBeansGameStd{
         fields_.add(new StandardField(RANDOM_WILD_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanRandomWildFightGet(),new DifficultyBeanRandomWildFightSet()));
         fields_.add(new StandardField(STILL_POSSIBLE_FLEE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanStillPossibleFleeGet(),new DifficultyBeanStillPossibleFleeSet()));
         fields_.add(new StandardField(SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(),new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet()));
-        fields_.add(new StandardField(DAMAGE_RATES, BeanNatLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRatesGet(),null));
+        fields_.add(new StandardField(DAMAGE_RATES, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRatesGet(),null));
         fields_.add(new StandardField(DAMAGE_RATE_PLAYER,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDamageRatePlayerGet(),new DifficultyBeanDamageRatePlayerSet()));
-        fields_.add(new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRatePlayerTableGet(),null));
+        fields_.add(new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRatePlayerTableGet(),null));
         fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDamageRateLawFoeGet(),new DifficultyBeanDamageRateLawFoeSet()));
-        fields_.add(new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRateFoeTableGet(),null));
+        fields_.add(new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRateFoeTableGet(),null));
         methods_.add( new SpecNatMethod(CHANGE, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new DifficultyBeanChange()));
         _std.getStds().addEntry(TYPE_DIFFICULTY_BEAN, type_);
     }
     private static void buildGameProgressionBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_GAME_PROGRESSION_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_GAME_PROGRESSION_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
         fields_.add(new StandardField(FINISHED_GAME,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new GameProgressionBeanFinishedGameGet(),null));
         fields_.add(new StandardField(HERO_IMAGE,BeanNatCommonLgNames.STRING,false,false,new GameProgressionBeanHeroImageGet(),null));
         fields_.add(new StandardField(HERO_IMAGE_OPPOSITE_SEX,BeanNatCommonLgNames.STRING,false,false,new GameProgressionBeanHeroImageOppositeSexGet(),null));
         fields_.add(new StandardField(END_GAME_IMAGE,BeanNatCommonLgNames.STRING,false,false,new GameProgressionBeanEndGameImageGet(),null));
         fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING,false,false,new GameProgressionBeanNicknameGet(),null));
-        fields_.add(new StandardField(UN_BEATEN_IMPORTANT_TRAINERS, BeanNatLgNames.TYPE_LIST,false,false,new GameProgressionBeanUnBeatenImportantTrainersGet(),null));
-        fields_.add(new StandardField(BEATEN_IMPORTANT_TRAINERS, BeanNatLgNames.TYPE_LIST,false,false,new GameProgressionBeanBeatenImportantTrainersGet(),null));
-        fields_.add(new StandardField(REMAINING_OTHER_TRAINER_PLACES, BeanNatLgNames.TYPE_MAP,false,false,new GameProgressionBeanRemainingOtherTrainerPlacesGet(),null));
-        fields_.add(new StandardField(UN_VISITED_PLACES, BeanNatLgNames.TYPE_LIST,false,false,new GameProgressionBeanUnVisitedPlacesGet(),null));
-        fields_.add(new StandardField(VISITED_PLACES, BeanNatLgNames.TYPE_LIST,false,false,new GameProgressionBeanVisitedPlacesGet(),null));
+        fields_.add(new StandardField(UN_BEATEN_IMPORTANT_TRAINERS, BeanNatCommonLgNames.TYPE_LIST,false,false,new GameProgressionBeanUnBeatenImportantTrainersGet(),null));
+        fields_.add(new StandardField(BEATEN_IMPORTANT_TRAINERS, BeanNatCommonLgNames.TYPE_LIST,false,false,new GameProgressionBeanBeatenImportantTrainersGet(),null));
+        fields_.add(new StandardField(REMAINING_OTHER_TRAINER_PLACES, BeanNatCommonLgNames.TYPE_MAP,false,false,new GameProgressionBeanRemainingOtherTrainerPlacesGet(),null));
+        fields_.add(new StandardField(UN_VISITED_PLACES, BeanNatCommonLgNames.TYPE_LIST,false,false,new GameProgressionBeanUnVisitedPlacesGet(),null));
+        fields_.add(new StandardField(VISITED_PLACES, BeanNatCommonLgNames.TYPE_LIST,false,false,new GameProgressionBeanVisitedPlacesGet(),null));
         fields_.add(new StandardField(NB_REMAINING_NOT_MAX_LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanNbRemainingNotMaxLevelGet(),null));
         fields_.add(new StandardField(NB_REMAINING_NOT_MAX_HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanNbRemainingNotMaxHappinessGet(),null));
         fields_.add(new StandardField(NB_REMAINING_EGGS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanNbRemainingEggsGet(),null));
         fields_.add(new StandardField(REMAIN_STEPS_REPEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanRemainStepsRepelGet(),null));
         fields_.add(new StandardField(MONEY,PokemonStandards.TYPE_LG_INT,false,false,new GameProgressionBeanMoneyGet(),null));
-        fields_.add(new StandardField(FULL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false,new GameProgressionBeanFullFamiliesBaseGet(),null));
-        fields_.add(new StandardField(NOT_AT_ALL_FAMILIES_BASE, BeanNatLgNames.TYPE_MAP,false,false,new GameProgressionBeanNotAtAllFamiliesBaseGet(),null));
-        fields_.add(new StandardField(PARTIAL_FAMILIES_BASE_NOT_CAUGHT, BeanNatLgNames.TYPE_MAP,false,false,new GameProgressionBeanPartialFamiliesBaseNotCaughtGet(),null));
+        fields_.add(new StandardField(FULL_FAMILIES_BASE, BeanNatCommonLgNames.TYPE_MAP,false,false,new GameProgressionBeanFullFamiliesBaseGet(),null));
+        fields_.add(new StandardField(NOT_AT_ALL_FAMILIES_BASE, BeanNatCommonLgNames.TYPE_MAP,false,false,new GameProgressionBeanNotAtAllFamiliesBaseGet(),null));
+        fields_.add(new StandardField(PARTIAL_FAMILIES_BASE_NOT_CAUGHT, BeanNatCommonLgNames.TYPE_MAP,false,false,new GameProgressionBeanPartialFamiliesBaseNotCaughtGet(),null));
         methods_.add( new SpecNatMethod(GET_REMAINING_OTHER_TRAINERS_PLACE_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetRemainingOtherTrainersPlaceName()));
         methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_FULL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetImagePokemonFull()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_FULL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonFull()));
@@ -141,7 +144,7 @@ public final class AikiBeansGameStd{
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_NOT_ALL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonNotAll()));
         methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL_NOT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetImagePokemonPartialNot()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_PARTIAL_NOT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonPartialNot()));
-        methods_.add( new SpecNatMethod(GET_KEY_POKEMON, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new GameProgressionBeanGetKeyPokemon()));
+        methods_.add( new SpecNatMethod(GET_KEY_POKEMON, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new GameProgressionBeanGetKeyPokemon()));
         methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetImagePokemonPartial()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonPartial()));
         _std.getStds().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
@@ -149,10 +152,10 @@ public final class AikiBeansGameStd{
     private static void buildPokemonPlayerBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
         fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanNameGet(),null));
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanImageGet(),null));
-        fields_.add(new StandardField(EVOLUTIONS, BeanNatLgNames.TYPE_MAP,false,false,new PokemonPlayerBeanEvolutionsGet(),null));
+        fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.TYPE_MAP,false,false,new PokemonPlayerBeanEvolutionsGet(),null));
         fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerBeanLevelGet(),null));
         fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanGenderGet(),null));
         fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanAbilityGet(),null));
@@ -166,10 +169,10 @@ public final class AikiBeansGameStd{
         fields_.add(new StandardField(NECESSARY_POINTS_NEXT_LEVEL,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanNecessaryPointsNextLevelGet(),null));
         fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerBeanHappinessGet(),null));
         fields_.add(new StandardField(NB_STEPS_TEAM_LEAD, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerBeanNbStepsTeamLeadGet(),null));
-        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanTypesGet(),null));
-        fields_.add(new StandardField(STATUS, BeanNatLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanStatusGet(),null));
-        fields_.add(new StandardField(MOVES, BeanNatLgNames.TYPE_MAP,false,false,new PokemonPlayerBeanMovesGet(),null));
-        fields_.add(new StandardField(STATISTICS, BeanNatLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanStatisticsGet(),null));
+        fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanTypesGet(),null));
+        fields_.add(new StandardField(STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanStatusGet(),null));
+        fields_.add(new StandardField(MOVES, BeanNatCommonLgNames.TYPE_MAP,false,false,new PokemonPlayerBeanMovesGet(),null));
+        fields_.add(new StandardField(STATISTICS, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanStatisticsGet(),null));
         methods_.add( new SpecNatMethod(GET_EVO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonPlayerBeanGetEvo()));
         _std.getStds().addEntry(TYPE_POKEMON_PLAYER_BEAN, type_);
     }

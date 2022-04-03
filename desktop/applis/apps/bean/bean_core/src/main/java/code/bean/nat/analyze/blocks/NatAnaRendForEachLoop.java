@@ -1,7 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -30,10 +29,10 @@ public final class NatAnaRendForEachLoop extends AnaRendParentBlock implements N
 
     private NatOperationNode root;
 
-    private final BeanNatLgNames caller;
+    private final BeanNatCommonLgNames caller;
 
     NatAnaRendForEachLoop(OffsetStringInfo _className, OffsetStringInfo _variable,
-                          OffsetStringInfo _expression, OffsetStringInfo _label, int _offset, BeanNatLgNames _caller) {
+                          OffsetStringInfo _expression, OffsetStringInfo _label, int _offset, BeanNatCommonLgNames _caller) {
         super(_offset);
         className = _className.getInfo();
         variableName = _variable.getInfo();

@@ -4,9 +4,7 @@ import code.bean.nat.*;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatImportingPage;
-import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
@@ -69,7 +67,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         RendBlockHelp.processElseIf(null,stack_);
         NatStdRefVariableOperation.getValue(null);
         PairStruct struct_ = new PairStruct("", NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
-        BeanNatLgNames.processString(new Argument(struct_));
+        BeanNatCommonLgNames.processString(new Argument(struct_));
         NatRendImport.beforeDisp(null, null);
         BeanNatCommonLgNames.methName("(0,1)");
         BeanNatCommonLgNames.suff("(0,1)");
@@ -2325,7 +2323,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         analyzingDoc_.setup(configuration_, _dual.getProperties(), _dual.getMessagesFolder());
         NatAnalyzedCode init_ = init(_adv);
         setupAna(analyzingDoc_, init_);
-        BeanNatLgNames.initInstancesPattern(configuration_, map_);
+        BeanNatCommonLgNames.initInstancesPattern(configuration_, map_);
         configuration_.getBeansInfos().addAllEntries(map_);
 
         StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
@@ -2501,7 +2499,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         putBean(_key, _adv, _v);
     }
 
-    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanNatLgNames _stds, NatRendStackCall _rendStackCall) {
+    private static String getSampleRes(Configuration _conf, RendDocumentBlock _rendDocumentBlock, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
         return getRes(_conf,_rendDocumentBlock, _stds, _rendStackCall);
     }
 
@@ -2514,7 +2512,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         _adv.preInitBeans(_configuration);
     }
 
-    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanNatLgNames _stds, NatRendStackCall _rendStackCall) {
+    private static String getRes(Configuration _conf, RendDocumentBlock _doc, BeanNatCommonLgNames _stds, NatRendStackCall _rendStackCall) {
         return _stds.getRes(_doc, _conf, _rendStackCall);
     }
 

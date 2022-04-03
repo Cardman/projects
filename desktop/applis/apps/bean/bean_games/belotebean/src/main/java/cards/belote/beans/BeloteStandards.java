@@ -19,7 +19,7 @@ import code.formathtml.structs.BeanInfo;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
-public final class BeloteStandards extends BeanNatLgNames {
+public final class BeloteStandards extends BeanNatCommonLgNames {
     private static final String COMPTE_POINTS_CLASSIQUE = "comptePointsClassique";
     private static final String REPARTITION = "repartition";
     private static final String GESTION_COUPE_PARTENAIRE = "gestionCoupePartenaire";

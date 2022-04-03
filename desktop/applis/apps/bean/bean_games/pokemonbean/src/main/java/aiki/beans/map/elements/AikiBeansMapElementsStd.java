@@ -2,7 +2,10 @@ package aiki.beans.map.elements;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMapElementsStd{
@@ -50,7 +53,7 @@ public final class AikiBeansMapElementsStd{
         methods_.add( new SpecNatMethod(GET_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetAbility()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanClickItem()));
         methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetItem()));
-        methods_.add( new SpecNatMethod(GET_MOVES_AT_LEVEL, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new AreaBeanGetMovesAtLevel()));
+        methods_.add( new SpecNatMethod(GET_MOVES_AT_LEVEL, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new AreaBeanGetMovesAtLevel()));
         methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanClickMove()));
         methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetMove()));
         methods_.add( new SpecNatMethod(GET_IMAGE_FISHING,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetImageFishing()));
@@ -60,7 +63,7 @@ public final class AikiBeansMapElementsStd{
         methods_.add( new SpecNatMethod(GET_ABILITY_FISHING,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetAbilityFishing()));
         methods_.add( new SpecNatMethod(CLICK_ITEM_FISHING,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanClickItemFishing()));
         methods_.add( new SpecNatMethod(GET_ITEM_FISHING,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetItemFishing()));
-        methods_.add( new SpecNatMethod(GET_MOVES_AT_LEVEL_FISHING, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new AreaBeanGetMovesAtLevelFishing()));
+        methods_.add( new SpecNatMethod(GET_MOVES_AT_LEVEL_FISHING, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new AreaBeanGetMovesAtLevelFishing()));
         methods_.add( new SpecNatMethod(CLICK_MOVE_FISHING,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanClickMoveFishing()));
         methods_.add( new SpecNatMethod(GET_MOVE_FISHING,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetMoveFishing()));
         _std.getStds().addEntry(TYPE_AREA_BEAN, type_);
@@ -79,7 +82,7 @@ public final class AikiBeansMapElementsStd{
         methods_.add( new SpecNatMethod(GET_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new LegendaryPokemonBeanGetAbility()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new LegendaryPokemonBeanClickItem()));
         methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new LegendaryPokemonBeanGetItem()));
-        methods_.add( new SpecNatMethod(GET_MOVES_AT_LEVEL, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new LegendaryPokemonBeanGetMovesAtLevel()));
+        methods_.add( new SpecNatMethod(GET_MOVES_AT_LEVEL, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new LegendaryPokemonBeanGetMovesAtLevel()));
         methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new LegendaryPokemonBeanClickMove()));
         methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new LegendaryPokemonBeanGetMove()));
         _std.getStds().addEntry(TYPE_LEGENDARY_POKEMON_BEAN, type_);

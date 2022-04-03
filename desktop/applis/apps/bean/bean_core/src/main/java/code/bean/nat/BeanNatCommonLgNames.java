@@ -1,5 +1,6 @@
 package code.bean.nat;
 
+import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
@@ -7,6 +8,8 @@ import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.opers.NatRendCalculableOperation;
 import code.bean.nat.exec.variables.VariableWrapperNat;
+import code.bean.nat.fwd.AbstractNatBlockBuilder;
+import code.bean.nat.fwd.NatRendForwardInfos;
 import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
@@ -21,6 +24,9 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
+import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
+import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.exec.blocks.RendDocumentBlock;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
@@ -74,7 +80,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     private final StringMap<SpecialNatClass> stds = new StringMap<SpecialNatClass>();
 
     private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
-
+    private final NatAnalyzedCode natCode = NatAnalyzedCode.setInnerAnalyzing();
     protected BeanNatCommonLgNames() {
         super(new DefaultGenerator());
     }
@@ -435,7 +441,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             String result_ = null;
             StringMap<String> cases_ = _navigation.getVal(_concat);
             if (cases_ != null) {
-                String case_ = BeanNatLgNames.processString(new Argument(_ret));
+                String case_ = BeanNatCommonLgNames.processString(new Argument(_ret));
                 result_ = cases_.getVal(case_);
             }
             urlDest_ = result_;
@@ -583,5 +589,54 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         return array_;
     }
+    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, AbstractNatBlockBuilder _builder, NatDualConfigurationContext _context) {
+        setNavigation(_context.getNavigation());
+        AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
+        analyzingDoc_.setContent(this);
+        StringMap<BeanInfo> beansInfos_ = new StringMap<BeanInfo>();
+        initInstancesPattern(_nav.getSession(), beansInfos_);
+        _conf.getBeansInfos().addAllEntries(beansInfos_);
+        preInitBeans(_nav.getSession());
+        analyzingDoc_.setRendAnalysisMessages(new RendAnalysisMessages());
+        analyzingDoc_.setLanguages(_nav.getLanguages());
+        _nav.getSession().setCurrentLanguage(_nav.getLanguage());
 
+        getRenders().clear();
+        _nav.getSession().setFiles(_nav.getFiles());
+        analyzingDoc_.setup(_nav.getSession(), _context.getProperties(), _context.getMessagesFolder());
+
+
+        natCode.setStds(this);
+        StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
+        for (EntryCust<String, Document> s: _docs.entryList()) {
+            String link_ = s.getKey();
+            Document document_ = s.getValue();
+            String file_ = document_.export();
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, file_, link_, analyzingDoc_.getRendKeyWords(), this, _builder);
+            d_.addEntry(link_,anaDoc_);
+        }
+        for (AnaRendDocumentBlock v : d_.values()) {
+            AnaRendBlockHelp.buildFctInstructions(v,analyzingDoc_, natCode, beansInfos_);
+        }
+//        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
+        NatRendForwardInfos.buildExec(analyzingDoc_, d_, getRenders());
+    }
+
+    public static String processString(Argument _arg) {
+        Struct struct_ = _arg.getStruct();
+        if (struct_ instanceof NumberStruct) {
+            return Long.toString(((NumberStruct)struct_).longStruct());
+        }
+        if (struct_ instanceof StringStruct) {
+            return ((StringStruct)struct_).getInstance();
+        }
+        if (struct_ instanceof NatDisplayableStruct) {
+            return ((NatDisplayableStruct)struct_).getDisplayedString().getInstance();
+        }
+        return CST_NULL_STRING;
+    }
+
+    public NatAnalyzedCode getNatCode() {
+        return natCode;
+    }
 }

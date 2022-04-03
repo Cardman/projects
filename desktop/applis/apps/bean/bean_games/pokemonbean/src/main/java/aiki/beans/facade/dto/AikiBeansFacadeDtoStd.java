@@ -1,7 +1,10 @@
 package aiki.beans.facade.dto;
 
 import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansFacadeDtoStd{
@@ -62,7 +65,7 @@ public final class AikiBeansFacadeDtoStd{
         fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLinePriorityGet(),null));
         methods_.add( new SpecNatMethod(IS_DAMAGE_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveLineIsDamageMove()));
         methods_.add( new SpecNatMethod(IS_DIRECT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveLineIsDirect()));
-        methods_.add( new SpecNatMethod(GET_TYPES, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new MoveLineGetTypes()));
+        methods_.add( new SpecNatMethod(GET_TYPES, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new MoveLineGetTypes()));
         _std.getStds().addEntry(TYPE_MOVE_LINE, type_);
     }
     private static void buildPokemonLine(PokemonStandards _std){
@@ -70,7 +73,7 @@ public final class AikiBeansFacadeDtoStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new PokemonLineDisplayNameGet(),null));
-        fields_.add(new StandardField(TYPES, BeanNatLgNames.TYPE_LIST,false,false,new PokemonLineTypesGet(),null));
+        fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonLineTypesGet(),null));
         fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonLineEvolutionsGet(),null));
         _std.getStds().addEntry(TYPE_POKEMON_LINE, type_);
     }

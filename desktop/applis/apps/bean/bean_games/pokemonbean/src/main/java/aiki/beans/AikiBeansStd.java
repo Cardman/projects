@@ -1,6 +1,9 @@
 package aiki.beans;
 
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansStd{
@@ -22,7 +25,7 @@ public final class AikiBeansStd{
     private static void buildCommonBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMMON_BEAN, fields_, methods_, BeanNatLgNames.TYPE_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMMON_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
         _std.getStds().addEntry(TYPE_COMMON_BEAN, type_);
     }
     private static void buildWelcomeBean(PokemonStandards _std){

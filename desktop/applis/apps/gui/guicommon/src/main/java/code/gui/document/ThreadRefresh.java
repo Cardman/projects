@@ -1,7 +1,7 @@
 package code.gui.document;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.formathtml.render.MetaDocument;
-import code.bean.nat.BeanNatLgNames;
 import code.gui.FrameUtil;
 import code.sml.Document;
 
@@ -9,9 +9,9 @@ public final class ThreadRefresh implements Runnable {
 
     private final RenderedPage page;
 
-    private final BeanNatLgNames stds;
+    private final BeanNatCommonLgNames stds;
 
-    ThreadRefresh(RenderedPage _page, BeanNatLgNames _lgNames) {
+    ThreadRefresh(RenderedPage _page, BeanNatCommonLgNames _lgNames) {
         page = _page;
         page.start();
         stds = _lgNames;

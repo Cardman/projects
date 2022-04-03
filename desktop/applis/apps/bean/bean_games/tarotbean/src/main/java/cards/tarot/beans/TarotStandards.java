@@ -19,7 +19,7 @@ import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
-public final class TarotStandards extends BeanNatLgNames {
+public final class TarotStandards extends BeanNatCommonLgNames {
     static final String TYPE_RATE = "$Rate";
     private static final String DISCARD_AFTER_CALL = "discardAfterCall";
     private static final String POIGNEES_AUTORISEES = "poigneesAutorisees";

@@ -101,7 +101,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;
-public final class PokemonStandards extends BeanNatLgNames implements AbstractNatImpLgNames {
+public final class PokemonStandards extends BeanNatCommonLgNames implements AbstractNatImpLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
     public static final String TYPE_MOVE_TARGET = "aiki.game.fight.util.MoveTarget";
     public static final String TYPE_TARGET_COORDS = "aiki.game.fight.TargetCoords";

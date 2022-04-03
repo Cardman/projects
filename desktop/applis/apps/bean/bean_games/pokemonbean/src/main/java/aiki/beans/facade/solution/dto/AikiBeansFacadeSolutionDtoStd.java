@@ -1,7 +1,10 @@
 package aiki.beans.facade.solution.dto;
 
 import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansFacadeSolutionDtoStd{
@@ -33,8 +36,8 @@ public final class AikiBeansFacadeSolutionDtoStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_STEP_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_POKEMON, BeanNatLgNames.TYPE_MAP, false, MethodModifier.NORMAL,new StepDtoGetPokemon()));
-        methods_.add( new SpecNatMethod(GET_NAMES, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new StepDtoGetNames()));
+        methods_.add( new SpecNatMethod(GET_POKEMON, BeanNatCommonLgNames.TYPE_MAP, false, MethodModifier.NORMAL,new StepDtoGetPokemon()));
+        methods_.add( new SpecNatMethod(GET_NAMES, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new StepDtoGetNames()));
         _std.getStds().addEntry(TYPE_STEP_DTO, type_);
     }
     private static void buildWildPokemonDto(PokemonStandards _std){

@@ -1,7 +1,7 @@
 package cards.gui.animations;
 
 import code.bean.nat.AbstractNativeInit;
-import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NativeConfigurationLoader;
 import code.bean.nat.fwd.DefNatBlockBuilder;
@@ -18,11 +18,11 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
     private static final String SEPARATOR_PATH = "/";
     private static final String IMPLICIT_LANGUAGE = "//";
     private final String lg;
-    private final BeanNatLgNames beanNatLgNames;
+    private final BeanNatCommonLgNames beanNatLgNames;
     private Navigation navigation;
     private final StringMap<Document> built;
 
-    public AbstractPreparedPagesCards(String _lg, BeanNatLgNames _stds, StringMap<Document> _built) {
+    public AbstractPreparedPagesCards(String _lg, BeanNatCommonLgNames _stds, StringMap<Document> _built) {
         lg = _lg;
         beanNatLgNames = _stds;
         built = _built;
@@ -78,7 +78,7 @@ public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
     }
 
     @Override
-    public BeanNatLgNames getBeanNatLgNames() {
+    public BeanNatCommonLgNames getBeanNatLgNames() {
         return beanNatLgNames;
     }
 }

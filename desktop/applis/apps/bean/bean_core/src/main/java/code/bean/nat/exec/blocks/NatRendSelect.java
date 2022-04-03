@@ -1,7 +1,6 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.BeanNatLgNames;
 import code.bean.nat.exec.NatRendStackCall;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -79,7 +78,7 @@ public final class NatRendSelect extends RendParentBlock implements NatRendWithE
                 }
             }
             Argument second_ = RendBlockHelp.second(entry_);
-            String txt_ = BeanNatLgNames.processString(second_);
+            String txt_ = BeanNatCommonLgNames.processString(second_);
             option_.appendChild(_docSelect.createTextNode(txt_));
             _docElementSelect.appendChild(option_);
         }

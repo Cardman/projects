@@ -2,7 +2,7 @@ package aiki.gui.threads;
 
 import aiki.beans.PokemonStandards;
 import code.bean.nat.AbstractNativeInit;
-import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NativeConfigurationLoader;
 import code.bean.nat.fwd.AdvNatBlockBuilder;
@@ -19,7 +19,7 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
     private final AbstractNativeInit init;
     private Navigation navigation;
     private final String relative;
-    private BeanNatLgNames beanNatLgNames;
+    private BeanNatCommonLgNames beanNatLgNames;
     private final StringMap<Document> built;
     private final StringMap<String> builtMessages;
     private final StringMap<String> builtOther;
@@ -79,7 +79,7 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         return navigation;
     }
 
-    public BeanNatLgNames getBeanNatLgNames() {
+    public BeanNatCommonLgNames getBeanNatLgNames() {
         return beanNatLgNames;
     }
 

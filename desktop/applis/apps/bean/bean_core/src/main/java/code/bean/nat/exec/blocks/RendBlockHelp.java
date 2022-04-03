@@ -1,6 +1,9 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.PairStruct;
+import code.bean.nat.SimpleItrStruct;
+import code.bean.nat.SpecialNatClass;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatAbstractAffectOperation;
@@ -253,7 +256,7 @@ public final class RendBlockHelp {
                 }
             } else {
                 o_ = convertField(o_);
-                String value_ = BeanNatLgNames.processString(o_);
+                String value_ = BeanNatCommonLgNames.processString(o_);
                 _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
             }
         }
@@ -302,7 +305,7 @@ public final class RendBlockHelp {
     }
 
     static String getStringKey(Struct _instance) {
-        return BeanNatLgNames.processString(new Argument(_instance));
+        return BeanNatCommonLgNames.processString(new Argument(_instance));
     }
 
     public static void processLink(Configuration _cont, Element _nextWrite, Element _read, ExecTextPart _textPart, NatRendStackCall _rendStackCall) {

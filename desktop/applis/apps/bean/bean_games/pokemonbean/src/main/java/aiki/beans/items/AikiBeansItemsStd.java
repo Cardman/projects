@@ -2,7 +2,10 @@ package aiki.beans.items;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansItemsStd{
@@ -181,7 +184,7 @@ public final class AikiBeansItemsStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_BALL_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(CATCHING_RATE,BeanNatCommonLgNames.STRING,false,false,new BallBeanCatchingRateGet(),null));
-        fields_.add(new StandardField(MAP_VARS, BeanNatLgNames.TYPE_MAP,false,false,new BallBeanMapVarsGet(),null));
+        fields_.add(new StandardField(MAP_VARS, BeanNatCommonLgNames.TYPE_MAP,false,false,new BallBeanMapVarsGet(),null));
         _std.getStds().addEntry(TYPE_BALL_BEAN, type_);
     }
     private static void buildBerryBean(PokemonStandards _std){
@@ -196,11 +199,11 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(MAX_HP_HEALING_HP,PokemonStandards.TYPE_RATE,false,false,new BerryBeanMaxHpHealingHpGet(),null));
         fields_.add(new StandardField(HEAL_HP_RATE,PokemonStandards.TYPE_RATE,false,false,new BerryBeanHealHpRateGet(),null));
         fields_.add(new StandardField(MAX_HP_HEALING_HP_RATE,PokemonStandards.TYPE_RATE,false,false,new BerryBeanMaxHpHealingHpRateGet(),null));
-        fields_.add(new StandardField(MULT_FOES_DAMAGE, BeanNatLgNames.TYPE_MAP,false,false,new BerryBeanMultFoesDamageGet(),null));
-        fields_.add(new StandardField(MULT_STAT, BeanNatLgNames.TYPE_MAP,false,false,new BerryBeanMultStatGet(),null));
-        fields_.add(new StandardField(HEAL_STATUS, BeanNatLgNames.TYPE_LIST,false,false,new BerryBeanHealStatusGet(),null));
-        fields_.add(new StandardField(DAMAGE_RATE_RECOIL_FOE, BeanNatLgNames.TYPE_MAP,false,false,new BerryBeanDamageRateRecoilFoeGet(),null));
-        fields_.add(new StandardField(BOOST_STATIS, BeanNatLgNames.TYPE_MAP,false,false,new BerryBeanBoostStatisGet(),null));
+        fields_.add(new StandardField(MULT_FOES_DAMAGE, BeanNatCommonLgNames.TYPE_MAP,false,false,new BerryBeanMultFoesDamageGet(),null));
+        fields_.add(new StandardField(MULT_STAT, BeanNatCommonLgNames.TYPE_MAP,false,false,new BerryBeanMultStatGet(),null));
+        fields_.add(new StandardField(HEAL_STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new BerryBeanHealStatusGet(),null));
+        fields_.add(new StandardField(DAMAGE_RATE_RECOIL_FOE, BeanNatCommonLgNames.TYPE_MAP,false,false,new BerryBeanDamageRateRecoilFoeGet(),null));
+        fields_.add(new StandardField(BOOST_STATIS, BeanNatCommonLgNames.TYPE_MAP,false,false,new BerryBeanBoostStatisGet(),null));
         fields_.add(new StandardField(CATEGORY_BOOSTING,BeanNatCommonLgNames.STRING,false,false,new BerryBeanCategoryBoostingGet(),null));
         methods_.add( new SpecNatMethod(IS_HEALING_PP,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new BerryBeanIsHealingPp()));
         methods_.add( new SpecNatMethod(GET_TR_MULT_FOES_DAMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new BerryBeanGetTrMultFoesDamage()));
@@ -216,8 +219,8 @@ public final class AikiBeansItemsStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_BOOST_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(WIN_PP,PokemonStandards.TYPE_RATE,false,false,new BoostBeanWinPpGet(),null));
-        fields_.add(new StandardField(HAPPINESS, BeanNatLgNames.TYPE_MAP,false,false,new BoostBeanHappinessGet(),null));
-        fields_.add(new StandardField(EVS, BeanNatLgNames.TYPE_MAP,false,false,new BoostBeanEvsGet(),null));
+        fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.TYPE_MAP,false,false,new BoostBeanHappinessGet(),null));
+        fields_.add(new StandardField(EVS, BeanNatCommonLgNames.TYPE_MAP,false,false,new BoostBeanEvsGet(),null));
         fields_.add(new StandardField(MAX_EV, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new BoostBeanMaxEvGet(),null));
         methods_.add( new SpecNatMethod(IS_BALL,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new BoostBeanIsBall()));
         methods_.add( new SpecNatMethod(CLICK_HAPPINESS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new BoostBeanClickHappiness()));
@@ -229,7 +232,7 @@ public final class AikiBeansItemsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLVING_ITEM_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
-        fields_.add(new StandardField(POKEMON, BeanNatLgNames.TYPE_LIST,false,false,new EvolvingItemBeanPokemonGet(),null));
+        fields_.add(new StandardField(POKEMON, BeanNatCommonLgNames.TYPE_LIST,false,false,new EvolvingItemBeanPokemonGet(),null));
         methods_.add( new SpecNatMethod(CLICK_POKEMON,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolvingItemBeanClickPokemon()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolvingItemBeanGetTrPokemon()));
         _std.getStds().addEntry(TYPE_EVOLVING_ITEM_BEAN, type_);
@@ -238,7 +241,7 @@ public final class AikiBeansItemsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLVING_STONE_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
-        fields_.add(new StandardField(POKEMON, BeanNatLgNames.TYPE_LIST,false,false,new EvolvingStoneBeanPokemonGet(),null));
+        fields_.add(new StandardField(POKEMON, BeanNatCommonLgNames.TYPE_LIST,false,false,new EvolvingStoneBeanPokemonGet(),null));
         methods_.add( new SpecNatMethod(CLICK_POKEMON,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolvingStoneBeanClickPokemon()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolvingStoneBeanGetTrPokemon()));
         _std.getStds().addEntry(TYPE_EVOLVING_STONE_BEAN, type_);
@@ -265,7 +268,7 @@ public final class AikiBeansItemsStd{
         SpecialNatClass type_ = new SpecialNatClass(TYPE_HEALING_ITEM_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(HEALING_ITEM_BEAN,BeanNatCommonLgNames.STRING,false,false,new HealingItemBeanHealingItemBeanGet(),null));
         fields_.add(new StandardField(HEALING_TEAM,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new HealingItemBeanHealingTeamGet(),null));
-        fields_.add(new StandardField(HAPPINESS, BeanNatLgNames.TYPE_MAP,false,false,new HealingItemBeanHappinessGet(),null));
+        fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.TYPE_MAP,false,false,new HealingItemBeanHappinessGet(),null));
         methods_.add( new SpecNatMethod(IS_BALL,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new HealingItemBeanIsBall()));
         methods_.add( new SpecNatMethod(CLICK_HAPPINESS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new HealingItemBeanClickHappiness()));
         methods_.add( new SpecNatMethod(GET_TR_HAPPINESS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new HealingItemBeanGetTrHappiness()));
@@ -290,7 +293,7 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(HEALED_HP_RATE,PokemonStandards.TYPE_RATE,false,false,new HealingStatusBeanHealedHpRateGet(),null));
         fields_.add(new StandardField(HEALING_STATUS_BEAN,BeanNatCommonLgNames.STRING,false,false,new HealingStatusBeanHealingStatusBeanGet(),null));
         fields_.add(new StandardField(HEALING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new HealingStatusBeanHealingKoGet(),null));
-        fields_.add(new StandardField(STATUS, BeanNatLgNames.TYPE_LIST,false,false,new HealingStatusBeanStatusGet(),null));
+        fields_.add(new StandardField(STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new HealingStatusBeanStatusGet(),null));
         methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new HealingStatusBeanClickStatus()));
         methods_.add( new SpecNatMethod(GET_TR_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new HealingStatusBeanGetTrStatus()));
         _std.getStds().addEntry(TYPE_HEALING_STATUS_BEAN, type_);
@@ -320,8 +323,8 @@ public final class AikiBeansItemsStd{
         SpecialNatClass type_ = new SpecialNatClass(TYPE_ITEM_FOR_BATTLE_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
         fields_.add(new StandardField(END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanEndRoundGet(),null));
         fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new ItemForBattleBeanEndRoundRankGet(),null));
-        fields_.add(new StandardField(REASONS_END_ROUND, BeanNatLgNames.TYPE_LIST,false,false,new ItemForBattleBeanReasonsEndRoundGet(),null));
-        fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMapVarsFailEndRoundGet(),null));
+        fields_.add(new StandardField(REASONS_END_ROUND, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemForBattleBeanReasonsEndRoundGet(),null));
+        fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMapVarsFailEndRoundGet(),null));
         fields_.add(new StandardField(SENDING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanSendingGet(),null));
         fields_.add(new StandardField(EFFECT_SEND_BEAN,BeanNatCommonLgNames.STRING,false,false,new ItemForBattleBeanEffectSendBeanGet(),null));
         fields_.add(new StandardField(CANCEL_IMMU_TYPE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanCancelImmuTypeGet(),null));
@@ -343,24 +346,24 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(DAMAGE_RECOIL,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanDamageRecoilGet(),null));
         fields_.add(new StandardField(MULT_POWER,BeanNatCommonLgNames.STRING,false,false,new ItemForBattleBeanMultPowerGet(),null));
         fields_.add(new StandardField(MULT_DAMAGE,BeanNatCommonLgNames.STRING,false,false,new ItemForBattleBeanMultDamageGet(),null));
-        fields_.add(new StandardField(MULT_STAT_RANK, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMultStatRankGet(),null));
-        fields_.add(new StandardField(MULT_STAT_POKEMON_RANK, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMultStatPokemonRankGet(),null));
-        fields_.add(new StandardField(BOOST_STATIS_SUPER_EFF, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanBoostStatisSuperEffGet(),null));
-        fields_.add(new StandardField(BOOST_STATIS_TYPES, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanBoostStatisTypesGet(),null));
-        fields_.add(new StandardField(MULT_STAT, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMultStatGet(),null));
-        fields_.add(new StandardField(FAIL_STATUS, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanFailStatusGet(),null));
-        fields_.add(new StandardField(MAP_VARS, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMapVarsGet(),null));
-        fields_.add(new StandardField(TYPES_PK, BeanNatLgNames.TYPE_LIST,false,false,new ItemForBattleBeanTypesPkGet(),null));
-        fields_.add(new StandardField(TYPES_PK_ABILITIES, BeanNatLgNames.TYPE_LIST,false,false,new ItemForBattleBeanTypesPkAbilitiesGet(),null));
-        fields_.add(new StandardField(IMMU_STATUS, BeanNatLgNames.TYPE_LIST,false,false,new ItemForBattleBeanImmuStatusGet(),null));
-        fields_.add(new StandardField(IMMU_TYPES, BeanNatLgNames.TYPE_LIST,false,false,new ItemForBattleBeanImmuTypesGet(),null));
-        fields_.add(new StandardField(SYNCHRO_STATUS, BeanNatLgNames.TYPE_LIST,false,false,new ItemForBattleBeanSynchroStatusGet(),null));
-        fields_.add(new StandardField(WIN_EV_FIGHT, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanWinEvFightGet(),null));
-        fields_.add(new StandardField(INCREASING_MAX_NB_ROUND_TRAP, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanIncreasingMaxNbRoundTrapGet(),null));
-        fields_.add(new StandardField(INCREASING_MAX_NB_ROUND_GLOBAL_MOVE, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet(),null));
-        fields_.add(new StandardField(INCREASING_MAX_NB_ROUND_TEAM_MOVE, BeanNatLgNames.TYPE_MAP,false,false,new ItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),null));
-        fields_.add(new StandardField(IMMU_MOVES, BeanNatLgNames.TYPE_LIST,false,false,new ItemForBattleBeanImmuMovesGet(),null));
-        fields_.add(new StandardField(IMMU_WEATHER, BeanNatLgNames.TYPE_LIST,false,false,new ItemForBattleBeanImmuWeatherGet(),null));
+        fields_.add(new StandardField(MULT_STAT_RANK, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMultStatRankGet(),null));
+        fields_.add(new StandardField(MULT_STAT_POKEMON_RANK, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMultStatPokemonRankGet(),null));
+        fields_.add(new StandardField(BOOST_STATIS_SUPER_EFF, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanBoostStatisSuperEffGet(),null));
+        fields_.add(new StandardField(BOOST_STATIS_TYPES, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanBoostStatisTypesGet(),null));
+        fields_.add(new StandardField(MULT_STAT, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMultStatGet(),null));
+        fields_.add(new StandardField(FAIL_STATUS, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanFailStatusGet(),null));
+        fields_.add(new StandardField(MAP_VARS, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMapVarsGet(),null));
+        fields_.add(new StandardField(TYPES_PK, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemForBattleBeanTypesPkGet(),null));
+        fields_.add(new StandardField(TYPES_PK_ABILITIES, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemForBattleBeanTypesPkAbilitiesGet(),null));
+        fields_.add(new StandardField(IMMU_STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemForBattleBeanImmuStatusGet(),null));
+        fields_.add(new StandardField(IMMU_TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemForBattleBeanImmuTypesGet(),null));
+        fields_.add(new StandardField(SYNCHRO_STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemForBattleBeanSynchroStatusGet(),null));
+        fields_.add(new StandardField(WIN_EV_FIGHT, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanWinEvFightGet(),null));
+        fields_.add(new StandardField(INCREASING_MAX_NB_ROUND_TRAP, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanIncreasingMaxNbRoundTrapGet(),null));
+        fields_.add(new StandardField(INCREASING_MAX_NB_ROUND_GLOBAL_MOVE, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet(),null));
+        fields_.add(new StandardField(INCREASING_MAX_NB_ROUND_TEAM_MOVE, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),null));
+        fields_.add(new StandardField(IMMU_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemForBattleBeanImmuMovesGet(),null));
+        fields_.add(new StandardField(IMMU_WEATHER, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemForBattleBeanImmuWeatherGet(),null));
         methods_.add( new SpecNatMethod(GET_EFFECT_SENDING,PokemonStandards.TYPE_EFFECT_WHILE_SENDING, false, MethodModifier.NORMAL,new ItemForBattleBeanGetEffectSending()));
         methods_.add( new SpecNatMethod(GET_TR_MULT_STAT_RANK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new ItemForBattleBeanGetTrMultStatRank()));
         methods_.add( new SpecNatMethod(GET_TR_MULT_STAT_PK_RANK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new ItemForBattleBeanGetTrMultStatPkRank()));
@@ -402,7 +405,7 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(TYPED_NAME,BeanNatCommonLgNames.STRING,false,false,new ItemsBeanTypedNameGet(),new ItemsBeanTypedNameSet()));
         fields_.add(new StandardField(TYPED_PRICE,BeanNatCommonLgNames.STRING,false,false,new ItemsBeanTypedPriceGet(),new ItemsBeanTypedPriceSet()));
         fields_.add(new StandardField(TYPED_CLASS,BeanNatCommonLgNames.STRING,false,false,new ItemsBeanTypedClassGet(),new ItemsBeanTypedClassSet()));
-        fields_.add(new StandardField(ITEMS, BeanNatLgNames.TYPE_LIST,false,false,new ItemsBeanItemsGet(),null));
+        fields_.add(new StandardField(ITEMS, BeanNatCommonLgNames.TYPE_LIST,false,false,new ItemsBeanItemsGet(),null));
         methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new ItemsBeanSearch()));
         methods_.add( new SpecNatMethod(GET_MINI_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new ItemsBeanGetMiniImage()));
         methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new ItemsBeanClickLink()));

@@ -2,7 +2,10 @@ package aiki.beans.map;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.*;
+import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.SpecNatMethod;
+import code.bean.nat.SpecialNatClass;
+import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMapStd{
@@ -51,9 +54,9 @@ public final class AikiBeansMapStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_MAP_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(PLACES, BeanNatLgNames.TYPE_LIST,false,false,new MapBeanPlacesGet(),null));
+        fields_.add(new StandardField(PLACES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MapBeanPlacesGet(),null));
         methods_.add( new SpecNatMethod(IS_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapBeanIsMultiLayer()));
-        methods_.add( new SpecNatMethod(LAYERS, BeanNatLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new MapBeanLayers()));
+        methods_.add( new SpecNatMethod(LAYERS, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new MapBeanLayers()));
         methods_.add( new SpecNatMethod(CLICK_LEVEL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapBeanClickLevel()));
         methods_.add( new SpecNatMethod(CLICK_LEVEL_ZERO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapBeanClickLevelZero()));
         _std.getStds().addEntry(TYPE_MAP_BEAN, type_);
@@ -69,11 +72,11 @@ public final class AikiBeansMapStd{
         fields_.add(new StandardField(ROAD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanRoadGet(),null));
         fields_.add(new StandardField(GYM,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanGymGet(),null));
         fields_.add(new StandardField(POKEMON_CENTER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanPokemonCenterGet(),null));
-        fields_.add(new StandardField(TILES, BeanNatLgNames.TYPE_MAP,false,false,new MapLevelBeanTilesGet(),null));
+        fields_.add(new StandardField(TILES, BeanNatCommonLgNames.TYPE_MAP,false,false,new MapLevelBeanTilesGet(),null));
         fields_.add(new StandardField(PROPONE_TILE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanProponeTileGet(),null));
         fields_.add(new StandardField(PROPONE_LINK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanProponeLinkGet(),null));
         fields_.add(new StandardField(SEE_AREA,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanSeeAreaGet(),null));
-        fields_.add(new StandardField(DIRS, BeanNatLgNames.TYPE_MAP,false,false,new MapLevelBeanDirsGet(),null));
+        fields_.add(new StandardField(DIRS, BeanNatCommonLgNames.TYPE_MAP,false,false,new MapLevelBeanDirsGet(),null));
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new MapLevelBeanGetMapWidth()));
         methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFirstRow()));
         methods_.add( new SpecNatMethod(WITHOUT_TITLE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanWithoutTitle()));

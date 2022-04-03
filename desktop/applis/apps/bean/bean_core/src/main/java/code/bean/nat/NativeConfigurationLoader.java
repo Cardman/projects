@@ -4,10 +4,10 @@ import code.expressionlanguage.fwd.Forwards;
 import code.formathtml.Configuration;
 
 public final class NativeConfigurationLoader {
-    private final BeanNatLgNames stds;
+    private final BeanNatCommonLgNames stds;
     private final AbstractNativeInit init;
 
-    public NativeConfigurationLoader(BeanNatLgNames _stds, AbstractNativeInit _init) {
+    public NativeConfigurationLoader(BeanNatCommonLgNames _stds, AbstractNativeInit _init) {
         this.stds = _stds;
         init = _init;
     }

@@ -16,7 +16,7 @@ import code.formathtml.structs.BeanInfo;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public final class CustBeanLgNames extends BeanNatLgNames implements AbstractNatImpLgNames {
+public final class CustBeanLgNames extends BeanNatCommonLgNames implements AbstractNatImpLgNames {
 
     private static final String TYPE_INTS = "code.formathtml.classes.Ints";
     private static final String GET_VALUE = "getValue";

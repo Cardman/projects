@@ -1,7 +1,7 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.AbstractNatImpLgNames;
-import code.bean.nat.BeanNatLgNames;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -97,7 +97,7 @@ public final class AnaRendBlockHelp {
         return _anaDoc.getProperties().getVal(_key);
     }
 
-    public static AnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, String _docText, String _currentUrl, RendKeyWords _rendKeyWords, BeanNatLgNames _caller, AbstractNatBlockBuilder _builder) {
+    public static AnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, String _docText, String _currentUrl, RendKeyWords _rendKeyWords, BeanNatCommonLgNames _caller, AbstractNatBlockBuilder _builder) {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         int indexGlobal_ = _docText.indexOf(LT_BEGIN_TAG)+1;
@@ -155,7 +155,7 @@ public final class AnaRendBlockHelp {
         }
     }
 
-    private static AnaRendBlock newRendBlockEsc(int _begin, String _prefix, Node _elt, String _docText, RendKeyWords _rendKeyWords, BeanNatLgNames _caller, AbstractNatBlockBuilder _builder) {
+    private static AnaRendBlock newRendBlockEsc(int _begin, String _prefix, Node _elt, String _docText, RendKeyWords _rendKeyWords, BeanNatCommonLgNames _caller, AbstractNatBlockBuilder _builder) {
         AnaRendBlock bl_;
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
@@ -181,7 +181,7 @@ public final class AnaRendBlockHelp {
         return bl_;
     }
 
-    private static AnaRendParentBlock element(int _begin, String _prefix, Element _elt, RendKeyWords _rendKeyWords, BeanNatLgNames _caller, StringMap<AttributePart> _attributes, AbstractNatBlockBuilder _builder) {
+    private static AnaRendParentBlock element(int _begin, String _prefix, Element _elt, RendKeyWords _rendKeyWords, BeanNatCommonLgNames _caller, StringMap<AttributePart> _attributes, AbstractNatBlockBuilder _builder) {
         String tagName_ = _elt.getTagName();
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordFor()))) {
             return collection(_begin, _rendKeyWords, _caller, _elt, _attributes);
@@ -221,7 +221,7 @@ public final class AnaRendBlockHelp {
         return input(_begin, _prefix, _rendKeyWords, _elt, _attributes, _builder);
     }
 
-    private static AnaRendParentBlock collection(int _begin, RendKeyWords _rendKeyWords, BeanNatLgNames _caller, Element _elt, StringMap<AttributePart> _attr) {
+    private static AnaRendParentBlock collection(int _begin, RendKeyWords _rendKeyWords, BeanNatCommonLgNames _caller, Element _elt, StringMap<AttributePart> _attr) {
         if (_elt.hasAttribute(_rendKeyWords.getAttrList())) {
             return new NatAnaRendForEachLoop(
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrClassName(), _attr),
