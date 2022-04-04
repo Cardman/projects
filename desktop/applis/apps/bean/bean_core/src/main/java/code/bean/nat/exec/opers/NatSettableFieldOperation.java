@@ -14,14 +14,20 @@ public final class NatSettableFieldOperation extends
         NatAbstractFieldOperation {
 
     private final NatExecSettableOperationContent settableFieldContent;
+    private final boolean variable;
 
-    public NatSettableFieldOperation(int _o, NatExecFieldOperationContent _fieldCont, NatExecSettableOperationContent _setFieldCont) {
+    public NatSettableFieldOperation(boolean _variable,int _o, NatExecFieldOperationContent _fieldCont, NatExecSettableOperationContent _setFieldCont) {
         super(_o,_fieldCont);
+        variable = _variable;
         settableFieldContent = _setFieldCont;
     }
 
     @Override
     public void calculate(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStack) {
+        if (variable) {
+            calcArg(_nodes, Argument.createVoid());
+            return;
+        }
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         Argument result_;
         Struct default_ = previous_.getStruct();

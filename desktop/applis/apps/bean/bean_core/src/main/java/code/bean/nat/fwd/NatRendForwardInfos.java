@@ -361,7 +361,7 @@ public final class NatRendForwardInfos {
     private static NatExecOperationNode procOperands(NatOperationNode _anaNode) {
         if (_anaNode instanceof SettableAbstractFieldNatOperation) {
             SettableAbstractFieldNatOperation s_ = (SettableAbstractFieldNatOperation) _anaNode;
-            return new NatSettableFieldOperation(s_.getOrder(), new NatExecFieldOperationContent(s_.getFieldContent()), new NatExecSettableOperationContent(s_.getSettableFieldContent()));
+            return new NatSettableFieldOperation(s_.isVariable(),s_.getOrder(), new NatExecFieldOperationContent(s_.getFieldContent()), new NatExecSettableOperationContent(s_.getSettableFieldContent()));
         }
         if (_anaNode instanceof FinalVariableNatOperation) {
             return finalVariable((FinalVariableNatOperation) _anaNode);
@@ -402,7 +402,7 @@ public final class NatRendForwardInfos {
         NatStdRefVariableOperation rendPrevVar_ = new NatStdRefVariableOperation(0, new NatExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
         NatAnaFieldOperationContent cont_ = new NatAnaFieldOperationContent();
         cont_.setIntermediate(true);
-        NatSettableFieldOperation rendField_ = new NatSettableFieldOperation(1,
+        NatSettableFieldOperation rendField_ = new NatSettableFieldOperation(true,1,
                 new NatExecFieldOperationContent(cont_), new NatExecSettableOperationContent(_settable.getSettableFieldContent()));
         rendPrevVar_.setSiblingSet(rendField_);
         rendDot_.appendChild(rendPrevVar_);
