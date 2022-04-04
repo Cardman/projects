@@ -417,6 +417,22 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     @Test
+    public void process2__3Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=o {0}\ntwo=t {0}";
+        String html_ = "<html c:bean='bean_one'><body><ul><li><a c:command='$goToNullPage'><c:message value='msg_example,one'><param value='composite.integer'/></c:message></a></li><li><a c:command='$goToNullPage'><c:message value='msg_example,two'><param value='composite.integer'/></c:message></a></li></ul></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        SampleBeanStruct v_ = init(bean_);
+        getStrings(v_).add("FIRST");
+        getStrings(v_).add("SECOND");
+        setInteger(v_);
+        assertEq("<html><body><ul><li><a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"0\">o 5</a></li><li><a c:command=\"$bean_one.goToNullPage\" href=\"\" n-a=\"1\">t 5</a></li></ul></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+    }
+    @Test
     public void process2_3_0Test() {
         String locale_ = "en";
         String folder_ = "messages";

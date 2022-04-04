@@ -11,7 +11,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class NatAnaRendImport extends NatAnaRendLeaf implements NatRendBuildEl {
+public final class NatAnaRendImport extends NatAnaRendParentBlock implements NatRendBuildEl {
     private final Element elt;
 
     private CustList<NatOperationNode> roots;
