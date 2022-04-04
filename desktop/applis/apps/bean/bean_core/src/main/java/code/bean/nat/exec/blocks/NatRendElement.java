@@ -13,7 +13,7 @@ import code.sml.Node;
 import code.util.EntryCust;
 import code.util.StringMap;
 
-public abstract class NatRendElement extends NatParentBlock implements RendElem, NatRendWithEl {
+public abstract class NatRendElement extends NatParentBlock implements RendElem {
     private final Element read;
     private final StringMap<NatExecTextPart> natAttributes;
     private final StringMap<NatExecTextPart> natAttributesText;

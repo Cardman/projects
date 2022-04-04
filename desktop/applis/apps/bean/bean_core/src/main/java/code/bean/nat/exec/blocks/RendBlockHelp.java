@@ -40,7 +40,7 @@ public final class RendBlockHelp {
         RendBlock.appendChild(doc_, (Element)null, _rend.getElt());
         NatRendReadWrite rw_ = new NatRendReadWrite();
         rw_.setConf(_rendStackCall.getFormParts());
-        rw_.setRead(_rend.getDocElt());
+        rw_.setRead(_rend);
         rw_.setDocument(doc_);
         ip_.setRendReadWrite(rw_);
         while (true) {
@@ -56,7 +56,7 @@ public final class RendBlockHelp {
                     break;
                 }
             } else {
-                ((NatRendWithEl) read_).processEl(_conf, _rendStackCall);
+                read_.processEl(_conf, _rendStackCall);
             }
         }
         _rendStackCall.getHtmlPage().set(_rendStackCall.getFormParts());

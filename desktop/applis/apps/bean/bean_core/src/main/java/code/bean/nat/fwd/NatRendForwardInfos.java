@@ -54,7 +54,7 @@ public final class NatRendForwardInfos {
     private static NatParentBlock complete(AnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof NatRendStdElement && StringUtil.quickEq(((NatRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
-                _rendDoc.setBody(_loc);
+                _rendDoc.setBody((NatRendStdElement)_loc);
             }
 //            _loc.setEscapedChars(_en.getEscapedChars());
             _curPar.appendChild(_loc);
@@ -108,7 +108,8 @@ public final class NatRendForwardInfos {
         if (_current instanceof NatAnaRendImport){
             NatAnaRendImport f_ = (NatAnaRendImport) _current;
             NatExecTextPart part_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            return new NatRendImport(part_, f_.getNatImpLgNames());
+            CustList<CustList<NatExecOperationNode>> fs_ = toExecPartExt(f_.getFields());
+            return new NatRendImport(part_, f_.getNatImpLgNames(), fs_);
         }
         return element(_current);
     }
@@ -147,9 +148,6 @@ public final class NatRendForwardInfos {
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             return new NatRendEscImg(f_.getRead(),part_,partText_);
         }
-        if (_current instanceof NatAnaRendPackage){
-            return new NatRendClass();
-        }
         if (_current instanceof NatAnaRendForm){
             NatAnaRendForm f_ = (NatAnaRendForm) _current;
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
@@ -157,14 +155,6 @@ public final class NatRendForwardInfos {
             CustList<NatExecOperationNode> opForm_ = getExecutableNodes(f_.getRoot());
             NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
             return new NatRendForm(f_.getRead(),part_,partText_,opForm_,f_.getVarNames(),partSub_);
-        }
-        if (_current instanceof NatAnaRendClass){
-            return new NatRendClass();
-        }
-        if (_current instanceof NatAnaRendField){
-            NatAnaRendField f_ = (NatAnaRendField) _current;
-            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
-            return new NatRendField(op_);
         }
         if (_current instanceof NatAnaRendMessage){
             NatAnaRendMessage f_ = (NatAnaRendMessage) _current;

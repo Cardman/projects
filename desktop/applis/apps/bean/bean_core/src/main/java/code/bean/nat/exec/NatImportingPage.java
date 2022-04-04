@@ -101,9 +101,13 @@ public final class NatImportingPage extends AbsImportingPage {
 
     public NatAbstractStask tryGetRendLastStack() {
         if (hasBlock()) {
-            return rendBlockStacks.last();
+            return lastStack();
         }
         return null;
+    }
+
+    public NatAbstractStask lastStack() {
+        return rendBlockStacks.last();
     }
 
     public boolean hasBlock() {

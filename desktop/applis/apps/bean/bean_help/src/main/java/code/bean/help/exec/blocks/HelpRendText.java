@@ -2,16 +2,15 @@ package code.bean.help.exec.blocks;
 
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.blocks.NatBlock;
 import code.bean.nat.exec.blocks.NatExecTextPart;
-import code.bean.nat.exec.blocks.NatLeaf;
-import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.sml.Document;
 import code.sml.Text;
 
-public final class HelpRendText extends NatLeaf implements NatRendWithEl {
+public final class HelpRendText extends NatBlock {
 
     private final NatExecTextPart textPart;
 

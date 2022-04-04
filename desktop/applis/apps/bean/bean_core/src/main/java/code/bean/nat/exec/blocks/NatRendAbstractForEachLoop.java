@@ -18,7 +18,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public abstract class NatRendAbstractForEachLoop extends NatParentBlock implements NatRendWithEl {
+public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
 
     private final String variableName;
     private final NatRendOperationNodeListOff exp;

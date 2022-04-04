@@ -169,7 +169,7 @@ public final class AnaRendBlockHelp {
         return bl_;
     }
 
-    private static NatAnaRendParentBlock element(String _prefix, Element _elt, RendKeyWords _rendKeyWords, BeanNatCommonLgNames _caller, AbstractNatBlockBuilder _builder) {
+    private static NatAnaRendBlock element(String _prefix, Element _elt, RendKeyWords _rendKeyWords, BeanNatCommonLgNames _caller, AbstractNatBlockBuilder _builder) {
         String tagName_ = _elt.getTagName();
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordFor()))) {
             return collection(_rendKeyWords, _caller, _elt);
@@ -227,7 +227,7 @@ public final class AnaRendBlockHelp {
         );
     }
 
-    private static NatAnaRendParentBlock input(String _prefix, RendKeyWords _rendKeyWords, Element _elt, AbstractNatBlockBuilder _builder) {
+    private static NatAnaRendBlock input(String _prefix, RendKeyWords _rendKeyWords, Element _elt, AbstractNatBlockBuilder _builder) {
         String tagName_ = _elt.getTagName();
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSelect()))) {
             return new NatAnaRendSelect(_elt);
@@ -247,19 +247,10 @@ public final class AnaRendBlockHelp {
         return _builder.defBlock(_prefix, _rendKeyWords, _elt);
     }
 
-    public static NatAnaRendParentBlock defBlock(String _prefix, RendKeyWords _rendKeyWords, Element _elt, AbstractNatImpLgNames _natImpLgNames) {
+    public static NatAnaRendBlock defBlock(String _prefix, RendKeyWords _rendKeyWords, Element _elt, AbstractNatImpLgNames _natImpLgNames) {
         String tagName_ = _elt.getTagName();
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordImport()))) {
             return new NatAnaRendImport(_elt, _natImpLgNames);
-        }
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordPackage()))) {
-            return new NatAnaRendPackage(newOffsetStringInfo(_elt, _rendKeyWords.getAttrName()));
-        }
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordClass()))) {
-            return new NatAnaRendClass(newOffsetStringInfo(_elt, _rendKeyWords.getAttrName()));
-        }
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordField()))) {
-            return new NatAnaRendField(newOffsetStringInfo(_elt, _rendKeyWords.getAttrPrepare()));
         }
         return new NatAnaRendStdElement(_elt);
     }

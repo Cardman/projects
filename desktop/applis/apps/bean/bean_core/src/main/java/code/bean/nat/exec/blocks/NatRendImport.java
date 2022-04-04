@@ -9,14 +9,17 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.util.CustList;
 
-public final class NatRendImport extends NatParentBlock implements NatRendWithEl {
+public final class NatRendImport extends NatParentBlock {
 
     private final NatExecTextPart textPart;
 
     private final AbstractNatImpLgNames natImpLgNames;
-    public NatRendImport(NatExecTextPart _textPart, AbstractNatImpLgNames _natImpLgNames) {
+
+    private final CustList<CustList<NatExecOperationNode>> fields;
+    public NatRendImport(NatExecTextPart _textPart, AbstractNatImpLgNames _natImpLgNames, CustList<CustList<NatExecOperationNode>> _f) {
         this.textPart = _textPart;
         natImpLgNames = _natImpLgNames;
+        fields = _f;
     }
 
     @Override
@@ -33,20 +36,10 @@ public final class NatRendImport extends NatParentBlock implements NatRendWithEl
         Struct mainBean_ = _rendStack.getMainBean();
         natImpLgNames.setBeanForms(mainBean_,
                 beanName_);
-        for (NatBlock p: getDirectChildren(this)) {
-            for (NatBlock c: getDirectChildren(p)) {
-                if (!(c instanceof NatRendClass)) {
-                    continue;
-                }
-                for (NatBlock f: getDirectChildren(c)) {
-                    if (f instanceof NatRendField) {
-                        CustList<NatExecOperationNode> exps_ = ((NatRendField) f).getExps();
-                        ip_.setInternGlobal(newBean_);
-                        BeanNatCommonLgNames.getAllArgs(exps_, _rendStack);
-                        ip_.setInternGlobal(null);
-                    }
-                }
-            }
+        for (CustList<NatExecOperationNode> l:fields) {
+            ip_.setInternGlobal(newBean_);
+            BeanNatCommonLgNames.getAllArgs(l, _rendStack);
+            ip_.setInternGlobal(null);
         }
         beforeDisp(newBean_, (BeanNatCommonLgNames) natImpLgNames);
         NatImportingPage newIp_ = newImportingPage(ip_, val_, beanName_, _rendStack.getFormParts());

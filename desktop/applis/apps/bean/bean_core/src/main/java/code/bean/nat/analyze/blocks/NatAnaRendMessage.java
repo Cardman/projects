@@ -8,7 +8,7 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class NatAnaRendMessage extends NatAnaRendParentBlock implements NatRendBuildEl {
+public final class NatAnaRendMessage extends NatAnaRendLeaf implements NatRendBuildEl {
 
     private final Element elt;
     private CustList<NatOperationNode> roots;

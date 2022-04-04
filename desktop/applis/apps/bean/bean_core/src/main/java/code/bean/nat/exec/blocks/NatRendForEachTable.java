@@ -15,7 +15,7 @@ import code.formathtml.Configuration;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class NatRendForEachTable extends NatParentBlock implements NatRendWithEl {
+public final class NatRendForEachTable extends NatParentBlock {
 
     private final String variableNameFirst;
 

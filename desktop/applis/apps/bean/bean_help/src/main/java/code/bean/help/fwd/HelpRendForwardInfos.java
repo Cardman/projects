@@ -36,7 +36,7 @@ public final class HelpRendForwardInfos {
     private static NatParentBlock completeHelp(AnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof HelpRendStdElement && StringUtil.quickEq(((HelpRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
-                _rendDoc.setBody(_loc);
+                _rendDoc.setBody((HelpRendStdElement)_loc);
             }
 //            _loc.setEscapedChars(_en.getEscapedChars());
             _curPar.appendChild(_loc);

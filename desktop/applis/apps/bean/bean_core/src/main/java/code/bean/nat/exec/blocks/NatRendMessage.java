@@ -7,18 +7,20 @@ import code.expressionlanguage.Argument;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.stacks.RendReadWrite;
-import code.sml.*;
+import code.sml.Document;
+import code.sml.Element;
+import code.sml.Text;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class NatRendMessage extends NatParentBlock implements NatRendWithEl {
+public final class NatRendMessage extends NatParentBlock {
 
     private final CustList<CustList<NatExecOperationNode>> opExp;
 
     private final StringMap<String> preformatted;
-    private StringList args = new StringList();
+    private final StringList args;
 
 
     public NatRendMessage(CustList<CustList<NatExecOperationNode>> _opExp, StringMap<String> _preformatted,

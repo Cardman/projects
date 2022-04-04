@@ -1,27 +1,13 @@
 package code.bean.nat.exec.blocks;
 
-import code.util.CustList;
-
-public abstract class NatBlock {
+public abstract class NatBlock implements NatRendWithEl{
 
     private NatParentBlock parent;
 
     private NatBlock nextSibling;
 
-    NatBlock() {
+    protected NatBlock() {
     }
-
-    public static CustList<NatBlock> getDirectChildren(NatBlock _block) {
-        CustList<NatBlock> l_ = new CustList<NatBlock>();
-        NatBlock child_ = _block.getFirstChild();
-        while (child_ != null) {
-            l_.add(child_);
-            child_ = child_.getNextSibling();
-        }
-        return l_;
-    }
-
-    public abstract NatBlock getFirstChild();
 
     public final NatBlock getNextSibling() {
         return nextSibling;

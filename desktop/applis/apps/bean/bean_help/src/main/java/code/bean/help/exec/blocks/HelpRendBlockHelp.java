@@ -25,13 +25,9 @@ public final class HelpRendBlockHelp {
             return;
         }
         NatParentBlock par_ = _rendBlock.getParent();
-        NatAbstractStask lastStack_ = ip_.tryGetRendLastStack();
-        if (lastStack_ != null) {
-            rw_.setRead(par_);
-            nextIfStack(rw_, (NatIfStack) lastStack_);
-            return;
-        }
-        ip_.setNullRendReadWrite();
+        NatAbstractStask lastStack_ = ip_.lastStack();
+        rw_.setRead(par_);
+        nextIfStack(rw_, (NatIfStack) lastStack_);
     }
 
     private static void nextIfStack(NatRendReadWrite _rw, NatIfStack _lastStack) {

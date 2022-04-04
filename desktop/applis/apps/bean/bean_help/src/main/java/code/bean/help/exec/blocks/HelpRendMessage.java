@@ -3,13 +3,12 @@ package code.bean.help.exec.blocks;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatParentBlock;
 import code.bean.nat.exec.blocks.NatRendMessage;
-import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class HelpRendMessage extends NatParentBlock implements NatRendWithEl {
+public final class HelpRendMessage extends NatParentBlock {
 
     private final StringMap<String> preformatted;
 

@@ -20,7 +20,6 @@ public abstract class NatParentBlock extends NatBlock {
         }
     }
 
-    @Override
     public final NatBlock getFirstChild() {
         return nat;
     }

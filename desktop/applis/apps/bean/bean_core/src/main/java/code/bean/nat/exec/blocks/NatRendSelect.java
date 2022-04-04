@@ -15,7 +15,7 @@ import code.sml.Element;
 import code.util.CustList;
 import code.util.IdList;
 
-public final class NatRendSelect extends NatParentBlock implements NatRendWithEl {
+public final class NatRendSelect extends NatParentBlock {
     private final CustList<NatExecOperationNode> opsValue;
     private final CustList<NatExecOperationNode> opsMap;
     private final Element elt;

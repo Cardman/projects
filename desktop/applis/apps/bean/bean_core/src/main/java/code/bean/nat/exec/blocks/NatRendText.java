@@ -8,7 +8,7 @@ import code.formathtml.exec.stacks.RendReadWrite;
 import code.sml.Document;
 import code.sml.Text;
 
-public final class NatRendText extends NatLeaf implements NatRendWithEl{
+public final class NatRendText extends NatBlock{
 
     private final NatExecTextPart textPart;
 
