@@ -2,11 +2,11 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.Argument;
 import code.formathtml.Configuration;
+import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendMessage;
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
@@ -15,18 +15,18 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class NatRendMessage extends RendParentBlock implements NatRendWithEl {
+public final class NatRendMessage extends NatParentBlock implements NatRendWithEl {
 
-    private final CustList<CustList<RendDynOperationNode>> opExp;
+    private final CustList<CustList<NatExecOperationNode>> opExp;
 
     private final StringMap<String> preformatted;
-    private StringMap<CustList<CustList<RendDynOperationNode>>> callsExps = new StringMap<CustList<CustList<RendDynOperationNode>>>();
+    private StringMap<CustList<CustList<NatExecOperationNode>>> callsExps = new StringMap<CustList<CustList<NatExecOperationNode>>>();
     private StringList args = new StringList();
     private StringList varNames = new StringList();
 
 
-    public NatRendMessage(CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted,
-                          StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _args, StringList _varNames) {
+    public NatRendMessage(CustList<CustList<NatExecOperationNode>> _opExp, StringMap<String> _preformatted,
+                          StringMap<CustList<CustList<NatExecOperationNode>>> _callsExps, StringList _args, StringList _varNames) {
         this.opExp = _opExp;
         this.preformatted = _preformatted;
         this.callsExps = _callsExps;
@@ -48,9 +48,9 @@ public final class NatRendMessage extends RendParentBlock implements NatRendWith
         }
         String preRend_;
         preRend_= StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
-        String lt_ = Character.toString(LT_BEGIN_TAG);
-        String gt_ = Character.toString(GT_TAG);
-        String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,preRend_,LT_END_TAG,TMP_BLOCK_TAG,gt_);
+        String lt_ = Character.toString(RendBlock.LT_BEGIN_TAG);
+        String gt_ = Character.toString(RendBlock.GT_TAG);
+        String concat_ = StringUtil.concat(lt_,RendBlock.TMP_BLOCK_TAG,gt_,preRend_,RendBlock.LT_END_TAG,RendBlock.TMP_BLOCK_TAG,gt_);
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
         Document docLoc_ = res_.getDocument();
         _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));

@@ -1,22 +1,15 @@
 package code.bean.nat.exec.opers;
 
-import code.expressionlanguage.exec.ExecHelper;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.exec.opers.RendMethodOperation;
+import code.bean.nat.exec.NatArgumentsPair;
 import code.util.IdMap;
 
-public abstract class NatAbstractDotOperation extends RendMethodOperation implements NatRendCalculableOperation {
-    protected NatAbstractDotOperation(ExecOperationContent _content) {
-        super(_content);
+public abstract class NatAbstractDotOperation extends NatExecMethodOperation implements NatRendCalculableOperation {
+    protected NatAbstractDotOperation(int _o) {
+        super(_o);
     }
 
-    public void calculateDot(IdMap<RendDynOperationNode, ArgumentsPair> _nodes) {
-        RendDynOperationNode last_ = getLastNode(this);
-        ArgumentsPair pairCh_ = getArgumentPair(_nodes, last_);
-        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
-        ExecHelper.fwdWrapper(pair_,pairCh_);
+    public void calculateDot(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes) {
+        NatExecOperationNode last_ = getChildrenNodes().last();
         calcArg(_nodes, getArgument(_nodes,last_));
     }
 }

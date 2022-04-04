@@ -1,13 +1,10 @@
 package code.bean.nat.analyze.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.formathtml.analyze.blocks.AnaRendParentBlock;
-
-public final class NatAnaRendPackage extends AnaRendParentBlock {
+public final class NatAnaRendPackage extends NatAnaRendParentBlock {
     private final String name;
-    NatAnaRendPackage(OffsetStringInfo _name, int _offset) {
-        super(_offset);
-        name = _name.getInfo();
+    NatAnaRendPackage(String _name) {
+        super();
+        name = _name;
     }
 
     public String getName() {

@@ -6,18 +6,15 @@ import code.bean.nat.SimpleItrStruct;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatAbstractAffectOperation;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.exec.opers.NatSettableFieldOperation;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.FormParts;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendOperationNodeListOff;
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.NodeInformations;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -49,7 +46,7 @@ public final class RendBlockHelp {
         while (true) {
             NatImportingPage p_ = _rendStackCall.getLastPage();
             NatRendReadWrite rendReadWrite_ = p_.getRendReadWrite();
-            RendBlock read_ = null;
+            NatBlock read_ = null;
             if (rendReadWrite_ != null) {
                 read_ = rendReadWrite_.getRead();
             }
@@ -70,29 +67,29 @@ public final class RendBlockHelp {
         _rendStackCall.clearPages();
         return doc_.export();
     }
-    private static boolean isNextIfParts(RendBlock _n) {
+    private static boolean isNextIfParts(NatBlock _n) {
         return isStrictNextIfParts(_n);
     }
 
-    private static boolean isStrictNextIfParts(RendBlock _n) {
+    private static boolean isStrictNextIfParts(NatBlock _n) {
         return _n instanceof NatRendElseIfCondition || _n instanceof NatRendElseCondition;
     }
 
-    public static void processBlockAndRemove(NatRendStackCall _rendStackCall, RendBlock _rendBlock) {
+    public static void processBlockAndRemove(NatRendStackCall _rendStackCall, NatBlock _rendBlock) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.removeRendLastBlock();
         processBlock(_rendStackCall, _rendBlock);
     }
 
-    public static void processBlock(NatRendStackCall _rendStackCall, RendBlock _rendBlock) {
+    public static void processBlock(NatRendStackCall _rendStackCall, NatBlock _rendBlock) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
         NatRendReadWrite rw_ = ip_.getRendReadWrite();
-        RendBlock nextSiblingNat_ = _rendBlock.getNextSibling();
+        NatBlock nextSiblingNat_ = _rendBlock.getNextSibling();
         if (nextSiblingNat_ != null) {
             rw_.setRead(nextSiblingNat_);
             return;
         }
-        RendParentBlock par_ = _rendBlock.getParent();
+        NatParentBlock par_ = _rendBlock.getParent();
         NatAbstractStask lastStackNat_ = ip_.tryGetRendLastStack();
         if (lastStackNat_ != null) {
             rw_.setRead(par_);
@@ -111,7 +108,7 @@ public final class RendBlockHelp {
         _rw.setRead(_lastStack.getLastBlock());
     }
 
-    private static void processLastElementLoop(NatRendStackCall _rendStackCall, RendParentBlock _par, NatLoopBlockStack _lastStack) {
+    private static void processLastElementLoop(NatRendStackCall _rendStackCall, NatParentBlock _par, NatLoopBlockStack _lastStack) {
         if (_par instanceof NatRendAbstractForEachLoop) {
             ((NatRendAbstractForEachLoop) _par).processLastElementLoop(_lastStack, _rendStackCall);
         }
@@ -120,7 +117,7 @@ public final class RendBlockHelp {
         }
     }
 
-    static void processVisitedLoop(RendBlock _next, NatRendStackCall _stackCall) {
+    static void processVisitedLoop(NatBlock _next, NatRendStackCall _stackCall) {
         processBlockAndRemove(_stackCall, _next);
     }
 
@@ -134,9 +131,9 @@ public final class RendBlockHelp {
         ConditionReturn toEnter_ = evaluateCondition(_rendStack, _cond.getCondition());
         NatIfStack if_ = new NatIfStack();
         if_.setLastBlock(_cond);
-        RendBlock n_ = _cond.getNextSibling();
+        NatBlock n_ = _cond.getNextSibling();
         while (isNextIfParts(n_)) {
-            if_.setLastBlock((RendParentBlock) n_);
+            if_.setLastBlock((NatParentBlock) n_);
             n_ = n_.getNextSibling();
         }
         if_.setBlock(_cond);
@@ -146,7 +143,7 @@ public final class RendBlockHelp {
             if_.setEntered(true);
             rw_.setRead(_cond.getFirstChild());
         } else {
-            RendBlock next_ = _cond.getNextSibling();
+            NatBlock next_ = _cond.getNextSibling();
             if (isNextIfParts(next_)) {
                 rw_.setRead(next_);
             }
@@ -170,7 +167,7 @@ public final class RendBlockHelp {
                 return;
             }
         }
-        RendBlock n_ = _cond.getNextSibling();
+        NatBlock n_ = _cond.getNextSibling();
         if (isStrictNextIfParts(n_)) {
             rw_.setRead(n_);
             return;
@@ -178,11 +175,11 @@ public final class RendBlockHelp {
         processBlockAndRemove(_rendStackCall, _cond);
     }
 
-    public static void processElse(RendParentBlock _cond, NatRendStackCall _rendStackCall) {
+    public static void processElse(NatParentBlock _cond, NatRendStackCall _rendStackCall) {
         processEnt(_cond, _rendStackCall);
     }
 
-    public static void processEnt(RendParentBlock _cond, NatRendStackCall _rendStackCall) {
+    public static void processEnt(NatParentBlock _cond, NatRendStackCall _rendStackCall) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
         NatAbstractStask ifNat_ = ip_.tryGetRendLastStack();
         if (!(ifNat_ instanceof NatIfStack)) {
@@ -198,7 +195,7 @@ public final class RendBlockHelp {
         processBlockAndRemove(_rendStackCall, _cond);
     }
 
-    private static ConditionReturn evaluateCondition(NatRendStackCall _rendStackCall, RendOperationNodeListOff _condition) {
+    private static ConditionReturn evaluateCondition(NatRendStackCall _rendStackCall, NatRendOperationNodeListOff _condition) {
         Argument arg_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(_condition.getList(), _rendStackCall).lastValue().getArgument());
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return ConditionReturn.YES;
@@ -211,17 +208,17 @@ public final class RendBlockHelp {
         if (name_.isEmpty()) {
             return Argument.createVoid();
         }
-        CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = BeanNatCommonLgNames.getAllArgs(opsRead_, _rendStackCall);
-        RendDynOperationNode root_ = args_.lastKey();
+        CustList<NatExecOperationNode> opsRead_ = _f.getOpsRead();
+        IdMap<NatExecOperationNode, NatArgumentsPair> args_ = BeanNatCommonLgNames.getAllArgs(opsRead_, _rendStackCall);
+        NatExecOperationNode root_ = args_.lastKey();
 //        if (root_ instanceof NatIdOperation) {
 //            res_ = NatAbstractAffectOperation.getIdOp((RendMethodOperation) root_);
 //        } else {
 //            res_ = root_;
 //        }
-        RendDynOperationNode settable_ = NatAbstractAffectOperation.castDottedTo(root_);
+        NatExecOperationNode settable_ = NatAbstractAffectOperation.castDottedTo(root_);
         CustList<LongTreeMap<NatNodeContainer>> stack_ = _rendStackCall.getFormParts().getContainersMapStack();
-        ArgumentsPair pair_ = args_.getValue(settable_.getOrder());
+        NatArgumentsPair pair_ = args_.getValue(settable_.getOrder());
         CustList<Struct> obj_;
         if (((NatSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
             obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
@@ -237,7 +234,7 @@ public final class RendBlockHelp {
         if ( _fetch.getStack().isEmpty()) {
             return _fetch.getArg();
         }
-        CustList<RendDynOperationNode> opsWrite_ = _f.getOpsWrite();
+        CustList<NatExecOperationNode> opsWrite_ = _f.getOpsWrite();
         String varName_ = _f.getVarName();
         NatNodeContainer nodeCont_ = new NatNodeContainer();
         FormParts formParts_ = _rend.getFormParts();
@@ -263,7 +260,7 @@ public final class RendBlockHelp {
         return _fetch.getArg();
     }
 
-    static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, NatRendStackCall _rendStackCall) {
+    static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<NatExecOperationNode> _ops, NatRendStackCall _rendStackCall) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
             return;
@@ -349,7 +346,7 @@ public final class RendBlockHelp {
         RendBlock.incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
     }
 
-    public static void feed(StringList _varNames, CustList<RendDynOperationNode> _anc, NatRendStackCall _rendStackCall) {
+    public static void feed(StringList _varNames, CustList<NatExecOperationNode> _anc, NatRendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().getCallsExps().add(_anc);
         _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
     }

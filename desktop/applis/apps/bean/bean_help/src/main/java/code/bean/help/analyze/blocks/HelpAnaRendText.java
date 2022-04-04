@@ -1,26 +1,24 @@
 package code.bean.help.analyze.blocks;
 
 import code.bean.help.analyze.HelpResultText;
+import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
+import code.bean.nat.analyze.blocks.NatAnaRendLeaf;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.blocks.NatRendBuildEl;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.analyze.blocks.AnaRendLeaf;
 import code.util.StringList;
 
-public final class HelpAnaRendText extends AnaRendLeaf implements NatRendBuildEl {
+public final class HelpAnaRendText extends NatAnaRendLeaf implements NatRendBuildEl {
 
     private final String expression;
 
     private StringList texts = new StringList();
-    HelpAnaRendText(OffsetStringInfo _left, int _offset) {
-        super(_offset);
-        expression = _left.getInfo();
+    HelpAnaRendText(String _left) {
+        expression = _left;
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         HelpResultText res_ = new HelpResultText();
         res_.buildAna(expression);
         texts = res_.getTexts();

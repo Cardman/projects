@@ -2,16 +2,13 @@ package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.common.ConstType;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.util.StringMap;
 
-public final class NatAnaRendForEachTable extends AnaRendParentBlock implements NatRendBuildEl {
+public final class NatAnaRendForEachTable extends NatAnaRendParentBlock implements NatRendBuildEl {
 
     private final String classNameFirst;
 
@@ -27,24 +24,21 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock implements 
 
     private final String expression;
 
-    private final int expressionOffset;
-
     private NatOperationNode root;
 
-    NatAnaRendForEachTable(OffsetStringInfo _className, OffsetStringInfo _variable,
-                           OffsetStringInfo _classNameSec, OffsetStringInfo _variableSec,
-                           OffsetStringInfo _expression, int _offset) {
-        super(_offset);
-        classNameFirst = _className.getInfo();
-        variableNameFirst = _variable.getInfo();
-        classNameSecond = _classNameSec.getInfo();
-        variableNameSecond = _variableSec.getInfo();
-        expression = _expression.getInfo();
-        expressionOffset = _expression.getOffset();
+    NatAnaRendForEachTable(String _className, String _variable,
+                           String _classNameSec, String _variableSec,
+                           String _expression) {
+        super();
+        classNameFirst = _className;
+        variableNameFirst = _variable;
+        classNameSecond = _classNameSec;
+        variableNameSecond = _variableSec;
+        expression = _expression;
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         buildEl(_anaDoc, _page);
         putVariable(_page);
     }
@@ -85,10 +79,6 @@ public final class NatAnaRendForEachTable extends AnaRendParentBlock implements 
 
     public String getVariableNameFirst() {
         return variableNameFirst;
-    }
-
-    public int getExpressionOffset() {
-        return expressionOffset;
     }
 
     public NatOperationNode getRoot() {

@@ -3,26 +3,26 @@ package code.bean.nat.exec.blocks;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.IdList;
 
-public final class NatRendSelect extends RendParentBlock implements NatRendWithEl {
-    private final CustList<RendDynOperationNode> opsValue;
-    private final CustList<RendDynOperationNode> opsMap;
+public final class NatRendSelect extends NatParentBlock implements NatRendWithEl {
+    private final CustList<NatExecOperationNode> opsValue;
+    private final CustList<NatExecOperationNode> opsMap;
     private final Element elt;
     private final NatFieldUpdates fieldUpdates;
 
-    public NatRendSelect(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
-                         CustList<RendDynOperationNode> _opsMap,
+    public NatRendSelect(CustList<NatExecOperationNode> _opsRead, CustList<NatExecOperationNode> _opsValue, CustList<NatExecOperationNode> _opsWrite,
+                         CustList<NatExecOperationNode> _opsMap,
                          Element _elt,
                          NatFieldUpdates _init) {
         fieldUpdates = _init;
@@ -39,7 +39,7 @@ public final class NatRendSelect extends RendParentBlock implements NatRendWithE
         Argument map_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(opsMap, _rendStack).lastValue().getArgument());
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
-        Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordSelect());
+        Element docElementSelect_ = RendBlock.appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordSelect());
         String name_ = elt.getAttribute(_cont.getRendKeyWords().getAttrName());
         processOptionsMapEnumName(_cont, map_.getStruct(),
                 doc_, docElementSelect_,

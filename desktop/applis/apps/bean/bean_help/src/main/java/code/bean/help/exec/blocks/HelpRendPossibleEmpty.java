@@ -1,8 +1,8 @@
 package code.bean.help.exec.blocks;
 
-import code.formathtml.exec.blocks.RendLeaf;
+import code.bean.nat.exec.blocks.NatLeaf;
 
-public abstract class HelpRendPossibleEmpty extends RendLeaf {
+public abstract class HelpRendPossibleEmpty extends NatLeaf {
     protected HelpRendPossibleEmpty() {
         super();
     }

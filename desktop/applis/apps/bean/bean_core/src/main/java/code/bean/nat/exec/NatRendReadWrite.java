@@ -1,18 +1,18 @@
 package code.bean.nat.exec;
 
-import code.formathtml.exec.blocks.RendBlock;
+import code.bean.nat.exec.blocks.NatBlock;
 import code.formathtml.exec.stacks.RendReadWrite;
 
 public final class NatRendReadWrite extends RendReadWrite {
 
-    private RendBlock read;
+    private NatBlock read;
     private NatFormParts conf;
 
-    public RendBlock getRead() {
+    public NatBlock getRead() {
         return read;
     }
 
-    public void setRead(RendBlock _read) {
+    public void setRead(NatBlock _read) {
         read = _read;
     }
 

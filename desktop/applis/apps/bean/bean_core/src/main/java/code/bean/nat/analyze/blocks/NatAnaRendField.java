@@ -2,21 +2,18 @@ package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.analyze.blocks.AnaRendParentBlock;
 
-public final class NatAnaRendField extends AnaRendParentBlock implements NatRendBuildEl {
+public final class NatAnaRendField extends NatAnaRendParentBlock implements NatRendBuildEl {
     private final String prepare;
     private NatOperationNode root;
-    NatAnaRendField(OffsetStringInfo _prepare, int _offset) {
-        super(_offset);
-        prepare = _prepare.getInfo();
+    NatAnaRendField(String _prepare) {
+        super();
+        prepare = _prepare;
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatAnaRendClass cl_ = (NatAnaRendClass) getParent();
         String intern_ = cl_.getFullName();
         _anaDoc.setInternGlobalClass(intern_);

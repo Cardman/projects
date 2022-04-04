@@ -3,10 +3,10 @@ package code.bean.nat.exec.blocks;
 import code.bean.nat.exec.NatFormParts;
 import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendForm;
 import code.formathtml.exec.blocks.RendFormInt;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -16,12 +16,12 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class NatRendForm extends NatRendElement implements RendFormInt {
-    private final CustList<RendDynOperationNode> opForm;
+    private final CustList<NatExecOperationNode> opForm;
 
     private final StringList varNames;
     private final NatExecTextPart textPart;
 
-    public NatRendForm(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, NatExecTextPart _textPart) {
+    public NatRendForm(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, CustList<NatExecOperationNode> _opForm, StringList _varNames, NatExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.opForm = _opForm;
         this.varNames = _varNames;

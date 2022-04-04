@@ -5,15 +5,15 @@ import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendReadWrite;
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
+import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendElem;
-import code.formathtml.exec.blocks.RendParentBlock;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.EntryCust;
 import code.util.StringMap;
 
-public abstract class NatRendElement extends RendParentBlock implements RendElem, NatRendWithEl {
+public abstract class NatRendElement extends NatParentBlock implements RendElem, NatRendWithEl {
     private final Element read;
     private final StringMap<NatExecTextPart> natAttributes;
     private final StringMap<NatExecTextPart> natAttributesText;
@@ -37,7 +37,7 @@ public abstract class NatRendElement extends RendParentBlock implements RendElem
             return;
         }
         Document ownerDocument_ = rw_.getDocument();
-        Element created_ = appendChild(ownerDocument_, rw_, read);
+        Element created_ = RendBlock.appendChild(ownerDocument_, rw_, read);
         for (EntryCust<String, NatExecTextPart> e: natAttributesText.entryList()) {
             NatExecTextPart res_ = e.getValue();
             String txt_ = NatRenderingText.renderNat(res_, _rendStack);
@@ -52,7 +52,7 @@ public abstract class NatRendElement extends RendParentBlock implements RendElem
         addEltStack(ip_,rw_,created_,this);
     }
 
-    public static void addEltStack(NatImportingPage _nip, NatRendReadWrite _rw, Element _created, RendParentBlock _block) {
+    public static void addEltStack(NatImportingPage _nip, NatRendReadWrite _rw, Element _created, NatParentBlock _block) {
         NatIfStack nif_ = new NatIfStack();
         nif_.setLastBlock(_block);
         nif_.setBlock(_block);

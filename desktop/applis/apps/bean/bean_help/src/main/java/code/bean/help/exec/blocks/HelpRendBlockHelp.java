@@ -1,8 +1,8 @@
 package code.bean.help.exec.blocks;
 
 import code.bean.nat.exec.*;
-import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendParentBlock;
+import code.bean.nat.exec.blocks.NatBlock;
+import code.bean.nat.exec.blocks.NatParentBlock;
 
 public final class HelpRendBlockHelp {
     static final String EMPTY_STRING = "";
@@ -10,21 +10,21 @@ public final class HelpRendBlockHelp {
     private HelpRendBlockHelp(){
     }
 
-    public static void processBlockAndRemove(NatRendStackCall _rendStackCall, RendBlock _rendBlock) {
+    public static void processBlockAndRemove(NatRendStackCall _rendStackCall, NatBlock _rendBlock) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.removeRendLastBlock();
         processBlock(_rendStackCall, _rendBlock);
     }
 
-    public static void processBlock(NatRendStackCall _rendStackCall, RendBlock _rendBlock) {
+    public static void processBlock(NatRendStackCall _rendStackCall, NatBlock _rendBlock) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
         NatRendReadWrite rw_ = ip_.getRendReadWrite();
-        RendBlock nextSibling_ = _rendBlock.getNextSibling();
+        NatBlock nextSibling_ = _rendBlock.getNextSibling();
         if (nextSibling_ != null) {
             rw_.setRead(nextSibling_);
             return;
         }
-        RendParentBlock par_ = _rendBlock.getParent();
+        NatParentBlock par_ = _rendBlock.getParent();
         NatAbstractStask lastStack_ = ip_.tryGetRendLastStack();
         if (lastStack_ != null) {
             rw_.setRead(par_);

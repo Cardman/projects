@@ -12,22 +12,20 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendOperationNodeListOff;
-import code.formathtml.exec.blocks.RendParentBlock;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class NatRendForEachTable extends RendParentBlock implements NatRendWithEl {
+public final class NatRendForEachTable extends NatParentBlock implements NatRendWithEl {
 
     private final String variableNameFirst;
 
 
     private final String variableNameSecond;
-    private final RendOperationNodeListOff exp;
+    private final NatRendOperationNodeListOff exp;
 
     public NatRendForEachTable(String _variable,
                                String _variableSec,
-                               RendOperationNodeListOff _exp) {
+                               NatRendOperationNodeListOff _exp) {
         variableNameFirst = _variable;
         variableNameSecond = _variableSec;
         exp = _exp;
@@ -60,13 +58,13 @@ public final class NatRendForEachTable extends RendParentBlock implements NatRen
         processLastElementLoop(l_, _rendStack);
     }
 
-    public static NatLoopBlockStack addedStack(NatImportingPage _nip, Struct _its, long _length, Argument _arg, RendParentBlock _block) {
+    public static NatLoopBlockStack addedStack(NatImportingPage _nip, Struct _its, long _length, Argument _arg, NatParentBlock _block) {
         NatLoopBlockStack nl_ = stElt(_its, _length, _arg, _block);
         _nip.addBlock(nl_);
         return nl_;
     }
 
-    public static NatLoopBlockStack stElt(Struct _its, long _length, Argument _arg, RendParentBlock _block) {
+    public static NatLoopBlockStack stElt(Struct _its, long _length, Argument _arg, NatParentBlock _block) {
         Struct iterStr_ = _arg.getStruct();
         NatLoopBlockStack l_ = new NatLoopBlockStack();
         l_.getContent().setIndex(-1);

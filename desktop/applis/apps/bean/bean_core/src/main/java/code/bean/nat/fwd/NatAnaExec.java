@@ -1,30 +1,30 @@
 package code.bean.nat.fwd;
 
-import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.exec.blocks.RendParentBlock;
+import code.bean.nat.analyze.blocks.NatAnaRendBlock;
+import code.bean.nat.exec.blocks.NatParentBlock;
 
 public final class NatAnaExec {
-    private AnaRendBlock readNat;
-    private RendParentBlock writeNat;
+    private NatAnaRendBlock readNat;
+    private NatParentBlock writeNat;
 
-    public NatAnaExec(AnaRendBlock _read, RendParentBlock _write) {
+    public NatAnaExec(NatAnaRendBlock _read, NatParentBlock _write) {
         this.readNat = _read;
         this.writeNat = _write;
     }
 
-    public AnaRendBlock getReadNat() {
+    public NatAnaRendBlock getReadNat() {
         return readNat;
     }
 
-    public void setReadNat(AnaRendBlock _read) {
+    public void setReadNat(NatAnaRendBlock _read) {
         this.readNat = _read;
     }
 
-    public RendParentBlock getWriteNat() {
+    public NatParentBlock getWriteNat() {
         return writeNat;
     }
 
-    public void setWriteNat(RendParentBlock _write) {
+    public void setWriteNat(NatParentBlock _write) {
         this.writeNat = _write;
     }
 }

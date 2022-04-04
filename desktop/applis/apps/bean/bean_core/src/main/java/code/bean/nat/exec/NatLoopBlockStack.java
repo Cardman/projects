@@ -1,24 +1,24 @@
 package code.bean.nat.exec;
 
+import code.bean.nat.exec.blocks.NatParentBlock;
 import code.expressionlanguage.exec.stacks.LoopBlockStackContent;
-import code.formathtml.exec.blocks.RendParentBlock;
 
 public class NatLoopBlockStack implements NatAbstractStask{
 
     private final LoopBlockStackContent content = new LoopBlockStackContent();
-    private RendParentBlock natBlock;
+    private NatParentBlock natBlock;
 
-    public void setBlock(RendParentBlock _block) {
+    public void setBlock(NatParentBlock _block) {
         natBlock = _block;
     }
 
     @Override
-    public RendParentBlock getCurrentVisitedBlock() {
+    public NatParentBlock getCurrentVisitedBlock() {
         return natBlock;
     }
 
     @Override
-    public void setCurrentVisitedBlock(RendParentBlock _bl) {
+    public void setCurrentVisitedBlock(NatParentBlock _bl) {
         natBlock = _bl;
     }
 

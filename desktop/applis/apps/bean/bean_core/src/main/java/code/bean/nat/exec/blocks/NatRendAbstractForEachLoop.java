@@ -5,6 +5,7 @@ import code.bean.nat.exec.NatAbstractStask;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatLoopBlockStack;
 import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
@@ -13,22 +14,19 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendOperationNodeListOff;
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public abstract class NatRendAbstractForEachLoop extends RendParentBlock implements NatRendWithEl {
+public abstract class NatRendAbstractForEachLoop extends NatParentBlock implements NatRendWithEl {
 
     private final String variableName;
-    private final RendOperationNodeListOff exp;
+    private final NatRendOperationNodeListOff exp;
 
     protected NatRendAbstractForEachLoop(String _variable,
-                                         int _expressionOffset, CustList<RendDynOperationNode> _res) {
+                                         CustList<NatExecOperationNode> _res) {
         variableName = _variable;
-        exp = new RendOperationNodeListOff(_res,_expressionOffset);
+        exp = new NatRendOperationNodeListOff(_res);
     }
 
     @Override
@@ -94,7 +92,7 @@ public abstract class NatRendAbstractForEachLoop extends RendParentBlock impleme
         return newRendLoopBlockStack(_its,length_,arg_,this);
     }
 
-    public static NatLoopBlockStack newRendLoopBlockStack(Struct _its, long _length, Argument _arg, RendParentBlock _block) {
+    public static NatLoopBlockStack newRendLoopBlockStack(Struct _its, long _length, Argument _arg, NatParentBlock _block) {
         Struct iterStr_ = _arg.getStruct();
         NatLoopBlockStack l_ = new NatLoopBlockStack();
         l_.getContent().setIndex(-1);

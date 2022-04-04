@@ -1,9 +1,9 @@
 package code.bean.nat.exec;
 
-import code.formathtml.exec.blocks.RendParentBlock;
+import code.bean.nat.exec.blocks.NatParentBlock;
 
 public interface NatAbstractStask {
 
-    RendParentBlock getCurrentVisitedBlock();
-    void setCurrentVisitedBlock(RendParentBlock _bl);
+    NatParentBlock getCurrentVisitedBlock();
+    void setCurrentVisitedBlock(NatParentBlock _bl);
 }

@@ -4,6 +4,7 @@ import code.bean.help.analyze.blocks.HelpAnaRendBlockHelp;
 import code.bean.help.fwd.HelpRendForwardInfos;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
+import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
@@ -13,7 +14,6 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
@@ -51,8 +51,7 @@ public final class HelpCaller {
 
         _navigation.getSession().setFiles(_navigation.getFiles());
         analyzingDoc_.setup(_navigation.getSession(), _contextConf.getProperties(), _contextConf.getMessagesFolder());
-        String file_ = _uniq.export();
-        AnaRendDocumentBlock anaDoc_ = HelpAnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), _uniq, file_, _realFilePath, analyzingDoc_.getRendKeyWords());
+        NatAnaRendDocumentBlock anaDoc_ = HelpAnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), _uniq, analyzingDoc_.getRendKeyWords());
         buildFctInstructions(anaDoc_,analyzingDoc_, page_);
         NatDocumentBlock rendDocumentBlock_ = HelpRendForwardInfos.buildExec(analyzingDoc_, anaDoc_);
         rendStackCall_.init();
@@ -65,7 +64,7 @@ public final class HelpCaller {
         return rendStackCall_.getDocument();
     }
 
-    public static void buildFctInstructions(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public static void buildFctInstructions(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         _doc.setBeanName(_doc.getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
         _page.setGlobalType(AnaFormattedRootBlock.defValue());
         AnaRendBlockHelp.loop(_doc, _anaDoc, _page);

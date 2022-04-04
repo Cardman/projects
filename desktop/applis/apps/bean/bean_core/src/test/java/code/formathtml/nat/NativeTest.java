@@ -2,6 +2,7 @@ package code.formathtml.nat;
 
 import code.bean.nat.*;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
+import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.exec.NatImportingPage;
@@ -26,7 +27,6 @@ import code.formathtml.Configuration;
 import code.formathtml.EquallableBeanCoreUtil;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.sample.*;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
@@ -55,7 +55,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         setLocalFiles(analyzingDoc_,init, conf, new NatDualConfigurationContext());
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
-        NatRendForwardInfos.buildExec(analyzingDoc_, new StringMap<AnaRendDocumentBlock>(), lgNames_.getRenders());
+        NatRendForwardInfos.buildExec(analyzingDoc_, new StringMap<NatAnaRendDocumentBlock>(), lgNames_.getRenders());
         setFirst(conf, lgNames_.getRenders());
         assertNotNull(BeanNatCommonLgNames.getPairStruct(null));
         assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(null));
@@ -2326,18 +2326,18 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanNatCommonLgNames.initInstancesPattern(configuration_, map_);
         configuration_.getBeansInfos().addAllEntries(map_);
 
-        StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
+        StringMap<NatAnaRendDocumentBlock> d_ = new StringMap<NatAnaRendDocumentBlock>();
         for (String s: _dual.getRenderFiles()) {
             String link_ = BeanNatCommonLgNames.getRealFilePath(configuration_.getCurrentLanguage(),s);
             String file_ = _nav.getFiles().getVal(link_);
             DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(file_);
             Document document_ = res_.getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, file_, link_, analyzingDoc_.getRendKeyWords(), _adv, new AdvNatBlockBuilder(_adv));
+            NatAnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, analyzingDoc_.getRendKeyWords(), _adv, new AdvNatBlockBuilder(_adv));
             d_.addEntry(link_,anaDoc_);
         }
         analyzingDoc_.setLanguages(_nav.getLanguages());
         configuration_.setCurrentLanguage(_nav.getLanguage());
-        for (AnaRendDocumentBlock v : d_.values()) {
+        for (NatAnaRendDocumentBlock v : d_.values()) {
             AnaRendBlockHelp.buildFctInstructions(v,analyzingDoc_, init_, map_);
         }
 //        _conf.setAnalyzed(d_);
@@ -2365,7 +2365,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setLocalFiles(analyzingDoc_, initNat_, config_, dual_);
         StringMap<BeanInfo> beansInfosBefore_ = analyzingDoc_.getBeansInfosBefore();
         beansInfosBefore_.addAllEntries(beansInfos_);
-        StringMap<AnaRendDocumentBlock> d_ = analyze(config_, analyzingDoc_, beansInfosBefore_, lgNames_, initNat_, config_, dual_, _html);
+        StringMap<NatAnaRendDocumentBlock> d_ = analyze(config_, analyzingDoc_, beansInfosBefore_, lgNames_, initNat_, config_, dual_, _html);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, lgNames_.getRenders());
         setFirst(config_, lgNames_.getRenders());
@@ -2388,7 +2388,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setLocalFiles(analyzingDo_, init_, con_, dual_);
         StringMap<BeanInfo> beansInfosBefore_ = analyzingDo_.getBeansInfosBefore();
         beansInfosBefore_.addAllEntries(beansInfos_);
-        StringMap<AnaRendDocumentBlock> d_ = analyze(con_, analyzingDo_, beansInfosBefore_, lgNames_, init_, con_, dual_, _html);
+        StringMap<NatAnaRendDocumentBlock> d_ = analyze(con_, analyzingDo_, beansInfosBefore_, lgNames_, init_, con_, dual_, _html);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDo_, d_, lgNames_.getRenders());
         setFirst(con_, lgNames_.getRenders());
@@ -2408,7 +2408,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         addBeanInfo(_adv,"bean_two", _v2, beansInfos_, _configuration);
         StringMap<BeanInfo> beansInfosBefore_ = _analyzingDoc.getBeansInfosBefore();
         beansInfosBefore_.addAllEntries(beansInfos_);
-        StringMap<AnaRendDocumentBlock> d_ = analyze(_configuration, _analyzingDoc, beansInfosBefore_, _adv, _analyzing, _configuration, _dual, _html, _htmlTwo);
+        StringMap<NatAnaRendDocumentBlock> d_ = analyze(_configuration, _analyzingDoc, beansInfosBefore_, _adv, _analyzing, _configuration, _dual, _html, _htmlTwo);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(_analyzingDoc, d_, _adv.getRenders());
         setFirst(_configuration, _adv.getRenders());
@@ -2425,17 +2425,17 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         _analyzingDoc.setLanguages(new StringList("en"));
         setupAna(_analyzingDoc, _analyzing);
     }
-    private static StringMap<AnaRendDocumentBlock> analyze(Configuration _conf, AnalyzingDoc _analyzingDoc, StringMap<BeanInfo> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, Configuration _configuration, NatDualConfigurationContext _dual, String... _html) {
+    private static StringMap<NatAnaRendDocumentBlock> analyze(Configuration _conf, AnalyzingDoc _analyzingDoc, StringMap<BeanInfo> _beansInfosBefore, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, Configuration _configuration, NatDualConfigurationContext _dual, String... _html) {
         int c_ = 1;
-        StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
+        StringMap<NatAnaRendDocumentBlock> d_ = new StringMap<NatAnaRendDocumentBlock>();
         for (String h: _html) {
             Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(h).getDocument();
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock("c:", doc_, h, "page1.html", _conf.getRendKeyWords(), _adv, new AdvNatBlockBuilder(_adv));
+            NatAnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock("c:", doc_, _conf.getRendKeyWords(), _adv, new AdvNatBlockBuilder(_adv));
             d_.addEntry("page"+c_+".html",anaDoc_);
             c_++;
         }
         setLocalFiles(_analyzingDoc, _analyzing, _configuration, _dual);
-        for (AnaRendDocumentBlock v: d_.values()) {
+        for (NatAnaRendDocumentBlock v: d_.values()) {
             AnaRendBlockHelp.buildFctInstructions(v,_analyzingDoc, _analyzing, _beansInfosBefore);
         }
         return d_;

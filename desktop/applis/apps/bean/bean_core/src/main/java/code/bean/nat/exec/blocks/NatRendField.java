@@ -1,17 +1,16 @@
 package code.bean.nat.exec.blocks;
 
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.util.CustList;
 
-public final class NatRendField extends RendParentBlock {
-    private final CustList<RendDynOperationNode> exps;
+public final class NatRendField extends NatParentBlock {
+    private final CustList<NatExecOperationNode> exps;
 
-    public NatRendField(CustList<RendDynOperationNode> _res) {
+    public NatRendField(CustList<NatExecOperationNode> _res) {
         exps = _res;
     }
 
-    public CustList<RendDynOperationNode> getExps() {
+    public CustList<NatExecOperationNode> getExps() {
         return exps;
     }
 }

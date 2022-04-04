@@ -3,7 +3,6 @@ package code.bean.nat.analyze.blocks;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.CustList;
@@ -18,12 +17,12 @@ public final class NatAnaRendTitledAnchor extends NatAnaRendElement {
     private StringList varNames = new StringList();
 
     private StringMap<String> preformatted;
-    NatAnaRendTitledAnchor(Element _elt, int _offset) {
-        super(_elt, _offset);
+    NatAnaRendTitledAnchor(Element _elt) {
+        super(_elt);
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    protected void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         roots = new CustList<NatOperationNode>();
         NatResultText res_ = NatResultText.buildAnchor(_read, _list, _anaDoc, _page);
         varNames = res_.getVarNames();

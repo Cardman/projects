@@ -7,7 +7,6 @@ import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -20,13 +19,16 @@ public abstract class NatOperationNode {
 
     private NatOperationNode nextSibling;
 
-    private final AnaOperationContent content;
+    private final int indexInEl;
+    private final int indexChild;
+    private int order = IndexConstants.INDEX_NOT_FOUND_ELT;
     private String result;
 
     private final NatOperationsSequence operations;
 
     NatOperationNode(int _indexInEl, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op) {
-        content = new AnaOperationContent(_indexInEl,_indexChild);
+        indexInEl = _indexInEl;
+        indexChild = _indexChild;
         result = "";
         parent = _m;
         operations = _op;
@@ -199,16 +201,19 @@ public abstract class NatOperationNode {
         return operations;
     }
 
+    public final int getOrder() {
+        return order;
+    }
     public final void setOrder(int _order) {
-        content.setOrder(_order);
+        order = _order;
     }
 
     public final int getIndexInEl() {
-        return content.getIndexInEl();
+        return indexInEl;
     }
 
     public final int getIndexChild() {
-        return content.getIndexChild();
+        return indexChild;
     }
 
     public String getNames() {
@@ -217,10 +222,6 @@ public abstract class NatOperationNode {
 
     public final void setResultClass(String _resultClass) {
         result = _resultClass;
-    }
-
-    public AnaOperationContent getContent() {
-        return content;
     }
 
 }

@@ -1,5 +1,7 @@
 package code.bean.nat.exec;
 
+import code.bean.nat.exec.blocks.NatBlock;
+import code.bean.nat.exec.blocks.NatParentBlock;
 import code.bean.nat.exec.blocks.NatRendAbstractForEachLoop;
 import code.bean.nat.exec.blocks.NatRendForEachTable;
 import code.bean.nat.exec.variables.VariableWrapperNat;
@@ -10,7 +12,6 @@ import code.formathtml.exec.AbsImportingPage;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendElem;
 import code.formathtml.exec.blocks.RendFormInt;
-import code.formathtml.exec.blocks.RendParentBlock;
 import code.util.*;
 
 public final class NatImportingPage extends AbsImportingPage {
@@ -45,7 +46,7 @@ public final class NatImportingPage extends AbsImportingPage {
 
     public void removeRendLastBlock() {
         NatAbstractStask last_ = getRendBlockStacks().last();
-        RendParentBlock cur_ = last_.getCurrentVisitedBlock();
+        NatParentBlock cur_ = last_.getCurrentVisitedBlock();
         if (cur_ instanceof NatRendAbstractForEachLoop) {
             ((NatRendAbstractForEachLoop)cur_).removeAllVars(this);
         }
@@ -109,7 +110,7 @@ public final class NatImportingPage extends AbsImportingPage {
         return !rendBlockStacks.isEmpty();
     }
 
-    public NatLoopBlockStack getLastLoopIfPossible(RendBlock _bl) {
+    public NatLoopBlockStack getLastLoopIfPossible(NatBlock _bl) {
         NatLoopBlockStack c_ = null;
         NatAbstractStask last_ = tryGetRendLastStack();
         if (last_ instanceof NatLoopBlockStack) {
@@ -120,7 +121,7 @@ public final class NatImportingPage extends AbsImportingPage {
         }
         return null;
     }
-    public boolean matchStatement(RendBlock _bl) {
+    public boolean matchStatement(NatBlock _bl) {
         NatAbstractStask last_ = tryGetRendLastStack();
         if (!(last_ instanceof NatIfStack)) {
             return false;

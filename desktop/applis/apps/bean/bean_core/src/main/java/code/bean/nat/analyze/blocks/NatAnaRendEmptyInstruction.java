@@ -1,10 +1,7 @@
 package code.bean.nat.analyze.blocks;
 
-import code.formathtml.analyze.blocks.AnaRendLeaf;
-
-public final class NatAnaRendEmptyInstruction extends AnaRendLeaf {
-    NatAnaRendEmptyInstruction(int _offset) {
-        super(_offset);
+public final class NatAnaRendEmptyInstruction extends NatAnaRendLeaf {
+    NatAnaRendEmptyInstruction() {
 //        setEscapedChars(new StringMap<IntTreeMap<Integer>>());
     }
 

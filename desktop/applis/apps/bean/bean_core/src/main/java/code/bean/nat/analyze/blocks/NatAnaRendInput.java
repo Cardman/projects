@@ -3,7 +3,6 @@ package code.bean.nat.analyze.blocks;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -16,13 +15,13 @@ public final class NatAnaRendInput extends NatAnaRendElement {
     private NatResultInput resultInput;
     private final boolean radio;
 
-    NatAnaRendInput(Element _elt, int _offset, boolean _radio) {
-        super(_elt, _offset);
+    NatAnaRendInput(Element _elt, boolean _radio) {
+        super(_elt);
         radio = _radio;
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    protected void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         processAnaInput(_read, _anaDoc, _page);
         removeAttrs(_list, _anaDoc);
     }

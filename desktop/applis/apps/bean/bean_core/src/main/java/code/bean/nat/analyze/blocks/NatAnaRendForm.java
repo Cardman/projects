@@ -5,7 +5,6 @@ import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
@@ -17,12 +16,12 @@ public final class NatAnaRendForm extends NatAnaRendElement {
 
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
-    NatAnaRendForm(Element _elt, int _offset) {
-        super(_elt, _offset);
+    NatAnaRendForm(Element _elt) {
+        super(_elt);
     }
 
     @Override
-    protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    protected void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         _list.removeAllString(_anaDoc.getRendKeyWords().getAttrAction());
         roots = new CustList<NatOperationNode>();

@@ -8,19 +8,7 @@ import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
-import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBlock;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.analyze.blocks.AnaRendParentBlock;
-import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendOperationNodeListOff;
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.exec.opers.RendLeafOperation;
-import code.formathtml.exec.opers.RendMethodOperation;
-import code.formathtml.exec.opers.RendPossibleIntermediateDotted;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -30,11 +18,11 @@ import code.util.core.StringUtil;
 public final class NatRendForwardInfos {
     private NatRendForwardInfos() {
     }
-    private static NatDocumentBlock build(AnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
+    private static NatDocumentBlock build(NatAnaRendDocumentBlock _ana, AnalyzingDoc _anaDoc) {
         NatDocumentBlock rendDoc_ = new NatDocumentBlock(_ana.getElt(), _ana.getBeanName());
         NatAnaExec pair_ = new NatAnaExec(_ana, rendDoc_);
         while (pair_.getReadNat() != null) {
-            RendBlock loc_ = newRendBlock(pair_.getReadNat());
+            NatBlock loc_ = newRendBlock(pair_.getReadNat());
             pair_.setWriteNat(complete(_anaDoc, rendDoc_, pair_.getWriteNat(), loc_));
             nextPair(pair_);
         }
@@ -42,7 +30,7 @@ public final class NatRendForwardInfos {
     }
 
     public static void nextPair(NatAnaExec _nat) {
-        AnaRendBlock n_ = _nat.getReadNat().getFirstChild();
+        NatAnaRendBlock n_ = _nat.getReadNat().getFirstChild();
         if (n_ != null) {
             _nat.setReadNat(n_);
             return;
@@ -53,7 +41,7 @@ public final class NatRendForwardInfos {
                 _nat.setReadNat(n_);
                 break;
             }
-            AnaRendParentBlock parent_ = _nat.getReadNat().getParent();
+            NatAnaRendParentBlock parent_ = _nat.getReadNat().getParent();
             _nat.setWriteNat(_nat.getWriteNat().getParent());
             if (_nat.getWriteNat() == null) {
                 _nat.setReadNat(null);
@@ -63,21 +51,21 @@ public final class NatRendForwardInfos {
         }
     }
 
-    private static RendParentBlock complete(AnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, RendParentBlock _curPar, RendBlock _loc) {
+    private static NatParentBlock complete(AnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
         if (_loc != null) {
             if (_loc instanceof NatRendStdElement && StringUtil.quickEq(((NatRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
-                _rendDoc.getBodies().add(_loc);
+                _rendDoc.setBody(_loc);
             }
 //            _loc.setEscapedChars(_en.getEscapedChars());
             _curPar.appendChild(_loc);
         }
-        if (_loc instanceof RendParentBlock) {
-            return (RendParentBlock) _loc;
+        if (_loc instanceof NatParentBlock) {
+            return (NatParentBlock) _loc;
         }
         return _curPar;
     }
 
-    private static RendBlock newRendBlock(AnaRendBlock _current) {
+    private static NatBlock newRendBlock(NatAnaRendBlock _current) {
         if (_current instanceof NatAnaRendText){
             NatAnaRendText t_ = (NatAnaRendText) _current;
             NatExecTextPart part_ = toExecPartExt(t_.getRoots(),t_.getTexts());
@@ -85,34 +73,34 @@ public final class NatRendForwardInfos {
         }
         if (_current instanceof NatAnaRendForEachLoop){
             NatAnaRendForEachLoop f_ = (NatAnaRendForEachLoop) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot());
+            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
             return new NatRendForEachIterable(f_.getVariableName(),
-                    f_.getExpressionOffset(), op_);
+                    op_);
         }
         return block2(_current);
     }
 
-    private static RendBlock block2(AnaRendBlock _current) {
+    private static NatBlock block2(NatAnaRendBlock _current) {
         if (_current instanceof NatAnaRendForEachTable){
             NatAnaRendForEachTable f_ = (NatAnaRendForEachTable) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot());
+            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
             return new NatRendForEachTable(f_.getVariableNameFirst(),
                     f_.getVariableNameSecond(),
-                    new RendOperationNodeListOff(op_, f_.getExpressionOffset()));
+                    new NatRendOperationNodeListOff(op_));
         }
         return block(_current);
     }
 
-    private static RendBlock block(AnaRendBlock _current) {
+    private static NatBlock block(NatAnaRendBlock _current) {
         if (_current instanceof NatAnaRendIfCondition){
             NatAnaRendIfCondition f_ = (NatAnaRendIfCondition) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot());
-            return new NatRendIfCondition(op_,f_.getConditionOffset());
+            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
+            return new NatRendIfCondition(op_);
         }
         if (_current instanceof NatAnaRendElseIfCondition){
             NatAnaRendElseIfCondition f_ = (NatAnaRendElseIfCondition) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot());
-            return new NatRendElseIfCondition(op_,f_.getConditionOffset());
+            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
+            return new NatRendElseIfCondition(op_);
         }
         if (_current instanceof NatAnaRendElseCondition){
             return new NatRendElseCondition();
@@ -125,7 +113,7 @@ public final class NatRendForwardInfos {
         return element(_current);
     }
 
-    private static RendBlock element(AnaRendBlock _current) {
+    private static NatBlock element(NatAnaRendBlock _current) {
         if (_current instanceof NatAnaRendSubmit){
             NatAnaRendSubmit f_ = (NatAnaRendSubmit) _current;
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
@@ -137,7 +125,7 @@ public final class NatRendForwardInfos {
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot());
+            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
             return new NatRendAnchor(f_.getRead(),part_,partText_,op_, f_.getVarNames(),partSub_);
         }
         if (_current instanceof NatAnaRendImg){
@@ -166,7 +154,7 @@ public final class NatRendForwardInfos {
             NatAnaRendForm f_ = (NatAnaRendForm) _current;
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
-            CustList<RendDynOperationNode> opForm_ = getExecutableNodes(f_.getRoot());
+            CustList<NatExecOperationNode> opForm_ = getExecutableNodes(f_.getRoot());
             NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
             return new NatRendForm(f_.getRead(),part_,partText_,opForm_,f_.getVarNames(),partSub_);
         }
@@ -175,13 +163,13 @@ public final class NatRendForwardInfos {
         }
         if (_current instanceof NatAnaRendField){
             NatAnaRendField f_ = (NatAnaRendField) _current;
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot());
+            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
             return new NatRendField(op_);
         }
         if (_current instanceof NatAnaRendMessage){
             NatAnaRendMessage f_ = (NatAnaRendMessage) _current;
-            CustList<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getRoots());
-            StringMap<CustList<CustList<RendDynOperationNode>>> map_ = toExecPartMapExt(f_.getCallsRoots());
+            CustList<CustList<NatExecOperationNode>> partSub_ = toExecPartExt(f_.getRoots());
+            StringMap<CustList<CustList<NatExecOperationNode>>> map_ = toExecPartMapExt(f_.getCallsRoots());
             return new NatRendMessage(partSub_,
                     f_.getPreformatted(), map_,
                     f_.getArgs(),
@@ -190,14 +178,14 @@ public final class NatRendForwardInfos {
         return input(_current);
     }
 
-    private static RendBlock input(AnaRendBlock _current) {
+    private static NatBlock input(NatAnaRendBlock _current) {
         if (_current instanceof NatAnaRendSelect){
             NatAnaRendSelect f_ = (NatAnaRendSelect) _current;
             NatResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
-            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
-            CustList<RendDynOperationNode> opMap_ = getExecutableNodes(f_.getRootMap());
-            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
+            CustList<NatExecOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
+            CustList<NatExecOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
+            CustList<NatExecOperationNode> opMap_ = getExecutableNodes(f_.getRootMap());
+            CustList<NatExecOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             return new NatRendSelect(opRead_,opValue_,opsWrite_,opMap_,
                     f_.getElt(),
                     initIn(f_.getClassNameNat(), f_.getVarName()));
@@ -206,18 +194,18 @@ public final class NatRendForwardInfos {
             NatAnaRendInput f_ = (NatAnaRendInput) _current;
             if (f_.isRadio()) {
                 NatResultInput resultInput_ = f_.getResultInput();
-                CustList<RendDynOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
-                CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
-                CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
+                CustList<NatExecOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
+                CustList<NatExecOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
+                CustList<NatExecOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
                 StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
                 StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
                 return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
                         initIn(f_.getClassName(), f_.getVarName()));
             }
             NatResultInput resultInput_ = f_.getResultInput();
-            CustList<RendDynOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
-            CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
-            CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
+            CustList<NatExecOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
+            CustList<NatExecOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
+            CustList<NatExecOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
@@ -235,7 +223,7 @@ public final class NatRendForwardInfos {
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            CustList<RendDynOperationNode> opAnc_ = getExecutableNodes(f_.getRoot());
+            CustList<NatExecOperationNode> opAnc_ = getExecutableNodes(f_.getRoot());
             return new NatRendTitledAnchor(f_.getRead(),part_,partText_,opAnc_,f_.getVarNames(), f_.getPreformatted(),partSub_);
         }
         if (_current instanceof NatAnaRendEmptyInstruction){
@@ -250,9 +238,9 @@ public final class NatRendForwardInfos {
         return null;
     }
 
-    static CustList<RendDynOperationNode> buildWritePart(NatResultInput _resultInput) {
+    static CustList<NatExecOperationNode> buildWritePart(NatResultInput _resultInput) {
         NatOperationNode settable_ = _resultInput.getSettable();
-        CustList<RendDynOperationNode> l_ = new CustList<RendDynOperationNode>();
+        CustList<NatExecOperationNode> l_ = new CustList<NatExecOperationNode>();
         if (settable_ instanceof SettableFieldNatOperation) {
             l_ = buildWritePartField(_resultInput, (SettableFieldNatOperation) settable_);
         }
@@ -268,46 +256,46 @@ public final class NatRendForwardInfos {
         return m_;
     }
     private static NatExecTextPart toExecPartExt(CustList<NatOperationNode> _roots, StringList _texts) {
-        CustList<CustList<RendDynOperationNode>> parts_ = toExecPartExt(_roots);
+        CustList<CustList<NatExecOperationNode>> parts_ = toExecPartExt(_roots);
         NatExecTextPart part_ = new NatExecTextPart();
         part_.getTexts().addAllElts(_texts);
         part_.setOpExp(parts_);
         return part_;
     }
-    private static StringMap<CustList<CustList<RendDynOperationNode>>> toExecPartMapExt(StringMap<CustList<NatOperationNode>> _roots) {
-        StringMap<CustList<CustList<RendDynOperationNode>>> m_ = new StringMap<CustList<CustList<RendDynOperationNode>>>();
+    private static StringMap<CustList<CustList<NatExecOperationNode>>> toExecPartMapExt(StringMap<CustList<NatOperationNode>> _roots) {
+        StringMap<CustList<CustList<NatExecOperationNode>>> m_ = new StringMap<CustList<CustList<NatExecOperationNode>>>();
         for (EntryCust<String, CustList<NatOperationNode>> e:_roots.entryList()) {
-            CustList<CustList<RendDynOperationNode>> parts_ = toExecPartExt(e.getValue());
+            CustList<CustList<NatExecOperationNode>> parts_ = toExecPartExt(e.getValue());
             m_.addEntry(e.getKey(),parts_);
         }
 
         return m_;
     }
-    private static CustList<CustList<RendDynOperationNode>> toExecPartExt(CustList<NatOperationNode> _roots) {
-        CustList<CustList<RendDynOperationNode>> parts_;
-        parts_ = new CustList<CustList<RendDynOperationNode>>();
+    private static CustList<CustList<NatExecOperationNode>> toExecPartExt(CustList<NatOperationNode> _roots) {
+        CustList<CustList<NatExecOperationNode>> parts_;
+        parts_ = new CustList<CustList<NatExecOperationNode>>();
         for (NatOperationNode r: _roots) {
             parts_.add(getExecutableNodes(r));
         }
         return parts_;
     }
 
-    private static CustList<RendDynOperationNode> getExecutableNodes(NatOperationNode _root) {
+    private static CustList<NatExecOperationNode> getExecutableNodes(NatOperationNode _root) {
         if (_root == null){
-            return new CustList<RendDynOperationNode>();
+            return new CustList<NatExecOperationNode>();
         }
         return getExecutableNodesStd(_root);
     }
 
-    private static CustList<RendDynOperationNode> getExecutableNodesStd(NatOperationNode _rootNat) {
-        CustList<RendDynOperationNode> out_ = new CustList<RendDynOperationNode>();
+    private static CustList<NatExecOperationNode> getExecutableNodesStd(NatOperationNode _rootNat) {
+        CustList<NatExecOperationNode> out_ = new CustList<NatExecOperationNode>();
         NatOperationNode currentNat_ = _rootNat;
-        RendDynOperationNode exp_ = createNatOperationNode(currentNat_);
+        NatExecOperationNode exp_ = createNatOperationNode(currentNat_);
         while (currentNat_ != null) {
             NatOperationNode opNat_ = currentNat_.getFirstChild();
-            if (exp_ instanceof RendMethodOperation &&opNat_ != null) {
-                RendDynOperationNode loc_ = createNatOperationNode(opNat_);
-                ((RendMethodOperation) exp_).appendChild(loc_);
+            if (exp_ instanceof NatExecMethodOperation &&opNat_ != null) {
+                NatExecOperationNode loc_ = createNatOperationNode(opNat_);
+                ((NatExecMethodOperation) exp_).appendChild(loc_);
                 exp_ = loc_;
                 currentNat_ = opNat_;
                 continue;
@@ -316,9 +304,9 @@ public final class NatRendForwardInfos {
                 trySetup(exp_);
                 out_.add(exp_);
                 opNat_ = currentNat_.getNextSibling();
-                RendMethodOperation par_ = exp_.getParent();
+                NatExecMethodOperation par_ = exp_.getParent();
                 if (opNat_ != null) {
-                    RendDynOperationNode loc_ = createNatOperationNode(opNat_);
+                    NatExecOperationNode loc_ = createNatOperationNode(opNat_);
                     par_.appendChild(loc_);
                     setSiblingSet(exp_, opNat_, loc_);
                     exp_ = loc_;
@@ -341,83 +329,83 @@ public final class NatRendForwardInfos {
         return out_;
     }
 
-    private static void setSiblingSet(RendDynOperationNode _exp, NatOperationNode _op, RendDynOperationNode _loc) {
+    private static void setSiblingSet(NatExecOperationNode _exp, NatOperationNode _op, NatExecOperationNode _loc) {
         if (_op.getParent() instanceof AbstractDotNatOperation) {
-            _exp.setSiblingSet((RendPossibleIntermediateDotted) _loc);
+            _exp.setSiblingSet((NatExecPossibleIntermediateDotted) _loc);
         }
     }
 
-    private static void trySetup(RendDynOperationNode _exp) {
+    private static void trySetup(NatExecOperationNode _exp) {
         if (_exp instanceof NatAbstractAffectOperation) {
             ((NatAbstractAffectOperation) _exp).setup();
         }
     }
 
-    private static RendDynOperationNode createNatOperationNode(NatOperationNode _anaNode) {
+    private static NatExecOperationNode createNatOperationNode(NatOperationNode _anaNode) {
         if (_anaNode instanceof InternGlobalNatOperation) {
             InternGlobalNatOperation m_ = (InternGlobalNatOperation) _anaNode;
-            return new NatInternGlobalOperation(new ExecOperationContent(m_.getContent()));
+            return new NatInternGlobalOperation(m_.getOrder());
         }
         return procOperand6(_anaNode);
     }
 
-    private static RendDynOperationNode procOperand6(NatOperationNode _anaNode) {
+    private static NatExecOperationNode procOperand6(NatOperationNode _anaNode) {
         if (_anaNode instanceof FctNatOperation) {
             FctNatOperation i_ = (FctNatOperation) _anaNode;
-            return new NatStdFctOperation(new ExecOperationContent(i_.getContent()), i_.isIntermediateDottedOperation(), new NatExecStdFctContent(i_.getCallFctContent()));
+            return new NatStdFctOperation(i_.getOrder(), i_.isIntermediateDottedOperation(), new NatExecStdFctContent(i_.getCallFctContent()));
         }
         return procOperands5(_anaNode);
     }
 
-    private static RendDynOperationNode procOperands5(NatOperationNode _anaNode) {
+    private static NatExecOperationNode procOperands5(NatOperationNode _anaNode) {
         return procOperands4(_anaNode);
     }
 
-    private static RendDynOperationNode procOperands4(NatOperationNode _anaNode) {
+    private static NatExecOperationNode procOperands4(NatOperationNode _anaNode) {
         if (_anaNode instanceof IdNatOperation) {
             IdNatOperation d_ = (IdNatOperation) _anaNode;
-            return new NatIdOperation(new ExecOperationContent(d_.getContent()));
+            return new NatIdOperation(d_.getOrder());
         }
         return procOperands3(_anaNode);
     }
 
-    private static RendDynOperationNode procOperands3(NatOperationNode _anaNode) {
+    private static NatExecOperationNode procOperands3(NatOperationNode _anaNode) {
         return procOperands2(_anaNode);
     }
 
-    private static RendDynOperationNode procOperands2(NatOperationNode _anaNode) {
+    private static NatExecOperationNode procOperands2(NatOperationNode _anaNode) {
         return procOperands(_anaNode);
     }
 
-    private static RendDynOperationNode procOperands(NatOperationNode _anaNode) {
+    private static NatExecOperationNode procOperands(NatOperationNode _anaNode) {
         if (_anaNode instanceof SettableAbstractFieldNatOperation) {
             SettableAbstractFieldNatOperation s_ = (SettableAbstractFieldNatOperation) _anaNode;
-            return new NatSettableFieldOperation(new ExecOperationContent(s_.getContent()), new NatExecFieldOperationContent(s_.getFieldContent()), new NatExecSettableOperationContent(s_.getSettableFieldContent()));
+            return new NatSettableFieldOperation(s_.getOrder(), new NatExecFieldOperationContent(s_.getFieldContent()), new NatExecSettableOperationContent(s_.getSettableFieldContent()));
         }
         if (_anaNode instanceof FinalVariableNatOperation) {
             return finalVariable((FinalVariableNatOperation) _anaNode);
         }
         if (_anaNode instanceof DotNatOperation) {
             DotNatOperation m_ = (DotNatOperation) _anaNode;
-            return new NatDotOperation(new ExecOperationContent(m_.getContent()));
+            return new NatDotOperation(m_.getOrder());
         }
         return procGeneOperators(_anaNode);
     }
 
-    private static RendLeafOperation finalVariable(FinalVariableNatOperation _anaNode) {
+    private static NatExecOperationNode finalVariable(FinalVariableNatOperation _anaNode) {
         if (_anaNode.isVarIndex()) {
-            return new NatFinalVariableOperation(new ExecOperationContent(_anaNode.getContent()), new NatExecVariableContent(_anaNode.getVariableContent()));
+            return new NatFinalVariableOperation(_anaNode.getOrder(), new NatExecVariableContent(_anaNode.getVariableContent()));
         }
-        return new NatStdRefVariableOperation(new ExecOperationContent(_anaNode.getContent()), new NatExecVariableContent(_anaNode.getVariableContent()));
+        return new NatStdRefVariableOperation(_anaNode.getOrder(), new NatExecVariableContent(_anaNode.getVariableContent()));
     }
 
-    private static RendDynOperationNode procGeneOperators(NatOperationNode _anaNode) {
+    private static NatExecOperationNode procGeneOperators(NatOperationNode _anaNode) {
         if (_anaNode instanceof UnaryBooleanNatOperation) {
             UnaryBooleanNatOperation m_ = (UnaryBooleanNatOperation) _anaNode;
-            return new NatUnaryBooleanOperation(new ExecOperationContent(m_.getContent()));
+            return new NatUnaryBooleanOperation(m_.getOrder());
         }
         AffectationNatOperation a_ = (AffectationNatOperation) _anaNode;
-        return new NatAffectationOperation(new ExecOperationContent(a_.getContent()));
+        return new NatAffectationOperation(a_.getOrder());
     }
 
     private static NatAnaVariableContent generateVariable(String _varLoc) {
@@ -426,23 +414,20 @@ public final class NatRendForwardInfos {
         return cont_;
     }
 
-    private static CustList<RendDynOperationNode> buildWritePartField(NatResultInput _resultInput, SettableFieldNatOperation _settable) {
-        CustList<RendDynOperationNode> w_ = new CustList<RendDynOperationNode>();
-        String cl_ = "";
-        ExecClassArgumentMatching pr_ = new ExecClassArgumentMatching("");
-        NatAffectationOperation rendAff_ = new NatAffectationOperation(new ExecOperationContent(0, pr_, 4));
-        ExecClassArgumentMatching clResField_ = new ExecClassArgumentMatching(cl_);
-        NatDotOperation rendDot_ = new NatDotOperation(new ExecOperationContent(0, clResField_, 2));
-        NatStdRefVariableOperation rendPrevVar_ = new NatStdRefVariableOperation(new ExecOperationContent(0, pr_, 0), new NatExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
+    private static CustList<NatExecOperationNode> buildWritePartField(NatResultInput _resultInput, SettableFieldNatOperation _settable) {
+        CustList<NatExecOperationNode> w_ = new CustList<NatExecOperationNode>();
+        NatAffectationOperation rendAff_ = new NatAffectationOperation(4);
+        NatDotOperation rendDot_ = new NatDotOperation(2);
+        NatStdRefVariableOperation rendPrevVar_ = new NatStdRefVariableOperation(0, new NatExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
         NatAnaFieldOperationContent cont_ = new NatAnaFieldOperationContent();
         cont_.setIntermediate(true);
-        NatSettableFieldOperation rendField_ = new NatSettableFieldOperation(new ExecOperationContent(1,pr_,1),
+        NatSettableFieldOperation rendField_ = new NatSettableFieldOperation(1,
                 new NatExecFieldOperationContent(cont_), new NatExecSettableOperationContent(_settable.getSettableFieldContent()));
         rendPrevVar_.setSiblingSet(rendField_);
         rendDot_.appendChild(rendPrevVar_);
         rendDot_.appendChild(rendField_);
         rendAff_.appendChild(rendDot_);
-        NatStdRefVariableOperation rendVar_ = new NatStdRefVariableOperation(new ExecOperationContent(0, clResField_, 3), new NatExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
+        NatStdRefVariableOperation rendVar_ = new NatStdRefVariableOperation(3, new NatExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
         rendAff_.appendChild(rendVar_);
         rendAff_.setup();
 
@@ -463,14 +448,14 @@ public final class NatRendForwardInfos {
 //        }
     }
 
-    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<AnaRendDocumentBlock> _d, StringMap<NatDocumentBlock> _renders) {
+    public static void buildExec(AnalyzingDoc _analyzingDoc, StringMap<NatAnaRendDocumentBlock> _d, StringMap<NatDocumentBlock> _renders) {
         buildExec(_d, _analyzingDoc, _renders);
 
         initValidatorsInstance();
     }
 
-    private static void buildExec(StringMap<AnaRendDocumentBlock> _d, AnalyzingDoc _anaDoc, StringMap<NatDocumentBlock> _renders) {
-        for (EntryCust<String,AnaRendDocumentBlock> v: _d.entryList()) {
+    private static void buildExec(StringMap<NatAnaRendDocumentBlock> _d, AnalyzingDoc _anaDoc, StringMap<NatDocumentBlock> _renders) {
+        for (EntryCust<String,NatAnaRendDocumentBlock> v: _d.entryList()) {
             NatDocumentBlock rendDoc_ = build(v.getValue(), _anaDoc);
             _renders.put(v.getKey(), rendDoc_);
         }

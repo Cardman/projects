@@ -3,15 +3,13 @@ package code.bean.nat.exec.blocks;
 import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.exec.*;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.util.CustList;
 
-public final class NatRendImport extends RendParentBlock implements NatRendWithEl {
+public final class NatRendImport extends NatParentBlock implements NatRendWithEl {
 
     private final NatExecTextPart textPart;
 
@@ -35,14 +33,14 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
         Struct mainBean_ = _rendStack.getMainBean();
         natImpLgNames.setBeanForms(mainBean_,
                 beanName_);
-        for (RendBlock p: getDirectChildren(this)) {
-            for (RendBlock c: getDirectChildren(p)) {
+        for (NatBlock p: getDirectChildren(this)) {
+            for (NatBlock c: getDirectChildren(p)) {
                 if (!(c instanceof NatRendClass)) {
                     continue;
                 }
-                for (RendBlock f: getDirectChildren(c)) {
+                for (NatBlock f: getDirectChildren(c)) {
                     if (f instanceof NatRendField) {
-                        CustList<RendDynOperationNode> exps_ = ((NatRendField) f).getExps();
+                        CustList<NatExecOperationNode> exps_ = ((NatRendField) f).getExps();
                         ip_.setInternGlobal(newBean_);
                         BeanNatCommonLgNames.getAllArgs(exps_, _rendStack);
                         ip_.setInternGlobal(null);
@@ -70,7 +68,7 @@ public final class NatRendImport extends RendParentBlock implements NatRendWithE
         RendReadWrite rw_ = _ip.getRendReadWrite();
         rwLoc_.setDocument(rw_.getDocument());
         rwLoc_.setWrite(rw_.getWrite());
-        rwLoc_.setRead(_val.getBodies().first().getFirstChild());
+        rwLoc_.setRead(_val.getBody().getFirstChild());
         newIp_.setRendReadWrite(rwLoc_);
         return newIp_;
     }

@@ -1,28 +1,24 @@
 package code.bean.help.analyze.blocks;
 
 import code.bean.help.analyze.HelpResultText;
-import code.bean.nat.analyze.blocks.NatAnaRendElement;
-import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.bean.nat.analyze.blocks.NatRendBuildEl;
+import code.bean.nat.analyze.blocks.*;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public abstract class HelpAnaRendElement extends AnaRendParentBlock implements NatRendBuildEl {
+public abstract class HelpAnaRendElement extends NatAnaRendParentBlock implements NatRendBuildEl {
     private final Element read;
     private final StringMap<HelpResultText> attributes = new StringMap<HelpResultText>();
 
-    HelpAnaRendElement(Element _elt, int _offset) {
-        super(_offset);
+    HelpAnaRendElement(Element _elt) {
+        super();
         read = _elt;
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String prefixWrite_ = _anaDoc.getPrefix();
         StringList attributesNames_ = NatAnaRendElement.buildAttrNames(_anaDoc,read);
         String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
@@ -36,7 +32,7 @@ public abstract class HelpAnaRendElement extends AnaRendParentBlock implements N
         }
     }
 
-    protected abstract void processAttributes(AnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page);
+    protected abstract void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, AnalyzingDoc _anaDoc, NatAnalyzedCode _page);
 
     public final Element getRead() {
         return read;

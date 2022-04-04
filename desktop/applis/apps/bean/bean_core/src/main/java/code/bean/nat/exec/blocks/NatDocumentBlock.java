@@ -1,23 +1,20 @@
 package code.bean.nat.exec.blocks;
 
-import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendParentBlock;
 import code.sml.Element;
-import code.util.CustList;
 
-public final class NatDocumentBlock extends RendParentBlock {
+public final class NatDocumentBlock extends NatParentBlock {
 
     private final Element elt;
 
     private final String beanName;
-    private final CustList<RendBlock> bodies = new CustList<RendBlock>();
+    private NatBlock body;
 
     public NatDocumentBlock(Element _elt, String _beanName) {
         this.elt = _elt;
         this.beanName = _beanName;
     }
 
-    public RendBlock getDocElt() {
+    public NatBlock getDocElt() {
         return getFirstChild();
     }
 
@@ -29,7 +26,11 @@ public final class NatDocumentBlock extends RendParentBlock {
         return beanName;
     }
 
-    public CustList<RendBlock> getBodies() {
-        return bodies;
+    public NatBlock getBody() {
+        return body;
+    }
+
+    public void setBody(NatBlock _b) {
+        this.body = _b;
     }
 }

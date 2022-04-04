@@ -1,17 +1,17 @@
 package code.bean.nat.exec;
 
-import code.formathtml.exec.opers.RendDynOperationNode;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
 
 public final class NatNodeContainer extends NodeContainer {
-    private CustList<RendDynOperationNode> opsWrite;
+    private CustList<NatExecOperationNode> opsWrite;
 
-    public CustList<RendDynOperationNode> getOpsWrite() {
+    public CustList<NatExecOperationNode> getOpsWrite() {
         return opsWrite;
     }
 
-    public void setOpsWrite(CustList<RendDynOperationNode> _opsWrite) {
+    public void setOpsWrite(CustList<NatExecOperationNode> _opsWrite) {
         opsWrite = _opsWrite;
     }
 

@@ -1,16 +1,14 @@
 package code.bean.nat.analyze.blocks;
 
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 
 public final class NatAnaRendElseIfCondition extends NatAnaRendCondition {
-    NatAnaRendElseIfCondition(OffsetStringInfo _condition, int _offset) {
-        super(_condition, _offset);
+    NatAnaRendElseIfCondition(String _condition) {
+        super(_condition);
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         buildConditions(_anaDoc, _page);
     }
 

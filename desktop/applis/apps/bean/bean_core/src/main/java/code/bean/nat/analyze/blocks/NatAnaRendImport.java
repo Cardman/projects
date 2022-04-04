@@ -4,13 +4,11 @@ import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class NatAnaRendImport extends AnaRendParentBlock implements NatRendBuildEl {
+public final class NatAnaRendImport extends NatAnaRendParentBlock implements NatRendBuildEl {
     private final Element elt;
 
     private CustList<NatOperationNode> roots;
@@ -18,14 +16,14 @@ public final class NatAnaRendImport extends AnaRendParentBlock implements NatRen
     private StringList texts = new StringList();
 
     private final AbstractNatImpLgNames natImpLgNames;
-    NatAnaRendImport(Element _elt, int _offset, AbstractNatImpLgNames _natImpLgNames) {
-        super(_offset);
+    NatAnaRendImport(Element _elt, AbstractNatImpLgNames _natImpLgNames) {
+        super();
         elt = _elt;
         natImpLgNames = _natImpLgNames;
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultText res_ = new NatResultText();
         String pageName_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrPage());
         res_.buildAna(pageName_, _anaDoc, _page);

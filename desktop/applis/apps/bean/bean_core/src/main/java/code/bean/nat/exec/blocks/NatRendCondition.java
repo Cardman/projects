@@ -1,20 +1,18 @@
 package code.bean.nat.exec.blocks;
 
-import code.formathtml.exec.blocks.RendOperationNodeListOff;
-import code.formathtml.exec.blocks.RendParentBlock;
-import code.formathtml.exec.opers.RendDynOperationNode;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.util.CustList;
 
-public abstract class NatRendCondition extends RendParentBlock implements NatRendWithEl {
+public abstract class NatRendCondition extends NatParentBlock implements NatRendWithEl {
 
 
-    private final RendOperationNodeListOff condition;
+    private final NatRendOperationNodeListOff condition;
 
-    NatRendCondition(CustList<RendDynOperationNode> _op, int _offset) {
-        condition = new RendOperationNodeListOff(_op,_offset);
+    NatRendCondition(CustList<NatExecOperationNode> _op) {
+        condition = new NatRendOperationNodeListOff(_op);
     }
 
-    RendOperationNodeListOff getCondition() {
+    NatRendOperationNodeListOff getCondition() {
         return condition;
     }
 

@@ -1,14 +1,11 @@
 package code.bean.nat.exec.opers;
-import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.exec.opers.RendMethodOperation;
-import code.formathtml.exec.opers.RendPossibleIntermediateDotted;
 
-public abstract class NatInvokingOperation extends RendMethodOperation implements RendPossibleIntermediateDotted {
+public abstract class NatInvokingOperation extends NatExecMethodOperation implements NatExecPossibleIntermediateDotted {
     private final boolean intermediate;
 
     protected NatInvokingOperation(
-            ExecOperationContent _content, boolean _intermediateDottedOperation) {
-        super(_content);
+            int _o, boolean _intermediateDottedOperation) {
+        super(_o);
         intermediate = _intermediateDottedOperation;
     }
 

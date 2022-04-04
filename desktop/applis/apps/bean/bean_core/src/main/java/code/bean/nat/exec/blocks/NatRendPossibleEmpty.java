@@ -1,8 +1,6 @@
 package code.bean.nat.exec.blocks;
 
-import code.formathtml.exec.blocks.RendLeaf;
-
-public abstract class NatRendPossibleEmpty extends RendLeaf {
+public abstract class NatRendPossibleEmpty extends NatLeaf {
     protected NatRendPossibleEmpty() {
         super();
     }

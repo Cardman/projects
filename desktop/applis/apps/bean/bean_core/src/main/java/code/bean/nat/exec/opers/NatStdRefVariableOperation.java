@@ -1,28 +1,25 @@
 package code.bean.nat.exec.opers;
 
+import code.bean.nat.exec.NatArgumentsPair;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.nat.fwd.opers.NatExecVariableContent;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.exec.opers.RendLeafOperation;
 import code.util.IdMap;
 import code.util.StringMap;
 
-public final class NatStdRefVariableOperation extends RendLeafOperation implements
+public final class NatStdRefVariableOperation extends NatExecLeafOperation implements
         NatRendCalculableOperation {
     private final NatExecVariableContent variableContent;
 
-    public NatStdRefVariableOperation(ExecOperationContent _l, NatExecVariableContent _variableContent) {
-        super(_l);
+    public NatStdRefVariableOperation(int _o, NatExecVariableContent _variableContent) {
+        super(_o);
         variableContent = _variableContent;
     }
 
@@ -56,7 +53,7 @@ public final class NatStdRefVariableOperation extends RendLeafOperation implemen
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, NatRendStackCall _rendStack) {
+    public void calculate(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStack) {
         NatImportingPage ip_ = _rendStack.getLastPage();
         VariableWrapperNat val_ = getWrapper(variableContent, ip_.getRefParams());
 //        ArgumentsPair pair_ = getArgumentPair(_nodes, this);

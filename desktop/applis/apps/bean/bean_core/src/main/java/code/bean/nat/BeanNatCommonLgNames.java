@@ -1,14 +1,16 @@
 package code.bean.nat;
 
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
+import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
+import code.bean.nat.exec.NatArgumentsPair;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.exec.blocks.NatRendImport;
 import code.bean.nat.exec.blocks.RendBlockHelp;
-import code.bean.nat.exec.opers.NatRendCalculableOperation;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
@@ -18,7 +20,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
@@ -27,9 +28,7 @@ import code.formathtml.Configuration;
 import code.formathtml.HtmlPage;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.util.BeanLgNames;
@@ -248,7 +247,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         Struct obj_ = _nodeContainer.getUpdated();
         String attrName_ = _nodeContainer.getVarName();
         String prev_ = _nodeContainer.getVarPrevName();
-        CustList<RendDynOperationNode> wr_ = _nodeContainer.getOpsWrite();
+        CustList<NatExecOperationNode> wr_ = _nodeContainer.getOpsWrite();
         NatImportingPage ip_ = _rendStackCall.getLastPage();
         ip_.putValueVar(prev_, new VariableWrapperNat(obj_));
         ip_.putValueVar(attrName_, new VariableWrapperNat(_attribute));
@@ -261,20 +260,20 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         if (_htmlPage.isForm()) {
             int _url = (int)_htmlPage.getUrl();
             StringList varNames_ = _htmlPage.getFormsVars().get(_url);
-            CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsFormExps().get(_url);
+            CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsFormExps().get(_url);
             StringList args_ = _htmlPage.getFormsArgs().get(_url);
             ret_ = redir(new Argument(_bean), varNames_, exps_, args_, _rendStack);
         } else {
             int _url = (int)_htmlPage.getUrl();
             StringList varNames_ = _htmlPage.getAnchorsVars().get(_url);
-            CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
+            CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
             StringList args_ = _htmlPage.getAnchorsArgs().get(_url);
             ret_= redir(new Argument(_bean), varNames_, exps_, args_, _rendStack);
         }
         return ret_;
     }
 
-    public static Struct redir(Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, NatRendStackCall _rendStackCall) {
+    public static Struct redir(Argument _bean, StringList _varNames, CustList<NatExecOperationNode> _exps, StringList _args, NatRendStackCall _rendStackCall) {
         NatImportingPage ip_ = _rendStackCall.getLastPage();
         int s_ = _varNames.size();
         for (int i = 0; i< s_; i++) {
@@ -302,18 +301,17 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return validator_.validate(resError_);
     }
 
-    public static IdMap<RendDynOperationNode, ArgumentsPair> getAllArgs(CustList<RendDynOperationNode> _nodes, NatRendStackCall _rendStackCall) {
-        IdMap<RendDynOperationNode,ArgumentsPair> arguments_;
-        arguments_ = new IdMap<RendDynOperationNode,ArgumentsPair>();
-        for (RendDynOperationNode o: _nodes) {
-            ArgumentsPair a_ = new ArgumentsPair();
+    public static IdMap<NatExecOperationNode, NatArgumentsPair> getAllArgs(CustList<NatExecOperationNode> _nodes, NatRendStackCall _rendStackCall) {
+        IdMap<NatExecOperationNode, NatArgumentsPair> arguments_;
+        arguments_ = new IdMap<NatExecOperationNode,NatArgumentsPair>();
+        for (NatExecOperationNode o: _nodes) {
+            NatArgumentsPair a_ = new NatArgumentsPair();
             arguments_.addEntry(o, a_);
         }
         int len_ = _nodes.size();
         for (int i = 0; i < len_; i++) {
-            RendDynOperationNode o = arguments_.getKey(i);
-            NatRendCalculableOperation a_ = (NatRendCalculableOperation)o;
-            a_.calculate(arguments_, _rendStackCall);
+            NatExecOperationNode o = arguments_.getKey(i);
+            o.calculate(arguments_, _rendStackCall);
         }
         return arguments_;
     }
@@ -621,15 +619,14 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
 
 
         natCode.setStds(this);
-        StringMap<AnaRendDocumentBlock> d_ = new StringMap<AnaRendDocumentBlock>();
+        StringMap<NatAnaRendDocumentBlock> d_ = new StringMap<NatAnaRendDocumentBlock>();
         for (EntryCust<String, Document> s: _docs.entryList()) {
             String link_ = s.getKey();
             Document document_ = s.getValue();
-            String file_ = document_.export();
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, file_, link_, analyzingDoc_.getRendKeyWords(), this, _builder);
+            NatAnaRendDocumentBlock anaDoc_ = AnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), document_, analyzingDoc_.getRendKeyWords(), this, _builder);
             d_.addEntry(link_,anaDoc_);
         }
-        for (AnaRendDocumentBlock v : d_.values()) {
+        for (NatAnaRendDocumentBlock v : d_.values()) {
             AnaRendBlockHelp.buildFctInstructions(v,analyzingDoc_, natCode, beansInfos_);
         }
 //        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());

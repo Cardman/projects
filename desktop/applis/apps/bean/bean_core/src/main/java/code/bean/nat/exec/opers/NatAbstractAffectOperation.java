@@ -1,53 +1,42 @@
 package code.bean.nat.exec.opers;
 
+import code.bean.nat.exec.NatArgumentsPair;
 import code.bean.nat.exec.NatRendStackCall;
-import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.exec.opers.RendMethodOperation;
 import code.util.IdMap;
 
-public abstract class NatAbstractAffectOperation extends RendMethodOperation implements NatRendCalculableOperation {
+public abstract class NatAbstractAffectOperation extends NatExecMethodOperation implements NatRendCalculableOperation {
 
-    private RendDynOperationNode settable;
+    private NatExecOperationNode settable;
 
-    protected NatAbstractAffectOperation(ExecOperationContent _content) {
-        super(_content);
+    protected NatAbstractAffectOperation(int _o) {
+        super(_o);
     }
 
     @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, NatRendStackCall _rendStack) {
+    public void calculate(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStack) {
         calculateAffect(_nodes, _rendStack);
     }
 
-    protected abstract void calculateAffect(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, NatRendStackCall _rendStack);
+    protected abstract void calculateAffect(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStack);
     public void setup() {
         settable = tryGetSettable(this);
     }
-    public static RendDynOperationNode tryGetSettable(RendMethodOperation _operation) {
-        RendDynOperationNode root_ = getIdOp(_operation);
-        return castDottedTo(root_);
+    public static NatExecOperationNode tryGetSettable(NatExecMethodOperation _operation) {
+        NatExecOperationNode root_ = _operation.getFirstChild();
+        return ((NatExecMethodOperation) root_).getChildrenNodes().last();
     }
 
-    public static RendDynOperationNode getIdOp(RendMethodOperation _operation) {
-        RendDynOperationNode root_ = _operation.getFirstChild();
-        while (root_ instanceof NatIdOperation) {
-            root_ = ((NatIdOperation)root_).getFirstChild();
-        }
-        return root_;
-    }
-
-    public static RendDynOperationNode castDottedTo(RendDynOperationNode _root) {
-        RendDynOperationNode elt_;
+    public static NatExecOperationNode castDottedTo(NatExecOperationNode _root) {
+        NatExecOperationNode elt_;
         if (!(_root instanceof NatAbstractDotOperation)) {
             elt_ = _root;
         } else {
-            elt_ = getLastNode((RendMethodOperation) _root);
+            elt_ = ((NatExecMethodOperation) _root).getChildrenNodes().last();
         }
         return elt_;
     }
 
-    public RendDynOperationNode getSettable() {
+    public NatExecOperationNode getSettable() {
         return settable;
     }
 

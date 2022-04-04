@@ -3,15 +3,13 @@ package code.bean.nat.analyze.blocks;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
-import code.formathtml.analyze.blocks.AnaRendParentBlock;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRendBuildEl {
+public final class NatAnaRendMessage extends NatAnaRendParentBlock implements NatRendBuildEl {
 
     private final Element elt;
     private CustList<NatOperationNode> roots;
@@ -21,13 +19,13 @@ public final class NatAnaRendMessage extends AnaRendParentBlock implements NatRe
     private final StringList args = new StringList();
     private StringList varNames = new StringList();
 
-    NatAnaRendMessage(Element _elt, int _offset) {
-        super(_offset);
+    NatAnaRendMessage(Element _elt) {
+        super();
         elt = _elt;
     }
 
     @Override
-    public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
+    public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         roots = new CustList<NatOperationNode>();
         String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         preformatted = AnaRendBlockHelp.getPre(value_, _anaDoc);

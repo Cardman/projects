@@ -1,12 +1,12 @@
 package code.bean.nat.exec;
 
-import code.formathtml.exec.blocks.RendParentBlock;
+import code.bean.nat.exec.blocks.NatParentBlock;
 
 public class NatIfStack implements NatAbstractStask {
 
-    private RendParentBlock natBlock;
-    private RendParentBlock natLastBlock;
-    private RendParentBlock natCurentVisitedBlock;
+    private NatParentBlock natBlock;
+    private NatParentBlock natLastBlock;
+    private NatParentBlock natCurentVisitedBlock;
 
     private boolean ent;
 
@@ -18,29 +18,29 @@ public class NatIfStack implements NatAbstractStask {
         ent = _entered;
     }
 
-    public RendParentBlock getBlock() {
+    public NatParentBlock getBlock() {
         return natBlock;
     }
 
-    public void setBlock(RendParentBlock _block) {
+    public void setBlock(NatParentBlock _block) {
         natBlock = _block;
     }
 
-    public RendParentBlock getLastBlock() {
+    public NatParentBlock getLastBlock() {
         return natLastBlock;
     }
 
     @Override
-    public void setCurrentVisitedBlock(RendParentBlock _bl) {
+    public void setCurrentVisitedBlock(NatParentBlock _bl) {
         natCurentVisitedBlock = _bl;
     }
 
-    public void setLastBlock(RendParentBlock _lastBlock) {
+    public void setLastBlock(NatParentBlock _lastBlock) {
         natLastBlock = _lastBlock;
     }
 
     @Override
-    public RendParentBlock getCurrentVisitedBlock() {
+    public NatParentBlock getCurrentVisitedBlock() {
         return natCurentVisitedBlock;
     }
 }

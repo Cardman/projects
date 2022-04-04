@@ -2,8 +2,8 @@ package code.bean.nat;
 
 import code.bean.nat.exec.NatFormParts;
 import code.bean.nat.exec.NatNodeContainer;
+import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.formathtml.HtmlPage;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
 import code.util.LongMap;
@@ -12,9 +12,9 @@ import code.util.LongTreeMap;
 public final class NatHtmlPage extends HtmlPage {
     private LongMap<LongTreeMap<NatNodeContainer>> containers = new LongMap<LongTreeMap<NatNodeContainer>>();
 
-    private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
+    private CustList<CustList<NatExecOperationNode>> callsExps = new CustList<CustList<NatExecOperationNode>>();
 
-    private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
+    private CustList<CustList<NatExecOperationNode>> callsFormExps = new CustList<CustList<NatExecOperationNode>>();
 
     public void set(NatFormParts _form) {
         setBase(_form);
@@ -23,11 +23,11 @@ public final class NatHtmlPage extends HtmlPage {
         setCallsFormExps(_form.getCallsFormExps());
     }
 
-    public CustList<CustList<RendDynOperationNode>> getCallsExps() {
+    public CustList<CustList<NatExecOperationNode>> getCallsExps() {
         return callsExps;
     }
 
-    public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
+    public CustList<CustList<NatExecOperationNode>> getCallsFormExps() {
         return callsFormExps;
     }
 
@@ -39,11 +39,11 @@ public final class NatHtmlPage extends HtmlPage {
         this.containers = _cont;
     }
 
-    public void setCallsExps(CustList<CustList<RendDynOperationNode>> _cal) {
+    public void setCallsExps(CustList<CustList<NatExecOperationNode>> _cal) {
         this.callsExps = _cal;
     }
 
-    public void setCallsFormExps(CustList<CustList<RendDynOperationNode>> _cal) {
+    public void setCallsFormExps(CustList<CustList<NatExecOperationNode>> _cal) {
         this.callsFormExps = _cal;
     }
 
