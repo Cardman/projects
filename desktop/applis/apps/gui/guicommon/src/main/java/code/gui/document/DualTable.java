@@ -9,23 +9,23 @@ import code.util.Ints;
 
 public final class DualTable extends DualContainer {
 
-    private Ints remainders;
-    private int width;
+    private final Ints remainders;
+    private final int width;
     private int count;
 
     public DualTable(DualContainer _container, MetaTable _component, RenderedPage _page) {
         super(_container, _component, _page);
         remainders = _component.getRemainders();
-        int diff_ = 0;
+        int diff_ = 1;
         int r_ = 0;
         for (int i:remainders) {
-            int l_ = i - r_;
+            int l_ = i - r_+1;
             if (l_ > diff_) {
                 diff_ = l_;
             }
             r_ = i;
         }
-        width = Math.max(diff_,1);
+        width = diff_;
     }
 
     @Override
@@ -56,10 +56,8 @@ public final class DualTable extends DualContainer {
         if (c_ instanceof AbsPanel) {
             ((AbsPanel)c_).add(_dual.getGraphic());
         }
-        if (remNext_ > -1) {
-            if (remNext_ != remainders.size() - 1) {
-                getPanel().add(getPage().getCompoFactory().newGrid(0,width));
-            }
+        if (remNext_ > -1 && remNext_ != remainders.size() - 1) {
+            getPanel().add(getPage().getCompoFactory().newGrid(0, width));
         }
         _dual.postAdd();
     }
