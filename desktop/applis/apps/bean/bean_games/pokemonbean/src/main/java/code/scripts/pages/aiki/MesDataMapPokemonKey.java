@@ -1,8 +1,8 @@
 package code.scripts.pages.aiki;
 final class MesDataMapPokemonKey{
 private static final String C_P_34_0="Name:\n";
-private static final String C_P_34_10="Pokemon of the ally of the player:<br/>\n";
-private static final String C_P_34_11="Pokemon of the foe trainer:<br/>\n";
+private static final String C_P_34_10="Pokemon of the ally of the player:\n";
+private static final String C_P_34_11="Pokemon of the foe trainer:\n";
 private static final String C_P_34_12="Base reward.\n";
 private static final String C_P_34_13="Nom:\n";
 private static final String C_P_34_14="Niveau:\n";
@@ -15,8 +15,8 @@ private static final String C_P_34_1="Level:\n";
 private static final String C_P_34_20="Revenir &agrave; l''indexe\n";
 private static final String C_P_34_21="Revenir &agrave; l''ensemble des lieux\n";
 private static final String C_P_34_22="Multiplicit&eacute;:\n";
-private static final String C_P_34_23="Les pokemon de l''alli&eacute; du joueur:<br/>\n";
-private static final String C_P_34_24="Les pokemon du dresseur ennemi:<br/>\n";
+private static final String C_P_34_23="Les pokemon de l''alli&eacute; du joueur:\n";
+private static final String C_P_34_24="Les pokemon du dresseur ennemi:\n";
 private static final String C_P_34_25="R&eacute;compense de base\n";
 private static final String C_P_34_2="Gende:\n";
 private static final String C_P_34_3="Ability:\n";

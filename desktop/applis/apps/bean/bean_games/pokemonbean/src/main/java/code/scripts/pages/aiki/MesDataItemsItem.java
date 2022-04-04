@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
 final class MesDataItemsItem{
 private static final String C_P_27_0="Data about the item {0}.\n";
-private static final String C_P_27_1="The item {0} is worth {1}.<br/>\n";
+private static final String C_P_27_1="The item {0} is worth {1}.\n";
 private static final String C_P_27_2="{0}\n";
 private static final String C_P_27_3="Items\n";
 private static final String C_P_27_4="Donn&eacute;s sur l''objet {0}.\n";
-private static final String C_P_27_5="Le prix d''un objet {0} est de {1}.<br/>\n";
+private static final String C_P_27_5="Le prix d''un objet {0} est de {1}.\n";
 private static final String C_P_27_6="{0}\n";
 private static final String C_P_27_7="Objets\n";
 private static final String M_P_27_ITEMS="items";

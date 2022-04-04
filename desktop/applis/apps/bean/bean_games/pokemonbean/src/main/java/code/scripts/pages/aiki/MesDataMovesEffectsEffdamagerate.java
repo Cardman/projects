@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffdamagerate{
-private static final String C_P_46_0="This effect makes vary the hp of the user in function by inflicted damage against the target.<br/>\n";
-private static final String C_P_46_1="The rate of damage points inflicted against the target won by the user is {0}.<br/>\n";
-private static final String C_P_46_2="The rate of damage points inflicted against the target lost by the user is {0}.<br/>\n";
-private static final String C_P_46_3="Cet effet fait varier les pv du lanceur en fonction des d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible.<br/>\n";
-private static final String C_P_46_4="Le taux de points de d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible gagn&eacute;s par le lanceur est de {0}.<br/>\n";
-private static final String C_P_46_5="Le taux de points de d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible perdus par le lanceur est de {0}.<br/>\n";
+private static final String C_P_46_0="This effect makes vary the hp of the user in function by inflicted damage against the target.\n";
+private static final String C_P_46_1="The rate of damage points inflicted against the target won by the user is {0}.\n";
+private static final String C_P_46_2="The rate of damage points inflicted against the target lost by the user is {0}.\n";
+private static final String C_P_46_3="Cet effet fait varier les pv du lanceur en fonction des d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible.\n";
+private static final String C_P_46_4="Le taux de points de d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible gagn&eacute;s par le lanceur est de {0}.\n";
+private static final String C_P_46_5="Le taux de points de d&eacute;g&acirc;ts inflig&eacute;s &agrave; la cible perdus par le lanceur est de {0}.\n";
 private static final String M_P_46_EFFECT="effect";
 private static final String M_P_46_NEG_RATE="neg_rate";
 private static final String M_P_46_POS_RATE="pos_rate";

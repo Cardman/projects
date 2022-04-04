@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
 final class MesDataEndroundTeam{
-private static final String C_P_13_0="This effect regards the team of the user.<br/>\n";
-private static final String C_P_13_1="The rate that the status of the fighter are deleted is {0}.<br/>\n";
-private static final String C_P_13_2="The rate that the status of the partners of the fighter are deleted is {0}.<br/>\n";
-private static final String C_P_13_3="Cet effet concerne l''&eacute;quipe du lanceur.<br/>\n";
-private static final String C_P_13_4="La probabilit&eacute; que les statuts du combattant soient supprim&eacute;s est de {0}.<br/>\n";
-private static final String C_P_13_5="La probabilit&eacute; que les statuts des partenaires du combattant soient supprim&eacute;s est de {0}.<br/>\n";
+private static final String C_P_13_0="This effect regards the team of the user.\n";
+private static final String C_P_13_1="The rate that the status of the fighter are deleted is {0}.\n";
+private static final String C_P_13_2="The rate that the status of the partners of the fighter are deleted is {0}.\n";
+private static final String C_P_13_3="Cet effet concerne l''&eacute;quipe du lanceur.\n";
+private static final String C_P_13_4="La probabilit&eacute; que les statuts du combattant soient supprim&eacute;s est de {0}.\n";
+private static final String C_P_13_5="La probabilit&eacute; que les statuts des partenaires du combattant soient supprim&eacute;s est de {0}.\n";
 private static final String M_P_13_EFFECT="effect";
 private static final String M_P_13_OWNER="owner";
 private static final String M_P_13_TEAM="team";

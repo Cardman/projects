@@ -1,17 +1,17 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffswitchmovestypes{
-private static final String C_P_62_0="The effect changes the types of a move of a target not having acted yet.<br/>\n";
+private static final String C_P_62_0="The effect changes the types of a move of a target not having acted yet.\n";
 private static final String C_P_62_10="Ancien type\n";
 private static final String C_P_62_11="Nouveau type\n";
-private static final String C_P_62_1="The types of the move are replaced by the following types:<br/>\n";
-private static final String C_P_62_2="The types of the move are changed in the following way after possible replacement of types:<br/>\n";
-private static final String C_P_62_3="The types of the move are changed in the following way:<br/>\n";
+private static final String C_P_62_1="The types of the move are replaced by the following types:\n";
+private static final String C_P_62_2="The types of the move are changed in the following way after possible replacement of types:\n";
+private static final String C_P_62_3="The types of the move are changed in the following way:\n";
 private static final String C_P_62_4="Old type\n";
 private static final String C_P_62_5="New type\n";
-private static final String C_P_62_6="L''effet change les types d''une attaque d''une cible n''ayant pas encore jou&eacute;.<br/>\n";
-private static final String C_P_62_7="Les types de l''attaque sont remplac&eacute;s par les types suivants:<br/>\n";
-private static final String C_P_62_8="Les types de l''attaque sont convertis de la mani&egrave;re suivante apr&egrave; &eacute;ventuel remplacement de types:<br/>\n";
-private static final String C_P_62_9="Les types de l''attaque sont convertis de la mani&egrave;re suivante:<br/>\n";
+private static final String C_P_62_6="L''effet change les types d''une attaque d''une cible n''ayant pas encore jou&eacute;.\n";
+private static final String C_P_62_7="Les types de l''attaque sont remplac&eacute;s par les types suivants:\n";
+private static final String C_P_62_8="Les types de l''attaque sont convertis de la mani&egrave;re suivante apr&egrave; &eacute;ventuel remplacement de types:\n";
+private static final String C_P_62_9="Les types de l''attaque sont convertis de la mani&egrave;re suivante:\n";
 private static final String M_P_62_CHANGING_TYPE="changing_type";
 private static final String M_P_62_CHANGING_TYPE_POSSIBLE="changing_type_possible";
 private static final String M_P_62_EFFECT="effect";

@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
 final class MesDataEndroundMultirelation{
-private static final String C_P_7_0="This effect regards all possible relations between users and targets on the front of battle.<br/>\n";
-private static final String C_P_7_1="Here is the rate of lost hp in function by the combinaisons of the status of the foe of the figther (the hidden combinaisons of status have not effect.):<br/>\n";
+private static final String C_P_7_0="This effect regards all possible relations between users and targets on the front of battle.\n";
+private static final String C_P_7_1="Here is the rate of lost hp in function by the combinaisons of the status of the foe of the figther (the hidden combinaisons of status have not effect.):\n";
 private static final String C_P_7_2="Owned status\n";
 private static final String C_P_7_3="Rate of lost life by the foe\n";
-private static final String C_P_7_4="Cet effect prend en compte toutes les relations possibles entre lanceurs et cibles sur le terrains.<br/>\n";
-private static final String C_P_7_5="Voici le taux de pv perdus en fonction des combinaisons des statuts de l''advsersaire du combattant (les combinaisons de statut non affich&eacute;es n''on aucun effet.):<br/>\n";
+private static final String C_P_7_4="Cet effect prend en compte toutes les relations possibles entre lanceurs et cibles sur le terrains.\n";
+private static final String C_P_7_5="Voici le taux de pv perdus en fonction des combinaisons des statuts de l''advsersaire du combattant (les combinaisons de statut non affich&eacute;es n''on aucun effet.):\n";
 private static final String C_P_7_6="Statut poss&eacute;d&eacute;\n";
 private static final String C_P_7_7="Taux de vie perdue par l''advesaire\n";
 private static final String M_P_7_DAMAGE_STATUS="damage_status";

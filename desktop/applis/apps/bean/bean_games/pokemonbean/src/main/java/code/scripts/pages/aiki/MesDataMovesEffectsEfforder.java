@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEfforder{
-private static final String C_P_53_0="This effect changes the order of the fighters.<br/>\n";
+private static final String C_P_53_0="This effect changes the order of the fighters.\n";
 private static final String C_P_53_1="If the target is not KO, the target uses a move after the user.\n";
-private static final String C_P_53_2="If the user is not knocked out after the use of its move, the target lastly uses a move.<br/>If it exists some pokemon targetted by this move, they will use a move in the same order than the other one.<br/>If the user of this move is knocked out before the target using a move and if the target is not KO, then the effect is stopped.<br/>\n";
-private static final String C_P_53_3="Cet effet change l''ordre d''attaque des combattants.<br/>\n";
+private static final String C_P_53_2="If the user is not knocked out after the use of its move, the target lastly uses a move.If it exists some pokemon targetted by this move, they will use a move in the same order than the other one.If the user of this move is knocked out before the target using a move and if the target is not KO, then the effect is stopped.\n";
+private static final String C_P_53_3="Cet effet change l''ordre d''attaque des combattants.\n";
 private static final String C_P_53_4="Si la cible n''est pas KO, la cible attaque apr&egrave;s le lanceur.\n";
-private static final String C_P_53_5="Si le lanceur ne tombe pas KO apr&egrave;s son attaque, la cible attaque en dernier.<br/>S''il existe plusieurs pok&eacute;mons cibles de cette attaque, il attaqueront dans le m&ecirc;me ordre que les autres.<br/>Si le lanceur de cette attaque tombe KO avant l''attaque de la cible et si la cible n''est pas KO, alors l''effet est arr&ecirc;t&eacute;.<br/>\n";
+private static final String C_P_53_5="Si le lanceur ne tombe pas KO apr&egrave;s son attaque, la cible attaque en dernier.S''il existe plusieurs pok&eacute;mons cibles de cette attaque, il attaqueront dans le m&ecirc;me ordre que les autres.Si le lanceur de cette attaque tombe KO avant l''attaque de la cible et si la cible n''est pas KO, alors l''effet est arr&ecirc;t&eacute;.\n";
 private static final String M_P_53_AFTER_USER="after_user";
 private static final String M_P_53_EFFECT="effect";
 private static final String M_P_53_LAST="last";

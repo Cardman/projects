@@ -1,11 +1,11 @@
 package code.scripts.pages.aiki;
 final class MesDataMovesEffectsEffmultusedmovepower{
-private static final String C_P_52_0="This effect multiplies the power of the used moves of the user in fonction by the type.<br/>\n";
-private static final String C_P_52_1="Here is the table of the rates of the power of the moves of the user in function by the type:<br/>\n";
+private static final String C_P_52_0="This effect multiplies the power of the used moves of the user in fonction by the type.\n";
+private static final String C_P_52_1="Here is the table of the rates of the power of the moves of the user in function by the type:\n";
 private static final String C_P_52_2="Type of move\n";
 private static final String C_P_52_3="Rate\n";
-private static final String C_P_52_4="Cet effet multiplie la puissance des attaques du lanceur en fonction du type.<br/>\n";
-private static final String C_P_52_5="Voici le tableau des coefficients des puissances des attaques du lanceur en fonction du type:<br/>\n";
+private static final String C_P_52_4="Cet effet multiplie la puissance des attaques du lanceur en fonction du type.\n";
+private static final String C_P_52_5="Voici le tableau des coefficients des puissances des attaques du lanceur en fonction du type:\n";
 private static final String C_P_52_6="Type d''attaque\n";
 private static final String C_P_52_7="Coefficient\n";
 private static final String M_P_52_EFFECT="effect";
