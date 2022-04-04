@@ -16,16 +16,7 @@ public final class DualTable extends DualContainer {
     public DualTable(DualContainer _container, MetaTable _component, RenderedPage _page) {
         super(_container, _component, _page);
         remainders = _component.getRemainders();
-        int diff_ = 1;
-        int r_ = 0;
-        for (int i:remainders) {
-            int l_ = i - r_+1;
-            if (l_ > diff_) {
-                diff_ = l_;
-            }
-            r_ = i;
-        }
-        width = diff_;
+        width = _component.getDiff();
     }
 
     @Override

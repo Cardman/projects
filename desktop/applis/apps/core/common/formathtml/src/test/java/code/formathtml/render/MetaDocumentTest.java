@@ -676,6 +676,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaTable);
         MetaTable table_ = (MetaTable) ch_;
+        assertEq(3, table_.getDiff());
         assertEq(2, table_.getRemainders().size());
         assertEq(1, table_.getRemainders().first());
         assertEq(3, table_.getRemainders().last());
@@ -732,6 +733,59 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         assertTrue(ch_ instanceof MetaLine);
     }
     @Test
+    public void newInstance10_Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<table>\n");
+        doc_.append("<tr><td>One</td><td>Two</td></tr>\n");
+        doc_.append("</table>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(3, root_.getChildren().size());
+        MetaComponent ch_ = root_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(0, cont_.getChildren().size());
+        ch_ = root_.getChildren().get(1);
+        assertTrue(ch_ instanceof MetaLine);
+        cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        ch_ = cont_.getFirstChild();
+        assertTrue(ch_ instanceof MetaTable);
+        MetaTable table_ = (MetaTable) ch_;
+        assertEq(3, table_.getDiff());
+        assertEq(1, table_.getRemainders().size());
+        assertEq(1, table_.getRemainders().first());
+        assertEq(2, table_.getChildren().size());
+        ch_ = table_.getFirstChild();
+        assertTrue(ch_ instanceof MetaCell);
+        MetaCell td_ = (MetaCell) ch_;
+        assertEq(1, td_.getChildren().size());
+        ch_ = td_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer line_ = (MetaContainer) ch_;
+        assertEq(1, line_.getChildren().size());
+        ch_ = line_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
+        assertEq("One", lab_.getText());
+        ch_ = table_.getChildren().get(1);
+        assertTrue(ch_ instanceof MetaCell);
+        td_ = (MetaCell) ch_;
+        assertEq(1, td_.getChildren().size());
+        ch_ = td_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        line_ = (MetaContainer) ch_;
+        assertEq(1, line_.getChildren().size());
+        ch_ = line_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        lab_ = (MetaPlainLabel) ch_;
+        assertEq("Two", lab_.getText());
+    }
+    @Test
     public void newInstance11Test() {
         StringBuilder doc_ = new StringBuilder();
         doc_.append("<html>\n");
@@ -759,6 +813,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         MetaTable table_ = (MetaTable) ch_;
         assertTrue(!table_.isAddEmpty());
         assertSame(MetaLayout.BAG,table_.getLayout());
+        assertEq(3, table_.getDiff());
         assertEq(3, table_.getRemainders().size());
         assertEq(0, table_.getRemainders().first());
         assertEq(2, table_.getRemainders().get(1));
@@ -823,6 +878,72 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         assertEq("Four", lab_.getText());
         ch_ = root_.getChildren().last();
         assertTrue(ch_ instanceof MetaLine);
+    }
+    @Test
+    public void newInstance11_Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<table>\n");
+        doc_.append("<caption>Title</caption>\n");
+        doc_.append("<tr><td>One</td><td>Two</td></tr>\n");
+        doc_.append("</table>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(3, root_.getChildren().size());
+        MetaComponent ch_ = root_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(0, cont_.getChildren().size());
+        ch_ = root_.getChildren().get(1);
+        assertTrue(ch_ instanceof MetaLine);
+        cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        ch_ = cont_.getFirstChild();
+        assertTrue(ch_ instanceof MetaTable);
+        MetaTable table_ = (MetaTable) ch_;
+        assertTrue(!table_.isAddEmpty());
+        assertSame(MetaLayout.BAG,table_.getLayout());
+        assertEq(3, table_.getDiff());
+        assertEq(2, table_.getRemainders().size());
+        assertEq(0, table_.getRemainders().first());
+        assertEq(2, table_.getRemainders().get(1));
+        assertEq(3, table_.getChildren().size());
+        ch_ = table_.getFirstChild();
+        assertTrue(ch_ instanceof MetaCaption);
+        MetaCaption caption_ = (MetaCaption) ch_;
+        assertEq(1, caption_.getChildren().size());
+        assertTrue(caption_.isAddEmpty());
+        ch_ = caption_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
+        assertEq("Title", lab_.getText());
+        ch_ = table_.getChildren().get(1);
+        assertTrue(ch_ instanceof MetaCell);
+        MetaCell td_ = (MetaCell) ch_;
+        assertEq(1, td_.getChildren().size());
+        ch_ = td_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer line_ = (MetaContainer) ch_;
+        assertEq(1, line_.getChildren().size());
+        ch_ = line_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        lab_ = (MetaPlainLabel) ch_;
+        assertEq("One", lab_.getText());
+        ch_ = table_.getChildren().get(2);
+        assertTrue(ch_ instanceof MetaCell);
+        td_ = (MetaCell) ch_;
+        assertEq(1, td_.getChildren().size());
+        ch_ = td_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        line_ = (MetaContainer) ch_;
+        assertEq(1, line_.getChildren().size());
+        ch_ = line_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        lab_ = (MetaPlainLabel) ch_;
+        assertEq("Two", lab_.getText());
     }
 
     @Test
@@ -2534,6 +2655,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaTable);
         MetaTable table_ = (MetaTable) ch_;
+        assertEq(3, table_.getDiff());
         assertEq(2, table_.getRemainders().size());
         assertEq(1, table_.getRemainders().first());
         assertEq(3, table_.getRemainders().last());
@@ -2773,6 +2895,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaTable);
         MetaTable table_ = (MetaTable) ch_;
+        assertEq(3, table_.getDiff());
         assertEq(2, table_.getRemainders().size());
         assertEq(1, table_.getRemainders().first());
         assertEq(3, table_.getRemainders().last());
@@ -4384,6 +4507,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         assertEq(762079,table_.getStyle().getBorderColor());
         assertEq(1,table_.getStyle().getBorderSize());
         assertSame(BorderEnum.SOLID,table_.getStyle().getBorder());
+        assertEq(3, table_.getDiff());
         assertEq(2, table_.getRemainders().size());
         assertEq(1, table_.getRemainders().first());
         assertEq(3, table_.getRemainders().last());
