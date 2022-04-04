@@ -74,8 +74,8 @@ public final class HelpRendForwardInfos {
         if (_current instanceof HelpAnaRendMessage){
             HelpAnaRendMessage f_ = (HelpAnaRendMessage) _current;
             return new HelpRendMessage(
-                    f_.getPreformatted(),
-                    f_.getVarNames());
+                    f_.getPreformatted()
+            );
         }
         return input(_current);
     }

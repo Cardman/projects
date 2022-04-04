@@ -6,10 +6,8 @@ import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.Argument;
 import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendMessage;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
+import code.formathtml.exec.stacks.RendReadWrite;
+import code.sml.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -20,18 +18,14 @@ public final class NatRendMessage extends NatParentBlock implements NatRendWithE
     private final CustList<CustList<NatExecOperationNode>> opExp;
 
     private final StringMap<String> preformatted;
-    private StringMap<CustList<CustList<NatExecOperationNode>>> callsExps = new StringMap<CustList<CustList<NatExecOperationNode>>>();
     private StringList args = new StringList();
-    private StringList varNames = new StringList();
 
 
     public NatRendMessage(CustList<CustList<NatExecOperationNode>> _opExp, StringMap<String> _preformatted,
-                          StringMap<CustList<CustList<NatExecOperationNode>>> _callsExps, StringList _args, StringList _varNames) {
+                          StringList _args) {
         this.opExp = _opExp;
         this.preformatted = _preformatted;
-        this.callsExps = _callsExps;
         this.args = _args;
-        this.varNames = _varNames;
     }
 
     @Override
@@ -46,16 +40,16 @@ public final class NatRendMessage extends NatParentBlock implements NatRendWithE
             objects_.add(res_);
             anchorArg_.add(res_);
         }
-        String preRend_;
-        preRend_= StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
-        String lt_ = Character.toString(RendBlock.LT_BEGIN_TAG);
-        String gt_ = Character.toString(RendBlock.GT_TAG);
-        String concat_ = StringUtil.concat(lt_,RendBlock.TMP_BLOCK_TAG,gt_,preRend_,RendBlock.LT_END_TAG,RendBlock.TMP_BLOCK_TAG,gt_);
-        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
-        Document docLoc_ = res_.getDocument();
-        _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
-        RendMessage.injectDoc(_cont, anchorArg_, docLoc_, varNames, _rendStack.getLastPage().getBeanName(), _rendStack.getLastPage().getRendReadWrite(), _rendStack.getFormParts());
+        String preRend_ = StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
+        injectDoc(_rendStack.getLastPage().getRendReadWrite(), preRend_);
         RendBlockHelp.processBlock(_rendStack, this);
+    }
+
+    public static void injectDoc(RendReadWrite _rendReadWrite, String _textContent) {
+        Element write_ = _rendReadWrite.getWrite();
+        Document ownerDocument_ = _rendReadWrite.getDocument();
+        Text t_ = ownerDocument_.createTextNode(_textContent);
+        RendBlock.simpleAppendChild(ownerDocument_,write_,t_);
     }
 
 }

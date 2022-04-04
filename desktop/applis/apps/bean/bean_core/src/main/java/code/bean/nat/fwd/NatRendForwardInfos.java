@@ -169,11 +169,10 @@ public final class NatRendForwardInfos {
         if (_current instanceof NatAnaRendMessage){
             NatAnaRendMessage f_ = (NatAnaRendMessage) _current;
             CustList<CustList<NatExecOperationNode>> partSub_ = toExecPartExt(f_.getRoots());
-            StringMap<CustList<CustList<NatExecOperationNode>>> map_ = toExecPartMapExt(f_.getCallsRoots());
             return new NatRendMessage(partSub_,
-                    f_.getPreformatted(), map_,
-                    f_.getArgs(),
-                    f_.getVarNames());
+                    f_.getPreformatted(),
+                    f_.getArgs()
+            );
         }
         return input(_current);
     }
@@ -262,15 +261,7 @@ public final class NatRendForwardInfos {
         part_.setOpExp(parts_);
         return part_;
     }
-    private static StringMap<CustList<CustList<NatExecOperationNode>>> toExecPartMapExt(StringMap<CustList<NatOperationNode>> _roots) {
-        StringMap<CustList<CustList<NatExecOperationNode>>> m_ = new StringMap<CustList<CustList<NatExecOperationNode>>>();
-        for (EntryCust<String, CustList<NatOperationNode>> e:_roots.entryList()) {
-            CustList<CustList<NatExecOperationNode>> parts_ = toExecPartExt(e.getValue());
-            m_.addEntry(e.getKey(),parts_);
-        }
 
-        return m_;
-    }
     private static CustList<CustList<NatExecOperationNode>> toExecPartExt(CustList<NatOperationNode> _roots) {
         CustList<CustList<NatExecOperationNode>> parts_;
         parts_ = new CustList<CustList<NatExecOperationNode>>();

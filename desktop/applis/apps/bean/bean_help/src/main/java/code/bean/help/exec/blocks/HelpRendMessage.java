@@ -2,13 +2,9 @@ package code.bean.help.exec.blocks;
 
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatParentBlock;
+import code.bean.nat.exec.blocks.NatRendMessage;
 import code.bean.nat.exec.blocks.NatRendWithEl;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendMessage;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.DocumentResult;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -16,27 +12,17 @@ import code.util.core.StringUtil;
 public final class HelpRendMessage extends NatParentBlock implements NatRendWithEl {
 
     private final StringMap<String> preformatted;
-    private StringList varNames = new StringList();
 
 
-    public HelpRendMessage(StringMap<String> _preformatted,
-                           StringList _varNames) {
+    public HelpRendMessage(StringMap<String> _preformatted) {
         this.preformatted = _preformatted;
-        this.varNames = _varNames;
     }
 
     @Override
     public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
         StringList objects_ = new StringList();
-        StringList anchorArg_ = new StringList();
-        String preRend_;
-        preRend_= StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
-        String lt_ = Character.toString(RendBlock.LT_BEGIN_TAG);
-        String gt_ = Character.toString(RendBlock.GT_TAG);
-        String concat_ = StringUtil.concat(lt_,RendBlock.TMP_BLOCK_TAG,gt_,preRend_,RendBlock.LT_END_TAG,RendBlock.TMP_BLOCK_TAG,gt_);
-        DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(concat_);
-        Document docLoc_ = res_.getDocument();
-        RendMessage.injectDoc(_cont, anchorArg_,docLoc_,varNames, _rendStack.getLastPage().getBeanName(), _rendStack.getLastPage().getRendReadWrite(), _rendStack.getFormParts());
+        String preRend_ = StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_);
+        NatRendMessage.injectDoc(_rendStack.getLastPage().getRendReadWrite(), preRend_);
         HelpRendBlockHelp.processBlock(_rendStack, this);
     }
 
