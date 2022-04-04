@@ -13,13 +13,11 @@ import code.scripts.confs.HelpScriptPagesImgs;
 import code.scripts.imgs.cards.CardsInit;
 import code.scripts.pages.cards.HelpCards;
 import code.sml.Document;
+import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.Node;
 import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.ObjectMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.consts.Constants;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -42,6 +40,7 @@ public final class HelpInitializer implements Runnable {
         StringMap<NatDualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
+        adjust(builtMs_);
         StringMap<StringMap<String>> ms_ = CardsInit.ms();
         for (String l:Constants.getAvailableLanguages()) {
             ObjectMap<HelpIndexes,ElementHelp> tree_ = new ObjectMap<HelpIndexes,ElementHelp>();
@@ -119,6 +118,14 @@ public final class HelpInitializer implements Runnable {
             trees.addEntry(l,tree_);
         }
         generalHelp.setEnabledMenu(true);
+    }
+
+    private static void adjust(StringMap<StringMap<String>> _mes) {
+        for (StringMap<String> m: _mes.values()) {
+            for (EntryCust<String,String> e: m.entryList()) {
+                e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(),true,true));
+            }
+        }
     }
 
     public StringMap<ObjectMap<HelpIndexes, ElementHelp>> getTrees() {

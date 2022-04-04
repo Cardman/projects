@@ -12,7 +12,9 @@ import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
 import code.sml.Document;
+import code.sml.DocumentBuilder;
 import code.threads.AbstractThread;
+import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -47,6 +49,7 @@ public final class CreateMainWindowAiki implements Runnable {
     public void run() {
         StringMap<Document> built_ = PagesInit.build();
         StringMap<String> builtMessages_ = MessagesInit.ms();
+        adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), built_, builtMessages_, builtOther_);
         PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), built_, builtMessages_, builtOther_);
@@ -86,6 +89,12 @@ public final class CreateMainWindowAiki implements Runnable {
             window_.getThreadFactory().newStartedThread(new CreateMainWindowParam(window_, load, path, withParam, new DefLoadingData(window_.getFacade().getLanguages(),window_.getFacade().getDisplayLanguages())));
         } else {
             window_.getThreadFactory().newStartedThread(new CreateMainWindowNoParam(window_, load, path, new DefLoadingData(window_.getFacade().getLanguages(),window_.getFacade().getDisplayLanguages())));
+        }
+    }
+
+    private static void adjust(StringMap<String> _mes) {
+        for (EntryCust<String,String> e: _mes.entryList()) {
+            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(),true,true));
         }
     }
 }
