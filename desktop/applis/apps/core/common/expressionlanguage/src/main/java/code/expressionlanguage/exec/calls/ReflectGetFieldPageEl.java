@@ -29,7 +29,6 @@ public final class ReflectGetFieldPageEl extends AbstractLambdaVariable {
         if (!initClass) {
             initClass = true;
             if (metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
-                setWrapException(true);
                 return Argument.createVoid();
             }
         }

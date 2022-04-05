@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.LgNames;
@@ -19,7 +18,7 @@ import code.util.core.StringUtil;
 public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMethodPageEl {
 
     private boolean calledMethod;
-    private boolean calledAfter;
+
 
     private CustList<Argument> args = new CustList<Argument>();
     private final Argument array;
@@ -90,24 +89,9 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
         return true;
     }
 
-    private boolean callPhase(ContextEl _context, StackCall _stack) {
-        if (!calledAfter) {
-            setWrapException(false);
-            Argument arg_ = prepare(_context, args, rightArg, _stack);
-            if (_stack.getCallingState() instanceof NotInitializedClass) {
-                setWrapException(true);
-                return false;
-            }
-            calledAfter = true;
-            if (_context.callsOrException(_stack)) {
-                setWrapException(_stack.calls());
-                return false;
-            }
-            setReturnedArgument(arg_);
-        }
-        return true;
+    Argument prepareCall(ContextEl _context, StackCall _stack) {
+        return prepare(_context, args, rightArg, _stack);
     }
-
     abstract Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack);
 
     Argument getArray() {

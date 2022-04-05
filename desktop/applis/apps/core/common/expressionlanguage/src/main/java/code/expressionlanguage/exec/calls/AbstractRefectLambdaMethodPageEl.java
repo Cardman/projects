@@ -3,13 +3,10 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.MethodMetaInfo;
 
 public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCommonMethodPageEl {
-
-    private boolean calledAfter;
 
     private final ArgumentListCall array;
 
@@ -29,21 +26,10 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
         if (!keep(_context, _stack)) {
             return false;
         }
-        if (!calledAfter) {
-            setWrapException(false);
-            Argument arg_ = prepare(_context, array, _stack);
-            if (_stack.getCallingState() instanceof NotInitializedClass) {
-                setWrapException(true);
-                return false;
-            }
-            calledAfter = true;
-            if (_context.callsOrException(_stack)) {
-                setWrapException(_stack.calls());
-                return false;
-            }
-            setReturnedArgument(arg_);
-        }
-        return true;
+        return callPhase(_context, _stack);
+    }
+    Argument prepareCall(ContextEl _context, StackCall _stack) {
+        return prepare(_context, array, _stack);
     }
 
     abstract Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack);

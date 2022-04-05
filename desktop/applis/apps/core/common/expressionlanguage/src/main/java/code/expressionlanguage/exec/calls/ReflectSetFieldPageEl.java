@@ -27,11 +27,9 @@ public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
         if (!initClass) {
             initClass = true;
             if (metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
-                setWrapException(true);
                 return Argument.createVoid();
             }
         }
-        setWrapException(false);
         Argument arg_ = ExecFieldTemplates.setField(metaInfo, first, last, _context, _stack);
         if (_context.callsOrException(_stack)) {
             return Argument.createVoid();

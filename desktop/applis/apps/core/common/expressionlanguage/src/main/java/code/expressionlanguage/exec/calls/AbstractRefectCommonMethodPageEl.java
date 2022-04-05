@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.opers.ExecImplicitOperation;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
@@ -30,6 +31,7 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     private MethodAccessKind accessKind;
     private final MethodMetaInfo metaInfo;
     private final AbstractPreparer preparer;
+    private boolean calledAf;
 
     protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda) {
         super(_lda);
@@ -116,5 +118,24 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         }
         return ExecImplicitOperation.getArgument(getClassName().getFormatted(), _context, _stack, _l);
     }
+
+    boolean callPhase(ContextEl _context, StackCall _stack) {
+        if (!calledAf) {
+            setWrapException(false);
+            Argument arg_ = prepareCall(_context, _stack);
+            if (_stack.getCallingState() instanceof NotInitializedClass) {
+                setWrapException(true);
+                return false;
+            }
+            calledAf = true;
+            if (_context.callsOrException(_stack)) {
+                setWrapException(_stack.calls());
+                return false;
+            }
+            setReturnedArgument(arg_);
+        }
+        return true;
+    }
+    abstract Argument prepareCall(ContextEl _context, StackCall _stack);
 
 }
