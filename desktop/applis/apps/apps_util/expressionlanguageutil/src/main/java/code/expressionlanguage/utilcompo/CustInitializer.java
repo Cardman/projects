@@ -1,17 +1,9 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.opers.ExecCatOperation;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
 
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.stds.FctThreadPrint0;
 import code.threads.AbstractAtomicLong;
@@ -50,33 +42,9 @@ public class CustInitializer extends DefaultInitializer {
     	return _ctx.getIdDate();
 	}
     public void prExc(RunnableContextEl _cont, StackCall _stackCall) {
-        CallingState exc_ = _stackCall.getCallingState();
-        if (exc_ instanceof CustomFoundExc) {
-            Struct exception_ = ((CustomFoundExc) exc_).getStruct();
-            if (exception_ instanceof DisplayableStruct) {
-                String text_ = ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
-                log(_cont,text_);
-            } else {
-                _stackCall.setCallingState(null);
-                Argument out_ = new Argument(exception_);
-                out_ = ExecOperationNode.processString(out_, _cont, _stackCall);
-                CallingState state_ = _stackCall.getCallingState();
-                boolean convert_ = false;
-                if (state_ instanceof CustomFoundMethod) {
-                    CustomFoundMethod method_ = (CustomFoundMethod) state_;
-                    out_ = ProcessMethod.calculate(method_, _cont, _stackCall).getValue();
-                    convert_ = true;
-                }
-                if (!_cont.callsOrException(_stackCall)) {
-                    if (convert_) {
-                        out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont));
-                    }
-                    String text_ = NumParsers.getString(out_.getStruct()).getInstance();
-                    log(_cont,text_);
-                } else {
-                    log(_cont,_cont.getStandards().getDisplayedStrings().getNullString());
-                }
-            }
+        String error_ = ProcessMethod.error(_cont, _stackCall);
+        if (error_ != null) {
+            log(_cont,error_);
         }
         removeThreadFromList(_cont);
     }

@@ -7,7 +7,7 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
@@ -20,6 +20,6 @@ public final class FctClassEnumValueOf extends FctReflection {
         ClassCategory category_ = instanceClass_.getCategory();
         Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
         Argument clArg_ = new Argument(arg_);
-        return new ArgumentWrapper(ExecInvokingOperation.tryGetEnumValue(_exit, _cont, r_, category_, clArg_, _stackCall).getStruct());
+        return new ArgumentWrapper(IndirectCalledFctUtil.tryGetEnumValue(_exit, _cont, r_, category_, clArg_, _stackCall).getStruct());
     }
 }

@@ -1,11 +1,20 @@
 package code.expressionlanguage.exec;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
+import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
+import code.expressionlanguage.exec.calls.util.NotInitializedClass;
+import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.structs.DisplayableStruct;
 import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
 
 public final class ProcessMethod {
 
@@ -17,10 +26,49 @@ public final class ProcessMethod {
             return;
         }
         _cont.getLocks().initClass(_rootBlock);
-        loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,new ExecFormattedRootBlock(_rootBlock,_class),null));
+        calculate(new NotInitializedClass(new ExecFormattedRootBlock(_rootBlock,_class),_rootBlock,null),_cont,_stackCall);
     }
     public static void initializeClassPre(String _class, ExecRootBlock _rootBlock, ContextEl _cont, StackCall _stackCall) {
-        loop(_cont, _stackCall, ExecutingUtil.createInstancingClass(_rootBlock,new ExecFormattedRootBlock(_rootBlock,_class),null));
+        calculate(new NotInitializedClass(new ExecFormattedRootBlock(_rootBlock,_class),_rootBlock,null),_cont,_stackCall);
+    }
+
+    public static String convertStr(Struct _str, ContextEl _r, StackCall _stackCall) {
+        Argument out_ = new Argument(_str);
+        out_ = IndirectCalledFctUtil.processString(out_, _r, _stackCall);
+        CallingState state_ = _stackCall.getCallingState();
+        if (state_ instanceof CustomFoundMethod) {
+            CustomFoundMethod method_ = (CustomFoundMethod) state_;
+            out_ = calculate(method_, _r, _stackCall).getValue();
+        }
+        return ExecCatOperation.getDisplayable(out_, _r).getInstance();
+    }
+
+    public static String error(ContextEl _cont, StackCall _stackCall) {
+        CallingState exc_ = _stackCall.getCallingState();
+        if (exc_ instanceof CustomFoundExc) {
+            Struct exception_ = ((CustomFoundExc) exc_).getStruct();
+            if (exception_ instanceof DisplayableStruct) {
+                return ((DisplayableStruct)exception_).getDisplayedString(_cont).getInstance();
+            }
+            _stackCall.setNullCallingState();
+            Argument out_ = new Argument(exception_);
+            out_ = IndirectCalledFctUtil.processString(out_, _cont, _stackCall);
+            CallingState state_ = _stackCall.getCallingState();
+            boolean convert_ = false;
+            if (state_ instanceof CustomFoundMethod) {
+                CustomFoundMethod method_ = (CustomFoundMethod) state_;
+                out_ = calculate(method_, _cont, _stackCall).getValue();
+                convert_ = true;
+            }
+            if (!_cont.callsOrException(_stackCall)) {
+                if (convert_) {
+                    out_ = new Argument(ExecCatOperation.getDisplayable(out_,_cont));
+                }
+                return NumParsers.getString(out_.getStruct()).getInstance();
+            }
+            return _cont.getStandards().getDisplayedStrings().getNullString();
+        }
+        return null;
     }
 
     public static ArgumentWrapper calculate(CallingState _custom, ContextEl _cont, StackCall _stackCall) {
@@ -40,5 +88,4 @@ public final class ProcessMethod {
         ExecutingUtil.addPage(_cont, _page, _stackCall);
         _cont.getInit().loopCalling(_cont, _stackCall);
     }
-
 }

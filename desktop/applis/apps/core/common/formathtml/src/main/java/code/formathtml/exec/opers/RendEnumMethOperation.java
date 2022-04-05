@@ -3,6 +3,7 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
@@ -30,7 +31,7 @@ public final class RendEnumMethOperation extends RendSettableCallFctOperation im
         setRelOffsetPossibleLastPage(off_, _rendStack);
         String lastType_ = staticFctContent.getLastType();
         int naturalVararg_ = staticFctContent.getNaturalVararg();
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecInvokingOperation.processEnums(_context.getExiting(), _context, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall(), type), _context, _rendStack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ParamCheckerUtil.processEnums(_context.getExiting(), _context, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall(), type), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 }

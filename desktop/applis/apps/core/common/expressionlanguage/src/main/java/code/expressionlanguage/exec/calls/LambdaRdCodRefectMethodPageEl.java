@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecOperationNode;
+import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 
 public final class LambdaRdCodRefectMethodPageEl extends AbstractBasicReflectPageEl {
 
@@ -21,7 +21,7 @@ public final class LambdaRdCodRefectMethodPageEl extends AbstractBasicReflectPag
             return true;
         }
         called = true;
-        Argument arg_ = ExecOperationNode.processRandCode(argument, _context, _stack);
+        Argument arg_ = IndirectCalledFctUtil.processRandCode(argument, _context, _stack);
         if (_context.callsOrException(_stack)) {
             return false;
         }

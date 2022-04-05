@@ -4,8 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.RangeChecker;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fcts.FctRangeUnlimitedStep;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.util.CustList;
 import code.util.IdMap;
@@ -33,16 +33,16 @@ public final class ExecRangeOperation extends ExecMethodOperation implements Ato
         if (_args.size() == 3) {
             Argument b_ = ExecHelper.getArgument(_args,1);
             Argument c_ = ExecHelper.getArgument(_args,2);
-            r_ = FctRangeUnlimitedStep.range(_conf, _stack,a_.getStruct(),b_.getStruct(),c_.getStruct());
+            r_ = RangeChecker.range(_conf, _stack,a_.getStruct(),b_.getStruct(),c_.getStruct());
         } else if (_args.size() == 2) {
             Argument c_ = ExecHelper.getArgument(_args,1);
             if (_implicitMiddle) {
-                r_ = FctRangeUnlimitedStep.rangeUnlimitStep(_conf, _stack,a_.getStruct(),c_.getStruct());
+                r_ = RangeChecker.rangeUnlimitStep(_conf, _stack,a_.getStruct(),c_.getStruct());
             } else {
-                r_ = FctRangeUnlimitedStep.range(_conf, _stack,a_.getStruct(),c_.getStruct());
+                r_ = RangeChecker.range(_conf, _stack,a_.getStruct(),c_.getStruct());
             }
         } else {
-            r_ = FctRangeUnlimitedStep.range(_conf, _stack,a_.getStruct());
+            r_ = RangeChecker.range(_conf, _stack,a_.getStruct());
         }
         return r_;
     }

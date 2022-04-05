@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -32,7 +33,7 @@ public final class ExecCompoundAffectationNatOperation extends ExecCompoundAffec
             String tres_ = implicits_.get(indexImplicit_).getFct().getImportedParametersTypes().first();
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getOperatorContent().getOper(), cast_, _stack);
-            pairBefore_.setIndexImplicitConv(processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
+            pairBefore_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,res_,implicits_,indexImplicit_, _stack));
             return;
         }
         Argument res_ = ExecNumericOperation.calculateAffect(leftArg_, _conf, rightArg_, getOperatorContent().getOper(), getResultClass().getUnwrapObjectNb(), _stack);

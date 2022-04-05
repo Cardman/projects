@@ -1263,7 +1263,7 @@ public final class ForwardInfos {
     private static ExecOperationNode createExecOperationNode(OperationNode _anaNode, Forwards _forwards) {
         if (_anaNode instanceof AnnotationInstanceArobaseOperation) {
             AnnotationInstanceArobaseOperation n_ = (AnnotationInstanceArobaseOperation) _anaNode;
-            return new ExecAnnotationInstanceArobaseOperation(FetchMemberUtil.fetchType(n_.getRootNumber(), _forwards), new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInstancingAnnotContent(n_.getInstancingAnnotContent(),_forwards));
+            return new ExecAnnotationInstanceArobaseOperation(new ExecOperationContent(n_.getContent()), n_.isIntermediateDottedOperation(), new ExecInstancingAnnotContent(n_.getInstancingAnnotContent(),_forwards));
         }
         if (_anaNode instanceof FctOperation) {
             FctOperation f_ = (FctOperation) _anaNode;

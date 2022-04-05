@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -33,14 +34,14 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
         int off_ = StringUtil.getFirstPrintableCharIndex(staticFctContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
         ExecFormattedRootBlock classNameFound_ = ExecFormattedRootBlock.formatType(staticFctContent.getElts(), _stack);
-        Argument res_;
-        if (_conf.getExiting().hasToExit(_stack, classNameFound_.getRootBlock())) {
-            res_ = Argument.createVoid();
-        } else {
+        Argument res_ = ParamCheckerUtil.tryInit(_conf,_stack, classNameFound_.getRootBlock());
+        if (res_ == null) {
             String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_,staticFctContent);
-            res_ = prep(_conf, _stack, classNameFound_, lastType_, buildInfos(_nodes), staticFctContent, pair);
+            Argument resNext_ = prep(_conf, _stack, classNameFound_, lastType_, buildInfos(_nodes), staticFctContent, pair);
+            setResult(resNext_, _conf, _nodes, _stack);
+        } else {
+            setResult(res_, _conf, _nodes, _stack);
         }
-        setResult(res_, _conf, _nodes, _stack);
     }
 
     public static Argument prep(ContextEl _conf, StackCall _stack, ExecFormattedRootBlock _classNameFound, String _lastType, CustList<ExecOperationInfo> _infos, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair) {

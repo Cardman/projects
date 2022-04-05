@@ -3,6 +3,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -34,7 +35,7 @@ public abstract class ExecQuickOperation extends ExecMethodOperation implements 
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         int indexImplicit_ = pair_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(converter,indexImplicit_)) {
-            pair_.setIndexImplicitConv(processConverter(_conf, _right, converter, indexImplicit_, _stack));
+            pair_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf, _right, converter, indexImplicit_, _stack));
             return;
         }
         setSimpleArgument(_right,_conf,_nodes, _stack);

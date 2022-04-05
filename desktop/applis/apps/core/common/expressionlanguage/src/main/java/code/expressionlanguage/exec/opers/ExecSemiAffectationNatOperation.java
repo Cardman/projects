@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassArgumentMatching;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -28,7 +29,7 @@ public final class ExecSemiAffectationNatOperation extends ExecSemiAffectationOp
             byte cast_ = ClassArgumentMatching.getPrimitiveCast(tres_, _conf.getStandards().getPrimTypes());
             Argument leftArg_ = getArgument(_nodes,getFirstChild());
             Argument res_ = ExecNumericOperation.calculateIncrDecr(leftArg_, getOperatorContent().getOper(), cast_);
-            pairBefore_.setIndexImplicitConv(ExecOperationNode.processConverter(_conf,res_, getConverterTo(),indexImplicit_, _stack));
+            pairBefore_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,res_, getConverterTo(),indexImplicit_, _stack));
             return;
         }
         Argument leftArg_ = getArgument(_nodes,getFirstChild());

@@ -14,7 +14,6 @@ import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.fcts.FctRangeUnlimitedStep;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
@@ -345,7 +344,7 @@ public abstract class AbstractParamChecker {
         if (_arguments.size() == 2) {
             Struct lower_ = _arguments.get(0).getStruct();
             Struct step_ = _arguments.get(1).getStruct();
-            Argument range_ = FctRangeUnlimitedStep.rangeUnlimitStep(_conf, _stackCall, lower_, step_);
+            Argument range_ = RangeChecker.rangeUnlimitStep(_conf, _stackCall, lower_, step_);
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
             }
@@ -353,7 +352,7 @@ public abstract class AbstractParamChecker {
         }
         Struct lower_ = _arguments.last().getStruct();
         Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
-        Argument range_ = FctRangeUnlimitedStep.range(_conf, _stackCall, lower_, upper_);
+        Argument range_ = RangeChecker.range(_conf, _stackCall, lower_, upper_);
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }
@@ -364,7 +363,7 @@ public abstract class AbstractParamChecker {
         if (_arguments.size() == 2) {
             Struct lower_ = _arguments.get(0).getStruct();
             Struct step_ = _arguments.get(1).getStruct();
-            Argument range_ = FctRangeUnlimitedStep.rangeUnlimitStep(_conf, _stackCall, lower_, step_);
+            Argument range_ = RangeChecker.rangeUnlimitStep(_conf, _stackCall, lower_, step_);
             if (_conf.callsOrException(_stackCall)) {
                 return new Argument();
             }
@@ -372,7 +371,7 @@ public abstract class AbstractParamChecker {
         }
         Struct lower_ = _arguments.last().getStruct();
         Struct upper_ = new IntStruct(ExecArrayFieldOperation.getLength(_arr, _conf));
-        Argument range_ = FctRangeUnlimitedStep.range(_conf, _stackCall, lower_, upper_);
+        Argument range_ = RangeChecker.range(_conf, _stackCall, lower_, upper_);
         if (_conf.callsOrException(_stackCall)) {
             return new Argument();
         }

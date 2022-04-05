@@ -7,8 +7,8 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.inherits.ReflectInstanceParamChecker;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -86,7 +86,7 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         }
         if (metaInfo.getStandardType() != null) {
             ArgumentListCall l_ = new ArgumentListCall(_args);
-            arg_ = ExecInvokingOperation.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, l_, _stack).getValue();
+            arg_ = ParamCheckerUtil.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, l_, _stack).getValue();
         }
         return end(_context, _stack, arg_);
     }

@@ -3,7 +3,7 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
@@ -19,6 +19,6 @@ public final class LambdaDirectStdRefectMethodPageEl extends AbstractRefectLambd
 
     @Override
     Argument prepare(ContextEl _context, ArgumentListCall _list, StackCall _stack) {
-        return ExecInvokingOperation.callStd(_context.getExiting(), _context, new ClassMethodId(getClassName().getFormatted(),methodId), getInstance(), _list, _stack, getStdCallee());
+        return ParamCheckerUtil.callStd(_context.getExiting(), _context, new ClassMethodId(getClassName().getFormatted(),methodId), getInstance(), _list, _stack, getStdCallee());
     }
 }

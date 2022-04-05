@@ -26,8 +26,6 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
 
     private final AnaInstancingAnnotContent instancingAnnotContent;
 
-    private int rootNumber = -1;
-
     public AnnotationInstanceArobaseOperation(int _index,
                                               int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -49,7 +47,6 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             setResultClass(new AnaClassArgumentMatching(realClassName_));
             return;
         }
-        rootNumber = g_.getNumberAll();
         instancingAnnotContent.setClassName(realClassName_);
         instancingAnnotContent.setFormattedType(form_);
     }
@@ -288,10 +285,6 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             }
         }
         setResultClass(new AnaClassArgumentMatching(instancingAnnotContent.getClassName()));
-    }
-
-    public int getRootNumber() {
-        return rootNumber;
     }
 
     public AnaInstancingAnnotContent getInstancingAnnotContent() {

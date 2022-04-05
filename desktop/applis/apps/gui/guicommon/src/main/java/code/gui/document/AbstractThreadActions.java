@@ -1,15 +1,8 @@
 package code.gui.document;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.exec.calls.util.CallingState;
-import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ErroneousStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.ProcessMethod;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.render.MetaDocument;
 import code.gui.FrameUtil;
 import code.sml.Document;
@@ -36,20 +29,12 @@ public abstract class AbstractThreadActions implements Runnable {
             finish();
             return;
         }
-        CallingState exc_ = _stackCall.getStackCall().getCallingState();
-        if (exc_ instanceof CustomFoundExc) {
+        String error_ = ProcessMethod.error(_ctx, _stackCall.getStackCall());
+        if (error_ != null) {
             if (page.getArea() != null) {
-                Struct exception_ = ((CustomFoundExc) exc_).getStruct();
-                if (exception_ instanceof ErroneousStruct) {
-                    ArrayStruct fullStack_ = ((ErroneousStruct) exception_).getFullStack();
-                    page.getArea().append(((ErroneousStruct) exception_).getStringRep(_ctx, fullStack_));
-                } else {
-                    _stackCall.getStackCall().setCallingState(null);
-                    String str_ = NumParsers.getString(RendDynOperationNode.processString(new Argument(exception_),_ctx, _stackCall).getStruct()).getInstance();
-                    page.getArea().append(str_);
-                }
+                page.getArea().append(error_);
             }
-            _stackCall.getStackCall().setCallingState(null);
+            _stackCall.getStackCall().setNullCallingState();
             finish();
             return;
         }

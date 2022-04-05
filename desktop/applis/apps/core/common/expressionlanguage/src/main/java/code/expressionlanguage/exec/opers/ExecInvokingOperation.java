@@ -1,10 +1,7 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.NoExiting;
-import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
@@ -15,9 +12,6 @@ import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.ReflectVariableWrapper;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.functionid.ConstructorId;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
@@ -100,17 +94,6 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return intermediate;
     }
 
-    public static ArgumentWrapper instancePrepareStd(ContextEl _conf, StandardConstructor _ctor, ConstructorId _constId,
-                                              ArgumentListCall _arguments, StackCall _stackCall) {
-        CustList<Argument> args_ = _arguments.getArguments();
-        if (ExecTemplates.okArgsSet(_constId, args_, _conf, _stackCall) != null) {
-            return new ArgumentWrapper(NullStruct.NULL_VALUE);
-        }
-        StdCaller caller_ = StandardType.caller(_ctor, null);
-        NoExiting exit_ = new NoExiting();
-        return _conf.getCaller().invoke(caller_, exit_,_conf,NullStruct.NULL_VALUE,_arguments,_stackCall);
-    }
-
     public static ExecOverrideInfo polymorphOrSuper(boolean _super,ContextEl _conf, Struct _previous, ExecFormattedRootBlock _className, ExecTypeFunction _named) {
         if (_super) {
             return new ExecOverrideInfo(_className,_named);
@@ -128,57 +111,7 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         }
         return new ExecOverrideInfo(new ExecFormattedRootBlock(type_),_named);
     }
-    public static Argument callStd(AbstractExiting _exit, ContextEl _cont, ClassMethodId _classNameFound, Argument _previous, ArgumentListCall _firstArgs, StackCall _stackCall, StandardMethod _stdMeth) {
-        CustList<Argument> args_ = _firstArgs.getArguments();
-        ExecTemplates.checkParams(_cont, _classNameFound.getClassName(), _classNameFound.getConstraints(), _previous, args_, _stackCall);
-        if (_cont.callsOrException(_stackCall)) {
-            return Argument.createVoid();
-        }
-        StdCaller caller_ = _stdMeth.getCaller();
-        return _cont.getCaller().invoke(caller_,_exit,_cont,_previous.getStruct(),_firstArgs,_stackCall).getValue();
-    }
 
-    public static Argument tryGetEnumValues(AbstractExiting _exit, ContextEl _cont, ExecRootBlock _r, ClassCategory _category, StackCall _stackCall) {
-        if (isNotEnumType(_r, _category)) {
-            return new Argument();
-        }
-        return getEnumValues(_exit, _r, _cont, _stackCall);
-    }
-
-    public static Argument tryGetEnumValue(AbstractExiting _exit, ContextEl _cont, ExecRootBlock _r, ClassCategory _category, Argument _clArg, StackCall _stackCall) {
-        if (isNotEnumType(_r, _category)) {
-            return new Argument();
-        }
-        return getEnumValue(_exit, _r, _clArg, _cont, _stackCall);
-    }
-
-
-    public static Argument processEnums(AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall, ExecRootBlock _type) {
-        //static enum methods
-        LgNames stds_ = _cont.getStandards();
-        CustList<Argument> args_ = _firstArgs.getArguments();
-        if (args_.size() != 1) {
-            return tryGetEnumValues(_exit, _cont, _type,  ClassCategory.ENUM, _stackCall);
-        }
-        Argument arg_ = args_.first();
-        Struct ex_ = ExecInheritsAdv.checkObjectEx(stds_.getContent().getCharSeq().getAliasString(), Argument.getNullableValue(arg_).getStruct().getClassName(_cont), _cont, _stackCall);
-        if (ex_ != null) {
-            _stackCall.setCallingState(new CustomFoundExc(ex_));
-            return Argument.createVoid();
-        }
-        return tryGetEnumValue(_exit, _cont, _type, ClassCategory.ENUM, arg_, _stackCall);
-    }
-
-    private static boolean isNotEnumType(ExecRootBlock _r, ClassCategory _category) {
-        return _r == null || _category != ClassCategory.ENUM;
-    }
-
-    public static void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named, ArgumentListCall _firstArgs, ExecFormattedRootBlock _classNameFound, MethodAccessKind _kind, StackCall _stackCall) {
-        if (_exit.hasToExit(_stackCall, _classNameFound.getRootBlock())) {
-            return;
-        }
-        new DefaultParamChecker(_named, _firstArgs, _kind, CallPrepareState.OPERATOR, null).checkParams(_classNameFound, Argument.createVoid(), null, _conf, _stackCall);
-    }
 
     public static Argument getInstanceCall(Argument _previous, ContextEl _conf, StackCall _stackCall) {
         Struct ls_ = _previous.getStruct();
@@ -377,48 +310,4 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return StringUtil.concat(_className, RETURN_LINE, _classNameFound, RETURN_LINE);
     }
 
-    private static Argument getEnumValues(AbstractExiting _exit, ExecRootBlock _root, ContextEl _conf, StackCall _stackCall) {
-        if (_exit.hasToExit(_stackCall, _root)) {
-            return Argument.createVoid();
-        }
-        String wc_ = _root.getWildCardElement();
-        String id_ = StringExpUtil.getIdFromAllTypes(wc_);
-        Classes classes_ = _conf.getClasses();
-        CustList<Struct> enums_ = new CustList<Struct>();
-        for (ExecInnerTypeOrElement b: _root.getEnumElements()) {
-            String fieldName_ = b.getUniqueFieldName();
-            Struct str_ = classes_.getStaticField(new ClassField(id_, fieldName_),b.getImportedClassName(),_conf);
-            _stackCall.getInitializingTypeInfos().addSensibleField(id_, str_, _stackCall);
-            enums_.add(str_);
-        }
-        String clArr_ = wc_;
-        clArr_ = StringExpUtil.getPrettyArrayType(clArr_);
-        ArrayStruct array_ = new ArrayStruct(enums_.size(), clArr_);
-        int i_ = IndexConstants.FIRST_INDEX;
-        for (Struct o: enums_) {
-            array_.set(i_,o);
-            i_++;
-        }
-        return new Argument(array_);
-    }
-    private static Argument getEnumValue(AbstractExiting _exit, ExecRootBlock _root, Argument _name, ContextEl _conf, StackCall _stackCall) {
-        if (_exit.hasToExit(_stackCall, _root)) {
-            return Argument.createVoid();
-        }
-        Struct name_ = _name.getStruct();
-        if (!(name_ instanceof StringStruct)) {
-            return new Argument();
-        }
-        Classes classes_ = _conf.getClasses();
-        String enumName_ = _root.getFullName();
-        for (ExecInnerTypeOrElement b: _root.getEnumElements()) {
-            String fieldName_ = b.getUniqueFieldName();
-            if (StringUtil.quickEq(fieldName_, ((StringStruct) name_).getInstance())) {
-                Struct str_ = classes_.getStaticField(new ClassField(enumName_, fieldName_),b.getImportedClassName(),_conf);
-                _stackCall.getInitializingTypeInfos().addSensibleField(enumName_, str_, _stackCall);
-                return new Argument(str_);
-            }
-        }
-        return new Argument();
-    }
 }

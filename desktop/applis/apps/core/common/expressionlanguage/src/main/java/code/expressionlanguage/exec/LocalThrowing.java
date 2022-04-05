@@ -21,7 +21,7 @@ public final class LocalThrowing {
         while (_stackCall.hasPages()) {
             AbstractPageEl bkIp_ = _stackCall.getLastPage();
             bkIp_.clearCurrentEls();
-            _stackCall.setCallingState(null);
+            _stackCall.setNullCallingState();
             while (true) {
                 AbstractStask bl_ = bkIp_.tryGetLastStack();
                 if (bl_ == null) {

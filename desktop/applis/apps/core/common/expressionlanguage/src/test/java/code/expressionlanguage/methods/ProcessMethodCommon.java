@@ -73,6 +73,18 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         assertNotNull(exc_);
         return new Argument(exc_);
     }
+
+    protected static String calculateErrorMess(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
+        ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
+        ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
+        Argument argGlLoc_ = new Argument();
+        Parameters p_ = new Parameters();
+        feedParams(_args, _cont, method_, p_);
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_,_class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_);
+        return ProcessMethod.error(_cont,stackCall_);
+    }
+
     protected static Argument calculateNormal(String _class, MethodId _method, CustList<Argument> _args, ContextEl _cont) {
         ExecRootBlock classBody_ = _cont.getClasses().getClassBody(StringExpUtil.getIdFromAllTypes(_class));
         ExecNamedFunctionBlock method_ = ExecClassesUtil.getMethodBodiesById(classBody_, _method).first();
@@ -83,6 +95,10 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         Argument arg_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, _class), new ExecTypeFunction(classBody_, method_), p_), _cont, stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
         return arg_;
+    }
+    protected static String convertStr(Struct _str, ContextEl _cont) {
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,_cont);
+        return ProcessMethod.convertStr(_str,_cont,stackCall_);
     }
 
     protected static MethodId getMethodId(String _name, String..._classNames) {

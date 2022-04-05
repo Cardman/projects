@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -84,7 +85,7 @@ public abstract class ExecMethodOperation extends ExecOperationNode {
     public void checkParametersOperators(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
                                          IdMap<ExecOperationNode, ArgumentsPair> _nodes, ExecStaticEltContent _st, StackCall _stackCall) {
         ArgumentListCall l_ = listNamedArguments(buildInfos(_nodes)).getArguments();
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_, ExecFormattedRootBlock.formatType(_st, _stackCall), _st.getKind(), _stackCall);
+        ParamCheckerUtil.checkParametersOperatorsFormatted(_exit, _conf, _named, l_, ExecFormattedRootBlock.formatType(_st, _stackCall), _st.getKind(), _stackCall);
     }
 
     public final void appendChild(ExecOperationNode _child) {

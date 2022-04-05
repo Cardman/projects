@@ -2,7 +2,7 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -47,7 +47,7 @@ public abstract class RendMethodOperation extends RendDynOperationNode {
     public void checkParametersOperatorsFormatted(AbstractExiting _exit, ContextEl _conf, ExecTypeFunction _named,
                                                   IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ExecStaticEltContent _elt, RendStackCall _stackCall) {
         ArgumentListCall l_ = ExecMethodOperation.listNamedArguments(buildInfos(_nodes)).getArguments();
-        ExecInvokingOperation.checkParametersOperatorsFormatted(_exit, _conf, _named, l_ , ExecFormattedRootBlock.formatType(_elt, _stackCall), _elt.getKind(), _stackCall.getStackCall());
+        ParamCheckerUtil.checkParametersOperatorsFormatted(_exit, _conf, _named, l_ , ExecFormattedRootBlock.formatType(_elt, _stackCall), _elt.getKind(), _stackCall.getStackCall());
     }
 
     public final void appendChild(RendDynOperationNode _child) {

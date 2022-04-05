@@ -1,29 +1,23 @@
 package code.expressionlanguage.exec.opers;
 
-import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.inherits.Parameters;
+import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ErrorStruct;
-import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public abstract class ExecOperationNode {
@@ -56,17 +50,6 @@ public abstract class ExecOperationNode {
 
     ExecOperationNode(int _indexChild, ExecClassArgumentMatching _res, int _order) {
         this(new ExecOperationContent(_indexChild,_res,_order));
-    }
-
-    static int processConverter(ContextEl _conf, Argument _right, ImplicitMethods _implicits, int _indexImplicit, StackCall _stackCall) {
-        ExecFormattedRootBlock formatted_ = StackCall.formatVarType(_stackCall, _implicits.getOwnerClass());
-        ExecTypeFunction c = _implicits.get(_indexImplicit);
-        AbstractExiting ex_ = _conf.getExiting();
-        ArgumentListCall l_ = new ArgumentListCall(Argument.getNullableValue(_right));
-        if (ExecExplicitOperation.checkCustomOper(ex_, c, formatted_, _conf, _right, _stackCall, l_)) {
-            return _indexImplicit;
-        }
-        return _indexImplicit +1;
     }
 
     public void setParent(ExecMethodOperation _parent) {
@@ -104,13 +87,6 @@ public abstract class ExecOperationNode {
         CustList<Argument> a_ = new CustList<Argument>();
         for (ExecOperationNode o: _method.getChildrenNodes()) {
             a_.add(getArgument(_nodes, o));
-        }
-        return a_;
-    }
-    protected static CustList<Argument> getArguments(CustList<ExecOperationInfo> _nodes) {
-        CustList<Argument> a_ = new CustList<Argument>();
-        for (ExecOperationInfo o: _nodes) {
-            a_.add(o.getPair().getArgument());
         }
         return a_;
     }
@@ -212,7 +188,7 @@ public abstract class ExecOperationNode {
         if (!implicitsTest.isEmpty()) {
             if (implicitsTest.isValidIndex(indexImplicitTest_)) {
                 pair_.setArgumentBeforeTest(_argument);
-                pair_.setIndexImplicitTest(processConverter(_conf,_argument,implicitsTest,indexImplicitTest_, _stackCall));
+                pair_.setIndexImplicitTest(ParamCheckerUtil.processConverter(_conf,_argument,implicitsTest,indexImplicitTest_, _stackCall));
                 return;
             }
             before_ = pair_.argument(_argument);
@@ -244,12 +220,12 @@ public abstract class ExecOperationNode {
     private void defCalcArg(boolean _possiblePartial, ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, StackCall _stackCall, ArgumentsPair _pair, Argument _before) {
         int indexImplicit_ = _pair.getIndexImplicit();
         if (implicits.isValidIndex(indexImplicit_)) {
-            _pair.setIndexImplicit(processConverter(_conf, _before,implicits,indexImplicit_, _stackCall));
+            _pair.setIndexImplicit(ParamCheckerUtil.processConverter(_conf, _before,implicits,indexImplicit_, _stackCall));
             return;
         }
         Argument arg_ = _before;
         if (content.getResultClass().isConvertToString()){
-            arg_ = processString(_before, _conf, _stackCall);
+            arg_ = IndirectCalledFctUtil.processString(_before, _conf, _stackCall);
             if (_stackCall.getCallingState() != null) {
                 return;
             }
@@ -278,35 +254,6 @@ public abstract class ExecOperationNode {
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes,this);
         pair_.setArgument(_arg);
         _conf.getCoverage().passBlockOperation(this, !_possiblePartial, pair_, _stackCall);
-    }
-    public static Argument processRandCode(Argument _argument, ContextEl _conf, StackCall _stackCall) {
-        StringMap<ExecTypeFunction> redir_ = _conf.getClasses().getRandCodeMethodsToCallBodies();
-        return getOrRedirect(new RandCodeNativeFct(),_argument, _conf, _stackCall, redir_);
-    }
-    public static Argument processString(Argument _argument, ContextEl _conf, StackCall _stackCall) {
-        StringMap<ExecTypeFunction> redir_ = _conf.getClasses().getToStringMethodsToCallBodies();
-        return getOrRedirect(new StrNativeFct(),_argument, _conf, _stackCall, redir_);
-    }
-
-    private static Argument getOrRedirect(NativeFct _nat, Argument _argument, ContextEl _conf, StackCall _stackCall, StringMap<ExecTypeFunction> _redir) {
-        Struct struct_ = Argument.getNullableValue(_argument).getStruct();
-        String argClassName_ = struct_.getClassName(_conf);
-        String idCl_ = StringExpUtil.getIdFromAllTypes(argClassName_);
-        ExecTypeFunction valBody_ = _redir.getVal(idCl_);
-        ExecFormattedRootBlock clCall_ = ExecFormattedRootBlock.defValue();
-        ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock) null,null);
-        if (valBody_ != null) {
-            ExecOverrideInfo polymorphMethod_ = ExecInvokingOperation.polymorph(_conf, struct_, valBody_);
-            p_ = polymorphMethod_.getPair();
-            clCall_ = ExecFormattedRootBlock.getFullObject(argClassName_, polymorphMethod_.getClassName(), _conf);
-        }
-        if (p_.getFct() == null) {
-            return new Argument(_nat.compute(_argument, _conf));
-        }
-        Parameters parameters_ = new Parameters();
-        Argument out_ = new Argument(struct_);
-        _stackCall.setCallingState(new CustomFoundMethod(out_,clCall_, p_, parameters_));
-        return out_;
     }
 
     public final ExecClassArgumentMatching getResultClass() {

@@ -3,11 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRecordBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundRecordConstructor;
-import code.expressionlanguage.exec.inherits.AbstractParamChecker;
-import code.expressionlanguage.exec.inherits.InstanceParamChecker;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -33,42 +29,25 @@ public final class ExecStandardInstancingOperation extends
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         int off_ = StringUtil.getFirstPrintableCharIndex(getInstancingCommonContent().getMethodName());
         ExecFormattedRootBlock className_ = StackCall.formatVarType(_stack,getFormattedType());
-        Argument res_ = null;
         if (instancingStdContent.getFieldName().isEmpty()) {
             setRelOffsetPossibleLastPage(off_, _stack);
-            if (_conf.getExiting().hasToExit(_stack, className_.getRootBlock())) {
-                res_ = Argument.createVoid();
-            }
         } else {
             off_ -= _stack.getLastPage().getTranslatedOffset();
             off_ -= instancingStdContent.getFieldName().length();
             off_--;
             setRelOffsetPossibleLastPage(off_, _stack);
         }
+        Argument res_ = null;
+        if (instancingStdContent.getFieldName().isEmpty()) {
+            res_ = ParamCheckerUtil.tryInit(_conf,_stack, className_.getRootBlock());
+        }
         if (res_ == null) {
             CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-            res_ = prep(_conf, _stack, previous_, className_, infos_, getInstancingCommonContent(), instancingStdContent);
-        }
-        setSimpleArgument(res_, _conf, _nodes, _stack);
-    }
-
-    public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, ExecFormattedRootBlock _className, CustList<ExecOperationInfo> _infos, ExecInstancingCustContent _instancingCommonContent, ExecInstancingStdContent _instancingStdContent) {
-        Argument res_;
-        if (_instancingCommonContent.getPair().getType() instanceof ExecRecordBlock) {
-            CustList<Argument> arguments_ = getArguments(_infos);
-            Argument prev_ = instance(_instancingCommonContent.getPair().getType(),_previous);
-            _stack.setCallingState(new CustomFoundRecordConstructor(prev_,_className, _instancingCommonContent.getPair(),_instancingStdContent, arguments_));
-            res_ = Argument.createVoid();
+            Argument resNext_ = ParamCheckerUtil.prep(_conf, _stack, previous_, className_, infos_, getInstancingCommonContent(), instancingStdContent);
+            setSimpleArgument(resNext_, _conf, _nodes, _stack);
         } else {
-            res_ = new InstanceParamChecker(_instancingCommonContent.getPair(), fectchInstFormattedArgs(_className, _instancingCommonContent, _conf, _stack, _infos), _instancingStdContent.getFieldName(), _instancingStdContent.getBlockIndex()).checkParams(_className, _previous, null, _conf, _stack);
+            setSimpleArgument(res_, _conf, _nodes, _stack);
         }
-        return res_;
     }
 
-    public static Argument instance(ExecRootBlock _type, Argument _previous) {
-        if (!AbstractParamChecker.withInstance(_type)) {
-            return Argument.createVoid();
-        }
-        return _previous;
-    }
 }

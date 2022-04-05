@@ -19,7 +19,7 @@ public final class RendLocalThrowing {
     }
     public static void removeBlockFinally(ContextEl _ctx, Struct _str, RendStackCall _rendStackCall) {
         while (_rendStackCall.hasPages()) {
-            _rendStackCall.getStackCall().setCallingState(null);
+            _rendStackCall.getStackCall().setNullCallingState();
             ImportingPage bkIp_ = _rendStackCall.getLastPage();
             while (true) {
                 RendAbstractStask bl_ = bkIp_.tryGetRendLastStack();

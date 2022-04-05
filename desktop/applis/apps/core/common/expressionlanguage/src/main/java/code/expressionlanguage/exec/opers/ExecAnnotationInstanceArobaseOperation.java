@@ -3,8 +3,7 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.CustomFoundAnnotation;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecInstancingAnnotContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -16,13 +15,10 @@ public final class ExecAnnotationInstanceArobaseOperation extends ExecInvokingOp
 
     private final ExecInstancingAnnotContent instancingAnnotContent;
 
-    private final ExecRootBlock rootBlock;
-
     public ExecAnnotationInstanceArobaseOperation(
-            ExecRootBlock _rootBlock, ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingAnnotContent _instancingAnnotContent) {
+            ExecOperationContent _opCont, boolean _intermediateDottedOperation, ExecInstancingAnnotContent _instancingAnnotContent) {
         super(_opCont, _intermediateDottedOperation);
         instancingAnnotContent = _instancingAnnotContent;
-        rootBlock = _rootBlock;
     }
 
     @Override
@@ -30,11 +26,8 @@ public final class ExecAnnotationInstanceArobaseOperation extends ExecInvokingOp
         CustList<Argument> arguments_ = getArguments(_nodes, this);
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingAnnotContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        Argument res_;
-        if (!_conf.getExiting().hasToExit(_stack, rootBlock)) {
-            _stack.setCallingState(new CustomFoundAnnotation(instancingAnnotContent.getFormattedType(), rootBlock, instancingAnnotContent.getFieldNames(), arguments_));
-        }
-        res_ = Argument.createVoid();
+        ParamCheckerUtil.redirectAnnotation(_conf, _stack, arguments_, instancingAnnotContent);
+        Argument res_ = Argument.createVoid();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 

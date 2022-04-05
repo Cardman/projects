@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ClassCategory;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecValuesContent;
@@ -24,7 +25,7 @@ public final class ExecEnumValueOfOperation extends ExecMethodOperation implemen
         ExecOperationNode first_ = getFirstChild();
         Argument a_ = getArgument(_nodes,first_);
         setRelOffsetPossibleLastPage(valuesContent.getArgOffset(), _stack);
-        Argument arg_ = ExecInvokingOperation.tryGetEnumValue(_conf.getExiting(), _conf, valuesContent.getRootBlock(), ClassCategory.ENUM, a_, _stack);
+        Argument arg_ = IndirectCalledFctUtil.tryGetEnumValue(_conf.getExiting(), _conf, valuesContent.getRootBlock(), ClassCategory.ENUM, a_, _stack);
         setSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 

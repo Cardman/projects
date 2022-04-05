@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.inherits.InstanceParamChecker;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.ConstructorId;
@@ -46,7 +46,7 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
             argCtor_ = new InstanceParamChecker(pair_, array, "", -1).checkParams(res_, argument, null, _context, _stack);
         }
         if (metaInfo.getStandardType() != null) {
-            argCtor_ = ExecInvokingOperation.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, array, _stack).getValue();
+            argCtor_ = ParamCheckerUtil.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, array, _stack).getValue();
         }
         return end(_context,_stack,argCtor_);
     }

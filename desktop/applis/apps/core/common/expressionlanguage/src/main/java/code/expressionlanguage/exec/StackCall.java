@@ -62,7 +62,7 @@ public final class StackCall implements AbstractStackCall {
 
     public void addInternPage(AbstractPageEl _page) {
         importing.add(_page);
-        callingState = null;
+        setNullCallingState();
     }
 
     public static ExecFormattedRootBlock formatVarType(AbstractStackCall _stack,ExecFormattedRootBlock _varType) {
@@ -135,6 +135,9 @@ public final class StackCall implements AbstractStackCall {
         return callingState;
     }
 
+    public void setNullCallingState() {
+        this.callingState = null;
+    }
     public void setCallingState(CallingState _callingState) {
         this.callingState = _callingState;
     }

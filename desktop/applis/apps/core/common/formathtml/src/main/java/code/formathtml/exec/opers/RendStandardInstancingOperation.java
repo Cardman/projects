@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.opers.ExecStandardInstancingOperation;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -40,7 +40,7 @@ public final class RendStandardInstancingOperation extends RendInvokingOperation
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _rendStack);
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
-        Argument result_ = ExecStandardInstancingOperation.prep(_context,_rendStack.getStackCall(),previous_, StackCall.formatVarType(_rendStack,formattedType),infos_,instancingCommonContent,instancingStdContent);
+        Argument result_ = ParamCheckerUtil.prep(_context,_rendStack.getStackCall(),previous_, StackCall.formatVarType(_rendStack,formattedType),infos_,instancingCommonContent,instancingStdContent);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

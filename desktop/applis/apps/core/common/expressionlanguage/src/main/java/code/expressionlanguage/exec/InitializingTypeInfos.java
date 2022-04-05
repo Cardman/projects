@@ -92,7 +92,7 @@ public final class InitializingTypeInfos {
 
     public void resetInitEnums(StackCall _stackCall) {
         setFailInit(false);
-        _stackCall.setCallingState(null);
+        _stackCall.setNullCallingState();
         getSensibleFields().clear();
         _stackCall.clearPages();
     }

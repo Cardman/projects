@@ -10,6 +10,7 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
+import code.expressionlanguage.exec.inherits.IndirectCalledFctUtil;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.opers.CompoundedOperator;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -265,14 +266,14 @@ public abstract class RendDynOperationNode {
     public static Argument processString(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
         RendNativeFct nat_ = new RendNativeFct();
         Argument out_ = new Argument(_argument.getStruct());
-        out_ = ExecOperationNode.processString(out_, _context, _stackCall.getStackCall());
+        out_ = IndirectCalledFctUtil.processString(out_, _context, _stackCall.getStackCall());
         return result(nat_,_stackCall, _context, out_);
     }
 
     public static Argument processRandCode(Argument _argument, ContextEl _context, RendStackCall _stackCall) {
         RendNativeFct nat_ = new RendNativeFct();
         Argument out_ = new Argument(_argument.getStruct());
-        out_ = ExecOperationNode.processRandCode(out_, _context, _stackCall.getStackCall());
+        out_ = IndirectCalledFctUtil.processRandCode(out_, _context, _stackCall.getStackCall());
         return result(nat_,_stackCall,_context, out_);
     }
 

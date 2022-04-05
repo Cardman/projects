@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.ParamCheckerUtil;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -41,7 +42,7 @@ public abstract class ExecSemiAffectationOperation extends ExecAbstractAffectOpe
         Argument stored_ = firstArg(_current,_nodes);
         int indexImplicit_ = pair_.getIndexImplicitConv();
         if (ImplicitMethods.isValidIndex(_impl,indexImplicit_)) {
-            pair_.setIndexImplicitConv(ExecOperationNode.processConverter(_conf,_right, _impl,indexImplicit_, _stack));
+            pair_.setIndexImplicitConv(ParamCheckerUtil.processConverter(_conf,_right, _impl,indexImplicit_, _stack));
             return;
         }
         if (!pair_.isEndCalculate()) {
