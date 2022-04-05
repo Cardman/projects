@@ -622,7 +622,7 @@ public final class FileResolver {
         if (currentParent_ == null) {
             if (_out.getBlock() != null) {
                 _out.getBlock().getBadIndexes().add(_i+_offset);
-                _out.getBlock().getBadIndexesGlobal().add(_i);
+                _out.getBlock().getBadIndexesGlobal().add(_i+_offset);
                 _instruction.delete(0, _instruction.length());
                 after_.setIndex(_i);
                 return after_;
