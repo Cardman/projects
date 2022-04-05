@@ -1,10 +1,11 @@
 package aiki.sml.trs;
-public final class Trs2{
+import aiki.sml.init.CstIgame;
+public final class Trs2 extends CstIgame {
 private Trs2(){}
 static String tr(){
-String f="AUTRE\tOTHER\n";
-f+="SPECIALE\tSPECIAL\n";
-f+="PHYSIQUE\tPHYSICAL\n";
-return f;
+String e=I_AUTRE+"\tOTHER\n";
+e+=I_SPECIALE+"\tSPECIAL\n";
+e+=I_PHYSIQUE+"\tPHYSICAL\n";
+return e;
 }
 }

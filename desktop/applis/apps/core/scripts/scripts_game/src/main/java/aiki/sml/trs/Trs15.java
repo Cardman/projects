@@ -1,25 +1,26 @@
 package aiki.sml.trs;
-public final class Trs15{
+import aiki.sml.init.CstIgame;
+public final class Trs15 extends CstIgame {
 private Trs15(){}
 static String tr(){
-String f="INSECTE\tBUG\n";
-f+="PSY\tPSY\n";
-f+="TENEBRE\tDARK\n";
-f+="ACIER\tSTEEL\n";
-f+="PLANTE\tGRASS\n";
-f+="EAU\tWATER\n";
-f+="DRAGON\tDRAGON\n";
-f+="FEU\tFIRE\n";
-f+="ROCHE\tROCK\n";
-f+="SPECTRE\tGHOST\n";
-f+="SOL\tGROUND\n";
-f+="VOL\tFLY\n";
-f+="ELECTRIQUE\tELECTRIC\n";
-f+="GLACE\tICE\n";
-f+="NORMAL\tNORMAL\n";
-f+="POISON\tPOISON\n";
-f+="FEE\tFAIRY\n";
-f+="COMBAT\tFIGHT\n";
-return f;
+String e=I_INSECTE+"\tBUG\n";
+e+=I_PSY+"\tPSY\n";
+e+=I_TENEBRE+"\tDARK\n";
+e+=I_ACIER+"\tSTEEL\n";
+e+=I_PLANTE+"\tGRASS\n";
+e+=I_EAU+"\tWATER\n";
+e+=I_DRAGON+"\tDRAGON\n";
+e+=I_FEU+"\tFIRE\n";
+e+=I_ROCHE+"\tROCK\n";
+e+=I_SPECTRE+"\tGHOST\n";
+e+=I_SOL+"\tGROUND\n";
+e+=I_VOL+"\tFLY\n";
+e+=I_ELECTRIQUE+"\tELECTRIC\n";
+e+=I_GLACE+"\tICE\n";
+e+=I_NORMAL+"\tNORMAL\n";
+e+=I_POISON+"\tPOISON\n";
+e+=I_FEE+"\tFAIRY\n";
+e+=I_COMBAT+"\tFIGHT\n";
+return e;
 }
 }
