@@ -118,7 +118,11 @@ public abstract class OperationNode {
     }
 
     protected static boolean errOwner(String _type, MethodId _id) {
-        return _id.getKind() == MethodAccessKind.STATIC_CALL && StringExpUtil.isWildCard(_type);
+        return errOwner(_type, _id.getKind());
+    }
+
+    protected static boolean errOwner(String _type, MethodAccessKind _id) {
+        return _id == MethodAccessKind.STATIC_CALL && StringExpUtil.isWildCard(_type);
     }
 
     public abstract void analyze(AnalyzedPageEl _page);
@@ -1018,7 +1022,9 @@ public abstract class OperationNode {
             }
             _mloc.reformat(result_, _page);
         }
-
+        if (errOwner(_mloc.getClassName(),MethodAccessKind.STATIC_CALL)) {
+            return;
+        }
         if (!isPossibleMethodLambdaInfer(_mloc, _page, _args)) {
             return;
         }
