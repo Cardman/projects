@@ -117,6 +117,10 @@ public abstract class OperationNode {
         return args_;
     }
 
+    protected static boolean errOwner(String _type, MethodId _id) {
+        return _id.getKind() == MethodAccessKind.STATIC_CALL && StringExpUtil.isWildCard(_type);
+    }
+
     public abstract void analyze(AnalyzedPageEl _page);
 
     static boolean isNotChildOfCallDyn(MethodOperation _m) {
@@ -2290,7 +2294,21 @@ public abstract class OperationNode {
         StringMap<StringList> map_;
         map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        return tryGetResult(gr_, _next);
+        return tryGetResult(gr_, filterWc(_next));
+    }
+
+    private static CustList<CustList<MethodInfo>> filterWc(CustList<CustList<MethodInfo>> _next) {
+        CustList<CustList<MethodInfo>> filt_ = new CustList<CustList<MethodInfo>>();
+        for (CustList<MethodInfo> l : _next) {
+            CustList<MethodInfo> l_ = new CustList<MethodInfo>();
+            for (MethodInfo m: l) {
+                if (!errOwner(m.getClassName(),m.getConstraints())) {
+                    l_.add(m);
+                }
+            }
+            filt_.add(l_);
+        }
+        return filt_;
     }
 
     protected static CustList<CustList<MethodInfo>> filterInferredMethods(CustList<CustList<MethodInfo>> _methods, String _name, AnalyzedPageEl _page, String _stCall, StringList _argsClass, String _retType) {
@@ -2468,7 +2486,7 @@ public abstract class OperationNode {
         StringMap<StringList> map_;
         map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
-        return sortFct(signatures_, gr_);
+        return sortFct(filterWc(signatures_), gr_);
     }
 
     private static CustList<CustList<MethodInfo>> infer(int _varargOnly, NameParametersFilter _filter, AnalyzedPageEl _page, CustList<CustList<MethodInfo>> _named) {
@@ -2894,7 +2912,7 @@ public abstract class OperationNode {
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, _vars, _cmp);
         CustList<CustList<MethodInfo>> c_ = new CustList<CustList<MethodInfo>>();
         c_.add(signatures_);
-        return tryGetResult(gr_, c_);
+        return tryGetResult(gr_, filterWc(c_));
     }
 
     private static ClassMethodIdReturn tryGetResult(ArgumentsGroup _gr, CustList<CustList<MethodInfo>> _list) {

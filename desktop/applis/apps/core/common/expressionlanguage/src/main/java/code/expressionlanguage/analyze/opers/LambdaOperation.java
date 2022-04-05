@@ -554,25 +554,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private static void tryFilterAddCtor(CustList<ConstructorInfo> _list, AnalyzedPageEl _page, AnaGeneType _h, CustList<ConstrustorIdVarArg> _ctors, StringList _argsTypes, String _stCall, String _retType) {
         Parametrable constructorInfo_ = tryGetFilterSignaturesInfer(_list, _h, _page, _argsTypes,_stCall,_retType);
         if (constructorInfo_ instanceof ConstructorInfo) {
-            //        ConstrustorIdVarArg out_;
-//        out_ = new ConstrustorIdVarArg();
-//        if (_cInfo.isVarArgWrap()) {
-//            out_.setVarArgToCall(true);
-//        }
-//        setupContainer(_type,_cInfo.getClassName(),out_);
-//        out_.setRealId(_cInfo.getConstraints());
-//        out_.setPair(_cInfo.getPair());
-//        out_.setConstId(_cInfo.getFormatted());
-//        out_.setFileName(_cInfo.getFileName());
-//        out_.setStandardType(_cInfo.getStandardType());
-//        out_.setMemberId(_cInfo.getMemberId());
-//        return out_;
             _ctors.add(buildCtorInfo(constructorInfo_.getClassName(), _h, (ConstructorInfo) constructorInfo_));
         }
     }
 
     private static boolean okList(CustList<ClassMethodIdReturn> _resList, boolean _staticChoice) {
-        return _resList.size() == 1 && !errOwner(_resList.first().getRealClass(), _resList.first().getRealId()) && !isAbstract(_staticChoice,_resList.first());
+        return _resList.size() == 1 && !isAbstract(_staticChoice,_resList.first());
     }
 
     private static void appendArgsCtor(ConstructorId _fid, StringList _parts) {
@@ -918,9 +905,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, i_);
             }
-            for (String s: str_) {
-                errOwner(s,argsRes_,_page);
-            }
             StringList a_ = cloneArrayBounds(str_);
             if (a_.onlyOneElt()) {
                 found(a_.first());
@@ -1019,9 +1003,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 }
                 vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, 2);
             }
-            for (String s: str_) {
-                errOwner(s,argsRes_,_page);
-            }
             ClassMethodIdReturn id_ = tryGetDeclaredCustMethodLambda(vararg_, kind_, str_, name_, true, true, feed_, methodTypes_, _page);
             if (id_ == null) {
                 buildErrNoRefMethod(kind_,name_,_page,methodTypes_);
@@ -1096,10 +1077,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             vararg_ = vararg(_len, methodTypes_, vararg_, argsRes_, i_);
         }
-        for (String s: str_) {
-            errOwner(s,argsRes_,_page);
-        }
-
         StringList bounds_ = new StringList();
         for (String c: previousResultClass.getNames()) {
             bounds_.addAllElts(InvokingOperation.getBounds(c, _page));
@@ -1381,11 +1358,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private static boolean isSingleRange(AnalyzedPageEl _page, StringList _methodTypes) {
         return _methodTypes.size() == 1 && StringUtil.quickEq(_methodTypes.first(),_page.getAliasRange());
     }
-
     private void ko(String _type, MethodId _id, StringList _formatted, AnalyzedPageEl _page) {
-        if (errOwner(_type, _id, _page)) {
-            return;
-        }
         int nbParams_ = _id.getParametersTypesLength();
         for (int i = 0; i < nbParams_; i++) {
             String s_ = _id.getParametersType(i);
@@ -1407,23 +1380,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             }
             _formatted.add(pref_+format_);
         }
-    }
-    private boolean errOwner(String _type, MethodId _id, AnalyzedPageEl _page) {
-        if (errOwner(_type,_id)) {
-            FoundErrorInterpret static_ = new FoundErrorInterpret();
-            static_.setFile(_page.getCurrentFile());
-            static_.setIndexFile(_page);
-            //key word id len
-            static_.buildError(_page.getAnalysisMessages().getBadParameTypeForId(),
-                    _type);
-            _page.getLocalizer().addError(static_);
-            addErr(static_.getBuiltError());
-            return true;
-        }
-        return false;
-    }
-    private static boolean errOwner(String _type, MethodId _id) {
-        return _id.getKind() == MethodAccessKind.STATIC_CALL && StringExpUtil.isWildCard(_type);
     }
     private static boolean matchIdKeyWord(StringList _args, int _len, int _i, String _keyWordId) {
         return _i < _len && StringUtil.quickEq(_args.get(_i).trim(), _keyWordId);
@@ -2345,7 +2301,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             String keyWordStaticCall_ = _page.getKeyWords().getKeyWordStaticCall();
             idUpdate_.setupInfosId(i_,_args,keyWordStatic_,keyWordStaticCall_);
             boolean retRef_ = idUpdate_.isRetRef();
-            staticFlag_ = idUpdate_.getKind();
+            staticFlag_ = MethodId.getKind(MethodAccessKind.STATIC_CALL,idUpdate_.getKind());
             int k_ = idUpdate_.getIndex();
             if (k_ == i_) {
                 staticFlag_ = MethodAccessKind.STATIC;
@@ -2370,7 +2326,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     vararg_ = _len- i_+1;
                 }
                 methodTypes_.addAllElts(IdentifiableUtil.params(argsRes_));
-                errOwner(from_, argsRes_, _page);
             }
             ClassMethodIdReturn id_ = getOperator(from_,methodTypes_, operator_, vararg_, feed_, _page);
             if (id_ == null) {
@@ -2399,7 +2354,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 vararg_ = _len- i_;
             }
             methodTypes_.addAllElts(IdentifiableUtil.params(argsRes_));
-            errOwner(from_, argsRes_, _page);
         }
         ClassMethodIdReturn id_ = getOperator(from_,methodTypes_, operator_, vararg_, feed_, _page);
         if (id_ == null) {
@@ -2538,11 +2492,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
                     _page.getLocalizer().addError(varg_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-//                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
                     errPart(varg_, _page, i_,3);
-//                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
-//                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-//                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
                     return null;
                 }
                 vararg_ = len_- _from;
@@ -2599,9 +2549,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     _page.getLocalizer().addError(varg_);
                     setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
                     errPart(varg_, _page, i_,3);
-//                    ResolvingTypes.errOff(_page,partOffsets,varg_,i_,3);
-//                    partOffsets.add(new PartOffset(ExportCst.anchorErr(varg_.getBuiltError()),i_));
-//                    partOffsets.add(new PartOffset(ExportCst.END_ANCHOR,i_+3));
                     return null;
                 }
                 wrap_ = true;

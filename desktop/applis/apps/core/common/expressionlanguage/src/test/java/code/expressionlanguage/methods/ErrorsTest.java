@@ -10465,7 +10465,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         xml_.append(" {\n");
         xml_.append("  $staticCall(MyEnum<?>).m();\n");
         xml_.append(" }\n");
-        xml_.append(" $staticCall $void m(){\n");
+        xml_.append(" $staticCall $void n(){\n");
         xml_.append(" }\n");
         xml_.append("}\n");
         StringMap<String> files_ = new StringMap<String>();
@@ -10473,9 +10473,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MyEnum</a>&lt;<a name=\"m26\">T</a>&gt; {\n" +
                 " {\n" +
-                "  <a title=\"The type pkg.MyEnum&lt;?&gt; is unexpected.\" class=\"e\">$staticCall</a>(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>&lt;?&gt;).<a title=\"pkg.MyEnum.$staticCall m()\" href=\"#m86\">m</a>();\n" +
+                "  <a title=\"The type pkg.MyEnum&lt;?&gt; is unexpected.\" class=\"e\">$staticCall</a>(<a title=\"pkg.MyEnum\" href=\"#m15\">MyEnum</a>&lt;?&gt;).<a title=\"The function $staticCall m() is undefined.\" class=\"e\">m</a>();\n" +
                 " }\n" +
-                " $staticCall $void <a name=\"m86\">m</a>(){\n" +
+                " $staticCall $void <a name=\"m86\">n</a>(){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
