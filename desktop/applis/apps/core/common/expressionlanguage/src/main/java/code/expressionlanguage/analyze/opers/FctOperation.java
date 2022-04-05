@@ -67,6 +67,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         StringList l_ = clCur_.getNames();
         setDelta(_page);
         String trimMeth_ = callFctContent.getMethodName().trim();
+        boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
         boolean baseAccess_ = true;
         KeyWords keyWords_ = _page.getKeyWords();
@@ -75,9 +76,11 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordSuper_)) {
             trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
+            staticChoiceMethod_ = true;
             baseAccess_ = false;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThat_)) {
             trimMeth_ = trimMeth_.substring(trimMeth_.indexOf('.')+1).trim();
+            staticChoiceMethod_ = true;
         } else if (StringExpUtil.startsWithKeyWord(trimMeth_, keyWordThisaccess_)) {
             String className_ = trimMeth_.substring(0, trimMeth_.lastIndexOf(PAR_RIGHT));
             int lenPref_ = trimMeth_.indexOf(PAR_LEFT) + 1;
@@ -105,7 +108,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, isLvalue(),staticChoiceMethod_, _page.getGlobalClass()), getFormattedFilter(_page, this));
         filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 
@@ -238,8 +241,25 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(), _page.getGlobalClass()));
+        clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(),staticChoiceMethod_, _page.getGlobalClass()));
         if (clMeth_ == null) {
+            ClassMethodIdReturn next_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(),  _page.getGlobalClass()));
+            if (next_ != null) {
+                callFctContent.update(next_);
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+                FoundErrorInterpret abs_ = new FoundErrorInterpret();
+                abs_.setIndexFile(_page);
+                abs_.setFile(_page.getCurrentFile());
+                //method name len
+                abs_.buildError(
+                        _page.getAnalysisMessages().getAbstractMethodRef(),
+                        next_.getRealClass(),
+                        next_.getRealId().getSignature(_page.getDisplayedStrings()));
+                _page.getLocalizer().addError(abs_);
+                addErr(abs_.getBuiltError());
+                setResultClass(voidToObject(new AnaClassArgumentMatching(_page.getAliasObject()), _page));
+                return;
+            }
             buildErrNotFoundStd(isStaticAccess(), trimMeth_, name_, _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(_page.getAliasObject()), _page));
             return;
@@ -250,21 +270,6 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
-        if (staticChoiceMethod_) {
-            if (clMeth_.isAbstractMethod()) {
-                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-                FoundErrorInterpret abs_ = new FoundErrorInterpret();
-                abs_.setIndexFile(_page);
-                abs_.setFile(_page.getCurrentFile());
-                //method name len
-                abs_.buildError(
-                        _page.getAnalysisMessages().getAbstractMethodRef(),
-                        clMeth_.getRealClass(),
-                        clMeth_.getRealId().getSignature(_page.getDisplayedStrings()));
-                _page.getLocalizer().addError(abs_);
-                addErr(abs_.getBuiltError());
-            }
-        }
         MethodId id_ = clMeth_.getRealId();
         staticChoiceMethod = staticChoiceMethod_;
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;

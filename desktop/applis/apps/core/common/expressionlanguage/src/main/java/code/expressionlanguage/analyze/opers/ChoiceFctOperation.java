@@ -73,7 +73,7 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         String clCurName_ = className_;
         StringList bounds_ = getBounds(clCurName_, _page);
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, true, false, isLvalue(), _page.getGlobalClass()), getFormattedFilter(_page, this));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, _page, new ScopeFilter(null, true, false, isLvalue(),true, _page.getGlobalClass()), getFormattedFilter(_page, this));
         filterByNameReturnType(_page, trimMeth_, methodInfos);
     }
 
@@ -142,8 +142,25 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, false, isLvalue(), _page.getGlobalClass()));
+        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, false, isLvalue(),true, _page.getGlobalClass()));
         if (clMeth_ == null) {
+            ClassMethodIdReturn next_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, false, isLvalue(),  _page.getGlobalClass()));
+            if (next_ != null) {
+                callFctContent.update(next_);
+                setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
+                FoundErrorInterpret abs_ = new FoundErrorInterpret();
+                abs_.setIndexFile(_page);
+                abs_.setFile(_page.getCurrentFile());
+                //method name len
+                abs_.buildError(
+                        _page.getAnalysisMessages().getAbstractMethodRef(),
+                        next_.getRealClass(),
+                        next_.getRealId().getSignature(_page.getDisplayedStrings()));
+                _page.getLocalizer().addError(abs_);
+                addErr(abs_.getBuiltError());
+                setResultClass(voidToObject(new AnaClassArgumentMatching(_page.getAliasObject()), _page));
+                return;
+            }
             buildErrNotFoundStd(isStaticAccess(), trimMeth_, name_, _page);
             setResultClass(voidToObject(new AnaClassArgumentMatching(_page.getAliasObject()), _page));
             return;
@@ -154,19 +171,6 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         }
         callFctContent.update(clMeth_);
         standardMethod = clMeth_.getStandardMethod();
-        if (clMeth_.isAbstractMethod()) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
-            FoundErrorInterpret abs_ = new FoundErrorInterpret();
-            abs_.setIndexFile(_page);
-            abs_.setFile(_page.getCurrentFile());
-            //method name len
-            abs_.buildError(
-                    _page.getAnalysisMessages().getAbstractMethodRef(),
-                    clMeth_.getRealClass(),
-                    clMeth_.getRealId().getSignature(_page.getDisplayedStrings()));
-            _page.getLocalizer().addError(abs_);
-            addErr(abs_.getBuiltError());
-        }
         MethodId id_ = clMeth_.getRealId();
         staticMethod = id_.getKind() != MethodAccessKind.INSTANCE;
         setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));

@@ -49,12 +49,15 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         ForwardOperation fwd_ = tryGetForward(this);
+        boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
         boolean baseAccess_ = true;
         if (fwd_ != null) {
+            staticChoiceMethod_ = fwd_.isStaticChoiceMethod();
             accessSuperTypes_ = fwd_.isAccessSuperTypes();
             baseAccess_ = fwd_.isBaseAccess();
         }
+        boolean excAbs_ = staticChoiceMethod_;
         String trimMeth_ = "[]";
         AnaClassArgumentMatching class_ = getPreviousResultClass();
         String classType_ = "";
@@ -72,7 +75,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             bounds_.addAllElts(getBounds(c, _page));
         }
         methodFound = trimMeth_;
-        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()), getFormattedFilter(_page, this));
+        methodInfos = getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, false, _page, new ScopeFilter(null, baseAccess_, accessSuperTypes_, false,excAbs_, _page.getGlobalClass()), getFormattedFilter(_page, this));
         int len_ = methodInfos.size();
         for (int i = 0; i < len_; i++) {
             int gr_ = methodInfos.get(i).size();
@@ -145,10 +148,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMeth_, false,
-                varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
+                varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false,staticChoiceMethod_, _page.getGlobalClass()));
         ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMethSet_, false,
-                varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
+                varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false,staticChoiceMethod_, _page.getGlobalClass()));
         boolean found_ = clMeth_ != null;
         if (clMethSet_ == null) {
             found_ = false;
@@ -158,25 +161,41 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             functionSet = clMethSet_.getPair();
             memberIdGet = clMeth_.getMemberId();
             memberIdSet = clMethSet_.getMemberId();
-            if (staticChoiceMethod_) {
-                if (clMeth_.isAbstractMethod()) {
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
-                    FoundErrorInterpret abs_ = new FoundErrorInterpret();
-                    abs_.setIndexFile(_page);
-                    abs_.setFile(_page.getCurrentFile());
-                    //method name len
-                    abs_.buildError(
-                            _page.getAnalysisMessages().getAbstractMethodRef(),
-                            clMeth_.getRealClass(),
-                            clMeth_.getRealId().getSignature(_page.getDisplayedStrings()));
-                    _page.getLocalizer().addError(abs_);
-                    addErr(abs_.getBuiltError());
-                }
-            }
             staticChoiceMethod = staticChoiceMethod_;
             anc = clMeth_.getAncestor();
             callFctContent.update(clMeth_);
             setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()));
+            return;
+        }
+        ClassMethodIdReturn clMeth2_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
+                bounds_, trimMeth_, false,
+                varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
+        ClassMethodIdReturn clMethSet2_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
+                bounds_, trimMethSet_, false,
+                varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
+        ClassMethodIdReturn id2_ = null;
+        if (clMethSet2_ != null) {
+            functionSet = clMethSet2_.getPair();
+            memberIdSet = clMethSet2_.getMemberId();
+            id2_ = clMethSet2_;
+        }
+        if (clMeth2_ != null) {
+            functionGet = clMeth2_.getPair();
+            memberIdGet = clMeth2_.getMemberId();
+            id2_ = clMeth2_;
+        }
+        if (id2_ != null) {
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+            FoundErrorInterpret abs_ = new FoundErrorInterpret();
+            abs_.setIndexFile(_page);
+            abs_.setFile(_page.getCurrentFile());
+            //method name len
+            abs_.buildError(
+                    _page.getAnalysisMessages().getAbstractMethodRef(),
+                    id2_.getRealClass(),
+                    id2_.getRealId().getSignature(_page.getDisplayedStrings()));
+            _page.getLocalizer().addError(abs_);
+            addErr(abs_.getBuiltError());
             return;
         }
         if (chidren_.size() != 1) {

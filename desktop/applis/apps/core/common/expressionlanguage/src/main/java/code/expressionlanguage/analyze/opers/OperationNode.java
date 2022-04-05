@@ -1150,11 +1150,10 @@ public abstract class OperationNode {
     protected static ClassMethodIdReturn tryGetDeclaredCustMethodLambda(int _varargOnly,
                                                                         MethodAccessKind _staticContext,
                                                                         StringList _classes, String _name,
-                                                                        boolean _superClass, boolean _baseClass,
                                                                         ClassMethodIdAncestor _uniqueId,
-                                                                        StringList _argsClass, AnalyzedPageEl _page) {
+                                                                        StringList _argsClass, AnalyzedPageEl _page, ScopeFilter _sc) {
         CustList<CustList<MethodInfo>> methods_;
-        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, false, _page, new ScopeFilter(_uniqueId, _baseClass, _superClass, false, _page.getGlobalClass()), new FormattedFilter());
+        methods_ = getDeclaredCustMethodByType(_staticContext, _classes, _name, false, _page, _sc, new FormattedFilter());
         int varargOnly_ = fetchVarargOnly(_varargOnly, _uniqueId);
         return getCustResultLambda(varargOnly_, methods_, _name, _page, _argsClass);
     }
@@ -2114,6 +2113,9 @@ public abstract class OperationNode {
 
     private static MethodInfo fetchedParamMethodCust(NamedCalledFunctionBlock _m, ScopeFilterType _scType,
                                                      AnalyzedPageEl _page, MethodId _id, String _importedReturnType) {
+        if (_m.isAbstractMethod()&& _scType.isExcAbs()) {
+            return null;
+        }
         AnaFormattedRootBlock f_ = _scType.getFormatted();
         RootBlock r_ = f_.getRootBlock();
         String formattedClass_ = f_.getFormatted();

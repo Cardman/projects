@@ -21,10 +21,12 @@ public final class ScopeFilterType {
     private final String fullName;
     private final String glClass;
     private final FormattedFilter formattedFilter;
+    private final boolean excAbs;
 
     public ScopeFilterType(ScopeFilter _scope, TypeInfo _typeInfo, MethodAccessKind _kind, StringList _superTypesBase, StringMap<String> _superTypesBaseAncBis, FormattedFilter _formattedFilter) {
         baseClass = _scope.isBaseClass();
         superClass = _scope.isSuperClass();
+        excAbs = _scope.isExcAbs();
         retRef = _scope.isRetRef();
         id = _scope.getId();
         glClass = _scope.getGlClass();
@@ -48,6 +50,10 @@ public final class ScopeFilterType {
 
     public int getAnc() {
         return anc;
+    }
+
+    public boolean isExcAbs() {
+        return excAbs;
     }
 
     public String getGlClass() {
