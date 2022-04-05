@@ -119,6 +119,17 @@ public abstract class AnaRendBlock {
         }
     }
 
+    public static void adjustMap(StringMap<StringMap<String>> _mes) {
+        for (StringMap<String> m: _mes.values()) {
+            adjust(m);
+        }
+    }
+    public static void adjust(StringMap<String> _mes) {
+        for (EntryCust<String,String> e: _mes.entryList()) {
+            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(),true,true));
+        }
+    }
+
     private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
         AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _prefix, _elt, _docText, _primTypes, _rendKeyWords);
         if (_elt instanceof Element) {

@@ -1,10 +1,12 @@
 package aiki.main;
+
 import aiki.beans.*;
+import aiki.gui.WindowAiki;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.DefLoadingData;
 import aiki.sml.LoadingGame;
-import aiki.gui.WindowAiki;
 import aiki.sml.Resources;
+import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
@@ -12,9 +14,7 @@ import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
 import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.threads.AbstractThread;
-import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -49,7 +49,7 @@ public final class CreateMainWindowAiki implements Runnable {
     public void run() {
         StringMap<Document> built_ = PagesInit.build();
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        adjust(builtMessages_);
+        AnaRendBlock.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), built_, builtMessages_, builtOther_, new PkData());
         PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), built_, builtMessages_, builtOther_, new PkFight());
@@ -92,9 +92,4 @@ public final class CreateMainWindowAiki implements Runnable {
         }
     }
 
-    private static void adjust(StringMap<String> _mes) {
-        for (EntryCust<String,String> e: _mes.entryList()) {
-            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(),true,true));
-        }
-    }
 }

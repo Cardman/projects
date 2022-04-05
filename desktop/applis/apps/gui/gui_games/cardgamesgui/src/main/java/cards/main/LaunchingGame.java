@@ -1,4 +1,5 @@
 package cards.main;
+
 import cards.belote.beans.BeloteStandards;
 import cards.belote.beans.DetailsBeloteLoader;
 import cards.belote.beans.ResultsBeloteLoader;
@@ -14,12 +15,12 @@ import cards.tarot.beans.DetailsTarotLoader;
 import cards.tarot.beans.ResultsTarotLoader;
 import cards.tarot.beans.RulesTarotLoader;
 import cards.tarot.beans.TarotStandards;
+import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.pages.cards.*;
 import code.sml.Document;
-import code.sml.DocumentBuilder;
 import code.threads.AbstractThread;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -71,7 +72,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> belote_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesBelote_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessBelotePage.ms();
-        adjust(other_);
+        AnaRendBlock.adjust(other_);
         for (String l: Constants.getAvailableLanguages()) {
             rulesBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandards(), new RulesBeloteLoader(), _built, other_));
         }
@@ -98,7 +99,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> president_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesPresident_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessPresidentPage.ms();
-        adjust(other_);
+        AnaRendBlock.adjust(other_);
         for (String l: Constants.getAvailableLanguages()) {
             rulesPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandards(), new RulesPresidentLoader(), _built, other_));
         }
@@ -120,7 +121,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> tarot_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesTarot_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessTarotPage.ms();
-        adjust(other_);
+        AnaRendBlock.adjust(other_);
         for (String l: Constants.getAvailableLanguages()) {
             rulesTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandards(), new RulesTarotLoader(), _built, other_));
         }
@@ -143,9 +144,4 @@ public final class LaunchingGame implements Runnable {
         return tarot_;
     }
 
-    private static void adjust(StringMap<String> _mes) {
-        for (EntryCust<String,String> e: _mes.entryList()) {
-            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(),true,true));
-        }
-    }
 }

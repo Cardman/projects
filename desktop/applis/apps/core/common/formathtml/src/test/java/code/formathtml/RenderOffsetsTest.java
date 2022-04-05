@@ -5,6 +5,7 @@ import code.formathtml.analyze.blocks.*;
 import code.formathtml.common.RendBlockUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.util.StringMap;
 import org.junit.Test;
 
 public final class RenderOffsetsTest extends CommonRender {
@@ -467,6 +468,25 @@ public final class RenderOffsetsTest extends CommonRender {
         file_ += "<html attr='val&inexist;ue'/>";
         AnaRendDocumentBlock doc_ = newRendDocumentBlock(file_);
         assertEq(24, RendBlockUtil.retrieve(24, doc_.getEscapedChar()));
+    }
+    @Test
+    public void adjust1() {
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry("","");
+        AnaRendBlock.adjust(m_);
+        assertEq(1,m_.size());
+        assertEq("",m_.firstValue());
+    }
+    @Test
+    public void adjust2() {
+        StringMap<StringMap<String>> l_ = new StringMap<StringMap<String>>();
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry("","");
+        l_.addEntry("", m_);
+        AnaRendBlock.adjustMap(l_);
+        assertEq(1,l_.size());
+        assertEq(1,l_.firstValue().size());
+        assertEq("",l_.firstValue().firstValue());
     }
     private static AnaRendDocumentBlock newRendDocumentBlock(String _docText) {
         DualNavigationContext a_ = buildNav();
