@@ -30,7 +30,32 @@ public final class RenderImportTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", getResTwoPagesTwo(folder_, relative_, html_, htmlTwo_, filesSec_));
     }
+    @Test
+    public void process0_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
 
+        String html_ = "<html c:bean='bean_one'><body><c:import page=\"page2.html\"><c:package name='pkg'><c:class name='BeanTwo'><c:field prepare='$intern.array=$new $int[]{3,4}'/><param value=''/></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean='bean_two'><body><ul><c:for var=\"s\" list=\"arrayBis\" className='$int'><li>{s}</li></c:for></ul></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne{");
+        file_.append(" $public $int[] array={1,2};");
+        file_.append("}");
+        file_.append("$public $class pkg.BeanTwo:code.bean.Bean{");
+        file_.append(" $public $int[] array;");
+        file_.append(" $public $int[] arrayBis;");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  arrayBis=array;");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body><ul><li>3</li><li>4</li></ul></body></html>", getResTwoPagesTwo(folder_, relative_, html_, htmlTwo_, filesSec_));
+    }
     @Test
     public void process1Test() {
         String folder_ = "messages";

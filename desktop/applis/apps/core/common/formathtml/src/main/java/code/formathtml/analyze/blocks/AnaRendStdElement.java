@@ -17,10 +17,14 @@ public final class AnaRendStdElement extends AnaRendElement {
     }
     @Override
     public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        StringList list_ = attrList(_anaDoc);
-        if (StringUtil.quickEq(getRead().getTagName(), StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordParam()))) {
-            list_.clear();
+        AnaRendBlock par_ = this;
+        while (par_ != null) {
+            if (par_ instanceof AnaRendMessage || par_ instanceof AnaRendImport) {
+                return new StringList();
+            }
+            par_ = par_.getParent();
         }
+        StringList list_ = attrList(_anaDoc);
         list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
         return list_;
     }

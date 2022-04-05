@@ -238,7 +238,6 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         r_.setKeyWordImg("");
         r_.setKeyWordSelect("");
         r_.setKeyWordAnchor("");
-        r_.setKeyWordParam("");
         r_.setKeyWordInput("");
         r_.setKeyWordSpan("");
         r_.setKeyWordHead("");

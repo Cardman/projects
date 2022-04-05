@@ -17,7 +17,6 @@ public final class RendKeyWords {
     private static final String TAG_FIELD="TagField";
     private static final String TAG_IMPORT="TagImport";
     private static final String TAG_A="TagAnchor";
-    private static final String TAG_PARAM="TagParam";
     private static final String TAG_INPUT="TagInput";
     private static final String TAG_SUBMIT="TagSubmit";
     private static final String TAG_IMG="TagImg";
@@ -195,7 +194,6 @@ public final class RendKeyWords {
     private String keyWordSelect="select";
     private String keyWordMessage="message";
     private String keyWordAnchor="a";
-    private String keyWordParam="param";
     private String keyWordInput="input";
     private String keyWordTextarea="textarea";
     private String keyWordSpan="span";
@@ -457,7 +455,6 @@ public final class RendKeyWords {
         setKeyWordCaption(LgNamesContent.get(_util, _cust, TAG_CAPTION));
         setKeyWordMessage(LgNamesContent.get(_util, _cust, TAG_MESSAGE));
         setKeyWordAnchor(LgNamesContent.get(_util, _cust, TAG_A));
-        setKeyWordParam(LgNamesContent.get(_util, _cust, TAG_PARAM));
         setKeyWordForm(LgNamesContent.get(_util, _cust, TAG_FORM));
         setKeyWordSpan(LgNamesContent.get(_util, _cust, TAG_SPAN));
         setKeyWordImg(LgNamesContent.get(_util, _cust, TAG_IMG));
@@ -625,7 +622,6 @@ public final class RendKeyWords {
         keyWords_.addEntry(TAG_MAP,keyWordMap);
         keyWords_.addEntry(TAG_SUBMIT,keyWordSubmit);
         keyWords_.addEntry(TAG_IMG,keyWordImg);
-        keyWords_.addEntry(TAG_PARAM,keyWordParam);
         keyWords_.addEntry(TAG_INPUT,keyWordInput);
         keyWords_.addEntry(TAG_A,keyWordAnchor);
         keyWords_.addEntry(TAG_LINK,keyWordLink);
@@ -954,14 +950,6 @@ public final class RendKeyWords {
 
     public void setKeyWordAnchor(String _keyWordAnchor) {
         this.keyWordAnchor = _keyWordAnchor;
-    }
-
-    public String getKeyWordParam() {
-        return keyWordParam;
-    }
-
-    public void setKeyWordParam(String _keyWordParam) {
-        this.keyWordParam = _keyWordParam;
     }
 
     public String getKeyWordInput() {
