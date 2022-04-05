@@ -38,10 +38,10 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private final CustList<Argument> arguments;
 
     public ReflectAnnotationPageEl(CustList<Argument> _arguments, AnnotatedStruct _annotated) {
+        super(false);
         arguments = _arguments;
         annotated = _annotated;
         setGlobalArgumentStruct(_annotated);
-        setLambda(false);
     }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {

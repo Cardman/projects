@@ -1351,8 +1351,8 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArgumentWrapper.helpArg(null);
         ExecHelper.getArgumentWrapper(new CustList<ArgumentWrapper>(),0);
         ExecTemplates.wrapAndCall(new ExecTypeFunction(_classBody, _first), new ExecFormattedRootBlock(_classBody,"pkg.Ex"),Argument.createVoid(), _cont, _stackCall, argList_);
-        new ReflectGetFieldPageEl(null,null).receive(null,null,_cont, _stackCall);
-        new ReflectSetFieldPageEl(null,null,null).receive(null,null,_cont, _stackCall);
+        new ReflectGetFieldPageEl(null,null, false).receive(null,null,_cont, _stackCall);
+        new ReflectSetFieldPageEl(null,null,null, false).receive(null,null,_cont, _stackCall);
     }
 
     private static String getFullTypeByBases(ContextEl _context, String _first, String _second) {

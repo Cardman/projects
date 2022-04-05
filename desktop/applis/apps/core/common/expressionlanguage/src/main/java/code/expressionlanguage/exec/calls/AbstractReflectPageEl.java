@@ -6,10 +6,11 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
 
     private boolean wrapException;
 
-    private boolean lambda;
+    private final boolean lambda;
 
-    protected AbstractReflectPageEl() {
+    protected AbstractReflectPageEl(boolean _lambda) {
         super(ExecFormattedRootBlock.defValue());
+        lambda = _lambda;
     }
 
     public boolean isWrapException() {
@@ -22,10 +23,6 @@ public abstract class AbstractReflectPageEl extends AbstractPageEl implements Fo
             return;
         }
         wrapException = _wrapException;
-    }
-
-    public void setLambda(boolean _lambda) {
-        lambda = _lambda;
     }
 
 }

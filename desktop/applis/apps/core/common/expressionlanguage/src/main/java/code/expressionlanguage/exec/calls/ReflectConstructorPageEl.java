@@ -28,10 +28,10 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
     private final Argument argument;
 
     public ReflectConstructorPageEl(Argument _argument, ConstructorMetaInfo _metaInfo) {
+        super(false);
         argument = _argument;
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
-        setLambda(false);
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {

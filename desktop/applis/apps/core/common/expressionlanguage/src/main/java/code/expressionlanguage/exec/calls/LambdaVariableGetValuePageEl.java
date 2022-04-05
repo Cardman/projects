@@ -10,12 +10,14 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 
 public final class LambdaVariableGetValuePageEl extends AbstractLambdaVariable {
 
+    private final ArgumentListCall arr;
     public LambdaVariableGetValuePageEl(ArgumentListCall _array) {
-        super(_array);
+        super(true);
+        arr = _array;
     }
 
-    Argument prepare(ContextEl _context, ArgumentListCall _array, StackCall _stack) {
-        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(_array.getArgumentWrappers());
+    Argument prepare(ContextEl _context, StackCall _stack) {
+        ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(arr.getArgumentWrappers());
         return new Argument(ExecTemplates.getWrap(firstArgumentWrapper_.getWrapper()).getValue(_stack,_context));
     }
 

@@ -3,22 +3,24 @@ package code.expressionlanguage.exec.calls;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.calls.util.NotInitializedClass;
 
 public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl {
-    private final ArgumentListCall array;
 
     private boolean calledAfter;
 
-    protected AbstractLambdaVariable(ArgumentListCall _array) {
-        array = _array;
-        setLambda(true);
+    protected AbstractLambdaVariable(boolean _lambda) {
+        super(_lambda);
     }
     @Override
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         if (!calledAfter) {
             setWrapException(false);
-            Argument arg_ = prepare(_context, array, _stack);
+            Argument arg_ = prepare(_context, _stack);
+            if (_stack.getCallingState() instanceof NotInitializedClass) {
+                setWrapException(true);
+                return false;
+            }
             calledAfter = true;
             if (_context.callsOrException(_stack)) {
                 setWrapException(_stack.calls());
@@ -29,5 +31,5 @@ public abstract class AbstractLambdaVariable extends AbstractBasicReflectPageEl 
         return true;
     }
 
-    abstract Argument prepare(ContextEl _context, ArgumentListCall _array, StackCall _stack);
+    abstract Argument prepare(ContextEl _context, StackCall _stack);
 }

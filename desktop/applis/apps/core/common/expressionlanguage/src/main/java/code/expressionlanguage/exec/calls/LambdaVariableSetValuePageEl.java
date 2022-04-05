@@ -11,12 +11,14 @@ import code.util.CustList;
 
 public final class LambdaVariableSetValuePageEl extends AbstractLambdaVariable {
 
+    private final ArgumentListCall arr;
     public LambdaVariableSetValuePageEl(ArgumentListCall _array) {
-        super(_array);
+        super(true);
+        arr = _array;
     }
 
-    Argument prepare(ContextEl _context, ArgumentListCall _array, StackCall _stack) {
-        CustList<ArgumentWrapper> argumentWrappers_ = _array.getArgumentWrappers();
+    Argument prepare(ContextEl _context, StackCall _stack) {
+        CustList<ArgumentWrapper> argumentWrappers_ = arr.getArgumentWrappers();
         ArgumentWrapper firstArgumentWrapper_ = ExecHelper.getFirstArgumentWrapper(argumentWrappers_);
         Argument right_ = ArgumentWrapper.helpArg(ExecHelper.getLastArgumentWrapper(argumentWrappers_));
         ExecTemplates.getWrap(firstArgumentWrapper_.getWrapper()).setValue(_stack,_context,right_);

@@ -279,15 +279,13 @@ public final class ExecutingUtil {
             CustomReflectGetField c_ = (CustomReflectGetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();
             Argument args_ = c_.getArgument();
-            pageLoc_ = new ReflectGetFieldPageEl(args_, metaInfo_);
-            ((ReflectGetFieldPageEl)pageLoc_).setLambda(_ref.isLambda());
+            pageLoc_ = new ReflectGetFieldPageEl(args_, metaInfo_, _ref.isLambda());
         } else if (_ref instanceof CustomReflectSetField) {
             CustomReflectSetField c_ = (CustomReflectSetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();
             Argument first_ = c_.getFirst();
             Argument last_ = c_.getLast();
-            pageLoc_ = new ReflectSetFieldPageEl(first_,last_, metaInfo_);
-            ((ReflectSetFieldPageEl)pageLoc_).setLambda(_ref.isLambda());
+            pageLoc_ = new ReflectSetFieldPageEl(first_,last_, metaInfo_, _ref.isLambda());
         } else if (_ref instanceof CustomReflectMethodDefVal) {
             CustomReflectMethodDefVal c_ = (CustomReflectMethodDefVal) _ref;
             MethodMetaInfo metaInfo_ = c_.getGl();

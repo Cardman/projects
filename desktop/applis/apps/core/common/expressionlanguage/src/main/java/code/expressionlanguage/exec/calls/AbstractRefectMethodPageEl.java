@@ -26,10 +26,9 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     private Argument rightArg;
     private final ExecMemberCallingsBlock callee;
     protected AbstractRefectMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo, AbstractPreparer _preparer) {
-        super(_instance, _metaInfo, _preparer);
+        super(_instance, _metaInfo, _preparer,false);
         array = _array;
         callee = _metaInfo.getCallee();
-        setLambda(false);
     }
 
     ExecMemberCallingsBlock getCallee() {

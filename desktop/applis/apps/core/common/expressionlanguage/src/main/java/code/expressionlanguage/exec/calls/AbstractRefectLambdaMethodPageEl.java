@@ -14,8 +14,7 @@ public abstract class AbstractRefectLambdaMethodPageEl extends AbstractRefectCom
     private final ArgumentListCall array;
 
     protected AbstractRefectLambdaMethodPageEl(Argument _instance, ArgumentListCall _array, MethodMetaInfo _metaInfo, AbstractPreparer _preparer) {
-        super(_instance, _metaInfo, _preparer);
-        setLambda(true);
+        super(_instance, _metaInfo, _preparer,true);
         array = _array;
     }
     @Override

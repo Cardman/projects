@@ -21,9 +21,9 @@ public final class ReflectGetDefaultValuePageEl extends AbstractReflectPageEl {
     private ExecAnnotationMethodBlock annotMethod;
 
     public ReflectGetDefaultValuePageEl(MethodMetaInfo _metaInfo) {
+        super(false);
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;
-        setLambda(false);
     }
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {

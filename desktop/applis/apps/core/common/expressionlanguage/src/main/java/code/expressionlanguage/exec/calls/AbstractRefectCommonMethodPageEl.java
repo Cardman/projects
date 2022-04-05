@@ -31,7 +31,8 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
     private final MethodMetaInfo metaInfo;
     private final AbstractPreparer preparer;
 
-    protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer) {
+    protected AbstractRefectCommonMethodPageEl(Argument _instance, MethodMetaInfo _metaInfo, AbstractPreparer _preparer, boolean _lda) {
+        super(_lda);
         instance = _instance;
         setGlobalArgumentStruct(_metaInfo);
         metaInfo = _metaInfo;

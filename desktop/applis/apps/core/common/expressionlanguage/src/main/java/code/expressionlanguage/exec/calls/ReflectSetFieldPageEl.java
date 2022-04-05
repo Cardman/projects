@@ -6,7 +6,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.structs.FieldMetaInfo;
 
-public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
+public final class ReflectSetFieldPageEl extends AbstractLambdaVariable {
 
     private boolean initClass;
     private final FieldMetaInfo metaInfo;
@@ -14,7 +14,8 @@ public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
     private final Argument first;
     private final Argument last;
 
-    public ReflectSetFieldPageEl(Argument _first, Argument _last, FieldMetaInfo _metaInfo) {
+    public ReflectSetFieldPageEl(Argument _first, Argument _last, FieldMetaInfo _metaInfo, boolean _lambda) {
+        super(_lambda);
         first = _first;
         last = _last;
         setGlobalArgumentStruct(_metaInfo);
@@ -22,21 +23,19 @@ public final class ReflectSetFieldPageEl extends AbstractBasicReflectPageEl {
     }
 
     @Override
-    public boolean checkCondition(ContextEl _context, StackCall _stack) {
+    Argument prepare(ContextEl _context, StackCall _stack) {
         if (!initClass) {
             initClass = true;
             if (metaInfo.isStaticField() && _context.getExiting().hasToExit(_stack, metaInfo.getFormatted().getRootBlock())) {
                 setWrapException(true);
-                return false;
+                return Argument.createVoid();
             }
         }
         setWrapException(false);
         Argument arg_ = ExecFieldTemplates.setField(metaInfo, first, last, _context, _stack);
         if (_context.callsOrException(_stack)) {
-            return false;
+            return Argument.createVoid();
         }
-        setReturnedArgument(arg_);
-        return true;
+        return arg_;
     }
-
 }

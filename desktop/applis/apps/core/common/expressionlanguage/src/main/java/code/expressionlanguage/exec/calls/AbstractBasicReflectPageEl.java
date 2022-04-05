@@ -6,6 +6,10 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 
 public abstract class AbstractBasicReflectPageEl extends AbstractReflectPageEl {
+    protected AbstractBasicReflectPageEl(boolean _lambda) {
+        super(_lambda);
+    }
+
     @Override
     public void processTagsBase(ContextEl _context, StackCall _stack) {
         if (!checkCondition(_context, _stack)) {

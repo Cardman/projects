@@ -15,6 +15,10 @@ import code.expressionlanguage.structs.ErrorStruct;
 public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPageEl {
     private boolean initClass;
 
+    protected AbstractReflectConstructorPageEl(boolean _lambda) {
+        super(_lambda);
+    }
+
     @Override
     public void receive(AbstractWrapper _wrap, Argument _argument, ContextEl _context, StackCall _stack) {
         setWrapper(_wrap);

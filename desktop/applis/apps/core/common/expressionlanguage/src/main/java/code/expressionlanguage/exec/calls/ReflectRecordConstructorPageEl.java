@@ -22,13 +22,13 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
     private final CustList<Argument> arguments;
 
     public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className, CustList<ExecFormattedRootBlock> _list) {
+        super(true);
         arguments = _arguments;
         root = _root;
         instance = _instance;
         namedFields = _namedFields;
         className = _className;
         listSup = _list;
-        setLambda(true);
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {

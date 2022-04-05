@@ -21,11 +21,11 @@ public final class ReflectLambdaConstructorPageEl extends AbstractReflectConstru
     private final ArgumentListCall array;
 
     public ReflectLambdaConstructorPageEl(Argument _argument,ArgumentListCall _array, ConstructorMetaInfo _metaInfo) {
+        super(true);
         argument = _argument;
         array = _array;
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
-        setLambda(true);
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {

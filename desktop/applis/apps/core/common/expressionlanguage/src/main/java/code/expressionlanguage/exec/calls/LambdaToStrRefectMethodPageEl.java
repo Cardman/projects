@@ -11,8 +11,8 @@ public final class LambdaToStrRefectMethodPageEl extends AbstractBasicReflectPag
     private boolean called;
 
     public LambdaToStrRefectMethodPageEl(Argument _argument) {
+        super(false);
         argument = _argument;
-        setLambda(false);
     }
 
     @Override
