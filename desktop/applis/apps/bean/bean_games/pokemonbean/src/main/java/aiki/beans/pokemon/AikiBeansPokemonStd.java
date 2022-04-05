@@ -105,8 +105,8 @@ public final class AikiBeansPokemonStd{
         fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanDisplayNameGet(),null));
         fields_.add(new StandardField(BACK_IMAGE,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanBackImageGet(),null));
         fields_.add(new StandardField(FRONT_IMAGE,BeanNatCommonLgNames.STRING,false,false,new PokemonBeanFrontImageGet(),null));
-        fields_.add(new StandardField(WEIGHT,PokemonStandards.TYPE_RATE,false,false,new PokemonBeanWeightGet(),null));
-        fields_.add(new StandardField(HEIGHT,PokemonStandards.TYPE_RATE,false,false,new PokemonBeanHeightGet(),null));
+        fields_.add(new StandardField(WEIGHT,BeanNatCommonLgNames.TYPE_RATE,false,false,new PokemonBeanWeightGet(),null));
+        fields_.add(new StandardField(HEIGHT,BeanNatCommonLgNames.TYPE_RATE,false,false,new PokemonBeanHeightGet(),null));
         fields_.add(new StandardField(POSSIBLE_GENDERS, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonBeanPossibleGendersGet(),null));
         fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonBeanTypesGet(),null));
         fields_.add(new StandardField(ABILITIES, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonBeanAbilitiesGet(),null));
@@ -123,7 +123,7 @@ public final class AikiBeansPokemonStd{
         fields_.add(new StandardField(HIDDEN_MOVES, BeanNatCommonLgNames.TYPE_MAP,false,false,new PokemonBeanHiddenMovesGet(),null));
         fields_.add(new StandardField(MOVE_TUTORS, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonBeanMoveTutorsGet(),null));
         fields_.add(new StandardField(EGG_GROUPS_PK, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonBeanEggGroupsPkGet(),null));
-        fields_.add(new StandardField(HATCHING_STEPS,PokemonStandards.TYPE_LG_INT,false,false,new PokemonBeanHatchingStepsGet(),null));
+        fields_.add(new StandardField(HATCHING_STEPS,BeanNatCommonLgNames.TYPE_LG_INT,false,false,new PokemonBeanHatchingStepsGet(),null));
         fields_.add(new StandardField(PLACES, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonBeanPlacesGet(),null));
         fields_.add(new StandardField(IMAGES, BeanNatCommonLgNames.TYPE_MAP,false,false,new PokemonBeanImagesGet(),null));
         methods_.add( new SpecNatMethod(CLICK_POKEDEX,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickPokedex()));

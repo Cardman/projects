@@ -638,8 +638,6 @@ public final class AikiBeansHelpStd{
         buildFightHelpBean(_std);
         buildGeneralHelpBean(_std);
         buildLangsBean(_std);
-        buildLanguageElementKey(_std);
-        buildLanguageElementStringKey(_std);
     }
     private static void buildFightHelpBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
@@ -700,7 +698,7 @@ public final class AikiBeansHelpStd{
         fields_.add(new StandardField(ITEMS_FIGHTER_STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanItemsFighterStatusGet(),null));
         fields_.add(new StandardField(LAWS_RATES, BeanNatCommonLgNames.TYPE_MAP,false,false,new FightHelpBeanLawsRatesGet(),null));
         fields_.add(new StandardField(MOVES_PROT_AGAINST_KO, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanMovesProtAgainstKoGet(),null));
-        fields_.add(new StandardField(MIN_HP_NOT_KO,PokemonStandards.TYPE_RATE,false,false,new FightHelpBeanMinHpNotKoGet(),null));
+        fields_.add(new StandardField(MIN_HP_NOT_KO,BeanNatCommonLgNames.TYPE_RATE,false,false,new FightHelpBeanMinHpNotKoGet(),null));
         fields_.add(new StandardField(ITEMS_PROT_AGAINST_KO, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanItemsProtAgainstKoGet(),null));
         fields_.add(new StandardField(MOVES_CANNOT_KO, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanMovesCannotKoGet(),null));
         fields_.add(new StandardField(ITEMS_ABS, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanItemsAbsGet(),null));
@@ -722,11 +720,11 @@ public final class AikiBeansHelpStd{
         fields_.add(new StandardField(MOVES_CHANGING_ATT_ORDER, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanMovesChangingAttOrderGet(),null));
         fields_.add(new StandardField(RATES, BeanNatCommonLgNames.TYPE_MAP,false,false,new FightHelpBeanRatesGet(),null));
         fields_.add(new StandardField(VAR_RATES, BeanNatCommonLgNames.TYPE_MAP,false,false,new FightHelpBeanVarRatesGet(),null));
-        fields_.add(new StandardField(WON_HAPPINESS_POINTS_LEVEL,PokemonStandards.TYPE_RATE,false,false,new FightHelpBeanWonHappinessPointsLevelGet(),null));
+        fields_.add(new StandardField(WON_HAPPINESS_POINTS_LEVEL,BeanNatCommonLgNames.TYPE_RATE,false,false,new FightHelpBeanWonHappinessPointsLevelGet(),null));
         fields_.add(new StandardField(HAPPINESS_POINTS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new FightHelpBeanHappinessPointsGet(),null));
         fields_.add(new StandardField(DAMGE_FORMULA,BeanNatCommonLgNames.STRING,false,false,new FightHelpBeanDamgeFormulaGet(),null));
         fields_.add(new StandardField(MAP_VAR, BeanNatCommonLgNames.TYPE_MAP,false,false,new FightHelpBeanMapVarGet(),null));
-        fields_.add(new StandardField(STRONG_MOVE,PokemonStandards.TYPE_RATE,false,false,new FightHelpBeanStrongMoveGet(),null));
+        fields_.add(new StandardField(STRONG_MOVE,BeanNatCommonLgNames.TYPE_RATE,false,false,new FightHelpBeanStrongMoveGet(),null));
         fields_.add(new StandardField(DAMAGING_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanDamagingMovesGet(),null));
         fields_.add(new StandardField(ITEMS_USER_POWER, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanItemsUserPowerGet(),null));
         fields_.add(new StandardField(MOVES_USER_POWER, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanMovesUserPowerGet(),null));
@@ -1210,7 +1208,7 @@ public final class AikiBeansHelpStd{
         fields_.add(new StandardField(NB_MAX_STEPS_SAME_EVO_BASE, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GeneralHelpBeanNbMaxStepsSameEvoBaseGet(),null));
         fields_.add(new StandardField(NB_MAX_STEPS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GeneralHelpBeanNbMaxStepsGet(),null));
         fields_.add(new StandardField(POKEMON_DEFAULT_EGG_GROUP, BeanNatCommonLgNames.TYPE_LIST,false,false,new GeneralHelpBeanPokemonDefaultEggGroupGet(),null));
-        fields_.add(new StandardField(DEFAULT_MONEY,PokemonStandards.TYPE_RATE,false,false,new GeneralHelpBeanDefaultMoneyGet(),null));
+        fields_.add(new StandardField(DEFAULT_MONEY,BeanNatCommonLgNames.TYPE_RATE,false,false,new GeneralHelpBeanDefaultMoneyGet(),null));
         fields_.add(new StandardField(TM, BeanNatCommonLgNames.TYPE_LIST,false,false,new GeneralHelpBeanTmGet(),null));
         fields_.add(new StandardField(HM, BeanNatCommonLgNames.TYPE_LIST,false,false,new GeneralHelpBeanHmGet(),null));
         fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new GeneralHelpBeanTypesGet(),null));
@@ -1278,17 +1276,5 @@ public final class AikiBeansHelpStd{
         methods_.add( new SpecNatMethod(GET_KEYS_DESC, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new LangsBeanGetKeysDesc()));
         methods_.add( new SpecNatMethod(GET_ROW_DESC, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new LangsBeanGetRowDesc()));
         _std.getStds().addEntry(TYPE_LANGS_BEAN, type_);
-    }
-    private static void buildLanguageElementKey(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_LANGUAGE_ELEMENT_KEY, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_LANGUAGE_ELEMENT_KEY, type_);
-    }
-    private static void buildLanguageElementStringKey(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_LANGUAGE_ELEMENT_STRING_KEY, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_LANGUAGE_ELEMENT_STRING_KEY, type_);
     }
 }

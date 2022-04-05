@@ -191,14 +191,14 @@ public final class AikiBeansItemsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_BERRY_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
-        fields_.add(new StandardField(HEAL_HP_BY_SUPER_EFF_MOVE,PokemonStandards.TYPE_RATE,false,false,new BerryBeanHealHpBySuperEffMoveGet(),null));
+        fields_.add(new StandardField(HEAL_HP_BY_SUPER_EFF_MOVE,BeanNatCommonLgNames.TYPE_RATE,false,false,new BerryBeanHealHpBySuperEffMoveGet(),null));
         fields_.add(new StandardField(LAW_FOR_ATTACK_FIRST,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new BerryBeanLawForAttackFirstGet(),null));
         fields_.add(new StandardField(WITHOUT_FAIL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new BerryBeanWithoutFailGet(),null));
         fields_.add(new StandardField(HEAL_PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new BerryBeanHealPpGet(),null));
-        fields_.add(new StandardField(HEAL_HP,PokemonStandards.TYPE_RATE,false,false,new BerryBeanHealHpGet(),null));
-        fields_.add(new StandardField(MAX_HP_HEALING_HP,PokemonStandards.TYPE_RATE,false,false,new BerryBeanMaxHpHealingHpGet(),null));
-        fields_.add(new StandardField(HEAL_HP_RATE,PokemonStandards.TYPE_RATE,false,false,new BerryBeanHealHpRateGet(),null));
-        fields_.add(new StandardField(MAX_HP_HEALING_HP_RATE,PokemonStandards.TYPE_RATE,false,false,new BerryBeanMaxHpHealingHpRateGet(),null));
+        fields_.add(new StandardField(HEAL_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new BerryBeanHealHpGet(),null));
+        fields_.add(new StandardField(MAX_HP_HEALING_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new BerryBeanMaxHpHealingHpGet(),null));
+        fields_.add(new StandardField(HEAL_HP_RATE,BeanNatCommonLgNames.TYPE_RATE,false,false,new BerryBeanHealHpRateGet(),null));
+        fields_.add(new StandardField(MAX_HP_HEALING_HP_RATE,BeanNatCommonLgNames.TYPE_RATE,false,false,new BerryBeanMaxHpHealingHpRateGet(),null));
         fields_.add(new StandardField(MULT_FOES_DAMAGE, BeanNatCommonLgNames.TYPE_MAP,false,false,new BerryBeanMultFoesDamageGet(),null));
         fields_.add(new StandardField(MULT_STAT, BeanNatCommonLgNames.TYPE_MAP,false,false,new BerryBeanMultStatGet(),null));
         fields_.add(new StandardField(HEAL_STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new BerryBeanHealStatusGet(),null));
@@ -218,7 +218,7 @@ public final class AikiBeansItemsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_BOOST_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_ITEM_BEAN);
-        fields_.add(new StandardField(WIN_PP,PokemonStandards.TYPE_RATE,false,false,new BoostBeanWinPpGet(),null));
+        fields_.add(new StandardField(WIN_PP,BeanNatCommonLgNames.TYPE_RATE,false,false,new BoostBeanWinPpGet(),null));
         fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.TYPE_MAP,false,false,new BoostBeanHappinessGet(),null));
         fields_.add(new StandardField(EVS, BeanNatCommonLgNames.TYPE_MAP,false,false,new BoostBeanEvsGet(),null));
         fields_.add(new StandardField(MAX_EV, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new BoostBeanMaxEvGet(),null));
@@ -259,7 +259,7 @@ public final class AikiBeansItemsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_HEALING_HP_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_HEALING_ITEM_BEAN);
-        fields_.add(new StandardField(HP,PokemonStandards.TYPE_RATE,false,false,new HealingHpBeanHpGet(),null));
+        fields_.add(new StandardField(HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new HealingHpBeanHpGet(),null));
         _std.getStds().addEntry(TYPE_HEALING_HP_BEAN, type_);
     }
     private static void buildHealingItemBean(PokemonStandards _std){
@@ -290,7 +290,7 @@ public final class AikiBeansItemsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_HEALING_STATUS_BEAN, fields_, methods_, AikiBeansItemsStd.TYPE_HEALING_ITEM_BEAN);
-        fields_.add(new StandardField(HEALED_HP_RATE,PokemonStandards.TYPE_RATE,false,false,new HealingStatusBeanHealedHpRateGet(),null));
+        fields_.add(new StandardField(HEALED_HP_RATE,BeanNatCommonLgNames.TYPE_RATE,false,false,new HealingStatusBeanHealedHpRateGet(),null));
         fields_.add(new StandardField(HEALING_STATUS_BEAN,BeanNatCommonLgNames.STRING,false,false,new HealingStatusBeanHealingStatusBeanGet(),null));
         fields_.add(new StandardField(HEALING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new HealingStatusBeanHealingKoGet(),null));
         fields_.add(new StandardField(STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new HealingStatusBeanStatusGet(),null));
@@ -334,16 +334,16 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(REPELLING_WILD_PK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanRepellingWildPkGet(),null));
         fields_.add(new StandardField(IMMU_LOW_STATIS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanImmuLowStatisGet(),null));
         fields_.add(new StandardField(ATTACKS_SOON,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanAttacksSoonGet(),null));
-        fields_.add(new StandardField(PROTECT_AGAINST_KO,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanProtectAgainstKoGet(),null));
-        fields_.add(new StandardField(PROTECT_AGAINST_KO_IF_FULL_HP,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanProtectAgainstKoIfFullHpGet(),null));
-        fields_.add(new StandardField(DRAINED_HP_BY_DAMAGE_RATE,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanDrainedHpByDamageRateGet(),null));
-        fields_.add(new StandardField(MULT_TRAPPING_DAMAGE,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanMultTrappingDamageGet(),null));
-        fields_.add(new StandardField(MULT_WINNING_MONEY,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningMoneyGet(),null));
-        fields_.add(new StandardField(MULT_WINNING_HAPPINESS,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningHappinessGet(),null));
-        fields_.add(new StandardField(MULT_WINNING_EV,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningEvGet(),null));
-        fields_.add(new StandardField(MULT_WINNING_EXP,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningExpGet(),null));
-        fields_.add(new StandardField(MULT_DRAINED_HP,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanMultDrainedHpGet(),null));
-        fields_.add(new StandardField(DAMAGE_RECOIL,PokemonStandards.TYPE_RATE,false,false,new ItemForBattleBeanDamageRecoilGet(),null));
+        fields_.add(new StandardField(PROTECT_AGAINST_KO,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanProtectAgainstKoGet(),null));
+        fields_.add(new StandardField(PROTECT_AGAINST_KO_IF_FULL_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanProtectAgainstKoIfFullHpGet(),null));
+        fields_.add(new StandardField(DRAINED_HP_BY_DAMAGE_RATE,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanDrainedHpByDamageRateGet(),null));
+        fields_.add(new StandardField(MULT_TRAPPING_DAMAGE,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultTrappingDamageGet(),null));
+        fields_.add(new StandardField(MULT_WINNING_MONEY,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningMoneyGet(),null));
+        fields_.add(new StandardField(MULT_WINNING_HAPPINESS,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningHappinessGet(),null));
+        fields_.add(new StandardField(MULT_WINNING_EV,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningEvGet(),null));
+        fields_.add(new StandardField(MULT_WINNING_EXP,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningExpGet(),null));
+        fields_.add(new StandardField(MULT_DRAINED_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultDrainedHpGet(),null));
+        fields_.add(new StandardField(DAMAGE_RECOIL,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanDamageRecoilGet(),null));
         fields_.add(new StandardField(MULT_POWER,BeanNatCommonLgNames.STRING,false,false,new ItemForBattleBeanMultPowerGet(),null));
         fields_.add(new StandardField(MULT_DAMAGE,BeanNatCommonLgNames.STRING,false,false,new ItemForBattleBeanMultDamageGet(),null));
         fields_.add(new StandardField(MULT_STAT_RANK, BeanNatCommonLgNames.TYPE_MAP,false,false,new ItemForBattleBeanMultStatRankGet(),null));
@@ -394,7 +394,7 @@ public final class AikiBeansItemsStd{
         methods_.add( new SpecNatMethod(GET_TR_IMMU_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new ItemForBattleBeanGetTrImmuMove()));
         methods_.add( new SpecNatMethod(CLICK_WEATHER,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new ItemForBattleBeanClickWeather()));
         methods_.add( new SpecNatMethod(GET_TR_WEATHER,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new ItemForBattleBeanGetTrWeather()));
-        methods_.add( new SpecNatMethod(RATE_FOR_ATTACK_FIRST,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new ItemForBattleBeanRateForAttackFirst()));
+        methods_.add( new SpecNatMethod(RATE_FOR_ATTACK_FIRST,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new ItemForBattleBeanRateForAttackFirst()));
         methods_.add( new SpecNatMethod(DETERMINATED,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ItemForBattleBeanDeterminated()));
         _std.getStds().addEntry(TYPE_ITEM_FOR_BATTLE_BEAN, type_);
     }

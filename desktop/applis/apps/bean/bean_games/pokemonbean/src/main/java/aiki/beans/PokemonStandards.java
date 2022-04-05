@@ -8,8 +8,6 @@ import aiki.beans.effects.CombosBean;
 import aiki.beans.effects.EffectComboBean;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.beans.endround.*;
-import aiki.beans.facade.AikiBeansFacadeStd;
-import aiki.beans.facade.comparators.AikiBeansFacadeComparatorsStd;
 import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import aiki.beans.facade.dto.ItemLine;
 import aiki.beans.facade.dto.MoveLine;
@@ -20,7 +18,6 @@ import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 import aiki.beans.facade.map.dto.AikiBeansFacadeMapDtoStd;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.facade.simulation.dto.*;
-import aiki.beans.facade.simulation.enums.AikiBeansFacadeSimulationEnumsStd;
 import aiki.beans.facade.solution.dto.AikiBeansFacadeSolutionDtoStd;
 import aiki.beans.facade.solution.dto.PlaceTrainerDto;
 import aiki.beans.facade.solution.dto.StepDto;
@@ -61,7 +58,10 @@ import aiki.beans.solution.SolutionBean;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.beans.status.StatusBean;
 import aiki.beans.status.StatusSetBean;
-import aiki.beans.validators.*;
+import aiki.beans.validators.PositiveRateValidator;
+import aiki.beans.validators.RateValidator;
+import aiki.beans.validators.ShortValidator;
+import aiki.beans.validators.UnselectedRadio;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.EndRoundMainElements;
@@ -101,7 +101,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;
-public final class PokemonStandards extends BeanNatCommonLgNames implements AbstractNatImpLgNames {
+public abstract class PokemonStandards extends BeanNatCommonLgNames implements AbstractNatImpLgNames {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
     public static final String TYPE_MOVE_TARGET = "aiki.game.fight.util.MoveTarget";
     public static final String TYPE_TARGET_COORDS = "aiki.game.fight.TargetCoords";
@@ -139,48 +139,12 @@ public final class PokemonStandards extends BeanNatCommonLgNames implements Abst
     public static final String TYPE_POSITIVE_RATE_VALIDATOR = "PositiveRateValidator";
     public static final String TYPE_SHORT_VALIDATOR = "ShortValidator";
     public static final String TYPE_UNSELECTED_RADIO = "UnselectedRadio";
-    private static final String IS_ENABLED = "isEnabled";
-    private static final String IS_INCREMENT_COUNT = "isIncrementCount";
-    private static final String GET_NB_TURN = "getNbTurn";
-    private static final String GET_MOVE = "getMove";
-    private static final String GET_TARGET = "getTarget";
-    private static final String GET_POSITION = "getPosition";
-    private static final String GET_CURRENT = "getCurrent";
-    private static final String GET_MAX = "getMax";
-    private static final String GET_PP = "getPp";
-    private static final String GET_ACTIVITY = "getActivity";
-    private static final String GET_NB_ROUNDS = "getNbRounds";
-    private static final String IS_FIRST_STACKED = "isFirstStacked";
-    private static final String IS_LAST_STACKED = "isLastStacked";
-    private static final String GET_TARGET_POSITION = "getTargetPosition";
-    private static final String GET_DAMAGE = "getDamage";
-    private static final String IS_INCREMENTING = "isIncrementing";
     private static final String IS_ZERO = "isZero";
-    private static final String GET_BOOST = "getBoost";
     private static final String IS_ZERO_OR_GT = "isZeroOrGt";
     private static final String ABS_NB = "absNb";
-    private static final String GET_EFF = "getEff";
-    private static final String GET_HP_RATE = "getHpRate";
-    private static final String GET_LEVEL = "getLevel";
-    private static final String GET_ITEM = "getItem";
-    private static final String GET_MOVES = "getMoves";
-    private static final String GET_AVG_NB_STEPS = "getAvgNbSteps";
-    private static final String GET_WILD_POKEMON = "getWildPokemon";
-    private static final String GET_WILD_POKEMON_FISHING = "getWildPokemonFishing";
-    private static final String GET_NAME = "getName";
-    private static final String GET_DAMAGE_TYPE = "getDamageType";
-    private static final String GET_POKEMON_TYPE = "getPokemonType";
-    private static final String GET_CATEGORY = "getCategory";
-    private static final String GET_MULT = "getMult";
-    private static final String GET_WON_EXP_SINCE_LAST_LEVEL = "getWonExpSinceLastLevel";
-    private static final String GET_HAPPINESS = "getHappiness";
-    private static final String GET_RESTORED_HP_RATE_LOVED_ALLY = "getRestoredHpRateLovedAlly";
-    private static final String GET_WEDDING_ALLY = "getWeddingAlly";
-    private static final String GET_MULT_DAMAGE_AGAINST_FOE = "getMultDamageAgainstFoe";
-    private static final String GET_TRAINER = "getTrainer";
-    private static final String GET_PLACE = "getPlace";
+
     private FacadeGame dataBase;
-    public PokemonStandards(){
+    protected PokemonStandards(){
         PokemonStandards val_ = this;
         DefaultInitialization.basicStandards(val_);
         getValidators().addEntry("positive_rate_validator",new PositiveRateValidator());
@@ -190,308 +154,29 @@ public final class PokemonStandards extends BeanNatCommonLgNames implements Abst
     }
     @Override
     public void buildOther() {
-        AikiBeansAbilitiesStd.build(this);
-        AikiBeansStd.build(this);
-        AikiBeansEffectsStd.build(this);
-        AikiBeansEndroundStd.build(this);
-        AikiBeansFacadeComparatorsStd.build(this);
-        AikiBeansFacadeDtoStd.build(this);
-        AikiBeansFacadeFightStd.build(this);
-        AikiBeansFacadeStd.build(this);
-        AikiBeansFacadeGameDtoStd.build(this);
-        AikiBeansFacadeMapDtoStd.build(this);
-        AikiBeansFacadeSimulationDtoStd.build(this);
-        AikiBeansFacadeSimulationEnumsStd.build(this);
-        AikiBeansFacadeSolutionDtoStd.build(this);
-        AikiBeansFightStd.build(this);
-        AikiBeansGameStd.build(this);
-        AikiBeansHelpStd.build(this);
-        AikiBeansItemsStd.build(this);
-        AikiBeansItemsEffectsStd.build(this);
-        AikiBeansMapCharactersStd.build(this);
-        AikiBeansMapElementsStd.build(this);
-        AikiBeansMapStd.build(this);
-        AikiBeansMapPokemonStd.build(this);
-        AikiBeansMovesEffectsStd.build(this);
-        AikiBeansMovesStd.build(this);
-        AikiBeansPokemonEvolutionsStd.build(this);
-        AikiBeansPokemonStd.build(this);
-        AikiBeansSimulationStd.build(this);
-        AikiBeansSolutionStd.build(this);
-        AikiBeansStatusStd.build(this);
-        AikiBeansValidatorsStd.build(this);
-        buildActivityOfMove(this);
-        buildMoveTarget(this);
-        buildTargetCoords(this);
-        buildUsesOfMove(this);
-        buildCopiedMove(this);
-        buildMoveTeamPosition(this);
-        buildAffectedMove(this);
-        buildStacksOfUses(this);
-        buildAnticipation(this);
+        buildAddon();
         buildRate(this);
-        buildTypeDamageBoost(this);
-        buildEfficiencyRate(this);
-        buildBoostHpRate(this);
-        buildPkTrainer(this);
-        buildPokemon(this);
-        buildAreaApparition(this);
-        buildWildPk(this);
-        buildPlace(this);
-        buildTypesDuo(this);
-        buildCategoryMult(this);
-        buildLevelMove(this);
-        buildPokemonPlayer(this);
-        buildEffectPartnerStatus(this);
-        buildTrainerPlaceNames(this);
         buildLgInt(this);
-        buildEffectWhileSending(this);
-        buildAlly(this);
-        buildTempTrainer(this);
-        buildTrainerOneFight(this);
-        buildTrainer(this);
-        buildPerson(this);
         buildRateValidator(this);
         buildPositiveRateValidator(this);
         buildShortValidator(this);
         buildUnselectedRadio(this);
     }
-    private static void buildActivityOfMove(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_ACTIVITY_OF_MOVE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(IS_ENABLED,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ActivityOfMoveIsEnabled()));
-        methods_.add( new SpecNatMethod(IS_INCREMENT_COUNT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ActivityOfMoveIsIncrementCount()));
-        methods_.add( new SpecNatMethod(GET_NB_TURN, PRIM_INTEGER, false, MethodModifier.NORMAL,new ActivityOfMoveGetNbTurn()));
-        _std.getStds().addEntry(TYPE_ACTIVITY_OF_MOVE, type_);
-    }
-    private static void buildMoveTarget(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_MOVE_TARGET, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveTargetGetMove()));
-        methods_.add( new SpecNatMethod(GET_TARGET,PokemonStandards.TYPE_TARGET_COORDS, false, MethodModifier.NORMAL,new MoveTargetGetTarget()));
-        _std.getStds().addEntry(TYPE_MOVE_TARGET, type_);
-    }
-    private static void buildTargetCoords(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TARGET_COORDS, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_POSITION, PRIM_INTEGER, false, MethodModifier.NORMAL,new TargetCoordsGetPosition()));
-        _std.getStds().addEntry(TYPE_TARGET_COORDS, type_);
-    }
-    private static void buildUsesOfMove(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_USES_OF_MOVE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_CURRENT, PRIM_INTEGER, false, MethodModifier.NORMAL,new UsesOfMoveGetCurrent()));
-        methods_.add( new SpecNatMethod(GET_MAX, PRIM_INTEGER, false, MethodModifier.NORMAL,new UsesOfMoveGetMax()));
-        _std.getStds().addEntry(TYPE_USES_OF_MOVE, type_);
-    }
-    private static void buildCopiedMove(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_COPIED_MOVE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CopiedMoveGetMove()));
-        methods_.add( new SpecNatMethod(GET_PP, PRIM_INTEGER, false, MethodModifier.NORMAL,new CopiedMoveGetPp()));
-        _std.getStds().addEntry(TYPE_COPIED_MOVE, type_);
-    }
-    private static void buildMoveTeamPosition(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_MOVE_TEAM_POSITION, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveTeamPositionGetMove()));
-        _std.getStds().addEntry(TYPE_MOVE_TEAM_POSITION, type_);
-    }
-    private static void buildAffectedMove(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_AFFECTED_MOVE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AffectedMoveGetMove()));
-        methods_.add( new SpecNatMethod(GET_ACTIVITY,PokemonStandards.TYPE_ACTIVITY_OF_MOVE, false, MethodModifier.NORMAL,new AffectedMoveGetActivity()));
-        _std.getStds().addEntry(TYPE_AFFECTED_MOVE, type_);
-    }
-    private static void buildStacksOfUses(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_STACKS_OF_USES, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_NB_ROUNDS, PRIM_INTEGER, false, MethodModifier.NORMAL,new StacksOfUsesGetNbRounds()));
-        methods_.add( new SpecNatMethod(IS_FIRST_STACKED,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new StacksOfUsesIsFirstStacked()));
-        methods_.add( new SpecNatMethod(IS_LAST_STACKED,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new StacksOfUsesIsLastStacked()));
-        _std.getStds().addEntry(TYPE_STACKS_OF_USES, type_);
-    }
-    private static void buildAnticipation(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_ANTICIPATION, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_TARGET_POSITION,PokemonStandards.TYPE_TARGET_COORDS, false, MethodModifier.NORMAL,new AnticipationGetTargetPosition()));
-        methods_.add( new SpecNatMethod(GET_DAMAGE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new AnticipationGetDamage()));
-        methods_.add( new SpecNatMethod(IS_INCREMENTING,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new AnticipationIsIncrementing()));
-        methods_.add( new SpecNatMethod(GET_NB_ROUNDS, PRIM_INTEGER, false, MethodModifier.NORMAL,new AnticipationGetNbRounds()));
-        _std.getStds().addEntry(TYPE_ANTICIPATION, type_);
-    }
+    protected abstract void buildAddon();
     private static void buildRate(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_RATE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         methods_.add( new SpecNatMethod(IS_ZERO,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new RateIsZero()));
         methods_.add( new SpecNatMethod(IS_ZERO_OR_GT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new RateIsZeroOrGt()));
-        methods_.add( new SpecNatMethod(ABS_NB,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new RateAbsNb()));
+        methods_.add( new SpecNatMethod(ABS_NB,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new RateAbsNb()));
         _std.getStds().addEntry(TYPE_RATE, type_);
-    }
-    private static void buildTypeDamageBoost(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TYPE_DAMAGE_BOOST, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_BOOST,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new TypeDamageBoostGetBoost()));
-        _std.getStds().addEntry(TYPE_TYPE_DAMAGE_BOOST, type_);
-    }
-    private static void buildEfficiencyRate(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFICIENCY_RATE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_EFF,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new EfficiencyRateGetEff()));
-        methods_.add( new SpecNatMethod(GET_HP_RATE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new EfficiencyRateGetHpRate()));
-        _std.getStds().addEntry(TYPE_EFFICIENCY_RATE, type_);
-    }
-    private static void buildBoostHpRate(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_BOOST_HP_RATE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_HP_RATE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new BoostHpRateGetHpRate()));
-        methods_.add( new SpecNatMethod(GET_BOOST, PRIM_INTEGER, false, MethodModifier.NORMAL,new BoostHpRateGetBoost()));
-        _std.getStds().addEntry(TYPE_BOOST_HP_RATE, type_);
-    }
-    private static void buildPkTrainer(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_PK_TRAINER, fields_, methods_, PokemonStandards.TYPE_POKEMON);
-        methods_.add( new SpecNatMethod(GET_LEVEL, PRIM_INTEGER, false, MethodModifier.NORMAL,new PkTrainerGetLevel()));
-        methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PkTrainerGetItem()));
-        methods_.add( new SpecNatMethod(GET_MOVES, TYPE_LIST, false, MethodModifier.NORMAL,new PkTrainerGetMoves()));
-        _std.getStds().addEntry(TYPE_PK_TRAINER, type_);
-    }
-    private static void buildPokemon(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_POKEMON, type_);
-    }
-    private static void buildAreaApparition(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_AREA_APPARITION, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_AVG_NB_STEPS, PRIM_INTEGER, false, MethodModifier.NORMAL,new AreaApparitionGetAvgNbSteps()));
-        methods_.add( new SpecNatMethod(GET_WILD_POKEMON, TYPE_LIST, false, MethodModifier.NORMAL,new AreaApparitionGetWildPokemon()));
-        methods_.add( new SpecNatMethod(GET_WILD_POKEMON_FISHING, TYPE_LIST, false, MethodModifier.NORMAL,new AreaApparitionGetWildPokemonFishing()));
-        _std.getStds().addEntry(TYPE_AREA_APPARITION, type_);
-    }
-    private static void buildWildPk(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_WILD_PK, fields_, methods_, PokemonStandards.TYPE_POKEMON);
-        methods_.add( new SpecNatMethod(GET_LEVEL, PRIM_INTEGER, false, MethodModifier.NORMAL,new WildPkGetLevel()));
-        methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WildPkGetItem()));
-        _std.getStds().addEntry(TYPE_WILD_PK, type_);
-    }
-    private static void buildPlace(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_PLACE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PlaceGetName()));
-        _std.getStds().addEntry(TYPE_PLACE, type_);
-    }
-    private static void buildTypesDuo(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TYPES_DUO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_DAMAGE_TYPE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TypesDuoGetDamageType()));
-        methods_.add( new SpecNatMethod(GET_POKEMON_TYPE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TypesDuoGetPokemonType()));
-        _std.getStds().addEntry(TYPE_TYPES_DUO, type_);
-    }
-    private static void buildCategoryMult(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_CATEGORY_MULT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_CATEGORY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CategoryMultGetCategory()));
-        methods_.add( new SpecNatMethod(GET_MULT, PRIM_INTEGER, false, MethodModifier.NORMAL,new CategoryMultGetMult()));
-        _std.getStds().addEntry(TYPE_CATEGORY_MULT, type_);
-    }
-    private static void buildLevelMove(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_LEVEL_MOVE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_LEVEL, PRIM_INTEGER, false, MethodModifier.NORMAL,new LevelMoveGetLevel()));
-        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new LevelMoveGetMove()));
-        _std.getStds().addEntry(TYPE_LEVEL_MOVE, type_);
-    }
-    private static void buildPokemonPlayer(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER, fields_, methods_, PokemonStandards.TYPE_POKEMON);
-        methods_.add( new SpecNatMethod(GET_WON_EXP_SINCE_LAST_LEVEL,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new PokemonPlayerGetWonExpSinceLastLevel()));
-        methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonPlayerGetItem()));
-        methods_.add( new SpecNatMethod(GET_HAPPINESS, PRIM_INTEGER, false, MethodModifier.NORMAL,new PokemonPlayerGetHappiness()));
-        _std.getStds().addEntry(TYPE_POKEMON_PLAYER, type_);
-    }
-    private static void buildEffectPartnerStatus(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_PARTNER_STATUS, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_RESTORED_HP_RATE_LOVED_ALLY,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new EffectPartnerStatusGetRestoredHpRateLovedAlly()));
-        methods_.add( new SpecNatMethod(GET_WEDDING_ALLY,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new EffectPartnerStatusGetWeddingAlly()));
-        methods_.add( new SpecNatMethod(GET_MULT_DAMAGE_AGAINST_FOE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new EffectPartnerStatusGetMultDamageAgainstFoe()));
-        _std.getStds().addEntry(TYPE_EFFECT_PARTNER_STATUS, type_);
-    }
-    private static void buildTrainerPlaceNames(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TRAINER_PLACE_NAMES, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_TRAINER,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerPlaceNamesGetTrainer()));
-        methods_.add( new SpecNatMethod(GET_PLACE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerPlaceNamesGetPlace()));
-        _std.getStds().addEntry(TYPE_TRAINER_PLACE_NAMES, type_);
     }
     private static void buildLgInt(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_LG_INT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_LG_INT, type_);
-    }
-    private static void buildEffectWhileSending(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_WHILE_SENDING, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_EFFECT_WHILE_SENDING, type_);
-    }
-    private static void buildAlly(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_ALLY, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_ALLY, type_);
-    }
-    private static void buildTempTrainer(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TEMP_TRAINER, fields_, methods_, PokemonStandards.TYPE_TRAINER_ONE_FIGHT);
-        _std.getStds().addEntry(TYPE_TEMP_TRAINER, type_);
-    }
-    private static void buildTrainerOneFight(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TRAINER_ONE_FIGHT, fields_, methods_, PokemonStandards.TYPE_TRAINER);
-        _std.getStds().addEntry(TYPE_TRAINER_ONE_FIGHT, type_);
-    }
-    private static void buildTrainer(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TRAINER, fields_, methods_, PokemonStandards.TYPE_PERSON);
-        _std.getStds().addEntry(TYPE_TRAINER, type_);
-    }
-    private static void buildPerson(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_PERSON, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_PERSON, type_);
     }
     private static void buildRateValidator(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();

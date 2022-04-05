@@ -46,7 +46,6 @@ public final class AikiBeansMapCharactersStd{
         buildDualFightBean(_std);
         buildSellerBean(_std);
         buildTrainerBean(_std);
-        buildTrainerOneFightBean(_std);
     }
     private static void buildAllyBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
@@ -116,11 +115,5 @@ public final class AikiBeansMapCharactersStd{
         methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerBeanClickMove()));
         methods_.add( new SpecNatMethod(GET_TR_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TrainerBeanGetTrMove()));
         _std.getStds().addEntry(TYPE_TRAINER_BEAN, type_);
-    }
-    private static void buildTrainerOneFightBean(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TRAINER_ONE_FIGHT_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        _std.getStds().addEntry(TYPE_TRAINER_ONE_FIGHT_BEAN, type_);
     }
 }

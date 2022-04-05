@@ -56,17 +56,11 @@ public final class AikiBeansEffectsStd{
     private static final String COPY_BOOST = "copyBoost";
     private AikiBeansEffectsStd(){}
     public static void build(PokemonStandards _std) {
-        buildComboDto(_std);
         buildCombosBean(_std);
         buildEffectComboBean(_std);
         buildEffectWhileSendingBean(_std);
     }
-    private static void buildComboDto(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMBO_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_COMBO_DTO, type_);
-    }
+
     private static void buildCombosBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
@@ -86,7 +80,7 @@ public final class AikiBeansEffectsStd{
         fields_.add(new StandardField(END_ROUND_RANK, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EffectComboBeanEndRoundRankGet(),null));
         fields_.add(new StandardField(REASONS_END_ROUND, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectComboBeanReasonsEndRoundGet(),null));
         fields_.add(new StandardField(MAP_VARS_FAIL_END_ROUND, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectComboBeanMapVarsFailEndRoundGet(),null));
-        fields_.add(new StandardField(MULT_EVT_RATE_SEC_EFF,PokemonStandards.TYPE_RATE,false,false,new EffectComboBeanMultEvtRateSecEffGet(),null));
+        fields_.add(new StandardField(MULT_EVT_RATE_SEC_EFF,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectComboBeanMultEvtRateSecEffGet(),null));
         fields_.add(new StandardField(MULT_STATISTIC_FOE, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectComboBeanMultStatisticFoeGet(),null));
         fields_.add(new StandardField(RANK_INCREMENT_NB_ROUND, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EffectComboBeanRankIncrementNbRoundGet(),null));
         fields_.add(new StandardField(REPEATED_ROUNDS_LAW, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectComboBeanRepeatedRoundsLawGet(),null));
@@ -103,11 +97,11 @@ public final class AikiBeansEffectsStd{
         fields_.add(new StandardField(ENABLED_WEATHER,BeanNatCommonLgNames.STRING,false,false,new EffectWhileSendingBeanEnabledWeatherGet(),null));
         fields_.add(new StandardField(COPYING_ABILITY,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectWhileSendingBeanCopyingAbilityGet(),null));
         fields_.add(new StandardField(PLATE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectWhileSendingBeanPlateGet(),null));
-        fields_.add(new StandardField(MULT_WEIGHT,PokemonStandards.TYPE_RATE,false,false,new EffectWhileSendingBeanMultWeightGet(),null));
+        fields_.add(new StandardField(MULT_WEIGHT,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectWhileSendingBeanMultWeightGet(),null));
         fields_.add(new StandardField(STATISTIC,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectWhileSendingBeanStatisticGet(),null));
         fields_.add(new StandardField(REASONS, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectWhileSendingBeanReasonsGet(),null));
         fields_.add(new StandardField(MAP_VARS_FAIL, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectWhileSendingBeanMapVarsFailGet(),null));
-        fields_.add(new StandardField(EVT_RATE,PokemonStandards.TYPE_RATE,false,false,new EffectWhileSendingBeanEvtRateGet(),null));
+        fields_.add(new StandardField(EVT_RATE,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectWhileSendingBeanEvtRateGet(),null));
         fields_.add(new StandardField(EVT_RATE_PER_CENT,BeanNatCommonLgNames.STRING,false,false,new EffectWhileSendingBeanEvtRatePerCentGet(),null));
         fields_.add(new StandardField(STATIS_VAR_RANK, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectWhileSendingBeanStatisVarRankGet(),null));
         fields_.add(new StandardField(MAP_VARS_STATISTICS, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectWhileSendingBeanMapVarsStatisticsGet(),null));
@@ -123,7 +117,7 @@ public final class AikiBeansEffectsStd{
         methods_.add( new SpecNatMethod(IS_ALWAYS_ENABLED,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new EffectWhileSendingBeanIsAlwaysEnabled()));
         methods_.add( new SpecNatMethod(NOT_EMPTY_VAR_BOOST,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new EffectWhileSendingBeanNotEmptyVarBoost()));
         methods_.add( new SpecNatMethod(GET_FAIL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectWhileSendingBeanGetFail()));
-        methods_.add( new SpecNatMethod(GET_RATE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new EffectWhileSendingBeanGetRate()));
+        methods_.add( new SpecNatMethod(GET_RATE,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new EffectWhileSendingBeanGetRate()));
         methods_.add( new SpecNatMethod(GET_SWAP_FAIL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectWhileSendingBeanGetSwapFail()));
         _std.getStds().addEntry(TYPE_EFFECT_WHILE_SENDING_BEAN, type_);
     }

@@ -351,7 +351,7 @@ public final class AikiBeansMovesEffectsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_ALLY_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
-        fields_.add(new StandardField(MULT_ALLY_DAMAGE,PokemonStandards.TYPE_RATE,false,false,new EffectAllyBeanMultAllyDamageGet(),null));
+        fields_.add(new StandardField(MULT_ALLY_DAMAGE,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectAllyBeanMultAllyDamageGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_ALLY_BEAN, type_);
     }
     private static void buildEffectBatonPassBean(PokemonStandards _std){
@@ -391,7 +391,7 @@ public final class AikiBeansMovesEffectsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_CLONE_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
-        fields_.add(new StandardField(HP_RATE_CLONE,PokemonStandards.TYPE_RATE,false,false,new EffectCloneBeanHpRateCloneGet(),null));
+        fields_.add(new StandardField(HP_RATE_CLONE,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectCloneBeanHpRateCloneGet(),null));
         fields_.add(new StandardField(MOVES_END_ROUND, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectCloneBeanMovesEndRoundGet(),null));
         fields_.add(new StandardField(MOVES_BATON_PASS, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectCloneBeanMovesBatonPassGet(),null));
         fields_.add(new StandardField(MOVES_SENDING, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectCloneBeanMovesSendingGet(),null));
@@ -443,7 +443,7 @@ public final class AikiBeansMovesEffectsStd{
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_COUNTER_ATTACK_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
         fields_.add(new StandardField(SUFFERING_DAMAGE_TYPES, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectCounterAttackBeanSufferingDamageTypesGet(),null));
         fields_.add(new StandardField(DROPPED_STAT_DIRECT_MOVE, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectCounterAttackBeanDroppedStatDirectMoveGet(),null));
-        fields_.add(new StandardField(SUFFERING_DAMAGE_DIRECT_MOVE,PokemonStandards.TYPE_RATE,false,false,new EffectCounterAttackBeanSufferingDamageDirectMoveGet(),null));
+        fields_.add(new StandardField(SUFFERING_DAMAGE_DIRECT_MOVE,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectCounterAttackBeanSufferingDamageDirectMoveGet(),null));
         fields_.add(new StandardField(REASONS_PROTECT, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectCounterAttackBeanReasonsProtectGet(),null));
         fields_.add(new StandardField(REASONS_COUNTER, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectCounterAttackBeanReasonsCounterGet(),null));
         methods_.add( new SpecNatMethod(GET_TR_SUFFERING_DAMAGE_TYPES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectCounterAttackBeanGetTrSufferingDamageTypes()));
@@ -488,7 +488,7 @@ public final class AikiBeansMovesEffectsStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_DAMAGE_RATE_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
         fields_.add(new StandardField(WIN_HP,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectDamageRateBeanWinHpGet(),null));
-        fields_.add(new StandardField(RATE_DAMAGE,PokemonStandards.TYPE_RATE,false,false,new EffectDamageRateBeanRateDamageGet(),null));
+        fields_.add(new StandardField(RATE_DAMAGE,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectDamageRateBeanRateDamageGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_DAMAGE_RATE_BEAN, type_);
     }
     private static void buildEffectEndRoundMoveBean(PokemonStandards _std){
@@ -504,10 +504,10 @@ public final class AikiBeansMovesEffectsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_FULL_HP_RATE_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
-        fields_.add(new StandardField(LEFT_USER_HP,PokemonStandards.TYPE_RATE,false,false,new EffectFullHpRateBeanLeftUserHpGet(),null));
+        fields_.add(new StandardField(LEFT_USER_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectFullHpRateBeanLeftUserHpGet(),null));
         fields_.add(new StandardField(RESTORED_HP,BeanNatCommonLgNames.STRING,false,false,new EffectFullHpRateBeanRestoredHpGet(),null));
         fields_.add(new StandardField(MAP_VARS_RESTORED, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectFullHpRateBeanMapVarsRestoredGet(),null));
-        fields_.add(new StandardField(CLOSEST_FOE_DAMAGE_RATE_HP,PokemonStandards.TYPE_RATE,false,false,new EffectFullHpRateBeanClosestFoeDamageRateHpGet(),null));
+        fields_.add(new StandardField(CLOSEST_FOE_DAMAGE_RATE_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectFullHpRateBeanClosestFoeDamageRateHpGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_FULL_HP_RATE_BEAN, type_);
     }
     private static void buildEffectGlobalBean(PokemonStandards _std){
@@ -519,11 +519,11 @@ public final class AikiBeansMovesEffectsStd{
         fields_.add(new StandardField(REVERSE_ORDER_OF_SORT_BY_SPEED,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectGlobalBeanReverseOrderOfSortBySpeedGet(),null));
         fields_.add(new StandardField(UNUSABLE_ITEM,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectGlobalBeanUnusableItemGet(),null));
         fields_.add(new StandardField(PUTTING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectGlobalBeanPuttingKoGet(),null));
-        fields_.add(new StandardField(MULT_ACCURACY,PokemonStandards.TYPE_RATE,false,false,new EffectGlobalBeanMultAccuracyGet(),null));
-        fields_.add(new StandardField(DAMAGE_END_ROUND,PokemonStandards.TYPE_RATE,false,false,new EffectGlobalBeanDamageEndRoundGet(),null));
-        fields_.add(new StandardField(HEALING_END_ROUND_GROUND,PokemonStandards.TYPE_RATE,false,false,new EffectGlobalBeanHealingEndRoundGroundGet(),null));
-        fields_.add(new StandardField(HEALING_END_ROUND,PokemonStandards.TYPE_RATE,false,false,new EffectGlobalBeanHealingEndRoundGet(),null));
-        fields_.add(new StandardField(MULT_EFFECT_LOVING_ALLY,PokemonStandards.TYPE_RATE,false,false,new EffectGlobalBeanMultEffectLovingAllyGet(),null));
+        fields_.add(new StandardField(MULT_ACCURACY,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectGlobalBeanMultAccuracyGet(),null));
+        fields_.add(new StandardField(DAMAGE_END_ROUND,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectGlobalBeanDamageEndRoundGet(),null));
+        fields_.add(new StandardField(HEALING_END_ROUND_GROUND,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectGlobalBeanHealingEndRoundGroundGet(),null));
+        fields_.add(new StandardField(HEALING_END_ROUND,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectGlobalBeanHealingEndRoundGet(),null));
+        fields_.add(new StandardField(MULT_EFFECT_LOVING_ALLY,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectGlobalBeanMultEffectLovingAllyGet(),null));
         fields_.add(new StandardField(PREVENT_STATUS, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectGlobalBeanPreventStatusGet(),null));
         fields_.add(new StandardField(IMMUNE_TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectGlobalBeanImmuneTypesGet(),null));
         fields_.add(new StandardField(EFFICIENCY_MOVES, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectGlobalBeanEfficiencyMovesGet(),null));
@@ -573,7 +573,7 @@ public final class AikiBeansMovesEffectsStd{
         fields_.add(new StandardField(INVOKING_ALLY_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectInvokeBeanInvokingAllyMoveGet(),null));
         fields_.add(new StandardField(INVOKING_TARGET_SUCCESFUL_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectInvokeBeanInvokingTargetSuccesfulMoveGet(),null));
         fields_.add(new StandardField(INVOKING_SUFFERED_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectInvokeBeanInvokingSufferedMoveGet(),null));
-        fields_.add(new StandardField(RATE_INVOKATION_MOVE,PokemonStandards.TYPE_RATE,false,false,new EffectInvokeBeanRateInvokationMoveGet(),null));
+        fields_.add(new StandardField(RATE_INVOKATION_MOVE,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectInvokeBeanRateInvokationMoveGet(),null));
         fields_.add(new StandardField(MOVE_FCT_ENV, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectInvokeBeanMoveFctEnvGet(),null));
         fields_.add(new StandardField(GLOBAL_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectInvokeBeanGlobalMovesGet(),null));
         fields_.add(new StandardField(INVOKING_MOVE_BY_USER_TYPES, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectInvokeBeanInvokingMoveByUserTypesGet(),null));
@@ -627,7 +627,7 @@ public final class AikiBeansMovesEffectsStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_PROTECTION_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
         fields_.add(new StandardField(PROT_SINGLE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectProtectionBeanProtSingleGet(),null));
-        fields_.add(new StandardField(PROT_SINGLE_AGAINST_KO,PokemonStandards.TYPE_RATE,false,false,new EffectProtectionBeanProtSingleAgainstKoGet(),null));
+        fields_.add(new StandardField(PROT_SINGLE_AGAINST_KO,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectProtectionBeanProtSingleAgainstKoGet(),null));
         fields_.add(new StandardField(PROT_TEAM_AGAINST_MULT_TARGETS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectProtectionBeanProtTeamAgainstMultTargetsGet(),null));
         fields_.add(new StandardField(PROT_TEAM_AGAINST_PRIO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectProtectionBeanProtTeamAgainstPrioGet(),null));
         fields_.add(new StandardField(PROT_TEAM_AGAINST_STATUS_MOVES,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectProtectionBeanProtTeamAgainstStatusMovesGet(),null));
@@ -639,7 +639,7 @@ public final class AikiBeansMovesEffectsStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_REMAINED_HP_RATE_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
         fields_.add(new StandardField(WIN_HP,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectRemainedHpRateBeanWinHpGet(),null));
-        fields_.add(new StandardField(RATE_HP,PokemonStandards.TYPE_RATE,false,false,new EffectRemainedHpRateBeanRateHpGet(),null));
+        fields_.add(new StandardField(RATE_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectRemainedHpRateBeanRateHpGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_REMAINED_HP_RATE_BEAN, type_);
     }
     private static void buildEffectRestrictionBean(PokemonStandards _std){
@@ -659,7 +659,7 @@ public final class AikiBeansMovesEffectsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_STATISTIC_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
-        fields_.add(new StandardField(EVT_RATE,PokemonStandards.TYPE_RATE,false,false,new EffectStatisticBeanEvtRateGet(),null));
+        fields_.add(new StandardField(EVT_RATE,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectStatisticBeanEvtRateGet(),null));
         fields_.add(new StandardField(EVT_RATE_PER_CENT,BeanNatCommonLgNames.STRING,false,false,new EffectStatisticBeanEvtRatePerCentGet(),null));
         fields_.add(new StandardField(STATIS_VAR_RANK, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectStatisticBeanStatisVarRankGet(),null));
         fields_.add(new StandardField(MAP_VARS_STATISTICS, BeanNatCommonLgNames.TYPE_MAP,false,false,new EffectStatisticBeanMapVarsStatisticsGet(),null));
@@ -672,7 +672,7 @@ public final class AikiBeansMovesEffectsStd{
         methods_.add( new SpecNatMethod(IS_ALWAYS_ENABLED,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new EffectStatisticBeanIsAlwaysEnabled()));
         methods_.add( new SpecNatMethod(NOT_EMPTY_VAR_BOOST,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new EffectStatisticBeanNotEmptyVarBoost()));
         methods_.add( new SpecNatMethod(GET_FAIL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectStatisticBeanGetFail()));
-        methods_.add( new SpecNatMethod(GET_RATE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new EffectStatisticBeanGetRate()));
+        methods_.add( new SpecNatMethod(GET_RATE,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new EffectStatisticBeanGetRate()));
         methods_.add( new SpecNatMethod(GET_SWAP_FAIL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EffectStatisticBeanGetSwapFail()));
         _std.getStds().addEntry(TYPE_EFFECT_STATISTIC_BEAN, type_);
     }
@@ -832,7 +832,7 @@ public final class AikiBeansMovesEffectsStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_WIN_MONEY_BEAN, fields_, methods_, AikiBeansMovesEffectsStd.TYPE_EFFECT_BEAN);
-        fields_.add(new StandardField(WINNING_RATE_BY_SUM_TARGET_USER,PokemonStandards.TYPE_RATE,false,false,new EffectWinMoneyBeanWinningRateBySumTargetUserGet(),null));
+        fields_.add(new StandardField(WINNING_RATE_BY_SUM_TARGET_USER,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectWinMoneyBeanWinningRateBySumTargetUserGet(),null));
         _std.getStds().addEntry(TYPE_EFFECT_WIN_MONEY_BEAN, type_);
     }
 }

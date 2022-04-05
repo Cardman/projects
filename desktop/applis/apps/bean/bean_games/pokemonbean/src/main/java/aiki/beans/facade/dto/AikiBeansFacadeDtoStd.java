@@ -28,11 +28,8 @@ public final class AikiBeansFacadeDtoStd{
     private AikiBeansFacadeDtoStd(){}
     public static void build(PokemonStandards _std) {
         buildItemLine(_std);
-        buildItemTypeLine(_std);
-        buildKeptMovesAfterFight(_std);
         buildMoveLine(_std);
         buildPokemonLine(_std);
-        buildWeatherTypeLine(_std);
     }
     private static void buildItemLine(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
@@ -43,18 +40,7 @@ public final class AikiBeansFacadeDtoStd{
         fields_.add(new StandardField(DESCRIPTION_CLASS,BeanNatCommonLgNames.STRING,false,false,new ItemLineDescriptionClassGet(),null));
         _std.getStds().addEntry(TYPE_ITEM_LINE, type_);
     }
-    private static void buildItemTypeLine(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_ITEM_TYPE_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_ITEM_TYPE_LINE, type_);
-    }
-    private static void buildKeptMovesAfterFight(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_KEPT_MOVES_AFTER_FIGHT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_KEPT_MOVES_AFTER_FIGHT, type_);
-    }
+
     private static void buildMoveLine(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
@@ -76,11 +62,5 @@ public final class AikiBeansFacadeDtoStd{
         fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonLineTypesGet(),null));
         fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonLineEvolutionsGet(),null));
         _std.getStds().addEntry(TYPE_POKEMON_LINE, type_);
-    }
-    private static void buildWeatherTypeLine(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_WEATHER_TYPE_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        _std.getStds().addEntry(TYPE_WEATHER_TYPE_LINE, type_);
     }
 }

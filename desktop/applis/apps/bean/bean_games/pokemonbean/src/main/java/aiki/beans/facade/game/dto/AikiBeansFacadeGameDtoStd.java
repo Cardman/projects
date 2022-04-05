@@ -24,7 +24,7 @@ public final class AikiBeansFacadeGameDtoStd{
         methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new StatisticInfoPkPlayerGetName()));
         methods_.add( new SpecNatMethod(GET_EV, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new StatisticInfoPkPlayerGetEv()));
         methods_.add( new SpecNatMethod(GET_IV, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new StatisticInfoPkPlayerGetIv()));
-        methods_.add( new SpecNatMethod(GET_RATE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new StatisticInfoPkPlayerGetRate()));
+        methods_.add( new SpecNatMethod(GET_RATE,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new StatisticInfoPkPlayerGetRate()));
         _std.getStds().addEntry(TYPE_STATISTIC_INFO_PK_PLAYER, type_);
     }
 }

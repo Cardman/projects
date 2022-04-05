@@ -82,12 +82,8 @@ public final class AikiBeansGameStd{
     private static final String MOVES = "moves";
     private static final String STATISTICS = "statistics";
     private AikiBeansGameStd(){}
-    public static void build(PokemonStandards _std) {
-        buildDifficultyBean(_std);
-        buildGameProgressionBean(_std);
-        buildPokemonPlayerBean(_std);
-    }
-    private static void buildDifficultyBean(PokemonStandards _std){
+
+    public static void buildDifficultyBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
@@ -95,13 +91,13 @@ public final class AikiBeansGameStd{
         fields_.add(new StandardField(DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDiffWinningExpPtsFightGet(),new DifficultyBeanDiffWinningExpPtsFightSet()));
         fields_.add(new StandardField(ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanAllowCatchingKoGet(),new DifficultyBeanAllowCatchingKoSet()));
         fields_.add(new StandardField(ALLOWED_SWITCH_PLACES_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanAllowedSwitchPlacesEndRoundGet(),new DifficultyBeanAllowedSwitchPlacesEndRoundSet()));
-        fields_.add(new StandardField(WIN_TRAINER_EXP,PokemonStandards.TYPE_RATE,false,false,new DifficultyBeanWinTrainerExpGet(),new DifficultyBeanWinTrainerExpSet()));
-        fields_.add(new StandardField(RATE_WINNING_EXP_PTS_FIGHT,PokemonStandards.TYPE_RATE,false,false,new DifficultyBeanRateWinningExpPtsFightGet(),new DifficultyBeanRateWinningExpPtsFightSet()));
+        fields_.add(new StandardField(WIN_TRAINER_EXP,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyBeanWinTrainerExpGet(),new DifficultyBeanWinTrainerExpSet()));
+        fields_.add(new StandardField(RATE_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyBeanRateWinningExpPtsFightGet(),new DifficultyBeanRateWinningExpPtsFightSet()));
         fields_.add(new StandardField(END_FIGHT_IF_ONE_TEAM_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanEndFightIfOneTeamKoGet(),new DifficultyBeanEndFightIfOneTeamKoSet()));
         fields_.add(new StandardField(IV_PLAYER, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new DifficultyBeanIvPlayerGet(),new DifficultyBeanIvPlayerSet()));
         fields_.add(new StandardField(IV_FOE, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new DifficultyBeanIvFoeGet(),new DifficultyBeanIvFoeSet()));
-        fields_.add(new StandardField(RATE_WIN_MONEY_BASE,PokemonStandards.TYPE_RATE,false,false,new DifficultyBeanRateWinMoneyBaseGet(),new DifficultyBeanRateWinMoneyBaseSet()));
-        fields_.add(new StandardField(RATE_LOOSE_MONEY_WIN,PokemonStandards.TYPE_RATE,false,false,new DifficultyBeanRateLooseMoneyWinGet(),new DifficultyBeanRateLooseMoneyWinSet()));
+        fields_.add(new StandardField(RATE_WIN_MONEY_BASE,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyBeanRateWinMoneyBaseGet(),new DifficultyBeanRateWinMoneyBaseSet()));
+        fields_.add(new StandardField(RATE_LOOSE_MONEY_WIN,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyBeanRateLooseMoneyWinGet(),new DifficultyBeanRateLooseMoneyWinSet()));
         fields_.add(new StandardField(RESTORED_MOVES_END_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanRestoredMovesEndFightGet(),new DifficultyBeanRestoredMovesEndFightSet()));
         fields_.add(new StandardField(ENABLED_CLOSING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanEnabledClosingGet(),new DifficultyBeanEnabledClosingSet()));
         fields_.add(new StandardField(RANDOM_WILD_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanRandomWildFightGet(),new DifficultyBeanRandomWildFightSet()));
@@ -115,7 +111,7 @@ public final class AikiBeansGameStd{
         methods_.add( new SpecNatMethod(CHANGE, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new DifficultyBeanChange()));
         _std.getStds().addEntry(TYPE_DIFFICULTY_BEAN, type_);
     }
-    private static void buildGameProgressionBean(PokemonStandards _std){
+    public static void buildGameProgressionBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_GAME_PROGRESSION_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
@@ -133,7 +129,7 @@ public final class AikiBeansGameStd{
         fields_.add(new StandardField(NB_REMAINING_NOT_MAX_HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanNbRemainingNotMaxHappinessGet(),null));
         fields_.add(new StandardField(NB_REMAINING_EGGS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanNbRemainingEggsGet(),null));
         fields_.add(new StandardField(REMAIN_STEPS_REPEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new GameProgressionBeanRemainStepsRepelGet(),null));
-        fields_.add(new StandardField(MONEY,PokemonStandards.TYPE_LG_INT,false,false,new GameProgressionBeanMoneyGet(),null));
+        fields_.add(new StandardField(MONEY,BeanNatCommonLgNames.TYPE_LG_INT,false,false,new GameProgressionBeanMoneyGet(),null));
         fields_.add(new StandardField(FULL_FAMILIES_BASE, BeanNatCommonLgNames.TYPE_MAP,false,false,new GameProgressionBeanFullFamiliesBaseGet(),null));
         fields_.add(new StandardField(NOT_AT_ALL_FAMILIES_BASE, BeanNatCommonLgNames.TYPE_MAP,false,false,new GameProgressionBeanNotAtAllFamiliesBaseGet(),null));
         fields_.add(new StandardField(PARTIAL_FAMILIES_BASE_NOT_CAUGHT, BeanNatCommonLgNames.TYPE_MAP,false,false,new GameProgressionBeanPartialFamiliesBaseNotCaughtGet(),null));
@@ -149,7 +145,7 @@ public final class AikiBeansGameStd{
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonPartial()));
         _std.getStds().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
     }
-    private static void buildPokemonPlayerBean(PokemonStandards _std){
+    public static void buildPokemonPlayerBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
@@ -161,12 +157,12 @@ public final class AikiBeansGameStd{
         fields_.add(new StandardField(ABILITY,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanAbilityGet(),null));
         fields_.add(new StandardField(USED_BALL_CATCHING,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanUsedBallCatchingGet(),null));
         fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanItemGet(),null));
-        fields_.add(new StandardField(REMAINING_HP,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanRemainingHpGet(),null));
+        fields_.add(new StandardField(REMAINING_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new PokemonPlayerBeanRemainingHpGet(),null));
         fields_.add(new StandardField(REMAINING_HP_PER_CENT,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanRemainingHpPerCentGet(),null));
-        fields_.add(new StandardField(FULL_HP,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanFullHpGet(),null));
+        fields_.add(new StandardField(FULL_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new PokemonPlayerBeanFullHpGet(),null));
         fields_.add(new StandardField(NICKNAME,BeanNatCommonLgNames.STRING,false,false,new PokemonPlayerBeanNicknameGet(),null));
-        fields_.add(new StandardField(WON_EXP_SINCE_LAST_LEVEL,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanWonExpSinceLastLevelGet(),null));
-        fields_.add(new StandardField(NECESSARY_POINTS_NEXT_LEVEL,PokemonStandards.TYPE_RATE,false,false,new PokemonPlayerBeanNecessaryPointsNextLevelGet(),null));
+        fields_.add(new StandardField(WON_EXP_SINCE_LAST_LEVEL,BeanNatCommonLgNames.TYPE_RATE,false,false,new PokemonPlayerBeanWonExpSinceLastLevelGet(),null));
+        fields_.add(new StandardField(NECESSARY_POINTS_NEXT_LEVEL,BeanNatCommonLgNames.TYPE_RATE,false,false,new PokemonPlayerBeanNecessaryPointsNextLevelGet(),null));
         fields_.add(new StandardField(HAPPINESS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerBeanHappinessGet(),null));
         fields_.add(new StandardField(NB_STEPS_TEAM_LEAD, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerBeanNbStepsTeamLeadGet(),null));
         fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanTypesGet(),null));

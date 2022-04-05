@@ -45,15 +45,15 @@ public final class AikiBeansFacadeFightStd{
         methods_.add( new SpecNatMethod(GET_TARGET_POKEMON,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new KeyHypothesisGetTargetPokemon()));
         methods_.add( new SpecNatMethod(IS_BELONGS_TO_USER,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new KeyHypothesisIsBelongsToUser()));
         methods_.add( new SpecNatMethod(GET_NUMBER_TARGET, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new KeyHypothesisGetNumberTarget()));
-        methods_.add( new SpecNatMethod(GET_DAMAGE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new KeyHypothesisGetDamage()));
+        methods_.add( new SpecNatMethod(GET_DAMAGE,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new KeyHypothesisGetDamage()));
         _std.getStds().addEntry(TYPE_KEY_HYPOTHESIS, type_);
     }
     private static void buildMultPowerMoves(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_MULT_POWER_MOVES, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_MULT_INFLICTED,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new MultPowerMovesGetMultInflicted()));
-        methods_.add( new SpecNatMethod(GET_MULT_SUFFERING,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new MultPowerMovesGetMultSuffering()));
+        methods_.add( new SpecNatMethod(GET_MULT_INFLICTED,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new MultPowerMovesGetMultInflicted()));
+        methods_.add( new SpecNatMethod(GET_MULT_SUFFERING,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new MultPowerMovesGetMultSuffering()));
         _std.getStds().addEntry(TYPE_MULT_POWER_MOVES, type_);
     }
     private static void buildStatisticInfo(PokemonStandards _std){
@@ -62,7 +62,7 @@ public final class AikiBeansFacadeFightStd{
         SpecialNatClass type_ = new SpecialNatClass(TYPE_STATISTIC_INFO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
         methods_.add( new SpecNatMethod(GET_DISPLAY_STATISTIC,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new StatisticInfoGetDisplayStatistic()));
         methods_.add( new SpecNatMethod(IS_BASE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new StatisticInfoIsBase()));
-        methods_.add( new SpecNatMethod(GET_STATIS_BASE,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new StatisticInfoGetStatisBase()));
+        methods_.add( new SpecNatMethod(GET_STATIS_BASE,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new StatisticInfoGetStatisBase()));
         methods_.add( new SpecNatMethod(GET_EV, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new StatisticInfoGetEv()));
         methods_.add( new SpecNatMethod(GET_IV, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new StatisticInfoGetIv()));
         methods_.add( new SpecNatMethod(IS_BOOST,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new StatisticInfoIsBoost()));
@@ -73,8 +73,8 @@ public final class AikiBeansFacadeFightStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_SUFFERED_DAMAGE_CATEGORY, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(GET_ROUND,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new SufferedDamageCategoryGetRound()));
-        methods_.add( new SpecNatMethod(GET_USING,PokemonStandards.TYPE_RATE, false, MethodModifier.NORMAL,new SufferedDamageCategoryGetUsing()));
+        methods_.add( new SpecNatMethod(GET_ROUND,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new SufferedDamageCategoryGetRound()));
+        methods_.add( new SpecNatMethod(GET_USING,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new SufferedDamageCategoryGetUsing()));
         _std.getStds().addEntry(TYPE_SUFFERED_DAMAGE_CATEGORY, type_);
     }
 }
