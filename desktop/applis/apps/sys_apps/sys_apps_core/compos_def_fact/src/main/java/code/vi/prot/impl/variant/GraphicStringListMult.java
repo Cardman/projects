@@ -8,7 +8,7 @@ import code.util.StringList;
 
 import java.awt.*;
 
-public final class GraphicStringListMult extends GraphicList<String> implements AbsInputGraphicList<String> {
+public final class GraphicStringListMult extends GraphicList<String> implements Input,AbsGraphicList<String> {
 
     public GraphicStringListMult(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
         super(_fact,false, _selectedIndexes,_objects, _objects,_visibleRows, new DefaultCellRender(_fact, Panel.newPageBox()));

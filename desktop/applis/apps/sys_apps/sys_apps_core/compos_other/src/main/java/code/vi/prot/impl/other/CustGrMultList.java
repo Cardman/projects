@@ -9,7 +9,7 @@ import code.util.Ints;
 
 import javax.swing.*;
 
-public final class CustGrMultList extends CustComponent implements AbsInputGraphicList<String> {
+public final class CustGrMultList extends CustComponent implements Input,AbsGraphicList<String> {
 
     private final CustGrList<String> compo;
 

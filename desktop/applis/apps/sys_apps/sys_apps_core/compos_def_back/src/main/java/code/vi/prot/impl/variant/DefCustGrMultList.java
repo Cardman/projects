@@ -9,7 +9,7 @@ import code.vi.prot.impl.gui.Panel;
 
 import javax.swing.*;
 
-public final class DefCustGrMultList extends CustComponent implements AbsInputGraphicList<String> {
+public final class DefCustGrMultList extends CustComponent implements Input,AbsGraphicList<String> {
 
     private final DefCustGrList<String> compo;
 
