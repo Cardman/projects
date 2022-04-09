@@ -102,6 +102,74 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public void analyze(AnalyzedPageEl _page) {
         processEmptyErrorChild();
+        AnaClassArgumentMatching class_ = getPreviousResultClass();
+        if (!class_.isArray()) {
+            indexers(_page);
+            return;
+        }
+
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        if (chidren_.size() != 1) {
+            getPartOffsetsChildren().add(new InfoErrorDto(""));
+            StrTypes operators_ =  getOperations().getOperators();
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
+            badNb_.setFile(_page.getCurrentFile());
+            badNb_.setIndexFile(_page);
+            //second separator char
+            badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
+                    Long.toString(1),
+                    Long.toString(chidren_.size()),
+                    "[]"
+            );
+            _page.getLocalizer().addError(badNb_);
+            getPartOffsetsChildren().add(new InfoErrorDto(badNb_.getBuiltError(),_page,operators_.getKey(1),1));
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
+        setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _page);
+        OperationNode right_ = chidren_.last();
+        if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation
+                ||right_ instanceof FirstOptOperation || getDeltaCount(right_) != 0) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setIndexFile(_page);
+            un_.setFile(_page.getCurrentFile());
+            //first separator char
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
+            _page.getLocalizer().addError(un_);
+            addErr(un_.getBuiltError());
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
+        AnaClassArgumentMatching indexClass_ = right_.getResultClass();
+        if (indexClass_.matchClass(_page.getAliasRange())) {
+            setResultClass(class_);
+            return;
+        }
+        if (!indexClass_.isNumericInt(_page)) {
+            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), indexClass_, _page);
+            if (res_ != null) {
+                indexClass_.implicitInfos(res_);
+            } else {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setIndexFile(_page);
+                un_.setFile(_page.getCurrentFile());
+                //first separator char
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                        StringUtil.join(indexClass_.getNames(),ExportCst.JOIN_TYPES));
+                _page.getLocalizer().addError(un_);
+                nbErr = un_.getBuiltError();
+            }
+        }
+        indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_, _page), _page.getPrimitiveTypes());
+        AnaClassArgumentMatching classComp_ = AnaTypeUtil.getQuickComponentType(class_);
+        classComp_.setUnwrapObject(classComp_, _page.getPrimitiveTypes());
+        setResultClass(classComp_);
+    }
+
+    private void indexers(AnalyzedPageEl _page) {
+        AnaClassArgumentMatching class_ = getPreviousResultClass();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
@@ -126,7 +194,6 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMeth_, mid_)),idMethod_.getAncestor());
             feedSet_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMethSet_, mid_)),idMethod_.getAncestor());
         }
-        AnaClassArgumentMatching class_ = getPreviousResultClass();
         String classType_ = "";
         if (fwd_ != null) {
             classType_ = fwd_.getClassType();
@@ -196,92 +263,18 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
                     id2_.getRealId().getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(abs_);
             addErr(abs_.getBuiltError());
+            setResultClass(voidToObject(new AnaClassArgumentMatching(id2_.getReturnType()), _page));
             return;
         }
-        if (chidren_.size() != 1) {
-            getPartOffsetsChildren().add(new InfoErrorDto(""));
-            StrTypes operators_ =  getOperations().getOperators();
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
-            FoundErrorInterpret badNb_ = new FoundErrorInterpret();
-            badNb_.setFile(_page.getCurrentFile());
-            badNb_.setIndexFile(_page);
-            //second separator char
-            badNb_.buildError(_page.getAnalysisMessages().getOperatorNbDiff(),
-                    Long.toString(1),
-                    Long.toString(chidren_.size()),
-                    "[]"
-            );
-            _page.getLocalizer().addError(badNb_);
-            getPartOffsetsChildren().add(new InfoErrorDto(badNb_.getBuiltError(),_page,operators_.getKey(1),1));
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
-            return;
-        }
-        setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _page);
-        OperationNode right_ = chidren_.last();
-        if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation
-                ||right_ instanceof FirstOptOperation || getDeltaCount(right_) != 0) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_page);
-            un_.setFile(_page.getCurrentFile());
-            //first separator char
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
-            _page.getLocalizer().addError(un_);
-            addErr(un_.getBuiltError());
-            class_ = new AnaClassArgumentMatching(_page.getAliasObject());
-            setResultClass(class_);
-            return;
-        }
-        AnaClassArgumentMatching indexClass_ = right_.getResultClass();
-        if (indexClass_.matchClass(_page.getAliasRange())) {
-            if (!class_.isArray()) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_page);
-                un_.setFile(_page.getCurrentFile());
-                //first separator char
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                        StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
-                _page.getLocalizer().addError(un_);
-                addErr(un_.getBuiltError());
-                class_ = new AnaClassArgumentMatching(_page.getAliasObject());
-                setResultClass(class_);
-                return;
-            }
-            setResultClass(class_);
-            return;
-        }
-        if (!indexClass_.isNumericInt(_page)) {
-            ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimInteger(), indexClass_, _page);
-            if (res_ != null) {
-                indexClass_.implicitInfos(res_);
-            } else {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setIndexFile(_page);
-                un_.setFile(_page.getCurrentFile());
-                //first separator char
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                        StringUtil.join(indexClass_.getNames(),ExportCst.JOIN_TYPES));
-                _page.getLocalizer().addError(un_);
-                nbErr = un_.getBuiltError();
-            }
-        }
-        if (!class_.isArray()) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_page);
-            un_.setFile(_page.getCurrentFile());
-            //first separator char
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                    StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
-            _page.getLocalizer().addError(un_);
-            addErr(un_.getBuiltError());
-            class_ = new AnaClassArgumentMatching(_page.getAliasObject());
-            setResultClass(class_);
-            return;
-        }
-        indexClass_.setUnwrapObject(AnaTypeUtil.toPrimitive(indexClass_, _page), _page.getPrimitiveTypes());
-        class_ = AnaTypeUtil.getQuickComponentType(class_);
-        class_.setUnwrapObject(class_, _page.getPrimitiveTypes());
-        setResultClass(class_);
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setIndexFile(_page);
+        un_.setFile(_page.getCurrentFile());
+        //first separator char
+        un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                StringUtil.join(class_.getNames(),ExportCst.JOIN_TYPES));
+        _page.getLocalizer().addError(un_);
+        addErr(un_.getBuiltError());
+        setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
     private static ForwardOperation tryGetForward(MethodOperation _operation) {

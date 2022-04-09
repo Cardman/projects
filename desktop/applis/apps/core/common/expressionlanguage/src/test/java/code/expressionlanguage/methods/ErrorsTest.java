@@ -8176,7 +8176,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
     public void report432Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
-        xml_.append(" MySub v;\n");
+        xml_.append(" $int[]v;\n");
         xml_.append(" {\n");
         xml_.append("  v[1,];\n");
         xml_.append(" }\n");
@@ -8185,7 +8185,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
+                " $int[]<a name=\"m34\">v</a>;\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub.v\" href=\"#m34\">v</a>[1<a title=\"The expression part is empty.\" class=\"e\">,</a>];\n" +
                 " }\n" +
@@ -8196,7 +8196,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
     public void report433Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
-        xml_.append(" MySub v;\n");
+        xml_.append(" $int[]v;\n");
         xml_.append(" {\n");
         xml_.append("  v[1,2,];\n");
         xml_.append(" }\n");
@@ -8205,7 +8205,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
+                " $int[]<a name=\"m34\">v</a>;\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub.v\" href=\"#m34\">v</a>[1<a title=\"The number of required operands 1 is different from the number of supplied arguments 3 for the operator []\" class=\"e\">,</a>2<a title=\"The expression part is empty.\" class=\"e\">,</a>];\n" +
                 " }\n" +
@@ -8216,7 +8216,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
     public void report434Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.MySub {\n");
-        xml_.append(" MySub v;\n");
+        xml_.append(" $int[]v;\n");
         xml_.append(" {\n");
         xml_.append("  v[1,,];\n");
         xml_.append(" }\n");
@@ -8225,7 +8225,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " <a title=\"pkg.MySub\" href=\"#m15\">MySub</a> <a name=\"m34\">v</a>;\n" +
+                " $int[]<a name=\"m34\">v</a>;\n" +
                 " {\n" +
                 "  <a title=\"pkg.MySub.v\" href=\"#m34\">v</a>[1<a title=\"The expression part is empty.\" class=\"e\">,</a><a title=\"The expression part is empty.\" class=\"e\">,</a>];\n" +
                 " }\n" +

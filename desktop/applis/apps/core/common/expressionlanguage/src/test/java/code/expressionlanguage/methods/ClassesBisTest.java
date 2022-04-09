@@ -873,7 +873,7 @@ public final class ClassesBisTest extends ProcessMethodCommon {
         xml_.append(" {\n");
         xml_.append("  return inst[p];\n");
         xml_.append(" }\n");
-        xml_.append(" public void this(int value)\n");
+        xml_.append(" public void this(int value,int value)\n");
         xml_.append(" {\n");
         xml_.append(" }\n");
         xml_.append("}\n");
