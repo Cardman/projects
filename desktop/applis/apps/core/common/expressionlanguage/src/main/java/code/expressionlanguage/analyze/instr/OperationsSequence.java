@@ -1,11 +1,12 @@
 package code.expressionlanguage.analyze.instr;
+
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
+import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.files.ParsedFctHeader;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.NumberInfos;
 import code.maths.litteralcom.StrTypes;
-import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -45,7 +46,7 @@ public final class OperationsSequence {
     private int countArrays;
     private final Ints errorParts = new Ints();
     private boolean instance;
-    private ParsedFctHeader results;
+    private ParsedFctHeaderResult results;
     private AbsBk block;
     private int length;
     public void setValue(String _string, int _offset) {
@@ -400,11 +401,11 @@ public final class OperationsSequence {
         errorDot = _errorDot;
     }
 
-    public ParsedFctHeader getResults() {
+    public ParsedFctHeaderResult getResults() {
         return results;
     }
 
-    public void setResults(ParsedFctHeader _results) {
+    public void setResults(ParsedFctHeaderResult _results) {
         this.results = _results;
     }
 

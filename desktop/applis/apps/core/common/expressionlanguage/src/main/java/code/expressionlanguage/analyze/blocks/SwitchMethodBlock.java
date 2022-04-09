@@ -14,6 +14,7 @@ import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class SwitchMethodBlock extends MemberCallingsBlock implements AnalyzedSwitch,AnnotableParametersBlock {
@@ -71,7 +72,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     public MethodId getId() {
         String name_ = getName();
         StringList pTypes_ = new StringList(result.getSingleNameOrEmpty());
-        return new MethodId(retRef, kind, name_, pTypes_,new CustList<Boolean>(false), false);
+        return new MethodId(retRef, kind, name_, pTypes_,new CustList<BoolVal>(BoolVal.FALSE), false);
     }
 
     public String getName() {

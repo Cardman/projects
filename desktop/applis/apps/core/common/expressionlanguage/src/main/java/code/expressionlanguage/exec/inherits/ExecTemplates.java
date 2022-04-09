@@ -19,6 +19,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class ExecTemplates {
@@ -256,7 +257,7 @@ public final class ExecTemplates {
         }
         int i_ = 0;
         for (String c: fct_.getImportedParametersTypes()) {
-            if (fct_.getParametersRef(i_)) {
+            if (fct_.getParametersRef(i_) == BoolVal.TRUE) {
                 Struct struct_ = _firstArgs.get(i_).getStruct();
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, varType(c,_classFormat,fct_,i_));
                 ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);

@@ -1,13 +1,14 @@
 package code.expressionlanguage.functionid;
 
 import code.util.CustList;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public abstract class AbsractIdentifiableCommon implements Identifiable {
 
     private final String name;
 
-    private final CustList<Boolean> refParams = new CustList<Boolean>();
+    private final CustList<BoolVal> refParams = new CustList<BoolVal>();
     private final CustList<String> classNames = new CustList<String>();
 
     private final boolean vararg;
@@ -20,20 +21,20 @@ public abstract class AbsractIdentifiableCommon implements Identifiable {
     protected void feedParamTypes(CustList<String> _classNames) {
         for (String s: _classNames) {
             classNames.add(StringUtil.nullToEmpty(s));
-            refParams.add(false);
+            refParams.add(BoolVal.FALSE);
         }
     }
 
-    protected void feedParamTypes(CustList<String> _classNames, CustList<Boolean> _refParams) {
+    protected void feedParamTypes(CustList<String> _classNames, CustList<BoolVal> _refParams) {
         int min_ = Math.min(_classNames.size(),_refParams.size());
         for (String s: _classNames.left(min_)) {
             classNames.add(StringUtil.nullToEmpty(s));
         }
-        for (boolean s: _refParams.left(min_)) {
+        for (BoolVal s: _refParams.left(min_)) {
             refParams.add(s);
         }
     }
-    protected CustList<Boolean> getRefParams() {
+    protected CustList<BoolVal> getRefParams() {
         return refParams;
     }
 
@@ -62,7 +63,7 @@ public abstract class AbsractIdentifiableCommon implements Identifiable {
     }
 
     @Override
-    public boolean getParametersRef(int _index) {
+    public BoolVal getParametersRef(int _index) {
         return refParams.get(_index);
     }
 }

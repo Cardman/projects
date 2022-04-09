@@ -2,6 +2,7 @@ package code.expressionlanguage.functionid;
 import code.expressionlanguage.common.*;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -28,7 +29,7 @@ public final class MethodId extends AbsractIdentifiableCommon {
         feedParamTypes(_classNames);
     }
 
-    public MethodId(boolean _retRef, MethodAccessKind _staticMethod, String _name, CustList<String> _classNames, CustList<Boolean> _refParam, boolean _vararg) {
+    public MethodId(boolean _retRef, MethodAccessKind _staticMethod, String _name, CustList<String> _classNames, CustList<BoolVal> _refParam, boolean _vararg) {
         super(StringUtil.nullToEmpty(_name),_vararg);
         retRef = _retRef;
         kind = _staticMethod;
@@ -46,9 +47,9 @@ public final class MethodId extends AbsractIdentifiableCommon {
     public static MethodId to(MethodAccessKind _access, String _name,MethodId _id) {
         return new MethodId(_id.retRef, _access, _name, _id.getClassNames(), _id.getRefParams(), _id.isVararg());
     }
-    public MethodId prepend(String _name,String _type, boolean _ref) {
+    public MethodId prepend(String _name,String _type, BoolVal _ref) {
         CustList<String> types_ = new CustList<String>(getClassNames());
-        CustList<Boolean> refs_ = new CustList<Boolean>(getRefParams());
+        CustList<BoolVal> refs_ = new CustList<BoolVal>(getRefParams());
         types_.add(0,_type);
         refs_.add(0,_ref);
         return new MethodId(retRef, kind, _name, types_,refs_, isVararg());
@@ -106,7 +107,7 @@ public final class MethodId extends AbsractIdentifiableCommon {
         int m_ = Math.min(getClassNames().size(), getRefParams().size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
-            if (getParametersRef(i)) {
+            if (getParametersRef(i) == BoolVal.TRUE) {
                 s_ = "~";
             }
             cls_.add(StringUtil.concat(s_, getClassNames().get(i)));
@@ -118,8 +119,8 @@ public final class MethodId extends AbsractIdentifiableCommon {
         if (retRef) {
             return true;
         }
-        for (boolean r: getRefParams()) {
-            if (r) {
+        for (BoolVal r: getRefParams()) {
+            if (r == BoolVal.TRUE) {
                 return true;
             }
         }

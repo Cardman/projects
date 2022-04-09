@@ -1,21 +1,21 @@
 package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.files.ParsedFctHeader;
+import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
 
 public final class AnonymousResult {
-    private ParsedFctHeader results;
+    private ParsedFctHeaderResult results;
     private int index;
     private int until;
     private int length;
     private int next;
     private AbsBk type;
 
-    public ParsedFctHeader getResults() {
+    public ParsedFctHeaderResult getResults() {
         return results;
     }
 
-    public void setResults(ParsedFctHeader _results) {
+    public void setResults(ParsedFctHeaderResult _results) {
         this.results = _results;
     }
 

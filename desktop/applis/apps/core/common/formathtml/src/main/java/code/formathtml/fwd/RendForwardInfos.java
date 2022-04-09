@@ -37,6 +37,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class RendForwardInfos {
@@ -1079,7 +1080,7 @@ public final class RendForwardInfos {
         int nbParam_ = constraints_.getParametersTypesLength();
         int refCount_ = 0;
         for (int i = 0; i < nbParam_; i++) {
-            if (constraints_.getParametersRef(i)) {
+            if (constraints_.getParametersRef(i) == BoolVal.TRUE) {
                 refCount_++;
             }
         }
@@ -1091,7 +1092,7 @@ public final class RendForwardInfos {
         for (int i = 0; i < nbParam_; i++) {
             String varParam_ = varNames_.get(i);
             RendStdRefVariableOperation rendVar_ = new RendStdRefVariableOperation(new ExecOperationContent(i, FetchMemberUtil.toExec(new AnaClassArgumentMatching("")), order_), new ExecVariableContent(generateVariable(varParam_)));
-            if (constraints_.getParametersRef(i)) {
+            if (constraints_.getParametersRef(i) == BoolVal.TRUE) {
                 order_++;
                 RendWrappOperation wr_ = new RendWrappOperation(new ExecOperationContent(i, FetchMemberUtil.toExec(new AnaClassArgumentMatching("")), order_));
                 wr_.appendChild(rendVar_);

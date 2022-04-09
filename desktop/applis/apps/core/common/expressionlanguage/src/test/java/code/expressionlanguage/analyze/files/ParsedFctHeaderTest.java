@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.EquallableElUtil;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class ParsedFctHeaderTest extends EquallableElUtil {
@@ -75,7 +76,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -100,7 +101,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("int",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -265,7 +266,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("int",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -292,7 +293,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("Pair<One,Two>",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -319,7 +320,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("int",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(p_.getParametersRef().get(0));
+        assertSame(BoolVal.TRUE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -346,7 +347,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(p_.getParametersRef().get(0));
+        assertSame(BoolVal.TRUE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -373,7 +374,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -398,7 +399,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(p_.getParametersRef().get(0));
+        assertSame(BoolVal.TRUE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -423,7 +424,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("int",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(p_.getParametersRef().get(0));
+        assertSame(BoolVal.TRUE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -450,8 +451,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(2,p_.getParametersType().size());
         assertEq("int",p_.getParametersType().get(0));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -482,8 +483,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("Pair<One,Two>",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -514,8 +515,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("int",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.TRUE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(2,p_.getOffestsTypes().size());
@@ -545,8 +546,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.TRUE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -577,8 +578,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -607,8 +608,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.TRUE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -637,8 +638,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("int",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.TRUE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -667,8 +668,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -697,8 +698,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("int",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -727,8 +728,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -757,8 +758,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -787,8 +788,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -816,7 +817,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -843,7 +844,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -868,7 +869,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -893,7 +894,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -920,7 +921,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq(1,p_.getParametersType().size());
         assertEq("",p_.getParametersType().get(0));
         assertEq(1,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
         assertEq(1,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq(1,p_.getOffestsTypes().size());
@@ -946,8 +947,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -976,8 +977,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));
@@ -1006,8 +1007,8 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
         assertEq("",p_.getParametersType().get(0));
         assertEq("",p_.getParametersType().get(1));
         assertEq(2,p_.getParametersRef().size());
-        assertTrue(!p_.getParametersRef().get(0));
-        assertTrue(!p_.getParametersRef().get(1));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(0));
+        assertSame(BoolVal.FALSE,p_.getParametersRef().get(1));
         assertEq(2,p_.getParametersName().size());
         assertEq("a",p_.getParametersName().get(0));
         assertEq("b",p_.getParametersName().get(1));

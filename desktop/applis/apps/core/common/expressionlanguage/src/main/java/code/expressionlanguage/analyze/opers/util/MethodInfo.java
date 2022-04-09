@@ -15,6 +15,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.BoolVal;
 
 public final class MethodInfo implements Parametrable {
 
@@ -200,7 +201,7 @@ public final class MethodInfo implements Parametrable {
         formatted = buildFormatted(MethodId.getKind(_keepParams), params_, constraints);
     }
 
-    public void format(boolean _retRef, String _name, StringList _classNames, CustList<Boolean> _refParam) {
+    public void format(boolean _retRef, String _name, StringList _classNames, CustList<BoolVal> _refParam) {
         formattedParams = _classNames;
         formatted = buildFormatted(MethodAccessKind.INSTANCE, _classNames, new MethodId(_retRef, MethodAccessKind.INSTANCE,
                 _name,_classNames,_refParam,false));

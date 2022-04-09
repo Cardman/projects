@@ -29,6 +29,8 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.SortConstants;
 import code.util.core.StringUtil;
@@ -2632,7 +2634,7 @@ public abstract class OperationNode {
             String wc_ = _id.getGeneFormatted().getParametersType(i);
             wc_ = wrap(i,all_,vararg_,wc_);
             String arg_ = _argsClass.get(i);
-            boolean ref_ = _id.getGeneFormatted().getParametersRef(i);
+            boolean ref_ = _id.getGeneFormatted().getParametersRef(i) == BoolVal.TRUE;
             if (!matchRefInf(arg_, ref_)) {
                 return false;
             }
@@ -2648,6 +2650,9 @@ public abstract class OperationNode {
             return true;
         }
         return matchRef(_arg, _ref);
+    }
+    private static boolean matchRef(String _arg, BoolVal _ref) {
+        return matchRef(_arg, _ref == BoolVal.TRUE);
     }
     private static boolean matchRef(String _arg, boolean _ref) {
         if (_arg.startsWith("~")) {
@@ -2721,7 +2726,7 @@ public abstract class OperationNode {
             CustList<ClassMethodIdReturn> l_ = new CustList<ClassMethodIdReturn>();
             _id.getImplicits().add(l_);
             OperationNode operationNode_ = allOps_.get(i);
-            if (_id.getGeneFormatted().getParametersRef(i)) {
+            if (_id.getGeneFormatted().getParametersRef(i) == BoolVal.TRUE) {
                 if (!isWrapp(operationNode_)) {
                     return false;
                 }
@@ -2788,7 +2793,7 @@ public abstract class OperationNode {
             String wc_ = _id.getGeneFormatted().getParametersType(last_);
             CustList<ClassMethodIdReturn> l_ = new CustList<ClassMethodIdReturn>();
             _id.getImplicits().add(l_);
-            if (_id.getGeneFormatted().getParametersRef(last_)) {
+            if (_id.getGeneFormatted().getParametersRef(last_) == BoolVal.TRUE) {
                 if (!isWrapp(operationNode_)) {
                     return false;
                 }
@@ -2842,7 +2847,7 @@ public abstract class OperationNode {
         if (wc_.isEmpty()) {
             return false;
         }
-        if (_id.getGeneFormatted().getParametersRef(last_)) {
+        if (_id.getGeneFormatted().getParametersRef(last_) == BoolVal.TRUE) {
             return false;
         }
         map_.setParam(wc_);

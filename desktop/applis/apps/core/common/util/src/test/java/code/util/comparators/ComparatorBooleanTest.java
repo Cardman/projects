@@ -1,6 +1,7 @@
 package code.util.comparators;
 
 import code.util.EquallableExUtil;
+import code.util.core.BoolVal;
 import code.util.core.SortConstants;
 import org.junit.Test;
 
@@ -52,5 +53,29 @@ public final class ComparatorBooleanTest extends EquallableExUtil {
     @Test
     public void cmp4Test() {
         assertEq(SortConstants.EQ_CMP,ComparatorBoolean.cmp(false,false));
+    }
+    @Test
+    public void cmp5Test() {
+        assertEq(SortConstants.SWAP_SORT,ComparatorBoolean.cmp(BoolVal.TRUE,BoolVal.FALSE));
+    }
+    @Test
+    public void cmp6Test() {
+        assertEq(SortConstants.NO_SWAP_SORT,ComparatorBoolean.cmp(BoolVal.FALSE,BoolVal.TRUE));
+    }
+    @Test
+    public void cmp7Test() {
+        assertEq(SortConstants.EQ_CMP,ComparatorBoolean.cmp(BoolVal.TRUE,BoolVal.TRUE));
+    }
+    @Test
+    public void cmp8Test() {
+        assertEq(SortConstants.EQ_CMP,ComparatorBoolean.cmp(BoolVal.FALSE,BoolVal.FALSE));
+    }
+    @Test
+    public void of1() {
+        assertSame(BoolVal.FALSE,ComparatorBoolean.of(false));
+    }
+    @Test
+    public void of2() {
+        assertSame(BoolVal.TRUE,ComparatorBoolean.of(true));
     }
 }

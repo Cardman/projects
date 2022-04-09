@@ -5,13 +5,14 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class ExecConstructorBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
 
     private boolean implicitCallSuper;
 
-    public ExecConstructorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, StringList _importedParametersTypes, CustList<Boolean> _parametersRef) {
+    public ExecConstructorBlock(String _name, boolean _varargs, AccessEnum _access, StringList _parametersNames, StringList _importedParametersTypes, CustList<BoolVal> _parametersRef) {
         super(_access, new ExecExecNamedFunctionContent(_name, _importedParametersTypes, _parametersRef, _parametersNames, false, _varargs));
     }
 

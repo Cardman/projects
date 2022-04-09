@@ -4,6 +4,7 @@ import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.BoolVal;
 
 public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock implements ExecAnnotableParamBlock {
 
@@ -30,7 +31,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         return content.getName();
     }
 
-    public final boolean getParametersRef(int _index) {
+    public final BoolVal getParametersRef(int _index) {
         return content.getParametersRef().get(_index);
     }
 
@@ -66,7 +67,7 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
         importedReturnType = _importedReturnType;
     }
 
-    public CustList<Boolean> getParametersRef() {
+    public CustList<BoolVal> getParametersRef() {
         return content.getParametersRef();
     }
 }

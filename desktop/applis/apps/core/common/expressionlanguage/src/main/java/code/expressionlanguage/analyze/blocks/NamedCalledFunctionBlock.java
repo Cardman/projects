@@ -33,6 +33,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -153,12 +154,12 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         String name_ = getName();
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
-        CustList<Boolean> rTypes_ = new CustList<Boolean>();
+        CustList<BoolVal> rTypes_ = new CustList<BoolVal>();
         StringList pTypes_ = new StringList();
         if (kind == MethodKind.EXPLICIT_CAST || kind == MethodKind.IMPLICIT_CAST
                 ||kind == MethodKind.TRUE_OPERATOR || kind == MethodKind.FALSE_OPERATOR) {
             pTypes_.add(getImportedReturnType());
-            rTypes_.add(false);
+            rTypes_.add(BoolVal.FALSE);
         }
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);

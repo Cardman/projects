@@ -33,6 +33,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -3849,7 +3850,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -3872,7 +3873,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#S>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -3895,7 +3896,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExSuper<#S>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExSuper<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -3920,7 +3921,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam2<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExSuper2<#S>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExSuper2<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -3942,7 +3943,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(true),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -3965,7 +3966,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching(""));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>",cont_.getAliasObject()), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>",cont_.getAliasObject()), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -3987,7 +3988,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4009,7 +4010,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("[pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4032,7 +4033,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("[pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(true),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4055,7 +4056,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4077,7 +4078,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4099,7 +4100,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4121,7 +4122,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4144,7 +4145,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4165,7 +4166,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4188,7 +4189,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(2, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4211,7 +4212,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4234,7 +4235,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(1, "",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4257,7 +4258,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "",
                 new StringMap<StringList>(),
@@ -4280,7 +4281,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching("pkg.ExParam<pkg.Ex>"));
         String inf_ = AnaTemplates.tryInferMethod(0, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4308,7 +4309,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         vars_.addEntry("A",new StringList(cont_.getAliasObject()));
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExSuper2<#S>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExSuper2<#S>"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 vars_,
@@ -4325,7 +4326,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         args_.add(new AnaClassArgumentMatching(cont_.getAliasString()));
         String inf_ = AnaTemplates.tryInferMethod(-1, cont_.getAliasString(),
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(cont_.getAliasString()), new CustList<Boolean>(false),
+                        new StringList(cont_.getAliasString()), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 cont_.getAliasString(),
                 new StringMap<StringList>(),
@@ -4346,7 +4347,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<Boolean>(),
+                        new StringList(), new CustList<BoolVal>(),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4368,7 +4369,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<Boolean>(),
+                        new StringList(), new CustList<BoolVal>(),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4390,7 +4391,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<Boolean>(),
+                        new StringList(), new CustList<BoolVal>(),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4414,7 +4415,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExSuper",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<Boolean>(),
+                        new StringList(), new CustList<BoolVal>(),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4435,7 +4436,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<Boolean>(),
+                        new StringList(), new CustList<BoolVal>(),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4456,7 +4457,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
         String inf_ = AnaTemplates.tryInferMethod(-1, "pkg.ExParam",
                 new MethodId(true, MethodAccessKind.STATIC_CALL, "",
-                        new StringList(), new CustList<Boolean>(),
+                        new StringList(), new CustList<BoolVal>(),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4477,7 +4478,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4496,7 +4497,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("$int"), new CustList<Boolean>(false),
+                        new StringList("$int"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4515,7 +4516,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("$int"), new CustList<Boolean>(false),
+                        new StringList("$int"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4534,7 +4535,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(true),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4553,7 +4554,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.Ex"), new CustList<Boolean>(false),
+                        new StringList("pkg.Ex"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4572,7 +4573,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(true, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.Ex"), new CustList<Boolean>(false),
+                        new StringList("pkg.Ex"), new CustList<BoolVal>(BoolVal.FALSE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4591,7 +4592,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(true),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
                         false),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4610,7 +4611,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4629,7 +4630,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4648,7 +4649,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(true),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.TRUE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4667,7 +4668,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>"), new CustList<Boolean>(false),
+                        new StringList("pkg.ExParam<#T>"), new CustList<BoolVal>(BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4686,7 +4687,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","$int"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4705,7 +4706,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","$int"), new CustList<Boolean>(true,false),
+                        new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.TRUE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4724,7 +4725,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",0,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","$int"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4743,7 +4744,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","$int"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4762,7 +4763,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("",-1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","$int"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "pkg.ExParam",
                 new StringMap<StringList>(),
@@ -4781,7 +4782,7 @@ public final class AnaTemplatesTest extends ProcessMethodCommon {
         AnalyzedPageEl cont_ = unfullValidateOverridingMethods(files_);
         String inf_ = AnaTemplates.tryInferMethodByOneArg("pkg.ExParam",-1,
                 new MethodId(false, MethodAccessKind.STATIC_CALL, "",
-                        new StringList("pkg.ExParam<#T>","$int"), new CustList<Boolean>(false,false),
+                        new StringList("pkg.ExParam<#T>","$int"), new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE),
                         true),
                 "",
                 new StringMap<StringList>(),

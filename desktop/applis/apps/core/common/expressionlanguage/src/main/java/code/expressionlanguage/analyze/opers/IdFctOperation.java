@@ -15,6 +15,7 @@ import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class IdFctOperation extends LeafOperation implements FunctFilterOperation {
@@ -167,7 +168,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
     }
     public static ResolvedId resolveArguments(int _from, boolean _retRef, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, AnalyzedPageEl _page){
         StringList out_ = new StringList();
-        CustList<Boolean> ref_ = new CustList<Boolean>();
+        CustList<BoolVal> ref_ = new CustList<BoolVal>();
         int len_ = _params.size();
         int vararg_ = -1;
         int off_ = _className.indexOf('(')+1;
@@ -179,12 +180,12 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
             String full_ = _params.get(i);
             int loc_ = StringUtil.getFirstPrintableCharIndex(full_);
             String arg_ = full_.trim();
-            boolean refParam_ = false;
+            BoolVal refParam_ = BoolVal.FALSE;
             if (arg_.startsWith("~")) {
                 arg_ = arg_.substring(1);
                 loc_ += StringUtil.getFirstPrintableCharIndex(arg_)+1;
                 arg_ = arg_.trim();
-                refParam_ = true;
+                refParam_ = BoolVal.TRUE;
             }
             String type_;
             if (arg_.endsWith(VARARG_SUFFIX)) {

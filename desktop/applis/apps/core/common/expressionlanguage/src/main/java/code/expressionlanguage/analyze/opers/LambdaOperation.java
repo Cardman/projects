@@ -26,6 +26,7 @@ import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class LambdaOperation extends LeafOperation implements PossibleIntermediateDotted {
@@ -565,7 +566,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (i + 1 == lenArg_ && _fid.isVararg()) {
                 p_ = StringExpUtil.getPrettyArrayType(p_);
             }
-            if (_fid.getParametersRef(i)) {
+            if (_fid.getParametersRef(i) == BoolVal.TRUE) {
                 _parts.add("~" + p_);
             } else {
                 _parts.add(p_);
@@ -1385,7 +1386,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 format_ = _page.getAliasObject();
             }
             String pref_ = "";
-            if (_id.getParametersRef(i)) {
+            if (_id.getParametersRef(i) == BoolVal.TRUE) {
                 pref_ = "~";
             }
             _formatted.add(pref_+format_);
@@ -2322,7 +2323,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         if (isIntermediateDottedOperation()) {
             if (match(_args, _len, keyWordId_, j_)) {
                 methodTypes_.add(previousResultClass.getName());
-                feed_ = new ClassMethodId(from_, argsRes_.prepend(operator_, previousResultClass.getName(),false));
+                feed_ = new ClassMethodId(from_, argsRes_.prepend(operator_, previousResultClass.getName(), BoolVal.FALSE));
                 ko(from_, argsRes_, methodTypes_, _page);
             } else {
                 methodTypes_.add(previousResultClass.getName());
@@ -2463,7 +2464,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
     private MethodId resolveArguments(boolean _retRef,int _from, String _fromType, MethodAccessKind _static, StringList _params, AnalyzedPageEl _page){
         StringList out_ = new StringList();
-        CustList<Boolean> ref_ = new CustList<Boolean>();
+        CustList<BoolVal> ref_ = new CustList<BoolVal>();
         int len_ = _params.size();
         int vararg_ = -1;
         int off_ = className.indexOf('(')+1;
@@ -2478,12 +2479,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 loc_--;
             }
             String arg_ = full_.trim();
-            boolean refParam_ = false;
+            BoolVal refParam_ = BoolVal.FALSE;
             if (arg_.startsWith("~")) {
                 arg_ = arg_.substring(1);
                 loc_ += StringUtil.getFirstPrintableCharIndex(arg_)+1;
                 arg_ = arg_.trim();
-                refParam_ = true;
+                refParam_ = BoolVal.TRUE;
             }
             String type_;
             if (arg_.endsWith(VARARG_SUFFIX)) {
@@ -2516,7 +2517,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     }
     private MethodId resolveArguments(int _from, StringList _params, AnalyzedPageEl _page){
         StringList out_ = new StringList();
-        CustList<Boolean> ref_ = new CustList<Boolean>();
+        CustList<BoolVal> ref_ = new CustList<BoolVal>();
         int len_ = _params.size();
         int vararg_ = -1;
         int offset_ = className.indexOf('(')+1;
@@ -2531,13 +2532,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 loc_--;
             }
             String arg_ = param_.trim();
-            boolean refParam_ = false;
+            BoolVal refParam_ = BoolVal.FALSE;
             String pref_ = "";
             if (arg_.startsWith("~")) {
                 arg_ = arg_.substring(1);
                 loc_ += StringUtil.getFirstPrintableCharIndex(arg_)+1;
                 arg_ = arg_.trim();
-                refParam_ = true;
+                refParam_ = BoolVal.TRUE;
                 pref_ = "~";
             }
             String type_;

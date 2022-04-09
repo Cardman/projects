@@ -14,6 +14,7 @@ import code.formathtml.util.DefNodeContainer;
 import code.formathtml.util.InputInfo;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.BoolVal;
 
 public final class RendRequestUtil {
 
@@ -46,7 +47,7 @@ public final class RendRequestUtil {
             int j_ = 0;
             int k_ = 0;
             for (String p: info_.getVarNames()) {
-                if (info_.getRefs().get(j_)) {
+                if (info_.getRefs().get(j_) == BoolVal.TRUE) {
                     refParams_.add(p);
                     ip_.getRefParams().put(p, _nodeContainer.getWrappers().get(i_));
                     i_++;

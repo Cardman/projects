@@ -3,6 +3,7 @@ package code.expressionlanguage.functionid;
 
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class IdentifiableUtil {
@@ -39,7 +40,7 @@ public final class IdentifiableUtil {
             if (i + 1 == len_ && _id.isVararg()) {
                 p_ = StringExpUtil.getPrettyArrayType(p_);
             }
-            if (_id.getParametersRef(i)) {
+            if (_id.getParametersRef(i) == BoolVal.TRUE) {
                 _paramsReturn.add("~"+p_);
             } else {
                 _paramsReturn.add(p_);

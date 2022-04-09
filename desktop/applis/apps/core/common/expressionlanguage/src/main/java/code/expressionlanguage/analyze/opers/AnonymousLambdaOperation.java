@@ -2,9 +2,14 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.opers.util.*;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.opers.util.ParentInferring;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
@@ -13,9 +18,7 @@ import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLocalVariable;
 import code.expressionlanguage.analyze.variables.AnaNamedLoopVariable;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -25,10 +28,10 @@ public final class AnonymousLambdaOperation extends
     private final AnaLambdaCommonContent lambdaCommonContent;
     private MethodId method;
     private final NamedCalledFunctionBlock block;
-    private final ParsedFctHeader parse;
+    private final ParsedFctHeaderResult parse;
 
     public AnonymousLambdaOperation(int _index, int _indexChild,
-                                    MethodOperation _m, OperationsSequence _op, NamedCalledFunctionBlock _block, ParsedFctHeader _parse) {
+                                    MethodOperation _m, OperationsSequence _op, NamedCalledFunctionBlock _block, ParsedFctHeaderResult _parse) {
         super(_index, _indexChild, _m, _op);
         lambdaCommonContent = new AnaLambdaCommonContent();
         block = _block;

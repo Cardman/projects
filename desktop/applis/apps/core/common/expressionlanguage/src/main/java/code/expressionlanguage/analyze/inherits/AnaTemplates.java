@@ -13,6 +13,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodId;
 
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -163,7 +164,7 @@ public final class AnaTemplates {
                 if (_index < len_ -1) {
                     String wc_ = _candidate.getParametersType(_index);
                     wc_ = AnaInherits.quickFormat(cType_,candidate_,wc_);
-                    if (_candidate.getParametersRef(_index)) {
+                    if (_candidate.getParametersRef(_index) == BoolVal.TRUE) {
                         Mapping map_ = new Mapping();
                         map_.setArg(_arg);
                         map_.getMapping().putAllMap(inh_);
@@ -191,7 +192,7 @@ public final class AnaTemplates {
                     Mapping map_ = new Mapping();
                     String wc_ = _candidate.getParametersType(last_);
                     wc_ = AnaInherits.quickFormat(cType_,candidate_,wc_);
-                    if (_candidate.getParametersRef(last_)) {
+                    if (_candidate.getParametersRef(last_) == BoolVal.TRUE) {
                         map_.setArg(_arg);
                         map_.getMapping().putAllMap(inh_);
                         map_.getMapping().putAllMap(_vars);
@@ -237,7 +238,7 @@ public final class AnaTemplates {
         if (_index > -1 && _index < len_) {
             String wc_ = _candidate.getParametersType(_index);
             wc_ = AnaInherits.quickFormat(cType_,candidate_,wc_);
-            if (_candidate.getParametersRef(_index)) {
+            if (_candidate.getParametersRef(_index) == BoolVal.TRUE) {
                 Mapping map_ = new Mapping();
                 map_.setArg(_arg);
                 map_.getMapping().putAllMap(inh_);
@@ -338,7 +339,7 @@ public final class AnaTemplates {
             String wc_ = _candidate.getParametersType(i);
             wc_ = AnaInherits.quickFormat(cType_,candidate_,wc_);
             AnaClassArgumentMatching resArg_ = _args.get(i);
-            if (_candidate.getParametersRef(i)) {
+            if (_candidate.getParametersRef(i) == BoolVal.TRUE) {
                 Mapping map_ = new Mapping();
                 map_.setArg(resArg_);
                 map_.getMapping().putAllMap(inh_);
@@ -370,7 +371,7 @@ public final class AnaTemplates {
             String wc_ = _candidate.getParametersType(last_);
             wc_ = AnaInherits.quickFormat(cType_,candidate_,wc_);
             AnaClassArgumentMatching resArg_ = _args.last();
-            if (_candidate.getParametersRef(last_)) {
+            if (_candidate.getParametersRef(last_) == BoolVal.TRUE) {
                 map_.setArg(resArg_);
                 map_.getMapping().putAllMap(inh_);
                 map_.getMapping().putAllMap(_vars);

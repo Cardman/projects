@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
+import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
@@ -17,6 +18,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -44,7 +46,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final StringList parametersNames;
     private final StringMap<AnaLocalVariable> usedParameters;
 
-    private final CustList<Boolean> parametersRef;
+    private final CustList<BoolVal> parametersRef;
     private Ints parametersNamesOffset;
 
     private final AccessEnum access;
@@ -81,7 +83,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersTypes = new StringList();
         parametersNames = new StringList();
         usedParameters = new StringMap<AnaLocalVariable>();
-        parametersRef = new CustList<Boolean>();
+        parametersRef = new CustList<BoolVal>();
         varargs = setupParam(_header.getParametersType(),_header.getParametersName(), _header.getParametersRef());
         access = _access.getInfo();
         accessOffset = _access.getOffset();
@@ -103,10 +105,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         returnType = "";
         parametersNames = new StringList();
         usedParameters = new StringMap<AnaLocalVariable>();
-        parametersRef = new CustList<Boolean>();
+        parametersRef = new CustList<BoolVal>();
     }
 
-    public final boolean setupParam(StringList _paramTypes, StringList _paramNames, CustList<Boolean> _refParams) {
+    public final boolean setupParam(StringList _paramTypes, StringList _paramNames, CustList<BoolVal> _refParams) {
         int i_ = IndexConstants.FIRST_INDEX;
         int len_ = _paramTypes.size();
         boolean varargs_ = false;
@@ -200,7 +202,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return new StringList(parametersTypes);
     }
 
-    public void setVarargs(ParsedFctHeader _header) {
+    public void setVarargs(ParsedFctHeaderResult _header) {
         varargs = setupParam(_header.getParametersType(), _header.getParametersName(), _header.getParametersRef());
         parametersTypesOffset = _header.getOffestsTypes();
         parametersNamesOffset = _header.getOffestsParams();
@@ -267,7 +269,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             addNameErrors(badMeth_);
         }
     }
-    public CustList<Boolean> getParametersRef() {
+    public CustList<BoolVal> getParametersRef() {
         return parametersRef;
     }
 

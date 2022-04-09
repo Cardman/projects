@@ -2,20 +2,21 @@ package code.expressionlanguage.exec.blocks;
 
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.BoolVal;
 
 public final class ExecExecNamedFunctionContent {
 
     private final String name;
 
     private final StringList importedParametersTypes;
-    private final CustList<Boolean> parametersRef;
+    private final CustList<BoolVal> parametersRef;
 
     private final StringList parametersNames;
 
     private final boolean retRef;
     private final boolean varargs;
 
-    public ExecExecNamedFunctionContent(String _name, StringList _importedParametersTypes, CustList<Boolean> _parametersRef, StringList _parametersNames, boolean _retRef, boolean _varargs) {
+    public ExecExecNamedFunctionContent(String _name, StringList _importedParametersTypes, CustList<BoolVal> _parametersRef, StringList _parametersNames, boolean _retRef, boolean _varargs) {
         this.name = _name;
         this.importedParametersTypes = _importedParametersTypes;
         this.parametersRef = _parametersRef;
@@ -24,7 +25,7 @@ public final class ExecExecNamedFunctionContent {
         this.varargs = _varargs;
     }
 
-    public CustList<Boolean> getParametersRef() {
+    public CustList<BoolVal> getParametersRef() {
         return parametersRef;
     }
 

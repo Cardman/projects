@@ -11,6 +11,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class ElRetrieverAnonymous {
@@ -735,7 +736,7 @@ public final class ElRetrieverAnonymous {
                 parse_.getOffestsTypes().add(beginWord_+instrLoc_);
                 parse_.getParametersName().add(word_);
                 parse_.getParametersType().add("");
-                parse_.getParametersRef().add(false);
+                parse_.getParametersRef().add(BoolVal.FALSE);
                 parse_.getAnnotationsParams().add(new StringList());
                 parse_.getAnnotationsIndexesParams().add(new Ints());
                 InputTypeCreation input_ = new InputTypeCreation();
@@ -751,7 +752,7 @@ public final class ElRetrieverAnonymous {
                 if (res_.isOkType()) {
                     int k_ = res_.getNextIndex() - 1;
                     AnonymousResult anonymous_ = new AnonymousResult();
-                    anonymous_.setResults(parse_);
+                    anonymous_.setResults(new ParsedFctHeaderResult(parse_));
                     anonymous_.setIndex(beginWord_);
                     anonymous_.setUntil(k_);
                     anonymous_.setLength(k_- dash_ +1);
@@ -768,7 +769,7 @@ public final class ElRetrieverAnonymous {
             parse_.getOffestsTypes().add(beginWord_+instrLoc_);
             parse_.getParametersName().add(word_);
             parse_.getParametersType().add("");
-            parse_.getParametersRef().add(false);
+            parse_.getParametersRef().add(BoolVal.FALSE);
             parse_.getAnnotationsParams().add(new StringList());
             parse_.getAnnotationsIndexesParams().add(new Ints());
             int k_ = stack(_string, indAfterArrow_, _page, _curElts);
@@ -790,7 +791,7 @@ public final class ElRetrieverAnonymous {
             ret_.setLengthHeader(2);
             block_.appendChild(ret_);
             AnonymousResult anonymous_ = new AnonymousResult();
-            anonymous_.setResults(parse_);
+            anonymous_.setResults(new ParsedFctHeaderResult(parse_));
             anonymous_.setIndex(beginWord_);
             int withoutWhiteBoundsCount_ = part_.length() - tr_.length();
             anonymous_.setUntil(k_- withoutWhiteBoundsCount_ -1);
@@ -979,7 +980,7 @@ public final class ElRetrieverAnonymous {
                         if (res_.isOkType()) {
                             int k_ = res_.getNextIndex() - 1;
                             AnonymousResult anonymous_ = new AnonymousResult();
-                            anonymous_.setResults(parse_);
+                            anonymous_.setResults(new ParsedFctHeaderResult(parse_));
                             anonymous_.setIndex(_i);
                             anonymous_.setUntil(k_);
                             anonymous_.setLength(k_- indBeforeArrow_ +1);
@@ -1007,7 +1008,7 @@ public final class ElRetrieverAnonymous {
                     ret_.setLengthHeader(2);
                     block_.appendChild(ret_);
                     AnonymousResult anonymous_ = new AnonymousResult();
-                    anonymous_.setResults(parse_);
+                    anonymous_.setResults(new ParsedFctHeaderResult(parse_));
                     anonymous_.setIndex(_i);
                     int withoutWhiteBoundsCount_ = part_.length() - trim_.length();
                     anonymous_.setUntil(k_- withoutWhiteBoundsCount_ -1);

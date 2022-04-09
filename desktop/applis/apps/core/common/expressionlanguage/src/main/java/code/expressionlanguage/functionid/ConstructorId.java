@@ -2,6 +2,7 @@ package code.expressionlanguage.functionid;
 import code.expressionlanguage.common.*;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -17,7 +18,7 @@ public final class ConstructorId extends AbsractIdentifiableCommon {
         super(StringUtil.nullToEmpty(_name),_vararg);
         feedParamTypes(_classNames);
     }
-    public ConstructorId(String _name, CustList<String> _classNames, CustList<Boolean> _refParams, boolean _vararg) {
+    public ConstructorId(String _name, CustList<String> _classNames, CustList<BoolVal> _refParams, boolean _vararg) {
         super(StringUtil.nullToEmpty(_name),_vararg);
         feedParamTypes(_classNames, _refParams);
     }
@@ -55,7 +56,7 @@ public final class ConstructorId extends AbsractIdentifiableCommon {
         int m_ = Math.min(getClassNames().size(), getRefParams().size());
         for (int i = 0; i < m_; i++) {
             String s_ = "";
-            if (getParametersRef(i)) {
+            if (getParametersRef(i) == BoolVal.TRUE) {
                 s_ = "~";
             }
             cls_.add(StringUtil.concat(s_,getClassNames().get(i)));

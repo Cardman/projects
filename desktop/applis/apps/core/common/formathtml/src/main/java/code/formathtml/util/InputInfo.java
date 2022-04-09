@@ -1,13 +1,13 @@
 package code.formathtml.util;
 
-import code.util.BooleanList;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.BoolVal;
 
 public final class InputInfo {
-    private StringList varNames = new StringList();
-    private StringList varTypes = new StringList();
-    private CustList<Boolean> refs = new CustList<Boolean>();
+    private final StringList varNames = new StringList();
+    private final StringList varTypes = new StringList();
+    private final CustList<BoolVal> refs = new CustList<BoolVal>();
 
     public StringList getVarNames() {
         return varNames;
@@ -17,7 +17,7 @@ public final class InputInfo {
         return varTypes;
     }
 
-    public CustList<Boolean> getRefs() {
+    public CustList<BoolVal> getRefs() {
         return refs;
     }
 }

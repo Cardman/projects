@@ -13,6 +13,7 @@ import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.fwd.blocks.ExecAnonFctContent;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.BoolVal;
 
 public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock implements ExecReturnableWithSignature,ExecAnnotableParamBlock,WithCache {
 
@@ -45,7 +46,7 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
     public MethodId getId() {
         String name_ = getName();
         StringList pTypes_ = new StringList(importedParamType);
-        return new MethodId(isRetRef(), kind, name_, pTypes_,new CustList<Boolean>(false), false);
+        return new MethodId(isRetRef(), kind, name_, pTypes_,new CustList<BoolVal>(BoolVal.FALSE), false);
     }
 
     public String getImportedParamType() {

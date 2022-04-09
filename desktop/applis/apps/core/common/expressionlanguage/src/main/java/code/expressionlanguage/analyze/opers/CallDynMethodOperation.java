@@ -23,6 +23,7 @@ import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class CallDynMethodOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,SettableElResult,AbstractCallLeftOperation {
@@ -85,17 +86,17 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 m_.setReturnType(retBase_);
                 m_.setAncestor(0);
                 StringList cls_ = new StringList();
-                CustList<Boolean> refs_ = new CustList<Boolean>();
+                CustList<BoolVal> refs_ = new CustList<BoolVal>();
                 for (String c: param_) {
                     if (StringUtil.quickEq(c, StringExpUtil.SUB_TYPE)) {
                         cls_.add(_page.getAliasObject());
-                        refs_.add(false);
+                        refs_.add(BoolVal.FALSE);
                     } else if (c.startsWith("~")) {
                         cls_.add(c.substring(1));
-                        refs_.add(true);
+                        refs_.add(BoolVal.TRUE);
                     } else {
                         cls_.add(c);
-                        refs_.add(false);
+                        refs_.add(BoolVal.FALSE);
                     }
                 }
                 m_.format(refRet_,
@@ -200,7 +201,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                             _page.getAliasFct());
                     _page.getLocalizer().addError(und_);
                     addErr(und_.getBuiltError());
-                } else if (mid_.getParametersRef(0)){
+                } else if (mid_.getParametersRef(0) == BoolVal.TRUE){
                     FoundErrorInterpret und_ = new FoundErrorInterpret();
                     und_.setFile(_page.getCurrentFile());
                     und_.setIndexFile(_page);

@@ -20,6 +20,7 @@ import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class ExplicitOperatorOperation extends InvokingOperation implements PreAnalyzableOperation,RetrieveMethod,AbstractCallLeftOperation,SettableElResult {
@@ -106,7 +107,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                     typesImpl.add(resolvedIdType_.getDels());
                     if (!resName_.isEmpty()) {
                         StringList out_ = new StringList();
-                        CustList<Boolean> ref_ = new CustList<Boolean>();
+                        CustList<BoolVal> ref_ = new CustList<BoolVal>();
                         int offImpl_ = secondLeftPar_+1;
                         for (int i = 0; i < 1; i++) {
                             offImpl_ += argsImpl_.get(i).length() + 1;
@@ -121,7 +122,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                             arg_ = result_.getResult(_page);
                             offImpl_ += argsImpl_.get(i).length() + 1;
                             out_.add(arg_);
-                            ref_.add(false);
+                            ref_.add(BoolVal.FALSE);
                         }
                         methodIdImpl = new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, _page.getKeyWords().getKeyWordCast(), out_, ref_, false));
                     }
@@ -163,7 +164,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                         typesTest.add(result_);
                         arg_ = result_.getResult(_page);
                         StringList out_ = new StringList(_page.getAliasPrimBoolean(),arg_);
-                        CustList<Boolean> ref_ = new CustList<Boolean>(false,false);
+                        CustList<BoolVal> ref_ = new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE);
                         methodIdTest = new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, nameTest_, out_, ref_, false));
                     }
                 } else {

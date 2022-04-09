@@ -6,6 +6,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class ExecOverridableBlock extends ExecNamedFunctionBlock implements ExecReturnableWithSignature {
@@ -24,11 +25,11 @@ public final class ExecOverridableBlock extends ExecNamedFunctionBlock implement
         StringList types_ = getImportedParametersTypes();
         int len_ = types_.size();
         StringList pTypes_ = new StringList();
-        CustList<Boolean> rTypes_ = new CustList<Boolean>();
+        CustList<BoolVal> rTypes_ = new CustList<BoolVal>();
         if (kind == ExecMethodKind.EXPLICIT_CAST || kind == ExecMethodKind.IMPLICIT_CAST
                 ||kind == ExecMethodKind.TRUE_OPERATOR || kind == ExecMethodKind.FALSE_OPERATOR) {
             pTypes_.add(getImportedReturnType());
-            rTypes_.add(false);
+            rTypes_.add(BoolVal.FALSE);
         }
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
             String n_ = types_.get(i);

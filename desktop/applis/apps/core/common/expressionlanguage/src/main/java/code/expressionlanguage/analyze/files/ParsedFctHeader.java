@@ -7,6 +7,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class ParsedFctHeader {
@@ -17,7 +18,7 @@ public final class ParsedFctHeader {
     private static final String ARROW = "->";
     private final Ints offestsTypes = new Ints();
     private final Ints offestsParams = new Ints();
-    private final CustList<Boolean> parametersRef = new CustList<Boolean>();
+    private final CustList<BoolVal> parametersRef = new CustList<BoolVal>();
     private final StringList parametersType = new StringList();
     private final StringList parametersName = new StringList();
     private final Ints annotationsIndexes = new Ints();
@@ -61,13 +62,13 @@ public final class ParsedFctHeader {
                 annotationsParam_ = par_.getAnnotations();
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,par_.getIndex() - _sum);
             }
-            boolean ref_;
+            BoolVal ref_;
             if (StringExpUtil.startsWithKeyWord(_info,k_,_keyWordThat)) {
                 k_ += _keyWordThat.length();
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,k_);
-                ref_ = true;
+                ref_ = BoolVal.TRUE;
             } else {
-                ref_ = false;
+                ref_ = BoolVal.FALSE;
             }
             int typeOff_ = k_;
             String paramType_ = FileResolver.getFoundType(_info.substring(k_));
@@ -78,11 +79,7 @@ public final class ParsedFctHeader {
                 ok = false;
                 return;
             }
-            if (implCall_ < 0) {
-                implCall_ = implStopRightPar_;
-            } else {
-                implCall_ = Math.min(implCall_,implStopRightPar_);
-            }
+            implCall_ = gt(implCall_,implStopRightPar_);
             int parOff_ = k_;
             String varName_ = _info.substring(k_, implCall_).trim();
             annotationsIndexesParams.add(annotationsIndexesParam_);
@@ -102,6 +99,12 @@ public final class ParsedFctHeader {
             }
             j_=DefaultProcessKeyWord.skipWhiteSpace(_info,implCall_+1);
         }
+    }
+    private static int gt(int implCall_, int implStopRightPar_) {
+        if (implCall_ < 0) {
+            return implStopRightPar_;
+        }
+        return Math.min(implCall_,implStopRightPar_);
     }
 
     public void parseAnonymous(int _indexLeftPar, String _string, int _offset, String _keyWordThat) {
@@ -131,9 +134,9 @@ public final class ParsedFctHeader {
             if (StringExpUtil.startsWithKeyWord(_string,k_,_keyWordThat)) {
                 k_ += _keyWordThat.length();
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,k_);
-                parametersRef.add(true);
+                parametersRef.add(BoolVal.TRUE);
             } else {
-                parametersRef.add(false);
+                parametersRef.add(BoolVal.FALSE);
             }
             ParsedType p_ = new ParsedType();
             p_.parse(_string.substring(k_));
@@ -288,7 +291,7 @@ public final class ParsedFctHeader {
         return parametersType;
     }
 
-    public CustList<Boolean> getParametersRef() {
+    public CustList<BoolVal> getParametersRef() {
         return parametersRef;
     }
 
