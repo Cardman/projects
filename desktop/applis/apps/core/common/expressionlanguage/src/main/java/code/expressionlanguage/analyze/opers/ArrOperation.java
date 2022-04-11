@@ -69,6 +69,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         }
         boolean excAbs_ = staticChoiceMethod_;
         String trimMeth_ = "[]";
+        if (parSet() instanceof AffectationOperation) {
+            trimMeth_ = "[]=";
+        }
         AnaClassArgumentMatching class_ = getPreviousResultClass();
         fromArray = class_.isArray();
         String classType_ = "";
