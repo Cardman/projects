@@ -186,6 +186,7 @@ public final class LgNamesContent {
     private static final String READ_RESOURCES_NAMES_LENGTH = "ReadResourcesNamesLength";
     private static final String INVOKE_TARGET = "InvokeTarget";
     private static final String GET_ANNOTATIONS = "GetAnnotations";
+    private static final String GET_ANNOTATIONS_SUPP = "GetAnnotationsSupp";
     private static final String GET_VARIABLE_OWNER = "GetVariableOwner";
     private static final String READ_RESOURCES = "ReadResources";
     private static final String READ_RESOURCES_INDEX = "ReadResourcesIndex";
@@ -543,6 +544,7 @@ public final class LgNamesContent {
         getCoreNames().setAliasReadResourcesNamesLength(get(_util,_cust, READ_RESOURCES_NAMES_LENGTH));
         getReflect().setAliasInvokeTarget(get(_util,_cust, INVOKE_TARGET));
         getReflect().setAliasGetAnnotations(get(_util,_cust, GET_ANNOTATIONS));
+        getReflect().setAliasGetAnnotationsSupp(get(_util,_cust, GET_ANNOTATIONS_SUPP));
         getReflect().setAliasGetVariableOwner(get(_util,_cust, GET_VARIABLE_OWNER));
         getCoreNames().setAliasReadResources(get(_util,_cust, READ_RESOURCES));
         getCoreNames().setAliasReadResourcesIndex(get(_util,_cust, READ_RESOURCES_INDEX));
@@ -1209,6 +1211,7 @@ public final class LgNamesContent {
         getReflect().getParams().setAliasMethod3GetDeclaredAnonymousLambdaLoopVars0(get(_util,_cust, AliasParamReflection.METHOD_3_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0));
         getReflect().getParams().setAliasAnnotationType0GetString0(get(_util,_cust, AliasParamReflection.ANNOTATION_TYPE_0_GET_STRING_0));
         getReflect().getParams().setAliasAnnotated0GetAnnotations0(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_0));
+        getReflect().getParams().setAliasAnnotated0GetAnnotationsSupp0(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_SUPP_0));
         getReflect().getParams().setAliasAnnotated0GetAnnotationsParameters0(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_PARAMETERS_0));
         getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda0(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_0));
         getReflect().getParams().setAliasAnnotated0GetDeclaredAnonymousLambda1(get(_util,_cust, AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_1));
@@ -1491,6 +1494,7 @@ public final class LgNamesContent {
                 new KeyValueMemberName(SET_FIELD,getReflect().getAliasSetField())));
         map_.addEntry(getReflect().getAliasMethod(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(GET_ANNOTATIONS,getReflect().getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_SUPP,getReflect().getAliasGetAnnotationsSupp()),
                 new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getReflect().getAliasGetAnnotationsParameters()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getReflect().getAliasGetDeclaredAnonymousTypes()),
                 new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getReflect().getAliasGetDeclaredAnonymousLambda()),
@@ -2181,6 +2185,7 @@ public final class LgNamesContent {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.METHOD_3_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0, getReflect().getParams().getAliasMethod3GetDeclaredAnonymousLambdaLoopVars0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATION_TYPE_0_GET_STRING_0, getReflect().getParams().getAliasAnnotationType0GetString0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_0, getReflect().getParams().getAliasAnnotated0GetAnnotations0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_SUPP_0, getReflect().getParams().getAliasAnnotated0GetAnnotationsSupp0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_ANNOTATIONS_PARAMETERS_0, getReflect().getParams().getAliasAnnotated0GetAnnotationsParameters0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_0, getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda0()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_1, getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda1()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_2, getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda2()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_3, getReflect().getParams().getAliasAnnotated0GetDeclaredAnonymousLambda3())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_0, getReflect().getParams().getAliasAnnotated0GetDeclaredSwitchMethods0()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_1, getReflect().getParams().getAliasAnnotated0GetDeclaredSwitchMethods1()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_2, getReflect().getParams().getAliasAnnotated0GetDeclaredSwitchMethods2()),new KeyValueMemberName(AliasParamReflection.ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_3, getReflect().getParams().getAliasAnnotated0GetDeclaredSwitchMethods3())));

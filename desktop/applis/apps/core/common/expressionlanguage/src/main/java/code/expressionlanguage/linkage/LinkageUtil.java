@@ -1763,6 +1763,16 @@ public final class LinkageUtil {
                 addNameParts(_vars,_cond, _begName, _vars.getKeyWords().getKeyWordThis().length());
             }
             refParams(_vars,_cond, _cov);
+            if (_vars.goesToProcess()) {
+                return;
+            }
+            _vars.getLastStackElt().setIndexAnnotationGroup(_cond.getParametersNamesOffset().size());
+            buildAnnotationsReportSupp(_vars,m_, _cov);
+            if (_vars.goesToProcess()) {
+                return;
+            }
+            _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+            _vars.addParts(export(m_.getPartOffsetsReturnSetter()));
             return;
         }
         if (_k == -1) {
@@ -1852,6 +1862,16 @@ public final class LinkageUtil {
                 addNameParts(_vars,_cond, _begName, _vars.getKeyWords().getKeyWordThis().length());
             }
             refParamsError(_vars,_cond);
+            if (_vars.goesToProcess()) {
+                return;
+            }
+            _vars.getLastStackElt().setIndexAnnotationGroup(_cond.getParametersNamesOffset().size());
+            buildAnnotationsErrorSupp(_vars,m_);
+            if (_vars.goesToProcess()) {
+                return;
+            }
+            _vars.getLastStackElt().setIndexAnnotationGroup(-1);
+            _vars.addParts(export(m_.getPartOffsetsReturnSetter()));
             return;
         }
         if (_k == -1) {
@@ -2176,6 +2196,12 @@ public final class LinkageUtil {
         CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
         annotMethReport(_vars, _cond, _cov, annotationsIndexes_, annotations_, roots_);
     }
+    private static void buildAnnotationsReportSupp(VariablesOffsets _vars, NamedCalledFunctionBlock _cond, Coverage _cov) {
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexesSupp();
+        StringList annotations_ = _cond.getAnnotationsSupp();
+        CustList<OperationNode> roots_ = _cond.getRootsListSupp();
+        annotMethReport(_vars, _cond, _cov, annotationsIndexes_, annotations_, roots_);
+    }
     private static void buildAnnotationsReport(VariablesOffsets _vars, SwitchMethodBlock _cond, Coverage _cov) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
         StringList annotations_ = _cond.getAnnotations();
@@ -2231,6 +2257,12 @@ public final class LinkageUtil {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
         CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
         annotMethError(_vars, _cond, _index, annotationsIndexes_, roots_);
+    }
+    private static void buildAnnotationsErrorSupp(VariablesOffsets _vars, NamedCalledFunctionBlock _cond) {
+        Ints annotationsIndexes_ = _cond.getAnnotationsIndexesSupp();
+        CustList<OperationNode> roots_ = _cond.getRootsListSupp();
+        int index_ = _vars.getLastStackElt().getIndexAnnotationGroup();
+        annotMethError(_vars, _cond, index_, annotationsIndexes_, roots_);
     }
 
     private static void annotMethError(VariablesOffsets _vars, AbsBk _cond, int _index, Ints _annotationsIndexes, CustList<OperationNode> _roots) {
@@ -3283,6 +3315,10 @@ public final class LinkageUtil {
         if (_val instanceof FunctFilterOperation) {
             addTypes(_vars, ((FunctFilterOperation) _val).getPartOffsets());
             _vars.addParts(convert(((FunctFilterOperation)_val).getPartOffsetsErr()));
+        }
+        if (_val instanceof IdFctOperation) {
+            addTypes(_vars, ((IdFctOperation) _val).getPartOffsetsSet());
+            _vars.addParts(convert(((IdFctOperation)_val).getPartOffsetsErrSet()));
         }
         if (_val instanceof ForwardOperation) {
             ForwardOperation f_ = (ForwardOperation) _val;

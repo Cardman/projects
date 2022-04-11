@@ -31,7 +31,7 @@ public final class RendEnumMethOperation extends RendSettableCallFctOperation im
         setRelOffsetPossibleLastPage(off_, _rendStack);
         String lastType_ = staticFctContent.getLastType();
         int naturalVararg_ = staticFctContent.getNaturalVararg();
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ParamCheckerUtil.processEnums(_context.getExiting(), _context, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, null, _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall(), type), _context, _rendStack);
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ParamCheckerUtil.processEnums(_context.getExiting(), _context, ExecInvokingOperation.fectchArgs(lastType_, naturalVararg_, _context, _rendStack.getStackCall(), buildInfos(_nodes)), _rendStack.getStackCall(), type), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 }

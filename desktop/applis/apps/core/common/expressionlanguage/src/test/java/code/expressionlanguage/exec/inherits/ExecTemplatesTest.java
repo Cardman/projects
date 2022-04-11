@@ -630,7 +630,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ArrayStruct arr_ = defaultArray2("[$int");
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(arr_));
-        ArgumentListCall l_ = new ArgumentListCall(args_);
+        ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall = getStackCall(cont_);
         addPage(cont_, ExecutingUtil.createInstancingClass(classBody_,new ExecFormattedRootBlock(classBody_,"pkg.Ex"),null), stackCall);
@@ -651,7 +651,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         MethodId id_ = new MethodId(MethodAccessKind.INSTANCE,"get", new StringList("$int"),true);
         CustList<Argument> args_ = new CustList<Argument>();
-        ArgumentListCall l_ = new ArgumentListCall(args_);
+        ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall = getStackCall(cont_);
         ExecTemplates.okArgsSet(ExecClassesUtil.getMethodBodiesById(classBody_,id_).first(), new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_, stackCall);
@@ -667,7 +667,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         ContextEl cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(Argument.createVoid());
-        ArgumentListCall l_ = new ArgumentListCall(args_);
+        ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         StackCall stackCall = getStackCall(cont_);
         ExecTemplates.okArgsSet(null, new ExecFormattedRootBlock(classBody_,"pkg.Ex<$int>"), null, l_, cont_, stackCall);
@@ -682,7 +682,7 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         ContextEl cont_ = validated(files_);
         CustList<Argument> args_ = new CustList<Argument>();
-        ArgumentListCall l_ = new ArgumentListCall(args_);
+        ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
         StackCall stackCall_ = getStackCall(cont_);
         ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
         ExecTemplates.okArgsSet(null, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null, l_, cont_, stackCall_);

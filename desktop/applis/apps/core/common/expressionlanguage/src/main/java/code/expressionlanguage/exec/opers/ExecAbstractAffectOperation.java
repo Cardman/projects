@@ -66,6 +66,9 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         if (_set instanceof ExecCustArrOperation) {
             arg_ = ((ExecCustArrOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
+        if (_set instanceof ExecCustArrWriteOperation) {
+            arg_ = ((ExecCustArrWriteOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
+        }
         if (_set instanceof ExecArrOperation) {
             arg_ = ((ExecArrOperation)_set).calculateSetting(_nodes, _conf, _right, _stackCall);
         }
@@ -77,6 +80,10 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
 
     private static ExecOperationNode tryGetSettable(ExecAbstractAffectOperation _operation) {
         ExecOperationNode root_ = getFirstCastToBeAnalyzed(_operation);
+        return dotted(root_);
+    }
+
+    static ExecOperationNode dotted(ExecOperationNode root_) {
         ExecOperationNode elt_;
         if (!(root_ instanceof ExecAbstractDotOperation)) {
             elt_ = root_;
@@ -85,6 +92,7 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         }
         return elt_;
     }
+
     private static ExecMethodOperation tryGetSettableParent(ExecAbstractAffectOperation _operation) {
         ExecOperationNode root_ = getFirstCastToBeAnalyzed(_operation);
         ExecMethodOperation elt_;

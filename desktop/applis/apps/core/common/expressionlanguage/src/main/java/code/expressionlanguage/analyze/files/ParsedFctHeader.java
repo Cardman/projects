@@ -10,29 +10,27 @@ import code.util.StringList;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
-public final class ParsedFctHeader {
+public final class ParsedFctHeader extends ParsedFctHeaderAbs{
     private static final String SEP_CALLING = ",";
     private static final String END_CALLING = ")";
     private static final String ANNOT = "@";
     private static final String ANON_RETURN_PART = ":";
     private static final String ARROW = "->";
-    private final Ints offestsTypes = new Ints();
-    private final Ints offestsParams = new Ints();
-    private final CustList<BoolVal> parametersRef = new CustList<BoolVal>();
-    private final StringList parametersType = new StringList();
-    private final StringList parametersName = new StringList();
     private final Ints annotationsIndexes = new Ints();
     private final StringList annotations = new StringList();
+    private Ints annotationsIndexesSupp = new Ints();
+    private StringList annotationsSupp = new StringList();
     private final CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
     private final CustList<StringList> annotationsParams = new CustList<StringList>();
     private String info = "";
-    private String returnType = "";
     private boolean ok = true;
-    private boolean retRef;
-    private int returnOffest;
     private int offsetLast;
     private int nextIndex;
     private String afterArrow="";
+    private boolean indexerSet;
+    private String keyWordValue="";
+    private int typeSetterOff;
+    private String typeSetter="";
 
     public void parse(String _info, AnalyzedPageEl _parse, int _sum) {
         KeyWords keyWords_ = _parse.getKeyWords();
@@ -40,6 +38,18 @@ public final class ParsedFctHeader {
         parse(_info, keyWordThat_, _sum);
     }
 
+    public void parse(boolean _meth,String _retType, String _methName, String _info, AnalyzedPageEl _parse, int _sum) {
+        KeyWords keyWords_ = _parse.getKeyWords();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        indexerSet = isIndexerSet(_meth,_retType,_methName, _parse);
+        keyWordValue = keyWords_.getKeyWordValue();
+        parse(_info, keyWordThat_, _sum);
+    }
+
+    private static boolean isIndexerSet(boolean _meth, String _retType, String _methName, AnalyzedPageEl _parse) {
+        KeyWords keyWords_ = _parse.getKeyWords();
+        return _meth && StringUtil.quickEq(_retType,_parse.getAliasVoid()) && StringUtil.quickEq(_methName,keyWords_.getKeyWordThis());
+    }
     public void parse(String _info, String _keyWordThat, int _sum) {
         offsetLast = _sum;
         if (_info.startsWith(END_CALLING)) {
@@ -82,14 +92,15 @@ public final class ParsedFctHeader {
             implCall_ = gt(implCall_,implStopRightPar_);
             int parOff_ = k_;
             String varName_ = _info.substring(k_, implCall_).trim();
-            annotationsIndexesParams.add(annotationsIndexesParam_);
-            annotationsParams.add(annotationsParam_);
-            parametersRef.add(ref_);
-            offestsTypes.add(typeOff_ + _sum);
-            parametersType.add(paramType_.trim());
-            offestsParams.add(parOff_ + _sum);
-            parametersName.add(varName_);
             if (implStopRightPar_ == implCall_) {
+                if (isNotImplParam(varName_)) {
+                    feedPar(annotationsIndexesParam_, annotationsParam_, ref_, typeOff_, paramType_, parOff_, varName_);
+                } else {
+                    typeSetterOff = typeOff_ + _sum;
+                    typeSetter = paramType_.trim();
+                    annotationsIndexesSupp = annotationsIndexesParam_;
+                    annotationsSupp = annotationsParam_;
+                }
                 int afterRightPar_ = implStopRightPar_ + 1;
                 String sub_ = _info.substring(afterRightPar_);
                 int afterRightParOffset_ = afterRightPar_+ StringUtil.getFirstPrintableCharIndex(sub_);
@@ -97,8 +108,31 @@ public final class ParsedFctHeader {
                 offsetLast = afterRightParOffset_+ _sum;
                 break;
             }
+            feedPar(annotationsIndexesParam_, annotationsParam_, ref_, typeOff_, paramType_, parOff_, varName_);
             j_=DefaultProcessKeyWord.skipWhiteSpace(_info,implCall_+1);
         }
+    }
+
+    private void feedPar(Ints annotationsIndexesParam_, StringList annotationsParam_, BoolVal ref_, int typeOff_, String paramType_, int parOff_, String varName_) {
+        feedParAnnot(annotationsIndexesParam_, annotationsParam_);
+        feedParBase(ref_, typeOff_, offsetLast, paramType_.trim(), parOff_, varName_);
+    }
+
+    private void feedParAnnot(Ints annotationsIndexesParam_, StringList annotationsParam_) {
+        this.annotationsIndexesParams.add(annotationsIndexesParam_);
+        this.annotationsParams.add(annotationsParam_);
+    }
+
+    private void feedParBase(BoolVal ref_, int typeOff_, int offsetLast, String paramType_, int parOff_, String varName_) {
+        getParametersRef().add(ref_);
+        getOffestsTypes().add(typeOff_ + offsetLast);
+        getParametersType().add(paramType_);
+        getOffestsParams().add(parOff_ + offsetLast);
+        getParametersName().add(varName_);
+    }
+
+    private boolean isNotImplParam(String _par) {
+        return !indexerSet || !StringUtil.quickEq(keyWordValue, _par);
     }
     private static int gt(int implCall_, int implStopRightPar_) {
         if (implCall_ < 0) {
@@ -129,14 +163,13 @@ public final class ParsedFctHeader {
                 annotationsParam_ = par_.getAnnotations();
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,par_.getIndex() - _offset);
             }
-            annotationsIndexesParams.add(annotationsIndexesParam_);
-            annotationsParams.add(annotationsParam_);
+            BoolVal ref_;
             if (StringExpUtil.startsWithKeyWord(_string,k_,_keyWordThat)) {
                 k_ += _keyWordThat.length();
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,k_);
-                parametersRef.add(BoolVal.TRUE);
+                ref_ = BoolVal.TRUE;
             } else {
-                parametersRef.add(BoolVal.FALSE);
+                ref_ = BoolVal.FALSE;
             }
             ParsedType p_ = new ParsedType();
             p_.parse(_string.substring(k_));
@@ -175,10 +208,8 @@ public final class ParsedFctHeader {
                 nextIndex = _indexLeftPar;
                 return;
             }
-            offestsTypes.add(typeOff_+_offset);
-            parametersType.add(candid_);
-            offestsParams.add(parOff_ +_offset);
-            parametersName.add(varName_);
+            feedParAnnot(annotationsIndexesParam_, annotationsParam_);
+            feedParBase(ref_, typeOff_, _offset, candid_, parOff_, varName_);
             if (implStopInd_ == implCall_) {
                 processExplicitRetType(_indexLeftPar,_string,_offset,_keyWordThat,implCall_);
                 return;
@@ -198,8 +229,8 @@ public final class ParsedFctHeader {
             nextIndex = _indexLeftPar;
             return;
         }
-        returnOffest = _j + _offset;
-        returnType = "";
+        setReturnOffest(_j + _offset);
+        setReturnType("");
         nextIndex = _j;
         afterArrow = _string.substring(k_+2);
     }
@@ -216,7 +247,7 @@ public final class ParsedFctHeader {
         if (StringExpUtil.startsWithKeyWord(_string,k_, _keyWordThat)) {
             k_ += _keyWordThat.length();
             k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,k_);
-            retRef = true;
+            setRetRef(true);
         }
         int nextRightPar_ = _string.indexOf(END_CALLING,k_);
         if (nextRightPar_ < 0) {
@@ -229,22 +260,14 @@ public final class ParsedFctHeader {
             nextIndex = _indexLeftPar;
             return;
         }
-        returnOffest = k_+ _offset;
+        setReturnOffest(k_ + _offset);
         nextIndex = until_;
         afterArrow = _string.substring(nextRightPar_+2);
-        returnType = _string.substring(k_,until_);
-    }
-
-    public String getReturnType() {
-        return returnType;
+        setReturnType(_string.substring(k_, until_));
     }
 
     public String getInfo() {
         return info;
-    }
-
-    public boolean isRetRef() {
-        return retRef;
     }
 
     public boolean isOk() {
@@ -267,32 +290,24 @@ public final class ParsedFctHeader {
         return annotationsParams;
     }
 
+    public Ints getAnnotationsIndexesSupp() {
+        return annotationsIndexesSupp;
+    }
+
+    public StringList getAnnotationsSupp() {
+        return annotationsSupp;
+    }
+
     public int getOffsetLast() {
         return offsetLast;
     }
 
-    public int getReturnOffest() {
-        return returnOffest;
+    public int getTypeSetterOff() {
+        return typeSetterOff;
     }
 
-    public Ints getOffestsParams() {
-        return offestsParams;
-    }
-
-    public Ints getOffestsTypes() {
-        return offestsTypes;
-    }
-
-    public StringList getParametersName() {
-        return parametersName;
-    }
-
-    public StringList getParametersType() {
-        return parametersType;
-    }
-
-    public CustList<BoolVal> getParametersRef() {
-        return parametersRef;
+    public String getTypeSetter() {
+        return typeSetter;
     }
 
     public int getNextIndex() {

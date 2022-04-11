@@ -22,6 +22,7 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.common.ExtractedParts;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -31,8 +32,10 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.common.DisplayedStrings;
-import code.util.*;
+import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -67,6 +70,14 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     private final int rightPar;
     private boolean ko;
     private int nameNumber;
+    private int typeSetterOff;
+    private String typeSetter="";
+    private AnaResultPartType partOffsetsReturnSetter = new AnaResultPartType();
+    private CustList<OperationNode> rootsListSupp = new CustList<OperationNode>();
+
+    private final CustList<ResultExpression> resListSupp = new CustList<ResultExpression>();
+    private StringList annotationsSupp = new StringList();
+    private Ints annotationsIndexesSupp = new Ints();
 
     public NamedCalledFunctionBlock(ParsedFctHeader _header, boolean _retRef, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue, OffsetStringInfo _fctName, int _offset, int _rightPar) {
         super(_header,_retRef, _access, _retType, _fctName, _offset);
@@ -85,6 +96,10 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
                                     OffsetStringInfo _retType, OffsetStringInfo _fctName,
                                     OffsetStringInfo _modifier, int _offset, AnalyzedPageEl _page) {
         super(_header,_retRef, _access, _retType, _fctName, _offset);
+        typeSetterOff = _header.getTypeSetterOff();
+        typeSetter = _header.getTypeSetter();
+        annotationsSupp = _header.getAnnotationsSupp();
+        annotationsIndexesSupp = _header.getAnnotationsIndexesSupp();
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -206,6 +221,23 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
             return MethodAccessKind.STATIC_CALL;
         }
         return MethodAccessKind.INSTANCE;
+    }
+    public void buildAnnotationsSupp(AnalyzedPageEl _page) {
+        rootsListSupp = new CustList<OperationNode>();
+        int len_ = annotationsIndexesSupp.size();
+        for (int i = 0; i < len_; i++) {
+            int begin_ = annotationsIndexesSupp.get(i);
+            _page.setGlobalOffset(begin_);
+            _page.zeroOffset();
+            Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resListSupp.get(i), annotationsSupp.get(i).trim(), c_, _page);
+            ReachOperationUtil.tryCalculate(r_, _page);
+            rootsListSupp.add(r_);
+        }
+    }
+
+    public CustList<ResultExpression> getResListSupp() {
+        return resListSupp;
     }
 
     public void buildTypes(RootBlock _root, AnalyzedPageEl _page) {
@@ -332,6 +364,9 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
 
     @Override
     public void buildImportedReturnTypes(AnalyzedPageEl _page) {
+        if (kind == MethodKind.SET_INDEX && !getTypeSetter().isEmpty()) {
+            buildInternRetSett(_page);
+        }
         super.buildImportedReturnTypes(_page);
         retRef(_page, getKind());
         if (typeCall != NameCalledEnum.ANNOTATION) {
@@ -409,6 +444,19 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         }
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
     }
+    public void buildInternRetSett(AnalyzedPageEl _page) {
+        _page.setGlobalOffset(getTypeSetterOff());
+        _page.zeroOffset();
+        partOffsetsReturnSetter = ResolvingTypes.resolveCorrectType(getTypeSetter(), _page);
+        returnTypeGet = partOffsetsReturnSetter.getResult(_page);
+    }
+    public String getTypeSetter() {
+        return typeSetter;
+    }
+
+    public int getTypeSetterOff() {
+        return typeSetterOff;
+    }
 
     public int getNameNumber() {
         return nameNumber;
@@ -469,10 +517,12 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         return returnTypeGet;
     }
 
-    public void setReturnTypeGet(String _returnTypeGet) {
-        this.returnTypeGet = _returnTypeGet;
+    public void returnTypeGet(String _returnType) {
+        if (!returnTypeGet.isEmpty()) {
+            return;
+        }
+        this.returnTypeGet = _returnType;
     }
-
     public RootBlock getParentType() {
         return parentType;
     }
@@ -519,5 +569,21 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
 
     public NameCalledEnum getTypeCall() {
         return typeCall;
+    }
+
+    public AnaResultPartType getPartOffsetsReturnSetter() {
+        return partOffsetsReturnSetter;
+    }
+
+    public CustList<OperationNode> getRootsListSupp() {
+        return rootsListSupp;
+    }
+
+    public StringList getAnnotationsSupp() {
+        return annotationsSupp;
+    }
+
+    public Ints getAnnotationsIndexesSupp() {
+        return annotationsIndexesSupp;
     }
 }

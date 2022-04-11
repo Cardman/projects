@@ -188,6 +188,7 @@ public final class InitializationLgNames extends EquallableElUtil {
         _lgNames.getContent().getReflect().setAliasAnnotated("java.lang.$Annotated");
         _lgNames.getContent().getReflect().setAliasGetDefaultValue("getDefaultValue");
         _lgNames.getContent().getReflect().setAliasGetAnnotations("getAnnotations");
+        _lgNames.getContent().getReflect().setAliasGetAnnotationsSupp("getAnnotationsSupp");
         _lgNames.getContent().getReflect().setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.getContent().getReflect().setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.getContent().getReflect().setAliasGetDeclaredFields("getDeclaredFields");

@@ -16,7 +16,7 @@ public final class DirectEnumMethods extends AbstractRefectMethodPageEl {
     @Override
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
         MethodMetaInfo method_ = getMetaInfo();
-        ArgumentListCall l_ = new ArgumentListCall(_args);
+        ArgumentListCall l_ = ArgumentListCall.wrapCall(_args);
         return ParamCheckerUtil.processEnums(_context.getExiting(), _context, l_, _stack, method_.getPairType());
     }
 }

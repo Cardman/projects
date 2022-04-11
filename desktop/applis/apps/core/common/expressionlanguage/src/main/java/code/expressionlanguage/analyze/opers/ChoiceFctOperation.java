@@ -1,15 +1,20 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.util.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.util.MethodInfo;
+import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
+import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.StandardMethod;
@@ -113,11 +118,12 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
         ClassMethodId feedBase_ = null;
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
+            AnaGeneType gene_ = idMethod_.getGt();
             String idClass_ = id_.getClassName();
             MethodId mid_ = id_.getConstraints();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
             feedBase_ = new ClassMethodId(idClass_, MethodId.to(static_, trimMeth_, mid_));
-            feed_ = new ClassMethodIdAncestor(feedBase_,idMethod_.getAncestor());
+            feed_ = new ClassMethodIdAncestor(gene_,feedBase_,idMethod_.getAncestor());
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.getParameterFilterErr().isEmpty()) {

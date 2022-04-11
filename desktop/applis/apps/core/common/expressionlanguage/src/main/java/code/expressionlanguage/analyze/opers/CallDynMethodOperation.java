@@ -2,27 +2,28 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.FormattedFilter;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
 import code.maths.litteralcom.StrTypes;
-import code.util.*;
+import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
@@ -67,6 +68,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                     param_ = all_.leftMinusOne(all_.size() - 2);
                 }
                 m_ = new MethodInfo();
+                m_.setOwner(fctType_);
                 m_.setOriginalReturnType(_page.getAliasObject());
                 m_.setStandardMethod(e);
                 m_.setParametersNames(e.getParametersNames());
@@ -102,7 +104,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 m_.format(refRet_,
                         name_,cls_,refs_);
             } else {
-                m_ = OperationNode.getMethodInfo(e, 0,fct_,_page,id_,e.getImportedReturnType(), new FormattedFilter());
+                m_ = OperationNode.getMethodInfo(e, 0,fct_,_page,id_, new FormattedFilter());
             }
             methodInfos_.add(m_);
         }

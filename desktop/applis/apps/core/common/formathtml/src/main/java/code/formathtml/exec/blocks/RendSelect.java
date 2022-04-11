@@ -15,7 +15,6 @@ import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
-import code.formathtml.util.InputInfo;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
@@ -27,7 +26,6 @@ import code.util.core.StringUtil;
 public final class RendSelect extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsMap = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsDefault = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
@@ -35,8 +33,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
     private StringMap<DefExecTextPart> execAttributesText = new StringMap<DefExecTextPart>();
     private StringMap<DefExecTextPart> execAttributes = new StringMap<DefExecTextPart>();
-    private String varName = EMPTY_STRING;
-    private InputInfo varNames = new InputInfo();
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
@@ -48,16 +44,15 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private String className = EMPTY_STRING;
     private final boolean arrayConverter;
 
-    public RendSelect(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
+    public RendSelect(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue,
                       CustList<RendDynOperationNode> _opsMap, CustList<RendDynOperationNode> _opsDefault, CustList<RendDynOperationNode> _opsConverter,
                       CustList<RendDynOperationNode> _opsConverterField, CustList<RendDynOperationNode> _opsConverterFieldValue,
                       StringMap<DefExecTextPart> _execAttributesText, StringMap<DefExecTextPart> _execAttributes,
-                      String _varName, String _id, String _idClass, String _idName, Element _elt, boolean _multiple,
+                      String _id, String _idClass, String _idName, Element _elt, boolean _multiple,
                       String _varNameConverter, String _varNameConverterField, String _varNameConverterFieldValue,
-                      String _className, boolean _arrayConverter, InputInfo _list) {
+                      String _className, boolean _arrayConverter) {
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
-        this.opsWrite = _opsWrite;
         this.opsMap = _opsMap;
         this.opsDefault = _opsDefault;
         this.opsConverter = _opsConverter;
@@ -65,7 +60,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         this.opsConverterFieldValue = _opsConverterFieldValue;
         this.execAttributesText = _execAttributesText;
         this.execAttributes = _execAttributes;
-        this.varName = _varName;
         this.id = _id;
         this.idClass = _idClass;
         this.idName = _idName;
@@ -76,7 +70,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         this.varNameConverterFieldValue = _varNameConverterFieldValue;
         this.className = _className;
         this.arrayConverter = _arrayConverter;
-        varNames = _list;
     }
 
     @Override
@@ -265,9 +258,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         f_.setIdClass(idClass);
         f_.setIdName(idName);
         f_.setOpsRead(opsRead);
-        f_.setOpsWrite(opsWrite);
-        f_.setVarName(varName);
-        f_.setVarNames(varNames);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         f_.setArrayConverter(arrayConverter);

@@ -27,7 +27,7 @@ public final class FctCompoRepaint implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Argument arg_ = new Argument(_instance);
         CustList<Argument> args_ = new CustList<Argument>(arg_);
-        ArgumentListCall argList_ = new ArgumentListCall(args_);
+        ArgumentListCall argList_ = ArgumentListCall.wrapCall(args_);
         ExecTemplates.wrapAndCall(guiEx.getPairPaintMethod(), new ExecFormattedRootBlock(guiEx.getPairPaintMethod().getType(),aliasPaint),Argument.createVoid(), _cont, _stackCall, argList_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

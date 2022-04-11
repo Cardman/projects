@@ -6,9 +6,17 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.OperatorAccessor;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
+import code.expressionlanguage.analyze.assign.blocks.*;
+import code.expressionlanguage.analyze.assign.util.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
+import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.analyze.files.FileResolver;
 import code.expressionlanguage.analyze.files.StringComment;
-import code.expressionlanguage.analyze.inherits.*;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.FoundSuperType;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.analyze.opers.AnonymousInstancingOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
@@ -19,13 +27,9 @@ import code.expressionlanguage.analyze.syntax.SplitExpressionUtil;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.assign.blocks.*;
-import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
-import code.expressionlanguage.analyze.files.FileResolver;
-import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardType;
@@ -2114,7 +2118,7 @@ public final class ClassesUtil {
                      StringList params_ = method_.getParametersNames();
                     StringList types_ = method_.getImportedParametersTypes();
                     prepareParams(_page, method_.getParametersNamesOffset(),method_.getParamErrors(),params_, method_.getParametersRef(), types_, method_.isVarargs());
-                    processValueParam(_page, c, method_);
+                    processValueParam(_page, method_);
                     _page.getMappingLocal().clear();
                     _page.getMappingLocal().putAllMap(method_.getRefMappings());
                     method_.buildFctInstructionsReadOnly(_page);
@@ -2148,6 +2152,9 @@ public final class ClassesUtil {
                 if (b instanceof NamedFunctionBlock) {
                     ((NamedFunctionBlock)b).buildAnnotations(_page);
                     ((NamedFunctionBlock)b).buildAnnotationsParameters(_page);
+                }
+                if (b instanceof NamedCalledFunctionBlock) {
+                    ((NamedCalledFunctionBlock)b).buildAnnotationsSupp(_page);
                 }
                 if (b instanceof RootBlock) {
                     ((RootBlock)b).buildAnnotations(_page);
@@ -2633,29 +2640,15 @@ public final class ClassesUtil {
                 || _method.getKind() == MethodKind.TRUE_OPERATOR || _method.getKind() == MethodKind.FALSE_OPERATOR || _method.getKind() == MethodKind.RAND_CODE;
     }
 
-    private static void processValueParam(AnalyzedPageEl _page, RootBlock _cl, NamedCalledFunctionBlock _method) {
+    private static void processValueParam(AnalyzedPageEl _page, NamedCalledFunctionBlock _method) {
         if (_method.getKind() == MethodKind.SET_INDEX) {
             String p_ = _page.getKeyWords().getKeyWordValue();
-            CustList<NamedCalledFunctionBlock> getIndexers_ = new CustList<NamedCalledFunctionBlock>();
-            for (NamedCalledFunctionBlock d: _cl.getOverridableBlocks()) {
-                if (d.getKind() != MethodKind.GET_INDEX) {
-                    continue;
-                }
-                if (!d.getId().eqPartial(_method.getId())) {
-                    continue;
-                }
-                getIndexers_.add(d);
-            }
-            if (getIndexers_.size() == 1) {
-                NamedCalledFunctionBlock matching_ = getIndexers_.first();
-                String c_ = matching_.getImportedReturnType();
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(c_);
-                lv_.setConstType(ConstType.PARAM);
-                lv_.setFinalVariable(true);
-                lv_.setKeyWord(true);
-                _page.getInfosVars().put(p_, lv_);
-            }
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(_method.getReturnTypeGet());
+            lv_.setConstType(ConstType.PARAM);
+            lv_.setFinalVariable(true);
+            lv_.setKeyWord(true);
+            _page.getInfosVars().put(p_, lv_);
         }
     }
 

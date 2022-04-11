@@ -408,10 +408,11 @@ public final class ForwardInfos {
             fwdAnnotationsParameters(b, d, _coverage, _forwards);
         }
         for (EntryCust<NamedCalledFunctionBlock,ExecOverridableBlock> a: mem_.getOvNamed()) {
-            NamedFunctionBlock b = a.getKey();
-            ExecNamedFunctionBlock d = a.getValue();
+            NamedCalledFunctionBlock b = a.getKey();
+            ExecOverridableBlock d = a.getValue();
             fwdAnnotations(b, d, _coverage, _forwards);
             fwdAnnotationsParameters(b, d, _coverage, _forwards);
+            fwdAnnotationsParametersSupp(b,d,_coverage,_forwards);
         }
         for (EntryCust<ConstructorBlock, ExecConstructorBlock> a: mem_.getCtors()) {
             NamedFunctionBlock b = a.getKey();
@@ -1352,17 +1353,7 @@ public final class ForwardInfos {
             return new ExecAnonymousInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), s_.isNewBefore(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards));
         }
         if (_anaNode instanceof ArrOperation) {
-            ArrOperation a_ = (ArrOperation) _anaNode;
-            ExecTypeFunction get_ = FetchMemberUtil.fetchOvTypeFunction(a_.getMemberIdGet(), _forwards);
-            ExecTypeFunction set_ = FetchMemberUtil.fetchOvTypeFunction(a_.getMemberIdSet(), _forwards);
-            boolean cust_ = get_ != null;
-            if (set_ == null) {
-                cust_ = false;
-            }
-            if (cust_) {
-                return new ExecCustArrOperation(get_,set_, new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()), new ExecInstFctContent(a_.getCallFctContent(), a_.getAnc(), a_.isStaticChoiceMethod(), _forwards));
-            }
-            return new ExecArrOperation(new ExecOperationContent(a_.getContent()), a_.isIntermediateDottedOperation(), new ExecArrContent(a_.getArrContent()));
+            return arrOp((ArrOperation) _anaNode, _forwards);
         }
         if (_anaNode instanceof SwitchOperation) {
             SwitchOperation s_ = (SwitchOperation) _anaNode;
@@ -1378,6 +1369,21 @@ public final class ForwardInfos {
             return new ExecMultIdOperation(new ExecOperationContent(d_.getContent()));
         }
         return procOperands3(_anaNode, _forwards);
+    }
+
+    private static ExecInvokingOperation arrOp(ArrOperation _anaNode, Forwards _forwards) {
+        ExecTypeFunction get_ = FetchMemberUtil.fetchOvTypeFunction(_anaNode.getMemberIdGet(), _forwards);
+        ExecTypeFunction set_ = FetchMemberUtil.fetchOvTypeFunction(_anaNode.getMemberIdSet(), _forwards);
+        if (get_ == null && set_ == null) {
+            return new ExecArrOperation(new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecArrContent(_anaNode.getArrContent()));
+        }
+        if (get_ == null) {
+            return new ExecCustArrWriteOperation(get_, set_, new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards));
+        }
+        if (set_ == null) {
+            return new ExecCustArrReadOperation(get_, set_, new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards));
+        }
+        return new ExecCustArrOperation(get_, set_, new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards));
     }
 
     private static ExecOperationNode procOperands3(OperationNode _anaNode, Forwards _forwards) {
@@ -1827,6 +1833,9 @@ public final class ForwardInfos {
     private static void fwdAnnotationsParameters(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ann, Coverage _coverage, Forwards _forwards) {
         fwdAnnotationsParameters(_ana, _ann, _coverage, _forwards, _ana.getRootsList(), _ana.getAnnotationsIndexesParams());
     }
+    private static void fwdAnnotationsParametersSupp(NamedCalledFunctionBlock _ana, ExecOverridableBlock _ann, Coverage _coverage, Forwards _forwards) {
+        fwdAnnotationsParametersSupp(_ana, _ann, _coverage, _forwards, _ana.getRootsListSupp(), _ana.getAnnotationsIndexesSupp());
+    }
 
     private static void fwdAnnotationsParametersSw(SwitchMethodBlock _ana, ExecAnnotableParamBlock _ann, Coverage _coverage, Forwards _forwards) {
         fwdAnnotationsParameters(_ana, _ann, _coverage, _forwards, _ana.getRootsList(), _ana.getAnnotationsIndexesParams());
@@ -1849,6 +1858,20 @@ public final class ForwardInfos {
             i_++;
         }
         _ann.getAnnotationsOpsParams().addAllElts(ops_);
+    }
+
+
+    private static void fwdAnnotationsParametersSupp(MemberCallingsBlock _ana, ExecAnnotableParamBlock _ann, Coverage _coverage, Forwards _forwards, CustList<OperationNode> _roots, Ints _annotationsIndexesParams) {
+        CustList<ExecAnnotContent> annotation_;
+        annotation_ = new CustList<ExecAnnotContent>();
+        int allPar_ = _ann.getAnnotationsOpsParams().size();
+        int j_ = 0;
+        for (OperationNode r: _roots) {
+            _coverage.putBlockOperationsAnnotMethodSupp(_ana);
+            annotation_.add(new ExecAnnotContent(getExecutableNodes(allPar_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _annotationsIndexesParams.get(j_)));
+            j_++;
+        }
+        _ann.getAnnotationsOpsSupp().addAllElts(annotation_);
     }
 
     private static void fwdAnnotations(InnerTypeOrElement _ana, ExecInnerTypeOrElement _ann, Coverage _coverage, Forwards _forwards) {

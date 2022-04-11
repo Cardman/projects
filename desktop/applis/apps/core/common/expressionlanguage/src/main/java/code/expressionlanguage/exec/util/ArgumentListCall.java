@@ -5,28 +5,43 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.util.CustList;
 
 public final class ArgumentListCall {
-    private final CustList<ArgumentWrapper> argumentWrappers = new CustList<ArgumentWrapper>();
+    private final CustList<ArgumentWrapper> argumentWrappers;
 
     private Argument right;
 
     public ArgumentListCall() {
+        this(new CustList<ArgumentWrapper>());
     }
     public ArgumentListCall(Argument _arg) {
-        addArg(_arg);
+        this(one(_arg));
     }
-    public ArgumentListCall(CustList<Argument> _args) {
+    public ArgumentListCall(CustList<ArgumentWrapper> _ls) {
+        argumentWrappers = _ls;
+    }
+    private static CustList<ArgumentWrapper> one(Argument _arg) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
+        ls_.add(new ArgumentWrapper(_arg,null));
+        return ls_;
+    }
+    public static ArgumentListCall wrapCall(CustList<Argument> _args) {
+        return new ArgumentListCall(wrapList(_args));
+    }
+    public static ArgumentListCall wrapCall(CustList<ArgumentWrapper> _ls, Argument _right) {
+        ArgumentListCall ls_ = new ArgumentListCall(_ls);
+        ls_.setRight(_right);
+        return ls_;
+    }
+    public static CustList<ArgumentWrapper> wrapList(CustList<Argument> _args) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
         for (Argument a: _args) {
-            addArg(a);
+            ls_.add(new ArgumentWrapper(a,null));
         }
+        return ls_;
     }
     public CustList<ArgumentWrapper> getArgumentWrappers() {
         return argumentWrappers;
     }
 
-
-    private void addArg(Argument _arg) {
-        argumentWrappers.add(new ArgumentWrapper(_arg,null));
-    }
     public CustList<Argument> getArguments() {
         CustList<Argument> args_ = new CustList<Argument>();
         for (ArgumentWrapper a: argumentWrappers) {

@@ -240,7 +240,7 @@ public final class RendBlockHelp {
         FormParts formParts_ = _rend.getFormParts();
         Longs inputs_ = formParts_.getInputs();
         long currentInput_ = inputs_.last();
-        nodeCont_.setStruct(_fetch.getObj());
+        nodeCont_.setAllObject(_fetch.getObj());
         StringList strings_ = StringUtil.splitChar(varName_, ',');
         nodeCont_.setVarPrevName(strings_.first());
         nodeCont_.setVarName(strings_.last());

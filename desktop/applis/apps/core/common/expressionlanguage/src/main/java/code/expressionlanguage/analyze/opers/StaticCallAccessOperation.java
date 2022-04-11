@@ -3,21 +3,22 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public final class StaticCallAccessOperation extends LeafOperation {
     private ResolvedInstance partOffsets;
+    private AnaGeneType extractStaticType;
     private String stCall = "";
     private boolean implicit;
     private int lt;
@@ -47,13 +48,13 @@ public final class StaticCallAccessOperation extends LeafOperation {
                 if (!form_.trim().isEmpty()) {
                     ResolvedIdType resolved_ = ResolvingTypes.resolveAccessibleIdTypeBlock(str_.indexOf(PAR_LEFT) + 1, form_, _page);
                     String solved_ = resolved_.getFullName();
+                    extractStaticType = resolved_.getGeneType();
 //                    String solved_ = ResolvingTypes.resolveAccessibleIdType(str_.indexOf(PAR_LEFT) + 1, form_, _page);
                     partOffsets = new ResolvedInstance(resolved_.getDels());
 //                    partOffsets = new CustList<PartOffset>(_page.getCurrentParts());
                     stCall =solved_;
-                    RootBlock r_ = _page.getAnaClassBody(solved_);
-                    if (r_ != null) {
-                        solved_ = r_.getWildCardString();
+                    if (extractStaticType instanceof RootBlock) {
+                        solved_ = ((RootBlock)extractStaticType).getWildCardString();
                     }
                     classStr_ = emptyToObject(solved_,_page);
                 } else {
@@ -64,17 +65,23 @@ public final class StaticCallAccessOperation extends LeafOperation {
             } else {
                 AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(str_.indexOf(PAR_LEFT) + 1 + StringExpUtil.getOffset(realCl_), realCl_, _page);
                 classStr_ = result_.getResult(_page);
+                extractStaticType = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(classStr_));
                 partOffsets = new ResolvedInstance(result_);
             }
         } else {
             implicit = true;
             classStr_ = glClass_;
+            extractStaticType = _page.getGlobalType().getRootBlock();
             partOffsets = new ResolvedInstance();
         }
         checkClassAccess(glClass_, classStr_, _page);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
         setResultClass(new AnaClassArgumentMatching(classStr_));
+    }
+
+    public AnaGeneType getExtractStaticType() {
+        return extractStaticType;
     }
 
     public void check(AnalyzedPageEl _page) {

@@ -52,6 +52,7 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         OperationNode firstChild_ = AffectationOperation.getFirstToBeAnalyzed(this);
         OperationNode toAna_ = getAnalyzed(firstChild_);
         if (isLeftValueCall(toAna_) || toAna_ instanceof AbstractRefTernaryOperation || toAna_ instanceof SwitchOperation) {
+            procArr(_page, toAna_);
             setResultClass(new AnaClassArgumentMatching(toAna_.getResultClass().getNames()));
             return;
         }
@@ -76,6 +77,10 @@ public final class WrappOperation extends AbstractUnaryOperation implements PreA
         _page.getLocalizer().addError(varg_);
         addErr(varg_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+    }
+
+    static void procArr(AnalyzedPageEl _page, OperationNode _ch) {
+        ExplicitOperatorOperation.checkSetter(_ch,_page);
     }
 
     private boolean isUnexpected(AnalyzedPageEl _page) {

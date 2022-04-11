@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.util;
 
 
+import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.analyze.opers.util.AbsPossibleVarArg;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.MemberId;
@@ -8,6 +9,8 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.stds.StandardMethod;
+import code.util.CustList;
+import code.util.Ints;
 
 public final class ClassMethodIdReturn implements AbsPossibleVarArg {
 
@@ -27,6 +30,8 @@ public final class ClassMethodIdReturn implements AbsPossibleVarArg {
     private StandardMethod standardMethod;
     private AnaTypeFct pair;
     private AnaFormattedRootBlock formattedType;
+    private CustList<NamedArgumentOperation> filter;
+    private Ints indexesParams;
 
     public ClassMethodId getId() {
         return id;
@@ -135,5 +140,21 @@ public final class ClassMethodIdReturn implements AbsPossibleVarArg {
 
     public void setFormattedType(AnaFormattedRootBlock _formattedType) {
         this.formattedType = _formattedType;
+    }
+
+    public CustList<NamedArgumentOperation> getFilter() {
+        return filter;
+    }
+
+    public void setFilter(CustList<NamedArgumentOperation> _parameterFilter) {
+        filter = _parameterFilter;
+    }
+
+    public Ints getIndexesParams() {
+        return indexesParams;
+    }
+
+    public void setIndexesParams(Ints _name) {
+        indexesParams = _name;
     }
 }

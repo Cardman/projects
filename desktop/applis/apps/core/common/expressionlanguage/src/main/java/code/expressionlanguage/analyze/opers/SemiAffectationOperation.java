@@ -51,6 +51,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        WrappOperation.procArr(_page, (OperationNode) settable);
         if (settable instanceof SettableFieldOperation) {
             SettableFieldOperation cst_ = (SettableFieldOperation)settable;
             StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
@@ -66,7 +67,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                 addErr(un_.getBuiltError());
             }
         }
-        setResultClass(AnaClassArgumentMatching.copy(settable.getResultClass(), _page.getPrimitiveTypes()));
+        setResultClass(AnaClassArgumentMatching.copy(getSettableResClass(), _page.getPrimitiveTypes()));
         settable.setVariable(false);
         StrTypes ops_ = getOperations().getOperators();
         String op_ = ops_.firstValue();
@@ -76,9 +77,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             fct.infos(cl_,_page);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
-            map_.setParam(settable.getResultClass());
+            map_.setParam(getSettableResClass());
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(settable.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(getSettableResClass().getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_ != null) {
                     convTo.infos(res_);
                 } else {
@@ -88,11 +89,11 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(settable.getResultClass().getNames(),ExportCst.JOIN_TYPES));
+                            StringUtil.join(getSettableResClass().getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     addErr(cast_.getBuiltError());
                 }
-                setResultClass(AnaClassArgumentMatching.copy(settable.getResultClass(), _page.getPrimitiveTypes()));
+                setResultClass(AnaClassArgumentMatching.copy(getSettableResClass(), _page.getPrimitiveTypes()));
             }
             return;
         }
@@ -108,6 +109,10 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             addErr(cast_.getBuiltError());
         }
         clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());
+    }
+
+    private AnaClassArgumentMatching getSettableResClass() {
+        return ExplicitOperatorOperation.getSettableResClass(settable);
     }
 
     public boolean isPost() {

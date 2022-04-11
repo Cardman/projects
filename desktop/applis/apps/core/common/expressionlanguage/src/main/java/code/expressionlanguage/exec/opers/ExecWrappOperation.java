@@ -55,9 +55,10 @@ public final class ExecWrappOperation extends ExecMethodOperation implements Ato
         }
         if (chFirst_ instanceof ExecCustArrOperation) {
             ExecCustArrOperation ch_ = (ExecCustArrOperation)chFirst_;
-            Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-            ArrayCustWrapper a_ = new ArrayCustWrapper(previousArgument_, ExecFieldTemplates.getParent(ch_.getInstFctContent().getAnc(), previousArgument_.getStruct(), _stack).getClassName(_conf),ch_.buildInfos(_nodes),ch_.getInstFctContent(),ch_.getReadWrite());
+            ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, ch_);
+            Struct parent_ = pairCh_.getArgumentParent().getStruct();
+            ArrayCustWrapper a_ = new ArrayCustWrapper(pairCh_.getArgumentList(),parent_, parent_.getClassName(_conf), ch_.getReadWrite());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(ExecHelper.getArgumentPair(_nodes, ch_).getArgument(),_conf,_nodes, _stack);
             return;

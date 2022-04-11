@@ -2,14 +2,20 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.blocks.FieldBlock;
+import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.common.*;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
-import code.util.*;
+import code.util.CharList;
+import code.util.Ints;
+import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -609,6 +615,7 @@ public final class ElResolver {
             }
             if (isKeySt_) {
                 _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);
+                _d.getStaticAccessTypes().add(null);
                 _d.getStaticParts().add(new AnaResultPartType());
             }
             _out.setNextIndex(i_);
@@ -2135,9 +2142,11 @@ public final class ElResolver {
         if (delimits(begin_, end_)) {
             int ext_ = begin_ / 2;
             String extracted_ = _d.getDelKeyWordStaticExtract().get(ext_);
+            AnaGeneType extractedType_ = _d.getStaticAccessTypes().get(ext_);
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_ACCESS);
             op_.setExtractType(extracted_);
+            op_.setExtractStaticType(extractedType_);
             op_.setPartOffsets(_d.getStaticParts().get(ext_));
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);

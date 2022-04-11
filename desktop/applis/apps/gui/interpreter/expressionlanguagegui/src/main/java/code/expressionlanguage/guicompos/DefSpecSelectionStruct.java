@@ -8,7 +8,8 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.SpecSelectionStruct;
 import code.gui.images.MetaDimension;
@@ -45,7 +46,7 @@ public final class DefSpecSelectionStruct implements SpecSelectionStruct {
         Argument arg_ = new Argument();
         ExecTypeFunction pair_ = ((LgNamesGui) _r.getStandards()).getGuiExecutingBlocks().getPairPaintRefreshOne();
         LgNamesGui stds_ = (LgNamesGui) _r.getStandards();
-        ArgumentListCall argList_ = new ArgumentListCall(_args);
+        ArgumentListCall argList_ = ArgumentListCall.wrapCall(_args);
         return RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(pair_.getType(), stds_.getGuiAliases().getAliasPaint()), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_);
     }
     private static GuiContextEl newCtx(CommonExecutionInfos _executionInfos) {

@@ -16,7 +16,7 @@ public final class ExecIdOperation extends ExecMethodOperation implements Atomic
 
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
-        ExecOperationNode o_ = ExecAbstractAffectOperation.deepSearchId(getFirstChild());
+        ExecOperationNode o_ = ExecAbstractAffectOperation.dotted(ExecAbstractAffectOperation.deepSearchId(getFirstChild()));
         Argument a_ = getArgument(_nodes,o_);
         boolean simple_ = false;
         if (o_ instanceof ExecSettableElResult) {

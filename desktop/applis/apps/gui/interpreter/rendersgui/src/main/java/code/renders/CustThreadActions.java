@@ -5,7 +5,9 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.ExecClassesUtil;
+import code.expressionlanguage.exec.InitPhase;
+import code.expressionlanguage.exec.ProcessMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecOverridableBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -24,7 +26,6 @@ import code.formathtml.DualNavigationContext;
 import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefaultConfigurationLoader;
 import code.formathtml.util.DualAnalyzedContext;
 import code.gui.document.AbstractThreadActions;
@@ -123,7 +124,7 @@ public final class CustThreadActions extends AbstractThreadActions {
                     args_.add(new Argument(arrContents_));
                     ExecNamedFunctionBlock method_ = methods_.first();
                     ExecTypeFunction pair_ = new ExecTypeFunction(classBody_, method_);
-                    ArgumentListCall argList_ = new ArgumentListCall(args_);
+                    ArgumentListCall argList_ = ArgumentListCall.wrapCall(args_);
                     Parameters parameters_ = ExecTemplates.wrapAndCall(pair_, new ExecFormattedRootBlock(classBody_, classDbName),arg_, ctx_, rendStackCall_.getStackCall(), argList_);
                     Argument out_ = ProcessMethod.calculate(new CustomFoundMethod(arg_, new ExecFormattedRootBlock(classBody_, classDbName), pair_, parameters_), ctx_, rendStackCall_.getStackCall()).getValue();
                     if (ctx_.callsOrException(rendStackCall_.getStackCall())) {

@@ -2,17 +2,22 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.util.*;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.analyze.util.ContextUtil;
+import code.expressionlanguage.analyze.util.TypeVar;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.Matching;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.*;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
@@ -807,13 +812,17 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     }
     final ClassMethodIdAncestor lookOnlyForId() {
         OperationNode first_ = getFirstChild();
-        if (first_ == null) {
-            return null;
-        }
         if (!(first_ instanceof IdFctOperation)) {
             return null;
         }
         return ((IdFctOperation)first_).getMethod();
+    }
+    final ClassMethodIdAncestor lookOnlyForIdSet() {
+        OperationNode first_ = getFirstChild();
+        if (!(first_ instanceof IdFctOperation)) {
+            return null;
+        }
+        return ((IdFctOperation)first_).getMethodSet();
     }
 
     protected void buildErrNotFoundStd(MethodAccessKind _staticContext, String _name, NameParametersFilter _filter, AnalyzedPageEl _page) {

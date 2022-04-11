@@ -18,6 +18,8 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     private final CustList<CustList<ExecAnnotContent>> annotationsOpsParams = new CustList<CustList<ExecAnnotContent>>();
 
+    private final CustList<ExecAnnotContent> annotationsOpsSupp = new CustList<ExecAnnotContent>();
+
     ExecNamedFunctionBlock(AccessEnum _access, ExecExecNamedFunctionContent _content) {
         content = _content;
         access = _access;
@@ -25,6 +27,10 @@ public abstract class ExecNamedFunctionBlock extends ExecMemberCallingsBlock imp
 
     public CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams() {
         return annotationsOpsParams;
+    }
+
+    public CustList<ExecAnnotContent> getAnnotationsOpsSupp() {
+        return annotationsOpsSupp;
     }
 
     public String getName() {

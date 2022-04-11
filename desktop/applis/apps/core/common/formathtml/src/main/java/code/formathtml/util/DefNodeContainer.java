@@ -4,17 +4,14 @@ import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class DefNodeContainer extends NodeContainer {
-    private StringList objectClasses = new StringList();
-    private CustList<AbstractWrapper> wrappers = new CustList<AbstractWrapper>();
-    private CustList<RendDynOperationNode> opsWrite;
     private CustList<RendDynOperationNode> opsConvert;
     private String idFieldClass;
     private String idFieldName;
 
     private String idClass;
+    private AbstractWrapper input;
 
     public String getIdClass() {
         return idClass;
@@ -24,16 +21,6 @@ public final class DefNodeContainer extends NodeContainer {
         this.idClass = _id;
     }
 
-    public String getUpdatedClass() {
-        return objectClasses.first();
-    }
-    public CustList<String> getStructParamClass() {
-        return objectClasses.mid(1);
-    }
-
-    public void setObjectClasses(StringList _objectClasses) {
-        this.objectClasses = _objectClasses;
-    }
     public ClassField getIdField() {
         return new ClassField(idFieldClass,idFieldName);
     }
@@ -53,21 +40,6 @@ public final class DefNodeContainer extends NodeContainer {
     public void setIdFieldName(String _idFieldName) {
         this.idFieldName = _idFieldName;
     }
-    public CustList<RendDynOperationNode> getOpsWrite() {
-        return opsWrite;
-    }
-
-    public void setOpsWrite(CustList<RendDynOperationNode> _opsWrite) {
-        opsWrite = _opsWrite;
-    }
-
-    public CustList<AbstractWrapper> getWrappers() {
-        return wrappers;
-    }
-
-    public void setWrappers(CustList<AbstractWrapper> _wrappers) {
-        wrappers = _wrappers;
-    }
 
     public CustList<RendDynOperationNode> getOpsConvert() {
         return opsConvert;
@@ -77,4 +49,11 @@ public final class DefNodeContainer extends NodeContainer {
         opsConvert = _opsConvert;
     }
 
+    public AbstractWrapper getInput() {
+        return input;
+    }
+
+    public void setInput(AbstractWrapper _input) {
+        input = _input;
+    }
 }

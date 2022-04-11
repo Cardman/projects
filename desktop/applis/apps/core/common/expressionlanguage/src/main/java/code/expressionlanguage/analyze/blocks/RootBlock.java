@@ -5,22 +5,27 @@ import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.accessing.Accessed;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.opers.Calculation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.errors.custom.*;
-import code.expressionlanguage.analyze.files.OffsetAccessInfo;
-import code.expressionlanguage.functionid.*;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.AnaInheritedType;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.ConstructorId;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
@@ -1060,65 +1065,15 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     private void validateIndexers(CustList<NamedCalledFunctionBlock> _indexersGet, CustList<NamedCalledFunctionBlock> _indexersSet, AnalyzedPageEl _page) {
-        for (NamedCalledFunctionBlock i: _indexersGet) {
-            MethodId iOne_ = i.getId();
-            boolean ok_ = false;
-            NamedCalledFunctionBlock set_ = null;
-            for (NamedCalledFunctionBlock j: _indexersSet) {
-                MethodId iTwo_ = j.getId();
-                if (iOne_.eqPartial(iTwo_)) {
-                    ok_ = true;
-                    set_ = j;
-                    i.setMatchParamNames(StringUtil.eqStrings(i.getParametersNames(),j.getParametersNames()));
-                    j.setMatchParamNames(StringUtil.eqStrings(i.getParametersNames(),j.getParametersNames()));
-                }
-            }
-            if (!ok_) {
-                int where_ = i.getOffset();
-                FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                unexp_.setFile(getFile());
-                unexp_.setIndexFile(where_);
-                //method name len
-                unexp_.buildError(_page.getAnalysisMessages().getBadIndexerPairSet(),
-                        i.getSignature(_page));
-                _page.addLocError(unexp_);
-                i.addNameErrors(unexp_);
-            } else {
-                if (set_.getModifier() != i.getModifier()) {
-                    int where_ = i.getOffset();
-                    FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                    unexp_.setFile(getFile());
-                    unexp_.setIndexFile(where_);
-                    //method name len
-                    unexp_.buildError(_page.getAnalysisMessages().getBadIndexerModifiers(),
-                            i.getSignature(_page));
-                    _page.addLocError(unexp_);
-                    i.addNameErrors(unexp_);
-                }
-                if (set_.getAccess() != i.getAccess()) {
-                    int where_ = i.getOffset();
-                    FoundErrorInterpret unexp_ = new FoundErrorInterpret();
-                    unexp_.setFile(getFile());
-                    unexp_.setIndexFile(where_);
-                    //method name len
-                    unexp_.buildError(_page.getAnalysisMessages().getBadIndexerAccesses(),
-                            i.getSignature(_page));
-                    _page.addLocError(unexp_);
-                    i.addNameErrors(unexp_);
-                }
-            }
-        }
         for (NamedCalledFunctionBlock i: _indexersSet) {
             MethodId iOne_ = i.getId();
-            boolean ok_ = false;
             for (NamedCalledFunctionBlock j: _indexersGet) {
                 MethodId iTwo_ = j.getId();
                 if (iOne_.eqPartial(iTwo_)) {
-                    i.setReturnTypeGet(j.getImportedReturnType());
-                    ok_ = true;
+                    i.returnTypeGet(j.getImportedReturnType());
                 }
             }
-            if (!ok_) {
+            if (i.getReturnTypeGet().isEmpty()) {
                 int where_ = i.getOffset();
                 FoundErrorInterpret unexp_ = new FoundErrorInterpret();
                 unexp_.setFile(getFile());
@@ -1277,9 +1232,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
             CustList<MethodIdAncestors> signatures_;
             signatures_ = new CustList<MethodIdAncestors>();
             StringList upper_ = Mapping.getAllUpperBounds(vars_, t.getName(),objectClassName_);
-            CustList<CustList<MethodInfo>> methods_;
-            methods_ = new CustList<CustList<MethodInfo>>();
-            OperationNode.fetchParamClassAncMethods(upper_,methods_, _page);
+            CustList<CustList<MethodInfo>> methods_ = OperationNode.fetchParamClassAncMethods(upper_, _page);
             for (CustList<MethodInfo> l: methods_) {
                 for (MethodInfo e: l) {
                     if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {
@@ -1389,9 +1342,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         }
         CustList<MethodIdAncestors> ov_;
         ov_ = new CustList<MethodIdAncestors>();
-        CustList<CustList<MethodInfo>> methods_;
-        methods_ = new CustList<CustList<MethodInfo>>();
-        OperationNode.fetchParamClassAncMethods(new StringList(getGenericString()),methods_, _page);
+        CustList<CustList<MethodInfo>> methods_ = OperationNode.fetchParamClassAncMethods(new StringList(getGenericString()), _page);
         for (CustList<MethodInfo> l: methods_) {
             for (MethodInfo e: l) {
                 if (e.getConstraints().getKind() != MethodAccessKind.INSTANCE) {

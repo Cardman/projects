@@ -4,16 +4,24 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ImportedField;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.accessing.Accessed;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.InfoBlock;
+import code.expressionlanguage.analyze.blocks.NamedCalledFunctionBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.util.ContextUtil;
-import code.expressionlanguage.common.*;
+import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.CstFieldInfo;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardClass;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
-import code.util.*;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.IdMap;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ResolvingImportTypes {
@@ -278,6 +286,7 @@ public final class ResolvingImportTypes {
                     value_.memberId(t_.getNumberAll(),e.getNameOverrideNumber());
                     value_.setCustMethod(e);
                     value_.setType(t_);
+                    value_.setOwner(t_);
                     addImportMethod(_methods, value_);
                 }
             }
@@ -292,6 +301,7 @@ public final class ResolvingImportTypes {
                     ClassMethodId clMet_ = new ClassMethodId(s, e.getId());
                     ImportedMethod value_ = new ImportedMethod(e.getImportedReturnType(), clMet_);
                     value_.setStandardMethod(e);
+                    value_.setOwner(super_);
                     addImportMethod(_methods, value_);
                 }
             }

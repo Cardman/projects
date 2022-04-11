@@ -46,7 +46,7 @@ public final class ExecStaticFctOperation extends ExecSettableCallFctOperation {
 
     public static Argument prep(ContextEl _conf, StackCall _stack, ExecFormattedRootBlock _classNameFound, String _lastType, CustList<ExecOperationInfo> _infos, ExecStaticFctContent _staticFctContent, ExecTypeFunction _pair) {
         Argument prev_ = new Argument();
-        return new MethodParamChecker(_pair, fectchArgs(_lastType, _staticFctContent.getNaturalVararg(), null, _conf, _stack, _infos), _staticFctContent.getKind()).checkParams(_classNameFound, prev_, null, _conf, _stack);
+        return new MethodParamChecker(_pair, fectchArgs(_lastType, _staticFctContent.getNaturalVararg(), _conf, _stack, _infos), _staticFctContent.getKind()).checkParams(_classNameFound, prev_, null, _conf, _stack);
     }
 
 

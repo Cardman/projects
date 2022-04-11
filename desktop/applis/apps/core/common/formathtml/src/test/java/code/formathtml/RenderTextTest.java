@@ -778,6 +778,43 @@ public final class RenderTextTest extends CommonRender {
         assertEq("<html><body>10,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
+    public void process_27_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:set className='pkg.BeanOne.Cont' value='i=$new pkg.BeanOne.Cont()'/>{((i[0])++).count},{i[0].count}</body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public $static $class Cont{");
+        file_.append("  $public Inner[] count={$new Inner()};");
+        file_.append("  $public Inner $this($int v){");
+        file_.append("   $return count[v];");
+        file_.append("  }");
+        file_.append("  $public $void $this($int t){");
+        file_.append("   count[t]=$value;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append(" $public $static $class Inner{");
+        file_.append("  $public $int count=10;");
+        file_.append("  $public $static Inner $($int v){");
+        file_.append("   Inner i = $new Inner();");
+        file_.append("   i.count=v;");
+        file_.append("   $return i;");
+        file_.append("  }");
+        file_.append("  $public $static $int $(Inner t){");
+        file_.append("   $return t.count;");
+        file_.append("  }");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body>10,11</body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
     public void process28Test() {
         String locale_ = "en";
         String folder_ = "messages";
@@ -3629,6 +3666,25 @@ public final class RenderTextTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String html_ = "<html><body><c:set className=\"pkg.ExClass\" value=\"inst=$new()\"/><c:set value=\"inst[0]??=2\"/>{inst[0]}</body></html>";
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.ExClass {\n");
+        xml_.append(" $public Integer[] v = $new Integer[1];\n");
+        xml_.append(" $public Integer $this($int i) {\n");
+        xml_.append("  $return v[i];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int i) {\n");
+        xml_.append("  v[i] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        assertEq("<html><body>2</body></html>", getRes2(folder_, relative_, html_, files_));
+    }
+    @Test
+    public void process152_Test() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"pkg.ExClass\" value=\"inst=$new()\"/><c:set value=\"(inst[0])=2\"/>{inst[0]}</body></html>";
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.ExClass {\n");
         xml_.append(" $public Integer[] v = $new Integer[1];\n");

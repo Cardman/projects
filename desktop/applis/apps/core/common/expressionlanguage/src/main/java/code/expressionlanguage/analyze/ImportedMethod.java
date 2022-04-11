@@ -3,16 +3,18 @@ package code.expressionlanguage.analyze;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.opers.util.MemberId;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.stds.StandardMethod;
 
 public final class ImportedMethod {
-    private String returnType;
+    private final String returnType;
     private String fileName="";
-    private ClassMethodId id;
-    private MemberId memberId = new MemberId();
+    private final ClassMethodId id;
+    private final MemberId memberId = new MemberId();
     private StandardMethod standardMethod;
     private RootBlock type;
+    private AnaGeneType owner;
     private NamedFunctionBlock custMethod;
 
     public ImportedMethod(String _returnType, ClassMethodId _id) {
@@ -66,5 +68,13 @@ public final class ImportedMethod {
 
     public void setCustMethod(NamedFunctionBlock _custMethod) {
         this.custMethod = _custMethod;
+    }
+
+    public AnaGeneType getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AnaGeneType _own) {
+        this.owner = _own;
     }
 }

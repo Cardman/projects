@@ -66,6 +66,7 @@ public final class AliasParamReflection {
     public static final String METHOD_3_GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS_0="Method3GetDeclaredAnonymousLambdaLoopVars0";
     public static final String ANNOTATION_TYPE_0_GET_STRING_0="AnnotationType0GetString0";
     public static final String ANNOTATED_0_GET_ANNOTATIONS_0="Annotated0GetAnnotations0";
+    public static final String ANNOTATED_0_GET_ANNOTATIONS_SUPP_0="Annotated0GetAnnotationsSupp0";
     public static final String ANNOTATED_0_GET_ANNOTATIONS_PARAMETERS_0="Annotated0GetAnnotationsParameters0";
     public static final String ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_0="Annotated0GetDeclaredAnonymousLambda0";
     public static final String ANNOTATED_0_GET_DECLARED_ANONYMOUS_LAMBDA_1="Annotated0GetDeclaredAnonymousLambda1";
@@ -141,6 +142,7 @@ public final class AliasParamReflection {
     private String aliasMethod3GetDeclaredAnonymousLambdaLoopVars0="a";
     private String aliasAnnotationType0GetString0="a";
     private String aliasAnnotated0GetAnnotations0="a";
+    private String aliasAnnotated0GetAnnotationsSupp0="a";
     private String aliasAnnotated0GetAnnotationsParameters0="a";
     private String aliasAnnotated0GetDeclaredAnonymousLambda0="a";
     private String aliasAnnotated0GetDeclaredAnonymousLambda1="b";
@@ -677,6 +679,14 @@ public final class AliasParamReflection {
 
     public void setAliasAnnotated0GetAnnotationsParameters0(String _v) {
         this.aliasAnnotated0GetAnnotationsParameters0 =_v;
+    }
+
+    public String getAliasAnnotated0GetAnnotationsSupp0() {
+        return aliasAnnotated0GetAnnotationsSupp0;
+    }
+
+    public void setAliasAnnotated0GetAnnotationsSupp0(String _v) {
+        this.aliasAnnotated0GetAnnotationsSupp0 = _v;
     }
 
     public String getAliasAnnotated0GetDeclaredAnonymousLambda0() {

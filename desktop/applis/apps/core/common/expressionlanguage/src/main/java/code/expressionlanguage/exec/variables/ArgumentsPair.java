@@ -1,9 +1,13 @@
 package code.expressionlanguage.exec.variables;
 import code.expressionlanguage.Argument;
+import code.expressionlanguage.exec.ArgumentWrapper;
+import code.util.CustList;
 
 public final class ArgumentsPair {
 
     private Argument argument;
+    private Argument argumentParent;
+    private CustList<ArgumentWrapper> argumentList = new CustList<ArgumentWrapper>();
     private AbstractWrapper wrapper;
     private Argument argumentBeforeTest;
     private Argument argumentBeforeImpl;
@@ -21,6 +25,22 @@ public final class ArgumentsPair {
     }
     public void setArgument(Argument _argument) {
         argument = _argument;
+    }
+
+    public Argument getArgumentParent() {
+        return argumentParent;
+    }
+
+    public void setArgumentParent(Argument _arg) {
+        this.argumentParent = _arg;
+    }
+
+    public CustList<ArgumentWrapper> getArgumentList() {
+        return argumentList;
+    }
+
+    public void setArgumentList(CustList<ArgumentWrapper> _li) {
+        this.argumentList = _li;
     }
 
     public AbstractWrapper getWrapper() {

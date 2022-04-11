@@ -7,9 +7,13 @@ import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
-import code.expressionlanguage.analyze.types.*;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.analyze.types.ResolvedIdType;
+import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -29,6 +33,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     private final int offsetOper;
     private String from;
+    private AnaGeneType accType;
 
     private final ClassMethodIdMemberIdTypeFct conv = new ClassMethodIdMemberIdTypeFct();
     private AnaResultPartType partOffsets = new AnaResultPartType();
@@ -186,6 +191,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             String fromType_ = args_.get(1).trim();
             partOffsets = ResolvingTypes.resolveCorrectTypeAccessible(off_ + callFctContent.getMethodName().indexOf(',') + 1, fromType_, _page);
             from = partOffsets.getResult(_page);
+            accType = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(from));
         }
         methodFound = op_;
         if (from.isEmpty()) {
@@ -263,7 +269,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             }
             OperationNode def_ = next_;
             SettableElResult settable_ = AffectationOperation.tryGetSettableArg(def_);
-            if (settable_ == null) {
+            if (!(settable_ instanceof OperationNode)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
                 un_.setIndexFile(_page);
@@ -275,7 +281,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 return;
             }
             settable_.setVariable(false);
-            AnaClassArgumentMatching left_ = settable_.getResultClass();
+            checkSetter((OperationNode)settable_,_page);
             indexVar = next_.getIndexChild();
             if (settable_ instanceof SettableFieldOperation) {
                 SettableFieldOperation cst_ = (SettableFieldOperation)settable_;
@@ -316,10 +322,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 //oper len
                 cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                         StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                        StringUtil.join(left_.getNames(),ExportCst.JOIN_TYPES));
+                        StringUtil.join(settable_.getResultClass().getNames(),ExportCst.JOIN_TYPES));
                 _page.getLocalizer().addError(cast_);
                 addErr(cast_.getBuiltError());
             }
+            AnaClassArgumentMatching left_ = getSettableResClass(settable_);
             if (methodIdImpl != null) {
                 AnaClassArgumentMatching resultClass_ = getResultClass();
                 CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(left_);
@@ -382,6 +389,23 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         findMethodWithName(_page,name_);
     }
 
+    static void checkSetter(OperationNode _op, AnalyzedPageEl _page) {
+        if (!(_op instanceof ArrOperation)) {
+            return;
+        }
+        ArrOperation arr_ = (ArrOperation) _op;
+        if (arr_.isFromArray()) {
+            return;
+        }
+        arr_.applySet(_page);
+    }
+
+    static AnaClassArgumentMatching getSettableResClass(SettableElResult _sett) {
+        if (_sett instanceof ArrOperation&&!((ArrOperation)_sett).isFromArray()) {
+            return new AnaClassArgumentMatching(((ArrOperation)_sett).getReturnSet());
+        }
+        return _sett.getResultClass();
+    }
     private ClassMethodIdReturn findMethodWithName(AnalyzedPageEl _page, NameParametersFilter _name) {
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
@@ -396,7 +420,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 static_ = MethodId.getKind(MethodAccessKind.STATIC_CALL, mid_.getKind());
             }
             ClassMethodId classMethodId_ = new ClassMethodId(from, MethodId.to(static_, methodFound,mid_));
-            feed_ = new ClassMethodIdAncestor(classMethodId_,idMethod_.getAncestor());
+            feed_ = new ClassMethodIdAncestor(accType,classMethodId_,idMethod_.getAncestor());
         }
         CustList<OperationNode> chidren_ = getChildrenNodes();
         String varargParam_ = getVarargParam(chidren_);
@@ -470,6 +494,10 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public String getFrom() {
         return from;
+    }
+
+    public AnaGeneType getAccType() {
+        return accType;
     }
 
     public AnaResultPartType getPartOffsets() {

@@ -1,10 +1,5 @@
 package code.expressionlanguage.methods;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.blocks.ExecFileBlock;
-import code.expressionlanguage.functionid.MethodId;
-import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -6540,6 +6535,54 @@ public final class ErrorsZTest extends ProcessMethodCommon {
                 "}\n" +
                 "interface <a name=\"m57\">pkg.RecSuper</a> {\n" +
                 " int <a name=\"m77\">field2</a>;\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
+    public void report874Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("static pkg.ExTwo.*;\n");
+        xml_.append("public annotation pkg.MyAnnot {\n");
+        xml_.append(" int infoIntOne()2i;\n");
+        xml_.append("}\n");
+        xml_.append("public annotation pkg.MyAnnotTwo {\n");
+        xml_.append(" int infoIntTwo()4i;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append("\n");
+        xml_.append(" public int this(int p){\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append(" public void this(int p, @MyAnnot(infoIntOne=((int x:int)->y).call(1))@MyAnnotTwo(infoIntTwo=3i) int value){\n");
+        xml_.append("  (switch(p){default;return 0;});\n");
+        xml_.append(" }\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Annotation[] arr = class(Ex).getDeclaredMethods()[1i].getDeclaredSwitchMethods()[0i].getAnnotationsSupp();\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        StringMap<String> filesExp_ = ctxErrStdReadOnly(files_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\"><span class=\"i\">static pkg.ExTwo.*</span>;\n" +
+                "public annotation <a name=\"m38\">pkg.MyAnnot</a> {\n" +
+                " int <a name=\"m57\">infoIntOne</a>()2i;\n" +
+                "}\n" +
+                "public annotation <a name=\"m93\">pkg.MyAnnotTwo</a> {\n" +
+                " int <a name=\"m115\">infoIntTwo</a>()4i;\n" +
+                "}\n" +
+                "public class <a name=\"m146\">pkg.Ex</a> {\n" +
+                "\n" +
+                " public int <a name=\"m168\">this</a>(int <a name=\"m177\">p</a>){\n" +
+                "  return 0i;\n" +
+                " }\n" +
+                " public void <a name=\"m210\">this</a>(int <a name=\"m219\">p</a>, @<a title=\"pkg.MyAnnot\" href=\"#m38\">MyAnnot</a>(<a title=\"pkg.MyAnnot.infoIntOne()\" href=\"#m57\">infoIntOne</a>=(<span class=\"t\">(int <a name=\"m248\">x</a>:int)<a name=\"m254\" title=\"The type $core.Object cannot be implicitly cast to int\" class=\"e\">-&gt;</a><a title=\"There is no accessible field named y from the type pkg.Ex in this context.\" class=\"e\">y</a></span>).<b>call</b>(1))@<a title=\"pkg.MyAnnotTwo\" href=\"#m93\">MyAnnotTwo</a>(<a title=\"pkg.MyAnnotTwo.infoIntTwo()\" href=\"#m115\">infoIntTwo</a>=3i) int value){\n" +
+                "  (switch(<a href=\"#m219\">p</a>)<span class=\"t\">{default;return 0;}</span>);\n" +
+                " }\n" +
+                " public static int <a name=\"m362\">exmeth</a>(){\n" +
+                "  Annotation[] <a name=\"m387\">arr</a> = class(<a title=\"pkg.Ex\" href=\"#m146\">Ex</a>).getDeclaredMethods()[1i].getDeclaredSwitchMethods()[0i].getAnnotationsSupp();\n" +
+                "  return 0i;\n" +
+                " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }

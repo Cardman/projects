@@ -45,6 +45,9 @@ public abstract class RendAbstractAffectOperation extends RendMethodOperation im
         if (_set instanceof RendSettableFieldOperation) {
             arg_ = ((RendSettableFieldOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }
+        if (_set instanceof RendCustArrWriteOperation) {
+            arg_ = ((RendCustArrWriteOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
+        }
         if (_set instanceof RendCustArrOperation) {
             arg_ = ((RendCustArrOperation)_set).calculateSetting(_nodes, _right, _context, _rendStackCall);
         }

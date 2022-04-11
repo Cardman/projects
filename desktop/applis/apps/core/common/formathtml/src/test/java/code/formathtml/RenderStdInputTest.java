@@ -327,7 +327,30 @@ public final class RenderStdInputTest extends CommonRender {
         filesSec_.put("my_file",file_.toString());
         assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.textField[0]\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
-
+    @Test
+    public void process__Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body><form action=\"\" c:command=\"page1.html\" name=\"myform\"><input type=\"text\" name=\"$this[0]\" c:varValue=\"$this[0]\"/><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public String[] textField={\"txt\"};");
+        file_.append(" $public String $this($int i){");
+        file_.append("  $return textField[i];");
+        file_.append(" }");
+        file_.append(" $public $void $this($int i){");
+        file_.append("  textField[i]=$value;");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertEq("<html><body><form action=\"\" c:command=\"page1.html\" name=\"myform\" n-f=\"0\"><input type=\"text\" name=\"bean_one.$this[0]\" n-i=\"0\" value=\"txt\"/><input type=\"submit\" value=\"OK\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
     private Struct getExOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
         return getCommExOneBean(_folder,_relative,_html,_files,_filesSec);
     }

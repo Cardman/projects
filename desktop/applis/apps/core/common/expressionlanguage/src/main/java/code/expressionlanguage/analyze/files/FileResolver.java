@@ -3,13 +3,16 @@ package code.expressionlanguage.analyze.files;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
+import code.expressionlanguage.common.AccessEnum;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
-import code.util.*;
+import code.util.CustList;
+import code.util.IntMap;
+import code.util.Ints;
+import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -1713,7 +1716,7 @@ public final class FileResolver {
                 info_ = after_.trim();
             }
             ParsedFctHeader parseHeader_ = new ParsedFctHeader();
-            parseHeader_.parse(info_, _page, paramOffest_ + _offset);
+            parseHeader_.parse(meth_,declaringType_.trim(),methodName_.trim(),info_, _page, paramOffest_ + _offset);
             info_ = parseHeader_.getInfo();
             StringList parametersType_ = parseHeader_.getParametersType();
             CustList<Ints> annotationsIndexesParams_ = parseHeader_.getAnnotationsIndexesParams();
@@ -1791,7 +1794,6 @@ public final class FileResolver {
                             new OffsetStringInfo(methodNameOffest_+_offset, trimMeth_),
                             new OffsetStringInfo(modifierOffest_+_offset, modifier_),
                              _instructionTrimLocation +_offset, _page);
-                    ov_.setMatchParamNames(false);
                     ov_.setDefinition(info_);
                     ov_.setDefinitionOffset(offsetLast_);
                 } else {

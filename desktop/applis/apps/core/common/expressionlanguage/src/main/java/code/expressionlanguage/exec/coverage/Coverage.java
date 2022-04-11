@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ReflectAnnotationPageEl;
+import code.expressionlanguage.exec.calls.ReflectAnnotationSuppPageEl;
 import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
@@ -279,6 +280,13 @@ public final class Coverage {
         FunctionCoverageResult fctRes_ = getFctRes(_block);
         fctRes_.getAnnotationsParams().get(_indexGroup).add(new BlockCoverageResult());
     }
+    public void putBlockOperationsAnnotMethodSupp(MemberCallingsBlock _block) {
+        if (!isCovering()) {
+            return;
+        }
+        FunctionCoverageResult fctRes_ = getFctRes(_block);
+        fctRes_.getAnnotationsSupp().add(new BlockCoverageResult());
+    }
     public FunctionCoverageResult getFctResBl(AbsBk _mem) {
         return getFctRes(_mem.getOuterFct());
     }
@@ -468,6 +476,15 @@ public final class Coverage {
             return;
         }
         AbstractPageEl lastPage_ = _stackCall.getLastPage();
+        if (lastPage_ instanceof ReflectAnnotationSuppPageEl) {
+            ReflectAnnotationSuppPageEl annotRet_ = (ReflectAnnotationSuppPageEl)lastPage_;
+            int indexAnnotation_ = annotRet_.getIndexAnnotationSet();
+            int indexAnnot_ = annotRet_.getAnnotationsIndexesSet().get(indexAnnotation_);
+            AbsBk matchBl_ = matchBl(lastPage_);
+            BlockCoverageResult blRes_ = getResultBlock(matchBl_,annotRet_.getRealId().getParametersTypesLength(),indexAnnot_);
+            passBlockOperationOp(_exec, _full, _pair, _stackCall, blRes_);
+            return;
+        }
         int indexAnnotGroup_ = -1;
         int indexAnnot_ = -1;
         if (lastPage_ instanceof ReflectAnnotationPageEl) {
@@ -482,6 +499,10 @@ public final class Coverage {
         }
         AbsBk matchBl_ = matchBl(lastPage_);
         BlockCoverageResult blRes_ = getResultBlock(matchBl_, indexAnnotGroup_, indexAnnot_);
+        passBlockOperationOp(_exec, _full, _pair, _stackCall, blRes_);
+    }
+
+    private void passBlockOperationOp(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall, BlockCoverageResult blRes_) {
         OperationNode ana_ = blRes_.getMapping().getVal(_exec);
         CustList<AbstractCoverageResult> instr_ = blRes_.getCovers();
         if (ana_ == null) {
@@ -509,6 +530,10 @@ public final class Coverage {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl) _lastPage;
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
             type_ = annotated_.getFormatted().getRootBlock();
+        } else if (_lastPage instanceof ReflectAnnotationSuppPageEl) {
+            ReflectAnnotationSuppPageEl annotRet_ = (ReflectAnnotationSuppPageEl) _lastPage;
+            AnnotatedStruct annotated_ = annotRet_.getAnnotatedSet();
+            type_ = annotated_.getFormatted().getRootBlock();
         } else if (_lastPage instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl) _lastPage;
             type_ = annotRet_.getMetaInfo().getPairType();
@@ -519,38 +544,40 @@ public final class Coverage {
     }
 
     private AbsBk matchBl(RootBlock _rootBlock, AbstractPageEl _lastPage) {
-        AbsBk matchBl_;
         if (_lastPage instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)_lastPage;
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
             if (annotated_ instanceof FieldMetaInfo) {
                 ExecInfoBlock annotableBlock_ = ((FieldMetaInfo)annotated_).getAnnotableBlock();
                 TypeCoverageResult val_ = types.get(_rootBlock.getNumberAll());
-                matchBl_ = val_.getMappingFields().getVal((ExecBlock) annotableBlock_);
-            } else if (annotated_ instanceof AnnotatedParamStruct){
+                return val_.getMappingFields().getVal((ExecBlock) annotableBlock_);
+            }
+            if (annotated_ instanceof AnnotatedParamStruct){
                 ExecMemberCallingsBlock annotableBlock_ = ((AnnotatedParamStruct)annotated_).getCallee();
                 if (annotableBlock_ instanceof ExecAnnotationMethodBlock){
-                    matchBl_ = types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(annotableBlock_);
-                } else {
-                    matchBl_ = getFctBlock(annotableBlock_, _rootBlock);
+                    return types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(annotableBlock_);
                 }
-            } else {
-                matchBl_ = _rootBlock;
+                return getFctBlock(annotableBlock_, _rootBlock);
             }
-        } else if (_lastPage instanceof ReflectGetDefaultValuePageEl) {
+            return _rootBlock;
+        }
+        if (_lastPage instanceof ReflectAnnotationSuppPageEl) {
+            ReflectAnnotationSuppPageEl annotRet_ = (ReflectAnnotationSuppPageEl)_lastPage;
+            MethodMetaInfo annotated_ = annotRet_.getAnnotatedSet();
+            ExecMemberCallingsBlock annotableBlock_ = ((AnnotatedParamStruct)annotated_).getCallee();
+            return getFctBlock(annotableBlock_, _rootBlock);
+        }
+        if (_lastPage instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)_lastPage;
             ExecAnnotationMethodBlock annotMeth_ = annotRet_.getAnnotMethod();
-            matchBl_ = types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(annotMeth_);
-        } else {
-            ExecBlock en_ = _lastPage.getCoveredBlock();
-            if (en_ instanceof ExecInfoBlock || en_ instanceof ExecAnnotationMethodBlock) {
-                matchBl_ = types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(en_);
-            } else {
-                FunctionCoverageResult fctRes_ = getFctRes(_lastPage);
-                matchBl_ = fctRes_.getMappingBlocks().getVal(en_);
-            }
+            return types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(annotMeth_);
         }
-        return matchBl_;
+        ExecBlock en_ = _lastPage.getCoveredBlock();
+        if (en_ instanceof ExecInfoBlock || en_ instanceof ExecAnnotationMethodBlock) {
+            return types.get(_rootBlock.getNumberAll()).getMappingFields().getVal(en_);
+        }
+        FunctionCoverageResult fctRes_ = getFctRes(_lastPage);
+        return fctRes_.getMappingBlocks().getVal(en_);
     }
     private static Struct getValueStruct(ExecOperationNode _oper, OperationNode _ana, ArgumentsPair _v) {
         Argument res_ = Argument.getNullableValue(_v.getArgument());
@@ -631,6 +658,9 @@ public final class Coverage {
                 FunctionCoverageResult fctRes_ = getFctRes(mem_);
                 if (_indexAnnotGroup < 0) {
                     return fctRes_.getAnnotations().get(_indexAnnot);
+                }
+                if (_indexAnnotGroup >= fctRes_.getAnnotationsParams().size()) {
+                    return fctRes_.getAnnotationsSupp().get(_indexAnnot);
                 }
                 return fctRes_.getAnnotationsParams().get(_indexAnnotGroup).get(_indexAnnot);
             }

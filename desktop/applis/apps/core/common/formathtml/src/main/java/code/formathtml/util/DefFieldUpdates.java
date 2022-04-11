@@ -5,11 +5,9 @@ import code.util.CustList;
 
 public final class DefFieldUpdates extends FieldUpdates {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private String varNameConverter = "";
     private boolean arrayConverter;
-    private InputInfo varNames = new InputInfo();
 
     private String idClass = "";
     private String idName = "";
@@ -22,14 +20,6 @@ public final class DefFieldUpdates extends FieldUpdates {
 
     public void setOpsRead(CustList<RendDynOperationNode> _opsRead) {
         opsRead = _opsRead;
-    }
-
-    public CustList<RendDynOperationNode> getOpsWrite() {
-        return opsWrite;
-    }
-
-    public void setOpsWrite(CustList<RendDynOperationNode> _opsWrite) {
-        opsWrite = _opsWrite;
     }
 
     public CustList<RendDynOperationNode> getOpsConverter() {
@@ -62,14 +52,6 @@ public final class DefFieldUpdates extends FieldUpdates {
 
     public void setIdName(String _idName) {
         this.idName = _idName;
-    }
-
-    public InputInfo getVarNames() {
-        return varNames;
-    }
-
-    public void setVarNames(InputInfo _varNames) {
-        varNames = _varNames;
     }
 
     public String getVarNameConverter() {

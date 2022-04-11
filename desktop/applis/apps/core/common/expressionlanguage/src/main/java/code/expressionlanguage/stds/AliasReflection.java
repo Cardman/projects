@@ -13,6 +13,7 @@ public final class AliasReflection {
     private String aliasAnnotated;
     private String aliasGetDefaultValue;
     private String aliasGetAnnotations;
+    private String aliasGetAnnotationsSupp;
     private String aliasGetAnnotationsParameters;
     private String aliasFct;
     private String aliasCall;
@@ -558,6 +559,13 @@ public final class AliasReflection {
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetDeclaredLocalTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctMethodGetDeclaredLocalTypes());
         methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasGetAnnotationsSupp, params_, StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new FctAnnotatedGetAnnotationsSupp0());
+        methods_.add( method_);
+        params_ = new StringList(aliasClassType);
+        method_ = new StandardMethod(aliasGetAnnotationsSupp, params_,
+                StringExpUtil.getPrettyArrayType(aliasAnnotationType), false, MethodModifier.FINAL,new StringList(params.getAliasAnnotated0GetAnnotationsSupp0()),new FctAnnotatedGetAnnotationsSupp1());
+        methods_.add( method_);
         _stds.getStandards().addEntry(aliasMethod, stdcl_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
@@ -672,6 +680,15 @@ public final class AliasReflection {
     public void setAliasGetAnnotations(String _aliasGetAnnotations) {
         aliasGetAnnotations = _aliasGetAnnotations;
     }
+
+    public String getAliasGetAnnotationsSupp() {
+        return aliasGetAnnotationsSupp;
+    }
+
+    public void setAliasGetAnnotationsSupp(String _al) {
+        this.aliasGetAnnotationsSupp = _al;
+    }
+
     public String getAliasGetDefaultValue() {
         return aliasGetDefaultValue;
     }

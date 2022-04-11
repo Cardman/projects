@@ -325,15 +325,15 @@ public final class AnonymousLambdaOperation extends
         StringList params_ = AnaInherits.wildCardFormatParams(found_, idC_, _page);
         MethodId id_ = MethodId.to(idC_.getKind(),params_,idC_);
         method = idC_;
-        String fct_ = formatReturn(_page, importedReturnType_, found_, idC_, id_);
+        String fct_ = formatReturn(_page, importedReturnType_, found_, id_);
         lambdaCommonContent.setResult(fct_);
         setResultClass(new AnaClassArgumentMatching(fct_));
         _page.setOffset(offset_);
         _page.setGlobalOffset(globalOffset_);
     }
 
-    private static String formatReturn(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints) {
-        return LambdaOperation.appendParts(_page, _returnType, _realClass, _realId, _constraints, "", false);
+    private static String formatReturn(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _constraints) {
+        return LambdaOperation.appendParts(_page, _returnType, _realClass, _constraints, "", false);
     }
     public NamedCalledFunctionBlock getBlock() {
         return block;

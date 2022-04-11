@@ -67,6 +67,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        WrappOperation.procArr(_page, (OperationNode) elt_);
         settable = elt_;
         elt_.setVariable(false);
         if (settable instanceof SettableFieldOperation) {
@@ -84,7 +85,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 addErr(un_.getBuiltError());
             }
         }
-        setResultClass(AnaClassArgumentMatching.copy(settable.getResultClass(), _page.getPrimitiveTypes()));
+        setResultClass(AnaClassArgumentMatching.copy(getSettableResClass(), _page.getPrimitiveTypes()));
         StrTypes ops_ = getOperations().getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         String op_ = ops_.firstValue();
@@ -107,9 +108,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
             fct.infos(cl_,_page);
             Mapping map_ = new Mapping();
             map_.setArg(getResultClass());
-            map_.setParam(settable.getResultClass());
+            map_.setParam(getSettableResClass());
             if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(settable.getResultClass().getSingleNameOrEmpty(), getResultClass(), _page);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(getSettableResClass().getSingleNameOrEmpty(), getResultClass(), _page);
                 if (res_ != null) {
                     conv.infos(res_);
                 } else {
@@ -119,11 +120,11 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     //oper len
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(settable.getResultClass().getNames(),ExportCst.JOIN_TYPES));
+                            StringUtil.join(getSettableResClass().getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     addErr(cast_.getBuiltError());
                 }
-                setResultClass(AnaClassArgumentMatching.copy(settable.getResultClass(), _page.getPrimitiveTypes()));
+                setResultClass(AnaClassArgumentMatching.copy(getSettableResClass(), _page.getPrimitiveTypes()));
             }
             setBool(right_,_page);
             return;
@@ -232,9 +233,9 @@ public final class CompoundAffectationOperation extends MethodOperation {
             Mapping mapping_ = new Mapping();
             mapping_.setMapping(vars_);
             mapping_.setArg(clMatchRight_);
-            mapping_.setParam(settable.getResultClass());
+            mapping_.setParam(getSettableResClass());
             if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(settable.getResultClass().getSingleNameOrEmpty(), clMatchRight_, _page);
+                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(getSettableResClass().getSingleNameOrEmpty(), clMatchRight_, _page);
                 if (res_ != null) {
                     clMatchRight_.implicitInfos(res_);
                 } else {
@@ -244,7 +245,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                     //oper
                     cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
                             StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(settable.getResultClass().getNames(),ExportCst.JOIN_TYPES));
+                            StringUtil.join(getSettableResClass().getNames(),ExportCst.JOIN_TYPES));
                     _page.getLocalizer().addError(cast_);
                     getPartOffsetsChildren().add(new InfoErrorDto(cast_,_page,operatorContent.getOper().length()-1));
                 }
@@ -267,6 +268,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
             left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
             right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
         }
+    }
+
+    private AnaClassArgumentMatching getSettableResClass() {
+        return ExplicitOperatorOperation.getSettableResClass(settable);
     }
 
     public boolean isNullSafe() {

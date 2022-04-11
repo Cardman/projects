@@ -9,7 +9,9 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.opers.AnaArrContent;
@@ -26,7 +28,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     private final AnaArrContent arrContent;
     private final AnaCallFctContent callFctContent;
+    private final AnaCallFctContent callFctContentSet;
     private int anc;
+    private int ancSet;
 
     private boolean staticChoiceMethod;
     private String nbErr = "";
@@ -37,11 +41,17 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     private AnaTypeFct functionGet;
     private AnaTypeFct functionSet;
     private final int lastOpOffset;
+    private boolean fromArray;
+    private ClassMethodIdReturn resMemoGet;
+    private ClassMethodIdReturn resMemoSet;
+    private String returnSet = "";
+    private ClassMethodIdReturn resErrSet;
 
     public ArrOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         callFctContent = new AnaCallFctContent("");
+        callFctContentSet = new AnaCallFctContent("");
         arrContent = new AnaArrContent();
         lastOpOffset = _op.getOperators().lastKey();
     }
@@ -60,6 +70,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         boolean excAbs_ = staticChoiceMethod_;
         String trimMeth_ = "[]";
         AnaClassArgumentMatching class_ = getPreviousResultClass();
+        fromArray = class_.isArray();
         String classType_ = "";
         if (fwd_ != null) {
             classType_ = fwd_.getClassType();
@@ -102,8 +113,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
     @Override
     public void analyze(AnalyzedPageEl _page) {
         processEmptyErrorChild();
-        AnaClassArgumentMatching class_ = getPreviousResultClass();
-        if (!class_.isArray()) {
+        if (!fromArray) {
             indexers(_page);
             return;
         }
@@ -128,6 +138,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             return;
         }
         setRelativeOffsetPossibleAnalyzable(chidren_.first().getIndexInEl(), _page);
+        AnaClassArgumentMatching class_ = getPreviousResultClass();
         OperationNode right_ = chidren_.last();
         if (right_ instanceof WrappOperation || right_ instanceof NamedArgumentOperation
                 ||right_ instanceof FirstOptOperation || getDeltaCount(right_) != 0) {
@@ -174,6 +185,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         String varargParam_ = getVarargParam(chidren_);
         int varargOnly_ = lookOnlyForVarArg();
         ClassMethodIdAncestor idMethod_ = lookOnlyForId();
+        ClassMethodIdAncestor idMethodSet_ = lookOnlyForIdSet();
         ForwardOperation fwd_ = tryGetForward(this);
         boolean staticChoiceMethod_ = false;
         boolean accessSuperTypes_ = true;
@@ -183,6 +195,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             accessSuperTypes_ = fwd_.isAccessSuperTypes();
             baseAccess_ = fwd_.isBaseAccess();
         }
+        staticChoiceMethod = staticChoiceMethod_;
         ClassMethodIdAncestor feed_ = null;
         ClassMethodIdAncestor feedSet_ = null;
         String trimMeth_ = "[]";
@@ -190,9 +203,18 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
+            AnaGeneType gene_ = idMethod_.getGt();
             MethodId mid_ = id_.getConstraints();
-            feed_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMeth_, mid_)),idMethod_.getAncestor());
-            feedSet_ = new ClassMethodIdAncestor(new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMethSet_, mid_)),idMethod_.getAncestor());
+            feed_ = new ClassMethodIdAncestor(gene_,new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMeth_, mid_)),idMethod_.getAncestor());
+            feedSet_ = new ClassMethodIdAncestor(gene_,new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMethSet_, mid_)),idMethod_.getAncestor());
+        }
+        ClassMethodIdAncestor feedGetSet_ = null;
+        if (idMethodSet_ != null) {
+            ClassMethodId id_ = idMethodSet_.getClassMethodId();
+            String idClass_ = id_.getClassName();
+            AnaGeneType gene_ = idMethodSet_.getGt();
+            MethodId mid_ = id_.getConstraints();
+            feedGetSet_ = new ClassMethodIdAncestor(gene_,new ClassMethodId(idClass_, MethodId.to(MethodAccessKind.INSTANCE, trimMethSet_, mid_)),idMethodSet_.getAncestor());
         }
         String classType_ = "";
         if (fwd_ != null) {
@@ -213,23 +235,42 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
+        if (parSet() instanceof AffectationOperation) {
+            ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
+                    bounds_, trimMethSet_, false,
+                    varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false,staticChoiceMethod_, _page.getGlobalClass()));
+            if (clMethSet_ != null) {
+                functionSet = clMethSet_.getPair();
+                returnSet = MethodInfo.retIndexSet(clMethSet_,_page);
+                memberIdSet = clMethSet_.getMemberId();
+                ancSet = clMethSet_.getAncestor();
+                callFctContentSet.update(clMethSet_);
+                setResultClass(new AnaClassArgumentMatching(returnSet, _page.getPrimitiveTypes()));
+                return;
+            }
+            resErrSet = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
+                    bounds_, trimMethSet_, false,
+                    varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
+            errSet(_page);
+            return;
+        }
         ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMeth_, false,
                 varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false,staticChoiceMethod_, _page.getGlobalClass()));
-        ClassMethodIdReturn clMethSet_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
-                bounds_, trimMethSet_, false,
-                varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false,staticChoiceMethod_, _page.getGlobalClass()));
-        boolean found_ = clMeth_ != null;
-        if (clMethSet_ == null) {
-            found_ = false;
-        }
-        if (found_) {
-            functionGet = clMeth_.getPair();
-            functionSet = clMethSet_.getPair();
-            memberIdGet = clMeth_.getMemberId();
-            memberIdSet = clMethSet_.getMemberId();
-            staticChoiceMethod = staticChoiceMethod_;
+        if (clMeth_ != null) {
+            resMemoGet = clMeth_;
+            MethodId formattedId_ = clMeth_.getId().getConstraints();
+            StringList clsFormatted_ = new StringList();
+            IdentifiableUtil.appendLeftPart(0,clsFormatted_,formattedId_);
+            ClassMethodIdReturn clSet_ = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, feedGetSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalClass()));
+            if (clSet_ != null) {
+                resMemoSet = clSet_;
+                returnSet = MethodInfo.retIndexSet(clSet_,_page);
+            }
+            resErrSet = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, feedGetSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
             anc = clMeth_.getAncestor();
+            functionGet = clMeth_.getPair();
+            memberIdGet = clMeth_.getMemberId();
             callFctContent.update(clMeth_);
             setResultClass(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()));
             return;
@@ -237,21 +278,9 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         ClassMethodIdReturn clMeth2_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
                 bounds_, trimMeth_, false,
                 varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
-        ClassMethodIdReturn clMethSet2_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(),
-                bounds_, trimMethSet_, false,
-                varargParam_, name_, _page, new ScopeFilter(feedSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
-        ClassMethodIdReturn id2_ = null;
-        if (clMethSet2_ != null) {
-            functionSet = clMethSet2_.getPair();
-            memberIdSet = clMethSet2_.getMemberId();
-            id2_ = clMethSet2_;
-        }
         if (clMeth2_ != null) {
             functionGet = clMeth2_.getPair();
             memberIdGet = clMeth2_.getMemberId();
-            id2_ = clMeth2_;
-        }
-        if (id2_ != null) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret abs_ = new FoundErrorInterpret();
             abs_.setIndexFile(_page);
@@ -259,11 +288,11 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             //method name len
             abs_.buildError(
                     _page.getAnalysisMessages().getAbstractMethodRef(),
-                    id2_.getRealClass(),
-                    id2_.getRealId().getSignature(_page.getDisplayedStrings()));
+                    clMeth2_.getRealClass(),
+                    clMeth2_.getRealId().getSignature(_page.getDisplayedStrings()));
             _page.getLocalizer().addError(abs_);
             addErr(abs_.getBuiltError());
-            setResultClass(voidToObject(new AnaClassArgumentMatching(id2_.getReturnType()), _page));
+            setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth2_.getReturnType()), _page));
             return;
         }
         FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -275,6 +304,44 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         _page.getLocalizer().addError(un_);
         addErr(un_.getBuiltError());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+    }
+
+    public void applySet(AnalyzedPageEl _page) {
+        if (resMemoSet == null) {
+            errSet(_page);
+            return;
+        }
+        functionSet = resMemoSet.getPair();
+        memberIdSet = resMemoSet.getMemberId();
+        callFctContentSet.update(resMemoSet);
+        feedNamedParamsMethod(resMemoGet.getIndexesParams(),functionSet.getFunction(),resMemoGet.getFilter());
+    }
+
+    private void errSet(AnalyzedPageEl _page) {
+        if (resErrSet != null) {
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
+            FoundErrorInterpret abs_ = new FoundErrorInterpret();
+            abs_.setIndexFile(_page);
+            abs_.setFile(_page.getCurrentFile());
+            //method name len
+            abs_.buildError(
+                    _page.getAnalysisMessages().getAbstractMethodRef(),
+                    resErrSet.getRealClass(),
+                    resErrSet.getRealId().getSignature(_page.getDisplayedStrings()));
+            _page.getLocalizer().addError(abs_);
+            addErr(abs_.getBuiltError());
+            setResultClass(voidToObject(new AnaClassArgumentMatching(resErrSet.getReturnType()), _page));
+        } else {
+            AnaClassArgumentMatching class_ = getPreviousResultClass();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setIndexFile(_page);
+            un_.setFile(_page.getCurrentFile());//first separator char
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                    StringUtil.join(class_.getNames(), ExportCst.JOIN_TYPES));
+            _page.getLocalizer().addError(un_);
+            addErr(un_.getBuiltError());
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+        }
     }
 
     private static ForwardOperation tryGetForward(MethodOperation _operation) {
@@ -311,6 +378,14 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         return functionSet;
     }
 
+    public boolean isFromArray() {
+        return fromArray;
+    }
+
+    public String getReturnSet() {
+        return returnSet;
+    }
+
     @Override
     public void setVariable(boolean _variable) {
         getAndSet = true;
@@ -332,6 +407,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public int getAnc() {
         return anc;
+    }
+
+    public int getAncSet() {
+        return ancSet;
     }
 
     public String getNbErr() {
@@ -358,6 +437,10 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
 
     public AnaCallFctContent getCallFctContent() {
         return callFctContent;
+    }
+
+    public AnaCallFctContent getCallFctContentSet() {
+        return callFctContentSet;
     }
 
     public int getLastOpOffset() {

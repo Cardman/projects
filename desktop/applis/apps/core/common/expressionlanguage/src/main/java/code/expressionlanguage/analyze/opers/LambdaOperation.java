@@ -3,29 +3,31 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.*;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.*;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaLambdaCommonContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaFieldContent;
 import code.expressionlanguage.fwd.opers.AnaLambdaMethodContent;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaNamedFieldContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
-import code.util.*;
+import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
@@ -57,6 +59,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private StandardMethod standardMethod;
     private StandardType standardType;
     private StandardConstructor standardConstructor;
+    private AnaGeneType staticAccess;
     private final CustList<AnaNamedFieldContent> namedFields = new CustList<AnaNamedFieldContent>();
     private final CustList<AnaFormattedRootBlock> sups = new CustList<AnaFormattedRootBlock>();
     private final CustList<AnaResultPartType> partsInstInitInterfaces = new CustList<AnaResultPartType>();
@@ -892,7 +895,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (argsRes_ == null) {
                     return;
                 }
-                feed_ = new ClassMethodIdAncestor(new ClassMethodId(cl_, MethodId.to(staticFlag_, name_, argsRes_)),idUpdate_.getAncestor());
+                feed_ = new ClassMethodIdAncestor(staticAccess,new ClassMethodId(cl_, MethodId.to(staticFlag_, name_, argsRes_)),idUpdate_.getAncestor());
                 ko(type_, argsRes_, methodTypes_, _page);
             } else {
                 str_ = resolveCorrectTypesExact(_args, _page);
@@ -956,6 +959,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             OperationNode o_ = _m.getFirstChild();
             boolean stAcc_ = o_ instanceof StaticAccessOperation;
             boolean stAccCall_ = o_ instanceof StaticCallAccessOperation;
+            AnaGeneType accessType_ = getAnaGeneType(o_);
             str_ = resolveCorrectTypes(stAccCall_, _args, _page);
             int vararg_ = -1;
             MethodId argsRes_;
@@ -983,6 +987,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 } else {
                     ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(offset_, nameId_, _page);
                     cl_ = resolvedIdType_.getFullName();
+                    accessType_ = resolvedIdType_.getGeneType();
                     partOffsetsBegin.add(resolvedIdType_.getDels());
                 }
                 if (cl_.isEmpty()) {
@@ -998,7 +1003,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                     return;
                 }
                 String idFrom_ = StringExpUtil.getIdFromAllTypes(cl_);
-                feed_ = new ClassMethodIdAncestor(new ClassMethodId(idFrom_, MethodId.to(kind_, name_, argsRes_)),acc_.getAncestor());
+                feed_ = new ClassMethodIdAncestor(accessType_,new ClassMethodId(idFrom_, MethodId.to(kind_, name_, argsRes_)),acc_.getAncestor());
                 ko(cl_, argsRes_, methodTypes_, _page);
             } else {
                 argsRes_ = resolveArguments(2, _args, _page);
@@ -1070,7 +1075,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             if (argsRes_ == null) {
                 return;
             }
-            feed_ = new ClassMethodIdAncestor(new ClassMethodId(cl_, MethodId.to(stCtx_, name_, argsRes_)),idUpdate_.getAncestor());
+            feed_ = new ClassMethodIdAncestor(staticAccess,new ClassMethodId(cl_, MethodId.to(stCtx_, name_, argsRes_)),idUpdate_.getAncestor());
             ko(type_, argsRes_, methodTypes_, _page);
         } else {
             stCtx_ = MethodAccessKind.INSTANCE;
@@ -1152,6 +1157,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         initIdMethod(id_);
         String fct_ = formatReturnPrevious(_page, id_);
         setResultClass(new AnaClassArgumentMatching(fct_));
+    }
+
+    private AnaGeneType getAnaGeneType(OperationNode o_) {
+        AnaGeneType ty_ = null;
+        if (o_ instanceof StaticAccessOperation) {
+            ty_ = ((StaticAccessOperation) o_).getExtractStaticType();
+        }
+        if (o_ instanceof StaticCallAccessOperation) {
+            ty_ = ((StaticCallAccessOperation) o_).getExtractStaticType();
+        }
+        return ty_;
     }
 
     private static boolean isRangeAccess(String _name) {
@@ -1248,7 +1264,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaCommonContent.setAncestor(0);
         lambdaMethodContent.setAbstractMethod(false);
         lambdaMethodContent.setDirectCast(true);
-        String result_ = appendParts(_page, _type, _type, _idCast, _idCast, "", false);
+        String result_ = appendParts(_page, _type, _type, _idCast, "", false);
         lambdaCommonContent.setResult(result_);
         return result_;
     }
@@ -2398,17 +2414,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         lambdaMethodContent.setAbstractMethod(_id.isAbstractMethod());
     }
 
-    private static ClassMethodIdReturn getOperator(String _from, StringList _methodTypes, String _operator, int _vararg, ClassMethodId _feed, AnalyzedPageEl _page) {
+    private ClassMethodIdReturn getOperator(String _from, StringList _methodTypes, String _operator, int _vararg, ClassMethodId _feed, AnalyzedPageEl _page) {
         if (!_from.isEmpty()) {
             if (_feed == null) {
                 return tryGetDeclaredCustMethodLambda(-1, MethodAccessKind.STATIC_CALL,
                         new StringList(_from), _operator, null,
                         _methodTypes, _page, new ScopeFilter(null, true, false, false, _page.getGlobalClass()));
             }
-            final ClassMethodIdAncestor uniqueId = new ClassMethodIdAncestor(_feed, 0);
+            ClassMethodIdAncestor uniqueId_ = new ClassMethodIdAncestor(staticAccess,_feed, 0);
             return tryGetDeclaredCustMethodLambda(-1, MethodAccessKind.STATIC_CALL,
-                    new StringList(_from), _operator, uniqueId,
-                    _methodTypes, _page, new ScopeFilter(uniqueId, true, false, false, _page.getGlobalClass()));
+                    new StringList(_from), _operator, uniqueId_,
+                    _methodTypes, _page, new ScopeFilter(uniqueId_, true, false, false, _page.getGlobalClass()));
         }
         return getOperatorLambda(_feed, _vararg, _operator, _page, _methodTypes);
     }
@@ -2583,14 +2599,17 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return InvokingOperation.getBounds(type_, _page);
     }
 
-    private static String resolveCorrectTypeAccessible(boolean _exact, String _type, AnalyzedPageEl _page, int _offset, CustList<AnaResultPartType> _dest) {
+    private String resolveCorrectTypeAccessible(boolean _exact, String _type, AnalyzedPageEl _page, int _offset, CustList<AnaResultPartType> _dest) {
         if (_exact) {
             AnaResultPartType result_ = ResolvingTypes.resolveCorrectTypeAccessible(_offset, _type, _page);
             _dest.add(result_);
-            return result_.getResult(_page);
+            String res_ = result_.getResult(_page);
+            staticAccess = _page.getAnaGeneType(StringExpUtil.getIdFromAllTypes(res_));
+            return res_;
         }
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(_offset, _type, _page);
         _dest.add(resolvedIdType_.getDels());
+        staticAccess = resolvedIdType_.getGeneType();
         return resolvedIdType_.getFullName();
     }
 
@@ -2609,7 +2628,15 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     private String formatReturn(AnalyzedPageEl _page, ClassMethodIdReturn _id, boolean _shift) {
         lambdaCommonContent.setShiftArgument(_shift);
-        String result_ = appendParts(_page, _id.getReturnType(), _id.getRealClass(), _id.getRealId(), _id.getId().getConstraints(), _id.getId().getClassName(), _shift);
+        StringList paramsReturn_ = beginReturn(_id.getId().getClassName(), _shift);
+        String _returnType = _id.getReturnType();
+        MethodId _constraints = _id.getId().getConstraints();
+        IdentifiableUtil.appendLeftPart(0, paramsReturn_, _constraints);
+
+        appendRightPart(_id.getPair().getFunction(),paramsReturn_, _page, _id.getRealClass());
+        appRe(_returnType, _constraints, paramsReturn_);
+        String fctBase_ = _page.getAliasFct();
+        String result_ = StringUtil.concat(fctBase_, StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);
         lambdaCommonContent.setResult(result_);
         return result_;
     }
@@ -2622,46 +2649,32 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         return paramsReturn_;
     }
 
-    static String appendParts(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints, String _found, boolean _add) {
+    static String appendParts(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _constraints, String _found, boolean _add) {
         StringList paramsReturn_ = beginReturn(_found, _add);
-        return appendParts(_page, _returnType, _realClass, _realId, _constraints, paramsReturn_, 0);
+        return appendParts(_page, _returnType, _realClass, _constraints, paramsReturn_, 0);
     }
 
-    private static String appendParts(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _realId, MethodId _constraints, StringList _paramsReturn, int _start) {
+    private static String appendParts(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _constraints, StringList _paramsReturn, int _start) {
         IdentifiableUtil.appendLeftPart(_start, _paramsReturn, _constraints);
-        appendRightPart(_paramsReturn, _page, _realClass, _realId);
-        if (_constraints.isRetRef()) {
-            _paramsReturn.add("~"+ _returnType);
-        } else {
-            _paramsReturn.add(_returnType);
-        }
+        appendRightPart(null,_paramsReturn, _page, _realClass);
+        appRe(_returnType, _constraints, _paramsReturn);
         String fctBase_ = _page.getAliasFct();
         return StringUtil.concat(fctBase_, StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(_paramsReturn, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);
     }
 
-    private static void appendRightPart(StringList _paramsReturn, AnalyzedPageEl _page, String _realClass, MethodId _realId) {
-        if (StringUtil.quickEq(_realId.getName(),"[]=")) {
-            CustList<NamedCalledFunctionBlock> getIndexers_ = new CustList<NamedCalledFunctionBlock>();
-            String idCl_ = StringExpUtil.getIdFromAllTypes(_realClass);
-            for (AbsBk b: ClassesUtil.getDirectChildren(_page.getAnaClassBody(idCl_))) {
-                if (!AbsBk.isOverBlock(b)) {
-                    continue;
-                }
-                NamedCalledFunctionBlock i_ = (NamedCalledFunctionBlock) b;
-                if (i_.getKind() != MethodKind.GET_INDEX) {
-                    continue;
-                }
-                if (!i_.getId().eqPartial(_realId)) {
-                    continue;
-                }
-                getIndexers_.add(i_);
-            }
-            if (getIndexers_.size() == 1) {
-                NamedCalledFunctionBlock matching_ = getIndexers_.first();
-                String importedReturnType_ = matching_.getImportedReturnType();
-                importedReturnType_ = AnaInherits.wildCardFormatReturn(_realClass, importedReturnType_, _page);
-                _paramsReturn.add(importedReturnType_);
-            }
+    private static void appRe(String _returnType, MethodId _constraints, StringList _ret) {
+        if (_constraints.isRetRef()) {
+            _ret.add("~"+ _returnType);
+        } else {
+            _ret.add(_returnType);
+        }
+    }
+
+    private static void appendRightPart(NamedFunctionBlock _fct, StringList _paramsReturn, AnalyzedPageEl _page, String _realClass) {
+        if (_fct instanceof NamedCalledFunctionBlock && ((NamedCalledFunctionBlock)_fct).getKind() == MethodKind.SET_INDEX) {
+            String importedReturnType_ = ((NamedCalledFunctionBlock)_fct).getReturnTypeGet();
+            importedReturnType_ = AnaInherits.wildCardFormatReturn(_realClass, importedReturnType_, _page);
+            _paramsReturn.add(importedReturnType_);
         }
     }
 
@@ -2676,7 +2689,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         } else {
             start_ = 0;
         }
-        String result_ = appendParts(_page, returnType_, _id.getRealClass(), _id.getRealId(), id_, paramsReturn_, start_);
+        String result_ = appendParts(_page, returnType_, _id.getRealClass(), id_, paramsReturn_, start_);
         lambdaCommonContent.setResult(result_);
         return result_;
     }

@@ -70,7 +70,7 @@ public final class ExecInterfaceFctConstructor extends ExecAbstractInvokingConst
 
     public static void prep(ContextEl _conf, StackCall _stack, Argument _arg, ExecFormattedRootBlock _superClass, CustList<ExecOperationInfo> _infos, ExecInvokingConstructorContent _invokingConstructorContent, ExecTypeFunction _pair) {
         String lastType_ = ExecInherits.quickFormat(_superClass, _invokingConstructorContent.getLastType());
-        new DefaultParamChecker(_pair, fectchArgs(lastType_, _invokingConstructorContent.getNaturalVararg(), null, _conf, _stack, _infos), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(_superClass, _arg, null, _conf, _stack);
+        new DefaultParamChecker(_pair, fectchArgs(lastType_, _invokingConstructorContent.getNaturalVararg(), _conf, _stack, _infos), MethodAccessKind.INSTANCE, CallPrepareState.CTOR, InstancingStep.USING_SUPER).checkParams(_superClass, _arg, null, _conf, _stack);
     }
 
 }

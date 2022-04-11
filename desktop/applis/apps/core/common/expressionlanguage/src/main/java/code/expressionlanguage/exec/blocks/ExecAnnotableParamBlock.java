@@ -5,4 +5,5 @@ import code.util.CustList;
 
 public interface ExecAnnotableParamBlock extends ExecAnnotableBlock {
     CustList<CustList<ExecAnnotContent>> getAnnotationsOpsParams();
+    CustList<ExecAnnotContent> getAnnotationsOpsSupp();
 }

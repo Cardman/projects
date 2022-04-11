@@ -3,17 +3,20 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ClassFieldStruct;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.EnumerableStruct;
+import code.expressionlanguage.structs.IntStruct;
+import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.WithParentStruct;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
-import code.expressionlanguage.structs.*;
-import code.expressionlanguage.common.NumParsers;
 import code.gui.*;
 import code.gui.events.*;
 import code.util.CustList;
@@ -303,7 +306,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     private void invoke(RunnableContextEl _r, ExecRootBlock _typeName, ExecNamedFunctionBlock _methName, CustList<Argument> _args) {
-        ArgumentListCall argList_ = new ArgumentListCall(_args);
+        ArgumentListCall argList_ = ArgumentListCall.wrapCall(_args);
         RunnableStruct.invoke(this,_r,_typeName,_methName, argList_);
     }
     private GuiContextEl newCtx() {

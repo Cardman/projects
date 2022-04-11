@@ -1,4 +1,5 @@
 package code.expressionlanguage.analyze.opers.util;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ImportedMethod;
 import code.expressionlanguage.analyze.MethodHeaderInfo;
@@ -8,8 +9,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
-import code.expressionlanguage.functionid.Identifiable;
-import code.expressionlanguage.functionid.IdentifiableUtil;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
@@ -47,6 +47,7 @@ public final class MethodInfo implements Parametrable {
     private final Ints nameParametersFilterIndexes = new Ints();
     private final CustList<OperationNode> allOps = new CustList<OperationNode>();
     private final FormattedFilter formattedFilter = new FormattedFilter();
+    private AnaGeneType owner;
 
     public MethodId getConstraints() {
         return constraints;
@@ -64,6 +65,7 @@ public final class MethodInfo implements Parametrable {
     }
     public void pairMemberId(ImportedMethod _m) {
         pair(_m.getType(),_m.getCustMethod());
+        setOwner(_m.getOwner());
         MemberId memberId_ = _m.getMemberId();
         memberId(memberId_.getRootNumber(),memberId_.getMemberNumber());
         setFileName(_m.getFileName());
@@ -103,6 +105,7 @@ public final class MethodInfo implements Parametrable {
         }
     }
     public void pair(RootBlock _root, NamedFunctionBlock _fct) {
+        owner = _root;
         pair.setType(_root);
         pair.setFunction(_fct);
     }
@@ -112,6 +115,10 @@ public final class MethodInfo implements Parametrable {
         ret_ = AnaInherits.wildCardFormatReturn(_formattedClass, ret_, _page);
         originalReturnType = _originalReturnType;
         returnType = ret_;
+    }
+
+    public static String retIndexSet(ClassMethodIdReturn _id, AnalyzedPageEl _page) {
+        return AnaInherits.wildCardFormatReturn(_id.getFormattedType().getFormatted(),((NamedCalledFunctionBlock)_id.getPair().getFunction()).getReturnTypeGet(),_page);
     }
     @Override
     public String getReturnType() {
@@ -329,4 +336,11 @@ public final class MethodInfo implements Parametrable {
         formattedFilter.setReturnType(_formattedFilter.getReturnType());
     }
 
+    public AnaGeneType getOwner() {
+        return owner;
+    }
+
+    public void setOwner(AnaGeneType _own) {
+        this.owner = _own;
+    }
 }

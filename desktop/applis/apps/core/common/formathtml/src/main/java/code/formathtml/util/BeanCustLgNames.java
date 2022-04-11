@@ -1109,7 +1109,7 @@ public abstract class BeanCustLgNames extends BeanLgNames {
             }
             Struct procObj_ = e.getValue().getUpdated();
             setGlobalArgumentStruct(procObj_,_ctx,_rendStackCall);
-            RendRequestUtil.setRendObject(e.getValue(), res_, this, _ctx, _rendStackCall);
+            RendRequestUtil.setRendObject(e.getValue(), res_, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return false;
             }

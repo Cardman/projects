@@ -24,7 +24,7 @@ public final class ExecDirectStandardInstancingOperation extends
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         int off_ = StringUtil.getFirstPrintableCharIndex(instancingCommonContent.getMethodName());
         setRelOffsetPossibleLastPage(off_, _stack);
-        Argument res_ = ParamCheckerUtil.instancePrepareStd(_conf, instancingCommonContent.getConstructor(), instancingCommonContent.getConstId(), fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(),null,_conf,_stack, buildInfos(_nodes)), _stack).getValue();
+        Argument res_ = ParamCheckerUtil.instancePrepareStd(_conf, instancingCommonContent.getConstructor(), instancingCommonContent.getConstId(), fectchArgs(instancingCommonContent.getLastType(), instancingCommonContent.getNaturalVararg(), _conf,_stack, buildInfos(_nodes)), _stack).getValue();
         setSimpleArgument(res_, _conf, _nodes, _stack);
     }
 

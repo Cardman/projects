@@ -109,7 +109,7 @@ public abstract class RendDynOperationNode {
         }
     }
 
-    protected Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendStackCall _rendStackCall) {
+    public Argument getPreviousArg(RendPossibleIntermediateDotted _possible, IdMap<RendDynOperationNode, ArgumentsPair> _nodes, RendStackCall _rendStackCall) {
         Argument previous_;
         if (_possible.isIntermediateDottedOperation()) {
             previous_ = getPreviousArgument(_nodes, this);
@@ -250,7 +250,7 @@ public abstract class RendDynOperationNode {
         CustList<Argument> args_ = new CustList<Argument>(Argument.getNullableValue(_argument));
         Parameters parameters_ = new Parameters();
         if (!_context.callsOrException(_rend.getStackCall())) {
-            ArgumentListCall l_ = new ArgumentListCall(args_);
+            ArgumentListCall l_ = ArgumentListCall.wrapCall(args_);
             parameters_ = ExecTemplates.okArgsSet(c_.getFct(), format_,null, l_, _context, _rend.getStackCall());
         }
         if (_context.callsOrException(_rend.getStackCall())) {

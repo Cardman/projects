@@ -1,23 +1,26 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.OffsetAccessInfo;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
 import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.opers.Calculation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.AccessEnum;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetAccessInfo;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.common.DisplayedStrings;
-import code.util.*;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -68,11 +71,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private final StringList nameErrors = new StringList();
     private final CustList<StringList> paramErrors = new CustList<StringList>();
     private final CustList<StringList> paramWarns = new CustList<StringList>();
-    private boolean matchParamNames = true;
     private boolean retRef;
     private boolean usedRefMethod;
 
-    public NamedFunctionBlock(ParsedFctHeader _header, boolean _retRef, OffsetAccessInfo _access,
+    protected NamedFunctionBlock(ParsedFctHeader _header, boolean _retRef, OffsetAccessInfo _access,
                               OffsetStringInfo _retType, OffsetStringInfo _fctName,
                               int _offset) {
         super(_offset);
@@ -93,7 +95,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         parametersNamesOffset = _header.getOffestsParams();
     }
 
-    public NamedFunctionBlock(int _fctName,
+    protected NamedFunctionBlock(int _fctName,
                               int _offset, AnalyzedPageEl _page) {
         super(_offset);
         retRef = false;
@@ -253,7 +255,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return partOffsetsReturn.getResult(_page);
     }
 
-
     void retRef(AnalyzedPageEl _page, MethodKind _kind) {
         String void_ = _page.getAliasVoid();
         if (StringUtil.quickEq(getImportedReturnType().trim(), void_) && isRetRef() && _kind != MethodKind.SET_INDEX) {
@@ -370,14 +371,6 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
 
     public CustList<StringList> getParamWarns() {
         return paramWarns;
-    }
-
-    public boolean isMatchParamNames() {
-        return matchParamNames;
-    }
-
-    public void setMatchParamNames(boolean _matchParamNames) {
-        this.matchParamNames = _matchParamNames;
     }
 
     public boolean isRetRef() {

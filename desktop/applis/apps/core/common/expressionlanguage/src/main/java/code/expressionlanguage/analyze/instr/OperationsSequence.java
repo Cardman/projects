@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumberInfos;
 import code.maths.litteralcom.StrTypes;
@@ -41,6 +42,7 @@ public final class OperationsSequence {
     private boolean instanceTest;
 
     private String extractType = "";
+    private AnaGeneType extractStaticType;
 
     private AnaResultPartType partOffsets = new AnaResultPartType();
     private int countArrays;
@@ -375,6 +377,14 @@ public final class OperationsSequence {
 
     public void setExtractType(String _extractType) {
         extractType = _extractType;
+    }
+
+    public AnaGeneType getExtractStaticType() {
+        return extractStaticType;
+    }
+
+    public void setExtractStaticType(AnaGeneType _ext) {
+        this.extractStaticType = _ext;
     }
 
     public AnaResultPartType getPartOffsets() {

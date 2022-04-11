@@ -7,7 +7,6 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
-import code.formathtml.util.InputInfo;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
@@ -18,7 +17,6 @@ import code.util.core.StringUtil;
 public final class RendTextArea extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsWrite = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private StringMap<DefExecTextPart> execAttributesText = new StringMap<DefExecTextPart>();
@@ -26,35 +24,30 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
 
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
-    private String varName = EMPTY_STRING;
-    private InputInfo varNames = new InputInfo();
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
     private final Element elt;
 
-    public RendTextArea(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue, CustList<RendDynOperationNode> _opsWrite,
+    public RendTextArea(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue,
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
                         StringMap<DefExecTextPart> _execAttributesText, StringMap<DefExecTextPart> _execAttributes,
                         String _varNameConverter, String _varNameConverterField,
-                        String _varName, String _id, String _idClass, String _idName, String _className, Element _elt, InputInfo _list) {
+                        String _id, String _idClass, String _idName, String _className, Element _elt) {
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
-        this.opsWrite = _opsWrite;
         this.opsConverter = _opsConverter;
         this.opsConverterField = _opsConverterField;
         this.execAttributesText = _execAttributesText;
         this.execAttributes = _execAttributes;
         this.varNameConverter = _varNameConverter;
         this.varNameConverterField = _varNameConverterField;
-        this.varName = _varName;
         this.id = _id;
         this.idClass = _idClass;
         this.idName = _idName;
         this.className = _className;
         this.elt = _elt;
-        varNames = _list;
     }
 
     @Override
@@ -67,9 +60,6 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         f_.setIdClass(idClass);
         f_.setIdName(idName);
         f_.setOpsRead(opsRead);
-        f_.setOpsWrite(opsWrite);
-        f_.setVarName(varName);
-        f_.setVarNames(varNames);
         f_.setClassName(className);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);

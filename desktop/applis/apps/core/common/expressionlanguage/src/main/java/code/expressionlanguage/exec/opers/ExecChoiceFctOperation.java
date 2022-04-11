@@ -44,7 +44,7 @@ public final class ExecChoiceFctOperation extends ExecSettableCallFctOperation {
         if (_conf.callsOrException(_stack)) {
             res_ = new Argument();
         } else {
-            res_ = new MethodParamChecker(_pair, fetchFormattedArgs(_conf, _stack, prev_.getStruct(), _pair.getType(), _instFctContent, null, _infos), MethodAccessKind.INSTANCE).checkParams(formattedType_, prev_, null, _conf, _stack);
+            res_ = new MethodParamChecker(_pair, fetchFormattedArgs(_conf, _stack, prev_.getStruct(), _pair.getType(), _instFctContent, _infos), MethodAccessKind.INSTANCE).checkParams(formattedType_, prev_, null, _conf, _stack);
         }
         return res_;
     }

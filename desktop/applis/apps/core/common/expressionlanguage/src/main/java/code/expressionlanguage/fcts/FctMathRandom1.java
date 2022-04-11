@@ -51,7 +51,7 @@ public final class FctMathRandom1 extends FctMath {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seedSpec_).getFunctional());
                 return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
             }
-            ArgumentListCall argList_ = new ArgumentListCall(argsToPass_);
+            ArgumentListCall argList_ = ArgumentListCall.wrapCall(argsToPass_);
             ExecTemplates.wrapAndCall(p_, cl_,argSeedSpec_, _cont, _stackCall, argList_);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
@@ -72,7 +72,7 @@ public final class FctMathRandom1 extends FctMath {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
                 return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
             }
-            ArgumentListCall argList_ = new ArgumentListCall(argsToPass_);
+            ArgumentListCall argList_ = ArgumentListCall.wrapCall(argsToPass_);
             ExecTemplates.wrapAndCall(p_, cl_,argSeed_, _cont, _stackCall, argList_);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }

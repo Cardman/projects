@@ -11,7 +11,6 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -29,8 +28,6 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
 
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
-    private String varName = EMPTY_STRING;
-    private InputInfo varNames = new InputInfo();
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
@@ -47,10 +44,8 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         resultInput.build(this, elt, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
-        varNames = resultInput.getVarNamesParams();
         rootRead = resultInput.getOpsReadRoot();
         rootValue = resultInput.getOpsValueRoot();
-        varName = resultInput.getVarName();
         id = resultInput.getId();
         idClass = resultInput.getIdClass();
         idName = resultInput.getIdName();
@@ -165,10 +160,6 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
         return varNameConverter;
     }
 
-    public String getVarName() {
-        return varName;
-    }
-
     public OperationNode getRootConverter() {
         return rootConverter;
     }
@@ -201,7 +192,4 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
         return resultInput;
     }
 
-    public InputInfo getVarNames() {
-        return varNames;
-    }
 }

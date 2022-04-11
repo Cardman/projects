@@ -10,11 +10,10 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.IterableAnalysisResult;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.StringExpUtil;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -32,8 +31,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
     private OperationNode rootConverterFieldValue;
     private final StringMap<ResultText> attributesText = new StringMap<ResultText>();
     private final StringMap<ResultText> attributes = new StringMap<ResultText>();
-    private String varName = EMPTY_STRING;
-    private InputInfo varNames = new InputInfo();
     private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
@@ -55,10 +52,8 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         resultInput.build(this, elt,_anaDoc.getRendKeyWords().getAttrVarValue(), _anaDoc, _page);
-        varNames = resultInput.getVarNamesParams();
         rootRead = resultInput.getOpsReadRoot();
         rootValue = resultInput.getOpsValueRoot();
-        varName = resultInput.getVarName();
         id = resultInput.getId();
         idClass = resultInput.getIdClass();
         idName = resultInput.getIdName();
@@ -346,10 +341,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
         return rootConverterFieldValue;
     }
 
-    public String getVarName() {
-        return varName;
-    }
-
     public String getVarNameConverter() {
         return varNameConverter;
     }
@@ -398,7 +389,4 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
         return resultInput;
     }
 
-    public InputInfo getVarNames() {
-        return varNames;
-    }
 }

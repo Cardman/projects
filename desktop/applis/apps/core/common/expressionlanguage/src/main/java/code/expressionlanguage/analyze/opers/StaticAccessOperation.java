@@ -2,15 +2,18 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.common.AnaGeneType;
 import code.util.core.IndexConstants;
 
 public final class StaticAccessOperation extends LeafOperation {
     private AnaResultPartType partOffsets;
+    private AnaGeneType extractStaticType;
+
     public StaticAccessOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
@@ -21,6 +24,7 @@ public final class StaticAccessOperation extends LeafOperation {
         OperationsSequence op_ = getOperations();
         String ext_ = op_.getExtractType();
         if (!ext_.isEmpty()) {
+            extractStaticType = op_.getExtractStaticType();
             partOffsets = op_.getPartOffsets();
             Argument a_ = new Argument();
             setSimpleArgument(a_);
@@ -38,15 +42,21 @@ public final class StaticAccessOperation extends LeafOperation {
             ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(str_.indexOf(PAR_LEFT) + 1, realCl_, _page);
             classStr_ = resolvedIdType_.getFullName();
             partOffsets = resolvedIdType_.getDels();
+            extractStaticType = resolvedIdType_.getGeneType();
         } else {
             classStr_ = glClass_;
             partOffsets = new AnaResultPartType();
+            extractStaticType = _page.getGlobalType().getRootBlock();
         }
         classStr_ = emptyToObject(classStr_, _page);
         checkClassAccess(glClass_, classStr_, _page);
         Argument a_ = new Argument();
         setSimpleArgument(a_);
         setResultClass(new AnaClassArgumentMatching(classStr_));
+    }
+
+    public AnaGeneType getExtractStaticType() {
+        return extractStaticType;
     }
 
     public AnaResultPartType getPartOffsets() {

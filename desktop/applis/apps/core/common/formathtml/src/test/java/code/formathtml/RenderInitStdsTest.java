@@ -19,7 +19,10 @@ import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.*;
 import code.sml.Element;
-import code.util.*;
+import code.util.CustList;
+import code.util.IdMap;
+import code.util.Ints;
+import code.util.StringMap;
 import org.junit.Test;
 
 public final class RenderInitStdsTest extends CommonRender {
@@ -293,6 +296,7 @@ public final class RenderInitStdsTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasAnnotationType("java.lang.$Annotation");
         _lgNames.getContent().getReflect().setAliasAnnotated("java.lang.$Annotated");
         _lgNames.getContent().getReflect().setAliasGetAnnotations("getAnnotations");
+        _lgNames.getContent().getReflect().setAliasGetAnnotationsSupp("getAnnotationsSupp");
         _lgNames.getContent().getReflect().setAliasGetDefaultValue("getDefaultValue");
         _lgNames.getContent().getReflect().setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.getContent().getReflect().setAliasGetDeclaredConstructors("getDeclaredConstructors");

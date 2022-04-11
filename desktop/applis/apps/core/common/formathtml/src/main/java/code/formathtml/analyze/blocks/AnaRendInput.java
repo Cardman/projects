@@ -11,7 +11,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
-import code.formathtml.util.InputInfo;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -22,8 +21,6 @@ public abstract class AnaRendInput extends AnaRendElement {
 
     private OperationNode rootConverter;
     private OperationNode rootConverterField;
-    private String varName = EMPTY_STRING;
-    private InputInfo varNames = new InputInfo();
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
     private String id = EMPTY_STRING;
@@ -38,10 +35,8 @@ public abstract class AnaRendInput extends AnaRendElement {
 
     protected void processAnaInput(Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         resultInput.build(this, _read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
-        varNames = resultInput.getVarNamesParams();
         rootRead = resultInput.getOpsReadRoot();
         rootValue = resultInput.getOpsValueRoot();
-        varName = resultInput.getVarName();
         id = resultInput.getId();
         idClass = resultInput.getIdClass();
         idName = resultInput.getIdName();
@@ -181,10 +176,6 @@ public abstract class AnaRendInput extends AnaRendElement {
         return varNameConverter;
     }
 
-    public String getVarName() {
-        return varName;
-    }
-
     public String getVarNameConverterField() {
         return varNameConverterField;
     }
@@ -193,7 +184,4 @@ public abstract class AnaRendInput extends AnaRendElement {
         return resultInput;
     }
 
-    public InputInfo getVarNames() {
-        return varNames;
-    }
 }

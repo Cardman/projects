@@ -366,6 +366,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasAnnotated("$core.Annotated");
         _lgNames.getContent().getReflect().setAliasGetDefaultValue("getDefaultValue");
         _lgNames.getContent().getReflect().setAliasGetAnnotations("getAnnotations");
+        _lgNames.getContent().getReflect().setAliasGetAnnotationsSupp("getAnnotationsSupp");
         _lgNames.getContent().getReflect().setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.getContent().getReflect().setAliasGetDeclaredConstructors("getDeclaredConstructors");
         _lgNames.getContent().getReflect().setAliasGetDeclaredFields("getDeclaredFields");
@@ -714,6 +715,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasAnnotated("$coeur.Annote");
         _lgNames.getContent().getReflect().setAliasGetDefaultValue("valDefValeur");
         _lgNames.getContent().getReflect().setAliasGetAnnotations("valAnnotations");
+        _lgNames.getContent().getReflect().setAliasGetAnnotationsSupp("valAnnotationsSuppl");
         _lgNames.getContent().getReflect().setAliasGetAnnotationsParameters("valAnnotationsParametrees");
         _lgNames.getContent().getReflect().setAliasGetDeclaredConstructors("valConstructeursDeclares");
         _lgNames.getContent().getReflect().setAliasGetDeclaredFields("valChampsDeclares");

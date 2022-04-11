@@ -970,9 +970,7 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $public $int <a name=\"m41\" title=\"The indexer []($int) set must be defined.\n" +
-                "\n" +
-                "A $throw block or a $return block is missing for the method []($int).\" class=\"e\">$this</a>($int <a name=\"m52\">i</a>){\n" +
+                " $public $int <a name=\"m41\" title=\"A $throw block or a $return block is missing for the method []($int).\" class=\"e\">$this</a>($int <a name=\"m52\">i</a>){\n" +
                 " }\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());

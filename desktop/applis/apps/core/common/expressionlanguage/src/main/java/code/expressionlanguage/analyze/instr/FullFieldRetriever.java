@@ -3,16 +3,16 @@ package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.util.FieldResult;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
+import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.FoundVariable;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.opers.util.FieldResult;
-import code.expressionlanguage.analyze.opers.util.SearchingMemberStatus;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.Ints;
@@ -280,6 +280,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         delimiters.getDelKeyWordStatic().add(_from);
         delimiters.getDelKeyWordStatic().add(n_);
         delimiters.getDelKeyWordStaticExtract().add(start_);
+        delimiters.getStaticAccessTypes().add(startType_);
         delimiters.getStaticParts().add(PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(join_,partOffsets_,operators_,r_, loc_,_page));
         return n_;
     }

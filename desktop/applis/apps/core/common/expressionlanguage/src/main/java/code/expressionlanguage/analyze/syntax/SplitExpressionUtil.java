@@ -3,10 +3,8 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.files.ParsedType;
 import code.expressionlanguage.analyze.instr.ElRetrieverAnonymous;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
@@ -312,6 +310,19 @@ public final class SplitExpressionUtil {
             ((NamedFunctionBlock) _fct).getResLists().add(resList_);
             j_++;
         }
+        if (_fct instanceof NamedCalledFunctionBlock) {
+            int lenSet_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsIndexesSupp().size();
+            for (int i = 0; i < lenSet_; i++) {
+                int begin_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsIndexesSupp().get(i);
+                _page.setGlobalOffset(begin_);
+                _page.zeroOffset();
+                ResultExpression res_ = new ResultExpression();
+                _page.setAccessStaticContext(MethodAccessKind.STATIC);
+                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().get(i).trim(), res_);
+                ((NamedCalledFunctionBlock) _fct).getResListSupp().add(res_);
+            }
+        }
+
     }
 
     private static void processAnnotSw(AnalyzedPageEl _page, IntermediaryResults _int, SwitchMethodBlock _fct, RootBlock _type) {

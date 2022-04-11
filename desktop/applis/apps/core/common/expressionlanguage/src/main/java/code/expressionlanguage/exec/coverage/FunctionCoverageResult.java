@@ -16,6 +16,7 @@ public final class FunctionCoverageResult {
     private final IdMap<ExecBlock, AbsBk> mappingBlocks = new IdMap<ExecBlock, AbsBk>();
     private final CustList<BlockCoverageResult> annotations = new CustList<BlockCoverageResult>();
     private final CustList<CustList<BlockCoverageResult>> annotationsParams = new CustList<CustList<BlockCoverageResult>>();
+    private final CustList<BlockCoverageResult> annotationsSupp = new CustList<BlockCoverageResult>();
     private boolean called;
 
     public IdMap<ExecBlock, AbstractCoverageResult> getCoversConditions() {
@@ -56,6 +57,10 @@ public final class FunctionCoverageResult {
 
     public CustList<BlockCoverageResult> getAnnotations() {
         return annotations;
+    }
+
+    public CustList<BlockCoverageResult> getAnnotationsSupp() {
+        return annotationsSupp;
     }
 
     public CustList<CustList<BlockCoverageResult>> getAnnotationsParams() {

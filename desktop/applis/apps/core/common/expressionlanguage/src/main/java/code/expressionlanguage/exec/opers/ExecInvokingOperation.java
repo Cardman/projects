@@ -3,9 +3,11 @@ package code.expressionlanguage.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.util.*;
+import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.*;
@@ -16,8 +18,11 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
-import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.*;
+import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.LambdaStruct;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -40,20 +45,19 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
 
     public static ArgumentListCall fectchInstFormattedArgs(ExecFormattedRootBlock _formatted, ExecInstancingCommonContent _lastType, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
         String lastType_ = ExecInherits.quickFormat(_formatted, _lastType.getLastType());
-        return fectchArgs(lastType_, _lastType.getNaturalVararg(), null,_conf,_stack, _infos);
+        return fectchArgs(lastType_, _lastType.getNaturalVararg(), _conf,_stack, _infos);
     }
 
-    protected static ArgumentListCall fetchFormattedArgs(ContextEl _conf, StackCall _stack, Struct _pr, ExecRootBlock _rootBlock, ExecInstFctContent _lastType, Argument _right, CustList<ExecOperationInfo> _infos) {
+    public static ArgumentListCall fetchFormattedArgs(ContextEl _conf, StackCall _stack, Struct _pr, ExecRootBlock _rootBlock, ExecInstFctContent _lastType, CustList<ExecOperationInfo> _infos) {
         String cl_ = _pr.getClassName(_conf);
         String lastType_ = ExecFieldTemplates.formatType(_conf, _rootBlock, _lastType.getLastType(), cl_);
-        return fectchArgs(lastType_, _lastType.getNaturalVararg(),_right,_conf,_stack, _infos);
+        return fectchArgs(lastType_, _lastType.getNaturalVararg(), _conf,_stack, _infos);
     }
 
-    public static ArgumentListCall fectchArgs(String _lastType, int _naturalVararg, Argument _right, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
+    public static ArgumentListCall fectchArgs(String _lastType, int _naturalVararg, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {
         ArgumentList argumentList_ = listNamedArguments(_naturalVararg, _infos);
         CustList<ArgumentWrapper> first_ = argumentList_.getArguments().getArgumentWrappers();
         listArguments(argumentList_.getNaturalVararg(), _lastType, first_,_conf,_stack);
-        argumentList_.getArguments().setRight(_right);
         return argumentList_.getArguments();
     }
     public static ArgumentList listNamedArguments(int _naturalVararg, CustList<ExecOperationInfo> _infos) {

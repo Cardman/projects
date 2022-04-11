@@ -5,8 +5,17 @@ import code.formathtml.util.FieldUpdates;
 import code.util.CustList;
 
 public final class NatFieldUpdates extends FieldUpdates {
+    private String varName = "";
     private CustList<NatExecOperationNode> opsRead = new CustList<NatExecOperationNode>();
     private CustList<NatExecOperationNode> opsWrite = new CustList<NatExecOperationNode>();
+
+    public String getVarName() {
+        return varName;
+    }
+
+    public void setVarName(String _varName) {
+        varName = _varName;
+    }
 
     public CustList<NatExecOperationNode> getOpsRead() {
         return opsRead;

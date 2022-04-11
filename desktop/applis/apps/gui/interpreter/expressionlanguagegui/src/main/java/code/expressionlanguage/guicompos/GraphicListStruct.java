@@ -138,7 +138,7 @@ public final class GraphicListStruct extends InputStruct {
         wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
     }
     private static void wrapAndCall(GuiAliases _aliases, ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
-        ArgumentListCall argList_ = new ArgumentListCall(_args);
+        ArgumentListCall argList_ = ArgumentListCall.wrapCall(_args);
         ExecTemplates.wrapAndCall(_pair, new ExecFormattedRootBlock(_pair.getType(), _aliases.getAliasPaint()),Argument.createVoid(), _cont, _stackCall, argList_);
     }
     public ArrayStruct getSelectedIndexes(ContextEl _ctx) {

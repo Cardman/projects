@@ -10,9 +10,9 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
-import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.util.*;
 import code.util.CustList;
 import code.util.StringMap;
@@ -1031,6 +1031,7 @@ public final class RenderInitNavTest extends CommonRender {
         _lgNames.getContent().getReflect().setAliasAnnotationType("java.lang.$Annotation");
         _lgNames.getContent().getReflect().setAliasAnnotated("java.lang.$Annotated");
         _lgNames.getContent().getReflect().setAliasGetAnnotations("getAnnotations");
+        _lgNames.getContent().getReflect().setAliasGetAnnotationsSupp("getAnnotationsSupp");
         _lgNames.getContent().getReflect().setAliasGetDefaultValue("getDefaultValue");
         _lgNames.getContent().getReflect().setAliasGetAnnotationsParameters("getAnnotationsParameters");
         _lgNames.getContent().getReflect().setAliasGetDeclaredConstructors("getDeclaredConstructors");

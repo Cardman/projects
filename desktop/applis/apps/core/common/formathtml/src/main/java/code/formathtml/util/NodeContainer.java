@@ -7,21 +7,16 @@ import code.util.StringList;
 
 public abstract class NodeContainer {
 
-    private CustList<Struct> object = new CustList<Struct>();
     private CustList<Struct> allObject = new CustList<Struct>();
     private Struct bean = NullStruct.NULL_VALUE;
 
     private Struct typedField = NullStruct.NULL_VALUE;
-    private String varPrevName;
-    private InputInfo varParamName;
-    private String varName;
     private String varNameConvert;
     private boolean arrayConverter;
 
     private final NodeInformations nodeInformation = new NodeInformations();
 
     private boolean enabled;
-    private boolean indexer;
 
     protected NodeContainer() {
     }
@@ -39,14 +34,10 @@ public abstract class NodeContainer {
     }
 
     public Struct getUpdated() {
-        return object.first();
+        return allObject.first();
     }
     public CustList<Struct> getStructParam() {
-        return object.mid(1);
-    }
-
-    public void setStruct(CustList<Struct> _struct) {
-        object = _struct;
+        return allObject.mid(1);
     }
 
     public void setAllObject(CustList<Struct> _allObject) {
@@ -77,30 +68,6 @@ public abstract class NodeContainer {
         enabled = _enabled;
     }
 
-    public String getVarPrevName() {
-        return varPrevName;
-    }
-
-    public void setVarPrevName(String _varPrevName) {
-        varPrevName = _varPrevName;
-    }
-
-    public  InputInfo getVarParamName() {
-        return varParamName;
-    }
-
-    public void setVarParamName(InputInfo _varParamName) {
-        this.varParamName = _varParamName;
-    }
-
-    public String getVarName() {
-        return varName;
-    }
-
-    public void setVarName(String _varName) {
-        varName = _varName;
-    }
-
     public String getVarNameConvert() {
         return varNameConvert;
     }
@@ -115,14 +82,6 @@ public abstract class NodeContainer {
 
     public void setArrayConverter(boolean _arrayConverter) {
         arrayConverter = _arrayConverter;
-    }
-
-    public boolean isIndexer() {
-        return indexer;
-    }
-
-    public void setIndexer(boolean _indexer) {
-        this.indexer = _indexer;
     }
 
     public Struct getBean() {

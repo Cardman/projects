@@ -16,7 +16,7 @@ public final class CastDirectRefectMethodPageEl extends AbstractRefectMethodPage
 
     @Override
     Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
-        ArgumentListCall l_ = new ArgumentListCall(_args);
+        ArgumentListCall l_ = ArgumentListCall.wrapCall(_args);
         return direct(_context, _stack, l_);
     }
 

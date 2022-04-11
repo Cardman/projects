@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
+import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.NumberInfos;
 import code.util.CustList;
 import code.util.Ints;
@@ -22,6 +23,7 @@ public final class Delimiters {
     private final Ints delKeyWordStatic = new Ints();
     private final Ints delKeyWordStaticCall = new Ints();
     private final StringList delKeyWordStaticExtract = new StringList();
+    private final CustList<AnaGeneType> staticAccessTypes = new CustList<AnaGeneType>();
     private final CustList<AnaResultPartType> staticParts = new CustList<AnaResultPartType>();
     private final Ints delExplicit = new Ints();
     private final Ints delCast = new Ints();
@@ -95,6 +97,10 @@ public final class Delimiters {
 
     public StringList getDelKeyWordStaticExtract() {
         return delKeyWordStaticExtract;
+    }
+
+    public CustList<AnaGeneType> getStaticAccessTypes() {
+        return staticAccessTypes;
     }
 
     public CustList<AnaResultPartType> getStaticParts() {
