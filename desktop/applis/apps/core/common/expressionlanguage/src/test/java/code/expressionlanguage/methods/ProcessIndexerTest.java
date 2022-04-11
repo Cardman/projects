@@ -228,6 +228,37 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(6, getNumber(ret_));
     }
     @Test
+    public void calc_____ulate___Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[q:0,p:1] = 5;\n");
+        xml_.append("  e[q:1,p:0]++;\n");
+        xml_.append("  $return e[q:1,p:0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
+        xml_.append(" $public $int $this($int p, $int q)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p-q+1];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int q,$int p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[q-p+1] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+    @Test
     public void calculate____Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
