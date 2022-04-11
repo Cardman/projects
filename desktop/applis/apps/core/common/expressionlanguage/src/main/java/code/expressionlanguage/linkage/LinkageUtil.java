@@ -3550,12 +3550,13 @@ public final class LinkageUtil {
         for (NamedFunctionBlock n:cust_) {
             FileBlock file_ = n.getFile();
             Ints offs_ = n.getParametersNamesOffset();
+            int ref_ = index(i_,_n);
+            int refO_ = offs_.get(ref_);
+            String rel_ = ExportCst.anchorRef(_vars.getCurrentFile(), file_, refO_);
             if (i_ == 0) {
-                int refOne_ = offs_.get(_n.getIndex());
-                relOne_ = ExportCst.anchorRef(_vars.getCurrentFile(), file_, refOne_);
+                relOne_ = rel_;
             } else {
-                int refTwo_ = offs_.get(_n.getIndex());
-                relTwo_ = ExportCst.anchorRef(_vars.getCurrentFile(), file_, refTwo_);
+                relTwo_ = rel_;
             }
             i_++;
         }
@@ -3579,17 +3580,25 @@ public final class LinkageUtil {
     }
 
     private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<NamedFunctionBlock> _customMethods, CustList<NamedFunctionBlock> _list, CustList<NamedFunctionBlock> _filterSet, CustList<NamedFunctionBlock> _filterGet) {
+        int i_ = 0;
         for (NamedFunctionBlock n: _customMethods) {
             FileBlock file_ = n.getFile();
             Ints offs_ = new Ints();
             if (!file_.isPredefined()) {
                 offs_ = n.getParametersNamesOffset();
             }
-            if (offs_.isValidIndex(_namedArg.getIndex())) {
+            if (offs_.isValidIndex(index(i_,_namedArg))) {
                 feedFiltersNamed(_filterSet, _filterGet, n);
                 _list.add(n);
             }
+            i_++;
         }
+    }
+    private static int index(int _i, NamedArgumentOperation _namedArg) {
+        if (_i > 0) {
+            return _namedArg.getIndexChild();
+        }
+        return _namedArg.getIndex();
     }
 
     private static void feedFiltersNamed(CustList<NamedFunctionBlock> _filterSet, CustList<NamedFunctionBlock> _filterGet, NamedFunctionBlock _named) {
