@@ -3596,7 +3596,7 @@ public final class LinkageUtil {
     }
     private static int index(int _i, NamedArgumentOperation _namedArg) {
         if (_i > 0) {
-            return _namedArg.getIndexChild();
+            return _namedArg.getIndexChild()-InvokingOperation.getDeltaCount(_namedArg.getParent().getFirstChild());
         }
         return _namedArg.getIndex();
     }
