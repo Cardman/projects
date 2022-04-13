@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -33,7 +34,7 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     }
 
     @Override
-    public void logIssue(String _info) {
+    public void logIssue(String _info, ReportedMessages _rep) {
         AbstractIssuer issuer_ = infos.getLogger().getIssuer();
         if (issuer_ != null) {
             issuer_.log(_info);

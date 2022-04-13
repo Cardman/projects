@@ -23,7 +23,7 @@ public final class OperationsSequence {
 
     private NumberInfos nbInfos;
     private TextBlockInfo textInfo;
-    private StringInfo strInfo;
+    private TextBlockInfo strInfo;
 
     private String fctName = "";
 
@@ -355,11 +355,11 @@ public final class OperationsSequence {
         nbInfos = _nbInfos;
     }
 
-    public StringInfo getStrInfo() {
+    public TextBlockInfo getStrInfo() {
         return strInfo;
     }
 
-    public void setStrInfo(StringInfo _strInfo) {
+    public void setStrInfo(TextBlockInfo _strInfo) {
         strInfo = _strInfo;
     }
 

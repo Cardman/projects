@@ -12,7 +12,7 @@ public final class IndexUnicodeEscape {
 
     private boolean part;
 
-    private StringInfo stringInfo;
+    private TextBlockInfo stringInfo;
 
     private TextBlockInfo textInfo;
 
@@ -55,10 +55,10 @@ public final class IndexUnicodeEscape {
     public void setPart(boolean _part) {
         part = _part;
     }
-    public StringInfo getStringInfo() {
+    public TextBlockInfo getStringInfo() {
         return stringInfo;
     }
-    public void setStringInfo(StringInfo _stringInfo) {
+    public void setStringInfo(TextBlockInfo _stringInfo) {
         stringInfo = _stringInfo;
     }
 

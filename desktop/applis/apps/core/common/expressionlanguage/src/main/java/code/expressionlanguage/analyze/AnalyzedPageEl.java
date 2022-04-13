@@ -995,7 +995,7 @@ public final class AnalyzedPageEl {
 
     public void addError(FoundErrorInterpret _error) {
         messages.addError(_error);
-        logErr.logIssue(_error.display());
+        logErr.logIssue(_error.display(),messages);
     }
 
     public boolean isEmptyMessageError() {
@@ -1003,7 +1003,7 @@ public final class AnalyzedPageEl {
     }
     public void addMessageError(String _std) {
         messages.addMessageError(_std);
-        logErr.logIssue(_std);
+        logErr.logIssue(_std,messages);
     }
 
     public boolean isEmptyStdError() {
@@ -1011,12 +1011,12 @@ public final class AnalyzedPageEl {
     }
     public void addStdError(StdWordError _std) {
         messages.addStdError(_std);
-        logErr.logIssue(_std.display());
+        logErr.logIssue(_std.display(),messages);
     }
 
     public void addWarning(FoundWarningInterpret _warning) {
         messages.addWarning(_warning);
-        logErr.logIssue(_warning.display());
+        logErr.logIssue(_warning.display(),messages);
     }
 
     public void putFileBlock(String _fileName, FileBlock _fileBlock) {

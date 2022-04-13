@@ -150,7 +150,7 @@ public final class ElResolver {
             return _d;
         }
         KeyWords keyWords_ = _page.getKeyWords();
-        StringInfo si_ = new StringInfo();
+        TextBlockInfo si_ = new TextBlockInfo();
         TextBlockInfo txt_ = new TextBlockInfo();
         i_ = _minIndex;
         ResultAfterInstKeyWord resKeyWords_ = new ResultAfterInstKeyWord();
@@ -196,7 +196,7 @@ public final class ElResolver {
                 if (!res_.isPart()) {
                     _d.getStringInfo().add(si_);
                     _d.getDelStringsChars().add(i_);
-                    si_ = new StringInfo();
+                    si_ = new TextBlockInfo();
                     resOpers_.setConstChar(false);
                     i_++;
                     _d.setEnabledOp(true);
@@ -246,7 +246,7 @@ public final class ElResolver {
                 if (!res_.isPart()) {
                     _d.getStringInfo().add(si_);
                     _d.getDelStringsChars().add(i_);
-                    si_ = new StringInfo();
+                    si_ = new TextBlockInfo();
                     resOpers_.setConstString(false);
                     i_++;
                     _d.setEnabledOp(true);
@@ -271,7 +271,7 @@ public final class ElResolver {
                 if (!res_.isPart()) {
                     _d.getStringInfo().add(si_);
                     _d.getDelStringsChars().add(i_);
-                    si_ = new StringInfo();
+                    si_ = new TextBlockInfo();
                     resOpers_.setConstText(false);
                     i_++;
                     _d.setEnabledOp(true);
@@ -1666,7 +1666,7 @@ public final class ElResolver {
         return !_page.isAcceptCommaInstr() && !(_page.getCurrentBlock() instanceof FieldBlock);
     }
 
-    private static IndexUnicodeEscape processStrings(KeyWords _key, String _string, int _max, StringInfo _si, IndexUnicodeEscape _infos, char _delimiter) {
+    private static IndexUnicodeEscape processStrings(KeyWords _key, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _infos, char _delimiter) {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
         int unicode_ = _infos.getUnicode();
@@ -1820,7 +1820,7 @@ public final class ElResolver {
         return infos_;
     }
 
-    private static char trStr(KeyWords _key, StringInfo _si, char curChar_) {
+    private static char trStr(KeyWords _key, TextBlockInfo _si, char curChar_) {
         int index_ = index(_key, curChar_);
         if (index_ < 0) {
             _si.setKo();
@@ -2349,7 +2349,7 @@ public final class ElResolver {
         begin_ = _d.getDelStringsChars().indexOfNb((long)firstPrintChar_+_offset);
         end_ = _d.getDelStringsChars().indexOfNb((long)lastPrintChar_+_offset);
         if (delimits(begin_, end_)) {
-            StringInfo info_ = _d.getStringInfo().get(begin_/2);
+            TextBlockInfo info_ = _d.getStringInfo().get(begin_/2);
             String export_ = info_.build();
             if (_string.charAt(firstPrintChar_) == DELIMITER_CHAR) {
                 OperationsSequence op_ = new OperationsSequence();

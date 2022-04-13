@@ -29,9 +29,6 @@ public abstract class BeanLgNames extends LgNames {
         super(_gene);
     }
 
-    @Override
-    public void logIssue(String _info) {
-    }
 
     public static int parseInt(String _string, int _def) {
         String value_ = _string.trim();

@@ -38,7 +38,7 @@ public final class Delimiters {
     private final Ints delClass = new Ints();
     private final Ints delSimpleAnnotations = new Ints();
     private final StackDelimiters stack = new StackDelimiters();
-    private final CustList<StringInfo> stringInfo = new CustList<StringInfo>();
+    private final CustList<TextBlockInfo> stringInfo = new CustList<TextBlockInfo>();
     private final CustList<TextBlockInfo> textInfo = new CustList<TextBlockInfo>();
     private final CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private final CustList<VariableInfo> variables = new CustList<VariableInfo>();
@@ -181,7 +181,7 @@ public final class Delimiters {
         return textInfo;
     }
 
-    public CustList<StringInfo> getStringInfo() {
+    public CustList<TextBlockInfo> getStringInfo() {
         return stringInfo;
     }
     public CustList<VariableInfo> getVariables() {

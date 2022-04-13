@@ -2,7 +2,10 @@ package code.expressionlanguage.sample;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.SingleContextEl;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.CommonExecutionMetricsInfos;
+import code.expressionlanguage.exec.DefaultInitializer;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.stds.LgNames;
@@ -14,9 +17,6 @@ public final class CustLgNames extends LgNames {
         super(new DefaultGenerator());
     }
 
-    @Override
-    public void logIssue(String _info) {
-    }
     @Override
     public void build() {
         buildBase();
