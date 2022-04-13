@@ -3535,9 +3535,9 @@ public final class LinkageUtil {
         String relOne_ = EMPTY;
         String relTwo_ = EMPTY;
         int i_ = 0;
-        CustList<NamedFunctionBlock> cust_ = new CustList<NamedFunctionBlock>();
-        CustList<NamedFunctionBlock> filterSet_ = new CustList<NamedFunctionBlock>();
-        CustList<NamedFunctionBlock> filterGet_ = new CustList<NamedFunctionBlock>();
+        CustList<LinkedNamedArgParts> cust_ = new CustList<LinkedNamedArgParts>();
+        CustList<LinkedNamedArgParts> filterSet_ = new CustList<LinkedNamedArgParts>();
+        CustList<LinkedNamedArgParts> filterGet_ = new CustList<LinkedNamedArgParts>();
         feedFiltersNamedList(_n, customMethods_, cust_, filterSet_, filterGet_);
         if (_n.getParent() instanceof ArrOperation) {
             ArrOperation arr_ = (ArrOperation) _n.getParent();
@@ -3547,11 +3547,9 @@ public final class LinkageUtil {
                 cust_ = filterGet_;
             }
         }
-        for (NamedFunctionBlock n:cust_) {
+        for (LinkedNamedArgParts n:cust_) {
             FileBlock file_ = n.getFile();
-            Ints offs_ = n.getParametersNamesOffset();
-            int ref_ = index(i_,n,_n);
-            int refO_ = offs_.get(ref_);
+            int refO_ = n.getOffset();
             String rel_ = ExportCst.anchorRef(_vars.getCurrentFile(), file_, refO_);
             if (i_ == 0) {
                 relOne_ = rel_;
@@ -3579,7 +3577,7 @@ public final class LinkageUtil {
         }
     }
 
-    private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<NamedFunctionBlock> _customMethods, CustList<NamedFunctionBlock> _list, CustList<NamedFunctionBlock> _filterSet, CustList<NamedFunctionBlock> _filterGet) {
+    private static void feedFiltersNamedList(NamedArgumentOperation _namedArg, CustList<NamedFunctionBlock> _customMethods, CustList<LinkedNamedArgParts> _list, CustList<LinkedNamedArgParts> _filterSet, CustList<LinkedNamedArgParts> _filterGet) {
         int i_ = 0;
         for (NamedFunctionBlock n: _customMethods) {
             FileBlock file_ = n.getFile();
@@ -3587,9 +3585,11 @@ public final class LinkageUtil {
             if (!file_.isPredefined()) {
                 offs_ = n.getParametersNamesOffset();
             }
-            if (offs_.isValidIndex(index(i_,n,_namedArg))) {
-                feedFiltersNamed(_filterSet, _filterGet, n);
-                _list.add(n);
+            int index_ = index(i_, n, _namedArg);
+            if (offs_.isValidIndex(index_)) {
+                int off_ = offs_.get(index_);
+                feedFiltersNamed(_filterSet, _filterGet, n, off_);
+                _list.add(new LinkedNamedArgParts(n.getFile(),off_));
             }
             i_++;
         }
@@ -3601,12 +3601,12 @@ public final class LinkageUtil {
         return _namedArg.getIndex();
     }
 
-    private static void feedFiltersNamed(CustList<NamedFunctionBlock> _filterSet, CustList<NamedFunctionBlock> _filterGet, NamedFunctionBlock _named) {
+    private static void feedFiltersNamed(CustList<LinkedNamedArgParts> _filterSet, CustList<LinkedNamedArgParts> _filterGet, NamedFunctionBlock _named, int _off) {
         if (is(_named,MethodKind.GET_INDEX)) {
-            _filterGet.add(_named);
+            _filterGet.add(new LinkedNamedArgParts(_named.getFile(),_off));
         }
         if (is(_named,MethodKind.SET_INDEX)) {
-            _filterSet.add(_named);
+            _filterSet.add(new LinkedNamedArgParts(_named.getFile(),_off));
         }
     }
     private static boolean is(NamedFunctionBlock _m, MethodKind _k) {
