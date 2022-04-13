@@ -109,6 +109,13 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         }
         return _char != END_ARGS;
     }
+    @Override
+    public void build() {
+        buildBeans();
+        buildOther();
+    }
+
+    public abstract void buildOther();
 
     public abstract void beforeDisplaying(Struct _arg);
 
@@ -549,8 +556,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         //
 
         //        standards_.addEntry(getCoreNames().OBJECT, std_);
-        buildBeans();
-        buildOther();
+        build();
 
         RendBlockHelp.setupOverrides(getStds());
         return forwards_;

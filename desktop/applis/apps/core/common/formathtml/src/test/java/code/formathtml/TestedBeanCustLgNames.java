@@ -11,6 +11,11 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     protected TestedBeanCustLgNames(AbstractGenerator _gene) {
         super(_gene);
     }
+    @Override
+    public void build() {
+        buildBase();
+        buildOther();
+    }
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {

@@ -41,6 +41,11 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     }
 
     @Override
+    public void build() {
+        buildBase();
+        buildOther();
+    }
+
     public void buildOther() {
         custAliases.buildOther(getContent(),getExecutingBlocks());
     }

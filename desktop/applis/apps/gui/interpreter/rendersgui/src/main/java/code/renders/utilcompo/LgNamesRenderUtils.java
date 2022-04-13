@@ -61,6 +61,13 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     public void forwardAndClear(Classes _classes) {
         executingBlocks.forwardAndClear(getContent(),custAliases,_classes);
     }
+
+    @Override
+    public void build() {
+        buildBase();
+        buildOther();
+    }
+
     @Override
     public void buildOther() {
         getBeanAliases().buildOther(getContent(), getRendExecutingBlocks());

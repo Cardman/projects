@@ -43,7 +43,7 @@ public abstract class LgNames implements BuildableLgNames {
     }
 
     /**Called after setters*/
-    public void build() {
+    public void buildBase() {
         content.getCoreNames().build(this);
         content.getNbAlias().build(this);
         content.getCharSeq().build(this);
@@ -51,14 +51,11 @@ public abstract class LgNames implements BuildableLgNames {
         content.getMathRef().build(this);
         content.getStackElt().build(this);
         content.getPrimTypes().buildPrimitiveTypes(this);
-        buildOther();
     }
 
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         return ExecCatOperation.getStringOfObjectBase(_cont, _arg);
     }
-
-    public abstract void buildOther();
 
     public final Struct getSimpleResult(ClassField _classField) {
         return calculator.getInnerSimpleResult(_classField);

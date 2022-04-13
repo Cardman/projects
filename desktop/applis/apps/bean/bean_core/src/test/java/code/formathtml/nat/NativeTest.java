@@ -1022,8 +1022,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     private static NatAnalyzedCode init(CustBeanLgNames lgNames_) {
-        lgNames_.buildBeans();
-        lgNames_.buildOther();
+        lgNames_.build();
         return page(lgNames_);
     }
 

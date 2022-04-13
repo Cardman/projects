@@ -17,9 +17,9 @@ public final class CustLgNames extends LgNames {
     @Override
     public void logIssue(String _info) {
     }
-
     @Override
-    public void buildOther() {
+    public void build() {
+        buildBase();
     }
 
     @Override
