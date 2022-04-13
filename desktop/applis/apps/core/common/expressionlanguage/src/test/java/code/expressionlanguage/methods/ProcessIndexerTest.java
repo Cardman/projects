@@ -166,6 +166,40 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         assertEq(6, getNumber(ret_));
     }
     @Test
+    public void calculate__2Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  ExOuter.Ex e = $new ExOuter().$new Ex();\n");
+        xml_.append("  e[0,$new ExCont(v:0)] = 5;\n");
+        xml_.append("  e[q:$new ExCont(v:0),p:0]++;\n");
+        xml_.append("  $return e[0,$new ExCont(v:0)];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public @$class pkg.ExCont { $public $int v; }\n");
+        xml_.append("$public $class pkg.ExOuter {\n");
+        xml_.append("$public $class Ex {\n");
+        xml_.append("}\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
+        xml_.append(" $public $int $this($int p, ExCont q)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p+q.v];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int s, ExCont r, $int $value)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[s+r.v] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("test");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Apply", id_, args_, cont_);
+        assertEq(6, getNumber(ret_));
+    }
+    @Test
     public void calculate___Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_ = new StringBuilder();
