@@ -3550,7 +3550,7 @@ public final class LinkageUtil {
         for (NamedFunctionBlock n:cust_) {
             FileBlock file_ = n.getFile();
             Ints offs_ = n.getParametersNamesOffset();
-            int ref_ = index(i_,_n);
+            int ref_ = index(i_,n,_n);
             int refO_ = offs_.get(ref_);
             String rel_ = ExportCst.anchorRef(_vars.getCurrentFile(), file_, refO_);
             if (i_ == 0) {
@@ -3587,30 +3587,30 @@ public final class LinkageUtil {
             if (!file_.isPredefined()) {
                 offs_ = n.getParametersNamesOffset();
             }
-            if (offs_.isValidIndex(index(i_,_namedArg))) {
+            if (offs_.isValidIndex(index(i_,n,_namedArg))) {
                 feedFiltersNamed(_filterSet, _filterGet, n);
                 _list.add(n);
             }
             i_++;
         }
     }
-    private static int index(int _i, NamedArgumentOperation _namedArg) {
-        if (_i > 0) {
+    private static int index(int _i, NamedFunctionBlock _m, NamedArgumentOperation _namedArg) {
+        if (is(_m,MethodKind.SET_INDEX)&&_i > 0) {
             return _namedArg.getIndexChild()-InvokingOperation.getDeltaCount(_namedArg.getParent().getFirstChild());
         }
         return _namedArg.getIndex();
     }
 
     private static void feedFiltersNamed(CustList<NamedFunctionBlock> _filterSet, CustList<NamedFunctionBlock> _filterGet, NamedFunctionBlock _named) {
-        if (AbsBk.isOverBlock(_named)) {
-            NamedCalledFunctionBlock ov_ = (NamedCalledFunctionBlock) _named;
-            if (ov_.getKind() == MethodKind.GET_INDEX) {
-                _filterGet.add(_named);
-            }
-            if (ov_.getKind() == MethodKind.SET_INDEX) {
-                _filterSet.add(_named);
-            }
+        if (is(_named,MethodKind.GET_INDEX)) {
+            _filterGet.add(_named);
         }
+        if (is(_named,MethodKind.SET_INDEX)) {
+            _filterSet.add(_named);
+        }
+    }
+    private static boolean is(NamedFunctionBlock _m, MethodKind _k) {
+        return AbsBk.isOverBlock(_m)&&((NamedCalledFunctionBlock)_m).getKind() == _k;
     }
 
     private static void processTernayFct(VariablesOffsets _vars, int _sum, OperationNode _val) {
