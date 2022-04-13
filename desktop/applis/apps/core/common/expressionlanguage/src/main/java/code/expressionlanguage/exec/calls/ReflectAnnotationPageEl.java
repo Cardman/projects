@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAnnotableBlock;
 import code.expressionlanguage.exec.blocks.ExecAnnotableParamBlock;
@@ -13,10 +14,7 @@ import code.expressionlanguage.exec.opers.ExecArrayFieldOperation;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.fwd.blocks.ExecAnnotContent;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.AnnotatedStruct;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.ClassMetaInfo;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.Ints;
@@ -27,7 +25,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
     private boolean retrievedAnnot;
     private int indexAnnotation;
     private int indexAnnotationParam;
-    private boolean onParameters;
+    private ReflectingType onParameters;
     private ArrayStruct array;
     private CustList<ExecAnnotContent> annotations = new CustList<ExecAnnotContent>();
     private CustList<CustList<ExecAnnotContent>> annotationsParams = new CustList<CustList<ExecAnnotContent>>();
@@ -53,7 +51,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
         retrAllAnnot(_context);
-        if (onParameters) {
+        if (onParameters == ReflectingType.ANNOTATION_PARAM) {
             int len_ = annotationsParams.size();
             for (int i = indexAnnotationParam; i < len_; i++) {
                 Struct loc_ = array.get(i);
@@ -98,7 +96,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         if (retrievedAnnot) {
             return;
         }
-        if (onParameters) {
+        if (onParameters == ReflectingType.ANNOTATION_PARAM) {
             annotParams();
             String cl_ = filterType();
             if (!cl_.isEmpty()) {
@@ -134,6 +132,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
             retrievedAnnot = true;
             return;
         }
+        adjustParam();
         annot();
         String cl_ = filterType();
         if (!cl_.isEmpty()) {
@@ -151,7 +150,22 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         retrievedAnnot = true;
     }
 
+    private void adjustParam() {
+        if (annotated instanceof MethodMetaInfo && onParameters == ReflectingType.ANNOT_SUPP) {
+            indexAnnotationParam = ((MethodMetaInfo) annotated).getRealId().getParametersTypesLength();
+            ExecBlock bl_ = annotated.getBl();
+            if (bl_ instanceof ExecAnnotableParamBlock) {
+                annotations = ((ExecAnnotableParamBlock)bl_).getAnnotationsOpsSupp();
+            } else {
+                annotations = new CustList<ExecAnnotContent>();
+            }
+        }
+    }
+
     private void annot() {
+        if (onParameters != ReflectingType.ANNOTATION) {
+            return;
+        }
         ExecBlock bl_ = annotated.getBl();
         if (bl_ instanceof ExecAnnotableBlock) {
             annotations = ((ExecAnnotableBlock)bl_).getAnnotationsOps();
@@ -202,7 +216,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         basicReceive(_wrap, _argument,_context, _stack);
     }
 
-    public void setOnParameters(boolean _onParameters) {
+    public void setOnParameters(ReflectingType _onParameters) {
         onParameters = _onParameters;
     }
 
@@ -226,7 +240,7 @@ public final class ReflectAnnotationPageEl extends AbstractReflectPageEl {
         return annotationsIndexes;
     }
 
-    public boolean isOnParameters() {
+    public ReflectingType isOnParameters() {
         return onParameters;
     }
 }

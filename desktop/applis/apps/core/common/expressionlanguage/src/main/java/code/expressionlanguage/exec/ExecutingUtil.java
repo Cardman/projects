@@ -303,17 +303,12 @@ public final class ExecutingUtil {
             pageLoc_ = lambdaMeth((CustomReflectLambdaMethod) _ref);
         } else if (_ref instanceof CustomReflectMethod) {
             pageLoc_ = reflectMethod((CustomReflectMethod) _ref);
-        } else if (_ref instanceof CustomReflectAnnotationsSupp) {
-            CustomReflectAnnotationsSupp c_ = (CustomReflectAnnotationsSupp) _ref;
-            CustList<Argument> args_ = c_.getArguments();
-            pageLoc_ = new ReflectAnnotationSuppPageEl(args_, c_.getGl());
-            setFile(pageLoc_, c_.getGl());
         } else {
             CustomReflectAnnotations c_ = (CustomReflectAnnotations) _ref;
             CustList<Argument> args_ = c_.getArguments();
             pageLoc_ = new ReflectAnnotationPageEl(args_, c_.getGl());
             setFile(pageLoc_, c_.getGl());
-            ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_ == ReflectingType.ANNOTATION_PARAM);
+            ((ReflectAnnotationPageEl)pageLoc_).setOnParameters(reflect_);
         }
         ReadWrite rwLoc_ = new ReadWrite();
         pageLoc_.setReadWrite(rwLoc_);

@@ -7,11 +7,11 @@ import code.expressionlanguage.analyze.opers.NullSafeOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.SafeDotOperation;
 import code.expressionlanguage.exec.ExpressionLanguage;
+import code.expressionlanguage.exec.ReflectingType;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.ReflectAnnotationPageEl;
-import code.expressionlanguage.exec.calls.ReflectAnnotationSuppPageEl;
 import code.expressionlanguage.exec.calls.ReflectGetDefaultValuePageEl;
 import code.expressionlanguage.exec.opers.ExecCompoundAffectationOperation;
 import code.expressionlanguage.exec.opers.ExecMethodOperation;
@@ -476,29 +476,27 @@ public final class Coverage {
             return;
         }
         AbstractPageEl lastPage_ = _stackCall.getLastPage();
-        if (lastPage_ instanceof ReflectAnnotationSuppPageEl) {
-            ReflectAnnotationSuppPageEl annotRet_ = (ReflectAnnotationSuppPageEl)lastPage_;
-            int indexAnnotation_ = annotRet_.getIndexAnnotationSet();
-            int indexAnnot_ = annotRet_.getAnnotationsIndexesSet().get(indexAnnotation_);
-            AbsBk matchBl_ = matchBl(lastPage_);
-            BlockCoverageResult blRes_ = getResultBlock(matchBl_,annotRet_.getRealId().getParametersTypesLength(),indexAnnot_);
-            passBlockOperationOp(_exec, _full, _pair, _stackCall, blRes_);
-            return;
-        }
         int indexAnnotGroup_ = -1;
         int indexAnnot_ = -1;
         if (lastPage_ instanceof ReflectAnnotationPageEl) {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl)lastPage_;
             int indexAnnotation_ = annotRet_.getIndexAnnotation();
-            if (annotRet_.isOnParameters()) {
+            if (annotRet_.isOnParameters() == ReflectingType.ANNOTATION_PARAM) {
                 indexAnnotGroup_ = annotRet_.getIndexAnnotationParam();
                 indexAnnot_ = annotRet_.getAnnotationsParamsIndexes().get(indexAnnotGroup_).get(indexAnnotation_);
+            } else if (annotRet_.isOnParameters() == ReflectingType.ANNOT_SUPP) {
+                indexAnnotGroup_ = annotRet_.getIndexAnnotationParam();
+                indexAnnot_ = annotRet_.getAnnotationsIndexes().get(indexAnnotation_);
             } else {
                 indexAnnot_ = annotRet_.getAnnotationsIndexes().get(indexAnnotation_);
             }
         }
+        passBlockOperationOp(_exec, _full, _pair, _stackCall, lastPage_, indexAnnot_, indexAnnotGroup_);
+    }
+
+    private void passBlockOperationOp(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall, AbstractPageEl lastPage_, int indexAnnot_, int _parametersTypesLength) {
         AbsBk matchBl_ = matchBl(lastPage_);
-        BlockCoverageResult blRes_ = getResultBlock(matchBl_, indexAnnotGroup_, indexAnnot_);
+        BlockCoverageResult blRes_ = getResultBlock(matchBl_, _parametersTypesLength, indexAnnot_);
         passBlockOperationOp(_exec, _full, _pair, _stackCall, blRes_);
     }
 
@@ -530,10 +528,6 @@ public final class Coverage {
             ReflectAnnotationPageEl annotRet_ = (ReflectAnnotationPageEl) _lastPage;
             AnnotatedStruct annotated_ = annotRet_.getAnnotated();
             type_ = annotated_.getFormatted().getRootBlock();
-        } else if (_lastPage instanceof ReflectAnnotationSuppPageEl) {
-            ReflectAnnotationSuppPageEl annotRet_ = (ReflectAnnotationSuppPageEl) _lastPage;
-            AnnotatedStruct annotated_ = annotRet_.getAnnotatedSet();
-            type_ = annotated_.getFormatted().getRootBlock();
         } else if (_lastPage instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl) _lastPage;
             type_ = annotRet_.getMetaInfo().getPairType();
@@ -560,12 +554,6 @@ public final class Coverage {
                 return getFctBlock(annotableBlock_, _rootBlock);
             }
             return _rootBlock;
-        }
-        if (_lastPage instanceof ReflectAnnotationSuppPageEl) {
-            ReflectAnnotationSuppPageEl annotRet_ = (ReflectAnnotationSuppPageEl)_lastPage;
-            MethodMetaInfo annotated_ = annotRet_.getAnnotatedSet();
-            ExecMemberCallingsBlock annotableBlock_ = ((AnnotatedParamStruct)annotated_).getCallee();
-            return getFctBlock(annotableBlock_, _rootBlock);
         }
         if (_lastPage instanceof ReflectGetDefaultValuePageEl) {
             ReflectGetDefaultValuePageEl annotRet_ = (ReflectGetDefaultValuePageEl)_lastPage;
