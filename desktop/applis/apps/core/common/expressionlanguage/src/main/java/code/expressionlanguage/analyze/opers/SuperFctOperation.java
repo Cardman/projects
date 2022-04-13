@@ -138,15 +138,15 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         String trimMeth_ = mName_.trim();
         lengthMethod = trimMeth_.length();
         ClassMethodIdAncestor feed_ = null;
-        ClassMethodId feedBase_ = null;
+        ClassMethodIdAncestor feedBase_ = null;
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
             String idClass_ = id_.getClassName();
             AnaGeneType gene_ = idMethod_.getGt();
             MethodId mid_ = id_.getConstraints();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
-            feedBase_ = new ClassMethodId(idClass_, MethodId.to(static_, trimMeth_, mid_));
-            feed_ = new ClassMethodIdAncestor(gene_,feedBase_,idMethod_.getAncestor());
+            feedBase_ = new ClassMethodIdAncestor(gene_, new ClassMethodId(idClass_, MethodId.to(static_, trimMeth_, mid_)),0);
+            feed_ = new ClassMethodIdAncestor(gene_,feedBase_.getClassMethodId(),idMethod_.getAncestor());
         }
         NameParametersFilter name_ = buildFilter(_page);
         if (!name_.getParameterFilterErr().isEmpty()) {
@@ -155,7 +155,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
         }
         if (isTrueFalseKeyWord(trimMeth_, _page)) {
             errLeftValue = true;
-            ClassMethodId f_ = getTrueFalse(feedBase_, _page);
+            ClassMethodIdAncestor f_ = getTrueFalse(feedBase_, _page);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
             AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getAllOps());

@@ -26,16 +26,16 @@ public final class ArrayCustWrapper implements AbstractWrapper {
         readWrite = _readWrite;
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        ExecCustArrOperation.redirect(_conf, _stack, readWrite.getWrite(),readWrite.getInstWrite(), parent,ArgumentListCall.wrapCall(ls,_right));
+        ExecCustArrOperation.redirect(_conf, _stack, readWrite.getInstWrite(), parent,ArgumentListCall.wrapCall(ls,_right));
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
-        return ExecCustArrOperation.redirect(_conf, _stack, readWrite.getRead(),readWrite.getInstRead(), parent,ArgumentListCall.wrapCall(ls,null)).getStruct();
+        return ExecCustArrOperation.redirect(_conf, _stack, readWrite.getInstRead(), parent,ArgumentListCall.wrapCall(ls,null)).getStruct();
     }
 
     @Override
     public String getClassName(StackCall _stack, ContextEl _conf) {
-        ExecTypeFunction fct_ = readWrite.getWrite();
+        ExecTypeFunction fct_ = readWrite.getInstWrite().getPair();
         ExecRootBlock type_ = fct_.getType();
         ExecNamedFunctionBlock named_ = fct_.getFct();
         return ExecFieldTemplates.formatType(_conf, type_, named_.getImportedReturnType(), previousClass);

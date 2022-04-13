@@ -41,8 +41,8 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     private final CustList<AnaResultPartType> typesTest = new CustList<AnaResultPartType>();
     private String methodFound = EMPTY_STRING;
     private CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
-    private ClassMethodId methodIdImpl;
-    private ClassMethodId methodIdTest;
+    private ClassMethodIdAncestor methodIdImpl;
+    private ClassMethodIdAncestor methodIdTest;
     private StringList argsFirst = new StringList();
     private String opSearch = "";
     private boolean affect;
@@ -129,7 +129,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                             out_.add(arg_);
                             ref_.add(BoolVal.FALSE);
                         }
-                        methodIdImpl = new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, _page.getKeyWords().getKeyWordCast(), out_, ref_, false));
+                        methodIdImpl = new ClassMethodIdAncestor(resolvedIdType_.getGeneType(),new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, _page.getKeyWords().getKeyWordCast(), out_, ref_, false)),0);
                     }
                 } else {
                     FoundErrorInterpret badCall_ = new FoundErrorInterpret();
@@ -170,7 +170,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                         arg_ = result_.getResult(_page);
                         StringList out_ = new StringList(_page.getAliasPrimBoolean(),arg_);
                         CustList<BoolVal> ref_ = new CustList<BoolVal>(BoolVal.FALSE,BoolVal.FALSE);
-                        methodIdTest = new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, nameTest_, out_, ref_, false));
+                        methodIdTest = new ClassMethodIdAncestor(resolvedIdType_.getGeneType(),new ClassMethodId(resName_,new MethodId(false, MethodAccessKind.STATIC, nameTest_, out_, ref_, false)),0);
                     }
                 } else {
                     FoundErrorInterpret badCall_ = new FoundErrorInterpret();
@@ -332,7 +332,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(left_);
                 args_.add(resultClass_);
                 AnaClassArgumentMatching[] argsClass_ = OperationNode.toArgArray(args_);
-                ClassMethodIdReturn resMethod_ = tryGetCast(methodIdImpl.getClassName(), methodIdImpl, argsClass_, _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
+                ClassMethodIdReturn resMethod_ = tryGetCast(methodIdImpl.getClassMethodId().getClassName(), methodIdImpl, argsClass_, _page, _page.getImplicitCastMethods(), _page.getImplicitIdCastMethods(), _page.getImplicitFromCastMethods());
                 if (resMethod_ != null) {
                     Mapping map_ = new Mapping();
                     map_.setArg(resMethod_.getReturnType());
@@ -512,11 +512,11 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         return functionTest;
     }
 
-    public ClassMethodId getMethodIdImpl() {
+    public ClassMethodIdAncestor getMethodIdImpl() {
         return methodIdImpl;
     }
 
-    public ClassMethodId getMethodIdTest() {
+    public ClassMethodIdAncestor getMethodIdTest() {
         return methodIdTest;
     }
 

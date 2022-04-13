@@ -632,10 +632,10 @@ public final class RendForwardInfos {
             return new RendArrOperation(_anaNode.isIntermediateDottedOperation(), new ExecOperationContent(_anaNode.getContent()), new ExecArrContent(_anaNode.getArrContent()));
         }
         if (get_ == null) {
-            return new RendCustArrWriteOperation(_anaNode.isIntermediateDottedOperation(), get_, set_, new ExecOperationContent(_anaNode.getContent()), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards));
+            return new RendCustArrWriteOperation(_anaNode.isIntermediateDottedOperation(), set_, new ExecOperationContent(_anaNode.getContent()), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards));
         }
         if (set_ == null) {
-            return new RendCustArrReadOperation(_anaNode.isIntermediateDottedOperation(), get_, set_, new ExecOperationContent(_anaNode.getContent()), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards));
+            return new RendCustArrReadOperation(_anaNode.isIntermediateDottedOperation(), get_, new ExecOperationContent(_anaNode.getContent()), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards));
         }
         return new RendCustArrOperation(_anaNode.isIntermediateDottedOperation(), get_, set_, new ExecOperationContent(_anaNode.getContent()), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards));
     }

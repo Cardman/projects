@@ -15,7 +15,7 @@ import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.ReflectVariableWrapper;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.fwd.opers.ExecInstFctContent;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
 import code.expressionlanguage.fwd.opers.ExecInstancingCommonContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.stds.LgNames;
@@ -48,10 +48,10 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return fectchArgs(lastType_, _lastType.getNaturalVararg(), _conf,_stack, _infos);
     }
 
-    public static ArgumentListCall fetchFormattedArgs(ContextEl _conf, StackCall _stack, Struct _pr, ExecRootBlock _rootBlock, ExecInstFctContent _lastType, CustList<ExecOperationInfo> _infos) {
+    public static ArgumentListCall fetchFormattedArgs(ContextEl _conf, StackCall _stack, Struct _pr, ExecTypeFunctionInst _ins, CustList<ExecOperationInfo> _infos) {
         String cl_ = _pr.getClassName(_conf);
-        String lastType_ = ExecFieldTemplates.formatType(_conf, _rootBlock, _lastType.getLastType(), cl_);
-        return fectchArgs(lastType_, _lastType.getNaturalVararg(), _conf,_stack, _infos);
+        String lastType_ = ExecFieldTemplates.formatType(_conf, _ins.getPair().getType(), _ins.getInst().getLastType(), cl_);
+        return fectchArgs(lastType_, _ins.getInst().getNaturalVararg(), _conf,_stack, _infos);
     }
 
     public static ArgumentListCall fectchArgs(String _lastType, int _naturalVararg, ContextEl _conf, StackCall _stack, CustList<ExecOperationInfo> _infos) {

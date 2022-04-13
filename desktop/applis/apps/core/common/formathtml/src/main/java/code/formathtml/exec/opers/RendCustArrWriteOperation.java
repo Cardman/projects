@@ -8,7 +8,7 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunctionPair;
+import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
@@ -18,11 +18,11 @@ import code.util.IdMap;
 
 public final class RendCustArrWriteOperation extends RendInvokingOperation implements RendCalculableOperation,RendSettableElResult {
 
-    private final ExecTypeFunctionPair readWrite;
+    private final ExecTypeFunctionInst instWrite;
 
-    public RendCustArrWriteOperation(boolean _intermediate, ExecTypeFunction _get, ExecTypeFunction _set, ExecOperationContent _content, ExecInstFctContent _instFctContent, ExecInstFctContent _instFctContentSet) {
+    public RendCustArrWriteOperation(boolean _intermediate, ExecTypeFunction _set, ExecOperationContent _content, ExecInstFctContent _instFctContentSet) {
         super(_content,_intermediate);
-        readWrite = new ExecTypeFunctionPair(_get,_instFctContent,_set,_instFctContentSet);
+        instWrite = new ExecTypeFunctionInst(_instFctContentSet, _set);
     }
     @Override
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
@@ -40,11 +40,11 @@ public final class RendCustArrWriteOperation extends RendInvokingOperation imple
     public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
         CustList<ExecOperationInfo> infos_ = buildInfos(_nodes);
         Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
-        Struct parent_ = ExecFieldTemplates.getParent(readWrite.getInstWrite().getAnc(), previous_.getStruct(), _context,  _rendStack.getStackCall());
-        ArgumentListCall argumentListCall_ = ExecInvokingOperation.fetchFormattedArgs(_context, _rendStack.getStackCall(), parent_, readWrite.getWrite().getType(), readWrite.getInstWrite(), infos_);
+        Struct parent_ = ExecFieldTemplates.getParent(instWrite.getInst().getAnc(), previous_.getStruct(), _context,  _rendStack.getStackCall());
+        ArgumentListCall argumentListCall_ = ExecInvokingOperation.fetchFormattedArgs(_context, _rendStack.getStackCall(), parent_, instWrite, infos_);
         getArgumentPair(_nodes,this).setArgumentList(argumentListCall_.getArgumentWrappers());
         getArgumentPair(_nodes,this).setArgumentParent(new Argument(parent_));
-        return RendCustArrOperation.processCalling(this,_nodes, _right, _context, _rendStack,readWrite.getWrite(),readWrite.getInstWrite());
+        return RendCustArrOperation.processCalling(this,_nodes, _right, _context, _rendStack, instWrite);
     }
 
 }

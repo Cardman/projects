@@ -66,11 +66,11 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
             Ints annotationsIndexesParam_ = new Ints();
             StringList annotationsParam_ = new StringList();
             if (_info.startsWith(ANNOT,k_)) {
-                ParsedAnnotations par_ = new ParsedAnnotations(_info.substring(k_), k_+ _sum);
+                ParsedAnnotations par_ = new ParsedAnnotations(_info.substring(k_), k_+ offsetLast);
                 par_.parse();
                 annotationsIndexesParam_ = par_.getAnnotationsIndexes();
                 annotationsParam_ = par_.getAnnotations();
-                k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,par_.getIndex() - _sum);
+                k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,par_.getIndex() - offsetLast);
             }
             BoolVal ref_;
             if (StringExpUtil.startsWithKeyWord(_info,k_,_keyWordThat)) {
@@ -92,23 +92,22 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
             implCall_ = gt(implCall_,implStopRightPar_);
             int parOff_ = k_;
             String varName_ = _info.substring(k_, implCall_).trim();
+            if (isNotImplParam(implStopRightPar_,implCall_,varName_)) {
+                feedPar(annotationsIndexesParam_, annotationsParam_, ref_, typeOff_, paramType_, parOff_, varName_);
+            } else {
+                typeSetterOff = typeOff_ + offsetLast;
+                typeSetter = paramType_.trim();
+                annotationsIndexesSupp = annotationsIndexesParam_;
+                annotationsSupp = annotationsParam_;
+            }
             if (implStopRightPar_ == implCall_) {
-                if (isNotImplParam(varName_)) {
-                    feedPar(annotationsIndexesParam_, annotationsParam_, ref_, typeOff_, paramType_, parOff_, varName_);
-                } else {
-                    typeSetterOff = typeOff_ + _sum;
-                    typeSetter = paramType_.trim();
-                    annotationsIndexesSupp = annotationsIndexesParam_;
-                    annotationsSupp = annotationsParam_;
-                }
                 int afterRightPar_ = implStopRightPar_ + 1;
                 String sub_ = _info.substring(afterRightPar_);
                 int afterRightParOffset_ = afterRightPar_+ StringUtil.getFirstPrintableCharIndex(sub_);
                 info = sub_.trim();
-                offsetLast = afterRightParOffset_+ _sum;
+                offsetLast += afterRightParOffset_;
                 break;
             }
-            feedPar(annotationsIndexesParam_, annotationsParam_, ref_, typeOff_, paramType_, parOff_, varName_);
             j_=DefaultProcessKeyWord.skipWhiteSpace(_info,implCall_+1);
         }
     }
@@ -131,8 +130,8 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         getParametersName().add(varName_);
     }
 
-    private boolean isNotImplParam(String _par) {
-        return !indexerSet || !StringUtil.quickEq(keyWordValue, _par);
+    private boolean isNotImplParam(int _implStopRightPar,int _implCall,String _varName) {
+        return _implStopRightPar != _implCall||!indexerSet || !StringUtil.quickEq(keyWordValue, _varName);
     }
     private static int gt(int implCall_, int implStopRightPar_) {
         if (implCall_ < 0) {

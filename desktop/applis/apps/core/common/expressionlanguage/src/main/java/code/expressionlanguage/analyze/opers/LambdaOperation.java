@@ -614,7 +614,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 || StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordFalse())) {
             CustList<AnaClassArgumentMatching> methodTypes_ = new CustList<AnaClassArgumentMatching>();
             int i_ = 2;
-            ClassMethodId feed_ = null;
+            ClassMethodIdAncestor feed_ = null;
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordId_ = keyWords_.getKeyWordId();
             int offset_ = className.indexOf('(')+1;
@@ -674,7 +674,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
                 if (params_.size() < 2) {
                     params_.add(0, gene_);
                 }
-                feed_ = new ClassMethodId(type_, new MethodId(MethodAccessKind.STATIC, name_, params_, varargFct_));
+                feed_ = new ClassMethodIdAncestor(geneType_,new ClassMethodId(type_, new MethodId(MethodAccessKind.STATIC, name_, params_, varargFct_)),0);
                 int nbParams_ = argsRes_.getParametersTypesLength();
                 for (int i = 0; i < nbParams_; i++) {
                     String format_ = AnaInherits.wildCardFormatParam(type_, argsRes_.getParametersType(i), _page);

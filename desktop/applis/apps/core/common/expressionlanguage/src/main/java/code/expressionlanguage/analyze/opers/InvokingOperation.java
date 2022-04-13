@@ -693,15 +693,15 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         }
     }
 
-    protected static ClassMethodId getTrueFalse(ClassMethodId _feedBase, AnalyzedPageEl _page) {
-        ClassMethodId f_ = _feedBase;
+    protected static ClassMethodIdAncestor getTrueFalse(ClassMethodIdAncestor _feedBase, AnalyzedPageEl _page) {
+        ClassMethodIdAncestor f_ = _feedBase;
         if (f_ != null) {
-            MethodId constraints_ = f_.getConstraints();
+            MethodId constraints_ = f_.getClassMethodId().getConstraints();
             String name_ = constraints_.getName();
-            String className_ = f_.getClassName();
+            String className_ = f_.getClassMethodId().getClassName();
             StringList parametersTypes_ = IdentifiableUtil.params(constraints_);
             parametersTypes_.add(0, _page.getAliasPrimBoolean());
-            f_ = new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_));
+            f_ = new ClassMethodIdAncestor(f_.getGt(),new ClassMethodId(className_,new MethodId(MethodAccessKind.STATIC,name_,parametersTypes_)),0);
         }
         return f_;
     }

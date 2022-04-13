@@ -1,33 +1,19 @@
 package code.expressionlanguage.fwd.blocks;
 
-import code.expressionlanguage.fwd.opers.ExecInstFctContent;
-
 public final class ExecTypeFunctionPair {
-    private final ExecInstFctContent instRead;
-    private final ExecTypeFunction read;
-    private final ExecInstFctContent instWrite;
-    private final ExecTypeFunction write;
+    private final ExecTypeFunctionInst instRead;
+    private final ExecTypeFunctionInst instWrite;
 
-    public ExecTypeFunctionPair(ExecTypeFunction _read, ExecInstFctContent _iRead, ExecTypeFunction _write, ExecInstFctContent _iWrite) {
-        this.read = _read;
-        instRead = _iRead;
-        this.write = _write;
-        instWrite = _iWrite;
+    public ExecTypeFunctionPair(ExecTypeFunctionInst _instRead, ExecTypeFunctionInst _instWrite) {
+        instRead = _instRead;
+        instWrite = _instWrite;
     }
 
-    public ExecTypeFunction getRead() {
-        return read;
-    }
-
-    public ExecInstFctContent getInstRead() {
+    public ExecTypeFunctionInst getInstRead() {
         return instRead;
     }
 
-    public ExecTypeFunction getWrite() {
-        return write;
-    }
-
-    public ExecInstFctContent getInstWrite() {
+    public ExecTypeFunctionInst getInstWrite() {
         return instWrite;
     }
 }

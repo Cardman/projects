@@ -1378,10 +1378,10 @@ public final class ForwardInfos {
             return new ExecArrOperation(new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecArrContent(_anaNode.getArrContent()));
         }
         if (get_ == null) {
-            return new ExecCustArrWriteOperation(get_, set_, new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards));
+            return new ExecCustArrWriteOperation(set_, new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards));
         }
         if (set_ == null) {
-            return new ExecCustArrReadOperation(get_, set_, new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards));
+            return new ExecCustArrReadOperation(get_, new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards));
         }
         return new ExecCustArrOperation(get_, set_, new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstFctContent(_anaNode.getCallFctContent(), _anaNode.getAnc(), _anaNode.isStaticChoiceMethod(), _forwards), new ExecInstFctContent(_anaNode.getCallFctContentSet(), _anaNode.getAncSet(), _anaNode.isStaticChoiceMethod(), _forwards));
     }

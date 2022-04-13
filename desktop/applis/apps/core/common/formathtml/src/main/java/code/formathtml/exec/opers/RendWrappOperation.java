@@ -59,7 +59,7 @@ public final class RendWrappOperation extends RendMethodOperation implements Ren
             Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _rendStack);
             ArgumentsPair pair_ = getArgumentPair(_nodes, this);
             ArgumentsPair pairCh_ = getArgumentPair(_nodes, ch_);
-            Struct parent_ = ExecFieldTemplates.getParent(ch_.getReadWrite().getInstRead().getAnc(), previousArgument_.getStruct(), _context, _rendStack.getStackCall());
+            Struct parent_ = ExecFieldTemplates.getParent(ch_.getReadWrite().getInstRead().getInst().getAnc(), previousArgument_.getStruct(), _context, _rendStack.getStackCall());
             ArrayCustWrapper a_ = new ArrayCustWrapper(pairCh_.getArgumentList(),parent_, parent_.getClassName(_context), ch_.getReadWrite());
             pair_.setWrapper(a_);
             setQuickNoConvertSimpleArgument(getArgumentPair(_nodes,ch_).getArgument(),_nodes,_context, _rendStack);

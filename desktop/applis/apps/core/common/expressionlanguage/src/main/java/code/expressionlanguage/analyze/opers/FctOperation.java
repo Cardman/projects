@@ -184,7 +184,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             l_ = getBounds(className_, _page);
             accessSuperTypes_ = false;
         }
-        ClassMethodId feedBase_ = null;
+        ClassMethodIdAncestor feedBase_ = null;
         ClassMethodIdAncestor feed_ = null;
         if (idMethod_ != null) {
             ClassMethodId id_ = idMethod_.getClassMethodId();
@@ -193,7 +193,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             MethodId mid_ = id_.getConstraints();
             MethodAccessKind static_ = MethodId.getKind(isStaticAccess(), mid_.getKind());
             ClassMethodId classMethodId_ = new ClassMethodId(idClass_, MethodId.to(static_, trimMeth_,mid_));
-            feedBase_ = classMethodId_;
+            feedBase_ = new ClassMethodIdAncestor(gene_,classMethodId_,0);
             feed_ = new ClassMethodIdAncestor(gene_,classMethodId_,idMethod_.getAncestor());
         }
         StringList bounds_ = new StringList();
@@ -229,7 +229,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
         }
         if (isTrueFalseKeyWord(trimMeth_, _page)) {
             errLeftValue = true;
-            ClassMethodId f_ = getTrueFalse(feedBase_, _page);
+            ClassMethodIdAncestor f_ = getTrueFalse(feedBase_, _page);
             ClassMethodIdReturn clMeth_;
             MethodAccessKind staticAccess_ = isStaticAccess();
             AnaClassArgumentMatching[] argsClass_ = OperationNode.getResultsFromArgs(name_.getAllOps());

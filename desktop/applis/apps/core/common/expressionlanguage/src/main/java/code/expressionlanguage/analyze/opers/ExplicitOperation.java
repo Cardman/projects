@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.types.*;
+import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -65,7 +66,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
         if (types_.size() == 2 && StringUtil.quickEq(types_.last(), _page.getKeyWords().getKeyWordId())) {
             return;
         }
-        ClassMethodId uniq_;
+        ClassMethodIdAncestor uniq_;
         String exp_ = _page.getKeyWords().getKeyWordExplicit();
         if (types_.size() == 2){
             //add a type for full id
@@ -86,7 +87,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
                 return;
             }
             String gene_ = geneType_.getGenericString();
-            uniq_ = new ClassMethodId(explicitContent.getClassName(),new MethodId(MethodAccessKind.STATIC,exp_,new StringList(gene_,lastType_)));
+            uniq_ = new ClassMethodIdAncestor(geneType_,new ClassMethodId(explicitContent.getClassName(),new MethodId(MethodAccessKind.STATIC,exp_,new StringList(gene_,lastType_))),0);
             AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
             CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(new AnaClassArgumentMatching(explicitContent.getClassName(), _page.getPrimitiveTypes()));
             args_.add(resultClass_);
@@ -121,7 +122,7 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
             AnaResultPartType resolvedLast_ = ResolvingTypes.resolveCorrectAccessibleType(lc_ +types_.get(1).length()+1 + StringExpUtil.getOffset(arg_),arg_.trim(), explicitContent.getClassName(), _page);
             partOffsets.add(resolvedLast_);
             String lastType_ = resolvedLast_.getResult(_page);
-            uniq_ = new ClassMethodId(explicitContent.getClassName(),new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_)));
+            uniq_ = new ClassMethodIdAncestor(geneType_,new ClassMethodId(explicitContent.getClassName(),new MethodId(MethodAccessKind.STATIC,exp_,new StringList(midType_,lastType_))),0);
             AnaClassArgumentMatching resultClass_ = getFirstChild().getResultClass();
             AnaClassArgumentMatching virtual_ = new AnaClassArgumentMatching(AnaInherits.quickFormat(geneType_, explicitContent.getClassName(), midType_), _page.getPrimitiveTypes());
             CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>(virtual_);
