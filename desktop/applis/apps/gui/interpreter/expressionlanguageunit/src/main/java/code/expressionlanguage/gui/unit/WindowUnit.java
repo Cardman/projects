@@ -268,8 +268,8 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         return new DefaultFileSystem(uniformingString, _validator,getFileCoreStream(),getStreams());
     }
 
-    public void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {
-        commonExecution.showProgress(_ctx, _infos, _doneTests, _method, _count, _evolved);
+    public void showProgress(ContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved) {
+        commonExecution.showProgress(_ctx, _infos, _evolved);
     }
     public void finish(Struct _infos, LgNamesWithNewAliases _evolved) {
         commonExecution.finish(_infos, _evolved);

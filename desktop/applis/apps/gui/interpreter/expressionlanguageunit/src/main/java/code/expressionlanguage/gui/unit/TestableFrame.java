@@ -12,7 +12,7 @@ public interface TestableFrame {
     boolean ok(String _file);
     AbstractInterceptor getIntercept();
     String getTxtConf();
-    void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved);
+    void showProgress(ContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved);
     void finish(Struct _infos, LgNamesWithNewAliases _evolved);
     void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved);
     FileInfos getInfos();

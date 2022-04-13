@@ -27,7 +27,7 @@ public final class CommonExecution {
         this.progressBar = _progressBar;
     }
 
-    public void showProgress(ContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {
+    public void showProgress(ContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved) {
         String infoTest_ = _evolved.getCustAliases().getAliasInfoTest();
         String infoTestDone_ = _evolved.getCustAliases().getAliasInfoTestDone();
         String infoTestCount_ = _evolved.getCustAliases().getAliasInfoTestCount();
@@ -35,16 +35,12 @@ public final class CommonExecution {
         Struct done_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
         Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         Struct method_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
-        if (!count_.sameReference(_count)) {
-            progressBar.setMinimum(0);
-            progressBar.setMaximum(((NumberStruct)count_).intStruct());
-        }
-        if (!_doneTests.sameReference(done_)) {
-            doneTestsCount.setText(((NumberStruct)done_).longStruct()+"/"+((NumberStruct)count_).longStruct());
-            progressBar.setValue(((NumberStruct)done_).intStruct());
-        }
-        if (!_method.sameReference(method_) && method_ instanceof MethodMetaInfo) {
-            currentMethod.setText(((MethodMetaInfo)method_).getSignature(_ctx));
+        progressBar.setMinimum(0);
+        progressBar.setMaximum(((NumberStruct)count_).intStruct());
+        doneTestsCount.setText(((NumberStruct)done_).longStruct()+"/"+((NumberStruct)count_).longStruct());
+        progressBar.setValue(((NumberStruct)done_).intStruct());
+        if (method_ instanceof MethodMetaInfo) {
+            currentMethod.setText(((MethodMetaInfo) method_).getSignature(_ctx));
         }
     }
     public void finish(Struct _infos, LgNamesWithNewAliases _evolved) {

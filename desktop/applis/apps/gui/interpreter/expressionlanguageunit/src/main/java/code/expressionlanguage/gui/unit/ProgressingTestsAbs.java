@@ -21,8 +21,8 @@ public abstract class ProgressingTestsAbs implements ProgressingTests {
     }
 
     @Override
-    public void updateInfos(RunnableContextEl _ctx, Struct _infos, Struct _doneTests, Struct _method, Struct _count, LgNamesWithNewAliases _evolved) {
-        mainWindow.showProgress(_ctx,_infos,_doneTests,_method,_count, _evolved);
+    public void updateInfos(RunnableContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved) {
+        mainWindow.showProgress(_ctx,_infos, _evolved);
     }
 
     @Override
