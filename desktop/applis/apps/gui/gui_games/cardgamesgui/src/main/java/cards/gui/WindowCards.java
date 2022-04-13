@@ -1447,6 +1447,7 @@ public final class WindowCards extends NetGroupFrame {
 //        }
         /*In order that the player can pause*/
         if (containerGame instanceof ContainerSingle) {
+            containerGame.setPasse(!containerGame.isPasse());
             if (pause.isSelected()) {
                 return;
             }
