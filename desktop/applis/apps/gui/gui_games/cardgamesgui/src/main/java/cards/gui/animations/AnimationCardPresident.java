@@ -12,7 +12,7 @@ import code.util.StringList;
 Thread safe class*/
 public final class AnimationCardPresident implements Runnable {
 
-    private ContainerSinglePresident container;
+    private final ContainerSinglePresident container;
 
     /**This class thread is independant from EDT*/
     public AnimationCardPresident(ContainerSinglePresident _container) {
@@ -22,10 +22,6 @@ public final class AnimationCardPresident implements Runnable {
     @Override
     public void run() {
         container.setThreadAnime(true);
-        StringList pseudos_ = container.pseudosPresident();
-        long delaiCarte_;
-        delaiCarte_=container.getParametres().getDelaiAttenteCartes();
-        GamePresident partie_=container.partiePresident();
 //        if(partie_.getProgressingTrick().estVide()) {
 //            long delaiPli_;
 //            if(!container.getParametres().getAttentePlisClic()) {
@@ -37,18 +33,25 @@ public final class AnimationCardPresident implements Runnable {
         //Activer le menu Partie/Pause
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
 //        container.getPause().setEnabled(true);
+        loopTrick(container);
+    }
+
+    static void loopTrick(ContainerSinglePresident _container) {
+        StringList pseudos_ = _container.pseudosPresident();
+        long delaiCarte_ = _container.getParametres().getDelaiAttenteCartes();
+        GamePresident partie_= _container.partiePresident();
         while (true) {
             if (partie_.getProgressingTrick().estVide()) {
 //                if (container.getParametres().getAttentePlisClic()) {
 //                    break;
 //                }
-                long delaiPli_=container.getParametres().getDelaiAttentePlis();
-                ThreadUtil.sleep(container.getOwner().getThreadFactory(),delaiPli_);
+                long delaiPli_= _container.getParametres().getDelaiAttentePlis();
+                ThreadUtil.sleep(_container.getOwner().getThreadFactory(),delaiPli_);
                 //Le joueur reflechit pendant 0.5 s
                 if (!partie_.keepPlayingCurrentGame()) {
                     break;
                 }
-                ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new SettingPresidentDeck(container), container.getOwner().getFrames());
+                ThreadInvoker.invokeNow(_container.getOwner().getThreadFactory(),new SettingPresidentDeck(_container), _container.getOwner().getFrames());
 //                container.tapisPresident().setTalonPresident();
 //                container.tapisPresident().repaintValidate();
             }
@@ -68,14 +71,17 @@ public final class AnimationCardPresident implements Runnable {
             if (player_ == DealPresident.NUMERO_UTILISATEUR) {
                 break;
             }
-            ThreadUtil.sleep(container.getOwner().getThreadFactory(),delaiCarte_);
+            ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
-            container.jouerPresident(player_,pseudos_.get(player_));
-            container.pause();
+            _container.jouerPresident(player_, pseudos_.get(player_));
+            if (_container.isPasse()) {
+                _container.setState(CardAnimState.TRICK_PRESIDENT);
+                return;
+            }
 //            if (partie_.getProgressingTrick().estVide()) {
 //                Constants.sleep(delaiCarte_);
 //            }
         }
-        FrameUtil.invokeLater(new AfterAnimationCardPresident(container), container.getOwner().getFrames());
+        FrameUtil.invokeLater(new AfterAnimationCardPresident(_container), _container.getOwner().getFrames());
     }
 }

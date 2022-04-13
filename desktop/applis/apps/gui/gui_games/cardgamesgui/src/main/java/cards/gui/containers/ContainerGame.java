@@ -8,6 +8,7 @@ import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
+import cards.gui.animations.CardAnimState;
 import cards.gui.dialogs.FileConst;
 import cards.gui.panels.Carpet;
 import cards.gui.panels.MiniCarpet;
@@ -61,6 +62,7 @@ public class ContainerGame implements Containable {
     private MiniCarpet mini;
     /**Est vrai si et seulement si le jeu est en pause*/
     private final AbstractAtomicBoolean passe;
+    private CardAnimState state;
     /**Parametres de lancement, de jouerie*/
     private SoftParams parametres=new SoftParams();
     private StringMap<String> messages = new StringMap<String>();
@@ -496,6 +498,18 @@ public class ContainerGame implements Containable {
     public String readCoreResource() {
         return MessagesCommonCommon.ms().getVal(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/",CoreResourcesAccess.NOM_FICHIER));
 //        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
+    }
+
+    public CardAnimState getState() {
+        return state;
+    }
+
+    public void setState(CardAnimState _s) {
+        this.state = _s;
+    }
+
+    public void thread(Runnable _animContratBelote) {
+        getOwner().getThreadFactory().newStartedThread(_animContratBelote);
     }
 
 }

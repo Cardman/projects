@@ -16,7 +16,7 @@ import code.util.core.StringUtil;
 Thread safe class*/
 public final class AnimationBidTarot implements Runnable {
 
-    private ContainerSingleTarot container;
+    private final ContainerSingleTarot container;
 
     /**This class thread is independant from EDT*/
     public AnimationBidTarot(ContainerSingleTarot _container) {
@@ -27,7 +27,6 @@ public final class AnimationBidTarot implements Runnable {
     public void run() {
         StringList pseudos_ = container.pseudosTarot();
         container.setThreadAnime(true);
-        long delaiContrat_;
         GameTarot partie_=container.partieTarot();
         String lg_ = container.getOwner().getLanguageKey();
         if (partie_.playerHavingToBid() == DealTarot.NUMERO_UTILISATEUR) {
@@ -38,28 +37,35 @@ public final class AnimationBidTarot implements Runnable {
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(DealTarot.NUMERO_UTILISATEUR)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
         }
-        delaiContrat_=container.getParametres().getDelaiAttenteContrats();
         //Activer le menu Partie/Pause
 //        container.getPause().setEnabled(true);
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new ChangingPause(container, true), container.getOwner().getFrames());
-        while (true) {
-            if(!partie_.keepBidding()){
-                break;
-            }
+        loopBid(container);
+    }
+
+    static void loopBid(ContainerSingleTarot _container) {
+        StringList pseudos_ = _container.pseudosTarot();
+        long delaiContrat_= _container.getParametres().getDelaiAttenteContrats();
+        GameTarot partie_= _container.partieTarot();
+        String lg_ = _container.getOwner().getLanguageKey();
+        while (partie_.keepBidding()) {
             byte player_ = partie_.playerHavingToBid();
             if (player_ == DealTarot.NUMERO_UTILISATEUR) {
                 break;
             }
             //Les Fenetre.ROBOTS precedant l'utilisateur annoncent leur contrat
-            ThreadUtil.sleep(container.getOwner().getThreadFactory(),delaiContrat_);
+            ThreadUtil.sleep(_container.getOwner().getThreadFactory(),delaiContrat_);
             BidTarot contrat_=partie_.strategieContrat();
             partie_.ajouterContrat(contrat_,player_);
             String event_ = StringUtil.concat(pseudos_.get(player_),ContainerGame.INTRODUCTION_PTS,Games.toString(contrat_,lg_),ContainerGame.RETURN_LINE);
-            ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
+            ThreadInvoker.invokeNow(_container.getOwner().getThreadFactory(),new AddTextEvents(_container, event_), _container.getOwner().getFrames());
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
-            container.pause();
+            if (_container.isPasse()) {
+                _container.setState(CardAnimState.BID_TAROT);
+                return;
+            }
         }
-        FrameUtil.invokeLater(new AfterAnimationBidTarot(container), container.getOwner().getFrames());
+        FrameUtil.invokeLater(new AfterAnimationBidTarot(_container), _container.getOwner().getFrames());
     }
 }

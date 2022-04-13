@@ -68,8 +68,6 @@ import code.util.core.StringUtil;
 
 public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle {
 
-    private AnimationCardBelote animCarteBelote;
-    private AnimationBidBelote animContratBelote;
     private BidBeloteSuit contratUtilisateurBelote = new BidBeloteSuit();
     private boolean annonceBelote;
     private boolean annonceBeloteRebelote;
@@ -157,8 +155,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             }
             byte debut_= partie_.playerHavingToBid();
             if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
-                animContratBelote=new AnimationBidBelote(this);
-                getOwner().getThreadFactory().newStartedThread(animContratBelote);
+                thread(new AnimationBidBelote(this));
             } else {
                 if(partie_.keepBidding()) {
                     //Activer les conseils
@@ -195,8 +192,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                     pack();
                     return;
                 }
-                animCarteBelote=new AnimationCardBelote(this);
-                getOwner().getThreadFactory().newStartedThread(animCarteBelote);
+                thread(new AnimationCardBelote(this));
             } else if(partie_.getContrat().jouerDonne()) {
                 getMini().setStatus(getWindow().getImageFactory(),Role.TAKER, partie_.getPreneur());
                 getMini().setStatus(getWindow().getImageFactory(),Role.CALLED_PLAYER, partie_.getTeamsRelation().partenaires(partie_.getPreneur()).first());
@@ -218,8 +214,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             pack();
             return;
         }
-        animCarteBelote=new AnimationCardBelote(this);
-        getOwner().getThreadFactory().newStartedThread(animCarteBelote);
+        thread(new AnimationCardBelote(this));
     }
     public void addButtonsForCoinche(GameBelote _partie) {
         int square_ = 1;
@@ -300,9 +295,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         contratUtilisateurBelote.setCouleur(getSuit());
         contratUtilisateurBelote.setEnchere(getBidType());
         contratUtilisateurBelote.setPoints(getPts());
-        animContratBelote=new AnimationBidBelote(this);
-        getOwner().getThreadFactory().newStartedThread(animContratBelote);
+        thread(new AnimationBidBelote(this));
     }
+
     @Override
     public void fold() {
         if (clickedPass) {
@@ -314,8 +309,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         }
         setCanBid(false);
         contratUtilisateurBelote=new BidBeloteSuit();
-        animContratBelote=new AnimationBidBelote(this);
-        getOwner().getThreadFactory().newStartedThread(animContratBelote);
+        thread(new AnimationBidBelote(this));
     }
     public void ajouterBoutonContratBelote(String _texte,BidBeloteSuit _action,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
@@ -492,8 +486,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         byte debut_= partie_.playerHavingToBid();
         String lg_ = getOwner().getLanguageKey();
         if(debut_ != DealBelote.NUMERO_UTILISATEUR) {
-            animContratBelote=new AnimationBidBelote(this);
-            getOwner().getThreadFactory().newStartedThread(animContratBelote);
+            thread(new AnimationBidBelote(this));
         } else {
             setCanBid(true);
             if (!partie_.getRegles().dealAll()) {
@@ -574,11 +567,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         panneau_.validate();
         setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
         setThreadAnime(true);
-        animCarteBelote=new AnimationCardBelote(this);
-        getOwner().getThreadFactory().newStartedThread(animCarteBelote);
+        thread(new AnimationCardBelote(this));
 
 
     }
+
     private void afficherMainUtilisateurBelote(boolean _ecouteur) {
         if (!_ecouteur) {
             setCarteEntree(false);
@@ -642,13 +635,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
         afficherMainUtilisateurBelote(false);
         tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,DealBelote.NUMERO_UTILISATEUR,_carteJouee);
-        pause();
         //Desactiver le menu Partie/Pause
         getPause().setEnabledMenu(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().repaintChildren(getWindow().getImageFactory());
-        animCarteBelote = new AnimationCardBelote(this);
-        getOwner().getThreadFactory().newStartedThread(animCarteBelote);
+        thread(new AnimationCardBelote(this));
         setThreadAnime(true);
 
     }
@@ -929,13 +920,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         contratUtilisateurBelote = _contratUtilisateurBelote;
     }
 
-    public AnimationBidBelote getAnimContratBelote() {
-        return animContratBelote;
-    }
-
-    public void setAnimContratBelote(AnimationBidBelote _animContratBelote) {
-        animContratBelote = _animContratBelote;
-    }
     @Override
     public void nextTrick() {
         String lg_ = getOwner().getLanguageKey();

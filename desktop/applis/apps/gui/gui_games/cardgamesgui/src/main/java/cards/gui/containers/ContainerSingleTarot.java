@@ -74,8 +74,6 @@ import code.util.core.StringUtil;
 
 public class ContainerSingleTarot extends ContainerTarot implements ContainerSingle {
 
-    private AnimationCardTarot animCarteTarot;
-    private AnimationBidTarot animContratTarot;
     private BidTarot contratUtilisateur = BidTarot.FOLD;
 
     public ContainerSingleTarot(WindowCards _window) {
@@ -241,8 +239,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 pack();
                 return;
             }
-            animCarteTarot=new AnimationCardTarot(this);
-            getOwner().getThreadFactory().newStartedThread(animCarteTarot);
+            thread(new AnimationCardTarot(this));
             return;
         }
         if(partie_.keepBidding()) {
@@ -257,8 +254,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 player_ = partie_.playerAfter(player_);
             }
             if(partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
-                setAnimContratTarot(new AnimationBidTarot(this));
-                getOwner().getThreadFactory().newStartedThread(getAnimContratTarot());
+                thread(new AnimationBidTarot(this));
             } else {
                 //Activer les conseils
                 getConsulting().setEnabledMenu(true);
@@ -482,9 +478,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             pack();
             return;
         }
-        animCarteTarot=new AnimationCardTarot(this);
-        getOwner().getThreadFactory().newStartedThread(animCarteTarot);
+        thread(new AnimationCardTarot(this));
     }
+
     public void ajouterBoutonContratTarot(String _texte,BidTarot _action,boolean _apte) {
         AbsPanel panneau_=getPanneauBoutonsJeu();
         AbsPlainButton bouton_=getOwner().getCompoFactory().newPlainButton(_texte);
@@ -736,8 +732,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         getPanneauBoutonsJeu().validate();
         setRaisonCourante(getMessages().getVal(WindowCards.WAIT_TURN));
         setThreadAnime(true);
-        animCarteTarot=new AnimationCardTarot(this);
-        getOwner().getThreadFactory().newStartedThread(animCarteTarot);
+        thread(new AnimationCardTarot(this));
     }
     @Override
     public void annonceTarotChelem() {
@@ -898,13 +893,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         setRaisonCourante(getMessages().getVal(WindowCards.END_TRICK));
         afficherMainUtilisateurTarot(false);
         tapisTarot().setCarteTarot(getWindow().getImageFactory(),lg_,DealTarot.NUMERO_UTILISATEUR,_carteJouee);
-        pause();
         //Desactiver le menu Partie/Pause
         getPause().setEnabledMenu(false);
         getPanneauBoutonsJeu().removeAll();
         getPanneauBoutonsJeu().validate();
-        animCarteTarot=new AnimationCardTarot(this);
-        getOwner().getThreadFactory().newStartedThread(animCarteTarot);
+        thread(new AnimationCardTarot(this));
         setThreadAnime(true);
 
     }
@@ -1106,8 +1099,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         String lg_ = getOwner().getLanguageKey();
         if(partie_.avecContrat()) {
             if (partie_.playerHavingToBid() != DealTarot.NUMERO_UTILISATEUR) {
-                setAnimContratTarot(new AnimationBidTarot(this));
-                getOwner().getThreadFactory().newStartedThread(getAnimContratTarot());
+                thread(new AnimationBidTarot(this));
             } else {
                 setCanBid(true);
                 for(BidTarot b:partie_.allowedBids()) {
@@ -1394,14 +1386,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     public void setContratUtilisateur(BidTarot _contratUtilisateur) {
         contratUtilisateur = _contratUtilisateur;
-    }
-
-    public AnimationBidTarot getAnimContratTarot() {
-        return animContratTarot;
-    }
-
-    public void setAnimContratTarot(AnimationBidTarot _animContratTarot) {
-        animContratTarot = _animContratTarot;
     }
 
     @Override
