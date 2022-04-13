@@ -13,4 +13,14 @@ public final class DefaultScheduledExecutorService implements AbstractScheduledE
     public AbstractFuture scheduleAtFixedRate(Runnable _command, long _initialDelay, long _period) {
         return new DefaultFuture(timer.scheduleAtFixedRate(_command,_initialDelay,_period, TimeUnit.MILLISECONDS));
     }
+
+    @Override
+    public AbstractFuture scheduleAtFixedRateNanos(Runnable _command, long _initialDelay, long _period) {
+        return new DefaultFuture(timer.scheduleAtFixedRate(_command,_initialDelay,_period, TimeUnit.NANOSECONDS));
+    }
+
+    @Override
+    public void shutdown() {
+        timer.shutdown();
+    }
 }

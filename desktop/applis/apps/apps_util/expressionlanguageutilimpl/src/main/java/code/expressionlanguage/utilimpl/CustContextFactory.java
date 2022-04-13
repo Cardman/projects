@@ -18,6 +18,8 @@ import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 import code.util.EntryCust;
 import code.util.StringMap;
 
@@ -80,17 +82,20 @@ public final class CustContextFactory {
         ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
         Struct infoStruct_ = rCont_.getInit().processInit(rCont_,
                 NullStruct.NULL_VALUE, className_, "", -1);
+        AbstractScheduledExecutorService sch_ = ((RunnableContextEl) rCont_).getCurrentThreadFactory().newScheduledExecutorService();
+        ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,(RunnableContextEl) rCont_,_progressingTests,_definedLgNames);
+        AbstractFuture abstractFuture_ = sch_.scheduleAtFixedRateNanos(showUpdates_, 0, 1);
+        ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
-        ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,(RunnableContextEl) rCont_,_progressingTests,_definedLgNames);
-        ((RunnableContextEl) rCont_).getCurrentThreadFactory().newStartedThread(showUpdates_);
-        ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
         ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
         ExecFormattedRootBlock aClass_ = ExecFormattedRootBlock.build(_definedLgNames.getCustAliases().getAliasExecute(),rCont_.getClasses());
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
                 aClass_,
                 (RunnableContextEl) rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
-        showUpdates_.stop();
+        abstractFuture_.cancel(false);
+        sch_.shutdown();
+        _progressingTests.finish(((RunnableContextEl) rCont_),infoStruct_, _definedLgNames);
         if (_options.isCovering()) {
             for (EntryCust<String,String> f:ExecFileBlock.export(rCont_).entryList()) {
                 infos_.getReporter().coverFile(_exec, f.getKey(), f.getValue());

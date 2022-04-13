@@ -6,17 +6,13 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.expressionlanguage.utilcompo.ProgressingTests;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.threads.AbstractAtomicBoolean;
 
 public final class ShowUpdates implements Runnable {
-    private AbstractAtomicBoolean show;
-    private Struct info;
-    private RunnableContextEl ctx;
-    private ProgressingTests progressingTests;
-    private LgNamesWithNewAliases evolved;
+    private final Struct info;
+    private final RunnableContextEl ctx;
+    private final ProgressingTests progressingTests;
+    private final LgNamesWithNewAliases evolved;
     public ShowUpdates(Struct _info, RunnableContextEl _ctx, ProgressingTests _progressingTests,LgNamesWithNewAliases _evolved) {
-        show = _ctx.getCurrentThreadFactory().newAtomicBoolean();
-        show.set(true);
         info = _info;
         ctx = _ctx;
         progressingTests = _progressingTests;
@@ -31,18 +27,6 @@ public final class ShowUpdates implements Runnable {
         Struct doneBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
         Struct countBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         Struct methodBefore_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
-        while (show.get()) {
-            progressingTests.updateInfos(ctx,info,doneBefore_,methodBefore_,countBefore_, evolved);
-            Struct count_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
-            Struct done_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
-            Struct method_ = ((FieldableStruct) info).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
-            doneBefore_ = done_;
-            methodBefore_ = method_;
-            countBefore_ = count_;
-        }
-        progressingTests.finish(ctx,info, evolved);
-    }
-    public void stop() {
-        show.set(false);
+        progressingTests.updateInfos(ctx,info,doneBefore_,methodBefore_,countBefore_, evolved);
     }
 }
