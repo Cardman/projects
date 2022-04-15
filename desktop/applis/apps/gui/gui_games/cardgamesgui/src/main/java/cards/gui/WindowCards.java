@@ -1446,31 +1446,31 @@ public final class WindowCards extends NetGroupFrame {
 //            return;
 //        }
         /*In order that the player can pause*/
-        if (containerGame instanceof ContainerSingle) {
-            containerGame.setPasse(!containerGame.isPasse());
-            if (pause.isSelected()) {
-                return;
-            }
-            containerGame.setState(null);
-            if (containerGame instanceof ContainerSingleBelote) {
-                if (containerGame.getState() == CardAnimState.BID_BELOTE) {
-                    containerGame.thread(new AnimationBidBelotePause(((ContainerSingleBelote)containerGame)));
-                    return;
-                }
-                containerGame.thread(new AnimationCardBelotePause(((ContainerSingleBelote)containerGame)));
-                return;
-            }
-            if (containerGame instanceof ContainerSingleTarot) {
-                if (containerGame.getState() == CardAnimState.BID_TAROT) {
-                    containerGame.thread(new AnimationBidTarotPause(((ContainerSingleTarot)containerGame)));
-                    return;
-                }
-                containerGame.thread(new AnimationCardTarotPause(((ContainerSingleTarot)containerGame)));
-                return;
-            }
-            containerGame.thread(new AnimationCardPresidentPause(((ContainerSinglePresident)containerGame)));
-            return;
-        }
+//        if (containerGame instanceof ContainerSingle) {
+//            containerGame.setPasse(!containerGame.isPasse());
+//            if (pause.isSelected()) {
+//                return;
+//            }
+//            containerGame.setState(null);
+//            if (containerGame instanceof ContainerSingleBelote) {
+//                if (containerGame.getState() == CardAnimState.BID_BELOTE) {
+//                    containerGame.thread(new AnimationBidBelotePause(((ContainerSingleBelote)containerGame)));
+//                    return;
+//                }
+//                containerGame.thread(new AnimationCardBelotePause(((ContainerSingleBelote)containerGame)));
+//                return;
+//            }
+//            if (containerGame instanceof ContainerSingleTarot) {
+//                if (containerGame.getState() == CardAnimState.BID_TAROT) {
+//                    containerGame.thread(new AnimationBidTarotPause(((ContainerSingleTarot)containerGame)));
+//                    return;
+//                }
+//                containerGame.thread(new AnimationCardTarotPause(((ContainerSingleTarot)containerGame)));
+//                return;
+//            }
+//            containerGame.thread(new AnimationCardPresidentPause(((ContainerSinglePresident)containerGame)));
+//            return;
+//        }
         containerGame.setPasse(!containerGame.isPasse());
     }
     public void displayHelpGame() {

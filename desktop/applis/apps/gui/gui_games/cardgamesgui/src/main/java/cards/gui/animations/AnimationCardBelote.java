@@ -84,10 +84,10 @@ public final class AnimationCardBelote implements Runnable {
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
             _container.jouerBelote(player_, pseudos_.get(player_));
-            if (_container.isPasse()) {
-                _container.setState(CardAnimState.TRICK_BELOTE);
-                return;
-            }
+//            if (_container.isPasse()) {
+//                _container.setState(CardAnimState.TRICK_BELOTE);
+//                return;
+//            }
         }
         FrameUtil.invokeLater(new AfterAnimationCardBelote(_container), _container.getOwner().getFrames());
     }

@@ -61,10 +61,10 @@ public final class AnimationBidTarot implements Runnable {
             ThreadInvoker.invokeNow(_container.getOwner().getThreadFactory(),new AddTextEvents(_container, event_), _container.getOwner().getFrames());
 //            container.ajouterTexteDansZone(event_);
 //            container.ajouterTexteDansZone(pseudos_.get(player_)+ContainerGame.INTRODUCTION_PTS+contrat_+ContainerTarot.RETURN_LINE_CHAR);
-            if (_container.isPasse()) {
-                _container.setState(CardAnimState.BID_TAROT);
-                return;
-            }
+//            if (_container.isPasse()) {
+//                _container.setState(CardAnimState.BID_TAROT);
+//                return;
+//            }
         }
         FrameUtil.invokeLater(new AfterAnimationBidTarot(_container), _container.getOwner().getFrames());
     }

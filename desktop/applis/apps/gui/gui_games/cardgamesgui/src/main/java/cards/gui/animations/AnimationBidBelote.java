@@ -82,10 +82,10 @@ public final class AnimationBidBelote implements Runnable {
             if (partie_.tailleContrats() == partie_.getNombreDeJoueurs()) {
                 partie_.finEncherePremierTour();
             }
-            if (_container.isPasse()) {
-                _container.setState(CardAnimState.BID_BELOTE);
-                return;
-            }
+//            if (_container.isPasse()) {
+//                _container.setState(CardAnimState.BID_BELOTE);
+//                return;
+//            }
         }
         FrameUtil.invokeLater(new AfterAnimationBidBelote(_container), _container.getOwner().getFrames());
     }

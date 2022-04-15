@@ -79,10 +79,10 @@ public final class AnimationCardTarot implements Runnable {
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
             _container.jouerTarot(player_, pseudos_.get(player_));
-            if (_container.isPasse()) {
-                _container.setState(CardAnimState.TRICK_TAROT);
-                return;
-            }
+//            if (_container.isPasse()) {
+//                _container.setState(CardAnimState.TRICK_TAROT);
+//                return;
+//            }
         }
         FrameUtil.invokeLater(new AfterAnimationCardTarot(_container), _container.getOwner().getFrames());
     }

@@ -74,10 +74,10 @@ public final class AnimationCardPresident implements Runnable {
             ThreadUtil.sleep(_container.getOwner().getThreadFactory(), delaiCarte_);
             //Le joueur reflechit pendant 0.5 s
             _container.jouerPresident(player_, pseudos_.get(player_));
-            if (_container.isPasse()) {
-                _container.setState(CardAnimState.TRICK_PRESIDENT);
-                return;
-            }
+//            if (_container.isPasse()) {
+//                _container.setState(CardAnimState.TRICK_PRESIDENT);
+//                return;
+//            }
 //            if (partie_.getProgressingTrick().estVide()) {
 //                Constants.sleep(delaiCarte_);
 //            }
