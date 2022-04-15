@@ -20,11 +20,11 @@ public final class InstanceFieldWrapper extends FieldWrapper {
         pair = _pair;
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        ExecFieldTemplates.setSafeInstanceField(_right, _conf, _stack, getId(), pair, parent);
+        ExecFieldTemplates.setSafeInstanceField(_right, _conf, _stack, getId(), pair, new Argument(parent));
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
-        return ExecFieldTemplates.getSafeInstanceField(_conf, _stack, getId(), parent).getStruct();
+        return ExecFieldTemplates.getSafeInstanceField(_conf, _stack, getId(), new Argument(parent)).getStruct();
     }
 
     @Override

@@ -33,7 +33,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
     private StringMap<DefExecTextPart> execAttributesText = new StringMap<DefExecTextPart>();
     private StringMap<DefExecTextPart> execAttributes = new StringMap<DefExecTextPart>();
-    private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private final Element elt;
@@ -48,7 +47,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                       CustList<RendDynOperationNode> _opsMap, CustList<RendDynOperationNode> _opsDefault, CustList<RendDynOperationNode> _opsConverter,
                       CustList<RendDynOperationNode> _opsConverterField, CustList<RendDynOperationNode> _opsConverterFieldValue,
                       StringMap<DefExecTextPart> _execAttributesText, StringMap<DefExecTextPart> _execAttributes,
-                      String _id, String _idClass, String _idName, Element _elt, boolean _multiple,
+                      String _idClass, String _idName, Element _elt, boolean _multiple,
                       String _varNameConverter, String _varNameConverterField, String _varNameConverterFieldValue,
                       String _className, boolean _arrayConverter) {
         this.opsRead = _opsRead;
@@ -60,7 +59,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         this.opsConverterFieldValue = _opsConverterFieldValue;
         this.execAttributesText = _execAttributesText;
         this.execAttributes = _execAttributes;
-        this.id = _id;
         this.idClass = _idClass;
         this.idName = _idName;
         this.elt = _elt;
@@ -254,7 +252,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     }
     private void processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
         DefFieldUpdates f_ = new DefFieldUpdates();
-        f_.setId(id);
         f_.setIdClass(idClass);
         f_.setIdName(idName);
         f_.setOpsRead(opsRead);

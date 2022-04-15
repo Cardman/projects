@@ -143,6 +143,13 @@ public final class Navigation {
                 count_++;
             }
         }
+        in(_advStandards, _formElement, _id);
+        se(_advStandards, _formElement, _id);
+        ta(_advStandards, _formElement, _id);
+        setupText(document.export(),_advStandards);
+    }
+
+    private void in(BeanLgNames _advStandards, Element _formElement, long _id) {
         ElementList inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordInput());
         int lengthInputs_ = inputs_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
@@ -150,31 +157,45 @@ public final class Navigation {
             String idInput_ = elt_.getAttribute(session.getRendKeyWords().getAttrNi());
             NodeInformations nCont_ = getValue(_id, idInput_, _advStandards.getPage());
             if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueText())) {
-                elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getValue().first());
-                continue;
-            }
-            if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueCheckbox())) {
-                if (StringUtil.quickEq(nCont_.getValue().first(),BeanLgNames.ON)) {
-                    elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
-                } else {
-                    elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
+                elt_.setAttribute(session.getRendKeyWords().getAttrValue(), empt(nCont_.getValue()));
+            } else if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueCheckbox())) {
+                ch(elt_, nCont_);
+            } else if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueRadio())) {
+                ra(elt_, nCont_);
+            } else {
+                if (!StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()), session.getRendKeyWords().getValueSubmit())) {
+                    elt_.setAttribute(session.getRendKeyWords().getAttrValue(), empt(nCont_.getValue()));
                 }
-                continue;
             }
-            if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueRadio())) {
-                String value_ = elt_.getAttribute(session.getRendKeyWords().getAttrValue());
-                if (StringUtil.quickEq(nCont_.getValue().first(), value_)) {
-                    elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
-                } else {
-                    elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
-                }
-                continue;
-            }
-            if (StringUtil.quickEq(elt_.getAttribute(session.getRendKeyWords().getAttrType()),session.getRendKeyWords().getValueSubmit())) {
-                continue;
-            }
-            elt_.setAttribute(session.getRendKeyWords().getAttrValue(), nCont_.getValue().first());
         }
+    }
+    public static String empt(StringList _list) {
+        if (_list.size() != 1) {
+            return "";
+        }
+        return _list.first();
+    }
+
+    private void ra(Element elt_, NodeInformations nCont_) {
+        String value_ = elt_.getAttribute(session.getRendKeyWords().getAttrValue());
+        if (StringUtil.contains(nCont_.getValue(),value_)) {
+            elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
+        } else {
+            elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
+        }
+    }
+
+    private void ch(Element elt_, NodeInformations nCont_) {
+        if (StringUtil.contains(nCont_.getValue(),BeanLgNames.ON)) {
+            elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
+        } else {
+            elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
+        }
+    }
+
+    private void se(BeanLgNames _advStandards, Element _formElement, long _id) {
+        ElementList inputs_;
+        int lengthInputs_;
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSelect());
         lengthInputs_ = inputs_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
@@ -192,6 +213,11 @@ public final class Navigation {
                 }
             }
         }
+    }
+
+    private void ta(BeanLgNames _advStandards, Element _formElement, long _id) {
+        ElementList inputs_;
+        int lengthInputs_;
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordTextarea());
         lengthInputs_ = inputs_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
@@ -206,7 +232,6 @@ public final class Navigation {
             Text text_ = document.createTextNode(nCont_.getValue().first());
             elt_.appendChild(text_);
         }
-        setupText(document.export(),_advStandards);
     }
 
     private static NodeInformations getValue(long _id, String _idInput, HtmlPage _htmlPage) {

@@ -458,7 +458,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         Configuration conf_ = a_.getNavigation().getSession();
         addInnerPage(build);
         DefNodeContainer nCont_ = build.getFormParts().getContainersMap().firstValue().getValue(0);
-        DefNodeContainer nContBis_ = build.getFormParts().getContainersMap().firstValue().getValue(1);
+        DefNodeContainer nContBis_ = build.getFormParts().getContainersMap().firstValue().getValue(4);
         setRendObject(nCont_, new IntStruct(2), ctx_);
         Struct build_ = a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one");
         assertEq(2, ((NumberStruct)getStruct(build_,nCont_.getIdField())).intStruct());

@@ -323,7 +323,7 @@ public final class RendForwardInfos {
             StringMap<DefExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<DefExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendSelect(opRead_,opValue_, opMap_,opDefault_,opConverter_,opConverterField_,opConverterFieldValue_
-            ,partText_,part_, f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getElt(),f_.isMultiple(),f_.getVarNameConverter(),f_.getVarNameConverterField(),
+            ,partText_,part_, f_.getIdClass(),f_.getIdName(),f_.getElt(),f_.isMultiple(),f_.getVarNameConverter(),f_.getVarNameConverterField(),
                     f_.getVarNameConverterFieldValue(),f_.getClassName(),f_.isArrayConverter());
         }
         if (_current instanceof AnaRendRadio){
@@ -336,7 +336,7 @@ public final class RendForwardInfos {
             StringMap<DefExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<DefExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendRadio(f_.getRead(),part_,partText_,opRead_,opValue_, opConverter_,opConverterField_
-                    , f_.getVarNameConverter(),f_.getVarNameConverterField(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),opConverterFieldValue_,
+                    , f_.getVarNameConverter(),f_.getVarNameConverterField(), f_.getIdClass(),f_.getIdName(),f_.getClassName(),opConverterFieldValue_,
                     f_.getVarNameConverterFieldValue());
         }
         if (_current instanceof AnaRendStdInput){
@@ -348,7 +348,7 @@ public final class RendForwardInfos {
             StringMap<DefExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<DefExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendStdInput(f_.getRead(),part_,partText_,opRead_,opValue_, opConverter_,opConverterField_
-                    , f_.getVarNameConverter(),f_.getVarNameConverterField(),f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName());
+                    , f_.getVarNameConverter(),f_.getVarNameConverterField(), f_.getIdClass(),f_.getIdName(),f_.getClassName());
         }
         if (_current instanceof AnaRendTextArea){
             AnaRendTextArea f_ = (AnaRendTextArea) _current;
@@ -359,7 +359,7 @@ public final class RendForwardInfos {
             StringMap<DefExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<DefExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendTextArea(opRead_,opValue_, opConverter_,opConverterField_
-                    ,partText_,part_,f_.getVarNameConverter(),f_.getVarNameConverterField(), f_.getId(),f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getElt());
+                    ,partText_,part_,f_.getVarNameConverter(),f_.getVarNameConverterField(), f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getElt());
         }
         if (_current instanceof AnaRendSpan){
             AnaRendSpan f_ = (AnaRendSpan) _current;

@@ -12,7 +12,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
-import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class ExecSettableFieldInstOperation extends
@@ -33,8 +32,8 @@ public final class ExecSettableFieldInstOperation extends
             offset(_stack);
             Argument previous_ = getPreviousArg(this, _nodes, _stack);
             ClassField fieldId_ = getSettableFieldContent().getClassField();
-            Struct parent_ = ExecFieldTemplates.getParent(getSettableFieldContent().getAnc(), previous_.getStruct(), _conf, _stack);
-            ExecHelper.getArgumentPair(_nodes,this).setArgumentParent(new Argument(parent_));
+            Argument parent_ = new Argument(ExecFieldTemplates.getParent(getSettableFieldContent().getAnc(), previous_.getStruct(), _conf, _stack));
+            ExecHelper.getArgumentPair(_nodes,this).setArgumentParent(parent_);
             Argument arg_ = ExecFieldTemplates.getSafeInstanceField(_conf, _stack, fieldId_, parent_);
             setSimpleArgument(arg_, _conf, _nodes, _stack);
         }
@@ -50,12 +49,12 @@ public final class ExecSettableFieldInstOperation extends
         //Come from code directly so constant static fields can be initialized here
         offset(_stack);
         ClassField fieldId_ = getSettableFieldContent().getClassField();
-        Struct parent_;
+        Argument parent_;
         if (resultCanBeSet()) {
             Argument prev_ = getPreviousArg(this, _nodes, _stack);
-            parent_ = ExecFieldTemplates.getParent(getSettableFieldContent().getAnc(), prev_.getStruct(), _conf, _stack);
+            parent_ = new Argument(ExecFieldTemplates.getParent(getSettableFieldContent().getAnc(), prev_.getStruct(), _conf, _stack));
         } else {
-            parent_ = Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes,this).getArgumentParent()).getStruct();
+            parent_ = Argument.getNullableValue(ExecHelper.getArgumentPair(_nodes,this).getArgumentParent());
         }
         return ExecFieldTemplates.setSafeInstanceField(_right, _conf, _stack, fieldId_, pair, parent_);
     }

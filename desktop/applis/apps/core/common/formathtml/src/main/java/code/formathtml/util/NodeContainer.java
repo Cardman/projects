@@ -20,18 +20,6 @@ public abstract class NodeContainer {
 
     protected NodeContainer() {
     }
-    public boolean eqObj(CustList<Struct> _object) {
-        int size_ = _object.size();
-        if (allObject.size() != size_) {
-            return false;
-        }
-        for (int i = 0; i < size_; i++) {
-            if (!allObject.get(i).sameReference(_object.get(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public Struct getUpdated() {
         return allObject.first();

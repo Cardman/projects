@@ -2,7 +2,10 @@ package code.formathtml.exec.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.opers.ExecFctOperation;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunctionInst;
@@ -25,7 +28,11 @@ public final class RendFctOperation extends RendSettableCallFctOperation impleme
         Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
         int off_ = inst.getInst().getMethodName();
         setRelOffsetPossibleLastPage(off_, _rendStack);
-        Argument result_ = ExecFctOperation.prep(_context,_rendStack.getStackCall(),previous_,buildInfos(_nodes),inst);
+        Argument parent_ = new Argument(ExecFieldTemplates.getParent(inst.getInst().getAnc(), previous_.getStruct(), _context, _rendStack.getStackCall()));
+        ArgumentListCall args_ = ExecInvokingOperation.fetchFormattedArgs(_context, _rendStack.getStackCall(), parent_.getStruct(), inst, buildInfos(_nodes));
+        getArgumentPair(_nodes,this).setArgumentParent(parent_);
+        getArgumentPair(_nodes,this).setArgumentList(args_.getArgumentWrappers());
+        Argument result_ = ExecFctOperation.prep(_context,_rendStack.getStackCall(), inst, parent_, args_);
         ArgumentWrapper argres_ = RendDynOperationNode.processCall(result_, _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }

@@ -19,10 +19,7 @@ import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.*;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.Ints;
-import code.util.StringMap;
+import code.util.*;
 import org.junit.Test;
 
 public final class RenderInitStdsTest extends CommonRender {
@@ -92,6 +89,7 @@ public final class RenderInitStdsTest extends CommonRender {
         BeanCustLgNames.select("","", navigation);
         ca.addEntry("","");
         BeanCustLgNames.select("","", navigation);
+        Navigation.empt(new StringList());
     }
 
     private void initializeRendSessionDoc(BeanCustLgNames b_, RendStackCall rendStackCall_, Navigation navigation1) {

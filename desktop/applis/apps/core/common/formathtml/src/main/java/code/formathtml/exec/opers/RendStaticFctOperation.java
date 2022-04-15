@@ -2,7 +2,9 @@ package code.formathtml.exec.opers;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.exec.opers.ExecStaticFctOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
@@ -32,7 +34,9 @@ public final class RendStaticFctOperation extends RendSettableCallFctOperation i
         String lastType_ = ExecFormattedRootBlock.formatLastType(classNameFound_,staticFctContent);
 //        int naturalVararg_ = staticFctContent.getNaturalVararg();
 //        Argument prev_ = new Argument();
-        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecStaticFctOperation.prep(_context,_rendStack.getStackCall(),classNameFound_,lastType_,buildInfos(_nodes),staticFctContent,pair), _context, _rendStack);
+        ArgumentListCall args_ = ExecInvokingOperation.fectchArgs(lastType_, staticFctContent.getNaturalVararg(), _context, _rendStack.getStackCall(), buildInfos(_nodes));
+        getArgumentPair(_nodes,this).setArgumentList(args_.getArgumentWrappers());
+        ArgumentWrapper argres_ = RendDynOperationNode.processCall(ExecStaticFctOperation.prep(_context,_rendStack.getStackCall(),classNameFound_, staticFctContent,pair, args_), _context, _rendStack);
         setSimpleArgument(argres_, _nodes, _context, _rendStack);
     }
 

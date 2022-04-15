@@ -18,7 +18,6 @@ public abstract class RendInput extends RendElement {
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
-    private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
@@ -26,7 +25,7 @@ public abstract class RendInput extends RendElement {
     protected RendInput(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
                         CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue,
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField, String _varNameConverter,
-                        String _varNameConverterField, String _id, String _idClass, String _idName, String _className) {
+                        String _varNameConverterField, String _idClass, String _idName, String _className) {
         super(_read, _execAttributes, _execAttributesText);
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
@@ -34,7 +33,6 @@ public abstract class RendInput extends RendElement {
         this.opsConverterField = _opsConverterField;
         this.varNameConverter = _varNameConverter;
         this.varNameConverterField = _varNameConverterField;
-        this.id = _id;
         this.idClass = _idClass;
         this.idName = _idName;
         this.className = _className;
@@ -42,7 +40,6 @@ public abstract class RendInput extends RendElement {
 
     protected Argument processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
         DefFieldUpdates f_ = new DefFieldUpdates();
-        f_.setId(id);
         f_.setIdClass(idClass);
         f_.setIdName(idName);
         f_.setOpsRead(opsRead);

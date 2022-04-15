@@ -23,7 +23,6 @@ public final class ResultInput {
     private final ResultExpression resultExpressionValue = new ResultExpression();
     private OperationNode opsReadRoot;
     private OperationNode opsValueRoot;
-    private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
@@ -70,14 +69,6 @@ public final class ResultInput {
             AnaSettableOperationContent settableFieldContent_ = ((SettableAbstractFieldOperation) settable_).getSettableFieldContent();
             ClassField clField_ = settableFieldContent_.getClassField();
             if (clField_ != null) {
-                if (settableFieldContent_.isStaticField()) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
-                    badEl_.buildError(_anaDoc.getRendAnalysisMessages().getStaticInputName(),
-                            clField_.getFieldName());
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
                 if (settableFieldContent_.isFinalField()) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
@@ -89,7 +80,6 @@ public final class ResultInput {
                 idClass = clField_.getClassName();
                 idName = clField_.getFieldName();
             }
-            id = StringUtil.concat(idClass,".",idName);
         } else if (settable_ instanceof ArrOperation) {
             AnaClassArgumentMatching pr_ = ((ArrOperation) settable_).getPreviousResultClass();
             ClassMethodId classMethodId_ = ((ArrOperation) settable_).getCallFctContent().getClassMethodId();
@@ -103,14 +93,26 @@ public final class ResultInput {
                     typeNames_.add(cl_);
                 }
                 idName = StringUtil.concat("[](", StringUtil.join(typeNames_,","),")");
-                id = StringUtil.concat(idClass,".",idName);
             } else {
                 ((ArrOperation) settable_).applySet(_page);
                 idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
                 MethodId constraints_ = classMethodId_.getConstraints();
                 String sgn_ = constraints_.getSignature(_page.getDisplayedStrings());
                 idName = StringUtil.concat("[]", sgn_);
-                id = StringUtil.concat(idClass,".",idName);
+            }
+        } else if (settable_ instanceof AbstractCallFctOperation){
+            ClassMethodId classMethodId_ = ((AbstractCallFctOperation)settable_).getClassMethodId();
+            AnaClassArgumentMatching pr_ = ((InvokingOperation) settable_).getPreviousResultClass();
+            if (classMethodId_ == null || !classMethodId_.getConstraints().isRetRef()) {
+                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                badEl_.setFile(_page.getCurrentFile());
+                badEl_.setIndexFile(_bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName()));
+                badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadInputName());
+                AnalyzingDoc.addError(badEl_, _page);
+            } else {
+                idClass = NumParsers.getSingleNameOrEmpty(pr_.getNames());
+                MethodId constraints_ = classMethodId_.getConstraints();
+                idName = constraints_.getSignature(_page.getDisplayedStrings());
             }
         } else {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -127,10 +129,6 @@ public final class ResultInput {
 
     public ResultExpression getResultExpressionValue() {
         return resultExpressionValue;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getIdClass() {

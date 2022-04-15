@@ -6,8 +6,8 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.MethodParamChecker;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.ExecOperationInfo;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.functionid.MethodAccessKind;
@@ -17,7 +17,6 @@ import code.expressionlanguage.fwd.opers.ExecArrContent;
 import code.expressionlanguage.fwd.opers.ExecInstFctContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 import code.util.IdMap;
 
 public final class ExecFctOperation extends ExecSettableCallFctOperation {
@@ -38,23 +37,22 @@ public final class ExecFctOperation extends ExecSettableCallFctOperation {
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         Argument previous_ = getPreviousArg(this, _nodes, _stack);
         setRelOffsetPossibleLastPage(inst.getInst().getMethodName(), _stack);
-        Argument res_ = prep(_conf, _stack, previous_, buildInfos(_nodes), inst);
+        Argument parent_ = new Argument(ExecFieldTemplates.getParent(inst.getInst().getAnc(), previous_.getStruct(), _conf, _stack));
+        Argument res_ = prep(_conf, _stack, inst, parent_, fetchFormattedArgs(_conf, _stack, parent_.getStruct(), inst, buildInfos(_nodes)));
         setResult(res_, _conf, _nodes, _stack);
     }
 
-    public static Argument prep(ContextEl _conf, StackCall _stack, Argument _previous, CustList<ExecOperationInfo> _infos, ExecTypeFunctionInst _inst) {
+    public static Argument prep(ContextEl _conf, StackCall _stack, ExecTypeFunctionInst _inst, Argument _parent, ArgumentListCall _args) {
         ExecFormattedRootBlock formattedType_ = _inst.getInst().getFormattedType();
-        Struct argPrev_ = _previous.getStruct();
-        Argument prev_ = new Argument(ExecFieldTemplates.getParent(_inst.getInst().getAnc(), argPrev_, _conf, _stack));
         Argument res_;
         if (_conf.callsOrException(_stack)) {
             res_ = new Argument();
         } else {
-            Struct pr_ = prev_.getStruct();
+            Struct pr_ = _parent.getStruct();
             ExecOverrideInfo polymorph_ = polymorphOrSuper(_inst.getInst().isStaticChoiceMethod(), _conf, pr_, formattedType_, _inst.getPair());
             ExecTypeFunction pair_ = polymorph_.getPair();
             ExecFormattedRootBlock classNameFound_ = polymorph_.getClassName();
-            res_ = new MethodParamChecker(pair_, fetchFormattedArgs(_conf, _stack, pr_,_inst, _infos), MethodAccessKind.INSTANCE).checkParams(classNameFound_, prev_, null, _conf, _stack);
+            res_ = new MethodParamChecker(pair_, _args, MethodAccessKind.INSTANCE).checkParams(classNameFound_, _parent, null, _conf, _stack);
         }
         return res_;
     }

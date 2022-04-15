@@ -23,7 +23,6 @@ public abstract class AnaRendInput extends AnaRendElement {
     private OperationNode rootConverterField;
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
-    private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
@@ -37,7 +36,6 @@ public abstract class AnaRendInput extends AnaRendElement {
         resultInput.build(this, _read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
         rootRead = resultInput.getOpsReadRoot();
         rootValue = resultInput.getOpsValueRoot();
-        id = resultInput.getId();
         idClass = resultInput.getIdClass();
         idName = resultInput.getIdName();
         className = resultInput.getClassName();
@@ -166,10 +164,6 @@ public abstract class AnaRendInput extends AnaRendElement {
 
     public String getIdName() {
         return idName;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getVarNameConverter() {

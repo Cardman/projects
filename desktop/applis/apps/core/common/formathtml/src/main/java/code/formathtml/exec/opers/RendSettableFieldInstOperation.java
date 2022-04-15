@@ -10,7 +10,6 @@ import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecFieldOperationContent;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.RendStackCall;
 import code.util.IdMap;
 
@@ -33,8 +32,8 @@ public final class RendSettableFieldInstOperation extends
         } else {
             Argument previous_ = getPreviousArg(this, _nodes, _rendStack);
             ClassField fieldId_ = getClassField();
-            Struct parent_ = ExecFieldTemplates.getParent(getAnc(), previous_.getStruct(), _context, _rendStack.getStackCall());
-            getArgumentPair(_nodes,this).setArgumentParent(new Argument(parent_));
+            Argument parent_ = new Argument(ExecFieldTemplates.getParent(getAnc(), previous_.getStruct(), _context, _rendStack.getStackCall()));
+            getArgumentPair(_nodes,this).setArgumentParent(parent_);
             result_ = ExecFieldTemplates.getSafeInstanceField(_context, _rendStack.getStackCall(), fieldId_, parent_);
         }
         postCalulate(_nodes, _context, _rendStack, result_);
@@ -49,12 +48,12 @@ public final class RendSettableFieldInstOperation extends
         //Come from code directly so constant static fields can be initialized here
         ClassField fieldId_ = getClassField();
         Argument arg_;
-        Struct parent_;
+        Argument parent_;
         if (resultCanBeSet()) {
             Argument prev_ = getPreviousArg(this, _nodes, _rendStack);
-            parent_ = ExecFieldTemplates.getParent(getAnc(), prev_.getStruct(), _context, _rendStack.getStackCall());
+            parent_ = new Argument(ExecFieldTemplates.getParent(getAnc(), prev_.getStruct(), _context, _rendStack.getStackCall()));
         } else {
-            parent_ = Argument.getNullableValue(getArgumentPair(_nodes, this).getArgumentParent()).getStruct();
+            parent_ = Argument.getNullableValue(getArgumentPair(_nodes, this).getArgumentParent());
         }
         arg_ = ExecFieldTemplates.setSafeInstanceField(_right, _context, _rendStack.getStackCall(), fieldId_, pair, parent_);
         return RendDynOperationNode.processCall(arg_, _context, _rendStack).getValue();

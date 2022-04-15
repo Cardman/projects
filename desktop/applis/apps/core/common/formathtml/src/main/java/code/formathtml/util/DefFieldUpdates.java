@@ -12,8 +12,6 @@ public final class DefFieldUpdates extends FieldUpdates {
     private String idClass = "";
     private String idName = "";
 
-    private String id = "";
-
     public CustList<RendDynOperationNode> getOpsRead() {
         return opsRead;
     }
@@ -28,14 +26,6 @@ public final class DefFieldUpdates extends FieldUpdates {
 
     public void setOpsConverter(CustList<RendDynOperationNode> _opsConverter) {
         opsConverter = _opsConverter;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String _id) {
-        this.id = _id;
     }
 
     public String getIdClass() {

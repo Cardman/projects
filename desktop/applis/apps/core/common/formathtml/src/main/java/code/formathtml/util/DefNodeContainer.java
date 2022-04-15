@@ -10,16 +10,7 @@ public final class DefNodeContainer extends NodeContainer {
     private String idFieldClass;
     private String idFieldName;
 
-    private String idClass;
     private AbstractWrapper input;
-
-    public String getIdClass() {
-        return idClass;
-    }
-
-    public void setIdClass(String _id) {
-        this.idClass = _id;
-    }
 
     public ClassField getIdField() {
         return new ClassField(idFieldClass,idFieldName);

@@ -64,12 +64,11 @@ public final class ExecFieldTemplates {
         return getInstanceField(_previous, _conf, _stackCall, fieldId_);
     }
 
-    public static Argument getSafeInstanceField(ContextEl _conf, StackCall _stackCall, ClassField _fieldId, Struct _parent) {
-        Argument prev_ = new Argument(_parent);
+    public static Argument getSafeInstanceField(ContextEl _conf, StackCall _stackCall, ClassField _fieldId, Argument _parent) {
         if (_conf.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
-        return getInstanceField(prev_, _conf, _stackCall, _fieldId);
+        return getInstanceField(_parent, _conf, _stackCall, _fieldId);
     }
 
     public static Argument getInstanceField(Argument _previous, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
@@ -139,12 +138,11 @@ public final class ExecFieldTemplates {
         return setInstanceField(_previous, _right, _conf, _stackCall, fieldId_, new ExecTypeReturn(declaring_, type_));
     }
 
-    public static Argument setSafeInstanceField(Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex, Struct _parent) {
-        Argument prev_ = new Argument(_parent);
+    public static Argument setSafeInstanceField(Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex, Argument _parent) {
         if (_conf.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
-        return setInstanceField(prev_, _right, _conf, _stackCall, _fieldId, _ex);
+        return setInstanceField(_parent, _right, _conf, _stackCall, _fieldId, _ex);
     }
 
     public static Argument setInstanceField(Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex) {

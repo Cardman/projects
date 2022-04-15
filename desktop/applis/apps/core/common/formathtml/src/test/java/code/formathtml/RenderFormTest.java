@@ -32,7 +32,7 @@ public final class RenderFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click()\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click()\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"1\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
     @Test
@@ -62,7 +62,7 @@ public final class RenderFormTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click($int)\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><form action=\"\" c:command=\"$bean_one\" name=\"myform\" c:sgn=\"pkg.BeanOne.click($int)\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"0\" value=\"2\"/><input type=\"radio\" name=\"bean_one.first.value\" n-i=\"1\" value=\"4\" checked=\"checked\"/></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process3Test() {

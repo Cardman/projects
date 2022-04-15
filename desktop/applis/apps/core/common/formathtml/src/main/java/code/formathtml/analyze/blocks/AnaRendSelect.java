@@ -31,7 +31,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
     private OperationNode rootConverterFieldValue;
     private final StringMap<ResultText> attributesText = new StringMap<ResultText>();
     private final StringMap<ResultText> attributes = new StringMap<ResultText>();
-    private String id = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private final Element elt;
@@ -54,7 +53,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
         resultInput.build(this, elt,_anaDoc.getRendKeyWords().getAttrVarValue(), _anaDoc, _page);
         rootRead = resultInput.getOpsReadRoot();
         rootValue = resultInput.getOpsValueRoot();
-        id = resultInput.getId();
         idClass = resultInput.getIdClass();
         idName = resultInput.getIdName();
         className = resultInput.getClassName();
@@ -343,10 +341,6 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
 
     public String getVarNameConverter() {
         return varNameConverter;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getIdName() {
