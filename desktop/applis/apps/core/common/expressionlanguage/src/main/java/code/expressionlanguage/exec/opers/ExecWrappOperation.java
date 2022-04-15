@@ -4,7 +4,6 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
@@ -30,8 +29,9 @@ public final class ExecWrappOperation extends ExecMethodOperation implements Ato
             FieldWrapper f_;
             if (ch_ instanceof ExecSettableFieldInstOperation) {
                 ExecTypeReturn pair_ = ((ExecSettableFieldInstOperation) ch_).getPair();
-                Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
-                f_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(), ExecFieldTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _stack).getClassName(_conf),settableFieldContent_.getRealType(),
+                ArgumentsPair pairCh_ = ExecHelper.getArgumentPair(_nodes, ch_);
+                Struct parent_ = pairCh_.getArgumentParent().getStruct();
+                f_ = new InstanceFieldWrapper(parent_, parent_.getClassName(_conf),settableFieldContent_.getRealType(),
                         settableFieldContent_.getClassField(), pair_);
             } else {
                 f_ = new StaticFieldWrapper(settableFieldContent_.getRealType(),((ExecSettableFieldStatOperation)ch_).getRootBlock(),
@@ -44,7 +44,7 @@ public final class ExecWrappOperation extends ExecMethodOperation implements Ato
         }
         if (chFirst_ instanceof ExecArrOperation) {
             ExecArrOperation ch_ = (ExecArrOperation)chFirst_;
-            Argument previousArgument_ = ch_.getPreviousArg(ch_,_nodes, _stack);
+            Argument previousArgument_ = ExecHelper.getArgumentPair(_nodes,ch_).getArgumentParent();
             ArgumentsPair pairIndex_ = ExecHelper.getArgumentPair(_nodes, ch_.getFirstChild());
             ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
             Struct struct_ = pairIndex_.getArgument().getStruct();

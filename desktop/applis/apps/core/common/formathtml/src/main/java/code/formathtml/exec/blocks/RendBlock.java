@@ -7,7 +7,6 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecFieldTemplates;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.opers.ExecWrappOperation;
@@ -358,11 +357,11 @@ public abstract class RendBlock {
         AbstractWrapper wr_;
         if (settable_ instanceof RendSettableFieldInstOperation) {
             ExecSettableOperationContent settableFieldContent_ = ((RendSettableFieldInstOperation) settable_).getSettableFieldContent();
+            ArgumentsPair pairCh_ = RendDynOperationNode.getArgumentPair(args_, settable_);
+            Struct parent_ = pairCh_.getArgumentParent().getStruct();
             ExecTypeReturn pair_ = ((RendSettableFieldInstOperation) settable_).getPair();
-            Argument previousArgument_ = settable_.getPreviousArg((RendSettableFieldInstOperation) settable_,args_, _rendStackCall);
-            Struct parent_ = ExecFieldTemplates.getParent(settableFieldContent_.getAnc(), previousArgument_.getStruct(), _rendStackCall.getStackCall());
             allObj_.add(parent_);
-            wr_ = new InstanceFieldWrapper(settableFieldContent_.getAnc(), previousArgument_.getStruct(), parent_.getClassName(_ctx),settableFieldContent_.getRealType(),
+            wr_ = new InstanceFieldWrapper(parent_, parent_.getClassName(_ctx),settableFieldContent_.getRealType(),
                     settableFieldContent_.getClassField(), pair_);
         } else if (settable_ instanceof RendCustArrOperation) {
             RendCustArrOperation ch_ = (RendCustArrOperation)settable_;
@@ -376,7 +375,7 @@ public abstract class RendBlock {
             }
         } else {
             RendArrOperation ch_ = (RendArrOperation)settable_;
-            Argument previousArgument_ = ch_.getPreviousArg(ch_,args_, _rendStackCall);
+            Argument previousArgument_ = Argument.getNullableValue(RendDynOperationNode.getArgumentPair(args_, ch_).getArgumentParent());
             ArgumentsPair pairIndex_ = RendDynOperationNode.getArgumentPair(args_, ch_.getFirstChild());
             wr_ = ExecWrappOperation.buildArrWrapp(previousArgument_,pairIndex_.getArgument().getStruct());
             allObj_.add(previousArgument_.getStruct());

@@ -23,17 +23,30 @@ public final class RendSettableFieldStatOperation extends
     }
 
     @Override
-    protected Argument getField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        String fieldType_ = getRealType();
-        ClassField fieldId_ = getClassField();
-        return ExecFieldTemplates.getStaticField(_context.getExiting(), getRootBlock(), fieldType_, _context, _rendStack.getStackCall(), fieldId_);
+    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
+        offset(_rendStack);
+        Argument result_;
+        if (resultCanBeSet()) {
+            result_ = Argument.createVoid();
+        } else {
+            String fieldType_ = getRealType();
+            ClassField fieldId_ = getClassField();
+            result_ = ExecFieldTemplates.getStaticField(_context.getExiting(), getRootBlock(), fieldType_, _context, _rendStack.getStackCall(), fieldId_);
+        }
+        postCalulate(_nodes, _context, _rendStack, result_);
     }
 
     @Override
-    protected Argument setField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
+    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
+        if (_context.callsOrException(_rendStack.getStackCall())) {
+            return _right;
+        }
+        offsetLoc(_rendStack);
+        //Come from code directly so constant static fields can be initialized here
         String fieldType_ = getRealType();
         ClassField fieldId_ = getClassField();
-        return ExecFieldTemplates.setStaticField(_context.getExiting(), getRootBlock(), fieldType_, _right, _context, _rendStack.getStackCall(), fieldId_);
+        Argument arg_ = ExecFieldTemplates.setStaticField(_context.getExiting(), getRootBlock(), fieldType_, _right, _context, _rendStack.getStackCall(), fieldId_);
+        return RendDynOperationNode.processCall(arg_, _context, _rendStack).getValue();
     }
 
     public ExecRootBlock getRootBlock() {

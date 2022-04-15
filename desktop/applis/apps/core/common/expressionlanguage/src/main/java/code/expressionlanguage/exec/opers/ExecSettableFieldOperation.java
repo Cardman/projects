@@ -22,41 +22,16 @@ public abstract class ExecSettableFieldOperation extends
     public boolean resultCanBeSet() {
         return settableFieldContent.isVariable();
     }
-    @Override
-    public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                          ContextEl _conf, StackCall _stack) {
-        int off_ = getOff();
-        if (resultCanBeSet()) {
-            Argument arg_ = Argument.createVoid();
-            setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
-        } else {
-            _stack.setOffset(off_);
-            Argument arg_ = getField(_nodes, _conf, _stack);
-            setSimpleArgument(arg_, _conf, _nodes, _stack);
-        }
+
+    protected void offset(StackCall _stack) {
+        _stack.setOffset(getOff());
     }
 
-    protected abstract Argument getField(IdMap<ExecOperationNode, ArgumentsPair> _nodes,
-                                         ContextEl _conf, StackCall _stack);
-
-    @Override
-    public Argument calculateSetting(
-            IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf,
-            Argument _right, StackCall _stack) {
-        return getCommonSetting(_conf,_nodes,_right,_stack);
+    protected void setter(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
+        Argument arg_ = Argument.createVoid();
+        setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);
     }
 
-    private Argument getCommonSetting(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stackCall) {
-        if (_conf.callsOrException(_stackCall)) {
-            return _right;
-        }
-        int off_ = getOff();
-        //Come from code directly so constant static fields can be initialized here
-        _stackCall.setOffset(off_);
-        return setField(_conf, _nodes, _right, _stackCall);
-    }
-
-    protected abstract Argument setField(ContextEl _conf, IdMap<ExecOperationNode, ArgumentsPair> _nodes, Argument _right, StackCall _stackCall);
     public ExecSettableOperationContent getSettableFieldContent() {
         return settableFieldContent;
     }

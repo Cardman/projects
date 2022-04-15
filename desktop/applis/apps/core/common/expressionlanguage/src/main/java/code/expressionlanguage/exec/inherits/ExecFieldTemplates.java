@@ -64,8 +64,8 @@ public final class ExecFieldTemplates {
         return getInstanceField(_previous, _conf, _stackCall, fieldId_);
     }
 
-    public static Argument getSafeInstanceField(int _anc, Argument _previous, ContextEl _conf, StackCall _stackCall, ClassField _fieldId) {
-        Argument prev_ = new Argument(getParent(_anc, _previous.getStruct(), _conf, _stackCall));
+    public static Argument getSafeInstanceField(ContextEl _conf, StackCall _stackCall, ClassField _fieldId, Struct _parent) {
+        Argument prev_ = new Argument(_parent);
         if (_conf.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }
@@ -139,8 +139,8 @@ public final class ExecFieldTemplates {
         return setInstanceField(_previous, _right, _conf, _stackCall, fieldId_, new ExecTypeReturn(declaring_, type_));
     }
 
-    public static Argument setSafeInstanceField(int _anc, Argument _previous, Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex) {
-        Argument prev_ = new Argument(getParent(_anc, _previous.getStruct(), _conf, _stackCall));
+    public static Argument setSafeInstanceField(Argument _right, ContextEl _conf, StackCall _stackCall, ClassField _fieldId, ExecTypeReturn _ex, Struct _parent) {
+        Argument prev_ = new Argument(_parent);
         if (_conf.callsOrException(_stackCall)) {
             return Argument.createVoid();
         }

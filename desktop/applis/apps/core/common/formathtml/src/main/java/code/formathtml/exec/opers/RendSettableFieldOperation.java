@@ -24,17 +24,12 @@ public abstract class RendSettableFieldOperation extends
         return settableFieldContent.isVariable();
     }
 
-    @Override
-    public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
-        int off_ = getOff();
-        setRelOffsetPossibleLastPage(off_, _rendStack);
-        _rendStack.setOffset(off_);
-        Argument result_;
-        if (resultCanBeSet()) {
-            result_ = Argument.createVoid();
-        } else {
-            result_ = getField(_nodes, _context, _rendStack);
-        }
+    protected void offset(RendStackCall _rendStack) {
+        setRelOffsetPossibleLastPage(getOff(), _rendStack);
+        offsetLoc(_rendStack);
+    }
+
+    protected void postCalulate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument result_) {
         Argument arg_ = RendDynOperationNode.processCall(result_, _context, _rendStack).getValue();
         if (_context.callsOrException(_rendStack.getStackCall())) {
             return;
@@ -46,25 +41,9 @@ public abstract class RendSettableFieldOperation extends
         }
     }
 
-    protected abstract Argument getField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack);
-
-    @Override
-    public Argument calculateSetting(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack) {
-        return processField(_nodes, _right, _context, _rendStack);
+    protected void offsetLoc(RendStackCall _rendStackCall) {
+        _rendStackCall.setOffset(getOff());
     }
-
-    private Argument processField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStackCall) {
-        if (_context.callsOrException(_rendStackCall.getStackCall())) {
-            return _right;
-        }
-        int off_ = getOff();
-        _rendStackCall.setOffset(off_);
-        //Come from code directly so constant static fields can be initialized here
-        Argument arg_ = setField(_nodes, _right, _context, _rendStackCall);
-        return RendDynOperationNode.processCall(arg_,_context,_rendStackCall).getValue();
-    }
-
-    protected abstract Argument setField(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, Argument _right, ContextEl _context, RendStackCall _rendStack);
 
     public ExecSettableOperationContent getSettableFieldContent() {
         return settableFieldContent;

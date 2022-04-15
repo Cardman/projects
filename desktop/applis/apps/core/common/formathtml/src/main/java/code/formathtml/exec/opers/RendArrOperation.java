@@ -31,7 +31,8 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
             max_--;
         }
         Argument a_ = null;
-        Struct array_ = getPreviousArgument(_nodes, this).getStruct();
+        Argument previousArgument_ = getPreviousArgument(_nodes, this);
+        Struct array_ = previousArgument_.getStruct();
         for (int i = IndexConstants.FIRST_INDEX; i < max_; i++) {
             Struct o_ = getArgument(_nodes, chidren_.get(i)).getStruct();
             chidren_.get(i).setRelativeOffsetPossibleLastPage(_rendStack);
@@ -52,6 +53,7 @@ public final class RendArrOperation extends RendInvokingOperation implements Ren
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(a_, _nodes, _context, _rendStack);
         } else {
+            getArgumentPair(_nodes,this).setArgumentParent(previousArgument_);
             setSimpleArgument(a_, _nodes, _context, _rendStack);
         }
     }

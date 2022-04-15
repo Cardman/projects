@@ -9,24 +9,22 @@ import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.structs.Struct;
 
 public final class InstanceFieldWrapper extends FieldWrapper {
-    private final int anc;
-    private final Struct container;
     private final String className;
     private final ExecTypeReturn pair;
+    private final Struct parent;
 
-    public InstanceFieldWrapper(int _anc, Struct _container, String _className, String _fieldType, ClassField _id, ExecTypeReturn _pair) {
+    public InstanceFieldWrapper(Struct _p, String _className, String _fieldType, ClassField _id, ExecTypeReturn _pair) {
         super(_fieldType, _id);
-        anc = _anc;
-        container = _container;
+        parent = _p;
         className = _className;
         pair = _pair;
     }
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
-        ExecFieldTemplates.setSafeInstanceField(anc,new Argument(container), _right, _conf, _stack, getId(), pair);
+        ExecFieldTemplates.setSafeInstanceField(_right, _conf, _stack, getId(), pair, parent);
     }
 
     public Struct getValue(StackCall _stack, ContextEl _conf) {
-        return ExecFieldTemplates.getSafeInstanceField(anc,new Argument(container),  _conf, _stack, getId()).getStruct();
+        return ExecFieldTemplates.getSafeInstanceField(_conf, _stack, getId(), parent).getStruct();
     }
 
     @Override

@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.opers;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.ExecHelper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
@@ -31,7 +32,8 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         if (resultCanBeSet()) {
             max_--;
         }
-        Struct array_ = getPreviousArgument(_nodes, this).getStruct();
+        Argument previousArgument_ = getPreviousArgument(_nodes, this);
+        Struct array_ = previousArgument_.getStruct();
         for (int i = IndexConstants.FIRST_INDEX; i < max_; i++) {
             ExecOperationNode op_ = chidren_.get(i);
             Struct o_ = getArgument(_nodes,op_).getStruct();
@@ -53,6 +55,7 @@ public final class ExecArrOperation extends ExecInvokingOperation implements Exe
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(a_, _conf, _nodes, _stack);
         } else {
+            ExecHelper.getArgumentPair(_nodes,this).setArgumentParent(previousArgument_);
             setSimpleArgument(a_, _conf, _nodes, _stack);
         }
     }
