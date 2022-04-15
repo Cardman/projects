@@ -170,7 +170,7 @@ public final class Navigation {
         }
     }
     public static String empt(StringList _list) {
-        if (_list.size() != 1) {
+        if (_list.isEmpty()) {
             return "";
         }
         return _list.first();
