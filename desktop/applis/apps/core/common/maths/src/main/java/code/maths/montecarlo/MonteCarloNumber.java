@@ -3,6 +3,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 
@@ -193,10 +194,10 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
         if(!containsEvent(_event)){
             if(Rate.lowerEq(_event, minimum())){
-                loi_.addQuickEvent(false,new LgInt(1));
+                loi_.addQuickEvent(BoolVal.FALSE,new LgInt(1));
                 return loi_;
             }
-            loi_.addQuickEvent(true,new LgInt(1));
+            loi_.addQuickEvent(BoolVal.TRUE,new LgInt(1));
             return loi_;
         }
         LgInt somme_=LgInt.zero();
@@ -206,9 +207,9 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
                 somme_.addNb(getFreq(i));
             }
         }
-        loi_.addQuickEvent(false,rate(_event));
+        loi_.addQuickEvent(BoolVal.FALSE,rate(_event));
         if(!somme_.isZero()){
-            loi_.addQuickEvent(true,somme_);
+            loi_.addQuickEvent(BoolVal.TRUE,somme_);
         }
         return loi_;
     }
@@ -217,10 +218,10 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
         if(!containsEvent(_event)){
             if(Rate.greaterEq(_event, maximum())){
-                loi_.addQuickEvent(false,new LgInt(1));
+                loi_.addQuickEvent(BoolVal.FALSE,new LgInt(1));
                 return loi_;
             }
-            loi_.addQuickEvent(true,new LgInt(1));
+            loi_.addQuickEvent(BoolVal.TRUE,new LgInt(1));
             return loi_;
         }
         LgInt somme_=LgInt.zero();
@@ -230,9 +231,9 @@ public final class MonteCarloNumber extends AbMonteCarlo<Rate> {
                 somme_.addNb(getFreq(i));
             }
         }
-        loi_.addQuickEvent(false,rate(_event));
+        loi_.addQuickEvent(BoolVal.FALSE,rate(_event));
         if(!somme_.isZero()){
-            loi_.addQuickEvent(true,somme_);
+            loi_.addQuickEvent(BoolVal.TRUE,somme_);
         }
         return loi_;
     }

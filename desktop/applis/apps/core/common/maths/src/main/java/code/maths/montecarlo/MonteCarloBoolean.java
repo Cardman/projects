@@ -3,41 +3,42 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CollCapacity;
 import code.util.CustList;
+import code.util.core.BoolVal;
 
 
-public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
+public final class MonteCarloBoolean extends AbMonteCarlo<BoolVal> {
 
-    private final MonteCarloList<Boolean> law;
-    private final CustList<EventFreq<Boolean>> events;
+    private final MonteCarloList<BoolVal> law;
+    private final CustList<EventFreq<BoolVal>> events;
 
     public MonteCarloBoolean() {
-        MonteCarloList<Boolean> lawBool_ = new MonteCarloList<Boolean>();
+        MonteCarloList<BoolVal> lawBool_ = new MonteCarloList<BoolVal>();
         law = lawBool_;
         events = lawBool_.getEvents();
     }
     
     public MonteCarloBoolean(CollCapacity _capacity) {
-        MonteCarloList<Boolean> lawBool_ = new MonteCarloList<Boolean>(_capacity);
+        MonteCarloList<BoolVal> lawBool_ = new MonteCarloList<BoolVal>(_capacity);
         law = lawBool_;
         events = lawBool_.getEvents();
     }
 
-    public Rate normalizedRate(boolean _event) {
+    public Rate normalizedRate(BoolVal _event) {
         LgInt sum_ = sum();
         return new Rate(rate(_event), sum_);
     }
-    public LgInt rate(boolean _event) {
+    public LgInt rate(BoolVal _event) {
         LgInt sum_ = LgInt.zero();
-        for (EventFreq<Boolean> e: getEvents()) {
-            if (e.match(_event)) {
+        for (EventFreq<BoolVal> e: getEvents()) {
+            if (e.getEvent() == _event) {
                 sum_.addNb(e.getFreq());
             }
         }
         return sum_;
     }
-    public boolean containsEvent(boolean _event) {
-        for (EventFreq<Boolean> e: getEvents()) {
-            if (e.match(_event)) {
+    public boolean containsEvent(BoolVal _event) {
+        for (EventFreq<BoolVal> e: getEvents()) {
+            if (e.getEvent() == _event) {
                 return true;
             }
         }
@@ -45,7 +46,7 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     }
 
     @Override
-    public Boolean getEvent(int _index) {
+    public BoolVal getEvent(int _index) {
         return law.getEvent(_index);
     }
 
@@ -55,7 +56,7 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
     }
 
     @Override
-    public CustList<Boolean> events() {
+    public CustList<BoolVal> events() {
         return law.events();
     }
 
@@ -64,11 +65,11 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
         return law.sum();
     }
 
-    public void addEvent(boolean _event, LgInt _probaRelative) {
+    public void addEvent(BoolVal _event, LgInt _probaRelative) {
         law.addEvent(_event, _probaRelative);
     }
 
-    public void addQuickEvent(boolean _event, LgInt _probaRelative) {
+    public void addQuickEvent(BoolVal _event, LgInt _probaRelative) {
         law.addQuickEvent(_event, _probaRelative);
     }
 
@@ -77,7 +78,7 @@ public final class MonteCarloBoolean extends AbMonteCarlo<Boolean> {
         return law.nbEvents();
     }
 
-    public CustList<EventFreq<Boolean>> getEvents() {
+    public CustList<EventFreq<BoolVal>> getEvents() {
         return events;
     }
 }

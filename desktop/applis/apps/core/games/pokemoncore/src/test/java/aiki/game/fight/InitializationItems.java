@@ -33,6 +33,7 @@ import code.util.EnumMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 final class InitializationItems {
 
@@ -614,21 +615,21 @@ final class InitializationItems {
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(OEUF_CHANCE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(false,new LgInt("4"));
-        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(true,new LgInt("1"));
+        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(BoolVal.FALSE,new LgInt("4"));
+        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(VIVE_GRIFFE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(true,new LgInt("1"));
+        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(VIVE_GRIFFE_TRUE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(true,new LgInt("1"));
-        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(false,new LgInt("0"));
+        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
+        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(BoolVal.FALSE,new LgInt("0"));
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(VIVE_GRIFFE_TRUE_FALSE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();
-        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(false,new LgInt("4"));
+        objetAttachableCombat_.getLawForAttackFirst().addQuickEvent(BoolVal.FALSE,new LgInt("4"));
         objetAttachableCombat_.setPrice(1000);
         _data.completeQuickMembers(VIVE_GRIFFE_FALSE,objetAttachableCombat_);
         objetAttachableCombat_ = defaultObjetAttachableCombat();

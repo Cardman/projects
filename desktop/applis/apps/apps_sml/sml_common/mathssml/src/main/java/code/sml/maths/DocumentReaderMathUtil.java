@@ -15,6 +15,7 @@ import code.util.CollCapacity;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -126,11 +127,11 @@ public final class DocumentReaderMathUtil {
         int len_ = childElements_.getLength();
         CollCapacity cap_ = new CollCapacity(len_/2);
         MonteCarloBoolean map_ = new MonteCarloBoolean(cap_);
-        CustList<Boolean> keys_ = new CustList<Boolean>(cap_);
+        CustList<BoolVal> keys_ = new CustList<BoolVal>(cap_);
         CustList<LgInt> values_ = new CustList<LgInt>(cap_);
         for (Element c: childElements_) {
             if (DocumentReaderCoreUtil.hasKey(c)) {
-                keys_.add(DocumentReaderCoreUtil.getBoolean(c));
+                keys_.add(DocumentReaderCoreUtil.getBoolVal(c));
             } else {
                 values_.add(getLgInt(c));
             }

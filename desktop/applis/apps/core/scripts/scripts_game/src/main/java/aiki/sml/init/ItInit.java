@@ -9,6 +9,8 @@ import aiki.fight.enums.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.util.*;
+import code.util.core.BoolVal;
+
 public final class ItInit extends CstIgame{
 private ItInit(){}
 public static StringMap<Item> it(){
@@ -2591,8 +2593,8 @@ return m486fossil_;
 static Item m284(){
 ItemForBattle m487itemForBattle_ =Instances.newItemForBattle();
 MonteCarloBoolean m487monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(2));
-m487monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt(R_4));
-m487monteCarloBoolean_.addQuickEvent(true,LgInt.newLgInt(R_1));
+m487monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_4));
+m487monteCarloBoolean_.addQuickEvent(BoolVal.TRUE,LgInt.newLgInt(R_1));
 m487itemForBattle_.setLawForAttackFirst(m487monteCarloBoolean_);
 m487itemForBattle_.setPrice(1000);
 return m487itemForBattle_;

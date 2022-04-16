@@ -8,6 +8,7 @@ import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -117,7 +118,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         if (_law.isZero()) {
             return Rate.zero();
         }
-        return _law.normalizedRate(true);
+        return _law.normalizedRate(BoolVal.TRUE);
     }
 
     public DataBase getDataBase() {

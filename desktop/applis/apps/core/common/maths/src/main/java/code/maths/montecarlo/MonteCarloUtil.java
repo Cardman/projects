@@ -5,6 +5,7 @@ import code.maths.NumDiffDenNum;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class MonteCarloUtil {
@@ -16,20 +17,20 @@ public final class MonteCarloUtil {
     public static MonteCarloBoolean booleanLaw(Rate _rateEnabled) {
         MonteCarloBoolean loi_ = new MonteCarloBoolean();
         if (_rateEnabled.greaterOrEqualsOne()){
-            loi_.addQuickEvent(true,LgInt.one());
+            loi_.addQuickEvent(BoolVal.TRUE,LgInt.one());
             return loi_;
         }
         if (!_rateEnabled.isZeroOrGt()) {
-            loi_.addQuickEvent(false,LgInt.one());
+            loi_.addQuickEvent(BoolVal.FALSE,LgInt.one());
             return loi_;
         }
         if (_rateEnabled.isZero()) {
-            loi_.addQuickEvent(false,LgInt.one());
+            loi_.addQuickEvent(BoolVal.FALSE,LgInt.one());
             return loi_;
         }
         NumDiffDenNum p_ = _rateEnabled.getNumDiffDenNum();
-        loi_.addQuickEvent(true,p_.getNumerator());
-        loi_.addQuickEvent(false,p_.getDiffDenNumerator());
+        loi_.addQuickEvent(BoolVal.TRUE,p_.getNumerator());
+        loi_.addQuickEvent(BoolVal.FALSE,p_.getDiffDenNumerator());
         return loi_;
     }
 

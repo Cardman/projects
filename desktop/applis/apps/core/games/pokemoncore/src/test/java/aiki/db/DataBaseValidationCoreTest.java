@@ -33,6 +33,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.DefaultGenerator;
 import code.util.*;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
@@ -796,9 +797,9 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         statusBeginRoundAutoDamage_ = Instances.newStatusBeginRoundAutoDamage();
         statusBeginRoundAutoDamage_.getMultStat().addEntry(Statistic.HP,Rate.newRate("-1"));
         statusBeginRoundAutoDamage_.getMultStat().addEntry(Statistic.ATTACK,Rate.newRate("0"));
-        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(true,LgInt.newLgInt("-1"));
-        statusBeginRoundAutoDamage_.getLawForUsingAMoveIfFoe().addQuickEvent(true,LgInt.newLgInt("-1"));
-        statusBeginRoundAutoDamage_.getLawForFullHealIfMove().addQuickEvent(true,LgInt.newLgInt("-1"));
+        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(BoolVal.TRUE,LgInt.newLgInt("-1"));
+        statusBeginRoundAutoDamage_.getLawForUsingAMoveIfFoe().addQuickEvent(BoolVal.TRUE,LgInt.newLgInt("-1"));
+        statusBeginRoundAutoDamage_.getLawForFullHealIfMove().addQuickEvent(BoolVal.TRUE,LgInt.newLgInt("-1"));
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(Rate.newRate("-1"),LgInt.newLgInt("-1"));
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(Rate.newRate("1/2"),LgInt.newLgInt("-1"));
         statusBeginRoundAutoDamage_.getEffectEndRound().add(Instances.newEffectEndRoundStatusRelation());
@@ -818,7 +819,7 @@ public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
         ItemForBattle itemForBattle_ = Instances.newItemForBattle();
-        itemForBattle_.getLawForAttackFirst().addQuickEvent(true,LgInt.newLgInt("-1"));
+        itemForBattle_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE,LgInt.newLgInt("-1"));
         itemForBattle_.getEffectEndRound().add(Instances.newEffectEndRoundGlobal());
         itemForBattle_.getEffectEndRound().add(Instances.newEffectEndRoundGlobal());
         itemForBattle_.getEffectSending().add(Instances.newEffectWhileSendingSimple());

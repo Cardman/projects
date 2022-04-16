@@ -11,9 +11,6 @@ public final class EventFreq<E> {
         this.freq = _freq;
     }
 
-    public boolean match(E _in) {
-        return event == _in;
-    }
     public E getEvent() {
         return event;
     }

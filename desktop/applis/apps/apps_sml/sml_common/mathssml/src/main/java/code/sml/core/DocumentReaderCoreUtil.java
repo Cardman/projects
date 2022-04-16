@@ -8,6 +8,8 @@ import code.util.CustList;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -22,6 +24,10 @@ public final class DocumentReaderCoreUtil {
 
     public static boolean getBoolean(Element _elt) {
         return Boolean.parseBoolean(_elt.getAttribute("value"));
+    }
+
+    public static BoolVal getBoolVal(Element _elt) {
+        return ComparatorBoolean.of(getBoolean(_elt));
     }
 
     public static byte getByte(Element _elt) {

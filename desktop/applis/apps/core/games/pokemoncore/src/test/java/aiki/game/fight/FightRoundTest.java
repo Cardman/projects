@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -266,7 +267,7 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = autoDamage(diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
         MonteCarloBoolean law_ = new MonteCarloBoolean();
-        law_.addQuickEvent(true, LgInt.one());
+        law_.addQuickEvent(BoolVal.TRUE, LgInt.one());
         FightRound.disableRandomlyStatus(fight_,law_, POKEMON_PLAYER_FIGHTER_ZERO, POISON_GRAVE, true, data_);
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(POISON_GRAVE));
         FightRound.disableRandomlyStatus(fight_,law_, POKEMON_PLAYER_FIGHTER_ZERO, POISON_GRAVE, false, data_);
@@ -280,7 +281,7 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = autoDamage(diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
         MonteCarloBoolean law_ = new MonteCarloBoolean();
-        law_.addQuickEvent(false, LgInt.one());
+        law_.addQuickEvent(BoolVal.FALSE, LgInt.one());
         FightRound.disableRandomlyStatus(fight_,law_, POKEMON_PLAYER_FIGHTER_ZERO, POISON_GRAVE, true, data_);
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(POISON_GRAVE));
         FightRound.disableRandomlyStatus(fight_,law_, POKEMON_PLAYER_FIGHTER_ZERO, POISON_GRAVE, false, data_);
@@ -306,8 +307,8 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.setSimulation(true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
         MonteCarloBoolean law_ = new MonteCarloBoolean();
-        law_.addQuickEvent(true, LgInt.one());
-        law_.addQuickEvent(false, LgInt.one());
+        law_.addQuickEvent(BoolVal.TRUE, LgInt.one());
+        law_.addQuickEvent(BoolVal.FALSE, LgInt.one());
         FightRound.disableRandomlyStatus(fight_,law_, POKEMON_PLAYER_FIGHTER_ZERO, POISON_GRAVE, false, data_);
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(POISON_GRAVE));
     }
@@ -320,8 +321,8 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.setSimulation(true);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
         MonteCarloBoolean law_ = new MonteCarloBoolean();
-        law_.addQuickEvent(true, LgInt.one());
-        law_.addQuickEvent(false, LgInt.one());
+        law_.addQuickEvent(BoolVal.TRUE, LgInt.one());
+        law_.addQuickEvent(BoolVal.FALSE, LgInt.one());
         FightRound.disableRandomlyStatus(fight_,law_, POKEMON_FOE_FIGHTER_ZERO, POISON_GRAVE, false, data_);
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusNbRound(POISON_GRAVE));
     }

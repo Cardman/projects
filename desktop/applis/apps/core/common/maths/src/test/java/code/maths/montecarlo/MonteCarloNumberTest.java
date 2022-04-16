@@ -1,6 +1,7 @@
 package code.maths.montecarlo;
 
 import code.maths.EquallableMathUtil;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import code.maths.LgInt;
@@ -99,21 +100,21 @@ public class MonteCarloNumberTest extends EquallableMathUtil {
         law_.addEvent(new Rate(2), new LgInt(1));
         law_.addEvent(new Rate(3), new LgInt(5));
         MonteCarloBoolean resLaw_ = law_.knowingLower(new Rate(2));
-        assertTrue(resLaw_.containsEvent(false));
+        assertTrue(resLaw_.containsEvent(BoolVal.FALSE));
         assertEq(1,resLaw_.events().size());
         resLaw_ = law_.knowingLower(new Rate(5,2));
-        assertTrue(resLaw_.containsEvent(true));
+        assertTrue(resLaw_.containsEvent(BoolVal.TRUE));
         assertEq(1,resLaw_.events().size());
         resLaw_ = law_.knowingLower(new Rate(3));
         assertEq(2,resLaw_.events().size());
-        assertEq(new LgInt(1),resLaw_.rate(true));
-        assertEq(new LgInt(5),resLaw_.rate(false));
+        assertEq(new LgInt(1),resLaw_.rate(BoolVal.TRUE));
+        assertEq(new LgInt(5),resLaw_.rate(BoolVal.FALSE));
         resLaw_ = law_.knowingLower(new Rate(4));
         assertEq(1,resLaw_.events().size());
-        assertTrue(resLaw_.containsEvent(true));
+        assertTrue(resLaw_.containsEvent(BoolVal.TRUE));
         resLaw_ = law_.knowingLower(new Rate(3,2));
         assertEq(1,resLaw_.events().size());
-        assertTrue(resLaw_.containsEvent(false));
+        assertTrue(resLaw_.containsEvent(BoolVal.FALSE));
     }
 
     @Test
@@ -123,20 +124,20 @@ public class MonteCarloNumberTest extends EquallableMathUtil {
         law_.addEvent(new Rate(3), new LgInt(5));
         MonteCarloBoolean resLaw_ = law_.knowingGreater(new Rate(2));
         assertEq(2,resLaw_.events().size());
-        assertEq(new LgInt(5),resLaw_.rate(true));
-        assertEq(new LgInt(1),resLaw_.rate(false));
+        assertEq(new LgInt(5),resLaw_.rate(BoolVal.TRUE));
+        assertEq(new LgInt(1),resLaw_.rate(BoolVal.FALSE));
         resLaw_ = law_.knowingGreater(new Rate(5,2));
-        assertTrue(resLaw_.containsEvent(true));
+        assertTrue(resLaw_.containsEvent(BoolVal.TRUE));
         assertEq(1,resLaw_.events().size());
         resLaw_ = law_.knowingGreater(new Rate(3));
         assertEq(1,resLaw_.events().size());
-        assertTrue(resLaw_.containsEvent(false));
+        assertTrue(resLaw_.containsEvent(BoolVal.FALSE));
         resLaw_ = law_.knowingGreater(new Rate(4));
         assertEq(1,resLaw_.events().size());
-        assertTrue(resLaw_.containsEvent(false));
+        assertTrue(resLaw_.containsEvent(BoolVal.FALSE));
         resLaw_ = law_.knowingGreater(new Rate(3,2));
         assertEq(1,resLaw_.events().size());
-        assertTrue(resLaw_.containsEvent(true));
+        assertTrue(resLaw_.containsEvent(BoolVal.TRUE));
     }
 
     @Test

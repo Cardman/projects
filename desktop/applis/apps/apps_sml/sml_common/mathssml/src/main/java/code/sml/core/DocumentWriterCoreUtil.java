@@ -10,6 +10,7 @@ import code.util.*;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public final class DocumentWriterCoreUtil {
 
@@ -19,6 +20,10 @@ public final class DocumentWriterCoreUtil {
         Element elt_ = _document.createElement("null");
         setFieldName(elt_, _fieldName);
         return elt_;
+    }
+
+    public static Element setBoolean(BoolVal _object, String _fieldName, Document _document) {
+        return setBoolean(_object == BoolVal.TRUE,_fieldName,_document);
     }
 
     public static Element setBoolean(boolean _object, String _fieldName, Document _document) {

@@ -12,6 +12,7 @@ import code.sml.Element;
 import code.util.EntryCust;
 import code.util.*;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public final class DocumentWriterMathUtil {
 
@@ -103,10 +104,10 @@ public final class DocumentWriterMathUtil {
         return elt_;
     }
 
-    public static Element setBooleanMapLgInt(CustList<EventFreq<Boolean>> _object, String _fieldName, Document _document) {
+    public static Element setBooleanMapLgInt(CustList<EventFreq<BoolVal>> _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_MAP);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        for (EventFreq<Boolean> s: _object) {
+        for (EventFreq<BoolVal> s: _object) {
             Element sub_ = DocumentWriterCoreUtil.setBoolean(s.getEvent(), EMPTY_STRING, _document);
             DocumentWriterCoreUtil.setKey(sub_);
             elt_.appendChild(sub_);

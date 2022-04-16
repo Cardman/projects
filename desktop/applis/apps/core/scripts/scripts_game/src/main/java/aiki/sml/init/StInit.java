@@ -10,6 +10,8 @@ import aiki.fight.enums.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.util.*;
+import code.util.core.BoolVal;
+
 public final class StInit extends CstIgame{
 private StInit(){}
 public static StringMap<Status> st(){
@@ -32,8 +34,8 @@ return m2016s_;
 static Status m0(){
 StatusBeginRoundSimple m2017statusBeginRoundSimple_ = Instances.newStatusBeginRoundSimple();
 MonteCarloBoolean m2017monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(2));
-m2017monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt(R_1));
-m2017monteCarloBoolean_.addQuickEvent(true,LgInt.newLgInt(R_1));
+m2017monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_1));
+m2017monteCarloBoolean_.addQuickEvent(BoolVal.TRUE,LgInt.newLgInt(R_1));
 m2017statusBeginRoundSimple_.setLawForUsingAMoveIfFoe(m2017monteCarloBoolean_);
 m2017statusBeginRoundSimple_.setStatusType(StatusType.RELATION_UNIQUE);
 m2017statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_3));
@@ -90,8 +92,8 @@ m2020statusBeginRoundAutoDamage_.setPower(Rate.newRate(R_40));
 m2020statusBeginRoundAutoDamage_.setAttack(Statistic.ATTACK);
 m2020statusBeginRoundAutoDamage_.setDefense(Statistic.DEFENSE);
 MonteCarloBoolean m2020monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(2));
-m2020monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt(R_1));
-m2020monteCarloBoolean_.addQuickEvent(true,LgInt.newLgInt(R_3));
+m2020monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_1));
+m2020monteCarloBoolean_.addQuickEvent(BoolVal.TRUE,LgInt.newLgInt(R_3));
 m2020statusBeginRoundAutoDamage_.setLawForUsingAMove(m2020monteCarloBoolean_);
 m2020statusBeginRoundAutoDamage_.setStatusType(StatusType.INDIVIDUEL);
 m2020statusBeginRoundAutoDamage_.setCatchingRate(Rate.newRate(R_3));
@@ -102,11 +104,11 @@ return m2020statusBeginRoundAutoDamage_;
 static Status m4(){
 StatusBeginRoundSimple m2021statusBeginRoundSimple_ = Instances.newStatusBeginRoundSimple();
 MonteCarloBoolean m2021monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(2));
-m2021monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt(R_9));
-m2021monteCarloBoolean_.addQuickEvent(true,LgInt.newLgInt(R_1));
+m2021monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_9));
+m2021monteCarloBoolean_.addQuickEvent(BoolVal.TRUE,LgInt.newLgInt(R_1));
 m2021statusBeginRoundSimple_.setLawForUsingAMove(m2021monteCarloBoolean_);
 m2021monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(1));
-m2021monteCarloBoolean_.addQuickEvent(true,LgInt.newLgInt(R_1));
+m2021monteCarloBoolean_.addQuickEvent(BoolVal.TRUE,LgInt.newLgInt(R_1));
 m2021statusBeginRoundSimple_.setLawForFullHealIfMove(m2021monteCarloBoolean_);
 m2021statusBeginRoundSimple_.setStatusType(StatusType.INDIVIDUEL);
 m2021statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_5_2));
@@ -133,8 +135,8 @@ return m2022statusSimple_;
 static Status m6(){
 StatusBeginRoundSimple m2023statusBeginRoundSimple_ = Instances.newStatusBeginRoundSimple();
 MonteCarloBoolean m2023monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(2));
-m2023monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt(R_1));
-m2023monteCarloBoolean_.addQuickEvent(true,LgInt.newLgInt(R_3));
+m2023monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_1));
+m2023monteCarloBoolean_.addQuickEvent(BoolVal.TRUE,LgInt.newLgInt(R_3));
 m2023statusBeginRoundSimple_.setLawForUsingAMove(m2023monteCarloBoolean_);
 m2023statusBeginRoundSimple_.setStatusType(StatusType.INDIVIDUEL);
 m2023statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_2));
@@ -147,7 +149,7 @@ return m2023statusBeginRoundSimple_;
 static Status m7(){
 StatusBeginRoundSimple m2024statusBeginRoundSimple_ = Instances.newStatusBeginRoundSimple();
 MonteCarloBoolean m2024monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(1));
-m2024monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt(R_1));
+m2024monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_1));
 m2024statusBeginRoundSimple_.setLawForUsingAMove(m2024monteCarloBoolean_);
 m2024statusBeginRoundSimple_.setStatusType(StatusType.INDIVIDUEL);
 m2024statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_5_4));
@@ -194,7 +196,7 @@ return m2026statusSimple_;
 static Status m10(){
 StatusBeginRoundSimple m2027statusBeginRoundSimple_ = Instances.newStatusBeginRoundSimple();
 MonteCarloBoolean m2027monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(1));
-m2027monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt(R_1));
+m2027monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_1));
 m2027statusBeginRoundSimple_.setLawForUsingAMove(m2027monteCarloBoolean_);
 m2027statusBeginRoundSimple_.setStatusType(StatusType.INDIVIDUEL);
 m2027statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_5_2));
@@ -204,7 +206,7 @@ return m2027statusBeginRoundSimple_;
 static Status m11(){
 StatusBeginRoundSimple m2028statusBeginRoundSimple_ = Instances.newStatusBeginRoundSimple();
 MonteCarloBoolean m2028monteCarloBoolean_=new MonteCarloBoolean(new CollCapacity(1));
-m2028monteCarloBoolean_.addQuickEvent(false,LgInt.newLgInt(R_1));
+m2028monteCarloBoolean_.addQuickEvent(BoolVal.FALSE,LgInt.newLgInt(R_1));
 m2028statusBeginRoundSimple_.setLawForUsingAMove(m2028monteCarloBoolean_);
 m2028statusBeginRoundSimple_.setStatusType(StatusType.INDIVIDUEL);
 m2028statusBeginRoundSimple_.setCatchingRate(Rate.newRate(R_5_2));

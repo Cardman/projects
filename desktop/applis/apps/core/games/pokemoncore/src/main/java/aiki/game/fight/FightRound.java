@@ -621,7 +621,7 @@ final class FightRound {
                     if(_fight.getSimulation()){
                         fini_= NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE);
                     } else {
-                        fini_=!loiModif_.editNumber(maxRd_,_import.getGenerator());
+                        fini_=!FightSuccess.tr(loiModif_.editNumber(maxRd_,_import.getGenerator()));
                     }
                 }
                 if(fini_){
@@ -649,7 +649,7 @@ final class FightRound {
                         if(_fight.getSimulation()){
                             fini_= NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE);
                         } else {
-                            fini_=!loiModif_.editNumber(maxRd_,_import.getGenerator());
+                            fini_=!FightSuccess.tr(loiModif_.editNumber(maxRd_,_import.getGenerator()));
                         }
                     }
                     if(fini_){
@@ -685,7 +685,7 @@ final class FightRound {
                 }else{
                     tirageGuerison_=true;
                 }
-            }else if(lawUseMove_.editNumber(maxRd_,_import.getGenerator())){
+            }else if(FightSuccess.tr(lawUseMove_.editNumber(maxRd_,_import.getGenerator()))){
                 //attaquer_ == true
                 tirageGuerison_=true;
             }else{
@@ -702,7 +702,7 @@ final class FightRound {
                     attaquerAdv_=false;
                 }
             } else {
-                attaquerAdv_ = lawUseMoveIfFoe_.editNumber(maxRd_,_import.getGenerator());
+                attaquerAdv_ = FightSuccess.tr(lawUseMoveIfFoe_.editNumber(maxRd_,_import.getGenerator()));
             }
         }
         MonteCarloBoolean lawFullHeal_ = status_.getLawForFullHealIfMove();
@@ -736,7 +736,7 @@ final class FightRound {
                 creature_.supprimerStatut(_nomStatut);
                 _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
             }
-        }else if(_lawFullHeal.editNumber(maxRd_,_import.getGenerator())){
+        }else if(FightSuccess.tr(_lawFullHeal.editNumber(maxRd_,_import.getGenerator()))){
             creature_.supprimerStatut(_nomStatut);
             _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
         }

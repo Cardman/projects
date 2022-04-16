@@ -20,6 +20,7 @@ import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 final class InitializationStatus {
 
@@ -71,8 +72,8 @@ final class InitializationStatus {
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("1"),new LgInt("9"));
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("4"),new LgInt("8"));
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("2"),new LgInt("6"));
-        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(false,new LgInt("3"));
-        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(true,new LgInt("1"));
+        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE,new LgInt("3"));
+        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRoundAutoDamage_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRoundAutoDamage_.setCatchingRate(new Rate("3"));
         statusBeginRoundAutoDamage_.setDisabledEffIfSwitch(true);
@@ -82,7 +83,7 @@ final class InitializationStatus {
         statusBeginRoundAutoDamage_.setAttack(Statistic.ATTACK);
         statusBeginRoundAutoDamage_.setDefense(Statistic.DEFENSE);
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("4"),new LgInt("8"));
-        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(false,new LgInt("1"));
+        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE,new LgInt("1"));
         statusBeginRoundAutoDamage_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRoundAutoDamage_.setCatchingRate(new Rate("3"));
         statusBeginRoundAutoDamage_.setDisabledEffIfSwitch(true);
@@ -92,7 +93,7 @@ final class InitializationStatus {
         statusBeginRoundAutoDamage_.setAttack(Statistic.ATTACK);
         statusBeginRoundAutoDamage_.setDefense(Statistic.DEFENSE);
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("4"),new LgInt("8"));
-        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(true,new LgInt("1"));
+        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRoundAutoDamage_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRoundAutoDamage_.setCatchingRate(new Rate("3"));
         statusBeginRoundAutoDamage_.setDisabledEffIfSwitch(true);
@@ -102,7 +103,7 @@ final class InitializationStatus {
         statusBeginRoundAutoDamage_.setAttack(Statistic.ATTACK);
         statusBeginRoundAutoDamage_.setDefense(Statistic.DEFENSE);
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("4"),new LgInt("8"));
-        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(false,new LgInt("1"));
+        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE,new LgInt("1"));
         statusBeginRoundAutoDamage_.setStatusType(StatusType.RELATION_UNIQUE);
         statusBeginRoundAutoDamage_.setCatchingRate(new Rate("3"));
         statusBeginRoundAutoDamage_.setDisabledEffIfSwitch(true);
@@ -113,14 +114,14 @@ final class InitializationStatus {
         statusBeginRoundAutoDamage_.setDefense(Statistic.DEFENSE);
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("3"),new LgInt("1"));
         statusBeginRoundAutoDamage_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("4"),new LgInt("1"));
-        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(false,new LgInt("1"));
+        statusBeginRoundAutoDamage_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE,new LgInt("1"));
         statusBeginRoundAutoDamage_.setStatusType(StatusType.RELATION_UNIQUE);
         statusBeginRoundAutoDamage_.setCatchingRate(new Rate("3"));
         statusBeginRoundAutoDamage_.setDisabledEffIfSwitch(true);
         _data.completeQuickMembers(COUP_DE_BEC,statusBeginRoundAutoDamage_);
         statusBeginRound_ = defaultStatusBeginRound();
         statusBeginRound_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("0"),new LgInt("1"));
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(true,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRound_.setCatchingRate(new Rate("5/4"));
         //statusBeginRound_.setIncrementEndRound(41);
@@ -130,7 +131,7 @@ final class InitializationStatus {
         _data.completeQuickMembers(PEUR,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
         statusBeginRound_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("2"),new LgInt("1"));
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(false,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRound_.setCatchingRate(new Rate("5/4"));
         //statusBeginRound_.setIncrementEndRound(41);
@@ -159,8 +160,8 @@ final class InitializationStatus {
         statut_.getEffectEndRound().add(effectEndRoundStatusRelation_);
         _data.completeQuickMembers(VAMPIGRAINE,statut_);
         statusBeginRound_ = defaultStatusBeginRound();
-        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(false,new LgInt("1"));
-        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(true,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(BoolVal.FALSE,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.RELATION_UNIQUE);
         statusBeginRound_.setCatchingRate(new Rate("3"));
         effectPartnerStatus_ = defaultEffectPartnerStatus();
@@ -170,7 +171,7 @@ final class InitializationStatus {
         statusBeginRound_.getEffectsPartner().add(effectPartnerStatus_);
         _data.completeQuickMembers(AMOUR,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
-        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(true,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.RELATION_UNIQUE);
         statusBeginRound_.setCatchingRate(new Rate("3"));
         effectPartnerStatus_ = defaultEffectPartnerStatus();
@@ -179,7 +180,7 @@ final class InitializationStatus {
         statusBeginRound_.getEffectsPartner().add(effectPartnerStatus_);
         _data.completeQuickMembers(AMOUR_FOU,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
-        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(false,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(BoolVal.FALSE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.RELATION_UNIQUE);
         statusBeginRound_.setCatchingRate(new Rate("3"));
         effectPartnerStatus_ = defaultEffectPartnerStatus();
@@ -188,8 +189,8 @@ final class InitializationStatus {
         statusBeginRound_.getEffectsPartner().add(effectPartnerStatus_);
         _data.completeQuickMembers(AMOUR_MOU,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
-        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(false,new LgInt("1"));
-        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(true,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(BoolVal.FALSE,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMoveIfFoe().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.RELATION_UNIQUE);
         statusBeginRound_.setCatchingRate(new Rate("3"));
         effectPartnerStatus_ = defaultEffectPartnerStatus();
@@ -259,21 +260,21 @@ final class InitializationStatus {
         statusBeginRound_.getEffectEndRound().add(effectEndRoundStatusRelation_);
         _data.completeQuickMembers(NUIT_NOIRE,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(false,new LgInt("9"));
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(true,new LgInt("1"));
-        statusBeginRound_.getLawForFullHealIfMove().addQuickEvent(true,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE,new LgInt("9"));
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
+        statusBeginRound_.getLawForFullHealIfMove().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRound_.setCatchingRate(new Rate("5/2"));
         _data.completeQuickMembers(GEL,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(false,new LgInt("9"));
-        statusBeginRound_.getLawForFullHealIfMove().addQuickEvent(true,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE,new LgInt("9"));
+        statusBeginRound_.getLawForFullHealIfMove().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRound_.setCatchingRate(new Rate("5/2"));
         _data.completeQuickMembers(ERE_GEL,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(true,new LgInt("9"));
-        statusBeginRound_.getLawForFullHealIfMove().addQuickEvent(true,new LgInt("1"));
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.TRUE,new LgInt("9"));
+        statusBeginRound_.getLawForFullHealIfMove().addQuickEvent(BoolVal.TRUE,new LgInt("1"));
         statusBeginRound_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRound_.setCatchingRate(new Rate("5/2"));
         _data.completeQuickMembers(FEU_GEL,statusBeginRound_);
@@ -340,19 +341,19 @@ final class InitializationStatus {
         statusBeginRound_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRound_.setCatchingRate(new Rate("3/2"));
         statusBeginRound_.getMultStat().addEntry(Statistic.SPEED,new Rate("1/4"));
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(false, LgInt.one());
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE, LgInt.one());
         statusBeginRound_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("3"), new LgInt("1"));
         _data.completeQuickMembers(PARALYSIE_FORTE,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
         statusBeginRound_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRound_.setCatchingRate(new Rate("5/2"));
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(false, LgInt.one());
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE, LgInt.one());
         statusBeginRound_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("2"), new LgInt("1"));
         _data.completeQuickMembers(SOMMEIL,statusBeginRound_);
         statusBeginRound_ = defaultStatusBeginRound();
         statusBeginRound_.setStatusType(StatusType.INDIVIDUEL);
         statusBeginRound_.setCatchingRate(new Rate("5/2"));
-        statusBeginRound_.getLawForUsingAMove().addQuickEvent(false, LgInt.one());
+        statusBeginRound_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE, LgInt.one());
         statusBeginRound_.getLawForUsingAMoveNbRound().addQuickEvent(new Rate("2"), new LgInt("1"));
         _data.completeQuickMembers(SOMMEIL_REPOS,statusBeginRound_);
     }

@@ -3,6 +3,7 @@ package code.maths.montecarlo;
 import code.maths.EquallableMathUtil;
 import code.util.CollCapacity;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import code.maths.LgInt;
@@ -90,8 +91,8 @@ public class MonteCarloTest extends EquallableMathUtil {
         Rate rate_ = new Rate("-1");
         MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.containsEvent(false));
-        assertTrue(!law_.containsEvent(true));
+        assertTrue(law_.containsEvent(BoolVal.FALSE));
+        assertTrue(!law_.containsEvent(BoolVal.TRUE));
     }
 
     @Test
@@ -99,7 +100,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         Rate rate_ = new Rate("0");
         MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.containsEvent(false));
+        assertTrue(law_.containsEvent(BoolVal.FALSE));
     }
 
     @Test
@@ -107,7 +108,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         Rate rate_ = new Rate("2");
         MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(1,law_.events().size());
-        assertTrue(law_.containsEvent(true));
+        assertTrue(law_.containsEvent(BoolVal.TRUE));
     }
 
     @Test
@@ -115,12 +116,12 @@ public class MonteCarloTest extends EquallableMathUtil {
         Rate rate_ = new Rate("1/4");
         MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(rate_);
         assertEq(2,law_.events().size());
-        assertTrue(law_.containsEvent(true));
-        assertTrue(law_.containsEvent(false));
-        assertEq(new LgInt("1"),law_.rate(true));
-        assertEq(new LgInt("3"),law_.rate(false));
-        assertEq(new Rate("1/4"),law_.normalizedRate(true));
-        assertEq(new Rate("3/4"),law_.normalizedRate(false));
+        assertTrue(law_.containsEvent(BoolVal.TRUE));
+        assertTrue(law_.containsEvent(BoolVal.FALSE));
+        assertEq(new LgInt("1"),law_.rate(BoolVal.TRUE));
+        assertEq(new LgInt("3"),law_.rate(BoolVal.FALSE));
+        assertEq(new Rate("1/4"),law_.normalizedRate(BoolVal.TRUE));
+        assertEq(new Rate("3/4"),law_.normalizedRate(BoolVal.FALSE));
     }
 
     @Test
@@ -342,7 +343,7 @@ public class MonteCarloTest extends EquallableMathUtil {
     @Test
     public void new_MonteCarloBoolean_test() {
         MonteCarloBoolean l_ = new MonteCarloBoolean(new CollCapacity(1));
-        l_.addEvent(true,LgInt.one());
+        l_.addEvent(BoolVal.TRUE,LgInt.one());
         assertEq(1,l_.nbEvents());
     }
     @Test
@@ -438,10 +439,10 @@ public class MonteCarloTest extends EquallableMathUtil {
     @Test
     public void editNumber18Test() {
         MonteCarloBoolean law_ = new MonteCarloBoolean();
-        law_.addEvent(true, new LgInt(1));
-        law_.addEvent(false, new LgInt(1));
+        law_.addEvent(BoolVal.TRUE, new LgInt(1));
+        law_.addEvent(BoolVal.FALSE, new LgInt(1));
         law_.events();
-        assertEq(true, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertSame(BoolVal.TRUE, law_.editNumber(new LgInt(8), new DefaultGenerator()));
     }
     @Test
     public void normalRate1() {

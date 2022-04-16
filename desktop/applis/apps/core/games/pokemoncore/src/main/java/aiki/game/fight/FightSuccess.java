@@ -35,6 +35,7 @@ import code.util.EnumMap;
 import code.util.SortableCustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -1363,7 +1364,7 @@ final class FightSuccess {
 
     static boolean tirage(DataBase _db, Rate _probaActif){
         LgInt maxRd_ = _db.getMaxRd();
-        return MonteCarloUtil.booleanLaw(_probaActif).editNumber(maxRd_,_db.getGenerator());
+        return tr(MonteCarloUtil.booleanLaw(_probaActif).editNumber(maxRd_,_db.getGenerator()));
     }
     static Statistic random(DataBase _db, MonteCarloEnum<Statistic> _law) {
         LgInt maxRd_ = _db.getMaxRd();
@@ -1372,7 +1373,10 @@ final class FightSuccess {
 
     static boolean random(DataBase _db, MonteCarloBoolean _law) {
         LgInt maxRd_ = _db.getMaxRd();
-        return _law.editNumber(maxRd_,_db.getGenerator());
+        return tr(_law.editNumber(maxRd_,_db.getGenerator()));
+    }
+    static boolean tr(BoolVal _b) {
+        return _b == BoolVal.TRUE;
     }
     static String random(DataBase _db, MonteCarloString _law) {
         LgInt maxRd_ = _db.getMaxRd();
