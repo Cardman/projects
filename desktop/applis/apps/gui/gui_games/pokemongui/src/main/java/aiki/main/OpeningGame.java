@@ -21,19 +21,21 @@ public final class OpeningGame implements Runnable {
 
     @Override
     public void run() {
-        ThreadInvoker.invokeNow(window.getThreadFactory(),new ShowOpeningDialog(window), window.getFrames());
+        setProgress(perCent.getPercent());
+    }
+
+    public static void init(WindowAiki _window) {
+        ThreadInvoker.invokeNow(_window.getThreadFactory(),new ShowOpeningDialog(_window), _window.getFrames());
         //Avoid to have a null dialog
-        ThreadUtil.sleep(window.getThreadFactory(),WAIT_VIDEO);
-        window.getDialog().startAnimation();
-        while (window.getLoadFlag().get()) {
-            setProgress(perCent.getPercent());
-        }
-        //Freeing resources
-        window.getDialog().stopAnimation();
-        window.getDialog().getAbsDialog().setVisible(false);
-        window.getDialog().getAbsDialog().getPane().removeAll();
-        window.getDialog().stopTimer();
-        window = null;
+        ThreadUtil.sleep(_window.getThreadFactory(),WAIT_VIDEO);
+        _window.getDialog().startAnimation();
+    }
+
+    public static void end(WindowAiki _window) {
+        _window.getDialog().stopAnimation();
+        _window.getDialog().getAbsDialog().setVisible(false);
+        _window.getDialog().getAbsDialog().getPane().removeAll();
+        _window.getDialog().stopTimer();
     }
 
     private void setProgress(int _perCentLoading) {

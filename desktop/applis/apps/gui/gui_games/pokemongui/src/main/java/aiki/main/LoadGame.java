@@ -20,15 +20,12 @@ public final class LoadGame implements Runnable {
 
     @Override
     public void run() {
-        ThreadInvoker.invokeNow(frame.getThreadFactory(),new ShowLoadingDialog(frame), frame.getFrames());
-        frame.getDialog().startAnimation();
-        while (frame.getLoadFlag().get()) {
-            setProgress(perCent.getPercent());
-        }
-        frame.getDialog().stopAnimation();
-        frame.getDialog().getAbsDialog().setVisible(false);
-        frame.getDialog().getAbsDialog().getPane().removeAll();
-        frame.getDialog().stopTimer();
+        setProgress(perCent.getPercent());
+    }
+
+    public static void init(WindowAiki _frame) {
+        ThreadInvoker.invokeNow(_frame.getThreadFactory(),new ShowLoadingDialog(_frame), _frame.getFrames());
+        _frame.getDialog().startAnimation();
     }
 
     private void setProgress(int _perCentLoading) {

@@ -822,9 +822,7 @@ public final class WindowAiki extends NetGroupFrame {
         PerCent p_ = new PerCentIncr(getThreadFactory().newAtomicInteger());
         loadFlag.set(true);
         LoadingThread load_ = new LoadingThread(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages()));
-        LoadGame opening_ = new LoadGame(this,p_);
         getThreadFactory().newStartedThread(load_);
-        getThreadFactory().newStartedThread(opening_);
     }
 
     public void loadGame() {

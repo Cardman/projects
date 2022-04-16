@@ -1,14 +1,16 @@
 package aiki.main;
 
 import aiki.db.DataBase;
-import aiki.sml.LoadingData;
 import aiki.db.PerCent;
-import aiki.sml.LoadingGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.threads.PerCentIncr;
+import aiki.sml.LoadingData;
+import aiki.sml.LoadingGame;
 import code.gui.FrameUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -53,9 +55,11 @@ public final class CreateMainWindowParam implements Runnable {
         }
         loadRom_ = path_;
         PerCent p_ = new PerCentIncr(window.getThreadFactory().newAtomicInteger());
+        AbstractScheduledExecutorService sch_ = window.getThreadFactory().newScheduledExecutorService();
         window.getLoadFlag().set(true);
         OpeningGame opening_ = new OpeningGame(window,p_);
-        window.getThreadFactory().newStartedThread(opening_);
+        OpeningGame.init(window);
+        AbstractFuture abs_ = sch_.scheduleAtFixedRateNanos(opening_, 0, 1);
         if (!load.getLastSavedGame().isEmpty()) {
             window.loadRomGame(load, path, files, true,p_,loadingData);
         } else {
@@ -65,6 +69,9 @@ public final class CreateMainWindowParam implements Runnable {
             stoppedLoading_ = true;
         }
         window.getLoadFlag().set(false);
+        abs_.cancel(false);
+        sch_.shutdown();
+        OpeningGame.end(window);
         window.setLoadingConf(load, false);
         FrameUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_), window.getFrames());
     }
