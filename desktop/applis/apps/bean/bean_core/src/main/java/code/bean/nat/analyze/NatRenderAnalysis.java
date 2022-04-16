@@ -50,7 +50,7 @@ public final class NatRenderAnalysis {
     }
 
     private static NatOperationNode getAnalyzedNext(NatOperationNode _current, NatOperationNode _root, CustList<NatOperationNode> _sortedNodes, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        NatOperationNode next_ = createFirstChild(_current, _anaDoc, _page);
+        NatOperationNode next_ = create(_anaDoc, _page, _current, 0);
         if (next_ != null) {
             ((MethodNatOperation) _current).appendChild(next_);
             return next_;
@@ -60,7 +60,7 @@ public final class NatRenderAnalysis {
             processAnalyze(current_, _page);
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
-            next_ = createNextSibling(current_, _anaDoc, _page);
+            next_ = create(_anaDoc, _page, current_.getParent(), current_.getIndexChild() + 1);
             MethodNatOperation par_ = current_.getParent();
             if (next_ != null) {
                 if (par_ instanceof AbstractDotNatOperation) {
@@ -90,34 +90,22 @@ public final class NatRenderAnalysis {
 
     }
 
-    private static NatOperationNode createFirstChild(NatOperationNode _block, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        if (!(_block instanceof MethodNatOperation)) {
+    private static NatOperationNode create(AnalyzingDoc _anaDoc, NatAnalyzedCode _page, NatOperationNode _pa, int _nex) {
+        if (!(_pa instanceof MethodNatOperation)) {
             return null;
         }
-        MethodNatOperation block_ = (MethodNatOperation) _block;
-        if (block_.getChildren().isEmpty()) {
-            return null;
-        }
-        return build(block_, _anaDoc, _page, block_, 0);
-    }
-
-    private static NatOperationNode createNextSibling(NatOperationNode _block, AnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        MethodNatOperation p_ = _block.getParent();
-        if (p_ == null) {
-            return null;
-        }
+        MethodNatOperation p_ = (MethodNatOperation) _pa;
         StrTypes children_ = p_.getChildren();
-        int del_ = _block.getIndexChild() + 1;
-        if (del_ >= children_.size()) {
+        if (_nex >= children_.size()) {
             return null;
         }
-        return build(_block, _anaDoc, _page, p_, del_);
+        return build(_anaDoc, _page, p_, _nex);
     }
 
-    private static NatOperationNode build(NatOperationNode _block, AnalyzingDoc _anaDoc, NatAnalyzedCode _page, MethodNatOperation _p, int _del) {
+    private static NatOperationNode build(AnalyzingDoc _anaDoc, NatAnalyzedCode _page, MethodNatOperation _p, int _del) {
         StrTypes children_ = _p.getChildren();
         String value_ = children_.getValue(_del);
-        NatDelimiters d_ = _block.getOperations().getDelimiterNat();
+        NatDelimiters d_ = _p.getOperations().getDelimiterNat();
         int curKey_ = children_.getKey(_del);
         int offset_ = _p.getIndexInEl() + curKey_;
         NatOperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc);

@@ -200,7 +200,7 @@ public final class MaParser {
     }
 
     public static MaOperationNode getAnalyzedNext(MaOperationNode _current, MaOperationNode _root, CustList<MaOperationNode> _sortedNodes, MaError _error, MaDelimiters _del, MaParameters _mapping) {
-        MaOperationNode next_ = createFirstChild(_current, _error, _del, _mapping);
+        MaOperationNode next_ = create(_error, _del, _mapping, _current, 0);
         if (_error.getOffset() > -1) {
             return null;
         }
@@ -212,7 +212,7 @@ public final class MaParser {
         while (true) {
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
-            next_ = createNextSibling(current_, _error, _del, _mapping);
+            next_ = create(_error, _del, _mapping, current_.getPar(), current_.getChildIndex() + 1);
             if (_error.getOffset() > -1) {
                 return null;
             }
@@ -233,41 +233,20 @@ public final class MaParser {
         }
     }
 
-    private static MaOperationNode createFirstChild(MaOperationNode _block, MaError _error, MaDelimiters _delimiter, MaParameters _mapping) {
-        if (!(_block instanceof MethodMaOperation)) {
+    private static MaOperationNode create(MaError _error, MaDelimiters _delimiter, MaParameters _mapping, MaOperationNode _p, int _nextIndex) {
+        if (!(_p instanceof MethodMaOperation)) {
             return null;
         }
-        MethodMaOperation block_ = (MethodMaOperation) _block;
-        if (block_.getChs().isEmpty()) {
-            return null;
-        }
-        String value_ = block_.getChs().getValue(0);
-        int curKey_ = block_.getChs().getKey(0);
-        int offset_ = block_.getIndexExp()+curKey_;
-        MaOperationsSequence r_ = getOperationsSequence(offset_, value_, _delimiter);
-        MaOperationNode op_ = MaOperationNode.createOperationNodeAndChild(offset_, IndexConstants.FIRST_INDEX, block_, r_, _mapping);
-        if (op_ == null) {
-            _error.setOffset(offset_);
-            return null;
-        }
-        return op_;
-    }
-
-    private static MaOperationNode createNextSibling(MaOperationNode _block, MaError _error, MaDelimiters _delimiter, MaParameters _mapping) {
-        MethodMaOperation p_ = _block.getPar();
-        if (p_ == null) {
-            return null;
-        }
+        MethodMaOperation p_ = (MethodMaOperation) _p;
         StrTypes children_ = p_.getChs();
-        int nextIndex_ = _block.getChildIndex() + 1;
-        if (nextIndex_ >= children_.size()) {
+        if (_nextIndex >= children_.size()) {
             return null;
         }
-        String value_ = children_.getValue(nextIndex_);
-        int curKey_ = children_.getKey(nextIndex_);
+        String value_ = children_.getValue(_nextIndex);
+        int curKey_ = children_.getKey(_nextIndex);
         int offset_ = p_.getIndexExp()+curKey_;
         MaOperationsSequence r_ = getOperationsSequence(offset_, value_, _delimiter);
-        MaOperationNode op_ = MaOperationNode.createOperationNodeAndChild(offset_, nextIndex_, p_, r_, _mapping);
+        MaOperationNode op_ = MaOperationNode.createOperationNodeAndChild(offset_, _nextIndex, p_, r_, _mapping);
         if (op_ == null) {
             _error.setOffset(offset_);
             return null;

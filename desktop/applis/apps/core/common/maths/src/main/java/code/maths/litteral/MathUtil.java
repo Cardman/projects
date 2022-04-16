@@ -58,7 +58,7 @@ final class MathUtil {
     }
 
     public static MbOperationNode getAnalyzedNext(MbOperationNode _current, MbOperationNode _root, CustList<MbOperationNode> _sortedNodes, StringMap<String> _context, ErrorStatus _error, MbDelimiters _del) {
-        MbOperationNode next_ = createFirstChild(_current, _error, _del);
+        MbOperationNode next_ = create(_error, _del, 0, _current);
         if (_error.isError()) {
             return null;
         }
@@ -75,7 +75,7 @@ final class MathUtil {
             current_.setOrder(_sortedNodes.size());
             tryReduce(_context, _error, current_);
             _sortedNodes.add(current_);
-            next_ = createNextSibling(current_, _error, _del);
+            next_ = create(_error, _del, current_.getIndexChild() + 1, current_.getParent());
             if (_error.isError()) {
                 return null;
             }
@@ -110,42 +110,20 @@ final class MathUtil {
         }
     }
 
-    private static MbOperationNode createFirstChild(MbOperationNode _block, ErrorStatus _error, MbDelimiters _delimiter) {
-        if (!(_block instanceof MethodMbOperation)) {
+    private static MbOperationNode create(ErrorStatus _error, MbDelimiters _delimiter, int _nextIndex, MbOperationNode _op) {
+        if (!(_op instanceof MethodMbOperation)) {
             return null;
         }
-        MethodMbOperation block_ = (MethodMbOperation) _block;
-        if (block_.getChildren().isEmpty()) {
+        MethodMbOperation block_ = (MethodMbOperation) _op;
+        StrTypes children_ = block_.getChildren();
+        if (_nextIndex >= children_.size()) {
             return null;
         }
-        String value_ = block_.getChildren().getValue(0);
-        int curKey_ = block_.getChildren().getKey(0);
+        String value_ = children_.getValue(_nextIndex);
+        int curKey_ = children_.getKey(_nextIndex);
         int offset_ = block_.getIndexInEl()+curKey_;
         MbOperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _delimiter);
-        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(offset_, IndexConstants.FIRST_INDEX, block_, r_);
-        if (op_ == null) {
-            _error.setIndex(offset_);
-            _error.setError(true);
-            return null;
-        }
-        return op_;
-    }
-
-    private static MbOperationNode createNextSibling(MbOperationNode _block, ErrorStatus _error, MbDelimiters _delimiter) {
-        MethodMbOperation p_ = _block.getParent();
-        if (p_ == null) {
-            return null;
-        }
-        StrTypes children_ = p_.getChildren();
-        int nextIndex_ = _block.getIndexChild() + 1;
-        if (nextIndex_ >= children_.size()) {
-            return null;
-        }
-        String value_ = children_.getValue(nextIndex_);
-        int curKey_ = children_.getKey(nextIndex_);
-        int offset_ = p_.getIndexInEl()+curKey_;
-        MbOperationsSequence r_ = MathResolver.getOperationsSequence(offset_, value_, _delimiter);
-        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(offset_, nextIndex_, p_, r_);
+        MbOperationNode op_ = MbOperationNode.createOperationNodeAndChild(offset_, _nextIndex, block_, r_);
         if (op_ == null) {
             _error.setIndex(offset_);
             _error.setError(true);

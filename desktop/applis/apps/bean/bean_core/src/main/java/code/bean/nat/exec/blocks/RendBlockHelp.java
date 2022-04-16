@@ -232,10 +232,12 @@ public final class RendBlockHelp {
             return _fetch.getArg();
         }
         long found_ = -1;
-        for (EntryCust<Long, NatNodeContainer> e: _fetch.getStack().last().entryList()) {
-            if (e.getValue().getOpsWrite() == _f.getOpsWrite()) {
-                found_ = e.getKey();
-                break;
+        if (_f.isRad()) {
+            for (EntryCust<Long, NatNodeContainer> e: _fetch.getStack().last().entryList()) {
+                if (e.getValue().getOpsWrite() == _f.getOpsWrite()) {
+                    found_ = e.getKey();
+                    break;
+                }
             }
         }
         FormParts formParts_ = _rend.getFormParts();

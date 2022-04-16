@@ -178,7 +178,7 @@ public final class NatRendForwardInfos {
             CustList<NatExecOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             return new NatRendSelect(opRead_,opValue_,opsWrite_,opMap_,
                     f_.getElt(),
-                    initIn(f_.getClassNameNat()));
+                    initIn(f_.getClassNameNat(), false));
         }
         if (_current instanceof NatAnaRendInput){
             NatAnaRendInput f_ = (NatAnaRendInput) _current;
@@ -190,7 +190,7 @@ public final class NatRendForwardInfos {
                 StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
                 StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
                 return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                        initIn(f_.getClassName()));
+                        initIn(f_.getClassName(), true));
             }
             NatResultInput resultInput_ = f_.getResultInput();
             NatCaller opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
@@ -199,7 +199,7 @@ public final class NatRendForwardInfos {
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                    initIn(f_.getClassName()));
+                    initIn(f_.getClassName(), false));
         }
         if (_current instanceof NatAnaRendSpan){
             NatAnaRendSpan f_ = (NatAnaRendSpan) _current;
@@ -411,9 +411,10 @@ public final class NatRendForwardInfos {
         }
     }
 
-    private static NatFieldUpdates initIn(String _className) {
+    private static NatFieldUpdates initIn(String _className, boolean _rad) {
         NatFieldUpdates fieldUpdates_ = new NatFieldUpdates();
         fieldUpdates_.setClassName(_className);
+        fieldUpdates_.setRad(_rad);
         return fieldUpdates_;
     }
 }

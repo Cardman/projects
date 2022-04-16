@@ -554,6 +554,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         cl_ = new SpecialNatClass(TYPE_COMPOSITE, fields_, methods_, OBJECT);
         fields_.add(new StandardField(DISPLAYED, PRIM_BOOLEAN, false, false,null,null));
         fields_.add(new StandardField(INTEGER, PRIM_INTEGER,false,false,new SampleCompositeInteger(),new SampleCompositeIntegerSet()));
+        fields_.add(new StandardField(INTEGER+2, PRIM_INTEGER,false,false,new SampleCompositeInteger(),new SampleCompositeIntegerSet()));
         fields_.add(new StandardField(INTEGER+0, PRIM_INTEGER,false,false,new SampleCompositeInteger0(),null));
         fields_.add(new StandardField(INTEGER+1, PRIM_INTEGER,false,false,new SampleCompositeInteger1(),null));
         fields_.add(new StandardField(MAP, TYPE_MAP, false, false,null,null));

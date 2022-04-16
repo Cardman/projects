@@ -113,7 +113,7 @@ public final class RenderAnalysis {
     }
 
     private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        OperationNode next_ = createFirstChild(_current, _anaDoc, _page);
+        OperationNode next_ = create(_anaDoc, _page, 0, _current);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
@@ -124,7 +124,7 @@ public final class RenderAnalysis {
             processAnalyze(current_, _anaDoc, _page);
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
-            next_ = createNextSibling(current_, _anaDoc, _page);
+            next_ = create(_anaDoc, _page, current_.getIndexChild() + 1, current_.getParent());
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 if (par_ instanceof AbstractDotOperation) {
@@ -201,38 +201,21 @@ public final class RenderAnalysis {
         }
     }
 
-    private static OperationNode createFirstChild(OperationNode _block, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        if (!(_block instanceof MethodOperation)) {
+    private static OperationNode create(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, int _ne, OperationNode _pa) {
+        if (!(_pa instanceof MethodOperation)) {
             return null;
         }
-        MethodOperation block_ = (MethodOperation) _block;
-        if (block_.getChildren().isEmpty()) {
-            return null;
-        }
-        String value_ = block_.getChildren().getValue(0);
-        Delimiters d_ = block_.getOperations().getDelimiter();
-        int curKey_ = block_.getChildren().getKey(0);
-        int offset_ = block_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page);
-        return createOperationNode(offset_, 0, block_, r_, _anaDoc, _page);
-    }
-
-    private static OperationNode createNextSibling(OperationNode _block, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        MethodOperation p_ = _block.getParent();
-        if (p_ == null) {
-            return null;
-        }
+        MethodOperation p_ = (MethodOperation) _pa;
         StrTypes children_ = p_.getChildren();
-        int del_ = _block.getIndexChild() + 1;
-        if (del_ >= children_.size()) {
+        if (_ne >= children_.size()) {
             return null;
         }
-        String value_ = children_.getValue(del_);
-        Delimiters d_ = _block.getOperations().getDelimiter();
-        int curKey_ = children_.getKey(del_);
+        String value_ = children_.getValue(_ne);
+        Delimiters d_ = p_.getOperations().getDelimiter();
+        int curKey_ = children_.getKey(_ne);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page);
-        return createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _anaDoc, _page);
+        return createOperationNode(offset_, _ne, p_, r_, _anaDoc, _page);
     }
 
     public static OperationsSequence getOperationsSequence(int _offset, String _string,

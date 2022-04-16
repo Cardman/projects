@@ -201,7 +201,7 @@ public final class ElUtil {
         return null;
     }
     private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Calculation _calc, AnalyzedPageEl _page) {
-        OperationNode next_ = createFirstChild(_current, _calc, _page);
+        OperationNode next_ = create(_calc, _page, _current, 0);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
@@ -212,7 +212,7 @@ public final class ElUtil {
             retrieveErrorsAnalyze(current_, _page);
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
-            next_ = createNextSibling(current_, _calc, _page);
+            next_ = create(_calc, _page, current_.getParent(), current_.getIndexChild() + 1);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 processDot(next_, current_, par_, _page);
@@ -286,40 +286,21 @@ public final class ElUtil {
         InvokingOperation.tryInfer(_current, _page);
     }
 
-    private static OperationNode createFirstChild(OperationNode _block, Calculation _calc, AnalyzedPageEl _page) {
-        if (!(_block instanceof MethodOperation)) {
+    private static OperationNode create(Calculation _calc, AnalyzedPageEl _page, OperationNode _pa, int _del) {
+        if (!(_pa instanceof MethodOperation)) {
             return null;
         }
-        MethodOperation block_ = (MethodOperation) _block;
-        if (block_.getChildren().isEmpty()) {
-            return null;
-        }
-        String value_ = block_.getChildren().getValue(0);
-        Delimiters d_ = block_.getOperations().getDelimiter();
-        int curKey_ = block_.getChildren().getKey(0);
-        int offset_ = block_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page);
-        OperationNode op_ = OperationNode.createOperationNode(offset_, 0, block_, r_, _page);
-        setFieldName(_calc, block_, op_);
-        return op_;
-    }
-
-    private static OperationNode createNextSibling(OperationNode _block, Calculation _calc, AnalyzedPageEl _page) {
-        MethodOperation p_ = _block.getParent();
-        if (p_ == null) {
-            return null;
-        }
+        MethodOperation p_ = (MethodOperation) _pa;
         StrTypes children_ = p_.getChildren();
-        int del_ = _block.getIndexChild() + 1;
-        if (del_ >= children_.size()) {
+        if (_del >= children_.size()) {
             return null;
         }
-        String value_ = children_.getValue(del_);
-        Delimiters d_ = _block.getOperations().getDelimiter();
-        int curKey_ = children_.getKey(del_);
+        String value_ = children_.getValue(_del);
+        Delimiters d_ = p_.getOperations().getDelimiter();
+        int curKey_ = children_.getKey(_del);
         int offset_ = p_.getIndexInEl()+curKey_;
         OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page);
-        OperationNode op_ = OperationNode.createOperationNode(offset_, _block.getIndexChild() + 1, p_, r_, _page);
+        OperationNode op_ = OperationNode.createOperationNode(offset_, _del, p_, r_, _page);
         setFieldName(_calc, p_, op_);
         return op_;
     }

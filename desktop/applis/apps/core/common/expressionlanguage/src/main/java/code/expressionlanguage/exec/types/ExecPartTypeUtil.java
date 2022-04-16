@@ -49,7 +49,8 @@ public final class ExecPartTypeUtil {
         ExecPartType current_ = root_;
         while (current_ != null) {
             prettyLeaf(out_, current_);
-            ExecParentChildType parChild_ = createFirstChildExec(current_);
+            ExecPartType crChild_ = create(null, current_, 0);
+            ExecParentChildType parChild_ = wrCh(current_, crChild_);
             ExecPartType child_ = parChild_.getChild();
             if (child_ != null) {
                 out_.append(parChild_.getParentPartType().getPrettyBegin());
@@ -58,7 +59,7 @@ public final class ExecPartTypeUtil {
                 continue;
             }
             while (current_ != null) {
-                ExecPartType next_ = createNextSiblingExec(current_);
+                ExecPartType next_ = create(current_, current_.getParent(), current_.getIndex() + 1);
                 ExecParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     out_.append(next_.getPreviousOperator(_single));
@@ -206,7 +207,8 @@ public final class ExecPartTypeUtil {
 //                }
 //                out_.append(t_);
 //            }
-            ExecParentChildType parChild_ = createFirstChildExec(current_);
+            ExecPartType crChild_ = create(null, current_, 0);
+            ExecParentChildType parChild_ = wrCh(current_, crChild_);
             ExecPartType child_ = parChild_.getChild();
             if (child_ != null) {
                 out_.append(parChild_.getParentPartType().getBegin());
@@ -218,7 +220,7 @@ public final class ExecPartTypeUtil {
                 if (koAnalyzeTree(out_,_an, current_)) {
                     return new ExecResultPartType("", null);
                 }
-                ExecPartType next_ = createNextSiblingExec(current_);
+                ExecPartType next_ = create(current_, current_.getParent(), current_.getIndex() + 1);
                 ExecParentPartType par_ = current_.getParent();
                 if (next_ != null) {
                     out_.append(next_.getPreviousOperator());
@@ -265,38 +267,33 @@ public final class ExecPartTypeUtil {
         return _current instanceof ExecParentPartType && !((ExecParentPartType) _current).analyzeTree(_an);
     }
 
-    private static ExecParentChildType createFirstChildExec(ExecPartType _parent) {
-        if (!(_parent instanceof ExecParentPartType)) {
-            return new ExecParentChildType(null,null);
+    private static ExecParentChildType wrCh(ExecPartType _cur, ExecPartType _child) {
+        ExecParentChildType parChild_;
+        if (!(_cur instanceof ExecParentPartType)) {
+            parChild_ = new ExecParentChildType(null, _child);
+        } else {
+            parChild_ = new ExecParentChildType((ExecParentPartType) _cur, _child);
         }
-        ExecParentPartType par_ = (ExecParentPartType) _parent;
-        StrTypes last_ = par_.getStrTypes();
-        String v_ = last_.firstValue();
-        ExecAnalyzingType an_ = analyzeLocalExec(v_);
-        ExecPartType p_ = ExecPartType.createPartTypeExec(par_, 0, an_, v_);
-        addValues(p_, an_);
-        return new ExecParentChildType(par_,p_);
+        return parChild_;
     }
 
-    private static ExecPartType createNextSiblingExec(ExecPartType _parent) {
-        ExecParentPartType par_ = _parent.getParent();
-        if (!(par_ instanceof ExecBinaryType)) {
+    private static ExecPartType create(ExecPartType _prev, ExecPartType _pa, int _next) {
+        if (!(_pa instanceof ExecParentPartType)) {
             return null;
         }
-        ExecBinaryType b_ = (ExecBinaryType) par_;
-        int indexCur_ = _parent.getIndex();
-        int indexNext_ = indexCur_ + 1;
+        ExecParentPartType par_ = (ExecParentPartType) _pa;
         StrTypes last_ = par_.getStrTypes();
-        if (last_.size() <= indexNext_) {
+        if (last_.size() <= _next) {
             return null;
         }
-        String v_ = last_.getValue(indexNext_);
+        String v_ = last_.getValue(_next);
         ExecAnalyzingType an_ = analyzeLocalExec(v_);
-        ExecPartType p_ = ExecPartType.createPartTypeExec(b_,indexNext_, an_, v_);
-        p_.setPreviousSibling(_parent);
+        ExecPartType p_ = ExecPartType.createPartTypeExec(par_, _next, an_, v_);
+        p_.setPreviousSibling(_prev);
         addValues(p_, an_);
         return p_;
     }
+
     private static void addValues(ExecPartType _p, ExecAnalyzingType _an) {
         if (!(_p instanceof ExecParentPartType)) {
             return;

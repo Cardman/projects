@@ -8,6 +8,7 @@ import code.util.CustList;
 public final class NatFieldUpdates extends FieldUpdates {
     private CustList<NatExecOperationNode> opsRead = new CustList<NatExecOperationNode>();
     private NatCaller opsWrite;
+    private boolean rad;
 
     public CustList<NatExecOperationNode> getOpsRead() {
         return opsRead;
@@ -25,4 +26,11 @@ public final class NatFieldUpdates extends FieldUpdates {
         opsWrite = _opsWrite;
     }
 
+    public boolean isRad() {
+        return rad;
+    }
+
+    public void setRad(boolean _r) {
+        this.rad = _r;
+    }
 }
