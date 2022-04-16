@@ -55,7 +55,6 @@ import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThread;
-import code.threads.ThreadUtil;
 import code.util.CustList;
 import code.util.EnumMap;
 import code.util.*;
@@ -334,8 +333,8 @@ public final class WindowAiki extends NetGroupFrame {
             sendObject(quit_);
             return;
         }
-        if (battle != null) {
-            attendre();
+        if (battle != null && isAliveThread()) {
+            return;
         }
 //        if (compiling.isAlive()) {
 //            int adv_ = Constants.getPercentCompile();
@@ -422,8 +421,8 @@ public final class WindowAiki extends NetGroupFrame {
     }
     @Override
     public void dispose() {
-        while (isPaintingScene()) {
-            continue;
+        if (isPaintingScene()) {
+            return;
         }
         ecrireCoordonnees();
         CustList<FrameHtmlData> frames_ = new CustList<FrameHtmlData>();
@@ -787,10 +786,6 @@ public final class WindowAiki extends NetGroupFrame {
         if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
-        if (battle != null) {
-            attendre();
-        }
-        attendre2();
         if (!savedGame && facade.getGame() != null) {
             int choix_=saving();
             if(choix_==GuiConstants.CANCEL_OPTION) {
@@ -829,10 +824,6 @@ public final class WindowAiki extends NetGroupFrame {
         if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
-        if (battle != null) {
-            attendre();
-        }
-        attendre2();
         if (!savedGame && facade.getGame() != null) {
             int choix_=saving();
             if(choix_==GuiConstants.CANCEL_OPTION) {
@@ -876,18 +867,6 @@ public final class WindowAiki extends NetGroupFrame {
         }
     }
 
-    private void attendre2() {
-        while (isPaintingScene()) {
-            ThreadUtil.sleep(getThreadFactory(),0);
-        }
-    }
-
-    private void attendre() {
-        while (isAliveThread()) {
-            ThreadUtil.sleep(getThreadFactory(),0);
-        }
-    }
-
     public static Game load(String _fileName, DataBase _data, AbstractFileCoreStream _fact, TechStreams _streams) {
         Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName,_fact,_streams));
         if (game_ == null) {
@@ -903,9 +882,6 @@ public final class WindowAiki extends NetGroupFrame {
         String fileName_ = fileDialogSave();
         if (fileName_.isEmpty()) {
             return;
-        }
-        if (battle != null) {
-            attendre();
         }
         save(fileName_);
         fileName_ = StringUtil.replaceBackSlash(fileName_);
@@ -940,10 +916,6 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     public void manageParams() {
-        if (battle != null) {
-            attendre();
-        }
-        attendre2();
         DialogSoftParams.setSoftParams(this, loadingConf);
         DialogSoftParams.setParams(loadingConf, getSoftParams());
         if (DialogSoftParams.isOk(getSoftParams())) {
@@ -952,10 +924,6 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     public void proponeNewGame() {
-        if (battle != null) {
-            attendre();
-        }
-        attendre2();
         if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
             return;
         }
@@ -1357,6 +1325,7 @@ public final class WindowAiki extends NetGroupFrame {
         dataBattle.setEnabledMenu(true);
         pack();
         if (loadingConf.isEnableAnimation() && _animate) {
+            disableBasicFight();
             if (_wild) {
                 fightIntroThread = new FightWildIntroThread(facade, battle.getBattle());
             } else {
@@ -1540,6 +1509,38 @@ public final class WindowAiki extends NetGroupFrame {
 
     public void setTextArea(String _text, int _messageType) {
         scenePanel.setTextArea(_text, _messageType);
+    }
+
+    public void disableBasic() {
+        disableCom();
+    }
+
+    public void disableBasicFight() {
+        gameSave.setEnabledMenu(false);
+        disableCom();
+    }
+
+    private void disableCom() {
+        newGame.setEnabledMenu(false);
+        params.setEnabledMenu(false);
+        getZipLoad().setEnabledMenu(false);
+        getGameLoad().setEnabledMenu(false);
+    }
+
+    public void reenableBasic() {
+        reenCom();
+    }
+
+    public void reenableBasicFight() {
+        gameSave.setEnabledMenu(true);
+        reenCom();
+    }
+
+    private void reenCom() {
+        newGame.setEnabledMenu(true);
+        params.setEnabledMenu(true);
+        getZipLoad().setEnabledMenu(true);
+        getGameLoad().setEnabledMenu(true);
     }
 
     public ProgressingDialogPokemon getDialog() {

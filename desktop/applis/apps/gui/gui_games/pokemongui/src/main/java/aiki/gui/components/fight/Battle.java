@@ -577,6 +577,7 @@ public class Battle extends ChildFrame {
             removeInteractiveComponents();
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
+            window.disableBasicFight();
             roundThread = new RoundBasicThread(facade, this);
             roundThreadLau = window.getThreadFactory().newThread(roundThread);
             roundThreadLau.start();
@@ -676,6 +677,7 @@ public class Battle extends ChildFrame {
             removeInteractiveComponents();
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
+            window.disableBasicFight();
             roundThread = new RoundKoUserThread(facade, this);
             roundThreadLau = window.getThreadFactory().newThread(roundThread);
             roundThreadLau.start();
@@ -768,6 +770,7 @@ public class Battle extends ChildFrame {
 //            }
 //            window.pack();
         }
+        window.reenableBasicFight();
 //        CustComponent.invokeLater(new Runnable() {
 //            @Override
 //            public void run() {
@@ -917,6 +920,7 @@ public class Battle extends ChildFrame {
             removeInteractiveComponents();
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
+            window.disableBasicFight();
             roundThread = new RoundFleeThread(facade, this);
             roundThreadLau = window.getThreadFactory().newThread(roundThread);
             roundThreadLau.start();
@@ -975,6 +979,7 @@ public class Battle extends ChildFrame {
             removeInteractiveComponents();
             window.pack();
             commentsRound.setText(DataBase.EMPTY_STRING);
+            window.disableBasicFight();
             if (facade.getFight().getState() != FightState.SURNOM) {
                 roundThread = new RoundFailBallThread(facade, this, ball_.getName());
             } else {

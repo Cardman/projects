@@ -30,6 +30,7 @@ public final class FightTrainerIntroThread extends FightIntroThread {
         }
         getBattle().setComments();
         getBattle().display();
+        getBattle().getWindow().reenableBasicFight();
 //        ThreadInvoker.invokeNow(new DoneFightIntroThread(getBattle()));
     }
 }

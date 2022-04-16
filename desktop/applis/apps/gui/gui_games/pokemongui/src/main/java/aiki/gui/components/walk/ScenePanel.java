@@ -1749,6 +1749,11 @@ public class ScenePanel {
 
     public void setPaintingScene(boolean _paintingScene) {
         paintingScene.set(_paintingScene);
+        if (_paintingScene) {
+            window.disableBasic();
+        } else {
+            window.reenableBasic();
+        }
         boolean enabled9_ = !_paintingScene;
         team.setEnabled(enabled9_);
         boolean enabled8_ = !_paintingScene;
