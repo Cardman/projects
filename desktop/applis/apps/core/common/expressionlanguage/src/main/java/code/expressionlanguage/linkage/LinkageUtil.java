@@ -3588,8 +3588,9 @@ public final class LinkageUtil {
             int index_ = index(i_, n, _namedArg);
             if (offs_.isValidIndex(index_)) {
                 int off_ = offs_.get(index_);
-                feedFiltersNamed(_filterSet, _filterGet, n, off_);
-                _list.add(new LinkedNamedArgParts(n.getFile(),off_));
+                LinkedNamedArgParts elt_ = new LinkedNamedArgParts(n.getFile(), off_);
+                feedFiltersNamed(_filterSet, _filterGet, n, elt_);
+                _list.add(elt_);
             }
             i_++;
         }
@@ -3601,12 +3602,12 @@ public final class LinkageUtil {
         return _namedArg.getIndex();
     }
 
-    private static void feedFiltersNamed(CustList<LinkedNamedArgParts> _filterSet, CustList<LinkedNamedArgParts> _filterGet, NamedFunctionBlock _named, int _off) {
+    private static void feedFiltersNamed(CustList<LinkedNamedArgParts> _filterSet, CustList<LinkedNamedArgParts> _filterGet, NamedFunctionBlock _named, LinkedNamedArgParts _elt) {
         if (is(_named,MethodKind.GET_INDEX)) {
-            _filterGet.add(new LinkedNamedArgParts(_named.getFile(),_off));
+            _filterGet.add(_elt);
         }
         if (is(_named,MethodKind.SET_INDEX)) {
-            _filterSet.add(new LinkedNamedArgParts(_named.getFile(),_off));
+            _filterSet.add(_elt);
         }
     }
     private static boolean is(NamedFunctionBlock _m, MethodKind _k) {
