@@ -1107,10 +1107,7 @@ public final class WindowAiki extends NetGroupFrame {
         setSavedGame(false);
         facade.closeTrading();
         scenePanel.exitInteraction();
-        getFolderLoad().setEnabledMenu(true);
-        getZipLoad().setEnabledMenu(true);
-        getGameLoad().setEnabledMenu(true);
-        getNewGame().setEnabledMenu(true);
+        en(true);
     }
 
 //    public boolean loop(Object _readObject) {
@@ -1521,10 +1518,7 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     private void disableCom() {
-        newGame.setEnabledMenu(false);
-        params.setEnabledMenu(false);
-        getZipLoad().setEnabledMenu(false);
-        getGameLoad().setEnabledMenu(false);
+        en(false);
     }
 
     public void reenableBasic() {
@@ -1537,10 +1531,14 @@ public final class WindowAiki extends NetGroupFrame {
     }
 
     private void reenCom() {
-        newGame.setEnabledMenu(true);
-        params.setEnabledMenu(true);
-        getZipLoad().setEnabledMenu(true);
-        getGameLoad().setEnabledMenu(true);
+        en(true);
+    }
+
+    private void en(boolean _b) {
+        this.newGame.setEnabledMenu(_b);
+        this.params.setEnabledMenu(_b);
+        this.zipLoad.setEnabledMenu(_b);
+        this.gameLoad.setEnabledMenu(_b);
     }
 
     public ProgressingDialogPokemon getDialog() {
