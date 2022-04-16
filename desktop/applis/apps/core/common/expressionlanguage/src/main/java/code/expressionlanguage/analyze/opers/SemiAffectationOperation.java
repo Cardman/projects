@@ -16,6 +16,7 @@ import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
@@ -54,7 +55,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         WrappOperation.procArr(_page, (OperationNode) settable);
         if (settable instanceof SettableFieldOperation) {
             SettableFieldOperation cst_ = (SettableFieldOperation)settable;
-            StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
+            StringMap<BoolVal> fieldsAfterLast_ = _page.getDeclaredAssignments();
             if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

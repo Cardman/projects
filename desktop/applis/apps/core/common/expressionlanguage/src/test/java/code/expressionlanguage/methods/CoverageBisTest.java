@@ -8,6 +8,7 @@ import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -214,8 +215,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("exmeth");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(2, getCalls(cont_).getVal("pkg.Ex").size());
-        assertTrue(getCalls(cont_).getVal("pkg.Ex").first());
-        assertTrue(!getCalls(cont_).getVal("pkg.Ex").last());
+        assertSame(BoolVal.TRUE, getCalls(cont_).getVal("pkg.Ex").first());
+        assertSame(BoolVal.FALSE, getCalls(cont_).getVal("pkg.Ex").last());
     }
     @Test
     public void coverage22Test() {
@@ -251,8 +252,8 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         Argument out_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(3, getNumber(out_));
         assertEq(2, getCallsTwo(cont_).getVal("").size());
-        assertTrue(getCallsTwo(cont_).getVal("").first());
-        assertTrue(!getCallsTwo(cont_).getVal("").last());
+        assertSame(BoolVal.TRUE, getCallsTwo(cont_).getVal("").first());
+        assertSame(BoolVal.FALSE, getCallsTwo(cont_).getVal("").last());
     }
     @Test
     public void coverage23Test() {
@@ -309,22 +310,22 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         assertSame(BoolVal.FALSE, getCatches(cont_).firstValue());
     }
 
-    private static StringMap<CustList<Boolean>> getCalls(ContextEl _cont) {
-        StringMap<CustList<Boolean>> ret_ = new StringMap<CustList<Boolean>>();
-        CustList<Boolean> v_ = new CustList<Boolean>();
+    private static StringMap<CustList<BoolVal>> getCalls(ContextEl _cont) {
+        StringMap<CustList<BoolVal>> ret_ = new StringMap<CustList<BoolVal>>();
+        CustList<BoolVal> v_ = new CustList<BoolVal>();
         for (FunctionCoverageResult f: _cont.getCoverage().getTypes().last().getFunctions()) {
-            v_.add(f.isCalled());
+            v_.add(ComparatorBoolean.of(f.isCalled()));
         }
         ret_.addEntry("pkg.Ex", v_);
         return ret_;
     }
 
 
-    private static StringMap<CustList<Boolean>> getCallsTwo(ContextEl _cont) {
-        StringMap<CustList<Boolean>> ret_ = new StringMap<CustList<Boolean>>();
-        CustList<Boolean> v_ = new CustList<Boolean>();
+    private static StringMap<CustList<BoolVal>> getCallsTwo(ContextEl _cont) {
+        StringMap<CustList<BoolVal>> ret_ = new StringMap<CustList<BoolVal>>();
+        CustList<BoolVal> v_ = new CustList<BoolVal>();
         for (FunctionCoverageResult e: _cont.getCoverage().getOperators()) {
-            v_.add(e.isCalled());
+            v_.add(ComparatorBoolean.of(e.isCalled()));
         }
         ret_.addEntry("", v_);
         return ret_;

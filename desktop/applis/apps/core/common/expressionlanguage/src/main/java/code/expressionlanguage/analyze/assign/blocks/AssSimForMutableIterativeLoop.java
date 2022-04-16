@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.assign.opers.AssOperationNode;
 import code.expressionlanguage.analyze.assign.opers.AssUtil;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class AssSimForMutableIterativeLoop extends AssBracedBlock implements AssBuildableElMethod {
     private final int initOffset;
@@ -39,7 +40,7 @@ public final class AssSimForMutableIterativeLoop extends AssBracedBlock implemen
             AssUtil.getSimSortedDescNodes(_a,opInit.last(),this, _page);
         }
         for (String v: assignedVariables) {
-            _a.getVariables().put(v,true);
+            _a.getVariables().put(v, BoolVal.TRUE);
         }
         _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (!opExp.isEmpty()) {

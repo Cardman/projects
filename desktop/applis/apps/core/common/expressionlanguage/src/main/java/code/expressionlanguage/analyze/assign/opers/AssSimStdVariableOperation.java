@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.assign.blocks.AssSimDeclareVariable;
 import code.expressionlanguage.analyze.assign.blocks.AssSimForMutableIterativeLoop;
 import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.opers.VariableOperationUse;
+import code.util.core.BoolVal;
 
 public final class AssSimStdVariableOperation extends AssLeafOperation {
 
@@ -45,7 +46,7 @@ public final class AssSimStdVariableOperation extends AssLeafOperation {
             ((AssSimForMutableIterativeLoop)_ass).getAssignedVariables().add(variableName);
         }
         if (declare) {
-            _a.getVariables().put(variableName,false);
+            _a.getVariables().put(variableName, BoolVal.FALSE);
             _a.putLocalVar(variableName, finalVariable);
         }
 

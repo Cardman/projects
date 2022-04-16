@@ -31,6 +31,8 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class AnalyzedPageEl {
@@ -494,10 +496,10 @@ public final class AnalyzedPageEl {
         _a.getFinalVariablesGlobal().getVariablesBefore().clear();
     }
 
-    public StringMap<Boolean> getDeclaredAssignments() {
-        StringMap<Boolean> o_ = new StringMap<Boolean>();
+    public StringMap<BoolVal> getDeclaredAssignments() {
+        StringMap<BoolVal> o_ = new StringMap<BoolVal>();
         for (String f: allDeclaredFields) {
-            o_.addEntry(f, !StringUtil.contains(assignedDeclaredFields,f));
+            o_.addEntry(f, ComparatorBoolean.of(!StringUtil.contains(assignedDeclaredFields,f)));
         }
         return o_;
     }

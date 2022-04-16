@@ -25,6 +25,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class AnonymousInstancingOperation extends
@@ -173,7 +174,7 @@ public final class AnonymousInstancingOperation extends
         }
         String superType_ = AnaInherits.getRealClassName(base_,superNames_);
         instancingAnonContent.getBlock().getDirectSuperTypes().add(superType_);
-        instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, false);
+        instancingAnonContent.getBlock().getExplicitDirectSuperTypes().put(-1, BoolVal.FALSE);
         instancingAnonContent.getBlock().getRowColDirectSuperTypes().put(-1, superType_);
         base = base_;
         AccessedBlock acc_ = instancingAnonContent.getBlock().getAccessedBlock();

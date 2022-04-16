@@ -12,6 +12,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -329,13 +330,13 @@ public final class ElUtil {
         return false;
     }
 
-    public static boolean checkFinalFieldReadOnly(SettableFieldOperation _cst, StringMap<Boolean> _ass, AnalyzedPageEl _page) {
+    public static boolean checkFinalFieldReadOnly(SettableFieldOperation _cst, StringMap<BoolVal> _ass, AnalyzedPageEl _page) {
         boolean fromCurClass_ = _cst.isFromCurrentClassReadOnly(_page);
         ClassField cl_ = _cst.getFieldIdReadOnly();
         String fieldName_ = cl_.getFieldName();
         return _cst.getSettableFieldContent().isFinalField() && checkFinalReadOnly(_cst.getSettableFieldContent().isStaticField(), _ass, fromCurClass_, fieldName_, _page);
     }
-    private static boolean checkFinalReadOnly(boolean _staticField, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page) {
+    private static boolean checkFinalReadOnly(boolean _staticField, StringMap<BoolVal> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page) {
         boolean checkFinal_;
         if (_page.isAssignedFields()) {
             checkFinal_ = true;
@@ -346,11 +347,11 @@ public final class ElUtil {
                 checkFinal_ = true;
             } else {
                 checkFinal_ = false;
-                for (EntryCust<String, Boolean> e: _ass.entryList()) {
+                for (EntryCust<String, BoolVal> e: _ass.entryList()) {
                     if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
                         continue;
                     }
-                    if (e.getValue()) {
+                    if (e.getValue() == BoolVal.TRUE) {
                         continue;
                     }
                     checkFinal_ = true;
@@ -360,11 +361,11 @@ public final class ElUtil {
             checkFinal_ = true;
         } else {
             checkFinal_ = false;
-            for (EntryCust<String, Boolean> e: _ass.entryList()) {
+            for (EntryCust<String, BoolVal> e: _ass.entryList()) {
                 if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
                     continue;
                 }
-                if (e.getValue()) {
+                if (e.getValue() == BoolVal.TRUE) {
                     continue;
                 }
                 checkFinal_ = true;

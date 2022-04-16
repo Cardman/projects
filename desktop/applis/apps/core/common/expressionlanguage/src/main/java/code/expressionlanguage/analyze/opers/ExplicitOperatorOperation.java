@@ -285,7 +285,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
             indexVar = next_.getIndexChild();
             if (settable_ instanceof SettableFieldOperation) {
                 SettableFieldOperation cst_ = (SettableFieldOperation)settable_;
-                StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
+                StringMap<BoolVal> fieldsAfterLast_ = _page.getDeclaredAssignments();
                 if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                     setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();

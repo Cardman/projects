@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.assign.util.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class AssSimAffectationOperation extends AssSimMultMethodOperation {
@@ -60,14 +61,14 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
         AssOperationNode firstChild_ = settableOp;
         StrTypes ops_ = analyzed.getOperations().getOperators();
         if (firstChild_ instanceof AssSimStdVariableOperation) {
-            StringMap<Boolean> variables_ = _a.getVariables();
+            StringMap<BoolVal> variables_ = _a.getVariables();
             String str_ = ((AssSimStdVariableOperation)firstChild_).getVariableName();
             int deep_ = ((AssSimStdVariableOperation) firstChild_).getDeep();
             AnaLocalVariable localVar_ = _a.getCache().getLocalVar(str_, deep_);
             if (localVar_ == null) {
-                for (EntryCust<String, Boolean> e: variables_.entryList()) {
+                for (EntryCust<String, BoolVal> e: variables_.entryList()) {
                     if (StringUtil.quickEq(str_, e.getKey())) {
-                        if (e.getValue()) {
+                        if (e.getValue() == BoolVal.TRUE) {
                             if (_a.isFinalLocalVar(str_)) {
                                 //error
                                 analyzed.setRelativeOffsetPossibleAnalyzable(analyzed.getIndexInEl()+ops_.firstKey(), _page);

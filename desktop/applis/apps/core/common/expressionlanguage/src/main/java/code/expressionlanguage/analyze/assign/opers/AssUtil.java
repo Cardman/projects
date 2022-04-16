@@ -12,6 +12,8 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class AssUtil {
@@ -212,13 +214,13 @@ public final class AssUtil {
         if (stepForLoop(_as, _page)) {
             return true;
         }
-        StringMap<Boolean> ass_ = new StringMap<Boolean>();
+        StringMap<BoolVal> ass_ = new StringMap<BoolVal>();
         for (EntryCust<String,Assignment> e: _ass.entryList()) {
-            ass_.addEntry(e.getKey(),e.getValue().isUnassignedAfter());
+            ass_.addEntry(e.getKey(), ComparatorBoolean.of(e.getValue().isUnassignedAfter()));
         }
         return checkFinalReadOnly(_cst, ass_, fromCurClass_, fieldName_, _page, _cst.getFieldMetaInfo().isStaticField());
     }
-    private static boolean checkFinalReadOnly(AssSettableFieldOperation _cst, StringMap<Boolean> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page, boolean _staticField) {
+    private static boolean checkFinalReadOnly(AssSettableFieldOperation _cst, StringMap<BoolVal> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page, boolean _staticField) {
         boolean checkFinal_;
         if (_page.isAssignedFields()) {
             checkFinal_ = true;
@@ -232,11 +234,11 @@ public final class AssUtil {
                     checkFinal_ = false;
                 } else {
                     checkFinal_ = false;
-                    for (EntryCust<String, Boolean> e: _ass.entryList()) {
+                    for (EntryCust<String, BoolVal> e: _ass.entryList()) {
                         if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
                             continue;
                         }
-                        if (e.getValue()) {
+                        if (e.getValue() == BoolVal.TRUE) {
                             continue;
                         }
                         checkFinal_ = true;
@@ -250,11 +252,11 @@ public final class AssUtil {
                 checkFinal_ = false;
             } else {
                 checkFinal_ = false;
-                for (EntryCust<String, Boolean> e: _ass.entryList()) {
+                for (EntryCust<String, BoolVal> e: _ass.entryList()) {
                     if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
                         continue;
                     }
-                    if (e.getValue()) {
+                    if (e.getValue() == BoolVal.TRUE) {
                         continue;
                     }
                     checkFinal_ = true;

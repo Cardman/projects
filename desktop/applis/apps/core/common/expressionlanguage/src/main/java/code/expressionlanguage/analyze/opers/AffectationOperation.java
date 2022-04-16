@@ -18,6 +18,7 @@ import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class AffectationOperation extends MethodOperation {
@@ -122,7 +123,7 @@ public final class AffectationOperation extends MethodOperation {
         }
         if (elt_ instanceof SettableFieldOperation) {
             SettableFieldOperation cst_ = (SettableFieldOperation)elt_;
-            StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
+            StringMap<BoolVal> fieldsAfterLast_ = _page.getDeclaredAssignments();
             if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());

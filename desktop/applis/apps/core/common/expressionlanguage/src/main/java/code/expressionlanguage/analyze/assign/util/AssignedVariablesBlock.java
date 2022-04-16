@@ -5,6 +5,8 @@ import code.expressionlanguage.analyze.assign.blocks.AssBlock;
 import code.expressionlanguage.analyze.assign.blocks.AssReturnMethod;
 import code.util.IdMap;
 import code.util.StringMap;
+import code.util.comparators.ComparatorBoolean;
+import code.util.core.BoolVal;
 
 public final class AssignedVariablesBlock {
 
@@ -12,23 +14,23 @@ public final class AssignedVariablesBlock {
     private IdMap<AssBlock, AssignedVariables> finalVariables = new IdMap<AssBlock, AssignedVariables>();
     private IdMap<AssReturnMethod, StringMap<SimpleAssignment>> assignments = new IdMap<AssReturnMethod, StringMap<SimpleAssignment>>();
 
-    private final StringMap<Boolean> localVars = new StringMap<Boolean>();
-    private StringMap<Boolean> variables = new StringMap<Boolean>();
+    private final StringMap<BoolVal> localVars = new StringMap<BoolVal>();
+    private StringMap<BoolVal> variables = new StringMap<BoolVal>();
     private AnaCache cache = new AnaCache();
 
     public void putLocalVar(String _key, boolean _final) {
-        localVars.put(_key, _final);
+        localVars.put(_key, ComparatorBoolean.of(_final));
     }
 
     public boolean isFinalLocalVar(String _key) {
-        return localVars.getVal(_key);
+        return localVars.getVal(_key) == BoolVal.TRUE;
     }
 
-    public StringMap<Boolean> getLocalVars() {
+    public StringMap<BoolVal> getLocalVars() {
         return localVars;
     }
 
-    public StringMap<Boolean> getVariables() {
+    public StringMap<BoolVal> getVariables() {
         return variables;
     }
 

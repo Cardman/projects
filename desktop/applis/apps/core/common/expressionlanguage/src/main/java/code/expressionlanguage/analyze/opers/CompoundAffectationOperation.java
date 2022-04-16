@@ -20,6 +20,7 @@ import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class CompoundAffectationOperation extends MethodOperation {
@@ -72,7 +73,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         elt_.setVariable(false);
         if (settable instanceof SettableFieldOperation) {
             SettableFieldOperation cst_ = (SettableFieldOperation)settable;
-            StringMap<Boolean> fieldsAfterLast_ = _page.getDeclaredAssignments();
+            StringMap<BoolVal> fieldsAfterLast_ = _page.getDeclaredAssignments();
             if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
                 setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();

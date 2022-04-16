@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.assign.opers.AssOperationNode;
 import code.expressionlanguage.analyze.assign.opers.AssUtil;
 import code.expressionlanguage.analyze.assign.util.AssignedVariablesBlock;
 import code.util.CustList;
+import code.util.core.BoolVal;
 
 public final class AssSimLine extends AssLeaf implements AssBuildableElMethod {
     private final int expressionOffset;
@@ -24,7 +25,7 @@ public final class AssSimLine extends AssLeaf implements AssBuildableElMethod {
         AssBlock pre_ = getPreviousSibling();
         if (pre_ instanceof AssSimDeclareVariable) {
             for (String v: ((AssSimDeclareVariable)pre_).getAssignedVariables()) {
-                _a.getVariables().put(v,true);
+                _a.getVariables().put(v, BoolVal.TRUE);
             }
         }
     }

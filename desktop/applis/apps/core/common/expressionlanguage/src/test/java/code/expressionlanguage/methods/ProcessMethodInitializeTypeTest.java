@@ -1474,7 +1474,7 @@ public final class ProcessMethodInitializeTypeTest extends ProcessMethodCommon {
         files_.put("pkg/ExTwo", xml_.toString());
         assertTrue(ctxMustInitFail(files_));
     }
-    private Boolean getBoolean(ContextEl _cont,String _className, String _fieldName) {
+    private boolean getBoolean(ContextEl _cont,String _className, String _fieldName) {
         Struct str_ = getStaticField(_cont, new ClassField(_className, _fieldName));
         return BooleanStruct.isTrue(str_);
     }

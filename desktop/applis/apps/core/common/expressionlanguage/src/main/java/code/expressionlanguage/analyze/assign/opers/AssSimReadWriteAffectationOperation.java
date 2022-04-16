@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.util.EntryCust;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class AssSimReadWriteAffectationOperation extends AssMethodOperation {
@@ -30,12 +31,12 @@ public final class AssSimReadWriteAffectationOperation extends AssMethodOperatio
     public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssOperationNode firstChild_ = settable;
         if (firstChild_ instanceof AssSimStdVariableOperation) {
-            StringMap<Boolean> variables_ = _a.getVariables();
+            StringMap<BoolVal> variables_ = _a.getVariables();
             String str_ = ((AssSimStdVariableOperation)firstChild_).getVariableName();
             int deep_ = ((AssSimStdVariableOperation) firstChild_).getDeep();
             AnaLocalVariable localVar_ = _a.getCache().getLocalVar(str_, deep_);
             if (localVar_ == null) {
-                for (EntryCust<String, Boolean> e: variables_.entryList()) {
+                for (EntryCust<String, BoolVal> e: variables_.entryList()) {
                     if (StringUtil.quickEq(str_, e.getKey())) {
                         if (_a.isFinalLocalVar(str_)) {
                             //error

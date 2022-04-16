@@ -29,6 +29,7 @@ import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public abstract class RootBlock extends BracedBlock implements AccessedBlock,AnnotableBlock,AnaGeneType,AnaInheritedType {
@@ -56,7 +57,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final IntMap<String> importedDirectBaseSuperTypes = new IntMap<String>();
 
     private final IntMap< String> rowColDirectSuperTypes;
-    private final IntMap< Boolean> explicitDirectSuperTypes = new IntMap< Boolean>();
+    private final IntMap< BoolVal> explicitDirectSuperTypes = new IntMap< BoolVal>();
 
     private final StringList staticInitInterfaces = new StringList();
     private final StringList instInitInterfaces = new StringList();
@@ -122,7 +123,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         rowColDirectSuperTypes = _directSuperTypes;
         for (EntryCust<Integer, String> t: _directSuperTypes.entryList()) {
             directSuperTypes.add(t.getValue());
-            explicitDirectSuperTypes.put(t.getKey(), true);
+            explicitDirectSuperTypes.put(t.getKey(), BoolVal.TRUE);
         }
     }
 
@@ -157,7 +158,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         return allGenericClassesInfo;
     }
 
-    public IntMap< Boolean> getExplicitDirectSuperTypes() {
+    public IntMap<BoolVal> getExplicitDirectSuperTypes() {
         return explicitDirectSuperTypes;
     }
 

@@ -645,7 +645,7 @@ public final class ClassesUtil {
             sBuild_.append(StringExpUtil.TEMPLATE_END);
             String type_ = sBuild_.toString();
             _root.getDirectSuperTypes().add(type_);
-            _root.getExplicitDirectSuperTypes().put(-1, false);
+            _root.getExplicitDirectSuperTypes().put(-1, BoolVal.FALSE);
             _root.getRowColDirectSuperTypes().put(-1, type_);
         }
         if (_root instanceof InnerElementBlock) {
@@ -653,13 +653,13 @@ public final class ClassesUtil {
             EnumBlock par_ = i_.getParentEnum();
             String type_ = StringUtil.concat(par_.getFullName(),i_.getTempClass());
             _root.getDirectSuperTypes().add(type_);
-            _root.getExplicitDirectSuperTypes().put(-1, false);
+            _root.getExplicitDirectSuperTypes().put(-1, BoolVal.FALSE);
             _root.getRowColDirectSuperTypes().put(-1, type_);
         }
         if (_root instanceof AnnotationBlock) {
             String type_ = _page.getAliasAnnotationType();
             _root.getDirectSuperTypes().add(type_);
-            _root.getExplicitDirectSuperTypes().put(-1, false);
+            _root.getExplicitDirectSuperTypes().put(-1, BoolVal.FALSE);
             _root.getRowColDirectSuperTypes().put(-1, type_);
         }
         if (_page.getStandardsTypes().contains(fullName_)) {
@@ -1223,13 +1223,13 @@ public final class ClassesUtil {
         String enumClassName_ = _page.getAliasEnumType();
         String enumParamClassName_ = _page.getAliasEnumParam();
         String annotName_ = _page.getAliasAnnotationType();
-        StringMap<Boolean> builtTypes_ = new StringMap<Boolean>();
+        StringMap<BoolVal> builtTypes_ = new StringMap<BoolVal>();
         IdList<RootBlock> stClNames_ = new IdList<RootBlock>(_page.getFoundTypes());
         for (RootBlock r: stClNames_) {
-            builtTypes_.addEntry(r.getFullName(), false);
+            builtTypes_.addEntry(r.getFullName(), BoolVal.FALSE);
         }
         for (RootBlock r: _page.getPrevFoundTypes()) {
-            builtTypes_.addEntry(r.getFullName(), true);
+            builtTypes_.addEntry(r.getFullName(), BoolVal.TRUE);
         }
         while (true) {
             IdList<RootBlock> next_ = new IdList<RootBlock>();
@@ -1245,7 +1245,7 @@ public final class ClassesUtil {
                         s = StringExpUtil.removeDottedSpaces(s);
                         String idSuper_ = StringExpUtil.getIdFromAllTypes(s);
                         int offset_ = e.getKey();
-                        if (r.getExplicitDirectSuperTypes().getValue(index_)) {
+                        if (r.getExplicitDirectSuperTypes().getValue(index_) == BoolVal.TRUE) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
                             undef_.setFile(r.getFile());
@@ -1274,7 +1274,7 @@ public final class ClassesUtil {
                     r.getAllSuperTypes().removeDuplicates();
 //                    exec_.getAllSuperTypes().removeDuplicates();
                     _page.getListTypesNames().add(r);
-                    builtTypes_.set(c, true);
+                    builtTypes_.set(c, BoolVal.TRUE);
                     next_.add(r);
                     continue;
                 }
@@ -1299,7 +1299,7 @@ public final class ClassesUtil {
                         index_++;
                         continue;
                     }
-                    if (r.getExplicitDirectSuperTypes().getValue(index_)) {
+                    if (r.getExplicitDirectSuperTypes().getValue(index_) == BoolVal.TRUE) {
                         if (_page.getStandardsTypes().contains(idSuper_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
@@ -1316,13 +1316,13 @@ public final class ClassesUtil {
                         }
                     }
                     StringList readyTypes_ = new StringList();
-                    for (EntryCust<String, Boolean> f: builtTypes_.entryList()) {
-                        if (f.getValue()) {
+                    for (EntryCust<String, BoolVal> f: builtTypes_.entryList()) {
+                        if (f.getValue() == BoolVal.TRUE) {
                             readyTypes_.add(f.getKey());
                         }
                     }
                     String foundType_;
-                    if (r.getExplicitDirectSuperTypes().getValue(index_)) {
+                    if (r.getExplicitDirectSuperTypes().getValue(index_) == BoolVal.TRUE) {
                         foundType_ = ResolvingSuperTypes.resolveBaseInherits(idSuper_, r, readyTypes_, _page);
                     } else {
                         InheritReadyTypes inh_ = new InheritReadyTypes(readyTypes_);
@@ -1342,7 +1342,7 @@ public final class ClassesUtil {
                     f_.setLocation(e.getKey());
                     f_.setName(foundType_);
                     types_.add(f_);
-                    if (r.getExplicitDirectSuperTypes().getValue(index_)) {
+                    if (r.getExplicitDirectSuperTypes().getValue(index_) == BoolVal.TRUE) {
                         if (StringUtil.quickEq(enumParamClassName_, foundType_)) {
                             FoundErrorInterpret undef_;
                             undef_ = new FoundErrorInterpret();
@@ -1507,7 +1507,7 @@ public final class ClassesUtil {
                 r.getAllSuperTypes().removeDuplicates();
 //                exec_.getAllSuperTypes().removeDuplicates();
                 _page.getListTypesNames().add(r);
-                builtTypes_.set(c, true);
+                builtTypes_.set(c, BoolVal.TRUE);
                 next_.add(r);
             }
             if (next_.isEmpty()) {
