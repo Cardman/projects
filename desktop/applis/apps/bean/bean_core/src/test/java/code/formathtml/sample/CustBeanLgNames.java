@@ -250,7 +250,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         fields_.add(new StandardField(MAP, TYPE_MAP,false,false, new SampleBeanOneMap(),null));
         fields_.add(new StandardField(MESSAGE, STRING,false,false, new SampleBeanOneMessage(), null));
         fields_.add(new StandardField(NUMBERS, TYPE_MAP, false, false,null,null));
-        fields_.add(new StandardField(SELECTED_STRING, STRING,false,false, new SampleBeanOneSelectedString(), null));
+        fields_.add(new StandardField(SELECTED_STRING, STRING,false,false, new SampleBeanOneSelectedString(), new SampleBeanOneSelectedString2()));
         fields_.add(new StandardField(TRANSLATIONS, TYPE_MAP, false, false,null,null));
         fields_.add(new StandardField(TREE, TYPE_MAP,false,false, new SampleBeanOneTree(),null));
         fields_.add(new StandardField(STRINGS, TYPE_STRING_LIST, false, false,null,null));
@@ -553,7 +553,9 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_COMPOSITE, fields_, methods_, OBJECT);
         fields_.add(new StandardField(DISPLAYED, PRIM_BOOLEAN, false, false,null,null));
-        fields_.add(new StandardField(INTEGER, PRIM_INTEGER,false,false,new SampleCompositeInteger(),null));
+        fields_.add(new StandardField(INTEGER, PRIM_INTEGER,false,false,new SampleCompositeInteger(),new SampleCompositeIntegerSet()));
+        fields_.add(new StandardField(INTEGER+0, PRIM_INTEGER,false,false,new SampleCompositeInteger0(),null));
+        fields_.add(new StandardField(INTEGER+1, PRIM_INTEGER,false,false,new SampleCompositeInteger1(),null));
         fields_.add(new StandardField(MAP, TYPE_MAP, false, false,null,null));
 //        fields_.add(new StandardField(MY_CHAR, getContent().getPrimTypes().getAliasPrimChar(),false,false));
         fields_.add(new StandardField(STRING_FCT, STRING,false,false, new SampleStrFct(),new SampleStrFct()));

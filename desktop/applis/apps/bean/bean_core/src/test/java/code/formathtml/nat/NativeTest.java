@@ -578,6 +578,22 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         assertEq("<html><body><input type=\"radio\" name=\"composite.integer\" value=\"5\" checked=\"checked\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
     }
     @Test
+    public void process_2_Rd_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one={0}";
+        String html_ = "<html c:bean='bean_one'><body><form><input type='radio' name='composite.integer' c:varValue='composite.integer1'/><input type='radio' name='composite.integer' c:varValue='composite.integer0'/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        SampleBeanStruct v_ = init(bean_);
+        getStrings(v_).add("FIRST");
+        getStrings(v_).add("SECOND");
+        setInteger(v_);
+        assertEq("<html><body><form n-f=\"0\"><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"5\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"1\"/></form></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+    }
+    @Test
     public void process2_Sub_Spec_Test() {
         String locale_ = "en";
         String folder_ = "messages";

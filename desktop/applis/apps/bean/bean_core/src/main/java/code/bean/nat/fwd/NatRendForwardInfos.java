@@ -1,5 +1,6 @@
 package code.bean.nat.fwd;
 
+import code.bean.nat.NatCaller;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.blocks.*;
@@ -171,34 +172,34 @@ public final class NatRendForwardInfos {
         if (_current instanceof NatAnaRendSelect){
             NatAnaRendSelect f_ = (NatAnaRendSelect) _current;
             NatResultInput resultInput_ = f_.getResultInput();
-            CustList<NatExecOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
+            NatCaller opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
             CustList<NatExecOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
             CustList<NatExecOperationNode> opMap_ = getExecutableNodes(f_.getRootMap());
             CustList<NatExecOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             return new NatRendSelect(opRead_,opValue_,opsWrite_,opMap_,
                     f_.getElt(),
-                    initIn(f_.getClassNameNat(), f_.getVarName()));
+                    initIn(f_.getClassNameNat()));
         }
         if (_current instanceof NatAnaRendInput){
             NatAnaRendInput f_ = (NatAnaRendInput) _current;
             if (f_.isRadio()) {
                 NatResultInput resultInput_ = f_.getResultInput();
-                CustList<NatExecOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
+                NatCaller opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
                 CustList<NatExecOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
                 CustList<NatExecOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
                 StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
                 StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
                 return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                        initIn(f_.getClassName(), f_.getVarName()));
+                        initIn(f_.getClassName()));
             }
             NatResultInput resultInput_ = f_.getResultInput();
-            CustList<NatExecOperationNode> opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
+            NatCaller opsWrite_ = NatRendForwardInfos.buildWritePart(resultInput_);
             CustList<NatExecOperationNode> opRead_ = getExecutableNodes(f_.getRootRead());
             CustList<NatExecOperationNode> opValue_ = getExecutableNodes(f_.getRootValue());
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
-                    initIn(f_.getClassName(), f_.getVarName()));
+                    initIn(f_.getClassName()));
         }
         if (_current instanceof NatAnaRendSpan){
             NatAnaRendSpan f_ = (NatAnaRendSpan) _current;
@@ -227,13 +228,12 @@ public final class NatRendForwardInfos {
         return null;
     }
 
-    static CustList<NatExecOperationNode> buildWritePart(NatResultInput _resultInput) {
+    static NatCaller buildWritePart(NatResultInput _resultInput) {
         NatOperationNode settable_ = _resultInput.getSettable();
-        CustList<NatExecOperationNode> l_ = new CustList<NatExecOperationNode>();
         if (settable_ instanceof SettableFieldNatOperation) {
-            l_ = buildWritePartField(_resultInput, (SettableFieldNatOperation) settable_);
+            return ((SettableFieldNatOperation)settable_).getSettableFieldContent().getField().getCallerSet();
         }
-        return l_;
+        return null;
     }
 
     private static StringMap<NatExecTextPart> toExecPartExt(StringMap<NatResultText> _texts) {
@@ -389,37 +389,6 @@ public final class NatRendForwardInfos {
         return new NatAffectationOperation(a_.getOrder());
     }
 
-    private static NatAnaVariableContent generateVariable(String _varLoc) {
-        NatAnaVariableContent cont_ = new NatAnaVariableContent();
-        cont_.setVariableName(_varLoc);
-        return cont_;
-    }
-
-    private static CustList<NatExecOperationNode> buildWritePartField(NatResultInput _resultInput, SettableFieldNatOperation _settable) {
-        CustList<NatExecOperationNode> w_ = new CustList<NatExecOperationNode>();
-        NatAffectationOperation rendAff_ = new NatAffectationOperation(4);
-        NatDotOperation rendDot_ = new NatDotOperation(2);
-        NatStdRefVariableOperation rendPrevVar_ = new NatStdRefVariableOperation(0, new NatExecVariableContent(generateVariable(_resultInput.getVarNames().first())));
-        NatAnaFieldOperationContent cont_ = new NatAnaFieldOperationContent();
-        cont_.setIntermediate(true);
-        NatSettableFieldOperation rendField_ = new NatSettableFieldOperation(true,1,
-                new NatExecFieldOperationContent(cont_), new NatExecSettableOperationContent(_settable.getSettableFieldContent()));
-        rendPrevVar_.setSiblingSet(rendField_);
-        rendDot_.appendChild(rendPrevVar_);
-        rendDot_.appendChild(rendField_);
-        rendAff_.appendChild(rendDot_);
-        NatStdRefVariableOperation rendVar_ = new NatStdRefVariableOperation(3, new NatExecVariableContent(generateVariable(_resultInput.getVarNames().last())));
-        rendAff_.appendChild(rendVar_);
-        rendAff_.setup();
-
-        w_.add(rendPrevVar_);
-        w_.add(rendField_);
-        w_.add(rendDot_);
-        w_.add(rendVar_);
-        w_.add(rendAff_);
-        return w_;
-    }
-
     private static void initValidatorsInstance() {
 //        for (EntryCust<NatOperationNode, ValidatorInfo> e: _lateValidators.entryList()) {
 //            ValidatorInfo v_ = e.getValue();
@@ -442,10 +411,9 @@ public final class NatRendForwardInfos {
         }
     }
 
-    private static NatFieldUpdates initIn(String _className, String _varName) {
+    private static NatFieldUpdates initIn(String _className) {
         NatFieldUpdates fieldUpdates_ = new NatFieldUpdates();
         fieldUpdates_.setClassName(_className);
-        fieldUpdates_.setVarName(_varName);
         return fieldUpdates_;
     }
 }

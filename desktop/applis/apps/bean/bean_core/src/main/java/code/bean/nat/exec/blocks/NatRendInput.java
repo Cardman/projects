@@ -1,5 +1,6 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.NatCaller;
 import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
@@ -18,7 +19,7 @@ public final class NatRendInput extends NatRendElement {
     private final NatFieldUpdates fieldUpdates;
 
     public NatRendInput(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText,
-                        CustList<NatExecOperationNode> _opsRead, CustList<NatExecOperationNode> _opsValue, CustList<NatExecOperationNode> _opsWrite,
+                        CustList<NatExecOperationNode> _opsRead, CustList<NatExecOperationNode> _opsValue, NatCaller _opsWrite,
                         NatFieldUpdates _init) {
         super(_read, _execAttributes, _execAttributesText);
         fieldUpdates = _init;

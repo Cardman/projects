@@ -10,7 +10,6 @@ import code.util.core.StringUtil;
 public final class NatAnaRendInput extends NatAnaRendElement {
     private NatOperationNode rootRead;
     private NatOperationNode rootValue;
-    private String varName = AnaRendBlockHelp.EMPTY_STRING;
     private String className = AnaRendBlockHelp.EMPTY_STRING;
     private NatResultInput resultInput;
     private final boolean radio;
@@ -46,7 +45,6 @@ public final class NatAnaRendInput extends NatAnaRendElement {
         resultInput = r_;
         rootRead = r_.getOpsReadRoot();
         rootValue = r_.getOpsValueRoot();
-        varName = r_.getVarName();
         className = r_.getClassNameNat();
     }
 
@@ -60,10 +58,6 @@ public final class NatAnaRendInput extends NatAnaRendElement {
 
     public String getClassName() {
         return className;
-    }
-
-    public String getVarName() {
-        return varName;
     }
 
     public NatResultInput getResultInput() {

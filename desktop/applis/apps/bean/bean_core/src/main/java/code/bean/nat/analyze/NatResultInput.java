@@ -1,15 +1,11 @@
 package code.bean.nat.analyze;
 
-import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.AffectationNatOperation;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.analyze.opers.NatSettableElResult;
 import code.formathtml.analyze.AnalyzingDoc;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.Element;
-import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class NatResultInput {
 
@@ -17,8 +13,6 @@ public final class NatResultInput {
 
     private NatOperationNode opsReadRoot;
     private NatOperationNode opsValueRoot;
-    private String varName = EMPTY_STRING;
-    private StringList varNames = new StringList();
     private String classNameNat = EMPTY_STRING;
     private NatOperationNode settable;
 
@@ -39,21 +33,6 @@ public final class NatResultInput {
         NatSettableElResult settable_ = AffectationNatOperation.castDottedTo(res_);
         setClassNameNat(((NatOperationNode) settable_).getNames());
         setSettable((NatOperationNode) settable_);
-        StringList varNames_ = new StringList();
-        String varPrevLoc_ = AnaRendBlockHelp.lookForVar(varNames_);
-        varNames_.add(varPrevLoc_);
-        String varLoc_ = AnaRendBlockHelp.lookForVar(varNames_);
-        varNames_.add(varLoc_);
-        setVarNames(varNames_);
-        setVarName(StringUtil.concat(varPrevLoc_,AnaRendBlock.COMMA,varLoc_));
-    }
-
-    public String getVarName() {
-        return varName;
-    }
-
-    public void setVarName(String _varName) {
-        this.varName = _varName;
     }
 
     public String getClassNameNat() {
@@ -78,14 +57,6 @@ public final class NatResultInput {
 
     public void setSettable(NatOperationNode _settable) {
         settable = _settable;
-    }
-
-    public StringList getVarNames() {
-        return varNames;
-    }
-
-    public void setVarNames(StringList _varNames) {
-        varNames = _varNames;
     }
 
 }

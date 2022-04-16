@@ -10,7 +10,6 @@ public final class NatAnaRendSelect extends NatAnaRendParentBlock implements Nat
     private NatOperationNode rootRead;
     private NatOperationNode rootValue;
     private NatOperationNode rootMap;
-    private String varName = AnaRendBlockHelp.EMPTY_STRING;
     private final Element elt;
     private String classNameNat = AnaRendBlockHelp.EMPTY_STRING;
     private NatResultInput resultInput;
@@ -26,7 +25,6 @@ public final class NatAnaRendSelect extends NatAnaRendParentBlock implements Nat
         r_.build(elt,_anaDoc.getRendKeyWords().getAttrVarValue(), _anaDoc, _page);
         rootRead = r_.getOpsReadRoot();
         rootValue = r_.getOpsValueRoot();
-        varName = r_.getVarName();
         resultInput = r_;
         classNameNat = r_.getClassNameNat();
         String map_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrMap());
@@ -39,10 +37,6 @@ public final class NatAnaRendSelect extends NatAnaRendParentBlock implements Nat
 
     public NatOperationNode getRootRead() {
         return rootRead;
-    }
-
-    public String getVarName() {
-        return varName;
     }
 
     public String getClassNameNat() {

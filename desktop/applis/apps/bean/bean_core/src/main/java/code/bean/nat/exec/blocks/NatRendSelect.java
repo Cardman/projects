@@ -1,6 +1,7 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.NatCaller;
 import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
@@ -21,7 +22,7 @@ public final class NatRendSelect extends NatParentBlock {
     private final Element elt;
     private final NatFieldUpdates fieldUpdates;
 
-    public NatRendSelect(CustList<NatExecOperationNode> _opsRead, CustList<NatExecOperationNode> _opsValue, CustList<NatExecOperationNode> _opsWrite,
+    public NatRendSelect(CustList<NatExecOperationNode> _opsRead, CustList<NatExecOperationNode> _opsValue, NatCaller _opsWrite,
                          CustList<NatExecOperationNode> _opsMap,
                          Element _elt,
                          NatFieldUpdates _init) {

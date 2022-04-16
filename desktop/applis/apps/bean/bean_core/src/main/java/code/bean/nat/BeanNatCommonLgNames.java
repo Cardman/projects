@@ -206,7 +206,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
             return;
         }
         //Setting values for bean
-        updateRendBean(natPage, st_);
+        updateRendBean(natPage);
         st_.clearPages();
 
         //invoke application
@@ -231,7 +231,7 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         return map_;
     }
 
-    public static void updateRendBean(NatHtmlPage _htmlPage, NatRendStackCall _rendStackCall) {
+    public static void updateRendBean(NatHtmlPage _htmlPage) {
         LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
         containersMap_ = _htmlPage.getContainers();
         long lg_ = _htmlPage.getUrl();
@@ -242,25 +242,16 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
                 continue;
             }
             Struct res_ = convert(nCont_);
-            Struct procObj_ = e.getValue().getUpdated();
-            setGlobalArgumentStruct(procObj_, _rendStackCall);
-            setRendObject(e.getValue(), res_, _rendStackCall);
+            setRendObject(e.getValue(), res_);
         }
     }
 
 
     public static void setRendObject(NatNodeContainer _nodeContainer,
-                              Struct _attribute, NatRendStackCall _rendStackCall) {
+                                     Struct _attribute) {
         Struct obj_ = _nodeContainer.getUpdated();
-        String attrName_ = _nodeContainer.getVarName();
-        String prev_ = _nodeContainer.getVarPrevName();
-        CustList<NatExecOperationNode> wr_ = _nodeContainer.getOpsWrite();
-        NatImportingPage ip_ = _rendStackCall.getLastPage();
-        ip_.putValueVar(prev_, new VariableWrapperNat(obj_));
-        ip_.putValueVar(attrName_, new VariableWrapperNat(_attribute));
-        getAllArgs(wr_, _rendStackCall);
-        ip_.removeRefVar(prev_);
-        ip_.removeRefVar(attrName_);
+        NatCaller wr_ = _nodeContainer.getOpsWrite();
+        wr_.re(obj_,new Struct[]{_attribute});
     }
     public static Struct redirect(NatHtmlPage _htmlPage, Struct _bean, NatRendStackCall _rendStack){
         Struct ret_;

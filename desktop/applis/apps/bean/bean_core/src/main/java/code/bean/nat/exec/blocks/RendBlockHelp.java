@@ -1,9 +1,6 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.PairStruct;
-import code.bean.nat.SimpleItrStruct;
-import code.bean.nat.SpecialNatClass;
+import code.bean.nat.*;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatAbstractAffectOperation;
 import code.bean.nat.exec.opers.NatExecOperationNode;
@@ -204,8 +201,7 @@ public final class RendBlockHelp {
     }
 
     static Argument fetchName(Configuration _cont, Element _read, Element _write, NatFieldUpdates _f, NatRendStackCall _rendStackCall) {
-        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
-        if (name_.isEmpty()) {
+        if (_f.getOpsWrite() == null) {
             return Argument.createVoid();
         }
         CustList<NatExecOperationNode> opsRead_ = _f.getOpsRead();
@@ -227,6 +223,7 @@ public final class RendBlockHelp {
         }
 //            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
         Argument arg_ = Argument.getNullableValue(pair_.getArgument());
+        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         return prStack(_cont,_write,_f, new NatFetchedObjs(obj_, stack_,arg_), _rendStackCall.getLastPage().getGlobalArgument(),_rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), RendBlock.DOT, name_));
     }
 
@@ -234,26 +231,33 @@ public final class RendBlockHelp {
         if ( _fetch.getStack().isEmpty()) {
             return _fetch.getArg();
         }
-        CustList<NatExecOperationNode> opsWrite_ = _f.getOpsWrite();
-        String varName_ = _f.getVarName();
-        NatNodeContainer nodeCont_ = new NatNodeContainer();
+        long found_ = -1;
+        for (EntryCust<Long, NatNodeContainer> e: _fetch.getStack().last().entryList()) {
+            if (e.getValue().getOpsWrite() == _f.getOpsWrite()) {
+                found_ = e.getKey();
+                break;
+            }
+        }
         FormParts formParts_ = _rend.getFormParts();
-        Longs inputs_ = formParts_.getInputs();
-        long currentInput_ = inputs_.last();
-        nodeCont_.setAllObject(_fetch.getObj());
-        StringList strings_ = StringUtil.splitChar(varName_, ',');
-        nodeCont_.setVarPrevName(strings_.first());
-        nodeCont_.setVarName(strings_.last());
-        nodeCont_.setOpsWrite(opsWrite_);
-        nodeCont_.setBean(_globalArgument.getStruct());
-        NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
-        nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrValidator())));
-        nodeInfos_.setId(RendBlock.getId(_cont,_write));
-        nodeInfos_.setInputClass(RendBlock.getInputClass(_cont, _write, _f));
-        _fetch.getStack().last().put(currentInput_, nodeCont_);
-        formParts_.getIndexes().setNb(currentInput_);
-        currentInput_++;
-        inputs_.set(inputs_.getLastIndex(),currentInput_);
+        if (found_ == -1) {
+            NatCaller opsWrite_ = _f.getOpsWrite();
+            NatNodeContainer nodeCont_ = new NatNodeContainer();
+            Longs inputs_ = formParts_.getInputs();
+            long currentInput_ = inputs_.last();
+            nodeCont_.setAllObject(_fetch.getObj());
+            nodeCont_.setOpsWrite(opsWrite_);
+            nodeCont_.setBean(_globalArgument.getStruct());
+            NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
+            nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrValidator())));
+            nodeInfos_.setId(RendBlock.getId(_cont,_write));
+            nodeInfos_.setInputClass(RendBlock.getInputClass(_cont, _write, _f));
+            _fetch.getStack().last().put(currentInput_, nodeCont_);
+            formParts_.getIndexes().setNb(currentInput_);
+            currentInput_++;
+            inputs_.set(inputs_.getLastIndex(),currentInput_);
+        } else {
+            formParts_.getIndexes().setNb(found_);
+        }
         _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(formParts_.getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _concat);
