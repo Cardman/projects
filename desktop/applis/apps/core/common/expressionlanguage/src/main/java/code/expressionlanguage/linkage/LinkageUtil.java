@@ -2256,27 +2256,27 @@ public final class LinkageUtil {
     private static void buildAnnotationsError(VariablesOffsets _vars, NamedFunctionBlock _cond, int _index) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
         CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
-        annotMethError(_vars, _cond, _index, annotationsIndexes_, roots_);
+        annotMethError(_vars, _cond, annotationsIndexes_, roots_);
     }
     private static void buildAnnotationsErrorSupp(VariablesOffsets _vars, NamedCalledFunctionBlock _cond) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesSupp();
         CustList<OperationNode> roots_ = _cond.getRootsListSupp();
-        int index_ = _vars.getLastStackElt().getIndexAnnotationGroup();
-        annotMethError(_vars, _cond, index_, annotationsIndexes_, roots_);
+        annotMethError(_vars, _cond, annotationsIndexes_, roots_);
     }
 
-    private static void annotMethError(VariablesOffsets _vars, AbsBk _cond, int _index, Ints _annotationsIndexes, CustList<OperationNode> _roots) {
+    private static void annotMethError(VariablesOffsets _vars, AbsBk _cond, Ints _annotationsIndexes, CustList<OperationNode> _roots) {
         int len_ = _annotationsIndexes.size();
+        int index_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            buildAnnotErr(_vars, _cond, _index, _annotationsIndexes, _roots, i);
+            buildAnnotErr(_vars, _cond, index_, _annotationsIndexes, _roots, i);
             if (_vars.goesToProcess()) {
                 return;
             }
             _vars.getLastStackElt().setIndexAnnotation(i + 1);
         }
         _vars.getLastStackElt().setIndexAnnotation(0);
-        _vars.getLastStackElt().setIndexAnnotationGroup(_index + 1);
+        _vars.getLastStackElt().setIndexAnnotationGroup(index_ + 1);
     }
 
     private static void buildAnnotErr(VariablesOffsets _vars, AbsBk _cond, int _indexAnnotationGroup, Ints _annotationsIndexes, CustList<OperationNode> _roots, int _indexAnnotation) {
@@ -2294,7 +2294,7 @@ public final class LinkageUtil {
     private static void buildAnnotationsError(VariablesOffsets _vars, SwitchMethodBlock _cond, int _index) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
         CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
-        annotMethError(_vars, _cond, _index, annotationsIndexes_, roots_);
+        annotMethError(_vars, _cond, annotationsIndexes_, roots_);
     }
     private static void refParams(VariablesOffsets _vars, NamedFunctionBlock _cond, Coverage _cov) {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
