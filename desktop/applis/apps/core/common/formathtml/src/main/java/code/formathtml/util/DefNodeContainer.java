@@ -9,6 +9,7 @@ public final class DefNodeContainer extends NodeContainer {
     private CustList<RendDynOperationNode> opsConvert;
     private String idFieldClass;
     private String idFieldName;
+    private String idRadio = "";
 
     private AbstractWrapper input;
 
@@ -47,4 +48,13 @@ public final class DefNodeContainer extends NodeContainer {
     public void setInput(AbstractWrapper _input) {
         input = _input;
     }
+
+    public String getIdRadio() {
+        return idRadio;
+    }
+
+    public void setIdRadio(String _id) {
+        this.idRadio = _id;
+    }
+
 }

@@ -5,6 +5,7 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
+import code.formathtml.util.DefFieldUpdates;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -13,11 +14,11 @@ import code.util.StringMap;
 public final class RendStdInput extends RendInput {
 
     public RendStdInput(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
-                        CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue,
-                        CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
-                        String _varNameConverter, String _varNameConverterField,
-                        String _idClass, String _idName, String _className) {
-        super(_read, _execAttributes, _execAttributesText, _opsRead, _opsValue, _opsConverter, _opsConverterField, _varNameConverter, _varNameConverterField, _idClass, _idName, _className);
+                        CustList<RendDynOperationNode> _opsValue,
+                        CustList<RendDynOperationNode> _opsConverterField,
+                        String _varNameConverterField,
+                        DefFieldUpdates _f) {
+        super(_read, _execAttributes, _execAttributesText, _opsValue, _opsConverterField, _varNameConverterField, _f);
     }
 
     @Override

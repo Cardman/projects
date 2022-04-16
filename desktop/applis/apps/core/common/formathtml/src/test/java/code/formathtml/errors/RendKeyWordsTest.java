@@ -280,6 +280,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
         r_.setValueSubmit("");
         r_.setAttrEq("");
         r_.setAttrNi("");
+        r_.setAttrNr("");
         r_.setAttrQuoted("");
         r_.setAttrClassName("");
         r_.setAttrDefault("");

@@ -335,9 +335,9 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<DefExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<DefExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendRadio(f_.getRead(),part_,partText_,opRead_,opValue_, opConverter_,opConverterField_
-                    , f_.getVarNameConverter(),f_.getVarNameConverterField(), f_.getIdClass(),f_.getIdName(),f_.getClassName(),opConverterFieldValue_,
-                    f_.getVarNameConverterFieldValue());
+            return new RendRadio(f_.getRead(),part_,partText_, opValue_, opConverterField_
+                    , f_.getVarNameConverterField(), opConverterFieldValue_,
+                    f_.getVarNameConverterFieldValue(), RendInput.initUpdates(f_.getIdClass(), f_.getIdName(), opRead_, f_.getVarNameConverter(), opConverter_, f_.getClassName(), f_.getNbRadio()));
         }
         if (_current instanceof AnaRendStdInput){
             AnaRendStdInput f_ = (AnaRendStdInput) _current;
@@ -347,8 +347,8 @@ public final class RendForwardInfos {
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<DefExecTextPart> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<DefExecTextPart> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            return new RendStdInput(f_.getRead(),part_,partText_,opRead_,opValue_, opConverter_,opConverterField_
-                    , f_.getVarNameConverter(),f_.getVarNameConverterField(), f_.getIdClass(),f_.getIdName(),f_.getClassName());
+            return new RendStdInput(f_.getRead(),part_,partText_, opValue_, opConverterField_
+                    , f_.getVarNameConverterField(), RendInput.initUpdates(f_.getIdClass(), f_.getIdName(), opRead_, f_.getVarNameConverter(), opConverter_, f_.getClassName(), ""));
         }
         if (_current instanceof AnaRendTextArea){
             AnaRendTextArea f_ = (AnaRendTextArea) _current;

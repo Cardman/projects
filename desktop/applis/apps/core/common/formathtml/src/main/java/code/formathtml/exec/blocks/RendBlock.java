@@ -409,30 +409,44 @@ public abstract class RendBlock {
         if (_fetch.getStack().isEmpty()) {
             return _fetch.getArg();
         }
+        long found_ = -1;
+        if (!_f.getIdRadio().isEmpty()) {
+            for (EntryCust<Long, DefNodeContainer> e: _fetch.getStack().last().entryList()) {
+                if (StringUtil.quickEq(e.getValue().getIdRadio(), _f.getIdRadio())) {
+                    found_ = e.getKey();
+                    break;
+                }
+            }
+        }
         Struct currentField_ = _fetch.getArg().getStruct();
         FormParts formParts_ = _rend.getFormParts();
-        Longs inputs_ = formParts_.getInputs();
-        long currentInput_ = inputs_.last();
-        DefNodeContainer nodeCont_ = new DefNodeContainer();
-        nodeCont_.setIdFieldClass(_f.getIdClass());
-        nodeCont_.setIdFieldName(_f.getIdName());
-        nodeCont_.setTypedStruct(currentField_);
-        nodeCont_.setAllObject(_fetch.getAllObj());
-        nodeCont_.setOpsConvert(_f.getOpsConverter());
-        nodeCont_.setInput(_fetch.getInput());
-        nodeCont_.setVarNameConvert(_f.getVarNameConverter());
-        nodeCont_.setArrayConverter(_f.isArrayConverter());
-        nodeCont_.setBean(_globalArgument.getStruct());
-        NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
-        String id_ = getId(_cont, _write);
-        String class_ = getInputClass(_cont, _write, _f);
-        nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrValidator())));
-        nodeInfos_.setId(id_);
-        nodeInfos_.setInputClass(class_);
-        _fetch.getStack().last().put(currentInput_, nodeCont_);
-        formParts_.getIndexes().setNb(currentInput_);
-        currentInput_++;
-        inputs_.set(inputs_.getLastIndex(),currentInput_);
+        if (found_ == -1) {
+            Longs inputs_ = formParts_.getInputs();
+            long currentInput_ = inputs_.last();
+            DefNodeContainer nodeCont_ = new DefNodeContainer();
+            nodeCont_.setIdRadio(_f.getIdRadio());
+            nodeCont_.setIdFieldClass(_f.getIdClass());
+            nodeCont_.setIdFieldName(_f.getIdName());
+            nodeCont_.setTypedStruct(currentField_);
+            nodeCont_.setAllObject(_fetch.getAllObj());
+            nodeCont_.setOpsConvert(_f.getOpsConverter());
+            nodeCont_.setInput(_fetch.getInput());
+            nodeCont_.setVarNameConvert(_f.getVarNameConverter());
+            nodeCont_.setArrayConverter(_f.isArrayConverter());
+            nodeCont_.setBean(_globalArgument.getStruct());
+            NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
+            String id_ = getId(_cont, _write);
+            String class_ = getInputClass(_cont, _write, _f);
+            nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrValidator())));
+            nodeInfos_.setId(id_);
+            nodeInfos_.setInputClass(class_);
+            _fetch.getStack().last().put(currentInput_, nodeCont_);
+            formParts_.getIndexes().setNb(currentInput_);
+            currentInput_++;
+            inputs_.set(inputs_.getLastIndex(),currentInput_);
+        } else {
+            formParts_.getIndexes().setNb(found_);
+        }
         _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(formParts_.getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _concat);

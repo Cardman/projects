@@ -111,6 +111,7 @@ public final class RendKeyWords {
     private static final String ATTR_FOR="AttrFor";
     private static final String ATTR_PAGE="AttrPage";
     private static final String ATTR_N_I="AttrNi";
+    private static final String ATTR_N_R="AttrNr";
     private static final String ATTR_ACTION="AttrAction";
     private static final String ATTR_N_F="AttrNf";
     private static final String ATTR_CONVERT="AttrConvert";
@@ -259,6 +260,7 @@ public final class RendKeyWords {
     private String attrNf="n-f";
     private String attrNa="n-a";
     private String attrNi="n-i";
+    private String attrNr="n-r";
 
     private String attrParam = "param";
 
@@ -380,6 +382,7 @@ public final class RendKeyWords {
         setAttrAlias(LgNamesContent.get(_util, _cust, ATTR_ALIAS));
         setAttrNf(LgNamesContent.get(_util, _cust, ATTR_N_F));
         setAttrNi(LgNamesContent.get(_util, _cust, ATTR_N_I));
+        setAttrNr(LgNamesContent.get(_util, _cust, ATTR_N_R));
         setAttrChecked(LgNamesContent.get(_util, _cust, ATTR_CHECKED));
         setAttrLabel(LgNamesContent.get(_util, _cust, ATTR_LABEL));
         setAttrCondition(LgNamesContent.get(_util, _cust, ATTR_CONDITION));
@@ -688,6 +691,7 @@ public final class RendKeyWords {
         keyWords_.addEntry(ATTR_LABEL,attrLabel);
         keyWords_.addEntry(ATTR_BEAN,attrBean);
         keyWords_.addEntry(ATTR_N_I,attrNi);
+        keyWords_.addEntry(ATTR_N_R,attrNr);
         keyWords_.addEntry(ATTR_N_F,attrNf);
         keyWords_.addEntry(ATTR_PARAM,attrParam);
         keyWords_.addEntry(ATTR_ALIAS,attrAlias);
@@ -1438,6 +1442,14 @@ public final class RendKeyWords {
 
     public void setAttrNi(String _attrNi) {
         this.attrNi = _attrNi;
+    }
+
+    public String getAttrNr() {
+        return attrNr;
+    }
+
+    public void setAttrNr(String _attrNr) {
+        this.attrNr = _attrNr;
     }
 
     public String getAttrParam() {
