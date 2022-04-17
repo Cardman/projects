@@ -70,25 +70,15 @@ public final class OperationsSequence {
             return;
         }
         if (priority == ElResolver.POST_INCR_PRIO) {
-            int beginValuePart_ = IndexConstants.FIRST_INDEX;
-            int endValuePart_ = operators.firstKey();
-            String str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(IndexConstants.FIRST_INDEX, str_);
-            beginValuePart_ = endValuePart_ + operators.firstValue().length();
-            str_ = _string.substring(beginValuePart_);
-            addValueIfNotEmpty(beginValuePart_, str_);
+            firstOpt(_string);
+            possRight(_string);
             return;
         }
         if (_is && priority == ElResolver.CMP_PRIO) {
             //instanceof operator
-            int beginValuePart_ = IndexConstants.FIRST_INDEX;
             instanceTest = true;
-            int endValuePart_ = operators.firstKey();
-            String str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(IndexConstants.FIRST_INDEX, str_);
-            beginValuePart_ = endValuePart_ + operators.firstValue().length();
-            str_ = _string.substring(beginValuePart_);
-            addValueIfNotEmpty(beginValuePart_, str_);
+            firstOpt(_string);
+            possRight(_string);
             return;
         }
         if (priority == ElResolver.FCT_OPER_PRIO) {
@@ -97,6 +87,13 @@ public final class OperationsSequence {
         }
         notUnary(_string);
         defOperators(_string);
+    }
+
+    private void possRight(String _string) {
+        int endValuePart_ = operators.firstKey();
+        int beginValuePart_ = endValuePart_ + operators.firstValue().length();
+        String str_ = _string.substring(beginValuePart_);
+        addValueIfNotEmpty(beginValuePart_, str_);
     }
 
     private void fctPrio(String _string, boolean _instance, Ints _nb) {
@@ -119,8 +116,8 @@ public final class OperationsSequence {
             return;
         }
         if (block != null) {
-            notUnary(_string);
-            fctPrio(_string);
+            firstOpt(_string);
+            args(_string);
             return;
         }
         int afterLastPar_ = operators.lastKey() + 1;
@@ -135,30 +132,31 @@ public final class OperationsSequence {
             return;
         }
         if (initArrayDim_) {
-            notUnary(_string);
+            firstOpt(_string);
             arrDim(_string);
             return;
         }
-        notUnary(_string);
-        fctPrio(_string);
+        firstOpt(_string);
+        args(_string);
     }
 
     private void pureDot(String _string) {
-        notUnary(_string);
-        int endValuePart_ = operators.firstKey();
-        int beginValuePart_ = endValuePart_ + operators.lastValue().length();
-        String str_ = _string.substring(beginValuePart_);
-        values.addEntry(beginValuePart_, str_);
+        firstOpt(_string);
+        lastArg(_string);
     }
 
     private void notUnary(String _string) {
         if (priority != ElResolver.UNARY_PRIO) {
             //not unary priority, not identity priority
-            int beginValuePart_ = IndexConstants.FIRST_INDEX;
-            int endValuePart_ = operators.firstKey();
-            String str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
+            firstOpt(_string);
         }
+    }
+
+    private void firstOpt(String _string) {
+        int beginValuePart_ = IndexConstants.FIRST_INDEX;
+        int endValuePart_ = operators.firstKey();
+        String str_ = _string.substring(beginValuePart_, endValuePart_);
+        values.addEntry(beginValuePart_, str_);
     }
 
     private void countArr(Ints _nb, StringBuilder filter_) {
@@ -184,45 +182,14 @@ public final class OperationsSequence {
     }
 
     private void braceArr(String _string) {
-        int beginValuePart_ = IndexConstants.FIRST_INDEX;
-        int endValuePart_ = operators.firstKey();
-        String str_ = _string.substring(beginValuePart_, endValuePart_);
-        values.addEntry(beginValuePart_, str_);
-        int i_ = IndexConstants.SECOND_INDEX;
-        int nbKeys_ = operators.size();
-        if (nbKeys_ == 2) {
-            beginValuePart_ = endValuePart_ + operators.getValue(0).length();
-            endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            addValueIfNotEmpty(beginValuePart_, str_);
-            return;
-        }
-        while (i_ < nbKeys_) {
-            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-            endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
-            i_++;
-        }
+        firstOpt(_string);
+        args(_string);
     }
 
     private void declOp(String _string) {
-        int beginValuePart_ = IndexConstants.FIRST_INDEX;
-        int endValuePart_ = operators.firstKey();
-        String str_ = _string.substring(beginValuePart_, endValuePart_);
-        values.addEntry(beginValuePart_, str_);
-        int i_ = IndexConstants.SECOND_INDEX;
-        int nbKeys_ = operators.size();
-        while (i_ < nbKeys_) {
-            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-            endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
-            i_++;
-        }
-        beginValuePart_ = endValuePart_ + operators.lastValue().length();
-        str_ = _string.substring(beginValuePart_);
-        values.addEntry(beginValuePart_, str_);
+        firstOpt(_string);
+        argsLoop(_string);
+        lastArg(_string);
     }
 
     private void arrDim(String _string) {
@@ -249,43 +216,40 @@ public final class OperationsSequence {
         }
     }
 
-    private void fctPrio(String _string) {
-        int beginValuePart_;
-        String str_;
-        int endValuePart_ = operators.firstKey();
-        if (operators.size() == 2) {
-            beginValuePart_ = endValuePart_ + operators.firstValue().length();
-            endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
+    private void args(String _string) {
+        int i_ = IndexConstants.SECOND_INDEX;
+        int nbKeys_ = operators.size();
+        if (nbKeys_ == 2) {
+            int endValuePart_ = operators.firstKey();
+            int beginValuePart_ = endValuePart_ + operators.getValue(0).length();
+            endValuePart_ = operators.getKey(i_);
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
             addValueIfNotEmpty(beginValuePart_, str_);
             return;
         }
+        argsLoop(_string);
+    }
+    private void argsLoop(String _string) {
         int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
+        int endValuePart_ = operators.firstKey();
         while (i_ < nbKeys_) {
-            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+            int beginValuePart_ = endValuePart_ + operators.getValue(i_ - 1).length();
             endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
             values.addEntry(beginValuePart_, str_);
             i_++;
         }
     }
 
     private void defOperators(String _string) {
-        int beginValuePart_;
-        String str_;
-        int endValuePart_ = operators.firstKey();
-        int i_ = IndexConstants.SECOND_INDEX;
-        int nbKeys_ = operators.size();
-        while (i_ < nbKeys_) {
-            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-            endValuePart_ = operators.getKey(i_);
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
-            i_++;
-        }
-        beginValuePart_ = endValuePart_ + operators.lastValue().length();
-        str_ = _string.substring(beginValuePart_);
+        argsLoop(_string);
+        lastArg(_string);
+    }
+    private void lastArg(String _string) {
+        int endValuePart_ = operators.lastKey();
+        int beginValuePart_ = endValuePart_ + operators.lastValue().length();
+        String str_ = _string.substring(beginValuePart_);
         values.addEntry(beginValuePart_, str_);
     }
 
