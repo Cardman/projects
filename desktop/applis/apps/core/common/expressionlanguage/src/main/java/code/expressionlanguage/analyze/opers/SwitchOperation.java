@@ -39,9 +39,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         _page.getAllSwitchMethods().add(this);
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
         for (EntryCust<String, AnaLocalVariable> e: _page.getInfosVars().entryList()) {
             switchMethod.getCache().getLocalVariables().add(new AnaNamedLocalVariable(e.getKey(), e.getValue()));
         }

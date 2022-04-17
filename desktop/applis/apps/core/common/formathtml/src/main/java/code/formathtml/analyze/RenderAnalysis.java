@@ -51,7 +51,7 @@ public final class RenderAnalysis {
         int end_ = d_.getIndexEnd();
         _anaDoc.setNextIndex(end_+2);
         String el_ = _el.substring(_minIndex,end_+1);
-        OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, d_, _anaDoc, _page);
+        OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, d_, _anaDoc, _page, null);
         OperationNode op_ = OperationNode.createPossDeclOperationNode(_minIndex, IndexConstants.FIRST_INDEX, opTwo_, _page);
         getSortedDescNodes(op_, _anaDoc, _page);
         return op_;
@@ -86,7 +86,7 @@ public final class RenderAnalysis {
             return e_;
         }
         String el_ = _el.substring(_index);
-        OperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc, _page);
+        OperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc, _page, null);
         OperationNode op_ = OperationNode.createPossDeclOperationNode(_index, IndexConstants.FIRST_INDEX, opTwo_, _page);
         getSortedDescNodes(op_, _anaDoc, _page);
         return op_;
@@ -214,12 +214,12 @@ public final class RenderAnalysis {
         Delimiters d_ = p_.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_ne);
         int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page);
+        OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page, p_);
         return createOperationNode(offset_, _ne, p_, r_, _anaDoc, _page);
     }
 
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
-                                                           Delimiters _d, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+                                                           Delimiters _d, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, MethodOperation _meth) {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
@@ -248,7 +248,7 @@ public final class RenderAnalysis {
                 }
             }
         }
-        return ElResolver.getOperationsSequence(_offset, _string, _d, _page);
+        return ElResolver.getOperationsSequence(_offset, _string, _d, _page,_meth);
     }
 
     public static OperationNode createOperationNode(int _index,

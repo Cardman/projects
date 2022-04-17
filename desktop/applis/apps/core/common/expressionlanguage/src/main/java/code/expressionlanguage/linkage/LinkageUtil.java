@@ -3002,21 +3002,21 @@ public final class LinkageUtil {
             int begCst_ = _sum + off_ + _val.getIndexInEl();
             if (_val.getOperations().getConstType() == ConstType.TEXT_BLOCK) {
                 _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
-                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getBlockLength());
-                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getBlockLength()));
+                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getLen());
+                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLen()));
             }
             if (_val.getOperations().getConstType() == ConstType.STRING) {
                 _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
-                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getLength());
-                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLength()));
+                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getLen());
+                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLen()));
             }
             if (_val.getOperations().getConstType() == ConstType.CHARACTER) {
                 _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
-                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getLength());
-                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLength()));
+                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getLen());
+                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLen()));
             }
             if (_val.getOperations().getConstType() == ConstType.NUMBER) {
-                messageCst(_vars,_val, begCst_, ((ConstantOperation) _val).getNbLength());
+                messageCst(_vars,_val, begCst_, ((ConstantOperation) _val).getLen());
             }
         }
     }

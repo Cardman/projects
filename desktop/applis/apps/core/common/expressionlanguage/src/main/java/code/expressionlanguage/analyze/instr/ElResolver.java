@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
+import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.types.AnaPartTypeUtil;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
@@ -2020,7 +2021,7 @@ public final class ElResolver {
     }
 
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
-                                                           Delimiters _d, AnalyzedPageEl _page) {
+                                                           Delimiters _d, AnalyzedPageEl _page, MethodOperation _meth) {
         OperationsSequence seq_ = tryGetSequence(_offset, _string, _d, _page);
         if (seq_ != null) {
             return seq_;
@@ -2055,6 +2056,7 @@ public final class ElResolver {
         AnaResultPartType partsOffs_ = af_.getPartsOffs();
         op_.setPartOffsets(partsOffs_);
         op_.setDelimiter(_d);
+        op_.adjust(_meth,_page);
         return op_;
     }
 
@@ -2106,7 +2108,7 @@ public final class ElResolver {
                 return op_;
             }
         }
-        return allDels(_offset, _string, _d, len_, keyWords_, i_, lastPrintChar_);
+        return allDels(_offset, _string, _d, len_, _page, i_, lastPrintChar_);
     }
 
     private static int firstPrint(String _string) {
@@ -2121,7 +2123,8 @@ public final class ElResolver {
         return i_;
     }
 
-    private static OperationsSequence allDels(int _offset, String _string, Delimiters _d, int len_, KeyWords keyWords_, int firstPrintChar_, int lastPrintChar_) {
+    private static OperationsSequence allDels(int _offset, String _string, Delimiters _d, int len_, AnalyzedPageEl _page, int firstPrintChar_, int lastPrintChar_) {
+        KeyWords keyWords_ = _page.getKeyWords();
         int strLen_ = _string.length();
         int begStat_ = delimiter(_d.getDelKeyWordStatic(), _offset, firstPrintChar_, strLen_);
         if (begStat_ >= 0) {
@@ -2154,6 +2157,7 @@ public final class ElResolver {
             op_.setValue(_string, firstPrintChar_);
             op_.setFctName(_string);
             op_.setDelimiter(_d);
+            op_.adjust(null,_page);
             return op_;
         }
         if (delimits(_d.getDelVararg(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2314,6 +2318,7 @@ public final class ElResolver {
             op_.setNbInfos(_d.getNbInfos().get(indexNb_));
             op_.getNbInfos().setPositive(true);
             op_.setValue(_string, firstPrintChar_);
+            op_.setLength(_d.getDelNumbers().get(beginNb_+1)-_offset-firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -2321,6 +2326,7 @@ public final class ElResolver {
         if (beginStr_ >= 0) {
             TextBlockInfo info_ = _d.getStringInfo().get(beginStr_/2);
             String export_ = info_.build();
+            int lenStrCh_ = _d.getDelStringsChars().get(beginStr_+1)-_offset+1-firstPrintChar_;
             if (_string.charAt(firstPrintChar_) == DELIMITER_CHAR) {
                 OperationsSequence op_ = new OperationsSequence();
                 op_.setConstType(ConstType.CHARACTER);
@@ -2328,6 +2334,7 @@ public final class ElResolver {
                 op_.setStrInfo(info_);
                 info_.setFound(_string);
                 op_.setValue(export_, firstPrintChar_);
+                op_.setLength(lenStrCh_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -2338,6 +2345,7 @@ public final class ElResolver {
                 op_.setStrInfo(info_);
                 info_.setFound(_string);
                 op_.setValue(export_, firstPrintChar_);
+                op_.setLength(lenStrCh_);
                 op_.setDelimiter(_d);
                 return op_;
             }
@@ -2347,6 +2355,7 @@ public final class ElResolver {
             op_.setStrInfo(info_);
             info_.setFound(_string);
             op_.setValue(export_, firstPrintChar_);
+            op_.setLength(lenStrCh_);
             op_.setDelimiter(_d);
             return op_;
         }
@@ -2360,6 +2369,7 @@ public final class ElResolver {
             op_.setTextInfo(info_);
             info_.setFound(_string);
             op_.setValue(export_, firstPrintChar_);
+            op_.setLength(_d.getDelTextBlocks().get(beginTx_+1)-_offset+1-firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }

@@ -107,7 +107,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
     }
 
     protected static OperationsSequence rendOpSeq(int _i, DualNavigationContext _conf, Delimiters _d, String _el, AnalyzingDoc analyzingDoc) {
-        return RenderAnalysis.getOperationsSequence(_i, _el, _d, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed());
+        return RenderAnalysis.getOperationsSequence(_i, _el, _d, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed(), null);
     }
 
     protected static CustList<OperationNode> getSortedDescNodes(DualNavigationContext _conf, OperationNode _op, AnalyzingDoc analyzingDoc) {
@@ -115,7 +115,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
     }
 
     protected static OperationsSequence getOperationsSequence(int _offset, String _el, DualNavigationContext _ctx, Delimiters _d) {
-        return ElResolver.getOperationsSequence(_offset, _el, _d, _ctx.getDualAnalyzedContext().getAnalyzed());
+        return ElResolver.getOperationsSequence(_offset, _el, _d, _ctx.getDualAnalyzedContext().getAnalyzed(),null);
     }
 
     protected static Delimiters checkSyntax(DualNavigationContext _ctx, String _elr) {

@@ -30,7 +30,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                                               int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         instancingAnnotContent = new AnaInstancingAnnotContent();
-        instancingAnnotContent.setMethodName(getOperations().getFctName());
+        instancingAnnotContent.setMethodName(getOperations().getOldFct());
     }
 
     @Override

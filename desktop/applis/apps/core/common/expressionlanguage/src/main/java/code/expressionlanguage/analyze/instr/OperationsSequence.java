@@ -1,16 +1,22 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefaultAnnotationAnalysis;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
+import code.expressionlanguage.analyze.opers.AnnotationInstanceArobaseOperation;
+import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumberInfos;
+import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class OperationsSequence {
     private static final char DOT_VAR = '.';
@@ -26,6 +32,8 @@ public final class OperationsSequence {
     private TextBlockInfo strInfo;
 
     private String fctName = "";
+    private String oldFct = "";
+    private boolean empty;
 
     private int priority;
 
@@ -153,10 +161,22 @@ public final class OperationsSequence {
     }
 
     private void firstOpt(String _string) {
+        empty = fctName.trim().isEmpty();
         int beginValuePart_ = IndexConstants.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_ = _string.substring(beginValuePart_, endValuePart_);
         values.addEntry(beginValuePart_, str_);
+        offset = endValuePart_;
+        oldFct = fctName;
+        fctName = str_;
+    }
+
+    public String getOldFct() {
+        return oldFct;
+    }
+
+    public boolean empFct() {
+        return empty;
     }
 
     private void countArr(Ints _nb, StringBuilder filter_) {
@@ -274,6 +294,61 @@ public final class OperationsSequence {
         StrTypes vs_ = getValues();
         vs_.remove(0);
     }
+
+    public void adjust(MethodOperation _m, AnalyzedPageEl _page) {
+        ConstType ct_ = getConstType();
+        if (ct_ == ConstType.ERROR) {
+            return;
+        }
+        if (ct_ == ConstType.SIMPLE_ANNOTATION) {
+            removeFirst();
+            return;
+        }
+//        if (getOperators().isEmpty()) {
+//            return;
+//        }
+        if (getPriority() == ElResolver.NAME_PRIO) {
+            removeFirst();
+            return;
+        }
+        if (getPriority() == ElResolver.FCT_OPER_PRIO) {
+            fctAdjust(_m, _page);
+            return;
+        }
+        if (getPriority() == ElResolver.AFF_PRIO&&_m instanceof AnnotationInstanceArobaseOperation) {
+            removeFirst();
+        }
+    }
+
+    private void fctAdjust(MethodOperation _m, AnalyzedPageEl _page) {
+        if (DefaultAnnotationAnalysis.isAnnotAnalysis(_page, _m,this)) {
+            removeFirst();
+            return;
+        }
+        KeyWords keyWords_ = _page.getKeyWords();
+        String keyWordBool_ = keyWords_.getKeyWordBool();
+        String fctName_ = oldFct.trim();
+        if (fctName_.startsWith("@")) {
+            removeFirst();
+            return;
+        }
+        int ternary_ = 0;
+        if (StringUtil.quickEq(fctName_, keyWordBool_)) {
+            ternary_ = getValues().size()-1;
+        }
+        if (ternary_ == 3) {
+            removeFirst();
+            return;
+        }
+        if (isCallDbArray()) {
+            removeFirst();
+            return;
+        }
+        if (isArray()) {
+            removeFirst();
+        }
+    }
+
     public Ints getErrorParts() {
         return errorParts;
     }
@@ -315,6 +390,7 @@ public final class OperationsSequence {
 
     public void setFctName(String _fctName) {
         fctName = _fctName;
+        oldFct = _fctName;
     }
 
     public boolean isCallDbArray() {

@@ -1,12 +1,12 @@
 package code.expressionlanguage.analyze.opers;
+
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.ParsedArgument;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.CharStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -14,8 +14,11 @@ import code.util.core.IndexConstants;
 
 public final class ConstantOperation extends LeafOperation {
 
+    private final int len;
+
     public ConstantOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        len = _op.getLength();
     }
 
     @Override
@@ -129,27 +132,8 @@ public final class ConstantOperation extends LeafOperation {
         return ParsedArgument.parse(_op.getNbInfos(), _page);
     }
 
-    public int getLength() {
-        Delimiters d_ = getOperations().getDelimiter();
-        int firstPrintChar_ = getOperations().getOffset();
-        int offset_ = getIndexInEl();
-        int begin_ = d_.getDelStringsChars().indexOfNb((long)firstPrintChar_+offset_);
-        return d_.getDelStringsChars().get(begin_+1)-offset_+1-firstPrintChar_;
+    public int getLen() {
+        return len;
     }
 
-    public int getBlockLength() {
-        Delimiters d_ = getOperations().getDelimiter();
-        int firstPrintChar_ = getOperations().getOffset();
-        int offset_ = getIndexInEl();
-        int begin_ = d_.getDelTextBlocks().indexOfNb((long)firstPrintChar_+offset_);
-        return d_.getDelTextBlocks().get(begin_+1)-offset_+1-firstPrintChar_;
-    }
-
-    public int getNbLength() {
-        Delimiters d_ = getOperations().getDelimiter();
-        int firstPrintChar_ = getOperations().getOffset();
-        int offset_ = getIndexInEl();
-        int begin_ = d_.getDelNumbers().indexOfNb((long)firstPrintChar_+offset_);
-        return d_.getDelNumbers().get(begin_+1)-offset_-firstPrintChar_;
-    }
 }

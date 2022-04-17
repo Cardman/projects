@@ -208,6 +208,7 @@ public abstract class OperationNode {
     }
     public static OperationNode createOperationNode(int _index,
                                                     int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
+//        _op.adjust(_m,_page);
         OperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _page);
         if (_m instanceof AbstractDotOperation&&_m.getFirstChild() != null && !(res_ instanceof PossibleIntermediateDotted)) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
@@ -236,18 +237,14 @@ public abstract class OperationNode {
             return createLeaf(_index, _indexChild, _m, _op, _page);
         }
         if (_op.getPriority() == ElResolver.NAME_PRIO) {
-            String na_ = _op.getValues().firstValue();
-            _op.removeFirst();
-            return new NamedArgumentOperation(_index, _indexChild, _m, _op, na_);
+            return new NamedArgumentOperation(_index, _indexChild, _m, _op, _op.getFctName());
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO) {
             if (DefaultAnnotationAnalysis.isAnnotAnalysis(_page, _m,_op)) {
-                _op.removeFirst();
                 return new AnnotationInstanceArrOperation(_index, _indexChild, _m, _op);
             }
-            String fctName_ = _op.getFctName().trim();
+            String fctName_ = _op.getOldFct().trim();
             if (fctName_.startsWith(AROBASE)) {
-                _op.removeFirst();
                 return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
             }
         }
@@ -257,7 +254,7 @@ public abstract class OperationNode {
         } else if (_op.getPriority() == ElResolver.FCT_OPER_PRIO){
             String fctName_ = _op.getFctName().trim();
             if (StringUtil.quickEq(fctName_, keyWordBool_)) {
-                ternary_ = _op.getValues().size()-1;
+                ternary_ = _op.getValues().size();
             }
         }
         if (ternary_ == BOOLEAN_ARGS) {
@@ -273,7 +270,6 @@ public abstract class OperationNode {
                 }
                 return new ShortTernaryOperation(_index, _indexChild, _m, _op);
             }
-            _op.removeFirst();
             if (isParentSetter(m_)&&indCh_==0) {
                 return new RefTernaryOperation(_index, _indexChild, _m, _op);
             }
@@ -290,15 +286,13 @@ public abstract class OperationNode {
                         String id_ = StringExpUtil.getIdFromAllTypes(type_);
                         String fct_ = _page.getAliasFct();
                         if (StringUtil.quickEq(id_, fct_)) {
-                            _op.removeFirst();
                             return new CallDynMethodOperation(_index, _indexChild, _m, _op);
                         }
                     }
                 }
             }
             if (_op.isInstance()) {
-                _op.removeFirst();
-                if (fctName_.isEmpty()) {
+                if (_op.empFct()) {
                     if (_m instanceof NamedArgumentOperation) {
                         if (_m.getParent() instanceof CallDynMethodOperation) {
                             return new ArgumentListInstancing(_index, _indexChild, _m, _op);
@@ -323,15 +317,12 @@ public abstract class OperationNode {
             AbsBk block_ = _op.getBlock();
             if (block_ instanceof SwitchMethodBlock) {
                 ((SwitchMethodBlock)block_).setIndexEnd(block_.getOffset()+_op.getLength());
-                _op.removeFirst();
                 return new SwitchOperation(_index, _indexChild, _m, _op,(SwitchMethodBlock)block_,delta_);
             }
             if (fctName_.isEmpty()) {
-                _op.removeFirst();
                 return new IdOperation(_index, _indexChild, _m, _op,_op.getFctName().length());
             }
             if (StringUtil.quickEq(fctName_, keyWordValueOf_)) {
-                _op.removeFirst();
                 StrTypes values_ = _op.getValues();
                 String str_ = StrTypes.value(values_, 0);
                 int offset_ = StrTypes.offset(values_, 0);
@@ -341,44 +332,32 @@ public abstract class OperationNode {
                 return new EnumValueOfOperation(_index, _indexChild, _m, _op, str_, offset_);
             }
             if (StringUtil.quickEq(fctName_, keyWordBool_)) {
-                _op.removeFirst();
                 return new BadTernaryOperation(_index, _indexChild, _m, _op);
             }
             if (StringExpUtil.startsWithKeyWord(fctName_, keyWordClasschoice_)) {
-                _op.removeFirst();
                 return new ChoiceFctOperation(_index, _indexChild, _m, _op);
             }
             if (StringExpUtil.startsWithKeyWord(fctName_, keyWordSuperaccess_)) {
-                _op.removeFirst();
                 return new SuperFctOperation(_index, _indexChild, _m, _op);
             }
             if (StringExpUtil.startsWithKeyWord(fctName_, keyWordInterfaces_)) {
-                _op.removeFirst();
                 if (_m instanceof IdOperation) {
                     return new InterfaceFctConstructor(_index, _indexChild, _m, _op);
                 }
                 return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
             }
             if (StringExpUtil.startsWithKeyWord(fctName_, keyWordOperator_)) {
-                _op.removeFirst();
                 return new ExplicitOperatorOperation(_index, _indexChild, _m, _op);
             }
             if (StringUtil.quickEq(fctName_, keyWordThat_)) {
-                int off_ = _op.getValues().firstKey();
-                _op.removeFirst();
-                return new WrappOperation(_index, _indexChild, _m, _op,delta_, off_);
+                return new WrappOperation(_index, _indexChild, _m, _op,delta_, _op.getOffset());
             }
             if (StringUtil.quickEq(fctName_, keyWordFirstopt_)) {
-                int off_ = _op.getValues().firstKey();
-                _op.removeFirst();
-                return new FirstOptOperation(_index, _indexChild, _m, _op,delta_, off_);
+                return new FirstOptOperation(_index, _indexChild, _m, _op,delta_, _op.getOffset());
             }
             if (StringUtil.quickEq(fctName_, keyWordDefault_)) {
-                int off_ = _op.getValues().firstKey();
-                _op.removeFirst();
-                return new DefaultOperation(_index, _indexChild, _m, _op,delta_, off_);
+                return new DefaultOperation(_index, _indexChild, _m, _op,delta_, _op.getOffset());
             }
-            _op.removeFirst();
             if (StringUtil.quickEq(fctName_,keyWordThis_)) {
                 return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);
             }
@@ -388,7 +367,6 @@ public abstract class OperationNode {
             return new FctOperation(_index, _indexChild, _m, _op);
         }
         if (_op.isArray()) {
-            _op.removeFirst();
             return new ArrOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && !_op.getValues().isEmpty()) {
@@ -490,9 +468,7 @@ public abstract class OperationNode {
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
             if (_m instanceof AnnotationInstanceArobaseOperation) {
-                String value_ = _op.getValues().firstValue();
-                _op.removeFirst();
-                return new AssocationOperation(_index, _indexChild, _m, _op, value_);
+                return new AssocationOperation(_index, _indexChild, _m, _op, _op.getFctName());
             }
             String op_ = _op.getOperators().firstValue();
             if (!StringUtil.quickEq(op_, AFF)) {
@@ -509,13 +485,16 @@ public abstract class OperationNode {
 
     private static OperationNode createLeaf(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
         ConstType ct_ = _op.getConstType();
-        String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
-        String str_ = originalStr_.trim();
         AbsBk block_ = _op.getBlock();
         if (AbsBk.isAnonBlock(block_)) {
             ((NamedCalledFunctionBlock)block_).setIndexEnd(((NamedCalledFunctionBlock)block_).getNameOffset()+_op.getLength());
             return new AnonymousLambdaOperation(_index,_indexChild,_m,_op,(NamedCalledFunctionBlock)block_,_op.getResults());
         }
+        if (ct_ == ConstType.SIMPLE_ANNOTATION) {
+            return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
+        }
+        String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
+        String str_ = originalStr_.trim();
         if (ct_ == ConstType.CHARACTER) {
             return new ConstantOperation(_index, _indexChild, _m, _op);
         }
@@ -524,10 +503,6 @@ public abstract class OperationNode {
         }
         if (ct_ == ConstType.TEXT_BLOCK) {
             return new ConstantOperation(_index, _indexChild, _m, _op);
-        }
-        if (ct_ == ConstType.SIMPLE_ANNOTATION) {
-            _op.removeFirst();
-            return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
         }
         if (ct_ == ConstType.STATIC_ACCESS) {
             return new StaticAccessOperation(_index, _indexChild, _m, _op);

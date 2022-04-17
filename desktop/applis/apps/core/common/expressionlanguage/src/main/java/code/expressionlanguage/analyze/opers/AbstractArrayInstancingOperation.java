@@ -9,7 +9,7 @@ public abstract class AbstractArrayInstancingOperation extends InvokingOperation
     public AbstractArrayInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        arrayInstancingContent = new AnaArrayInstancingContent(getOperations().getFctName());
+        arrayInstancingContent = new AnaArrayInstancingContent(getOperations().getOldFct());
     }
 
     public final String getMethodName() {
