@@ -14,6 +14,13 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbBinFctMaOperation extends AbsSymbFixMaOperation {
+    private static final String QUOT = MaOperationsSequence.QUOT;
+    private static final String MOD = MaOperationsSequence.MOD;
+    private static final String POW = MaOperationsSequence.POW;
+    private static final String PARMI = MaOperationsSequence.PARMI;
+    private static final String BEZOUT = MaOperationsSequence.BEZOUT;
+    private static final String FIRST_INTER = MaOperationsSequence.FIRST_INTER;
+    private static final String SECOND_INTER = MaOperationsSequence.SECOND_INTER;
 
     public SymbBinFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, int _off, String _ope) {
         super(_index, _indexChild, _m, _op, _off, _ope);

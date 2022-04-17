@@ -159,11 +159,8 @@ public final class OperationsSequence {
     }
 
     private void firstOpt(String _string) {
-        int beginValuePart_ = IndexConstants.FIRST_INDEX;
-        int endValuePart_ = operators.firstKey();
-        String str_ = _string.substring(beginValuePart_, endValuePart_);
-        values.addEntry(beginValuePart_, str_);
-        offset = endValuePart_;
+        String str_ = StrTypes.firstPartNotUnary(_string,operators,values);
+        offset = operators.firstKey();
         if (getPriority() == ElResolver.NAME_PRIO || getPriority() == ElResolver.AFF_PRIO) {
             fctName = str_;
         }
@@ -203,12 +200,10 @@ public final class OperationsSequence {
     }
 
     private void arrDim(String _string) {
-        int beginValuePart_;
-        String str_;
         int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {
-            beginValuePart_ = operators.getKey(i_ - 1) + operators.getValue(i_ - 1).length();
+            int beginValuePart_ = operators.getKey(i_ - 1) + operators.getValue(i_ - 1).length();
             int endValuePart_ = operators.getKey(i_);
             if (i_ + 1 < nbKeys_) {
                 int b_ = operators.getKey(i_) + operators.getValue(i_).length();
@@ -219,7 +214,7 @@ public final class OperationsSequence {
                     constType = ConstType.ERROR;
                 }
             }
-            str_ = _string.substring(beginValuePart_, endValuePart_);
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
             values.addEntry(beginValuePart_, str_);
             i_++;
             i_++;
@@ -240,16 +235,7 @@ public final class OperationsSequence {
         argsLoop(_string);
     }
     private void argsLoop(String _string) {
-        int i_ = IndexConstants.SECOND_INDEX;
-        int nbKeys_ = operators.size();
-        int endValuePart_ = operators.firstKey();
-        while (i_ < nbKeys_) {
-            int beginValuePart_ = endValuePart_ + operators.getValue(i_ - 1).length();
-            endValuePart_ = operators.getKey(i_);
-            String str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
-            i_++;
-        }
+        StrTypes.loopArgs(_string,operators,values);
     }
 
     private void defOperators(String _string) {
@@ -257,18 +243,12 @@ public final class OperationsSequence {
         lastArg(_string);
     }
     private void lastArg(String _string) {
-        int endValuePart_ = operators.lastKey();
-        int beginValuePart_ = endValuePart_ + operators.lastValue().length();
-        String str_ = _string.substring(beginValuePart_);
-        values.addEntry(beginValuePart_, str_);
+        StrTypes.lastPart(_string,operators,values);
     }
 
     private void addValueIfNotEmpty(int _beginValuePart,
                                     String _str) {
-        if (_str.trim().isEmpty()) {
-            return;
-        }
-        values.addEntry(_beginValuePart, _str);
+        StrTypes.addNotEmpty(_beginValuePart,_str,values);
     }
 
     public boolean implMiddle() {

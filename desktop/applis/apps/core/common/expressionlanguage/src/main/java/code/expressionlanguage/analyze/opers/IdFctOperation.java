@@ -151,6 +151,51 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         String firstFull_ = args_.first();
         int off_ = StringUtil.getFirstPrintableCharIndex(firstFull_);
         String fromType_ = firstFull_.trim();
+        if (StringUtil.quickEq(fromType_,"[]=")) {
+            MethodAccessId idUpdate_ = new MethodAccessId(1);
+            idUpdate_.setupAncestorId(args_,1);
+            boolean retRef_ = idUpdate_.isRetRef();
+            int i_ = idUpdate_.getIndex();
+            if (i_ >= args_.size()) {
+                FoundErrorInterpret varg_ = new FoundErrorInterpret();
+                varg_.setFile(_page.getCurrentFile());
+                varg_.setIndexFile(_page);
+                //key word len
+                varg_.buildError(_page.getAnalysisMessages().getUnexpectedLeaf(),
+                        _page.getKeyWords().getKeyWordId());
+                _page.getLocalizer().addError(varg_);
+                partOffsetsErr = new InfoErrorDto(varg_,_page,_page.getKeyWords().getKeyWordId().length());
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+                return;
+            }
+            String firstFullSet_ = args_.get(i_);
+            int offSet_ = StringUtil.getFirstPrintableCharIndex(firstFullSet_) + sum(i_,args_);
+            String fromTypeSet_ = firstFullSet_.trim();
+            ResolvedIdType resolvedIdTypeSet_ = ResolvingTypes.resolveAccessibleIdTypeBlock(offSet_ + className.indexOf('(') + 1, fromTypeSet_, _page);
+            String clSet_ = resolvedIdTypeSet_.getFullName();
+            AnaGeneType accTypeSet_ = resolvedIdTypeSet_.getGeneType();
+            partOffsetsSet.add(resolvedIdTypeSet_.getDels());
+            if (clSet_.isEmpty()) {
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+                return;
+            }
+            int iSet_ = i_ + 1;
+            CustList<AnaResultPartType> typesAnaSet_ = types(iSet_, args_, clSet_, className, _page);
+            int fu2_ = off(false, iSet_, args_, className);
+            if (fu2_ > -1) {
+                varargErr(_page, typesAnaSet_, fu2_);
+                setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+                return;
+            }
+            StringList classNamesSet_ = typesStr(typesAnaSet_, _page);
+            MethodId idCtSet_ = new MethodId(retRef_, MethodAccessKind.INSTANCE, EMPTY_STRING, classNamesSet_, refs(iSet_, args_.size(), args_), vararg(iSet_, args_) != -1);
+            methodSet = new ClassMethodIdAncestor(accTypeSet_,new ClassMethodId(clSet_, idCtSet_),0);
+            partOffsetsSet.addAllElts(typesAnaSet_);
+            partOffsetsErrSet = new InfoErrorDto("");
+            setSimpleArgument(new Argument());
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+            return;
+        }
         ResolvedIdType resolvedIdType_ = ResolvingTypes.resolveAccessibleIdTypeBlock(off_ + className.indexOf('(') + 1, fromType_, _page);
         String cl_ = resolvedIdType_.getFullName();
         AnaGeneType accType_ = resolvedIdType_.getGeneType();
@@ -210,15 +255,7 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         CustList<AnaResultPartType> typesAnaSet_ = types(iSet_, args_, clSet_, className, _page);
         int fu2_ = off(false, iSet_, args_, className);
         if (fu2_ > -1) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page, fu2_);
-            //three dots
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
-            _page.getLocalizer().addError(varg_);
-            InfoErrorDto info_ = new InfoErrorDto(varg_.getBuiltError(), _page, fu2_, 3);
-            partOffsetsSet.addAllElts(typesAnaSet_);
-            partOffsetsErrSet = info_;
+            varargErr(_page, typesAnaSet_, fu2_);
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
@@ -231,6 +268,18 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         filterCtor();
         setSimpleArgument(new Argument());
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
+    }
+
+    private void varargErr(AnalyzedPageEl _page, CustList<AnaResultPartType> typesAnaSet_, int fu2_) {
+        FoundErrorInterpret varg_ = new FoundErrorInterpret();
+        varg_.setFile(_page.getCurrentFile());
+        varg_.setIndexFile(_page, fu2_);
+        //three dots
+        varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
+        _page.getLocalizer().addError(varg_);
+        InfoErrorDto info_ = new InfoErrorDto(varg_.getBuiltError(), _page, fu2_, 3);
+        partOffsetsSet.addAllElts(typesAnaSet_);
+        partOffsetsErrSet = info_;
     }
 
     private void filterMethod() {
@@ -284,15 +333,30 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
     public static ResolvedId resolveArguments(int _from, boolean _retRef, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, AnalyzedPageEl _page){
         int fu_ = off(false,_from, _params, _className);
         if (fu_ > -1) {
-            FoundErrorInterpret varg_ = new FoundErrorInterpret();
-            varg_.setFile(_page.getCurrentFile());
-            varg_.setIndexFile(_page, fu_);
-            //three dots
-            varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
-            _page.getLocalizer().addError(varg_);
-            CustList<AnaResultPartType> typesAna_ = types(_from, _params, _fromType, _className, _page);
-            return new ResolvedId(null, new InfoErrorDto(varg_.getBuiltError(), _page, fu_, 3), typesAna_);
+            FoundErrorInterpret varg_ = err(_from, _params, _className, _page);
+            return unsolvedId(_from, _fromType, _params, _className, _page, varg_);
         }
+        return solvedId(_from, _retRef, _fromType, _name, _static, _params, _className, _page);
+    }
+
+    public static FoundErrorInterpret err(int _from, StringList _params, String _className, AnalyzedPageEl _page) {
+        int fu2_ = off(false, _from, _params, _className);
+        FoundErrorInterpret varg_ = new FoundErrorInterpret();
+        varg_.setFile(_page.getCurrentFile());
+        varg_.setIndexFile(_page, fu2_);
+        //three dots
+        varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
+        _page.getLocalizer().addError(varg_);
+        return varg_;
+    }
+
+    public static ResolvedId unsolvedId(int _from, String _fromType, StringList _params, String _className, AnalyzedPageEl _page, FoundErrorInterpret varg_) {
+        int fu_ = off(false,_from, _params, _className);
+        CustList<AnaResultPartType> typesAna_ = types(_from, _params, _fromType, _className, _page);
+        return new ResolvedId(null, new InfoErrorDto(varg_.getBuiltError(), _page, fu_, 3), typesAna_);
+    }
+
+    public static ResolvedId solvedId(int _from, boolean _retRef, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, AnalyzedPageEl _page) {
         CustList<AnaResultPartType> typesAna_ = types(_from, _params, _fromType, _className, _page);
         StringList classNames_ = typesStr(typesAna_, _page);
         return new ResolvedId(new MethodId(_retRef, _static, _name, classNames_,refs(_from,_from+classNames_.size(),_params), vararg(_from,_params) != -1),new InfoErrorDto(""),typesAna_);

@@ -16,7 +16,22 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbUnFctMaOperation extends AbsSymbFixMaOperation {
-
+    private static final String SGN = MaOperationsSequence.SGN;
+    private static final String KERIM = MaOperationsSequence.KERIM;
+    private static final String IMKER = MaOperationsSequence.IMKER;
+    private static final String KER = MaOperationsSequence.KER;
+    private static final String IM = MaOperationsSequence.IM;
+    private static final String NUM = MaOperationsSequence.NUM;
+    private static final String DEN = MaOperationsSequence.DEN;
+    private static final String ENT = MaOperationsSequence.ENT;
+    private static final String TRONC = MaOperationsSequence.TRONC;
+    private static final String ABS = MaOperationsSequence.ABS;
+    private static final String COMPLEX = MaOperationsSequence.COMPLEX;
+    private static final String PREM = MaOperationsSequence.PREM;
+    private static final String DIVS = MaOperationsSequence.DIVS;
+    private static final String DECOMP = MaOperationsSequence.DECOMP;
+    private static final String GRAV = MaOperationsSequence.GRAV;
+    private static final String ID_MAT = MaOperationsSequence.ID_MAT;
     public SymbUnFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, int _off, String _ope) {
         super(_index, _indexChild, _m, _op, _off, _ope);
     }

@@ -1,6 +1,6 @@
 package code.maths.litteral;
+
 import code.maths.litteralcom.MatCommonCst;
-import code.maths.litteralcom.StrTypes;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -170,8 +170,6 @@ abstract class MbOperationNode {
     }
 
     private static MethodMbOperation procFct(int _index, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
-        StrTypes vs_ = _op.getValues();
-        vs_.remove(0);
         if (_op.getFctName().trim().isEmpty()) {
             return new IdMbOperation(_index, _indexChild, _m, _op);
         }

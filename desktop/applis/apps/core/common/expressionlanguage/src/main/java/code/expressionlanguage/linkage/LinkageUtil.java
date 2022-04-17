@@ -874,7 +874,7 @@ public final class LinkageUtil {
             OperationNode rootInit_ = _cond.getRootInit();
             if (rootInit_ != null) {
                 int off_ = _cond.getInitOffset();
-                buildNormalError(_vars, _cond, -1, rootInit_, off_, 0);
+                buildNormalError(_vars, _cond, -1, rootInit_, off_, 0, off_+_cond.getInit().length());
                 if (_vars.goesToProcess()) {
                     return;
                 }
@@ -885,7 +885,7 @@ public final class LinkageUtil {
             OperationNode rootExp_ = _cond.getRootExp();
             if (rootExp_ != null) {
                 int off_ = _cond.getExpressionOffset();
-                buildNormalError(_vars, _cond, -1, rootExp_, off_, 1);
+                buildNormalError(_vars, _cond, -1, rootExp_, off_, 1, off_+_cond.getExpression().length());
                 if (_vars.goesToProcess()) {
                     return;
                 }
@@ -895,7 +895,7 @@ public final class LinkageUtil {
         OperationNode rootStep_ = _cond.getRootStep();
         if (rootStep_ != null) {
             int off_ = _cond.getStepOffset();
-            buildNormalError(_vars, _cond, -1, rootStep_, off_, 2);
+            buildNormalError(_vars, _cond, -1, rootStep_, off_, 2, off_+_cond.getStep().length());
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -982,7 +982,7 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, off_ + 1));
         }
         OperationNode root_ = _cond.getRoot();
-        buildNormalError(_vars, _cond, -1, root_, off_, 0);
+        buildNormalError(_vars, _cond, -1, root_, off_, 0, off_+_cond.getValue().length());
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processCaseConditionReport(VariablesOffsets _vars, CaseCondition _cond, Coverage _cov) {
@@ -1059,12 +1059,12 @@ public final class LinkageUtil {
             }
             OperationNode root_ = _cond.getRoot();
             if (root_ != null) {
-                buildNormalError(_vars, _cond, -1, root_, _cond.getConditionOffset(), 0);
+                buildNormalError(_vars, _cond, -1, root_, _cond.getConditionOffset(), 0, _cond.getValueOffset() + _cond.getValue().length());
             }
         } else {
             int off_ = _cond.getValueOffset();
             OperationNode root_ = _cond.getRoot();
-            buildNormalError(_vars, _cond, -1, root_, off_, 0);
+            buildNormalError(_vars, _cond, -1, root_, off_, 0, off_ + _cond.getValue().length());
         }
     }
 
@@ -1219,7 +1219,7 @@ public final class LinkageUtil {
     private static void processLineError(VariablesOffsets _vars, Line _cond) {
         int blOffset_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildNormalError(_vars, _cond, -1, root_, blOffset_, 0);
+        buildNormalError(_vars, _cond, -1, root_, blOffset_, 0,blOffset_+_cond.getExpression().length());
     }
     private static void processBreakBlockReport(VariablesOffsets _vars, BreakBlock _cond) {
         if (_cond.getLabel().isEmpty()) {
@@ -1278,7 +1278,7 @@ public final class LinkageUtil {
         }
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildNormalError(_vars, _cond, -1, root_, off_, 0);
+        buildNormalError(_vars, _cond, -1, root_, off_, 0, off_ + _cond.getExpression().length());
     }
     private static void processThrowingReport(VariablesOffsets _vars, Throwing _cond, Coverage _cov) {
         int off_ = _cond.getExpressionOffset();
@@ -1291,7 +1291,7 @@ public final class LinkageUtil {
     private static void processThrowingError(VariablesOffsets _vars, Throwing _cond) {
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildNormalError(_vars, _cond, -1, root_, off_, 0);
+        buildNormalError(_vars, _cond, -1, root_, off_, 0, off_ + _cond.getExpression().length());
     }
     private static void processForIterativeLoopReport(VariablesOffsets _vars, ForIterativeLoop _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
@@ -1349,7 +1349,7 @@ public final class LinkageUtil {
         int off_ = _cond.getInitOffset();
         if (_vars.getLastStackElt().getIndexLoop() == 0) {
             OperationNode rootInit_ = _cond.getRootInit();
-            buildNormalError(_vars, _cond, -1, rootInit_, off_, 0);
+            buildNormalError(_vars, _cond, -1, rootInit_, off_, 0, off_ + _cond.getInit().length());
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1358,7 +1358,7 @@ public final class LinkageUtil {
         off_ = _cond.getExpressionOffset();
         if (_vars.getLastStackElt().getIndexLoop() == 1) {
             OperationNode rootExp_ = _cond.getRootExp();
-            buildNormalError(_vars, _cond, -1, rootExp_, off_, 1);
+            buildNormalError(_vars, _cond, -1, rootExp_, off_, 1, off_ + _cond.getExpression().length());
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1366,7 +1366,7 @@ public final class LinkageUtil {
         }
         off_ = _cond.getStepOffset();
         OperationNode rootStep_ = _cond.getRootStep();
-        buildNormalError(_vars, _cond, -1, rootStep_, off_, 2);
+        buildNormalError(_vars, _cond, -1, rootStep_, off_, 2, off_ + _cond.getStep().length());
         if (_vars.goesToProcess()) {
             return;
         }
@@ -1408,7 +1408,7 @@ public final class LinkageUtil {
         }
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildNormalError(_vars, _cond, -1, root_, off_, 0);
+        buildNormalError(_vars, _cond, -1, root_, off_, 0, off_ + _cond.getExpression().length());
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
     }
 
@@ -1485,7 +1485,7 @@ public final class LinkageUtil {
         }
         int off_ = _cond.getExpressionOffset();
         OperationNode root_ = _cond.getRoot();
-        buildNormalError(_vars, _cond, -1, root_, off_, 0);
+        buildNormalError(_vars, _cond, -1, root_, off_, 0, off_ + _cond.getExpression().length());
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
     }
 
@@ -1531,10 +1531,10 @@ public final class LinkageUtil {
     }
 
     private static void processElementBlockError(VariablesOffsets _vars, ElementBlock _cond) {
-        processElementBlockErr(_vars,_cond.getAnnotationsIndexes(),_cond,_cond.getNameErrors(),_cond.getElementContent(),_cond);
+        processElementBlockErr(_vars,_cond.getAnnotationsIndexes(),_cond,_cond.getNameErrors(),_cond.getElementContent(),_cond,_cond.getAnnotations());
     }
 
-    private static void processElementBlockErr(VariablesOffsets _vars, Ints _annotIndexes, AbsBk _cond, StringList _errFields,AnaElementContent _content, InnerTypeOrElement _inn) {
+    private static void processElementBlockErr(VariablesOffsets _vars, Ints _annotIndexes, AbsBk _cond, StringList _errFields, AnaElementContent _content, InnerTypeOrElement _inn, StringList _annotations) {
         OperationNode firstChild_ = _inn.getRoot().getFirstChild();
         StringList errs_ = new StringList();
         OperationNode next_ = fetchNext(firstChild_, errs_);
@@ -1543,7 +1543,7 @@ public final class LinkageUtil {
         String uniqueFieldName_ = _inn.getUniqueFieldName();
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         if (k_ == -1) {
-            annotError(_vars, _cond, _annotIndexes, _inn.getRoots());
+            annotError(_vars, _cond, _annotIndexes, _inn.getRoots(), _annotations);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1571,7 +1571,7 @@ public final class LinkageUtil {
         }
         int tr_ = _content.diffTr(_vars.getKeyWords().getKeyWordNew());
         int begin_ = _content.getValueOffest() + tr_;
-        buildNormalError(_vars, _cond, k_, inst_, begin_, 0);
+        buildNormalError(_vars, _cond, k_, inst_, begin_, 0, begin_ + _content.getValue().length());
         if (_vars.goesToProcess()) {
             return;
         }
@@ -1657,7 +1657,7 @@ public final class LinkageUtil {
             }
         }
         OperationNode root_ = _cond.getRoot();
-        buildNormalError(_vars, _cond, k_, root_, blOffset_, 0);
+        buildNormalError(_vars, _cond, k_, root_, blOffset_, 0, blOffset_+ _cond.getValue().length());
         if (_vars.goesToProcess()) {
             return;
         }
@@ -1673,14 +1673,14 @@ public final class LinkageUtil {
     private static void buildAnnotFieldErr(VariablesOffsets _vars, FieldBlock _cond) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
         CustList<OperationNode> roots_ = _cond.getRoots();
-        annotError(_vars, _cond, annotationsIndexes_, roots_);
+        annotError(_vars, _cond, annotationsIndexes_, roots_, _cond.getAnnotations());
     }
 
-    private static void annotError(VariablesOffsets _vars, AbsBk _cond, Ints _annotationsIndexes, CustList<OperationNode> _roots) {
+    private static void annotError(VariablesOffsets _vars, AbsBk _cond, Ints _annotationsIndexes, CustList<OperationNode> _roots, StringList _annotations) {
         int len_ = _annotationsIndexes.size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            buildAnnotErr(_vars, _cond, -1, _annotationsIndexes, _roots, i);
+            buildAnnotErr(_vars, _cond, -1, _annotationsIndexes, _roots, i,_annotations);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1988,7 +1988,7 @@ public final class LinkageUtil {
         OperationNode root_ = _cond.getRoot();
         if (root_ != null) {
             int blOffset_ = _cond.getDefaultValueOffset();
-            buildNormalError(_vars, _cond, k_, root_, blOffset_, 0);
+            buildNormalError(_vars, _cond, k_, root_, blOffset_, 0,blOffset_ + _cond.getDefaultValue().length());
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -1996,8 +1996,8 @@ public final class LinkageUtil {
         _vars.getLastStackElt().setIndexAnnotationGroup(-1);
     }
 
-    private static void buildNormalError(VariablesOffsets _vars, AbsBk _cond, int _k, OperationNode _root, int _begin, int _indexLoop) {
-        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, -1,0, _indexLoop, _begin, -1);
+    private static void buildNormalError(VariablesOffsets _vars, AbsBk _cond, int _k, OperationNode _root, int _begin, int _indexLoop, int _end) {
+        LinkageStackElementIn in_ = buildLinkageErr(_cond, _k, -1,0, _indexLoop, -1, new LinkageStackElementOffsets(_begin, _end));
         buildErrorReport(_vars, _root, in_);
     }
 
@@ -2022,7 +2022,7 @@ public final class LinkageUtil {
     }
 
     private static void processInnerElementBlockError(VariablesOffsets _vars, InnerElementBlock _cond) {
-        processElementBlockErr(_vars,_cond.getAnnotationsIndexes(),_cond,_cond.getNameErrors(),_cond.getElementContent(),_cond);
+        processElementBlockErr(_vars,_cond.getAnnotationsIndexes(),_cond,_cond.getNameErrors(),_cond.getElementContent(),_cond,_cond.getAnnotations());
     }
 
     private static void addNextErrs(StringList _errs, OperationNode _next) {
@@ -2239,37 +2239,36 @@ public final class LinkageUtil {
     private static LinkageStackElementIn buildAnnotLinkageReport(AbsBk _cond, int _indexAnnotationGroup, Ints _annotationsIndexes, StringList _annotations, int _indexAnnotation) {
         int begin_ = _annotationsIndexes.get(_indexAnnotation);
         int end_ = begin_ + _annotations.get(_indexAnnotation).trim().length();
-        return new LinkageStackElementIn(_cond, 0,_indexAnnotationGroup, _indexAnnotationGroup, _indexAnnotation,_indexAnnotation,
-                new LinkageStackElementOffsets(0, 0, begin_, end_));
+        return buildLinkageErr(_cond, _indexAnnotationGroup, _indexAnnotationGroup, _indexAnnotation, 0, _indexAnnotation, new LinkageStackElementOffsets(0, 0, begin_, end_));
     }
 
     private static void processAnnotationError(VariablesOffsets _vars, RootBlock _cond) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
         CustList<OperationNode> roots_ = _cond.getRoots();
-        annotError(_vars, _cond, annotationsIndexes_, roots_);
+        annotError(_vars, _cond, annotationsIndexes_, roots_, _cond.getAnnotations());
     }
     private static void buildAnnotationsError(VariablesOffsets _vars, NamedFunctionBlock _cond) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
         CustList<OperationNode> roots_ = _cond.getRoots();
-        annotError(_vars, _cond, annotationsIndexes_, roots_);
+        annotError(_vars, _cond, annotationsIndexes_, roots_, _cond.getAnnotations());
     }
     private static void buildAnnotationsError(VariablesOffsets _vars, NamedFunctionBlock _cond, int _index) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
         CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
-        annotMethError(_vars, _cond, annotationsIndexes_, roots_);
+        annotMethError(_vars, _cond, annotationsIndexes_, roots_, _cond.getAnnotationsParams().get(_index));
     }
     private static void buildAnnotationsErrorSupp(VariablesOffsets _vars, NamedCalledFunctionBlock _cond) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesSupp();
         CustList<OperationNode> roots_ = _cond.getRootsListSupp();
-        annotMethError(_vars, _cond, annotationsIndexes_, roots_);
+        annotMethError(_vars, _cond, annotationsIndexes_, roots_, _cond.getAnnotationsSupp());
     }
 
-    private static void annotMethError(VariablesOffsets _vars, AbsBk _cond, Ints _annotationsIndexes, CustList<OperationNode> _roots) {
+    private static void annotMethError(VariablesOffsets _vars, AbsBk _cond, Ints _annotationsIndexes, CustList<OperationNode> _roots, StringList _annotations) {
         int len_ = _annotationsIndexes.size();
         int index_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
-            buildAnnotErr(_vars, _cond, index_, _annotationsIndexes, _roots, i);
+            buildAnnotErr(_vars, _cond, index_, _annotationsIndexes, _roots, i, _annotations);
             if (_vars.goesToProcess()) {
                 return;
             }
@@ -2279,22 +2278,23 @@ public final class LinkageUtil {
         _vars.getLastStackElt().setIndexAnnotationGroup(index_ + 1);
     }
 
-    private static void buildAnnotErr(VariablesOffsets _vars, AbsBk _cond, int _indexAnnotationGroup, Ints _annotationsIndexes, CustList<OperationNode> _roots, int _indexAnnotation) {
+    private static void buildAnnotErr(VariablesOffsets _vars, AbsBk _cond, int _indexAnnotationGroup, Ints _annotationsIndexes, CustList<OperationNode> _roots, int _indexAnnotation, StringList _annotations) {
         int begin_ = _annotationsIndexes.get(_indexAnnotation);
+        int end_ = begin_ + _annotations.get(_indexAnnotation).trim().length();
         OperationNode root_ = _roots.get(_indexAnnotation);
-        LinkageStackElementIn in_ = buildLinkageErr(_cond, _indexAnnotationGroup,_indexAnnotationGroup, _indexAnnotation, 0, begin_, _indexAnnotation);
+        LinkageStackElementIn in_ = buildLinkageErr(_cond, _indexAnnotationGroup,_indexAnnotationGroup, _indexAnnotation, 0, _indexAnnotation, new LinkageStackElementOffsets(begin_, end_));
         buildErrorReport(_vars, root_, in_);
     }
 
     private static void buildAnnotationsError(VariablesOffsets _vars, SwitchMethodBlock _cond) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexes();
         CustList<OperationNode> roots_ = _cond.getRoots();
-        annotError(_vars, _cond, annotationsIndexes_, roots_);
+        annotError(_vars, _cond, annotationsIndexes_, roots_, _cond.getAnnotations());
     }
     private static void buildAnnotationsError(VariablesOffsets _vars, SwitchMethodBlock _cond, int _index) {
         Ints annotationsIndexes_ = _cond.getAnnotationsIndexesParams().get(_index);
         CustList<OperationNode> roots_ = _cond.getRootsList().get(_index);
-        annotMethError(_vars, _cond, annotationsIndexes_, roots_);
+        annotMethError(_vars, _cond, annotationsIndexes_, roots_, _cond.getAnnotationsParams().get(_index));
     }
     private static void refParams(VariablesOffsets _vars, NamedFunctionBlock _cond, Coverage _cov) {
         int k_ = _vars.getLastStackElt().getIndexAnnotationGroup();
@@ -2389,8 +2389,7 @@ public final class LinkageUtil {
     }
 
     private static LinkageStackElementIn buildLinkageRep(int _tr, int _trEnd, AbsBk _cond, int _begin, int _end, int _indexLoop, int _indexAnnotationGroup) {
-        return new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup,-1, 0,-1,
-                new LinkageStackElementOffsets(_tr, _trEnd, _begin, _end));
+        return buildLinkageErr(_cond, _indexAnnotationGroup, -1, 0, _indexLoop, -1, new LinkageStackElementOffsets(_tr, _trEnd, _begin, _end));
     }
 
     private static void buildNormalReport(VariablesOffsets _vars, Coverage _cov, OperationNode _root, LinkageStackElementIn _in) {
@@ -2404,12 +2403,12 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, off_ + 1));
         }
         OperationNode root_ = _cond.getRoot();
-        buildNormalError(_vars, _cond, -1, root_, off_, 0);
+        buildNormalError(_vars, _cond, -1, root_, off_, 0,off_ + _cond.getCondition().length());
     }
 
-    private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _indexAnnotationGroup, int _indexAnnotationGroupLook, int _indexAnnotation, int _indexLoop, int _begin, int _indexAnnotationLook) {
+    private static LinkageStackElementIn buildLinkageErr(AbsBk _cond, int _indexAnnotationGroup, int _indexAnnotationGroupLook, int _indexAnnotation, int _indexLoop, int _indexAnnotationLook, LinkageStackElementOffsets _offsets) {
         return new LinkageStackElementIn(_cond, _indexLoop, _indexAnnotationGroup,_indexAnnotationGroupLook, _indexAnnotation, _indexAnnotationLook,
-                new LinkageStackElementOffsets(_begin));
+                _offsets);
     }
 
     private static OperationNode getCurrent(VariablesOffsets _vars,OperationNode _root) {
@@ -2549,7 +2548,7 @@ public final class LinkageUtil {
         while (true) {
             if (!_vars.getVisited().containsObj(val_)) {
                 if (!_vars.getVisitedAnnotations().containsObj(val_)) {
-                    leftError(_vars, sum_,val_);
+                    leftError(_vars, sum_,val_,_in.getLen());
                 }
                 OperationNode visitErr_ = visit(_vars, val_, _in);
                 if (_vars.goesToProcess()) {
@@ -2848,8 +2847,8 @@ public final class LinkageUtil {
 
     private static void leftError(VariablesOffsets _vars,
                                   int _sum,
-                                  OperationNode _val) {
-        errorsBefore(_vars, _sum, _val);
+                                  OperationNode _val, int _len) {
+        errorsBefore(_vars, _sum, _val,_len);
         if (_val instanceof BadTernaryOperation) {
             BadTernaryOperation b_ = (BadTernaryOperation) _val;
             _vars.addParts(convert(b_.getPartOffsetsEnd()));
@@ -2903,10 +2902,10 @@ public final class LinkageUtil {
         }
     }
 
-    private static void errorsBefore(VariablesOffsets _vars, int _sum, OperationNode _val) {
+    private static void errorsBefore(VariablesOffsets _vars, int _sum, OperationNode _val, int _len) {
         MethodOperation par_ = _val.getParent();
         if (par_ == null) {
-            errorAtRoot(_vars, _sum, _val);
+            errorAtRoot(_vars, _sum, _val,_len);
         } else {
             mergeErrorsToParent(_vars, _sum, _val);
         }
@@ -2940,7 +2939,7 @@ public final class LinkageUtil {
         }
     }
 
-    private static void errorAtRoot(VariablesOffsets _vars, int _sum, OperationNode _val) {
+    private static void errorAtRoot(VariablesOffsets _vars, int _sum, OperationNode _val, int _len) {
         StringList errEmpt_ = new StringList();
         MethodOperation.processEmptyError(_val,errEmpt_);
         if (!errEmpt_.isEmpty()) {
@@ -2948,7 +2947,7 @@ public final class LinkageUtil {
             int begin_ = _sum + off_ + _val.getIndexInEl();
             processNullParent(_vars, _val, begin_);
             _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(errEmpt_,ExportCst.JOIN_ERR)),begin_));
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ _val.getOperations().getDelimiter().getLength()));
+            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ _len));
         } else {
             int s_ = _sum + _val.getIndexInEl();
             processNullParent(_vars, _val, s_);

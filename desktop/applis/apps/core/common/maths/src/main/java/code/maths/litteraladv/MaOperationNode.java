@@ -5,141 +5,21 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.MatCommonCst;
 import code.maths.litteralcom.MatConstType;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class MaOperationNode {
-    protected static final char PAR_LEFT = '(';
-    protected static final char PAR_RIGHT = ')';
-//    protected static final String TRUE_STRING = "vrai";
-//    protected static final String FALSE_STRING = "faux";
 
-    protected static final String NEG_BOOL = "!";
-
-    protected static final String UNARY_MINUS = "-";
-
-    protected static final String MULT = "*";
-
-    protected static final String PLUS = "+";
-
-    protected static final String MINUS = "-";
-
-    protected static final String EQ = "=";
-
-    protected static final String DIFF = "!=";
-
-    protected static final String OR = "|";
-    protected static final String REP = "&&";
-    protected static final String RAND = "?";
-    protected static final String STAT = "<>-|";
-    protected static final String POLYNOM_SYMB = ";";
-    protected static final String POLYGON_SYMBOL = "|||";
-    protected static final String FIRST_DELAUNAY = "%%";
-    protected static final String SECOND_DELAUNAY = "%%%";
-    protected static final String EQ_VAR = "=";
-    protected static final char DERIVE = '\'';
-    protected static final String SGN = "-";
-    protected static final String ABS = "|";
-    protected static final String COMPLEX = "//";
-    protected static final String NUM = "/0";
-    protected static final String DEN = "/1";
-    protected static final String ENT = "0/";
-    protected static final String TRONC = "1/";
-    protected static final String PREM = "/";
-    protected static final String DIVS = "||";
-    protected static final String DECOMP = "&";
-    protected static final String GRAV = "*";
-    protected static final String ID_MAT = "#";
-    protected static final String TRUE = "&";
-    protected static final String FALSE = "|";
-    protected static final String WIDE_BOUND = "<=";
-    protected static final String STRICT_BOUND = "<";
-    protected static final String RIGHT_OPEN = "==<";
-    protected static final String RIGHT_CLOSE = "==>";
-    protected static final String LEFT_OPEN = ">==";
-    protected static final String LEFT_CLOSE = "<==";
-    protected static final String QUOT = "/";
-    protected static final String MOD = "%";
-    protected static final String POW = "^";
-    protected static final String PARMI = "<=";
-    protected static final String BEZOUT = "/%";
-    protected static final String POINT = ".";
-    protected static final String EDGE = "-";
-    protected static final String FIRST_INTER = "^^";
-    protected static final String SECOND_INTER = "^^^";
-    protected static final String LINE_THREE = "-";
-    protected static final String ARR = "[";
-    protected static final String MATRIX = "{";
-    protected static final String ASSOC = "=>";
-    protected static final String EVT = "<>";
-    protected static final String KER = "<";
-    protected static final String IM = ">";
-    protected static final String KERIM = "<>";
-    protected static final String IMKER = "><";
-//    protected static final String PUIS = "puis";
-//
-//    protected static final String QUOT = "quot";
-//
-//    protected static final String MOD = "mod";
-//
-//    protected static final String MODTAUX = "modtaux";
-//
-//    protected static final String BEZOUT = "bezout";
-//
-//    protected static final String SGN = "sgn";
-//
-//    protected static final String ABS = "abs";
-//
-//    protected static final String ENT = "ent";
-//
-//    protected static final String TRONC = "troncature";
-//
-//    protected static final String NUM = "num";
-//
-//    protected static final String DEN = "den";
-//
-//    protected static final String PREM = "prem";
-//
-//    protected static final String DIVS = "divs";
-//
-//    protected static final String DECOMP = "decomp";
-//
-//    protected static final String PARMI = "parmi";
-//
-//    protected static final String REP = "rep";
-//
-//    protected static final String ALEA = "alea";
-//
-//    protected static final String STAT = "stat";
-
-//    protected static final String MIN = "min";
-//
-//    protected static final String MAX = "max";
-//
-//    protected static final String MOY = "moy";
-//
-//    protected static final String VAR = "var";
-//
-//    protected static final String CARAC_FERME = "caracferme";
-//
-//    protected static final String CARAC_OUVERT = "caracouvert";
-//
-//    protected static final String CARAC_SEMI_OUVERT_G = "caracsemiouvertg";
-//
-//    protected static final String CARAC_SEMI_OUVERT_D = "caracsemiouvertd";
-//
-//    protected static final String CARAC_DROITE_OUVERT = "caracdroiteouvert";
-//
-//    protected static final String CARAC_DROITE_FERME = "caracdroiteferme";
-//
-//    protected static final String CARAC_GAUCHE_OUVERT = "caracgaucheouvert";
-//
-//    protected static final String CARAC_GAUCHE_FERME = "caracgaucheferme";
-//
-//    protected static final String DIV_FCT = "div";
+    protected static final String POLYNOM_SYMB = MaOperationsSequence.POLYNOM_SYMB;
+    protected static final String POLYGON_SYMBOL = MaOperationsSequence.POLYGON_SYMBOL;
+    protected static final String POINT = MaOperationsSequence.POINT;
+    protected static final String EDGE = MaOperationsSequence.EDGE;
+    protected static final String LINE_THREE = MaOperationsSequence.LINE_THREE;
+    protected static final String ASSOC = MaOperationsSequence.ASSOC;
+    protected static final String EVT = MaOperationsSequence.EVT;
 
     private final MethodMaOperation par;
 
@@ -228,87 +108,56 @@ public abstract class MaOperationNode {
     }
 
     private static MethodMaOperation procUnary(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
-        if (StringUtil.quickEq(_op.getOpers().firstValue().trim(), NEG_BOOL)) {
+        if (StringUtil.quickEq(_op.getOpers().firstValue().trim(), MaOperationsSequence.NEG_BOOL)) {
             return new UnaryBooleanMaOperation(_index, _indexChild, _m, _op);
         }
         return new UnaryMaOperation(_index, _indexChild, _m, _op);
     }
 
     private static MethodMaOperation procFct(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
-        if (_op.getFct().trim().isEmpty()) {
-            if (StringUtil.quickEq(_op.getOpers().firstValue(), MATRIX)) {
-                StrTypes vs_ = _op.getParts();
-                vs_.remove(0);
+        if (_op.isEmptyFct()) {
+            if (StringUtil.quickEq(_op.getOpers().firstValue(), MaOperationsSequence.MATRIX)) {
                 return new MatrixMaOperation(_index, _indexChild, _m, _op);
             }
             return procSymb(_index, _indexChild, _m, _op,_mapping);
         }
-        StrTypes vs_ = _op.getParts();
-        vs_.remove(0);
         return new FctMaOperation(_index, _indexChild, _m, _op);
     }
 
     private static MethodMaOperation procSymb(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
-        if (StringUtil.quickEq(_op.getOpers().firstValue(), ARR)) {
+        if (StringUtil.quickEq(_op.getOpers().firstValue(), MaOperationsSequence.ARR)) {
             return new ArrMaOperation(_index, _indexChild, _m, _op);
         }
-        if (_op.getParts().size() == 2 && isAndOr(_op)) {
-            String ope_ = _op.getParts().lastValue();
-            removeBounds(_op);
-            return new SymbGeneMaOperation(_index, _indexChild, _m, _op, ope_);
+        if (_op.getParts().size() == 0 && isAndOr(_op)) {
+            return new SymbGeneMaOperation(_index, _indexChild, _m, _op, _op.getFct());
         }
-        if (_op.getParts().size() >= 2 && isVarSymbol(_op)) {
-            int off_ = _op.getParts().lastKey();
-            String ope_ = _op.getParts().lastValue();
-            removeBounds(_op);
-            return new SymbVarFctMaOperation(_index, _indexChild, _m, _op,_mapping, off_, ope_);
+        if (isVarSymbol(_op)) {
+            return new SymbVarFctMaOperation(_index, _indexChild, _m, _op,_mapping, _op.getOffset(), _op.getFct());
         }
-        if (_op.getParts().size() == 3 && isUnarySymbol(_op)) {
-            int off_ = _op.getParts().lastKey();
-            String ope_ = _op.getParts().lastValue();
-            removeBounds(_op);
-            return new SymbUnFctMaOperation(_index, _indexChild, _m, _op, off_, ope_);
+        if (_op.getParts().size() == 1 && isUnarySymbol(_op)) {
+            return new SymbUnFctMaOperation(_index, _indexChild, _m, _op, _op.getOffset(), _op.getFct());
         }
-        if (_op.getParts().size() == 4 && isBinSymbol(_op)) {
-            int off_ = _op.getParts().lastKey();
-            String ope_ = _op.getParts().lastValue();
-            removeBounds(_op);
-            return new SymbBinFctMaOperation(_index, _indexChild, _m, _op, off_, ope_);
+        if (_op.getParts().size() == 2 && isBinSymbol(_op)) {
+            return new SymbBinFctMaOperation(_index, _indexChild, _m, _op, _op.getOffset(), _op.getFct());
         }
         return defSymb(_index, _indexChild, _m, _op);
     }
 
     private static MethodMaOperation defSymb(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
-        if (_op.getParts().size() == 4 && isPairSymbol(_op)) {
-            int off_ = _op.getParts().lastKey();
-            String ope_ = _op.getParts().lastValue();
-            removeBounds(_op);
-            return new SymbCaracFctMaOperation(_index, _indexChild, _m, _op, off_, ope_);
+        if (_op.getParts().size() == 2 && isPairSymbol(_op)) {
+            return new SymbCaracFctMaOperation(_index, _indexChild, _m, _op, _op.getOffset(), _op.getFct());
         }
-        if (_op.getParts().size() == 5 && StringUtil.quickEq(_op.getParts().lastValue().trim(), LINE_THREE)){
-            int off_ = _op.getParts().lastKey();
-            String ope_ = _op.getParts().lastValue();
-            removeBounds(_op);
-            return new SymbTerFctMaOperation(_index, _indexChild, _m, _op, off_, ope_);
+        if (_op.getParts().size() == 3 && StringUtil.quickEq(_op.getFct().trim(), LINE_THREE)){
+            return new SymbTerFctMaOperation(_index, _indexChild, _m, _op, _op.getOffset(), _op.getFct());
         }
-        if (_op.getParts().size() == 6 && areBinarySymbols(_op)) {
-            String sec_ = _op.getParts().lastValue();
-            StrTypes vs_ = _op.getParts();
-            vs_.remove(vs_.size()-1);
-            int off_ = _op.getParts().lastKey();
-            String first_ = _op.getParts().lastValue();
-            removeBounds(_op);
-            return new SymbDoubleCaracFctMaOperation(_index, _indexChild, _m, _op, sec_, off_, first_);
+        if (_op.getParts().size() == 3 && areBinarySymbols(_op)) {
+            StringList list_ = StringUtil.splitChar(_op.getFct(), '_');
+            String val_ = list_.first().trim();
+            String valTwo_ = list_.last().trim();
+            int off_ = _op.getOffset();
+            return new SymbDoubleCaracFctMaOperation(_index, _indexChild, _m, _op, valTwo_, off_, val_);
         }
-        StrTypes vs_ = _op.getParts();
-        vs_.remove(0);
         return new IdMaOperation(_index, _indexChild, _m, _op);
-    }
-
-    private static void removeBounds(MaOperationsSequence _op) {
-        StrTypes vs_ = _op.getParts();
-        vs_.remove(vs_.size()-1);
-        vs_.remove(0);
     }
 
     protected static MaRateStruct asInt(MaStruct _str) {
@@ -398,122 +247,39 @@ public abstract class MaOperationNode {
     }
 
     private static boolean areBinarySymbols(MaOperationsSequence _op) {
-        int size_ = _op.getParts().size();
-        String val_ = _op.getParts().getValue(size_-2).trim();
-        String valTwo_ = _op.getParts().lastValue().trim();
-        return isCmpSymbol(val_)
-                && isCmpSymbol(valTwo_);
+        StringList list_ = StringUtil.splitChar(_op.getFct(), '_');
+        String val_ = list_.first();
+        String valTwo_ = list_.last();
+        return MaOperationsSequence.areBinarySymbols(val_,valTwo_);
     }
 
     private static boolean isVarSymbol(MaOperationsSequence _op) {
-        String valTwo_ = _op.getParts().lastValue().trim();
-        return algebreVar(valTwo_)|| StringUtil.quickEq(valTwo_, POLYGON_SYMBOL)|| StringUtil.quickEq(valTwo_, FIRST_DELAUNAY)|| StringUtil.quickEq(valTwo_, SECOND_DELAUNAY);
-    }
-
-    private static boolean algebreVar(String _var) {
-        return classicVar(_var)
-                || StringUtil.quickEq(_var, STAT)
-                || StringUtil.quickEq(_var, EQ_VAR);
-    }
-
-    private static boolean classicVar(String _var) {
-        return StringUtil.quickEq(_var, POLYNOM_SYMB)
-                || StringUtil.quickEq(_var, REP)
-                || StringUtil.quickEq(_var, RAND);
+        String valTwo_ = _op.getFct();
+        return MaOperationsSequence.isVarSymbol(valTwo_);
     }
 
     private static boolean isPairSymbol(MaOperationsSequence _op) {
-        String valTwo_ = _op.getParts().lastValue().trim();
-        return StringUtil.quickEq(valTwo_,LEFT_OPEN)
-                ||StringUtil.quickEq(valTwo_,LEFT_CLOSE)
-                ||StringUtil.quickEq(valTwo_,RIGHT_OPEN)
-                ||StringUtil.quickEq(valTwo_,RIGHT_CLOSE);
+        String valTwo_ = _op.getFct();
+        return MaOperationsSequence.isPairSymbol(valTwo_);
     }
 
-    private static boolean isCmpSymbol(String _val) {
-        return StringUtil.quickEq(_val, STRICT_BOUND) || StringUtil.quickEq(_val, WIDE_BOUND);
-    }
     private static boolean isBinSymbol(MaOperationsSequence _op) {
-        String val_ = _op.getParts().lastValue().trim();
-        return algebreBin(val_)|| geoBin(val_);
+        String val_ = _op.getFct();
+        return MaOperationsSequence.isBinSymbol(val_);
     }
 
-    private static boolean geoBin(String _val) {
-        return StringUtil.quickEq(_val, POINT)
-                ||StringUtil.quickEq(_val, EDGE)
-                ||StringUtil.quickEq(_val, FIRST_INTER)
-                ||StringUtil.quickEq(_val, SECOND_INTER);
-    }
-
-    private static boolean algebreBin(String _val) {
-        return divmod(_val)
-                || StringUtil.quickEq(_val, POW) || StringUtil.quickEq(_val, PARMI)
-                || StringUtil.quickEq(_val, BEZOUT);
-    }
-
-    private static boolean divmod(String _val) {
-        return StringUtil.quickEq(_val, QUOT) || StringUtil.quickEq(_val, MOD);
-    }
     private static boolean isUnarySymbol(MaOperationsSequence _op) {
-        String val_ = _op.getParts().lastValue().trim();
-        return algebreUn(val_) || StringUtil.quickEq(GRAV, val_);
-    }
-
-    private static boolean algebreUn(String _val) {
-        return classicUn(_val)
-                || containsOnlySimpleQuotes(_val) > 0
-                || StringUtil.quickEq(ID_MAT, _val);
-    }
-
-    private static boolean classicUn(String _val) {
-        return nbOp(_val) || arith(_val) || matrixAddon(_val);
-    }
-
-    private static boolean matrixAddon(String _val) {
-        return StringUtil.quickEq(_val,IM) || StringUtil.quickEq(_val,KER)
-                ||StringUtil.quickEq(_val,IMKER) || StringUtil.quickEq(_val,KERIM);
-    }
-    private static boolean nbOp(String _val) {
-        return nbPart(_val) || nbDecSymbol(_val);
-    }
-
-    private static boolean nbPart(String _val) {
-        return nbPartSymbolSgn(_val)
-                || nbPartSymbol(_val);
+        String val_ = _op.getFct();
+        return MaOperationsSequence.isUnarySymbol(val_);
     }
 
     protected static int containsOnlySimpleQuotes(String _val) {
-        if (_val.isEmpty()) {
-            return -1;
-        }
-        int count_ = 0;
-        for (char c: _val.toCharArray()) {
-            if (c != DERIVE) {
-                return -1;
-            }
-            count_++;
-        }
-        return count_;
-    }
-
-    private static boolean nbPartSymbolSgn(String _val) {
-        return StringUtil.quickEq(_val, SGN) || StringUtil.quickEq(_val, ABS);
-    }
-    private static boolean nbPartSymbol(String _val) {
-        return StringUtil.quickEq(_val, NUM) || StringUtil.quickEq(_val, DEN);
-    }
-
-    private static boolean nbDecSymbol(String _val) {
-        return StringUtil.quickEq(_val, ENT) || StringUtil.quickEq(_val, TRONC);
-    }
-
-    private static boolean arith(String _val) {
-        return StringUtil.quickEq(_val, PREM) || StringUtil.quickEq(_val, COMPLEX) || StringUtil.quickEq(_val, DIVS) || StringUtil.quickEq(_val, DECOMP);
+        return MaOperationsSequence.containsOnlySimpleQuotes(_val);
     }
 
     private static boolean isAndOr(MaOperationsSequence _op) {
-        String val_ = _op.getParts().lastValue().trim();
-        return StringUtil.quickEq(val_,TRUE) || StringUtil.quickEq(val_,FALSE);
+        String val_ = _op.getFct();
+        return MaOperationsSequence.isAndOr(val_);
     }
 
     protected void processRatesPol(MaError _error, MaFractPolStruct _first, MaStruct _second, int _index) {

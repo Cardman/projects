@@ -516,6 +516,7 @@ public final class MaParser {
         op_.setOpers(mat_.getOpers());
         op_.setFct(mat_.getFct());
         op_.setupValues(_string);
+        op_.adj();
         return op_;
     }
 

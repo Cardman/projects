@@ -39,7 +39,6 @@ public final class MbOperationsSequence {
 
     private void feedValues(String _string) {
         firstOperand(_string);
-        int endValuePart_ = operators.firstKey();
         if (priority == MatCommonCst.FCT_OPER_PRIO) {
             int afterLastPar_ = operators.lastKey()+1;
             if (!_string.substring(afterLastPar_).trim().isEmpty()) {
@@ -48,42 +47,45 @@ public final class MbOperationsSequence {
                 priority = MatCommonCst.BAD_PRIO;
                 return;
             }
-        }
-        if (priority == MatCommonCst.FCT_OPER_PRIO && operators.size() == 2) {
-            int beginValuePart_ = endValuePart_ + operators.firstValue().length();
-            endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
-            String str_ = _string.substring(beginValuePart_, endValuePart_);
-            if (!str_.isEmpty()) {
-                values.addEntry(beginValuePart_, str_);
+            if (operators.size() == 2) {
+                int endValuePart_ = operators.firstKey();
+                int beginValuePart_ = endValuePart_ + operators.firstValue().length();
+                endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
+                String str_ = _string.substring(beginValuePart_, endValuePart_);
+                StrTypes.addNotEmpty(beginValuePart_,str_,values);
+                return;
             }
+            loop(_string);
             return;
         }
-        int i_ = IndexConstants.SECOND_INDEX;
-        int nbKeys_ = operators.size();
-        while (i_ < nbKeys_) {
-            int beginValuePart_ = endValuePart_ + operators.getValue(i_ - 1).length();
-            endValuePart_ = operators.getKey(i_);
-            String str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
-            i_++;
-        }
-        if (priority != MatCommonCst.FCT_OPER_PRIO) {
-            int beginValuePart_ = endValuePart_ + operators.lastValue().length();
-            String str_ = _string.substring(beginValuePart_);
-            values.addEntry(beginValuePart_, str_);
-        }
+        loop(_string);
+        lastPart(_string);
+    }
+
+    private void loop(String _string) {
+        StrTypes.loopArgs(_string,operators,values);
+    }
+
+    private void lastPart(String _string) {
+        StrTypes.lastPart(_string,operators,values);
     }
 
     private void firstOperand(String _string) {
         if (priority != MatCommonCst.UNARY_PRIO) {
             //not unary priority, not identity priority
-            int beginValuePart_ = IndexConstants.FIRST_INDEX;
-            int endValuePart_ = operators.firstKey();
-            String str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
+            StrTypes.firstPartNotUnary(_string,operators,values);
         }
     }
 
+    public void ad() {
+        if (getOperators().isEmpty()) {
+            return;
+        }
+        if (getPriority() == MatCommonCst.FCT_OPER_PRIO) {
+            StrTypes vs_ = getValues();
+            vs_.remove(0);
+        }
+    }
     public String getFctName() {
         return fctName;
     }

@@ -4585,4 +4585,32 @@ public final class ProcessIndexerTest extends ProcessMethodCommon {
         files_.put("pkg/Ex", xml_.toString());
         assertTrue(hasErr(files_));
     }
+    @Test
+    public void calculate13FailTest() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Apply {\n");
+        xml_.append(" $public $static $int test(){\n");
+        xml_.append("  Ex e = $new Ex();\n");
+        xml_.append("  e[,0] = 5;\n");
+        xml_.append("  e[$id([]=,Ex,$int...,$int),0]++;\n");
+        xml_.append("  e[$id([]=,Ex2),0]++;\n");
+        xml_.append("  e[$id([]=),0]++;\n");
+        xml_.append("  $return e[0];\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $int[] inst=$new $int[2];\n");
+        xml_.append(" $public $int $this($int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  $return inst[p[0]];\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $void $this($int... p)\n");
+        xml_.append(" {\n");
+        xml_.append("  inst[p[0]] = $value;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        assertTrue(hasErr(files_));
+    }
 }

@@ -55,6 +55,9 @@ public final class LinkageStackElementIn {
         return indexAnnotationLook;
     }
 
+    public int getLen() {
+        return offsets.getEndBlock() - offsets.getBeginBlock();
+    }
     public int getBeginBlock() {
         return offsets.getBeginBlock();
     }

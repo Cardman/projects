@@ -234,6 +234,7 @@ public final class MathResolver {
         op_.setOperators(mat_.getOperators());
         op_.setFctName(mat_.getFctName());
         op_.setupValues(_string);
+        op_.ad();
         return op_;
     }
 

@@ -7,6 +7,9 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class UnaryMaOperation extends MethodMaOperation {
+
+    private static final String UNARY_MINUS = MaOperationsSequence.UNARY_MINUS;
+
     public UnaryMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }

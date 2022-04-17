@@ -5,6 +5,10 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbCaracFctMaOperation extends MethodMaOperation {
+    private static final String RIGHT_OPEN = MaOperationsSequence.RIGHT_OPEN;
+    private static final String RIGHT_CLOSE = MaOperationsSequence.RIGHT_CLOSE;
+    private static final String LEFT_OPEN = MaOperationsSequence.LEFT_OPEN;
+    private static final String LEFT_CLOSE = MaOperationsSequence.LEFT_CLOSE;
     private final String oper;
     private final int operOff;
     public SymbCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, int _off, String _ope) {

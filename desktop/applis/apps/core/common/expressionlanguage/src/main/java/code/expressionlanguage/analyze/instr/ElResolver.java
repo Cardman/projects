@@ -114,14 +114,12 @@ public final class ElResolver {
 
     public static Delimiters checkSyntax(String _string, int _elOffest, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
-        d_.setLength(_string.length());
         FullFieldRetriever ret_ = new FullFieldRetriever(d_, _string, _page, _elOffest);
         return commonCheck(_string, _elOffest, ret_, d_, _page);
     }
 
     static Delimiters checkSyntaxQuick(String _string, AnalyzedPageEl _page) {
         Delimiters d_ = new Delimiters();
-        d_.setLength(_string.length());
         QuickFieldRetriever ret_ = new QuickFieldRetriever(d_);
         return commonCheck(_string, 0, ret_, d_, _page);
     }

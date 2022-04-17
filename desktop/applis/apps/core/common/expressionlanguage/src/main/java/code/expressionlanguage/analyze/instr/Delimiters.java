@@ -10,7 +10,6 @@ public final class Delimiters {
 
     private int badOffset=-1;
     private int indexEnd;
-    private int length;
     private boolean partOfString;
     private final Ints allowedOperatorsIndexes = new Ints();
     private final Ints namedArgs = new Ints();
@@ -198,14 +197,6 @@ public final class Delimiters {
 
     public Ints getDelValues() {
         return delValues;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int _length) {
-        length = _length;
     }
 
     public boolean isEnabledOp() {

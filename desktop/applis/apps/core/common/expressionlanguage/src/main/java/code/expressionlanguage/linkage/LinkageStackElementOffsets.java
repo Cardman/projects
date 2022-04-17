@@ -6,8 +6,8 @@ public final class LinkageStackElementOffsets {
     private final int beginBlock;
     private final int endBlock;
 
-    public LinkageStackElementOffsets(int _begin) {
-        this(0,0,_begin,0);
+    public LinkageStackElementOffsets(int _begin, int _end) {
+        this(0,0,_begin, _end);
     }
 
     public LinkageStackElementOffsets(int _tr, int _trEnd,int _begin, int _end) {

@@ -5,6 +5,8 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
+    private static final String WIDE_BOUND = MaOperationsSequence.WIDE_BOUND;
+    private static final String STRICT_BOUND = MaOperationsSequence.STRICT_BOUND;
     private final String firstOper;
     private final String secondOper;
     private final int operOff;

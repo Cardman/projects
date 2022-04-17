@@ -16,6 +16,12 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbVarFctMaOperation extends MethodMaOperation  {
+    private static final String REP = MaOperationsSequence.REP;
+    private static final String RAND = MaOperationsSequence.RAND;
+    private static final String STAT = MaOperationsSequence.STAT;
+    private static final String EQ_VAR = MaOperationsSequence.EQ_VAR;
+    private static final String FIRST_DELAUNAY = MaOperationsSequence.FIRST_DELAUNAY;
+    private static final String SECOND_DELAUNAY = MaOperationsSequence.SECOND_DELAUNAY;
     private final String oper;
     private final int operOff;
     private final MaParameters mapping;
