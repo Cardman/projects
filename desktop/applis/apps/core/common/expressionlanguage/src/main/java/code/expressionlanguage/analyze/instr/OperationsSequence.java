@@ -32,8 +32,6 @@ public final class OperationsSequence {
     private TextBlockInfo strInfo;
 
     private String fctName = "";
-    private String oldFct = "";
-    private boolean empty;
 
     private int priority;
 
@@ -161,22 +159,14 @@ public final class OperationsSequence {
     }
 
     private void firstOpt(String _string) {
-        empty = fctName.trim().isEmpty();
         int beginValuePart_ = IndexConstants.FIRST_INDEX;
         int endValuePart_ = operators.firstKey();
         String str_ = _string.substring(beginValuePart_, endValuePart_);
         values.addEntry(beginValuePart_, str_);
         offset = endValuePart_;
-        oldFct = fctName;
-        fctName = str_;
-    }
-
-    public String getOldFct() {
-        return oldFct;
-    }
-
-    public boolean empFct() {
-        return empty;
+        if (getPriority() == ElResolver.NAME_PRIO || getPriority() == ElResolver.AFF_PRIO) {
+            fctName = str_;
+        }
     }
 
     private void countArr(Ints _nb, StringBuilder filter_) {
@@ -327,7 +317,7 @@ public final class OperationsSequence {
         }
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
-        String fctName_ = oldFct.trim();
+        String fctName_ = fctName.trim();
         if (fctName_.startsWith("@")) {
             removeFirst();
             return;
@@ -390,7 +380,6 @@ public final class OperationsSequence {
 
     public void setFctName(String _fctName) {
         fctName = _fctName;
-        oldFct = _fctName;
     }
 
     public boolean isCallDbArray() {

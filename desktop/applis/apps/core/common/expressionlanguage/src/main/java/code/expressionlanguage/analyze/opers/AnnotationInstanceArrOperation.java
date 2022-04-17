@@ -21,7 +21,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
     public AnnotationInstanceArrOperation(int _index,
                                           int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        arrayInstancingContent = new AnaArrayInstancingContent(getOperations().getOldFct());
+        arrayInstancingContent = new AnaArrayInstancingContent(getOperations().getFctName());
     }
 
     @Override

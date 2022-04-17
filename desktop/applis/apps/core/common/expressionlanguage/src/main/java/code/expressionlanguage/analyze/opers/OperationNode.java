@@ -243,7 +243,7 @@ public abstract class OperationNode {
             if (DefaultAnnotationAnalysis.isAnnotAnalysis(_page, _m,_op)) {
                 return new AnnotationInstanceArrOperation(_index, _indexChild, _m, _op);
             }
-            String fctName_ = _op.getOldFct().trim();
+            String fctName_ = _op.getFctName().trim();
             if (fctName_.startsWith(AROBASE)) {
                 return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
             }
@@ -292,7 +292,7 @@ public abstract class OperationNode {
                 }
             }
             if (_op.isInstance()) {
-                if (_op.empFct()) {
+                if (_op.getFctName().trim().isEmpty()) {
                     if (_m instanceof NamedArgumentOperation) {
                         if (_m.getParent() instanceof CallDynMethodOperation) {
                             return new ArgumentListInstancing(_index, _indexChild, _m, _op);
