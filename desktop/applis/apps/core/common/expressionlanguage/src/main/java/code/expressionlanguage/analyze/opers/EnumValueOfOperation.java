@@ -14,36 +14,23 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaValuesContent;
 import code.expressionlanguage.linkage.ExportCst;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class EnumValueOfOperation extends AbstractUnaryOperation {
 
     private String className;
-    private int argOffset;
+    private final int argOffset;
     private final AnaValuesContent valuesContent;
 
     private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
 
     public EnumValueOfOperation(int _index, int _indexChild,
-            MethodOperation _m, OperationsSequence _op) {
+            MethodOperation _m, OperationsSequence _op, String _str, int _argOfff) {
         super(_index, _indexChild, _m, _op);
         valuesContent = new AnaValuesContent();
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        vs_.remove(0);
-        if (vs_.isEmpty()) {
-            className = "";
-            return;
-        }
-        className = vs_.firstValue();
-        argOffset = vs_.firstKey();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
+        className = _str;
+        argOffset = _argOfff;
     }
 
     @Override

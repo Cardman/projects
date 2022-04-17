@@ -6,7 +6,6 @@ import code.maths.geo.CustLine;
 import code.maths.geo.Delaunay;
 import code.maths.geo.Polygon;
 import code.maths.geo.RatePoint;
-import code.maths.litteralcom.StrTypes;
 import code.maths.matrix.Polynom;
 import code.maths.matrix.RateImage;
 import code.maths.montecarlo.EventFreq;
@@ -17,12 +16,14 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbVarFctMaOperation extends MethodMaOperation  {
-    private String oper = "";
-    private int operOff;
+    private final String oper;
+    private final int operOff;
     private final MaParameters mapping;
-    protected SymbVarFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
+    public SymbVarFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping, int _off, String _ope) {
         super(_index, _indexChild, _m, _op);
         mapping = _mapping;
+        oper = _ope;
+        operOff = _off;
     }
 
     @Override
@@ -306,15 +307,6 @@ public final class SymbVarFctMaOperation extends MethodMaOperation  {
             }
         }
         _error.setOffset(getIndexExp()+operOff);
-    }
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        oper = vs_.lastValue();
-        operOff = vs_.lastKey();
-        vs_.remove(vs_.size()-1);
-        vs_.remove(0);
-        getChs().addAllEntries(vs_);
     }
 
     String getOper() {

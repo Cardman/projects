@@ -5,6 +5,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.litteralcom.MatCommonCst;
 import code.maths.litteralcom.MatConstType;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -163,11 +164,7 @@ public abstract class MaOperationNode {
 
     static MaOperationNode createOperationNodeAndChild(int _index,
                                                int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
-        MaOperationNode created_ = createOperationNode(_index, _indexChild, _m, _op, _mapping);
-        if (created_ instanceof MethodMaOperation) {
-            ((MethodMaOperation)created_).calculate();
-        }
-        return created_;
+        return createOperationNode(_index, _indexChild, _m, _op, _mapping);
     }
     private static MaOperationNode createOperationNode(int _index,
                                                int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
@@ -240,10 +237,14 @@ public abstract class MaOperationNode {
     private static MethodMaOperation procFct(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, MaParameters _mapping) {
         if (_op.getFct().trim().isEmpty()) {
             if (StringUtil.quickEq(_op.getOpers().firstValue(), MATRIX)) {
+                StrTypes vs_ = _op.getParts();
+                vs_.remove(0);
                 return new MatrixMaOperation(_index, _indexChild, _m, _op);
             }
             return procSymb(_index, _indexChild, _m, _op,_mapping);
         }
+        StrTypes vs_ = _op.getParts();
+        vs_.remove(0);
         return new FctMaOperation(_index, _indexChild, _m, _op);
     }
 
@@ -252,31 +253,62 @@ public abstract class MaOperationNode {
             return new ArrMaOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getParts().size() == 2 && isAndOr(_op)) {
-            return new SymbGeneMaOperation(_index, _indexChild, _m, _op);
+            String ope_ = _op.getParts().lastValue();
+            removeBounds(_op);
+            return new SymbGeneMaOperation(_index, _indexChild, _m, _op, ope_);
         }
         if (_op.getParts().size() >= 2 && isVarSymbol(_op)) {
-            return new SymbVarFctMaOperation(_index, _indexChild, _m, _op,_mapping);
+            int off_ = _op.getParts().lastKey();
+            String ope_ = _op.getParts().lastValue();
+            removeBounds(_op);
+            return new SymbVarFctMaOperation(_index, _indexChild, _m, _op,_mapping, off_, ope_);
         }
         if (_op.getParts().size() == 3 && isUnarySymbol(_op)) {
-            return new SymbUnFctMaOperation(_index, _indexChild, _m, _op);
+            int off_ = _op.getParts().lastKey();
+            String ope_ = _op.getParts().lastValue();
+            removeBounds(_op);
+            return new SymbUnFctMaOperation(_index, _indexChild, _m, _op, off_, ope_);
         }
         if (_op.getParts().size() == 4 && isBinSymbol(_op)) {
-            return new SymbBinFctMaOperation(_index, _indexChild, _m, _op);
+            int off_ = _op.getParts().lastKey();
+            String ope_ = _op.getParts().lastValue();
+            removeBounds(_op);
+            return new SymbBinFctMaOperation(_index, _indexChild, _m, _op, off_, ope_);
         }
         return defSymb(_index, _indexChild, _m, _op);
     }
 
     private static MethodMaOperation defSymb(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         if (_op.getParts().size() == 4 && isPairSymbol(_op)) {
-            return new SymbCaracFctMaOperation(_index, _indexChild, _m, _op);
+            int off_ = _op.getParts().lastKey();
+            String ope_ = _op.getParts().lastValue();
+            removeBounds(_op);
+            return new SymbCaracFctMaOperation(_index, _indexChild, _m, _op, off_, ope_);
         }
         if (_op.getParts().size() == 5 && StringUtil.quickEq(_op.getParts().lastValue().trim(), LINE_THREE)){
-            return new SymbTerFctMaOperation(_index, _indexChild, _m, _op);
+            int off_ = _op.getParts().lastKey();
+            String ope_ = _op.getParts().lastValue();
+            removeBounds(_op);
+            return new SymbTerFctMaOperation(_index, _indexChild, _m, _op, off_, ope_);
         }
         if (_op.getParts().size() == 6 && areBinarySymbols(_op)) {
-            return new SymbDoubleCaracFctMaOperation(_index, _indexChild, _m, _op);
+            String sec_ = _op.getParts().lastValue();
+            StrTypes vs_ = _op.getParts();
+            vs_.remove(vs_.size()-1);
+            int off_ = _op.getParts().lastKey();
+            String first_ = _op.getParts().lastValue();
+            removeBounds(_op);
+            return new SymbDoubleCaracFctMaOperation(_index, _indexChild, _m, _op, sec_, off_, first_);
         }
+        StrTypes vs_ = _op.getParts();
+        vs_.remove(0);
         return new IdMaOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static void removeBounds(MaOperationsSequence _op) {
+        StrTypes vs_ = _op.getParts();
+        vs_.remove(vs_.size()-1);
+        vs_.remove(0);
     }
 
     protected static MaRateStruct asInt(MaStruct _str) {

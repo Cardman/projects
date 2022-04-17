@@ -53,6 +53,21 @@ public final class ElResolverCommon {
         return index_;
     }
 
+    static boolean isTernary(String _string, int _len, int _i) {
+        boolean ternary_ = false;
+        if (StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.DOT_VAR)) {
+            int n_ = StringExpUtil.nextPrintChar(_i + 2, _len, _string);
+            if (isDigitOrDot(_string,n_)) {
+                ternary_ = true;
+            }
+        } else {
+            if (!StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.BEGIN_TERNARY)
+                    &&!StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.ARR_LEFT)) {
+                ternary_ = true;
+            }
+        }
+        return ternary_;
+    }
     static boolean isDigitOrDot(String _string, int _n) {
         return _n > -1 && (StringExpUtil.isDigit(_string.charAt(_n)) || _string.charAt(_n) == ElResolver.DOT_VAR);
     }

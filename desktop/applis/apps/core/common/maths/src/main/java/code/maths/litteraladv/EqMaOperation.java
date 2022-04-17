@@ -1,7 +1,6 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.IndexStrPart;
-import code.maths.litteralcom.StrTypes;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
@@ -25,9 +24,4 @@ public final class EqMaOperation extends MethodMaOperation {
         setStruct(MaBoolStruct.of(result_));
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

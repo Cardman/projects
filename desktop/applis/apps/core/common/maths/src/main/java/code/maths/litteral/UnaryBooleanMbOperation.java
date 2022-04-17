@@ -1,5 +1,5 @@
 package code.maths.litteral;
-import code.maths.litteralcom.StrTypes;
+
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -31,9 +31,4 @@ public final class UnaryBooleanMbOperation extends PrimitiveBoolMbOperation {
         setArgument(a_);
     }
 
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
-    }
 }

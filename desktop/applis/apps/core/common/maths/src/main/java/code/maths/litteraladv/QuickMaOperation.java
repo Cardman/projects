@@ -29,11 +29,6 @@ public final class QuickMaOperation extends MethodMaOperation {
         setStruct(a_);
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 
     boolean isAbs() {
         return abs;

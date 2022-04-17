@@ -27,11 +27,12 @@ public final class AffectationOperation extends MethodOperation {
 
     private boolean synthetic;
 
-    private int opOffset;
+    private final int opOffset;
 
     public AffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        opOffset = _op.getOperators().firstKey();
     }
 
     public boolean isSynthetic() {
@@ -40,13 +41,6 @@ public final class AffectationOperation extends MethodOperation {
 
     public void setSynthetic(boolean _synthetic) {
         this.synthetic = _synthetic;
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
-        opOffset = getOperations().getOperators().firstKey();
     }
 
     @Override

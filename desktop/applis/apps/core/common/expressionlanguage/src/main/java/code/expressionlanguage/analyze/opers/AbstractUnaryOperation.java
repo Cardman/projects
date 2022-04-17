@@ -1,10 +1,9 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.maths.litteralcom.StrTypes;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.util.CustList;
 
 public abstract class AbstractUnaryOperation extends MethodOperation {
@@ -37,11 +36,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         CustList<OperationNode> children_ = getChildrenNodes();
         return children_.size() != 1;
     }
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
-    }
+
     public abstract void analyzeUnary(AnalyzedPageEl _page);
 
 

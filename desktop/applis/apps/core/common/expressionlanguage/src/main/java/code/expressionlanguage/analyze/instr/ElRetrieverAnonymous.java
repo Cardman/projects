@@ -927,7 +927,7 @@ public final class ElRetrieverAnonymous {
             parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.BEGIN_TERNARY) {
-            boolean ternary_ = isTernary(_string, len_, _i);
+            boolean ternary_ = ElResolverCommon.isTernary(_string, len_, _i);
             if (ternary_) {
                 parsBrackets_.addEntry(_i, _curChar);
             }
@@ -1115,7 +1115,7 @@ public final class ElRetrieverAnonymous {
             parsBrackets_.removeLast();
         }
         if (_curChar == ElResolver.BEGIN_TERNARY) {
-            boolean ternary_ = isTernary(_string, len_, _i);
+            boolean ternary_ = ElResolverCommon.isTernary(_string, len_, _i);
             if (ternary_) {
                 parsBrackets_.addEntry(_i, _curChar);
             }
@@ -1246,22 +1246,6 @@ public final class ElRetrieverAnonymous {
         }
         i_++;
         return i_;
-    }
-
-    private static boolean isTernary(String _string, int _len, int _i) {
-        boolean ternary_ = false;
-        if (StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.DOT_VAR)) {
-            int n_ = StringExpUtil.nextPrintChar(_i + 2, _len, _string);
-            if (ElResolverCommon.isDigitOrDot(_string,n_)) {
-                ternary_ = true;
-            }
-        } else {
-            if (!StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.BEGIN_TERNARY)
-                    &&!StringExpUtil.nextCharIs(_string, _i + 1, _len, ElResolver.ARR_LEFT)) {
-                ternary_ = true;
-            }
-        }
-        return ternary_;
     }
 
 }

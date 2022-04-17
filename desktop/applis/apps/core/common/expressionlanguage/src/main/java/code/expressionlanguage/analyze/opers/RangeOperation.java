@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.linkage.ExportCst;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -16,21 +15,10 @@ import code.util.core.StringUtil;
 public final class RangeOperation extends MethodOperation {
     private int opOffset;
     private boolean okNum;
-    private boolean implicitMiddle;
-    public RangeOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    private final boolean implicitMiddle;
+    public RangeOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, boolean _impl) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        if (vs_.size() == 2 || vs_.size() == 3) {
-            if (vs_.getValue(1).trim().isEmpty()) {
-                vs_.remove(1);
-                implicitMiddle = true;
-            }
-        }
-        getChildren().addAllEntries(vs_);
+        implicitMiddle = _impl;
     }
 
     @Override

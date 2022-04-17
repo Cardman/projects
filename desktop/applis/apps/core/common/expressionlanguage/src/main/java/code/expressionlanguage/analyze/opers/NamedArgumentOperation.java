@@ -5,27 +5,26 @@ import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.blocks.NamedFunctionBlock;
 import code.expressionlanguage.analyze.blocks.RecordBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaNamedContent;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
 public final class NamedArgumentOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
 
-    private int offsetTr;
-    private int offsetTrFirst;
+    private final int offsetTr;
+    private final int offsetTrFirst;
     private final AnaNamedContent namedContent;
-    private String name = "";
-    private String className = "";
-    private String fieldName = "";
+    private final String name;
+    private final String className;
+    private final String fieldName;
     private AnaFormattedRootBlock formatted;
     private AnaFormattedRootBlock inferred;
     private RootBlock field;
@@ -36,30 +35,24 @@ public final class NamedArgumentOperation extends AbstractUnaryOperation impleme
     private String importedClassName = "";
     private boolean recordBlock;
 
-    public NamedArgumentOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    public NamedArgumentOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, String _na) {
         super(_index, _indexChild, _m, _op);
         namedContent = new AnaNamedContent();
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        String first_ = vs_.firstValue();
-        name = first_.trim();
-        offsetTr = StringUtil.getFirstPrintableCharIndex(first_);
-        offsetTrFirst = offsetTr;
+        name = _na.trim();
+        int offs_ = StringUtil.getFirstPrintableCharIndex(_na);
+        offsetTrFirst = offs_;
         int last_ = name.lastIndexOf('.');
         if (last_ >= 0) {
             className = name.substring(0,last_).trim();
             String substring_ = name.substring(1 + last_);
-            offsetTr += last_ + 1;
-            offsetTr += StringUtil.getFirstPrintableCharIndex(substring_);
+            offs_ += last_ + 1;
+            offs_ += StringUtil.getFirstPrintableCharIndex(substring_);
             fieldName = substring_.trim();
         } else {
+            className = "";
             fieldName = name;
         }
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
+        offsetTr = offs_;
     }
 
     @Override

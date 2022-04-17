@@ -12,6 +12,8 @@ public abstract class MethodMaOperation extends MaOperationNode {
     protected MethodMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         chs = new StrTypes();
+        StrTypes vs_ = _op.getParts();
+        chs.addAllEntries(vs_);
     }
 
     final CustList<MaOperationNode> getChildren() {
@@ -23,8 +25,6 @@ public abstract class MethodMaOperation extends MaOperationNode {
         }
         return list_;
     }
-
-    abstract void calculate();
 
     public final MaOperationNode getFirst() {
         return first;

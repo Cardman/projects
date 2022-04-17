@@ -259,25 +259,25 @@ public final class ElUtil {
                     _current.addErr(b_.getBuiltError());
                 }
             } else {
-                if (parent_ instanceof AffectationOperation && parent_.getFirstChild() == _current && (parent_.getParent() == null ||parent_.getParent() instanceof DeclaringOperation)) {
-                    if (!(_current instanceof DeclaredFieldOperation)) {
-                        FoundErrorInterpret b_;
-                        b_ = new FoundErrorInterpret();
-                        b_.setFile(_page.getCurrentFile());
-                        b_.setIndexFile(_page);
-                        b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
-                        _page.addLocError(b_);
-                        _current.addErr(b_.getBuiltError());
-                    }
+                if (parent_ instanceof AffectationOperation && parent_.getFirstChild() == _current && (parent_.getParent() == null || parent_.getParent() instanceof DeclaringOperation) && !(_current instanceof DeclaredFieldOperation)) {
+                    FoundErrorInterpret b_;
+                    b_ = new FoundErrorInterpret();
+                    b_.setFile(_page.getCurrentFile());
+                    b_.setIndexFile(_page);
+                    b_.buildError(_page.getAnalysisMessages().getNotRetrievedFields());
+                    _page.addLocError(b_);
+                    _current.addErr(b_.getBuiltError());
                 }
             }
         }
+        mergeDotted(_current);
+    }
+
+    private static void mergeDotted(OperationNode _current) {
         if (_current instanceof AbstractDotOperation) {
             OperationNode last_ = ((AbstractDotOperation) _current).getChildrenNodes().last();
-            if (last_ instanceof ArrOperation) {
-                if (_current.getOperations().getOperators().firstValue().isEmpty()) {
-                    last_.mergeErrs(_current);
-                }
+            if (last_ instanceof ArrOperation && _current.getOperations().getOperators().firstValue().isEmpty()) {
+                last_.mergeErrs(_current);
             }
         }
     }
@@ -337,39 +337,28 @@ public final class ElUtil {
         return _cst.getSettableFieldContent().isFinalField() && checkFinalReadOnly(_cst.getSettableFieldContent().isStaticField(), _ass, fromCurClass_, fieldName_, _page);
     }
     private static boolean checkFinalReadOnly(boolean _staticField, StringMap<BoolVal> _ass, boolean _fromCurClass, String _fieldName, AnalyzedPageEl _page) {
-        boolean checkFinal_;
         if (_page.isAssignedFields()) {
-            checkFinal_ = true;
-        } else if (_page.isAssignedStaticFields()) {
-            if (_staticField) {
-                checkFinal_ = true;
-            } else if (!_fromCurClass) {
-                checkFinal_ = true;
-            } else {
-                checkFinal_ = false;
-                for (EntryCust<String, BoolVal> e: _ass.entryList()) {
-                    if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
-                        continue;
-                    }
-                    if (e.getValue() == BoolVal.TRUE) {
-                        continue;
-                    }
-                    checkFinal_ = true;
-                }
+            return true;
+        }
+        if (_page.isAssignedStaticFields()) {
+            if (_staticField || !_fromCurClass) {
+                return true;
             }
-        } else if (!_fromCurClass) {
-            checkFinal_ = true;
-        } else {
-            checkFinal_ = false;
-            for (EntryCust<String, BoolVal> e: _ass.entryList()) {
-                if (!StringUtil.quickEq(e.getKey(), _fieldName)) {
-                    continue;
-                }
-                if (e.getValue() == BoolVal.TRUE) {
-                    continue;
-                }
-                checkFinal_ = true;
+            return chFinal(_ass, _fieldName);
+        }
+        if (!_fromCurClass) {
+            return true;
+        }
+        return chFinal(_ass, _fieldName);
+    }
+
+    private static boolean chFinal(StringMap<BoolVal> _ass, String _fieldName) {
+        boolean checkFinal_ = false;
+        for (EntryCust<String, BoolVal> e: _ass.entryList()) {
+            if (!StringUtil.quickEq(e.getKey(), _fieldName) || e.getValue() == BoolVal.TRUE) {
+                continue;
             }
+            checkFinal_ = true;
         }
         return checkFinal_;
     }

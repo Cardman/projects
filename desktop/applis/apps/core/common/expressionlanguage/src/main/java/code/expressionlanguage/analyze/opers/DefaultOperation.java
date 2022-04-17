@@ -1,26 +1,18 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.maths.litteralcom.StrTypes;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 
 public final class DefaultOperation extends AbstractUnaryOperation {
 
-    private int offset;
+    private final int offset;
     private final int delta;
     public DefaultOperation(int _index, int _indexChild, MethodOperation _m,
-                            OperationsSequence _op, int _delta) {
+                            OperationsSequence _op, int _delta, int _off) {
         super(_index, _indexChild, _m, _op);
         delta = _delta;
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        offset = vs_.firstKey();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
+        offset = _off;
     }
 
     @Override

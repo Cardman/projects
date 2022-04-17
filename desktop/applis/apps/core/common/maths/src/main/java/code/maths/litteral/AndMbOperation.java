@@ -1,7 +1,5 @@
 package code.maths.litteral;
 
-import code.maths.litteralcom.StrTypes;
-
 public final class AndMbOperation extends QuickMbOperation {
 
     public AndMbOperation(int _index,
@@ -14,10 +12,5 @@ public final class AndMbOperation extends QuickMbOperation {
         return false;
     }
 
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
-    }
 
 }

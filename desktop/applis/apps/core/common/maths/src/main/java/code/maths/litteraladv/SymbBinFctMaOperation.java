@@ -15,8 +15,8 @@ import code.util.core.StringUtil;
 
 public final class SymbBinFctMaOperation extends AbsSymbFixMaOperation {
 
-    public SymbBinFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
-        super(_index, _indexChild, _m, _op);
+    public SymbBinFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, int _off, String _ope) {
+        super(_index, _indexChild, _m, _op, _off, _ope);
     }
 
     @Override

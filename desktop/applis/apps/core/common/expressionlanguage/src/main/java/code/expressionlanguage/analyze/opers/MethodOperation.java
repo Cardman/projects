@@ -19,6 +19,8 @@ public abstract class MethodOperation extends OperationNode {
     protected MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         children = new StrTypes();
+        StrTypes vs_ = _op.getValues();
+        children.addAllEntries(vs_);
     }
 
     public final void appendChild(OperationNode _child) {
@@ -46,8 +48,6 @@ public abstract class MethodOperation extends OperationNode {
         }
         return list_;
     }
-
-    abstract void calculateChildren();
 
     @Override
     public final OperationNode getFirstChild() {

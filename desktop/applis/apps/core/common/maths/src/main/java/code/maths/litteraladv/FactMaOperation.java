@@ -18,9 +18,4 @@ final class FactMaOperation extends MethodMaOperation {
         setStruct(new MaRateStruct(((MaRateStruct)value_).getRate().fact()));
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

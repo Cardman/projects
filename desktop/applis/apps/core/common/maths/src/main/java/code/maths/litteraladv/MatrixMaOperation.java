@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.StringMap;
 
 public final class MatrixMaOperation extends MethodMaOperation {
-    protected MatrixMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
+    public MatrixMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
 
@@ -67,10 +67,4 @@ public final class MatrixMaOperation extends MethodMaOperation {
         setStruct(new MaMatrixStruct( new Matrix(vects_)));
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        vs_.remove(0);
-        getChs().addAllEntries(vs_);
-    }
 }

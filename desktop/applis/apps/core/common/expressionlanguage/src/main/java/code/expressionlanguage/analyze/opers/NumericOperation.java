@@ -1,11 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.util.*;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -16,7 +17,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     private final int opOffset;
     private boolean okNum;
 
-    public NumericOperation(int _index,
+    protected NumericOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         op = _op.getOperators().firstValue();
@@ -73,12 +74,6 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     abstract ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, AnalyzedPageEl _page);
-
-    @Override
-    final void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
-    }
 
     public ClassMethodIdMemberIdTypeFct getFct() {
         return fct;

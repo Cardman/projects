@@ -1,6 +1,6 @@
 package code.maths.litteral;
+
 import code.maths.Rate;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -74,10 +74,5 @@ public final class CmpMbOperation extends PrimitiveBoolMbOperation {
         setArgument(arg_);
     }
 
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
-    }
 
 }

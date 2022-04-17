@@ -1,18 +1,13 @@
 package code.expressionlanguage.analyze.opers;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.OperatorConverter;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -51,12 +46,6 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             return;
         }
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
     }
 
     public String getOper() {

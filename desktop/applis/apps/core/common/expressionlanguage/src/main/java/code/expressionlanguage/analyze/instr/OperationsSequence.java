@@ -1,8 +1,11 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
+import code.expressionlanguage.analyze.opers.AnnotationInstanceArobaseOperation;
+import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
@@ -66,92 +69,14 @@ public final class OperationsSequence {
             return;
         }
         String op_ = operators.firstValue();
-        boolean pureDot_ = false;
-        boolean initArrayDim_ = false;
-        if (!op_.isEmpty()) {
-            if (op_.charAt(0) == ARR_ANNOT) {
-                int beginValuePart_ = IndexConstants.FIRST_INDEX;
-                int endValuePart_ = operators.firstKey();
-                String str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.addEntry(beginValuePart_, str_);
-                int i_ = IndexConstants.SECOND_INDEX;
-                int nbKeys_ = operators.size();
-                if (nbKeys_ == 2) {
-                    beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-                    endValuePart_ = operators.getKey(i_);
-                    str_ = _string.substring(beginValuePart_, endValuePart_);
-                    addValueIfNotEmpty(beginValuePart_, str_);
-                    return;
-                }
-                while (i_ < nbKeys_) {
-                    beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-                    endValuePart_ = operators.getKey(i_);
-                    str_ = _string.substring(beginValuePart_, endValuePart_);
-                    values.addEntry(beginValuePart_, str_);
-                    i_++;
-                }
-                return;
-            }
-            if (op_.charAt(0) != DOT_VAR) {
-                if (priority == ElResolver.FCT_OPER_PRIO) {
-                    if (op_.charAt(0) != '?') {
-                        if (block == null) {
-                            int afterLastPar_ = operators.lastKey()+1;
-                            StringBuilder filter_ = new StringBuilder(_string);
-                            if (op_.charAt(0) == ARR && _instance) {
-                                for (int i : _nb.getReverse()) {
-                                    if (i < afterLastPar_) {
-                                        break;
-                                    }
-                                    filter_.deleteCharAt(i);
-                                    countArrays++;
-                                }
-                                countArrays/=2;
-                                initArrayDim_ = true;
-                            }
-                            if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
-                                if (!instance) {
-                                    operators.clear();
-                                    operators.addEntry(afterLastPar_, "");
-                                    return;
-                                }
-                                values.addEntry(IndexConstants.FIRST_INDEX, _string);
-                                constType = ConstType.ERROR;
-                                return;
-                            }
-                        }
-                    } else {
-                        pureDot_ = true;
-                    }
-                }
-            } else {
-                pureDot_ = true;
-            }
-        } else {
-            pureDot_ = true;
-        }
-        int beginValuePart_ = IndexConstants.FIRST_INDEX;
-        int endValuePart_ = operators.firstKey();
-        String str_;
         if (priority == ElResolver.DECL_PRIO) {
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
-            int i_ = IndexConstants.SECOND_INDEX;
-            int nbKeys_ = operators.size();
-            while (i_ < nbKeys_) {
-                beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-                endValuePart_ = operators.getKey(i_);
-                str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.addEntry(beginValuePart_, str_);
-                i_++;
-            }
-            beginValuePart_ = endValuePart_ + operators.lastValue().length();
-            str_ = _string.substring(beginValuePart_);
-            values.addEntry(beginValuePart_, str_);
+            declOp(_string);
             return;
         }
         if (priority == ElResolver.POST_INCR_PRIO) {
-            str_ = _string.substring(beginValuePart_, endValuePart_);
+            int beginValuePart_ = IndexConstants.FIRST_INDEX;
+            int endValuePart_ = operators.firstKey();
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
             values.addEntry(IndexConstants.FIRST_INDEX, str_);
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             str_ = _string.substring(beginValuePart_);
@@ -160,66 +85,199 @@ public final class OperationsSequence {
         }
         if (_is && priority == ElResolver.CMP_PRIO) {
             //instanceof operator
+            int beginValuePart_ = IndexConstants.FIRST_INDEX;
             instanceTest = true;
-            str_ = _string.substring(beginValuePart_, endValuePart_);
+            int endValuePart_ = operators.firstKey();
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
             values.addEntry(IndexConstants.FIRST_INDEX, str_);
             beginValuePart_ = endValuePart_ + operators.firstValue().length();
             str_ = _string.substring(beginValuePart_);
             addValueIfNotEmpty(beginValuePart_, str_);
             return;
         }
-        if (priority != ElResolver.UNARY_PRIO) {
-            //not unary priority, not identity priority
-            str_ = _string.substring(beginValuePart_, endValuePart_);
-            values.addEntry(beginValuePart_, str_);
-        }
-        if (pureDot_) {
-            beginValuePart_ = endValuePart_ + operators.lastValue().length();
-            str_ = _string.substring(beginValuePart_);
-            values.addEntry(beginValuePart_, str_);
+        if (op_.isEmpty()) {
+            pureDot(_string);
             return;
         }
-        if (initArrayDim_) {
-            int i_ = IndexConstants.SECOND_INDEX;
-            int nbKeys_ = operators.size();
-            while (i_ < nbKeys_) {
-                beginValuePart_ = operators.getKey(i_ - 1) + operators.getValue(i_ - 1).length();
-                endValuePart_ = operators.getKey(i_);
-                if (i_ + 1 < nbKeys_) {
-                    int b_ = operators.getKey(i_) + operators.getValue(i_).length();
-                    int e_ = operators.getKey(i_ + 1);
-                    String err_ = _string.substring(b_, e_);
-                    if (!err_.trim().isEmpty()) {
-                        getErrorParts().add(b_);
-                        constType = ConstType.ERROR;
-                    }
-                }
-                str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.addEntry(beginValuePart_, str_);
-                i_++;
-                i_++;
-            }
+        char chOp_ = op_.charAt(0);
+        if (chOp_ == ARR_ANNOT) {
+            braceArr(_string);
+            return;
+        }
+        if (chOp_ == DOT_VAR) {
+            pureDot(_string);
             return;
         }
         if (priority == ElResolver.FCT_OPER_PRIO) {
-            if (operators.size() == 2) {
-                beginValuePart_ = endValuePart_ + operators.firstValue().length();
-                endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
-                str_ = _string.substring(beginValuePart_, endValuePart_);
-                addValueIfNotEmpty(beginValuePart_, str_);
-                return;
-            }
-            int i_ = IndexConstants.SECOND_INDEX;
-            int nbKeys_ = operators.size();
-            while (i_ < nbKeys_) {
-                beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
-                endValuePart_ = operators.getKey(i_);
-                str_ = _string.substring(beginValuePart_, endValuePart_);
-                values.addEntry(beginValuePart_, str_);
-                i_++;
-            }
+            fctPrio(_string, _instance, _nb, chOp_);
             return;
         }
+        notUnary(_string);
+        defOperators(_string);
+    }
+
+    private void fctPrio(String _string, boolean _instance, Ints _nb, char _chOp) {
+        if (_chOp == '?') {
+            pureDot(_string);
+            return;
+        }
+        if (block != null) {
+            notUnary(_string);
+            fctPrio(_string);
+            return;
+        }
+        int afterLastPar_ = operators.lastKey() + 1;
+        StringBuilder filter_ = new StringBuilder(_string);
+        boolean initArrayDim_ = false;
+        if (_chOp == ARR && _instance) {
+            countArr(_nb, filter_);
+            initArrayDim_ = true;
+        }
+        if (!filter_.substring(afterLastPar_).trim().isEmpty()) {
+            errOpers(_string, afterLastPar_);
+            return;
+        }
+        if (initArrayDim_) {
+            notUnary(_string);
+            arrDim(_string);
+            return;
+        }
+        notUnary(_string);
+        fctPrio(_string);
+    }
+
+    private void pureDot(String _string) {
+        notUnary(_string);
+        int endValuePart_ = operators.firstKey();
+        int beginValuePart_ = endValuePart_ + operators.lastValue().length();
+        String str_ = _string.substring(beginValuePart_);
+        values.addEntry(beginValuePart_, str_);
+    }
+
+    private void notUnary(String _string) {
+        if (priority != ElResolver.UNARY_PRIO) {
+            //not unary priority, not identity priority
+            int beginValuePart_ = IndexConstants.FIRST_INDEX;
+            int endValuePart_ = operators.firstKey();
+            String str_ = _string.substring(beginValuePart_, endValuePart_);
+            values.addEntry(beginValuePart_, str_);
+        }
+    }
+
+    private void countArr(Ints _nb, StringBuilder filter_) {
+        int afterLastPar_ = operators.lastKey()+1;
+        for (int i : _nb.getReverse()) {
+            if (i < afterLastPar_) {
+                break;
+            }
+            filter_.deleteCharAt(i);
+            countArrays++;
+        }
+        countArrays/=2;
+    }
+
+    private void errOpers(String _string, int afterLastPar_) {
+        if (!instance) {
+            operators.clear();
+            operators.addEntry(afterLastPar_, "");
+            return;
+        }
+        values.addEntry(IndexConstants.FIRST_INDEX, _string);
+        constType = ConstType.ERROR;
+    }
+
+    private void braceArr(String _string) {
+        int beginValuePart_ = IndexConstants.FIRST_INDEX;
+        int endValuePart_ = operators.firstKey();
+        String str_ = _string.substring(beginValuePart_, endValuePart_);
+        values.addEntry(beginValuePart_, str_);
+        int i_ = IndexConstants.SECOND_INDEX;
+        int nbKeys_ = operators.size();
+        if (nbKeys_ == 2) {
+            beginValuePart_ = endValuePart_ + operators.getValue(0).length();
+            endValuePart_ = operators.getKey(i_);
+            str_ = _string.substring(beginValuePart_, endValuePart_);
+            addValueIfNotEmpty(beginValuePart_, str_);
+            return;
+        }
+        while (i_ < nbKeys_) {
+            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+            endValuePart_ = operators.getKey(i_);
+            str_ = _string.substring(beginValuePart_, endValuePart_);
+            values.addEntry(beginValuePart_, str_);
+            i_++;
+        }
+    }
+
+    private void declOp(String _string) {
+        int beginValuePart_ = IndexConstants.FIRST_INDEX;
+        int endValuePart_ = operators.firstKey();
+        String str_ = _string.substring(beginValuePart_, endValuePart_);
+        values.addEntry(beginValuePart_, str_);
+        int i_ = IndexConstants.SECOND_INDEX;
+        int nbKeys_ = operators.size();
+        while (i_ < nbKeys_) {
+            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+            endValuePart_ = operators.getKey(i_);
+            str_ = _string.substring(beginValuePart_, endValuePart_);
+            values.addEntry(beginValuePart_, str_);
+            i_++;
+        }
+        beginValuePart_ = endValuePart_ + operators.lastValue().length();
+        str_ = _string.substring(beginValuePart_);
+        values.addEntry(beginValuePart_, str_);
+    }
+
+    private void arrDim(String _string) {
+        int beginValuePart_;
+        String str_;
+        int i_ = IndexConstants.SECOND_INDEX;
+        int nbKeys_ = operators.size();
+        while (i_ < nbKeys_) {
+            beginValuePart_ = operators.getKey(i_ - 1) + operators.getValue(i_ - 1).length();
+            int endValuePart_ = operators.getKey(i_);
+            if (i_ + 1 < nbKeys_) {
+                int b_ = operators.getKey(i_) + operators.getValue(i_).length();
+                int e_ = operators.getKey(i_ + 1);
+                String err_ = _string.substring(b_, e_);
+                if (!err_.trim().isEmpty()) {
+                    getErrorParts().add(b_);
+                    constType = ConstType.ERROR;
+                }
+            }
+            str_ = _string.substring(beginValuePart_, endValuePart_);
+            values.addEntry(beginValuePart_, str_);
+            i_++;
+            i_++;
+        }
+    }
+
+    private void fctPrio(String _string) {
+        int beginValuePart_;
+        String str_;
+        int endValuePart_ = operators.firstKey();
+        if (operators.size() == 2) {
+            beginValuePart_ = endValuePart_ + operators.firstValue().length();
+            endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
+            str_ = _string.substring(beginValuePart_, endValuePart_);
+            addValueIfNotEmpty(beginValuePart_, str_);
+            return;
+        }
+        int i_ = IndexConstants.SECOND_INDEX;
+        int nbKeys_ = operators.size();
+        while (i_ < nbKeys_) {
+            beginValuePart_ = endValuePart_ + operators.getValue(i_-1).length();
+            endValuePart_ = operators.getKey(i_);
+            str_ = _string.substring(beginValuePart_, endValuePart_);
+            values.addEntry(beginValuePart_, str_);
+            i_++;
+        }
+    }
+
+    private void defOperators(String _string) {
+        int beginValuePart_;
+        String str_;
+        int endValuePart_ = operators.firstKey();
         int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
         while (i_ < nbKeys_) {
@@ -242,6 +300,21 @@ public final class OperationsSequence {
         values.addEntry(_beginValuePart, _str);
     }
 
+    public boolean implMiddle() {
+        StrTypes vs_ = getValues();
+        if (vs_.size() == 2 || vs_.size() == 3) {
+            if (vs_.getValue(1).trim().isEmpty()) {
+                vs_.remove(1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeFirst() {
+        StrTypes vs_ = getValues();
+        vs_.remove(0);
+    }
     public Ints getErrorParts() {
         return errorParts;
     }

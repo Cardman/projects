@@ -37,9 +37,4 @@ public final class VectMaOperation extends MethodMaOperation {
         setStruct(new MaVectStruct(new Vect(val_)));
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

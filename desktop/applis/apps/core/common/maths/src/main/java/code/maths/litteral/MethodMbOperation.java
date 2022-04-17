@@ -11,6 +11,8 @@ public abstract class MethodMbOperation extends MbOperationNode {
     protected MethodMbOperation(int _index, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         children = new StrTypes();
+        StrTypes vs_ = _op.getValues();
+        children.addAllEntries(vs_);
     }
 
     final CustList<MbOperationNode> getChildrenNodes() {
@@ -22,8 +24,6 @@ public abstract class MethodMbOperation extends MbOperationNode {
         }
         return list_;
     }
-
-    abstract void calculateChildren();
 
     public final MbOperationNode getFirstChild() {
         return firstChild;

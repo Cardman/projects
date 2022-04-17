@@ -138,10 +138,4 @@ public final class IdMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        vs_.remove(0);
-        getChs().addAllEntries(vs_);
-    }
 }

@@ -20,7 +20,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -32,17 +31,10 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
     private MethodAccessKind staticAccess;
     private boolean intermediate;
 
-    public InvokingOperation(int _index, int _indexChild, MethodOperation _m,
+    protected InvokingOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         previousResultClass = new AnaClassArgumentMatching(EMPTY_STRING);
-    }
-
-    @Override
-    final void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
     }
 
     NameParametersFilter buildFilter(AnalyzedPageEl _page) {

@@ -28,9 +28,4 @@ public final class PolInterMaOperation extends MethodMaOperation {
         setStruct(new MaRateImageStruct(new RateImage(evt_, freq_)));
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

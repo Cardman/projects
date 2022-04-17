@@ -17,8 +17,8 @@ import code.util.core.StringUtil;
 
 public final class SymbUnFctMaOperation extends AbsSymbFixMaOperation {
 
-    protected SymbUnFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
-        super(_index, _indexChild, _m, _op);
+    public SymbUnFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, int _off, String _ope) {
+        super(_index, _indexChild, _m, _op, _off, _ope);
     }
 
     @Override

@@ -2,13 +2,10 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.analyze.instr.PartOffset;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -39,10 +36,4 @@ public final class BadTernaryOperation extends MethodOperation {
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
-    }
 }

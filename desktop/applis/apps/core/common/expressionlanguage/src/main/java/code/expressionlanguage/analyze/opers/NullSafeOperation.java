@@ -2,9 +2,8 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.ResultTernary;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.maths.litteralcom.StrTypes;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -16,12 +15,6 @@ public final class NullSafeOperation extends MethodOperation {
 
     public NullSafeOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
     }
 
     @Override

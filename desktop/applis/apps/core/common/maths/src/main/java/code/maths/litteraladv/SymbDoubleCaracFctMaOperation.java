@@ -1,16 +1,18 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.MathExpUtil;
-import code.maths.litteralcom.StrTypes;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
-    private String firstOper ="";
-    private String secondOper ="";
-    private int operOff;
-    protected SymbDoubleCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
+    private final String firstOper;
+    private final String secondOper;
+    private final int operOff;
+    public SymbDoubleCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, String _sec, int _off, String _first) {
         super(_index, _indexChild, _m, _op);
+        secondOper = _sec;
+        firstOper = _first;
+        operOff = _off;
     }
 
     @Override
@@ -93,15 +95,4 @@ public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
         }
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        secondOper = vs_.lastValue();
-        vs_.remove(vs_.size()-1);
-        firstOper = vs_.lastValue();
-        operOff = vs_.lastKey();
-        vs_.remove(vs_.size()-1);
-        vs_.remove(0);
-        getChs().addAllEntries(vs_);
-    }
 }

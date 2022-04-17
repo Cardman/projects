@@ -1016,9 +1016,5 @@ public final class ArrMaOperation extends MethodMaOperation {
             _int.addNb(new LgInt(_len));
         }
     }
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
+
 }

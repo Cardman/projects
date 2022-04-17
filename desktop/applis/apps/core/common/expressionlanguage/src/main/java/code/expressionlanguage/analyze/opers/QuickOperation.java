@@ -1,22 +1,17 @@
 package code.expressionlanguage.analyze.opers;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
-import code.expressionlanguage.analyze.opers.util.OperatorConverter;
-import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.functionid.ClassMethodId;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
+import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
+import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -34,15 +29,9 @@ public abstract class QuickOperation extends MethodOperation {
     private int opOffset;
     private int opOff;
 
-    public QuickOperation(int _index,
+    protected QuickOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-    }
-
-    @Override
-    final void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
     }
 
     @Override

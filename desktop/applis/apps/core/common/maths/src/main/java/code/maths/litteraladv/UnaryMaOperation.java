@@ -48,9 +48,4 @@ public final class UnaryMaOperation extends MethodMaOperation {
         }
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

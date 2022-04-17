@@ -2,16 +2,15 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -111,12 +110,6 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     }
     public boolean isStringCompare() {
         return stringCompare;
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
     }
 
     public ClassMethodIdMemberIdTypeFct getFct() {

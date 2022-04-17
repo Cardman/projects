@@ -37,9 +37,4 @@ public final class PolMemMaOperation extends MethodMaOperation {
         setStruct(new MaPolMemberStruct(evt_, freq_));
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

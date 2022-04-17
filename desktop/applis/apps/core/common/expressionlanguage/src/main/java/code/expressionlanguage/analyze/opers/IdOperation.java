@@ -1,16 +1,17 @@
 package code.expressionlanguage.analyze.opers;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.InterfaceBlock;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
-import code.util.*;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class IdOperation extends AbstractUnaryOperation {
@@ -162,12 +163,7 @@ public final class IdOperation extends AbstractUnaryOperation {
     public boolean isStandard() {
         return standard;
     }
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
-    }
+
     @Override
     boolean isFirstKo() {
         return false;

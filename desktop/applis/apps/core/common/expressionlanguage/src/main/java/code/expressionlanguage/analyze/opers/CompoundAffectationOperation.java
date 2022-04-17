@@ -43,12 +43,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
     }
 
     @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
-    }
-
-    @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode left_ = chidren_.first();

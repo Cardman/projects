@@ -1,5 +1,5 @@
 package code.maths.litteral;
-import code.maths.litteralcom.StrTypes;
+
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -26,10 +26,4 @@ public final class IdMbOperation extends MethodMbOperation {
         setArgument(MbNumParsers.tryGet(this,0));
     }
 
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
-    }
 }

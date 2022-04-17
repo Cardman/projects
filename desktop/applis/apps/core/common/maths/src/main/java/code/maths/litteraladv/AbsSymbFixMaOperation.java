@@ -1,21 +1,12 @@
 package code.maths.litteraladv;
 
-import code.maths.litteralcom.StrTypes;
-
 abstract class AbsSymbFixMaOperation extends MethodMaOperation {
-    private String oper = "";
-    private int operOff;
-    protected AbsSymbFixMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
+    private final String oper;
+    private final int operOff;
+    protected AbsSymbFixMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, int _off, String _ope) {
         super(_index, _indexChild, _m, _op);
-    }
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        operOff = vs_.lastKey();
-        oper = vs_.lastValue();
-        vs_.remove(vs_.size()-1);
-        vs_.remove(0);
-        getChs().addAllEntries(vs_);
+        operOff = _off;
+        oper = _ope;
     }
 
     String getOper() {

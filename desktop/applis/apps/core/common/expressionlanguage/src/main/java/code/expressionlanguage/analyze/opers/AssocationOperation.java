@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
-import code.maths.litteralcom.StrTypes;
 import code.util.core.StringUtil;
 
 public final class AssocationOperation extends AbstractUnaryOperation {
@@ -24,13 +23,6 @@ public final class AssocationOperation extends AbstractUnaryOperation {
         delta = StringUtil.getFirstPrintableCharIndex(_fieldName);
         offEq = getOperations().getOperators().firstKey();
         fieldName = _fieldName.trim();
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package code.maths.litteral;
+
 import code.maths.Rate;
 import code.maths.litteralcom.IndexStrPart;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -84,9 +84,4 @@ public abstract class NumericMbOperation extends MethodMbOperation {
         setArgument(a_);
     }
 
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        getChildren().addAllEntries(vs_);
-    }
 }

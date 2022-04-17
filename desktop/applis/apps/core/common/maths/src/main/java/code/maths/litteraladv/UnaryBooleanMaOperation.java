@@ -18,9 +18,4 @@ public final class UnaryBooleanMaOperation extends MethodMaOperation {
         setStruct(((MaBoolStruct)value_).neg());
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

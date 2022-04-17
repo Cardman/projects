@@ -1,15 +1,16 @@
 package code.maths.litteraladv;
 
 import code.maths.litteralcom.MathExpUtil;
-import code.maths.litteralcom.StrTypes;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbCaracFctMaOperation extends MethodMaOperation {
-    private String oper="";
-    private int operOff;
-    protected SymbCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
+    private final String oper;
+    private final int operOff;
+    public SymbCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, int _off, String _ope) {
         super(_index, _indexChild, _m, _op);
+        operOff = _off;
+        oper = _ope;
     }
 
     @Override
@@ -79,14 +80,5 @@ public final class SymbCaracFctMaOperation extends MethodMaOperation {
         } else {
             _error.setOffset(getIndexExp()+operOff);
         }
-    }
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        operOff = vs_.lastKey();
-        oper = vs_.lastValue();
-        vs_.remove(vs_.size()-1);
-        vs_.remove(0);
-        getChs().addAllEntries(vs_);
     }
 }

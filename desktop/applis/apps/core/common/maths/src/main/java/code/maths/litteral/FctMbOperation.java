@@ -1,9 +1,9 @@
 package code.maths.litteral;
+
 import code.maths.LgInt;
 import code.maths.MathList;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -599,10 +599,4 @@ public final class FctMbOperation extends InvokingMbOperation {
         setArgument(arg_);
     }
 
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
-    }
 }

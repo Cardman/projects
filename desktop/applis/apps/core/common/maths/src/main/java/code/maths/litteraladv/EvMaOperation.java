@@ -34,9 +34,4 @@ public final class EvMaOperation extends MethodMaOperation {
         _error.setOffset(getIndexExp()+ index_);
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

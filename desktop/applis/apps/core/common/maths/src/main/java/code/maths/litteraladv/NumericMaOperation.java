@@ -135,9 +135,4 @@ public final class NumericMaOperation extends MethodMaOperation {
         return _f.nbLines() != _s.nbLines() || _f.nbCols() != _s.nbCols();
     }
 
-    @Override
-    void calculate() {
-        StrTypes vs_ = getOperats().getParts();
-        getChs().addAllEntries(vs_);
-    }
 }

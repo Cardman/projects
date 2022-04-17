@@ -1445,18 +1445,7 @@ public final class ElResolver {
             parsBrackets_.removeLast();
         }
         if (curChar_ == BEGIN_TERNARY) {
-            boolean ternary_ = false;
-            if (StringExpUtil.nextCharIs(_string, i_ + 1, len_, DOT_VAR)) {
-                int n_ = StringExpUtil.nextPrintChar(i_ + 2, len_, _string);
-                if (ElResolverCommon.isDigitOrDot(_string,n_)) {
-                    ternary_ = true;
-                }
-            } else {
-                if (!StringExpUtil.nextCharIs(_string, i_ + 1, len_, BEGIN_TERNARY)
-                        &&!StringExpUtil.nextCharIs(_string, i_ + 1, len_, ARR_LEFT)) {
-                    ternary_ = true;
-                }
-            }
+            boolean ternary_ = ElResolverCommon.isTernary(_string,len_,i_);
             if (ternary_) {
                 parsBrackets_.addEntry(i_, curChar_);
             }
@@ -2071,14 +2060,8 @@ public final class ElResolver {
 
     private static OperationsSequence tryGetSequence(int _offset, String _string,
                                                      Delimiters _d, AnalyzedPageEl _page) {
+        int i_ = firstPrint(_string);
         int len_ = _string.length();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (i_ < len_) {
-            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
-                break;
-            }
-            i_++;
-        }
         if (i_ >= len_) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ERROR);
@@ -2088,59 +2071,61 @@ public final class ElResolver {
             return op_;
         }
         KeyWords keyWords_ = _page.getKeyWords();
-        String keyWordFalse_ = keyWords_.getKeyWordFalse();
-        String keyWordNull_ = keyWords_.getKeyWordNull();
-        String keyWordThis_ = keyWords_.getKeyWordThis();
-        String keyWordParent_ = keyWords_.getKeyWordParent();
-        String keyWordTrue_ = keyWords_.getKeyWordTrue();
-        int firstPrintChar_ = i_;
-        int lastPrintChar_ = len_ - 1;
-        while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
-            lastPrintChar_--;
-        }
-        int strLen_ = _string.length();
+        int lastPrintChar_ = lastPrintChar(_string, len_);
         len_ = lastPrintChar_+1;
         for (VariableInfo v: _d.getVariables()) {
-            if (v.getFirstChar() != _offset + firstPrintChar_) {
-                continue;
+            if (v.getFirstChar() == _offset + i_) {
+                int iVar_ = v.getLastChar();
+                if (iVar_ != _offset + lastPrintChar_ + 1) {
+                    break;
+                }
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(v.getKind());
+                op_.setDeclaringField(v.getDeclaringField());
+                op_.setErrors(v.getErrors());
+                op_.setOperators(new StrTypes());
+                op_.setValue(v.getName(), i_);
+                op_.setDelimiter(_d);
+                return op_;
             }
-            int iVar_ = v.getLastChar();
-            if (iVar_ != _offset + lastPrintChar_ + 1) {
-                break;
-            }
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(v.getKind());
-            op_.setDeclaringField(v.getDeclaringField());
-            op_.setErrors(v.getErrors());
-            op_.setOperators(new StrTypes());
-            op_.setValue(v.getName(), firstPrintChar_);
-            op_.setDelimiter(_d);
-            return op_;
         }
         for (AnonymousResult a: _page.getAnonymousResults()) {
-            if (a.getIndex() != firstPrintChar_ + _offset) {
-                continue;
+            if (a.getIndex() == i_ + _offset) {
+                int to_ = a.getUntil() - _offset;
+                if (to_ != lastPrintChar_) {
+                    break;
+                }
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.ANON_FCT);
+                op_.setOperators(new StrTypes());
+                op_.setValue(_string, i_);
+                op_.setDelimiter(_d);
+                op_.setBlock(a.getType());
+                op_.setResults(a.getResults());
+                op_.setLength(a.getLength());
+                return op_;
             }
-            int to_ = a.getUntil() - _offset;
-            if (to_ != lastPrintChar_) {
+        }
+        return allDels(_offset, _string, _d, len_, keyWords_, i_, lastPrintChar_);
+    }
+
+    private static int firstPrint(String _string) {
+        int len_ = _string.length();
+        int i_ = IndexConstants.FIRST_INDEX;
+        while (i_ < len_) {
+            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
                 break;
             }
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.ANON_FCT);
-            op_.setOperators(new StrTypes());
-            op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
-            op_.setBlock(a.getType());
-            op_.setResults(a.getResults());
-            op_.setLength(a.getLength());
-            return op_;
+            i_++;
         }
-        int begin_;
-        int end_;
-        begin_ = _d.getDelKeyWordStatic().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordStatic().indexOfNb((long)_offset + strLen_);
-        if (delimits(begin_, end_)) {
-            int ext_ = begin_ / 2;
+        return i_;
+    }
+
+    private static OperationsSequence allDels(int _offset, String _string, Delimiters _d, int len_, KeyWords keyWords_, int firstPrintChar_, int lastPrintChar_) {
+        int strLen_ = _string.length();
+        int begStat_ = delimiter(_d.getDelKeyWordStatic(), _offset, firstPrintChar_, strLen_);
+        if (begStat_ >= 0) {
+            int ext_ = begStat_ / 2;
             String extracted_ = _d.getDelKeyWordStaticExtract().get(ext_);
             AnaGeneType extractedType_ = _d.getStaticAccessTypes().get(ext_);
             OperationsSequence op_ = new OperationsSequence();
@@ -2153,9 +2138,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelKeyWordStaticCall().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordStaticCall().indexOfNb((long)_offset + strLen_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelKeyWordStaticCall(), _offset, firstPrintChar_, strLen_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.STATIC_CALL_ACCESS);
             op_.setPartOffsets(new AnaResultPartType());
@@ -2164,9 +2147,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelSimpleAnnotations().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelSimpleAnnotations().indexOfNb((long)_offset + lastPrintChar_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelSimpleAnnotations(), _offset, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SIMPLE_ANNOTATION);
             op_.setOperators(new StrTypes());
@@ -2175,9 +2156,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelVararg().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelVararg().indexOfNb((long)_offset + lastPrintChar_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelVararg(), _offset, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.VARARG);
             op_.setOperators(new StrTypes());
@@ -2185,9 +2164,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelDefaultValue().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelDefaultValue().indexOfNb((long)_offset + lastPrintChar_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelDefaultValue(), _offset, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.DEFAULT_VALUE);
             op_.setOperators(new StrTypes());
@@ -2195,9 +2172,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelLambda().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelLambda().indexOfNb((long)_offset + lastPrintChar_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelLambda(), _offset, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.LAMBDA);
             op_.setOperators(new StrTypes());
@@ -2205,9 +2180,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelIds().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelIds().indexOfNb((long)_offset + lastPrintChar_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelIds(), _offset, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ID);
             op_.setOperators(new StrTypes());
@@ -2215,9 +2188,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelClass().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelClass().indexOfNb((long)_offset + lastPrintChar_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelClass(), _offset, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CLASS_INFO);
             op_.setOperators(new StrTypes());
@@ -2225,9 +2196,7 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelKeyWordSuper().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordSuper().indexOfNb((long)_offset + lastPrintChar_ + 1L);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelKeyWordSuper(), _offset, firstPrintChar_, lastPrintChar_ + 1L)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_KEYWORD);
             op_.setOperators(new StrTypes());
@@ -2237,19 +2206,15 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelKeyWordClassChoice().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordClassChoice().indexOfNb((long)_offset + lastPrintChar_ + 1L);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelKeyWordClassChoice(), _offset, firstPrintChar_, lastPrintChar_ + 1L)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
             op_.setOperators(new StrTypes());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelLoopVars().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelLoopVars().indexOfNb((long)_offset + lastPrintChar_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelLoopVars(), _offset, firstPrintChar_, lastPrintChar_)) {
             int indexLeftArr_ = _string.indexOf(ARR_LEFT);
             int indexRightArr_ = _string.lastIndexOf(ARR_RIGHT);
             int delta_ = indexLeftArr_+1 - firstPrintChar_;
@@ -2262,29 +2227,23 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelKeyWordSuperAccess().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelKeyWordSuperAccess().indexOfNb((long)_offset + lastPrintChar_ + 1L);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelKeyWordSuperAccess(), _offset, firstPrintChar_, lastPrintChar_ +1L)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.SUPER_ACCESS_KEYWORD);
             op_.setOperators(new StrTypes());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelAccessIndexers().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelAccessIndexers().indexOfNb((long)_offset + lastPrintChar_+1L);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelAccessIndexers(), _offset, firstPrintChar_, lastPrintChar_ +1L)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.ACCESS_INDEXER);
             op_.setOperators(new StrTypes());
-            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1),firstPrintChar_);
+            op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1), firstPrintChar_);
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelValues().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelValues().indexOfNb((long)_offset + lastPrintChar_);
-        if (delimits(begin_, end_)) {
+        if (delimits(_d.getDelValues(), _offset, firstPrintChar_, lastPrintChar_)) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.VALUES);
             op_.setOperators(new StrTypes());
@@ -2292,6 +2251,15 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
+        return sub(_offset, _string, _d, len_, keyWords_, firstPrintChar_, lastPrintChar_);
+    }
+
+    private static OperationsSequence sub(int _offset, String _string, Delimiters _d, int len_, KeyWords keyWords_, int firstPrintChar_, int lastPrintChar_) {
+        String keyWordFalse_ = keyWords_.getKeyWordFalse();
+        String keyWordNull_ = keyWords_.getKeyWordNull();
+        String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordParent_ = keyWords_.getKeyWordParent();
+        String keyWordTrue_ = keyWords_.getKeyWordTrue();
         String sub_ = _string.substring(firstPrintChar_, len_);
         if (StringUtil.quickEq(sub_, keyWordThis_)) {
             OperationsSequence op_ = new OperationsSequence();
@@ -2333,12 +2301,15 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelNumbers().indexOfNb((long)_offset + firstPrintChar_);
-        end_ = _d.getDelNumbers().indexOfNb((long)_offset + lastPrintChar_ + 1L);
-        if (delimits(begin_, end_)) {
+        return consOrNo(_offset, _string, _d, firstPrintChar_, lastPrintChar_);
+    }
+
+    private static OperationsSequence consOrNo(int _offset, String _string, Delimiters _d, int firstPrintChar_, int lastPrintChar_) {
+        int beginNb_ = delimiter(_d.getDelNumbers(), _offset, firstPrintChar_, lastPrintChar_ + 1L);
+        if (beginNb_ >= 0) {
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.NUMBER);
-            int indexNb_ = begin_/2;
+            int indexNb_ = beginNb_/2;
             op_.setOperators(new StrTypes());
             op_.setNbInfos(_d.getNbInfos().get(indexNb_));
             op_.getNbInfos().setPositive(true);
@@ -2346,10 +2317,9 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelStringsChars().indexOfNb((long)firstPrintChar_+_offset);
-        end_ = _d.getDelStringsChars().indexOfNb((long)lastPrintChar_+_offset);
-        if (delimits(begin_, end_)) {
-            TextBlockInfo info_ = _d.getStringInfo().get(begin_/2);
+        int beginStr_ = delimiter(_d.getDelStringsChars(), _offset, firstPrintChar_, lastPrintChar_);
+        if (beginStr_ >= 0) {
+            TextBlockInfo info_ = _d.getStringInfo().get(beginStr_/2);
             String export_ = info_.build();
             if (_string.charAt(firstPrintChar_) == DELIMITER_CHAR) {
                 OperationsSequence op_ = new OperationsSequence();
@@ -2380,10 +2350,9 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        begin_ = _d.getDelTextBlocks().indexOfNb((long)firstPrintChar_+_offset);
-        end_ = _d.getDelTextBlocks().indexOfNb((long)lastPrintChar_+_offset);
-        if (delimits(begin_, end_)) {
-            TextBlockInfo info_ = _d.getTextInfo().get(begin_/2);
+        int beginTx_ = delimiter(_d.getDelTextBlocks(), _offset, firstPrintChar_, lastPrintChar_);
+        if (beginTx_ >= 0) {
+            TextBlockInfo info_ = _d.getTextInfo().get(beginTx_/2);
             String export_ = info_.build();
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.TEXT_BLOCK);
@@ -2397,8 +2366,24 @@ public final class ElResolver {
         return null;
     }
 
-    private static boolean delimits(int _begin, int _end) {
-        return _begin > IndexConstants.INDEX_NOT_FOUND_ELT && _begin + 1 == _end;
+    private static int lastPrintChar(String _string, int len_) {
+        int lastPrintChar_ = len_ - 1;
+        while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
+            lastPrintChar_--;
+        }
+        return lastPrintChar_;
+    }
+
+    private static boolean delimits(Ints _dels, int _offset,long _first, long _last) {
+        return delimiter(_dels, _offset, _first, _last) > IndexConstants.INDEX_NOT_FOUND_ELT;
+    }
+    private static int delimiter(Ints _dels, int _offset,long _first, long _last) {
+        int begin_ = _dels.indexOfNb(_first +_offset);
+        int end_ = _dels.indexOfNb(_last +_offset);
+        if (begin_ > IndexConstants.INDEX_NOT_FOUND_ELT && begin_ + 1 == end_) {
+            return begin_;
+        }
+        return IndexConstants.INDEX_NOT_FOUND_ELT;
     }
 
     private static int indexAfterPossibleCast(String _string, int _from, Delimiters _d, FieldRetriever _ret, AnalyzedPageEl _page) {

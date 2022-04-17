@@ -6,22 +6,14 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
-import code.maths.litteralcom.StrTypes;
 
 public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
-    private int offset;
+    private final int offset;
     private final int delta;
-    public WrappOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, int _delta) {
+    public WrappOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, int _delta, int _off) {
         super(_index, _indexChild, _m, _op);
         delta = _delta;
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValues();
-        offset = vs_.firstKey();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
+        offset = _off;
     }
 
     @Override
