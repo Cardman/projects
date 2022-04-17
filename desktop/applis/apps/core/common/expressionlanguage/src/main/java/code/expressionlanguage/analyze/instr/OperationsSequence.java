@@ -1,11 +1,8 @@
 package code.expressionlanguage.analyze.instr;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.InfoBlock;
 import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
-import code.expressionlanguage.analyze.opers.AnnotationInstanceArobaseOperation;
-import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ConstType;
@@ -68,7 +65,6 @@ public final class OperationsSequence {
             constType = ConstType.ERROR;
             return;
         }
-        String op_ = operators.firstValue();
         if (priority == ElResolver.DECL_PRIO) {
             declOp(_string);
             return;
@@ -95,6 +91,16 @@ public final class OperationsSequence {
             addValueIfNotEmpty(beginValuePart_, str_);
             return;
         }
+        if (priority == ElResolver.FCT_OPER_PRIO) {
+            fctPrio(_string, _instance, _nb);
+            return;
+        }
+        notUnary(_string);
+        defOperators(_string);
+    }
+
+    private void fctPrio(String _string, boolean _instance, Ints _nb) {
+        String op_ = operators.firstValue();
         if (op_.isEmpty()) {
             pureDot(_string);
             return;
@@ -108,16 +114,7 @@ public final class OperationsSequence {
             pureDot(_string);
             return;
         }
-        if (priority == ElResolver.FCT_OPER_PRIO) {
-            fctPrio(_string, _instance, _nb, chOp_);
-            return;
-        }
-        notUnary(_string);
-        defOperators(_string);
-    }
-
-    private void fctPrio(String _string, boolean _instance, Ints _nb, char _chOp) {
-        if (_chOp == '?') {
+        if (chOp_ == '?') {
             pureDot(_string);
             return;
         }
@@ -129,7 +126,7 @@ public final class OperationsSequence {
         int afterLastPar_ = operators.lastKey() + 1;
         StringBuilder filter_ = new StringBuilder(_string);
         boolean initArrayDim_ = false;
-        if (_chOp == ARR && _instance) {
+        if (chOp_ == ARR && _instance) {
             countArr(_nb, filter_);
             initArrayDim_ = true;
         }
@@ -302,11 +299,9 @@ public final class OperationsSequence {
 
     public boolean implMiddle() {
         StrTypes vs_ = getValues();
-        if (vs_.size() == 2 || vs_.size() == 3) {
-            if (vs_.getValue(1).trim().isEmpty()) {
-                vs_.remove(1);
-                return true;
-            }
+        if ((vs_.size() == 2 || vs_.size() == 3) && vs_.getValue(1).trim().isEmpty()) {
+            vs_.remove(1);
+            return true;
         }
         return false;
     }
