@@ -31,7 +31,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class ContainerGame implements Containable {
+public abstract class ContainerGame implements Containable {
 
     public static final String INTRODUCTION_PTS = ":";
 

@@ -1044,7 +1044,7 @@ public final class WindowCards extends NetGroupFrame {
         return forceBye;
     }
     public void menuMultiGames() {
-        containerGame = new ContainerGame(this);
+        containerGame = new ContainerNoGame(this);
         change.setEnabledMenu(false);
         //Activer le menu Partie/Demo
         getDemo().setEnabledMenu(false);
@@ -1086,7 +1086,7 @@ public final class WindowCards extends NetGroupFrame {
         pack();
     }
     public void menuSoloGames() {
-        containerGame = new ContainerGame(this);
+        containerGame = new ContainerNoGame(this);
         change.setEnabledMenu(false);
         //Activer le menu Partie/Demo
         getDemo().setEnabledMenu(true);
@@ -1127,7 +1127,7 @@ public final class WindowCards extends NetGroupFrame {
         getMultiStop().setEnabledMenu(false);
         getTricksHands().setEnabledMenu(false);
         getTeams().setEnabledMenu(false);
-        containerGame = new ContainerGame(this);
+        containerGame = new ContainerNoGame(this);
         change.setEnabledMenu(false);
         //Activer le menu Partie/Demo
         getDemo().setEnabledMenu(true);
@@ -1172,7 +1172,7 @@ public final class WindowCards extends NetGroupFrame {
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
     }
     public void loadGameBegin(String _file) {
-        containerGame = new ContainerGame(this);
+        containerGame = new ContainerNoGame(this);
         tryToLoadDeal(_file);
     }
     private void initFileMenu() {
@@ -1942,7 +1942,7 @@ public final class WindowCards extends NetGroupFrame {
         }
         SocketResults connected_ = createClient(ip_, DialogServerCards.getIpType(getDialogServer()), false, port_);
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
-            containerGame = new ContainerGame(this);
+            containerGame = new ContainerNoGame(this);
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = getMessages().getVal(UNKNOWN_HOST);
                 formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
