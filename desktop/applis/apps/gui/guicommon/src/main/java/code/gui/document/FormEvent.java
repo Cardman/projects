@@ -5,9 +5,9 @@ import code.formathtml.render.SubmitForm;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public final class FormEvent extends AbsMouseListenerRel {
+public final class FormEvent implements AbsMouseListenerIntRel {
 
     private final DualButton current;
 

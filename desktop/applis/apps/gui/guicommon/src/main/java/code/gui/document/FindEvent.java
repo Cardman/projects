@@ -6,7 +6,6 @@ import code.formathtml.render.MetaSearchableLabel;
 import code.formathtml.render.SegmentPart;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
-import code.gui.events.AbsMouseListenerRel;
 import code.util.CustList;
 import code.util.EntryCust;
 
@@ -36,7 +35,7 @@ public final class FindEvent implements AbsActionListener {
         if (text_.isEmpty()) {
             for (DualLabel l: labels) {
                 l.clearSegments();
-                l.paint();
+                DualComponent.paintLabel(l);
             }
             labels.clear();
             return;
@@ -46,7 +45,7 @@ public final class FindEvent implements AbsActionListener {
         if (lab_ == null) {
             for (DualLabel l: labels) {
                 l.clearSegments();
-                l.paint();
+                DualComponent.paintLabel(l);
             }
             labels.clear();
             return;
@@ -56,7 +55,7 @@ public final class FindEvent implements AbsActionListener {
             for (SegmentPart s: l.getValue()) {
                 l_.addSegment(s);
             }
-            l_.paint();
+            DualComponent.paintLabel(l_);
             labels.add(l_);
         }
         AbsScrollPane sc_ = page.getScroll();

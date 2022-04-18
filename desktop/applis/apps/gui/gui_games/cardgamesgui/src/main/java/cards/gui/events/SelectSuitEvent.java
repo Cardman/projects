@@ -2,12 +2,12 @@ package cards.gui.events;
 
 import cards.belote.BidBeloteSuit;
 import cards.gui.containers.ContainerBelote;
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public class SelectSuitEvent extends AbsMouseListenerRel {
+public class SelectSuitEvent implements AbsMouseListenerIntRel {
 
     private final ContainerBelote container;
 

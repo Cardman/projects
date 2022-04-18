@@ -1,9 +1,6 @@
 package code.gui;
 
-import code.gui.events.AbsKeyListener;
-import code.gui.events.AbsMouseListener;
-import code.gui.events.AbsMouseMotionListener;
-import code.gui.events.AbsMouseWheelListener;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
@@ -12,9 +9,19 @@ public interface AbsCustComponent {
     boolean isAutoscrolls();
     void setAutoscrolls(boolean _autoscrolls);
     void addMouseListener(AbsMouseListener _mouseListener);
+
+    void addMouseListener(AbsMouseListenerPresRel _mouseListener);
+    void addMouseListener(AbsMouseListenerIntRel _mouseListener);
+    void addMouseListener(AbsMouseListenerEnt _mouseListener);
+    void addMouseListener(AbsMouseListenerCl _mouseListener);
+    void addMouseListener(AbsMouseListenerWithoutClick _mouseListener);
+    void addMouseListener(AbsMouseListenerWithoutClickPr _mouseListener);
+    void addMouseListener(AbsMouseListenerEer _mouseListener);
     void addMouseMotionListener(AbsMouseMotionListener _mouseListener);
     void addMouseWheelListener(AbsMouseWheelListener _l);
     void addKeyListener(AbsKeyListener _l);
+    void addKeyListener(AbsKeyListenerPress _l);
+    void addKeyListener(AbsKeyListenerReleased _l);
     void removeMouseListener(AbsMouseListener _mouseListener);
     void removeMouseMotionListener(AbsMouseMotionListener _mouseListener);
     void removeMouseWheelListener(AbsMouseWheelListener _l);

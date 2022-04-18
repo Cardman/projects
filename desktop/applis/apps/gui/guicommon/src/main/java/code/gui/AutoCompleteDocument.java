@@ -1,13 +1,13 @@
 package code.gui;
 
 import code.gui.events.AbsAutoCompleteListener;
-import code.gui.events.AbsKeyListener;
+import code.gui.events.AbsKeyListenerPress;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsKeyListener {
+public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsKeyListenerPress {
 
     private boolean wholeString = true;
 
@@ -104,15 +104,15 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         documentChangedEvent();
     }
 
-    @Override
-    public void keyTyped(AbsCtrlKeyState _keyState, char _keyChar) {
-        // Do nothing
-    }
-
-    @Override
-    public void keyReleased(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
-        // Do nothing
-    }
+//    @Override
+//    public void keyTyped(AbsCtrlKeyState _keyState, char _keyChar) {
+//        // Do nothing
+//    }
+//
+//    @Override
+//    public void keyReleased(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
+//        // Do nothing
+//    }
     private void documentChangedEvent() {
         if (skip()) {
             return;

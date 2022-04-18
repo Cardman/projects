@@ -1,9 +1,10 @@
 package code.gui.events;
-import code.gui.AbsMouseButtons;
+
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
 
-public class LanguageChoice extends AbsMouseListenerRel {
+public class LanguageChoice implements AbsMouseListenerIntRel {
 
     private String locale;
 

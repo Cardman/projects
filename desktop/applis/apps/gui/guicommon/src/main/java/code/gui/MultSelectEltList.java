@@ -1,8 +1,8 @@
 package code.gui;
 
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public final class MultSelectEltList extends AbsMouseListenerRel implements IndexableListener {
+public final class MultSelectEltList implements AbsMouseListenerIntRel, IndexableListener {
 
     private final AbsGraphicListDefBase grList;
 
@@ -26,7 +26,10 @@ public final class MultSelectEltList extends AbsMouseListenerRel implements Inde
                 return;
             }
             FrameUtil.selectEvent(index, index, false,selection);
-            painter.afterSelectOneAmongIntervalPaint(grList,sel_,index);
+            AbsPreparedLabel elt_ = painter.selectedOneAmongIntervalPaint(grList, sel_, index);
+            if (elt_ != null) {
+                elt_.requestFocus();
+            }
             return;
         }
         Interval interval_ = painter.selectIntervalPaint(grList, sel_, index);

@@ -2,12 +2,12 @@ package aiki.gui.listeners;
 
 import aiki.game.player.enums.Sex;
 import aiki.gui.WindowAiki;
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public class HeroSelect extends AbsMouseListenerRel {
+public class HeroSelect implements AbsMouseListenerIntRel {
 
     private WindowAiki window;
 

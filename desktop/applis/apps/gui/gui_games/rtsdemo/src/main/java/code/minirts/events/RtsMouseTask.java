@@ -1,14 +1,14 @@
 package code.minirts.events;
 
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseListenerWithoutClickPr;
 import code.minirts.rts.RtsDirection;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 
-public class RtsMouseTask implements AbsMouseListener {
+public class RtsMouseTask implements AbsMouseListenerWithoutClickPr {
 
     private final RtsDirection dir;
 
@@ -65,20 +65,20 @@ public class RtsMouseTask implements AbsMouseListener {
 //        timer.stop();
     }
 
-    @Override
-    public void mousePressed(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mousePressed(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 
-    @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 
-    @Override
-    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 
 //    @Override
 //    public void mousePressed(MouseEvent _e) {

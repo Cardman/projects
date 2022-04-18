@@ -99,10 +99,29 @@ public abstract class DualComponent implements IntComponent {
         if (_dual instanceof DualAnimatedImage) {
             page.getAnims().add((DualAnimatedImage) _dual);
         }
-        _dual.postAdd();
+        postAdd(_dual);
     }
 
-    protected void postAdd() {
+    protected static void postAdd(DualComponent _dual) {
+        if (_dual instanceof DualLabel) {
+            ((DualLabel) _dual).backAndFront();
+            paintLabel((DualLabel) _dual);
+            return;
+        }
+        if (_dual instanceof DualButton) {
+            ((DualButton) _dual).paint();
+            return;
+        }
+        if (_dual instanceof DualImage) {
+            ((DualImage) _dual).paint();
+        }
+    }
+
+    public static void paintLabel(DualLabel _dual) {
+        if (_dual instanceof DualIndentLabel || _dual instanceof DualIndentNbLabel) {
+            return;
+        }
+        _dual.paint();
     }
 
     public MetaComponent getComponent() {

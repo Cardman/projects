@@ -7,6 +7,7 @@ public interface AbsPanel extends AbsCustComponent {
     AbsCustComponent getComponent(int _n);
     void add(Clock _comp);
     void add(AbsMetaLabel _comp);
+    void add(AbsMetaLabelNo _comp);
     void add(AbsCustComponent _comp);
     void innerAdd(AbsCustComponent _comp);
     void add(AbsMetaLabel _comp, int _index);

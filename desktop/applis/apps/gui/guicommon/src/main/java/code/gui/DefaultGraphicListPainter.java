@@ -1,9 +1,8 @@
 package code.gui;
 
-import code.expressionlanguage.structs.Struct;
 import code.gui.images.AbstractImageFactory;
 
-public final class DefaultGraphicListPainter implements AbsGraphicListPainter {
+public final class DefaultGraphicListPainter extends AbsGraphicListPainterImpl {
     private AbstractImageFactory fact;
     public DefaultGraphicListPainter(AbstractImageFactory _fact) {
         fact = _fact;
@@ -31,8 +30,8 @@ public final class DefaultGraphicListPainter implements AbsGraphicListPainter {
     }
 
     @Override
-    public void afterSelectOneAmongIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
-        //
+    public AbsPreparedLabel selectedOneAmongIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
+        return null;
     }
 
     @Override
@@ -50,8 +49,4 @@ public final class DefaultGraphicListPainter implements AbsGraphicListPainter {
         return fact;
     }
 
-    @Override
-    public void setValue(Struct _value) {
-        //
-    }
 }

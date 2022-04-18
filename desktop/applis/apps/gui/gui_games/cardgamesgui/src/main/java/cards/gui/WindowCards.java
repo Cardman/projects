@@ -2042,6 +2042,11 @@ public final class WindowCards extends NetGroupFrame {
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
     }
 
+    @Override
+    public AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket) {
+        return _socket;
+    }
+
     public boolean isSaveHomeFolder() {
         return parametres.isSaveHomeFolder();
     }

@@ -1,8 +1,8 @@
 package code.gui;
 
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public final class SimpleSelectEltList extends AbsMouseListenerRel implements IndexableListener {
+public final class SimpleSelectEltList implements AbsMouseListenerIntRel, IndexableListener {
 
     private final AbsGraphicListDefBase grList;
 

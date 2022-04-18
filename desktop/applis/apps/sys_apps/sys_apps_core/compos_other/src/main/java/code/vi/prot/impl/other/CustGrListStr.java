@@ -1,14 +1,11 @@
 package code.vi.prot.impl.other;
 
 import code.expressionlanguage.structs.Struct;
-import code.gui.AbsCustGraphicListStr;
-import code.gui.AbsPreparedLabel;
-import code.gui.SpecSelectionCtx;
-import code.gui.SpecSelectionStruct;
+import code.gui.*;
 
 import javax.swing.*;
 
-public final class CustGrListStr extends CustGrList<Struct> implements AbsCustGraphicListStr {
+public final class CustGrListStr extends CustGrList<Struct> implements AbsGraphicListStr {
     public CustGrListStr(int _simple, SpecSelectionCtx _create) {
         super(_simple,new DefSelListStr(_create,new DefaultListCellRenderer()));
     }
@@ -28,5 +25,10 @@ public final class CustGrListStr extends CustGrList<Struct> implements AbsCustGr
     @Override
     public void updateGraphics() {
         getListView().repaint();
+    }
+
+    @Override
+    public boolean isCust() {
+        return true;
     }
 }

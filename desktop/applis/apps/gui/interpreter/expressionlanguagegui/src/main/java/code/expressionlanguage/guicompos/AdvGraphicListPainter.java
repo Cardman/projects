@@ -10,6 +10,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.AbsGraphicListDefBase;
+import code.gui.AbsPreparedLabel;
 import code.gui.Interval;
 import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
@@ -59,18 +60,19 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     }
 
     @Override
-    public void afterSelectOneAmongIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
+    public AbsPreparedLabel selectedOneAmongIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
         if (!(value_ instanceof GraphicListStruct)) {
-            return;
+            return null;
         }
         GraphicListStruct grList_ = (GraphicListStruct) value_;
         if (!grList_.isEnabledList()) {
-            return;
+            return null;
         }
         if (_list.getListComponents().isValidIndex(_index)) {
-            _list.getListComponents().get(_index).requestFocus();
+            return _list.getListComponents().get(_index);
         }
+        return null;
     }
 
     @Override

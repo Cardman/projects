@@ -51,6 +51,7 @@ public final class WindowRts extends GroupFrame {
     private AbstractThread threadLau;
 
     private final AbsCustCheckBox addSoldier = getCompoFactory().newCustCheckBox("Add soldier");
+    private final AbsPlainLabel currentCoords = getCompoFactory().newPlainLabel("");
 
     private final AbstractAtomicBoolean dragged;
 
@@ -68,6 +69,7 @@ public final class WindowRts extends GroupFrame {
         count = _list.getThreadFactory().newAtomicLong();
         AbsPanel contentPane_ = getCompoFactory().newBorder();
         AbsPanel scene_ = getCompoFactory().newBorder();
+        scene_.add(currentCoords,GuiConstants.BORDER_LAYOUT_NORTH);
         InteractClick i_ = new InteractClick(this);
         battleground.addMouseListener(i_);
         battleground.addMouseMotionListener(i_);
@@ -135,6 +137,10 @@ public final class WindowRts extends GroupFrame {
         addWindowListener(new QuittingEvent(this));
         thread = new AnimationUnitSoldier(animate,pause,stop, battleground,this);
         threadLau = getThreadFactory().newThread(thread);
+    }
+
+    public AbsPlainLabel getCurrentCoords() {
+        return currentCoords;
     }
 
     private void setCursor(AbsPanel _battlegroundWrapper, int _wCurs, int _hCurs, int[] _pixels) {

@@ -7,7 +7,7 @@ import aiki.facade.FacadeGame;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
 import code.gui.*;
-import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseListenerIntRel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
@@ -17,7 +17,7 @@ import code.util.CustList;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
-public final class Scene extends AbsMetaLabel implements AbsMouseListener {
+public final class Scene extends AbsMetaLabel implements AbsMouseListenerIntRel {
 
     private int sideLength;
 
@@ -255,26 +255,6 @@ public final class Scene extends AbsMetaLabel implements AbsMouseListener {
                 _g.drawImage(buff_, sideLength* (sc_.getXcoords() - dx_) + (sideLength - wMin_) / 2, sideLength * (sc_.getYcoords() - dy_) + (sideLength - hMin_) / 2);
             }
         }
-    }
-
-    @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
-
-    @Override
-    public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
-
-    @Override
-    public void mouseExited(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
-
-    @Override
-    public void mousePressed(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
     }
 
     @Override

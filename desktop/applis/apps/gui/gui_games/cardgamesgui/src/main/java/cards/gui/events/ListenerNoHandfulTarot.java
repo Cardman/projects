@@ -4,9 +4,10 @@ import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.*;
+import code.gui.events.AbsMouseListenerEnt;
 import code.util.CustList;
 
-public class ListenerNoHandfulTarot extends AbsListenerHandfulTarot {
+public class ListenerNoHandfulTarot implements AbsMouseListenerEnt {
 
     private ContainerTarot container;
     private AbsRadioButton radio;

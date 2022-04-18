@@ -24,6 +24,11 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public AbsPaintableLabel newAbsPaintableLabel() {
+        return new NoPaintableLabel();
+    }
+
+    @Override
     public AbsPreparedLabel newPreparedLabel(AbstractImage _icon) {
         return new PreparedLabel(_icon);
     }

@@ -2,12 +2,12 @@ package cards.gui.events;
 
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerGame;
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseListenerWithoutClick;
 
-public abstract class AbstractListenerCard implements AbsMouseListener {
+public abstract class AbstractListenerCard implements AbsMouseListenerWithoutClick {
 
     private ContainerGame container;
 
@@ -82,8 +82,8 @@ public abstract class AbstractListenerCard implements AbsMouseListener {
         }
     }
 
-    @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 }

@@ -15,11 +15,6 @@ public abstract class DualImage extends DualLeaf {
     }
 
     @Override
-    protected void postAdd() {
-        paint();
-    }
-
-    @Override
     public AbsCustComponent getGraphic() {
         return getLabel();
     }

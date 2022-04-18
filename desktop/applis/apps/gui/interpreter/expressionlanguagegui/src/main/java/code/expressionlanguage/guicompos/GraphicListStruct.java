@@ -41,7 +41,7 @@ public final class GraphicListStruct extends InputStruct {
     }
 
     public boolean isCust() {
-        return grList instanceof AbsCustGraphicListStr;
+        return grList.isCust();
     }
     public void add(int _index, Struct _img, Struct _elt) {
         if (!(_img instanceof PreparedLabelStruct)) {

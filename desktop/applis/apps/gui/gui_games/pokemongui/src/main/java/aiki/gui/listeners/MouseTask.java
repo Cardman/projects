@@ -6,10 +6,11 @@ import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseListenerWithoutClick;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 
-public class MouseTask implements AbsMouseListener {
+public class MouseTask implements AbsMouseListenerWithoutClick {
 
     private Direction dir;
 
@@ -75,8 +76,8 @@ public class MouseTask implements AbsMouseListener {
         future.cancel(true);
     }
 
-    @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 }

@@ -7,7 +7,6 @@ import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.dialogs.enums.SaveDealMode;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
-import code.gui.events.AbsMouseListenerRel;
 
 public class SavingDealEvent implements AbsActionListener {
 

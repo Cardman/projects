@@ -1136,10 +1136,11 @@ public final class WindowAiki extends NetGroupFrame {
 //    }
 
     @Override
-    public void initIndexInGame(boolean _first) {
+    public AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket) {
         if (_first) {
             setIndexInGame(IndexConstants.FIRST_INDEX);
         }
+        return _socket;
     }
 
     @Override

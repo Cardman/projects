@@ -1,12 +1,12 @@
 package aiki.gui.listeners;
 
 import aiki.gui.components.walk.ScenePanel;
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public class TileListener extends AbsMouseListenerRel {
+public class TileListener implements AbsMouseListenerIntRel  {
 
     private ScenePanel scene;
 

@@ -2,12 +2,12 @@ package aiki.gui.listeners;
 
 import aiki.game.fight.enums.ActionType;
 import aiki.gui.components.fight.Battle;
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public class FighterAction extends AbsMouseListenerRel {
+public class FighterAction implements AbsMouseListenerIntRel {
 
     private Battle battle;
 

@@ -150,7 +150,18 @@ public final class FrameUtil {
         _metaLabel.paintComponent(img_);
         _paintableLabel.setIcon(_fact,img_);
     }
-
+    public static void repaintNo(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel) {
+        int w_ = _paintableLabel.getWidth();
+        int h_ = _paintableLabel.getHeight();
+        if (w_ <= 0 || h_ <= 0) {
+            _paintableLabel.setEmptyIcon();
+            return;
+        }
+        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+//        CustGraphics gr_ = img_.getGraphics();
+        img_.setFont(_paintableLabel);
+        _paintableLabel.setIcon(_fact,img_);
+    }
     public static int pref(int _dim, int _pr) {
         if (_dim > 0) {
             return _dim;

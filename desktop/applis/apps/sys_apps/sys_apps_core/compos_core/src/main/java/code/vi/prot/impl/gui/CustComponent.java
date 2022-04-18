@@ -1,21 +1,17 @@
 package code.vi.prot.impl.gui;
 
-import java.awt.*;
-
-import javax.swing.*;
-import javax.swing.border.BevelBorder;
-
 import code.gui.AbsCustComponent;
 import code.gui.GuiConstants;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
-import code.vi.prot.impl.gui.events.WrKeyListener;
-import code.vi.prot.impl.gui.events.WrMouseListener;
-import code.vi.prot.impl.gui.events.WrMouseMotionListener;
-import code.vi.prot.impl.gui.events.WrMouseWheelListener;
 import code.util.CustList;
 import code.util.IdMap;
+import code.vi.prot.impl.gui.events.*;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
 
 public abstract class CustComponent implements AbsCustComponent {
 
@@ -34,6 +30,48 @@ public abstract class CustComponent implements AbsCustComponent {
     }
     public void setAutoscrolls(boolean _autoscrolls) {
         getNatComponent().setAutoscrolls(_autoscrolls);
+    }
+
+    @Override
+    public void addMouseListener(AbsMouseListenerPresRel _mouseListener) {
+        WrMouseListenerPresRel wr_ = new WrMouseListenerPresRel(_mouseListener);
+        getNatComponent().addMouseListener(wr_);
+    }
+
+    @Override
+    public void addMouseListener(AbsMouseListenerIntRel _mouseListener) {
+        WrMouseListenerRel wr_ = new WrMouseListenerRel(_mouseListener);
+        getNatComponent().addMouseListener(wr_);
+    }
+
+    @Override
+    public void addMouseListener(AbsMouseListenerWithoutClick _mouseListener) {
+        WrMouseListenerWithoutCl wr_ = new WrMouseListenerWithoutCl(_mouseListener);
+        getNatComponent().addMouseListener(wr_);
+    }
+
+    @Override
+    public void addMouseListener(AbsMouseListenerWithoutClickPr _mouseListener) {
+        WrMouseListenerWithoutClPr wr_ = new WrMouseListenerWithoutClPr(_mouseListener);
+        getNatComponent().addMouseListener(wr_);
+    }
+
+    @Override
+    public void addMouseListener(AbsMouseListenerEer _mouseListener) {
+        WrMouseListenerEer wr_ = new WrMouseListenerEer(_mouseListener);
+        getNatComponent().addMouseListener(wr_);
+    }
+
+    @Override
+    public void addMouseListener(AbsMouseListenerEnt _mouseListener) {
+        WrMouseListenerEnt wr_ = new WrMouseListenerEnt(_mouseListener);
+        getNatComponent().addMouseListener(wr_);
+    }
+
+    @Override
+    public void addMouseListener(AbsMouseListenerCl _mouseListener) {
+        WrMouseListenerCl wr_ = new WrMouseListenerCl(_mouseListener);
+        getNatComponent().addMouseListener(wr_);
     }
 
     public void addMouseListener(AbsMouseListener _mouseListener) {
@@ -59,6 +97,19 @@ public abstract class CustComponent implements AbsCustComponent {
         getNatComponent().addKeyListener(wr_);
         mapKey.addEntry(_l,wr_);
     }
+
+    @Override
+    public void addKeyListener(AbsKeyListenerPress _l) {
+        WrKeyListenerPress wr_ = new WrKeyListenerPress(_l);
+        getNatComponent().addKeyListener(wr_);
+    }
+
+    @Override
+    public void addKeyListener(AbsKeyListenerReleased _l) {
+        WrKeyListenerRel wr_ = new WrKeyListenerRel(_l);
+        getNatComponent().addKeyListener(wr_);
+    }
+
     public void removeMouseListener(AbsMouseListener _mouseListener) {
         WrMouseListener wr_ = mapMouse.getVal(_mouseListener);
         getNatComponent().removeMouseListener(wr_);

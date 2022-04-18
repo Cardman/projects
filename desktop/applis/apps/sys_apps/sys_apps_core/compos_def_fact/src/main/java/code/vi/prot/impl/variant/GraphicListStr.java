@@ -18,4 +18,8 @@ public final class GraphicListStr extends GraphicList<Struct> implements AbsGrap
         FrameUtil.commonSet(_grComp, this);
     }
 
+    @Override
+    public boolean isCust() {
+        return false;
+    }
 }

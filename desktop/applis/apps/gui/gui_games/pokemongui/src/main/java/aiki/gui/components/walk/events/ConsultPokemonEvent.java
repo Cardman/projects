@@ -3,11 +3,7 @@ package aiki.gui.components.walk.events;
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
 import aiki.gui.dialogs.SelectPokemon;
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
 import code.gui.events.AbsActionListener;
-import code.gui.events.AbsMouseListenerRel;
 
 public class ConsultPokemonEvent implements AbsActionListener {
 

@@ -2,11 +2,7 @@ package aiki.gui.listeners;
 
 import aiki.gui.dialogs.ConsultHosts;
 import aiki.util.Coords;
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
 import code.gui.events.AbsActionListener;
-import code.gui.events.AbsMouseListenerRel;
 
 public class SelectHostedPokemon implements AbsActionListener {
 

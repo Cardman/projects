@@ -14,9 +14,4 @@ public final class DualIndentNbLabel extends DualLabel {
         AbsPreparedLabel lab_ = getLabel();
         lab_.setPreferredSize(new MetaDimension(_width, _component.getStyle().getEmToPixels()));
     }
-
-    @Override
-    public void paint() {
-        //
-    }
 }

@@ -1,8 +1,8 @@
 package code.gui;
 
-import code.gui.events.AbsKeyListenerRel;
+import code.gui.events.AbsKeyListenerReleased;
 
-public final class MultSelectKeyEltList extends AbsKeyListenerRel implements IndexableListener {
+public final class MultSelectKeyEltList implements AbsKeyListenerReleased,IndexableListener {
 
     private final AbsGraphicListDefBase grList;
 

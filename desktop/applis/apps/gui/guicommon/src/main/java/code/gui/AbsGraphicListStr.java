@@ -7,4 +7,5 @@ public interface AbsGraphicListStr extends AbsGraphicList<Struct>,AbsGraphicList
     void setDefCell(Struct _grComp, SpecSelectionCtx _create);
 
     void updateGraphics();
+    boolean isCust();
 }

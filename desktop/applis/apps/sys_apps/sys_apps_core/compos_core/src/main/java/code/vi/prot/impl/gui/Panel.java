@@ -71,6 +71,10 @@ public final class Panel extends CustComponent implements AbsPanel {
     public void add(AbsMetaLabel _comp) {
         add(_comp.getPaintableLabel());
     }
+
+    public void add(AbsMetaLabelNo _comp) {
+        add(_comp.getPaintableLabel());
+    }
     public void add(AbsCustComponent _comp) {
         FrameUtil.addOne(this,_comp);
     }

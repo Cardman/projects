@@ -24,11 +24,6 @@ public final class DualButton extends DualInput {
     }
 
     @Override
-    protected void postAdd() {
-        paint();
-    }
-
-    @Override
     public AbsCustComponent getGraphic() {
         return label;
     }

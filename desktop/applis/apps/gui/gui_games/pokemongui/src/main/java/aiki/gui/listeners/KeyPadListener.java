@@ -7,9 +7,9 @@ import aiki.gui.threads.Painting;
 import aiki.map.enums.Direction;
 import code.gui.AbsCtrlKeyState;
 import code.gui.GuiConstants;
-import code.gui.events.AbsKeyListener;
+import code.gui.events.AbsKeyListenerPress;
 
-public class KeyPadListener implements AbsKeyListener {
+public class KeyPadListener implements AbsKeyListenerPress {
 
     private final WindowAiki window;
 
@@ -73,13 +73,13 @@ public class KeyPadListener implements AbsKeyListener {
         window.getThreadFactory().newStartedThread(thread);
     }
 
-    @Override
-    public void keyReleased(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
-        //
-    }
-
-    @Override
-    public void keyTyped(AbsCtrlKeyState _keyState, char _keyChar) {
-        //
-    }
+//    @Override
+//    public void keyReleased(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
+//        //
+//    }
+//
+//    @Override
+//    public void keyTyped(AbsCtrlKeyState _keyState, char _keyChar) {
+//        //
+//    }
 }

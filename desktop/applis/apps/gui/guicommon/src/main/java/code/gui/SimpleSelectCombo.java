@@ -1,8 +1,8 @@
 package code.gui;
 
-import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseListenerEer;
 
-public final class SimpleSelectCombo implements AbsMouseListener,IndexableListener {
+public final class SimpleSelectCombo implements AbsMouseListenerEer,IndexableListener {
 
     private final AbsGraphicStringList grList;
 
@@ -32,15 +32,15 @@ public final class SimpleSelectCombo implements AbsMouseListener,IndexableListen
         grList.selectEvent(index, index, false);
     }
 
-    @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 
-    @Override
-    public void mousePressed(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mousePressed(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 
     @Override
     public int getIndex() {

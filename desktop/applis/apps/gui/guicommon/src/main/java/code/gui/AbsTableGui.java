@@ -2,6 +2,7 @@ package code.gui;
 
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseListenerCl;
 
 public interface AbsTableGui extends AbsCustComponent {
     int[] getSelectedRows();
@@ -45,6 +46,7 @@ public interface AbsTableGui extends AbsCustComponent {
     void applyChanges();
 
     void addHeaderListener(AbsMouseListener _list);
+    void addHeaderListener(AbsMouseListenerCl _list);
 
     void addListSelectionListener(AbsListSelectionListener _list);
 

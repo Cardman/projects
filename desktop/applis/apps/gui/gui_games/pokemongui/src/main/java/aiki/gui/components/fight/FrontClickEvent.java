@@ -1,12 +1,12 @@
 package aiki.gui.components.fight;
-import code.gui.AbsMouseButtons;
+
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsActionListener;
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
 
-public class FrontClickEvent extends AbsMouseListenerRel {
+public class FrontClickEvent implements AbsMouseListenerIntRel {
 
     private FrontBattle battle;
 

@@ -74,8 +74,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
             return new SocketResults(ErrorHostConnectionType.UNKNOWN_HOST);
         }
         getThreadFactory().newStartedThread(new BasicClient(_socket, this));
-        initIndexInGame(_first);
-        socket = _socket;
+        socket =  initIndexInGame(_first,_socket);
         return new SocketResults(_socket);
     }
 
@@ -113,9 +112,6 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         return lock;
     }
 
-    /**
-    @param _first if the connected player is the first player
-    */
-    public void initIndexInGame(boolean _first) {
-    }
+    //_first if the connected player is the first player
+    public abstract AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket);
 }

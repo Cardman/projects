@@ -15,8 +15,4 @@ public final class DualIndentLabel extends DualLabel {
         lab_.setPreferredSize(new MetaDimension(_component.getStyle().getEmToPixels(), 0));
     }
 
-    @Override
-    public void paint() {
-        //
-    }
 }

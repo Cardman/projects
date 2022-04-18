@@ -50,6 +50,6 @@ public final class DualTable extends DualContainer {
         if (remNext_ > -1 && remNext_ != remainders.size() - 1) {
             getPanel().add(getPage().getCompoFactory().newGrid(0, width));
         }
-        _dual.postAdd();
+        postAdd(_dual);
     }
 }

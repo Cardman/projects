@@ -1,12 +1,12 @@
 package aiki.gui.listeners;
 
 import aiki.gui.components.walk.ScenePanel;
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public class AbilityWalkEvent extends AbsMouseListenerRel {
+public class AbilityWalkEvent implements AbsMouseListenerIntRel {
 
     private ScenePanel window;
 

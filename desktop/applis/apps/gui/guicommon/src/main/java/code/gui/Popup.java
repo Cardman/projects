@@ -1,8 +1,8 @@
 package code.gui;
 
-import code.gui.events.AbsMouseListenerRel;
+import code.gui.events.AbsMouseListenerIntRel;
 
-public final class Popup extends AbsMouseListenerRel {
+public final class Popup implements AbsMouseListenerIntRel {
 
     private WithPopup grInt;
 

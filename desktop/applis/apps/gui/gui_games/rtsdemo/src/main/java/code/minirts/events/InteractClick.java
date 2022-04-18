@@ -1,13 +1,14 @@
 package code.minirts.events;
 
-import code.gui.AbsMouseButtons;
 import code.gui.AbsCtrlKeyState;
+import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
-import code.gui.events.AbsMouseListener;
+import code.gui.events.AbsMouseListenerPresRel;
+import code.gui.events.AbsMouseListenerWithoutClick;
 import code.gui.events.AbsMouseMotionListener;
 import code.minirts.WindowRts;
 
-public class InteractClick implements AbsMouseListener, AbsMouseMotionListener {
+public class InteractClick implements AbsMouseListenerPresRel, AbsMouseMotionListener {
 
     private WindowRts fenetre;
     public InteractClick(WindowRts _fenetre) {
@@ -46,23 +47,24 @@ public class InteractClick implements AbsMouseListener, AbsMouseMotionListener {
         fenetre.selectOrDeselectMulti();
     }
 
-    @Override
-    public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mouseEntered(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
+//
+//    @Override
+//    public void mouseExited(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 
-    @Override
-    public void mouseExited(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
-
-    @Override
-    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
-        //
-    }
+//    @Override
+//    public void mouseClicked(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
+//        //
+//    }
 
     @Override
     public void mouseMoved(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         //
+        fenetre.getCurrentCoords().setText(_location.getXcoord()+","+ _location.getYcoord());
     }
 }

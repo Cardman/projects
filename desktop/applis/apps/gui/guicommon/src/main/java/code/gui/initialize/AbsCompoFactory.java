@@ -9,6 +9,7 @@ public interface AbsCompoFactory {
     AbstractMutableTreeNode newMutableTreeNode(String _name);
 
     AbsPaintableLabel newAbsPaintableLabel(AbsMetaLabel _absMetaLabel);
+    AbsPaintableLabel newAbsPaintableLabel();
     AbsPreparedLabel newPreparedLabel(AbstractImage _icon);
     AbsPreparedLabel newPreparedLabel(String _key);
     AbsImgButton newImgButton(AbstractImage _imageIcon);

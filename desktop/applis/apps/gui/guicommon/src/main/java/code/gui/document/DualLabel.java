@@ -37,11 +37,9 @@ public abstract class DualLabel extends DualLeaf {
         return segments;
     }
 
-    @Override
-    protected void postAdd() {
+    void backAndFront() {
         label.setBackground(label.getParent());
         label.setForeground(label.getParent());
-        paint();
     }
 
     @Override

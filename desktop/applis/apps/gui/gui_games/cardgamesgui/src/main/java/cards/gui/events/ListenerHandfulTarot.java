@@ -5,10 +5,11 @@ import cards.gui.WindowCards;
 import cards.gui.containers.ContainerTarot;
 import cards.tarot.enumerations.Handfuls;
 import code.gui.*;
+import code.gui.events.AbsMouseListenerEnt;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
-public class ListenerHandfulTarot extends AbsListenerHandfulTarot {
+public class ListenerHandfulTarot implements AbsMouseListenerEnt {
 
     private int requiredTrumps;
 

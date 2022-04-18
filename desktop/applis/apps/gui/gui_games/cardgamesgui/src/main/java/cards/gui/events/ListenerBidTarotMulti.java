@@ -3,11 +3,7 @@ package cards.gui.events;
 import cards.gui.containers.ContainerMultiTarot;
 import cards.network.tarot.actions.BiddingTarot;
 import cards.tarot.enumerations.BidTarot;
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
 import code.gui.events.AbsActionListener;
-import code.gui.events.AbsMouseListenerRel;
 
 public class ListenerBidTarotMulti implements AbsActionListener {
 
