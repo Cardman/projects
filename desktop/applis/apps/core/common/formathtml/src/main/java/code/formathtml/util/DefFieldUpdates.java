@@ -11,7 +11,7 @@ public final class DefFieldUpdates extends FieldUpdates {
 
     private String idClass = "";
     private String idName = "";
-    private String idRadio = "";
+    private CustList<RendDynOperationNode> idRadio = new CustList<RendDynOperationNode>();
 
     public CustList<RendDynOperationNode> getOpsRead() {
         return opsRead;
@@ -45,11 +45,11 @@ public final class DefFieldUpdates extends FieldUpdates {
         this.idName = _idName;
     }
 
-    public String getIdRadio() {
+    public CustList<RendDynOperationNode> getIdRadio() {
         return idRadio;
     }
 
-    public void setIdRadio(String _idRadio) {
+    public void setIdRadio(CustList<RendDynOperationNode> _idRadio) {
         this.idRadio = _idRadio;
     }
 

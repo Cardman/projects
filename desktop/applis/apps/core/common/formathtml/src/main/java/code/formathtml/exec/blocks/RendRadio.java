@@ -19,6 +19,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class RendRadio extends RendInput {
+    private final CustList<RendDynOperationNode> idRadio;
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
     private String varNameConverterFieldValue = EMPTY_STRING;
 
@@ -30,13 +31,14 @@ public final class RendRadio extends RendInput {
         super(_read, _execAttributes, _execAttributesText, _opsValue, _opsConverterField, _varNameConverterField, _f);
         this.opsConverterFieldValue = _opsConverterFieldValue;
         this.varNameConverterFieldValue = _varNameConverterFieldValue;
+        idRadio = _f.getIdRadio();
     }
 
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
-        Argument arg_ = processIndexes(_cont, _read, elt_, _ctx, _rendStack);
+        Argument arg_ = processIndexes(_cont, _read, elt_, _ctx, _rendStack, idRadio);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }

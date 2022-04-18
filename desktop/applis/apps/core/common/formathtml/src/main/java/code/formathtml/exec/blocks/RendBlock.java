@@ -335,7 +335,7 @@ public abstract class RendBlock {
         return BeanCustLgNames.processStr(new Argument(_instance), _ctx, _rendStack);
     }
 
-    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, DefFieldUpdates _f, ContextEl _ctx, RendStackCall _rendStackCall) {
+    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, DefFieldUpdates _f, ContextEl _ctx, RendStackCall _rendStackCall, String _idRad) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
             return Argument.createVoid();
@@ -396,7 +396,7 @@ public abstract class RendBlock {
         }
         stack_ = _rendStackCall.getFormParts().getContainersMapStack();
         arg_ = Argument.getNullableValue(args_.getValue(settable_.getOrder()).getArgument());
-        return prStack(_cont, _write, _f, new DefFetchedObjs(wr_, allObj_, stack_, arg_), _rendStackCall.getLastPage().getGlobalArgument(),_rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
+        return prStack(_cont, _write, _f, new DefFetchedObjs(_idRad,wr_, allObj_, stack_, arg_), _rendStackCall.getLastPage().getGlobalArgument(),_rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
     }
 
     private static void feed(CustList<ArgumentWrapper> argumentList_, CustList<Struct> allObj_) {
@@ -410,9 +410,9 @@ public abstract class RendBlock {
             return _fetch.getArg();
         }
         long found_ = -1;
-        if (!_f.getIdRadio().isEmpty()) {
+        if (!_fetch.getRad().isEmpty()) {
             for (EntryCust<Long, DefNodeContainer> e: _fetch.getStack().last().entryList()) {
-                if (StringUtil.quickEq(e.getValue().getIdRadio(), _f.getIdRadio())) {
+                if (StringUtil.quickEq(e.getValue().getIdRadio(), _fetch.getRad())) {
                     found_ = e.getKey();
                     break;
                 }
@@ -424,7 +424,7 @@ public abstract class RendBlock {
             Longs inputs_ = formParts_.getInputs();
             long currentInput_ = inputs_.last();
             DefNodeContainer nodeCont_ = new DefNodeContainer();
-            nodeCont_.setIdRadio(_f.getIdRadio());
+            nodeCont_.setIdRadio(_fetch.getRad());
             nodeCont_.setIdFieldClass(_f.getIdClass());
             nodeCont_.setIdFieldName(_f.getIdName());
             nodeCont_.setTypedStruct(currentField_);

@@ -372,6 +372,16 @@ public final class RendSplitExpressionUtil {
             _page.zeroOffset();
             buildIdAna(varValue_, _page,_int,_method,_type,i_.getRes());
         }
+        if (current_ instanceof AnaRendRadio) {
+            AnaRendRadio i_ = (AnaRendRadio) current_;
+            String varValue_ = i_.getRead().getAttribute(_analyzingDoc.getRendKeyWords().getAttrNr());
+            int offVarValue_ = i_.getAttributeDelimiter(_analyzingDoc.getRendKeyWords().getAttrNr());
+            if (!varValue_.trim().isEmpty()) {
+                _page.setGlobalOffset(offVarValue_);
+                _page.zeroOffset();
+                extractAnon(_page, _int, _method, _type, varValue_, i_.getExpRad());
+            }
+        }
         procElt((AnaRendElement) current_, _int, _method, _analyzingDoc, _page, _type);
     }
 

@@ -8,16 +8,22 @@ import code.util.CustList;
 import code.util.LongTreeMap;
 
 public final class DefFetchedObjs extends FetchedObjs {
+    private final String rad;
     private final CustList<Struct> allObj;
 
     private final AbstractWrapper input;
     private final CustList<LongTreeMap<DefNodeContainer>> stack;
 
-    public DefFetchedObjs(AbstractWrapper _input, CustList<Struct> _allObj, CustList<LongTreeMap<DefNodeContainer>> _stack, Argument _arg) {
+    public DefFetchedObjs(String _idRad, AbstractWrapper _input, CustList<Struct> _allObj, CustList<LongTreeMap<DefNodeContainer>> _stack, Argument _arg) {
         super(_arg);
+        rad = _idRad;
         input = _input;
         allObj = _allObj;
         stack = _stack;
+    }
+
+    public String getRad() {
+        return rad;
     }
 
     public CustList<Struct> getAllObj() {

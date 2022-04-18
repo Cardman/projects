@@ -259,7 +259,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         f_.setOpsConverter(opsConverter);
         f_.setArrayConverter(arrayConverter);
         f_.setClassName(className);
-        fetchName(_cont, _read, _write, f_, _ctx, _rendStackCall);
+        fetchName(_cont, _read, _write, f_, _ctx, _rendStackCall,"");
         fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _ctx, _rendStackCall);
     }
 }

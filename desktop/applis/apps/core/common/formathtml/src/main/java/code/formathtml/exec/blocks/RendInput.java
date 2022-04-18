@@ -2,12 +2,16 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefFieldUpdates;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.IdMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -28,8 +32,18 @@ public abstract class RendInput extends RendElement {
         fieldUpdates = _f;
     }
 
-    protected Argument processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
-        Argument arg_ = fetchName(_cont, _read, _write, fieldUpdates, _ctx, _rendStackCall);
+    protected Argument processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall, CustList<RendDynOperationNode> _ls) {
+        String idRad_;
+        if (!_ls.isEmpty()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(_ls, _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+                return Argument.createVoid();
+            }
+            idRad_ = BeanCustLgNames.processStr(Argument.getNullableValue(args_.lastKey().getArgument()), _ctx,_rendStackCall);
+        } else {
+            idRad_ = "";
+        }
+        Argument arg_ = fetchName(_cont, _read, _write, fieldUpdates, _ctx, _rendStackCall,idRad_);
         fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _ctx, _rendStackCall);
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
@@ -38,7 +52,7 @@ public abstract class RendInput extends RendElement {
         return arg_;
     }
 
-    public static DefFieldUpdates initUpdates(String _idClass, String _idName, CustList<RendDynOperationNode> _opsRead, String _varNameConverter, CustList<RendDynOperationNode> _opsConverter, String _className, String _idRadio) {
+    public static DefFieldUpdates initUpdates(String _idClass, String _idName, CustList<RendDynOperationNode> _opsRead, String _varNameConverter, CustList<RendDynOperationNode> _opsConverter, String _className, CustList<RendDynOperationNode> _idRadio) {
         DefFieldUpdates f_ = new DefFieldUpdates();
         f_.setIdClass(_idClass);
         f_.setIdName(_idName);

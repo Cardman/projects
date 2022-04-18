@@ -445,6 +445,43 @@ public final class RenderRadioTest extends CommonRender {
         assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
     }
 
+    @Test
+    public void process15Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<form action=\"\" c:command=\"page1.html\" name=\"myform\"><c:for var=\"n\" list=\"numbers\"><input c:convertValue='conv' type=\"radio\" name=\"index\" n-r='1/0' c:varValue=\"4\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", html_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public MyInt index;");
+        file_.append(" $public MyInt[] numbers;");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  index=$new MyInt(4);");
+        file_.append("  numbers={$new MyInt(2),index,$new MyInt(6)};");
+        file_.append(" }");
+        file_.append(" $public MyInt conv(String i){");
+        file_.append("  $return $new MyInt(Integer.parseInt(i));");
+        file_.append(" }");
+        file_.append("}");
+        file_.append("$public $class pkg.MyInt{");
+        file_.append(" $public $int index;");
+        file_.append(" $public MyInt(){}");
+        file_.append(" $public MyInt($int p){");
+        file_.append("  index = p;");
+        file_.append(" }");
+        file_.append(" $public String $toString()\n");
+        file_.append(" {\n");
+        file_.append("  $return \"\"+index;\n");
+        file_.append(" }\n");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        assertNotNull(getExOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
     private String getResOneBean(String _folder, String _relative, String _html, StringMap<String> _files, StringMap<String> _filesSec) {
         return getCommOneBean(_folder,_relative,_html,_files,_filesSec);
     }

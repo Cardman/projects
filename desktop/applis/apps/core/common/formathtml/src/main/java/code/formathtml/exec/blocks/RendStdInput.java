@@ -23,6 +23,6 @@ public final class RendStdInput extends RendInput {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        processIndexes(_cont,_read, (Element) _nextWrite, _ctx, _rendStack);
+        processIndexes(_cont,_read, (Element) _nextWrite, _ctx, _rendStack,new CustList<RendDynOperationNode>());
     }
 }

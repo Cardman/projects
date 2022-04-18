@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -17,15 +18,22 @@ public final class AnaRendRadio extends AnaRendInput {
 
     private OperationNode rootConverterFieldValue;
     private String varNameConverterFieldValue = EMPTY_STRING;
-    private String nbRadio = "";
+    private final ResultExpression expRad = new ResultExpression();
 
+    private OperationNode rootRadio;
     AnaRendRadio(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        nbRadio = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrNr());
+        String varValue_ = getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrNr());
+        if (!varValue_.trim().isEmpty()) {
+            int offVarValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrNr());
+            _page.setGlobalOffset(offVarValue_);
+            _page.zeroOffset();
+            rootRadio = RenderAnalysis.getRootAnalyzedOperations(varValue_, 0, _anaDoc, _page,expRad);
+        }
         processAnaInput(_read, _anaDoc, _page);
         String converterFieldValue_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
         if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
@@ -77,8 +85,13 @@ public final class AnaRendRadio extends AnaRendInput {
         return list_;
     }
 
-    public String getNbRadio() {
-        return nbRadio;
+    public ResultExpression getExpRad() {
+        return expRad;
+    }
+
+
+    public OperationNode getRootRadio() {
+        return rootRadio;
     }
 
     public OperationNode getRootConverterFieldValue() {
