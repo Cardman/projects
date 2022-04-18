@@ -51,9 +51,6 @@ public final class FrameUtil {
     }
 
     public static void removeAllListeners(AbsGroupFrame _groupFrame) {
-        for (AbsWindowListener l: _groupFrame.getCommonFrame().getWindowListeners()) {
-            _groupFrame.getCommonFrame().removeWindowListener(l);
-        }
         for (AbsWindowListenerClosing l: _groupFrame.getCommonFrame().getWindowListenersDef()) {
             _groupFrame.getCommonFrame().removeWindowListener(l);
         }

@@ -129,11 +129,6 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public CustList<AbsWindowListener> getWindowListeners() {
-        return absCommonFrame.getWindowListeners();
-    }
-
-    //@Override
     public AbsPanel getPane() {
         return absCommonFrame.getPane();
     }
@@ -173,15 +168,6 @@ public abstract class ChildFrame implements AbsChildFrame {
         return absCommonFrame.isVisible();
     }
 
-    //@Override
-    public void removeWindowListener(AbsWindowListener _l) {
-        absCommonFrame.removeWindowListener(_l);
-    }
-
-    //@Override
-    public void addWindowListener(AbsWindowListener _l) {
-        absCommonFrame.addWindowListener(_l);
-    }
     public void addWindowListener(AbsWindowListenerClosing _l) {
         absCommonFrame.addWindowListener(_l);
     }

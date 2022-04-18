@@ -1,19 +1,17 @@
 package code.vi.sys.impl.gui;
 
 import code.gui.*;
-import code.gui.events.AbsWindowListener;
 import code.gui.events.AbsWindowListenerClosing;
-import code.vi.prot.impl.gui.CustComponent;
-import code.vi.prot.impl.gui.Panel;
-import code.vi.prot.impl.gui.MenuBar;
-import code.vi.prot.impl.gui.events.WrWindowListener;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
-import code.vi.prot.impl.DefImage;
-import code.vi.prot.impl.DefImageFactory;
 import code.util.CustList;
 import code.util.IdMap;
+import code.vi.prot.impl.DefImage;
+import code.vi.prot.impl.DefImageFactory;
+import code.vi.prot.impl.gui.CustComponent;
+import code.vi.prot.impl.gui.MenuBar;
+import code.vi.prot.impl.gui.Panel;
 import code.vi.prot.impl.gui.events.WrWindowListenerClos;
 
 import javax.swing.*;
@@ -31,7 +29,6 @@ public final class CommonFrame implements AbsCommonFrame {
     private final JFrame frame = new JFrame();
     private AbsMenuBar menuBar;
     private String languageKey;
-    private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
     private AbstractImage imageIconFrame;
     public CommonFrame(String _languageKey, AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
@@ -108,24 +105,11 @@ public final class CommonFrame implements AbsCommonFrame {
         mapWindowDef.addEntry(_l,wr_);
     }
 
-    public void addWindowListener(AbsWindowListener _l) {
-        WrWindowListener wr_ = new WrWindowListener(_l);
-        frame.addWindowListener(wr_);
-        mapWindow.addEntry(_l,wr_);
-    }
-    public void removeWindowListener(AbsWindowListener _l) {
-        WrWindowListener wr_ = mapWindow.getVal(_l);
-        frame.removeWindowListener(wr_);
-        mapWindow.removeKey(_l);
-    }
+    @Override
     public void removeWindowListener(AbsWindowListenerClosing _l) {
         WrWindowListenerClos wr_ = mapWindowDef.getVal(_l);
         frame.removeWindowListener(wr_);
         mapWindowDef.removeKey(_l);
-    }
-
-    public CustList<AbsWindowListener> getWindowListeners() {
-        return mapWindow.getKeys();
     }
 
     @Override

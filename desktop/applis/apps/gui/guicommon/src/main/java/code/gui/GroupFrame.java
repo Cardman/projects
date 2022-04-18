@@ -158,11 +158,6 @@ public abstract class GroupFrame implements AbsGroupFrame {
     }
 
     //@Override
-    public CustList<AbsWindowListener> getWindowListeners() {
-        return commonFrame.getWindowListeners();
-    }
-
-    //@Override
     public AbsPanel getPane() {
         return commonFrame.getPane();
     }
@@ -207,15 +202,6 @@ public abstract class GroupFrame implements AbsGroupFrame {
         return commonFrame.isVisible();
     }
 
-    //@Override
-    public void removeWindowListener(AbsWindowListener _l) {
-        commonFrame.removeWindowListener(_l);
-    }
-
-    //@Override
-    public void addWindowListener(AbsWindowListener _l) {
-        commonFrame.addWindowListener(_l);
-    }
     public void addWindowListener(AbsWindowListenerClosing _l) {
         commonFrame.addWindowListener(_l);
     }
