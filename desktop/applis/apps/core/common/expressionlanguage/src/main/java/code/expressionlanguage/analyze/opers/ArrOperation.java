@@ -248,12 +248,12 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
             StringList clsFormatted_ = new StringList();
             IdentifiableUtil.appendLeftPart(0,clsFormatted_,formattedId_);
             ClassMethodIdAncestor feedGetSet_ = getSetId(trimMethSet_);
-            ClassMethodIdReturn clSet_ = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, feedGetSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalClass()));
+            ClassMethodIdReturn clSet_ = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, staticChoiceMethod_, _page.getGlobalClass()));
             if (clSet_ != null) {
                 resMemoSet = clSet_;
                 returnSet = MethodInfo.retIndexSet(clSet_,_page);
             }
-            resErrSet = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, feedGetSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
+            resErrSet = tryGetDeclaredCustMethodSetIndexer(isStaticAccess(), new StringList(clMeth_.getFormattedType().getFormatted()), trimMethSet_, clsFormatted_, _page, new ScopeFilter(feedGetSet_, baseAccess_, accessSuperTypes_, false, _page.getGlobalClass()));
             anc = clMeth_.getAncestor();
             functionGet = clMeth_.getPair();
             memberIdGet = clMeth_.getMemberId();

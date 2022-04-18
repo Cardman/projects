@@ -33,7 +33,7 @@ public final class AssocationOperation extends AbstractUnaryOperation {
         RootBlock type_ = _page.getAnaClassBody(annotationClass_);
         if (type_ != null) {
             boolean ok_ = false;
-            for (NamedCalledFunctionBlock b: type_.getAnnotationsMethodsBlocks()) {
+            for (NamedCalledFunctionBlock b: type_.getValidMethods()) {
                 if (StringUtil.quickEq(b.getName(), fieldName)) {
                     function = new AnaTypeFct();
                     function.setType(type_);

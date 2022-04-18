@@ -137,10 +137,10 @@ public final class CaseCondition extends SwitchPartBlock {
                 lv_.setFinalVariable(true);
                 _page.getInfosVars().put(variableName, lv_);
             }
-            if (!condition.trim().isEmpty()) {
+            if (!condition.isEmpty()) {
                 _page.setGlobalOffset(conditionOffset);
                 _page.zeroOffset();
-                res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, condition.trim(), Calculation.staticCalculation(stCtx_), _page));
+                res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, condition, Calculation.staticCalculation(stCtx_), _page));
                 AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
                 if (!resultClass_.isBoolType(_page)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -284,6 +284,6 @@ public final class CaseCondition extends SwitchPartBlock {
     }
 
     public boolean isCaseWhen() {
-        return !condition.trim().isEmpty();
+        return !condition.isEmpty();
     }
 }

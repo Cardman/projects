@@ -385,7 +385,7 @@ public final class SplitExpressionUtil {
                         _page.setGlobalOffset(((CaseCondition) current_).getConditionOffset());
                         _page.zeroOffset();
                         ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
-                        extractAnon(_page, _int, _method, _type, substring_.trim(), resultExpression_);
+                        extractAnon(_page, _int, _method, _type, substring_, resultExpression_);
                     }
                 }
             }

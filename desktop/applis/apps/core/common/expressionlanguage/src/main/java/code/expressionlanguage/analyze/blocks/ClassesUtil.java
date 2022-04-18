@@ -2798,7 +2798,7 @@ public final class ClassesUtil {
 
     public static CustList<NamedCalledFunctionBlock> getMethodAnnotationBodiesById(RootBlock _r, String _id) {
         CustList<NamedCalledFunctionBlock> methods_ = new CustList<NamedCalledFunctionBlock>();
-        for (NamedCalledFunctionBlock b: _r.getAnnotationsMethodsBlocks()) {
+        for (NamedCalledFunctionBlock b: _r.getValidMethods()) {
             if (StringUtil.quickEq(b.getName(), _id)) {
                 methods_.add(b);
             }

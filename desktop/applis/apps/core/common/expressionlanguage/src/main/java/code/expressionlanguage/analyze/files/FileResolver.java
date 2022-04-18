@@ -2034,25 +2034,25 @@ public final class FileResolver {
                 trimVar_ = trimPreVar_;
             }
             int fullValueOffset_ = valueOffest_ + _offset;
-            int conditionOffset_;
             boolean isVar_ = StringExpUtil.isTypeLeafPart(trimVar_);
-            int variableOffset_ = fullValueOffset_ + declaringType_.length() + StringUtil.getFirstPrintableCharIndex(varName_);
             if (!isVar_){
-                conditionOffset_ = fullValueOffset_;
                 br_ = new CaseCondition(
-                        new OffsetStringInfo(fullValueOffset_, exp_.trim()),
-                        _instructionTrimLocation+_offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(conditionOffset_,""));
+                        new OffsetStringInfo(fullValueOffset_, value_),
+                        _instructionTrimLocation+_offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(fullValueOffset_,""));
             } else if (sepCond_ >= 0) {
+                int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
+                int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
                 String substring_ = trimPreVar_.substring(sepCond_ + 1);
-                conditionOffset_ = fullValueOffset_+declaringType_.length() + StringExpUtil.getOffset(varName_)+1+sepCond_+StringExpUtil.getOffset(substring_);
+                int conditionOffset_ = variableOffset_ + 1 + sepCond_ + StringExpUtil.getOffset(substring_);
                 br_ = new CaseCondition(
-                        new OffsetStringInfo(fullValueOffset_, exp_.trim()),
-                        _instructionTrimLocation+_offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_));
+                        new OffsetStringInfo(fullValueOffset_, value_),
+                        _instructionTrimLocation+_offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_.trim()));
             } else {
-                conditionOffset_ = fullValueOffset_;
+                int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
+                int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
                 br_ = new CaseCondition(
-                        new OffsetStringInfo(fullValueOffset_, exp_.trim()),
-                        _instructionTrimLocation+_offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,""));
+                        new OffsetStringInfo(fullValueOffset_, value_),
+                        _instructionTrimLocation+_offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(fullValueOffset_,""));
             }
 
             //if next after i starts with brace or not

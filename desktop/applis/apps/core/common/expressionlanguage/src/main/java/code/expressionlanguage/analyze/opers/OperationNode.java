@@ -802,7 +802,7 @@ public abstract class OperationNode {
             }
         }
         if (_type instanceof RootBlock){
-            for (ConstructorBlock b: ((RootBlock)_type).getConstructorBlocks()) {
+            for (ConstructorBlock b: ((RootBlock)_type).getValidCtors()) {
                 if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
                     continue;
                 }
@@ -966,7 +966,7 @@ public abstract class OperationNode {
             }
         }
         if (_type instanceof RootBlock){
-            for (ConstructorBlock b: ((RootBlock)_type).getConstructorBlocks()) {
+            for (ConstructorBlock b: ((RootBlock)_type).getValidCtors()) {
                 if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
                     continue;
                 }
@@ -1015,7 +1015,7 @@ public abstract class OperationNode {
             }
         }
         if (_type instanceof RootBlock){
-            for (ConstructorBlock b: ((RootBlock)_type).getConstructorBlocks()) {
+            for (ConstructorBlock b: ((RootBlock)_type).getValidCtors()) {
                 if (excludeQuick((RootBlock) _type, b, _page)) {
                     continue;
                 }
@@ -1179,7 +1179,6 @@ public abstract class OperationNode {
 
     protected static ClassMethodIdReturn tryGetDeclaredCustMethodSetIndexer(MethodAccessKind _staticContext,
                                                                             StringList _classes, String _name,
-                                                                            ClassMethodIdAncestor _uniqueId,
                                                                             StringList _argsClass, AnalyzedPageEl _page, ScopeFilter _sc) {
         FormattedFilter filter_ = new FormattedFilter();
         CustList<CustList<MethodInfo>> methods_ = fetchParamClassMethods(_classes, _staticContext, _page, _sc, filter_);
@@ -2068,14 +2067,7 @@ public abstract class OperationNode {
                                               AnalyzedPageEl _page) {
         AnaGeneType g_ = _refRet.getTypeInfo().getRoot();
         if (g_ instanceof RootBlock) {
-            CustList<NamedCalledFunctionBlock> methods_ = new CustList<NamedCalledFunctionBlock>();
-            for (NamedCalledFunctionBlock b: ((RootBlock) g_).getOverridableBlocks()) {
-                methods_.add(b);
-            }
-            for (NamedCalledFunctionBlock b: ((RootBlock) g_).getAnnotationsMethodsBlocks()) {
-                methods_.add(b);
-            }
-            for (NamedCalledFunctionBlock e: methods_) {
+            for (NamedCalledFunctionBlock e: ((RootBlock) g_).getValidMethods()) {
                 MethodId id_ = e.getId();
                 MethodAccessKind k_ = id_.getKind();
                 if (filter(_refRet, id_.isRetRef(), k_)) {
