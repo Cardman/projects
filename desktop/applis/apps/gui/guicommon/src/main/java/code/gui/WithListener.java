@@ -21,11 +21,6 @@ public interface WithListener {
 
     void setContentPane(AbsPanel _p);
 
-    void setLocationRelativeTo(AbsCustComponent _c);
-
-    void setLocationRelativeTo(AbsOtherDialog _c);
-    void setLocationRelativeTo(AbsOtherFrame _c);
-    void setLocationRelativeToNull();
     boolean isVisible();
     void pack();
 

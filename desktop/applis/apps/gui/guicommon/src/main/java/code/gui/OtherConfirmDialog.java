@@ -122,16 +122,20 @@ public final class OtherConfirmDialog {
     }
 
     private void setLocationRelativeTo(WithListener _frame) {
+        if (!(dialog instanceof PlacableWindow)) {
+            return;
+        }
+        PlacableWindow pl_ = (PlacableWindow)dialog;
         if (_frame == null) {
-            dialog.setLocationRelativeToNull();
+            pl_.setLocationRelativeToNull();
             return;
         }
         if (_frame instanceof AbsOtherDialog) {
-            dialog.setLocationRelativeTo(((AbsOtherDialog)_frame));
+            pl_.setLocationRelativeTo(((AbsOtherDialog)_frame));
             return;
         }
         if (_frame instanceof AbsOtherFrame) {
-            dialog.setLocationRelativeTo(((AbsOtherFrame)_frame));
+            pl_.setLocationRelativeTo(((AbsOtherFrame)_frame));
         }
     }
 

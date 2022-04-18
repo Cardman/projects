@@ -16,7 +16,7 @@ import code.vi.prot.impl.gui.events.WrWindowListenerClos;
 import javax.swing.*;
 import java.awt.*;
 
-public final class OtherDialog implements AbsOtherDialog, ChangeableTitle {
+public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,PlacableWindow {
     private final JDialog dialog;
     private Ownable owner;
     private AbstractImage image;

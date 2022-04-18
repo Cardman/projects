@@ -93,26 +93,6 @@ public final class LigFrame implements AbsOtherFrame, ChangeableTitle {
     }
 
     @Override
-    public void setLocationRelativeTo(AbsCustComponent _c) {
-        //
-    }
-
-    @Override
-    public void setLocationRelativeTo(AbsOtherDialog _c) {
-        //
-    }
-
-    @Override
-    public void setLocationRelativeTo(AbsOtherFrame _c) {
-        //
-    }
-
-    @Override
-    public void setLocationRelativeToNull() {
-        //
-    }
-
-    @Override
     public boolean isVisible() {
         return visible;
     }
