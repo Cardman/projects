@@ -16,9 +16,9 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public abstract class RendInput extends RendElement {
-    private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
-    private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
-    private String varNameConverterField = EMPTY_STRING;
+    private final CustList<RendDynOperationNode> opsValue;
+    private final CustList<RendDynOperationNode> opsConverterField;
+    private final String varNameConverterField;
     private final DefFieldUpdates fieldUpdates;
 
     protected RendInput(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
@@ -36,10 +36,10 @@ public abstract class RendInput extends RendElement {
         String idRad_;
         if (!_ls.isEmpty()) {
             IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(_ls, _ctx, _rendStackCall);
+            idRad_ = idRad(args_,_ctx,_rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return Argument.createVoid();
             }
-            idRad_ = BeanCustLgNames.processStr(Argument.getNullableValue(args_.lastKey().getArgument()), _ctx,_rendStackCall);
         } else {
             idRad_ = "";
         }
@@ -50,6 +50,13 @@ public abstract class RendInput extends RendElement {
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertFieldValue()));
         _write.removeAttribute(StringUtil.concat(_cont.getRendKeyWords().getAttrNr()));
         return arg_;
+    }
+
+    private static String idRad(IdMap<RendDynOperationNode, ArgumentsPair> args_, ContextEl _ctx, RendStackCall _rendStackCall) {
+        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return "";
+        }
+        return BeanCustLgNames.processStr(Argument.getNullableValue(args_.lastKey().getArgument()), _ctx,_rendStackCall);
     }
 
     public static DefFieldUpdates initUpdates(String _idClass, String _idName, CustList<RendDynOperationNode> _opsRead, String _varNameConverter, CustList<RendDynOperationNode> _opsConverter, String _className, CustList<RendDynOperationNode> _idRadio) {
