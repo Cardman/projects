@@ -108,6 +108,7 @@ public final class OtherDialog implements AbsOtherDialog, ChangeableTitle {
     public AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l) {
         WrWindowListenerClos wr_ = new WrWindowListenerClos(_l);
         dialog.addWindowListener(wr_);
+        mapWindowDef.addEntry(_l,wr_);
         return _l;
     }
 

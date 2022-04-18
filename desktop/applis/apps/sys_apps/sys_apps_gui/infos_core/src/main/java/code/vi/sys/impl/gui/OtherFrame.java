@@ -77,6 +77,7 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
     public AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l) {
         WrWindowListenerClos wr_ = new WrWindowListenerClos(_l);
         frame.addWindowListener(wr_);
+        mapWindowDef.addEntry(_l,wr_);
         return _l;
     }
     @Override
