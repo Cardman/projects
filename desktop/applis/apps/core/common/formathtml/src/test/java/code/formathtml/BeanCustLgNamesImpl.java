@@ -14,7 +14,7 @@ public final class BeanCustLgNamesImpl extends TestedBeanCustLgNames {
 
     @Override
     public void buildAliases(Element _elt, String _lg, RendKeyWords _rkw, KeyWords _kw, RendAnalysisMessages _rMess, AnalysisMessages _mess) {
-        //impl
+        _rMess.setBadDocument(_rMess.getBadDocument());
     }
 
 }
