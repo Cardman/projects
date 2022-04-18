@@ -48,11 +48,7 @@ public final class MbOperationsSequence {
                 return;
             }
             if (operators.size() == 2) {
-                int endValuePart_ = operators.firstKey();
-                int beginValuePart_ = endValuePart_ + operators.firstValue().length();
-                endValuePart_ = operators.getKey(IndexConstants.SECOND_INDEX);
-                String str_ = _string.substring(beginValuePart_, endValuePart_);
-                StrTypes.addNotEmpty(beginValuePart_,str_,values);
+                StrTypes.addNotEmpty(_string,operators,values);
                 return;
             }
             loop(_string);

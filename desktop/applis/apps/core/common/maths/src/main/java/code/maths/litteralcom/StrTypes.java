@@ -19,6 +19,14 @@ public final class StrTypes {
         }
     }
 
+    public static void addNotEmpty(String _string, StrTypes _ops, StrTypes _values) {
+        int i_ = IndexConstants.SECOND_INDEX;
+        int endValuePart_ = _ops.firstKey();
+        int beginValuePart_ = endValuePart_ + _ops.getValue(0).length();
+        endValuePart_ = _ops.getKey(i_);
+        String str_ = _string.substring(beginValuePart_, endValuePart_);
+        addNotEmpty(beginValuePart_, str_, _values);
+    }
     public static void addNotEmpty(int _off, String _string, StrTypes _values) {
         if (!_string.trim().isEmpty()) {
             _values.addEntry(_off, _string);

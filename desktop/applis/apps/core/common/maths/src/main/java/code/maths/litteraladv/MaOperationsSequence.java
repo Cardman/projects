@@ -100,11 +100,7 @@ public final class MaOperationsSequence {
                 return;
             }
             if (opers.size() == 2) {
-                int endPart_ = opers.firstKey();
-                int beginValuePart_ = endPart_ + opers.firstValue().length();
-                endPart_ = opers.getKey(IndexConstants.SECOND_INDEX);
-                String str_ = _string.substring(beginValuePart_, endPart_);
-                StrTypes.addNotEmpty(beginValuePart_,str_,parts);
+                StrTypes.addNotEmpty(_string,opers,parts);
                 return;
             }
             loop(_string);

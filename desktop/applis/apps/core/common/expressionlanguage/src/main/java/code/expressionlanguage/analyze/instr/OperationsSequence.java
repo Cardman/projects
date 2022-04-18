@@ -222,14 +222,9 @@ public final class OperationsSequence {
     }
 
     private void args(String _string) {
-        int i_ = IndexConstants.SECOND_INDEX;
         int nbKeys_ = operators.size();
         if (nbKeys_ == 2) {
-            int endValuePart_ = operators.firstKey();
-            int beginValuePart_ = endValuePart_ + operators.getValue(0).length();
-            endValuePart_ = operators.getKey(i_);
-            String str_ = _string.substring(beginValuePart_, endValuePart_);
-            addValueIfNotEmpty(beginValuePart_, str_);
+            StrTypes.addNotEmpty(_string,operators,values);
             return;
         }
         argsLoop(_string);
