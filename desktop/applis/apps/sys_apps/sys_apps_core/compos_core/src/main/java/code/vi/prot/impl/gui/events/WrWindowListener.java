@@ -44,6 +44,6 @@ public final class WrWindowListener implements WindowListener {
 
     @Override
     public void windowDeactivated(WindowEvent _e) {
-        windowListener.windowDeiconified();
+        windowListener.windowDeactivated();
     }
 }
