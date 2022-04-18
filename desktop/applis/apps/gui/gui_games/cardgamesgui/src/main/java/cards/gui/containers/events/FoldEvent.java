@@ -1,13 +1,14 @@
 package cards.gui.containers.events;
 
 import cards.gui.containers.ContainerBelote;
+import cards.gui.containers.ContainerPlayableBelote;
 import code.gui.events.AbsActionListener;
 
 public class FoldEvent implements AbsActionListener {
 
-    private ContainerBelote container;
+    private ContainerPlayableBelote container;
 
-    public FoldEvent(ContainerBelote _container) {
+    public FoldEvent(ContainerPlayableBelote _container) {
         container = _container;
     }
 

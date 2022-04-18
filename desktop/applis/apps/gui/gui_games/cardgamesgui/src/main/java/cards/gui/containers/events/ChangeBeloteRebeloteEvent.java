@@ -1,13 +1,13 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerBelote;
+import cards.gui.containers.ContainerPlayableBelote;
 import code.gui.events.AbsActionListener;
 
 public class ChangeBeloteRebeloteEvent implements AbsActionListener {
 
-    private ContainerBelote container;
+    private ContainerPlayableBelote container;
 
-    public ChangeBeloteRebeloteEvent(ContainerBelote _container) {
+    public ChangeBeloteRebeloteEvent(ContainerPlayableBelote _container) {
         container = _container;
     }
 

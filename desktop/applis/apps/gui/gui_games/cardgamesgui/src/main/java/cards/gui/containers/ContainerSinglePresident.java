@@ -59,7 +59,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class ContainerSinglePresident extends ContainerPresident implements
-        ContainerSingle {
+        ContainerSingle,ContainerPlayablePresident {
 
     //    private boolean clickedDiscard;
 //    private boolean clickedNoPlay;
@@ -91,7 +91,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
     }
 
-    @Override
     public void load() {
         //Activer le menu Fichier/Sauvegarder
         getSave().setEnabledMenu(true);

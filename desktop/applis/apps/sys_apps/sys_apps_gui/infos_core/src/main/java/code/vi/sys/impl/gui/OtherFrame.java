@@ -2,6 +2,7 @@ package code.vi.sys.impl.gui;
 
 import code.gui.*;
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.vi.prot.impl.gui.CustComponent;
 import code.vi.prot.impl.gui.Panel;
 import code.vi.prot.impl.gui.MenuBar;
@@ -10,6 +11,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
 import code.util.CustList;
 import code.util.IdMap;
+import code.vi.prot.impl.gui.events.WrWindowListenerClos;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +25,7 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
     private Ownable owner;
     private final JFrame frame = new JFrame();
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
+    private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
 
     public void setMainFrame(boolean _mainFrame) {
         mainFrame = _mainFrame;
@@ -71,12 +74,24 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle {
     }
 
     @Override
+    public AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l) {
+        WrWindowListenerClos wr_ = new WrWindowListenerClos(_l);
+        frame.addWindowListener(wr_);
+        return _l;
+    }
+    @Override
     public void removeWindowListener(AbsWindowListener _l) {
         WrWindowListener wr_ = mapWindow.getVal(_l);
         frame.removeWindowListener(wr_);
         mapWindow.removeKey(_l);
     }
 
+    @Override
+    public AbsWindowListenerClosing removeWindowListener(AbsWindowListenerClosing _l) {
+        WrWindowListenerClos wr_ = mapWindowDef.getVal(_l);
+        frame.removeWindowListener(wr_);
+        return _l;
+    }
     @Override
     public CustList<AbsWindowListener> getWindowListeners() {
         return mapWindow.getKeys();

@@ -57,7 +57,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class ContainerMultiPresident extends ContainerPresident implements
-        ContainerMulti {
+        ContainerMulti,ContainerPlayablePresident {
 
     private int noClient;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;

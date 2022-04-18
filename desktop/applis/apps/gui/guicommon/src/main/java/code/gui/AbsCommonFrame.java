@@ -1,6 +1,7 @@
 package code.gui;
 
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
@@ -22,9 +23,12 @@ public interface AbsCommonFrame extends ChangeableTitle {
     int getHeight();
     void setFocusableWindowState(boolean _focusableWindowState);
     void setFocusable(boolean _focusable);
+    void addWindowListener(AbsWindowListenerClosing _l);
     void addWindowListener(AbsWindowListener _l);
     void removeWindowListener(AbsWindowListener _l);
+    void removeWindowListener(AbsWindowListenerClosing _l);
     CustList<AbsWindowListener> getWindowListeners();
+    CustList<AbsWindowListenerClosing> getWindowListenersDef();
     void dispatchExit();
     void setDefaultCloseOperation(int _operation);
     void setIconImage(AbstractImage _image);

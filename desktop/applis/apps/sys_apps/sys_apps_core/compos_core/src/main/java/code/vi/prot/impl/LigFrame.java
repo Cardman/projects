@@ -2,6 +2,7 @@ package code.vi.prot.impl;
 
 import code.gui.*;
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
 import code.util.CustList;
@@ -57,10 +58,18 @@ public final class LigFrame implements AbsOtherFrame, ChangeableTitle {
     }
 
     @Override
+    public AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l) {
+        return _l;
+    }
+    @Override
     public void removeWindowListener(AbsWindowListener _l) {
         mapWindow.removeKey(_l);
     }
 
+    @Override
+    public AbsWindowListenerClosing removeWindowListener(AbsWindowListenerClosing _l) {
+        return _l;
+    }
     @Override
     public CustList<AbsWindowListener> getWindowListeners() {
         return mapWindow.getKeys();

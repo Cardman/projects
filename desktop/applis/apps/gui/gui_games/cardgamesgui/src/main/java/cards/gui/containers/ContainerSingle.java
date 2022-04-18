@@ -1,6 +1,6 @@
 package cards.gui.containers;
 
-public interface ContainerSingle {
+public interface ContainerSingle extends ContainerPlayableGame {
 
     void nextTrick();
 
@@ -13,4 +13,10 @@ public interface ContainerSingle {
     void stopPlaying();
 
     void replay();
+
+    void modify();
+
+    void aideAuJeu();
+
+    void conseil();
 }

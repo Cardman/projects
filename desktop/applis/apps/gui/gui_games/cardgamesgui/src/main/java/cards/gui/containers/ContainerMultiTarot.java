@@ -65,7 +65,7 @@ import code.util.comparators.ComparatorBoolean;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class ContainerMultiTarot extends ContainerTarot implements ContainerMulti{
+public class ContainerMultiTarot extends ContainerTarot implements ContainerMulti,ContainerPlayableTarot{
 
     private int noClient;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -674,7 +674,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         d_.setLocale(lg_);
         getOwner().sendObject(d_);
     }
-    @Override
+
     public void showTeams() {
         if (!isCanPlay()) {
             return;

@@ -3,7 +3,7 @@ import cards.network.common.before.ChoosenPlace;
 import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
 
-public interface ContainerMulti {
+public interface ContainerMulti extends ContainerPlayableGame {
 
     void updateFirst(PlayersNamePresent _players);
 

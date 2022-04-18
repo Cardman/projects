@@ -1,6 +1,7 @@
 package code.gui;
 
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
@@ -179,6 +180,9 @@ public abstract class ChildFrame implements AbsChildFrame {
 
     //@Override
     public void addWindowListener(AbsWindowListener _l) {
+        absCommonFrame.addWindowListener(_l);
+    }
+    public void addWindowListener(AbsWindowListenerClosing _l) {
         absCommonFrame.addWindowListener(_l);
     }
 

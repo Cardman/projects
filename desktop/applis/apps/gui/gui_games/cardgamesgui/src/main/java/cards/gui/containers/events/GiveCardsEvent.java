@@ -1,13 +1,13 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerPresident;
+import cards.gui.containers.ContainerPlayablePresident;
 import code.gui.events.AbsActionListener;
 
 public class GiveCardsEvent implements AbsActionListener {
 
-    private ContainerPresident container;
+    private ContainerPlayablePresident container;
 
-    public GiveCardsEvent(ContainerPresident _container) {
+    public GiveCardsEvent(ContainerPlayablePresident _container) {
         container = _container;
     }
 

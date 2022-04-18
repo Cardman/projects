@@ -26,7 +26,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class ContainerPresident extends ContainerGame {
+public abstract class ContainerPresident extends ContainerGame {
 
     public static final String EMPTY="";
     public static final String TAB="\t";
@@ -145,13 +145,6 @@ public class ContainerPresident extends ContainerGame {
         getPanelGivenCards().repaintChildren(getWindow().getImageFactory());
     }
 
-    public void discard() {
-        //
-    }
-
-    public void noPlay() {
-        //
-    }
     public String pseudo() {
         return getPseudosJoueurs().getPseudo();
     }

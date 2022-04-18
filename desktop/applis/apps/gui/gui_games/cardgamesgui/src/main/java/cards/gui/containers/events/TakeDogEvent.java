@@ -1,13 +1,13 @@
 package cards.gui.containers.events;
 
-import cards.gui.containers.ContainerTarot;
+import cards.gui.containers.ContainerPlayableTarot;
 import code.gui.events.AbsActionListener;
 
 public class TakeDogEvent implements AbsActionListener {
 
-    private ContainerTarot container;
+    private ContainerPlayableTarot container;
 
-    public TakeDogEvent(ContainerTarot _container) {
+    public TakeDogEvent(ContainerPlayableTarot _container) {
         container = _container;
     }
 

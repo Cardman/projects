@@ -1,13 +1,14 @@
 package cards.gui.containers.events;
 
 import cards.gui.containers.ContainerBelote;
+import cards.gui.containers.ContainerPlayableBelote;
 import code.gui.events.AbsActionListener;
 
 public class BidEvent implements AbsActionListener {
 
-    private ContainerBelote container;
+    private ContainerPlayableBelote container;
 
-    public BidEvent(ContainerBelote _container) {
+    public BidEvent(ContainerPlayableBelote _container) {
         container = _container;
     }
 

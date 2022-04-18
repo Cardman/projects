@@ -2,6 +2,7 @@ package code.vi.sys.impl.gui;
 
 import code.gui.*;
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.vi.prot.impl.gui.CustComponent;
 import code.vi.prot.impl.gui.Panel;
 import code.vi.prot.impl.gui.MenuBar;
@@ -13,6 +14,7 @@ import code.vi.prot.impl.DefImage;
 import code.vi.prot.impl.DefImageFactory;
 import code.util.CustList;
 import code.util.IdMap;
+import code.vi.prot.impl.gui.events.WrWindowListenerClos;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +32,7 @@ public final class CommonFrame implements AbsCommonFrame {
     private AbsMenuBar menuBar;
     private String languageKey;
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
+    private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
     private AbstractImage imageIconFrame;
     public CommonFrame(String _languageKey, AbstractProgramInfos _frames, AbstractImage _imageIconFrame) {
         languageKey = _languageKey;
@@ -98,6 +101,13 @@ public final class CommonFrame implements AbsCommonFrame {
         frame.setFocusable(_focusable);
     }
 
+    @Override
+    public void addWindowListener(AbsWindowListenerClosing _l) {
+        WrWindowListenerClos wr_ = new WrWindowListenerClos(_l);
+        frame.addWindowListener(wr_);
+        mapWindowDef.addEntry(_l,wr_);
+    }
+
     public void addWindowListener(AbsWindowListener _l) {
         WrWindowListener wr_ = new WrWindowListener(_l);
         frame.addWindowListener(wr_);
@@ -108,10 +118,21 @@ public final class CommonFrame implements AbsCommonFrame {
         frame.removeWindowListener(wr_);
         mapWindow.removeKey(_l);
     }
+    public void removeWindowListener(AbsWindowListenerClosing _l) {
+        WrWindowListenerClos wr_ = mapWindowDef.getVal(_l);
+        frame.removeWindowListener(wr_);
+        mapWindowDef.removeKey(_l);
+    }
 
     public CustList<AbsWindowListener> getWindowListeners() {
         return mapWindow.getKeys();
     }
+
+    @Override
+    public CustList<AbsWindowListenerClosing> getWindowListenersDef() {
+        return mapWindowDef.getKeys();
+    }
+
     public void dispatchExit() {
         frame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));

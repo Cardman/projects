@@ -1,12 +1,15 @@
 package code.gui;
 
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.util.CustList;
 
 public interface WithListener {
     void addWindowListener(AbsWindowListener _l);
+    AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l);
 
     void removeWindowListener(AbsWindowListener _l);
+    AbsWindowListenerClosing removeWindowListener(AbsWindowListenerClosing _l);
 
     CustList<AbsWindowListener> getWindowListeners();
 

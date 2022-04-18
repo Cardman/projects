@@ -5,6 +5,7 @@ import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.gui.AbsPanel;
 import code.gui.WithListener;
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.util.CustList;
 
 public abstract class WindowStruct extends WithoutParentIdStruct {
@@ -13,7 +14,15 @@ public abstract class WindowStruct extends WithoutParentIdStruct {
         getAbstractWindow().addWindowListener(_l);
     }
 
+    public void addWindowListener(AbsWindowListenerClosing _l) {
+        getAbstractWindow().addWindowListener(_l);
+    }
+
     public void removeWindowListener(AbsWindowListener _l) {
+        getAbstractWindow().removeWindowListener(_l);
+    }
+
+    public void removeWindowListener(AbsWindowListenerClosing _l) {
         getAbstractWindow().removeWindowListener(_l);
     }
 

@@ -33,7 +33,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class ContainerBelote extends ContainerGame {
+public abstract class ContainerBelote extends ContainerGame {
 
     public static final String EMPTY="";
     public static final String TAB="\t";
@@ -117,18 +117,6 @@ public class ContainerBelote extends ContainerGame {
         return list_;
     }
 
-    public void bid() {
-        //
-    }
-    public void fold() {
-        //
-    }
-    public void invertBeloteRebelote() {
-        //
-    }
-    public void invertBeloteDeclare() {
-        //
-    }
     protected CustList<LabelPoints> getPointsButtons() {
         return pointsButtons;
     }

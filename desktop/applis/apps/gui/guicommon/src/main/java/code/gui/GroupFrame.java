@@ -3,6 +3,7 @@ package code.gui;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaFont;
@@ -213,6 +214,9 @@ public abstract class GroupFrame implements AbsGroupFrame {
 
     //@Override
     public void addWindowListener(AbsWindowListener _l) {
+        commonFrame.addWindowListener(_l);
+    }
+    public void addWindowListener(AbsWindowListenerClosing _l) {
         commonFrame.addWindowListener(_l);
     }
 

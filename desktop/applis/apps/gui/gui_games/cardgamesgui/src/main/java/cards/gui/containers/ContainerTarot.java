@@ -29,7 +29,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public class ContainerTarot extends ContainerGame{
+public abstract class ContainerTarot extends ContainerGame{
 
     public static final String EMPTY="";
     protected static final String TAB="\t";
@@ -111,15 +111,6 @@ public class ContainerTarot extends ContainerGame{
 
     public CarpetTarot tapisTarot() {
         return getTapis().getTapisTarot();
-    }
-    public void annonceTarotChelem() {
-        //
-    }
-    public void prendreCartesChien() {
-        //
-    }
-    public void validateDog() {
-        //
     }
     public AbsPanel getPanelDiscardedTrumps() {
         return panelDiscardedTrumps;

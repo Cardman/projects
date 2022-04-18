@@ -9,6 +9,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaPoint;
 import code.vi.prot.impl.DefImage;
 import code.vi.prot.impl.DefImageFactory;
+import code.vi.prot.impl.gui.events.WrWindowListenerClos;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,12 +27,12 @@ public final class Dialog implements AbsDialog {
     public Dialog() {
         dial.setModal(true);
         dial.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        dial.addWindowListener(new WrWindowListener(new CrossClosingDialogEvent(this)));
+        dial.addWindowListener(new WrWindowListenerClos(new CrossClosingDialogEvent(this)));
     }
     public Dialog(AbsCloseableDialog _clos) {
         dial.setModal(true);
         dial.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        dial.addWindowListener(new WrWindowListener(new CrossClosingDialogEvent(_clos)));
+        dial.addWindowListener(new WrWindowListenerClos(new CrossClosingDialogEvent(_clos)));
     }
 
 

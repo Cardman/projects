@@ -2,6 +2,7 @@ package code.gui;
 
 import code.expressionlanguage.structs.Struct;
 import code.gui.events.AbsWindowListener;
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
@@ -51,6 +52,9 @@ public final class FrameUtil {
 
     public static void removeAllListeners(AbsGroupFrame _groupFrame) {
         for (AbsWindowListener l: _groupFrame.getCommonFrame().getWindowListeners()) {
+            _groupFrame.getCommonFrame().removeWindowListener(l);
+        }
+        for (AbsWindowListenerClosing l: _groupFrame.getCommonFrame().getWindowListenersDef()) {
             _groupFrame.getCommonFrame().removeWindowListener(l);
         }
     }

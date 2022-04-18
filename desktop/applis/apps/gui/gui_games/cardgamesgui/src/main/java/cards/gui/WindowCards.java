@@ -572,7 +572,7 @@ public final class WindowCards extends NetGroupFrame {
                 containerGame = new ContainerSingleTarot(this);
             }
             change.setEnabledMenu(true);
-            containerGame.modify();
+            ((ContainerSingle)containerGame).modify();
         }
         setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
@@ -1245,7 +1245,6 @@ public final class WindowCards extends NetGroupFrame {
         Document doc_ = DocumentBuilder.parseSax(content_);
         Element elt_ = doc_.getDocumentElement();
         String tagName_ = elt_.getTagName();
-        ContainerGame containerGame_;
         if (StringUtil.quickEq(tagName_, "GameBelote")) {
             GameBelote par_ = DocumentReaderBeloteUtil.getGameBelote(doc_);
             CheckerGameBeloteWithRules.check(par_);
@@ -1253,7 +1252,7 @@ public final class WindowCards extends NetGroupFrame {
                 erreurDeChargement(_nomFichier);
                 return;
             }
-            containerGame_ = new ContainerSingleBelote(this);
+            ContainerSingleBelote containerGame_ = new ContainerSingleBelote(this);
             containerGame_.getPar().jouerBelote(par_);
             containerGame_.load();
             partieSauvegardee=false;
@@ -1268,7 +1267,7 @@ public final class WindowCards extends NetGroupFrame {
                 erreurDeChargement(_nomFichier);
                 return;
             }
-            containerGame_ = new ContainerSinglePresident(this);
+            ContainerSinglePresident containerGame_ = new ContainerSinglePresident(this);
             containerGame_.getPar().jouerPresident(par_);
             containerGame_.load();
             partieSauvegardee=false;
@@ -1283,7 +1282,7 @@ public final class WindowCards extends NetGroupFrame {
                 erreurDeChargement(_nomFichier);
                 return;
             }
-            containerGame_ = new ContainerSingleTarot(this);
+            ContainerSingleTarot containerGame_ = new ContainerSingleTarot(this);
             containerGame_.getPar().jouerTarot(par_);
             containerGame_.load();
             partieSauvegardee=false;
@@ -1434,8 +1433,11 @@ public final class WindowCards extends NetGroupFrame {
 //        if (!consulting.isEnabled()) {
 //            return;
 //        }
+        if (!(containerGame instanceof ContainerSingle)) {
+            return;
+        }
         if(!containerGame.isThreadAnime()) {
-            containerGame.conseil();
+            ((ContainerSingle)containerGame).conseil();
         }
     }
     public void pause() {
@@ -1477,19 +1479,37 @@ public final class WindowCards extends NetGroupFrame {
 //        if (!helpGame.isEnabled()) {
 //            return;
 //        }
-        containerGame.aideAuJeu();
+        if (!(containerGame instanceof ContainerSingle)) {
+            return;
+        }
+        ((ContainerSingle)containerGame).aideAuJeu();
     }
     public void displayTricksHands() {
 //        if (!tricksHands.isEnabled()) {
 //            return;
 //        }
-        containerGame.showTricksHands();
+        if (!(containerGame instanceof ContainerPlayableGame)) {
+            return;
+        }
+        ((ContainerPlayableGame)containerGame).showTricksHands();
     }
     public void displayTeams() {
 //        if (!teams.isEnabled()) {
 //            return;
 //        }
-        containerGame.showTeams();
+        if (containerGame instanceof ContainerSingleBelote) {
+            ((ContainerSingleBelote)containerGame).showTeams();
+        }
+        if (containerGame instanceof ContainerMultiBelote) {
+            ((ContainerMultiBelote)containerGame).showTeams();
+        }
+        if (containerGame instanceof ContainerSingleTarot) {
+            ((ContainerSingleTarot)containerGame).showTeams();
+        }
+        if (containerGame instanceof ContainerMultiTarot) {
+            ((ContainerMultiTarot)containerGame).showTeams();
+        }
+
     }
     public void editGame(GameEnum _game) {
         if (_game == GameEnum.BELOTE) {
@@ -1909,7 +1929,7 @@ public final class WindowCards extends NetGroupFrame {
                 containerGame = new ContainerSingleTarot(this);
             }
             change.setEnabledMenu(true);
-            containerGame.modify();
+            ((ContainerSingle)containerGame).modify();
             return;
         }
         DialogServerCards.setDialogServer(this, _jeuBouton);

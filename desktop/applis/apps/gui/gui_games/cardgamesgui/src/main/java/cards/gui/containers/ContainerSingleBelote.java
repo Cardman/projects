@@ -66,7 +66,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle {
+public class ContainerSingleBelote extends ContainerBelote implements ContainerSingle,ContainerPlayableBelote {
 
     private BidBeloteSuit contratUtilisateurBelote = new BidBeloteSuit();
     private boolean annonceBelote;
@@ -120,7 +120,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tapisBelote().setCarteBelote(getWindow().getImageFactory(),lg_,_joueur,ct_);
     }
     /**Met en place l'ihm pour l'utilisateur lorsqu'une partie est editee ou chargee d'un fichier*/
-    @Override
+
     public void load() {
         //Activer le menu Fichier/Sauvegarder
         getSave().setEnabledMenu(true);
@@ -816,7 +816,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     public boolean isAnnonceBeloteRebelote() {
         return annonceBeloteRebelote;
     }
-    @Override
+
     public void showTeams() {
         GameBelote game_ = partieBelote();
         TeamsPlayers teams_ = new TeamsPlayers();

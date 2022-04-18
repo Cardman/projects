@@ -76,7 +76,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class ContainerMultiBelote extends ContainerBelote implements
-        ContainerMulti {
+        ContainerMulti,ContainerPlayableBelote {
 
     private int noClient;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -616,7 +616,6 @@ public class ContainerMultiBelote extends ContainerBelote implements
         getOwner().sendObject(d_);
     }
 
-    @Override
     public void showTeams() {
         if (!isCanPlay()) {
             return;

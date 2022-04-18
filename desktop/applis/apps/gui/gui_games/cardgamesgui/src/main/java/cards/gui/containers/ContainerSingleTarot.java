@@ -72,7 +72,7 @@ import code.util.StringList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
-public class ContainerSingleTarot extends ContainerTarot implements ContainerSingle {
+public class ContainerSingleTarot extends ContainerTarot implements ContainerSingle,ContainerPlayableTarot {
 
     private BidTarot contratUtilisateur = BidTarot.FOLD;
 
@@ -188,7 +188,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         mettreEnPlaceIhmTarot();
     }
     /**Met en place l'ihm pour l'utilisateur lorsqu'une partie est editee ou chargee d'un fichier*/
-    @Override
     public void load() {
         //Activer le menu Fichier/Sauvegarder
         getSave().setEnabledMenu(true);
@@ -1345,7 +1344,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         }
 
     }
-    @Override
+
     public void showTeams() {
         GameTarot game_ = partieTarot();
         TeamsPlayers teams_ = new TeamsPlayers();
