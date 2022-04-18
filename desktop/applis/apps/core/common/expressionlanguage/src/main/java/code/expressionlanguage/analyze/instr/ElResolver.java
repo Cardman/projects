@@ -2070,7 +2070,6 @@ public final class ElResolver {
             op_.setDelimiter(_d);
             return op_;
         }
-        KeyWords keyWords_ = _page.getKeyWords();
         int lastPrintChar_ = lastPrintChar(_string, len_);
         len_ = lastPrintChar_+1;
         for (VariableInfo v: _d.getVariables()) {
@@ -2155,7 +2154,7 @@ public final class ElResolver {
             op_.setValue(_string, firstPrintChar_);
             op_.setFctName(_string);
             op_.setDelimiter(_d);
-            op_.adjust(null,_page);
+            op_.removeFirst();
             return op_;
         }
         if (delimits(_d.getDelVararg(), _offset, firstPrintChar_, lastPrintChar_)) {

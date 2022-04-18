@@ -270,10 +270,6 @@ public final class OperationsSequence {
         if (ct_ == ConstType.ERROR) {
             return;
         }
-        if (ct_ == ConstType.SIMPLE_ANNOTATION) {
-            removeFirst();
-            return;
-        }
 //        if (getOperators().isEmpty()) {
 //            return;
 //        }
