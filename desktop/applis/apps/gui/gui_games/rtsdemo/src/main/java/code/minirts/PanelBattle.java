@@ -102,10 +102,6 @@ public class PanelBattle {
             Rect r_ = facade.getSelection();
             img_.setColor(GuiConstants.BLUE);
             img_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());
-        } else {
-            //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setColor(GuiConstants.newColor(255,255,255,0));
-            img_.fillRect(0, 0, w_, h_);
         }
         selecting.setIcon(_fact,img_);
     }

@@ -66,6 +66,8 @@ public final class AnimationUnitSoldier implements Runnable {
 
     public void stopGame() {
         stopped.set(true);
+        window.cancel();
+        afterStop();
     }
 
     public void reset() {
@@ -74,11 +76,14 @@ public final class AnimationUnitSoldier implements Runnable {
 
     @Override
     public void run() {
-        while (!isStopped()) {
-            pause(100);
-            loop();
-            moving();
+        if (pause(100)){
+            return;
         }
+        loop();
+        moving();
+    }
+
+    private void afterStop() {
         animate.setEnabled(true);
         pause.setEnabled(false);
         stop.setEnabled(false);
@@ -121,11 +126,13 @@ public final class AnimationUnitSoldier implements Runnable {
     }
 
     /**La methode pause est utilisee pour permettre de voir l'avancement a l'oeil nu*/
-    private void pause(long _tempsMillis) {
+    private boolean pause(long _tempsMillis) {
         ThreadUtil.sleep(window.getThreadFactory(), _tempsMillis);
         window.setEnabledPause(true);
-        while (paused.get()) {
-            battleground.paintSelection(window.getImageFactory());
+        if (paused.get()) {
+            repaintBattleground();
+            return true;
         }
+        return false;
     }
 }

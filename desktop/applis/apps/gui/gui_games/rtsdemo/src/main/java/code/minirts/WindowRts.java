@@ -12,10 +12,7 @@ import code.minirts.events.*;
 import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
 import code.scripts.messages.gui.MessPlayerGr;
-import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractAtomicLong;
-import code.threads.AbstractScheduledExecutorService;
-import code.threads.AbstractThread;
+import code.threads.*;
 import code.util.StringMap;
 
 
@@ -48,6 +45,8 @@ public final class WindowRts extends GroupFrame {
     private final AbstractAtomicBoolean paused;
     private final AbstractAtomicLong count;
     private AnimationUnitSoldier thread;
+    private AbstractScheduledExecutorService sch;
+    private AbstractFuture fut;
     private AbstractThread threadLau;
 
     private final AbsCustCheckBox addSoldier = getCompoFactory().newCustCheckBox("Add soldier");
@@ -209,10 +208,20 @@ public final class WindowRts extends GroupFrame {
         animate.setEnabled(false);
         thread = new AnimationUnitSoldier(animate,pause,stop,battleground,this);
         thread.reset();
+        sch = getThreadFactory().newScheduledExecutorService();
+        fut = sch.scheduleAtFixedRateNanos(thread,0,1);
         threadLau = getThreadFactory().newThread(thread);
         threadLau.start();
         pause.setEnabled(true);
         stop.setEnabled(true);
+    }
+
+    public void cancel() {
+        if (fut == null) {
+            return;
+        }
+        fut.cancel(false);
+        sch.shutdown();
     }
 
     public boolean isDragged() {

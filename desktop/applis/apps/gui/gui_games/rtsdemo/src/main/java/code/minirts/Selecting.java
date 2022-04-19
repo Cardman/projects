@@ -23,6 +23,10 @@ public final class Selecting extends AbsMetaLabel {
     @Override
     public void paintComponent(AbstractImage _g) {
         Rect r_ = facade.getSelection();
+        int w_ = getWidth();
+        int h_ = getHeight();
+        _g.setColor(GuiConstants.newColor(255,255,255,0));
+        _g.fillRect(0,0,w_,h_);
         _g.setColor(GuiConstants.BLUE);
         _g.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(), (int)r_.getWidth().ll(), (int)r_.getHeight().ll());
     }
