@@ -102,7 +102,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
         while (true) {
             if (read_ instanceof Element) {
                 Element eltRead_ = (Element) read_;
-                Element created_ = appendChild(ownerDocument_, write_, eltRead_);
+                Element created_ = appendedChild(ownerDocument_, write_, eltRead_);
                 processImportedNode(_cont, created_, _beanName);
                 if (StringUtil.quickEq(created_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
                     _formParts.getAnchorsArgs().add(_anchorArg);

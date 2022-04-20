@@ -2,7 +2,9 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
 import code.util.CustList;
@@ -17,7 +19,7 @@ public final class RendLink extends RendElement {
     private final StringMap<DefExecTextPart> execOpExpTitle;
 
     public RendLink(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, String _content, StringMap<DefExecTextPart> _execOpExpTitle) {
-        super(_read, _execAttributes, _execAttributesText);
+        super(_read, _execAttributes, _execAttributesText,true);
         this.content = _content;
         this.execOpExpTitle = _execOpExpTitle;
     }
@@ -39,6 +41,9 @@ public final class RendLink extends RendElement {
             }
             fileContent_ = StringUtil.simpleStringsFormat(fileContent_, objects_);
         }
+        ImportingPage ip_ = _rendStack.getLastPage();
+        DefRendReadWrite rw_ = ip_.getRendReadWrite();
+        simpleAppendChild(ownerDocument_, rw_, _nextWrite);
         procLink(_cont, fileContent_, ownerDocument_);
     }
 

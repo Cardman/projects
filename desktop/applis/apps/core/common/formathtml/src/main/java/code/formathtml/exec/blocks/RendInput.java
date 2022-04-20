@@ -3,15 +3,18 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefFieldUpdates;
+import code.formathtml.util.DefNodeContainer;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.LongTreeMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -32,18 +35,21 @@ public abstract class RendInput extends RendElement {
         fieldUpdates = _f;
     }
 
-    protected Argument processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall, CustList<RendDynOperationNode> _ls) {
+    protected DefFetchedObjs processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall, CustList<RendDynOperationNode> _ls) {
         String idRad_;
         if (!_ls.isEmpty()) {
             IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(_ls, _ctx, _rendStackCall);
             idRad_ = idRad(args_,_ctx,_rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-                return Argument.createVoid();
+                CustList<LongTreeMap<DefNodeContainer>> stack_;
+                stack_ = _rendStackCall.getFormParts().getContainersMapStack();
+                return new DefFetchedObjs("",null, new CustList<Struct>(), stack_, Argument.createVoid(), "");
             }
         } else {
             idRad_ = "";
         }
-        Argument arg_ = fetchName(_cont, _read, _write, fieldUpdates, _ctx, _rendStackCall,idRad_);
+        DefFetchedObjs arg_ = fetchName(_cont, _read, _ctx, _rendStackCall,idRad_, fieldUpdates.getOpsRead());
+        look(_cont,_write,arg_,_rendStackCall);
         fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _ctx, _rendStackCall);
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertValue()));
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrConvertField()));
@@ -52,6 +58,9 @@ public abstract class RendInput extends RendElement {
         return arg_;
     }
 
+    public void prStack(Configuration _cont, Element _write, DefFetchedObjs _fetch, Argument _globalArgument, RendStackCall _rend) {
+        prStack(_cont, _write, fieldUpdates, _fetch, _globalArgument, _rend);
+    }
     private static String idRad(IdMap<RendDynOperationNode, ArgumentsPair> args_, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return "";

@@ -40,7 +40,7 @@ public final class NatRendSelect extends NatParentBlock {
         Argument map_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(opsMap, _rendStack).lastValue().getArgument());
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
-        Element docElementSelect_ = RendBlock.appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordSelect());
+        Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordSelect());
         String name_ = elt.getAttribute(_cont.getRendKeyWords().getAttrName());
         processOptionsMapEnumName(_cont, map_.getStruct(),
                 doc_, docElementSelect_,
@@ -50,6 +50,11 @@ public final class NatRendSelect extends NatParentBlock {
         RendBlockHelp.processBlock(_rendStack, this);
     }
 
+    public static Element appendChild(Document _doc, RendReadWrite _rw, String _read) {
+        Element currentNode_ = _doc.createElement(_read);
+        RendBlock.simpleAppendChild(_doc, _rw.getWrite(), currentNode_);
+        return currentNode_;
+    }
     private static void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
                                                   Document _docSelect, Element _docElementSelect, Struct _returnedVarValue) {
         CustList<Struct> obj_ = values(_returnedVarValue);

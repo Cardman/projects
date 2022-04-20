@@ -69,7 +69,7 @@ public abstract class RendBlock {
         }
         _rendStackCall.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
-        appendChild(doc_, (Element)null, _rend.getElt());
+        appendedChild(doc_, null, _rend.getElt());
         DefRendReadWrite rw_ = new DefRendReadWrite();
         rw_.setConf(_rendStackCall.getFormParts());
         rw_.setRead(_rend.getDocElt());
@@ -137,19 +137,20 @@ public abstract class RendBlock {
 
     public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, DefExecTextPart _textPart, CustList<RendDynOperationNode> _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
-        _rendStackCall.getFormParts().getCallsExps().add(_anc);
-        _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
         if (!href_.startsWith(CALL_METHOD)) {
+            _rendStackCall.getFormParts().getCallsExps().add(_anc);
+            _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
             procCstAnc(_cont, _nextWrite, _rendStackCall.getFormParts());
             return;
         }
         StringList alt_ = RenderingText.renderAltList(_textPart, _ctx, _rendStackCall);
-        StringList arg_ = arg(alt_);
-        _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
             return;
         }
+        StringList arg_ = arg(alt_);
+        _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
+        _rendStackCall.getFormParts().getCallsExps().add(_anc);
+        _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
@@ -205,20 +206,18 @@ public abstract class RendBlock {
         return _link.getAttribute(_cont.getRendKeyWords().getAttrHref());
     }
 
-    public static Element appendChild(Document _doc, RendReadWrite _rw, Element _read) {
-        return appendChild(_doc,_rw.getWrite(),_read);
+    public static Element appendChild(Document _doc, Element _read) {
+        String tagName_ = _read.getTagName();
+        Element currentNode_ = _doc.createElement(tagName_);
+        setNormalAttributes(_read, currentNode_);
+        return currentNode_;
     }
-    public static Element appendChild(Document _doc, Element _parent, Element _read) {
+
+    public static Element appendedChild(Document _doc, Element _parent, Element _read) {
         String tagName_ = _read.getTagName();
         Element currentNode_ = _doc.createElement(tagName_);
         setNormalAttributes(_read, currentNode_);
         simpleAppendChild(_doc, _parent, currentNode_);
-        return currentNode_;
-    }
-
-    public static Element appendChild(Document _doc, RendReadWrite _rw, String _read) {
-        Element currentNode_ = _doc.createElement(_read);
-        simpleAppendChild(_doc, _rw.getWrite(), currentNode_);
         return currentNode_;
     }
 
@@ -244,7 +243,7 @@ public abstract class RendBlock {
         return _elt.getParentNode();
     }
 
-    private static void setNormalAttributes(Element _read, Element _write) {
+    public static void setNormalAttributes(Element _read, Element _write) {
         NamedNodeMap map_ = _read.getAttributes();
         int nbAttrs_ = map_.getLength();
         for (int i = 0; i < nbAttrs_; i++) {
@@ -335,16 +334,19 @@ public abstract class RendBlock {
         return BeanCustLgNames.processStr(new Argument(_instance), _ctx, _rendStack);
     }
 
-    protected static Argument fetchName(Configuration _cont, Element _read, Element _write, DefFieldUpdates _f, ContextEl _ctx, RendStackCall _rendStackCall, String _idRad) {
+    protected static DefFetchedObjs fetchName(Configuration _cont, Element _read, ContextEl _ctx, RendStackCall _rendStackCall, String _idRad, CustList<RendDynOperationNode> _opRead) {
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
         if (name_.isEmpty()) {
-            return Argument.createVoid();
+            CustList<LongTreeMap<DefNodeContainer>> stack_;
+            stack_ = _rendStackCall.getFormParts().getContainersMapStack();
+            return new DefFetchedObjs(_idRad,null, new CustList<Struct>(), stack_, Argument.createVoid(), "");
         }
         CustList<Struct> allObj_ = new CustList<Struct>();
-        CustList<RendDynOperationNode> opsRead_ = _f.getOpsRead();
-        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(opsRead_, _ctx, _rendStackCall);
+        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(_opRead, _ctx, _rendStackCall);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return Argument.createVoid();
+            CustList<LongTreeMap<DefNodeContainer>> stack_;
+            stack_ = _rendStackCall.getFormParts().getContainersMapStack();
+            return new DefFetchedObjs(_idRad,null, allObj_, stack_, Argument.createVoid(), "");
         }
         RendDynOperationNode root_ = args_.lastKey();
         RendDynOperationNode res_;
@@ -396,7 +398,7 @@ public abstract class RendBlock {
         }
         stack_ = _rendStackCall.getFormParts().getContainersMapStack();
         arg_ = Argument.getNullableValue(args_.getValue(settable_.getOrder()).getArgument());
-        return prStack(_cont, _write, _f, new DefFetchedObjs(_idRad,wr_, allObj_, stack_, arg_), _rendStackCall.getLastPage().getGlobalArgument(),_rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
+        return new DefFetchedObjs(_idRad,wr_, allObj_, stack_, arg_, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
     }
 
     private static void feed(CustList<ArgumentWrapper> argumentList_, CustList<Struct> allObj_) {
@@ -405,19 +407,11 @@ public abstract class RendBlock {
         }
     }
 
-    public static Argument prStack(Configuration _cont, Element _write, DefFieldUpdates _f, DefFetchedObjs _fetch, Argument _globalArgument, RendStackCall _rend, String _concat) {
-        if (_fetch.getStack().isEmpty()) {
-            return _fetch.getArg();
+    public static void prStack(Configuration _cont, Element _write, DefFieldUpdates _f, DefFetchedObjs _fetch, Argument _globalArgument, RendStackCall _rend) {
+        if (koInput(_fetch)) {
+            return;
         }
-        long found_ = -1;
-        if (!_fetch.getRad().isEmpty()) {
-            for (EntryCust<Long, DefNodeContainer> e: _fetch.getStack().last().entryList()) {
-                if (StringUtil.quickEq(e.getValue().getIdRadio(), _fetch.getRad())) {
-                    found_ = e.getKey();
-                    break;
-                }
-            }
-        }
+        long found_ = foundId(_fetch);
         Struct currentField_ = _fetch.getArg().getStruct();
         FormParts formParts_ = _rend.getFormParts();
         if (found_ == -1) {
@@ -441,16 +435,42 @@ public abstract class RendBlock {
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
             _fetch.getStack().last().put(currentInput_, nodeCont_);
-            formParts_.getIndexes().setNb(currentInput_);
             currentInput_++;
             inputs_.set(inputs_.getLastIndex(),currentInput_);
-        } else {
-            formParts_.getIndexes().setNb(found_);
         }
-        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(formParts_.getIndexes().getNb()));
-//        attributesNames_.removeAllString(NUMBER_INPUT);
-        _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _concat);
-        return _fetch.getArg();
+    }
+
+    private static boolean koInput(DefFetchedObjs _fetch) {
+        return _fetch.getInput() == null || _fetch.getStack().isEmpty();
+    }
+
+    private static long foundId(DefFetchedObjs _fetch) {
+        long found_ = -1;
+        if (!_fetch.getRad().isEmpty()) {
+            for (EntryCust<Long, DefNodeContainer> e: _fetch.getStack().last().entryList()) {
+                if (StringUtil.quickEq(e.getValue().getIdRadio(), _fetch.getRad())) {
+                    found_ = e.getKey();
+                    break;
+                }
+            }
+        }
+        return found_;
+    }
+
+    public static void look(Configuration _cont, Element _write, DefFetchedObjs _fetch, RendStackCall _rend) {
+        if (koInput(_fetch)) {
+            return;
+        }
+        long found_ = foundId(_fetch);
+        FormParts formParts_ = _rend.getFormParts();
+        if (found_ == -1) {
+            Longs inputs_ = formParts_.getInputs();
+            long currentInput_ = inputs_.last();
+            _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(currentInput_));
+        } else {
+            _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(found_));
+        }
+        _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _fetch.getInputName());
     }
 
     public static String getInputClass(Configuration _cont, Element _write, FieldUpdates _f) {

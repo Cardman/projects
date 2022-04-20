@@ -17,11 +17,17 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
     private final Element read;
     private final StringMap<DefExecTextPart> execAttributes;
     private final StringMap<DefExecTextPart> execAttributesText;
+    private final boolean after;
 
     protected RendElement(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText) {
+        this(_read,_execAttributes,_execAttributesText,false);
+    }
+
+    protected RendElement(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, boolean _af) {
         this.read = _read;
         this.execAttributes = _execAttributes;
         this.execAttributesText = _execAttributesText;
+        after = _af;
     }
 
     public final Element getRead() {
@@ -37,8 +43,16 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
             return;
         }
         Document ownerDocument_ = rw_.getDocument();
-        Element created_ = appendChild(ownerDocument_, rw_, read);
+        Element created_ = appendChild(ownerDocument_, read);
         for (EntryCust<String, DefExecTextPart> e: execAttributesText.entryList()) {
+            DefExecTextPart res_ = e.getValue();
+            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
+            if (_ctx.callsOrException(_rendStack.getStackCall())) {
+                return;
+            }
+            created_.setAttribute(e.getKey(),txt_);
+        }
+        for (EntryCust<String, DefExecTextPart> e: execAttributes.entryList()) {
             DefExecTextPart res_ = e.getValue();
             String txt_ = RenderingText.render(res_, _ctx, _rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
@@ -50,13 +64,8 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        for (EntryCust<String, DefExecTextPart> e: execAttributes.entryList()) {
-            DefExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
-            if (_ctx.callsOrException(_rendStack.getStackCall())) {
-                return;
-            }
-            created_.setAttribute(e.getKey(),txt_);
+        if (!after) {
+            simpleAppendChild(ownerDocument_, rw_, created_);
         }
         addEltStack(ip_, rw_, created_, this);
     }

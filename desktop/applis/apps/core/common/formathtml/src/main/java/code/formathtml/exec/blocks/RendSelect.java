@@ -82,7 +82,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         }
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
-        Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordSelect());
+        Element docElementSelect_ = doc_.createElement(_cont.getRendKeyWords().getKeyWordSelect());
         if (multiple) {
             docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrMultiple(), _cont.getRendKeyWords().getAttrMultiple());
         }
@@ -111,7 +111,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                     elt.getAttribute(_cont.getRendKeyWords().getAttrValidator()));
         }
         docElementSelect_.setAttribute(_cont.getRendKeyWords().getAttrName(), name_);
-        processIndexes(_cont,elt,docElementSelect_, _ctx, _rendStack);
+        DefFetchedObjs def_ = processIndexes(_cont, elt, docElementSelect_, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -123,6 +123,16 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             }
             docElementSelect_.setAttribute(e.getKey(),txt_);
         }
+        DefFieldUpdates f_ = new DefFieldUpdates();
+        f_.setIdClass(idClass);
+        f_.setIdName(idName);
+        f_.setOpsRead(opsRead);
+        f_.setVarNameConverter(varNameConverter);
+        f_.setOpsConverter(opsConverter);
+        f_.setArrayConverter(arrayConverter);
+        f_.setClassName(className);
+        prStack(_cont,docElementSelect_,f_,def_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
+        simpleAppendChild(doc_, rw_, docElementSelect_);
         processBlock(_cont, _stds, _ctx, _rendStack);
     }
 
@@ -250,16 +260,10 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         }
         return obj_;
     }
-    private void processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
-        DefFieldUpdates f_ = new DefFieldUpdates();
-        f_.setIdClass(idClass);
-        f_.setIdName(idName);
-        f_.setOpsRead(opsRead);
-        f_.setVarNameConverter(varNameConverter);
-        f_.setOpsConverter(opsConverter);
-        f_.setArrayConverter(arrayConverter);
-        f_.setClassName(className);
-        fetchName(_cont, _read, _write, f_, _ctx, _rendStackCall,"");
+    private DefFetchedObjs processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
+        DefFetchedObjs def_ = fetchName(_cont, _read, _ctx, _rendStackCall, "", opsRead);
+        look(_cont,_write,def_,_rendStackCall);
         fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _ctx, _rendStackCall);
+        return def_;
     }
 }

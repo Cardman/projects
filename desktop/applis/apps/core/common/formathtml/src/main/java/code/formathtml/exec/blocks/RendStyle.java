@@ -2,7 +2,9 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
+import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
@@ -16,7 +18,7 @@ import code.util.core.StringUtil;
 public final class RendStyle extends RendElement {
 
     public RendStyle(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText) {
-        super(_read, _execAttributes, _execAttributesText);
+        super(_read, _execAttributes, _execAttributesText,true);
     }
 
     @Override
@@ -41,6 +43,9 @@ public final class RendStyle extends RendElement {
                 filesContents_.add(file_);
             }
         }
+        ImportingPage ip_ = _rendStack.getLastPage();
+        DefRendReadWrite rw_ = ip_.getRendReadWrite();
+        simpleAppendChild(ownerDocument_, rw_, _nextWrite);
         appendText(StringUtil.join(filesContents_, RETURN_LINE),ownerDocument_,curWr_);
     }
 }

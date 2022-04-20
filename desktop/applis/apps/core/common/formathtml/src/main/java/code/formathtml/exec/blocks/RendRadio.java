@@ -38,13 +38,13 @@ public final class RendRadio extends RendInput {
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
-        Argument arg_ = processIndexes(_cont, _read, elt_, _ctx, _rendStack, idRadio);
+        DefFetchedObjs arg_ = processIndexes(_cont, _read, elt_, _ctx, _rendStack, idRadio);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        Struct res_ = arg_.getStruct();
+        Struct res_ = arg_.getArg().getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getArg().getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
             _rendStack.getLastPage().putValueVar(varNameConverterFieldValue, new VariableWrapper(locVar_));
             Argument argConv_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterFieldValue, _ctx, _rendStack).lastValue().getArgument());
             _rendStack.getLastPage().removeRefVar(varNameConverterFieldValue);
@@ -62,6 +62,7 @@ public final class RendRadio extends RendInput {
             }
             procDefValue(_cont, elt_, strObj_);
         }
+        prStack(_cont,elt_,arg_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
     }
 
     public static void procDefValue(Configuration _cont, Element _elt, String _strObj) {

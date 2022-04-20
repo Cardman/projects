@@ -14,12 +14,14 @@ public final class DefFetchedObjs extends FetchedObjs {
     private final AbstractWrapper input;
     private final CustList<LongTreeMap<DefNodeContainer>> stack;
 
-    public DefFetchedObjs(String _idRad, AbstractWrapper _input, CustList<Struct> _allObj, CustList<LongTreeMap<DefNodeContainer>> _stack, Argument _arg) {
+    private final String inputName;
+    public DefFetchedObjs(String _idRad, AbstractWrapper _input, CustList<Struct> _allObj, CustList<LongTreeMap<DefNodeContainer>> _stack, Argument _arg, String _inp) {
         super(_arg);
         rad = _idRad;
         input = _input;
         allObj = _allObj;
         stack = _stack;
+        inputName = _inp;
     }
 
     public String getRad() {
@@ -38,4 +40,7 @@ public final class DefFetchedObjs extends FetchedObjs {
         return stack;
     }
 
+    public String getInputName() {
+        return inputName;
+    }
 }

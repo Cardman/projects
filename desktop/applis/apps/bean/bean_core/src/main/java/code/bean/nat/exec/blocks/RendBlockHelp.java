@@ -12,7 +12,9 @@ import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.FormParts;
 import code.formathtml.exec.blocks.RendBlock;
+import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.NodeInformations;
+import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.sml.FullDocument;
@@ -34,7 +36,7 @@ public final class RendBlockHelp {
         ip_.setGlobalArgumentStruct(Argument.getNull(_bean));
         _rendStackCall.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
-        RendBlock.appendChild(doc_, (Element)null, _rend.getElt());
+        appendChild(doc_,(Element) null, _rend.getElt());
         NatRendReadWrite rw_ = new NatRendReadWrite();
         rw_.setConf(_rendStackCall.getFormParts());
         rw_.setRead(_rend);
@@ -63,6 +65,16 @@ public final class RendBlockHelp {
         _rendStackCall.setDocument(doc_);
         _rendStackCall.clearPages();
         return doc_.export();
+    }
+    public static Element appendChild(Document _doc, RendReadWrite _rw, Element _read) {
+        return appendChild(_doc,_rw.getWrite(),_read);
+    }
+    public static Element appendChild(Document _doc, Element _parent, Element _read) {
+        String tagName_ = _read.getTagName();
+        Element currentNode_ = _doc.createElement(tagName_);
+        RendBlock.setNormalAttributes(_read, currentNode_);
+        RendBlock.simpleAppendChild(_doc, _parent, currentNode_);
+        return currentNode_;
     }
     private static boolean isNextIfParts(NatBlock _n) {
         return isStrictNextIfParts(_n);
@@ -246,6 +258,7 @@ public final class RendBlockHelp {
             NatNodeContainer nodeCont_ = new NatNodeContainer();
             Longs inputs_ = formParts_.getInputs();
             long currentInput_ = inputs_.last();
+            long old_ = currentInput_;
             nodeCont_.setAllObject(_fetch.getObj());
             nodeCont_.setOpsWrite(opsWrite_);
             nodeCont_.setBean(_globalArgument.getStruct());
@@ -254,13 +267,12 @@ public final class RendBlockHelp {
             nodeInfos_.setId(RendBlock.getId(_cont,_write));
             nodeInfos_.setInputClass(RendBlock.getInputClass(_cont, _write, _f));
             _fetch.getStack().last().put(currentInput_, nodeCont_);
-            formParts_.getIndexes().setNb(currentInput_);
             currentInput_++;
             inputs_.set(inputs_.getLastIndex(),currentInput_);
+            _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(old_));
         } else {
-            formParts_.getIndexes().setNb(found_);
+            _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(found_));
         }
-        _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(formParts_.getIndexes().getNb()));
 //        attributesNames_.removeAllString(NUMBER_INPUT);
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _concat);
         return _fetch.getArg();

@@ -5,7 +5,6 @@ import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendReadWrite;
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.exec.blocks.RendElem;
 import code.sml.Document;
 import code.sml.Element;
@@ -37,7 +36,7 @@ public abstract class NatRendElement extends NatParentBlock implements RendElem 
             return;
         }
         Document ownerDocument_ = rw_.getDocument();
-        Element created_ = RendBlock.appendChild(ownerDocument_, rw_, read);
+        Element created_ = RendBlockHelp.appendChild(ownerDocument_, rw_, read);
         for (EntryCust<String, NatExecTextPart> e: natAttributesText.entryList()) {
             NatExecTextPart res_ = e.getValue();
             String txt_ = NatRenderingText.renderNat(res_, _rendStack);
