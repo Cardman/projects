@@ -2053,7 +2053,6 @@ public final class ElResolver {
         op_.setExtractType(extracted_);
         AnaResultPartType partsOffs_ = af_.getPartsOffs();
         op_.setPartOffsets(partsOffs_);
-        op_.setDelimiter(_d);
         op_.adjust(_meth,_page);
         return op_;
     }
@@ -2067,7 +2066,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.ERROR);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, 0);
-            op_.setDelimiter(_d);
             return op_;
         }
         int lastPrintChar_ = lastPrintChar(_string, len_);
@@ -2084,7 +2082,6 @@ public final class ElResolver {
                 op_.setErrors(v.getErrors());
                 op_.setOperators(new StrTypes());
                 op_.setValue(v.getName(), i_);
-                op_.setDelimiter(_d);
                 return op_;
             }
         }
@@ -2098,7 +2095,6 @@ public final class ElResolver {
                 op_.setConstType(ConstType.ANON_FCT);
                 op_.setOperators(new StrTypes());
                 op_.setValue(_string, i_);
-                op_.setDelimiter(_d);
                 op_.setBlock(a.getType());
                 op_.setResults(a.getResults());
                 op_.setLength(a.getLength());
@@ -2108,7 +2104,7 @@ public final class ElResolver {
         return allDels(_offset, _string, _d, len_, _page, i_, lastPrintChar_);
     }
 
-    private static int firstPrint(String _string) {
+    public static int firstPrint(String _string) {
         int len_ = _string.length();
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < len_) {
@@ -2135,7 +2131,6 @@ public final class ElResolver {
             op_.setPartOffsets(_d.getStaticParts().get(ext_));
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelKeyWordStaticCall(), _offset, firstPrintChar_, strLen_)) {
@@ -2144,7 +2139,6 @@ public final class ElResolver {
             op_.setPartOffsets(new AnaResultPartType());
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelSimpleAnnotations(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2153,7 +2147,6 @@ public final class ElResolver {
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
             op_.setFctName(_string);
-            op_.setDelimiter(_d);
             op_.removeFirst();
             return op_;
         }
@@ -2162,7 +2155,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.VARARG);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelDefaultValue(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2170,7 +2162,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.DEFAULT_VALUE);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelLambda(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2178,7 +2169,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.LAMBDA);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelIds(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2186,7 +2176,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.ID);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelClass(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2194,7 +2183,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.CLASS_INFO);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelKeyWordSuper(), _offset, firstPrintChar_, lastPrintChar_ + 1L)) {
@@ -2204,7 +2192,6 @@ public final class ElResolver {
             int ind_ = _string.indexOf('.') + 1;
             op_.setDelta(ind_);
             op_.setValue(_string.substring(ind_, lastPrintChar_ + 1), firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelKeyWordClassChoice(), _offset, firstPrintChar_, lastPrintChar_ + 1L)) {
@@ -2212,7 +2199,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.CLASSCHOICE_KEYWORD);
             op_.setOperators(new StrTypes());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1), firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelLoopVars(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2225,7 +2211,6 @@ public final class ElResolver {
             op_.setOperators(new StrTypes());
             op_.setDelta(delta_);
             op_.setValue(name_, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelKeyWordSuperAccess(), _offset, firstPrintChar_, lastPrintChar_ +1L)) {
@@ -2233,7 +2218,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.SUPER_ACCESS_KEYWORD);
             op_.setOperators(new StrTypes());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1), firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelAccessIndexers(), _offset, firstPrintChar_, lastPrintChar_ +1L)) {
@@ -2241,7 +2225,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.ACCESS_INDEXER);
             op_.setOperators(new StrTypes());
             op_.setValue(_string.substring(firstPrintChar_, lastPrintChar_ + 1), firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (delimits(_d.getDelValues(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2249,7 +2232,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.VALUES);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         return sub(_offset, _string, _d, len_, keyWords_, firstPrintChar_, lastPrintChar_);
@@ -2267,7 +2249,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.THIS_KEYWORD);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (StringUtil.quickEq(sub_, keyWordParent_)) {
@@ -2275,7 +2256,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.PARENT_KEY_WORD);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (StringUtil.quickEq(sub_, keyWordNull_)) {
@@ -2283,7 +2263,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.NULL_CST);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (StringUtil.quickEq(sub_, keyWordTrue_)) {
@@ -2291,7 +2270,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.TRUE_CST);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         if (StringUtil.quickEq(sub_, keyWordFalse_)) {
@@ -2299,7 +2277,6 @@ public final class ElResolver {
             op_.setConstType(ConstType.FALSE_CST);
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         return consOrNo(_offset, _string, _d, firstPrintChar_, lastPrintChar_);
@@ -2316,7 +2293,6 @@ public final class ElResolver {
             op_.getNbInfos().setPositive(true);
             op_.setValue(_string, firstPrintChar_);
             op_.setLength(_d.getDelNumbers().get(beginNb_+1)-_offset-firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         int beginStr_ = delimiter(_d.getDelStringsChars(), _offset, firstPrintChar_, lastPrintChar_);
@@ -2332,7 +2308,6 @@ public final class ElResolver {
                 info_.setFound(_string);
                 op_.setValue(export_, firstPrintChar_);
                 op_.setLength(lenStrCh_);
-                op_.setDelimiter(_d);
                 return op_;
             }
             if (_string.charAt(firstPrintChar_) == DELIMITER_STRING) {
@@ -2343,7 +2318,6 @@ public final class ElResolver {
                 info_.setFound(_string);
                 op_.setValue(export_, firstPrintChar_);
                 op_.setLength(lenStrCh_);
-                op_.setDelimiter(_d);
                 return op_;
             }
             OperationsSequence op_ = new OperationsSequence();
@@ -2353,7 +2327,6 @@ public final class ElResolver {
             info_.setFound(_string);
             op_.setValue(export_, firstPrintChar_);
             op_.setLength(lenStrCh_);
-            op_.setDelimiter(_d);
             return op_;
         }
         int beginTx_ = delimiter(_d.getDelTextBlocks(), _offset, firstPrintChar_, lastPrintChar_);
@@ -2367,13 +2340,12 @@ public final class ElResolver {
             info_.setFound(_string);
             op_.setValue(export_, firstPrintChar_);
             op_.setLength(_d.getDelTextBlocks().get(beginTx_+1)-_offset+1-firstPrintChar_);
-            op_.setDelimiter(_d);
             return op_;
         }
         return null;
     }
 
-    private static int lastPrintChar(String _string, int len_) {
+    public static int lastPrintChar(String _string, int len_) {
         int lastPrintChar_ = len_ - 1;
         while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
             lastPrintChar_--;

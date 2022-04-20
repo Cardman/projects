@@ -67,7 +67,6 @@ public final class ElUtil {
             _page.addLocError(badEl_);
             _page.setCurrentEmptyPartErr(badEl_.getBuiltError());
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
@@ -78,7 +77,6 @@ public final class ElUtil {
         OperationNode op_;
         if (badOffset_ >= 0) {
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(d_);
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
             OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page, null);
@@ -86,7 +84,7 @@ public final class ElUtil {
         }
         setupStaticContext(hiddenVarTypes_, op_, _page);
         setSyntheticRoot(op_, _calcul);
-        getSortedDescNodesReadOnly(op_, _calcul, _page);
+        getSortedDescNodesReadOnly(op_, _calcul, _page, d_);
         _res.setRoot(op_);
         return op_;
     }
@@ -111,7 +109,6 @@ public final class ElUtil {
                     _el);
             _page.addLocError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
@@ -121,13 +118,12 @@ public final class ElUtil {
         OperationNode op_;
         if (badOffset_ >= 0) {
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(d_);
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
             OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page, null);
             op_ = OperationNode.createPossDeclOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, opTwo_, _page);
         }
-        return getSortedDescNodesReadOnly(op_, _calcul, _page);
+        return getSortedDescNodesReadOnly(op_, _calcul, _page, d_);
     }
 
     private static void setSyntheticRoot(OperationNode _op, Calculation _calc) {
@@ -137,12 +133,12 @@ public final class ElUtil {
     }
 
 
-    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, Calculation _calc, AnalyzedPageEl _page) {
+    private static CustList<OperationNode> getSortedDescNodesReadOnly(OperationNode _root, Calculation _calc, AnalyzedPageEl _page, Delimiters _d) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (c_ != null) {
             preAnalyze(c_, _page);
-            c_ = getAnalyzedNextReadOnly(c_, _root, list_,_calc, _page);
+            c_ = getAnalyzedNextReadOnly(c_, _root, list_,_calc, _page,_d);
         }
         return list_;
     }
@@ -201,8 +197,8 @@ public final class ElUtil {
         }
         return null;
     }
-    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Calculation _calc, AnalyzedPageEl _page) {
-        OperationNode next_ = create(_calc, _page, _current, 0);
+    private static OperationNode getAnalyzedNextReadOnly(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, Calculation _calc, AnalyzedPageEl _page, Delimiters _d) {
+        OperationNode next_ = create(_calc, _page, _current, 0,_d);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
@@ -213,7 +209,7 @@ public final class ElUtil {
             retrieveErrorsAnalyze(current_, _page);
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
-            next_ = create(_calc, _page, current_.getParent(), current_.getIndexChild() + 1);
+            next_ = create(_calc, _page, current_.getParent(), current_.getIndexChild() + 1,_d);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 processDot(next_, current_, par_, _page);
@@ -287,7 +283,7 @@ public final class ElUtil {
         InvokingOperation.tryInfer(_current, _page);
     }
 
-    private static OperationNode create(Calculation _calc, AnalyzedPageEl _page, OperationNode _pa, int _del) {
+    private static OperationNode create(Calculation _calc, AnalyzedPageEl _page, OperationNode _pa, int _del, Delimiters _d) {
         if (!(_pa instanceof MethodOperation)) {
             return null;
         }
@@ -297,10 +293,9 @@ public final class ElUtil {
             return null;
         }
         String value_ = children_.getValue(_del);
-        Delimiters d_ = p_.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_del);
         int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, d_, _page, p_);
+        OperationsSequence r_ = ElResolver.getOperationsSequence(offset_, value_, _d, _page, p_);
         OperationNode op_ = OperationNode.createOperationNode(offset_, _del, p_, r_, _page);
         setFieldName(_calc, p_, op_);
         return op_;

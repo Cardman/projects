@@ -208,7 +208,6 @@ public abstract class OperationNode {
     }
     public static OperationNode createOperationNode(int _index,
                                                     int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
-//        _op.adjust(_m,_page);
         OperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _page);
         if (_m instanceof AbstractDotOperation&&_m.getFirstChild() != null && !(res_ instanceof PossibleIntermediateDotted)) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
@@ -217,21 +216,12 @@ public abstract class OperationNode {
     }
     private static OperationNode createOperationNodeBis(int _index,
                                                         int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
-        KeyWords keyWords_ = _page.getKeyWords();
-        String keyWordBool_ = keyWords_.getKeyWordBool();
-        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
-        String keyWordDefault_ = keyWords_.getKeyWordDefault();
-        String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
-        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
-        String keyWordOperator_ = keyWords_.getKeyWordOperator();
-        String keyWordSuper_ = keyWords_.getKeyWordSuper();
-        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
-        String keyWordThis_ = keyWords_.getKeyWordThis();
-        String keyWordThat_ = keyWords_.getKeyWordThat();
-        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         ConstType ct_ = _op.getConstType();
         if (ct_ == ConstType.ERROR) {
             return new ErrorPartOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.SIMPLE_ANNOTATION) {
+            return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getOperators().isEmpty()) {
             return createLeaf(_index, _indexChild, _m, _op, _page);
@@ -248,168 +238,28 @@ public abstract class OperationNode {
                 return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
             }
         }
-        int ternary_ = 0;
-        if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
-            ternary_ = _op.getValues().size();
-        } else if (_op.getPriority() == ElResolver.FCT_OPER_PRIO){
-            String fctName_ = _op.getFctName().trim();
-            if (StringUtil.quickEq(fctName_, keyWordBool_)) {
-                ternary_ = _op.getValues().size();
-            }
-        }
+        int ternary_ = ternary(_op, _page);
         if (ternary_ == BOOLEAN_ARGS) {
-            MethodOperation m_ = _m;
-            int indCh_ = _indexChild;
-            while (atMostOne(m_)) {
-                indCh_ = m_.getIndexChild();
-                m_ = m_.getParent();
-            }
-            if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
-                if (isParentSetter(m_)&&indCh_==0) {
-                    return new RefShortTernaryOperation(_index, _indexChild, _m, _op);
-                }
-                return new ShortTernaryOperation(_index, _indexChild, _m, _op);
-            }
-            if (isParentSetter(m_)&&indCh_==0) {
-                return new RefTernaryOperation(_index, _indexChild, _m, _op);
-            }
-            return new TernaryOperation(_index, _indexChild, _m, _op);
+            return ternOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
-            String fctName_ = _op.getFctName().trim();
-            int delta_ = StringExpUtil.getOffset(_op.getFctName());
-            if (_m instanceof AbstractDotOperation) {
-                OperationNode ch_ = _m.getFirstChild();
-                if (ch_ != null) {
-                    String type_ = ch_.getResultClass().getSingleNameOrEmpty();
-                    if (!type_.isEmpty()) {
-                        String id_ = StringExpUtil.getIdFromAllTypes(type_);
-                        String fct_ = _page.getAliasFct();
-                        if (StringUtil.quickEq(id_, fct_)) {
-                            return new CallDynMethodOperation(_index, _indexChild, _m, _op);
-                        }
-                    }
-                }
-            }
-            if (_op.isInstance()) {
-                if (_op.getFctName().trim().isEmpty()) {
-                    if (_m instanceof NamedArgumentOperation) {
-                        if (_m.getParent() instanceof CallDynMethodOperation) {
-                            return new ArgumentListInstancing(_index, _indexChild, _m, _op);
-                        }
-                    }
-                    return new InferArrayInstancing(_index, _indexChild, _m, _op);
-                }
-                String op_ = _op.getOperators().firstValue();
-                if (StringUtil.quickEq(op_,"{")) {
-                    return new ElementArrayInstancing(_index, _indexChild, _m, _op);
-                }
-                if (StringUtil.quickEq(op_,"[")) {
-                    return new DimensionArrayInstancing(_index, _indexChild, _m, _op);
-                }
-                AbsBk block_ = _op.getBlock();
-                if (block_ instanceof AnonymousTypeBlock) {
-                    ((AnonymousTypeBlock)block_).setIndexEnd(((AnonymousTypeBlock)block_).getIdRowCol()+_op.getLength());
-                    return new AnonymousInstancingOperation(_index,_indexChild,_m,_op,(AnonymousTypeBlock)block_);
-                }
-                return new StandardInstancingOperation(_index, _indexChild, _m, _op);
-            }
-            AbsBk block_ = _op.getBlock();
-            if (block_ instanceof SwitchMethodBlock) {
-                ((SwitchMethodBlock)block_).setIndexEnd(block_.getOffset()+_op.getLength());
-                return new SwitchOperation(_index, _indexChild, _m, _op,(SwitchMethodBlock)block_,delta_);
-            }
-            if (fctName_.isEmpty()) {
-                return new IdOperation(_index, _indexChild, _m, _op,_op.getFctName().length());
-            }
-            if (StringUtil.quickEq(fctName_, keyWordValueOf_)) {
-                StrTypes values_ = _op.getValues();
-                String str_ = StrTypes.value(values_, 0);
-                int offset_ = StrTypes.offset(values_, 0);
-                if (!values_.isEmpty()) {
-                    values_.remove(0);
-                }
-                return new EnumValueOfOperation(_index, _indexChild, _m, _op, str_, offset_);
-            }
-            if (StringUtil.quickEq(fctName_, keyWordBool_)) {
-                return new BadTernaryOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringExpUtil.startsWithKeyWord(fctName_, keyWordClasschoice_)) {
-                return new ChoiceFctOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringExpUtil.startsWithKeyWord(fctName_, keyWordSuperaccess_)) {
-                return new SuperFctOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringExpUtil.startsWithKeyWord(fctName_, keyWordInterfaces_)) {
-                if (_m instanceof IdOperation) {
-                    return new InterfaceFctConstructor(_index, _indexChild, _m, _op);
-                }
-                return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
-            }
-            if (StringExpUtil.startsWithKeyWord(fctName_, keyWordOperator_)) {
-                return new ExplicitOperatorOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringUtil.quickEq(fctName_, keyWordThat_)) {
-                return new WrappOperation(_index, _indexChild, _m, _op,delta_, _op.getOffset());
-            }
-            if (StringUtil.quickEq(fctName_, keyWordFirstopt_)) {
-                return new FirstOptOperation(_index, _indexChild, _m, _op,delta_, _op.getOffset());
-            }
-            if (StringUtil.quickEq(fctName_, keyWordDefault_)) {
-                return new DefaultOperation(_index, _indexChild, _m, _op,delta_, _op.getOffset());
-            }
-            if (StringUtil.quickEq(fctName_,keyWordThis_)) {
-                return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);
-            }
-            if (StringUtil.quickEq(fctName_,keyWordSuper_)) {
-                return new SuperInvokingConstructor(_index, _indexChild, _m, _op);
-            }
-            return new FctOperation(_index, _indexChild, _m, _op);
+            return callFct(_index, _indexChild, _m, _op, _page);
         }
         if (_op.isArray()) {
             return new ArrOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && !_op.getValues().isEmpty()) {
-            if (_op.isErrorDot()) {
-                return new BadDottedOperation(_index, _indexChild, _m, _op);
-            }
-            if (_op.getOperators().firstValue().contains("?")) {
-                return new SafeDotOperation(_index, _indexChild, _m, _op);
-            }
-            return new DotOperation(_index, _indexChild, _m, _op);
+            return dot(_index, _indexChild, _m, _op);
         }
+        return lowFct(_index, _indexChild, _m, _op, _page);
+    }
+
+    private static OperationNode lowFct(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
         if (_op.getPriority() == ElResolver.POST_INCR_PRIO) {
             return new SemiAffectationOperation(_index, _indexChild, _m, _op, true);
         }
         if (_op.getPriority() == ElResolver.UNARY_PRIO) {
-            String value_ = _op.getOperators().firstValue().trim();
-            if (StringUtil.quickEq(value_, NEG_BOOL)) {
-                return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringUtil.quickEq(value_, NEG_BOOL_BIN)) {
-                return new UnaryBinOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringUtil.quickEq(value_, MINUS) || StringUtil.quickEq(value_, PLUS)) {
-                return new UnaryOperation(_index, _indexChild, _m, _op);
-            }
-            if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
-                return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
-            }
-            if (StringUtil.quickEq(value_, "*")) {
-                return new RandCodeOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringExpUtil.startsWithKeyWord(value_, _page.getKeyWords().getKeyWordExplicit())) {
-                return new ExplicitOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringExpUtil.startsWithKeyWord(value_, _page.getKeyWords().getKeyWordCast())) {
-                String clName_ = _op.getOperators().firstValue();
-                String extract_ = clName_.substring(clName_.indexOf(PAR_LEFT)+1, clName_.lastIndexOf(PAR_RIGHT));
-                StringList types_ = StringExpUtil.getAllSepCommaTypes(extract_);
-                if (types_.size() > 1) {
-                    return new ImplicitOperation(_index, _indexChild, _m, _op);
-                }
-            }
-            return new CastOperation(_index, _indexChild, _m, _op);
+            return unary(_index, _indexChild, _m, _op, _page);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {
             return new MultOperation(_index, _indexChild, _m, _op);
@@ -418,23 +268,7 @@ public abstract class OperationNode {
             return new AddOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.SHIFT_PRIO) {
-            String value_ = _op.getOperators().firstValue().trim();
-            if (StringUtil.quickEq(value_, SHIFT_LEFT)) {
-                return new ShiftLeftOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringUtil.quickEq(value_, SHIFT_RIGHT)) {
-                return new ShiftRightOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringUtil.quickEq(value_, BIT_SHIFT_LEFT)) {
-                return new BitShiftLeftOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringUtil.quickEq(value_, BIT_SHIFT_RIGHT)) {
-                return new BitShiftRightOperation(_index, _indexChild, _m, _op);
-            }
-            if (StringUtil.quickEq(value_, ROTATE_LEFT)) {
-                return new RotateLeftOperation(_index, _indexChild, _m, _op);
-            }
-            return new RotateRightOperation(_index, _indexChild, _m, _op);
+            return shift(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.CMP_PRIO) {
             if (_op.isInstanceTest()) {
@@ -442,6 +276,10 @@ public abstract class OperationNode {
             }
             return new CmpOperation(_index, _indexChild, _m, _op);
         }
+        return lowPrio(_index, _indexChild, _m, _op);
+    }
+
+    private static OperationNode lowPrio(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         if (_op.getPriority() == ElResolver.EQ_PRIO) {
             return new EqOperation(_index, _indexChild, _m, _op);
         }
@@ -479,30 +317,222 @@ public abstract class OperationNode {
         return new ErrorPartOperation(_index, _indexChild, _m, _op);
     }
 
+    private static OperationNode dot(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        if (_op.isErrorDot()) {
+            return new BadDottedOperation(_index, _indexChild, _m, _op);
+        }
+        if (_op.getOperators().firstValue().contains("?")) {
+            return new SafeDotOperation(_index, _indexChild, _m, _op);
+        }
+        return new DotOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static NumericOperation shift(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        String value_ = _op.getOperators().firstValue().trim();
+        if (StringUtil.quickEq(value_, SHIFT_LEFT)) {
+            return new ShiftLeftOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(value_, SHIFT_RIGHT)) {
+            return new ShiftRightOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(value_, BIT_SHIFT_LEFT)) {
+            return new BitShiftLeftOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(value_, BIT_SHIFT_RIGHT)) {
+            return new BitShiftRightOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(value_, ROTATE_LEFT)) {
+            return new RotateLeftOperation(_index, _indexChild, _m, _op);
+        }
+        return new RotateRightOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static AbstractUnaryOperation unary(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
+        String value_ = _op.getOperators().firstValue().trim();
+        if (StringUtil.quickEq(value_, NEG_BOOL)) {
+            return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(value_, NEG_BOOL_BIN)) {
+            return new UnaryBinOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(value_, MINUS) || StringUtil.quickEq(value_, PLUS)) {
+            return new UnaryOperation(_index, _indexChild, _m, _op);
+        }
+        if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
+            return new SemiAffectationOperation(_index, _indexChild, _m, _op, false);
+        }
+        if (StringUtil.quickEq(value_, "*")) {
+            return new RandCodeOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringExpUtil.startsWithKeyWord(value_, _page.getKeyWords().getKeyWordExplicit())) {
+            return new ExplicitOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringExpUtil.startsWithKeyWord(value_, _page.getKeyWords().getKeyWordCast())) {
+            String clName_ = _op.getOperators().firstValue();
+            String extract_ = clName_.substring(clName_.indexOf(PAR_LEFT)+1, clName_.lastIndexOf(PAR_RIGHT));
+            StringList types_ = StringExpUtil.getAllSepCommaTypes(extract_);
+            if (types_.size() > 1) {
+                return new ImplicitOperation(_index, _indexChild, _m, _op);
+            }
+        }
+        return new CastOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static MethodOperation callFct(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
+        String fctName_ = _op.getFctName().trim();
+        int delta_ = StringExpUtil.getOffset(_op.getFctName());
+        if (_m instanceof AbstractDotOperation) {
+            OperationNode ch_ = _m.getFirstChild();
+            if (ch_ != null) {
+                String type_ = ch_.getResultClass().getSingleNameOrEmpty();
+                if (!type_.isEmpty()) {
+                    String id_ = StringExpUtil.getIdFromAllTypes(type_);
+                    String fct_ = _page.getAliasFct();
+                    if (StringUtil.quickEq(id_, fct_)) {
+                        return new CallDynMethodOperation(_index, _indexChild, _m, _op);
+                    }
+                }
+            }
+        }
+        if (_op.isInstance()) {
+            return instance(_index, _indexChild, _m, _op);
+        }
+        AbsBk block_ = _op.getBlock();
+        if (block_ instanceof SwitchMethodBlock) {
+            ((SwitchMethodBlock)block_).setIndexEnd(block_.getOffset()+ _op.getLength());
+            return new SwitchOperation(_index, _indexChild, _m, _op, (SwitchMethodBlock) block_, delta_);
+        }
+        if (fctName_.isEmpty()) {
+            return new IdOperation(_index, _indexChild, _m, _op, _op.getFctName().length());
+        }
+        return fctDefPrio(_index, _indexChild, _m, _op, _page, delta_);
+    }
+
+    private static MethodOperation fctDefPrio(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page, int delta_) {
+        KeyWords keyWords_ = _page.getKeyWords();
+        String keyWordBool_ = keyWords_.getKeyWordBool();
+        String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+        String keyWordDefault_ = keyWords_.getKeyWordDefault();
+        String keyWordFirstopt_ = keyWords_.getKeyWordFirstopt();
+        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
+        String keyWordOperator_ = keyWords_.getKeyWordOperator();
+        String keyWordSuper_ = keyWords_.getKeyWordSuper();
+        String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
+        String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
+        String fctName_ = _op.getFctName().trim();
+        if (StringUtil.quickEq(fctName_, keyWordValueOf_)) {
+            StrTypes values_ = _op.getValues();
+            String str_ = StrTypes.value(values_, 0);
+            int offset_ = StrTypes.offset(values_, 0);
+            if (!values_.isEmpty()) {
+                values_.remove(0);
+            }
+            return new EnumValueOfOperation(_index, _indexChild, _m, _op, str_, offset_);
+        }
+        if (StringUtil.quickEq(fctName_, keyWordBool_)) {
+            return new BadTernaryOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringExpUtil.startsWithKeyWord(fctName_, keyWordClasschoice_)) {
+            return new ChoiceFctOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringExpUtil.startsWithKeyWord(fctName_, keyWordSuperaccess_)) {
+            return new SuperFctOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringExpUtil.startsWithKeyWord(fctName_, keyWordInterfaces_)) {
+            if (_m instanceof IdOperation) {
+                return new InterfaceFctConstructor(_index, _indexChild, _m, _op);
+            }
+            return new InterfaceInvokingConstructor(_index, _indexChild, _m, _op);
+        }
+        if (StringExpUtil.startsWithKeyWord(fctName_, keyWordOperator_)) {
+            return new ExplicitOperatorOperation(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(fctName_, keyWordThat_)) {
+            return new WrappOperation(_index, _indexChild, _m, _op, delta_, _op.getOffset());
+        }
+        if (StringUtil.quickEq(fctName_, keyWordFirstopt_)) {
+            return new FirstOptOperation(_index, _indexChild, _m, _op, delta_, _op.getOffset());
+        }
+        if (StringUtil.quickEq(fctName_, keyWordDefault_)) {
+            return new DefaultOperation(_index, _indexChild, _m, _op, delta_, _op.getOffset());
+        }
+        if (StringUtil.quickEq(fctName_, keyWordThis_)) {
+            return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(fctName_, keyWordSuper_)) {
+            return new SuperInvokingConstructor(_index, _indexChild, _m, _op);
+        }
+        return new FctOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static InvokingOperation instance(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        if (_op.getFctName().trim().isEmpty()) {
+            if (_m instanceof NamedArgumentOperation && _m.getParent() instanceof CallDynMethodOperation) {
+                return new ArgumentListInstancing(_index, _indexChild, _m, _op);
+            }
+            return new InferArrayInstancing(_index, _indexChild, _m, _op);
+        }
+        String op_ = _op.getOperators().firstValue();
+        if (StringUtil.quickEq(op_,"{")) {
+            return new ElementArrayInstancing(_index, _indexChild, _m, _op);
+        }
+        if (StringUtil.quickEq(op_,"[")) {
+            return new DimensionArrayInstancing(_index, _indexChild, _m, _op);
+        }
+        AbsBk block_ = _op.getBlock();
+        if (block_ instanceof AnonymousTypeBlock) {
+            ((AnonymousTypeBlock)block_).setIndexEnd(((AnonymousTypeBlock)block_).getIdRowCol()+ _op.getLength());
+            return new AnonymousInstancingOperation(_index, _indexChild, _m, _op, (AnonymousTypeBlock) block_);
+        }
+        return new StandardInstancingOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static MethodOperation ternOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+        MethodOperation m_ = _m;
+        int indCh_ = _indexChild;
+        while (atMostOne(m_)) {
+            indCh_ = m_.getIndexChild();
+            m_ = m_.getParent();
+        }
+        if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
+            if (isParentSetter(m_)&&indCh_==0) {
+                return new RefShortTernaryOperation(_index, _indexChild, _m, _op);
+            }
+            return new ShortTernaryOperation(_index, _indexChild, _m, _op);
+        }
+        if (isParentSetter(m_)&&indCh_==0) {
+            return new RefTernaryOperation(_index, _indexChild, _m, _op);
+        }
+        return new TernaryOperation(_index, _indexChild, _m, _op);
+    }
+
+    private static int ternary(OperationsSequence _op, AnalyzedPageEl _page) {
+        int ternary_ = 0;
+        if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
+            ternary_ = _op.getValues().size();
+        } else if (_op.getPriority() == ElResolver.FCT_OPER_PRIO){
+            String fctName_ = _op.getFctName().trim();
+            KeyWords keyWords_ = _page.getKeyWords();
+            String keyWordBool_ = keyWords_.getKeyWordBool();
+            if (StringUtil.quickEq(fctName_, keyWordBool_)) {
+                ternary_ = _op.getValues().size();
+            }
+        }
+        return ternary_;
+    }
+
     protected static boolean atMostOne(MethodOperation _m) {
         return _m instanceof IdOperation && _m.getOperations().getValues().size() <= 1;
     }
 
-    private static OperationNode createLeaf(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
+    private static LeafOperation createLeaf(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
         ConstType ct_ = _op.getConstType();
         AbsBk block_ = _op.getBlock();
         if (AbsBk.isAnonBlock(block_)) {
             ((NamedCalledFunctionBlock)block_).setIndexEnd(((NamedCalledFunctionBlock)block_).getNameOffset()+_op.getLength());
             return new AnonymousLambdaOperation(_index,_indexChild,_m,_op,(NamedCalledFunctionBlock)block_,_op.getResults());
-        }
-        if (ct_ == ConstType.SIMPLE_ANNOTATION) {
-            return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
-        }
-        String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
-        String str_ = originalStr_.trim();
-        if (ct_ == ConstType.CHARACTER) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
-        }
-        if (ct_ == ConstType.STRING) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
-        }
-        if (ct_ == ConstType.TEXT_BLOCK) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
         }
         if (ct_ == ConstType.STATIC_ACCESS) {
             return new StaticAccessOperation(_index, _indexChild, _m, _op);
@@ -528,9 +558,6 @@ public abstract class OperationNode {
         if (ct_ == ConstType.CLASS_INFO) {
             return new StaticInfoOperation(_index, _indexChild, _m, _op);
         }
-        if (ct_ == ConstType.NUMBER) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
-        }
         if (ct_ == ConstType.ACCESS_INDEXER) {
             return new ForwardOperation(_index, _indexChild, _m, _op);
         }
@@ -540,15 +567,16 @@ public abstract class OperationNode {
         if (ct_ == ConstType.PARENT_KEY_WORD) {
             return new ParentInstanceOperation(_index, _indexChild, _m, _op);
         }
-        if (ct_ == ConstType.TRUE_CST) {
+        if (ct_ == ConstType.CHARACTER || ct_ == ConstType.STRING || ct_ == ConstType.TEXT_BLOCK || ct_ == ConstType.NUMBER || ct_ == ConstType.TRUE_CST || ct_ == ConstType.FALSE_CST || ct_ == ConstType.NULL_CST) {
             return new ConstantOperation(_index, _indexChild, _m, _op);
         }
-        if (ct_ == ConstType.FALSE_CST) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
-        }
-        if (ct_ == ConstType.NULL_CST) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
-        }
+        return variableOrField(_index, _indexChild, _m, _op, _page);
+    }
+
+    private static LeafOperation variableOrField(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
+        String originalStr_ = _op.getValues().getValue(IndexConstants.FIRST_INDEX);
+        String str_ = originalStr_.trim();
+        ConstType ct_ = _op.getConstType();
         if (ct_ == ConstType.CLASSCHOICE_KEYWORD) {
             return new SettableFieldOperation(_index, _indexChild, _m, _op,new ChoiceFieldOperation(_op));
         }
@@ -571,10 +599,7 @@ public abstract class OperationNode {
         if (_m instanceof AbstractDotOperation) {
             OperationNode ch_ = _m.getFirstChild();
             if (ch_ != null) {
-                if (ch_.getResultClass().isArray()) {
-                    return new ArrayFieldOperation(_index, _indexChild, _m, _op);
-                }
-                return new SettableFieldOperation(_index, _indexChild, _m, _op,new StandardFieldOperation(_op));
+                return previousField(_index, _indexChild, _m, _op, ch_.getResultClass().isArray());
             }
         }
         if (ct_ == ConstType.LOOP_INDEX) {
@@ -587,6 +612,13 @@ public abstract class OperationNode {
             return new VariableOperationUse(_index, _indexChild, _m, _op, foundVar_);
         }
         return new SettableFieldOperation(_index, _indexChild, _m, _op,new StandardFieldOperation(_op));
+    }
+
+    private static AbstractFieldOperation previousField(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, boolean _array) {
+        if (_array) {
+            return new ArrayFieldOperation(_index, _indexChild, _m, _op);
+        }
+        return new SettableFieldOperation(_index, _indexChild, _m, _op, new StandardFieldOperation(_op));
     }
 
     static String emptyToObject(String _str, AnalyzedPageEl _page) {
@@ -635,65 +667,66 @@ public abstract class OperationNode {
             }
         }
         int max_ = maxAnc_;
-        for (int i = 0; i <= maxAnc_; i++) {
+        FieldResult fieldResult_ = tryGetField(0, maxAnc_, ancestors_, _page);
+        if (fieldResult_ != null) {
+            return fieldResult_;
+        }
+        if (!_import) {
+            FieldResult r_ = new FieldResult();
+            r_.setStatus(SearchingMemberStatus.ZERO);
+            return r_;
+        }
+        int maxLoc_ = maxAnc_ + 1;
+        String glClass_ = _scope.getGlClass();
+        String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
+        for (EntryCust<AnaGeneType, ImportedField> e : ResolvingImportTypes.lookupImportStaticFields(curClassBase_, _name, _page).entryList()) {
+            ImportedField v_ = e.getValue();
+            max_ = Math.max(max_, v_.getImported() + maxAnc_);
+            FieldResult res_ = new FieldResult();
+            String realType_ = v_.getType();
+            boolean finalField_ = v_.isFinalField();
+            String formatted_ = e.getKey().getFullName();
+            res_.setFormattedType(v_.buildFormatted(formatted_));
+            res_.setFileName(v_.getFileName());
+            res_.setMemberId(v_.getMemberId());
+            res_.setFieldType(v_.getFieldType());
+            res_.setValOffset(v_.getValueOffset());
+            ClassField classField_ = new ClassField(formatted_, _name);
+            res_.getContent().setClassField(classField_);
+            res_.setDeclaringClass(formatted_);
+            res_.getContent().setStaticField(true);
+            res_.getContent().setFinalField(finalField_);
+            res_.setType(realType_);
+            res_.getContent().setRealType(realType_);
+            res_.getContent().setAnc(v_.getImported() + maxAnc_);
+            res_.setStatus(SearchingMemberStatus.UNIQ);
+            ancestors_.addEntry(e.getKey(), res_);
+        }
+        FieldResult fieldResultIm_ = tryGetField(maxLoc_, max_, ancestors_, _page);
+        if (fieldResultIm_ != null) {
+            return fieldResultIm_;
+        }
+        FieldResult r_ = new FieldResult();
+        r_.setStatus(SearchingMemberStatus.ZERO);
+        return r_;
+    }
+
+    private static FieldResult tryGetField(int _from, int _to, IdMap<AnaGeneType,FieldResult> _anc, AnalyzedPageEl _page) {
+        for (int i = _from; i <= _to; i++) {
             IdTypeList<AnaGeneType> subClasses_ = new IdTypeList<AnaGeneType>();
-            for (EntryCust<AnaGeneType,FieldResult> e: ancestors_.entryList()) {
+            for (EntryCust<AnaGeneType, FieldResult> e : _anc.entryList()) {
                 if (e.getValue().getContent().getAnc() != i) {
                     continue;
                 }
                 subClasses_.add(e.getKey());
             }
             IdTypeList<AnaGeneType> subs_ = AnaTypeUtil.getSubclasses(subClasses_, _page);
-            FieldResult res_ = getRes(ancestors_, subs_);
+            FieldResult res_ = getRes(_anc, subs_);
             if (res_ != null) {
                 return res_;
             }
         }
-        if (_import) {
-            int maxLoc_ = maxAnc_ + 1;
-            String glClass_ = _scope.getGlClass();
-            String curClassBase_ = StringExpUtil.getIdFromAllTypes(glClass_);
-            for (EntryCust<AnaGeneType, ImportedField> e: ResolvingImportTypes.lookupImportStaticFields(curClassBase_, _name, _page).entryList()) {
-                ImportedField v_ = e.getValue();
-                max_ = Math.max(max_, v_.getImported() +maxAnc_);
-                FieldResult res_ = new FieldResult();
-                String realType_ = v_.getType();
-                boolean finalField_ = v_.isFinalField();
-                String formatted_ = e.getKey().getFullName();
-                res_.setFormattedType(v_.buildFormatted(formatted_));
-                res_.setFileName(v_.getFileName());
-                res_.setMemberId(v_.getMemberId());
-                res_.setFieldType(v_.getFieldType());
-                res_.setValOffset(v_.getValueOffset());
-                ClassField classField_ = new ClassField(formatted_, _name);
-                res_.getContent().setClassField(classField_);
-                res_.setDeclaringClass(formatted_);
-                res_.getContent().setStaticField(true);
-                res_.getContent().setFinalField(finalField_);
-                res_.setType(realType_);
-                res_.getContent().setRealType(realType_);
-                res_.getContent().setAnc(v_.getImported() +maxAnc_);
-                res_.setStatus(SearchingMemberStatus.UNIQ);
-                ancestors_.addEntry(e.getKey(),res_);
-            }
-            for (int i = maxLoc_; i <= max_; i++) {
-                IdTypeList<AnaGeneType> subClasses_ = new IdTypeList<AnaGeneType>();
-                for (EntryCust<AnaGeneType,FieldResult> e: ancestors_.entryList()) {
-                    if (e.getValue().getContent().getAnc() != i) {
-                        continue;
-                    }
-                    subClasses_.add(e.getKey());
-                }
-                IdTypeList<AnaGeneType> subs_ = AnaTypeUtil.getSubclasses(subClasses_, _page);
-                FieldResult res_ = getRes(ancestors_, subs_);
-                if (res_ != null) {
-                    return res_;
-                }
-            }
-        }
-        FieldResult r_ = new FieldResult();
-        r_.setStatus(SearchingMemberStatus.ZERO);
-        return r_;
+        return null;
     }
 
     protected static boolean dupl(CustList<ClassField> _ids, ClassField _id) {
@@ -786,30 +819,12 @@ public abstract class OperationNode {
         String clCurName_ = _class.getName();
         int varargOnly_ = ctorVarArgOnly(_varargOnly, _uniqueId);
         boolean uniq_ = isUniqCtor(_uniqueId, _varargOnly);
-        if (noCtor(_type)) {
-            if (_filter.isEmptyArg()) {
-                return noCtorFound(clCurName_, _type);
-            }
+        if (noCtor(_type) && _filter.isEmptyArg()) {
+            return noCtorFound(clCurName_, _type);
         }
         CustList<ConstructorInfo> ctors_ = new CustList<ConstructorInfo>();
-        if (_type instanceof StandardType) {
-            for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
-                if (exclude(_uniqueId,varargOnly_, s)) {
-                    continue;
-                }
-                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, clCurName_, s);
-                ctors_.add(mloc_);
-            }
-        }
-        if (_type instanceof RootBlock){
-            for (ConstructorBlock b: ((RootBlock)_type).getValidCtors()) {
-                if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
-                    continue;
-                }
-                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, clCurName_, b);
-                ctors_.add(mloc_);
-            }
-        }
+        feedStdCtor(_type, _uniqueId, clCurName_, varargOnly_, ctors_);
+        feedCustCtor(_type, _uniqueId, _page, clCurName_, varargOnly_, ctors_);
         CustList<ConstructorInfo> named_ = new CustList<ConstructorInfo>();
         for (ConstructorInfo c: ctors_) {
             c.format(_page);
@@ -826,6 +841,30 @@ public abstract class OperationNode {
             signatures_.add(c);
         }
         return getConstrustorId(clCurName_,_type,_filter, _page, signatures_);
+    }
+
+    private static void feedCustCtor(AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, String clCurName_, int varargOnly_, CustList<ConstructorInfo> ctors_) {
+        if (_type instanceof RootBlock){
+            for (ConstructorBlock b: ((RootBlock) _type).getValidCtors()) {
+                if (excludeCust((RootBlock) _type, _uniqueId, varargOnly_, b, _page)) {
+                    continue;
+                }
+                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, clCurName_, b);
+                ctors_.add(mloc_);
+            }
+        }
+    }
+
+    private static void feedStdCtor(AnaGeneType _type, ConstructorId _uniqueId, String clCurName_, int varargOnly_, CustList<ConstructorInfo> ctors_) {
+        if (_type instanceof StandardType) {
+            for (StandardConstructor s: ((StandardType) _type).getConstructors()) {
+                if (exclude(_uniqueId, varargOnly_, s)) {
+                    continue;
+                }
+                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, clCurName_, s);
+                ctors_.add(mloc_);
+            }
+        }
     }
 
     protected static ConstructorInfo initCtorInfo(AbsBk _type, String _clCurName, ConstructorBlock _b) {
@@ -946,39 +985,43 @@ public abstract class OperationNode {
                                                                 AnaGeneType _type,
                                                                 ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args) {
         int varargOnly_ = ctorVarArgOnly(_varargOnly, _uniqueId);
-        if (noCtor(_type)) {
-            if (_args.isEmpty()) {
-                return noCtorFound(_class, _type);
-            }
+        if (noCtor(_type) && _args.isEmpty()) {
+            return noCtorFound(_class, _type);
         }
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
-        if (_type instanceof StandardType) {
-            for (StandardConstructor s: ((StandardType)_type).getConstructors()) {
-                if (exclude(_uniqueId,varargOnly_, s)) {
-                    continue;
-                }
-                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, _class, s);
-                mloc_.format(_page);
-                if (!isPossibleMethodLambda(mloc_, _page, _args)) {
-                    continue;
-                }
-                signatures_.add(mloc_);
-            }
-        }
+        feedStdCtorLambda(_class, _type, _uniqueId, _page, _args, varargOnly_, signatures_);
+        feedCustCtorLambda(_class, _type, _uniqueId, _page, _args, varargOnly_, signatures_);
+        return getConstrustorIdLambda(_class,_type,_page, signatures_);
+    }
+
+    private static void feedCustCtorLambda(String _class, AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args, int varargOnly_, CustList<ConstructorInfo> signatures_) {
         if (_type instanceof RootBlock){
-            for (ConstructorBlock b: ((RootBlock)_type).getValidCtors()) {
-                if (excludeCust((RootBlock) _type, _uniqueId,varargOnly_, b, _page)) {
+            for (ConstructorBlock b: ((RootBlock) _type).getValidCtors()) {
+                if (excludeCust((RootBlock) _type, _uniqueId, varargOnly_, b, _page)) {
                     continue;
                 }
                 ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _class, b);
                 mloc_.format(_page);
-                if (!isPossibleMethodLambda(mloc_, _page, _args)) {
-                    continue;
+                if (isPossibleMethodLambda(mloc_, _page, _args)) {
+                    signatures_.add(mloc_);
                 }
-                signatures_.add(mloc_);
             }
         }
-        return getConstrustorIdLambda(_class,_type,_page, signatures_);
+    }
+
+    private static void feedStdCtorLambda(String _class, AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args, int varargOnly_, CustList<ConstructorInfo> signatures_) {
+        if (_type instanceof StandardType) {
+            for (StandardConstructor s: ((StandardType) _type).getConstructors()) {
+                if (exclude(_uniqueId, varargOnly_, s)) {
+                    continue;
+                }
+                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, _class, s);
+                mloc_.format(_page);
+                if (isPossibleMethodLambda(mloc_, _page, _args)) {
+                    signatures_.add(mloc_);
+                }
+            }
+        }
     }
 
     protected static ConstrustorIdVarArg noCtorFound(String _class, AnaGeneType _type) {
@@ -994,7 +1037,10 @@ public abstract class OperationNode {
     protected static Parametrable tryGetFilterSignaturesInfer(CustList<ConstructorInfo> _list, AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType) {
         CustList<ConstructorInfo> signatures_ = new CustList<ConstructorInfo>();
         for (ConstructorInfo c: _list) {
-            filter(_type, _page, _args, _stCall, _retType, signatures_, c.getConstraints(), c);
+            ConstructorInfo res_ = filter(_type, _page, _args, _stCall, _retType, c.getConstraints(), c);
+            if (res_ != null) {
+                signatures_.add(res_);
+            }
         }
         StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
         ArgumentsGroup gr_ = new ArgumentsGroup(_page, map_);
@@ -1028,7 +1074,7 @@ public abstract class OperationNode {
         return signatures_;
     }
 
-    private static void filter(AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType, CustList<ConstructorInfo> _signatures, ConstructorId _ctor, ConstructorInfo _mloc) {
+    private static ConstructorInfo filter(AnaGeneType _type, AnalyzedPageEl _page, StringList _args, String _stCall, String _retType, ConstructorId _ctor, ConstructorInfo _mloc) {
         if (_args != null && !_stCall.isEmpty()) {
             CustList<AnaClassArgumentMatching> args_ = new CustList<AnaClassArgumentMatching>();
             for (String o: _args) {
@@ -1037,17 +1083,17 @@ public abstract class OperationNode {
             String result_ = AnaTemplates.tryInferMethod(-1, _mloc.getClassName(), ConstructorId.to(_ctor), _stCall,
                     _page.getCurrentConstraints().getCurrentConstraints(), args_, _type.getGenericString(), _retType, _page);
             if (result_.isEmpty()) {
-                return;
+                return null;
             }
             _mloc.reformat(result_, _page);
         }
         if (errOwner(_mloc.getClassName(),MethodAccessKind.STATIC_CALL)) {
-            return;
+            return null;
         }
         if (!isPossibleMethodLambdaInfer(_mloc, _page, _args)) {
-            return;
+            return null;
         }
-        _signatures.add(_mloc);
+        return _mloc;
     }
 
     private static ConstrustorIdVarArg getConstrustorIdLambda(String _curClassName,AnaGeneType _type,AnalyzedPageEl _page, CustList<ConstructorInfo> _signatures) {
@@ -1092,10 +1138,8 @@ public abstract class OperationNode {
     }
 
     private static boolean excludeBytFilter(ConstructorId _uniqueId, int _varargOnly, ConstructorId _ctor, boolean _varArg) {
-        if (_varargOnly > -1) {
-            if (!_varArg) {
-                return true;
-            }
+        if (_varargOnly > -1 && !_varArg) {
+            return true;
         }
         if (_uniqueId != null) {
             return !_uniqueId.eq(_ctor);
@@ -2074,10 +2118,9 @@ public abstract class OperationNode {
                     continue;
                 }
                 MethodInfo stMeth_ = fetchedParamMethodCust(e, _refRet, _page, id_);
-                if (stMeth_ == null) {
-                    continue;
+                if (stMeth_ != null) {
+                    _methods.add(stMeth_);
                 }
-                _methods.add(stMeth_);
             }
             for (MethodInfo e: getPredefineStaticEnumMethods((RootBlock) g_, _refRet.getAnc(), _page)) {
                 MethodId id_ = e.getConstraints();
@@ -2096,10 +2139,9 @@ public abstract class OperationNode {
                     continue;
                 }
                 MethodInfo stMeth_ = fetchedParamMethod(e, _refRet, genericString_, _page, e.getId());
-                if (stMeth_ == null) {
-                    continue;
+                if (stMeth_ != null) {
+                    _methods.add(stMeth_);
                 }
-                _methods.add(stMeth_);
             }
         }
     }
@@ -2390,11 +2432,10 @@ public abstract class OperationNode {
                     }
                     String result_ = AnaTemplates.tryInferMethod(-1, e.getClassName(), e.getConstraints(), _stCall,
                             _page.getCurrentConstraints().getCurrentConstraints(), args_, e.getOriginalReturnType(), _retType, _page);
-                    if (result_.isEmpty()) {
-                        continue;
+                    if (!result_.isEmpty()) {
+                        e.reformat(result_, _page);
+                        m_.add(e);
                     }
-                    e.reformat(result_, _page);
-                    m_.add(e);
                 }
                 infs_.add(m_);
             }
@@ -2406,10 +2447,7 @@ public abstract class OperationNode {
             CustList<MethodInfo> m_ = new CustList<MethodInfo>();
             for (MethodInfo e: l) {
                 MethodId id_ = e.getConstraints();
-                if (!StringUtil.quickEq(id_.getName(), _name)) {
-                    continue;
-                }
-                if (!isPossibleMethodLambdaInfer(e, _page, _argsClass)) {
+                if (!StringUtil.quickEq(id_.getName(), _name) || !isPossibleMethodLambdaInfer(e, _page, _argsClass)) {
                     continue;
                 }
                 m_.add(e);
@@ -2425,10 +2463,7 @@ public abstract class OperationNode {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
                 for (MethodInfo e: l) {
                     MethodId id_ = e.getConstraints();
-                    if (!matchRefInf(_retType,id_.isRetRef())) {
-                        continue;
-                    }
-                    if (!subsType(e.getReturnType(), _retType,id_.isRetRef(), _page)) {
+                    if (!matchRefInf(_retType, id_.isRetRef()) || !subsType(e.getReturnType(), _retType, id_.isRetRef(), _page)) {
                         continue;
                     }
                     m_.add(e);
@@ -2477,10 +2512,8 @@ public abstract class OperationNode {
 
     private static ClassMethodIdReturn res(NameParametersFilter _filter, MethodInfo _found, AnalyzedPageEl _page) {
         StaticCallAccessOperation staticCallOp_ = _filter.getStaticCallOp();
-        if (staticCallOp_ != null) {
-            if (!_filter.getStaticCall().isEmpty()) {
-                staticCallOp_.setPartOffsets(new ResolvedInstance(staticCallOp_, _found.getClassName()));
-            }
+        if (staticCallOp_ != null && !_filter.getStaticCall().isEmpty()) {
+            staticCallOp_.setPartOffsets(new ResolvedInstance(staticCallOp_, _found.getClassName()));
         }
         CustList<CustList<ClassMethodIdReturn>> implicits_ = _found.getImplicits();
         CustList<OperationNode> allOps_ = _found.getAllOps();

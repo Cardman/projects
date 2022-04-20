@@ -39,8 +39,6 @@ public final class OperationsSequence {
 
     private StrTypes operators;
 
-    private Delimiters delimiter;
-
     private int offset;
     private int delta;
     private boolean errorDot;
@@ -401,14 +399,6 @@ public final class OperationsSequence {
 
     public void setOperators(StrTypes _operators) {
         operators = _operators;
-    }
-
-    public Delimiters getDelimiter() {
-        return delimiter;
-    }
-
-    public void setDelimiter(Delimiters _delimiter) {
-        delimiter = _delimiter;
     }
 
     public int getOffset() {

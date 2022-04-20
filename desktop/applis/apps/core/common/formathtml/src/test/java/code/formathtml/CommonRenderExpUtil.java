@@ -45,7 +45,7 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         Delimiters d_ = checkSyntax(_conf, _el);
         OperationsSequence opTwo_ = rendOpSeq(0, _conf, d_, _el, _analyzingDoc);
         OperationNode op_ = rendOp(0, _conf, opTwo_, _analyzingDoc);
-        return getSortedDescNodes(_conf, op_, _analyzingDoc);
+        return getSortedDescNodes(_conf, op_, _analyzingDoc,d_);
     }
 
     protected static DualNavigationContext getConfigurationQuick(StringMap<String> _files,String... _types) {
@@ -110,8 +110,8 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         return RenderAnalysis.getOperationsSequence(_i, _el, _d, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed(), null);
     }
 
-    protected static CustList<OperationNode> getSortedDescNodes(DualNavigationContext _conf, OperationNode _op, AnalyzingDoc analyzingDoc) {
-        return RenderAnalysis.getSortedDescNodes(_op, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed());
+    protected static CustList<OperationNode> getSortedDescNodes(DualNavigationContext _conf, OperationNode _op, AnalyzingDoc analyzingDoc, Delimiters _d) {
+        return RenderAnalysis.getSortedDescNodes(_op, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed(),_d);
     }
 
     protected static OperationsSequence getOperationsSequence(int _offset, String _el, DualNavigationContext _ctx, Delimiters _d) {

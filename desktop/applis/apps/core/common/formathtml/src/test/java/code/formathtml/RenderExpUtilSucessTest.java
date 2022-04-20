@@ -5589,7 +5589,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Delimiters d_ = checkSyntax(_context, _s);
         OperationsSequence opTwo_ = rendOpSeq(_context, d_, _s, 0, analyzingDoc);
         OperationNode op_ = rendOp(0, _context, opTwo_, analyzingDoc);
-        CustList<OperationNode> all_ = getSortedDescNodes(_context, op_, analyzingDoc);
+        CustList<OperationNode> all_ = getSortedDescNodes(_context, op_, analyzingDoc,d_);
         generalForward(_context);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, all_);
         ContextEl ctx_ = getGenerate(_context);
@@ -5645,7 +5645,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Delimiters d_ = checkSyntax(conf_, _s);
         OperationsSequence opTwo_ = rendOpSeq(conf_, d_, _s, 0, doc_);
         OperationNode op_ = rendOp(0, conf_, opTwo_, doc_);
-        CustList<OperationNode> all_ = getSortedDescNodes(conf_, op_, doc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(conf_, op_, doc_,d_);
         StringMap<AnaRendDocumentBlock> analyzed_ = new StringMap<AnaRendDocumentBlock>();
         generalForward(conf_);
         RendForwardInfos.buildExec(doc_, analyzed_, conf_.getDualAnalyzedContext().getForwards(), conf_.getNavigation().getSession(), new StringMap<RendDocumentBlock>());
@@ -5698,7 +5698,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Delimiters d_ = checkSyntax(_cont, _el);
         OperationsSequence opTwo_ = rendOpSeq(_cont, d_, _el, 0, analyzingDoc);
         OperationNode op_ = rendOp(0, _cont, opTwo_, analyzingDoc);
-        CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_, analyzingDoc);
+        CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_, analyzingDoc,d_);
         generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
@@ -5765,7 +5765,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         OperationsSequence opTwo_ = getOperationsSequence(0, _s, context_, d_);
         OperationNode op_ = getOperationNode(0, IndexConstants.FIRST_INDEX, null, opTwo_, context_);
         assertNotNull(op_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, an_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, an_,d_);
         assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
@@ -5831,7 +5831,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         String el1_ = _s.substring(2, end1_ +1);
         OperationsSequence opTwo1_ = rendOpSeq(context_, d1_, el1_, 2, analyzingDoc_);
         OperationNode op1_ = rendOp(context_, opTwo1_, analyzingDoc_);
-        CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_, analyzingDoc_);
+        CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_, analyzingDoc_,d1_);
         generalForward(context_);
         CustList<RendDynOperationNode> out1_ = getQuickExecutableNodes(context_, all1_);
         setupAnalyzing(context_, localVariables, vars, analyzingDoc_);
@@ -5842,7 +5842,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         String el_ = _s.substring(_i,end_+1);
         OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, _i, analyzingDoc_);
         OperationNode op_ = rendOp(_i, context_, opTwo_, analyzingDoc_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, analyzingDoc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, analyzingDoc_,d_);
         CustList<RendDynOperationNode> out_ = getQuickExecutableNodes(context_, all_);
         assertTrue(isEmptyErrors(context_));
         ContextEl ctx_ = getGenerate(context_);
@@ -5872,7 +5872,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Delimiters d_ = checkSyntax(context_, _el);
         OperationsSequence opTwo_ = rendOpSeq(context_, d_, _el, 0, doc_);
         OperationNode op_ = rendOp(0, context_, opTwo_, doc_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, doc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, doc_,d_);
         assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
@@ -5914,7 +5914,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         String el_ = _s.substring(2,end_+1);
         OperationsSequence opTwo_ = rendOpSeq(context_, d_, el_, 2, analyzingDoc_);
         OperationNode op_ = rendOp(context_, opTwo_, analyzingDoc_);
-        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, analyzingDoc_);
+        CustList<OperationNode> all_ = getSortedDescNodes(context_, op_, analyzingDoc_,d_);
         generalForward(context_);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
@@ -6000,7 +6000,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         Delimiters d_ = checkSyntax(_conf, _el);
         OperationsSequence opTwo_ = rendOpSeq(_conf, d_, _el, 0, _analyzingDoc);
         OperationNode op_ = rendOp(0, _conf, opTwo_, _analyzingDoc);
-        CustList<OperationNode> ops_ = getSortedDescNodes(_conf, op_, _analyzingDoc);
+        CustList<OperationNode> ops_ = getSortedDescNodes(_conf, op_, _analyzingDoc,d_);
         generalForward(_conf);
         return getQuickExecutableNodes(_conf,ops_);
     }

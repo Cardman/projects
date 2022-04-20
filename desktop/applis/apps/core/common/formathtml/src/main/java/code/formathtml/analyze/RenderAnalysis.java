@@ -40,7 +40,6 @@ public final class RenderAnalysis {
                     _el);
             AnalyzingDoc.addError(badEl_, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
@@ -53,7 +52,7 @@ public final class RenderAnalysis {
         String el_ = _el.substring(_minIndex,end_+1);
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, d_, _anaDoc, _page, null);
         OperationNode op_ = OperationNode.createPossDeclOperationNode(_minIndex, IndexConstants.FIRST_INDEX, opTwo_, _page);
-        getSortedDescNodes(op_, _anaDoc, _page);
+        getSortedDescNodes(op_, _anaDoc, _page,d_);
         return op_;
     }
 
@@ -78,7 +77,6 @@ public final class RenderAnalysis {
                     _el);
             AnalyzingDoc.addError(badEl_, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();
-            tmpOp_.setDelimiter(d_);
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
@@ -88,15 +86,15 @@ public final class RenderAnalysis {
         String el_ = _el.substring(_index);
         OperationsSequence opTwo_ = getOperationsSequence(_index, el_, d_, _anaDoc, _page, null);
         OperationNode op_ = OperationNode.createPossDeclOperationNode(_index, IndexConstants.FIRST_INDEX, opTwo_, _page);
-        getSortedDescNodes(op_, _anaDoc, _page);
+        getSortedDescNodes(op_, _anaDoc, _page,d_);
         return op_;
     }
-    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page) {
+    public static CustList<OperationNode> getSortedDescNodes(OperationNode _root, AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, Delimiters _d) {
         CustList<OperationNode> list_ = new CustList<OperationNode>();
         OperationNode c_ = _root;
         while (c_ != null) {
             preAnalyze(_page, c_);
-            c_ = getAnalyzedNext(c_, _root, list_, _analyzingDoc, _page);
+            c_ = getAnalyzedNext(c_, _root, list_, _analyzingDoc, _page,_d);
         }
         return reduced(list_,_page);
     }
@@ -112,8 +110,8 @@ public final class RenderAnalysis {
         }
     }
 
-    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        OperationNode next_ = create(_anaDoc, _page, 0, _current);
+    private static OperationNode getAnalyzedNext(OperationNode _current, OperationNode _root, CustList<OperationNode> _sortedNodes, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, Delimiters _d) {
+        OperationNode next_ = create(_anaDoc, _page, 0, _current,_d);
         if (next_ != null) {
             ((MethodOperation) _current).appendChild(next_);
             return next_;
@@ -124,7 +122,7 @@ public final class RenderAnalysis {
             processAnalyze(current_, _anaDoc, _page);
             current_.setOrder(_sortedNodes.size());
             _sortedNodes.add(current_);
-            next_ = create(_anaDoc, _page, current_.getIndexChild() + 1, current_.getParent());
+            next_ = create(_anaDoc, _page, current_.getIndexChild() + 1, current_.getParent(),_d);
             MethodOperation par_ = current_.getParent();
             if (next_ != null) {
                 if (par_ instanceof AbstractDotOperation) {
@@ -201,7 +199,7 @@ public final class RenderAnalysis {
         }
     }
 
-    private static OperationNode create(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, int _ne, OperationNode _pa) {
+    private static OperationNode create(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, int _ne, OperationNode _pa, Delimiters _d) {
         if (!(_pa instanceof MethodOperation)) {
             return null;
         }
@@ -211,41 +209,28 @@ public final class RenderAnalysis {
             return null;
         }
         String value_ = children_.getValue(_ne);
-        Delimiters d_ = p_.getOperations().getDelimiter();
         int curKey_ = children_.getKey(_ne);
         int offset_ = p_.getIndexInEl()+curKey_;
-        OperationsSequence r_ = getOperationsSequence(offset_, value_, d_, _anaDoc, _page, p_);
+        OperationsSequence r_ = getOperationsSequence(offset_, value_, _d, _anaDoc, _page, p_);
         return createOperationNode(offset_, _ne, p_, r_, _anaDoc, _page);
     }
 
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
                                                            Delimiters _d, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, MethodOperation _meth) {
         int len_ = _string.length();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (i_ < len_) {
-            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
-                break;
-            }
-            i_++;
-        }
+        int i_ = ElResolver.firstPrint(_string);
         if (i_ < len_) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordIntern_ = keyWords_.getKeyWordIntern();
-            int lastPrintChar_ = len_ - 1;
-            while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
-                lastPrintChar_--;
-            }
+            int lastPrintChar_ = ElResolver.lastPrintChar(_string,len_);
             len_ = lastPrintChar_+1;
             String sub_ = _string.substring(i_, len_);
-            if (_anaDoc.isInternGlobal()) {
-                if (StringUtil.quickEq(sub_, keyWordIntern_)) {
-                    OperationsSequence op_ = new OperationsSequence();
-                    op_.setConstType(ConstType.WORD);
-                    op_.setOperators(new StrTypes());
-                    op_.setValue(_string, i_);
-                    op_.setDelimiter(_d);
-                    return op_;
-                }
+            if (_anaDoc.isInternGlobal() && StringUtil.quickEq(sub_, keyWordIntern_)) {
+                OperationsSequence op_ = new OperationsSequence();
+                op_.setConstType(ConstType.WORD);
+                op_.setOperators(new StrTypes());
+                op_.setValue(_string, i_);
+                return op_;
             }
         }
         return ElResolver.getOperationsSequence(_offset, _string, _d, _page,_meth);

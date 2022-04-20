@@ -333,7 +333,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
         Delimiters d_ = checkSyntax(_cont, _el);
         OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el, analyzingDoc);
         OperationNode op_ = rendOp(0, _cont, opTwo_, analyzingDoc);
-        getSortedDescNodes(_cont, op_, analyzingDoc);
+        getSortedDescNodes(_cont, op_, analyzingDoc,d_);
     }
 
     private static void processFail(String _el, DualNavigationContext _cont, AnalyzingDoc analyzingDoc) {
@@ -350,7 +350,7 @@ public final class RenderExpUtilFailAnalysisTest extends CommonRenderExpUtil {
         Delimiters d_ = checkSyntax(_cont, _el);
         OperationsSequence opTwo_ = rendOpSeq(0, _cont, d_, _el, analyzingDoc);
         OperationNode op_ = rendOp(0, _cont, opTwo_, analyzingDoc);
-        getSortedDescNodes(_cont, op_, analyzingDoc);
+        getSortedDescNodes(_cont, op_, analyzingDoc,d_);
     }
 
 }

@@ -219,7 +219,6 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     public static OperationNode nullToErr(OperationNode _op) {
         if (_op == null) {
             OperationsSequence op_ = new OperationsSequence();
-            op_.setDelimiter(new Delimiters());
             return new ErrorPartOperation(0,0,null, op_);
         }
         return _op;
