@@ -5,30 +5,30 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class SymbDoubleCaracFctMaOperation extends MethodMaOperation {
-    private static final String WIDE_BOUND = MaOperationsSequence.WIDE_BOUND;
-    private static final String STRICT_BOUND = MaOperationsSequence.STRICT_BOUND;
-    private final String firstOper;
-    private final String secondOper;
+    private static final String WIDE_BOUNDS = MaOperationsSequence.WIDE_BOUNDS;
+    private static final String STRICT_WIDE_BOUNDS = MaOperationsSequence.STRICT_WIDE_BOUNDS;
+    private static final String WIDE_STRICT_BOUNDS = MaOperationsSequence.WIDE_STRICT_BOUNDS;
+    private static final String STRICT_BOUNDS = MaOperationsSequence.STRICT_BOUNDS;
+    private final String fct;
     private final int operOff;
-    public SymbDoubleCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, String _sec, int _off, String _first) {
+    public SymbDoubleCaracFctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op, int _off, String _f) {
         super(_index, _indexChild, _m, _op);
-        secondOper = _sec;
-        firstOper = _first;
         operOff = _off;
+        fct = _f;
     }
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq(WIDE_BOUND, firstOper)&&StringUtil.quickEq(WIDE_BOUND, secondOper)) {
+        if (StringUtil.quickEq(WIDE_BOUNDS,fct)) {
             segment(_error);
         }
-        if (StringUtil.quickEq(STRICT_BOUND, firstOper)&&StringUtil.quickEq(STRICT_BOUND, secondOper)) {
+        if (StringUtil.quickEq(STRICT_BOUNDS,fct)) {
             ouvert(_error);
         }
-        if (StringUtil.quickEq(STRICT_BOUND, firstOper)&&StringUtil.quickEq(WIDE_BOUND, secondOper)) {
+        if (StringUtil.quickEq(STRICT_WIDE_BOUNDS,fct)) {
             caracsemiouvertg(_error);
         }
-        if (StringUtil.quickEq(WIDE_BOUND, firstOper)&&StringUtil.quickEq(STRICT_BOUND, secondOper)) {
+        if (StringUtil.quickEq(WIDE_STRICT_BOUNDS,fct)) {
             caracsemiouvertd(_error);
         }
     }

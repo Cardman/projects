@@ -37,6 +37,10 @@ public final class MaOperationsSequence {
     static final String FALSE = "|";
     static final String WIDE_BOUND = "<=";
     static final String STRICT_BOUND = "<";
+    static final String WIDE_BOUNDS = WIDE_BOUND+','+WIDE_BOUND;
+    static final String STRICT_BOUNDS = STRICT_BOUND+','+STRICT_BOUND;
+    static final String STRICT_WIDE_BOUNDS = STRICT_BOUND+','+WIDE_BOUND;
+    static final String WIDE_STRICT_BOUNDS = WIDE_BOUND+','+STRICT_BOUND;
     static final String RIGHT_OPEN = "==<";
     static final String RIGHT_CLOSE = "==>";
     static final String LEFT_OPEN = ">==";
@@ -188,7 +192,7 @@ public final class MaOperationsSequence {
             String sec_ = getParts().lastValue().trim();
             String first_ = getParts().getValue(getParts().size()-2).trim();
             offset = getParts().getKey(getParts().size()-2);
-            fct = first_+"_"+sec_;
+            fct = first_+","+sec_;
             StrTypes vs_ = getParts();
             vs_.remove(vs_.size()-1);
             removeBounds(this);
@@ -211,7 +215,14 @@ public final class MaOperationsSequence {
         return areBinarySymbols(val_, valTwo_);
     }
 
-    static boolean areBinarySymbols(String val_, String valTwo_) {
+    static boolean isBinarySymbols(String _op) {
+        return StringUtil.quickEq(WIDE_BOUNDS,_op)
+                ||StringUtil.quickEq(STRICT_BOUNDS,_op)
+                ||StringUtil.quickEq(STRICT_WIDE_BOUNDS,_op)
+                ||StringUtil.quickEq(WIDE_STRICT_BOUNDS,_op);
+    }
+
+    private static boolean areBinarySymbols(String val_, String valTwo_) {
         return isCmpSymbol(val_)
                 && isCmpSymbol(valTwo_);
     }

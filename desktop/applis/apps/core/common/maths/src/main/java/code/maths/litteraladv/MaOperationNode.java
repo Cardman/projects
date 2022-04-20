@@ -6,7 +6,6 @@ import code.maths.Rate;
 import code.maths.litteralcom.MatCommonCst;
 import code.maths.litteralcom.MatConstType;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -150,12 +149,8 @@ public abstract class MaOperationNode {
         if (_op.getParts().size() == 3 && StringUtil.quickEq(_op.getFct().trim(), LINE_THREE)){
             return new SymbTerFctMaOperation(_index, _indexChild, _m, _op, _op.getOffset(), _op.getFct());
         }
-        if (_op.getParts().size() == 3 && areBinarySymbols(_op)) {
-            StringList list_ = StringUtil.splitChar(_op.getFct(), '_');
-            String val_ = list_.first().trim();
-            String valTwo_ = list_.last().trim();
-            int off_ = _op.getOffset();
-            return new SymbDoubleCaracFctMaOperation(_index, _indexChild, _m, _op, valTwo_, off_, val_);
+        if (_op.getParts().size() == 3 && isBinarySymbols(_op)) {
+            return new SymbDoubleCaracFctMaOperation(_index, _indexChild, _m, _op, _op.getOffset(), _op.getFct());
         }
         return new IdMaOperation(_index, _indexChild, _m, _op);
     }
@@ -246,31 +241,24 @@ public abstract class MaOperationNode {
         return rates_;
     }
 
-    private static boolean areBinarySymbols(MaOperationsSequence _op) {
-        StringList list_ = StringUtil.splitChar(_op.getFct(), '_');
-        String val_ = list_.first();
-        String valTwo_ = list_.last();
-        return MaOperationsSequence.areBinarySymbols(val_,valTwo_);
+    private static boolean isBinarySymbols(MaOperationsSequence _op) {
+        return MaOperationsSequence.isBinarySymbols(_op.getFct());
     }
 
     private static boolean isVarSymbol(MaOperationsSequence _op) {
-        String valTwo_ = _op.getFct();
-        return MaOperationsSequence.isVarSymbol(valTwo_);
+        return MaOperationsSequence.isVarSymbol(_op.getFct());
     }
 
     private static boolean isPairSymbol(MaOperationsSequence _op) {
-        String valTwo_ = _op.getFct();
-        return MaOperationsSequence.isPairSymbol(valTwo_);
+        return MaOperationsSequence.isPairSymbol(_op.getFct());
     }
 
     private static boolean isBinSymbol(MaOperationsSequence _op) {
-        String val_ = _op.getFct();
-        return MaOperationsSequence.isBinSymbol(val_);
+        return MaOperationsSequence.isBinSymbol(_op.getFct());
     }
 
     private static boolean isUnarySymbol(MaOperationsSequence _op) {
-        String val_ = _op.getFct();
-        return MaOperationsSequence.isUnarySymbol(val_);
+        return MaOperationsSequence.isUnarySymbol(_op.getFct());
     }
 
     protected static int containsOnlySimpleQuotes(String _val) {
@@ -278,8 +266,7 @@ public abstract class MaOperationNode {
     }
 
     private static boolean isAndOr(MaOperationsSequence _op) {
-        String val_ = _op.getFct();
-        return MaOperationsSequence.isAndOr(val_);
+        return MaOperationsSequence.isAndOr(_op.getFct());
     }
 
     protected void processRatesPol(MaError _error, MaFractPolStruct _first, MaStruct _second, int _index) {
