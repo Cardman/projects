@@ -27,11 +27,11 @@ public final class RendText extends RendLeaf implements RendWithEl {
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
         Document doc_ = rend_.getDocument();
         Text t_ = doc_.createTextNode(EMPTY_STRING);
-        simpleAppendChild(doc_,rend_,t_);
         t_.appendData(RenderingText.render(textPart, _ctx, _rendStack));
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
+        simpleAppendChild(doc_,rend_,t_);
         processBlock(_cont, _stds, _ctx, _rendStack);
     }
 }
