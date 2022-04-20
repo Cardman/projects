@@ -47,7 +47,6 @@ public final class WindowRts extends GroupFrame {
     private AnimationUnitSoldier thread;
     private AbstractScheduledExecutorService sch;
     private AbstractFuture fut;
-    private AbstractThread threadLau;
 
     private final AbsCustCheckBox addSoldier = getCompoFactory().newCustCheckBox("Add soldier");
     private final AbsPlainLabel currentCoords = getCompoFactory().newPlainLabel("");
@@ -135,7 +134,6 @@ public final class WindowRts extends GroupFrame {
         setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         thread = new AnimationUnitSoldier(animate,pause,stop, battleground,this);
-        threadLau = getThreadFactory().newThread(thread);
     }
 
     public AbsPlainLabel getCurrentCoords() {
@@ -210,8 +208,6 @@ public final class WindowRts extends GroupFrame {
         thread.reset();
         sch = getThreadFactory().newScheduledExecutorService();
         fut = sch.scheduleAtFixedRateNanos(thread,0,1);
-        threadLau = getThreadFactory().newThread(thread);
-        threadLau.start();
         pause.setEnabled(true);
         stop.setEnabled(true);
     }
