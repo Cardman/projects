@@ -73,8 +73,8 @@ public final class RenderTryFinallyTest extends CommonRender {
     public void process10Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'>Exc{1/0}</c:catch><c:finally>Finally</c:finally></c:try><c:catch className='java.lang.Object' var='ex'>Sec</c:catch></body></html>";
-        assertEq("<html><body>ExcFinallySec</body></html>", getRes(html_, new StringMap<String>()));
+        String html_ = "<html><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex'><span>Exc</span>{1/0}</c:catch><c:finally>Finally</c:finally></c:try><c:catch className='java.lang.Object' var='ex'>Sec</c:catch></body></html>";
+        assertEq("<html><body><span>Exc</span>FinallySec</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process11Test() {
