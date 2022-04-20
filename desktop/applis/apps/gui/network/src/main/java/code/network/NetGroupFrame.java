@@ -8,6 +8,7 @@ import code.gui.initialize.AbstractSocketFactory;
 import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.sml.Document;
+import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractLock;
 import code.threads.LockFactory;
 import code.util.StringList;
@@ -21,11 +22,11 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
     private String ipHost;
 
     private int port;
-    private final AbstractLock lock;
+    private final AbstractBaseExecutorService lock;
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
-        lock = LockFactory.newLock(_list.getThreadFactory().newAtomicBoolean());
+        lock = _list.getThreadFactory().newExecutorService();
     }
     /**
         Create a server then a client
@@ -108,7 +109,7 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         return _address != null && _address.length == _size;
     }
     @Override
-    public AbstractLock getLock() {
+    public AbstractBaseExecutorService getLock() {
         return lock;
     }
 

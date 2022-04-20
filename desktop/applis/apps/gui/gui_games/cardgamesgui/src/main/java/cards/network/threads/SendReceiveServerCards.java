@@ -1,13 +1,6 @@
 package cards.network.threads;
 
-import cards.belote.BidBeloteSuit;
-import cards.belote.DealBelote;
-import cards.belote.DeclareHandBelote;
-import cards.belote.GameBelote;
-import cards.belote.HandBelote;
-import cards.belote.ResultsBelote;
-import cards.belote.RulesBelote;
-import cards.belote.TricksHandsBelote;
+import cards.belote.*;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
@@ -22,12 +15,16 @@ import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.*;
+import cards.network.common.ByeCards;
+import cards.network.common.PlayerActionGame;
+import cards.network.common.PlayerActionGameType;
+import cards.network.common.Quit;
 import cards.network.common.before.*;
-import cards.network.common.select.*;
+import cards.network.common.select.TeamsPlayers;
 import cards.network.president.actions.DiscardedCards;
 import cards.network.president.actions.PlayingCardPresident;
-import cards.network.president.displaying.*;
+import cards.network.president.displaying.DealtHandPresident;
+import cards.network.president.displaying.ReceivedGivenCards;
 import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.displaying.players.RefreshHandPlayingPresident;
 import cards.network.president.displaying.players.RefreshingDonePresident;
@@ -41,38 +38,26 @@ import cards.network.tarot.displaying.errors.ErrorBidding;
 import cards.network.tarot.displaying.errors.ErrorDiscarding;
 import cards.network.tarot.displaying.errors.ErrorHandful;
 import cards.network.tarot.displaying.errors.ErrorPlaying;
-import cards.network.tarot.displaying.players.*;
+import cards.network.tarot.displaying.players.RefreshHand;
+import cards.network.tarot.displaying.players.RefreshingDone;
+import cards.network.tarot.displaying.players.SeenDiscardedTrumps;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
-import cards.president.DealPresident;
-import cards.president.GamePresident;
-import cards.president.HandPresident;
-import cards.president.ResultsPresident;
-import cards.president.RulesPresident;
-import cards.president.TricksHandsPresident;
+import cards.president.*;
 import cards.president.enumerations.CardPresident;
-import cards.tarot.DealTarot;
-import cards.tarot.GameTarot;
-import cards.tarot.HandTarot;
-import cards.tarot.ResultsTarot;
-import cards.tarot.RulesTarot;
-import cards.tarot.TricksHandsTarot;
+import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.gui.initialize.AbstractSocket;
-import code.sml.Document;
-import code.sml.Element;
-import code.threads.AbstractLock;
-import code.threads.AbstractThreadFactory;
-import code.threads.ThreadUtil;
 import code.network.AddingPlayer;
 import code.network.BasicServer;
 import code.network.NetGroupFrame;
-import code.util.CustList;
-import code.util.EnumList;
-import code.util.EnumMap;
+import code.sml.Document;
+import code.sml.Element;
+import code.threads.AbstractBaseExecutorService;
+import code.threads.AbstractThreadFactory;
+import code.threads.ThreadUtil;
 import code.util.*;
-import code.util.StringList;
 import code.util.consts.Constants;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -83,7 +68,7 @@ public final class SendReceiveServerCards extends BasicServer {
 
     private static final String EMPTY_STRING = "";
 
-    private final AbstractLock lock;
+    private final AbstractBaseExecutorService lock;
 
     private final Net instance;
     /**This class thread is independant from EDT*/
@@ -95,12 +80,10 @@ public final class SendReceiveServerCards extends BasicServer {
 
     @Override
     public void loopServer(String _input, Document _object) {
-        lock.lock(this);
-        loop(_input, _object, instance,getNet().getThreadFactory());
-        lock.unlock(this);
+        lock.execute(new ServerIterationCards(_input,_object,instance,getNet().getThreadFactory()));
     }
 
-    private static void loop(String _input, Document _doc, Net _instance, AbstractThreadFactory _fct) {
+    static void loop(String _input, Document _doc, Net _instance, AbstractThreadFactory _fct) {
         Element elt_ = _doc.getDocumentElement();
         PlayerActionBeforeGameCards playerActionBeforeGame_ = DocumentReaderCardsMultiUtil.getPlayerActionBeforeGame(elt_);
         if (playerActionBeforeGame_ instanceof AddingPlayer) {

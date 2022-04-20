@@ -1,6 +1,7 @@
 package code.network;
 import code.gui.initialize.AbstractSocket;
 import code.sml.Document;
+import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractLock;
 
 public interface NetWindow {
@@ -11,5 +12,5 @@ public interface NetWindow {
 
     void quitNetwork(Exiting _exit, AbstractSocket _socket);
 
-    AbstractLock getLock();
+    AbstractBaseExecutorService getLock();
 }

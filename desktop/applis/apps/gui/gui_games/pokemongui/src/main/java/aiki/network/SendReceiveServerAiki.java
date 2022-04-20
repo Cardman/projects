@@ -3,14 +3,14 @@ package aiki.network;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
 import aiki.network.stream.*;
+import code.gui.initialize.AbstractSocket;
 import code.network.AddingPlayer;
 import code.network.BasicServer;
-import code.gui.initialize.AbstractSocket;
 import code.network.NetGroupFrame;
 import code.sml.Document;
 import code.sml.Element;
-import code.threads.AbstractLock;
-import code.util.*;
+import code.threads.AbstractBaseExecutorService;
+import code.util.ByteTreeMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -18,7 +18,7 @@ import code.util.core.StringUtil;
 Thread safe class*/
 public final class SendReceiveServerAiki extends BasicServer {
 
-    private final AbstractLock lock;
+    private final AbstractBaseExecutorService lock;
 
     private final NetAiki instance;
 
@@ -31,12 +31,10 @@ public final class SendReceiveServerAiki extends BasicServer {
 
     @Override
     public void loopServer(String _input, Document _object) {
-        lock.lock(this);
-        loop(_input, _object, instance);
-        lock.unlock(this);
+        lock.execute(new ServerIterationPk(instance, _input, _object));
     }
 
-    private static void loop(String _input, Document _object, NetAiki _instance) {
+    static void loop(String _input, Document _object, NetAiki _instance) {
         Element elt_ = _object.getDocumentElement();
         PlayerActionBeforeGameAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getPlayerActionBeforeGame(elt_);
         if (playerActionBeforeGame_ instanceof AddingPlayer) {
