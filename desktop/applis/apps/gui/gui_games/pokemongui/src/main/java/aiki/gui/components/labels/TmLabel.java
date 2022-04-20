@@ -155,7 +155,7 @@ public final class TmLabel extends SelectableLabel {
         //_g.drawString(getText(), 0, FIRST_LINE);
         int x_ = IndexConstants.SIZE_EMPTY;
         for (String t: colorsTypes.getKeys()) {
-            _g.setColor(colorsTypes.getVal(t));
+            _g.setColor(GuiConstants.newColor(colorsTypes.getVal(t)));
             int xLeft_ = x_;
             _g.fillRect(xLeft_, FIRST_LINE, TYPE_WIDTH, FIRST_LINE);
             x_ += TYPE_WIDTH;

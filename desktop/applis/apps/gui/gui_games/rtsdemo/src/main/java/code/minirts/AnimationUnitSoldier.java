@@ -130,7 +130,7 @@ public final class AnimationUnitSoldier implements Runnable {
         ThreadUtil.sleep(window.getThreadFactory(), _tempsMillis);
         window.setEnabledPause(true);
         if (paused.get()) {
-            repaintBattleground();
+            battleground.paintSelection(window.getImageFactory());
             return true;
         }
         return false;

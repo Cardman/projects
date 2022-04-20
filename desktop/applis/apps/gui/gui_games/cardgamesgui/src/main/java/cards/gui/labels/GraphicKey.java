@@ -41,7 +41,7 @@ public final class GraphicKey extends AbsMetaLabel {
         _g.translate(-getWidth()/2,-15*(pseudos.size()+1));
         for(int couleur_:couleurs) {
             _g.translate(0,15);
-            _g.setColor(couleur_);
+            _g.setColor(GuiConstants.newColor(couleur_));
             _g.drawLine(getWidth()/8,0,3*getWidth()/8,0);
         }
         _g.translate(0,15);

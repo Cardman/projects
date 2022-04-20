@@ -93,7 +93,11 @@ public final class DefImage implements AbstractImage {
 
     @Override
     public void setColor(int _color) {
-        setColor(new Color(_color));
+        setColor(fullColor(_color));
+    }
+
+    public static Color fullColor(int _color) {
+        return new Color(GuiConstants.redPart(_color), GuiConstants.greenPart(_color), GuiConstants.bluePart(_color), GuiConstants.alpha(_color));
     }
 
     @Override

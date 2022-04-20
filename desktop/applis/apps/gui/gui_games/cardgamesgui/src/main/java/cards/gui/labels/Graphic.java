@@ -41,7 +41,7 @@ public final class Graphic extends AbsMetaLabel {
         int nbDealsMinusOne_ = scores.size();
         nbDealsMinusOne_--;
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<nombreJoueurs_; joueur_++) {
-            _g.setColor(couleurs.get(joueur_));
+            _g.setColor(GuiConstants.newColor(couleurs.get(joueur_)));
             esperance_=(double)sommes.first()/(double)nombreJoueurs_;
             _g.drawLine(0,0,rapport_,(int)(esperance_-scores.first().get(joueur_)));
             for(int partie_ = IndexConstants.FIRST_INDEX; partie_<nbDealsMinusOne_; partie_++) {

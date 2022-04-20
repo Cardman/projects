@@ -7,6 +7,7 @@ import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.IdMap;
+import code.vi.prot.impl.DefImage;
 import code.vi.prot.impl.gui.events.*;
 
 import javax.swing.*;
@@ -335,12 +336,12 @@ public abstract class CustComponent implements AbsCustComponent {
 
     @Override
     public void setLineBorder(int _color) {
-        setLineBorder(new Color(_color));
+        setLineBorder(DefImage.fullColor(_color));
     }
 
     @Override
     public void setLineBorder(int _color, int _thick) {
-        setLineBorder(new Color(_color),_thick);
+        setLineBorder(DefImage.fullColor(_color),_thick);
     }
 
     @Override
@@ -355,12 +356,12 @@ public abstract class CustComponent implements AbsCustComponent {
 
     @Override
     public void setBackground(int _color) {
-        setBackground(new Color(_color));
+        setBackground(DefImage.fullColor(_color));
     }
 
     @Override
     public void setForeground(int _color) {
-        setForeground(new Color(_color));
+        setForeground(DefImage.fullColor(_color));
     }
 
     @Override

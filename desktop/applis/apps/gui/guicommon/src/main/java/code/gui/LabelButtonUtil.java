@@ -30,9 +30,9 @@ public final class LabelButtonUtil {
                                          int _front, int _back) {
         int w_ = _fw;
         w_ = Math.max(_w, w_);
-        _label.setColor(_back);
+        _label.setColor(GuiConstants.newColor(_back));
         _label.fillRect(0, 0, w_ + 2, _h + 2);
-        _label.setColor(_front);
+        _label.setColor(GuiConstants.newColor(_front));
         _label.drawString(_text, 1, _h);
     }
 

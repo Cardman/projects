@@ -30,7 +30,7 @@ public final class DualAnchoredLabel extends DualLabel {
         int w_ = lab_.stringWidth(copy_,text_);
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
         img_.setFont(copy_);
-        img_.setColor(style_.getBgColor());
+        img_.setColor(GuiConstants.newColor(style_.getBgColor()));
         img_.fillRect(0, 0, w_, h_);
         img_.setColor(GuiConstants.ORANGE);
         for (SegmentPart s: getSegments()) {
