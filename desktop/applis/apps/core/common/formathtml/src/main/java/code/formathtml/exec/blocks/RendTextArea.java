@@ -25,8 +25,6 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     private StringMap<CustList<RendDynOperationNode>> execAttributesText;
     private StringMap<CustList<RendDynOperationNode>> execAttributes;
 
-    private String varNameConverter = EMPTY_STRING;
-    private String varNameConverterField = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
@@ -35,7 +33,6 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     public RendTextArea(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue,
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
                         StringMap<CustList<RendDynOperationNode>> _execAttributesText, StringMap<CustList<RendDynOperationNode>> _execAttributes,
-                        String _varNameConverter, String _varNameConverterField,
                         String _idClass, String _idName, String _className, Element _elt) {
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
@@ -43,8 +40,6 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         this.opsConverterField = _opsConverterField;
         this.execAttributesText = _execAttributesText;
         this.execAttributes = _execAttributes;
-        this.varNameConverter = _varNameConverter;
-        this.varNameConverterField = _varNameConverterField;
         this.idClass = _idClass;
         this.idName = _idName;
         this.className = _className;
@@ -61,7 +56,6 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         f_.setIdName(idName);
         f_.setOpsRead(opsRead);
         f_.setClassName(className);
-        f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
             IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
@@ -77,7 +71,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         }
         DefFetchedObjs def_ = fetchName(_cont, elt, _ctx, _rendStack, "", opsRead);
         look(_cont,docElementSelect_,def_,_rendStack);
-        fetchValue(_cont,elt,docElementSelect_,opsValue,varNameConverterField,opsConverterField, _ctx, _rendStack);
+        fetchValue(_cont,elt,docElementSelect_,opsValue, opsConverterField, _ctx, _rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }

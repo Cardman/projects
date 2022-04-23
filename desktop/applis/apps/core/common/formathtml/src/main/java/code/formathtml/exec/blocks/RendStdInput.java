@@ -16,9 +16,8 @@ public final class RendStdInput extends RendInput {
     public RendStdInput(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
                         CustList<RendDynOperationNode> _opsValue,
                         CustList<RendDynOperationNode> _opsConverterField,
-                        String _varNameConverterField,
                         DefFieldUpdates _f) {
-        super(_read, _execAttributes, _execAttributesText, _opsValue, _opsConverterField, _varNameConverterField, _f);
+        super(_read, _execAttributes, _execAttributesText, _opsValue, _opsConverterField, _f);
     }
 
     @Override

@@ -2,12 +2,15 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.RenderAnalysis;
 import code.sml.*;
-import code.util.*;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendBuildEl {
@@ -72,13 +75,7 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
         if (elt.getAttribute(_anaDoc.getRendKeyWords().getAttrEscaped()).isEmpty()) {
             String lt_ = Character.toString(LT_BEGIN_TAG);
             String gt_ = Character.toString(GT_TAG);
-            int l_ = roots.size();
             StringList formArg_ = new StringList();
-            StringList varNames_ = new StringList();
-            for (int i = 0; i< l_; i++) {
-                String varLoc_ = lookForVar(varNames_, _page);
-                varNames_.add(varLoc_);
-            }
             for (EntryCust<String,String> e: preformatted.entryList()) {
                 String preRend_;
                 String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,e.getValue(),LT_END_TAG,TMP_BLOCK_TAG,gt_);

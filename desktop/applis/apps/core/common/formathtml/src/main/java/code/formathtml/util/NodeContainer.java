@@ -11,7 +11,6 @@ public abstract class NodeContainer {
     private Struct bean = NullStruct.NULL_VALUE;
 
     private Struct typedField = NullStruct.NULL_VALUE;
-    private String varNameConvert;
     private boolean arrayConverter;
 
     private final NodeInformations nodeInformation = new NodeInformations();
@@ -54,14 +53,6 @@ public abstract class NodeContainer {
 
     public void setEnabled(boolean _enabled) {
         enabled = _enabled;
-    }
-
-    public String getVarNameConvert() {
-        return varNameConvert;
-    }
-
-    public void setVarNameConvert(String _varNameConvert) {
-        varNameConvert = _varNameConvert;
     }
 
     public boolean isArrayConverter() {

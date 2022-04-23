@@ -20,17 +20,14 @@ import code.util.core.StringUtil;
 
 public final class RendRadio extends RendInput {
     private final CustList<RendDynOperationNode> idRadio;
-    private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
-    private String varNameConverterFieldValue = EMPTY_STRING;
+    private final CustList<RendDynOperationNode> opsConverterFieldValue;
 
     public RendRadio(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
                      CustList<RendDynOperationNode> _opsValue,
                      CustList<RendDynOperationNode> _opsConverterField,
-                     String _varNameConverterField,
-                     CustList<RendDynOperationNode> _opsConverterFieldValue, String _varNameConverterFieldValue, DefFieldUpdates _f) {
-        super(_read, _execAttributes, _execAttributesText, _opsValue, _opsConverterField, _varNameConverterField, _f);
+                     CustList<RendDynOperationNode> _opsConverterFieldValue, DefFieldUpdates _f) {
+        super(_read, _execAttributes, _execAttributesText, _opsValue, _opsConverterField, _f);
         this.opsConverterFieldValue = _opsConverterFieldValue;
-        this.varNameConverterFieldValue = _varNameConverterFieldValue;
         idRadio = _f.getIdRadio();
     }
 
@@ -45,9 +42,9 @@ public final class RendRadio extends RendInput {
         Struct res_ = arg_.getArg().getStruct();
         if (!opsConverterFieldValue.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getArg().getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-            _rendStack.getLastPage().putValueVar(varNameConverterFieldValue, new VariableWrapper(locVar_));
+            _rendStack.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
             Argument argConv_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterFieldValue, _ctx, _rendStack).lastValue().getArgument());
-            _rendStack.getLastPage().removeRefVar(varNameConverterFieldValue);
+            _rendStack.getLastPage().removeRefVar("0");
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

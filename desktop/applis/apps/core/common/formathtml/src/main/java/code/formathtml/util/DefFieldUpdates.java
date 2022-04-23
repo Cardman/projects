@@ -6,7 +6,6 @@ import code.util.CustList;
 public final class DefFieldUpdates extends FieldUpdates {
     private CustList<RendDynOperationNode> opsRead = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
-    private String varNameConverter = "";
     private boolean arrayConverter;
 
     private String idClass = "";
@@ -51,14 +50,6 @@ public final class DefFieldUpdates extends FieldUpdates {
 
     public void setIdRadio(CustList<RendDynOperationNode> _idRadio) {
         this.idRadio = _idRadio;
-    }
-
-    public String getVarNameConverter() {
-        return varNameConverter;
-    }
-
-    public void setVarNameConverter(String _varNameConverter) {
-        varNameConverter = _varNameConverter;
     }
 
     public boolean isArrayConverter() {

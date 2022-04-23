@@ -35,9 +35,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private String idName = EMPTY_STRING;
     private final Element elt;
     private final boolean multiple;
-    private String varNameConverter = EMPTY_STRING;
-    private String varNameConverterField = EMPTY_STRING;
-    private String varNameConverterFieldValue = EMPTY_STRING;
     private String className = EMPTY_STRING;
     private final boolean arrayConverter;
 
@@ -46,7 +43,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                       CustList<RendDynOperationNode> _opsConverterField, CustList<RendDynOperationNode> _opsConverterFieldValue,
                       StringMap<CustList<RendDynOperationNode>> _execAttributesText, StringMap<CustList<RendDynOperationNode>> _execAttributes,
                       String _idClass, String _idName, Element _elt, boolean _multiple,
-                      String _varNameConverter, String _varNameConverterField, String _varNameConverterFieldValue,
                       String _className, boolean _arrayConverter) {
         this.opsRead = _opsRead;
         this.opsValue = _opsValue;
@@ -61,9 +57,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         this.idName = _idName;
         this.elt = _elt;
         this.multiple = _multiple;
-        this.varNameConverter = _varNameConverter;
-        this.varNameConverterField = _varNameConverterField;
-        this.varNameConverterFieldValue = _varNameConverterFieldValue;
         this.className = _className;
         this.arrayConverter = _arrayConverter;
     }
@@ -125,7 +118,6 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         f_.setIdClass(idClass);
         f_.setIdName(idName);
         f_.setOpsRead(opsRead);
-        f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
         f_.setArrayConverter(arrayConverter);
         f_.setClassName(className);
@@ -209,9 +201,9 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             return getStringKey(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-        _rendStackCall.getLastPage().putValueVar(varNameConverterField, new VariableWrapper(locVar_));
+        _rendStackCall.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
         Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterField, _ctx, _rendStackCall).lastValue().getArgument());
-        _rendStackCall.getLastPage().removeRefVar(varNameConverterField);
+        _rendStackCall.getLastPage().removeRefVar("0");
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
         }
@@ -222,9 +214,9 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
             return BeanCustLgNames.processStr(_arg, _ctx, _rendStackCall);
         }
         LocalVariable locVar_ = LocalVariable.newLocalVariable(_arg.getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-        _rendStackCall.getLastPage().putValueVar(varNameConverterFieldValue, new VariableWrapper(locVar_));
+        _rendStackCall.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
         Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterFieldValue, _ctx, _rendStackCall).lastValue().getArgument());
-        _rendStackCall.getLastPage().removeRefVar(varNameConverterFieldValue);
+        _rendStackCall.getLastPage().removeRefVar("0");
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return EMPTY_STRING;
         }
@@ -261,7 +253,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private DefFetchedObjs processIndexes(Configuration _cont, Element _read, Element _write, ContextEl _ctx, RendStackCall _rendStackCall) {
         DefFetchedObjs def_ = fetchName(_cont, _read, _ctx, _rendStackCall, "", opsRead);
         look(_cont,_write,def_,_rendStackCall);
-        fetchValue(_cont,_read,_write,opsValue,varNameConverterField,opsConverterField, _ctx, _rendStackCall);
+        fetchValue(_cont,_read,_write,opsValue, opsConverterField, _ctx, _rendStackCall);
         return def_;
     }
 }

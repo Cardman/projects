@@ -4,9 +4,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
@@ -34,7 +32,6 @@ public abstract class AnaRendBlock {
     static final char LT_BEGIN_TAG = '<';
 
     static final String DOT = ".";
-    static final String TMP_LOC = "tmpLoc";
 
     static final String OR_ERR = "|";
     static final String ZERO = "0";
@@ -616,20 +613,10 @@ public abstract class AnaRendBlock {
         this.parent = _parent;
     }
 
-    public static String lookForVar(StringList _varNames, AnalyzedPageEl _page) {
-        String varLoc_ = TMP_LOC;
-        int indexLoc_ = 0;
-        while (!ContextUtil.isNotVar(varLoc_, _page) || StringUtil.contains(_varNames,varLoc_)) {
-            varLoc_ = StringUtil.concatNbs(TMP_LOC,indexLoc_);
-            indexLoc_++;
-        }
-        return varLoc_;
-    }
-
     public static String toSgn(ClassMethodIdReturn _res, AnalyzedPageEl _page) {
         AnaCallFctContent fctContent_ = new AnaCallFctContent("");
         if (_res == null) {
-            return "";
+            return _page.getAliasObject();
         }
         fctContent_.update(_res);
         ClassMethodId id_ = fctContent_.getClassMethodId();

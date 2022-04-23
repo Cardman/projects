@@ -696,12 +696,11 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     public Struct convert(DefNodeContainer _container, ContextEl _context, RendStackCall _rendStackCall) {
         CustList<RendDynOperationNode> ops_ = _container.getOpsConvert();
         if (!ops_.isEmpty()) {
-            String varNameConvert_ = _container.getVarNameConvert();
             LocalVariable lv_ = newLocVar(_container);
-            _rendStackCall.getLastPage().putValueVar(varNameConvert_, new VariableWrapper(lv_));
+            _rendStackCall.getLastPage().putValueVar("0", new VariableWrapper(lv_));
             setGlobalArgumentStruct(_container.getBean(),_context,_rendStackCall);
             Argument res_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(ops_, _context, _rendStackCall).lastValue().getArgument());
-            _rendStackCall.getLastPage().removeRefVar(varNameConvert_);
+            _rendStackCall.getLastPage().removeRefVar("0");
             if (_context.callsOrException(_rendStackCall.getStackCall())) {
                 return NullStruct.NULL_VALUE;
             }

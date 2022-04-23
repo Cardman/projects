@@ -413,7 +413,6 @@ public abstract class RendBlock {
             nodeCont_.setAllObject(_fetch.getAllObj());
             nodeCont_.setOpsConvert(_f.getOpsConverter());
             nodeCont_.setInput(_fetch.getInput());
-            nodeCont_.setVarNameConvert(_f.getVarNameConverter());
             nodeCont_.setArrayConverter(_f.isArrayConverter());
             nodeCont_.setBean(_globalArgument.getStruct());
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
@@ -477,7 +476,7 @@ public abstract class RendBlock {
         return id_;
     }
 
-    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, String _varNameConv, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
+    protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
@@ -500,7 +499,7 @@ public abstract class RendBlock {
                     _write.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
                 }
             } else {
-                o_ = convertField(o_,_varNameConv,_opsConv, _ctx, _rendStackCall);
+                o_ = convertField(o_, _opsConv, _ctx, _rendStackCall);
                 if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                     return;
                 }
@@ -516,7 +515,7 @@ public abstract class RendBlock {
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
-            o_ = convertField(o_,_varNameConv,_opsConv, _ctx, _rendStackCall);
+            o_ = convertField(o_, _opsConv, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
@@ -530,13 +529,13 @@ public abstract class RendBlock {
         }
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
     }
-    private static Argument convertField(Argument _o, String _varNameConv, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
+    private static Argument convertField(Argument _o, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {
         Struct o_ = _o.getStruct();
         if (!_opsConv.isEmpty()) {
             LocalVariable locVar_ = LocalVariable.newLocalVariable(o_, _ctx.getStandards().getContent().getCoreNames().getAliasObject());
-            _rendStackCall.getLastPage().putValueVar(_varNameConv, new VariableWrapper(locVar_));
+            _rendStackCall.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
             Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_opsConv, _ctx, _rendStackCall).lastValue().getArgument());
-            _rendStackCall.getLastPage().removeRefVar(_varNameConv);
+            _rendStackCall.getLastPage().removeRefVar("0");
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return Argument.createVoid();
             }

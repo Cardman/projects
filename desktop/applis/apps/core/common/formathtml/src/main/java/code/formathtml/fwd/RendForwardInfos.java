@@ -316,53 +316,53 @@ public final class RendForwardInfos {
         if (_current instanceof AnaRendSelect){
             AnaRendSelect f_ = (AnaRendSelect) _current;
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
-            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
-            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
-            CustList<RendDynOperationNode> opConverterFieldValue_ = getExecutableNodes(f_.getRootConverterFieldValue(), _forwards);
+            CustList<RendDynOperationNode> opConverter_ = geneLink(f_.getRootConverter(), _forwards,1);
+            CustList<RendDynOperationNode> opConverterField_ = geneLink(f_.getRootConverterField(), _forwards,1);
+            CustList<RendDynOperationNode> opConverterFieldValue_ = geneLink(f_.getRootConverterFieldValue(), _forwards,1);
             CustList<RendDynOperationNode> opDefault_ = getExecutableNodes(f_.getRootDefault(), _forwards);
             CustList<RendDynOperationNode> opMap_ = getExecutableNodes(f_.getRootMap(), _forwards);
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendSelect(opRead_,opValue_, opMap_,opDefault_,opConverter_,opConverterField_,opConverterFieldValue_
-            ,partText_,part_, f_.getIdClass(),f_.getIdName(),f_.getElt(),f_.isMultiple(),f_.getVarNameConverter(),f_.getVarNameConverterField(),
-                    f_.getVarNameConverterFieldValue(),f_.getClassName(),f_.isArrayConverter());
+            ,partText_,part_, f_.getIdClass(),f_.getIdName(),f_.getElt(),f_.isMultiple(),
+                    f_.getClassName(),f_.isArrayConverter());
         }
         if (_current instanceof AnaRendRadio){
             AnaRendRadio f_ = (AnaRendRadio) _current;
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
-            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
-            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
-            CustList<RendDynOperationNode> opConverterFieldValue_ = getExecutableNodes(f_.getRootConverterFieldValue(), _forwards);
+            CustList<RendDynOperationNode> opConverter_ = geneLink(f_.getRootConverter(), _forwards, 1);
+            CustList<RendDynOperationNode> opConverterField_ = geneLink(f_.getRootConverterField(), _forwards, 1);
+            CustList<RendDynOperationNode> opConverterFieldValue_ = geneLink(f_.getRootConverterFieldValue(), _forwards,1);
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             CustList<RendDynOperationNode> nbRad_ = getExecutableNodes(f_.getRootRadio(), _forwards);
             return new RendRadio(f_.getRead(),part_,partText_, opValue_, opConverterField_
-                    , f_.getVarNameConverterField(), opConverterFieldValue_,
-                    f_.getVarNameConverterFieldValue(), RendInput.initUpdates(f_.getIdClass(), f_.getIdName(), opRead_, f_.getVarNameConverter(), opConverter_, f_.getClassName(), nbRad_));
+                    , opConverterFieldValue_,
+                    RendInput.initUpdates(f_.getIdClass(), f_.getIdName(), opRead_, opConverter_, f_.getClassName(), nbRad_));
         }
         if (_current instanceof AnaRendStdInput){
             AnaRendStdInput f_ = (AnaRendStdInput) _current;
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
-            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
-            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
+            CustList<RendDynOperationNode> opConverter_ = geneLink(f_.getRootConverter(), _forwards, 1);
+            CustList<RendDynOperationNode> opConverterField_ = geneLink(f_.getRootConverterField(), _forwards, 1);
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendStdInput(f_.getRead(),part_,partText_, opValue_, opConverterField_
-                    , f_.getVarNameConverterField(), RendInput.initUpdates(f_.getIdClass(), f_.getIdName(), opRead_, f_.getVarNameConverter(), opConverter_, f_.getClassName(), new CustList<RendDynOperationNode>()));
+                    , RendInput.initUpdates(f_.getIdClass(), f_.getIdName(), opRead_, opConverter_, f_.getClassName(), new CustList<RendDynOperationNode>()));
         }
         if (_current instanceof AnaRendTextArea){
             AnaRendTextArea f_ = (AnaRendTextArea) _current;
             CustList<RendDynOperationNode> opRead_ = getExecutableNodes(f_.getRootRead(), _forwards);
-            CustList<RendDynOperationNode> opConverter_ = getExecutableNodes(f_.getRootConverter(), _forwards);
-            CustList<RendDynOperationNode> opConverterField_ = getExecutableNodes(f_.getRootConverterField(), _forwards);
+            CustList<RendDynOperationNode> opConverter_ = geneLink(f_.getRootConverter(), _forwards, 1);
+            CustList<RendDynOperationNode> opConverterField_ = geneLink(f_.getRootConverterField(), _forwards,1);
             CustList<RendDynOperationNode> opValue_ = getExecutableNodes(f_.getRootValue(), _forwards);
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             return new RendTextArea(opRead_,opValue_, opConverter_,opConverterField_
-                    ,partText_,part_,f_.getVarNameConverter(),f_.getVarNameConverterField(), f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getElt());
+                    ,partText_,part_, f_.getIdClass(),f_.getIdName(),f_.getClassName(),f_.getElt());
         }
         if (_current instanceof AnaRendSpan){
             AnaRendSpan f_ = (AnaRendSpan) _current;

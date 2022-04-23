@@ -5,9 +5,11 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
@@ -21,13 +23,11 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
     private OperationNode rootRead;
     private OperationNode rootValue;
 
-    private OperationNode rootConverter;
-    private OperationNode rootConverterField;
+    private ClassMethodIdReturn rootConverter;
+    private ClassMethodIdReturn rootConverterField;
     private final StringMap<ResultExpression> attributesText = new StringMap<ResultExpression>();
     private final StringMap<ResultExpression> attributes = new StringMap<ResultExpression>();
 
-    private String varNameConverter = EMPTY_STRING;
-    private String varNameConverterField = EMPTY_STRING;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private String className = EMPTY_STRING;
@@ -63,29 +63,20 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
                     AnalyzingDoc.addError(badEl_, _page);
                 }
                 String string_ = _page.getAliasString();
-                StringList varNames_ = new StringList();
-                String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                varNames_.add(varLoc_);
-                varNameConverter = varLoc_;
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(string_);
-                _page.getInfosVars().addEntry(varLoc_,lv_);
-                String preRend_ = StringUtil.concat(converterValue_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
                 int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
                 _page.setGlobalOffset(attr_);
                 _page.zeroOffset();
-                rootConverter = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
-                for (String v:varNames_) {
-                    _page.getInfosVars().removeKey(v);
-                }
-                m_.setArg(rootConverter.getResultClass());
+                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+                rootConverter = classMethodIdReturn_;
+                String check_ = AnaRendForm.check(_page, attr_, classMethodIdReturn_);
+                m_.setArg(check_);
                 m_.setParam(resultInput.getOpsReadRoot().getResultClass());
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(attr_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(rootConverter.getResultClass().getNames(),AND_ERR),
+                            check_,
                             StringUtil.join(rootRead.getResultClass().getNames(),AND_ERR));
                     AnalyzingDoc.addError(badEl_, _page);
                 }
@@ -94,30 +85,21 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
         String converterField_ = elt.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertField()));
         if (StringExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
-            StringList varNames_ = new StringList();
-            String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-            varNames_.add(varLoc_);
-            varNameConverterField = varLoc_;
-            AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(object_);
-            _page.getInfosVars().addEntry(varLoc_,lv_);
-            String preRend_ = StringUtil.concat(converterField_,AnaRendBlock.LEFT_PAR, varLoc_,AnaRendBlock.RIGHT_PAR);
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
             _page.setGlobalOffset(attr_);
             _page.zeroOffset();
-            rootConverterField = RenderAnalysis.getRootAnalyzedOperations(preRend_, 0, _anaDoc, _page);
-            for (String v:varNames_) {
-                _page.getInfosVars().removeKey(v);
-            }
+            ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+            rootConverterField = classMethodIdReturn_;
+            String check_ = AnaRendForm.check(_page, attr_, classMethodIdReturn_);
             Mapping m_ = new Mapping();
-            m_.setArg(rootConverterField.getResultClass());
+            m_.setArg(check_);
             m_.setParam(_anaDoc.getAliasCharSequence());
             if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                 badEl_.setFile(_page.getCurrentFile());
                 badEl_.setIndexFile(attr_);
                 badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(rootConverterField.getResultClass().getNames(),AND_ERR),
+                        check_,
                         _anaDoc.getAliasCharSequence());
                 AnalyzingDoc.addError(badEl_, _page);
             }
@@ -154,15 +136,11 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
         return idName;
     }
 
-    public String getVarNameConverter() {
-        return varNameConverter;
-    }
-
-    public OperationNode getRootConverter() {
+    public ClassMethodIdReturn getRootConverter() {
         return rootConverter;
     }
 
-    public OperationNode getRootConverterField() {
+    public ClassMethodIdReturn getRootConverterField() {
         return rootConverterField;
     }
 
@@ -172,10 +150,6 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
 
     public OperationNode getRootValue() {
         return rootValue;
-    }
-
-    public String getVarNameConverterField() {
-        return varNameConverterField;
     }
 
     public StringMap<ResultExpression> getAttributes() {
