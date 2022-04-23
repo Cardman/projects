@@ -8,28 +8,25 @@ import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.StringMap;
 
 public final class RendAnchor extends RendElement {
     private final CustList<RendDynOperationNode> opExpAnch;
 
-    private final StringList varNames;
-    private final DefExecTextPart textPart;
+    private final StringMap<CustList<RendDynOperationNode>> textPart;
 
     public RendAnchor(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
                       CustList<RendDynOperationNode> _opAnc,
-                      StringList _varNames, DefExecTextPart _textPart) {
+                      StringMap<CustList<RendDynOperationNode>> _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         opExpAnch = _opAnc;
-        this.varNames = _varNames;
         this.textPart = _textPart;
     }
 
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        processLink(_cont, (Element) _nextWrite, _read, varNames, textPart,opExpAnch, _ctx, _rendStack);
+        processLink(_cont, (Element) _nextWrite, _read, textPart,opExpAnch, _ctx, _rendStack);
     }
 
 }

@@ -19,10 +19,7 @@ import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.FormParts;
-import code.formathtml.exec.AdvancedFullStack;
-import code.formathtml.exec.ImportingPage;
-import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.*;
 import code.formathtml.exec.opers.*;
 import code.formathtml.exec.stacks.*;
 import code.formathtml.util.*;
@@ -135,22 +132,23 @@ public abstract class RendBlock {
         parent = _b;
     }
 
-    public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringList _varNames, DefExecTextPart _textPart, CustList<RendDynOperationNode> _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringMap<CustList<RendDynOperationNode>> _textPart, CustList<RendDynOperationNode> _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         if (!href_.startsWith(CALL_METHOD)) {
-            _rendStackCall.getFormParts().getCallsExps().add(_anc);
-            _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
+            _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc,new CustList<Struct>()));
             procCstAnc(_cont, _nextWrite, _rendStackCall.getFormParts());
             return;
         }
-        StringList alt_ = RenderingText.renderAltList(_textPart, _ctx, _rendStackCall);
-        if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            return;
+        CustList<Struct> values_ = new CustList<Struct>();
+        for (EntryCust<String, CustList<RendDynOperationNode>> e: _textPart.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStackCall);
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+                return;
+            }
+            values_.add(Argument.getNullableValue(args_.lastValue().getArgument()).getStruct());
+            _nextWrite.removeAttribute(e.getKey());
         }
-        StringList arg_ = arg(alt_);
-        _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
-        _rendStackCall.getFormParts().getCallsExps().add(_anc);
-        _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
+        _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc,values_));
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
@@ -158,17 +156,7 @@ public abstract class RendBlock {
         incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
     }
 
-    public static StringList arg(StringList _alt) {
-        StringList arg_ = new StringList();
-        int len_ = _alt.size();
-        for (int i = 1; i < len_; i += 2) {
-            arg_.add(_alt.get(i));
-        }
-        return arg_;
-    }
-
     public static void procCstAnc(Configuration _cont, Element _nextWrite, FormParts _formParts) {
-        _formParts.getAnchorsArgs().add(new StringList());
         if (_nextWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
             _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         }

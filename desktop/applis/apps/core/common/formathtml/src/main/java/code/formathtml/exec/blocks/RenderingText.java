@@ -31,24 +31,6 @@ public final class RenderingText {
         return str_.toString();
     }
 
-    public static StringList renderAltList(DefExecTextPart _textPart, ContextEl _ctx, RendStackCall _rendStackCall) {
-        CustList<CustList<RendDynOperationNode>> opExp_ = _textPart.getOpExp();
-        StringList texts_ = _textPart.getTexts();
-        int s_ = opExp_.size();
-        StringList str_ = new StringList();
-        for (int i = 0; i < s_; i++) {
-            str_.add(texts_.get(i));
-            CustList<RendDynOperationNode> exp_ = opExp_.get(i);
-            String st_ = tryCalculate(exp_, _ctx, _rendStackCall);
-            if (st_ == null) {
-                return str_;
-            }
-            str_.add(st_);
-        }
-        str_.add(texts_.last());
-        return str_;
-    }
-
     private static String tryCalculate(CustList<RendDynOperationNode> _e, ContextEl _ctx, RendStackCall _rendStackCall) {
         Argument argument_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_e, _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {

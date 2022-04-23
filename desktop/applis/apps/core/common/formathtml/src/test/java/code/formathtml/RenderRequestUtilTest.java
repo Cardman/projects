@@ -8,12 +8,11 @@ import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefNodeContainer;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click()\">two</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click\">two</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -95,7 +94,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click({nb})\">two</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click\" c:param0='nb'>two</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -164,7 +163,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click()\">two</a><a c:command=\"$click2()\">four</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click\">two</a><a c:command=\"$click2\">four</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -241,7 +240,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click({nb})\">two</a><a c:command=\"$click2({nb})\">four</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click\" c:param0='nb'>two</a><a c:command=\"$click2\" c:param0='nb'>four</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -319,7 +318,7 @@ public final class RenderRequestUtilTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click({1})\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click()\">two</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><a c:command=\"$click\">two</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -620,10 +619,8 @@ public final class RenderRequestUtilTest extends CommonRender {
 
     private static Struct redirect(Argument _bean, int _url, BeanCustLgNames _advStandards, ContextEl _context, RendStackCall _rendStackCall) {
         DefHtmlPage _htmlPage = _rendStackCall.getHtmlPage();
-        StringList varNames_ = _htmlPage.getAnchorsVars().get(_url);
-        CustList<RendDynOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
-        StringList args_ = _htmlPage.getAnchorsArgs().get(_url);
-        return ((BeanCustLgNames) _advStandards).redir(_bean, varNames_, exps_, args_, _context, _rendStackCall);
+        AnchorCall exps_ = _htmlPage.getCallsExps().get(_url);
+        return ((BeanCustLgNames) _advStandards).redir(_bean, exps_, _context, _rendStackCall);
     }
 
 }

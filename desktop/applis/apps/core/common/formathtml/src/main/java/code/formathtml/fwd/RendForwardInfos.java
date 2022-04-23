@@ -7,12 +7,14 @@ import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
+import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ImplicitMethods;
 import code.expressionlanguage.fwd.Forwards;
@@ -244,9 +246,9 @@ public final class RendForwardInfos {
             AnaRendAnchor f_ = (AnaRendAnchor) _current;
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            DefExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
-            CustList<RendDynOperationNode> op_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendAnchor(f_.getRead(),part_,partText_,op_, f_.getVarNames(),partSub_);
+            StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
+            CustList<RendDynOperationNode> op_ = geneLink(f_.getResultAnc(),f_.getResults(), _forwards);
+            return new RendAnchor(f_.getRead(),part_,partText_,op_, partSub_);
         }
         if (_current instanceof AnaRendImg){
             AnaRendImg f_ = (AnaRendImg) _current;
@@ -281,9 +283,9 @@ public final class RendForwardInfos {
             AnaRendForm f_ = (AnaRendForm) _current;
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            CustList<RendDynOperationNode> opForm_ = getExecutableNodes(f_.getRoot(), _forwards);
-            DefExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
-            return new RendForm(f_.getRead(),part_,partText_,opForm_,f_.getVarNames(),partSub_);
+            StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
+            CustList<RendDynOperationNode> op_ = geneLink(f_.getRes().getResultAnc(), f_.getResults(), _forwards);
+            return new RendForm(f_.getRead(),part_,partText_,op_, partSub_);
         }
         if (_current instanceof AnaRendImportForm){
             AnaRendImportForm f_ = (AnaRendImportForm) _current;
@@ -304,8 +306,8 @@ public final class RendForwardInfos {
             StringMap<CustList<CustList<RendDynOperationNode>>> map_ = toExecPartMapExt(f_.getCallsRoots(), _forwards);
             return new RendMessage(partSub_,
                     f_.getPreformatted(),f_.getQuoted(),f_.getEscaped(),map_,
-                    f_.getArgs(),f_.getLocDoc(),
-                    f_.getVarNames());
+                    f_.getArgs(),f_.getLocDoc()
+            );
         }
         return input(_current, _forwards);
     }
@@ -373,10 +375,10 @@ public final class RendForwardInfos {
             AnaRendTitledAnchor f_ = (AnaRendTitledAnchor) _current;
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
-            DefExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts(), _forwards);
+            StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
             StringMap<CustList<RendDynOperationNode>> title_ = toExecPartExt(f_.getOpExpTitle(), _forwards);
-            CustList<RendDynOperationNode> opAnc_ = getExecutableNodes(f_.getRoot(), _forwards);
-            return new RendTitledAnchor(f_.getRead(),part_,partText_,opAnc_,f_.getVarNames(),title_,f_.getPreformatted(),partSub_);
+            CustList<RendDynOperationNode> opAnc_ = geneLink(f_.getRes().getResultAnc(), f_.getResults(), _forwards);
+            return new RendTitledAnchor(f_.getRead(),part_,partText_,opAnc_, title_,f_.getPreformatted(),partSub_);
         }
         if (_current instanceof AnaRendEmptyInstruction){
             return new RendEmptyInstruction();
@@ -427,6 +429,27 @@ public final class RendForwardInfos {
                 new RendOperationNodeListOff(_opInit, _f.getInitOffset()), new RendOperationNodeListOff(_opExp, _f.getExpressionOffset()), new RendOperationNodeListOff(_opStep, _f.getStepOffset()));
     }
 
+    private static CustList<RendDynOperationNode> geneLink(ClassMethodIdReturn _id, StringMap<ResultExpression> _args, Forwards _forwards) {
+        CustList<RendDynOperationNode> lk_ = new CustList<RendDynOperationNode>();
+        if (_id == null) {
+            return lk_;
+        }
+        AnaCallFctContent ana_ = new AnaCallFctContent("");
+        ana_.update(_id);
+        ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(ana_.getMemberId(), _forwards);
+        RendFctOperation rend_ = new RendFctOperation(p_,new ExecOperationContent(0,new ExecClassArgumentMatching(""),_args.size()),new ExecInstFctContent(0,false,0,"",-1,ExecFormattedRootBlock.defValue()),false,new ExecArrContent(false));
+        int len_ = _args.size();
+        for (int i = 0; i < len_; i++) {
+            AnaVariableContent cont_ = new AnaVariableContent(0);
+            cont_.setVariableName(Long.toString(i));
+            cont_.setDeep(-1);
+            RendStdRefVariableOperation v_ = new RendStdRefVariableOperation(new ExecOperationContent(i,new ExecClassArgumentMatching(""),i),new ExecVariableContent(cont_));
+            rend_.appendChild(v_);
+            lk_.add(v_);
+        }
+        lk_.add(rend_);
+        return lk_;
+    }
     private static StringMap<CustList<RendDynOperationNode>> toExecPartExt(StringMap<ResultExpression> _texts, Forwards _forwards) {
         StringMap<CustList<RendDynOperationNode>> m_ = new StringMap<CustList<RendDynOperationNode>>();
         for (EntryCust<String,ResultExpression> e: _texts.entryList()) {

@@ -3,15 +3,16 @@ package code.formathtml.analyze;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.Ints;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -22,14 +23,12 @@ public final class ResultText {
     private static final char RIGHT_EL = '}';
     private static final char LEFT_EL = '{';
     private CustList<OperationNode> opExpRoot;
-    private OperationNode opExpAnchorRoot;
+    private ClassMethodIdReturn resultAnc;
 
     private StringList texts = new StringList();
-    private StringList varNames = new StringList();
     private String sgn = "";
-    private final Ints expOffsets = new Ints();
-    private final Ints expEnds = new Ints();
     private final ResultExpression resultExpression = new ResultExpression();
+    private final StringMap<ResultExpression> results = new StringMap<ResultExpression>();
 
     public void buildIdAna(String _expression, int _begin, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(_begin);
@@ -78,7 +77,6 @@ public final class ResultText {
             if (cur_ == LEFT_EL) {
                 texts.add(str_.toString());
                 str_.delete(0,str_.length());
-                expOffsets.add(i_);
                 i_++;
                 if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -95,7 +93,6 @@ public final class ResultText {
                 OperationNode opsLoc_ = RenderAnalysis.getRootAnalyzedOperationsDel(_expression, i_, _anaDoc, _page,resultExpression);
                 opExpRoot.add(opsLoc_);
                 i_ = _anaDoc.getNextIndex();
-                expEnds.add(i_);
                 continue;
             }
             if (cur_ == RIGHT_EL){
@@ -123,70 +120,51 @@ public final class ResultText {
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int colsGrId_ = _r.getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-            _res.buildIdAna(lk_, colsGrId_, _anaDoc, _page);
-            CustList<OperationNode> opExpRoot_ = _res.getOpExpRoot();
-            for (OperationNode e: opExpRoot_) {
+            for (EntryCust<String,ResultExpression> e: _res.getResults().entryList()) {
+                int param_ = _r.getAttributeDelimiter(e.getKey());
+                _page.zeroOffset();
+                _page.setGlobalOffset(param_);
+                String attribute_ = _read.getAttribute(e.getKey());
+                OperationNode res_ = RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page, e.getValue());
                 Mapping m_ = new Mapping();
-                m_.setArg(e.getResultClass());
+                m_.setArg(res_.getResultClass());
                 m_.setParam(_page.getAliasLong());
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(colsGrId_);
+                    badEl_.setIndexFile(param_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(e.getResultClass().getNames(),AnaRendBlock.AND_ERR),
+                            StringUtil.join(res_.getResultClass().getNames(),AnaRendBlock.AND_ERR),
                             _page.getAliasLong());
                     AnalyzingDoc.addError(badEl_, _page);
                 }
             }
-            int l_ = opExpRoot_.size();
-            StringList formArg_ = new StringList();
-            StringList varNames_ = new StringList();
-            for (int i = 0; i< l_; i++) {
-                String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                varNames_.add(varLoc_);
-            }
-            _res.varNames = varNames_;
-            int i_ = 0;
-            for (String v:varNames_) {
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(opExpRoot_.get(i_).getResultClass().getSingleNameOrEmpty());
-                _page.getInfosVars().addEntry(v,lv_);
-                formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
-                i_++;
-            }
-            String pref_ = _res.quickRender(lk_, formArg_);
-            _page.zeroOffset();
-            _res.opExpAnchorRoot = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
-            _res.sgn = AnaRendBlock.checkVars(colsGrId_,varNames_,_res.opExpAnchorRoot,_page,_anaDoc);
-            _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),_res.sgn);
-            for (String v:varNames_) {
-                _page.getInfosVars().removeKey(v);
-            }
-        }
-    }
-    public String quickRender(String _expression,StringList _args) {
-        StringBuilder str_ = new StringBuilder();
-        int length_ = _expression.length();
-        int i_ = IndexConstants.FIRST_INDEX;
-        int iExp_ = IndexConstants.FIRST_INDEX;
-        while (i_ < length_) {
-            if (expOffsets.isValidIndex(iExp_)) {
-                if (expOffsets.get(iExp_) == i_) {
-                    if (_args.isValidIndex(iExp_)) {
-                        str_.append(_args.get(iExp_));
-                    }
-                    if (expEnds.isValidIndex(iExp_)) {
-                        i_ = expEnds.get(iExp_);
-                    }
-                    iExp_++;
-                    continue;
+            if (StringExpUtil.isDollarWord(lk_)) {
+                StringList argCla_ = new StringList();
+                for (EntryCust<String,ResultExpression> e: _res.getResults().entryList()) {
+                    String singleNameOrEmpty_ = e.getValue().getRoot().getResultClass().getSingleNameOrEmpty();
+                    argCla_.add(singleNameOrEmpty_);
                 }
+                _page.zeroOffset();
+                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+                _res.resultAnc = classMethodIdReturn_;
+                if (classMethodIdReturn_ == null) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFile(_page.getCurrentFile());
+                    badEl_.setIndexFile(colsGrId_);
+                    badEl_.buildError("");
+                    AnalyzingDoc.addError(badEl_, _page);
+                }
+                _res.sgn = AnaRendBlock.toSgn(classMethodIdReturn_,_page);
+                _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),_res.sgn);
+                return;
             }
-            str_.append(_expression.charAt(i_));
-            i_++;
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFile(_page.getCurrentFile());
+            badEl_.setIndexFile(colsGrId_);
+            badEl_.buildError("");
+            AnalyzingDoc.addError(badEl_, _page);
         }
-        return str_.toString();
     }
 
     public ResultExpression getResultExpression() {
@@ -201,12 +179,15 @@ public final class ResultText {
         return opExpRoot;
     }
 
-    public OperationNode getOpExpAnchorRoot() {
-        return opExpAnchorRoot;
+    public StringMap<ResultExpression> getResults() {
+        return results;
     }
 
-    public StringList getVarNames() {
-        return varNames;
+    public ClassMethodIdReturn getResultAnc() {
+        return resultAnc;
     }
 
+    public void setResultAnc(ClassMethodIdReturn _res) {
+        this.resultAnc = _res;
+    }
 }

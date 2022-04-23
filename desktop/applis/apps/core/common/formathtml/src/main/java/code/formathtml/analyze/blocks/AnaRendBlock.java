@@ -5,9 +5,11 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.*;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
+import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -623,41 +625,14 @@ public abstract class AnaRendBlock {
         }
         return varLoc_;
     }
-    public static String checkVars(int _off,StringList _varNames, OperationNode _root, AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
-        if (!(_root instanceof AbstractCallFctOperation)) {
-            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-            badEl_.setFile(_page.getCurrentFile());
-            badEl_.setIndexFile(_off);
-            badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
-                    "");
-            AnalyzingDoc.addError(badEl_, _page);
+
+    public static String toSgn(ClassMethodIdReturn _res, AnalyzedPageEl _page) {
+        AnaCallFctContent fctContent_ = new AnaCallFctContent("");
+        if (_res == null) {
             return "";
         }
-        InvokingOperation inv_ = (InvokingOperation) _root;
-        for (OperationNode o: inv_.getChildrenNodes()) {
-            if (!(o instanceof IdOperation)||!((IdOperation)o).isStandard()||!(o.getFirstChild() instanceof VariableOperationUse)) {
-                FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                badEl_.setFile(_page.getCurrentFile());
-                badEl_.setIndexFile(_off);
-                badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
-                        "");
-                AnalyzingDoc.addError(badEl_, _page);
-            } else {
-                VariableOperationUse u_ = (VariableOperationUse) o.getFirstChild();
-                if (!StringUtil.contains(_varNames,u_.getRealVariableName())) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(_off);
-                    badEl_.buildError(_anaDoc.getRendAnalysisMessages().getBadDocument(),
-                            "");
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
-            }
-        }
-        ClassMethodId id_ = ((AbstractCallFctOperation) _root).getClassMethodId();
-        if (id_ == null) {
-            return "";
-        }
+        fctContent_.update(_res);
+        ClassMethodId id_ = fctContent_.getClassMethodId();
         return StringExpUtil.getIdFromAllTypes(id_.getClassName())+"."+id_.getConstraints().getSignature(_page.getDisplayedStrings());
     }
 

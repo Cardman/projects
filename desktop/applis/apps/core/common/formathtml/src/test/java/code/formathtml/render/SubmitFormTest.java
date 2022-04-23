@@ -28,7 +28,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -105,7 +105,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><c:select multiple='' default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -191,7 +191,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><c:select default=\"\" name=\"choice\" map=\"combo\" varValue=\"choice\" convertValue='conv'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -260,7 +260,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><form c:command=\"$validate()\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" n-r=\"0\" c:varValue=\"n\"/></c:for><c:for var=\"n\" list=\"numbersTwo\"><input type=\"radio\" name=\"indexTwo\" n-r=\"1\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><form c:command=\"$validate\"><c:for var=\"n\" list=\"numbers\"><input type=\"radio\" name=\"index\" n-r=\"0\" c:varValue=\"n\"/></c:for><c:for var=\"n\" list=\"numbersTwo\"><input type=\"radio\" name=\"indexTwo\" n-r=\"1\" c:varValue=\"n\"/></c:for><input type=\"submit\" value=\"OK\"/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -335,7 +335,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><input type='checkbox' name='choiceBool' c:varValue='choiceBool'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><input type='checkbox' name='choiceBool' c:varValue='choiceBool'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
@@ -413,7 +413,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><input type='checkbox' name='choiceBool' c:varValue='choiceBool'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><input type='checkbox' name='choiceBool' c:varValue='choiceBool'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
@@ -491,7 +491,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><input type='text' name='choice' c:varValue='choice'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><input type='text' name='choice' c:varValue='choice'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
@@ -573,7 +573,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><textarea name=\"choice\" c:varValue=\"choice\" c:convertValue='conv'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><textarea name=\"choice\" c:varValue=\"choice\" c:convertValue='conv'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
@@ -633,7 +633,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><input type='number'  id='\"myId\"' name='choice' c:varValue='choice'/><input type='range' id='\"myId2\"' name='choiceSec' c:varValue='choiceSec'/><span c:for='\"myId\"' c:valueMessage='msg_example,one'/><span c:for='\"myId2\"' c:valueMessage='msg_example,two'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><input type='number'  id='\"myId\"' name='choice' c:varValue='choice'/><input type='range' id='\"myId2\"' name='choiceSec' c:varValue='choiceSec'/><span c:for='\"myId\"' c:valueMessage='msg_example,one'/><span c:for='\"myId2\"' c:valueMessage='msg_example,two'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
@@ -722,7 +722,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><form c:command=\"$validate()\"><input type='number' id='\"myId\"' name='choice' c:varValue='choice'/><input type='submit' value='Validate'/></form><input type='range' id='\"myId2\"' name='choiceSec' c:varValue='choiceSec'/><input type='submit' value='Validate'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><form c:command=\"$validate\"><input type='number' id='\"myId\"' name='choice' c:varValue='choice'/><input type='submit' value='Validate'/></form><input type='range' id='\"myId2\"' name='choiceSec' c:varValue='choiceSec'/><input type='submit' value='Validate'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");
@@ -809,7 +809,7 @@ public final class SubmitFormTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate()\"><form c:command=\"$validate()\"><input type='number' id='\"myId\"' name='choice' c:varValue='choice'/><input type='submit' value='Validate'/></form><input type='range' id='\"myId2\"' name='choiceSec' c:varValue='choiceSec'/><input type='submit' value='Validate'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"$validate\"><form c:command=\"$validate\"><input type='number' id='\"myId\"' name='choice' c:varValue='choice'/><input type='submit' value='Validate'/></form><input type='range' id='\"myId2\"' name='choiceSec' c:varValue='choiceSec'/><input type='submit' value='Validate'/></form></body></html>";
         StringMap<String> filesSec_ = new StringMap<String>();
         StringBuilder file_ = new StringBuilder();
         file_.append("$public $class [code.bean.Message;] pkg.MyVal:code.bean.Validator{");

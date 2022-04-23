@@ -4,12 +4,10 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.*;
 import code.util.*;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendBuildEl {
@@ -23,7 +21,6 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
     private final StringMap<CustList<OperationNode>> callsRoots = new StringMap<CustList<OperationNode>>();
     private final StringList args = new StringList();
     private final StringMap<Document> locDoc = new StringMap<Document>();
-    private StringList varNames = new StringList();
     private final CustList<ResultExpression> resultExpressionList = new CustList<ResultExpression>();
     private final CustList<AnaRendElement> children = new CustList<AnaRendElement>();
 
@@ -82,13 +79,6 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                 String varLoc_ = lookForVar(varNames_, _page);
                 varNames_.add(varLoc_);
             }
-            varNames = varNames_;
-            for (String v:varNames_) {
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(_page.getAliasPrimInteger());
-                _page.getInfosVars().addEntry(v,lv_);
-                formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
-            }
             for (EntryCust<String,String> e: preformatted.entryList()) {
                 String preRend_;
                 String concat_ = StringUtil.concat(lt_,TMP_BLOCK_TAG,gt_,e.getValue(),LT_END_TAG,TMP_BLOCK_TAG,gt_);
@@ -116,9 +106,6 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                 callsRoots.addEntry(e.getKey(),callExpsLoc_);
                 locDoc.addEntry(e.getKey(),docLoc_);
             }
-            for (String v:varNames_) {
-                _page.getInfosVars().removeKey(v);
-            }
 
         }
     }
@@ -137,10 +124,6 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
 
     public StringMap<CustList<OperationNode>> getCallsRoots() {
         return callsRoots;
-    }
-
-    public StringList getVarNames() {
-        return varNames;
     }
 
     public CustList<Boolean> getEscaped() {

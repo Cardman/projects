@@ -2,8 +2,10 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.FormParts;
+import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
@@ -25,11 +27,10 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
     private StringMap<CustList<CustList<RendDynOperationNode>>> callsExps = new StringMap<CustList<CustList<RendDynOperationNode>>>();
     private StringList args = new StringList();
     private StringMap<Document> locDoc = new StringMap<Document>();
-    private StringList varNames = new StringList();
 
 
     public RendMessage(CustList<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted, CustList<Boolean> _quoted, CustList<Boolean> _escaped,
-                       StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _args, StringMap<Document> _locDoc, StringList _varNames) {
+                       StringMap<CustList<CustList<RendDynOperationNode>>> _callsExps, StringList _args, StringMap<Document> _locDoc) {
         this.opExp = _opExp;
         this.preformatted = _preformatted;
         this.quoted = _quoted;
@@ -37,7 +38,6 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
         this.callsExps = _callsExps;
         this.args = _args;
         this.locDoc = _locDoc;
-        this.varNames = _varNames;
     }
 
     @Override
@@ -89,12 +89,15 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 return;
             }
         }
-        _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
-        injectDoc(_cont, anchorArg_, docLoc_, varNames, _rendStack.getLastPage().getBeanName(), _rendStack.getLastPage().getRendReadWrite(), _rendStack.getFormParts());
+        for (CustList<RendDynOperationNode> e: callsExps.getVal(_cont.getCurrentLanguage())) {
+            _rendStack.getFormParts().getCallsExps().add(new AnchorCall(e,new CustList<Struct>()));
+        }
+//        _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
+        injectDoc(_cont, docLoc_, _rendStack.getLastPage().getBeanName(), _rendStack.getLastPage().getRendReadWrite(), _rendStack.getFormParts());
         processBlock(_cont, _stds, _ctx, _rendStack);
     }
 
-    public static void injectDoc(Configuration _cont, StringList _anchorArg, Document _docLoc, StringList _varNames, String _beanName, RendReadWrite _rendReadWrite, FormParts _formParts) {
+    public static void injectDoc(Configuration _cont, Document _docLoc, String _beanName, RendReadWrite _rendReadWrite, FormParts _formParts) {
         Element write_ = _rendReadWrite.getWrite();
         Node root_ = _docLoc.getDocumentElement();
         Node read_ = root_.getFirstChild();
@@ -104,10 +107,6 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 Element eltRead_ = (Element) read_;
                 Element created_ = appendedChild(ownerDocument_, write_, eltRead_);
                 processImportedNode(_cont, created_, _beanName);
-                if (StringUtil.quickEq(created_.getTagName(), _cont.getRendKeyWords().getKeyWordAnchor())){
-                    _formParts.getAnchorsArgs().add(_anchorArg);
-                    _formParts.getAnchorsVars().add(_varNames);
-                }
                 incrAncNb(_cont, created_, _formParts.getIndexes());
                 Node firstChild_ = read_.getFirstChild();
                 if (firstChild_ != null) {

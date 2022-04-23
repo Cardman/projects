@@ -10,6 +10,7 @@ import code.sml.NamedNodeMap;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRendBuildEl {
@@ -44,6 +45,16 @@ public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRe
             return null;
         }
         return RenderAnalysis.getRootAnalyzedOperations(_el, _index, _anaDoc, _page, _res);
+    }
+
+    public StringList params(AnalyzingDoc _anaDoc) {
+        StringList list_ = new StringList();
+        int i_ = IndexConstants.FIRST_INDEX;
+        while (getRead().hasAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+            list_.add(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            i_++;
+        }
+        return list_;
     }
     public StringList attrList(AnalyzingDoc _anaDoc){
         String prefixWrite_ = _anaDoc.getPrefix();

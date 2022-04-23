@@ -355,13 +355,22 @@ public final class RendBlockHelp {
             return;
         }
         StringList alt_ = NatRenderingText.renderAltListNat(_textPart, _rendStackCall);
-        StringList arg_ = RendBlock.arg(alt_);
+        StringList arg_ = arg(alt_);
         _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
         String render_ = StringUtil.join(alt_,"");
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         RendBlock.incrAncNb(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
+    }
+
+    public static StringList arg(StringList _alt) {
+        StringList arg_ = new StringList();
+        int len_ = _alt.size();
+        for (int i = 1; i < len_; i += 2) {
+            arg_.add(_alt.get(i));
+        }
+        return arg_;
     }
 
     public static void feed(StringList _varNames, CustList<NatExecOperationNode> _anc, NatRendStackCall _rendStackCall) {

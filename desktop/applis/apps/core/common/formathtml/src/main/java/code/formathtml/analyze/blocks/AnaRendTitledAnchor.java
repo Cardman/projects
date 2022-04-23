@@ -1,14 +1,12 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -16,27 +14,21 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class AnaRendTitledAnchor extends AnaRendElement {
-    private CustList<OperationNode> roots;
-    private OperationNode root;
-    private StringList texts = new StringList();
-    private StringList varNames = new StringList();
 
     private final StringMap<ResultExpression> opExpTitle = new StringMap<ResultExpression>();
 
     private final ResultText res = new ResultText();
     private StringMap<String> preformatted;
+    private StringMap<ResultExpression> results = new StringMap<ResultExpression>();
+
     AnaRendTitledAnchor(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        roots = new CustList<OperationNode>();
         ResultText.buildAnchor(this, _read, _anaDoc, _page,res);
-        varNames = res.getVarNames();
-        root = res.getOpExpAnchorRoot();
-        roots = res.getOpExpRoot();
-        texts = res.getTexts();
+        results = res.getResults();
         String value_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
         int offMessage_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
         preformatted = getPre(value_,offMessage_, _anaDoc, _page);
@@ -88,6 +80,11 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
             list_.removeAllString(StringUtil.concat(_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
             i_++;
         }
+        i_ = IndexConstants.FIRST_INDEX;
+        while (getRead().hasAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+            list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            i_++;
+        }
         if (preQuick_.isEmpty()) {
             return list_;
         }
@@ -103,19 +100,7 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
         return opExpTitle;
     }
 
-    public StringList getTexts() {
-        return texts;
-    }
-
-    public CustList<OperationNode> getRoots() {
-        return roots;
-    }
-
-    public StringList getVarNames() {
-        return varNames;
-    }
-
-    public OperationNode getRoot() {
-        return root;
+    public StringMap<ResultExpression> getResults() {
+        return results;
     }
 }

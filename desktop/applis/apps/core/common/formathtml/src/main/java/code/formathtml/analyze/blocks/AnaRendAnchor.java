@@ -1,21 +1,21 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.analyze.ResultText;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.ResultText;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class AnaRendAnchor extends AnaRendElement {
-    private OperationNode root;
 
-    private StringList texts = new StringList();
-    private StringList varNames = new StringList();
-    private CustList<OperationNode> roots;
     private final ResultText res = new ResultText();
+    private StringMap<ResultExpression> results = new StringMap<ResultExpression>();
+    private ClassMethodIdReturn resultAnc;
 
     AnaRendAnchor(Element _elt, int _offset) {
         super(_elt, _offset);
@@ -24,10 +24,8 @@ public final class AnaRendAnchor extends AnaRendElement {
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         ResultText.buildAnchor(this, _read, _anaDoc, _page,res);
-        varNames = res.getVarNames();
-        root = res.getOpExpAnchorRoot();
-        roots = res.getOpExpRoot();
-        texts = res.getTexts();
+        results = res.getResults();
+        resultAnc = res.getResultAnc();
     }
 
     @Override
@@ -36,6 +34,11 @@ public final class AnaRendAnchor extends AnaRendElement {
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
         list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()));
+        int i_ = IndexConstants.FIRST_INDEX;
+        while (getRead().hasAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+            list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            i_++;
+        }
         return list_;
     }
 
@@ -43,19 +46,12 @@ public final class AnaRendAnchor extends AnaRendElement {
         return res;
     }
 
-    public StringList getVarNames() {
-        return varNames;
+    public StringMap<ResultExpression> getResults() {
+        return results;
     }
 
-    public OperationNode getRoot() {
-        return root;
+    public ClassMethodIdReturn getResultAnc() {
+        return resultAnc;
     }
 
-    public CustList<OperationNode> getRoots() {
-        return roots;
-    }
-
-    public StringList getTexts() {
-        return texts;
-    }
 }

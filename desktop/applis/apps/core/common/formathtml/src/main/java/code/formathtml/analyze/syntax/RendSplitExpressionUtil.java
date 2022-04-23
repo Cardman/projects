@@ -382,33 +382,26 @@ public final class RendSplitExpressionUtil {
                 s_.getOpExpTitle().addEntry(a,r_);
                 rad(_page,_int,_method,_type,s_,r_,a);
             }
-            String atName_ = StringUtil.concat(_analyzingDoc.getPrefix(), _analyzingDoc.getRendKeyWords().getAttrCommand());
-            int rowsGrId_ = s_.getAttributeDelimiter(atName_);
-            String attr_ = s_.getRead().getAttribute(atName_);
-            lk(_page, _int, _method, _type, rowsGrId_, attr_, s_.getRes());
+            lk(_analyzingDoc, _page, _int, _method, _type, s_, s_.getRes().getResults());
         }
         if (current_ instanceof AnaRendAnchor) {
             AnaRendAnchor s_ = (AnaRendAnchor) current_;
-            String atName_ = StringUtil.concat(_analyzingDoc.getPrefix(), _analyzingDoc.getRendKeyWords().getAttrCommand());
-            int rowsGrId_ = s_.getAttributeDelimiter(atName_);
-            String attr_ = s_.getRead().getAttribute(atName_);
-            lk(_page, _int, _method, _type, rowsGrId_, attr_, s_.getRes());
+            lk(_analyzingDoc, _page, _int, _method, _type, s_, s_.getRes().getResults());
         }
         if (current_ instanceof AnaRendForm) {
             AnaRendForm s_ = (AnaRendForm) current_;
-            String atName_ = StringUtil.concat(_analyzingDoc.getPrefix(), _analyzingDoc.getRendKeyWords().getAttrCommand());
-            int rowsGrId_ = s_.getAttributeDelimiter(atName_);
-            String attr_ = s_.getRead().getAttribute(atName_);
-            lk(_page, _int, _method, _type, rowsGrId_, attr_, s_.getRes());
+            lk(_analyzingDoc, _page, _int, _method, _type, s_, s_.getRes().getResults());
         }
     }
 
-    private static void lk(AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, int rowsGrId_, String attr_, ResultText _res) {
+    private static void lk(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, AnaRendElement _s, StringMap<ResultExpression> _results) {
+        String attr_ = _s.getRead().getAttribute(StringUtil.concat(_analyzingDoc.getPrefix(), _analyzingDoc.getRendKeyWords().getAttrCommand()));
         if (attr_.startsWith("$")) {
-            String lk_ = attr_.substring(1);
-            _page.setGlobalOffset(rowsGrId_);
-            _page.zeroOffset();
-            buildIdAna(lk_, _page, _int, _method, _type, _res);
+            for (String a: _s.params(_analyzingDoc)) {
+                ResultExpression r_ = new ResultExpression();
+                _results.addEntry(a,r_);
+                rad(_page,_int,_method,_type,_s,r_,a);
+            }
         }
     }
 

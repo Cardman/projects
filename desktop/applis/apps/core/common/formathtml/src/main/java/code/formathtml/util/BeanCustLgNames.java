@@ -36,6 +36,7 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.AnaRendDocumentBlock;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
+import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
@@ -52,7 +53,6 @@ import code.maths.montecarlo.AbstractGenerator;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public abstract class BeanCustLgNames extends BeanLgNames {
@@ -1117,33 +1117,30 @@ public abstract class BeanCustLgNames extends BeanLgNames {
     }
     public Struct redirect(DefHtmlPage _htmlPage, Struct _bean, ContextEl _ctx, RendStackCall _rendStack){
         int url_ = (int)_htmlPage.getUrl();
-        StringList varNames_;
-        CustList<RendDynOperationNode> exps_;
-        StringList args_;
+        AnchorCall exps_;
         if (_htmlPage.isForm()) {
-            varNames_ = _htmlPage.getFormsVars().get(url_);
             exps_ = _htmlPage.getCallsFormExps().get(url_);
-            args_ = _htmlPage.getFormsArgs().get(url_);
         } else {
-            varNames_ = _htmlPage.getAnchorsVars().get(url_);
             exps_ = _htmlPage.getCallsExps().get(url_);
-            args_ = _htmlPage.getAnchorsArgs().get(url_);
         }
-        return redir(new Argument(_bean), varNames_, exps_, args_, _ctx, _rendStack);
+        return redir(new Argument(_bean), exps_, _ctx, _rendStack);
     }
 
-    public Struct redir(Argument _bean, StringList _varNames, CustList<RendDynOperationNode> _exps, StringList _args, ContextEl _context, RendStackCall _rendStackCall) {
+    public Struct redir(Argument _bean, AnchorCall _exps, ContextEl _context, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
-        int s_ = _varNames.size();
+        CustList<Struct> args_ = _exps.getArgs();
+        int s_ = args_.size();
         for (int i = 0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(new LongStruct(NumberUtil.parseLongZero(_args.get(i))), getAliasPrimLong());
-            ip_.putValueVar(_varNames.get(i), new VariableWrapper(locVar_));
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(args_.get(i), getAliasPrimLong());
+            ip_.putValueVar(Long.toString(i), new VariableWrapper(locVar_));
         }
         Argument globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
         setGlobalArgumentStruct(_bean.getStruct(), _context, _rendStackCall);
-        Argument argument_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_exps, _context, _rendStackCall).lastValue().getArgument());
+        Argument argument_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(_exps.getExps(), _context, _rendStackCall).lastValue().getArgument());
         setGlobalArgumentStruct(globalArgument_.getStruct(), _context, _rendStackCall);
-        RendRequestUtil.removeVars(_varNames, ip_);
+        for (int i = 0; i< s_; i++) {
+            ip_.removeRefVar(Long.toString(i));
+        }
         if (_context.callsOrException(_rendStackCall.getStackCall())) {
             return NullStruct.NULL_VALUE;
         }

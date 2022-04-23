@@ -15,19 +15,17 @@ import code.util.core.StringUtil;
 
 public final class RendTitledAnchor extends RendElement {
     private final CustList<RendDynOperationNode> opExpAnch;
-    private StringList varNames = new StringList();
 
     private final StringMap<CustList<RendDynOperationNode>> opExpTitle;
 
     private final StringMap<String> preformatted;
-    private final DefExecTextPart textPart;
+    private final StringMap<CustList<RendDynOperationNode>> textPart;
 
     public RendTitledAnchor(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
-                            CustList<RendDynOperationNode> _opExpAnch, StringList _varNames,
-                            StringMap<CustList<RendDynOperationNode>> _opExpTitle, StringMap<String> _preformatted, DefExecTextPart _textPart) {
+                            CustList<RendDynOperationNode> _opExpAnch,
+                            StringMap<CustList<RendDynOperationNode>> _opExpTitle, StringMap<String> _preformatted, StringMap<CustList<RendDynOperationNode>> _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.opExpAnch = _opExpAnch;
-        this.varNames = _varNames;
         this.opExpTitle = _opExpTitle;
         this.preformatted = _preformatted;
         this.textPart = _textPart;
@@ -55,7 +53,7 @@ public final class RendTitledAnchor extends RendElement {
         }
         curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
-        processLink(_cont,curWr_,_read,varNames,textPart, opExpAnch, _ctx, _rendStack);
+        processLink(_cont,curWr_,_read, textPart, opExpAnch, _ctx, _rendStack);
     }
 
 }

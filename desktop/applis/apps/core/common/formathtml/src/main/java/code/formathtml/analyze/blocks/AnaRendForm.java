@@ -5,76 +5,82 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
+import code.expressionlanguage.analyze.opers.util.ScopeFilter;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
+import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.functionid.MethodAccessKind;
+import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
-import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
-import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
+import code.util.StringMap;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class AnaRendForm extends AnaRendElement {
-    private CustList<OperationNode> roots;
-    private OperationNode root;
     private String sgn = "";
 
 
-    private StringList texts = new StringList();
-    private StringList varNames = new StringList();
     private final ResultText res = new ResultText();
+    private StringMap<ResultExpression> results = new StringMap<ResultExpression>();
     public AnaRendForm(Element _elt, int _offset) {
         super(_elt, _offset);
     }
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        roots = new CustList<OperationNode>();
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         if (href_.startsWith(CALL_METHOD)) {
             String lk_ = href_.substring(1);
             int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-            res.buildIdAna(lk_, rowsGrId_, _anaDoc, _page);
-            texts = res.getTexts();
-            roots = res.getOpExpRoot();
-            for (OperationNode e: res.getOpExpRoot()) {
+            results = res.getResults();
+            for (EntryCust<String, ResultExpression> e: res.getResults().entryList()) {
+                int param_ = getAttributeDelimiter(e.getKey());
+                _page.zeroOffset();
+                _page.setGlobalOffset(param_);
+                String attribute_ = _read.getAttribute(e.getKey());
+                OperationNode res_ = RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page, e.getValue());
                 Mapping m_ = new Mapping();
-                m_.setArg(e.getResultClass());
+                m_.setArg(res_.getResultClass());
                 m_.setParam(_page.getAliasLong());
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(rowsGrId_);
+                    badEl_.setIndexFile(param_);
                     badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(e.getResultClass().getNames(),AND_ERR),
+                            StringUtil.join(res_.getResultClass().getNames(),AnaRendBlock.AND_ERR),
                             _page.getAliasLong());
                     AnalyzingDoc.addError(badEl_, _page);
                 }
             }
-            int l_ = roots.size();
-            StringList formArg_ = new StringList();
-            StringList varNames_ = new StringList();
-            for (int i = 0; i< l_; i++) {
-                String varLoc_ = AnaRendBlock.lookForVar(varNames_, _page);
-                varNames_.add(varLoc_);
+            if (StringExpUtil.isDollarWord(lk_)) {
+                StringList argCla_ = new StringList();
+                for (EntryCust<String,ResultExpression> e: res.getResults().entryList()) {
+                    String singleNameOrEmpty_ = e.getValue().getRoot().getResultClass().getSingleNameOrEmpty();
+                    argCla_.add(singleNameOrEmpty_);
+                }
+                _page.zeroOffset();
+                ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
+                res.setResultAnc(classMethodIdReturn_);
+                if (classMethodIdReturn_ == null) {
+                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+                    badEl_.setFile(_page.getCurrentFile());
+                    badEl_.setIndexFile(rowsGrId_);
+                    badEl_.buildError("");
+                    AnalyzingDoc.addError(badEl_, _page);
+                }
+                sgn = AnaRendBlock.toSgn(classMethodIdReturn_,_page);
+                _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),getSgn());
+                return;
             }
-            varNames = varNames_;
-            int i_ = 0;
-            for (String v:varNames_) {
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(roots.get(i_).getResultClass().getSingleNameOrEmpty());
-                _page.getInfosVars().addEntry(v,lv_);
-                formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
-                i_++;
-            }
-            String pref_ = res.quickRender(lk_, formArg_);
-            _page.zeroOffset();
-            root = RenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
-            sgn = AnaRendBlock.checkVars(rowsGrId_,varNames_,root,_page,_anaDoc);
-            _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),getSgn());
-            for (String v:varNames_) {
-                _page.getInfosVars().removeKey(v);
-            }
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFile(_page.getCurrentFile());
+            badEl_.setIndexFile(rowsGrId_);
+            badEl_.buildError("");
+            AnalyzingDoc.addError(badEl_, _page);
         }
     }
 
@@ -92,22 +98,16 @@ public final class AnaRendForm extends AnaRendElement {
         list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()));
         list_.removeAllString(_anaDoc.getRendKeyWords().getAttrAction());
+        int i_ = IndexConstants.FIRST_INDEX;
+        while (getRead().hasAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)))) {
+            list_.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrParam(),Long.toString(i_)));
+            i_++;
+        }
         return list_;
     }
 
-    public StringList getTexts() {
-        return texts;
+    public StringMap<ResultExpression> getResults() {
+        return results;
     }
 
-    public OperationNode getRoot() {
-        return root;
-    }
-
-    public StringList getVarNames() {
-        return varNames;
-    }
-
-    public CustList<OperationNode> getRoots() {
-        return roots;
-    }
 }

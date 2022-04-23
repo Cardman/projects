@@ -327,8 +327,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         ContextEl ctx_ = elOneBean(_filesSec, filRend(oneFile(_html), _filesThree), a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
         String res_ = successRes(build_,ctx_, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
-        assertEq(1, build_.getHtmlPage().getAnchorsArgs().size());
-        assertEq("2", build_.getHtmlPage().getAnchorsArgs().last().last());
+        assertEq(1, build_.getHtmlPage().getCallsExps().size());
         return res_;
     }
 

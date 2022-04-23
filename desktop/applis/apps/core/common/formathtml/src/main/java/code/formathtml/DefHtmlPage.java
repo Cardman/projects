@@ -1,7 +1,7 @@
 package code.formathtml;
 
+import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.DefFormParts;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.DefNodeContainer;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
@@ -11,9 +11,9 @@ import code.util.LongTreeMap;
 public final class DefHtmlPage extends HtmlPage{
     private LongMap<LongTreeMap<DefNodeContainer>> containers = new LongMap<LongTreeMap<DefNodeContainer>>();
 
-    private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
+    private CustList<AnchorCall> callsExps = new CustList<AnchorCall>();
 
-    private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
+    private CustList<AnchorCall> callsFormExps = new CustList<AnchorCall>();
 
     public void set(DefFormParts _form) {
         setBase(_form);
@@ -26,19 +26,19 @@ public final class DefHtmlPage extends HtmlPage{
         this.containers = _cont;
     }
 
-    public void setCallsExps(CustList<CustList<RendDynOperationNode>> _cal) {
+    public void setCallsExps(CustList<AnchorCall> _cal) {
         this.callsExps = _cal;
     }
 
-    public void setCallsFormExps(CustList<CustList<RendDynOperationNode>> _cal) {
+    public void setCallsFormExps(CustList<AnchorCall> _cal) {
         this.callsFormExps = _cal;
     }
 
-    public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
+    public CustList<AnchorCall> getCallsFormExps() {
         return callsFormExps;
     }
 
-    public CustList<CustList<RendDynOperationNode>> getCallsExps() {
+    public CustList<AnchorCall> getCallsExps() {
         return callsExps;
     }
 

@@ -1,7 +1,6 @@
 package code.formathtml.exec;
 
 import code.formathtml.FormParts;
-import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.DefNodeContainer;
 import code.util.CustList;
 import code.util.LongMap;
@@ -10,16 +9,16 @@ import code.util.LongTreeMap;
 public final class DefFormParts extends FormParts {
     private LongMap<LongTreeMap<DefNodeContainer>> containersMap;
     private CustList<LongTreeMap<DefNodeContainer>> containersMapStack;
-    private CustList<CustList<RendDynOperationNode>> callsExps = new CustList<CustList<RendDynOperationNode>>();
-    private CustList<CustList<RendDynOperationNode>> callsFormExps = new CustList<CustList<RendDynOperationNode>>();
+    private CustList<AnchorCall> callsExps = new CustList<AnchorCall>();
+    private CustList<AnchorCall> callsFormExps = new CustList<AnchorCall>();
 
 
     public void initFormsSpec() {
         initForms();
-        callsExps = new CustList<CustList<RendDynOperationNode>>();
+        callsExps = new CustList<AnchorCall>();
         containersMap = new LongMap<LongTreeMap<DefNodeContainer>>();
         containersMapStack = new CustList<LongTreeMap<DefNodeContainer>>();
-        callsFormExps = new CustList<CustList<RendDynOperationNode>>();
+        callsFormExps = new CustList<AnchorCall>();
     }
     public LongMap<LongTreeMap<DefNodeContainer>> getContainersMap() {
         return containersMap;
@@ -29,11 +28,11 @@ public final class DefFormParts extends FormParts {
         return containersMapStack;
     }
 
-    public CustList<CustList<RendDynOperationNode>> getCallsExps() {
+    public CustList<AnchorCall> getCallsExps() {
         return callsExps;
     }
 
-    public CustList<CustList<RendDynOperationNode>> getCallsFormExps() {
+    public CustList<AnchorCall> getCallsFormExps() {
         return callsFormExps;
     }
 

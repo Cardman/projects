@@ -1228,7 +1228,7 @@ public abstract class OperationNode {
         return getCustResultLambda(varargOnly_, methods_, _name, _page, _argsClass);
     }
 
-    protected static ClassMethodIdReturn tryGetDeclaredCustMethodSetIndexer(MethodAccessKind _staticContext,
+    public static ClassMethodIdReturn tryGetDeclaredCustMethodSetIndexer(MethodAccessKind _staticContext,
                                                                             StringList _classes, String _name,
                                                                             StringList _argsClass, AnalyzedPageEl _page, ScopeFilter _sc) {
         FormattedFilter filter_ = new FormattedFilter();

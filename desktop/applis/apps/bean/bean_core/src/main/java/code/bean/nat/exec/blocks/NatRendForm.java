@@ -5,7 +5,6 @@ import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendForm;
 import code.formathtml.exec.blocks.RendFormInt;
 import code.sml.Element;
 import code.sml.Node;
@@ -33,17 +32,16 @@ public final class NatRendForm extends NatRendElement implements RendFormInt {
         NatFormParts _formParts = _rendStack.getFormParts();
         _formParts.getContainersMapStack().add(new LongTreeMap<NatNodeContainer>());
         _formParts.getCallsFormExps().add(opForm);
-        RendForm.incrForm(varNames, _formParts);
+        incrForm(varNames, _formParts);
         long currentForm_;
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(RendBlockHelp.CALL_METHOD)) {
-            RendForm.procCstRef(_cont, elt_, _rendStack.getFormParts());
+            procCstRef(_cont, elt_, _rendStack.getFormParts());
             return;
         }
         StringList alt_ = NatRenderingText.renderAltListNat(textPart, _rendStack);
         StringList arg_ = new StringList();
-        RendForm.feedList(alt_,arg_);
         String render_ = StringUtil.join(alt_,"");
         _rendStack.getFormParts().getFormsArgs().add(arg_);
         String beanName_ = _rendStack.getLastPage().getBeanName();
@@ -53,4 +51,22 @@ public final class NatRendForm extends NatRendElement implements RendFormInt {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
     }
 
+    public static void procCstRef(Configuration _cont, Element _elt, NatFormParts _formParts) {
+        long currentForm_;
+        _formParts.getFormsArgs().add(new StringList());
+        if (_elt.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
+            _elt.setAttribute(_cont.getRendKeyWords().getAttrAction(), "");
+        }
+        currentForm_ = _formParts.getCurrentForm();
+        _elt.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+    }
+    public static void incrForm(StringList _varNames, NatFormParts _formParts) {
+        _formParts.getFormatIdMapStack().add(new StringList());
+        long currentForm_ = _formParts.getCurrentForm();
+        _formParts.getFormsNb().add(currentForm_);
+        _formParts.getInputs().add(0L);
+        currentForm_++;
+        _formParts.setCurrentForm(currentForm_);
+        _formParts.getFormsVars().add(_varNames);
+    }
 }
