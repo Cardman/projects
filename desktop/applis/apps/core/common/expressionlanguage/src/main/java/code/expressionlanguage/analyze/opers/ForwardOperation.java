@@ -1,20 +1,19 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class ForwardOperation extends LeafOperation implements PossibleIntermediateDotted {
@@ -34,9 +33,8 @@ public final class ForwardOperation extends LeafOperation implements PossibleInt
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        int relativeOff_ = getOffset();
+        String originalStr_ = getValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         if (isIntermediateDottedOperation()) {
             setResultClass(new AnaClassArgumentMatching(previousResultClass.getNames()));

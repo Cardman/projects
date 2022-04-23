@@ -13,7 +13,7 @@ public abstract class MethodNatOperation extends NatOperationNode {
 
     protected MethodNatOperation(int _index, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        children = new StrTypes();
+        children = _op.getValNat();
     }
 
     public final void appendChild(NatOperationNode _child) {
@@ -41,8 +41,6 @@ public abstract class MethodNatOperation extends NatOperationNode {
         }
         return list_;
     }
-
-    abstract void calculateChildren();
 
     @Override
     public final NatOperationNode getFirstChild() {

@@ -47,7 +47,9 @@ public final class AnalyzingType {
             error = true;
             return;
         }
-        values.addEntry(beginValuePart_, str_);
+        if (prio != ParserType.TMP_PRIO) {
+            values.addEntry(beginValuePart_, str_);
+        }
     }
 
     public void setupWildCardValues(String _op,String _string) {

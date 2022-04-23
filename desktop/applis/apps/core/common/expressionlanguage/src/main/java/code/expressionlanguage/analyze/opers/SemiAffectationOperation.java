@@ -70,7 +70,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         }
         setResultClass(AnaClassArgumentMatching.copy(getSettableResClass(), _page.getPrimitiveTypes()));
         settable.setVariable(false);
-        StrTypes ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperators();
         String op_ = ops_.firstValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         OperatorConverter cl_ = getIncrDecrOperatorOrMethod(this,leftEl_, op_, _page);

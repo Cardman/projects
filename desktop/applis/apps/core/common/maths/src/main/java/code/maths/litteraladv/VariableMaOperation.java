@@ -8,9 +8,9 @@ public final class VariableMaOperation extends LeafMaOperation {
     private final String varName;
     private final int varOffset;
     public VariableMaOperation(int _indexInEl, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
-        super(_indexInEl, _indexChild, _m, _op);
+        super(_indexInEl, _indexChild, _m);
         varOffset = _op.getOffset();
-        varName = StrTypes.value(getOperats().getParts(),IndexConstants.FIRST_INDEX).trim();
+        varName = StrTypes.value(_op.getParts(),IndexConstants.FIRST_INDEX).trim();
     }
 
     @Override

@@ -13,7 +13,7 @@ public final class EqMaOperation extends MethodMaOperation {
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         int i_ = IndexConstants.SECOND_INDEX;
         boolean result_ = true;
-        for (IndexStrPart e: getOperats().getOpers().getValues()) {
+        for (IndexStrPart e: getOps().getValues()) {
             MaStruct first_ = MaNumParsers.tryGet(this, i_-1);
             MaStruct second_ = MaNumParsers.tryGet(this, i_);
             if (!MaNumParsers.eqNb(first_,second_,e.getPart())) {

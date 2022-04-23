@@ -42,8 +42,8 @@ public abstract class QuickOperation extends MethodOperation {
         opOffset = right_.getIndexInEl();
         AnaClassArgumentMatching leftRes_ = left_.getResultClass();
         AnaClassArgumentMatching rightRes_ = right_.getResultClass();
-        String oper_ = getOperations().getOperators().firstValue();
-        opOff = getOperations().getOperators().firstKey();
+        String oper_ = getOperators().firstValue();
+        opOff = getOperators().firstKey();
         OperatorConverter opConv_ = getBinaryOperatorOrMethod(this, left_, right_, oper_, _page);
         if (opConv_ != null) {
             fct.infos(opConv_,_page);
@@ -62,7 +62,7 @@ public abstract class QuickOperation extends MethodOperation {
                 if (res_ != null) {
                     conv.infos(res_);
                 } else {
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
                     cast_.setIndexFile(_page);
@@ -80,7 +80,7 @@ public abstract class QuickOperation extends MethodOperation {
         }
         okNum = true;
         if (!leftRes_.isBoolType(_page)) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page);
             un_.setFile(_page.getCurrentFile());
@@ -92,7 +92,7 @@ public abstract class QuickOperation extends MethodOperation {
             okNum = false;
         }
         if (!rightRes_.isBoolType(_page)) {
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page);
             un_.setFile(_page.getCurrentFile());

@@ -59,7 +59,7 @@ public final class AssSimAffectationOperation extends AssSimMultMethodOperation 
     @Override
     public void analyzeAssignmentAfter(AssBlock _ass, AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         AssOperationNode firstChild_ = settableOp;
-        StrTypes ops_ = analyzed.getOperations().getOperators();
+        StrTypes ops_ = analyzed.getOperators();
         if (firstChild_ instanceof AssSimStdVariableOperation) {
             StringMap<BoolVal> variables_ = _a.getVariables();
             String str_ = ((AssSimStdVariableOperation)firstChild_).getVariableName();

@@ -52,7 +52,7 @@ public abstract class NumericMbOperation extends MethodMbOperation {
         MathType a_ = chidren_.first().getResultClass();
         MathType r_;
         int i_ = IndexConstants.SECOND_INDEX;
-        for (IndexStrPart e: getOperations().getOperators().getValues()) {
+        for (IndexStrPart e: getOpers().getValues()) {
             MathType c_ = chidren_.get(i_).getResultClass();
             r_ = analyzeOper(a_, e.getPart(), c_, chidren_.get(i_).getIndexInEl(), _error);
             if (_error.isError()) {
@@ -72,7 +72,7 @@ public abstract class NumericMbOperation extends MethodMbOperation {
         MbArgument a_ =  MbNumParsers.tryGet(this,0);
         MbArgument r_;
         int i_ = IndexConstants.SECOND_INDEX;
-        for (IndexStrPart e: getOperations().getOperators().getValues()) {
+        for (IndexStrPart e: getOpers().getValues()) {
             MbArgument c_ =  MbNumParsers.tryGet(this,i_);
             r_ = calculateOper(a_, e.getPart(), c_, e.getIndex(), _error);
             if (_error.isError()) {

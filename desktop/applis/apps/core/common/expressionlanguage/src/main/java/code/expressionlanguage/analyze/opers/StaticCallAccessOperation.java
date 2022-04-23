@@ -14,7 +14,6 @@ import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.util.core.IndexConstants;
 
 public final class StaticCallAccessOperation extends LeafOperation {
     private ResolvedInstance partOffsets;
@@ -30,9 +29,8 @@ public final class StaticCallAccessOperation extends LeafOperation {
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        int relativeOff_ = getOffset();
+        String originalStr_ = getValue();
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));

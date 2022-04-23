@@ -7,8 +7,14 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class ConstantMaOperation extends LeafMaOperation {
+
+    private final int cst;
+    private final String value;
+
     public ConstantMaOperation(int _indexInEl, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
-        super(_indexInEl, _indexChild, _m, _op);
+        super(_indexInEl, _indexChild, _m);
+        cst = _op.getCst();
+        value = StrTypes.value(_op.getParts(), 0);
     }
 
     static String nb(CustList<StringBuilder> _nbs, int _begin) {
@@ -19,12 +25,11 @@ public final class ConstantMaOperation extends LeafMaOperation {
     }
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        int begin_ = getOperats().getCst();
-        String nb_ = nb(_del.getNbParts(),begin_);
+        String nb_ = nb(_del.getNbParts(),cst);
         if (Rate.isValid(nb_)) {
             setStruct(new MaRateStruct(Rate.newRate(nb_)));
             return;
         }
-        _error.setOffset(StringUtil.getFirstPrintableCharIndex(StrTypes.value(getOperats().getParts(),0)) + getIndexExp());
+        _error.setOffset(StringUtil.getFirstPrintableCharIndex(value) + getIndexExp());
     }
 }

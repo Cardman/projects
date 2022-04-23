@@ -11,15 +11,18 @@ import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class BadTernaryOperation extends MethodOperation {
+
+    private final String fctName;
+
     public BadTernaryOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
+        fctName = _op.getFctName();
     }
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        String fct_ = getOperations().getFctName();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringUtil.getFirstPrintableCharIndex(fct_), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+StringUtil.getFirstPrintableCharIndex(fctName), _page);
         FoundErrorInterpret badNb_ = new FoundErrorInterpret();
         badNb_.setFile(_page.getCurrentFile());
         badNb_.setIndexFile(_page);

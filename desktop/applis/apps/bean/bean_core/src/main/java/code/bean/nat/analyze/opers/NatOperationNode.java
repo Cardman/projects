@@ -38,11 +38,7 @@ public abstract class NatOperationNode {
 
     public static NatOperationNode createOperationNode(int _index,
                                                        int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
-        NatOperationNode res_ = createOperationNodeBis(_index, _indexChild, _m, _op, _page);
-        if (res_ instanceof MethodNatOperation) {
-            ((MethodNatOperation)res_).calculateChildren();
-        }
-        return res_;
+        return createOperationNodeBis(_index, _indexChild, _m, _op, _page);
     }
     private static NatOperationNode createOperationNodeBis(int _index,
                                                            int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
@@ -51,6 +47,7 @@ public abstract class NatOperationNode {
         }
         if (_op.getPrioNat() == NatElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
             String fctName_ = _op.getFctName().trim();
+            _op.getValNat().remove(0);
             if (fctName_.isEmpty()) {
                 return new IdNatOperation(_index, _indexChild, _m, _op);
             }

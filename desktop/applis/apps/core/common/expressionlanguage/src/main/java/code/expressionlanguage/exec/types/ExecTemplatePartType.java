@@ -5,14 +5,15 @@ import code.expressionlanguage.common.DimComp;
 import code.expressionlanguage.common.GeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
 final class ExecTemplatePartType extends ExecBinaryType {
 
-    ExecTemplatePartType(ExecParentPartType _parent, int _index, String _previousOperator) {
-        super(_parent, _index, _previousOperator);
+    ExecTemplatePartType(ExecParentPartType _parent, int _index, String _previousOperator, StrTypes _valuesEx) {
+        super(_parent, _index, _previousOperator,_valuesEx);
     }
 
     @Override

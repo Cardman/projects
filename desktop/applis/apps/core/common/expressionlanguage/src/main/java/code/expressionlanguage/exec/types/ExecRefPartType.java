@@ -1,11 +1,12 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.maths.litteralcom.StrTypes;
 import code.util.core.StringUtil;
 
 final class ExecRefPartType extends ExecPrefPartType {
-    ExecRefPartType(ExecParentPartType _parent, int _index, String _prefix, String _previousOperator) {
-        super(_parent, _index, _prefix, _previousOperator);
+    ExecRefPartType(ExecParentPartType _parent, int _index, String _prefix, String _previousOperator, StrTypes _valuesEx) {
+        super(_parent, _index, _prefix, _previousOperator,_valuesEx);
     }
 
     @Override

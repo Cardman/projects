@@ -46,7 +46,7 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
     public SuperFctOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        callFctContent = new AnaCallFctContent(getOperations().getFctName());
+        callFctContent = new AnaCallFctContent(_op.getFctName());
         arrContent = new AnaArrContent();
     }
 

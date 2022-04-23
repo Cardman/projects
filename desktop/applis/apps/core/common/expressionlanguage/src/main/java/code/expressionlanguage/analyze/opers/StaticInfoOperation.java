@@ -1,12 +1,11 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class StaticInfoOperation extends LeafOperation {
@@ -22,8 +21,7 @@ public final class StaticInfoOperation extends LeafOperation {
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        String originalStr_ = getValue();
         String str_ = originalStr_.trim();
         int offset_ = StringUtil.getFirstPrintableCharIndex(originalStr_);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offset_, _page);

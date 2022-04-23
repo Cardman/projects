@@ -1,13 +1,14 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 final class ExecInnerPartType extends ExecBinaryType {
 
-    private CustList<String> operators;
-    ExecInnerPartType(ExecParentPartType _parent, int _index, CustList<String> _operators, String _previousOperator) {
-        super(_parent, _index, _previousOperator);
+    private final CustList<String> operators;
+    ExecInnerPartType(ExecParentPartType _parent, int _index, CustList<String> _operators, String _previousOperator, StrTypes _valuesEx) {
+        super(_parent, _index, _previousOperator,_valuesEx);
         operators = _operators;
     }
 

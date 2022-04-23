@@ -34,18 +34,18 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
     private String fctName;
     private final AnaArrContent arrContent;
     private boolean errLeftValue;
-    private String methodFound = EMPTY_STRING;
+    private final String methodFound;
     private final CustList<CustList<MethodInfo>> methodInfos = new CustList<CustList<MethodInfo>>();
     public CallDynMethodOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         arrContent = new AnaArrContent();
+        methodFound = _op.getFctName().trim();
     }
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
-        String fctName_ = getOperations().getFctName().trim();
         AnaClassArgumentMatching clCur_ = getPreviousResultClass();
         String fct_ = clCur_.getName();
         CustList<MethodInfo> methodInfos_ = new CustList<MethodInfo>();
@@ -60,7 +60,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
                 CustList<String> param_;
                 if (all_.size() == 1) {
                     param_ = new StringList();
-                    int len_ = getOperations().getValues().size();
+                    int len_ = getChildren().size();
                     for (int i = 0; i < len_; i++) {
                         param_.add(_page.getAliasObject());
                     }
@@ -109,8 +109,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             methodInfos_.add(m_);
         }
         methodInfos.add(methodInfos_);
-        methodFound = fctName_;
-        filterByNameReturnType(_page, fctName_, methodInfos);
+        filterByNameReturnType(_page, methodFound, methodInfos);
     }
 
     @Override
@@ -406,7 +405,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             int nb_ = param_.size();
             StringMap<StringList> map_ = _page.getCurrentConstraints().getCurrentConstraints();
             for (int i = 0; i < nb_; i++) {
-                StrTypes operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperators();
                 InfoErrorDto parts_ = new InfoErrorDto("");
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(i), _page);
                 AnaClassArgumentMatching a_ = firstArgs_.get(i);

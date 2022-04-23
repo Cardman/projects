@@ -8,8 +8,8 @@ import code.util.CustList;
 
 final class AnaInnerPartType extends AnaBinaryType {
 
-    AnaInnerPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages) {
-        super(_parent, _index, _indexInType,_operators, _messages);
+    AnaInnerPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages, StrTypes _values) {
+        super(_parent, _index, _indexInType,_operators, _messages,_values);
     }
 
     @Override

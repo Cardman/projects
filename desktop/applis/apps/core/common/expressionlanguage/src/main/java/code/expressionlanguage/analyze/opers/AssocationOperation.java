@@ -21,7 +21,7 @@ public final class AssocationOperation extends AbstractUnaryOperation {
             OperationsSequence _op, String _fieldName) {
         super(_index, _indexChild, _m, _op);
         delta = StringUtil.getFirstPrintableCharIndex(_fieldName);
-        offEq = getOperations().getOperators().firstKey();
+        offEq = getOperators().firstKey();
         fieldName = _fieldName.trim();
     }
 

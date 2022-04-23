@@ -1,11 +1,10 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class DefaultValueOperation extends LeafOperation  {
@@ -19,9 +18,8 @@ public final class DefaultValueOperation extends LeafOperation  {
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        int relativeOff_ = getOffset();
+        String originalStr_ = getValue();
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         int afterLeftPar_ = str_.indexOf(PAR_LEFT) + 1;

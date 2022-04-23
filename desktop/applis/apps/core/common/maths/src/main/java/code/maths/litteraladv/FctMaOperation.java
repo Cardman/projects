@@ -9,21 +9,21 @@ public final class FctMaOperation extends MethodMaOperation {
 //    private final MaParameters mapping;
     public FctMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        methodName = getOperats().getFct().trim();
+        methodName = _op.getFct();
 //        mapping = _mapping;
     }
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        if (StringUtil.quickEq("3",methodName)) {
-            int index_ = Math.min(getOperats().getOpers().size()-1,3);
+        if (StringUtil.quickEq("3",methodName.trim())) {
+            int index_ = Math.min(getOps().size()-1,3);
             if (getChildren().size() != 3) {
-                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getOpers(),index_));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getOps(),index_));
                 return;
             }
             MaStruct valBool_ = MaNumParsers.tryGet(this, 0);
             if (!(valBool_ instanceof MaBoolStruct)) {
-                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),0));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),0));
                 return;
             }
             MaBoolStruct v_ = (MaBoolStruct) valBool_;
@@ -38,7 +38,7 @@ public final class FctMaOperation extends MethodMaOperation {
 //            procVariables(_error, id_);
 //            return;
 //        }
-        _error.setOffset(getIndexExp()+StringUtil.getFirstPrintableCharIndex(getOperats().getFct()));
+        _error.setOffset(getIndexExp()+StringUtil.getFirstPrintableCharIndex(methodName));
     }
 
 }

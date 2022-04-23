@@ -57,7 +57,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode l_ = chidren_.first();
         AnaClassArgumentMatching a_ = l_.getResultClass();
-        StrTypes ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperators();
         OperationNode r_ = chidren_.last();
         AnaClassArgumentMatching c_ = r_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);

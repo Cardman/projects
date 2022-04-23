@@ -274,7 +274,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
             un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
                     className_);
             _page.getLocalizer().addError(un_);
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.firstKey(), _page);
             partOffsetsErr = new InfoErrorDto(un_,_page,1);
             String obj_ = _page.getAliasObject();
@@ -289,7 +289,7 @@ public final class ElementArrayInstancing extends AbstractArrayInstancingOperati
         mapping_.setParam(eltType_);
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             InfoErrorDto parts_ = new InfoErrorDto("");
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             AnaClassArgumentMatching argType_ = o.getResultClass();

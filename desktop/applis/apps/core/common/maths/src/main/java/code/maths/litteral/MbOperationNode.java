@@ -106,8 +106,6 @@ abstract class MbOperationNode {
 
     private MbArgument argument;
 
-    private final MbOperationsSequence operations;
-
     private final int indexInEl;
 
     private int order = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -117,10 +115,9 @@ abstract class MbOperationNode {
     private MathType resultClass;
 
 
-    MbOperationNode(int _indexInEl, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
+    MbOperationNode(int _indexInEl, int _indexChild, MethodMbOperation _m) {
         parent = _m;
         indexInEl = _indexInEl;
-        operations = _op;
         indexChild = _indexChild;
     }
 
@@ -196,10 +193,6 @@ abstract class MbOperationNode {
     }
     public MethodMbOperation getParent() {
         return parent;
-    }
-
-    public MbOperationsSequence getOperations() {
-        return operations;
     }
 
     public int getOrder() {

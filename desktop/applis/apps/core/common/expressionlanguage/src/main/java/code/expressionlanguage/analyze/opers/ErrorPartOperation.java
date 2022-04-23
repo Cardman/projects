@@ -14,8 +14,7 @@ public final class ErrorPartOperation extends LeafOperation {
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
+        int relativeOff_ = getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String argClName_;
         FoundErrorInterpret emptyPart_ = new FoundErrorInterpret();

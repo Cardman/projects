@@ -8,8 +8,8 @@ import code.maths.litteralcom.StrTypes;
 import code.util.core.StringUtil;
 
 final class AnaArraryPartType extends AnaParentPartType {
-    AnaArraryPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages) {
-        super(_parent, _index, _indexInType,_operators, _messages);
+    AnaArraryPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages, StrTypes _values) {
+        super(_parent, _index, _indexInType,_operators, _messages,_values);
     }
 
     String getBegin() {

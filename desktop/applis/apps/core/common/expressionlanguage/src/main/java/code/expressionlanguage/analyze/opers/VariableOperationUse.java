@@ -7,7 +7,6 @@ import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.FoundVariable;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
-import code.util.core.IndexConstants;
 
 public final class VariableOperationUse extends LeafOperation implements
         SettableElResult {
@@ -17,7 +16,7 @@ public final class VariableOperationUse extends LeafOperation implements
 
     private String realVariableName = EMPTY_STRING;
 
-    private String className = EMPTY_STRING;
+    private final String className;
 
     private final int ref;
     private final boolean finalVariable;
@@ -43,9 +42,8 @@ public final class VariableOperationUse extends LeafOperation implements
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        int relativeOff_ = getOffset();
+        String originalStr_ = getValue();
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         variableContent.setVariableName(StringExpUtil.skipPrefix(str_));

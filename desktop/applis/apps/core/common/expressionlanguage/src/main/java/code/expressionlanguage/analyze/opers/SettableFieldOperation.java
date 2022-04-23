@@ -26,8 +26,7 @@ public final class SettableFieldOperation extends
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
+        int relativeOff_ = getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         boolean import_ = false;
         if (!isIntermediateDottedOperation()) {

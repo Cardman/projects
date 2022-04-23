@@ -18,8 +18,8 @@ final class AnaTemplatePartType extends AnaBinaryType {
     private int countParam;
     private boolean koConstraints;
 
-    AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages) {
-        super(_parent, _index, _indexInType,_operators, _messages);
+    AnaTemplatePartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages, StrTypes _values) {
+        super(_parent, _index, _indexInType,_operators, _messages, _values);
     }
 
     String getBegin() {

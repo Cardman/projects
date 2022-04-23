@@ -31,7 +31,7 @@ public final class DimensionArrayInstancing extends
     public DimensionArrayInstancing(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        countArrayDims = getOperations().getCountArrays();
+        countArrayDims = _op.getCountArrays();
     }
 
     @Override
@@ -54,7 +54,7 @@ public final class DimensionArrayInstancing extends
             typeAff_ = tryGetTypeAff(m_, par_.getOperationChild().getIndexChild());
         }
         if (className_.trim().isEmpty()) {
-            int chCount_ = getOperations().getValues().size();
+            int chCount_ = getChildren().size();
             boolean list_ = false;
             if (m_ instanceof ArgumentListInstancing){
                 m_ = m_.getParent().getParent();
@@ -197,7 +197,7 @@ public final class DimensionArrayInstancing extends
             return;
         }
         resolvedInstance = new ResolvedInstance(result_);
-        int chCount_ = getOperations().getValues().size();
+        int chCount_ = getChildren().size();
         boolean list_ = false;
         if (m_ instanceof ArgumentListInstancing){
             m_ = m_.getParent().getParent();
@@ -382,7 +382,7 @@ public final class DimensionArrayInstancing extends
         }
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             InfoErrorDto parts_ = new InfoErrorDto("");
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(2*index_), _page);
             AnaClassArgumentMatching resCh_ = o.getResultClass();

@@ -21,7 +21,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
     public AnnotationInstanceArrOperation(int _index,
                                           int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        arrayInstancingContent = new AnaArrayInstancingContent(getOperations().getFctName());
+        arrayInstancingContent = new AnaArrayInstancingContent(_op.getFctName());
     }
 
     @Override
@@ -93,7 +93,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
     @Override
     public void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);
         StringMap<StringList> map_;
         map_ = new StringMap<StringList>();
         String eltType_ = StringExpUtil.getQuickComponentType(arrayInstancingContent.getClassName());
@@ -113,7 +113,7 @@ public final class AnnotationInstanceArrOperation extends AnnotationInstanceOper
         mapping_.setParam(eltType_);
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             InfoErrorDto parts_ = new InfoErrorDto("");
             AnaClassArgumentMatching argType_ = o.getResultClass();

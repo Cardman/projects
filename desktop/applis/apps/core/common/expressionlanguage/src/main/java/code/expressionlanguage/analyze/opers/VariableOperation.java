@@ -14,7 +14,6 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 import code.expressionlanguage.options.KeyWords;
 import code.util.StringList;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class VariableOperation extends LeafOperation implements
@@ -51,9 +50,8 @@ public final class VariableOperation extends LeafOperation implements
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        int relativeOff_ = getOffset();
+        String originalStr_ = getValue();
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(str_, _page);

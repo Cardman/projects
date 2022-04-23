@@ -1,7 +1,6 @@
 package code.bean.nat.analyze.opers;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 public final class IdNatOperation extends AbstractUnaryNatOperation {
@@ -15,13 +14,6 @@ public final class IdNatOperation extends AbstractUnaryNatOperation {
     public void analyzeUnary(NatAnalyzedCode _page) {
         CustList<NatOperationNode> children_ = getChildrenNodes();
         setResultClass(children_.first().getNames());
-    }
-
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValNat();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
     }
 
 }

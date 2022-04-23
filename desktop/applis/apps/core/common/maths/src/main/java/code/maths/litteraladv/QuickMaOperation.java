@@ -14,7 +14,7 @@ public final class QuickMaOperation extends MethodMaOperation {
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         MaStruct f_ = MaNumParsers.tryGet(this,0);
         if (!(f_ instanceof MaBoolStruct)) {
-            _error.setOffset(getIndexExp()+ StrTypes.offset(getOperats().getOpers(),0));
+            _error.setOffset(getIndexExp()+ StrTypes.offset(getOps(),0));
             return;
         }
         if (f_.sameReference(MaBoolStruct.of(abs))) {
@@ -23,7 +23,7 @@ public final class QuickMaOperation extends MethodMaOperation {
         }
         MaStruct a_ = MaNumParsers.tryGet(this,1);
         if (!(a_ instanceof MaBoolStruct)) {
-            _error.setOffset(getIndexExp()+ StrTypes.offset(getOperats().getOpers(),0));
+            _error.setOffset(getIndexExp()+ StrTypes.offset(getOps(),0));
             return;
         }
         setStruct(a_);

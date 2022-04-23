@@ -33,7 +33,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             MethodOperation par_ = getParent();
             getPartOffsetsChildren().add(new InfoErrorDto(""));
             if (!(par_ instanceof CastOperation)) {
-                StrTypes operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
@@ -51,7 +51,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             String id_ = StringExpUtil.getIdFromAllTypes(base_);
             RootBlock rBase_ = _page.getAnaClassBody(id_);
             if (!(rBase_ instanceof InterfaceBlock)) {
-                StrTypes operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(1), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
@@ -70,7 +70,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             boolean existAll_ = true;
             for (int i = 1; i < len_; i++) {
                 int index_ = getPartOffsetsChildren().size();
-                StrTypes operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
                 OperationNode op_ = children_.get(i);
                 if (!(op_ instanceof InterfaceFctConstructor)){
@@ -106,7 +106,7 @@ public final class IdOperation extends AbstractUnaryOperation {
             all_.add(id_);
             all_.removeAllString(_page.getAliasObject());
             if (!StringUtil.equalsSet(all_,previousInts_)) {
-                StrTypes operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperators();
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.lastKey(), _page);
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());

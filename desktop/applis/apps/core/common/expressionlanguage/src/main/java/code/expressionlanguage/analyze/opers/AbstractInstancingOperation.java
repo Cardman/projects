@@ -41,7 +41,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     protected AbstractInstancingOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        instancingCommonContent = new AnaInstancingCommonContent(getOperations().getFctName());
+        instancingCommonContent = new AnaInstancingCommonContent(_op.getFctName());
     }
 
     void tryAnalyze(AnalyzedPageEl _page) {

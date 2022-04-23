@@ -28,7 +28,6 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
-import code.maths.litteralcom.StrTypes;
 import code.util.*;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -76,8 +75,6 @@ public abstract class OperationNode {
     private final AnaOperationContent content;
 //    private Argument argument;
 
-    private final OperationsSequence operations;
-
     private final StringList errs = new StringList();
     private final StringList warns = new StringList();
 
@@ -90,11 +87,10 @@ public abstract class OperationNode {
 
 //    private AnaClassArgumentMatching resultClass;
 
-    OperationNode(int _indexInEl, int _indexChild, MethodOperation _m, OperationsSequence _op) {
+    OperationNode(int _indexInEl, int _indexChild, MethodOperation _m) {
         content = new AnaOperationContent(_indexInEl,_indexChild);
         parent = _m;
 //        indexInEl = _indexInEl;
-        operations = _op;
 //        indexChild = _indexChild;
 //        resultClass = new AnaClassArgumentMatching(EMPTY_STRING);
     }
@@ -172,7 +168,7 @@ public abstract class OperationNode {
             p_ = p_.getParent();
             c_ = c_.getParent();
         }
-        while (p_ instanceof IdOperation && p_.getOperations().getValues().size() <= 1) {
+        while (p_ instanceof IdOperation && ((IdOperation)p_).getChildren().size() <= 1) {
             p_ = p_.getParent();
             c_ = c_.getParent();
         }
@@ -423,13 +419,7 @@ public abstract class OperationNode {
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         String fctName_ = _op.getFctName().trim();
         if (StringUtil.quickEq(fctName_, keyWordValueOf_)) {
-            StrTypes values_ = _op.getValues();
-            String str_ = StrTypes.value(values_, 0);
-            int offset_ = StrTypes.offset(values_, 0);
-            if (!values_.isEmpty()) {
-                values_.remove(0);
-            }
-            return new EnumValueOfOperation(_index, _indexChild, _m, _op, str_, offset_);
+            return new EnumValueOfOperation(_index, _indexChild, _m, _op, _op.getClName(), _op.getArgOffset());
         }
         if (StringUtil.quickEq(fctName_, keyWordBool_)) {
             return new BadTernaryOperation(_index, _indexChild, _m, _op);
@@ -524,7 +514,7 @@ public abstract class OperationNode {
     }
 
     protected static boolean atMostOne(MethodOperation _m) {
-        return _m instanceof IdOperation && _m.getOperations().getValues().size() <= 1;
+        return _m instanceof IdOperation && _m.getChildren().size() <= 1;
     }
 
     private static LeafOperation createLeaf(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
@@ -567,8 +557,25 @@ public abstract class OperationNode {
         if (ct_ == ConstType.PARENT_KEY_WORD) {
             return new ParentInstanceOperation(_index, _indexChild, _m, _op);
         }
-        if (ct_ == ConstType.CHARACTER || ct_ == ConstType.STRING || ct_ == ConstType.TEXT_BLOCK || ct_ == ConstType.NUMBER || ct_ == ConstType.TRUE_CST || ct_ == ConstType.FALSE_CST || ct_ == ConstType.NULL_CST) {
-            return new ConstantOperation(_index, _indexChild, _m, _op);
+        return cstOrVariableOrField(_index, _indexChild, _m, _op, _page);
+    }
+
+    private static LeafOperation cstOrVariableOrField(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
+        ConstType ct_ = _op.getConstType();
+        if (ct_ == ConstType.CHARACTER) {
+            return new ConstantCharOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.STRING) {
+            return new ConstantStrOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.TEXT_BLOCK) {
+            return new ConstantTxtBlockOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.NUMBER) {
+            return new ConstantNbOperation(_index, _indexChild, _m, _op);
+        }
+        if (ct_ == ConstType.TRUE_CST || ct_ == ConstType.FALSE_CST || ct_ == ConstType.NULL_CST) {
+            return new ConstantValueOperation(_index, _indexChild, _m, _op);
         }
         return variableOrField(_index, _indexChild, _m, _op, _page);
     }
@@ -3639,10 +3646,6 @@ public abstract class OperationNode {
 
     public final int getIndexChild() {
         return content.getIndexChild();
-    }
-
-    public final OperationsSequence getOperations() {
-        return operations;
     }
 
     public final Argument getArgument() {

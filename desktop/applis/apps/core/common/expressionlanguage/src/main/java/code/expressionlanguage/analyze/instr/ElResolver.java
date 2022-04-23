@@ -2020,14 +2020,25 @@ public final class ElResolver {
 
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
                                                            Delimiters _d, AnalyzedPageEl _page, MethodOperation _meth) {
-        OperationsSequence seq_ = tryGetSequence(_offset, _string, _d, _page);
+        return getOperationsSequence(_offset,_string,_d,_page,_meth,new ExpPartDelimiters(_string));
+    }
+    public static OperationsSequence getOperationsSequence(int _offset, String _string,
+                                                           Delimiters _d, AnalyzedPageEl _page, MethodOperation _meth, ExpPartDelimiters _exp) {
+        int lastPrintChar_ = _exp.getLastPrintIndex();
+        if (delimits(_d.getDelSimpleAnnotations(), _offset, _exp.getFirstPrintIndex(), lastPrintChar_)) {
+            OperationsSequence op_ = new OperationsSequence();
+            op_.setConstType(ConstType.SIMPLE_ANNOTATION);
+            op_.setOperators(new StrTypes());
+            op_.initValues();
+            op_.setFctName(_string);
+            return op_;
+        }
+        OperationsSequence seq_ = tryGetSequence(_exp,_offset, _string, _d, _page);
         if (seq_ != null) {
             return seq_;
         }
-        ExpPartDelimiters del_ = new ExpPartDelimiters(_string);
-        int lastPrintChar_ = del_.getLastPrintIndex();
         int len_ = lastPrintChar_ + 1;
-        AfterUnaryParts af_ = new AfterUnaryParts(_offset,_string,del_,_d);
+        AfterUnaryParts af_ = new AfterUnaryParts(_offset,_string, _exp,_d);
         int i_ = af_.getIndex();
         af_.setInstance(_string, _page);
         while (i_ < len_) {
@@ -2057,9 +2068,9 @@ public final class ElResolver {
         return op_;
     }
 
-    private static OperationsSequence tryGetSequence(int _offset, String _string,
+    private static OperationsSequence tryGetSequence(ExpPartDelimiters _exp,int _offset, String _string,
                                                      Delimiters _d, AnalyzedPageEl _page) {
-        int i_ = firstPrint(_string);
+        int i_ = _exp.getFirstPrintIndex();
         int len_ = _string.length();
         if (i_ >= len_) {
             OperationsSequence op_ = new OperationsSequence();
@@ -2068,7 +2079,7 @@ public final class ElResolver {
             op_.setValue(_string, 0);
             return op_;
         }
-        int lastPrintChar_ = lastPrintChar(_string, len_);
+        int lastPrintChar_ = _exp.getLastPrintIndex();
         len_ = lastPrintChar_+1;
         for (VariableInfo v: _d.getVariables()) {
             if (v.getFirstChar() == _offset + i_) {
@@ -2139,15 +2150,6 @@ public final class ElResolver {
             op_.setPartOffsets(new AnaResultPartType());
             op_.setOperators(new StrTypes());
             op_.setValue(_string, firstPrintChar_);
-            return op_;
-        }
-        if (delimits(_d.getDelSimpleAnnotations(), _offset, firstPrintChar_, lastPrintChar_)) {
-            OperationsSequence op_ = new OperationsSequence();
-            op_.setConstType(ConstType.SIMPLE_ANNOTATION);
-            op_.setOperators(new StrTypes());
-            op_.setValue(_string, firstPrintChar_);
-            op_.setFctName(_string);
-            op_.removeFirst();
             return op_;
         }
         if (delimits(_d.getDelVararg(), _offset, firstPrintChar_, lastPrintChar_)) {
@@ -2345,9 +2347,10 @@ public final class ElResolver {
         return null;
     }
 
-    public static int lastPrintChar(String _string, int len_) {
+    public static int lastPrintChar(String _string) {
+        int len_ = _string.length();
         int lastPrintChar_ = len_ - 1;
-        while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
+        while (lastPrintChar_ >= 0&&StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
             lastPrintChar_--;
         }
         return lastPrintChar_;

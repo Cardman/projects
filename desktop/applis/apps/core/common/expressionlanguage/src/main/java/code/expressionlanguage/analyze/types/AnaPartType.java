@@ -90,19 +90,20 @@ abstract class AnaPartType {
 
     private static AnaPartType buildPar(AnaParentPartType _parent, int _index, int _indexInType, AnalyzingType _analyze, AnalysisMessages _messages) {
         StrTypes operators_ = _analyze.getOperators();
+        StrTypes values_ = _analyze.getValues();
         if (_analyze.getPrio() == ParserType.TMP_PRIO) {
-            return new AnaTemplatePartType(_parent, _index, _indexInType,operators_, _messages);
+            return new AnaTemplatePartType(_parent, _index, _indexInType,operators_, _messages,values_);
         }
         if (_analyze.getPrio() == ParserType.INT_PRIO) {
-            return new AnaInnerPartType(_parent, _index, _indexInType,operators_, _messages);
+            return new AnaInnerPartType(_parent, _index, _indexInType,operators_, _messages,values_);
         }
         if (_analyze.getPrio() == ParserType.ARR_PRIO) {
-            return new AnaArraryPartType(_parent, _index, _indexInType,operators_, _messages);
+            return new AnaArraryPartType(_parent, _index, _indexInType,operators_, _messages,values_);
         }
         if (StringUtil.quickEq(operators_.firstValue(),"~")) {
-            return new AnaRefPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_, _messages);
+            return new AnaRefPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_, _messages,values_);
         }
-        return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_, _messages);
+        return new AnaWildCardPartType(_parent, _index, _indexInType, operators_.firstValue(),operators_, _messages,values_);
     }
 
     abstract void analyze(String _globalType, AccessedBlock _local, AccessedBlock _rooted, AnalyzedPageEl _page, int _loc);

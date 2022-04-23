@@ -36,8 +36,8 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (chidren_.size() != 2) {
             okNum = false;
             _page.setOkNumOp(false);
-            int in_ = Math.min(getOperations().getOperators().size()-1,1);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(in_), _page);
+            int in_ = Math.min(getOperators().size()-1,1);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(in_), _page);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());
             badNb_.setIndexFile(_page);
@@ -51,16 +51,16 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             for (int i = 0; i < in_;i++) {
                 getPartOffsetsChildren().add(new InfoErrorDto(""));
             }
-            getPartOffsetsChildren().add(new InfoErrorDto(badNb_,_page,getOperations().getOperators().getValue(in_).length()));
+            getPartOffsetsChildren().add(new InfoErrorDto(badNb_,_page, getOperators().getValue(in_).length()));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
-        operatorContent.setOpOffset(getOperations().getOperators().firstKey());
+        operatorContent.setOpOffset(getOperators().firstKey());
         OperationNode l_ = chidren_.first();
         AnaClassArgumentMatching first_ = l_.getResultClass();
         OperationNode r_ = chidren_.last();
         AnaClassArgumentMatching second_ = r_.getResultClass();
-        String op_ = getOperations().getOperators().firstValue().trim();
+        String op_ = getOperators().firstValue().trim();
         OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, op_, _page);
         if (cl_ != null) {
             fct.infos(cl_,_page);
@@ -92,7 +92,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         }
         okNum = false;
         _page.setOkNumOp(false);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(0), _page);
         String res_ = _page.getAliasPrimBoolean();
         FoundErrorInterpret un_ = new FoundErrorInterpret();
         un_.setIndexFile(_page);

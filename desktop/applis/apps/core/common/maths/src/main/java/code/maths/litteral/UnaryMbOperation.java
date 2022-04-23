@@ -29,7 +29,7 @@ public final class UnaryMbOperation extends PrimitiveBoolMbOperation {
         MbArgument a_ = new MbArgument();
         Rate o_ = arg_.getRateVal();
         a_.setArgClass(MathType.RATE);
-        if (StringUtil.quickEq(getOperations().getOperators().firstValue().trim(), UNARY_MINUS)) {
+        if (StringUtil.quickEq(getOpers().firstValue().trim(), UNARY_MINUS)) {
             a_.setObject(o_.opposNb());
         } else {
             a_.setObject(o_);

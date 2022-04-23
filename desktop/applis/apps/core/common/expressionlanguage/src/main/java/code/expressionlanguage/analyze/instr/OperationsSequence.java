@@ -55,6 +55,8 @@ public final class OperationsSequence {
     private ParsedFctHeaderResult results;
     private AbsBk block;
     private int length;
+    private int argOffset;
+    private String clName = "";
     public void setValue(String _string, int _offset) {
         values = new StrTypes();
         values.addEntry(IndexConstants.FIRST_INDEX, _string);
@@ -301,11 +303,28 @@ public final class OperationsSequence {
         }
         if (isCallDbArray()) {
             removeFirst();
+            String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
+            if (StringUtil.quickEq(fctName_, keyWordValueOf_)) {
+                StrTypes values_ = getValues();
+                clName = StrTypes.value(values_, 0);
+                argOffset = StrTypes.offset(values_, 0);
+                if (!values_.isEmpty()) {
+                    values_.remove(0);
+                }
+            }
             return;
         }
         if (isArray()) {
             removeFirst();
         }
+    }
+
+    public int getArgOffset() {
+        return argOffset;
+    }
+
+    public String getClName() {
+        return clName;
     }
 
     public Ints getErrorParts() {
@@ -391,6 +410,10 @@ public final class OperationsSequence {
 
     public StrTypes getValues() {
         return values;
+    }
+
+    public void initValues() {
+        values = new StrTypes();
     }
 
     public StrTypes getOperators() {

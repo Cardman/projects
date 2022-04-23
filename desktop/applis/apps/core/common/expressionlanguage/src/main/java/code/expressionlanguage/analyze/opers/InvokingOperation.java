@@ -563,7 +563,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         } else if (curPar_ == null){
             apply_ = true;
         }
-        while (curPar_ instanceof IdOperation && curPar_.getOperations().getValues().size() <= 1) {
+        while (curPar_ instanceof IdOperation && ((IdOperation) curPar_).getChildren().size() <= 1) {
             curPar_ = curPar_.getParent();
             cur_ = cur_.getParent();
         }
@@ -591,7 +591,7 @@ public abstract class InvokingOperation extends MethodOperation implements Possi
         } else if (curPar_ == null){
             return null;
         }
-        while (curPar_ instanceof IdOperation && curPar_.getOperations().getValues().size() <= 1) {
+        while (curPar_ instanceof IdOperation && ((IdOperation) curPar_).getChildren().size() <= 1) {
             curPar_ = curPar_.getParent();
             cur_ = cur_.getParent();
         }

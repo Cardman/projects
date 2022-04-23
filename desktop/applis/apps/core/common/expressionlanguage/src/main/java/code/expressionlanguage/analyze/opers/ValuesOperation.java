@@ -27,7 +27,7 @@ public final class ValuesOperation extends LeafOperation {
     public ValuesOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
-        StrTypes vs_ = getOperations().getValues();
+        StrTypes vs_ = _op.getValues();
         className = vs_.firstValue();
         valuesContent = new AnaValuesContent(0);
     }

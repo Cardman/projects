@@ -28,8 +28,8 @@ public final class RangeOperation extends MethodOperation {
         if (chidren_.size() > 3) {
             okNum = false;
             _page.setOkNumOp(false);
-            int in_ = Math.min(getOperations().getOperators().size()-1,2);
-            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(in_), _page);
+            int in_ = Math.min(getOperators().size()-1,2);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(in_), _page);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());
             badNb_.setIndexFile(_page);
@@ -43,11 +43,11 @@ public final class RangeOperation extends MethodOperation {
             for (int i = 0; i < in_;i++) {
                 getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>());
             }
-            getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(badNb_,_page,getOperations().getOperators().getValue(in_).length())));
+            getPartOffsetsChildrenList().add(new CustList<InfoErrorDto>(new InfoErrorDto(badNb_,_page, getOperators().getValue(in_).length())));
             setResultClass(new AnaClassArgumentMatching(_page.getAliasRange()));
             return;
         }
-        opOffset= getOperations().getOperators().firstKey();
+        opOffset= getOperators().firstKey();
         AnaClassArgumentMatching clMatchLeft_ = chidren_.first().getResultClass();
         if (chidren_.size() == 3||chidren_.size() == 2) {
             AnaClassArgumentMatching clMatchRight_ = chidren_.get(1).getResultClass();
@@ -59,7 +59,7 @@ public final class RangeOperation extends MethodOperation {
                 } else {
                     okNum = false;
                     _page.setOkNumOp(false);
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(0), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());
@@ -81,7 +81,7 @@ public final class RangeOperation extends MethodOperation {
                 } else {
                     okNum = false;
                     _page.setOkNumOp(false);
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(0), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());
@@ -113,7 +113,7 @@ public final class RangeOperation extends MethodOperation {
                     } else {
                         okNum = false;
                         _page.setOkNumOp(false);
-                        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(1), _page);
+                        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(1), _page);
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setIndexFile(_page);
                         un_.setFile(_page.getCurrentFile());
@@ -135,7 +135,7 @@ public final class RangeOperation extends MethodOperation {
                 } else {
                     okNum = false;
                     _page.setOkNumOp(false);
-                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().getKey(0), _page);
+                    setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(0), _page);
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
                     un_.setIndexFile(_page);
                     un_.setFile(_page.getCurrentFile());

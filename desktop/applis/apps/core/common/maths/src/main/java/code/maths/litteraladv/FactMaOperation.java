@@ -12,7 +12,7 @@ final class FactMaOperation extends MethodMaOperation {
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         MaStruct value_ = MaNumParsers.tryGet(this, 0);
         if (!(value_ instanceof MaRateStruct)) {
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getOpers(),0));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getOps(),0));
             return;
         }
         setStruct(new MaRateStruct(((MaRateStruct)value_).getRate().fact()));

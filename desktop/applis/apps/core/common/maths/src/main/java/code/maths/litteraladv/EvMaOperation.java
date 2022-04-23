@@ -15,7 +15,7 @@ public final class EvMaOperation extends MethodMaOperation {
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         MaStruct first_ = MaNumParsers.tryGet(this, 0);
         MaStruct second_ = MaNumParsers.tryGet(this, 1);
-        int index_ = StrTypes.offset(getOperats().getOpers(),0);
+        int index_ = StrTypes.offset(getOps(),0);
         if (first_ instanceof MaRateStruct && second_ instanceof MaRateStruct) {
             if (!((MaRateStruct)second_).getRate().isInteger()||((MaRateStruct)second_).getRate().isZeroOrLt()) {
                 _error.setOffset(getIndexExp()+ index_);

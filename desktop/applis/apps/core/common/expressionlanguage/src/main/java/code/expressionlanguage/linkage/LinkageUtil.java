@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.GraphicErrorInterpret;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
@@ -35,7 +34,6 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
 import code.util.*;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class LinkageUtil {
@@ -2894,7 +2892,7 @@ public final class LinkageUtil {
             CallDynMethodOperation c_ = (CallDynMethodOperation) _val.getParent();
             if (!c_.getSepErr().isEmpty()&&c_.getIndexCh() == indexChild_) {
                 String tag_ = ExportCst.anchorErr(c_.getSepErr());
-                int rightPar_ = c_.getOperations().getOperators().getKey(c_.getIndexCh()+1);
+                int rightPar_ = c_.getOperators().getKey(c_.getIndexCh()+1);
                 int beg_ = _sum + c_.getIndexInEl() + rightPar_;
                 _vars.addPart(new PartOffset(tag_, beg_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,beg_+1));
@@ -2918,7 +2916,7 @@ public final class LinkageUtil {
         MethodOperation.processEmptyError(_val,l_);
         if (leftOperNotUnary(par_)&& !(indexChild_ == 0 && par_ instanceof ArrOperation)) {
             if (!l_.isEmpty()) {
-                StrTypes operators_ =  par_.getOperations().getOperators();
+                StrTypes operators_ =  par_.getOperators();
                 int s_ = _sum + par_.getIndexInEl() + operators_.getKey(indexChild_);
                 int len_ = operators_.getValue(indexChild_).length();
                 _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(l_,ExportCst.JOIN_ERR)),s_));
@@ -2943,8 +2941,7 @@ public final class LinkageUtil {
         StringList errEmpt_ = new StringList();
         MethodOperation.processEmptyError(_val,errEmpt_);
         if (!errEmpt_.isEmpty()) {
-            int off_ = _val.getOperations().getOffset();
-            int begin_ = _sum + off_ + _val.getIndexInEl();
+            int begin_ = _sum + _val.getIndexInEl();
             processNullParent(_vars, _val, begin_);
             _vars.addPart(new PartOffset(ExportCst.anchorErr(StringUtil.join(errEmpt_,ExportCst.JOIN_ERR)),begin_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ _len));
@@ -2980,9 +2977,8 @@ public final class LinkageUtil {
     private static void processArrLength(VariablesOffsets _vars, int _sum, OperationNode _val) {
         if (_val instanceof ArrayFieldOperation) {
             ArrayFieldOperation aField_ = (ArrayFieldOperation) _val;
-            OperationsSequence op_ = aField_.getOperations();
-            int relativeOff_ = op_.getOffset();
-            String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+            int relativeOff_ = aField_.getOffset();
+            String originalStr_ = aField_.getValue();
             String str_ = originalStr_.trim();
             int begin_ = _sum + relativeOff_ + _val.getIndexInEl();
             if (!aField_.getErrs().isEmpty()) {
@@ -2997,25 +2993,25 @@ public final class LinkageUtil {
 
     private static void processConstants(VariablesOffsets _vars, int _sum, OperationNode _val) {
         if (_val instanceof ConstantOperation) {
-            int off_ = _val.getOperations().getOffset();
+            int off_ = ((ConstantOperation)_val).getOffset();
             int begCst_ = _sum + off_ + _val.getIndexInEl();
-            if (_val.getOperations().getConstType() == ConstType.TEXT_BLOCK) {
+            if (_val instanceof ConstantTxtBlockOperation) {
                 _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
-                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getLen());
-                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLen()));
+                messageCst(_vars,_val, begCst_, ((ConstantTxtBlockOperation)_val).getLen());
+                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantTxtBlockOperation)_val).getLen()));
             }
-            if (_val.getOperations().getConstType() == ConstType.STRING) {
+            if (_val instanceof ConstantStrOperation) {
                 _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
-                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getLen());
-                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLen()));
+                messageCst(_vars,_val, begCst_, ((ConstantStrOperation)_val).getLen());
+                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantStrOperation)_val).getLen()));
             }
-            if (_val.getOperations().getConstType() == ConstType.CHARACTER) {
+            if (_val instanceof ConstantCharOperation) {
                 _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
-                messageCst(_vars,_val, begCst_, ((ConstantOperation)_val).getLen());
-                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantOperation)_val).getLen()));
+                messageCst(_vars,_val, begCst_, ((ConstantCharOperation)_val).getLen());
+                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantCharOperation)_val).getLen()));
             }
-            if (_val.getOperations().getConstType() == ConstType.NUMBER) {
-                messageCst(_vars,_val, begCst_, ((ConstantOperation) _val).getLen());
+            if (_val instanceof ConstantNbOperation) {
+                messageCst(_vars,_val, begCst_, ((ConstantNbOperation) _val).getLen());
             }
         }
     }
@@ -3045,14 +3041,14 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(tag_,begFct_+ length_));
             if (((CallDynMethodOperation) _val).isNoNeed()) {
                 tag_ = ExportCst.anchorErr(((CallDynMethodOperation) _val).getSepErr());
-                int leftPar_ = _val.getOperations().getOperators().firstKey();
+                int leftPar_ = ((CallDynMethodOperation) _val).getOperators().firstKey();
                 int beg_ = _sum + _val.getIndexInEl() + leftPar_;
                 _vars.addPart(new PartOffset(tag_, beg_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,beg_+1));
             }
             if (_val.getFirstChild() == null&&!((CallDynMethodOperation) _val).getSepErr().isEmpty()) {
                 tag_ = ExportCst.anchorErr(((CallDynMethodOperation) _val).getSepErr());
-                int rightPar_ = _val.getOperations().getOperators().lastKey();
+                int rightPar_ = ((CallDynMethodOperation) _val).getOperators().lastKey();
                 int beg_ = _sum + _val.getIndexInEl() + rightPar_;
                 _vars.addPart(new PartOffset(tag_, beg_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,beg_+1));
@@ -3497,7 +3493,7 @@ public final class LinkageUtil {
 
     private static void processUnaryLeftOperationsCoversReport(LinkageStackElementIn _in, VariablesOffsets _vars, int _sum, OperationNode _val, Coverage _cov) {
         if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getFct().getFunction() == null) {
-            int offsetOp_ = _val.getOperations().getOperators().firstKey();
+            int offsetOp_ = ((UnaryBooleanOperation)_val).getOperators().firstKey();
             safeReport(_in,_vars,_val,_cov,_sum + _val.getIndexInEl() + offsetOp_, 1);
         }
     }
@@ -3568,7 +3564,7 @@ public final class LinkageUtil {
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ _n.getName().length()));
             }
             if (!relTwo_.isEmpty()){
-                StrTypes vs_ = _n.getOperations().getOperators();
+                StrTypes vs_ = _n.getOperators();
                 int begin_ = _sum + _n.getIndexInEl()+vs_.firstKey();
                 _vars.addPart(new PartOffset(relTwo_,begin_));
                 _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,begin_+ vs_.firstValue().length()));
@@ -3733,7 +3729,7 @@ public final class LinkageUtil {
             _vars.addParts(export(((CastOperation) _val).getPartOffsets()));
         }
         if (_val instanceof ExplicitOperation) {
-            int offsetOp_ = _val.getOperations().getOperators().firstKey();
+            int offsetOp_ = ((ExplicitOperation) _val).getOperators().firstKey();
             AnaTypeFct function_ = ((ExplicitOperation) _val).getFunction();
             addParts(_vars, function_,
                     offsetOp_+ _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordExplicit().length(),
@@ -3742,7 +3738,7 @@ public final class LinkageUtil {
             addTypes(_vars, ((ExplicitOperation) _val).getPartOffsets());
         }
         if (_val instanceof ImplicitOperation) {
-            int offsetOp_ = _val.getOperations().getOperators().firstKey();
+            int offsetOp_ = ((ImplicitOperation) _val).getOperators().firstKey();
             AnaTypeFct function_ = ((ImplicitOperation) _val).getFunction();
             addParts(_vars, function_,
                     offsetOp_+ _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordCast().length(),
@@ -3792,7 +3788,7 @@ public final class LinkageUtil {
         if (_parent instanceof ImplementChoice) {
             ImplementChoice sh_ = (ImplementChoice) _parent;
             int index_ = _curOp.getIndexChild();
-            int operOff_ = _in.getBeginBlock() + _parent.getIndexInEl() + _parent.getOperations().getOperators().getKey(index_);
+            int operOff_ = _in.getBeginBlock() + _parent.getIndexInEl() + _parent.getOperators().getKey(index_);
             AnaTypeFct testFct_ = null;
             if (_vars.isImplicit() && index_ == 0) {
                 testFct_ = sh_.getImplFct();
@@ -3815,7 +3811,7 @@ public final class LinkageUtil {
         MethodOperation.processEmptyError(_curOp,l_);
         MethodOperation.processEmptyError(_nextSiblingOp,l_);
         if (middleOper(_parent)) {
-            StrTypes operators_ =  _parent.getOperations().getOperators();
+            StrTypes operators_ =  _parent.getOperators();
             AnaTypeFct testFct_ = tryGetTestFct(_vars, _curOp,_parent);
             int index_ = _curOp.getIndexChild();
             if (_parent instanceof RefShortTernaryOperation && index_ == 1) {
@@ -3873,7 +3869,7 @@ public final class LinkageUtil {
                                         OperationNode _curOp,
                                         MethodOperation _parent) {
         if ((middleOperNotShortTernary(_parent) || _parent instanceof SemiAffectationOperation && ((SemiAffectationOperation) _parent).isPost()) && _curOp.getIndexChild() == 0) {
-            int i_ = _in.getBeginBlock()+_parent.getIndexInEl()+ _parent.getOperations().getOperators().firstKey();
+            int i_ = _in.getBeginBlock()+_parent.getIndexInEl()+ _parent.getOperators().firstKey();
             tryAddMergedParts(_vars, _curOp.getResultClass().getFunction(), i_, new StringList(), new StringList());
         }
     }
@@ -4346,7 +4342,7 @@ public final class LinkageUtil {
         if (_op instanceof RefShortTernaryOperation) {
             return true;
         }
-        if (_op instanceof AbstractDotOperation && !_op.getOperations().getOperators().firstValue().isEmpty()) {
+        if (_op instanceof AbstractDotOperation && !((AbstractDotOperation)_op).getOperators().firstValue().isEmpty()) {
             return true;
         }
         if (_op instanceof AffectationOperation) {

@@ -8,31 +8,32 @@ import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AnaGeneType;
-import code.util.core.IndexConstants;
 
 public final class StaticAccessOperation extends LeafOperation {
     private AnaResultPartType partOffsets;
     private AnaGeneType extractStaticType;
+    private final String extractType;
 
     public StaticAccessOperation(int _indexInEl, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
+        extractType = _op.getExtractType();
+        if (!extractType.isEmpty()) {
+            extractStaticType = _op.getExtractStaticType();
+            partOffsets = _op.getPartOffsets();
+        }
     }
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        String ext_ = op_.getExtractType();
-        if (!ext_.isEmpty()) {
-            extractStaticType = op_.getExtractStaticType();
-            partOffsets = op_.getPartOffsets();
+        if (!extractType.isEmpty()) {
             Argument a_ = new Argument();
             setSimpleArgument(a_);
-            setResultClass(new AnaClassArgumentMatching(ext_));
+            setResultClass(new AnaClassArgumentMatching(extractType));
             return;
         }
-        int relativeOff_ = op_.getOffset();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        int relativeOff_ = getOffset();
+        String originalStr_ = getValue();
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String realCl_ = str_.substring(str_.indexOf(PAR_LEFT)+1, str_.lastIndexOf(PAR_RIGHT));

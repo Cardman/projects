@@ -27,8 +27,8 @@ public final class ExplicitOperation extends AbstractUnaryOperation {
     public ExplicitOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         explicitContent = new AnaExplicitContent();
-        explicitContent.setOffset(getOperations().getOperators().firstKey());
-        explicitContent.setClassName(getOperations().getOperators().firstValue());
+        explicitContent.setOffset(getOperators().firstKey());
+        explicitContent.setClassName(getOperators().firstValue());
     }
 
     @Override

@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ClassField;
 import code.util.StringList;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class DeclaredFieldOperation extends
@@ -25,11 +24,10 @@ public final class DeclaredFieldOperation extends
     }
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
+        int relativeOff_ = getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         setStaticAccess(_page.getStaticContext());
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        String originalStr_ = getValue();
         String fieldName_ = originalStr_.trim();
         setFieldNameLength(fieldName_.length());
         int valOffset_ = AnaTypeUtil.getIndex(infoBlock, fieldName_);
@@ -59,8 +57,7 @@ public final class DeclaredFieldOperation extends
 
     @Override
     public int getDelta() {
-        OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        String originalStr_ = getValue();
         return StringUtil.getFirstPrintableCharIndex(originalStr_);
     }
 

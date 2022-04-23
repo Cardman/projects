@@ -17,7 +17,7 @@ public final class FctMbOperation extends InvokingMbOperation {
     public FctMbOperation(int _index,
                           int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        methodName = getOperations().getFctName().trim();
+        methodName = _op.getFctName().trim();
     }
 
     @Override

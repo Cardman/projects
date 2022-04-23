@@ -2,7 +2,6 @@ package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.maths.litteralcom.StrTypes;
 
 public abstract class InvokingNatOperation extends MethodNatOperation implements NatPossibleIntermediateDotted {
     private String previousResultClass;
@@ -12,13 +11,6 @@ public abstract class InvokingNatOperation extends MethodNatOperation implements
                                 NatOperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         previousResultClass = EMPTY_STRING;
-    }
-
-    @Override
-    final void calculateChildren() {
-        StrTypes vs_ = getOperations().getValNat();
-        vs_.remove(0);
-        getChildren().addAllEntries(vs_);
     }
 
     @Override

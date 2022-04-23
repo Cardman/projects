@@ -42,11 +42,11 @@ public final class ArrMaOperation extends MethodMaOperation {
         }
         int firstIndex_ = firstIndex(values_);
         if (firstIndex_ > -1) {
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),firstIndex_));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),firstIndex_));
             return;
         }
-        int index_ = Math.min(getOperats().getOpers().size()-1,3);
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getOpers(),index_));
+        int index_ = Math.min(getOps().size()-1,3);
+        _error.setOffset(getIndexExp()+StrTypes.offset(getOps(),index_));
     }
 
     private void applyLg(CustList<MaStruct> _list) {
@@ -195,7 +195,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             procEdge((MaEdgeStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2), _error);
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
     }
 
     private void procThreeIndexes(MaError _error, CustList<MaStruct> _values) {
@@ -203,7 +203,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             procPolygons((MaListPolygonStruct)_values.first(),(MaRateStruct) _values.get(1),(MaRateStruct) _values.get(2),(MaRateStruct) _values.get(3), _error);
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),3));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),3));
     }
     private void procOneIndex(MaError _error, CustList<MaStruct> _values) {
         if (_values.first() instanceof MaBezoutNbStruct) {
@@ -334,7 +334,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             procListPoints((MaListPointStruct) _first,(MaRateStruct) _values.get(1), _error);
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
 
 
@@ -385,7 +385,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(_bezout.getIdBezout().getPpcm())));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
 
     private void procArr(MaBezoutPolStruct _bezout,MaRateStruct _index, MaError _error) {
@@ -407,7 +407,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaPolynomStruct(_bezout.getIdBezout().getPpcm()));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPolygons(MaListPolygonStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo,MaRateStruct _indexThree, MaError _error) {
         CustList<Polygon> polygon_ = _divs.getPolygons();
@@ -420,13 +420,13 @@ public final class ArrMaOperation extends MethodMaOperation {
                     setStruct(nb_);
                     return;
                 }
-                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),3));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),3));
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procDivs(MaDividersNbStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -437,7 +437,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(dividers_.get((int) lgInt_.ll()))));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procDivs(MaDividersPolStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -448,7 +448,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaPolynomStruct(dividers_.get((int) lgInt_.ll())));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
 
     private static boolean validIndex(LgInt _lgInt, int _len) {
@@ -464,7 +464,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaPrimDivisorNbStruct(dividers_.get((int) lgInt_.ll())));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procDecomp(MaDecompositionNbStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -483,10 +483,10 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(primDivisor_.getExponent())));
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPrimDivisor(MaPrimDivisorNbStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -500,7 +500,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(primDivisor_.getExponent())));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procDecomp(MaDecompositionPolStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -511,7 +511,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaPrimDivisorPolStruct(dividers_.get((int) lgInt_.ll())));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procDecomp(MaDecompositionPolStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -530,10 +530,10 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(primDivisor_.getDegree())));
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPrimDivisor(MaPrimDivisorPolStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -547,7 +547,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(primDivisor_.getDegree())));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPrimDivisor(MaRatePointStruct _divs,MaRateStruct _index, MaError _error) {
         MaStruct res_ = procRatePoint(_divs.getPoint(), _index);
@@ -555,7 +555,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(res_);
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private static MaStruct procRatePoint(RatePoint _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -581,7 +581,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaDividersNbStruct(copy_));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procRep(MaRepartitionStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -600,10 +600,10 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(copy_.get((int)lgIntSec_.ll()))));
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procLaw(MaMonteCarloNumberStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -615,7 +615,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaEventFreqStruct(dual_));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procLaw(MaMonteCarloNumberStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -634,10 +634,10 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(dual_.getFreq())));
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procMatrix(MaMatrixStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -655,10 +655,10 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(new MaRateStruct(new Rate(dual_.get((int)lgIntSec_.ll()))));
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPolygon(MaPolygonStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
         Polygon polygon_ = _divs.getPolygon();
@@ -669,10 +669,10 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(val_);
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPolygons(MaListPolygonStruct _divs,MaRateStruct _index,MaRateStruct _indexTwo, MaError _error) {
         CustList<Polygon> polygon_ = _divs.getPolygons();
@@ -683,10 +683,10 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(new MaRatePointStruct(val_));
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private static RatePoint procPolygonPt(Polygon _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -706,10 +706,10 @@ public final class ArrMaOperation extends MethodMaOperation {
                 setStruct(val_);
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),2));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),2));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private static RatePoint procEdgeRatePoint(Edge _divs, MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -735,7 +735,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(new Rate(dividers_.getFreq())));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procRateList(MaRateListStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -747,7 +747,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(dual_));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPolynom(MaPolynomStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -759,7 +759,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(dual_));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procMatrix(MaMatrixStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -771,7 +771,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaVectStruct(dual_));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procVect(MaVectStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -783,7 +783,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(dual_));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPolygon(MaPolygonStruct _divs,MaRateStruct _index, MaError _error) {
         Polygon matrix_ = _divs.getPolygon();
@@ -792,7 +792,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRatePointStruct(pt_));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPolygons(MaListPolygonStruct _divs,MaRateStruct _index, MaError _error) {
         CustList<Polygon> matrix_ = _divs.getPolygons();
@@ -801,7 +801,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaPolygonStruct(pol_));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procMapPointEdge(MaMapPointEdgeStruct _divs,MaRateStruct _index, MaError _error) {
         IdMap<RatePoint, CustList<Edge>> matrix_ = _divs.getEdges();
@@ -810,7 +810,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(pol_);
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procMapPointListPoint(MaMapPointListPointStruct _divs,MaRateStruct _index, MaError _error) {
         IdMap<RatePoint, IdList<RatePoint>> matrix_ = _divs.getNextPoints();
@@ -819,7 +819,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(pol_);
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procMapPointListPolygon(MaMapPointListPolygonStruct _divs,MaRateStruct _index, MaError _error) {
         IdMap<RatePoint, CustList<Triangle>> matrix_ = _divs.getNextTriangles();
@@ -828,7 +828,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(pol_);
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPointListEdges(MaPointListEdgesStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -841,7 +841,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaListEdgeStruct(_divs.getEdges()));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPointListPoints(MaPointListPointsStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -854,7 +854,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaListPointStruct(_divs.getNextPoints()));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPointListPolygons(MaPointListPolygonsStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -867,7 +867,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaListPolygonStruct(Polygon.toPolygons(_divs.getNextTriangles())));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procListEdges(MaListEdgeStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -879,7 +879,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaEdgeStruct(edges_.get(ind_)));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procListPoints(MaListPointStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -891,7 +891,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRatePointStruct(edges_.get(ind_)));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procDelaunay(MaDelaunayStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -917,7 +917,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaMapPointListPolygonStruct(_divs.getDelaunay().getNextTriangles()));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private static Polygon procPolygon(CustList<Polygon> _divs,MaRateStruct _index) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -977,7 +977,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRateStruct(line_.getCst()));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procEdge(MaEdgeStruct _divs,MaRateStruct _index, MaError _error) {
         LgInt lgInt_ = _index.getRate().intPart();
@@ -991,7 +991,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaRatePointStruct(line_.getSecond()));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private void procPtIndex(MaError _error, CustList<MaStruct> _values) {
         if (_values.first() instanceof MaMapPointEdgeStruct) {
@@ -1009,7 +1009,7 @@ public final class ArrMaOperation extends MethodMaOperation {
             setStruct(new MaListPolygonStruct(Polygon.toPolygons(edges_)));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
     private static void incr(LgInt _int, int _len) {
         if (!_int.isZeroOrGt()) {

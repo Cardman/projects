@@ -124,7 +124,7 @@ public final class ArrOperation extends InvokingOperation implements SettableElR
         CustList<OperationNode> chidren_ = getChildrenNodes();
         if (chidren_.size() != 1) {
             getPartOffsetsChildren().add(new InfoErrorDto(""));
-            StrTypes operators_ =  getOperations().getOperators();
+            StrTypes operators_ =  getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl(), _page);
             FoundErrorInterpret badNb_ = new FoundErrorInterpret();
             badNb_.setFile(_page.getCurrentFile());

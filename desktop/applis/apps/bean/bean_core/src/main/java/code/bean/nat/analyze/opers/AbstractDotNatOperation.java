@@ -2,7 +2,6 @@ package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 
 public abstract class AbstractDotNatOperation extends MethodNatOperation {
@@ -14,10 +13,5 @@ public abstract class AbstractDotNatOperation extends MethodNatOperation {
     public void analyze(NatAnalyzedCode _page) {
         CustList<NatOperationNode> chidren_ = getChildrenNodes();
         setResultClass(chidren_.last().getNames());
-    }
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValNat();
-        getChildren().addAllEntries(vs_);
     }
 }

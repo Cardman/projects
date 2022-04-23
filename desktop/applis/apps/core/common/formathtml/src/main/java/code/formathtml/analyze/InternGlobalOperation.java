@@ -1,15 +1,15 @@
 package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.LeafOperation;
 import code.expressionlanguage.analyze.opers.MethodOperation;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 
 public final class InternGlobalOperation extends LeafOperation {
-    private int off;
-    private AnalyzingDoc analyzingDoc;
+    private final int off;
+    private final AnalyzingDoc analyzingDoc;
 
     public InternGlobalOperation(int _indexInEl, int _indexChild,
                                  MethodOperation _m, OperationsSequence _op, AnalyzingDoc _analyzingDoc) {
@@ -20,8 +20,7 @@ public final class InternGlobalOperation extends LeafOperation {
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        int relativeOff_ = op_.getOffset();
+        int relativeOff_ = getOffset();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
         String arg_ = analyzingDoc.getInternGlobalClass();
         if (_page.isStaticContext()) {

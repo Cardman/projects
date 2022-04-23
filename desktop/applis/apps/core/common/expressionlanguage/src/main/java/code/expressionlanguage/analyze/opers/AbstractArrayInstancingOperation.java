@@ -4,12 +4,12 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.fwd.opers.AnaArrayInstancingContent;
 
 public abstract class AbstractArrayInstancingOperation extends InvokingOperation {
-    private AnaArrayInstancingContent arrayInstancingContent;
+    private final AnaArrayInstancingContent arrayInstancingContent;
 
-    public AbstractArrayInstancingOperation(int _index, int _indexChild,
+    protected AbstractArrayInstancingOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        arrayInstancingContent = new AnaArrayInstancingContent(getOperations().getFctName());
+        arrayInstancingContent = new AnaArrayInstancingContent(_op.getFctName());
     }
 
     public final String getMethodName() {

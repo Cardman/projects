@@ -26,18 +26,15 @@ public abstract class MaOperationNode {
 
     private MaStruct struct;
 
-    private final MaOperationsSequence operats;
-
     private final int indexExp;
 
     private int order = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private final int childIndex;
 
-    MaOperationNode(int _indexInEl, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
+    MaOperationNode(int _indexInEl, int _indexChild, MethodMaOperation _m) {
         par = _m;
         indexExp = _indexInEl;
-        operats = _op;
         childIndex = _indexChild;
     }
 
@@ -328,10 +325,6 @@ public abstract class MaOperationNode {
     }
     public MethodMaOperation getPar() {
         return par;
-    }
-
-    public MaOperationsSequence getOperats() {
-        return operats;
     }
 
     public int getOrder() {

@@ -2,9 +2,7 @@ package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.ElResolver;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.analyze.instr.*;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.reach.opers.ReachMethodOperation;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
@@ -12,7 +10,6 @@ import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.options.KeyWords;
@@ -218,11 +215,12 @@ public final class RenderAnalysis {
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
                                                            Delimiters _d, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, MethodOperation _meth) {
         int len_ = _string.length();
-        int i_ = ElResolver.firstPrint(_string);
+        ExpPartDelimiters exp_ = new ExpPartDelimiters(_string);
+        int i_ = exp_.getFirstPrintIndex();
         if (i_ < len_) {
             KeyWords keyWords_ = _page.getKeyWords();
             String keyWordIntern_ = keyWords_.getKeyWordIntern();
-            int lastPrintChar_ = ElResolver.lastPrintChar(_string,len_);
+            int lastPrintChar_ = exp_.getLastPrintIndex();
             len_ = lastPrintChar_+1;
             String sub_ = _string.substring(i_, len_);
             if (_anaDoc.isInternGlobal() && StringUtil.quickEq(sub_, keyWordIntern_)) {
@@ -233,7 +231,7 @@ public final class RenderAnalysis {
                 return op_;
             }
         }
-        return ElResolver.getOperationsSequence(_offset, _string, _d, _page,_meth);
+        return ElResolver.getOperationsSequence(_offset, _string, _d, _page,_meth, exp_);
     }
 
     public static OperationNode createOperationNode(int _index,

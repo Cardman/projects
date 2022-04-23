@@ -10,8 +10,15 @@ import code.util.core.StringUtil;
 
 public final class ConstantMbOperation extends MbOperationNode {
 
+    private final String value;
+    private final int indexCst;
+    private final MatConstType cstType;
+
     public ConstantMbOperation(int _index, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
-        super(_index, _indexChild, _m, _op);
+        super(_index, _indexChild, _m);
+        value = _op.getValues().getValue(IndexConstants.FIRST_INDEX).trim();
+        indexCst = _op.getIndexCst();
+        cstType = _op.getConstType();
     }
 
     @Override
@@ -21,7 +28,7 @@ public final class ConstantMbOperation extends MbOperationNode {
             processConst(_conf);
             return;
         }
-        String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
+        String str_ = value;
         if (_conf.contains(str_)) {
             String value_ = _conf.getVal(str_);
             if (Rate.isValid(value_)) {
@@ -41,10 +48,9 @@ public final class ConstantMbOperation extends MbOperationNode {
     }
 
     private void processConst(StringMap<String> _conf) {
-        String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
 
         for (EntryCust<String,String> v: _conf.entryList()) {
-            if (StringUtil.quickEq(str_, StringUtil.concat(Character.toString(DELIMITER_STRING_BEGIN),v.getKey(),Character.toString(DELIMITER_STRING_END)))) {
+            if (StringUtil.quickEq(value, StringUtil.concat(Character.toString(DELIMITER_STRING_BEGIN),v.getKey(),Character.toString(DELIMITER_STRING_END)))) {
                 MathList m_ = createList(v);
                 getArgument().setObject(m_);
                 break;
@@ -66,8 +72,7 @@ public final class ConstantMbOperation extends MbOperationNode {
 
     @Override
     void calculate(StringMap<String> _conf, ErrorStatus _error) {
-        String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
-        String val_ = StringUtil.nullToEmpty(_conf.getVal(str_));
+        String val_ = StringUtil.nullToEmpty(_conf.getVal(value));
         MbArgument a_;
         a_ = new MbArgument();
         a_.setArgClass(getResultClass());
@@ -91,9 +96,8 @@ public final class ConstantMbOperation extends MbOperationNode {
     }
 
     private void analyzeCalculate(ErrorStatus _error, MbDelimiters _delimiter) {
-        if (getOperations().getConstType() == MatConstType.STRING) {
-            int begin_ = getOperations().getIndexCst();
-            StringList info_ = _delimiter.getStringInfo().get(begin_);
+        if (cstType == MatConstType.STRING) {
+            StringList info_ = _delimiter.getStringInfo().get(indexCst);
             if (info_.size() == 1 && info_.first().trim().isEmpty()) {
                 MathList m_ = new MathList();
                 MbArgument a_ = new MbArgument();
@@ -109,9 +113,8 @@ public final class ConstantMbOperation extends MbOperationNode {
             setArgument(a_);
             return;
         }
-        if (getOperations().getConstType() == MatConstType.NUMBER) {
-            int begin_ = getOperations().getIndexCst();
-            String nb_ = _delimiter.getNbInfos().get(begin_).toString();
+        if (cstType == MatConstType.NUMBER) {
+            String nb_ = _delimiter.getNbInfos().get(indexCst).toString();
             if (Rate.isValid(nb_)) {
                 setArgument(MbArgument.numberToArgument(nb_));
                 return;
@@ -121,7 +124,7 @@ public final class ConstantMbOperation extends MbOperationNode {
             _error.setError(true);
             return;
         }
-        String str_ = getOperations().getValues().getValue(IndexConstants.FIRST_INDEX).trim();
+        String str_ = value;
         if (str_.isEmpty()) {
             _error.setString(str_);
             _error.setIndex(getIndexInEl());

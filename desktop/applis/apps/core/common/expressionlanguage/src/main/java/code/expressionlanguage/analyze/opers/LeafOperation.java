@@ -8,12 +8,24 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
+import code.maths.litteralcom.StrTypes;
 
 public abstract class LeafOperation extends OperationNode {
 
+    private final int offset;
+    private final String value;
+
     protected LeafOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
-        super(_indexInEl, _indexChild, _m, _op);
+        super(_indexInEl, _indexChild, _m);
+        offset = _op.getOffset();
+        value = StrTypes.value(str(_op.getValues()),0);
+    }
+    private static StrTypes str(StrTypes _elts) {
+        if (_elts == null) {
+            return new StrTypes();
+        }
+        return _elts;
     }
 
     void checkClassAccess(String _glClass, String _classStr, AnalyzedPageEl _page) {
@@ -36,6 +48,14 @@ public abstract class LeafOperation extends OperationNode {
             _page.getLocalizer().addError(badAccess_);
             addErr(badAccess_.getBuiltError());
         }
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public int getOffset() {
+        return offset;
     }
 
     @Override

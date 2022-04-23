@@ -27,7 +27,7 @@ public final class VectMaOperation extends MethodMaOperation {
             rates_.add((MaRateStruct)str_);
         }
         if (rates_.isEmpty()) {
-            _error.setOffset(getIndexExp()+ StrTypes.offset(getOperats().getParts(),index_));
+            _error.setOffset(getIndexExp()+ StrTypes.offset(getChs(),index_));
             return;
         }
         CustList<Rate> val_ = new CustList<Rate>(new CollCapacity(rates_.size()));

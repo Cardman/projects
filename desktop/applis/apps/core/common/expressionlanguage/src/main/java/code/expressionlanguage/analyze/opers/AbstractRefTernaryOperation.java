@@ -23,7 +23,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
     private final StringList childrenErrors = new StringList();
     private final AnaArrContent arrContent;
 
-    public AbstractRefTernaryOperation(int _index, int _indexChild, MethodOperation _m,
+    protected AbstractRefTernaryOperation(int _index, int _indexChild, MethodOperation _m,
                                        OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         arrContent = new AnaArrContent();
@@ -45,7 +45,7 @@ public abstract class AbstractRefTernaryOperation extends MethodOperation implem
     @Override
     public final void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);
         OperationNode opOne_ = chidren_.first();
         AnaClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(_page)) {

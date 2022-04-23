@@ -1,11 +1,12 @@
 package code.expressionlanguage.exec.types;
 
 import code.expressionlanguage.ContextEl;
+import code.maths.litteralcom.StrTypes;
 
 abstract class ExecPrefPartType extends ExecParentPartType {
     private final String prefix;
-    ExecPrefPartType(ExecParentPartType _parent, int _index, String _prefix, String _previousOperator) {
-        super(_parent, _index, _previousOperator);
+    ExecPrefPartType(ExecParentPartType _parent, int _index, String _prefix, String _previousOperator, StrTypes _valuesEx) {
+        super(_parent, _index, _previousOperator,_valuesEx);
         prefix = _prefix;
     }
 

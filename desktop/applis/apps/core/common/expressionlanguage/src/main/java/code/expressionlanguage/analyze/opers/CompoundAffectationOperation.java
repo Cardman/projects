@@ -49,7 +49,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         OperationNode right_ = chidren_.last();
         SettableElResult elt_ = AffectationOperation.tryGetCastSettable(this);
         if (!isLeftValue(elt_)) {
-            StrTypes ops_ = getOperations().getOperators();
+            StrTypes ops_ = getOperators();
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
@@ -81,7 +81,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             }
         }
         setResultClass(AnaClassArgumentMatching.copy(getSettableResClass(), _page.getPrimitiveTypes()));
-        StrTypes ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         String op_ = ops_.firstValue();
         op_ = op_.substring(0, op_.length() - 1);

@@ -20,8 +20,8 @@ public final class InstanceOfOperation extends AbstractUnaryOperation {
     public InstanceOfOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        typeCheckContent = new AnaTypeCheckContent( getOperations().getOperators().firstKey());
-        typeCheckContent.setClassName(getOperations().getOperators().firstValue());
+        typeCheckContent = new AnaTypeCheckContent( getOperators().firstKey());
+        typeCheckContent.setClassName(getOperators().firstValue());
     }
 
     @Override

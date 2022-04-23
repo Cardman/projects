@@ -40,19 +40,20 @@ abstract class ExecPartType {
             }
             return new ExecNamePartType(_parent, _index, _value,str_, previousOperator_);
         }
+        StrTypes valuesEx_ = _analyze.getValuesEx();
         if (_analyze.getPrioEx() == ExecPartTypeUtil.TMP_PRIO) {
-            return new ExecTemplatePartType(_parent, _index, previousOperator_);
+            return new ExecTemplatePartType(_parent, _index, previousOperator_,valuesEx_);
         }
         if (_analyze.getPrioEx() == ExecPartTypeUtil.INT_PRIO) {
-            return new ExecInnerPartType(_parent, _index, operators_.values(), previousOperator_);
+            return new ExecInnerPartType(_parent, _index, operators_.values(), previousOperator_,valuesEx_);
         }
         if (_analyze.getPrioEx() == ExecPartTypeUtil.ARR_PRIO) {
-            return new ExecArraryPartType(_parent, _index, previousOperator_);
+            return new ExecArraryPartType(_parent, _index, previousOperator_,valuesEx_);
         }
         if (StringUtil.quickEq(operators_.firstValue(),"~")) {
-            return new ExecRefPartType(_parent, _index, operators_.firstValue(), previousOperator_);
+            return new ExecRefPartType(_parent, _index, operators_.firstValue(), previousOperator_,valuesEx_);
         }
-        return new ExecWildCardPartType(_parent, _index, operators_.firstValue(), previousOperator_);
+        return new ExecWildCardPartType(_parent, _index, operators_.firstValue(), previousOperator_,valuesEx_);
     }
 
     private static String previousOperator(ExecParentPartType _parent, int _index) {

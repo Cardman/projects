@@ -49,7 +49,7 @@ public final class CmpMbOperation extends PrimitiveBoolMbOperation {
         MbArgument first_ = MbNumParsers.tryGet(this,0);
         MbArgument second_ = MbNumParsers.tryGet(this,1);
         boolean complement_ = false;
-        String op_ = getOperations().getOperators().values().first().trim();
+        String op_ = getOpers().values().first().trim();
         String useOp_ = op_;
         if (StringUtil.quickEq(op_, LOWER_EQ)) {
             complement_ = true;

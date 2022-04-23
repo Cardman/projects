@@ -11,16 +11,16 @@ public abstract class MethodOperation extends OperationNode {
     private OperationNode firstChild;
 
     private final StrTypes children;
+    private final StrTypes operators;
     private final CustList<InfoErrorDto> partOffsetsChildren = new CustList<InfoErrorDto>();
     private final CustList<CustList<InfoErrorDto>> partOffsetsChildrenList = new CustList<CustList<InfoErrorDto>>();
     private InfoErrorDto partOffsetsEnd = new InfoErrorDto("");
 
 
     protected MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
-        super(_index, _indexChild, _m, _op);
-        children = new StrTypes();
-        StrTypes vs_ = _op.getValues();
-        children.addAllEntries(vs_);
+        super(_index, _indexChild, _m);
+        operators = _op.getOperators();
+        children = _op.getValues();
     }
 
     public final void appendChild(OperationNode _child) {
@@ -49,6 +49,9 @@ public abstract class MethodOperation extends OperationNode {
         return list_;
     }
 
+    public final StrTypes getOperators() {
+        return operators;
+    }
     @Override
     public final OperationNode getFirstChild() {
         return firstChild;

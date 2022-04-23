@@ -6,12 +6,13 @@ import code.util.CustList;
 
 abstract class AnaParentPartType extends AnaPartType {
     private final CustList<String> errsList = new CustList<String>();
-    private final StrTypes strTypes = new StrTypes();
+    private final StrTypes strTypes;
     private AnaPartType firstChild;
     private final StrTypes operators;
-    AnaParentPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages) {
+    AnaParentPartType(AnaParentPartType _parent, int _index, int _indexInType, StrTypes _operators, AnalysisMessages _messages, StrTypes _values) {
         super(_parent, _index, _indexInType, _messages);
         operators = _operators;
+        strTypes = _values;
     }
     void appendChild(AnaPartType _child) {
         if (firstChild == null) {

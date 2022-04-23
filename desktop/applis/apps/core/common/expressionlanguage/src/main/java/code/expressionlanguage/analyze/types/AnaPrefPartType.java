@@ -9,8 +9,8 @@ import code.maths.litteralcom.StrTypes;
 abstract class AnaPrefPartType extends AnaParentPartType {
 
     private final String prefix;
-    AnaPrefPartType(AnaParentPartType _parent, int _index, int _indexInType, String _prefix, StrTypes _operators, AnalysisMessages _messages) {
-        super(_parent, _index, _indexInType,_operators, _messages);
+    AnaPrefPartType(AnaParentPartType _parent, int _index, int _indexInType, String _prefix, StrTypes _operators, AnalysisMessages _messages, StrTypes _values) {
+        super(_parent, _index, _indexInType,_operators, _messages,_values);
         prefix = _prefix;
     }
     String getBegin() {

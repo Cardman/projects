@@ -31,7 +31,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
     public SwitchOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, SwitchMethodBlock _switchMethod, int _delta) {
         super(_index, _indexChild, _m, _op);
         switchMethod = _switchMethod;
-        methodName = getOperations().getFctName();
+        methodName = _op.getFctName();
         arrContent = new AnaArrContent();
         delta = _delta;
     }

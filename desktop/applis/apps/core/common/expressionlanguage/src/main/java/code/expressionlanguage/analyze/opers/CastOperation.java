@@ -11,26 +11,28 @@ public final class CastOperation extends AbstractUnaryOperation implements PreAn
 
     private final String originalClassName;
     private final AnaTypeCheckContent typeCheckContent;
+    private final String extractType;
     private int beginType;
     private AnaResultPartType partOffsets;
     private boolean found;
     public CastOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        typeCheckContent = new AnaTypeCheckContent(getOperations().getOperators().firstKey());
-        typeCheckContent.setClassName(getOperations().getOperators().firstValue());
+        typeCheckContent = new AnaTypeCheckContent(getOperators().firstKey());
+        typeCheckContent.setClassName(getOperators().firstValue());
         originalClassName = typeCheckContent.getClassName();
+        extractType = _op.getExtractType();
+        if (!extractType.isEmpty()) {
+            typeCheckContent.setClassName(extractType);
+            partOffsets = _op.getPartOffsets();
+            found = true;
+        }
     }
 
     @Override
     public void preAnalyze(AnalyzedPageEl _page) {
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ typeCheckContent.getOffset(), _page);
-        String ext_ = getOperations().getExtractType();
-        if (!ext_.isEmpty()) {
-            typeCheckContent.setClassName(ext_);
-            partOffsets = getOperations().getPartOffsets();
-            found = true;
-        } else {
+        if (extractType.isEmpty()) {
             beginType = typeCheckContent.getClassName().indexOf(PAR_LEFT) + 1;
             String res_ = typeCheckContent.getClassName().substring(beginType, typeCheckContent.getClassName().lastIndexOf(PAR_RIGHT));
             AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrorsExact(typeCheckContent.getClassName().indexOf(PAR_LEFT) + 1 + StringExpUtil.getOffset(res_), res_.trim(), _page);

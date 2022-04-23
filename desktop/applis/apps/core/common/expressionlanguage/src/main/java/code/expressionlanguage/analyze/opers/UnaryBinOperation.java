@@ -1,8 +1,6 @@
 package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
-import code.expressionlanguage.analyze.opers.util.MemberId;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -28,8 +26,8 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         okNum = true;
         OperationNode child_ = getFirstChild();
         AnaClassArgumentMatching clMatch_ = child_.getResultClass();
-        opOffset = getOperations().getOperators().firstKey();
-        String oper_ = getOperations().getOperators().firstValue();
+        opOffset = getOperators().firstKey();
+        String oper_ = getOperators().firstValue();
         OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
         if (clId_ != null) {
             fct.infos(clId_,_page);

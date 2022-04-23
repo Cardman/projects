@@ -8,12 +8,12 @@ public abstract class MethodMaOperation extends MaOperationNode {
     private MaOperationNode first;
 
     private final StrTypes chs;
+    private final StrTypes ops;
 
     protected MethodMaOperation(int _index, int _indexChild, MethodMaOperation _m, MaOperationsSequence _op) {
-        super(_index, _indexChild, _m, _op);
-        chs = new StrTypes();
-        StrTypes vs_ = _op.getParts();
-        chs.addAllEntries(vs_);
+        super(_index, _indexChild, _m);
+        chs = _op.getParts();
+        ops = _op.getOpers();
     }
 
     final CustList<MaOperationNode> getChildren() {
@@ -48,6 +48,10 @@ public abstract class MethodMaOperation extends MaOperationNode {
             }
             child_ = sibling_;
         }
+    }
+
+    public StrTypes getOps() {
+        return ops;
     }
 
     public final StrTypes getChs() {

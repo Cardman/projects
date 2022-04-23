@@ -14,11 +14,8 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 
-import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
@@ -126,7 +123,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
         if (isUndefined(type_,keyWordVar_)) {
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page,offFirstOp_);
@@ -142,7 +139,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         String n_ = type_;
         String cp_ = StringExpUtil.getQuickComponentType(n_, nbParentsInfer_);
         if (cp_ == null) {
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page,offFirstOp_);
@@ -157,7 +154,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         }
         String classNameFinal_ = StringExpUtil.getQuickComponentType(cp_);
         if (classNameFinal_ == null) {
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             int offFirstOp_ = operators_.firstKey();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setIndexFile(_page,offFirstOp_);
@@ -177,7 +174,7 @@ public final class InferArrayInstancing extends AbstractArrayInstancingOperation
         mapping_.setParam(classNameFinal_);
         for (OperationNode o: chidren_) {
             int index_ = getPartOffsetsChildren().size();
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             InfoErrorDto parts_ = new InfoErrorDto("");
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ operators_.getKey(index_), _page);
             AnaClassArgumentMatching argType_ = o.getResultClass();

@@ -50,7 +50,7 @@ public final class EqMbOperation extends PrimitiveBoolMbOperation {
         MbArgument first_ = MbNumParsers.tryGet(this,0);
         MbArgument second_ = MbNumParsers.tryGet(this,1);
         boolean complement_ = false;
-        String op_ = getOperations().getOperators().values().first().trim();
+        String op_ = getOpers().values().first().trim();
         if (StringUtil.quickEq(op_, DIFF)) {
             complement_ = true;
         }

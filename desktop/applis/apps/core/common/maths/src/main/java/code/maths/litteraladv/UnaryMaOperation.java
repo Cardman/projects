@@ -18,12 +18,12 @@ public final class UnaryMaOperation extends MethodMaOperation {
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
         MaStruct value_ = MaNumParsers.tryGet(this, 0);
         MaFractPolStruct val_ = MaFractPolStruct.wrapOrNull(value_);
-        if (val_ != null && StringUtil.quickEq(getOperats().getOpers().firstValue().trim(), UNARY_MINUS)) {
+        if (val_ != null && StringUtil.quickEq(getOps().firstValue().trim(), UNARY_MINUS)) {
             setStruct(new MaFractPolStruct(val_.getFractPol().opposNb()));
             return;
         }
         if (value_ instanceof MaMatrixStruct) {
-            if (StringUtil.quickEq(getOperats().getOpers().firstValue().trim(), UNARY_MINUS)) {
+            if (StringUtil.quickEq(getOps().firstValue().trim(), UNARY_MINUS)) {
                 setStruct(new MaMatrixStruct(((MaMatrixStruct)value_).getMatrix().minusMatrix()));
                 return;
             }
@@ -33,18 +33,18 @@ public final class UnaryMaOperation extends MethodMaOperation {
         if (!(value_ instanceof MaRateStruct)) {
             if (value_ instanceof MaComplexStruct) {
                 Complex o_ = ((MaComplexStruct)value_).getComplex();
-                if (StringUtil.quickEq(getOperats().getOpers().firstValue().trim(), UNARY_MINUS)) {
+                if (StringUtil.quickEq(getOps().firstValue().trim(), UNARY_MINUS)) {
                     setStruct(new MaComplexStruct(o_.opposite()));
                 } else {
                     setStruct(new MaComplexStruct(o_));
                 }
                 return;
             }
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getOpers(),0));
+            _error.setOffset(getIndexExp()+StrTypes.offset(getOps(),0));
             return;
         }
         Rate o_ = ((MaRateStruct)value_).getRate();
-        if (StringUtil.quickEq(getOperats().getOpers().firstValue().trim(), UNARY_MINUS)) {
+        if (StringUtil.quickEq(getOps().firstValue().trim(), UNARY_MINUS)) {
             setStruct(new MaRateStruct(o_.opposNb()));
         } else {
             setStruct(new MaRateStruct(o_));

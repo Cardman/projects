@@ -12,12 +12,6 @@ public final class AffectationNatOperation extends MethodNatOperation {
     }
 
     @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValNat();
-        getChildren().addAllEntries(vs_);
-    }
-
-    @Override
     public void analyze(NatAnalyzedCode _page) {
         StrTypes ops_ = getOperations().getOpersNat();
         ops_.firstKey();

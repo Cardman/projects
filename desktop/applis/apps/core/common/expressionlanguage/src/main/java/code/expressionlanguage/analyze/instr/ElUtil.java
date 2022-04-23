@@ -272,7 +272,7 @@ public final class ElUtil {
     private static void mergeDotted(OperationNode _current) {
         if (_current instanceof AbstractDotOperation) {
             OperationNode last_ = ((AbstractDotOperation) _current).getChildrenNodes().last();
-            if (last_ instanceof ArrOperation && _current.getOperations().getOperators().firstValue().isEmpty()) {
+            if (last_ instanceof ArrOperation && ((AbstractDotOperation) _current).getOperators().firstValue().isEmpty()) {
                 last_.mergeErrs(_current);
             }
         }

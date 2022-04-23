@@ -24,7 +24,7 @@ public final class NullSafeOperation extends MethodOperation {
         OperationNode opTwo_ = chidren_.first();
         OperationNode opThree_ = chidren_.last();
         opOffset = opThree_.getIndexInEl();
-        opOff = getOperations().getOperators().firstKey();
+        opOff = getOperators().firstKey();
         AnaClassArgumentMatching clMatchTwo_ = opTwo_.getResultClass();
         AnaClassArgumentMatching clMatchThree_ = opThree_.getResultClass();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();

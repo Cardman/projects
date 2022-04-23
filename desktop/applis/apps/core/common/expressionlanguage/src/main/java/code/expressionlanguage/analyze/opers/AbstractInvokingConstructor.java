@@ -31,9 +31,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     protected AbstractInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        methodName = getOperations().getFctName();
+        methodName = _op.getFctName();
         invokingConstructorContent = new AnaInvokingConstructorContent();
-        invokingConstructorContent.setOffsetOper(getOperations().getOperators().firstKey());
+        invokingConstructorContent.setOffsetOper(getOperators().firstKey());
     }
 
     public int getOffsetOper() {

@@ -45,7 +45,6 @@ public final class ExecPartTypeUtil {
         StringBuilder out_ = new StringBuilder();
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValuesEx().getValue(0));
-        addValues(root_, loc_);
         ExecPartType current_ = root_;
         while (current_ != null) {
             prettyLeaf(out_, current_);
@@ -196,7 +195,6 @@ public final class ExecPartTypeUtil {
         }
         ExecAnalyzingType loc_ = analyzeLocalExec(_input);
         ExecPartType root_ = ExecPartType.createPartTypeExec(null, 0, loc_, loc_.getValuesEx().getValue(0));
-        addValues(root_, loc_);
         ExecPartType current_ = root_;
         while (current_ != null) {
 //            if (current_ instanceof ExecLeafPartType) {
@@ -290,22 +288,7 @@ public final class ExecPartTypeUtil {
         ExecAnalyzingType an_ = analyzeLocalExec(v_);
         ExecPartType p_ = ExecPartType.createPartTypeExec(par_, _next, an_, v_);
         p_.setPreviousSibling(_prev);
-        addValues(p_, an_);
         return p_;
-    }
-
-    private static void addValues(ExecPartType _p, ExecAnalyzingType _an) {
-        if (!(_p instanceof ExecParentPartType)) {
-            return;
-        }
-        if (_p instanceof ExecTemplatePartType) {
-            StrTypes values_;
-            values_ = _an.getValuesEx();
-            values_.remove(values_.getValues().getLastIndex());
-            ((ExecParentPartType)_p).getStrTypes().addAllEntries(values_);
-        } else {
-            ((ExecParentPartType)_p).getStrTypes().addAllEntries(_an.getValuesEx());
-        }
     }
 
     private static ExecAnalyzingType analyzeLocalExec(String _string) {

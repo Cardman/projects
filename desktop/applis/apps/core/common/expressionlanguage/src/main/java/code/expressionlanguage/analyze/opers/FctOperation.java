@@ -52,7 +52,7 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
     public FctOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        callFctContent = new AnaCallFctContent(getOperations().getFctName());
+        callFctContent = new AnaCallFctContent(_op.getFctName());
         arrContent = new AnaArrContent();
     }
 

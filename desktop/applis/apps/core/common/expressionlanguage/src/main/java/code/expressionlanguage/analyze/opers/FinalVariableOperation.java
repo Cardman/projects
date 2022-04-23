@@ -29,8 +29,7 @@ public final class FinalVariableOperation extends LeafOperation {
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        OperationsSequence op_ = getOperations();
-        String originalStr_ = op_.getValues().getValue(IndexConstants.FIRST_INDEX);
+        String originalStr_ = getValue();
         afterOper = StringExpUtil.getOffset(originalStr_);
         String str_ = originalStr_.trim();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ variableContent.getOff(), _page);

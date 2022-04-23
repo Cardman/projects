@@ -45,7 +45,7 @@ public final class AffectationOperation extends MethodOperation {
 
     @Override
     public void analyze(AnalyzedPageEl _page) {
-        StrTypes ops_ = getOperations().getOperators();
+        StrTypes ops_ = getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode right_ = chidren_.last();

@@ -37,7 +37,7 @@ public final class PreLinkagePartTypeUtil {
                 return first_;
             }
             AnaPartType partTypeFirst_ = first_.getPartType();
-            AnaInnerPartType inner_ = new AnaInnerPartType(null, 0, 0, _operators, _page.getAnalysisMessages());
+            AnaInnerPartType inner_ = new AnaInnerPartType(null, 0, 0, _operators, _page.getAnalysisMessages(), new StrTypes());
             String inputTr_ = _input.trim();
             inner_.setLoc(_loc);
             inner_.setLength(inputTr_.length());

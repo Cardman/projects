@@ -56,8 +56,8 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public ExplicitOperatorOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        callFctContent = new AnaCallFctContent(getOperations().getFctName());
-        offsetOper = getOperations().getOperators().firstKey();
+        callFctContent = new AnaCallFctContent(_op.getFctName());
+        offsetOper = getOperators().firstKey();
         arrContent = new AnaArrContent();
     }
 

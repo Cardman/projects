@@ -71,7 +71,9 @@ public final class ExecAnalyzingType {
             error = true;
             return;
         }
-        values.addEntry(beginValuePartEx_, str_);
+        if (prio != ExecPartTypeUtil.TMP_PRIO){
+            values.addEntry(beginValuePartEx_, str_);
+        }
     }
 
     KindPartType getKindEx() {

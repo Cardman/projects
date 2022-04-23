@@ -6,11 +6,12 @@ import code.util.CustList;
 
 abstract class ExecParentPartType extends ExecPartType {
     private final CustList<ExecPartType> children = new CustList<ExecPartType>();
-    private final StrTypes strTypes = new StrTypes();
+    private final StrTypes strTypes;
 
     private ExecPartType firstChild;
-    ExecParentPartType(ExecParentPartType _parent, int _index, String _previousOperator) {
+    ExecParentPartType(ExecParentPartType _parent, int _index, String _previousOperator, StrTypes _valuesEx) {
         super(_parent, _index, _previousOperator);
+        strTypes = _valuesEx;
     }
     void appendChild(ExecPartType _child) {
         children.add(_child);

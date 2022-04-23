@@ -30,7 +30,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                                               int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         instancingAnnotContent = new AnaInstancingAnnotContent();
-        instancingAnnotContent.setMethodName(getOperations().getFctName());
+        instancingAnnotContent.setMethodName(_op.getFctName());
     }
 
     @Override
@@ -135,7 +135,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                     }
                     FoundErrorInterpret cast_ = new FoundErrorInterpret();
                     cast_.setFile(_page.getCurrentFile());
-                    StrTypes operators_ = getOperations().getOperators();
+                    StrTypes operators_ = getOperators();
                     int k_ = operators_.firstKey();
                     cast_.setIndexFile(_page,k_);
                     //first parenthese
@@ -155,7 +155,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
             }
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             int k_ = operators_.lastKey();
             cast_.setIndexFile(_page,k_);
             //last parenthese
@@ -170,7 +170,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
         if (filter_.size() != suppliedFields_.size()) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             int k_ = operators_.lastKey();
             cast_.setIndexFile(_page,k_);
             //last parenthese
@@ -223,7 +223,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
                 //ERROR
                 FoundErrorInterpret cast_ = new FoundErrorInterpret();
                 cast_.setFile(_page.getCurrentFile());
-                StrTypes operators_ = getOperations().getOperators();
+                StrTypes operators_ = getOperators();
                 int k_ = 0;
                 if (!operators_.isEmpty()) {
                     k_ = operators_.lastKey();
@@ -238,7 +238,7 @@ public final class AnnotationInstanceArobaseOperation extends AnnotationInstance
         }
         StringList deep_ = getErrs();
         if (!deep_.isEmpty()) {
-            StrTypes operators_ = getOperations().getOperators();
+            StrTypes operators_ = getOperators();
             if (!operators_.isEmpty()) {
                 int k_ = operators_.lastKey();
                 setPartOffsetsEnd(new InfoErrorDto(StringUtil.join(deep_,ExportCst.JOIN_ERR),_page,k_,1));

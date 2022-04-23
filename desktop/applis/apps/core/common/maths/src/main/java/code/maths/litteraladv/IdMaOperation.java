@@ -37,8 +37,8 @@ public final class IdMaOperation extends MethodMaOperation {
             return;
         }
         if (len_ != 1) {
-            int index_ = Math.min(getOperats().getOpers().size()-1,1);
-            _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getOpers(),index_));
+            int index_ = Math.min(getOps().size()-1,1);
+            _error.setOffset(getIndexExp()+StrTypes.offset(getOps(),index_));
             return;
         }
         setStruct(chidren_.first().getStruct());
@@ -84,7 +84,7 @@ public final class IdMaOperation extends MethodMaOperation {
             Rate rate_ = ((MaRateStruct) value_).getRate();
             Rate imageDen_ = den_.image(rate_);
             if (imageDen_.isZero()) {
-                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
                 return;
             }
             Polynom num_ = pols_.getNumerator();
@@ -98,7 +98,7 @@ public final class IdMaOperation extends MethodMaOperation {
             Complex rate_ = ((MaComplexStruct) value_).getComplex();
             Complex imageDen_ = den_.image(rate_);
             if (imageDen_.isZero()) {
-                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
                 return;
             }
             Polynom num_ = pols_.getNumerator();
@@ -110,7 +110,7 @@ public final class IdMaOperation extends MethodMaOperation {
             FractPol pols_ = _fract.getFractPol();
             Matrix matrix_ = ((MaMatrixStruct) value_).getMatrix();
             if (!matrix_.isSquare()) {
-                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
                 return;
             }
             Polynom num_ = pols_.getNumerator();
@@ -127,7 +127,7 @@ public final class IdMaOperation extends MethodMaOperation {
             FractPol rate_ = wr_.getFractPol();
             FractPol imageDen_ = den_.comp(rate_);
             if (imageDen_.isZero()) {
-                _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+                _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
                 return;
             }
             Polynom num_ = pols_.getNumerator();
@@ -135,7 +135,7 @@ public final class IdMaOperation extends MethodMaOperation {
             setStruct(new MaFractPolStruct(FractPol.divide(imageNum_,imageDen_)));
             return;
         }
-        _error.setOffset(getIndexExp()+StrTypes.offset(getOperats().getParts(),1));
+        _error.setOffset(getIndexExp()+StrTypes.offset(getChs(),1));
     }
 
 }

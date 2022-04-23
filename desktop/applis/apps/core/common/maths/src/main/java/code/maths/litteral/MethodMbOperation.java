@@ -4,15 +4,15 @@ import code.util.CustList;
 
 public abstract class MethodMbOperation extends MbOperationNode {
 
+    private final StrTypes opers;
     private MbOperationNode firstChild;
 
     private final StrTypes children;
 
     protected MethodMbOperation(int _index, int _indexChild, MethodMbOperation _m, MbOperationsSequence _op) {
-        super(_index, _indexChild, _m, _op);
-        children = new StrTypes();
-        StrTypes vs_ = _op.getValues();
-        children.addAllEntries(vs_);
+        super(_index, _indexChild, _m);
+        children = _op.getValues();
+        opers = _op.getOperators();
     }
 
     final CustList<MbOperationNode> getChildrenNodes() {
@@ -51,5 +51,9 @@ public abstract class MethodMbOperation extends MbOperationNode {
 
     public final StrTypes getChildren() {
         return children;
+    }
+
+    public StrTypes getOpers() {
+        return opers;
     }
 }

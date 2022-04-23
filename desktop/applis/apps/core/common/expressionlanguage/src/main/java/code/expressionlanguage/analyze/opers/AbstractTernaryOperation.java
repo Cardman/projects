@@ -23,7 +23,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     private AnaTypeFct implFct;
     private AnaTypeFct testFct;
 
-    public AbstractTernaryOperation(int _index, int _indexChild, MethodOperation _m,
+    protected AbstractTernaryOperation(int _index, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
     }
@@ -39,7 +39,7 @@ public abstract class AbstractTernaryOperation extends MethodOperation {
     @Override
     public final void analyze(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+getOperations().getOperators().firstKey(), _page);
+        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);
         OperationNode opOne_ = chidren_.first();
         AnaClassArgumentMatching clMatch_ = opOne_.getResultClass();
         if (!clMatch_.isBoolType(_page)) {

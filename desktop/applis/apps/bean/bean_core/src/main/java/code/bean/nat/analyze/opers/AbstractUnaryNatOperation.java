@@ -2,7 +2,6 @@ package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.maths.litteralcom.StrTypes;
 
 public abstract class AbstractUnaryNatOperation extends MethodNatOperation {
 
@@ -15,11 +14,6 @@ public abstract class AbstractUnaryNatOperation extends MethodNatOperation {
         analyzeUnary(_page);
     }
 
-    @Override
-    void calculateChildren() {
-        StrTypes vs_ = getOperations().getValNat();
-        getChildren().addAllEntries(vs_);
-    }
     public abstract void analyzeUnary(NatAnalyzedCode _page);
 
 
