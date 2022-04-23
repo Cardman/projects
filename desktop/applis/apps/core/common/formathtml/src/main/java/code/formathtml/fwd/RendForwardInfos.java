@@ -247,7 +247,7 @@ public final class RendForwardInfos {
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
-            CustList<RendDynOperationNode> op_ = geneLink(f_.getResultAnc(),f_.getResults(), _forwards);
+            CustList<RendDynOperationNode> op_ = geneLink(f_.getResultAnc(), _forwards, f_.getResults().size());
             return new RendAnchor(f_.getRead(),part_,partText_,op_, partSub_);
         }
         if (_current instanceof AnaRendImg){
@@ -284,7 +284,7 @@ public final class RendForwardInfos {
             StringMap<CustList<RendDynOperationNode>> part_ = toExecPartExt(f_.getAttributes(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
-            CustList<RendDynOperationNode> op_ = geneLink(f_.getRes().getResultAnc(), f_.getResults(), _forwards);
+            CustList<RendDynOperationNode> op_ = geneLink(f_.getRes().getResultAnc(), _forwards, f_.getResults().size());
             return new RendForm(f_.getRead(),part_,partText_,op_, partSub_);
         }
         if (_current instanceof AnaRendImportForm){
@@ -377,7 +377,7 @@ public final class RendForwardInfos {
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
             StringMap<CustList<RendDynOperationNode>> title_ = toExecPartExt(f_.getOpExpTitle(), _forwards);
-            CustList<RendDynOperationNode> opAnc_ = geneLink(f_.getRes().getResultAnc(), f_.getResults(), _forwards);
+            CustList<RendDynOperationNode> opAnc_ = geneLink(f_.getRes().getResultAnc(), _forwards, f_.getResults().size());
             return new RendTitledAnchor(f_.getRead(),part_,partText_,opAnc_, title_,f_.getPreformatted(),partSub_);
         }
         if (_current instanceof AnaRendEmptyInstruction){
@@ -429,7 +429,7 @@ public final class RendForwardInfos {
                 new RendOperationNodeListOff(_opInit, _f.getInitOffset()), new RendOperationNodeListOff(_opExp, _f.getExpressionOffset()), new RendOperationNodeListOff(_opStep, _f.getStepOffset()));
     }
 
-    private static CustList<RendDynOperationNode> geneLink(ClassMethodIdReturn _id, StringMap<ResultExpression> _args, Forwards _forwards) {
+    private static CustList<RendDynOperationNode> geneLink(ClassMethodIdReturn _id, Forwards _forwards, int _size) {
         CustList<RendDynOperationNode> lk_ = new CustList<RendDynOperationNode>();
         if (_id == null) {
             return lk_;
@@ -437,9 +437,8 @@ public final class RendForwardInfos {
         AnaCallFctContent ana_ = new AnaCallFctContent("");
         ana_.update(_id);
         ExecTypeFunction p_ = FetchMemberUtil.fetchOvTypeFunction(ana_.getMemberId(), _forwards);
-        RendFctOperation rend_ = new RendFctOperation(p_,new ExecOperationContent(0,new ExecClassArgumentMatching(""),_args.size()),new ExecInstFctContent(0,false,0,"",-1,ExecFormattedRootBlock.defValue()),false,new ExecArrContent(false));
-        int len_ = _args.size();
-        for (int i = 0; i < len_; i++) {
+        RendFctOperation rend_ = new RendFctOperation(p_,new ExecOperationContent(0,new ExecClassArgumentMatching(""), _size),new ExecInstFctContent(0,false,0,"",-1,ExecFormattedRootBlock.defValue()),false,new ExecArrContent(false));
+        for (int i = 0; i < _size; i++) {
             AnaVariableContent cont_ = new AnaVariableContent(0);
             cont_.setVariableName(Long.toString(i));
             cont_.setDeep(-1);
