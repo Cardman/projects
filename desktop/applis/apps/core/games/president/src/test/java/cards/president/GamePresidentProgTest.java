@@ -253,6 +253,64 @@ public final class GamePresidentProgTest extends CommonGamePresident {
         assertEq(0, out_.total());
     }
     @Test
+    public void lastGroup1() {
+        HandPresident cur_ = new HandPresident();
+        cur_.ajouter(CardPresident.CLUB_2);
+        cur_.ajouter(CardPresident.SPADE_2);
+        cur_.ajouter(CardPresident.CLUB_1);
+        cur_.ajouter(CardPresident.SPADE_5);
+        cur_.ajouter(CardPresident.SPADE_4);
+        cur_.ajouter(CardPresident.HEART_4);
+        HandPresident res_ = GamePresidentProg.lastGroup(cur_.getCardsByStrength(false), 1);
+        assertEq(1, res_.total());
+        assertTrue(checkStrength(res_,CardPresident.SPADE_5,false));
+    }
+    @Test
+    public void lastGroup2() {
+        HandPresident cur_ = new HandPresident();
+        cur_.ajouter(CardPresident.CLUB_2);
+        cur_.ajouter(CardPresident.SPADE_2);
+        cur_.ajouter(CardPresident.CLUB_1);
+        cur_.ajouter(CardPresident.HEART_1);
+        cur_.ajouter(CardPresident.CLUB_KING);
+        cur_.ajouter(CardPresident.CLUB_10);
+        cur_.ajouter(CardPresident.DIAMOND_10);
+        cur_.ajouter(CardPresident.SPADE_9);
+        cur_.ajouter(CardPresident.DIAMOND_9);
+        cur_.ajouter(CardPresident.HEART_9);
+        cur_.ajouter(CardPresident.CLUB_9);
+        cur_.ajouter(CardPresident.CLUB_7);
+        cur_.ajouter(CardPresident.HEART_7);
+        cur_.ajouter(CardPresident.SPADE_5);
+        cur_.ajouter(CardPresident.SPADE_4);
+        cur_.ajouter(CardPresident.HEART_4);
+        HandPresident res_ = GamePresidentProg.lastGroup(cur_.getCardsByStrength(false), 3);
+        assertEq(0, res_.total());
+    }
+    @Test
+    public void lastGroup3() {
+        HandPresident cur_ = new HandPresident();
+        cur_.ajouter(CardPresident.CLUB_2);
+        cur_.ajouter(CardPresident.SPADE_2);
+        cur_.ajouter(CardPresident.CLUB_1);
+        cur_.ajouter(CardPresident.HEART_1);
+        cur_.ajouter(CardPresident.CLUB_KING);
+        cur_.ajouter(CardPresident.CLUB_10);
+        cur_.ajouter(CardPresident.DIAMOND_10);
+        cur_.ajouter(CardPresident.SPADE_9);
+        cur_.ajouter(CardPresident.HEART_9);
+        cur_.ajouter(CardPresident.CLUB_7);
+        cur_.ajouter(CardPresident.DIAMOND_7);
+        cur_.ajouter(CardPresident.HEART_7);
+        cur_.ajouter(CardPresident.SPADE_7);
+        cur_.ajouter(CardPresident.SPADE_5);
+        cur_.ajouter(CardPresident.SPADE_4);
+        cur_.ajouter(CardPresident.HEART_4);
+        HandPresident res_ = GamePresidentProg.lastGroup(cur_.getCardsByStrength(false), 3);
+        assertEq(3, res_.total());
+        assertTrue(checkStrength(res_,CardPresident.DIAMOND_7,false));
+    }
+    @Test
     public void progressTrick1Test() {
         byte nb_ = 4;
         byte dealer_ = 0;
