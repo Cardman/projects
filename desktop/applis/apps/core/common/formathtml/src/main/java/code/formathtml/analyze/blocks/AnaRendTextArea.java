@@ -13,6 +13,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
+import code.formathtml.analyze.ResultText;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -68,7 +69,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
                 _page.zeroOffset();
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 rootConverter = classMethodIdReturn_;
-                String check_ = AnaRendForm.check(_page, attr_, classMethodIdReturn_);
+                String check_ = ResultText.check(_page, attr_, classMethodIdReturn_);
                 m_.setArg(check_);
                 m_.setParam(resultInput.getOpsReadRoot().getResultClass());
                 if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
@@ -90,7 +91,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverterField = classMethodIdReturn_;
-            String check_ = AnaRendForm.check(_page, attr_, classMethodIdReturn_);
+            String check_ = ResultText.check(_page, attr_, classMethodIdReturn_);
             Mapping m_ = new Mapping();
             m_.setArg(check_);
             m_.setParam(_anaDoc.getAliasCharSequence());

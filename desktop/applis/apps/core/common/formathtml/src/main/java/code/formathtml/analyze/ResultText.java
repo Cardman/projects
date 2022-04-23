@@ -30,6 +30,18 @@ public final class ResultText {
     private final ResultExpression resultExpression = new ResultExpression();
     private final StringMap<ResultExpression> results = new StringMap<ResultExpression>();
 
+    public static String check(AnalyzedPageEl _page, int rowsGrId_, ClassMethodIdReturn classMethodIdReturn_) {
+        if (classMethodIdReturn_ == null) {
+            FoundErrorInterpret badEl_ = new FoundErrorInterpret();
+            badEl_.setFile(_page.getCurrentFile());
+            badEl_.setIndexFile(rowsGrId_);
+            badEl_.buildError("");
+            AnalyzingDoc.addError(badEl_, _page);
+            return _page.getAliasObject();
+        }
+        return classMethodIdReturn_.getReturnType();
+    }
+
     public void buildIdAna(String _expression, int _begin, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.setGlobalOffset(_begin);
         _page.zeroOffset();
@@ -148,13 +160,7 @@ public final class ResultText {
                 _page.zeroOffset();
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 _res.resultAnc = classMethodIdReturn_;
-                if (classMethodIdReturn_ == null) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(colsGrId_);
-                    badEl_.buildError("");
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
+                check(_page,colsGrId_,classMethodIdReturn_);
                 _res.sgn = AnaRendBlock.toSgn(classMethodIdReturn_,_page);
                 _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrSgn()),_res.sgn);
                 return;
