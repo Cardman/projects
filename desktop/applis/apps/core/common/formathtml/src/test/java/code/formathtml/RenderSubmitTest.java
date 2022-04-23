@@ -12,7 +12,7 @@ public final class RenderSubmitTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html><body><c:submit message=\"msg_example,three\" param0=\"text\"/></body></html>";
+        String html_ = "<html><body><c:submit message=\"msg_example,three\" param0='\"text\"'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -25,7 +25,7 @@ public final class RenderSubmitTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example,three\" param0=\"{typedString}\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:submit message=\"msg_example,three\" param0=\"typedString\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -47,7 +47,7 @@ public final class RenderSubmitTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html><body><c:submit message=\"msg_example,three\" param0=\"{1/0}\"/></body></html>";
+        String html_ = "<html><body><c:submit message=\"msg_example,three\" param0=\"1/0\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

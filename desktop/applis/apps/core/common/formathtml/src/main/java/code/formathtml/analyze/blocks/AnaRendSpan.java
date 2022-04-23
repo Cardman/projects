@@ -2,32 +2,33 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.analyze.ResultText;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AnaRendSpan extends AnaRendElement {
     private StringMap<String> formatted=new StringMap<String>();
-    private CustList<OperationNode> roots;
-    private StringList texts;
-    private final ResultText res;
+
+    private OperationNode rootFor;
+
+    private final ResultExpression resultExpressionFor = new ResultExpression();
+    private int offFor;
 
     public AnaRendSpan(Element _elt, int _offset) {
         super(_elt, _offset);
-        res = new ResultText();
     }
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String id_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        int off_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        res.buildIdAna(id_, off_, _anaDoc, _page);
-        roots = res.getOpExpRoot();
-        texts = res.getTexts();
+        int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
+        offFor = rowsGrId_;
+        _page.setGlobalOffset(rowsGrId_);
+        _page.zeroOffset();
+        rootFor = getRootAnalyzedOperations(id_,0,_anaDoc,_page,resultExpressionFor);
         for (String l: _anaDoc.getLanguages()) {
             formatted.addEntry(l,EMPTY_STRING);
         }
@@ -46,16 +47,16 @@ public final class AnaRendSpan extends AnaRendElement {
         return list_;
     }
 
-    public ResultText getRes() {
-        return res;
+    public int getOffFor() {
+        return offFor;
     }
 
-    public StringList getTexts() {
-        return texts;
+    public OperationNode getRootFor() {
+        return rootFor;
     }
 
-    public CustList<OperationNode> getRoots() {
-        return roots;
+    public ResultExpression getResultExpressionFor() {
+        return resultExpressionFor;
     }
 
     public StringMap<String> getFormatted() {

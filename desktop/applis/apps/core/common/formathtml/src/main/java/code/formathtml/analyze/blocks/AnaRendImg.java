@@ -2,30 +2,28 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.analyze.ResultText;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class AnaRendImg extends AnaRendElement {
+    private OperationNode rootSrc;
 
-    private CustList<OperationNode> roots;
-
-    private StringList texts = new StringList();
-    private final ResultText res;
+    private final ResultExpression resultExpressionSrc = new ResultExpression();
+    private int offSrc;
     public AnaRendImg(Element _elt, int _offset) {
         super(_elt, _offset);
-        res = new ResultText();
     }
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrSrc());
         int rowsGrId_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrSrc());
-        res.buildIdAna(pageName_, rowsGrId_, _anaDoc, _page);
-        roots = res.getOpExpRoot();
-        texts = res.getTexts();
+        offSrc = rowsGrId_;
+        _page.setGlobalOffset(rowsGrId_);
+        _page.zeroOffset();
+        rootSrc = getRootAnalyzedOperations(pageName_, 0, _anaDoc, _page, resultExpressionSrc);
     }
     @Override
     public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
@@ -34,15 +32,16 @@ public final class AnaRendImg extends AnaRendElement {
         return list_;
     }
 
-    public ResultText getRes() {
-        return res;
+    public ResultExpression getResultExpressionSrc() {
+        return resultExpressionSrc;
     }
 
-    public CustList<OperationNode> getRoots() {
-        return roots;
+    public OperationNode getRootSrc() {
+        return rootSrc;
     }
 
-    public StringList getTexts() {
-        return texts;
+    public int getOffSrc() {
+        return offSrc;
     }
+
 }

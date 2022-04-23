@@ -22,7 +22,7 @@ public final class RendForm extends RendElement implements RendFormInt {
     private final StringList varNames;
     private final DefExecTextPart textPart;
 
-    public RendForm(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, DefExecTextPart _textPart) {
+    public RendForm(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText, CustList<RendDynOperationNode> _opForm, StringList _varNames, DefExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.opForm = _opForm;
         this.varNames = _varNames;

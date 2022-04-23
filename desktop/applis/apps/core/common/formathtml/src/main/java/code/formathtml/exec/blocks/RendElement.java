@@ -1,29 +1,34 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.exec.stacks.RendIfStack;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
+import code.util.CustList;
 import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.StringMap;
 
 public abstract class RendElement extends RendParentBlock implements RendElem, RendWithEl {
     private final Element read;
-    private final StringMap<DefExecTextPart> execAttributes;
-    private final StringMap<DefExecTextPart> execAttributesText;
+    private final StringMap<CustList<RendDynOperationNode>> execAttributes;
+    private final StringMap<CustList<RendDynOperationNode>> execAttributesText;
     private final boolean after;
 
-    protected RendElement(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText) {
+    protected RendElement(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText) {
         this(_read,_execAttributes,_execAttributesText,false);
     }
 
-    protected RendElement(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, boolean _af) {
+    protected RendElement(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText, boolean _af) {
         this.read = _read;
         this.execAttributes = _execAttributes;
         this.execAttributesText = _execAttributesText;
@@ -44,17 +49,17 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
         }
         Document ownerDocument_ = rw_.getDocument();
         Element created_ = appendChild(ownerDocument_, read);
-        for (EntryCust<String, DefExecTextPart> e: execAttributesText.entryList()) {
-            DefExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
+        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
             created_.setAttribute(e.getKey(),txt_);
         }
-        for (EntryCust<String, DefExecTextPart> e: execAttributes.entryList()) {
-            DefExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
+        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributes.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

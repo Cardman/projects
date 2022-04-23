@@ -13,6 +13,13 @@ public final class RenderTextTest extends CommonRender {
         assertEq("<html><body>2,4</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
     }
     @Test
+    public void processEscTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"$int\" value=\"arg=2,arg2=4\"/>\\{\\\\\\}</body></html>";
+        assertEq("<html><body>{\\}</body></html>", getRes2(folder_, relative_, html_, new StringMap<String>()));
+    }
+    @Test
     public void processEmptyTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
@@ -3853,7 +3860,14 @@ public final class RenderTextTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         assertTrue(hasErr(folder_, relative_, html_, files_));
     }
-
+    @Test
+    public void processEscErrTest() {
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String html_ = "<html><body><c:set className=\"$int\" value=\"arg=2,arg=4\"/>\\{\\ </body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        assertTrue(hasErr(folder_, relative_, html_, files_));
+    }
     private boolean hasErrOneBean(String _folder, String _relative, String _html, StringMap<String> _files) {
         StringMap<String> filesSec_ = new StringMap<String>();
         return hasCommErrOneBean(_folder,_relative,_html,_files,filesSec_);

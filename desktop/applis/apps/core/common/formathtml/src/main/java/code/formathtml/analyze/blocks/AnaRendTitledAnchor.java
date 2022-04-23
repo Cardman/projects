@@ -2,7 +2,9 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.opers.OperationNode;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultText;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -19,7 +21,7 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
     private StringList texts = new StringList();
     private StringList varNames = new StringList();
 
-    private final StringMap<ResultText> opExpTitle = new StringMap<ResultText>();
+    private final StringMap<ResultExpression> opExpTitle = new StringMap<ResultExpression>();
 
     private final ResultText res = new ResultText();
     private StringMap<String> preformatted;
@@ -44,10 +46,12 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
         for (EntryCust<String,String> e: preformatted.entryList()) {
             e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscapedAmp())));
         }
-        for (EntryCust<String,ResultText> e: opExpTitle.entryList()) {
+        for (EntryCust<String,ResultExpression> e: opExpTitle.entryList()) {
             String attribute_ = _read.getAttribute(e.getKey());
             int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            e.getValue().buildIdAna(attribute_, rowsGrId_, _anaDoc, _page);
+            _page.setGlobalOffset(rowsGrId_);
+            _page.zeroOffset();
+            RenderAnalysis.getRootAnalyzedOperations(attribute_,0,_anaDoc,_page,e.getValue());
         }
     }
 
@@ -95,7 +99,7 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
         return preformatted;
     }
 
-    public StringMap<ResultText> getOpExpTitle() {
+    public StringMap<ResultExpression> getOpExpTitle() {
         return opExpTitle;
     }
 

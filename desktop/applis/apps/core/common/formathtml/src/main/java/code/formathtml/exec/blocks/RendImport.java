@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.DefFormParts;
@@ -16,18 +17,16 @@ import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Element;
 import code.util.CustList;
+import code.util.IdMap;
 
 public final class RendImport extends RendParentBlock implements RendWithEl {
     private final Element elt;
 
-    private final DefExecTextPart textPart;
+    private final RendOperationNodeListOff rendExp;
 
-    private final int pageOffset;
-
-    public RendImport(Element _elt, DefExecTextPart _textPart, int _pageOffset) {
+    public RendImport(Element _elt, RendOperationNodeListOff _re) {
         this.elt = _elt;
-        this.textPart = _textPart;
-        this.pageOffset = _pageOffset;
+        rendExp = _re;
     }
 
     @Override
@@ -37,9 +36,10 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
             processBlockAndRemove(_cont, _stds, _ctx, _rendStack);
             return;
         }
-        ip_.setOffset(pageOffset);
+        ip_.setOffset(rendExp.getOffset());
         ip_.setOpOffset(0);
-        String pageName_ = RenderingText.render(textPart, _ctx, _rendStack);
+        IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(rendExp.getList(), _ctx, _rendStack);
+        String pageName_ = RendInput.idRad(args_,_ctx,_rendStack);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
@@ -87,7 +87,7 @@ public final class RendImport extends RendParentBlock implements RendWithEl {
                 }
             }
         }
-        ip_.setOffset(pageOffset);
+        ip_.setOffset(rendExp.getOffset());
         ip_.setOpOffset(0);
         befDisp((BeanCustLgNames) _stds, _ctx, _rendStack, newBean_);
         if (_ctx.callsOrException(_rendStack.getStackCall())) {

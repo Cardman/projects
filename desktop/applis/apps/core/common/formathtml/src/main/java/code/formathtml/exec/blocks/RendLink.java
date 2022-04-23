@@ -1,24 +1,24 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public final class RendLink extends RendElement {
     private final String content;
-    private final StringMap<DefExecTextPart> execOpExpTitle;
+    private final StringMap<CustList<RendDynOperationNode>> execOpExpTitle;
 
-    public RendLink(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, String _content, StringMap<DefExecTextPart> _execOpExpTitle) {
+    public RendLink(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText, String _content, StringMap<CustList<RendDynOperationNode>> _execOpExpTitle) {
         super(_read, _execAttributes, _execAttributesText,true);
         this.content = _content;
         this.execOpExpTitle = _execOpExpTitle;
@@ -31,9 +31,10 @@ public final class RendLink extends RendElement {
         Document ownerDocument_ = curWr_.getOwnerDocument();
         if (!execOpExpTitle.isEmpty()) {
             StringList objects_ = new StringList();
-            for (EntryCust<String, DefExecTextPart> e:execOpExpTitle.entryList()) {
-                DefExecTextPart r_ = e.getValue();
-                objects_.add(RenderingText.render(r_, _ctx, _rendStack));
+            for (EntryCust<String, CustList<RendDynOperationNode>> e:execOpExpTitle.entryList()) {
+                IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+                String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
+                objects_.add(txt_);
                 if (_ctx.callsOrException(_rendStack.getStackCall())) {
                     return;
                 }

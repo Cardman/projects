@@ -1,24 +1,25 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class RendSubmit extends RendElement {
 
-    private final StringMap<DefExecTextPart> opExp;
+    private final StringMap<CustList<RendDynOperationNode>> opExp;
 
     private final StringMap<String> preformatted;
 
-    public RendSubmit(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText, StringMap<DefExecTextPart> _opExp, StringMap<String> _preformatted) {
+    public RendSubmit(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText, StringMap<CustList<RendDynOperationNode>> _opExp, StringMap<String> _preformatted) {
         super(_read, _execAttributes, _execAttributesText);
         this.opExp = _opExp;
         this.preformatted = _preformatted;
@@ -35,9 +36,10 @@ public final class RendSubmit extends RendElement {
         curWr_.removeAttribute(_cont.getRendKeyWords().getAttrMessage());
         curWr_.removeAttribute(_cont.getRendKeyWords().getAttrEscapedAmp());
         StringList objects_ = new StringList();
-        for (EntryCust<String,DefExecTextPart> e:opExp.entryList()) {
-            DefExecTextPart r_ = e.getValue();
-            objects_.add(RenderingText.render(r_, _ctx, _rendStack));
+        for (EntryCust<String,CustList<RendDynOperationNode>> e:opExp.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
+            objects_.add(txt_);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

@@ -2,6 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.BooleanStruct;
@@ -17,10 +18,7 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
 import code.sml.Document;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.IdList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class RendSelect extends RendParentBlock implements RendWithEl {
@@ -31,8 +29,8 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
-    private StringMap<DefExecTextPart> execAttributesText = new StringMap<DefExecTextPart>();
-    private StringMap<DefExecTextPart> execAttributes = new StringMap<DefExecTextPart>();
+    private StringMap<CustList<RendDynOperationNode>> execAttributesText;
+    private StringMap<CustList<RendDynOperationNode>> execAttributes;
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private final Element elt;
@@ -46,7 +44,7 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
     public RendSelect(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue,
                       CustList<RendDynOperationNode> _opsMap, CustList<RendDynOperationNode> _opsDefault, CustList<RendDynOperationNode> _opsConverter,
                       CustList<RendDynOperationNode> _opsConverterField, CustList<RendDynOperationNode> _opsConverterFieldValue,
-                      StringMap<DefExecTextPart> _execAttributesText, StringMap<DefExecTextPart> _execAttributes,
+                      StringMap<CustList<RendDynOperationNode>> _execAttributesText, StringMap<CustList<RendDynOperationNode>> _execAttributes,
                       String _idClass, String _idName, Element _elt, boolean _multiple,
                       String _varNameConverter, String _varNameConverterField, String _varNameConverterFieldValue,
                       String _className, boolean _arrayConverter) {
@@ -97,9 +95,9 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
                     doc_, docElementSelect_, _stds, _ctx, _rendStack);
         }
         boolean id_ = false;
-        for (EntryCust<String, DefExecTextPart> e: execAttributesText.entryList()) {
-            DefExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
+        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
@@ -115,9 +113,9 @@ public final class RendSelect extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        for (EntryCust<String, DefExecTextPart> e: execAttributes.entryList()) {
-            DefExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
+        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributes.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

@@ -4,12 +4,14 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.ElementList;
 import code.sml.Node;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -17,7 +19,7 @@ import code.util.core.StringUtil;
 
 public final class RendStyle extends RendElement {
 
-    public RendStyle(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText) {
+    public RendStyle(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText) {
         super(_read, _execAttributes, _execAttributesText,true);
     }
 

@@ -1,8 +1,9 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.formathtml.analyze.ResultText;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.RenderAnalysis;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -12,7 +13,7 @@ import code.util.core.StringUtil;
 
 public final class AnaRendLink extends AnaRendElement {
     private String content;
-    private final StringMap<ResultText> opExpTitle = new StringMap<ResultText>();
+    private final StringMap<ResultExpression> opExpTitle = new StringMap<ResultExpression>();
     AnaRendLink(Element _elt, int _offset) {
         super(_elt, _offset);
     }
@@ -24,10 +25,12 @@ public final class AnaRendLink extends AnaRendElement {
             StringMap<String> files_ = _anaDoc.getFiles();
             content = files_.getVal(href_);
         }
-        for (EntryCust<String,ResultText> e: opExpTitle.entryList()) {
+        for (EntryCust<String,ResultExpression> e: opExpTitle.entryList()) {
             String attribute_ = _read.getAttribute(e.getKey());
             int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            e.getValue().buildIdAna(attribute_, rowsGrId_, _anaDoc, _page);
+            _page.setGlobalOffset(rowsGrId_);
+            _page.zeroOffset();
+            RenderAnalysis.getRootAnalyzedOperations(attribute_,0,_anaDoc,_page,e.getValue());
         }
     }
     public StringList titles(AnalyzingDoc _anaDoc) {
@@ -63,7 +66,7 @@ public final class AnaRendLink extends AnaRendElement {
         return content;
     }
 
-    public StringMap<ResultText> getOpExpTitle() {
+    public StringMap<ResultExpression> getOpExpTitle() {
         return opExpTitle;
     }
 }

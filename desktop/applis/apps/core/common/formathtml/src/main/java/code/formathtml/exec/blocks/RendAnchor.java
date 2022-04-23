@@ -17,7 +17,7 @@ public final class RendAnchor extends RendElement {
     private final StringList varNames;
     private final DefExecTextPart textPart;
 
-    public RendAnchor(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
+    public RendAnchor(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
                       CustList<RendDynOperationNode> _opAnc,
                       StringList _varNames, DefExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);

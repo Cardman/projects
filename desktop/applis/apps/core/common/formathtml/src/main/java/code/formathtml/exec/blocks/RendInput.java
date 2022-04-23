@@ -24,7 +24,7 @@ public abstract class RendInput extends RendElement {
     private final String varNameConverterField;
     private final DefFieldUpdates fieldUpdates;
 
-    protected RendInput(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
+    protected RendInput(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
                         CustList<RendDynOperationNode> _opsValue,
                         CustList<RendDynOperationNode> _opsConverterField,
                         String _varNameConverterField, DefFieldUpdates _f) {
@@ -63,6 +63,9 @@ public abstract class RendInput extends RendElement {
     }
     static String idRad(IdMap<RendDynOperationNode, ArgumentsPair> args_, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            return "";
+        }
+        if (args_.isEmpty()) {
             return "";
         }
         return BeanCustLgNames.processStr(Argument.getNullableValue(args_.lastValue().getArgument()), _ctx,_rendStackCall);

@@ -1,8 +1,10 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
@@ -11,6 +13,7 @@ import code.sml.Document;
 import code.sml.Element;
 import code.util.CustList;
 import code.util.EntryCust;
+import code.util.IdMap;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -19,8 +22,8 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
     private CustList<RendDynOperationNode> opsValue = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverter = new CustList<RendDynOperationNode>();
     private CustList<RendDynOperationNode> opsConverterField = new CustList<RendDynOperationNode>();
-    private StringMap<DefExecTextPart> execAttributesText = new StringMap<DefExecTextPart>();
-    private StringMap<DefExecTextPart> execAttributes = new StringMap<DefExecTextPart>();
+    private StringMap<CustList<RendDynOperationNode>> execAttributesText;
+    private StringMap<CustList<RendDynOperationNode>> execAttributes;
 
     private String varNameConverter = EMPTY_STRING;
     private String varNameConverterField = EMPTY_STRING;
@@ -31,7 +34,7 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
 
     public RendTextArea(CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsValue,
                         CustList<RendDynOperationNode> _opsConverter, CustList<RendDynOperationNode> _opsConverterField,
-                        StringMap<DefExecTextPart> _execAttributesText, StringMap<DefExecTextPart> _execAttributes,
+                        StringMap<CustList<RendDynOperationNode>> _execAttributesText, StringMap<CustList<RendDynOperationNode>> _execAttributes,
                         String _varNameConverter, String _varNameConverterField,
                         String _idClass, String _idName, String _className, Element _elt) {
         this.opsRead = _opsRead;
@@ -60,9 +63,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         f_.setClassName(className);
         f_.setVarNameConverter(varNameConverter);
         f_.setOpsConverter(opsConverter);
-        for (EntryCust<String, DefExecTextPart> e: execAttributesText.entryList()) {
-            DefExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
+        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
@@ -78,9 +81,9 @@ public final class RendTextArea extends RendParentBlock implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        for (EntryCust<String, DefExecTextPart> e: execAttributes.entryList()) {
-            DefExecTextPart res_ = e.getValue();
-            String txt_ = RenderingText.render(res_, _ctx, _rendStack);
+        for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributes.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }

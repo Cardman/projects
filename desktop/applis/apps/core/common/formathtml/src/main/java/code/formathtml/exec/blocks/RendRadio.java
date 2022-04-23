@@ -23,7 +23,7 @@ public final class RendRadio extends RendInput {
     private CustList<RendDynOperationNode> opsConverterFieldValue = new CustList<RendDynOperationNode>();
     private String varNameConverterFieldValue = EMPTY_STRING;
 
-    public RendRadio(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
+    public RendRadio(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
                      CustList<RendDynOperationNode> _opsValue,
                      CustList<RendDynOperationNode> _opsConverterField,
                      String _varNameConverterField,

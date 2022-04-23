@@ -11,7 +11,7 @@ public final class RenderImgTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:img src=\"{info}\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:img src=\"info\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -35,7 +35,7 @@ public final class RenderImgTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><img src=\"{info}\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><img src=\"info\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -61,7 +61,7 @@ public final class RenderImgTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><img src=\"{info}\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><img src=\"info\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -78,7 +78,7 @@ public final class RenderImgTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><img src=\"{info}\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><img src=\"\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process3Test() {
@@ -103,7 +103,7 @@ public final class RenderImgTest extends CommonRender {
         file_.append(" }");
         file_.append("}");
         filesSec_.put("my_file",file_.toString());
-        assertEq("<html><body><img name=\"\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+        assertEq("<html><body><img name=\"\" src=\"\"/></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
     public void process4Test() {
@@ -111,7 +111,7 @@ public final class RenderImgTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><img src=\"{info/0}\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><img src=\"info/0\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -136,7 +136,7 @@ public final class RenderImgTest extends CommonRender {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description \nthree=desc &lt;{0}&gt;<a c:command=\"$click\">two</a>After\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><img name=\"{info/0}\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><img name=\"info/0\"/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);

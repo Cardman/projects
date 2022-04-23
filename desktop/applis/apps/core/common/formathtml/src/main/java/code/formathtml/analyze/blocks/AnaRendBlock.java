@@ -674,9 +674,12 @@ public abstract class AnaRendBlock {
         return _bl instanceof AnaRendEmptyInstruction || _bl instanceof AnaRendEmptyText;
     }
     public int getAttributeDelimiter(String _type) {
-        AttributePart del_ = getAttributeDelimiters().getVal(_type);
+        return getAttributeDelimiter(getAttributeDelimiters(),getOffset(),_type);
+    }
+    public static int getAttributeDelimiter(StringMap<AttributePart> _attrs, int _offset,String _type) {
+        AttributePart del_ = _attrs.getVal(_type);
         if (del_ == null) {
-            return getOffset();
+            return _offset;
         }
         return del_.getBegin();
     }

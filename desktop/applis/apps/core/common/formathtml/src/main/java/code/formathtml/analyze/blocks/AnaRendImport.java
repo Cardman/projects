@@ -3,26 +3,22 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.opers.OperationNode;
-import code.formathtml.analyze.ResultText;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.StringList;
 
 public final class AnaRendImport extends AnaRendParentBlock implements AnaRendBuildEl {
     private final Element elt;
 
-    private CustList<OperationNode> roots;
-
-    private StringList texts = new StringList();
-
     private final int pageOffset;
-    private final ResultText res;
+    private OperationNode rootPage;
+
+    private final ResultExpression resultExpressionPage = new ResultExpression();
+
     AnaRendImport(Element _elt, OffsetStringInfo _page, int _offset) {
         super(_offset);
         pageOffset = _page.getOffset();
         elt = _elt;
-        res = new ResultText();
     }
 
     @Override
@@ -30,14 +26,7 @@ public final class AnaRendImport extends AnaRendParentBlock implements AnaRendBu
         _page.setGlobalOffset(pageOffset);
         _page.zeroOffset();
         String pageName_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrPage());
-        int rowsGrId_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrPage());
-        res.buildIdAna(pageName_, rowsGrId_, _anaDoc, _page);
-        roots = res.getOpExpRoot();
-        texts = res.getTexts();
-    }
-
-    public ResultText getRes() {
-        return res;
+        rootPage = AnaRendElement.getRootAnalyzedOperations(pageName_,0,_anaDoc,_page,resultExpressionPage);
     }
 
     public int getPageOffset() {
@@ -48,11 +37,11 @@ public final class AnaRendImport extends AnaRendParentBlock implements AnaRendBu
         return elt;
     }
 
-    public StringList getTexts() {
-        return texts;
+    public OperationNode getRootPage() {
+        return rootPage;
     }
 
-    public CustList<OperationNode> getRoots() {
-        return roots;
+    public ResultExpression getResultExpressionPage() {
+        return resultExpressionPage;
     }
 }

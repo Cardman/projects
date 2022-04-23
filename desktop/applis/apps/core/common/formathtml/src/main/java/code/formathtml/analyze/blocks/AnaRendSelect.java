@@ -13,7 +13,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
-import code.formathtml.analyze.ResultText;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -29,8 +28,8 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
     private OperationNode rootConverter;
     private OperationNode rootConverterField;
     private OperationNode rootConverterFieldValue;
-    private final StringMap<ResultText> attributesText = new StringMap<ResultText>();
-    private final StringMap<ResultText> attributes = new StringMap<ResultText>();
+    private final StringMap<ResultExpression> attributesText = new StringMap<ResultExpression>();
+    private final StringMap<ResultExpression> attributes = new StringMap<ResultExpression>();
     private String idClass = EMPTY_STRING;
     private String idName = EMPTY_STRING;
     private final Element elt;
@@ -58,10 +57,12 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
         className = resultInput.getClassName();
 
 
-        for (EntryCust<String,ResultText> e: attributesText.entryList()) {
+        for (EntryCust<String,ResultExpression> e: attributesText.entryList()) {
             String attr_ = elt.getAttribute(e.getKey());
             int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            e.getValue().buildIdAna(attr_, rowsGrId_, _anaDoc, _page);
+            _page.setGlobalOffset(rowsGrId_);
+            _page.zeroOffset();
+            RenderAnalysis.getRootAnalyzedOperations(attr_,0,_anaDoc,_page,e.getValue());
         }
 
         multiple = elt.hasAttribute(_anaDoc.getRendKeyWords().getAttrMultiple());
@@ -296,10 +297,12 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                 }
             }
         }
-        for (EntryCust<String,ResultText> e: attributes.entryList()) {
+        for (EntryCust<String,ResultExpression> e: attributes.entryList()) {
             String attr_ = elt.getAttribute(e.getKey());
             int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            e.getValue().buildIdAna(attr_, rowsGrId_, _anaDoc, _page);
+            _page.setGlobalOffset(rowsGrId_);
+            _page.zeroOffset();
+            RenderAnalysis.getRootAnalyzedOperations(attr_,0,_anaDoc,_page,e.getValue());
         }
     }
 
@@ -307,11 +310,11 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
         return resultExpressionMap;
     }
 
-    public StringMap<ResultText> getAttributesText() {
+    public StringMap<ResultExpression> getAttributesText() {
         return attributesText;
     }
 
-    public StringMap<ResultText> getAttributes() {
+    public StringMap<ResultExpression> getAttributes() {
         return attributes;
     }
 

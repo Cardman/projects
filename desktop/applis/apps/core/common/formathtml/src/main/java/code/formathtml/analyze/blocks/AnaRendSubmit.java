@@ -1,8 +1,9 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.formathtml.analyze.ResultText;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.formathtml.analyze.RenderAnalysis;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
 import code.util.EntryCust;
@@ -13,7 +14,7 @@ import code.util.core.StringUtil;
 
 public final class AnaRendSubmit extends AnaRendElement {
 
-    private final StringMap<ResultText> opExp = new StringMap<ResultText>();
+    private final StringMap<ResultExpression> opExp = new StringMap<ResultExpression>();
 
     private StringMap<String> preformatted;
     AnaRendSubmit(Element _elt, int _offset) {
@@ -31,10 +32,12 @@ public final class AnaRendSubmit extends AnaRendElement {
         for (EntryCust<String,String> e: preformatted.entryList()) {
             e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscapedAmp())));
         }
-        for (EntryCust<String,ResultText> e: opExp.entryList()) {
+        for (EntryCust<String,ResultExpression> e: opExp.entryList()) {
             String attribute_ = _read.getAttribute(e.getKey());
             int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            e.getValue().buildIdAna(attribute_, rowsGrId_, _anaDoc, _page);
+            _page.setGlobalOffset(rowsGrId_);
+            _page.zeroOffset();
+            RenderAnalysis.getRootAnalyzedOperations(attribute_,0,_anaDoc,_page,e.getValue());
         }
     }
     public StringList titles(AnalyzingDoc _anaDoc) {
@@ -75,7 +78,7 @@ public final class AnaRendSubmit extends AnaRendElement {
         return preformatted;
     }
 
-    public StringMap<ResultText> getOpExp() {
+    public StringMap<ResultExpression> getOpExp() {
         return opExp;
     }
 }

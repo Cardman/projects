@@ -1,31 +1,30 @@
 package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
+import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class RendTitledAnchor extends RendElement {
     private final CustList<RendDynOperationNode> opExpAnch;
     private StringList varNames = new StringList();
 
-    private final StringMap<DefExecTextPart> opExpTitle;
+    private final StringMap<CustList<RendDynOperationNode>> opExpTitle;
 
     private final StringMap<String> preformatted;
     private final DefExecTextPart textPart;
 
-    public RendTitledAnchor(Element _read, StringMap<DefExecTextPart> _execAttributes, StringMap<DefExecTextPart> _execAttributesText,
+    public RendTitledAnchor(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
                             CustList<RendDynOperationNode> _opExpAnch, StringList _varNames,
-                            StringMap<DefExecTextPart> _opExpTitle, StringMap<String> _preformatted, DefExecTextPart _textPart) {
+                            StringMap<CustList<RendDynOperationNode>> _opExpTitle, StringMap<String> _preformatted, DefExecTextPart _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.opExpAnch = _opExpAnch;
         this.varNames = _varNames;
@@ -45,9 +44,10 @@ public final class RendTitledAnchor extends RendElement {
         curWr_.removeAttribute(_cont.getRendKeyWords().getAttrValue());
         curWr_.removeAttribute(_cont.getRendKeyWords().getAttrEscapedAmp());
         StringList objects_ = new StringList();
-        for (EntryCust<String, DefExecTextPart> e:opExpTitle.entryList()) {
-            DefExecTextPart r_ = e.getValue();
-            objects_.add(RenderingText.render(r_, _ctx, _rendStack));
+        for (EntryCust<String, CustList<RendDynOperationNode>> e:opExpTitle.entryList()) {
+            IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
+            String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
+            objects_.add(txt_);
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return;
             }
