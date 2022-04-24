@@ -12,6 +12,7 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
+import code.formathtml.analyze.ResultText;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
@@ -90,6 +91,7 @@ public final class RenderInitStdsTest extends CommonRender {
         ca.addEntry("","");
         BeanCustLgNames.select("","", navigation);
         Navigation.empt(new StringList());
+        ResultText.voidToObject("",page_);
     }
 
     private void initializeRendSessionDoc(BeanCustLgNames b_, RendStackCall rendStackCall_, Navigation navigation1) {

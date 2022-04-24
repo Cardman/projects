@@ -22,6 +22,7 @@ import code.formathtml.FormParts;
 import code.formathtml.exec.*;
 import code.formathtml.exec.opers.*;
 import code.formathtml.exec.stacks.*;
+import code.formathtml.fwd.RendGeneLinkTypes;
 import code.formathtml.util.*;
 import code.sml.*;
 import code.util.*;
@@ -132,23 +133,27 @@ public abstract class RendBlock {
         parent = _b;
     }
 
-    public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringMap<CustList<RendDynOperationNode>> _textPart, CustList<RendDynOperationNode> _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
+    public static void processLink(Configuration _cont, Element _nextWrite, Element _read, StringMap<CustList<RendDynOperationNode>> _textPart, RendGeneLinkTypes _anc, ContextEl _ctx, RendStackCall _rendStackCall) {
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         if (!href_.startsWith(CALL_METHOD)) {
-            _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc,new CustList<Struct>()));
+            _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc.getGeneLink(),new CustList<AbstractWrapper>()));
             procCstAnc(_cont, _nextWrite, _rendStackCall.getFormParts());
             return;
         }
-        CustList<Struct> values_ = new CustList<Struct>();
+        CustList<AbstractWrapper> values_ = new CustList<AbstractWrapper>();
+        int i_ = 0;
         for (EntryCust<String, CustList<RendDynOperationNode>> e: _textPart.entryList()) {
             IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return;
             }
-            values_.add(Argument.getNullableValue(args_.lastValue().getArgument()).getStruct());
+            Struct ar_ = Argument.getNullableValue(args_.lastValue().getArgument()).getStruct();
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(ar_, _rendStackCall.formatVarType(_anc.getTypes().get(i_)));
+            values_.add(new VariableWrapper(locVar_));
             _nextWrite.removeAttribute(e.getKey());
+            i_++;
         }
-        _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc,values_));
+        _rendStackCall.getFormParts().getCallsExps().add(new AnchorCall(_anc.getGeneLink(),values_));
         String beanName_ = _rendStackCall.getLastPage().getBeanName();
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));

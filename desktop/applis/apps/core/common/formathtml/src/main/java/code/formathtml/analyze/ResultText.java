@@ -1,13 +1,11 @@
 package code.formathtml.analyze;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.blocks.AnaRendBlock;
@@ -25,6 +23,7 @@ public final class ResultText {
     private CustList<OperationNode> opExpRoot;
     private ClassMethodIdReturn resultAnc;
 
+    private final StringList argTypes = new StringList();
     private StringList texts = new StringList();
     private String sgn = "";
     private final ResultExpression resultExpression = new ResultExpression();
@@ -137,26 +136,10 @@ public final class ResultText {
                 _page.zeroOffset();
                 _page.setGlobalOffset(param_);
                 String attribute_ = _read.getAttribute(e.getKey());
-                OperationNode res_ = RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page, e.getValue());
-                Mapping m_ = new Mapping();
-                m_.setArg(res_.getResultClass());
-                m_.setParam(_page.getAliasLong());
-                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(param_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(res_.getResultClass().getNames(),AnaRendBlock.AND_ERR),
-                            _page.getAliasLong());
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
+                RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page, e.getValue());
             }
             if (StringExpUtil.isDollarWord(lk_)) {
-                StringList argCla_ = new StringList();
-                for (EntryCust<String,ResultExpression> e: _res.getResults().entryList()) {
-                    String singleNameOrEmpty_ = e.getValue().getRoot().getResultClass().getSingleNameOrEmpty();
-                    argCla_.add(singleNameOrEmpty_);
-                }
+                StringList argCla_ = feedArgs(_res,_page);
                 _page.zeroOffset();
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 _res.resultAnc = classMethodIdReturn_;
@@ -173,6 +156,23 @@ public final class ResultText {
         }
     }
 
+    public static StringList feedArgs(ResultText _res, AnalyzedPageEl _page) {
+        StringList argCla_ = new StringList();
+        for (EntryCust<String,ResultExpression> e: _res.getResults().entryList()) {
+            String singleNameOrEmpty_ = voidToObject(e.getValue().getRoot().getResultClass().getSingleNameOrEmpty(),_page);
+            argCla_.add(singleNameOrEmpty_);
+            _res.argTypes.add(singleNameOrEmpty_);
+        }
+        return argCla_;
+    }
+
+    public static String voidToObject(String _original, AnalyzedPageEl _page) {
+        String v_ = StringUtil.nullToEmpty(_original);
+        if (v_.isEmpty()) {
+            return _page.getAliasObject();
+        }
+        return v_;
+    }
     public ResultExpression getResultExpression() {
         return resultExpression;
     }
@@ -195,5 +195,9 @@ public final class ResultText {
 
     public void setResultAnc(ClassMethodIdReturn _res) {
         this.resultAnc = _res;
+    }
+
+    public StringList getArgTypes() {
+        return argTypes;
     }
 }

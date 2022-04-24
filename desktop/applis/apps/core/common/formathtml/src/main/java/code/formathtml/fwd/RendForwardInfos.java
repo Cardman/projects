@@ -248,7 +248,8 @@ public final class RendForwardInfos {
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
             CustList<RendDynOperationNode> op_ = geneLink(f_.getResultAnc(), _forwards, f_.getResults().size());
-            return new RendAnchor(f_.getRead(),part_,partText_,op_, partSub_);
+            RendGeneLinkTypes g_ = new RendGeneLinkTypes(op_,f_.getRes().getArgTypes());
+            return new RendAnchor(f_.getRead(),part_,partText_,g_, partSub_);
         }
         if (_current instanceof AnaRendImg){
             AnaRendImg f_ = (AnaRendImg) _current;
@@ -285,7 +286,8 @@ public final class RendForwardInfos {
             StringMap<CustList<RendDynOperationNode>> partText_ = toExecPartExt(f_.getAttributesText(), _forwards);
             StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
             CustList<RendDynOperationNode> op_ = geneLink(f_.getRes().getResultAnc(), _forwards, f_.getResults().size());
-            return new RendForm(f_.getRead(),part_,partText_,op_, partSub_);
+            RendGeneLinkTypes g_ = new RendGeneLinkTypes(op_,f_.getRes().getArgTypes());
+            return new RendForm(f_.getRead(),part_,partText_,g_, partSub_);
         }
         if (_current instanceof AnaRendImportForm){
             AnaRendImportForm f_ = (AnaRendImportForm) _current;
@@ -378,7 +380,8 @@ public final class RendForwardInfos {
             StringMap<CustList<RendDynOperationNode>> partSub_ = toExecPartExt(f_.getResults(), _forwards);
             StringMap<CustList<RendDynOperationNode>> title_ = toExecPartExt(f_.getOpExpTitle(), _forwards);
             CustList<RendDynOperationNode> opAnc_ = geneLink(f_.getRes().getResultAnc(), _forwards, f_.getResults().size());
-            return new RendTitledAnchor(f_.getRead(),part_,partText_,opAnc_, title_,f_.getPreformatted(),partSub_);
+            RendGeneLinkTypes g_ = new RendGeneLinkTypes(opAnc_,f_.getRes().getArgTypes());
+            return new RendTitledAnchor(f_.getRead(),part_,partText_,g_, title_,f_.getPreformatted(),partSub_);
         }
         if (_current instanceof AnaRendEmptyInstruction){
             return new RendEmptyInstruction();

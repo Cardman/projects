@@ -2,8 +2,6 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.ScopeFilter;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -42,26 +40,10 @@ public final class AnaRendForm extends AnaRendElement {
                 _page.zeroOffset();
                 _page.setGlobalOffset(param_);
                 String attribute_ = _read.getAttribute(e.getKey());
-                OperationNode res_ = RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page, e.getValue());
-                Mapping m_ = new Mapping();
-                m_.setArg(res_.getResultClass());
-                m_.setParam(_page.getAliasLong());
-                if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
-                    FoundErrorInterpret badEl_ = new FoundErrorInterpret();
-                    badEl_.setFile(_page.getCurrentFile());
-                    badEl_.setIndexFile(param_);
-                    badEl_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(res_.getResultClass().getNames(),AnaRendBlock.AND_ERR),
-                            _page.getAliasLong());
-                    AnalyzingDoc.addError(badEl_, _page);
-                }
+                RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page, e.getValue());
             }
             if (StringExpUtil.isDollarWord(lk_)) {
-                StringList argCla_ = new StringList();
-                for (EntryCust<String,ResultExpression> e: res.getResults().entryList()) {
-                    String singleNameOrEmpty_ = e.getValue().getRoot().getResultClass().getSingleNameOrEmpty();
-                    argCla_.add(singleNameOrEmpty_);
-                }
+                StringList argCla_ = ResultText.feedArgs(res,_page);
                 _page.zeroOffset();
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 res.setResultAnc(classMethodIdReturn_);

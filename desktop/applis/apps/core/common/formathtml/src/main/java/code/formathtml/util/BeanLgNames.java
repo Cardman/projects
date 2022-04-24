@@ -43,10 +43,6 @@ public abstract class BeanLgNames extends LgNames {
         return getContent().getPrimTypes().getAliasPrimBoolean();
     }
 
-    public String getAliasPrimLong() {
-        return getContent().getPrimTypes().getAliasPrimLong();
-    }
-
     public String getAliasObject() {
         return getContent().getCoreNames().getAliasObject();
     }

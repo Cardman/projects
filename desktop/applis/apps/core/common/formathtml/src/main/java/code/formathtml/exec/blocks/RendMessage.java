@@ -2,7 +2,7 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.formathtml.Configuration;
 import code.formathtml.FormParts;
 import code.formathtml.exec.AnchorCall;
@@ -90,7 +90,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
             }
         }
         for (CustList<RendDynOperationNode> e: callsExps.getVal(_cont.getCurrentLanguage())) {
-            _rendStack.getFormParts().getCallsExps().add(new AnchorCall(e,new CustList<Struct>()));
+            _rendStack.getFormParts().getCallsExps().add(new AnchorCall(e,new CustList<AbstractWrapper>()));
         }
 //        _rendStack.getFormParts().getCallsExps().addAllElts(callsExps.getVal(_cont.getCurrentLanguage()));
         injectDoc(_cont, docLoc_, _rendStack.getLastPage().getBeanName(), _rendStack.getLastPage().getRendReadWrite(), _rendStack.getFormParts());

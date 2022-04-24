@@ -6,6 +6,7 @@ import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.formathtml.fwd.RendGeneLinkTypes;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
@@ -14,7 +15,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public final class RendTitledAnchor extends RendElement {
-    private final CustList<RendDynOperationNode> opExpAnch;
+    private final RendGeneLinkTypes opExpAnch;
 
     private final StringMap<CustList<RendDynOperationNode>> opExpTitle;
 
@@ -22,7 +23,7 @@ public final class RendTitledAnchor extends RendElement {
     private final StringMap<CustList<RendDynOperationNode>> textPart;
 
     public RendTitledAnchor(Element _read, StringMap<CustList<RendDynOperationNode>> _execAttributes, StringMap<CustList<RendDynOperationNode>> _execAttributesText,
-                            CustList<RendDynOperationNode> _opExpAnch,
+                            RendGeneLinkTypes _opExpAnch,
                             StringMap<CustList<RendDynOperationNode>> _opExpTitle, StringMap<String> _preformatted, StringMap<CustList<RendDynOperationNode>> _textPart) {
         super(_read, _execAttributes, _execAttributesText);
         this.opExpAnch = _opExpAnch;

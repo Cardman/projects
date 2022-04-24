@@ -16,6 +16,7 @@ import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.ClassMethodId;
@@ -1127,11 +1128,10 @@ public abstract class BeanCustLgNames extends BeanLgNames {
 
     public Struct redir(Argument _bean, AnchorCall _exps, ContextEl _context, RendStackCall _rendStackCall) {
         ImportingPage ip_ = _rendStackCall.getLastPage();
-        CustList<Struct> args_ = _exps.getArgs();
+        CustList<AbstractWrapper> args_ = _exps.getArgs();
         int s_ = args_.size();
         for (int i = 0; i< s_; i++) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(args_.get(i), getAliasPrimLong());
-            ip_.putValueVar(Long.toString(i), new VariableWrapper(locVar_));
+            ip_.putValueVar(Long.toString(i), args_.get(i));
         }
         Argument globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
         setGlobalArgumentStruct(_bean.getStruct(), _context, _rendStackCall);
