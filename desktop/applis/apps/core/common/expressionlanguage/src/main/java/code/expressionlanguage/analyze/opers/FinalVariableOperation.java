@@ -70,10 +70,6 @@ public final class FinalVariableOperation extends LeafOperation {
         return realVariableName;
     }
 
-    public int getOff() {
-        return variableContent.getOff();
-    }
-
     public int getRef() {
         return ref;
     }

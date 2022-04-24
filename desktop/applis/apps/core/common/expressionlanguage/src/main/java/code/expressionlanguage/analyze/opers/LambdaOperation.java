@@ -1620,7 +1620,7 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
             StringList innerParts_ = StringExpUtil.getAllPartInnerTypes(clFrom_);
             types_.add(StringUtil.join(innerParts_.left(innerParts_.size() - 2), ""));
         }
-        int offsetArg_ = className.indexOf('(')+1-getClassNameOffset();
+        int offsetArg_ = className.indexOf('(')+1-getOffset();
         for (int i = 0; i < _from; i++) {
             offsetArg_ += _args.get(i).length() + 1;
         }
@@ -2777,10 +2777,6 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
 
     public InfoErrorDto getPartOffsetsErrEnd() {
         return partOffsetsErrEnd;
-    }
-
-    public int getClassNameOffset() {
-        return StringExpUtil.getOffset(className);
     }
 
     public int getValueOffset() {

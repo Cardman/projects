@@ -59,10 +59,6 @@ public final class VariableOperationUse extends LeafOperation implements
         return realVariableName;
     }
 
-    public int getOff() {
-        return variableContent.getOff();
-    }
-
     public int getRef() {
         return ref;
     }

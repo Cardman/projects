@@ -12,17 +12,15 @@ public final class AssocationOperation extends AbstractUnaryOperation {
 
     private final String fieldName;
 
-    private final int delta;
     private final int offEq;
     private String errAff = EMPTY_STRING;
     private AnaTypeFct function;
 
     public AssocationOperation(int _index, int _indexChild, MethodOperation _m,
-            OperationsSequence _op, String _fieldName) {
+                               OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        delta = StringUtil.getFirstPrintableCharIndex(_fieldName);
         offEq = getOperators().firstKey();
-        fieldName = _fieldName.trim();
+        fieldName = _op.getFctName().trim();
     }
 
     @Override
@@ -63,10 +61,6 @@ public final class AssocationOperation extends AbstractUnaryOperation {
 
     public String getFieldName() {
         return fieldName;
-    }
-
-    public int getSum() {
-        return delta;
     }
 
     public String getErrAff() {

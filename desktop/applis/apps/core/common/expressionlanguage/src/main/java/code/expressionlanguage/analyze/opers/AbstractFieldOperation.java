@@ -8,11 +8,11 @@ import code.expressionlanguage.fwd.opers.AnaFieldOperationContent;
 public abstract class AbstractFieldOperation extends LeafOperation implements PossibleIntermediateDotted {
 
     private AnaClassArgumentMatching previousResultClass;
-    private AnaFieldOperationContent fieldContent;
+    private final AnaFieldOperationContent fieldContent;
 //    private boolean intermediate;
 //
 //    private int off;
-    public AbstractFieldOperation(int _indexInEl, int _indexChild, MethodOperation _m,
+    protected AbstractFieldOperation(int _indexInEl, int _indexChild, MethodOperation _m,
             OperationsSequence _op) {
         super(_indexInEl, _indexChild, _m, _op);
         fieldContent = new AnaFieldOperationContent(_op.getOffset());
@@ -39,10 +39,6 @@ public abstract class AbstractFieldOperation extends LeafOperation implements Po
 
     public void setPreviousResultClass(AnaClassArgumentMatching _previousResultClass) {
         previousResultClass = _previousResultClass;
-    }
-
-    public int getOff() {
-        return fieldContent.getOff();
     }
 
     public AnaFieldOperationContent getFieldContent() {

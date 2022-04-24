@@ -302,7 +302,7 @@ public abstract class OperationNode {
         }
         if (_op.getPriority() == ElResolver.AFF_PRIO) {
             if (_m instanceof AnnotationInstanceArobaseOperation) {
-                return new AssocationOperation(_index, _indexChild, _m, _op, _op.getFctName());
+                return new AssocationOperation(_index, _indexChild, _m, _op);
             }
             String op_ = _op.getOperators().firstValue();
             if (!StringUtil.quickEq(op_, AFF)) {

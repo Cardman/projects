@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
+import code.expressionlanguage.common.StringExpUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.*;
@@ -15,12 +16,16 @@ public abstract class MethodOperation extends OperationNode {
     private final CustList<InfoErrorDto> partOffsetsChildren = new CustList<InfoErrorDto>();
     private final CustList<CustList<InfoErrorDto>> partOffsetsChildrenList = new CustList<CustList<InfoErrorDto>>();
     private InfoErrorDto partOffsetsEnd = new InfoErrorDto("");
+    private final int offsetFct;
+    private final int lenTrimFct;
 
 
     protected MethodOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m);
         operators = _op.getOperators();
         children = _op.getValues();
+        lenTrimFct = _op.getFctName().trim().length();
+        offsetFct = StringExpUtil.getOffset(_op.getFctName());
     }
 
     public final void appendChild(OperationNode _child) {
@@ -85,6 +90,14 @@ public abstract class MethodOperation extends OperationNode {
 
     public CustList<CustList<InfoErrorDto>> getPartOffsetsChildrenList() {
         return partOffsetsChildrenList;
+    }
+
+    public int getOffsetFct() {
+        return offsetFct;
+    }
+
+    public int getLenTrimFct() {
+        return lenTrimFct;
     }
 
     public InfoErrorDto getPartOffsetsEnd() {
