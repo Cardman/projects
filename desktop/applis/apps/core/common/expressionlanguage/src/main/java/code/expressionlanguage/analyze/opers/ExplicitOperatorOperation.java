@@ -32,6 +32,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
     private final AnaArrContent arrContent;
 
     private final int offsetOper;
+    private final int offset;
     private String from;
     private AnaGeneType accType;
 
@@ -59,6 +60,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         callFctContent = new AnaCallFctContent(_op.getFctName());
         offsetOper = getOperators().firstKey();
         arrContent = new AnaArrContent();
+        offset = StringExpUtil.getOffset(_op.getFctName());
     }
 
     @Override
@@ -490,6 +492,10 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
 
     public int getOffsetOper() {
         return offsetOper;
+    }
+
+    public int getOffset() {
+        return offset;
     }
 
     public String getFrom() {

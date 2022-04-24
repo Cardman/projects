@@ -28,12 +28,12 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
     private String retType = EMPTY_STRING;
     private final AnaArrContent arrContent;
     private final int delta;
-    public SwitchOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, SwitchMethodBlock _switchMethod, int _delta) {
+    public SwitchOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, SwitchMethodBlock _switchMethod) {
         super(_index, _indexChild, _m, _op);
         switchMethod = _switchMethod;
         methodName = _op.getFctName();
         arrContent = new AnaArrContent();
-        delta = _delta;
+        delta = StringExpUtil.getOffset(methodName);
     }
 
     @Override

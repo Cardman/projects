@@ -32,6 +32,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
     private boolean noNeed;
     private int indexCh=-1;
     private String fctName;
+    private final int offset;
     private final AnaArrContent arrContent;
     private boolean errLeftValue;
     private final String methodFound;
@@ -40,6 +41,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         arrContent = new AnaArrContent();
+        offset = StringExpUtil.getOffset(_op.getFctName());
         methodFound = _op.getFctName().trim();
     }
 
@@ -486,6 +488,10 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
 
     public String getFctName() {
         return fctName;
+    }
+
+    public int getOffset() {
+        return offset;
     }
 
     @Override

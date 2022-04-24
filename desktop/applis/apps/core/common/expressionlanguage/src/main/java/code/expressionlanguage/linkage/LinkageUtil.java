@@ -18,7 +18,6 @@ import code.expressionlanguage.analyze.types.LinkagePartTypeUtil;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.DisplayedStrings;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.blocks.ExecBlock;
@@ -3026,9 +3025,10 @@ public final class LinkageUtil {
 
     private static void processDynamicCall(VariablesOffsets _vars, int _sum, OperationNode _val) {
         if (_val instanceof CallDynMethodOperation) {
+            int off_ = ((CallDynMethodOperation) _val).getOffset();
             int length_ = ((CallDynMethodOperation) _val).getFctName().length();
             String tag_;
-            int begFct_ = _sum + _val.getIndexInEl();
+            int begFct_ = off_+_sum + _val.getIndexInEl();
             if (_val.getErrs().isEmpty()) {
                 tag_ = ExportCst.HEAD_BOLD;
                 _vars.addPart(new PartOffset(tag_, begFct_));
@@ -3425,19 +3425,20 @@ public final class LinkageUtil {
             addTypes(_vars, ((ValuesOperation)_val).getPartOffsets());
         }
         if (_val instanceof AbstractInvokingConstructor) {
+            int off_ = ((AbstractInvokingConstructor)_val).getOffset();
             if (_val instanceof InterfaceInvokingConstructor) {
                 addParts(_vars, ((AbstractInvokingConstructor)_val).getConstructor(),
-                        _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordInterfaces().length(),
+                        _sum + _val.getIndexInEl()+off_,_vars.getKeyWords().getKeyWordInterfaces().length(),
                         _val.getErrs(),_val.getErrs());
                 addTypes(_vars,((InterfaceInvokingConstructor)_val).getPartOffsets());
             } else if (_val instanceof InterfaceFctConstructor) {
                 addParts(_vars, ((AbstractInvokingConstructor)_val).getConstructor(),
-                        _sum + _val.getIndexInEl(),_vars.getKeyWords().getKeyWordInterfaces().length(),
+                        _sum + _val.getIndexInEl()+off_,_vars.getKeyWords().getKeyWordInterfaces().length(),
                         _val.getErrs(),_val.getErrs());
                 addTypes(_vars,((InterfaceFctConstructor)_val).getPartOffsets());
             } else{
                 addParts(_vars, ((AbstractInvokingConstructor)_val).getConstructor(),
-                        _sum + _val.getIndexInEl(), ((AbstractInvokingConstructor) _val).getOffsetOper(),
+                        _sum + _val.getIndexInEl()+off_, ((AbstractInvokingConstructor) _val).getOffsetOper(),
                         _val.getErrs(),_val.getErrs());
             }
         }
@@ -3465,7 +3466,7 @@ public final class LinkageUtil {
         }
         ExplicitOperatorOperation par_ = (ExplicitOperatorOperation) _val;
         addParts(_vars, par_.getCallFctContent().getFunction(),
-                _sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordOperator().length(),
+                par_.getOffset()+_sum + _val.getIndexInEl(), _vars.getKeyWords().getKeyWordOperator().length(),
                 _val.getErrs(), _val.getErrs());
         explicitOperatorCom(_vars, _sum, _val);
     }

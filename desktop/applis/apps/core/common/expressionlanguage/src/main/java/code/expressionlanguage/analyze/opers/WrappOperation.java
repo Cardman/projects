@@ -5,15 +5,17 @@ import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
 
 public final class WrappOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
     private final int offset;
     private final int delta;
-    public WrappOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, int _delta, int _off) {
+
+    public WrappOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        delta = _delta;
-        offset = _off;
+        delta = StringExpUtil.getOffset(_op.getFctName());
+        offset = _op.getOffset();
     }
 
     @Override

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ConstructorInfo;
 import code.expressionlanguage.analyze.opers.util.MethodInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.common.StringExpUtil;
 import code.util.CustList;
 
 public final class FirstOptOperation extends AbstractUnaryOperation implements PreAnalyzableOperation {
@@ -13,10 +14,10 @@ public final class FirstOptOperation extends AbstractUnaryOperation implements P
     private final int offset;
     private final int delta;
     public FirstOptOperation(int _index, int _indexChild, MethodOperation _m,
-                             OperationsSequence _op, int _delta, int _off) {
+                             OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        delta = _delta;
-        offset = _off;
+        delta = StringExpUtil.getOffset(_op.getFctName());
+        offset = _op.getOffset();
     }
 
     @Override

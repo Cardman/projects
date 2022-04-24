@@ -376,7 +376,6 @@ public abstract class OperationNode {
 
     private static MethodOperation callFct(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
         String fctName_ = _op.getFctName().trim();
-        int delta_ = StringExpUtil.getOffset(_op.getFctName());
         if (_m instanceof AbstractDotOperation) {
             OperationNode ch_ = _m.getFirstChild();
             if (ch_ != null) {
@@ -396,15 +395,15 @@ public abstract class OperationNode {
         AbsBk block_ = _op.getBlock();
         if (block_ instanceof SwitchMethodBlock) {
             ((SwitchMethodBlock)block_).setIndexEnd(block_.getOffset()+ _op.getLength());
-            return new SwitchOperation(_index, _indexChild, _m, _op, (SwitchMethodBlock) block_, delta_);
+            return new SwitchOperation(_index, _indexChild, _m, _op, (SwitchMethodBlock) block_);
         }
         if (fctName_.isEmpty()) {
             return new IdOperation(_index, _indexChild, _m, _op, _op.getFctName().length());
         }
-        return fctDefPrio(_index, _indexChild, _m, _op, _page, delta_);
+        return fctDefPrio(_index, _indexChild, _m, _op, _page);
     }
 
-    private static MethodOperation fctDefPrio(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page, int delta_) {
+    private static MethodOperation fctDefPrio(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
@@ -440,13 +439,13 @@ public abstract class OperationNode {
             return new ExplicitOperatorOperation(_index, _indexChild, _m, _op);
         }
         if (StringUtil.quickEq(fctName_, keyWordThat_)) {
-            return new WrappOperation(_index, _indexChild, _m, _op, delta_, _op.getOffset());
+            return new WrappOperation(_index, _indexChild, _m, _op);
         }
         if (StringUtil.quickEq(fctName_, keyWordFirstopt_)) {
-            return new FirstOptOperation(_index, _indexChild, _m, _op, delta_, _op.getOffset());
+            return new FirstOptOperation(_index, _indexChild, _m, _op);
         }
         if (StringUtil.quickEq(fctName_, keyWordDefault_)) {
-            return new DefaultOperation(_index, _indexChild, _m, _op, delta_, _op.getOffset());
+            return new DefaultOperation(_index, _indexChild, _m, _op);
         }
         if (StringUtil.quickEq(fctName_, keyWordThis_)) {
             return new CurrentInvokingConstructor(_index, _indexChild, _m, _op);

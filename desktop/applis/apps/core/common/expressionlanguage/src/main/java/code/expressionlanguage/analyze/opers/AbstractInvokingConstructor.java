@@ -10,6 +10,7 @@ import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdAncestor;
+import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodId;
@@ -28,16 +29,18 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
     private final CustList<ConstructorInfo> ctors = new CustList<ConstructorInfo>();
     private MemberId memberId = new MemberId();
     private AnaFormattedRootBlock type;
+    private final int offset;
     protected AbstractInvokingConstructor(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         methodName = _op.getFctName();
+        offset = StringExpUtil.getOffset(methodName);
         invokingConstructorContent = new AnaInvokingConstructorContent();
         invokingConstructorContent.setOffsetOper(getOperators().firstKey());
     }
 
     public int getOffsetOper() {
-        return invokingConstructorContent.getOffsetOper();
+        return methodName.trim().length();
     }
 
     @Override
@@ -187,5 +190,9 @@ public abstract class AbstractInvokingConstructor extends InvokingOperation impl
 
     public void setType(AnaFormattedRootBlock _type) {
         type = _type;
+    }
+
+    public int getOffset() {
+        return offset;
     }
 }
