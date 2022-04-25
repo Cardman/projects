@@ -256,16 +256,16 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
     public static Struct redirect(NatHtmlPage _htmlPage, Struct _bean, NatRendStackCall _rendStack){
         Struct ret_;
         if (_htmlPage.isForm()) {
-            int _url = (int)_htmlPage.getUrl();
-            StringList varNames_ = _htmlPage.getFormsVars().get(_url);
-            CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsFormExps().get(_url);
-            StringList args_ = _htmlPage.getFormsArgs().get(_url);
+            int url_ = (int)_htmlPage.getUrl();
+            StringList varNames_ = _htmlPage.getFormsVars().get(url_);
+            CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsFormExps().get(url_);
+            StringList args_ = _htmlPage.getFormsArgs().get(url_);
             ret_ = redir(new Argument(_bean), varNames_, exps_, args_, _rendStack);
         } else {
-            int _url = (int)_htmlPage.getUrl();
-            StringList varNames_ = _htmlPage.getAnchorsVars().get(_url);
-            CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsExps().get(_url);
-            StringList args_ = _htmlPage.getAnchorsArgs().get(_url);
+            int url_ = (int)_htmlPage.getUrl();
+            StringList varNames_ = _htmlPage.getAnchorsVars().get(url_);
+            CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsExps().get(url_);
+            StringList args_ = _htmlPage.getAnchorsArgs().get(url_);
             ret_= redir(new Argument(_bean), varNames_, exps_, args_, _rendStack);
         }
         return ret_;
@@ -404,13 +404,13 @@ public abstract class BeanNatCommonLgNames extends BeanLgNames {
         proc(_nav, _rendStack, actionCommand_, bean_, getCurrentBeanName());
     }
 
-    private void proc(Navigation _nav, NatRendStackCall _rendStack, String actionCommand_, Struct bean_, String _currentBeanName) {
+    private void proc(Navigation _nav, NatRendStackCall _rendStack, String _actionCommand, Struct _bean, String _currentBeanName) {
         _rendStack.clearPages();
         Configuration session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
-        String res_ = processAfterInvoke(session_, actionCommand_, _currentBeanName, bean_, lg_, _rendStack);
+        String res_ = processAfterInvoke(session_, _actionCommand, _currentBeanName, _bean, lg_, _rendStack);
         setCurrentBeanName(_rendStack.getBeanName());
-        setCurrentUrl(actionCommand_);
+        setCurrentUrl(_actionCommand);
         _nav.setupText(res_, this, _rendStack.getDocument());
         setNatPage(_rendStack.getHtmlPage());
     }

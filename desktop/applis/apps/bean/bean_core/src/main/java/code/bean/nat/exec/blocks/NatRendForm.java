@@ -29,10 +29,10 @@ public final class NatRendForm extends NatRendElement implements RendFormInt {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
-        NatFormParts _formParts = _rendStack.getFormParts();
-        _formParts.getContainersMapStack().add(new LongTreeMap<NatNodeContainer>());
-        _formParts.getCallsFormExps().add(opForm);
-        incrForm(varNames, _formParts);
+        NatFormParts formParts_ = _rendStack.getFormParts();
+        formParts_.getContainersMapStack().add(new LongTreeMap<NatNodeContainer>());
+        formParts_.getCallsFormExps().add(opForm);
+        incrForm(varNames, formParts_);
         long currentForm_;
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
