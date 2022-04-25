@@ -437,7 +437,7 @@ public final class Net {
         for (EntryCust<Integer, BoolVal> e: getServers(_instance).entryList()) {
             if (e.getValue() == BoolVal.TRUE) {
                 AbstractSocket val_ = getSockets(_instance).getVal(e.getKey());
-                sendText(val_,"<"+ DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+"></"+DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+">");
+                sendText(val_,"<"+ DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+"/>");
             }
         }
     }
