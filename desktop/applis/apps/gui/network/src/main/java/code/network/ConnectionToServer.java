@@ -17,24 +17,18 @@ public final class ConnectionToServer implements Runnable, Locking {
         serverWindow = _serverWindow;
         serverWindow.createClient(_ipHost, null, true, _port);
     }
-    public void fermer(AbstractSocket _socket) {
-        if (serverSocket.close()) {
-            _socket.close();
-        }
+    public void fermer() {
+        serverSocket.close();
     }
 
     @Override
     public void run(){
-        while(true){
-            AbstractSocket socket_ = serverSocket.accept();
-            //If the server is started without client ==> pause.
-            if (!socket_.isKo()) {
-                serverWindow.gearClient(socket_);
-            } else if (serverSocket.isClosed()) {
-                break;
-            }
-            //server side
+        AbstractSocket socket_ = serverSocket.accept();
+        //If the server is started without client ==> pause.
+        if (!socket_.isKo()) {
+            serverWindow.gearClient(socket_);
         }
+        //server side
     }
 
     @Override

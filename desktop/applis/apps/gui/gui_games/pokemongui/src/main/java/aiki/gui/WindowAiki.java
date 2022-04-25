@@ -1232,7 +1232,7 @@ public final class WindowAiki extends NetGroupFrame {
     public void quitNetwork(Exiting _exit, AbstractSocket _socket) {
         exitFromTrading();
         resetIndexInGame();
-        closeConnexion(_socket);
+        closeConnexion(_exit,_socket);
         if (_exit != null && _exit.isClosing()) {
             basicDispose();
             return;

@@ -25,7 +25,7 @@ public final class FormEvent implements AbsMouseListenerIntRel {
             return;
         }
         for (DualAnimatedImage d: page.getAnims()) {
-            d.getImageThread().setAnimated(false);
+            d.stop();
         }
         SubmitForm.submit(form_, page.getStandards());
         page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, true,form_.getElt()));

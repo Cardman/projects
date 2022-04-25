@@ -23,7 +23,7 @@ public final class AnchorEvent implements AbsMouseListenerIntRel {
     @Override
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         for (DualAnimatedImage d: page.getAnims()) {
-            d.getImageThread().setAnimated(false);
+            d.stop();
         }
         HtmlPage htmlPage_ = page.getStandards().getPage();
         htmlPage_.setForm(false);

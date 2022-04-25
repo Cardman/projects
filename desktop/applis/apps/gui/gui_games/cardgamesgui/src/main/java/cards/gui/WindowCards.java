@@ -1028,7 +1028,7 @@ public final class WindowCards extends NetGroupFrame {
     @Override
     public void quitNetwork(Exiting _exit, AbstractSocket _socket) {
         menuPrincipal();
-        closeConnexion(_socket);
+        closeConnexion(_exit,_socket);
         if (_exit != null && _exit.isClosing()) {
             basicDispose();
             return;

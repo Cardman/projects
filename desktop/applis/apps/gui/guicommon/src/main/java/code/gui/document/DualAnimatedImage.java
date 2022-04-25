@@ -3,6 +3,8 @@ package code.gui.document;
 import code.formathtml.render.MetaAnimatedImage;
 import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 import code.threads.ThreadUtil;
 import code.sml.Element;
 import code.util.CustList;
@@ -10,6 +12,7 @@ import code.util.CustList;
 
 public final class DualAnimatedImage extends DualImage {
 
+    private AbstractScheduledExecutorService scheduledExecutorService;
     private int index;
 
     private int delay;
@@ -17,6 +20,7 @@ public final class DualAnimatedImage extends DualImage {
     private final AnimateImage imageThread;
 
     private final CustList<int[][]> images;
+    private AbstractFuture task;
 
     public DualAnimatedImage(DualContainer _container, MetaAnimatedImage _component, RenderedPage _page) {
         super(_container, _component, _page);
@@ -34,13 +38,14 @@ public final class DualAnimatedImage extends DualImage {
         imageThread = new AnimateImage(this);
     }
 
-    public AnimateImage getImageThread() {
-        return imageThread;
-    }
-
     public void start() {
-        imageThread.setAnimated(true);
+        scheduledExecutorService = getPage().getGene().getThreadFactory().newScheduledExecutorService();
+        task = scheduledExecutorService.scheduleAtFixedRateNanos(imageThread, 0, 1);
         getPage().getGene().getThreadFactory().newStartedThread(imageThread);
+    }
+    public void stop() {
+        task.cancel(false);
+        scheduledExecutorService.shutdown();
     }
 
     public void increment() {

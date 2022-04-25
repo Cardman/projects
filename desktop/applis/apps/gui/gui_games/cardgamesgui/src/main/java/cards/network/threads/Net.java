@@ -13,7 +13,6 @@ import cards.network.common.DelegateServer;
 import cards.network.common.PlayerActionGame;
 import cards.network.common.Quit;
 import cards.network.common.before.*;
-import cards.network.common.displaying.Pause;
 import cards.network.common.select.TeamsPlayers;
 import cards.network.president.displaying.DealtHandPresident;
 import cards.network.president.displaying.ReceivedGivenCards;
@@ -31,7 +30,6 @@ import cards.network.tarot.displaying.errors.ErrorPlaying;
 import cards.network.tarot.unlock.AllowBiddingTarot;
 import cards.network.tarot.unlock.AllowPlayingTarot;
 import cards.network.tarot.unlock.CallableCards;
-import cards.network.tarot.unlock.DisplaySlamButton;
 import cards.president.ResultsPresident;
 import cards.president.TricksHandsPresident;
 import cards.tarot.ResultsTarot;
@@ -364,7 +362,7 @@ public final class Net {
         }
         ByeCards forcedBye_ = new ByeCards();
         forcedBye_.setForced(false);
-        forcedBye_.setServer(false);
+        forcedBye_.setServer(true);
         forcedBye_.setClosing(_bye.isClosing());
         Ints players_ = Net.getPlacesPlayersByValue(_bye.getPlace(), _instance);
         if (!players_.isEmpty()) {

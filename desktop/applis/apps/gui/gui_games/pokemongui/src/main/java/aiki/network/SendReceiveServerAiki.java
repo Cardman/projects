@@ -147,7 +147,7 @@ public final class SendReceiveServerAiki extends BasicServer {
             QuitAiki bye_ = (QuitAiki)playerActionGame_;
             ByeAiki forcedBye_ = new ByeAiki();
             forcedBye_.setForced(false);
-            forcedBye_.setServer(false);
+            forcedBye_.setServer(true);
             forcedBye_.setTooManyPlayers(false);
             AbstractSocket socket_;
             socket_ = NetAiki.getSockets(_instance).getVal((int) IndexConstants.FIRST_INDEX);

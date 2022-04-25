@@ -9,8 +9,8 @@ import code.network.enums.ErrorHostConnectionType;
 import code.network.enums.IpType;
 import code.sml.Document;
 import code.threads.AbstractBaseExecutorService;
-import code.threads.AbstractLock;
-import code.threads.LockFactory;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 import code.util.StringList;
 
 public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
@@ -23,6 +23,8 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
 
     private int port;
     private final AbstractBaseExecutorService lock;
+    private AbstractScheduledExecutorService server;
+    private AbstractFuture task;
 
     protected NetGroupFrame(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
@@ -39,17 +41,21 @@ public abstract class NetGroupFrame extends GroupFrame implements NetWindow {
         AbstractServerSocket serverSocket_ = getSocketFactory().newServerSocket(ip_, _port);
         if (serverSocket_.isOk()) {
             ipHost = ip_;
+            server = getFrames().getThreadFactory().newScheduledExecutorService();
             connection = new ConnectionToServer(serverSocket_, this, ip_, _port);
-            getThreadFactory().newStartedThread(connection);
+            task = server.scheduleAtFixedRateNanos(connection,0,1);
         }
     }
 
     /**server and client*/
-    public void closeConnexion(AbstractSocket _socket) {
-        if (connection == null) {
+    public void closeConnexion(Exiting _exit, AbstractSocket _socket) {
+        _socket.close();
+        if (connection == null || !_exit.isServer()) {
             return;
         }
-        connection.fermer(_socket);
+        connection.fermer();
+        task.cancel(false);
+        server.shutdown();
     }
 
     public SocketResults createClient(String _host, IpType _ipType, boolean _first, int _port) {
