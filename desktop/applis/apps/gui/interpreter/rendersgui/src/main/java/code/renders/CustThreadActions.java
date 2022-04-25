@@ -135,9 +135,9 @@ public final class CustThreadActions extends AbstractThreadActions {
                 }
             }
         }
-        Navigation navigation = getPage().getNavigation();
-        BeanCustLgNames _stds = du_.getStds();
-        _stds.initializeRendSessionDoc(ctx_, navigation, rendStackCall_);
+        Navigation navigation_ = getPage().getNavigation();
+        BeanCustLgNames stds_ = du_.getStds();
+        stds_.initializeRendSessionDoc(ctx_, navigation_, rendStackCall_);
         afterActionWithoutRemove(ctx_, rendStackCall_);
     }
 }
