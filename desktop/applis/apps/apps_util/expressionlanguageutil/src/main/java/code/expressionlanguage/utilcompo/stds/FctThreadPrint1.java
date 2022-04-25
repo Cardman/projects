@@ -29,8 +29,8 @@ public final class FctThreadPrint1 extends FctThreadPrintAbs {
     @Override
     protected ArgumentWrapper pr(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Argument arg_ = new Argument(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
-        final CustList<Argument> arguments = new CustList<Argument>(arg_);
-        ArgumentListCall argList_ = ArgumentListCall.wrapCall(arguments);
+        CustList<Argument> arguments_ = new CustList<Argument>(arg_);
+        ArgumentListCall argList_ = ArgumentListCall.wrapCall(arguments_);
         ExecTypeFunction formatObjectPair_ = execBlocks.getFormatObjectPair();
         ExecTemplates.wrapAndCall(formatObjectPair_, new ExecFormattedRootBlock(formatObjectPair_.getType(), aliasFormatType),Argument.createVoid(), _cont, _stackCall, argList_);
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
