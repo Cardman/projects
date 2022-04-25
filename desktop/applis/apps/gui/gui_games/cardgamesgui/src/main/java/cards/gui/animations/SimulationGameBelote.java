@@ -4,17 +4,14 @@ import cards.belote.*;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuBelote;
-import code.gui.AbsPlainButton;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
 public final class SimulationGameBelote implements Runnable,SimulationGame {
-    private Games partieSimulee = new Games();
-    private ContainerSimuBelote container;
-    private AbsPlainButton stopButton;
-    private SimulatingBelote simulatingBelote;
+    private final Games partieSimulee = new Games();
+    private final ContainerSimuBelote container;
+    private final SimulatingBelote simulatingBelote;
     /**This class thread is independant from EDT*/
     public SimulationGameBelote(ContainerSimuBelote _container) {
         container = _container;
@@ -26,10 +23,8 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
         donne_.initDonne(regles_,container.getDisplayingBelote(),container.getWindow().getGenerator());
         GameBelote gb_ = new GameBelote(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerBelote(gb_);
-        stopButton=container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
-        stopButton.addActionListener(new StopEvent(this));
         DisplayingBelote dis_ = container.getDisplayingBelote();
-        simulatingBelote = new SimulatingBeloteImpl(container,partieSimulee,dis_,stopButton);
+        simulatingBelote = new SimulatingBeloteImpl(container,partieSimulee,dis_, new StopEvent(this));
     }
     @Override
     public Games getGames() {

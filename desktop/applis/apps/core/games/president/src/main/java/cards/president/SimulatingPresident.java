@@ -12,7 +12,7 @@ public interface SimulatingPresident {
     void displayLooserMessage(HandPresident _h, byte _l, byte _w);
     void displayWinnerMessage(HandPresident _h, byte _l, byte _w);
     void displayLineReturn();
-    void pause();
+//    void pause();
     void prepare();
     void beginDemo();
     void sleepSimu(long _millis);

@@ -41,10 +41,10 @@ public abstract class AbstractSimulatingTarot implements SimulatingTarot {
 
     }
 
-    @Override
-    public void pause() {
-
-    }
+//    @Override
+//    public void pause() {
+//
+//    }
 
     @Override
     public void prepare() {

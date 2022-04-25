@@ -16,7 +16,7 @@ public interface SimulatingTarot {
     void actedBid(byte _player, BidTarot _bid);
     void noBid();
     void constCallPlayer(byte _called);
-    void pause();
+//    void pause();
     void prepare();
     void beginDemo();
     void sleepSimu(long _millis);

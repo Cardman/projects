@@ -145,7 +145,7 @@ public final class GamePresident {
         _simu.prepare();
         _simu.sleepSimu(500);
         _simu.beginDemo();
-        _simu.pause();
+//        _simu.pause();
         HandPresident userHand_ = new HandPresident();
         int noDeal_ = IndexConstants.SIZE_EMPTY;
         while (noDeal_ < _nbTimes) {
@@ -209,7 +209,7 @@ public final class GamePresident {
                     _simu.stopDemo();
                     return;
                 }
-                _simu.pause();
+//                _simu.pause();
                 setupStatus(nextPlayer, h_);
                 byte nextPlayerBk_ = nextPlayer;
                 _simu.gearStatusChange(lastStatus, nextPlayerBk_);
@@ -229,7 +229,7 @@ public final class GamePresident {
                 if (!keepPlayingCurrentGame()) {
                     _simu.endDeal();
                     _simu.sleepSimu(5000);
-                    _simu.pause();
+//                    _simu.pause();
                     break;
                 }
             }
@@ -242,6 +242,7 @@ public final class GamePresident {
             tricks = new CustList<TrickPresident>();
             ranks = new Bytes(ranks_);
             setLastStatus();
+            _simu.prepare();
             noDeal_++;
         }
         ended = true;

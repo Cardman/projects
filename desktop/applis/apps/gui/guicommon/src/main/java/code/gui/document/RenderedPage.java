@@ -92,7 +92,6 @@ public final class RenderedPage implements ProcessingSession {
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public void initialize(PreparedAnalyzed _stds) {
         standards = _stds.getBeanNatLgNames();
-        start();
         navigation = _stds.getNavigation();
         contextCreator = new NativeContextCreator();
         _stds.getBeanNatLgNames().initializeRendSessionDoc(navigation);
@@ -151,10 +150,6 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     private void setupText() {
-        if (!processing.get()) {
-            return;
-        }
-        processing.set(false);
         Document doc_ = navigation.getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,navigation.getSession().getRendKeyWords());
         FrameUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());

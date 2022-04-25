@@ -32,10 +32,10 @@ public abstract class AbstractSimulatingPresident implements SimulatingPresident
 
     }
 
-    @Override
-    public void pause() {
-
-    }
+//    @Override
+//    public void pause() {
+//
+//    }
 
     @Override
     public void prepare() {

@@ -33,13 +33,13 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
     private final ContainerSimuPresident container;
     private final Games partieSimulee;
     private final DisplayingPresident displayingPresident;
-    private final AbsPlainButton stopButton;
+    private final StopEvent stopEvent;
 
-    public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, AbsPlainButton _stopButton) {
+    public SimulatingPresidentImpl(ContainerSimuPresident _container, Games _partieSimulee, DisplayingPresident _displayingPresident, StopEvent _stopEvent) {
         container = _container;
         partieSimulee = _partieSimulee;
         displayingPresident = _displayingPresident;
-        stopButton = _stopButton;
+        stopEvent = _stopEvent;
     }
 
     @Override
@@ -74,10 +74,10 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
-    @Override
-    public void pause() {
-        container.pause();
-    }
+//    @Override
+//    public void pause() {
+//        container.pause();
+//    }
 
     @Override
     public void prepare() {
@@ -109,7 +109,8 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         container.setPanelHand(panneau_);
         container_.add(panneau_,GuiConstants.BORDER_LAYOUT_SOUTH);
         AbsPanel panneau2_=container.getOwner().getCompoFactory().newPageBox();
-        container.setEvents(container.getOwner().getCompoFactory().newTextArea(ContainerPresident.EMPTY,8, 30));
+        String text_ = container.getEvents().getText();
+        container.setEvents(container.getOwner().getCompoFactory().newTextArea(text_,8, 30));
         container.getEvents().setEditable(false);
         panneau2_.add(container.getOwner().getCompoFactory().newAbsScrollPane(container.getEvents()));
         container.setHandfuls(new ByteMap<AbsPlainLabel>());
@@ -134,7 +135,9 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();
-        panneau_.add(stopButton);
+        AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        stopButton_.addActionListener(stopEvent);
+        panneau_.add(stopButton_);
         HandPresident notSorted_ = partie_.getDeal().hand();
         HandPresident h_ = partie_.mainUtilisateurTriee(notSorted_, container.getDisplayingPresident());
         AbsPanel panneau1_=container.getPanelHand();
@@ -247,8 +250,12 @@ public final class SimulatingPresidentImpl implements SimulatingPresident {
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(stds_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
-        panneau_.add(scroll_);
-        panneau_.add(stopButton);
+        AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
+        AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(scroll_,scrollTxt_);
+        panneau_.add(spl_);
+        AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        stopButton_.addActionListener(stopEvent);
+        panneau_.add(stopButton_);
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         container.setContentPane(panneau_);

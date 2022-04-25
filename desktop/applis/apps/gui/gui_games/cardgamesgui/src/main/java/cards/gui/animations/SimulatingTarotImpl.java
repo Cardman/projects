@@ -32,14 +32,15 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
     private final ContainerSimuTarot container;
     private final Games partieSimulee;
     private final DisplayingTarot displayingTarot;
-    private final AbsPlainButton stopButton;
+    private final StopEvent stopEvent;
+
 
     public SimulatingTarotImpl(ContainerSimuTarot _container, Games _partieSimulee,
-                               DisplayingTarot _displayingTarot, AbsPlainButton _stopButton) {
+                               DisplayingTarot _displayingTarot, StopEvent _stopEvent) {
         container = _container;
         partieSimulee = _partieSimulee;
         displayingTarot = _displayingTarot;
-        stopButton = _stopButton;
+        stopEvent = _stopEvent;
     }
 
     @Override
@@ -85,10 +86,10 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         ThreadInvoker.invokeNow(container.getOwner().getThreadFactory(),new AddTextEvents(container, event_), container.getOwner().getFrames());
     }
 
-    @Override
-    public void pause() {
-        container.pause();
-    }
+//    @Override
+//    public void pause() {
+//        container.pause();
+//    }
 
     @Override
     public void prepare() {
@@ -153,7 +154,9 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();
-        panneau_.add(stopButton);
+        AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        stopButton_.addActionListener(stopEvent);
+        panneau_.add(stopButton_);
         AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
@@ -209,8 +212,12 @@ public final class SimulatingTarotImpl implements SimulatingTarot {
         scroll_.setPreferredSize(new MetaDimension(300,300));
 
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
-        panneau_.add(scroll_);
-        panneau_.add(stopButton);
+        AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
+        AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(scroll_,scrollTxt_);
+        panneau_.add(spl_);
+        AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        stopButton_.addActionListener(stopEvent);
+        panneau_.add(stopButton_);
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         container.setContentPane(panneau_);

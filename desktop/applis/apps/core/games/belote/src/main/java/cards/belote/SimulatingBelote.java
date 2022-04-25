@@ -10,7 +10,7 @@ public interface SimulatingBelote {
     void nextRound(int _nbBids,byte _nbPlayers);
     void secRound(byte _nbPlayers);
     void noBid();
-    void pause();
+//    void pause();
     void prepare();
     void beginDemo();
     void sleepSimu(long _millis);

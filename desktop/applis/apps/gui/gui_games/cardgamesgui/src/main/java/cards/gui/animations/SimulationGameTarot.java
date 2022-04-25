@@ -3,21 +3,18 @@ package cards.gui.animations;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuTarot;
 import cards.tarot.*;
-import code.gui.*;
 
 /**This class thread is independant from EDT,
 Thread safe class*/
 public final class SimulationGameTarot implements Runnable,SimulationGame {
 
-    private Games partieSimulee = new Games();
+    private final Games partieSimulee = new Games();
 
-    private ContainerSimuTarot container;
+    private final ContainerSimuTarot container;
 
-    private AbsPlainButton stopButton;
-    private SimulatingTarot simulatingTarot;
+    private final SimulatingTarot simulatingTarot;
 
     /**This class thread is independant from EDT*/
     public SimulationGameTarot(ContainerSimuTarot _container) {
@@ -30,10 +27,8 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
         donne_.initDonne(regles_,container.getWindow().getGenerator());
         GameTarot gt_ = new GameTarot(GameType.EDIT,donne_,regles_);
         partieSimulee.jouerTarot(gt_);
-        stopButton=container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
-        stopButton.addActionListener(new StopEvent(this));
         DisplayingTarot dis_ = container.getDisplayingTarot();
-        simulatingTarot = new SimulatingTarotImpl(container,partieSimulee,dis_,stopButton);
+        simulatingTarot = new SimulatingTarotImpl(container,partieSimulee,dis_, new StopEvent(this));
     }
     @Override
     public Games getGames() {

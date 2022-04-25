@@ -223,7 +223,7 @@ public final class GameBelote {
         _simu.prepare();
         _simu.sleepSimu(500);
         _simu.beginDemo();
-        _simu.pause();
+//        _simu.pause();
         simulationWithBids = false;
         Bytes players_ = orderedPlayers(playerAfter(getDistribution().getDealer()));
         byte nbPl_ = getNombreDeJoueurs();
@@ -309,7 +309,7 @@ public final class GameBelote {
                     _simu.nextCardPlaying(joueur_);
                 }
                 _simu.sleepSimu(1000);
-                _simu.pause();
+//                _simu.pause();
                 currentPlayerHasPlayed(joueur_);
                 if (premierTour()) {
                     _simu.declare(joueur_,getAnnonce(joueur_));
@@ -338,7 +338,7 @@ public final class GameBelote {
             ajouterPliEnCours();
             _simu.displayTrickWinner(trickWinner);
             _simu.sleepSimu(4000);
-            _simu.pause();
+//            _simu.pause();
             _simu.clearCarpet(getNombreDeJoueurs());
         }
         _simu.endDeal();

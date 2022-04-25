@@ -264,7 +264,7 @@ public final class GameTarot {
         _simu.prepare();
         _simu.sleepSimu(500);
         _simu.beginDemo();
-        _simu.pause();
+//        _simu.pause();
         byte donneur_ = getDistribution().getDealer();
         bid = BidTarot.FOLD;
         if (avecContrat()) {
@@ -298,7 +298,7 @@ public final class GameTarot {
                     _simu.nextCardPlaying(joueur_);
                 }
                 _simu.sleepSimu(1000);
-                _simu.pause();
+//                _simu.pause();
                 currentPlayerHasPlayed(joueur_);
                 if (premierTourNoMisere()) {
                     _simu.declareHandfuls(joueur_,getAnnoncesPoignees(joueur_),getPoignee(joueur_));
@@ -327,7 +327,7 @@ public final class GameTarot {
             ajouterPetitAuBout();
             _simu.displaySmallBound(smallBound,trickWinner);
             _simu.sleepSimu(4000);
-            _simu.pause();
+//            _simu.pause();
             _simu.clearCarpet(getNombreDeJoueurs());
         }
         _simu.endDeal();
@@ -355,7 +355,7 @@ public final class GameTarot {
                 if (_bid.getJeuChien() == PlayingDog.WITH) {
                     HandTarot curHand_ = mainUtilisateurTriee(displaying_);
                     _simu.seeDog(last_);
-                    _simu.pause();
+//                    _simu.pause();
                     _simu.beforeSeeDog(taker,curHand_);
                     HandTarot curHandAdd_ = new HandTarot();
                     curHandAdd_.ajouterCartes(curHand_);

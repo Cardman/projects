@@ -95,16 +95,16 @@ public abstract class ContainerGame implements Containable {
         return true;
     }
 
-    public void pause() {
-        if(isPasse()) {
-            pause.set(!pause.get());
-        }
-        while(pause.get()) {
-            if(!isPasse()) {
-                pause.set(!pause.get());
-            }
-        }
-    }
+//    public void pause() {
+//        if(isPasse()) {
+//            pause.set(!pause.get());
+//        }
+//        while(pause.get()) {
+//            if(!isPasse()) {
+//                pause.set(!pause.get());
+//            }
+//        }
+//    }
 
     protected static void changerNombreDeParties(GameEnum _game, long _nbGames, AbstractProgramInfos _tmpUserFolderSl) {
         String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(_tmpUserFolderSl),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);

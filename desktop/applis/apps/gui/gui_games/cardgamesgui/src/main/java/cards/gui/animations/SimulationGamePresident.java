@@ -3,19 +3,17 @@ package cards.gui.animations;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
-import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.FileConst;
 import cards.president.*;
-import code.gui.AbsPlainButton;
-import code.util.*;
+import code.util.Bytes;
 
 /**Thread safe class*/
 public final class SimulationGamePresident implements Runnable,SimulationGame {
 
-    private Games partieSimulee = new Games();
-    private ContainerSimuPresident container;
-    private SimulatingPresident simulatingPresident;
+    private final Games partieSimulee = new Games();
+    private final ContainerSimuPresident container;
+    private final SimulatingPresident simulatingPresident;
     /**This class thread is independant from EDT*/
     public SimulationGamePresident(ContainerSimuPresident _container) {
         container = _container;
@@ -28,10 +26,8 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
         GamePresident gp_ = new GamePresident(GameType.EDIT,donne_,regles_, new Bytes());
         partieSimulee.jouerPresident(gp_);
 //        partieSimulee.sauvegarderPartieEnCours("demos/deal10.cdgame");
-        AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
-        stopButton_.addActionListener(new StopEvent(this));
         DisplayingPresident dis_ = container.getDisplayingPresident();
-        simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, stopButton_);
+        simulatingPresident = new SimulatingPresidentImpl(container,partieSimulee,dis_, new StopEvent(this));
     }
     @Override
     public Games getGames() {

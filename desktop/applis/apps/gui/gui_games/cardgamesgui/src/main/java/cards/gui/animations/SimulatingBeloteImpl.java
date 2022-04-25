@@ -35,14 +35,14 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
     private final ContainerSimuBelote container;
     private final Games partieSimulee;
     private final DisplayingBelote displayingBelote;
-    private final AbsPlainButton stopButton;
+    private final StopEvent stopEvent;
 
     public SimulatingBeloteImpl(ContainerSimuBelote _container, Games _partieSimulee,
-                               DisplayingBelote _displayingBelote, AbsPlainButton _stopButton) {
+                                DisplayingBelote _displayingBelote, StopEvent _stopEvent) {
         container = _container;
         partieSimulee = _partieSimulee;
         displayingBelote = _displayingBelote;
-        stopButton = _stopButton;
+        stopEvent = _stopEvent;
     }
     @Override
     public void displayLineReturn() {
@@ -94,10 +94,10 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         container.revalidate();
     }
 
-    @Override
-    public void pause() {
-        container.pause();
-    }
+//    @Override
+//    public void pause() {
+//        container.pause();
+//    }
 
     @Override
     public void prepare() {
@@ -160,7 +160,9 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         contentPane_.add(container.getWindow().getLastSavedGameDate());
         container.setContentPane(contentPane_);
         panneau_=container.getPanneauBoutonsJeu();
-        panneau_.add(stopButton);
+        AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        stopButton_.addActionListener(stopEvent);
+        panneau_.add(stopButton_);
         AbsPanel panneau1_=container.getPanelHand();
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
@@ -215,8 +217,12 @@ public final class SimulatingBeloteImpl implements SimulatingBelote {
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
         editor_.initialize(stds_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
-        panneau_.add(scroll_);
-        panneau_.add(stopButton);
+        AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
+        AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(scroll_,scrollTxt_);
+        panneau_.add(spl_);
+        AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
+        stopButton_.addActionListener(stopEvent);
+        panneau_.add(stopButton_);
         panneau_.add(container.getOwner().getClock());
         panneau_.add(container.getOwner().getLastSavedGameDate());
         container.setContentPane(panneau_);
