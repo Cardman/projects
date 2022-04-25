@@ -480,6 +480,7 @@ public final class SendReceiveServerCards extends BasicServer {
         if (actionType_ == PlayerActionGameType.OK) {
             Net.setReceivedForPlayer(_action.getPlace(), _instance);
             if (Net.allReceived(_instance)) {
+                Net.initAllReady(_instance);
                 Net.setProgressingGame(false, _instance);
             }
             return;
@@ -1029,6 +1030,7 @@ public final class SendReceiveServerCards extends BasicServer {
         if (actionType_ == PlayerActionGameType.OK) {
             Net.setReceivedForPlayer(_action.getPlace(), _instance);
             if (Net.allReceived(_instance)) {
+                Net.initAllReady(_instance);
                 Net.setProgressingGame(false, _instance);
             }
             return;
@@ -1358,6 +1360,7 @@ public final class SendReceiveServerCards extends BasicServer {
         if (actionType_ == PlayerActionGameType.OK) {
             Net.setReceivedForPlayer(_action.getPlace(), _instance);
             if (Net.allReceived(_instance)) {
+                Net.initAllReady(_instance);
                 Net.setProgressingGame(false, _instance);
             }
             return;

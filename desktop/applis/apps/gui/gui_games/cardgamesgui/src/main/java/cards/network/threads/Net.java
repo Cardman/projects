@@ -235,6 +235,11 @@ public final class Net {
             _instance.activePlayers.put(r, true);
         }
     }
+    static void initAllReady(Net _instance) {
+        for (EntryCust<Integer,Boolean> e:_instance.readyPlayers.entryList()) {
+            e.setValue(false);
+        }
+    }
     /**server
      * @param _instance*/
     static void initAllReceived(Net _instance) {
