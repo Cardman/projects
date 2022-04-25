@@ -683,7 +683,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
-        getMultiStop().setEnabledMenu(hasCreatedServer());
+        getMultiStop().setEnabledMenu(false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();

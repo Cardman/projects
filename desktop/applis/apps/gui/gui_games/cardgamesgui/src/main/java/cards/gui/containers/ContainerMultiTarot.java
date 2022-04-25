@@ -739,7 +739,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         return hasCreatedServer;
     }
     private void placerIhmTarotMulti(HandTarot _dog, byte _beginPlace) {
-        getMultiStop().setEnabledMenu(hasCreatedServer());
+        getMultiStop().setEnabledMenu(false);
         String lg_ = getOwner().getLanguageKey();
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)),GuiConstants.BORDER_LAYOUT_NORTH);

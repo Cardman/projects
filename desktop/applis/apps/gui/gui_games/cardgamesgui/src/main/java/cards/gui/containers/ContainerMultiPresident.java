@@ -472,7 +472,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
-        getMultiStop().setEnabledMenu(hasCreatedServer());
+        getMultiStop().setEnabledMenu(false);
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
         String lg_ = getOwner().getLanguageKey();
