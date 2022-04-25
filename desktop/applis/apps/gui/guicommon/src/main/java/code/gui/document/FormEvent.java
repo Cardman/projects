@@ -29,6 +29,6 @@ public final class FormEvent implements AbsMouseListenerIntRel {
         }
         SubmitForm.submit(form_, page.getStandards());
         page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, true,form_.getElt()));
-        page.animateProcess();
+//        page.animateProcess();
     }
 }

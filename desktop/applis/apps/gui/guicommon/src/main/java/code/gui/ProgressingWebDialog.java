@@ -8,6 +8,8 @@ import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
@@ -22,8 +24,8 @@ public final class ProgressingWebDialog implements ProgressDialog {
     private static final String PER_CENT = "";
     private final AbsDialog absDialog;
     private final AbsCompoFactory compoFactory;
-
-    private AbsPreparedLabel anim;
+    private AbstractScheduledExecutorService images;
+    private AbstractFuture taskImages;
     private AnimatedImage animation;
 
     public ProgressingWebDialog(AbstractProgramInfos _frameFactory) {
@@ -51,20 +53,21 @@ public final class ProgressingWebDialog implements ProgressDialog {
             absDialog.setDialogIcon(_session.getGene().getImageFactory(),_window);
         }
         absDialog.setLocationRelativeToWindow(_window);
+        AbsPreparedLabel anim_;
         if (!_images.isEmpty()) {
-            anim = FrameUtil.prep(_session.getGene().getImageFactory());
-            anim.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
-            animation = new AnimatedImage(_session.getGene().getImageFactory(),_fact,anim, _images, TIME * 10);
+            anim_ = FrameUtil.prep(_session.getGene().getImageFactory());
+            anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
+            animation = new AnimatedImage(_session.getGene().getImageFactory(),_fact, anim_, _images, TIME * 10);
         } else {
-            anim = FrameUtil.prep(_session.getGene().getImageFactory());
-            anim.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
-            anim.setOpaque(true);
-            anim.setBackground(GuiConstants.WHITE);
+            anim_ = FrameUtil.prep(_session.getGene().getImageFactory());
+            anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
+            anim_.setOpaque(true);
+            anim_.setBackground(GuiConstants.WHITE);
         }
 //        anim = new AnimatedLabel();
 //        anim.setList(_images);
         AbsPanel p_ = compoFactory.newLineBox();
-        p_.add(anim);
+        p_.add(anim_);
         absDialog.setContentPane(p_);
         absDialog.pack();
         absDialog.setVisible(true);
@@ -74,14 +77,18 @@ public final class ProgressingWebDialog implements ProgressDialog {
         if (animation == null) {
             return;
         }
-        _fact.newStartedThread(animation);
+        images = _fact.newScheduledExecutorService();
+        animation.reset();
+        taskImages = images.scheduleAtFixedRateNanos(animation,0,1);
     }
 
     public void stopAnimation() {
-        if (animation == null) {
+        if (taskImages == null) {
             return;
         }
-        animation.stopAnimation();
+        taskImages.cancel(false);
+        images.shutdown();
+        taskImages = null;
     }
 //    @Override
 //    public AnimatedLabel getAnim() {

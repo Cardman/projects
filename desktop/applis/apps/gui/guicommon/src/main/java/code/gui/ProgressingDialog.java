@@ -23,10 +23,9 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
     private static final int DELTA = 100;
     private final AbsDialog absDialog;
 
-    private AbsPreparedLabel anim;
-
     private AbsProgressBar bar;
-
+    private AbstractScheduledExecutorService images;
+    private AbstractFuture taskImages;
     private AbstractScheduledExecutorService timer;
     private AbstractFuture future;
 
@@ -37,7 +36,7 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
     private AnimatedImage animation;
     private GroupFrame window;
 
-    public ProgressingDialog(AbsFrameFactory _frameFactory) {
+    protected ProgressingDialog(AbsFrameFactory _frameFactory) {
         absDialog = _frameFactory.newDialog(this);
 
     }
@@ -63,18 +62,19 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
         absDialog.setLocationRelativeTo(_window);
         AbsPanel contentPane_ = _window.getCompoFactory().newPageBox();
         AbsPanel label_ = _window.getCompoFactory().newLineBox();
+        AbsPreparedLabel anim_;
         if (!_images.isEmpty()) {
-            anim = FrameUtil.prep(_window.getImageFactory());
-            anim.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
-            animation = new AnimatedImage(_window.getImageFactory(), _window.getThreadFactory(), anim, _images, TIME * 10);
+            anim_ = FrameUtil.prep(_window.getImageFactory());
+            anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
+            animation = new AnimatedImage(_window.getImageFactory(), _window.getThreadFactory(), anim_, _images, TIME * 10);
         } else {
-            anim = FrameUtil.prep(_window.getImageFactory());
-            anim.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
-            anim.setOpaque(true);
-            anim.setBackground(GuiConstants.WHITE);
+            anim_ = FrameUtil.prep(_window.getImageFactory());
+            anim_.setPreferredSize(new MetaDimension(WIDTH_ANIM, HEIGTH_ANIM));
+            anim_.setOpaque(true);
+            anim_.setBackground(GuiConstants.WHITE);
         }
 //        anim.setList(_images);
-        label_.add(anim);
+        label_.add(anim_);
         contentPane_.add(label_);
         bar = window.getCompoFactory().newAbsProgressBar();
         bar.setValue(0);
@@ -103,18 +103,23 @@ public abstract class ProgressingDialog implements AbsCloseableDialog,ProgressDi
         if (animation == null) {
             return;
         }
-        window.getThreadFactory().newStartedThread(animation);
+        images = window.getThreadFactory().newScheduledExecutorService();
+        animation.reset();
+        taskImages = images.scheduleAtFixedRateNanos(animation,0,1);
     }
 
     public void stopAnimation() {
-        if (animation == null) {
+        if (taskImages == null) {
             return;
         }
-        animation.stopAnimation();
+        taskImages.cancel(false);
+        images.shutdown();
+        taskImages = null;
     }
 
     public void stopTimer() {
         future.cancel(true);
+        timer.shutdown();
 //        timer.stop();
     }
 

@@ -13,7 +13,6 @@ public final class ThreadRefresh implements Runnable {
 
     ThreadRefresh(RenderedPage _page, BeanNatCommonLgNames _lgNames) {
         page = _page;
-        page.start();
         stds = _lgNames;
     }
 

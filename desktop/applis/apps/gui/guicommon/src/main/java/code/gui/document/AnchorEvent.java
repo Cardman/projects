@@ -29,6 +29,6 @@ public final class AnchorEvent implements AbsMouseListenerIntRel {
         htmlPage_.setForm(false);
         htmlPage_.setUrl(nb);
         page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, false,anchor));
-        page.animateProcess();
+//        page.animateProcess();
     }
 }

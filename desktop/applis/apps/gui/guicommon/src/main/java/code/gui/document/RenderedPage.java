@@ -14,7 +14,8 @@ import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
 import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractThread;
+import code.threads.AbstractFuture;
+import code.threads.AbstractScheduledExecutorService;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -23,6 +24,7 @@ import code.util.consts.Constants;
 
 public final class RenderedPage implements ProcessingSession {
 
+    private static final int DELTA = 100;
     private final AbsCompoFactory compoFactory;
     private DualPanel page;
     private final AbsScrollPane scroll;
@@ -31,8 +33,6 @@ public final class RenderedPage implements ProcessingSession {
     private FindEvent finding;
 
     private final AbstractAtomicBoolean processing;
-
-    private AbstractThread threadAction;
 
     private CustList<AbstractImage> process = new CustList<AbstractImage>();
 
@@ -52,6 +52,8 @@ public final class RenderedPage implements ProcessingSession {
     private AbsPlainButton find;
     private AbsTextField field;
     private final AbstractProgramInfos gene;
+    private AbstractScheduledExecutorService timer;
+    private AbstractFuture taskTimer;
 
     public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene) {
         scroll = _frame;
@@ -91,8 +93,12 @@ public final class RenderedPage implements ProcessingSession {
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public void initialize(PreparedAnalyzed _stds) {
-        standards = _stds.getBeanNatLgNames();
         navigation = _stds.getNavigation();
+        direct(_stds);
+    }
+
+    private void direct(PreparedAnalyzed _stds) {
+        standards = _stds.getBeanNatLgNames();
         contextCreator = new NativeContextCreator();
         _stds.getBeanNatLgNames().initializeRendSessionDoc(navigation);
         setupText();
@@ -101,12 +107,7 @@ public final class RenderedPage implements ProcessingSession {
     public void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg) {
         navigation = _prepared.getNavigation();
         navigation.setLanguage(_lg);
-        standards = _prepared.getBeanNatLgNames();
-        contextCreator = new NativeContextCreator();
-        ThreadDirectActions th_ = new ThreadDirectActions(this);
-        threadAction = gene.getThreadFactory().newThread(th_);
-        threadAction.start();
-        animateProcess();
+        direct(_prepared);
     }
 
     public void initializeOnlyConf(AbstractContextCreator _creator,BeanCustLgNames _stds, Runnable _inst) {
@@ -116,17 +117,16 @@ public final class RenderedPage implements ProcessingSession {
         start();
         standards = _stds;
         contextCreator = _creator;
-        threadAction = gene.getThreadFactory().newThread(_inst);
-        threadAction.start();
-        animateProcess();
+        gene.getThreadFactory().newStartedThread(_inst);
+//        animateProcess();
     }
 
-    void animateProcess() {
-        if (!process.isEmpty()) {
-            LoadingWeb load_ = new LoadingWeb(gene.getThreadFactory(),this, process, frame, dialog);
-            gene.getThreadFactory().newStartedThread(load_);
-        }
-    }
+//    void animateProcess() {
+//        if (!process.isEmpty()) {
+//            LoadingWeb load_ = new LoadingWeb(gene.getThreadFactory(),this, process, frame, dialog);
+//            gene.getThreadFactory().newStartedThread(load_);
+//        }
+//    }
 
     public void refresh() {
 //        if (processing.get()) {
@@ -141,12 +141,28 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     public void start() {
+        if (!(getStandards() instanceof BeanCustLgNames)) {
+            return;
+        }
+        dialog.init(gene.getThreadFactory(),this,frame, process);
+        timer = gene.getThreadFactory().newScheduledExecutorService();
+        taskTimer = timer.scheduleAtFixedRate(new TaskPaintingLabel(dialog),0,DELTA);
+        dialog.startAnimation(gene.getThreadFactory());
         processing.set(true);
     }
 
     void finish() {
+        if (taskTimer == null) {
+            return;
+        }
+        dialog.stopAnimation();
+        taskTimer.cancel(true);
+        timer.shutdown();
+        dialog.getAbsDialog().setVisible(false);
+        dialog.getAbsDialog().getPane().removeAll();
         //boolean _stop
         processing.set(false);
+        taskTimer = null;
     }
 
     private void setupText() {
