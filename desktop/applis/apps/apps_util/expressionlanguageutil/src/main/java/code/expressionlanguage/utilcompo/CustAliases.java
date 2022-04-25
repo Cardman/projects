@@ -59,18 +59,18 @@ public final class CustAliases {
     private static final String GET_AND_DECREMENT_ATOMIC = "GetAndDecrementAtomic";
     private static final String DECREMENT_AND_GET_ATOMIC = "DecrementAndGetAtomic";
     private static final String GET_AND_SET_ATOMIC = "GetAndSetAtomic";
-    private static final String REENTRANT_LOCK = "ReentrantLock";
+//    private static final String REENTRANT_LOCK = "ReentrantLock";
     private static final String JOIN_OTHERS = "JoinOthers";
     private static final String FILE_IS_FILE = "FileIsFile";
     private static final String FILE_ROOTS = "FileRoots";
-    private static final String THREAD_EXIT_HOOK = "ThreadExitHook";
+//    private static final String THREAD_EXIT_HOOK = "ThreadExitHook";
     private static final String APPEND_TO_FILE = "AppendToFile";
     private static final String THREAD_CURRENT_TIME = "ThreadCurrentTime";
     private static final String THREAD_CURRENT_NANO_TIME = "ThreadCurrentNanoTime";
     private static final String SET_PRIORITY = "SetPriority";
     private static final String FILE_LIST_FILES = "FileListFiles";
     private static final String GET_PRIORITY = "GetPriority";
-    private static final String IS_HELD_BY_CURRENT_THREAD = "IsHeldByCurrentThread";
+//    private static final String IS_HELD_BY_CURRENT_THREAD = "IsHeldByCurrentThread";
     private static final String FILE_LIST_DIRECTORIES = "FileListDirectories";
     private static final String LENGTH_ITR_TA = "LengthItrTa";
     private static final String EXECUTED_TEST_ANNOTATIONS = "ExecutedTestAnnotations";
@@ -198,14 +198,14 @@ public final class CustAliases {
     private static final String FILE = "File";
     private static final String READ = "Read";
     private static final String LIST = "List";
-    private static final String UNLOCK = "Unlock";
+//    private static final String UNLOCK = "Unlock";
     private static final String SIZE_LI = "SizeLi";
     private static final String LIST_VAR = "ListVar";
     private static final String SECOND = "Second";
     private static final String ADD_LI = "AddLi";
-    private static final String YIELD = "Yield";
+//    private static final String YIELD = "Yield";
     private static final String SET_FIRST = "SetFirst";
-    private static final String LOCK = "Lock";
+//    private static final String LOCK = "Lock";
     private static final String WRITE = "Write";
     private static final String TABLE = "Table";
     private static final String RESULT = "Result";
@@ -230,7 +230,7 @@ public final class CustAliases {
     private String aliasThread;
     private String aliasThreadCurrentTime;
     private String aliasThreadCurrentNanoTime;
-    private String aliasThreadExitHook;
+//    private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
     private String aliasThreadEq;
@@ -244,11 +244,11 @@ public final class CustAliases {
     private String aliasGetId;
     private String aliasGetPriority;
     private String aliasSetPriority;
-    private String aliasYield;
-    private String aliasReentrantLock;
-    private String aliasLock;
-    private String aliasUnlock;
-    private String aliasIsHeldByCurrentThread;
+//    private String aliasYield;
+//    private String aliasReentrantLock;
+//    private String aliasLock;
+//    private String aliasUnlock;
+//    private String aliasIsHeldByCurrentThread;
     private String aliasAtomicBoolean;
     private String aliasAtomicInteger;
     private String aliasAtomicLong;
@@ -484,9 +484,9 @@ public final class CustAliases {
         params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
         method_ = new StandardMethod(aliasSleep, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0Sleep0()),new FctThreadSleep(this));
         methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasYield, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctThreadYield(this));
-        methods_.add( method_);
+//        params_ = new StringList();
+//        method_ = new StandardMethod(aliasYield, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctThreadYield(this));
+//        methods_.add( method_);
         params_ = new StringList(_content.getCoreNames().getAliasObject());
         method_ = new StandardMethod(aliasPrint, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0Print0()),new FctThreadPrint1(this,_executingBlocks,aliasFormatType));
         methods_.add( method_);
@@ -496,9 +496,9 @@ public final class CustAliases {
         params_ = new StringList(_content.getCharSeq().getAliasString(),_content.getCoreNames().getAliasObject());
         method_ = new StandardMethod(aliasPrint, params_, _content.getCoreNames().getAliasVoid(), true, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread2Print0(),custAliasParameters.getAliasThread2Print1()),new FctThreadPrint2(this,_executingBlocks,aliasFormatType));
         methods_.add( method_);
-        params_ = new StringList(aliasThread);
-        method_ = new StandardMethod(aliasThreadExitHook, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0ThreadExitHook0()),new FctThreadExitHook(this));
-        methods_.add( method_);
+//        params_ = new StringList(aliasThread);
+//        method_ = new StandardMethod(aliasThreadExitHook, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0ThreadExitHook0()),new FctThreadExitHook(this));
+//        methods_.add( method_);
         params_ = new StringList(aliasThread,aliasThread);
         method_ = new StandardMethod(aliasThreadEq, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasThread0ThreadEq0(),custAliasParameters.getAliasThread0ThreadEq1()),new FctThreadEq(this));
         methods_.add( method_);
@@ -532,25 +532,25 @@ public final class CustAliases {
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasThreadSet, std_);
-        methods_ = new CustList<StandardMethod>();
-        constructors_ = new CustList<StandardConstructor>();
-        fields_ = new CustList<CstFieldInfo>();
-        params_ = new StringList();
-        stdcl_ = new StandardClass(aliasReentrantLock, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfReentrantLock(getInfos(),aliasReentrantLock));
-        method_ = new StandardMethod(aliasLock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctReentrantLock());
-        methods_.add( method_);
-        method_ = new StandardMethod(aliasUnlock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctReentrantUnlock());
-        methods_.add( method_);
-        method_ = new StandardMethod(aliasIsHeldByCurrentThread, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctReentrantIsHeldByCurrentThread());
-        methods_.add( method_);
-        params_ = new StringList();
-        ctor_ = new StandardConstructor(params_,false,new FctReentrant0(infos,aliasReentrantLock));
-        constructors_.add(ctor_);
-        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
-        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasReentrantLock0ReentrantLock0()),new FctReentrant1(infos,aliasReentrantLock));
-        constructors_.add(ctor_);
-        std_ = stdcl_;
-        _content.getStandards().addEntry(aliasReentrantLock, std_);
+//        methods_ = new CustList<StandardMethod>();
+//        constructors_ = new CustList<StandardConstructor>();
+//        fields_ = new CustList<CstFieldInfo>();
+//        params_ = new StringList();
+//        stdcl_ = new StandardClass(aliasReentrantLock, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfReentrantLock(getInfos(),aliasReentrantLock));
+//        method_ = new StandardMethod(aliasLock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctReentrantLock());
+//        methods_.add( method_);
+//        method_ = new StandardMethod(aliasUnlock, params_, _content.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL,new FctReentrantUnlock());
+//        methods_.add( method_);
+//        method_ = new StandardMethod(aliasIsHeldByCurrentThread, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctReentrantIsHeldByCurrentThread());
+//        methods_.add( method_);
+//        params_ = new StringList();
+//        ctor_ = new StandardConstructor(params_,false,new FctReentrant0(infos,aliasReentrantLock));
+//        constructors_.add(ctor_);
+//        params_ = new StringList(_content.getPrimTypes().getAliasPrimLong());
+//        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasReentrantLock0ReentrantLock0()),new FctReentrant1(infos,aliasReentrantLock));
+//        constructors_.add(ctor_);
+//        std_ = stdcl_;
+//        _content.getStandards().addEntry(aliasReentrantLock, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -1470,18 +1470,18 @@ public final class CustAliases {
         setAliasGetAndDecrementAtomic(LgNamesContent.get(_util, _cust, GET_AND_DECREMENT_ATOMIC));
         setAliasDecrementAndGetAtomic(LgNamesContent.get(_util, _cust, DECREMENT_AND_GET_ATOMIC));
         setAliasGetAndSetAtomic(LgNamesContent.get(_util, _cust, GET_AND_SET_ATOMIC));
-        setAliasReentrantLock(LgNamesContent.get(_util, _cust, REENTRANT_LOCK));
+//        setAliasReentrantLock(LgNamesContent.get(_util, _cust, REENTRANT_LOCK));
         setAliasJoinOthers(LgNamesContent.get(_util, _cust, JOIN_OTHERS));
         setAliasFileIsFile(LgNamesContent.get(_util, _cust, FILE_IS_FILE));
         setAliasFileRoots(LgNamesContent.get(_util, _cust, FILE_ROOTS));
-        setAliasThreadExitHook(LgNamesContent.get(_util, _cust, THREAD_EXIT_HOOK));
+//        setAliasThreadExitHook(LgNamesContent.get(_util, _cust, THREAD_EXIT_HOOK));
         setAliasAppendToFile(LgNamesContent.get(_util, _cust, APPEND_TO_FILE));
         setAliasThreadCurrentTime(LgNamesContent.get(_util, _cust, THREAD_CURRENT_TIME));
         setAliasThreadCurrentNanoTime(LgNamesContent.get(_util, _cust, THREAD_CURRENT_NANO_TIME));
         setAliasSetPriority(LgNamesContent.get(_util, _cust, SET_PRIORITY));
         setAliasFileListFiles(LgNamesContent.get(_util, _cust, FILE_LIST_FILES));
         setAliasGetPriority(LgNamesContent.get(_util, _cust, GET_PRIORITY));
-        setAliasIsHeldByCurrentThread(LgNamesContent.get(_util, _cust, IS_HELD_BY_CURRENT_THREAD));
+//        setAliasIsHeldByCurrentThread(LgNamesContent.get(_util, _cust, IS_HELD_BY_CURRENT_THREAD));
         setAliasFileListDirectories(LgNamesContent.get(_util, _cust, FILE_LIST_DIRECTORIES));
         setAliasLengthItrTa(LgNamesContent.get(_util, _cust, LENGTH_ITR_TA));
         setAliasExecutedTestAnnotations(LgNamesContent.get(_util, _cust, EXECUTED_TEST_ANNOTATIONS));
@@ -1610,14 +1610,14 @@ public final class CustAliases {
         setAliasFile(LgNamesContent.get(_util, _cust, FILE));
         setAliasRead(LgNamesContent.get(_util, _cust, READ));
         setAliasList(LgNamesContent.get(_util, _cust, LIST));
-        setAliasUnlock(LgNamesContent.get(_util, _cust, UNLOCK));
+//        setAliasUnlock(LgNamesContent.get(_util, _cust, UNLOCK));
         setAliasSizeLi(LgNamesContent.get(_util, _cust, SIZE_LI));
         setAliasListVar(LgNamesContent.get(_util, _cust, LIST_VAR));
         setAliasSecond(LgNamesContent.get(_util, _cust, SECOND));
         setAliasAddLi(LgNamesContent.get(_util, _cust, ADD_LI));
-        setAliasYield(LgNamesContent.get(_util, _cust, YIELD));
+//        setAliasYield(LgNamesContent.get(_util, _cust, YIELD));
         setAliasSetFirst(LgNamesContent.get(_util, _cust, SET_FIRST));
-        setAliasLock(LgNamesContent.get(_util, _cust, LOCK));
+//        setAliasLock(LgNamesContent.get(_util, _cust, LOCK));
         setAliasWrite(LgNamesContent.get(_util, _cust, WRITE));
         setAliasTable(LgNamesContent.get(_util, _cust, TABLE));
         setAliasResult(LgNamesContent.get(_util, _cust, RESULT));
@@ -1748,20 +1748,21 @@ public final class CustAliases {
                 new KeyValueMemberName(GET_ID,getAliasGetId()),
                 new KeyValueMemberName(GET_PRIORITY,getAliasGetPriority()),
                 new KeyValueMemberName(SET_PRIORITY,getAliasSetPriority()),
-                new KeyValueMemberName(YIELD,getAliasYield()),
                 new KeyValueMemberName(SLEEP,getAliasSleep()),
-                new KeyValueMemberName(PRINT,getAliasPrint()),
-                new KeyValueMemberName(THREAD_EXIT_HOOK,getAliasThreadExitHook())));
+                new KeyValueMemberName(PRINT,getAliasPrint())));
+//                new KeyValueMemberName(YIELD,getAliasYield()),
+//                new KeyValueMemberName(THREAD_EXIT_HOOK,getAliasThreadExitHook())));
+
         m_.addEntry(getAliasThreadSet(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(THREAD_SET_ADD,getAliasThreadSetAdd()),
                 new KeyValueMemberName(THREAD_SET_ALL,getAliasThreadSetAll()),
                 new KeyValueMemberName(THREAD_SET_CONTAINS,getAliasThreadSetContains()),
                 new KeyValueMemberName(THREAD_SET_REMOVE,getAliasThreadSetRemove()),
                 new KeyValueMemberName(THREAD_SET_SNAPSHOT,getAliasThreadSetSnapshot())));
-        m_.addEntry(getAliasReentrantLock(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LOCK,getAliasLock()),
-                new KeyValueMemberName(UNLOCK,getAliasUnlock()),
-                new KeyValueMemberName(IS_HELD_BY_CURRENT_THREAD,getAliasIsHeldByCurrentThread())));
+//        m_.addEntry(getAliasReentrantLock(), new CustList<KeyValueMemberName>(
+//                new KeyValueMemberName(LOCK,getAliasLock()),
+//                new KeyValueMemberName(UNLOCK,getAliasUnlock()),
+//                new KeyValueMemberName(IS_HELD_BY_CURRENT_THREAD,getAliasIsHeldByCurrentThread())));
         m_.addEntry(getAliasRunnable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(RUN,getAliasRun())));
         m_.addEntry(getAliasFormatType(), new CustList<KeyValueMemberName>(
@@ -1914,7 +1915,7 @@ public final class CustAliases {
         StringMap<String> ref_ = new StringMap<String>();
         ref_.addEntry(THREAD,getAliasThread());
         ref_.addEntry(THREAD_SET,getAliasThreadSet());
-        ref_.addEntry(REENTRANT_LOCK,getAliasReentrantLock());
+//        ref_.addEntry(REENTRANT_LOCK,getAliasReentrantLock());
         ref_.addEntry(ATOMIC_BOOLEAN,getAliasAtomicBoolean());
         ref_.addEntry(ATOMIC_INTEGER,getAliasAtomicInteger());
         ref_.addEntry(ATOMIC_LONG,getAliasAtomicLong());
@@ -2034,13 +2035,13 @@ public final class CustAliases {
         aliasThread = _aliasThread;
     }
 
-    public String getAliasThreadExitHook() {
-        return aliasThreadExitHook;
-    }
-
-    public void setAliasThreadExitHook(String _aliasThreadExitHook) {
-        this.aliasThreadExitHook = _aliasThreadExitHook;
-    }
+//    public String getAliasThreadExitHook() {
+//        return aliasThreadExitHook;
+//    }
+//
+//    public void setAliasThreadExitHook(String _aliasThreadExitHook) {
+//        this.aliasThreadExitHook = _aliasThreadExitHook;
+//    }
 
     public String getAliasThreadCurrentTime() {
         return aliasThreadCurrentTime;
@@ -2150,36 +2151,36 @@ public final class CustAliases {
     public void setAliasSetPriority(String _aliasSetPriority) {
         aliasSetPriority = _aliasSetPriority;
     }
-    public String getAliasYield() {
-        return aliasYield;
-    }
-    public void setAliasYield(String _aliasYield) {
-        aliasYield = _aliasYield;
-    }
-    public String getAliasReentrantLock() {
-        return aliasReentrantLock;
-    }
-    public void setAliasReentrantLock(String _aliasReentrantLock) {
-        aliasReentrantLock = _aliasReentrantLock;
-    }
-    public String getAliasLock() {
-        return aliasLock;
-    }
-    public void setAliasLock(String _aliasLock) {
-        aliasLock = _aliasLock;
-    }
-    public String getAliasUnlock() {
-        return aliasUnlock;
-    }
-    public void setAliasUnlock(String _aliasUnlock) {
-        aliasUnlock = _aliasUnlock;
-    }
-    public String getAliasIsHeldByCurrentThread() {
-        return aliasIsHeldByCurrentThread;
-    }
-    public void setAliasIsHeldByCurrentThread(String _aliasIsHeldByCurrentThread) {
-        aliasIsHeldByCurrentThread = _aliasIsHeldByCurrentThread;
-    }
+//    public String getAliasYield() {
+//        return aliasYield;
+//    }
+//    public void setAliasYield(String _aliasYield) {
+//        aliasYield = _aliasYield;
+//    }
+//    public String getAliasReentrantLock() {
+//        return aliasReentrantLock;
+//    }
+//    public void setAliasReentrantLock(String _aliasReentrantLock) {
+//        aliasReentrantLock = _aliasReentrantLock;
+//    }
+//    public String getAliasLock() {
+//        return aliasLock;
+//    }
+//    public void setAliasLock(String _aliasLock) {
+//        aliasLock = _aliasLock;
+//    }
+//    public String getAliasUnlock() {
+//        return aliasUnlock;
+//    }
+//    public void setAliasUnlock(String _aliasUnlock) {
+//        aliasUnlock = _aliasUnlock;
+//    }
+//    public String getAliasIsHeldByCurrentThread() {
+//        return aliasIsHeldByCurrentThread;
+//    }
+//    public void setAliasIsHeldByCurrentThread(String _aliasIsHeldByCurrentThread) {
+//        aliasIsHeldByCurrentThread = _aliasIsHeldByCurrentThread;
+//    }
     public String getAliasAtomicBoolean() {
         return aliasAtomicBoolean;
     }

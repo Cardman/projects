@@ -15,13 +15,13 @@ public class CustInitializer extends DefaultInitializer {
 
 	/**Used map in order that the user can easily log when a few thread is used (depends on Thread class implementation)*/
 	private final ThreadSetStruct threadSet;
-    private final ThreadSetStruct hooks;
+//    private final ThreadSetStruct hooks;
 	private final AbstractAtomicLong countThreads;
 
     public CustInitializer(AbstractAtomicLong _value,AbstractInterceptor _concurrent) {
         countThreads = _value;
         threadSet = new ThreadSetStruct(_concurrent);
-        hooks = new ThreadSetStruct(_concurrent);
+//        hooks = new ThreadSetStruct(_concurrent);
     }
     @Override
     protected Struct init(ContextEl _context, Struct _parent,
@@ -80,31 +80,31 @@ public class CustInitializer extends DefaultInitializer {
             t_.join();
         }
     }
-    public void launchHooks(RunnableContextEl _ctx, StackCall _stackCall) {
-        CustList<Struct> inst_ = hooks.toSnapshotArray(_ctx, _stackCall).list();
-        for (Struct s: inst_) {
-            if (!(s instanceof ThreadStruct)) {
-                continue;
-            }
-            ((ThreadStruct)s).start();
-        }
-        for (Struct s: inst_) {
-            if (!(s instanceof ThreadStruct)) {
-                continue;
-            }
-            AbstractThread t_ = ((ThreadStruct)s).getThread();
-            t_.join();
-        }
-    }
-    public void joinHooks(RunnableContextEl _ctx) {
-        for (Struct s: hooks.toSnapshotArray(_ctx, StackCall.newInstance(InitPhase.NOTHING,_ctx)).list()) {
-            if (!(s instanceof ThreadStruct)) {
-                continue;
-            }
-            AbstractThread t_ = ((ThreadStruct)s).getThread();
-            t_.join();
-        }
-    }
+//    public void launchHooks(RunnableContextEl _ctx, StackCall _stackCall) {
+//        CustList<Struct> inst_ = hooks.toSnapshotArray(_ctx, _stackCall).list();
+//        for (Struct s: inst_) {
+//            if (!(s instanceof ThreadStruct)) {
+//                continue;
+//            }
+//            ((ThreadStruct)s).start();
+//        }
+//        for (Struct s: inst_) {
+//            if (!(s instanceof ThreadStruct)) {
+//                continue;
+//            }
+//            AbstractThread t_ = ((ThreadStruct)s).getThread();
+//            t_.join();
+//        }
+//    }
+//    public void joinHooks(RunnableContextEl _ctx) {
+//        for (Struct s: hooks.toSnapshotArray(_ctx, StackCall.newInstance(InitPhase.NOTHING,_ctx)).list()) {
+//            if (!(s instanceof ThreadStruct)) {
+//                continue;
+//            }
+//            AbstractThread t_ = ((ThreadStruct)s).getThread();
+//            t_.join();
+//        }
+//    }
     void putNewCustTreadIdDate(RunnableContextEl _id, String _value) {
         _id.setIdDate(_value);
         threadSet.add(_id.getThread());
@@ -114,9 +114,9 @@ public class CustInitializer extends DefaultInitializer {
         return threadSet;
     }
 
-    public void initHook(ThreadStruct _id) {
-        hooks.add(_id);
-    }
+//    public void initHook(ThreadStruct _id) {
+//        hooks.add(_id);
+//    }
 
     long increment() {
     	return countThreads.getAndIncrement();
