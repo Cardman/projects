@@ -92,15 +92,15 @@ final class GamePresidentProg {
         return new HandPresident();
     }
 
-    private static HandPresident oneElt(boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep, ByteTreeMap<HandPresident> m_, CustList<HandPresident> notEmpty_, int nb_) {
-        if (notEmpty_.first().total() == nb_) {
-            return notEmpty_.first();
+    private static HandPresident oneElt(boolean _reversed, RulesPresident _rules, TreeMap<CardPresident, Byte> _rep, ByteTreeMap<HandPresident> _m, CustList<HandPresident> _notEmpty, int _nb) {
+        if (_notEmpty.first().total() == _nb) {
+            return _notEmpty.first();
         }
         //notEmpty_.first().total() > progressingTrick.getNombreDeCartesParJoueur()
-        if (GamePresidentCommon.dominantGroup(_reversed, _rules, notEmpty_.first(), nb_, _rep, m_)) {
+        if (GamePresidentCommon.dominantGroup(_reversed, _rules, _notEmpty.first(), _nb, _rep, _m)) {
             HandPresident h_ = new HandPresident();
-            for (int i = IndexConstants.FIRST_INDEX; i < nb_; i++) {
-                h_.ajouter(notEmpty_.first().carte(i));
+            for (int i = IndexConstants.FIRST_INDEX; i < _nb; i++) {
+                h_.ajouter(_notEmpty.first().carte(i));
             }
             return h_;
         }
