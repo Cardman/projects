@@ -15,10 +15,7 @@ import cards.network.belote.displaying.players.RefreshHandPlayingBelote;
 import cards.network.belote.displaying.players.RefreshingDoneBelote;
 import cards.network.belote.unlock.AllowBiddingBelote;
 import cards.network.belote.unlock.AllowPlayingBelote;
-import cards.network.common.ByeCards;
-import cards.network.common.PlayerActionGame;
-import cards.network.common.PlayerActionGameType;
-import cards.network.common.Quit;
+import cards.network.common.*;
 import cards.network.common.before.*;
 import cards.network.common.select.TeamsPlayers;
 import cards.network.president.actions.DiscardedCards;
@@ -171,6 +168,14 @@ public final class SendReceiveServerCards extends BasicServer {
             return;
         }
         if (playerActionBeforeGame_ instanceof Ready) {
+            if (Net.getGames(_instance).enCoursDePartie()) {
+                int noClient_ = playerActionBeforeGame_.getIndex();
+                Net.getReadyPlayers(_instance).put(noClient_, (( Ready)playerActionBeforeGame_).isReady());
+                if (Net.allReady(_instance)) {
+                    Net.sendOkToQuit(_instance);
+                }
+                return;
+            }
             int noClient_ = playerActionBeforeGame_.getIndex();
             Net.getReadyPlayers(_instance).put(noClient_, (( Ready)playerActionBeforeGame_).isReady());
             for(AbstractSocket so_:Net.getSockets(_instance).values()) {
@@ -189,7 +194,26 @@ public final class SendReceiveServerCards extends BasicServer {
         }
         PlayerActionGame playerActionGame_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
         if (playerActionGame_ instanceof Quit) {
-            quitProcess((Quit) playerActionGame_, _instance,_fct);
+            Quit q_ = ((Quit) playerActionGame_);
+
+            Bytes pls_ = Net.activePlayers(_instance);
+            for (byte p: pls_) {
+                ByeCards forcedBye_ = new ByeCards();
+                forcedBye_.setForced(true);
+                forcedBye_.setClosing(false);
+                if (p == q_.getPlace()) {
+                    forcedBye_.setServer(true);
+                    forcedBye_.setClosing(q_.isClosing());
+                }
+                Net.sendObject(Net.getSocketByPlace(p, _instance),forcedBye_);
+            }
+            Net.getNicknames(_instance).clear();
+            Net.getGames(_instance).finirParties();
+            Net.getPlacesPlayers(_instance).clear();
+            Net.getSockets(_instance).clear();
+            Net.getConnectionsServer(_instance).clear();
+            Net.getReadyPlayers(_instance).clear();
+//            quitProcess((Quit) playerActionGame_, _instance,_fct);
             return;
         }
         if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_PLAY_GAME,tag_)) {
@@ -1357,247 +1381,247 @@ public final class SendReceiveServerCards extends BasicServer {
         }
     }
 
-    private static void quitProcess(Quit _readObject, Net _instance, AbstractThreadFactory _fct) {
-        if (_readObject.isServer()) {
-            if (!Net.delegateServer(_readObject, _instance)) {
-                return;
-            }
-        }
-        Net.quit(_readObject.getPlace(), _instance);
-        ByeCards forcedBye_ = new ByeCards();
-        forcedBye_.setForced(false);
-        forcedBye_.setServer(false);
-        forcedBye_.setClosing(_readObject.isClosing());
-        Ints placesPlayersByValue_ = Net.getPlacesPlayersByValue(_readObject.getPlace(), _instance);
-        if (!placesPlayersByValue_.isEmpty()) {
-            Net.removePlayer(placesPlayersByValue_.first(), forcedBye_, _instance);
-        }
-        if (Net.getGames(_instance).enCoursDePartieBelote()) {
-            GameBelote game_ = Net.getGames(_instance).partieBelote();
-            if (!game_.keepPlayingCurrentGame()) {
-                return;
-            }
-            if (game_.keepBidding()) {
-                byte place_ = game_.playerHavingToBid();
-                if (place_ == _readObject.getPlace()) {
-                    ThreadUtil.sleep(_fct,1000);
-                    if (game_.playerHasAlreadyBidded(place_)) {
-                        return;
-                    }
-                    BiddingBelote bid_ = new BiddingBelote();
-                    bid_.setPlace(place_);
-                    bid_.setBidBelote(game_.getLastBid());
-                    bid_.setLocale(Constants.getDefaultLanguage());
-                    for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
-                    }
-                }
-            } else {
-                byte place_ = game_.playerHavingToPlay();
-                if (place_ == _readObject.getPlace()) {
-                    ThreadUtil.sleep(_fct,800);
-                    if (game_.currentPlayerHasPlayed(place_)) {
-                        return;
-                    }
-                    CardBelote card_ = game_.getCarteJouee();
-                    boolean declareBeloteRebelote_ = game_.getAnnoncesBeloteRebelote(place_).contient(card_);
-                    PlayingCardBelote cardDto_ = new PlayingCardBelote();
-                    cardDto_.setPlace(place_);
-                    cardDto_.setPlayedCard(card_);
-                    cardDto_.setDeclaringBeloteRebelote(declareBeloteRebelote_);
-                    cardDto_.setDeclare(game_.getAnnonce(place_));
-                    cardDto_.setLocale(Constants.getDefaultLanguage());
-                    Net.initAllReceived(_instance);
-                    for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), cardDto_);
-                    }
-                }
-            }
-            return;
-        }
-        if (Net.getGames(_instance).enCoursDePartiePresident()) {
-            GamePresident game_ = Net.getGames(_instance).partiePresident();
-            if (!game_.keepPlayingCurrentGame()) {
-                return;
-            }
-            byte player_ = _readObject.getPlace();
-            Bytes pl_ = Net.activePlayers(_instance);
-            if (game_.availableSwitchingCards() && !game_.readyToPlayMulti(pl_)) {
-                Bytes humWin_ = game_.getWinners(new Bytes(player_));
-                if (!humWin_.isEmpty()) {
-                    HandPresident h_ = game_.strategieEchange(player_);
-                    if (!game_.giveWorstCards(pl_, player_, h_)) {
-                        return;
-                    }
-                    humWin_ = game_.getWinners(pl_);
-                    Bytes humLos_ = game_.getLoosers(pl_);
-                    Bytes humLosReceiving_ = new Bytes();
-                    for (byte p: humLos_) {
-                        byte w_ = game_.getMatchingWinner(p);
-                        if (humWin_.containsObj(w_)) {
-                            humLosReceiving_.add(p);
-                        }
-                    }
-                    if (!humLosReceiving_.isEmpty()) {
-                        //refresh hands of losers
-                        ReceivedGivenCards disAfter_ = new ReceivedGivenCards();
-                        for (byte p: humLos_) {
-                            byte w_ = game_.getMatchingWinner(p);
-                            disAfter_.setReceived(game_.getSwitchedCards().get(w_));
-                            disAfter_.setGiven(game_.getSwitchedCards().get(p));
-                            disAfter_.setNewHand(game_.getDistribution().hand(w_));
-                            Net.sendObject(Net.getSocketByPlace(p, _instance), disAfter_);
-                        }
-                        return;
-                    }
-                    playingPresidentCard(_instance,_fct);
-                }
-                return;
-            }
-            if (game_.getNextPlayer() == player_) {
-                ThreadUtil.sleep(_fct,800);
-                if (game_.currentPlayerHasPlayed(player_)) {
-                    return;
-                }
-                PlayingCardPresident cardDto_ = new PlayingCardPresident();
-                cardDto_.setPlayedHand(game_.getPlayedCards());
-                cardDto_.setPlace(player_);
-                cardDto_.setNextPlayer(game_.getNextPlayer());
-                cardDto_.setStatus(game_.getLastStatus());
-                cardDto_.setPlayedCard(CardPresident.WHITE);
-                cardDto_.setLocale(Constants.getDefaultLanguage());
-                Net.initAllReceived(_instance);
-                for (byte p: Net.activePlayers(_instance)) {
-                    Net.sendObject(Net.getSocketByPlace(p, _instance),cardDto_);
-                }
-            }
-            return;
-        }
-        if (Net.getGames(_instance).enCoursDePartieTarot()) {
-            GameTarot game_ = Net.getGames(_instance).partieTarot();
-            if (!game_.keepPlayingCurrentGame()) {
-                return;
-            }
-            if (game_.keepBidding()) {
-                byte place_ = game_.playerHavingToBid();
-                if (place_ == _readObject.getPlace()) {
-                    ThreadUtil.sleep(_fct,1000);
-                    if (game_.playerHasAlreadyBidded(place_)) {
-                        return;
-                    }
-                    BiddingTarot bid_ = new BiddingTarot();
-                    bid_.setPlace(place_);
-                    bid_.setBid(game_.getLastBid());
-                    bid_.setLocale(Constants.getDefaultLanguage());
-                    for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
-                    }
-                }
-                return;
-            }
-            if (!game_.unionPlis().isEmpty() && game_.getPliEnCours().getVuParToutJoueur() && game_.keepPlayingCurrentTrick()) {
-                byte place_ = game_.playerHavingToBid();
-                if (place_ == _readObject.getPlace()) {
-                    ThreadUtil.sleep(_fct,800);
-                    if (game_.currentPlayerHasPlayed(place_)) {
-                        return;
-                    }
-                    CardTarot card_ = game_.getCarteJoueee();
-                    PlayingCardTarot cardDto_ = new PlayingCardTarot();
-                    cardDto_.setPlace(place_);
-                    cardDto_.setPlayedCard(card_);
-                    EnumList<Handfuls> annoncesPoignees_ = game_.getAnnoncesPoignees(place_);
-                    EnumList<Miseres> annoncesMiseres_ = game_.getAnnoncesMiseres(place_);
-                    HandTarot poignee_=game_.getPoignee(place_);
-                    if (!annoncesPoignees_.isEmpty()) {
-                        cardDto_.setChoosenHandful(annoncesPoignees_.first());
-                    } else {
-                        cardDto_.setChoosenHandful(Handfuls.NO);
-                    }
-                    cardDto_.setHandful(poignee_);
-                    cardDto_.setMiseres(annoncesMiseres_);
-                    cardDto_.setExcludedTrumps(new HandTarot());
-                    cardDto_.setLocale(Constants.getDefaultLanguage());
-                    Net.initAllReceived(_instance);
-                    for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), cardDto_);
-                    }
-                }
-                return;
-            }
-            if (!game_.getRegles().getDiscardAfterCall()) {
-                game_.appelApresEcart();
-                CalledCards calledCards_ = new CalledCards();
-                calledCards_.setPlace(game_.getPreneur());
-                calledCards_.setCalledCards(game_.getCarteAppelee());
-                calledCards_.setLocale(Constants.getDefaultLanguage());
-                Net.initAllReceived(_instance);
-                for (byte p: Net.activePlayers(_instance)) {
-                    Net.sendObject(Net.getSocketByPlace(p, _instance), calledCards_);
-                }
-                return;
-            }
-            HandTarot callableCards_ = game_.callableCards();
-            if (!callableCards_.estVide()) {
-                if (game_.getCarteAppelee().estVide()) {
-                    game_.intelligenceArtificielleAppel();
-                    CalledCards calledCards_ = new CalledCards();
-                    calledCards_.setPlace(game_.getPreneur());
-                    calledCards_.setCalledCards(game_.getCarteAppelee());
-                    calledCards_.setLocale(Constants.getDefaultLanguage());
-                    Net.initAllReceived(_instance);
-                    for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), calledCards_);
-                    }
-                    return;
-                }
-            }
-
-            if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
-                game_.ecarter(game_.unionPlis().isEmpty());
-                if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
-                    DiscardedTrumps discarded_ = new DiscardedTrumps();
-                    discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
-                    Net.initAllReceived(_instance);
-                    for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), discarded_);
-                    }
-                    return;
-                }
-                if (game_.chelemAnnonce()) {
-                    PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
-                    bid_.setPlace(game_.getPreneur());
-                    bid_.setLocale(Constants.getDefaultLanguage());
-                    for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
-                    }
-                    return;
-                }
-                byte dealer_=game_.getDistribution().getDealer();
-                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
-                game_.setEntameur(game_.playerAfter(dealer_));
-                game_.setPliEnCours(true);
-                playingTarotCard(_instance,_fct);
-                return;
-            }
-            game_.gererChienInconnu();
-            if (!game_.getContrat().isFaireTousPlis()) {
-                game_.slam();
-                if (game_.chelemAnnonce()) {
-                    Net.initAllReceived(_instance);
-                    PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
-                    bid_.setPlace(game_.getPreneur());
-                    bid_.setLocale(Constants.getDefaultLanguage());
-                    for (byte p: Net.activePlayers(_instance)) {
-                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
-                    }
-                    return;
-                }
-            }
-            game_.setPliEnCours(true);
-            playingTarotCard(_instance,_fct);
-        }
-    }
+//    private static void quitProcess(Quit _readObject, Net _instance, AbstractThreadFactory _fct) {
+//        if (_readObject.isServer()) {
+//            if (!Net.delegateServer(_readObject, _instance)) {
+//                return;
+//            }
+//        }
+//        Net.quit(_readObject.getPlace(), _instance);
+//        ByeCards forcedBye_ = new ByeCards();
+//        forcedBye_.setForced(false);
+//        forcedBye_.setServer(false);
+//        forcedBye_.setClosing(_readObject.isClosing());
+//        Ints placesPlayersByValue_ = Net.getPlacesPlayersByValue(_readObject.getPlace(), _instance);
+//        if (!placesPlayersByValue_.isEmpty()) {
+//            Net.removePlayer(placesPlayersByValue_.first(), forcedBye_, _instance);
+//        }
+//        if (Net.getGames(_instance).enCoursDePartieBelote()) {
+//            GameBelote game_ = Net.getGames(_instance).partieBelote();
+//            if (!game_.keepPlayingCurrentGame()) {
+//                return;
+//            }
+//            if (game_.keepBidding()) {
+//                byte place_ = game_.playerHavingToBid();
+//                if (place_ == _readObject.getPlace()) {
+//                    ThreadUtil.sleep(_fct,1000);
+//                    if (game_.playerHasAlreadyBidded(place_)) {
+//                        return;
+//                    }
+//                    BiddingBelote bid_ = new BiddingBelote();
+//                    bid_.setPlace(place_);
+//                    bid_.setBidBelote(game_.getLastBid());
+//                    bid_.setLocale(Constants.getDefaultLanguage());
+//                    for (byte p: Net.activePlayers(_instance)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
+//                    }
+//                }
+//            } else {
+//                byte place_ = game_.playerHavingToPlay();
+//                if (place_ == _readObject.getPlace()) {
+//                    ThreadUtil.sleep(_fct,800);
+//                    if (game_.currentPlayerHasPlayed(place_)) {
+//                        return;
+//                    }
+//                    CardBelote card_ = game_.getCarteJouee();
+//                    boolean declareBeloteRebelote_ = game_.getAnnoncesBeloteRebelote(place_).contient(card_);
+//                    PlayingCardBelote cardDto_ = new PlayingCardBelote();
+//                    cardDto_.setPlace(place_);
+//                    cardDto_.setPlayedCard(card_);
+//                    cardDto_.setDeclaringBeloteRebelote(declareBeloteRebelote_);
+//                    cardDto_.setDeclare(game_.getAnnonce(place_));
+//                    cardDto_.setLocale(Constants.getDefaultLanguage());
+//                    Net.initAllReceived(_instance);
+//                    for (byte p: Net.activePlayers(_instance)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _instance), cardDto_);
+//                    }
+//                }
+//            }
+//            return;
+//        }
+//        if (Net.getGames(_instance).enCoursDePartiePresident()) {
+//            GamePresident game_ = Net.getGames(_instance).partiePresident();
+//            if (!game_.keepPlayingCurrentGame()) {
+//                return;
+//            }
+//            byte player_ = _readObject.getPlace();
+//            Bytes pl_ = Net.activePlayers(_instance);
+//            if (game_.availableSwitchingCards() && !game_.readyToPlayMulti(pl_)) {
+//                Bytes humWin_ = game_.getWinners(new Bytes(player_));
+//                if (!humWin_.isEmpty()) {
+//                    HandPresident h_ = game_.strategieEchange(player_);
+//                    if (!game_.giveWorstCards(pl_, player_, h_)) {
+//                        return;
+//                    }
+//                    humWin_ = game_.getWinners(pl_);
+//                    Bytes humLos_ = game_.getLoosers(pl_);
+//                    Bytes humLosReceiving_ = new Bytes();
+//                    for (byte p: humLos_) {
+//                        byte w_ = game_.getMatchingWinner(p);
+//                        if (humWin_.containsObj(w_)) {
+//                            humLosReceiving_.add(p);
+//                        }
+//                    }
+//                    if (!humLosReceiving_.isEmpty()) {
+//                        //refresh hands of losers
+//                        ReceivedGivenCards disAfter_ = new ReceivedGivenCards();
+//                        for (byte p: humLos_) {
+//                            byte w_ = game_.getMatchingWinner(p);
+//                            disAfter_.setReceived(game_.getSwitchedCards().get(w_));
+//                            disAfter_.setGiven(game_.getSwitchedCards().get(p));
+//                            disAfter_.setNewHand(game_.getDistribution().hand(w_));
+//                            Net.sendObject(Net.getSocketByPlace(p, _instance), disAfter_);
+//                        }
+//                        return;
+//                    }
+//                    playingPresidentCard(_instance,_fct);
+//                }
+//                return;
+//            }
+//            if (game_.getNextPlayer() == player_) {
+//                ThreadUtil.sleep(_fct,800);
+//                if (game_.currentPlayerHasPlayed(player_)) {
+//                    return;
+//                }
+//                PlayingCardPresident cardDto_ = new PlayingCardPresident();
+//                cardDto_.setPlayedHand(game_.getPlayedCards());
+//                cardDto_.setPlace(player_);
+//                cardDto_.setNextPlayer(game_.getNextPlayer());
+//                cardDto_.setStatus(game_.getLastStatus());
+//                cardDto_.setPlayedCard(CardPresident.WHITE);
+//                cardDto_.setLocale(Constants.getDefaultLanguage());
+//                Net.initAllReceived(_instance);
+//                for (byte p: Net.activePlayers(_instance)) {
+//                    Net.sendObject(Net.getSocketByPlace(p, _instance),cardDto_);
+//                }
+//            }
+//            return;
+//        }
+//        if (Net.getGames(_instance).enCoursDePartieTarot()) {
+//            GameTarot game_ = Net.getGames(_instance).partieTarot();
+//            if (!game_.keepPlayingCurrentGame()) {
+//                return;
+//            }
+//            if (game_.keepBidding()) {
+//                byte place_ = game_.playerHavingToBid();
+//                if (place_ == _readObject.getPlace()) {
+//                    ThreadUtil.sleep(_fct,1000);
+//                    if (game_.playerHasAlreadyBidded(place_)) {
+//                        return;
+//                    }
+//                    BiddingTarot bid_ = new BiddingTarot();
+//                    bid_.setPlace(place_);
+//                    bid_.setBid(game_.getLastBid());
+//                    bid_.setLocale(Constants.getDefaultLanguage());
+//                    for (byte p: Net.activePlayers(_instance)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
+//                    }
+//                }
+//                return;
+//            }
+//            if (!game_.unionPlis().isEmpty() && game_.getPliEnCours().getVuParToutJoueur() && game_.keepPlayingCurrentTrick()) {
+//                byte place_ = game_.playerHavingToBid();
+//                if (place_ == _readObject.getPlace()) {
+//                    ThreadUtil.sleep(_fct,800);
+//                    if (game_.currentPlayerHasPlayed(place_)) {
+//                        return;
+//                    }
+//                    CardTarot card_ = game_.getCarteJoueee();
+//                    PlayingCardTarot cardDto_ = new PlayingCardTarot();
+//                    cardDto_.setPlace(place_);
+//                    cardDto_.setPlayedCard(card_);
+//                    EnumList<Handfuls> annoncesPoignees_ = game_.getAnnoncesPoignees(place_);
+//                    EnumList<Miseres> annoncesMiseres_ = game_.getAnnoncesMiseres(place_);
+//                    HandTarot poignee_=game_.getPoignee(place_);
+//                    if (!annoncesPoignees_.isEmpty()) {
+//                        cardDto_.setChoosenHandful(annoncesPoignees_.first());
+//                    } else {
+//                        cardDto_.setChoosenHandful(Handfuls.NO);
+//                    }
+//                    cardDto_.setHandful(poignee_);
+//                    cardDto_.setMiseres(annoncesMiseres_);
+//                    cardDto_.setExcludedTrumps(new HandTarot());
+//                    cardDto_.setLocale(Constants.getDefaultLanguage());
+//                    Net.initAllReceived(_instance);
+//                    for (byte p: Net.activePlayers(_instance)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _instance), cardDto_);
+//                    }
+//                }
+//                return;
+//            }
+//            if (!game_.getRegles().getDiscardAfterCall()) {
+//                game_.appelApresEcart();
+//                CalledCards calledCards_ = new CalledCards();
+//                calledCards_.setPlace(game_.getPreneur());
+//                calledCards_.setCalledCards(game_.getCarteAppelee());
+//                calledCards_.setLocale(Constants.getDefaultLanguage());
+//                Net.initAllReceived(_instance);
+//                for (byte p: Net.activePlayers(_instance)) {
+//                    Net.sendObject(Net.getSocketByPlace(p, _instance), calledCards_);
+//                }
+//                return;
+//            }
+//            HandTarot callableCards_ = game_.callableCards();
+//            if (!callableCards_.estVide()) {
+//                if (game_.getCarteAppelee().estVide()) {
+//                    game_.intelligenceArtificielleAppel();
+//                    CalledCards calledCards_ = new CalledCards();
+//                    calledCards_.setPlace(game_.getPreneur());
+//                    calledCards_.setCalledCards(game_.getCarteAppelee());
+//                    calledCards_.setLocale(Constants.getDefaultLanguage());
+//                    Net.initAllReceived(_instance);
+//                    for (byte p: Net.activePlayers(_instance)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _instance), calledCards_);
+//                    }
+//                    return;
+//                }
+//            }
+//
+//            if (game_.getContrat().getJeuChien() == PlayingDog.WITH) {
+//                game_.ecarter(game_.unionPlis().isEmpty());
+//                if (!game_.getPliEnCours().getCartes().couleur(Suit.TRUMP).estVide()) {
+//                    DiscardedTrumps discarded_ = new DiscardedTrumps();
+//                    discarded_.setTrumps(game_.getPliEnCours().getCartes().couleur(Suit.TRUMP));
+//                    Net.initAllReceived(_instance);
+//                    for (byte p: Net.activePlayers(_instance)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _instance), discarded_);
+//                    }
+//                    return;
+//                }
+//                if (game_.chelemAnnonce()) {
+//                    PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
+//                    bid_.setPlace(game_.getPreneur());
+//                    bid_.setLocale(Constants.getDefaultLanguage());
+//                    for (byte p: Net.activePlayers(_instance)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
+//                    }
+//                    return;
+//                }
+//                byte dealer_=game_.getDistribution().getDealer();
+//                /*Si un joueur n'a pas annonce de Chelem on initialise l'entameur du premier pli*/
+//                game_.setEntameur(game_.playerAfter(dealer_));
+//                game_.setPliEnCours(true);
+//                playingTarotCard(_instance,_fct);
+//                return;
+//            }
+//            game_.gererChienInconnu();
+//            if (!game_.getContrat().isFaireTousPlis()) {
+//                game_.slam();
+//                if (game_.chelemAnnonce()) {
+//                    Net.initAllReceived(_instance);
+//                    PlayerActionGame bid_ = new PlayerActionGame(PlayerActionGameType.SLAM);
+//                    bid_.setPlace(game_.getPreneur());
+//                    bid_.setLocale(Constants.getDefaultLanguage());
+//                    for (byte p: Net.activePlayers(_instance)) {
+//                        Net.sendObject(Net.getSocketByPlace(p, _instance), bid_);
+//                    }
+//                    return;
+//                }
+//            }
+//            game_.setPliEnCours(true);
+//            playingTarotCard(_instance,_fct);
+//        }
+//    }
     private static void endGameBelote(Net _instance) {
         StringList players_ = new StringList();
         int nbPlayers_ = Net.getGames(_instance).partieBelote().getNombreDeJoueurs();

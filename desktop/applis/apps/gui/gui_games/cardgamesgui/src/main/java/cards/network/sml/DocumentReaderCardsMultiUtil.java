@@ -86,6 +86,7 @@ public final class DocumentReaderCardsMultiUtil {
     public static final String TYPE_RECEIVED_GIVEN_CARDS = "ReceivedGivenCards";
     public static final String TYPE_DEALT_HAND_PRESIDENT = "DealtHandPresident";
     public static final String TYPE_DEALT_HAND_BELOTE = "DealtHandBelote";
+    public static final String TYPE_ENABLED_QUIT = "EnabledQuit";
 
     private static final String ATTR_FIELD = "field";
     private static final char DOT = '.';

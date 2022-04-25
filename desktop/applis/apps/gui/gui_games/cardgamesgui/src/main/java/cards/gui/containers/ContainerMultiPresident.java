@@ -472,6 +472,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
     }
 
     private void placerIhmPresidentMulti(ByteMap<Playing> _status, int _nbMax) {
+        getMultiStop().setEnabledMenu(hasCreatedServer());
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
         String lg_ = getOwner().getLanguageKey();
@@ -532,6 +533,10 @@ public class ContainerMultiPresident extends ContainerPresident implements
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
+        readyToPlay = false;
+        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
+        ready.addActionListener(new ReadyEvent(this));
+        panel_.add(ready);
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
@@ -627,6 +632,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void endGame(ResultsPresident _res) {
         /*Descativer aide au jeu*/
+        getMultiStop().setEnabledMenu(true);
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);

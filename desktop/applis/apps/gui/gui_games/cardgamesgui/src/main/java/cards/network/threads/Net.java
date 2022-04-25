@@ -19,6 +19,7 @@ import cards.network.president.displaying.ReceivedGivenCards;
 import cards.network.president.displaying.errors.ErrorPlayingPresident;
 import cards.network.president.unlock.AllowDiscarding;
 import cards.network.president.unlock.AllowPlayingPresident;
+import cards.network.sml.DocumentReaderCardsMultiUtil;
 import cards.network.sml.DocumentWriterCardsMultiUtil;
 import cards.network.tarot.Dog;
 import cards.network.tarot.actions.DiscardedTrumps;
@@ -39,6 +40,7 @@ import code.network.NetGroupFrame;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class Net {
 
@@ -57,6 +59,7 @@ public final class Net {
 
 
     private IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
+    private IntMap<BoolVal> servers =new IntMap<BoolVal>();
 
     private IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
 
@@ -421,6 +424,17 @@ public final class Net {
      * @param _instance*/
     public static IntMap<AbstractSocket> getSockets(Net _instance) {
         return _instance.sockets;
+    }
+    public static IntMap<BoolVal> getServers(Net _instance) {
+        return _instance.servers;
+    }
+    public static void sendOkToQuit(Net _instance) {
+        for (EntryCust<Integer, BoolVal> e: getServers(_instance).entryList()) {
+            if (e.getValue() == BoolVal.TRUE) {
+                AbstractSocket val_ = getSockets(_instance).getVal(e.getKey());
+                sendText(val_,"<"+ DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+"></"+DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+">");
+            }
+        }
     }
 
     /**server

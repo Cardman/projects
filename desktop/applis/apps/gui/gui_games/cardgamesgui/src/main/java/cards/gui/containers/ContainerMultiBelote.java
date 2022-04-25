@@ -683,6 +683,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
     }
 
     private void placerIhmBeloteMulti(HandBelote _cardsOnDeck, byte _beginPlace) {
+        getMultiStop().setEnabledMenu(hasCreatedServer());
         AbsPanel container_ = getOwner().getCompoFactory().newBorder();
         container_.add(getOwner().getCompoFactory().newPlainLabel(getMessages().getVal(WindowCards.HELP_GO_MENU)), GuiConstants.BORDER_LAYOUT_NORTH);
         ByteTreeMap< String> pseudos_ = new ByteTreeMap< String>();
@@ -742,6 +743,10 @@ public class ContainerMultiBelote extends ContainerBelote implements
         panel_.add(getOwner().getCompoFactory().newAbsScrollPane(container_));
         canPlayLabel.setText(EMPTY_STRING);
         panel_.add(canPlayLabel);
+        readyToPlay = false;
+        ready = getOwner().getCompoFactory().newCustCheckBox(getMessages().getVal(WindowCards.READY));
+        ready.addActionListener(new ReadyEvent(this));
+        panel_.add(ready);
         panel_.add(getWindow().getClock());
         panel_.add(getWindow().getLastSavedGameDate());
         setContentPane(panel_);
@@ -815,6 +820,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
     public void endGame(ResultsBelote _res) {
         /*Descativer aide au jeu*/
+        getMultiStop().setEnabledMenu(true);
         getHelpGame().setEnabledMenu(false);
         getOwner().getTricksHands().setEnabledMenu(false);
         getOwner().getTeams().setEnabledMenu(false);
