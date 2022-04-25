@@ -102,16 +102,16 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         ForwardInfos.generalForward( _cont.getDualAnalyzedContext().getAnalyzed(), _cont.getDualAnalyzedContext().getForwards());
     }
 
-    protected static OperationNode rendOp(int _i, DualNavigationContext _conf, OperationsSequence _opTwo, AnalyzingDoc analyzingDoc) {
-        return RenderAnalysis.createOperationNode(_i, IndexConstants.FIRST_INDEX, null, _opTwo, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed());
+    protected static OperationNode rendOp(int _i, DualNavigationContext _conf, OperationsSequence _opTwo, AnalyzingDoc _analyzingDoc) {
+        return RenderAnalysis.createOperationNode(_i, IndexConstants.FIRST_INDEX, null, _opTwo, _analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed());
     }
 
-    protected static OperationsSequence rendOpSeq(int _i, DualNavigationContext _conf, Delimiters _d, String _el, AnalyzingDoc analyzingDoc) {
-        return RenderAnalysis.getOperationsSequence(_i, _el, _d, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed(), null);
+    protected static OperationsSequence rendOpSeq(int _i, DualNavigationContext _conf, Delimiters _d, String _el, AnalyzingDoc _analyzingDoc) {
+        return RenderAnalysis.getOperationsSequence(_i, _el, _d, _analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed(), null);
     }
 
-    protected static CustList<OperationNode> getSortedDescNodes(DualNavigationContext _conf, OperationNode _op, AnalyzingDoc analyzingDoc, Delimiters _d) {
-        return RenderAnalysis.getSortedDescNodes(_op, analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed(),_d);
+    protected static CustList<OperationNode> getSortedDescNodes(DualNavigationContext _conf, OperationNode _op, AnalyzingDoc _analyzingDoc, Delimiters _d) {
+        return RenderAnalysis.getSortedDescNodes(_op, _analyzingDoc, _conf.getDualAnalyzedContext().getAnalyzed(),_d);
     }
 
     protected static OperationsSequence getOperationsSequence(int _offset, String _el, DualNavigationContext _ctx, Delimiters _d) {

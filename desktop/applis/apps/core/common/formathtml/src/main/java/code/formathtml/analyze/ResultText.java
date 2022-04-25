@@ -29,16 +29,16 @@ public final class ResultText {
     private final ResultExpression resultExpression = new ResultExpression();
     private final StringMap<ResultExpression> results = new StringMap<ResultExpression>();
 
-    public static String check(AnalyzedPageEl _page, int rowsGrId_, ClassMethodIdReturn classMethodIdReturn_) {
-        if (classMethodIdReturn_ == null) {
+    public static String check(AnalyzedPageEl _page, int _rowsGrId, ClassMethodIdReturn _classMethodIdReturn) {
+        if (_classMethodIdReturn == null) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
-            badEl_.setIndexFile(rowsGrId_);
+            badEl_.setIndexFile(_rowsGrId);
             badEl_.buildError("");
             AnalyzingDoc.addError(badEl_, _page);
             return _page.getAliasObject();
         }
-        return classMethodIdReturn_.getReturnType();
+        return _classMethodIdReturn.getReturnType();
     }
 
     public void buildIdAna(String _expression, int _begin, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

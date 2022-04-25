@@ -68,9 +68,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -85,7 +85,7 @@ public final class SubmitFormTest extends CommonRender {
         MetaComboBox combo_ = (MetaComboBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.getSelectedIndexes().clear();
         combo_.getSelectedIndexes().add(0);
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
         processRendFormRequest(a_,ctx_);
         assertNotNull(intForm_.getElt());
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -152,9 +152,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -173,7 +173,7 @@ public final class SubmitFormTest extends CommonRender {
         MetaComboList combo_ = (MetaComboList) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.getSelected().clear();
         combo_.getSelected().add(0);
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -231,9 +231,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -245,7 +245,7 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("", ((StringStruct) choice_).getInstance());
         MetaDocument meta_ = getMetaDocument(nav_);
         IntForm intForm_ = meta_.getForms().get(0);
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -291,9 +291,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -317,7 +317,7 @@ public final class SubmitFormTest extends CommonRender {
         combo_.setChecked(true);
         combo_ = (MetaRadioButton) combo_.getNextSibling();
         combo_.setChecked(false);
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -384,9 +384,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -398,7 +398,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setChecked(true);
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -462,9 +462,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -476,7 +476,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setChecked(false);
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -540,9 +540,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -558,7 +558,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaTextField combo_ = (MetaTextField) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setValue("THREE");
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -600,9 +600,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -618,7 +618,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaTextArea combo_ = (MetaTextArea) intForm_.getFirstChildCompo().getFirstChildCompo();
         combo_.setValue("1");
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -683,9 +683,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -705,7 +705,7 @@ public final class SubmitFormTest extends CommonRender {
         number_.setValue("6");
         MetaSlider range_ = (MetaSlider) number_.getNextSibling();
         range_.setValue("8");
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -772,9 +772,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -792,7 +792,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(1);
         MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
         number_.setValue("6");
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -859,9 +859,9 @@ public final class SubmitFormTest extends CommonRender {
         DualNavigationContext a_ = getDualNavigationContext(locale_, folder_, relative_);
         ContextEl ctx_ = ana(filesSec_,getStringMap(folder_, locale_, relative_, content_, html_),a_);
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, ctx_);
-        Navigation navigation = a_.getNavigation();
-        BeanCustLgNames _stds = a_.getDualAnalyzedContext().getStds();
-        initializeRendSessionDoc(_stds, ctx_, navigation, build_);
+        Navigation navigation_ = a_.getNavigation();
+        BeanCustLgNames stds_ = a_.getDualAnalyzedContext().getStds();
+        initializeRendSessionDoc(stds_, ctx_, navigation_, build_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -879,7 +879,7 @@ public final class SubmitFormTest extends CommonRender {
         IntForm intForm_ = meta_.getForms().get(0);
         MetaSlider number_ = (MetaSlider) intForm_.getFirstChildCompo().getNextSibling().getNextSibling().getFirstChildCompo();
         number_.setValue("8");
-        SubmitForm.submit(intForm_, _stds);
+        SubmitForm.submit(intForm_, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
@@ -891,8 +891,8 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(8, ((NumberStruct) choice_).intStruct());
     }
 
-    private void initializeRendSessionDoc(BeanCustLgNames _stds, ContextEl ctx_, Navigation navigation, RendStackCall build_) {
-        _stds.initializeRendSessionDoc(ctx_, navigation, build_);
+    private void initializeRendSessionDoc(BeanCustLgNames _stds, ContextEl _ctx, Navigation _navigation, RendStackCall _build) {
+        _stds.initializeRendSessionDoc(_ctx, _navigation, _build);
     }
 
 

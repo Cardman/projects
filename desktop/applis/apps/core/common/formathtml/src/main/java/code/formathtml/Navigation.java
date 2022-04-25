@@ -88,17 +88,17 @@ public final class Navigation {
         return files;
     }
 
-    public void feedErr(StringMap<Message> map_, StringMap<String> errors_, StringMap<StringList> errorsArgs_) {
-        for (EntryCust<String, Message> e: map_.entryList()) {
+    public void feedErr(StringMap<Message> _map, StringMap<String> _errors, StringMap<StringList> _errorsArgs) {
+        for (EntryCust<String, Message> e: _map.entryList()) {
             Message nCont_ = e.getValue();
             String id_ = e.getKey();
-            errors_.put(id_, nCont_.getContent());
-            errorsArgs_.put(id_, nCont_.getArgs());
+            _errors.put(id_, nCont_.getContent());
+            _errorsArgs.put(id_, nCont_.getArgs());
         }
     }
 
-    public void delPrevious(Document doc_, Element formElement_) {
-        ElementList spansForm_ = formElement_.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
+    public void delPrevious(Document _doc, Element _formElement) {
+        ElementList spansForm_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSpan());
         int lengthSpansForom_ = spansForm_.getLength();
         for (int j = IndexConstants.FIRST_INDEX; j < lengthSpansForom_; j++) {
             Element elt_ = spansForm_.item(j);
@@ -110,7 +110,7 @@ public final class Navigation {
             for (int i = IndexConstants.FIRST_INDEX; i < ch_; i++) {
                 elt_.removeChild(children_.item(i));
             }
-            Text text_ = doc_.createTextNode(RendBlock.SPACE);
+            Text text_ = _doc.createTextNode(RendBlock.SPACE);
             elt_.appendChild(text_);
         }
     }
@@ -176,20 +176,20 @@ public final class Navigation {
         return _list.first();
     }
 
-    private void ra(Element elt_, NodeInformations nCont_) {
-        String value_ = elt_.getAttribute(session.getRendKeyWords().getAttrValue());
-        if (StringUtil.contains(nCont_.getValue(),value_)) {
-            elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
+    private void ra(Element _elt, NodeInformations _nCont) {
+        String value_ = _elt.getAttribute(session.getRendKeyWords().getAttrValue());
+        if (StringUtil.contains(_nCont.getValue(),value_)) {
+            _elt.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
         } else {
-            elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
+            _elt.removeAttribute(session.getRendKeyWords().getAttrChecked());
         }
     }
 
-    private void ch(Element elt_, NodeInformations nCont_) {
-        if (StringUtil.contains(nCont_.getValue(),BeanLgNames.ON)) {
-            elt_.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
+    private void ch(Element _elt, NodeInformations _nCont) {
+        if (StringUtil.contains(_nCont.getValue(),BeanLgNames.ON)) {
+            _elt.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
         } else {
-            elt_.removeAttribute(session.getRendKeyWords().getAttrChecked());
+            _elt.removeAttribute(session.getRendKeyWords().getAttrChecked());
         }
     }
 

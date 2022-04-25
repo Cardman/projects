@@ -250,9 +250,9 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         ContextEl ctx_ = setupRendClassesInit(n_, lgNames_, page_);
-        BeanCustLgNames _stds = page_.getStds();
-        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING, ctx_);
-        initializeRendSessionDoc(_stds, ctx_, n_, _rendStackCall);
+        BeanCustLgNames stds_ = page_.getStds();
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
+        initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
         assertEq(2,page_.getContext().getAddedFiles().size());
         assertEq(0,n_.getLanguages().size());
@@ -339,9 +339,9 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         ContextEl ctx_ = setupRendClassesInit(n_, lgNames_, page_);
-        BeanCustLgNames _stds = page_.getStds();
-        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING, ctx_);
-        initializeRendSessionDoc(_stds, ctx_, n_, _rendStackCall);
+        BeanCustLgNames stds_ = page_.getStds();
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
+        initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
     @Test
@@ -433,9 +433,9 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         ContextEl ctx_ = setupRendClassesInit(n_, lgNames_, page_);
-        BeanCustLgNames _stds = page_.getStds();
-        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING, ctx_);
-        initializeRendSessionDoc(_stds, ctx_, n_, _rendStackCall);
+        BeanCustLgNames stds_ = page_.getStds();
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
+        initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/></body></html>",n_.getHtmlText());
     }
 
@@ -532,9 +532,9 @@ public final class RenderInitNavTest extends CommonRender {
         DualAnalyzedContext page_ = loadConfiguration(lgNames_, xmlConf_, n_);
         n_.setFiles(files_);
         ContextEl ctx_ = setupRendClassesInit(n_, lgNames_, page_);
-        BeanCustLgNames _stds = page_.getStds();
-        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING, ctx_);
-        initializeRendSessionDoc(_stds, ctx_, n_, _rendStackCall);
+        BeanCustLgNames stds_ = page_.getStds();
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, ctx_);
+        initializeRendSessionDoc(stds_, ctx_, n_, rendStackCall_);
         assertEq("<html><body><a c:command=\"page2.html\" href=\"\" n-a=\"0\"/>content</body></html>",n_.getHtmlText());
     }
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
@@ -1276,13 +1276,13 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private void init(ContextEl _ctx,DualNavigationContext _a, Navigation _n) {
-        BeanCustLgNames _stds = _a.getDualAnalyzedContext().getStds();
-        RendStackCall _rendStackCall = new RendStackCall(InitPhase.NOTHING,_ctx);
-        initializeRendSessionDoc(_stds, _ctx, _n, _rendStackCall);
+        BeanCustLgNames stds_ = _a.getDualAnalyzedContext().getStds();
+        RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING,_ctx);
+        initializeRendSessionDoc(stds_, _ctx, _n, rendStackCall_);
     }
 
-    private void initializeRendSessionDoc(BeanCustLgNames _stds, ContextEl ctx_, Navigation n_, RendStackCall _rendStackCall) {
-        _stds.initializeRendSessionDoc(ctx_, n_, _rendStackCall);
+    private void initializeRendSessionDoc(BeanCustLgNames _stds, ContextEl _ctx, Navigation _n, RendStackCall _rendStackCall) {
+        _stds.initializeRendSessionDoc(_ctx, _n, _rendStackCall);
     }
 
     private static ContextEl setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {

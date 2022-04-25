@@ -5515,10 +5515,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasString());
         lv_.setStruct(new StringStruct("8"));
         localVars_.put("arg", lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-        return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
+        return calcLow(_s, context_, localVariables_, vars_, new AnalyzingDoc());
     }
 
     private static Argument processElNormal2BooleanVars(String _s) {
@@ -5532,10 +5532,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasBoolean());
         lv_.setStruct(BooleanStruct.of(false));
         localVars_.put("arg2", lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-        return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
+        return calcLow(_s, context_, localVariables_, vars_, new AnalyzingDoc());
     }
 
     private static Argument processElNormalBoolInt(boolean _b, String _s, IntStruct _sec) {
@@ -5549,9 +5549,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger());
         lv_.setStruct(_sec);
         localVars_.put("arg2", lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        return calcLow(_s, context_, localVariables, new StringMap<LoopVariable>(), new AnalyzingDoc());
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        return calcLow(_s, context_, localVariables_, new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
     private static Argument processElNormalBool(boolean _b, String _s) {
@@ -5561,9 +5561,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(_b));
         localVars_.put("arg", lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        return calcLow(_s, context_, localVariables, new StringMap<LoopVariable>(), new AnalyzingDoc());
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        return calcLow(_s, context_, localVariables_, new StringMap<LoopVariable>(), new AnalyzingDoc());
     }
 
     private static Argument processElNormal1Int(int _i, String _s, String _varName) {
@@ -5573,23 +5573,23 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger());
         lv_.setStruct(new IntStruct(_i));
         localVars_.put(_varName, lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-        return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
+        return calcLow(_s, context_, localVariables_, vars_, new AnalyzingDoc());
     }
 
-    private static Argument calcLow(String _s, DualNavigationContext _context, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc analyzingDoc) {
+    private static Argument calcLow(String _s, DualNavigationContext _context, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc _analyzingDoc) {
 //        setGlobalType(_context, _context.getArgumentClass());
-        setupAnalyzing(_context, _localVariables, _vars, analyzingDoc);
+        setupAnalyzing(_context, _localVariables, _vars, _analyzingDoc);
 //        Argument argGl_ = _context.getArgument();
 //        boolean static_ = argGl_.isNull();
         boolean static_ = true;
         _context.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_context, _s);
-        OperationsSequence opTwo_ = rendOpSeq(_context, d_, _s, 0, analyzingDoc);
-        OperationNode op_ = rendOp(0, _context, opTwo_, analyzingDoc);
-        CustList<OperationNode> all_ = getSortedDescNodes(_context, op_, analyzingDoc,d_);
+        OperationsSequence opTwo_ = rendOpSeq(_context, d_, _s, 0, _analyzingDoc);
+        OperationNode op_ = rendOp(0, _context, opTwo_, _analyzingDoc);
+        CustList<OperationNode> all_ = getSortedDescNodes(_context, op_, _analyzingDoc,d_);
         generalForward(_context);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_context, all_);
         ContextEl ctx_ = getGenerate(_context);
@@ -5621,10 +5621,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         lv_.setStruct(BooleanStruct.of(_b2));
         localVars_.put("arg2", lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-        return calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
+        return calcLow(_s, context_, localVariables_, vars_, new AnalyzingDoc());
     }
 
     private static Argument processElNormalVar2(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
@@ -5634,10 +5634,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     private static Argument processElNormalVar2Low(StringMap<String> _files, String _s, ClassField _keyField, String _className, Struct _value, String _varName, String _init) {
         DualNavigationContext conf_ = getConfigurationQuick(_files);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
         AnalyzingDoc doc_ = new AnalyzingDoc();
-        setupAnalyzing(conf_, localVariables, vars, doc_);
+        setupAnalyzing(conf_, localVariables_, vars_, doc_);
 //        Argument argGl_ = conf_.getArgument();
         boolean static_ = true;
 //        boolean static_ = argGl_.isNull();
@@ -5654,7 +5654,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         ContextEl ctx_ = getGenerate(conf_);
         assertTrue(conf_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
 //        ExecClassesUtil.forwardClassesMetaInfos(conf_.getContext());
-        Argument arg_ = caculateReuse(ctx_,conf_, executableNodes_, localVariables, vars);
+        Argument arg_ = caculateReuse(ctx_,conf_, executableNodes_, localVariables_, vars_);
         return arg_;
     }
 
@@ -5665,10 +5665,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(BooleanStruct.of(_b));
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-        calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
+        calcLow(_s, context_, localVariables_, vars_, new AnalyzingDoc());
         return lv_;
     }
 
@@ -5679,33 +5679,33 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(new IntStruct(_i));
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimInteger());
         localVars_.put("v", lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-        calcLow(_s, context_, localVariables, vars, new AnalyzingDoc());
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
+        calcLow(_s, context_, localVariables_, vars_, new AnalyzingDoc());
         return lv_;
     }
 
-    private static Argument processElNormalLow(String _el, DualNavigationContext _cont, String _expClass, AnalyzingDoc analyzingDoc) {
-        StringMap<LocalVariable> _localVariables = new StringMap<LocalVariable>();
-        StringMap<LoopVariable> _vars = new StringMap<LoopVariable>();
+    private static Argument processElNormalLow(String _el, DualNavigationContext _cont, String _expClass, AnalyzingDoc _analyzingDoc) {
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
 //        setGlobalType(_context, _context.getArgumentClass());
-        setupAnalyzing(_cont, _localVariables, _vars, analyzingDoc);
+        setupAnalyzing(_cont, localVariables_, vars_, _analyzingDoc);
 //        Argument argGl_ = _context.getArgument();
 //        boolean static_ = argGl_.isNull();
         boolean static_ = true;
         _cont.getDualAnalyzedContext().getAnalyzed().setAccessStaticContext(MethodId.getKind(static_));
         Delimiters d_ = checkSyntax(_cont, _el);
-        OperationsSequence opTwo_ = rendOpSeq(_cont, d_, _el, 0, analyzingDoc);
-        OperationNode op_ = rendOp(0, _cont, opTwo_, analyzingDoc);
-        CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_, analyzingDoc,d_);
+        OperationsSequence opTwo_ = rendOpSeq(_cont, d_, _el, 0, _analyzingDoc);
+        OperationNode op_ = rendOp(0, _cont, opTwo_, _analyzingDoc);
+        CustList<OperationNode> all_ = getSortedDescNodes(_cont, op_, _analyzingDoc,d_);
         generalForward(_cont);
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(_cont, all_);
         ContextEl ctx_ = getGenerate(_cont);
         assertTrue(_cont.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
 //        ExecClassesUtil.forwardClassesMetaInfos(_context.getContext());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, _cont.getDualAnalyzedContext().getForwards().getOptions());
-        Argument arg_ = caculateReuse(ctx_, _cont, executableNodes_, _localVariables, _vars);
+        Argument arg_ = caculateReuse(ctx_, _cont, executableNodes_, localVariables_, vars_);
         assertEq(_expClass,arg_.getStruct().getClassName(ctx_));
         return arg_;
     }
@@ -5755,11 +5755,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(BooleanStruct.of(_b));
         lv_.setClassName(context_.getDualAnalyzedContext().getAnalyzed().getAliasPrimBoolean());
         localVars_.put("v", lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
         AnalyzingDoc an_ = new AnalyzingDoc();
-        setupAnalyzing(context_, localVariables, vars, an_);
+        setupAnalyzing(context_, localVariables_, vars_, an_);
         Delimiters d_ = checkSyntax(context_, _s);
         assertTrue(d_.getBadOffset() < 0);
         OperationsSequence opTwo_ = getOperationsSequence(0, _s, context_, d_);
@@ -5771,7 +5771,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CustList<RendDynOperationNode> executableNodes_ = getQuickExecutableNodes(context_, all_);
         ContextEl ctx_ = getGenerate(context_);
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
-        caculateReuse(ctx_,context_, executableNodes_, localVariables, vars);
+        caculateReuse(ctx_,context_, executableNodes_, localVariables_, vars_);
         return lv_;
     }
 
@@ -5820,9 +5820,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     private static Argument processDoubleDelimiters(String _s, int _i, int _i2) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-        setupAnalyzing(context_, localVariables, vars, analyzingDoc_);
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
+        setupAnalyzing(context_, localVariables_, vars_, analyzingDoc_);
         ResultExpression res_ = new ResultExpression();
         Delimiters d1_ = checkDel(_s, 2, context_, res_);
         assertTrue(d1_.getBadOffset() < 0);
@@ -5834,7 +5834,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         CustList<OperationNode> all1_ = getSortedDescNodes(context_, op1_, analyzingDoc_,d1_);
         generalForward(context_);
         CustList<RendDynOperationNode> out1_ = getQuickExecutableNodes(context_, all1_);
-        setupAnalyzing(context_, localVariables, vars, analyzingDoc_);
+        setupAnalyzing(context_, localVariables_, vars_, analyzingDoc_);
         Delimiters d_ = checkDel(_s, _i, context_, res_);
         assertTrue(d_.getBadOffset() < 0);
         int end_ = d_.getIndexEnd();
@@ -5847,8 +5847,8 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         assertTrue(isEmptyErrors(context_));
         ContextEl ctx_ = getGenerate(context_);
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
-        caculateReuse(ctx_,context_, out1_, localVariables, vars);
-        Argument arg_ = caculateReuse(ctx_,context_, out_, localVariables, vars);
+        caculateReuse(ctx_,context_, out1_, localVariables_, vars_);
+        Argument arg_ = caculateReuse(ctx_,context_, out_, localVariables_, vars_);
         assertEq(_i2, analyzingDoc_.getNextIndex());
         return arg_;
     }
@@ -5861,10 +5861,10 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     private static Argument processElNormal3Low(String _el, StringMap<String> _files, String... _types) {
         DualNavigationContext context_ = getConfigurationQuick(_files,_types);
 //        setGlobalType(context_, context_.getArgumentClass());
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
         AnalyzingDoc doc_ = new AnalyzingDoc();
-        setupAnalyzing(context_, localVariables, vars, doc_);
+        setupAnalyzing(context_, localVariables_, vars_, doc_);
 //        Argument argGl_ = context_.getArgument();
 //        boolean static_ = argGl_.isNull();
         boolean static_ = true;
@@ -5879,7 +5879,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         ContextEl ctx_ = getGenerate(context_);
         //        ExecClassesUtil.forwardClassesMetaInfos(context_.getContext());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_,context_.getDualAnalyzedContext().getForwards().getOptions());
-        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_, localVariables, vars);
+        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_, localVariables_, vars_);
         return arg_;
     }
 
@@ -5903,9 +5903,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
     private static Argument processDelimiters(String _s, int _i) {
         DualNavigationContext context_ = getConfigurationQuick(new StringMap<String>());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
-        setupAnalyzing(context_, localVariables, vars, analyzingDoc_);
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        StringMap<LoopVariable> vars_ = new StringMap<LoopVariable>();
+        setupAnalyzing(context_, localVariables_, vars_, analyzingDoc_);
         ResultExpression res_ = new ResultExpression();
         Delimiters d_ = checkDel(_s, 2, context_, res_);
         assertTrue(d_.getBadOffset() < 0);
@@ -5920,17 +5920,17 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         ContextEl ctx_ = getGenerate(context_);
         assertTrue(isEmptyErrors(context_));
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
-        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_, localVariables, vars);
+        Argument arg_ = caculateReuse(ctx_,context_, executableNodes_, localVariables_, vars_);
         assertEq(_i, analyzingDoc_.getNextIndex());
         return arg_;
     }
 
-    private static OperationsSequence rendOpSeq(DualNavigationContext _context, Delimiters _d, String _el, int _off, AnalyzingDoc analyzingDoc) {
-        return rendOpSeq(_off, _context, _d, _el, analyzingDoc);
+    private static OperationsSequence rendOpSeq(DualNavigationContext _context, Delimiters _d, String _el, int _off, AnalyzingDoc _analyzingDoc) {
+        return rendOpSeq(_off, _context, _d, _el, _analyzingDoc);
     }
 
-    private static OperationNode rendOp(DualNavigationContext _context, OperationsSequence _opTwo, AnalyzingDoc analyzingDoc) {
-        return rendOp(2, _context, _opTwo, analyzingDoc);
+    private static OperationNode rendOp(DualNavigationContext _context, OperationsSequence _opTwo, AnalyzingDoc _analyzingDoc) {
+        return rendOp(2, _context, _opTwo, _analyzingDoc);
     }
 
     private static Argument processElNormalField(StringMap<String> _files, ClassField _keyField, String _clasName, IntStruct _value, String _varName, String _init) {
@@ -5946,11 +5946,11 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         lv_.setStruct(str_);
         lv_.setClassName(_clasName);
         localVars_.put(_varName, lv_);
-        StringMap<LocalVariable> localVariables = new StringMap<LocalVariable>();
-        CommonRenderExpUtil.setLocalVars(localVars_, localVariables);
+        StringMap<LocalVariable> localVariables_ = new StringMap<LocalVariable>();
+        CommonRenderExpUtil.setLocalVars(localVars_, localVariables_);
         assertTrue(context_.getDualAnalyzedContext().getAnalyzed().isEmptyErrors());
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, context_.getDualAnalyzedContext().getForwards().getOptions());
-        return caculateReuse(ctx_, context_, all_, localVariables, new StringMap<LoopVariable>());
+        return caculateReuse(ctx_, context_, all_, localVariables_, new StringMap<LoopVariable>());
     }
 
     private static String getString(Argument _arg) {
@@ -5966,9 +5966,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         return ((CharStruct)_arg.getStruct()).getChar();
     }
 
-    private static void setupAnalyzing(DualNavigationContext _context, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc analyzingDoc) {
-        analyzingDoc.setup(_context.getNavigation().getSession(), _context.getDualAnalyzedContext().getContext().getProperties(), _context.getDualAnalyzedContext().getContext().getMessagesFolder());
-        setupAnalyzing(_context, analyzingDoc, _localVariables, _vars);
+    private static void setupAnalyzing(DualNavigationContext _context, StringMap<LocalVariable> _localVariables, StringMap<LoopVariable> _vars, AnalyzingDoc _analyzingDoc) {
+        _analyzingDoc.setup(_context.getNavigation().getSession(), _context.getDualAnalyzedContext().getContext().getProperties(), _context.getDualAnalyzedContext().getContext().getMessagesFolder());
+        setupAnalyzing(_context, _analyzingDoc, _localVariables, _vars);
     }
 
 

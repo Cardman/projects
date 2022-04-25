@@ -129,26 +129,26 @@ public final class RenderNavigationTest extends CommonRender {
     }
 
     private static void processRendAnchorRequest(DualNavigationContext _nav, ContextEl _ctx) {
-        Navigation navigation = _nav.getNavigation();
-        BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
-        RendStackCall _rendStack = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation.getDocument(), navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation, _ctx, _rendStack);
+        Navigation navigation_ = _nav.getNavigation();
+        BeanCustLgNames advStandards_ = _nav.getDualAnalyzedContext().getStds();
+        RendStackCall rendStack_ = new RendStackCall(InitPhase.NOTHING, _ctx);
+        advStandards_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation_.getDocument(), navigation_.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation_, _ctx, rendStack_);
     }
 
     private static void processRendAnchorRequest2(DualNavigationContext _nav, ContextEl _ctx) {
         Document doc_ = DocumentBuilder.newXmlDocument();
         doc_.appendChild(doc_.createElement(""));
-        Navigation navigation = _nav.getNavigation();
-        BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
-        RendStackCall _rendStack = new RendStackCall(InitPhase.NOTHING, _ctx);
-        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(doc_, navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation, _ctx, _rendStack);
+        Navigation navigation_ = _nav.getNavigation();
+        BeanCustLgNames advStandards_ = _nav.getDualAnalyzedContext().getStds();
+        RendStackCall rendStack_ = new RendStackCall(InitPhase.NOTHING, _ctx);
+        advStandards_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(doc_, navigation_.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation_, _ctx, rendStack_);
     }
 
     private static Struct processRendAnchorRequestExc(DualNavigationContext _nav, ContextEl _ctx) {
         RendStackCall rendStackCall_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-        Navigation navigation = _nav.getNavigation();
-        BeanCustLgNames _advStandards = _nav.getDualAnalyzedContext().getStds();
-        _advStandards.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation.getDocument(), navigation.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation, _ctx, rendStackCall_);
+        Navigation navigation_ = _nav.getNavigation();
+        BeanCustLgNames advStandards_ = _nav.getDualAnalyzedContext().getStds();
+        advStandards_.processRendAnchorRequest(DocumentBuilder.getFirstElementByAttribute(navigation_.getDocument(), navigation_.getSession().getRendKeyWords().getAttrNa(), Long.toString(_nav.getDualAnalyzedContext().getStds().getCustPage().getUrl())), navigation_, _ctx, rendStackCall_);
         return getException(rendStackCall_);
     }
 
@@ -290,7 +290,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -298,11 +298,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -348,7 +348,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -356,11 +356,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -401,7 +401,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -409,11 +409,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -457,7 +457,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -465,11 +465,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -512,7 +512,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -520,11 +520,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -567,7 +567,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -575,11 +575,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -623,7 +623,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page4.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -631,11 +631,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -683,18 +683,18 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page3.html");
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanTwo");
-        addBeanInfo(nav_1, i_, "bean_two");
+        addBeanInfo(nav1_, i_, "bean_two");
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(locale_, folder_, relative_, content_, html_, htmlTwo_, htmlThree_),a_);
         RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
         Navigation nav_ = a_.getNavigation();
@@ -739,7 +739,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int)","val1", "page2.html#sampleName","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -747,11 +747,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -797,7 +797,7 @@ public final class RenderNavigationTest extends CommonRender {
         setNavigation(a_.getNavigation().getSession());
         initNav(a_.getNavigation().getSession().getNavigation());
         lg(a_.getNavigation().getSession().getNavigation(),"pkg.BeanOne.click($int,$int)","val1", "page2.html","val2", "page3.html");
-        Navigation nav_1 = a_.getNavigation();
+        Navigation nav1_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page2.html");
@@ -805,11 +805,11 @@ public final class RenderNavigationTest extends CommonRender {
         BeanInfo i_ = new BeanInfo();
         i_.setScope("session");
         i_.setClassName("pkg.BeanOne<java.lang.String>");
-        addBeanInfo(nav_1, i_, "bean_one");
+        addBeanInfo(nav1_, i_, "bean_one");
         StringMap<String> filesThree_ = getStringStringMap(folder_, locale_, relative_, content_, html_, htmlTwo_);
         filesThree_.put("page3.html", htmlThree_);
         ContextEl ctx_ = ana(filesSec_,filesThree_,a_);
-        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav_1, a_);
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, nav1_, a_);
         Navigation nav_ = a_.getNavigation();
         assertEq("page1.html", a_.getDualAnalyzedContext().getStds().getCurrentUrl());
         assertEq("bean_one", a_.getDualAnalyzedContext().getStds().getCurrentBeanName());
@@ -3261,8 +3261,8 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         DualNavigationContext a_ = getNavigationContext(folder_, relative_, "session", "pkg.BeanOne");
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
-        RendStackCall rendStackCall = initializeRendSession(ctx_, a_.getNavigation(), a_);
-        assertNull(rendStackCall.getStackCall().getCallingState());
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNull(rendStackCall_.getStackCall().getCallingState());
         a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }
@@ -4311,8 +4311,8 @@ public final class RenderNavigationTest extends CommonRender {
         filesSec_.put(CUST_PAIR_PATH, getCustomPair());
         DualNavigationContext a_ = getNavigationContext(folder_, relative_, "request", "pkg.BeanOne");
         ContextEl ctx_ = ana(filesSec_,getStringStringMap(folder_, locale_, relative_, content_, html_),a_);
-        RendStackCall rendStackCall = initializeRendSession(ctx_, a_.getNavigation(), a_);
-        assertNull(rendStackCall.getStackCall().getCallingState());
+        RendStackCall rendStackCall_ = initializeRendSession(ctx_, a_.getNavigation(), a_);
+        assertNull(rendStackCall_.getStackCall().getCallingState());
         a_.getDualAnalyzedContext().getStds().getCustPage().setUrl(0);
         assertNotNull(processRendFormRequestExc(a_,ctx_));
     }

@@ -29,8 +29,8 @@ public abstract class RendSettableFieldOperation extends
         offsetLoc(_rendStack);
     }
 
-    protected void postCalulate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument result_) {
-        Argument arg_ = RendDynOperationNode.processCall(result_, _context, _rendStack).getValue();
+    protected void postCalulate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack, Argument _result) {
+        Argument arg_ = RendDynOperationNode.processCall(_result, _context, _rendStack).getValue();
         if (_context.callsOrException(_rendStack.getStackCall())) {
             return;
         }

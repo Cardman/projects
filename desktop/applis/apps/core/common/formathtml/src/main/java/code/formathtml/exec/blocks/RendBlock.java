@@ -394,9 +394,9 @@ public abstract class RendBlock {
         return new DefFetchedObjs(_idRad,wr_, allObj_, stack_, arg_, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
     }
 
-    private static void feed(CustList<ArgumentWrapper> argumentList_, CustList<Struct> allObj_) {
-        for (ArgumentWrapper a: argumentList_) {
-            allObj_.add(a.getValue().getStruct());
+    private static void feed(CustList<ArgumentWrapper> _argumentList, CustList<Struct> _allObj) {
+        for (ArgumentWrapper a: _argumentList) {
+            _allObj.add(a.getValue().getStruct());
         }
     }
 

@@ -59,14 +59,14 @@ public abstract class RendInput extends RendElement {
     public void prStack(Configuration _cont, Element _write, DefFetchedObjs _fetch, Argument _globalArgument, RendStackCall _rend) {
         prStack(_cont, _write, fieldUpdates, _fetch, _globalArgument, _rend);
     }
-    static String idRad(IdMap<RendDynOperationNode, ArgumentsPair> args_, ContextEl _ctx, RendStackCall _rendStackCall) {
+    static String idRad(IdMap<RendDynOperationNode, ArgumentsPair> _args, ContextEl _ctx, RendStackCall _rendStackCall) {
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return "";
         }
-        if (args_.isEmpty()) {
+        if (_args.isEmpty()) {
             return "";
         }
-        return BeanCustLgNames.processStr(Argument.getNullableValue(args_.lastValue().getArgument()), _ctx,_rendStackCall);
+        return BeanCustLgNames.processStr(Argument.getNullableValue(_args.lastValue().getArgument()), _ctx,_rendStackCall);
     }
 
     public static DefFieldUpdates initUpdates(String _idClass, String _idName, CustList<RendDynOperationNode> _opsRead, CustList<RendDynOperationNode> _opsConverter, String _className, CustList<RendDynOperationNode> _idRadio) {

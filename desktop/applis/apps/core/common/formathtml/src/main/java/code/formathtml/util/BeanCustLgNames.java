@@ -627,12 +627,12 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         proc(_nav, _ctx, _rendStack, actionCommand_, bean_, getCurrentBeanName());
     }
 
-    private void proc(Navigation _nav, ContextEl _ctx, RendStackCall _rendStack, String actionCommand_, Struct bean_, String _currentBeanName) {
+    private void proc(Navigation _nav, ContextEl _ctx, RendStackCall _rendStack, String _actionCommand, Struct _bean, String _currentBeanName) {
         _rendStack.clearPages();
         Configuration session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
-        String res_ = processAfterInvoke(session_, actionCommand_, _currentBeanName, bean_, lg_, _ctx, _rendStack);
-        setup(res_, _rendStack, actionCommand_);
+        String res_ = processAfterInvoke(session_, _actionCommand, _currentBeanName, _bean, lg_, _ctx, _rendStack);
+        setup(res_, _rendStack, _actionCommand);
         if (!_nav.setupText(res_, this, _rendStack.getDocument())) {
             return;
         }

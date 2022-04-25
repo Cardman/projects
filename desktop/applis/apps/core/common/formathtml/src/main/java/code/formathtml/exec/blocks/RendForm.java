@@ -35,13 +35,13 @@ public final class RendForm extends RendElement implements RendFormInt {
 
     @Override
     protected void processExecAttr(Configuration _cont, Node _nextWrite, Element _read, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        DefFormParts _formParts = _rendStack.getFormParts();
+        DefFormParts formParts_ = _rendStack.getFormParts();
         String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
         if (!href_.startsWith(CALL_METHOD)) {
-            _formParts.getContainersMapStack().add(new LongTreeMap<DefNodeContainer>());
-            _formParts.getCallsFormExps().add(new AnchorCall(opForm.getGeneLink(),new CustList<AbstractWrapper>()));
-            incrForm(_formParts);
+            formParts_.getContainersMapStack().add(new LongTreeMap<DefNodeContainer>());
+            formParts_.getCallsFormExps().add(new AnchorCall(opForm.getGeneLink(),new CustList<AbstractWrapper>()));
+            incrForm(formParts_);
             procCstRef(_cont, elt_, _rendStack.getFormParts());
             return;
         }
@@ -58,9 +58,9 @@ public final class RendForm extends RendElement implements RendFormInt {
             elt_.removeAttribute(e.getKey());
             f_++;
         }
-        _formParts.getContainersMapStack().add(new LongTreeMap<DefNodeContainer>());
-        _formParts.getCallsFormExps().add(new AnchorCall(opForm.getGeneLink(),values_));
-        incrForm(_formParts);
+        formParts_.getContainersMapStack().add(new LongTreeMap<DefNodeContainer>());
+        formParts_.getCallsFormExps().add(new AnchorCall(opForm.getGeneLink(),values_));
+        incrForm(formParts_);
         String beanName_ = _rendStack.getLastPage().getBeanName();
         elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_));
         elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));

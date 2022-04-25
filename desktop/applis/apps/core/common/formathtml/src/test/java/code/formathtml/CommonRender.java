@@ -170,8 +170,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return getStruct(a_, ctx_);
     }
 
-    private static ContextEl extracted(String _html, StringMap<String> _files, DualNavigationContext a_) {
-        return ana(_files, oneFile(_html), a_);
+    private static ContextEl extracted(String _html, StringMap<String> _files, DualNavigationContext _a) {
+        return ana(_files, oneFile(_html), _a);
     }
 
     private static Struct getStruct(DualNavigationContext _a, ContextEl _analyzed) {
@@ -206,8 +206,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return !isEmptyErrors(a_);
     }
 
-    private static void extracted5(String _html, StringMap<String> _filesThree, DualNavigationContext a_) {
-        ana(_filesThree, oneFile(_html), a_);
+    private static void extracted5(String _html, StringMap<String> _filesThree, DualNavigationContext _a) {
+        ana(_filesThree, oneFile(_html), _a);
     }
 
     protected static boolean hasErr(String _folder, String _relative, String _html, StringMap<String> _filesThree, StringMap<String> _files) {
@@ -227,8 +227,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return !isEmptyErrors(a_);
     }
 
-    private static void extracted8(String _html, StringMap<String> _filesThree, DualNavigationContext a_) {
-        ana(_filesThree, oneFile(_html), a_);
+    private static void extracted8(String _html, StringMap<String> _filesThree, DualNavigationContext _a) {
+        ana(_filesThree, oneFile(_html), _a);
     }
 
 
@@ -248,13 +248,13 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return successRes(ctx_, a_);
     }
 
-    private static ContextEl getContextEl1(String _html, StringMap<String> _filesSec, DualNavigationContext a_) {
-        newSampleBean("pkg.BeanOne<$int>", "bean_one", a_.getNavigation().getSession());
+    private static ContextEl getContextEl1(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
+        newSampleBean("pkg.BeanOne<$int>", "bean_one", _a.getNavigation().getSession());
         StringMap<String> files_ = oneFile(_html);
-        ContextEl ctx_ = ana(_filesSec, files_, a_);
-        assertTrue(isEmptyErrors(a_));
-        CustList<RendDynOperationNode> ops_ = a_.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
-        calcBean(ctx_, ops_, 0, a_.getDualAnalyzedContext().getStds(), a_.getNavigation().getSession());
+        ContextEl ctx_ = ana(_filesSec, files_, _a);
+        assertTrue(isEmptyErrors(_a));
+        CustList<RendDynOperationNode> ops_ = _a.getNavigation().getSession().getBeansInfos().getValue(0).getExps();
+        calcBean(ctx_, ops_, 0, _a.getDualAnalyzedContext().getStds(), _a.getNavigation().getSession());
         return ctx_;
     }
 
@@ -299,10 +299,10 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return !isEmptyErrors(a_);
     }
 
-    private static void extracted10(String _html, StringMap<String> _filesSec, DualNavigationContext a_) {
+    private static void extracted10(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
         StringMap<String> files_ = oneFile(_html);
-        newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
-        ana(_filesSec, files_, a_);
+        newSampleBean("pkg.BeanOne", "bean_one", _a.getNavigation().getSession());
+        ana(_filesSec, files_, _a);
     }
 
     protected static boolean hasErrOneBean2(String _folder, String _relative, String _html, StringMap<String> _filesSec) {
@@ -313,10 +313,10 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return !isEmptyErrors(a_);
     }
 
-    private static void extracted11(String _html, StringMap<String> _filesSec, DualNavigationContext a_) {
+    private static void extracted11(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
         StringMap<String> files_ = oneFile(_html);
-        newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
-        ana(_filesSec, files_, a_);
+        newSampleBean("pkg.BeanOne", "bean_one", _a.getNavigation().getSession());
+        ana(_filesSec, files_, _a);
     }
 
     protected static String getAncOneBean(String _folder, String _relative, String _html, StringMap<String> _filesThree, StringMap<String> _filesSec) {
@@ -516,8 +516,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
 
     protected static RendStackCall initializeRendSession(ContextEl _ctx,Navigation _nav, DualNavigationContext _a) {
         RendStackCall build_ = new RendStackCall(InitPhase.NOTHING, _ctx);
-        BeanCustLgNames _stds = _a.getDualAnalyzedContext().getStds();
-        _stds.initializeRendSessionDoc(_ctx, _nav, build_);
+        BeanCustLgNames stds_ = _a.getDualAnalyzedContext().getStds();
+        stds_.initializeRendSessionDoc(_ctx, _nav, build_);
         return build_;
     }
 
@@ -679,8 +679,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return getStruct(a_, ctx_);
     }
 
-    private static ContextEl extracted(String _html, String _htmlTwo, DualNavigationContext a_) {
-        return ana(new StringMap<String>(), twoFiles(oneFile(_html), "page2.html", _htmlTwo), a_);
+    private static ContextEl extracted(String _html, String _htmlTwo, DualNavigationContext _a) {
+        return ana(new StringMap<String>(), twoFiles(oneFile(_html), "page2.html", _htmlTwo), _a);
     }
 
     protected static String getResTwoPages(String _folder, String _relative, String _html, String _htmlTwo) {
@@ -693,8 +693,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return getString(a_, ctx_);
     }
 
-    private static ContextEl extracted1(String _html, String _htmlTwo, DualNavigationContext a_) {
-        return ana(new StringMap<String>(), twoFiles(oneFile(_html), "page2.html", _htmlTwo), a_);
+    private static ContextEl extracted1(String _html, String _htmlTwo, DualNavigationContext _a) {
+        return ana(new StringMap<String>(), twoFiles(oneFile(_html), "page2.html", _htmlTwo), _a);
     }
 
     protected static String getResTwoPagesTwo(String _folder, String _relative, String _html, String _htmlTwo, StringMap<String> _filesSec) {

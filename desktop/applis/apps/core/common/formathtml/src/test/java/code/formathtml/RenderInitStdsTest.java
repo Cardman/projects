@@ -68,8 +68,8 @@ public final class RenderInitStdsTest extends CommonRender {
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
         err_ = RendDimensionArrayInstancing.newCustomArrayOrExc(new Ints(), "$int", new Ints(-1), generate_, rendStackCall_).getClassName(generate_);
         assertEq(standards_.getContent().getCoreNames().getAliasBadSize(),err_);
-        Navigation navigation1 = new Navigation();
-        initializeRendSessionDoc(b_, rendStackCall_, navigation1);
+        Navigation navigation1_ = new Navigation();
+        initializeRendSessionDoc(b_, rendStackCall_, navigation1_);
         rendStackCall_.addPage(new ImportingPage());
         RendBlock.processDo(null,null, rendStackCall_);
         RendBlock.processElse(conf_,null,null,null, rendStackCall_);
@@ -83,19 +83,19 @@ public final class RenderInitStdsTest extends CommonRender {
         RendDynOperationNode.getFirstNode(null);
         assertNull(RendDynOperationNode.getParentOrNull(null));
         BeanCustLgNames.select("","",new StringMap<StringMap<String>>());
-        StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
-        BeanCustLgNames.select("","", navigation);
-        StringMap<String> ca = new StringMap<String>();
-        navigation.addEntry("", ca);
-        BeanCustLgNames.select("","", navigation);
-        ca.addEntry("","");
-        BeanCustLgNames.select("","", navigation);
+        StringMap<StringMap<String>> navigation_ = new StringMap<StringMap<String>>();
+        BeanCustLgNames.select("","", navigation_);
+        StringMap<String> ca_ = new StringMap<String>();
+        navigation_.addEntry("", ca_);
+        BeanCustLgNames.select("","", navigation_);
+        ca_.addEntry("","");
+        BeanCustLgNames.select("","", navigation_);
         Navigation.empt(new StringList());
         ResultText.voidToObject("",page_);
     }
 
-    private void initializeRendSessionDoc(BeanCustLgNames b_, RendStackCall rendStackCall_, Navigation navigation1) {
-        b_.initializeRendSessionDoc(null, navigation1, rendStackCall_);
+    private void initializeRendSessionDoc(BeanCustLgNames _b, RendStackCall _rendStackCall, Navigation _navigation1) {
+        _b.initializeRendSessionDoc(null, _navigation1, _rendStackCall);
     }
 
     private boolean contextEl(BeanCustLgNames _beanLgNames, AnalysisMessages _mess, KeyWords _kw, AbstractConstantsCalculator _calculator) {
