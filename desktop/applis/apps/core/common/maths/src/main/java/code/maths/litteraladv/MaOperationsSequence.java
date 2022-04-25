@@ -222,9 +222,9 @@ public final class MaOperationsSequence {
                 ||StringUtil.quickEq(WIDE_STRICT_BOUNDS,_op);
     }
 
-    private static boolean areBinarySymbols(String val_, String valTwo_) {
-        return isCmpSymbol(val_)
-                && isCmpSymbol(valTwo_);
+    private static boolean areBinarySymbols(String _val, String _valTwo) {
+        return isCmpSymbol(_val)
+                && isCmpSymbol(_valTwo);
     }
 
     static boolean isVarSymbol(String _fct) {
