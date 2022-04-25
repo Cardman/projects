@@ -37,8 +37,8 @@ public final class EventThreadActions extends AbstractThreadActions {
                 afterAction(ctx_,rendStackCall_);
                 return;
             }
-            Navigation navigation = getPage().getNavigation();
-            ((BeanCustLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation, ctx_, rendStackCall_);
+            Navigation navigation_ = getPage().getNavigation();
+            ((BeanCustLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation_, ctx_, rendStackCall_);
             afterAction(ctx_,rendStackCall_);
             return;
         }
@@ -47,8 +47,8 @@ public final class EventThreadActions extends AbstractThreadActions {
             afterActionWithoutRemove();
             return;
         }
-        Navigation navigation = getPage().getNavigation();
-        ((BeanNatCommonLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation);
+        Navigation navigation_ = getPage().getNavigation();
+        ((BeanNatCommonLgNames)getPage().getStandards()).processRendAnchorRequest(elt, navigation_);
         afterActionWithoutRemove();
     }
 }
