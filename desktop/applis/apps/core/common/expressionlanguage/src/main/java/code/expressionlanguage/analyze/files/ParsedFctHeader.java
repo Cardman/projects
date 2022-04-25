@@ -112,32 +112,32 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         }
     }
 
-    private void feedPar(Ints annotationsIndexesParam_, StringList annotationsParam_, BoolVal ref_, int typeOff_, String paramType_, int parOff_, String varName_) {
-        feedParAnnot(annotationsIndexesParam_, annotationsParam_);
-        feedParBase(ref_, typeOff_, offsetLast, paramType_.trim(), parOff_, varName_);
+    private void feedPar(Ints _annotationsIndexesParam, StringList _annotationsParam, BoolVal _ref, int _typeOff, String _paramType, int _parOff, String _varName) {
+        feedParAnnot(_annotationsIndexesParam, _annotationsParam);
+        feedParBase(_ref, _typeOff, offsetLast, _paramType.trim(), _parOff, _varName);
     }
 
-    private void feedParAnnot(Ints annotationsIndexesParam_, StringList annotationsParam_) {
-        this.annotationsIndexesParams.add(annotationsIndexesParam_);
-        this.annotationsParams.add(annotationsParam_);
+    private void feedParAnnot(Ints _annotationsIndexesParam, StringList _annotationsParam) {
+        this.annotationsIndexesParams.add(_annotationsIndexesParam);
+        this.annotationsParams.add(_annotationsParam);
     }
 
-    private void feedParBase(BoolVal ref_, int typeOff_, int offsetLast, String paramType_, int parOff_, String varName_) {
-        getParametersRef().add(ref_);
-        getOffestsTypes().add(typeOff_ + offsetLast);
-        getParametersType().add(paramType_);
-        getOffestsParams().add(parOff_ + offsetLast);
-        getParametersName().add(varName_);
+    private void feedParBase(BoolVal _ref, int _typeOff, int _offsetLast, String _paramType, int _parOff, String _varName) {
+        getParametersRef().add(_ref);
+        getOffestsTypes().add(_typeOff + _offsetLast);
+        getParametersType().add(_paramType);
+        getOffestsParams().add(_parOff + _offsetLast);
+        getParametersName().add(_varName);
     }
 
     private boolean isNotImplParam(int _implStopRightPar,int _implCall,String _varName) {
         return _implStopRightPar != _implCall||!indexerSet || !StringUtil.quickEq(keyWordValue, _varName);
     }
-    private static int gt(int implCall_, int implStopRightPar_) {
-        if (implCall_ < 0) {
-            return implStopRightPar_;
+    private static int gt(int _implCall, int _implStopRightPar) {
+        if (_implCall < 0) {
+            return _implStopRightPar;
         }
-        return Math.min(implCall_,implStopRightPar_);
+        return Math.min(_implCall,_implStopRightPar);
     }
 
     public void parseAnonymous(int _indexLeftPar, String _string, int _offset, String _keyWordThat) {

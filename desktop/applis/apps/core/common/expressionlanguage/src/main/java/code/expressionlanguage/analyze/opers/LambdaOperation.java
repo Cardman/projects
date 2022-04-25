@@ -1159,13 +1159,13 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
         setResultClass(new AnaClassArgumentMatching(fct_));
     }
 
-    private AnaGeneType getAnaGeneType(OperationNode o_) {
+    private AnaGeneType getAnaGeneType(OperationNode _o) {
         AnaGeneType ty_ = null;
-        if (o_ instanceof StaticAccessOperation) {
-            ty_ = ((StaticAccessOperation) o_).getExtractStaticType();
+        if (_o instanceof StaticAccessOperation) {
+            ty_ = ((StaticAccessOperation) _o).getExtractStaticType();
         }
-        if (o_ instanceof StaticCallAccessOperation) {
-            ty_ = ((StaticCallAccessOperation) o_).getExtractStaticType();
+        if (_o instanceof StaticCallAccessOperation) {
+            ty_ = ((StaticCallAccessOperation) _o).getExtractStaticType();
         }
         return ty_;
     }
@@ -2629,12 +2629,12 @@ public final class LambdaOperation extends LeafOperation implements PossibleInte
     private String formatReturn(AnalyzedPageEl _page, ClassMethodIdReturn _id, boolean _shift) {
         lambdaCommonContent.setShiftArgument(_shift);
         StringList paramsReturn_ = beginReturn(_id.getId().getClassName(), _shift);
-        String _returnType = _id.getReturnType();
-        MethodId _constraints = _id.getId().getConstraints();
-        IdentifiableUtil.appendLeftPart(0, paramsReturn_, _constraints);
+        String retType_ = _id.getReturnType();
+        MethodId constraints_ = _id.getId().getConstraints();
+        IdentifiableUtil.appendLeftPart(0, paramsReturn_, constraints_);
 
         appendRightPart(_id.getPair().getFunction(),paramsReturn_, _page, _id.getRealClass());
-        appRe(_returnType, _constraints, paramsReturn_);
+        appRe(retType_, constraints_, paramsReturn_);
         String fctBase_ = _page.getAliasFct();
         String result_ = StringUtil.concat(fctBase_, StringExpUtil.TEMPLATE_BEGIN, StringUtil.join(paramsReturn_, StringExpUtil.TEMPLATE_SEP), StringExpUtil.TEMPLATE_END);
         lambdaCommonContent.setResult(result_);

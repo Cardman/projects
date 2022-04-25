@@ -260,14 +260,14 @@ final class AfterUnaryParts {
         addNumOperators(_offset, _string, _d, curChar_);
     }
 
-    private void namedArg(char curChar_) {
+    private void namedArg(char _curChar) {
         if (!parsBrackets.isEmpty()) {
             index++;
             return;
         }
         prio = ElResolver.NAME_PRIO;
         if (operators.isEmpty()) {
-            operators.addEntry(index, Character.toString(curChar_));
+            operators.addEntry(index, Character.toString(_curChar));
         }
         enPars = false;
         enabledId = false;
@@ -292,19 +292,19 @@ final class AfterUnaryParts {
         addPossibleNumOp(builtOperator_.toString(), clearOperators_, foundOperator_);
     }
 
-    private void beginTernary(char curChar_) {
+    private void beginTernary(char _curChar) {
         if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
             operators.clear();
-            operators.addEntry(index, Character.toString(curChar_));
+            operators.addEntry(index, Character.toString(_curChar));
         }
-        parsBrackets.addEntry(index, curChar_);
+        parsBrackets.addEntry(index, _curChar);
         index++;
     }
 
-    private void endTernary(char curChar_) {
+    private void endTernary(char _curChar) {
         parsBrackets.removeLast();
         if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
-            operators.addEntry(index, Character.toString(curChar_));
+            operators.addEntry(index, Character.toString(_curChar));
             enPars = false;
             enabledId = true;
             prio = ElResolver.TERNARY_PRIO;

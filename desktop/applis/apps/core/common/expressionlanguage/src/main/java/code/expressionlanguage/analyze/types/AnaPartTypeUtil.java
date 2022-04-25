@@ -413,11 +413,11 @@ public final class AnaPartTypeUtil {
         return commonRoot(false, _page, _trimInput, loc_);
     }
 
-    private static AnaPartType create(AnaPartType _prev, Ints _indexes, int _next, AnaPartType par_) {
-        if (!(par_ instanceof AnaParentPartType)) {
+    private static AnaPartType create(AnaPartType _prev, Ints _indexes, int _next, AnaPartType _par) {
+        if (!(_par instanceof AnaParentPartType)) {
             return null;
         }
-        AnaParentPartType b_ = (AnaParentPartType)par_;
+        AnaParentPartType b_ = (AnaParentPartType)_par;
         StrTypes last_ = b_.getStrTypes();
         if (last_.size() <= _next) {
             return null;
@@ -447,10 +447,10 @@ public final class AnaPartTypeUtil {
         return postCreate(_prev, trim_, p_);
     }
 
-    private static AnaPartType postCreate(AnaPartType _prev, String trim_, AnaPartType p_) {
-        p_.setPreviousSibling(_prev);
-        p_.setLength(trim_.length());
-        return p_;
+    private static AnaPartType postCreate(AnaPartType _prev, String _trim, AnaPartType _p) {
+        _p.setPreviousSibling(_prev);
+        _p.setLength(_trim.length());
+        return _p;
     }
 
     private static AnaPartType createId(AnaPartType _prev, AnalyzedPageEl _page, Ints _indexes, AnaPartType _pa, int _next) {
@@ -470,9 +470,9 @@ public final class AnaPartTypeUtil {
         return postCreate(_prev, trim_, p_);
     }
 
-    private static int off(int _next, AnaParentPartType b_, StrTypes last_, String v_) {
-        int off_ = b_.getIndexInType() + last_.getKey(_next);
-        off_ += StringUtil.getFirstPrintableCharIndex(v_);
+    private static int off(int _next, AnaParentPartType _b, StrTypes _last, String _v) {
+        int off_ = _b.getIndexInType() + _last.getKey(_next);
+        off_ += StringUtil.getFirstPrintableCharIndex(_v);
         return off_;
     }
 

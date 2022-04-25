@@ -3,7 +3,7 @@ package code.expressionlanguage.exec;
 import code.expressionlanguage.common.FileMetrics;
 import code.expressionlanguage.exec.blocks.ExecFileBlockAbs;
 
-public class RowColumnIndex {
+public final class RowColumnIndex {
     private final int row;
     private final int column;
     private final int index;

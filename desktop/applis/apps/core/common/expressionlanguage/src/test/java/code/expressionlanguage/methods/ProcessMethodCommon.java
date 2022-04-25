@@ -880,9 +880,9 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return inval(_files,opt_,lgName_,kwl_);
     }
 
-    protected static Forwards getForwards(LgNames lgName_, Options opt_) {
-        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        return new Forwards(lgName_, fileBuilder_, opt_);
+    protected static Forwards getForwards(LgNames _lgName, Options _opt) {
+        DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgName.getContent());
+        return new Forwards(_lgName, fileBuilder_, _opt);
     }
 
     protected static LgNames getLgNames() {
@@ -903,77 +903,77 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
         return _cont.getLocks().getState((ExecRootBlock) _cont.getClassBody(_cl)) != InitClassState.NOT_YET;
     }
 
-    protected static Forwards getForwards(Options opt_, LgNames lgName_, KeyWords kw_, AnalyzedPageEl page_) {
-        Forwards forwards_ = getForwards(lgName_, opt_);
+    protected static Forwards getForwards(Options _opt, LgNames _lgName, KeyWords _kw, AnalyzedPageEl _page) {
+        Forwards forwards_ = getForwards(_lgName, _opt);
 
-        validatedStds(page_, forwards_, kw_, opt_, lgName_);
+        validatedStds(_page, forwards_, _kw, _opt, _lgName);
         return forwards_;
     }
 
-    protected static void validatedStds(AnalyzedPageEl page_, Forwards forwards_, KeyWords kw_, Options opt_, LgNames lgName_) {
-        validatedStds(new AnalysisMessages(),page_,forwards_,kw_,opt_,lgName_);
-        assertTrue(page_.isEmptyStdError());
+    protected static void validatedStds(AnalyzedPageEl _page, Forwards _forwards, KeyWords _kw, Options _opt, LgNames _lgName) {
+        validatedStds(new AnalysisMessages(),_page,_forwards,_kw,_opt,_lgName);
+        assertTrue(_page.isEmptyStdError());
     }
-    protected static void validatedStds(AnalysisMessages a_, AnalyzedPageEl page_, Forwards forwards_, KeyWords kw_, Options opt_, LgNames lgName_) {
-        page_.setLogErr(forwards_.getGenerator());
-        ContextFactory.validateStds(forwards_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgName_.getContent(), page_);
+    protected static void validatedStds(AnalysisMessages _a, AnalyzedPageEl _page, Forwards _forwards, KeyWords _kw, Options _opt, LgNames _lgName) {
+        _page.setLogErr(_forwards.getGenerator());
+        ContextFactory.validateStds(_forwards, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgName.getContent(), _page);
    }
 
-    protected static ContextEl getContextEl(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_) {
-        return getResContextEl(_files, opt_, lgName_, kw_).getContext();
+    protected static ContextEl getContextEl(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw) {
+        return getResContextEl(_files, _opt, _lgName, _kw).getContext();
     }
 
-    private static ContextEl cov(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_) {
-        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
+    private static ContextEl cov(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw) {
+        setOpts(_opt, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+        Forwards forwards_ = getForwards(_opt,_lgName,_kw,page_);
 
         ResultContext ctx_ = validate(_files, page_, forwards_);
         assertTrue(isEmptyErrors(page_));
         return ctx_.getContext();
     }
 
-    private static ResultContext getResContextEl(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_) {
-        return getResContextEl(_files, opt_, lgName_, kw_, IndexConstants.INDEX_NOT_FOUND_ELT);
+    private static ResultContext getResContextEl(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw) {
+        return getResContextEl(_files, _opt, _lgName, _kw, IndexConstants.INDEX_NOT_FOUND_ELT);
     }
 
-    private static ResultContext getResContextEl(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_, int _stack) {
-        setOpts(opt_, _stack);
+    private static ResultContext getResContextEl(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw, int _stack) {
+        setOpts(_opt, _stack);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+        Forwards forwards_ = getForwards(_opt,_lgName,_kw,page_);
 
         return validateAndRet(_files, page_, forwards_);
     }
 
-    private static boolean inval(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kw_) {
-        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
+    private static boolean inval(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kw) {
+        setOpts(_opt, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        getForwards(opt_,lgName_,kw_,page_);
+        getForwards(_opt,_lgName,_kw,page_);
 
         return invalid(_files, page_);
     }
 
-    private static StringMap<String> repErrs(StringMap<String> _files, Options opt_, LgNames lgName_, KeyWords kwl_) {
-        setOpts(opt_, IndexConstants.INDEX_NOT_FOUND_ELT);
+    private static StringMap<String> repErrs(StringMap<String> _files, Options _opt, LgNames _lgName, KeyWords _kwl) {
+        setOpts(_opt, IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
+        Forwards forwards_ = getForwards(_opt,_lgName,_kwl,page_);
 
         return validateAndCheckReportErrors(_files, page_, forwards_);
     }
 
-    protected static void setOpts(Options opt_, int _i) {
-        opt_.setTabWidth(4);
-        opt_.setStack(_i);
+    protected static void setOpts(Options _opt, int _i) {
+        _opt.setTabWidth(4);
+        _opt.setStack(_i);
     }
 
-    protected static KeyWords getKeyWords(String _lg, LgNames lgName_) {
+    protected static KeyWords getKeyWords(String _lg, LgNames _lgName) {
         KeyWords kwl_;
         if (StringUtil.quickEq(_lg, "en")) {
             kwl_ = KeyWordsMap.en();
-            KeyWordsMap.initEnStds(lgName_);
+            KeyWordsMap.initEnStds(_lgName);
         } else {
             kwl_ = KeyWordsMap.fr();
-            KeyWordsMap.initFrStds(lgName_);
+            KeyWordsMap.initFrStds(_lgName);
         }
         return kwl_;
     }

@@ -1511,7 +1511,7 @@ public final class ProcessEvolvedCompoundTest extends ProcessMethodCommon {
     public void calc8ail() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex{\n");
-        xml_.append(" $public $static $int catching(){\n");;
+        xml_.append(" $public $static $int catching(){\n");
         xml_.append("  $operator;\n");
         xml_.append("  $operator(];\n");
         xml_.append("  $return 0i;\n");

@@ -494,15 +494,15 @@ public final class Coverage {
         passBlockOperationOp(_exec, _full, _pair, _stackCall, lastPage_, indexAnnot_, indexAnnotGroup_);
     }
 
-    private void passBlockOperationOp(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall, AbstractPageEl lastPage_, int indexAnnot_, int _parametersTypesLength) {
-        AbsBk matchBl_ = matchBl(lastPage_);
-        BlockCoverageResult blRes_ = getResultBlock(matchBl_, _parametersTypesLength, indexAnnot_);
+    private void passBlockOperationOp(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall, AbstractPageEl _lastPage, int _indexAnnot, int _indexAnnotGroup) {
+        AbsBk matchBl_ = matchBl(_lastPage);
+        BlockCoverageResult blRes_ = getResultBlock(matchBl_, _indexAnnotGroup, _indexAnnot);
         passBlockOperationOp(_exec, _full, _pair, _stackCall, blRes_);
     }
 
-    private void passBlockOperationOp(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall, BlockCoverageResult blRes_) {
-        OperationNode ana_ = blRes_.getMapping().getVal(_exec);
-        CustList<AbstractCoverageResult> instr_ = blRes_.getCovers();
+    private void passBlockOperationOp(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall, BlockCoverageResult _blRes) {
+        OperationNode ana_ = _blRes.getMapping().getVal(_exec);
+        CustList<AbstractCoverageResult> instr_ = _blRes.getCovers();
         if (ana_ == null) {
             return;
         }

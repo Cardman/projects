@@ -83,12 +83,12 @@ public abstract class ExecAbstractAffectOperation extends ExecMethodOperation im
         return dotted(root_);
     }
 
-    static ExecOperationNode dotted(ExecOperationNode root_) {
+    static ExecOperationNode dotted(ExecOperationNode _root) {
         ExecOperationNode elt_;
-        if (!(root_ instanceof ExecAbstractDotOperation)) {
-            elt_ = root_;
+        if (!(_root instanceof ExecAbstractDotOperation)) {
+            elt_ = _root;
         } else {
-            elt_ = ExecHelper.getLastNode((ExecMethodOperation)root_);
+            elt_ = ExecHelper.getLastNode((ExecMethodOperation)_root);
         }
         return elt_;
     }

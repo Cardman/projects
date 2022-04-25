@@ -1762,7 +1762,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);;
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
         validateInheritingClasses(page_);

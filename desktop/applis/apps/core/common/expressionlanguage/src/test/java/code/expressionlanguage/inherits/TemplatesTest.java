@@ -1181,7 +1181,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         KeyWords kwl_ = getKeyWords("en",lgName_);
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);;
+        Forwards forwards_ = getForwards(opt_,lgName_,kwl_,page_);
         parseCustomFiles(_files, page_);
         assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
         validateInheritingClasses(page_);
@@ -1196,7 +1196,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);;
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
         parseCustomFiles(_files, page_);
         assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
         validateInheritingClasses(page_);
@@ -1211,7 +1211,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);;
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
         parseCustomFiles(_files, page_);
         assertTrue(page_.getMessages().displayErrors(), isEmptyErrors(page_));
         validateInheritingClasses(page_);
@@ -1227,7 +1227,7 @@ public final class TemplatesTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);;
+        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
         StringMap<String> files_ = page_.buildFiles();
         buildFilesBodies(page_, files_);
         parseFiles(page_);

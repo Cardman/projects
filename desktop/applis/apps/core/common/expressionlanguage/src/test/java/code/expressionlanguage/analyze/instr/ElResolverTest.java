@@ -3858,18 +3858,18 @@ public final class ElResolverTest extends ProcessMethodCommon {
 
     @Test
     public void checkSyntaxDelimiters1FailTest() {
-        int badOffset = getBadOffset("{6*('\\u9fcb'+8)", 1);
-        assertEq(15, badOffset);
+        int badOffset_ = getBadOffset("{6*('\\u9fcb'+8)", 1);
+        assertEq(15, badOffset_);
     }
     @Test
     public void checkSyntaxDelimiters4FailTest() {
-        int badOffset = getBadOffset("{6*('\\u9fcb'+8\\", 1);
-        assertEq(15, badOffset);
+        int badOffset_ = getBadOffset("{6*('\\u9fcb'+8\\", 1);
+        assertEq(15, badOffset_);
     }
     @Test
     public void checkSyntaxDelimiters5FailTest() {
-        int badOffset = getBadOffset("{6*('\\u9fcb'+8\\ ", 1);
-        assertEq(16, badOffset);
+        int badOffset_ = getBadOffset("{6*('\\u9fcb'+8\\ ", 1);
+        assertEq(16, badOffset_);
     }
     @Test
     public void checkSyntaxDelimiters8Test() {
@@ -3889,20 +3889,20 @@ public final class ElResolverTest extends ProcessMethodCommon {
     }
     @Test
     public void checkSyntaxDelimiters2FailTest() {
-        int badOffset = getBadOffset("{6*('\\u9fcb'+8){", 1);
-        assertEq(16, badOffset);
+        int badOffset_ = getBadOffset("{6*('\\u9fcb'+8){", 1);
+        assertEq(16, badOffset_);
     }
 
-    private int getBadOffset(String _el, int minIndex) {
+    private int getBadOffset(String _el, int _minIndex) {
         AnalyzedPageEl conf_ = contextEl();
 
-        return checkSyntaxDelimiters(conf_, _el, minIndex).getBadOffset();
+        return checkSyntaxDelimiters(conf_, _el, _minIndex).getBadOffset();
     }
 
     @Test
     public void checkSyntaxDelimiters3FailTest() {
-        int badOffset = getBadOffset("{6*('\\u9gcb'+8)}", 1);
-        assertEq(-1, badOffset);
+        int badOffset_ = getBadOffset("{6*('\\u9gcb'+8)}", 1);
+        assertEq(-1, badOffset_);
     }
 
     @Test

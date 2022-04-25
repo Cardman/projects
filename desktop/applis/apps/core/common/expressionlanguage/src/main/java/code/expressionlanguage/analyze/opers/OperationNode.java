@@ -849,26 +849,26 @@ public abstract class OperationNode {
         return getConstrustorId(clCurName_,_type,_filter, _page, signatures_);
     }
 
-    private static void feedCustCtor(AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, String clCurName_, int varargOnly_, CustList<ConstructorInfo> ctors_) {
+    private static void feedCustCtor(AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, String _clCurName, int _varargOnly, CustList<ConstructorInfo> _ctors) {
         if (_type instanceof RootBlock){
             for (ConstructorBlock b: ((RootBlock) _type).getValidCtors()) {
-                if (excludeCust((RootBlock) _type, _uniqueId, varargOnly_, b, _page)) {
+                if (excludeCust((RootBlock) _type, _uniqueId, _varargOnly, b, _page)) {
                     continue;
                 }
-                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, clCurName_, b);
-                ctors_.add(mloc_);
+                ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _clCurName, b);
+                _ctors.add(mloc_);
             }
         }
     }
 
-    private static void feedStdCtor(AnaGeneType _type, ConstructorId _uniqueId, String clCurName_, int varargOnly_, CustList<ConstructorInfo> ctors_) {
+    private static void feedStdCtor(AnaGeneType _type, ConstructorId _uniqueId, String _clCurName, int _varargOnly, CustList<ConstructorInfo> _ctors) {
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType) _type).getConstructors()) {
-                if (exclude(_uniqueId, varargOnly_, s)) {
+                if (exclude(_uniqueId, _varargOnly, s)) {
                     continue;
                 }
-                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, clCurName_, s);
-                ctors_.add(mloc_);
+                ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, _clCurName, s);
+                _ctors.add(mloc_);
             }
         }
     }
@@ -1000,31 +1000,31 @@ public abstract class OperationNode {
         return getConstrustorIdLambda(_class,_type,_page, signatures_);
     }
 
-    private static void feedCustCtorLambda(String _class, AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args, int varargOnly_, CustList<ConstructorInfo> signatures_) {
+    private static void feedCustCtorLambda(String _class, AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args, int _varargOnly, CustList<ConstructorInfo> _signatures) {
         if (_type instanceof RootBlock){
             for (ConstructorBlock b: ((RootBlock) _type).getValidCtors()) {
-                if (excludeCust((RootBlock) _type, _uniqueId, varargOnly_, b, _page)) {
+                if (excludeCust((RootBlock) _type, _uniqueId, _varargOnly, b, _page)) {
                     continue;
                 }
                 ConstructorInfo mloc_ = initCtorInfo((AbsBk) _type, _class, b);
                 mloc_.format(_page);
                 if (isPossibleMethodLambda(mloc_, _page, _args)) {
-                    signatures_.add(mloc_);
+                    _signatures.add(mloc_);
                 }
             }
         }
     }
 
-    private static void feedStdCtorLambda(String _class, AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args, int varargOnly_, CustList<ConstructorInfo> signatures_) {
+    private static void feedStdCtorLambda(String _class, AnaGeneType _type, ConstructorId _uniqueId, AnalyzedPageEl _page, StringList _args, int _varargOnly, CustList<ConstructorInfo> _signatures) {
         if (_type instanceof StandardType) {
             for (StandardConstructor s: ((StandardType) _type).getConstructors()) {
-                if (exclude(_uniqueId, varargOnly_, s)) {
+                if (exclude(_uniqueId, _varargOnly, s)) {
                     continue;
                 }
                 ConstructorInfo mloc_ = initCtorInfo((StandardType) _type, _class, s);
                 mloc_.format(_page);
                 if (isPossibleMethodLambda(mloc_, _page, _args)) {
-                    signatures_.add(mloc_);
+                    _signatures.add(mloc_);
                 }
             }
         }
@@ -2047,10 +2047,10 @@ public abstract class OperationNode {
         return typeInfos_;
     }
 
-    private static void addToInhList(MethodAccessKind _staticContext, CustList<TypeInfo> typeInfos_, RootBlock root_, AnaFormattedRootBlock f_, int _anc) {
-        addToList(typeInfos_, _staticContext, f_, new AnaFormattedRootBlock(root_), _anc,true);
-        for (AnaFormattedRootBlock m: root_.getAllGenericSuperTypesInfo()) {
-            addToList(typeInfos_, _staticContext, f_, m, _anc,false);
+    private static void addToInhList(MethodAccessKind _staticContext, CustList<TypeInfo> _typeInfos, RootBlock _root, AnaFormattedRootBlock _f, int _anc) {
+        addToList(_typeInfos, _staticContext, _f, new AnaFormattedRootBlock(_root), _anc,true);
+        for (AnaFormattedRootBlock m: _root.getAllGenericSuperTypesInfo()) {
+            addToList(_typeInfos, _staticContext, _f, m, _anc,false);
         }
     }
 

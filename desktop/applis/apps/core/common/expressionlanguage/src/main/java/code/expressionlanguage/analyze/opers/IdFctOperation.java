@@ -270,15 +270,15 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
     }
 
-    private void varargErr(AnalyzedPageEl _page, CustList<AnaResultPartType> typesAnaSet_, int fu2_) {
+    private void varargErr(AnalyzedPageEl _page, CustList<AnaResultPartType> _typesAnaSet, int _fu2) {
         FoundErrorInterpret varg_ = new FoundErrorInterpret();
         varg_.setFile(_page.getCurrentFile());
-        varg_.setIndexFile(_page, fu2_);
+        varg_.setIndexFile(_page, _fu2);
         //three dots
         varg_.buildError(_page.getAnalysisMessages().getUnexpectedVararg());
         _page.getLocalizer().addError(varg_);
-        InfoErrorDto info_ = new InfoErrorDto(varg_.getBuiltError(), _page, fu2_, 3);
-        partOffsetsSet.addAllElts(typesAnaSet_);
+        InfoErrorDto info_ = new InfoErrorDto(varg_.getBuiltError(), _page, _fu2, 3);
+        partOffsetsSet.addAllElts(_typesAnaSet);
         partOffsetsErrSet = info_;
     }
 
@@ -350,10 +350,10 @@ public final class IdFctOperation extends LeafOperation implements FunctFilterOp
         return varg_;
     }
 
-    public static ResolvedId unsolvedId(int _from, String _fromType, StringList _params, String _className, AnalyzedPageEl _page, FoundErrorInterpret varg_) {
+    public static ResolvedId unsolvedId(int _from, String _fromType, StringList _params, String _className, AnalyzedPageEl _page, FoundErrorInterpret _varg) {
         int fu_ = off(false,_from, _params, _className);
         CustList<AnaResultPartType> typesAna_ = types(_from, _params, _fromType, _className, _page);
-        return new ResolvedId(null, new InfoErrorDto(varg_.getBuiltError(), _page, fu_, 3), typesAna_);
+        return new ResolvedId(null, new InfoErrorDto(_varg.getBuiltError(), _page, fu_, 3), typesAna_);
     }
 
     public static ResolvedId solvedId(int _from, boolean _retRef, String _fromType, String _name, MethodAccessKind _static, StringList _params, String _className, AnalyzedPageEl _page) {

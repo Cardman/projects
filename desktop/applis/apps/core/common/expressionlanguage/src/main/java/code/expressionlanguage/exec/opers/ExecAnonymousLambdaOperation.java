@@ -30,9 +30,9 @@ public final class ExecAnonymousLambdaOperation extends ExecAbstractLambdaOperat
         return newAnonymousLambda(_info, _common, _anonCont, _previous, _lastPage.getContentEx(), clArg_);
     }
 
-    public static LambdaMethodStruct newAnonymousLambda(CallersInfo _info, ExecLambdaCommonContent _common, ExecLambdaMethodContent _anonCont, Argument _previous, PageElContent _lastPage, String clArg_) {
+    public static LambdaMethodStruct newAnonymousLambda(CallersInfo _info, ExecLambdaCommonContent _common, ExecLambdaMethodContent _anonCont, Argument _previous, PageElContent _lastPage, String _clArg) {
         MethodMetaInfo metaInfo_ = new MethodMetaInfo(_info,new HiddenCache(_lastPage), _common, _anonCont);
-        return new LambdaMethodStruct(metaInfo_, _previous, _common, _anonCont, clArg_);
+        return new LambdaMethodStruct(metaInfo_, _previous, _common, _anonCont, _clArg);
     }
 
     @Override

@@ -166,22 +166,22 @@ public final class OperationsSequence {
         }
     }
 
-    private void countArr(Ints _nb, StringBuilder filter_) {
+    private void countArr(Ints _nb, StringBuilder _filter) {
         int afterLastPar_ = operators.lastKey()+1;
         for (int i : _nb.getReverse()) {
             if (i < afterLastPar_) {
                 break;
             }
-            filter_.deleteCharAt(i);
+            _filter.deleteCharAt(i);
             countArrays++;
         }
         countArrays/=2;
     }
 
-    private void errOpers(String _string, int afterLastPar_) {
+    private void errOpers(String _string, int _afterLastPar) {
         if (!instance) {
             operators.clear();
-            operators.addEntry(afterLastPar_, "");
+            operators.addEntry(_afterLastPar, "");
             return;
         }
         values.addEntry(IndexConstants.FIRST_INDEX, _string);
