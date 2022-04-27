@@ -33,10 +33,6 @@ public final class FileResolver {
     private static final char BEGIN_CALLING = '(';
     private static final char END_CALLING = ')';
     private static final char PART_SEPARATOR = '=';
-    private static final char DEL_CHAR = '\'';
-    private static final char DEL_STRING = '"';
-    private static final char DEL_TEXT = '`';
-    private static final char ESCAPE = '\\';
     private static final char ANNOT = '@';
 
     private FileResolver(){
@@ -1191,7 +1187,7 @@ public final class FileResolver {
                 currentParent_ = possibleEmptyGoUp(currentParent_);
             }
         } else if (_currentChar != END_BLOCK) {
-            AbsBk bl_ = processInstructionBlock(_offset, instructionTrimLocation_, _i, currentParent_, trimmedInstruction_, _page);
+            AbsBk bl_ = processInstructionBlock(file_,_offset, instructionTrimLocation_, _i, currentParent_, trimmedInstruction_, _page);
             if (bl_ == null) {
                 if (_declType) {
                     //Inner types
@@ -1932,7 +1928,7 @@ public final class FileResolver {
         return symbol_;
     }
 
-    private static AbsBk processInstructionBlock(int _offset,
+    private static AbsBk processInstructionBlock(FileBlock _file, int _offset,
                                                  int _instructionTrimLocation,
                                                  int _i, BracedBlock _currentParent, String _trimmedInstruction, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
@@ -2422,8 +2418,8 @@ public final class FileResolver {
                 varOffset_ += firstOff_;
                 exp_ = exp_.substring(eqIndex_ + 1);
             }
-            int nextElt_ = getIndex(exp_);
             int aftVarOffset_ = aftTypeOffset_ + variable_.length()+1;
+            int nextElt_ = getIndex(_offset+aftVarOffset_,_file.getStringParts(),exp_);
             int initOff_ = aftVarOffset_;
             String init_ = "";
             if (nextElt_ < 0) {
@@ -2434,8 +2430,8 @@ public final class FileResolver {
                 initOff_ += secondOff_;
                 exp_ = exp_.substring(nextElt_+1);
             }
-            nextElt_ = getIndex(exp_);
             int afToOffset_ = aftVarOffset_ + init_.length()+1;
+            nextElt_ = getIndex(_offset+afToOffset_,_file.getStringParts(),exp_);
             int toOff_ = afToOffset_;
             String to_ = "";
             if (nextElt_ < 0) {
@@ -2541,16 +2537,16 @@ public final class FileResolver {
             String declaringType_ = getDeclaringTypeInstr(exp_,keyWords_);
             exp_ = exp_.substring(declaringType_.length());
             boolean ok_ = false;
-            int nextEltMut_ = getIndex(exp_);
+            int initOff_ = typeOffset_ + declaringType_.length();
+            int nextEltMut_ = getIndex(_offset+initOff_,_file.getStringParts(),exp_);
             String expAfterType_ = exp_;
             if (nextEltMut_ > -1) {
-                int initOff_ = typeOffset_ + declaringType_.length();
                 String init_ = exp_.substring(0, nextEltMut_);
                 int off_ = StringExpUtil.getOffset(init_);
                 int toOff_ = initOff_ + nextEltMut_+1;
                 initOff_ += off_;
                 exp_ = exp_.substring(nextEltMut_+1);
-                int nextElt_ = getIndex(exp_);
+                int nextElt_ = getIndex(_offset+toOff_,_file.getStringParts(),exp_);
                 if (nextElt_ > -1) {
                     String to_ = exp_.substring(0, nextElt_);
                     int offTwo_ = StringExpUtil.getOffset(to_);
@@ -2756,127 +2752,24 @@ public final class FileResolver {
         }
         return "";
     }
-    private static int getIndex(String _info) {
+    private static int getIndex(int _offset, CustList<SegmentStringPart> _strs,String _info) {
         int indexInstr_ = 0;
         int instrLen_ = _info.length();
         int localCallings_ = 0;
-        boolean localConstCharText_ = false;
-        boolean localConstStringText_ = false;
-        boolean localConstChar_ = false;
-        boolean localConstString_ = false;
-        boolean localConstText_ = false;
         while (indexInstr_ < instrLen_) {
             char locChar_ = _info.charAt(indexInstr_);
-            if (localConstCharText_) {
-                if (locChar_ == ESCAPE) {
-                    indexInstr_++;
-                    indexInstr_++;
-                    continue;
-                }
-                if (locChar_ == DEL_CHAR
-                    &&StringExpUtil.nextCharIs(_info,indexInstr_+1,instrLen_,DEL_CHAR)
-                    &&StringExpUtil.nextCharIs(_info,indexInstr_+2,instrLen_,DEL_CHAR)) {
-                    indexInstr_+=3;
-                    localConstCharText_ = false;
-                    continue;
-                }
-                indexInstr_++;
-                continue;
-            }
-            if (localConstChar_) {
-                if (locChar_ == ESCAPE) {
-                    indexInstr_++;
-                    indexInstr_++;
-                    continue;
-                }
-                if (locChar_ == DEL_CHAR) {
-                    indexInstr_++;
-                    localConstChar_ = false;
-                    continue;
-                }
-                indexInstr_++;
-                continue;
-            }
-            if (localConstStringText_) {
-                if (locChar_ == ESCAPE) {
-                    indexInstr_++;
-                    indexInstr_++;
-                    continue;
-                }
-                if (locChar_ == DEL_STRING
-                        &&StringExpUtil.nextCharIs(_info,indexInstr_+1,instrLen_,DEL_STRING)
-                        &&StringExpUtil.nextCharIs(_info,indexInstr_+2,instrLen_,DEL_STRING)) {
-                    indexInstr_+=3;
-                    localConstStringText_ = false;
-                    continue;
-                }
-                indexInstr_++;
-                continue;
-            }
-            if (localConstString_) {
-                if (locChar_ == ESCAPE) {
-                    indexInstr_++;
-                    indexInstr_++;
-                    continue;
-                }
-                if (locChar_ == DEL_STRING) {
-                    indexInstr_++;
-                    localConstString_ = false;
-                    continue;
-                }
-                indexInstr_++;
-                continue;
-            }
-            if (localConstText_) {
-                if (locChar_ == DEL_TEXT) {
-                    if (indexInstr_ + 1 >= instrLen_ ||_info.charAt(indexInstr_ + 1) != DEL_TEXT) {
-                        indexInstr_++;
-                        localConstText_ = false;
-                        continue;
-                    }
-                    indexInstr_++;
-                }
-                indexInstr_++;
+            int until_ = until(_offset, _strs, indexInstr_);
+            if (until_ > indexInstr_) {
+                indexInstr_ = until_;
                 continue;
             }
             if (localCallings_ == 0 && locChar_ == END_LINE) {
                 return indexInstr_;
             }
-            if (locChar_ == DEL_CHAR) {
-                if (are(_info, indexInstr_, instrLen_, DEL_CHAR)){
-                    localConstCharText_ = true;
-                    indexInstr_+=3;
-                    continue;
-                }
-                localConstChar_ = true;
-            }
-            if (locChar_ == DEL_STRING) {
-                if (are(_info, indexInstr_, instrLen_, DEL_STRING)){
-                    localConstStringText_ = true;
-                    indexInstr_+=3;
-                    continue;
-                }
-                localConstString_ = true;
-            }
-            if (locChar_ == DEL_TEXT) {
-                localConstText_ = true;
-            }
-            if (locChar_ == BEGIN_CALLING) {
+            if (locChar_ == BEGIN_CALLING||locChar_ == BEGIN_ARRAY||locChar_ == BEGIN_BLOCK) {
                 localCallings_++;
             }
-            if (locChar_ == END_CALLING) {
-                localCallings_--;
-            }
-            if (locChar_ == BEGIN_ARRAY) {
-                localCallings_++;
-            }
-            if (locChar_ == END_ARRAY) {
-                localCallings_--;
-            }
-            if (locChar_ == BEGIN_BLOCK) {
-                localCallings_++;
-            }
-            if (locChar_ == END_BLOCK) {
+            if (locChar_ == END_CALLING||locChar_ == END_ARRAY||locChar_ == END_BLOCK) {
                 localCallings_--;
             }
             indexInstr_++;
@@ -2884,9 +2777,15 @@ public final class FileResolver {
         return -1;
     }
 
-    private static boolean are(String _info, int _indexInstr, int _instrLen, char _del) {
-        return StringExpUtil.nextCharIs(_info, _indexInstr + 1, _instrLen, _del)
-                && StringExpUtil.nextCharIs(_info, _indexInstr + 2, _instrLen, _del);
+    private static int until(int _offset, CustList<SegmentStringPart> _strs, int _indexInstr) {
+        int until_ = _indexInstr;
+        for (SegmentStringPart s: _strs) {
+            if (s.getBegin() == _offset + _indexInstr) {
+                until_ = s.getEnd() - _offset;
+                break;
+            }
+        }
+        return until_;
     }
 
     private static boolean canHaveElements(AbsBk _bl) {

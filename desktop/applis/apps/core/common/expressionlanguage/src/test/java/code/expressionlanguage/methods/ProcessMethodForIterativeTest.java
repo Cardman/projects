@@ -9,7 +9,138 @@ import org.junit.Test;
 
 
 public final class ProcessMethodForIterativeTest extends ProcessMethodCommon {
-
+    @Test
+    public void calculateArgument26Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $iter($int i= \"1234\".length(); \"\".length();-1i){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument27Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $iter($int i= \"\".length(); \"1234\".length();;1i){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument28Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $iter($int i= \"1234\".length(); \"1234\".length();;1i){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(4, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument29Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $iter($int i=\"1234\".length();\"\".length();-1i){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument30Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $iter($int i=\"\".length();\"1234\".length();;1i){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument31Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $iter($int i=\"1234\".length();\"1234\".length();;1i){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(4, getNumber(ret_));
+    }
     @Test
     public void calculateArgument32Test() {
         StringBuilder xml_ = new StringBuilder();
