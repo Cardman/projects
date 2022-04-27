@@ -430,15 +430,10 @@ public final class Net {
     public static IntMap<AbstractSocket> getSockets(Net _instance) {
         return _instance.sockets;
     }
-    public static IntMap<BoolVal> getServers(Net _instance) {
-        return _instance.servers;
-    }
+
     public static void sendOkToQuit(Net _instance) {
-        for (EntryCust<Integer, BoolVal> e: getServers(_instance).entryList()) {
-            if (e.getValue() == BoolVal.TRUE) {
-                AbstractSocket val_ = getSockets(_instance).getVal(e.getKey());
-                sendText(val_,"<"+ DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+"/>");
-            }
+        for (byte p: Net.activePlayers(_instance)) {
+            sendText(Net.getSocketByPlace(p, _instance),"<"+ DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT+"/>");
         }
     }
 

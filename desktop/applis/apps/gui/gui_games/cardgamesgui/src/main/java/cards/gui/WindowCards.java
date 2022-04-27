@@ -770,7 +770,6 @@ public final class WindowCards extends NetGroupFrame {
 
     @Override
     public void gearClient(AbstractSocket _newSocket) {
-        Net.getServers(getNet()).put(Net.getServers(getNet()).size(), ComparatorBoolean.of(((ContainerMulti)containerGame).hasCreatedServer()));
         int nb_ = Net.getSockets(getNet()).size();
         Net.getSockets(getNet()).put(nb_, _newSocket);
         SendReceiveServerCards sendReceiveServer_=new SendReceiveServerCards(_newSocket,this, getNet());
@@ -788,7 +787,9 @@ public final class WindowCards extends NetGroupFrame {
         Element elt_ = _readObject.getDocumentElement();
         String tagName_ = DocumentReaderCardsMultiUtil.tagName(elt_);
         if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT,tagName_)) {
-            getMultiStop().setEnabled(true);
+            if (((ContainerMulti)containerGame).hasCreatedServer()) {
+                getMultiStop().setEnabled(true);
+            }
             return;
         }
         if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_DELEGATE_SERVER,tagName_)) {
