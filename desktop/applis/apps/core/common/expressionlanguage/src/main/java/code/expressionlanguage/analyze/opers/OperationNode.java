@@ -234,8 +234,7 @@ public abstract class OperationNode {
                 return new AnnotationInstanceArobaseOperation(_index, _indexChild, _m, _op);
             }
         }
-        int ternary_ = ternary(_op, _page);
-        if (ternary_ == BOOLEAN_ARGS) {
+        if (_op.isTernaryOp()) {
             return ternOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
@@ -289,7 +288,7 @@ public abstract class OperationNode {
             return new BitOrOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.RANGE) {
-            return new RangeOperation(_index,_indexChild, _m, _op, _op.implMiddle());
+            return new RangeOperation(_index,_indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.AND_PRIO) {
             return new AndOperation(_index, _indexChild, _m, _op);
@@ -495,21 +494,6 @@ public abstract class OperationNode {
             return new RefTernaryOperation(_index, _indexChild, _m, _op);
         }
         return new TernaryOperation(_index, _indexChild, _m, _op);
-    }
-
-    private static int ternary(OperationsSequence _op, AnalyzedPageEl _page) {
-        int ternary_ = 0;
-        if (_op.getPriority() == ElResolver.TERNARY_PRIO) {
-            ternary_ = _op.getValues().size();
-        } else if (_op.getPriority() == ElResolver.FCT_OPER_PRIO){
-            String fctName_ = _op.getFctName().trim();
-            KeyWords keyWords_ = _page.getKeyWords();
-            String keyWordBool_ = keyWords_.getKeyWordBool();
-            if (StringUtil.quickEq(fctName_, keyWordBool_)) {
-                ternary_ = _op.getValues().size();
-            }
-        }
-        return ternary_;
     }
 
     protected static boolean atMostOne(MethodOperation _m) {

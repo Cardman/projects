@@ -57,6 +57,10 @@ public final class OperationsSequence {
     private int length;
     private int argOffset;
     private String clName = "";
+    private boolean implMiddle;
+    private boolean ternaryOp;
+    private boolean call;
+    private boolean array;
     public void setValue(String _string, int _offset) {
         values = new StrTypes();
         values.addEntry(IndexConstants.FIRST_INDEX, _string);
@@ -246,16 +250,15 @@ public final class OperationsSequence {
         StrTypes.addNotEmpty(_beginValuePart,_str,values);
     }
 
-    public boolean implMiddle() {
+    private void setImplMiddle() {
         StrTypes vs_ = getValues();
         if ((vs_.size() == 2 || vs_.size() == 3) && vs_.getValue(1).trim().isEmpty()) {
             vs_.remove(1);
-            return true;
+            implMiddle = true;
         }
-        return false;
     }
 
-    public void removeFirst() {
+    private void removeFirst() {
         StrTypes vs_ = getValues();
         vs_.remove(0);
     }
@@ -270,6 +273,14 @@ public final class OperationsSequence {
 //        }
         if (getPriority() == ElResolver.NAME_PRIO) {
             removeFirst();
+            return;
+        }
+        if (getPriority() == ElResolver.TERNARY_PRIO) {
+            ternaryOp = true;
+            return;
+        }
+        if (getPriority() == ElResolver.RANGE) {
+            setImplMiddle();
             return;
         }
         if (getPriority() == ElResolver.FCT_OPER_PRIO) {
@@ -298,9 +309,11 @@ public final class OperationsSequence {
             ternary_ = getValues().size()-1;
         }
         if (ternary_ == 3) {
+            ternaryOp = true;
             removeFirst();
             return;
         }
+        setupCall();
         if (isCallDbArray()) {
             removeFirst();
             String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
@@ -314,9 +327,32 @@ public final class OperationsSequence {
             }
             return;
         }
+        setupArray();
         if (isArray()) {
             removeFirst();
         }
+    }
+    private void setupCall() {
+        String str_ = operators.firstValue();
+        if (str_.isEmpty()) {
+            return;
+        }
+        call = str_.charAt(0) == PAR;
+    }
+    private void setupArray() {
+        String str_ = operators.firstValue();
+        if (str_.isEmpty()) {
+            return;
+        }
+        array = str_.charAt(0) == ARR;
+    }
+
+    public boolean isImplMiddle() {
+        return implMiddle;
+    }
+
+    public boolean isTernaryOp() {
+        return ternaryOp;
     }
 
     public int getArgOffset() {
@@ -375,14 +411,7 @@ public final class OperationsSequence {
     }
 
     public boolean isCall() {
-        if (priority != ElResolver.FCT_OPER_PRIO) {
-            return false;
-        }
-        String str_ = operators.firstValue();
-        if (str_.isEmpty()) {
-            return false;
-        }
-        return str_.charAt(0) == PAR;
+        return call;
     }
 
     public boolean isInstance() {
@@ -390,14 +419,7 @@ public final class OperationsSequence {
     }
 
     public boolean isArray() {
-        if (priority != ElResolver.FCT_OPER_PRIO) {
-            return false;
-        }
-        String str_ = operators.firstValue();
-        if (str_.isEmpty()) {
-            return false;
-        }
-        return str_.charAt(0) == ARR;
+        return array;
     }
 
     public int getPriority() {

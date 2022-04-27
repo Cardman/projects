@@ -16,9 +16,9 @@ public final class RangeOperation extends MethodOperation {
     private int opOffset;
     private boolean okNum;
     private final boolean implicitMiddle;
-    public RangeOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, boolean _impl) {
+    public RangeOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
-        implicitMiddle = _impl;
+        implicitMiddle = _op.isImplMiddle();
     }
 
     @Override
