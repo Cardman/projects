@@ -64,7 +64,7 @@ public final class ElRetrieverAnonymous {
                     }
                 }
             }
-            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,stack_, _page, _curElts.getInstrLoc());
+            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,stack_, _page, _curElts);
             if (next_ > from_) {
                 from_ = next_;
                 continue;
@@ -120,7 +120,7 @@ public final class ElRetrieverAnonymous {
                 from_ = until_;
                 continue;
             }
-            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,stack_, _page, _curElts.getInstrLoc());
+            int next_ = processAfterInstuctionKeyWordQuick(_string, from_,stack_, _page, _curElts);
             if (next_ > from_) {
                 from_ = next_;
                 continue;
@@ -153,7 +153,7 @@ public final class ElRetrieverAnonymous {
         return from_;
     }
 
-    private static int processAfterInstuctionKeyWordQuick(String _string, int _i, StackDelimiters _stack, AnalyzedPageEl _page, int _curIndex) {
+    private static int processAfterInstuctionKeyWordQuick(String _string, int _i, StackDelimiters _stack, AnalyzedPageEl _page, CurrentExpElts _curElts) {
         int len_ = _string.length();
         int i_ = _i;
         KeyWords keyWords_ = _page.getKeyWords();
@@ -210,21 +210,21 @@ public final class ElRetrieverAnonymous {
                     if (count_ == 1 && ch_ == ':') {
                         int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
                         if (afterSwitch_.startsWith("@",l_)) {
-                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),j_+l_+ _curIndex);
-                            parse_.parse();
+                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),j_+l_+ _curElts.getInstrLoc());
+                            parse_.parse(_curElts.getFile().getStringParts());
                             annotationsIndexes_ = parse_.getAnnotationsIndexes();
                             annotations_ = parse_.getAnnotations();
-                            l_ = parse_.getIndex() - j_ - _curIndex;
+                            l_ = parse_.getIndex() - j_ - _curElts.getInstrLoc();
                             l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_);
                         }
                         if (afterSwitch_.startsWith(":",l_)) {
                             int m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
                             if (afterSwitch_.startsWith("@",m_)) {
-                                ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),j_+m_+ _curIndex);
-                                parse_.parse();
+                                ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),j_+m_+ _curElts.getInstrLoc());
+                                parse_.parse(_curElts.getFile().getStringParts());
                                 annotationsIndexesParam_ = parse_.getAnnotationsIndexes();
                                 annotationsParam_ = parse_.getAnnotations();
-                                m_ = parse_.getIndex() - j_ - _curIndex;
+                                m_ = parse_.getIndex() - j_ - _curElts.getInstrLoc();
                                 m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,m_);
                             }
                             l_ = m_;
@@ -317,11 +317,11 @@ public final class ElRetrieverAnonymous {
             Ints annotationsIndexes_ = new Ints();
             StringList annotations_ = new StringList();
             if (_string.startsWith("@",j_)) {
-                ParsedAnnotations parse_ = new ParsedAnnotations(_string.substring(j_),j_+ _curIndex);
-                parse_.parse();
+                ParsedAnnotations parse_ = new ParsedAnnotations(_string.substring(j_),j_+ _curElts.getInstrLoc());
+                parse_.parse(_curElts.getFile().getStringParts());
                 annotationsIndexes_ = parse_.getAnnotationsIndexes();
                 annotations_ = parse_.getAnnotations();
-                j_ = parse_.getIndex()- _curIndex;
+                j_ = parse_.getIndex()- _curElts.getInstrLoc();
                 j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
             }
             if (StringExpUtil.startsWithKeyWord(_string,j_, keyWordInterfaces_)) {
@@ -511,6 +511,7 @@ public final class ElRetrieverAnonymous {
                 input_.setFile(_curElts.getFile());
                 input_.setNextIndex(j_);
                 input_.setNextIndexBef(dash_);
+                input_.setOffset(instrLoc_);
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                 if (res_.isOkType()) {
                     int k_ = res_.getNextIndex() - 1;
@@ -576,6 +577,7 @@ public final class ElRetrieverAnonymous {
                 input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
                 input_.setAnnotationsParams(parse_.getAnnotationsParams());
                 input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
+                input_.setOffset(instrLoc_);
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                 if (res_.isOkType()) {
                     int k_ = res_.getNextIndex() - 1;
@@ -643,7 +645,7 @@ public final class ElRetrieverAnonymous {
             if (!_stack.getCallings().containsObj(_i)) {
                 ParsedFctHeader parse_ = new ParsedFctHeader();
                 int instrLoc_ = _curElts.getInstrLoc();
-                parse_.parseAnonymous(_i,_string,instrLoc_,keyWords_.getKeyWordThat());
+                parse_.parseAnonymous(_curElts.getFile().getStringParts(), _i,_string,instrLoc_,keyWords_.getKeyWordThat());
                 int rightPar_ = parse_.getNextIndex();
                 if (rightPar_ > _i) {
                     String info_ = _string.substring(rightPar_+1);
@@ -664,6 +666,7 @@ public final class ElRetrieverAnonymous {
                         input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
                         input_.setAnnotationsParams(parse_.getAnnotationsParams());
                         input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
+                        input_.setOffset(instrLoc_);
                         ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                         if (res_.isOkType()) {
                             int k_ = res_.getNextIndex() - 1;
@@ -703,6 +706,7 @@ public final class ElRetrieverAnonymous {
                     input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
                     input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
+                    input_.setOffset(instrLoc_);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
@@ -722,6 +726,7 @@ public final class ElRetrieverAnonymous {
                     input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEndSw().get(indexLastSw_));
                     input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
                     input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
+                    input_.setOffset(instrLoc_);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
@@ -783,7 +788,7 @@ public final class ElRetrieverAnonymous {
             if (!_stack.getCallings().containsObj(_i)) {
                 ParsedFctHeader parse_ = new ParsedFctHeader();
                 int instrLoc_ = _curElts.getInstrLoc();
-                parse_.parseAnonymous(_i,_string,instrLoc_,keyWords_.getKeyWordThat());
+                parse_.parseAnonymous(_curElts.getFile().getStringParts(),_i,_string,instrLoc_,keyWords_.getKeyWordThat());
                 int rightPar_ = parse_.getNextIndex();
                 if (rightPar_ > _i) {
                     String info_ = _string.substring(rightPar_+1);
@@ -804,6 +809,7 @@ public final class ElRetrieverAnonymous {
                         input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
                         input_.setAnnotationsParams(parse_.getAnnotationsParams());
                         input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
+                        input_.setOffset(instrLoc_);
                         ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                         if (res_.isOkType()) {
                             int k_ = res_.getNextIndex() - 1;
@@ -877,6 +883,7 @@ public final class ElRetrieverAnonymous {
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
                     input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
+                    input_.setOffset(instrLoc_);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
@@ -903,6 +910,7 @@ public final class ElRetrieverAnonymous {
                     input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEndSw().get(indexLastSw_));
                     input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
                     input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
+                    input_.setOffset(instrLoc_);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;

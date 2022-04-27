@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.common.StringExpUtil;
+import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -9,10 +10,6 @@ public final class ParsedAnnotations {
 
     private static final char BEGIN_CALLING = '(';
     private static final char END_CALLING = ')';
-    private static final char DEL_CHAR = '\'';
-    private static final char DEL_STRING = '"';
-    private static final char DEL_TEXT = '`';
-    private static final char ESCAPE = '\\';
     private static final char ANNOT = '@';
     private final Ints annotationsIndexes = new Ints();
     private final StringList annotations = new StringList();
@@ -25,136 +22,20 @@ public final class ParsedAnnotations {
         instruction = _instruction;
         instructionLocation = _instructionLocation;
     }
-    public void parse(String... _keyWordClass) {
+    public void parse(CustList<SegmentStringPart> _parts, String... _keyWordClass) {
         int lenInst_ = instruction.length();
         int j_ = 0;
         int indexArobase_ = 0;
         int nbPars_ = 0;
         StringBuilder annotation_ = new StringBuilder();
-        boolean quoted_ = false;
-        boolean quotedStringText_ = false;
-        boolean quotedCharText_ = false;
-        boolean quotedChar_ = false;
-        boolean quotedText_ = false;
         boolean endLoop_ = true;
         while (j_ < lenInst_) {
+            int until_ = until(_parts, j_, annotation_);
+            if (until_ > j_) {
+                j_ = until_;
+                continue;
+            }
             char cur_ = instruction.charAt(j_);
-            if (quotedCharText_) {
-                annotation_.append(cur_);
-                if (cur_ == ESCAPE) {
-                    j_++;
-                    annotation_.append(instruction.charAt(j_));
-                    j_++;
-                    continue;
-                }
-                if (cur_ == DEL_CHAR
-                        &&StringExpUtil.nextCharIs(instruction,j_+1,lenInst_,DEL_CHAR)
-                        &&StringExpUtil.nextCharIs(instruction,j_+2,lenInst_,DEL_CHAR)) {
-                    quotedCharText_ = false;
-                    annotation_.append(instruction.charAt(j_+1));
-                    annotation_.append(instruction.charAt(j_+2));
-                    j_+=3;
-                    continue;
-                }
-                j_++;
-                continue;
-            }
-            if (quotedChar_) {
-                annotation_.append(cur_);
-                if (cur_ == ESCAPE) {
-                    j_++;
-                    annotation_.append(instruction.charAt(j_));
-                    j_++;
-                    continue;
-                }
-                if (cur_ == DEL_CHAR) {
-                    quotedChar_ = false;
-                }
-                j_++;
-                continue;
-            }
-            if (quotedStringText_) {
-                annotation_.append(cur_);
-                if (cur_ == ESCAPE) {
-                    j_++;
-                    annotation_.append(instruction.charAt(j_));
-                    j_++;
-                    continue;
-                }
-                if (cur_ == DEL_STRING
-                        &&StringExpUtil.nextCharIs(instruction,j_+1,lenInst_,DEL_STRING)
-                        &&StringExpUtil.nextCharIs(instruction,j_+2,lenInst_,DEL_STRING)) {
-                    quotedStringText_ = false;
-                    annotation_.append(instruction.charAt(j_+1));
-                    annotation_.append(instruction.charAt(j_+2));
-                    j_+=3;
-                    continue;
-                }
-                j_++;
-                continue;
-            }
-            if (quoted_) {
-                annotation_.append(cur_);
-                if (cur_ == ESCAPE) {
-                    j_++;
-                    annotation_.append(instruction.charAt(j_));
-                    j_++;
-                    continue;
-                }
-                if (cur_ == DEL_STRING) {
-                    quoted_ = false;
-                }
-                j_++;
-                continue;
-            }
-            if (quotedText_) {
-                annotation_.append(cur_);
-                if (cur_ == DEL_TEXT) {
-                    if (instruction.charAt(j_ + 1) != DEL_TEXT) {
-                        quotedText_ = false;
-                        j_++;
-                        continue;
-                    }
-                    j_++;
-                    annotation_.append(instruction.charAt(j_));
-                }
-                j_++;
-                continue;
-            }
-            if (cur_ == DEL_CHAR) {
-                if (are(lenInst_, j_, DEL_CHAR)) {
-                    annotation_.append(cur_);
-                    annotation_.append(instruction.charAt(j_+1));
-                    annotation_.append(instruction.charAt(j_+2));
-                    quotedCharText_ = true;
-                    j_ += 3;
-                    continue;
-                }
-                annotation_.append(cur_);
-                quotedChar_ = true;
-                j_++;
-                continue;
-            }
-            if (cur_ == DEL_STRING) {
-                if (are(lenInst_, j_, DEL_STRING)) {
-                    annotation_.append(cur_);
-                    annotation_.append(instruction.charAt(j_+1));
-                    annotation_.append(instruction.charAt(j_+2));
-                    quotedStringText_ = true;
-                    j_ += 3;
-                    continue;
-                }
-                annotation_.append(cur_);
-                quoted_ = true;
-                j_++;
-                continue;
-            }
-            if (cur_ == DEL_TEXT) {
-                annotation_.append(cur_);
-                quotedText_ = true;
-                j_++;
-                continue;
-            }
             if (cur_ == END_CALLING) {
                 nbPars_--;
             }
@@ -225,9 +106,20 @@ public final class ParsedAnnotations {
         }
     }
 
-    private boolean are(int _lenInst, int _j, char _delChar) {
-        return StringExpUtil.nextCharIs(instruction, _j + 1, _lenInst, _delChar)
-                && StringExpUtil.nextCharIs(instruction, _j + 2, _lenInst, _delChar);
+    private int until(CustList<SegmentStringPart> _parts, int _j, StringBuilder _annotation) {
+        int until_ = _j;
+        for (SegmentStringPart s: _parts) {
+            if (s.getBegin() == _j + instructionLocation) {
+                int begin_ = s.getBegin() - instructionLocation;
+                int end_ = s.getEnd() - instructionLocation;
+                for (int i = begin_; i < end_; i++) {
+                    _annotation.append(instruction.charAt(i));
+                }
+                until_ = s.getEnd() - instructionLocation;
+                break;
+            }
+        }
+        return until_;
     }
 
     private static boolean isPart(char _char) {

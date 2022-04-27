@@ -557,7 +557,7 @@ public final class ElResolver {
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
-            DefaultProcessKeyWord.processKeyWordNew(_string,i_,_d,_out,keyWordNew_,keyWordInterfaces_);
+            DefaultProcessKeyWord.processKeyWordNew(_string,i_,_d,_out, _page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInstanceof_)) {

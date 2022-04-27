@@ -32,25 +32,25 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
     private int typeSetterOff;
     private String typeSetter="";
 
-    public void parse(String _info, AnalyzedPageEl _parse, int _sum) {
+    public void parse(CustList<SegmentStringPart> _parts,String _info, AnalyzedPageEl _parse, int _sum) {
         KeyWords keyWords_ = _parse.getKeyWords();
         String keyWordThat_ = keyWords_.getKeyWordThat();
-        parse(_info, keyWordThat_, _sum);
+        parse(_parts,_info, keyWordThat_, _sum);
     }
 
-    public void parse(boolean _meth,String _retType, String _methName, String _info, AnalyzedPageEl _parse, int _sum) {
+    public void parse(CustList<SegmentStringPart> _parts,boolean _meth,String _retType, String _methName, String _info, AnalyzedPageEl _parse, int _sum) {
         KeyWords keyWords_ = _parse.getKeyWords();
         String keyWordThat_ = keyWords_.getKeyWordThat();
         indexerSet = isIndexerSet(_meth,_retType,_methName, _parse);
         keyWordValue = keyWords_.getKeyWordValue();
-        parse(_info, keyWordThat_, _sum);
+        parse(_parts,_info, keyWordThat_, _sum);
     }
 
     private static boolean isIndexerSet(boolean _meth, String _retType, String _methName, AnalyzedPageEl _parse) {
         KeyWords keyWords_ = _parse.getKeyWords();
         return _meth && StringUtil.quickEq(_retType,_parse.getAliasVoid()) && StringUtil.quickEq(_methName,keyWords_.getKeyWordThis());
     }
-    public void parse(String _info, String _keyWordThat, int _sum) {
+    public void parse(CustList<SegmentStringPart> _parts,String _info, String _keyWordThat, int _sum) {
         offsetLast = _sum;
         if (_info.startsWith(END_CALLING)) {
             offsetLast++;
@@ -67,7 +67,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
             StringList annotationsParam_ = new StringList();
             if (_info.startsWith(ANNOT,k_)) {
                 ParsedAnnotations par_ = new ParsedAnnotations(_info.substring(k_), k_+ offsetLast);
-                par_.parse();
+                par_.parse(_parts);
                 annotationsIndexesParam_ = par_.getAnnotationsIndexes();
                 annotationsParam_ = par_.getAnnotations();
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,par_.getIndex() - offsetLast);
@@ -140,7 +140,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         return Math.min(_implCall,_implStopRightPar);
     }
 
-    public void parseAnonymous(int _indexLeftPar, String _string, int _offset, String _keyWordThat) {
+    public void parseAnonymous(CustList<SegmentStringPart> _parts,int _indexLeftPar, String _string, int _offset, String _keyWordThat) {
         int len_ = _string.length();
         int j_ = DefaultProcessKeyWord.skipWhiteSpace(_string, _indexLeftPar +1);
         if (_string.startsWith(END_CALLING,j_)) {
@@ -148,7 +148,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
             return;
         }
         if (_string.startsWith(ANON_RETURN_PART,j_)) {
-            processExplicitRetType(_indexLeftPar, _string, _offset, _keyWordThat, j_);
+            processExplicitRetType(_indexLeftPar, _string, _offset, _keyWordThat, j_,_parts);
             return;
         }
         while (j_ < len_) {
@@ -157,7 +157,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
             StringList annotationsParam_ = new StringList();
             if (_string.startsWith(ANNOT,k_)) {
                 ParsedAnnotations par_ = new ParsedAnnotations(_string.substring(k_), k_+_offset);
-                par_.parse();
+                par_.parse(_parts);
                 annotationsIndexesParam_ = par_.getAnnotationsIndexes();
                 annotationsParam_ = par_.getAnnotations();
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,par_.getIndex() - _offset);
@@ -210,7 +210,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
             feedParAnnot(annotationsIndexesParam_, annotationsParam_);
             feedParBase(ref_, typeOff_, _offset, candid_, parOff_, varName_);
             if (implStopInd_ == implCall_) {
-                processExplicitRetType(_indexLeftPar,_string,_offset,_keyWordThat,implCall_);
+                processExplicitRetType(_indexLeftPar,_string,_offset,_keyWordThat,implCall_,_parts);
                 return;
             }
             if (implStopRightPar_ == implCall_) {
@@ -234,11 +234,11 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         afterArrow = _string.substring(k_+2);
     }
 
-    private void processExplicitRetType(int _indexLeftPar, String _string, int _offset, String _keyWordThat, int _j) {
+    private void processExplicitRetType(int _indexLeftPar, String _string, int _offset, String _keyWordThat, int _j, CustList<SegmentStringPart> _parts) {
         int k_ = DefaultProcessKeyWord.skipWhiteSpace(_string, _j +1);
         if (_string.startsWith(ANNOT,k_)) {
             ParsedAnnotations par_ = new ParsedAnnotations(_string.substring(k_), k_+ _offset);
-            par_.parse();
+            par_.parse(_parts);
             annotationsIndexes.addAllElts(par_.getAnnotationsIndexes());
             annotations.addAllElts(par_.getAnnotations());
             k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,par_.getIndex()- _offset);

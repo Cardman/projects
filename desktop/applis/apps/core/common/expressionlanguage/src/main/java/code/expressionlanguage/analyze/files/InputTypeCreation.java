@@ -10,6 +10,7 @@ public final class InputTypeCreation {
 
     private int nextIndex;
     private int nextIndexBef;
+    private int offset;
 
     private OuterBlockEnum type;
     private FileBlock file;
@@ -98,5 +99,13 @@ public final class InputTypeCreation {
 
     public void setAnnotationsParams(CustList<StringList> _annotationsParams) {
         this.annotationsParams = _annotationsParams;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int _off) {
+        this.offset = _off;
     }
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.EquallableElUtil;
+import code.util.CustList;
 import org.junit.Test;
 
 public final class ParsedAnnotationsTest extends EquallableElUtil {
@@ -12,8 +13,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -28,8 +28,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot()\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -44,8 +43,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot({})\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot({})",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -60,8 +58,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot(\"\")\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(\"\")",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -76,8 +73,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot(\"\\\"\")\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(\"\\\"\")",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -92,8 +88,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot(\"\\\\\")\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(\"\\\\\")",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -108,8 +103,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot('\"')\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot('\"')",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -124,8 +118,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot('\\\\')\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot('\\\\')",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -140,8 +133,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot(\"s\")\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(\"s\")",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -156,8 +148,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot(f=1)\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(f=1)",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -173,8 +164,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg.MyAnnot\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -189,8 +179,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg.MyAnnot()\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -206,8 +195,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg .MyAnnot\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg .MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -222,8 +210,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg .MyAnnot()\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg .MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -238,8 +225,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg.MyAnnot ()\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot ()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -255,8 +241,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnotTwo\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(2,p_.getAnnotations().size());
         assertEq("@MyAnnotOne\n",p_.getAnnotations().first());
         assertEq("@MyAnnotTwo",p_.getAnnotations().last());
@@ -274,8 +259,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnotTwo\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(2,p_.getAnnotations().size());
         assertEq("@MyAnnotOne()\n",p_.getAnnotations().first());
         assertEq("@MyAnnotTwo",p_.getAnnotations().last());
@@ -293,8 +277,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnotTwo()\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(2,p_.getAnnotations().size());
         assertEq("@MyAnnotOne()\n",p_.getAnnotations().first());
         assertEq("@MyAnnotTwo()",p_.getAnnotations().last());
@@ -311,8 +294,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg.MyAnnot\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -327,8 +309,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot(@MySec())\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(@MySec())",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -343,8 +324,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot(f=`first`)\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(f=`first`)",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -359,8 +339,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot(f=`first``second`)\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot(f=`first``second`)",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -374,8 +353,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("pkgtwo.MyClassTwo;\n");
         file_.append("@pkg.MyAnnot\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -389,8 +367,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("pkgtwo.MyClassTwo;\n");
         file_.append("@pkg.MyAnnot");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -404,8 +381,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("pkgtwo.MyClassTwo;\n");
         file_.append("@pkg.MyAnnot()\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -419,8 +395,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("pkgtwo.MyClassTwo;\n");
         file_.append("@pkg.MyAnnot()");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -433,8 +408,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         StringBuilder file_ = new StringBuilder();
         file_.append("pkgtwo.MyClassTwo;\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(0,p_.getAnnotations().size());
         assertEq(0,p_.getAnnotationsIndexes().size());
         assertEq("",p_.getAfter());
@@ -448,8 +422,7 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
@@ -465,13 +438,20 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@MyAnnot\n");
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;".length();
-        ParsedAnnotations p_ = new ParsedAnnotations(file_.substring(index_),index_);
-        p_.parse("class");
+        ParsedAnnotations p_ = parse(file_, index_);
         assertEq(1,p_.getAnnotations().size());
         assertEq("@MyAnnot",p_.getAnnotations().first());
         assertEq(1,p_.getAnnotationsIndexes().size());
         assertEq(19,p_.getAnnotationsIndexes().first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(28, p_.getIndex());
+    }
+
+    private ParsedAnnotations parse(StringBuilder _file, int _index) {
+        String substring_ = _file.substring(_index);
+        ParsedAnnotations p_ = new ParsedAnnotations(substring_, _index);
+        StringComment str_ = new StringComment(substring_,new CustList<CommentDelimiters>(),_index);
+        p_.parse(str_.getStringParts(),"class");
+        return p_;
     }
 }

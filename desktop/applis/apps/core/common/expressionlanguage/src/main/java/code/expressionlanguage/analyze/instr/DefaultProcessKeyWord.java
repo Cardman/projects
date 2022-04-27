@@ -39,14 +39,14 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
                         int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
                         if (afterSwitch_.startsWith("@",l_)) {
                             ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_);
-                            parse_.parse();
+                            parse_.parse(page.getCurrentParts());
                             l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
                         }
                         if (afterSwitch_.startsWith(":",l_)) {
                             int m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
                             if (afterSwitch_.startsWith("@",m_)) {
                                 ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),m_);
-                                parse_.parse();
+                                parse_.parse(page.getCurrentParts());
                                 m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
                             }
                             l_ = m_;
@@ -87,8 +87,11 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
         }
     }
 
-    public static void processKeyWordNew(String _exp, int _fr, Delimiters _d, ResultAfterInstKeyWord _out, String _keyWordNew, String _keyWordInterfaces) {
-        int j_ = _fr + _keyWordNew.length();
+    public static void processKeyWordNew(String _exp, int _fr, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
+        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
+        String keyWordNew_ = keyWords_.getKeyWordNew();
+        int j_ = _fr + keyWordNew_.length();
         int af_ = extractPrefix(_exp, _d, _out, j_);
         if (af_ < 0) {
             return;
@@ -96,10 +99,10 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
         j_ = af_;
         if (_exp.startsWith("@",j_)) {
             ParsedAnnotations parse_ = new ParsedAnnotations(_exp.substring(j_),j_);
-            parse_.parse();
+            parse_.parse(_page.getCurrentParts());
             j_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,parse_.getIndex());
         }
-        if (StringExpUtil.startsWithKeyWord(_exp,j_, _keyWordInterfaces)) {
+        if (StringExpUtil.startsWithKeyWord(_exp,j_, keyWordInterfaces_)) {
             int k_ = _exp.indexOf(PAR_LEFT, j_);
             if (k_ < 0) {
                 _d.setBadOffset(j_);

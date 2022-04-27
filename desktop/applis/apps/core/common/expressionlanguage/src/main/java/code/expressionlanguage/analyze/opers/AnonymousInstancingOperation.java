@@ -67,7 +67,7 @@ public final class AnonymousInstancingOperation extends
         int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
         if (realClassName_.trim().startsWith("@")) {
             ParsedAnnotations parse_ = new ParsedAnnotations(realClassName_.trim(),local_);
-            parse_.parse();
+            parse_.parse(_page.getCurrentParts());
             local_ = parse_.getIndex();
             realClassName_ = parse_.getAfter();
             local_ += StringExpUtil.getOffset(realClassName_);

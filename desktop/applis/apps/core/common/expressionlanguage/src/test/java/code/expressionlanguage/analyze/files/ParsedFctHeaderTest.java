@@ -1,50 +1,45 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.EquallableElUtil;
+import code.util.CustList;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class ParsedFctHeaderTest extends EquallableElUtil {
     @Test
     public void test() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parse(",,)", "that", 0 + 0);
+        ParsedFctHeader p_ = parse2(",,)");
         assertTrue(!p_.isOk());
     }
     @Test
     public void test2() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parse("(,,)", "that", 0 + 0);
+        ParsedFctHeader p_ = parse2("(,,)");
         assertTrue(!p_.isOk());
     }
     @Test
     public void test3() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parse("(elt))", "that", 0 + 0);
+        ParsedFctHeader p_ = parse2("(elt))");
         assertTrue(p_.isOk());
     }
     @Test
     public void test4() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parse("(int a:int)->", "that", 0 + 0);
+        ParsedFctHeader p_ = parse2("(int a:int)->");
         assertTrue(p_.isOk());
     }
     @Test
     public void test5() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parse("(->", "that", 0 + 0);
+        ParsedFctHeader p_ = parse2("(->");
         assertTrue(!p_.isOk());
     }
+
     @Test
     public void test6() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(->",12,"that");
+        ParsedFctHeader p_ = parse("(->");
         assertEq(0,p_.getNextIndex());
     }
     @Test
     public void test7() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"()->",12,"that");
+        ParsedFctHeader p_ = parse("()->");
         assertEq(1,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -61,8 +56,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test8() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a)->",12,"that");
+        ParsedFctHeader p_ = parse("(a)->");
         assertEq(2,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -86,8 +80,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test9() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(int a)->",12,"that");
+        ParsedFctHeader p_ = parse("(int a)->");
         assertEq(6,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -111,8 +104,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test10() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(:int)->",12,"that");
+        ParsedFctHeader p_ = parse("(:int)->");
         assertEq(5,p_.getNextIndex());
         assertEq("int",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -129,8 +121,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test11() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(:@Annot int)->",12,"that");
+        ParsedFctHeader p_ = parse("(:@Annot int)->");
         assertEq(12,p_.getNextIndex());
         assertEq("int",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -149,8 +140,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test12() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(:that int)->",12,"that");
+        ParsedFctHeader p_ = parse("(:that int)->");
         assertEq(10,p_.getNextIndex());
         assertEq("int",p_.getReturnType());
         assertTrue(p_.isRetRef());
@@ -167,8 +157,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test13() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(:@Annot() int)->",12,"that");
+        ParsedFctHeader p_ = parse("(:@Annot() int)->");
         assertEq(14,p_.getNextIndex());
         assertEq("int",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -187,8 +176,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test14() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(:@Annot@AnnotTwo int)->",12,"that");
+        ParsedFctHeader p_ = parse("(:@Annot@AnnotTwo int)->");
         assertEq(21,p_.getNextIndex());
         assertEq("int",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -209,8 +197,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test15() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(:@Annot)->",12,"that");
+        ParsedFctHeader p_ = parse("(:@Annot)->");
         assertEq(8,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -229,8 +216,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test16() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(:@Annot that)->",12,"that");
+        ParsedFctHeader p_ = parse("(:@Annot that)->");
         assertEq(13,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(p_.isRetRef());
@@ -249,8 +235,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test17() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot int a)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot int a)->");
         assertEq(13,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -276,8 +261,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test18() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot Pair<One,Two> a)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot Pair<One,Two> a)->");
         assertEq(23,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -303,8 +287,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test19() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot that int a)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot that int a)->");
         assertEq(18,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -330,8 +313,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test20() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot that a)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot that a)->");
         assertEq(14,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -357,8 +339,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test21() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot a)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot a)->");
         assertEq(9,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -384,8 +365,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test22() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(that a)->",12,"that");
+        ParsedFctHeader p_ = parse("(that a)->");
         assertEq(7,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -409,8 +389,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test23() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(that int a)->",12,"that");
+        ParsedFctHeader p_ = parse("(that int a)->");
         assertEq(11,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -434,8 +413,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test24() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot int a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot int a,b)->");
         assertEq(15,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -465,8 +443,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test25() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot Pair<One,Two> a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot Pair<One,Two> a,b)->");
         assertEq(25,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -497,8 +474,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test26() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot that int a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot that int a,b)->");
         assertEq(20,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -528,8 +504,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test27() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot that a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot that a,b)->");
         assertEq(16,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -560,8 +535,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test28() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(@Annot a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(@Annot a,b)->");
         assertEq(11,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -592,8 +566,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test29() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(that a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(that a,b)->");
         assertEq(9,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -622,8 +595,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test30() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(that int a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(that int a,b)->");
         assertEq(13,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -652,8 +624,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test31() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(a,b)->");
         assertEq(4,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -682,8 +653,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test32() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(int a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(int a,b)->");
         assertEq(8,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -712,8 +682,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test33() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a, b)->",12,"that");
+        ParsedFctHeader p_ = parse("(a, b)->");
         assertEq(5,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -742,8 +711,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test34() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a ,b)->",12,"that");
+        ParsedFctHeader p_ = parse("(a ,b)->");
         assertEq(5,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -772,8 +740,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test35() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"( a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("( a,b)->");
         assertEq(5,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -802,8 +769,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test36() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a:)->",12,"that");
+        ParsedFctHeader p_ = parse("(a:)->");
         assertEq(3,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -827,8 +793,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test37() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a:@Annot)->",12,"that");
+        ParsedFctHeader p_ = parse("(a:@Annot)->");
         assertEq(9,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -854,8 +819,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test38() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a:that)->",12,"that");
+        ParsedFctHeader p_ = parse("(a:that)->");
         assertEq(7,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(p_.isRetRef());
@@ -879,8 +843,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test39() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a:int)->",12,"that");
+        ParsedFctHeader p_ = parse("(a:int)->");
         assertEq(6,p_.getNextIndex());
         assertEq("int",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -904,8 +867,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test40() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a:@Annot int)->",12,"that");
+        ParsedFctHeader p_ = parse("(a:@Annot int)->");
         assertEq(13,p_.getNextIndex());
         assertEq("int",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -931,8 +893,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test41() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a,b:int)->",12,"that");
+        ParsedFctHeader p_ = parse("(a,b:int)->");
         assertEq(8,p_.getNextIndex());
         assertEq("int",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -961,8 +922,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test42() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"( a,b)->",12,"that");
+        ParsedFctHeader p_ = parse("( a,b)->");
         assertEq(5,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -991,8 +951,7 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void test43() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a, b)->",12,"that");
+        ParsedFctHeader p_ = parse("(a, b)->");
         assertEq(5,p_.getNextIndex());
         assertEq("",p_.getReturnType());
         assertTrue(!p_.isRetRef());
@@ -1021,44 +980,51 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
     @Test
     public void testNon1() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"",12,"that");
+        ParsedFctHeader p_ = parse("");
         assertEq(0,p_.getNextIndex());
     }
     @Test
     public void testNon2() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a)b",12,"that");
+        ParsedFctHeader p_ = parse("(a)b");
         assertEq(0,p_.getNextIndex());
     }
     @Test
     public void testNon3() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a",12,"that");
+        ParsedFctHeader p_ = parse("(a");
         assertEq(0,p_.getNextIndex());
     }
     @Test
     public void testNon4() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a<b)",12,"that");
+        ParsedFctHeader p_ = parse("(a<b)");
         assertEq(0,p_.getNextIndex());
     }
     @Test
     public void testNon5() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a:b)",12,"that");
+        ParsedFctHeader p_ = parse("(a:b)");
         assertEq(0,p_.getNextIndex());
     }
     @Test
     public void testNon6() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(a:b,",12,"that");
+        ParsedFctHeader p_ = parse("(a:b,");
         assertEq(0,p_.getNextIndex());
     }
     @Test
     public void testNon7() {
-        ParsedFctHeader p_ = new ParsedFctHeader();
-        p_.parseAnonymous(0,"(:b,",12,"that");
+        ParsedFctHeader p_ = parse("(:b,");
         assertEq(0,p_.getNextIndex());
+    }
+
+    private ParsedFctHeader parse2(String _info) {
+        ParsedFctHeader p_ = new ParsedFctHeader();
+        StringComment str_ = new StringComment(_info,new CustList<CommentDelimiters>());
+        p_.parse(str_.getStringParts(),_info, "that", 0);
+        return p_;
+    }
+
+    private ParsedFctHeader parse(String _string) {
+        ParsedFctHeader p_ = new ParsedFctHeader();
+        StringComment str_ = new StringComment(_string,new CustList<CommentDelimiters>());
+        p_.parseAnonymous(str_.getStringParts(),0, _string, 12, "that");
+        return p_;
     }
 }
