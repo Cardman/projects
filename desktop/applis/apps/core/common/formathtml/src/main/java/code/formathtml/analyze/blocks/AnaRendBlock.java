@@ -4,11 +4,14 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
+import code.expressionlanguage.analyze.files.SegmentStringPart;
+import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.PrimitiveTypes;
+import code.formathtml.analyze.syntax.RendSplitExpressionUtil;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.*;
@@ -54,17 +57,20 @@ public abstract class AnaRendBlock {
 
     private StringMap<AttributePart> attributeDelimiters = new StringMap<AttributePart>();
 
+    private final CustList<SegmentStringPart> stringParts = new CustList<SegmentStringPart>();
+
     AnaRendBlock(int _offset) {
         offset = _offset;
     }
 
-    public static AnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, String _docText, PrimitiveTypes _primTypes, String _currentUrl, AnalyzingDoc _anaDoc) {
+    public static AnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, String _docText, AnalyzedPageEl _primTypes, String _currentUrl, AnalyzingDoc _anaDoc) {
         RendKeyWords rend_ = _anaDoc.getRendKeyWords();
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl,_anaDoc.getEncoded());
         int indexGlobal_ = indexOfBeginNode(curNode_, _docText, 0);
         AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, rend_);
+        out_.getFile().getStringParts().addAllElts(curWrite_.stringParts);
         out_.appendChild(curWrite_);
         indexGlobal_ = curWrite_.endHeader;
         while (curWrite_ != null) {
@@ -72,6 +78,7 @@ public abstract class AnaRendBlock {
             if (curWrite_ instanceof AnaRendParentBlock&&firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
                 AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, rend_);
+                out_.getFile().getStringParts().addAllElts(rendBlock_.stringParts);
                 appendChild((AnaRendParentBlock) curWrite_,rendBlock_);
                 indexGlobal_ = rendBlock_.endHeader;
                 curWrite_ = rendBlock_;
@@ -85,6 +92,7 @@ public abstract class AnaRendBlock {
                 if (nextSibling_ != null) {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
                     AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _prefix, nextSibling_,_docText, _primTypes, rend_);
+                    out_.getFile().getStringParts().addAllElts(rendBlock_.stringParts);
                     appendChild(par_,rendBlock_);
                     indexGlobal_ = rendBlock_.endHeader;
                     curWrite_ = rendBlock_;
@@ -129,8 +137,8 @@ public abstract class AnaRendBlock {
         }
     }
 
-    private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
-        AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _prefix, _elt, _docText, _primTypes, _rendKeyWords);
+    private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, AnalyzedPageEl _primTypes, RendKeyWords _rendKeyWords) {
+        AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _prefix, _elt, _docText, _primTypes.getPrimTypes(), _rendKeyWords);
         if (_elt instanceof Element) {
             Element elt_ = (Element) _elt;
             String tagName_ = elt_.getTagName();
@@ -140,10 +148,18 @@ public abstract class AnaRendBlock {
             attr_ = getAttributes(_docText, beginHeader_, endHeader_);
             bl_.attributeDelimiters = attr_;
             bl_.endHeader = endHeader_;
+            int len_ = attr_.size();
+            for (int i = 0; i < len_; i++) {
+                AttributePart dels_ = attr_.getValue(i);
+                String attrValue_ = ((Element) _elt).getAttribute(attr_.getKey(i));
+                StringComment str_ = new StringComment(attrValue_, _primTypes.getComments(),dels_.getBegin());
+                bl_.stringParts.addAllElts(str_.getStringParts());
+            }
             if (!StringExpUtil.nextCharIs(_docText,endHeader_-1,_docText.length(),'/') &&_docText.startsWith("></"+tagName_+">",endHeader_)) {
                 bl_.endHeader += ("</"+tagName_+">").length();
             }
         } else {
+            bl_.stringParts.addAllElts(RendSplitExpressionUtil.itText(_begin,_elt.getTextContent(),_primTypes).getStringParts());
             bl_.endHeader = _docText.indexOf(LT_BEGIN_TAG, _begin);
         }
         return bl_;

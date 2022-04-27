@@ -2,6 +2,7 @@ package code.formathtml.analyze.syntax;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.RootBlock;
+import code.expressionlanguage.analyze.files.StringCommentIteration;
 import code.expressionlanguage.analyze.instr.ElRetrieverAnonymous;
 import code.expressionlanguage.analyze.syntax.IntermediaryResults;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -435,6 +436,59 @@ public final class RendSplitExpressionUtil {
     private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, String _value, ResultExpression _resultExpression) {
         ElRetrieverAnonymous.commonCheckQuick(_value, 0, _page, _resultExpression);
         SplitExpressionUtil.feed(_resultExpression,_int, _type, _method);
+    }
+    public static StringCommentIteration itText(int _offset,String _expression, AnalyzedPageEl _page) {
+        StringCommentIteration strIt_ = new StringCommentIteration(0,_offset);
+        StringBuilder str_ = new StringBuilder();
+        int length_ = _expression.length();
+        boolean escaped_ = false;
+        int i_ = IndexConstants.FIRST_INDEX;
+        while (i_ < length_) {
+            char cur_ = _expression.charAt(i_);
+            if (escaped_) {
+                if (cur_ == ESCAPED || cur_ == LEFT_EL || cur_ == RIGHT_EL) {
+                    escaped_ = false;
+                    i_++;
+                    continue;
+                }
+                return strIt_;
+            }
+            if (cur_ == ESCAPED) {
+                escaped_ = true;
+                i_++;
+                continue;
+            }
+            if (cur_ == LEFT_EL) {
+                i_++;
+                if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
+                    return strIt_;
+                }
+                strIt_.setIndex(i_);
+                int count_ = 0;
+                while(strIt_.getIndex() < length_) {
+                    char inner_ = _expression.charAt(strIt_.getIndex());
+                    if (strIt_.code(_expression,_page.getComments(),str_)) {
+                        if (inner_ == LEFT_EL) {
+                            count_++;
+                        }
+                        if (inner_ == RIGHT_EL) {
+                            if (count_ == 0) {
+                                break;
+                            }
+                            count_--;
+                        }
+                        strIt_.appendCode(_expression,str_);
+                    }
+                }
+                i_ = strIt_.getIndex()+1;
+                continue;
+            }
+            if (cur_ == RIGHT_EL){
+                return strIt_;
+            }
+            i_++;
+        }
+        return strIt_;
     }
 
     public static void buildIdAna(String _expression, AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, ResultText _exp) {

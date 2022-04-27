@@ -491,6 +491,6 @@ public final class RenderOffsetsTest extends CommonRender {
     private static AnaRendDocumentBlock newRendDocumentBlock(String _docText) {
         DualNavigationContext a_ = buildNav();
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(_docText).getDocument();
-        return AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, _docText, a_.getDualAnalyzedContext().getStds().getPrimTypes(), "page1.html",new AnalyzingDoc());
+        return AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, _docText, a_.getDualAnalyzedContext().getAnalyzed(), "page1.html",new AnalyzingDoc());
     }
 }

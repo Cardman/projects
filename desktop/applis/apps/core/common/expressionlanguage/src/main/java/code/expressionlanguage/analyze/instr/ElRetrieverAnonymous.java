@@ -30,11 +30,6 @@ public final class ElRetrieverAnonymous {
     }
 
     private static int stackBegin(String _string, int _from, FileBlock _file, String _pkg, AnalyzedPageEl _page, CurrentExpElts _curElts) {
-        boolean constTextString_ = false;
-        boolean constTextChar_ = false;
-        boolean constString_ = false;
-        boolean constChar_ = false;
-        boolean constText_ = false;
         StackDelimiters stack_ = new StackDelimiters();
         StackOperators parsBrackets_ = new StackOperators();
         char prevOp_ = ElResolver.SPACE;
@@ -42,97 +37,15 @@ public final class ElRetrieverAnonymous {
         int len_ = _string.length();
         while (from_ < len_) {
             char curChar_ = _string.charAt(from_);
-            if (constTextString_) {
-                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
+            int until_ = from_;
+            for (SegmentStringPart s: _curElts.getFile().getStringParts()) {
+                if (s.getBegin() == _curElts.getInstrLoc() + from_) {
+                    until_ = s.getEnd() - _curElts.getInstrLoc();
+                    break;
                 }
-                if (curChar_ == ElResolver.DELIMITER_STRING
-                        && StringExpUtil.nextCharIs(_string,from_+1,len_, ElResolver.DELIMITER_STRING)
-                        &&StringExpUtil.nextCharIs(_string,from_+2,len_, ElResolver.DELIMITER_STRING)) {
-                    constTextString_ = false;
-                    from_ += 3;
-                    continue;
-                }
-                from_++;
-                continue;
             }
-            if (constString_) {
-                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == ElResolver.DELIMITER_STRING) {
-                    constString_ = false;
-                }
-                from_++;
-                continue;
-            }
-            if (constTextChar_) {
-                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == ElResolver.DELIMITER_CHAR
-                        &&StringExpUtil.nextCharIs(_string,from_+1,len_, ElResolver.DELIMITER_CHAR)
-                        &&StringExpUtil.nextCharIs(_string,from_+2,len_, ElResolver.DELIMITER_CHAR)) {
-                    constTextChar_ = false;
-                    from_ += 3;
-                    continue;
-                }
-                from_++;
-                continue;
-            }
-            if (constChar_) {
-                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == ElResolver.DELIMITER_CHAR) {
-                    constChar_ = false;
-                }
-                from_++;
-                continue;
-            }
-            if (constText_) {
-                if (curChar_ == ElResolver.DELIMITER_TEXT) {
-                    if (from_ + 1 >= len_ ||_string.charAt(from_ + 1) != ElResolver.DELIMITER_TEXT) {
-                        constText_ = false;
-                        from_++;
-                        continue;
-                    }
-                    from_++;
-                }
-                from_++;
-                continue;
-            }
-            if (curChar_ == ElResolver.DELIMITER_STRING) {
-                if (ElResolverCommon.isRepeated(_string, from_, len_, ElResolver.DELIMITER_STRING)) {
-                    constTextString_ = true;
-                    from_+=3;
-                    continue;
-                }
-                constString_ = true;
-                from_++;
-                continue;
-            }
-            if (curChar_ == ElResolver.DELIMITER_CHAR) {
-                if (ElResolverCommon.isRepeated(_string, from_, len_, ElResolver.DELIMITER_CHAR)) {
-                    constTextChar_ = true;
-                    from_+=3;
-                    continue;
-                }
-                constChar_ = true;
-                from_++;
-                continue;
-            }
-            if (curChar_ == ElResolver.DELIMITER_TEXT) {
-                constText_ = true;
-                from_++;
+            if (until_ > from_) {
+                from_ = until_;
                 continue;
             }
             if (_page.getCurrentBlock() instanceof FieldBlock
@@ -187,11 +100,6 @@ public final class ElRetrieverAnonymous {
     }
 
     private static int stack(String _string, int _from, AnalyzedPageEl _page, CurrentExpElts _curElts) {
-        boolean constTextString_ = false;
-        boolean constTextChar_ = false;
-        boolean constString_ = false;
-        boolean constChar_ = false;
-        boolean constText_ = false;
         StackDelimiters stack_ = new StackDelimiters();
         StackOperators parsBrackets_ = new StackOperators();
         char prevOp_ = ElResolver.SPACE;
@@ -199,97 +107,16 @@ public final class ElRetrieverAnonymous {
         int len_ = _string.length();
         while (from_ < len_) {
             char curChar_ = _string.charAt(from_);
-            if (constTextString_) {
-                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
+
+            int until_ = from_;
+            for (SegmentStringPart s: _curElts.getFile().getStringParts()) {
+                if (s.getBegin() == _curElts.getInstrLoc() + from_) {
+                    until_ = s.getEnd() - _curElts.getInstrLoc();
+                    break;
                 }
-                if (curChar_ == ElResolver.DELIMITER_STRING
-                        &&StringExpUtil.nextCharIs(_string,from_+1,len_, ElResolver.DELIMITER_STRING)
-                        &&StringExpUtil.nextCharIs(_string,from_+2,len_, ElResolver.DELIMITER_STRING)) {
-                    constTextString_ = false;
-                    from_ += 3;
-                    continue;
-                }
-                from_++;
-                continue;
             }
-            if (constString_) {
-                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == ElResolver.DELIMITER_STRING) {
-                    constString_ = false;
-                }
-                from_++;
-                continue;
-            }
-            if (constTextChar_) {
-                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == ElResolver.DELIMITER_CHAR
-                        &&StringExpUtil.nextCharIs(_string,from_+1,len_, ElResolver.DELIMITER_CHAR)
-                        &&StringExpUtil.nextCharIs(_string,from_+2,len_, ElResolver.DELIMITER_CHAR)) {
-                    constTextChar_ = false;
-                    from_ += 3;
-                    continue;
-                }
-                from_++;
-                continue;
-            }
-            if (constChar_) {
-                if (curChar_ == ElResolver.ESCAPE_META_CHAR) {
-                    from_++;
-                    from_++;
-                    continue;
-                }
-                if (curChar_ == ElResolver.DELIMITER_CHAR) {
-                    constChar_ = false;
-                }
-                from_++;
-                continue;
-            }
-            if (constText_) {
-                if (curChar_ == ElResolver.DELIMITER_TEXT) {
-                    if (from_ + 1 >= len_ ||_string.charAt(from_ + 1) != ElResolver.DELIMITER_TEXT) {
-                        constText_ = false;
-                        from_++;
-                        continue;
-                    }
-                    from_++;
-                }
-                from_++;
-                continue;
-            }
-            if (curChar_ == ElResolver.DELIMITER_STRING) {
-                if (ElResolverCommon.isRepeated(_string, from_, len_, ElResolver.DELIMITER_STRING)) {
-                    constTextString_ = true;
-                    from_+=3;
-                    continue;
-                }
-                constString_ = true;
-                from_++;
-                continue;
-            }
-            if (curChar_ == ElResolver.DELIMITER_CHAR) {
-                if (ElResolverCommon.isRepeated(_string, from_, len_, ElResolver.DELIMITER_CHAR)) {
-                    constTextChar_ = true;
-                    from_+=3;
-                    continue;
-                }
-                constChar_ = true;
-                from_++;
-                continue;
-            }
-            if (curChar_ == ElResolver.DELIMITER_TEXT) {
-                constText_ = true;
-                from_++;
+            if (until_ > from_) {
+                from_ = until_;
                 continue;
             }
             int next_ = processAfterInstuctionKeyWordQuick(_string, from_,stack_, _page, _curElts.getInstrLoc());

@@ -443,20 +443,20 @@ public final class AnalyzedPageEl {
     }
 
     public void setupFctChars(NamedCalledFunctionBlock _fct) {
-        setFctChars(_fct.getAccessedBlock());
+        setFctChars(_fct.getAccessedBlock(), _fct.getFile());
     }
 
     public void setupFctChars(SwitchMethodBlock _fct) {
-        setFctChars(_fct.getAccessedBlock());
+        setFctChars(_fct.getAccessedBlock(), _fct.getFile());
     }
 
-    private void setFctChars(AccessedBlock _acc) {
+    private void setFctChars(AccessedBlock _acc, FileBlock _file) {
         ClassesUtil.globalType(this);
         setImporting(_acc);
         setImportingAcces(acc(_acc));
         ClassesUtil.globalType(this, _acc);
         setCurrentPkg(pkg(_acc));
-        setCurrentFile(_acc.getFile());
+        setCurrentFile(_file);
     }
 
     public String pkg(AccessedBlock _acc) {

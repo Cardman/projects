@@ -90,7 +90,7 @@ public final class Configuration {
                 AnalyzingDoc.addError(badEl_, _page);
                 continue;
             }
-            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page.getPrimTypes(), s, _analyzingDoc);
+            AnaRendDocumentBlock anaDoc_ = AnaRendBlock.newRendDocumentBlock(_analyzingDoc.getPrefix(), document_, file_, _page, s, _analyzingDoc);
             d_.addEntry(s,anaDoc_);
         }
         buildDocs(_analyzingDoc, _page, d_, _analyzingDoc.getBeansInfosBefore());
