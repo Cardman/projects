@@ -40,7 +40,6 @@ import code.network.NetGroupFrame;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.*;
-import code.util.core.BoolVal;
 
 public final class Net {
 
@@ -59,7 +58,6 @@ public final class Net {
 
 
     private IntMap<AbstractSocket> sockets =new IntMap<AbstractSocket>();
-    private IntMap<BoolVal> servers =new IntMap<BoolVal>();
 
     private IntTreeMap< Byte> placesPlayers = new IntTreeMap< Byte>();
 
