@@ -2,6 +2,8 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -121,7 +123,9 @@ public abstract class CommonRenderExpUtil extends CommonRender {
     protected static Delimiters checkSyntax(DualNavigationContext _ctx, String _elr) {
         ResultExpression res_ = new ResultExpression();
         AnalyzedPageEl analyzing_ = _ctx.getDualAnalyzedContext().getAnalyzed();
-        analyzing_.setCurrentParts(res_.getParts());
+//        analyzing_.setCurrentParts(res_.getParts());
+        StringComment str_ = new StringComment(_elr,new CustList<CommentDelimiters>());
+        analyzing_.setCurrentParts(str_.getStringParts());
         return ElResolver.checkSyntax(_elr, 0, analyzing_);
     }
 

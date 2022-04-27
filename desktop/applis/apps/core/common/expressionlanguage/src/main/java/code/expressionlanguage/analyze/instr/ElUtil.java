@@ -95,7 +95,6 @@ public final class ElUtil {
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
-        _page.setCurrentParts(_page.getCurrentParts());
         Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {

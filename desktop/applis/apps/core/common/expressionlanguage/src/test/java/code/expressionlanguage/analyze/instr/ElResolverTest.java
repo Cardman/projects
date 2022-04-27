@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.ConstType;
@@ -4298,14 +4299,16 @@ public final class ElResolverTest extends ProcessMethodCommon {
     private static Delimiters checkSyntax(AnalyzedPageEl _conf, String _el) {
         ResultExpression res_ = new ResultExpression();
         AnalyzedPageEl analyzing_ = _conf;
-        analyzing_.setCurrentParts(res_.getParts());
+        StringComment str_ = new StringComment(_el,new CustList<CommentDelimiters>());
+        analyzing_.setCurrentParts(str_.getStringParts());
         return ElResolver.checkSyntax(_el, 0, analyzing_);
     }
 
     private static Delimiters checkSyntaxDelimiters(AnalyzedPageEl _conf, String _el, int _minIndex) {
         ResultExpression res_ = new ResultExpression();
         AnalyzedPageEl analyzing_ = _conf;
-        analyzing_.setCurrentParts(res_.getParts());
+        StringComment str_ = new StringComment(_el,new CustList<CommentDelimiters>());
+        analyzing_.setCurrentParts(str_.getStringParts());
         return ElResolver.checkSyntaxDelimiters(_el, _minIndex, analyzing_);
     }
 

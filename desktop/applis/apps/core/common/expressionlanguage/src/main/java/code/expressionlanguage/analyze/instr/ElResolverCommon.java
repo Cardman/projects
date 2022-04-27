@@ -592,11 +592,6 @@ public final class ElResolverCommon {
         return next_;
     }
 
-    static boolean isRepeated(String _string, int _from, int _len, char _delimiter) {
-        return StringExpUtil.nextCharIs(_string, _from + 1, _len, _delimiter)
-                && StringExpUtil.nextCharIs(_string, _from + 2, _len, _delimiter);
-    }
-
     static int getWord(String _string, int _len, int _i) {
         int j_ = _i;
         while (j_ < _len) {

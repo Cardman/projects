@@ -2,6 +2,8 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -17,6 +19,7 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
 import code.sml.Element;
+import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -225,7 +228,10 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvert());
             _page.setGlobalOffset(offConvValue_);
             _page.zeroOffset();
+            StringComment strCom_ = new StringComment(concat_,new CustList<CommentDelimiters>());
+            _page.getCurrentParts().addAllElts(strCom_.getStringParts());
             rootDefault = RenderAnalysis.getRootAnalyzedOperations(concat_, 0, _anaDoc, _page);
+            _page.getCurrentParts().clear();
             Mapping m_ = new Mapping();
             m_.setArg(rootDefault.getResultClass());
             if (!multiple) {

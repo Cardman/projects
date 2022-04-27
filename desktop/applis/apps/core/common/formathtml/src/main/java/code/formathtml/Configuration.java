@@ -58,6 +58,7 @@ public final class Configuration {
     public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc) {
         String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
         _page.setImportingAcces(new VirtualImportingBlock());
+        _page.getCurrentParts().clear();
         for (EntryCust<String, BeanInfo> e: getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page);

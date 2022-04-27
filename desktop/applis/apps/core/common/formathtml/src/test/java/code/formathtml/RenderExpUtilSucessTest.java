@@ -4,6 +4,8 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.NoExiting;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.ElResolver;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
@@ -5896,7 +5898,9 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     private static Delimiters checkDel(String _s, int _i, DualNavigationContext _context, ResultExpression _res) {
         AnalyzedPageEl analyzing_ = _context.getDualAnalyzedContext().getAnalyzed();
-        analyzing_.setCurrentParts(_res.getParts());
+//        analyzing_.setCurrentParts(_res.getParts());
+        StringComment str_ = new StringComment(_s,new CustList<CommentDelimiters>());
+        analyzing_.setCurrentParts(str_.getStringParts());
         return ElResolver.checkSyntaxDelimiters(_s, _i, analyzing_);
     }
 
