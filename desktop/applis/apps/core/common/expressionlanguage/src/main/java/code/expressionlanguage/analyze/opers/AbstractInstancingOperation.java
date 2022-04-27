@@ -64,9 +64,9 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         String className_ = afterNew_.trim();
 
         if (className_.startsWith("@")) {
-            ParsedAnnotations parse_ = new ParsedAnnotations(className_,local_);
-            parse_.parse(_page.getCurrentParts());
-            local_ = parse_.getIndex();
+            ParsedAnnotations parse_ = new ParsedAnnotations(className_,local_+_page.getIndex());
+            parse_.parse(_page.getCurrentFile().getStringParts());
+            local_ = parse_.getIndex()-_page.getIndex();
             className_ = parse_.getAfter();
             local_ += StringExpUtil.getOffset(className_);
             className_ = className_.trim();

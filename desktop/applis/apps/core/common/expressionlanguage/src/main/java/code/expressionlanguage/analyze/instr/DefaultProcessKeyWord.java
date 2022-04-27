@@ -38,16 +38,16 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
                     if (count_ == 1 && ch_ == ':') {
                         int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
                         if (afterSwitch_.startsWith("@",l_)) {
-                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_);
+                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_+j_);
                             parse_.parse(page.getCurrentParts());
-                            l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
+                            l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex()-j_);
                         }
                         if (afterSwitch_.startsWith(":",l_)) {
                             int m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
                             if (afterSwitch_.startsWith("@",m_)) {
-                                ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),m_);
+                                ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),m_+j_);
                                 parse_.parse(page.getCurrentParts());
-                                m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
+                                m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex()-j_);
                             }
                             l_ = m_;
                         }

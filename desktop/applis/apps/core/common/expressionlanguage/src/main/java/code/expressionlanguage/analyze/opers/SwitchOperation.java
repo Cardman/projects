@@ -196,16 +196,16 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
                 if (count_ == 1 && ch_ == ':') {
                     int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
                     if (afterSwitch_.startsWith("@",l_)) {
-                        ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_);
-                        parse_.parse(_page.getCurrentParts());
-                        l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
+                        ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_+_page.getIndex());
+                        parse_.parse(_page.getCurrentFile().getStringParts());
+                        l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex()-_page.getIndex());
                     }
                     if (afterSwitch_.startsWith(":",l_)) {
                         int n_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
                         if (afterSwitch_.startsWith("@",n_)) {
-                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(n_),n_);
-                            parse_.parse(_page.getCurrentParts());
-                            n_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex());
+                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(n_),n_+_page.getIndex());
+                            parse_.parse(_page.getCurrentFile().getStringParts());
+                            n_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex()-_page.getIndex());
                         }
                         l_ = n_;
                     }

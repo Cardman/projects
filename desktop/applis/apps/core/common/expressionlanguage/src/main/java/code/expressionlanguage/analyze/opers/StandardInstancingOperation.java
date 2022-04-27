@@ -81,9 +81,9 @@ public final class StandardInstancingOperation extends
         }
         int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
         if (realClassName_.trim().startsWith("@")) {
-            ParsedAnnotations parse_ = new ParsedAnnotations(realClassName_.trim(),local_);
-            parse_.parse(_page.getCurrentParts());
-            local_ = parse_.getIndex();
+            ParsedAnnotations parse_ = new ParsedAnnotations(realClassName_.trim(),local_+_page.getIndex());
+            parse_.parse(_page.getCurrentFile().getStringParts());
+            local_ = parse_.getIndex()-_page.getIndex();
             realClassName_ = parse_.getAfter();
             local_ += StringExpUtil.getOffset(realClassName_);
         }
