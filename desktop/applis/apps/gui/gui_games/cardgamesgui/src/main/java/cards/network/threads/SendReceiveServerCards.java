@@ -194,25 +194,37 @@ public final class SendReceiveServerCards extends BasicServer {
         }
         PlayerActionGame playerActionGame_ = DocumentReaderCardsMultiUtil.getPlayerActionGame(elt_);
         if (playerActionGame_ instanceof Quit) {
-            Quit q_ = ((Quit) playerActionGame_);
+            Quit q_ = (Quit) playerActionGame_;
+            if (Net.getGames(_instance).enCoursDePartie() || q_.isServer()) {
 
-            Bytes pls_ = Net.activePlayers(_instance);
-            for (byte p: pls_) {
-                ByeCards forcedBye_ = new ByeCards();
-                forcedBye_.setForced(true);
-                forcedBye_.setClosing(false);
-                if (p == q_.getPlace()) {
+                Bytes pls_ = Net.activePlayers(_instance);
+                for (byte p: pls_) {
+                    ByeCards forcedBye_ = new ByeCards();
+                    forcedBye_.setForced(true);
+                    forcedBye_.setClosing(false);
                     forcedBye_.setServer(true);
-                    forcedBye_.setClosing(q_.isClosing());
+                    if (p == q_.getPlace()) {
+                        forcedBye_.setClosing(q_.isClosing());
+                    }
+                    Net.sendObject(Net.getSocketByPlace(p, _instance),forcedBye_);
                 }
-                Net.sendObject(Net.getSocketByPlace(p, _instance),forcedBye_);
+                Net.getNicknames(_instance).clear();
+                Net.getGames(_instance).finirParties();
+                Net.getPlacesPlayers(_instance).clear();
+                Net.getSockets(_instance).clear();
+                Net.getConnectionsServer(_instance).clear();
+                Net.getReadyPlayers(_instance).clear();
+                return;
             }
-            Net.getNicknames(_instance).clear();
-            Net.getGames(_instance).finirParties();
-            Net.getPlacesPlayers(_instance).clear();
-            Net.getSockets(_instance).clear();
-            Net.getConnectionsServer(_instance).clear();
-            Net.getReadyPlayers(_instance).clear();
+            Net.quit(q_.getPlace(), _instance);
+            ByeCards forcedBye_ = new ByeCards();
+            forcedBye_.setForced(false);
+            forcedBye_.setServer(false);
+            forcedBye_.setClosing(q_.isClosing());
+            Ints placesPlayersByValue_ = Net.getPlacesPlayersByValue(q_.getPlace(), _instance);
+            if (!placesPlayersByValue_.isEmpty()) {
+                Net.removePlayer(placesPlayersByValue_.first(), forcedBye_, _instance);
+            }
 //            quitProcess((Quit) playerActionGame_, _instance,_fct);
             return;
         }
