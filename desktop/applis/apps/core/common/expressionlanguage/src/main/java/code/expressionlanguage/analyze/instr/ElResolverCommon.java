@@ -625,6 +625,7 @@ public final class ElResolverCommon {
         }
         int indexLastSw_ = _stack.getIndexesSwitch().indexOf(_parsBrackets.lastKey());
         if (indexLastSw_ > -1) {
+            _stack.getRetSwitchList().add(_stack.getRetSwitch().get(indexLastSw_));
             _stack.getAnnotationsEndSw().add(_stack.getAnnotationsSw().get(indexLastSw_));
             _stack.getAnnotationsIndexesEndSw().add(_stack.getAnnotationsIndexesSw().get(indexLastSw_));
             _stack.getAnnotationsEndSwPar().add(_stack.getAnnotationsSwPar().get(indexLastSw_));

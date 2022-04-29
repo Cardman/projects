@@ -10,6 +10,7 @@ public final class AnonymousResult {
     private int length;
     private int next;
     private AbsBk type;
+    private String retSwitch = "";
 
     public ParsedFctHeaderResult getResults() {
         return results;
@@ -57,5 +58,13 @@ public final class AnonymousResult {
 
     public void setType(AbsBk _type) {
         this.type = _type;
+    }
+
+    public String getRetSwitch() {
+        return retSwitch;
+    }
+
+    public void setRetSwitch(String _r) {
+        this.retSwitch = _r;
     }
 }

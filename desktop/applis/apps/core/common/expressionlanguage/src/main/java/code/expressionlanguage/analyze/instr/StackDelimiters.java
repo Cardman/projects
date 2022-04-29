@@ -17,16 +17,20 @@ public final class StackDelimiters {
     private final CustList<StringList> annotationsSw = new CustList<StringList>();
     private final CustList<Ints> annotationsIndexesEndSw = new CustList<Ints>();
     private final CustList<StringList> annotationsEndSw = new CustList<StringList>();
+    private final StringList retSwitchList = new StringList();
     private final CustList<Ints> annotationsIndexesSwPar = new CustList<Ints>();
     private final CustList<StringList> annotationsSwPar = new CustList<StringList>();
     private final CustList<Ints> annotationsIndexesEndSwPar = new CustList<Ints>();
     private final CustList<StringList> annotationsEndSwPar = new CustList<StringList>();
     private final StringList stringsNew = new StringList();
     private final StringList stringsSwitch = new StringList();
+    private final StringList retSwitch = new StringList();
     private final Ints indexesNewEnd = new Ints();
     private final Ints indexesSwitchEnd = new Ints();
     private final StringList stringsNewEnd = new StringList();
     private final StringList stringsSwitchEnd = new StringList();
+    private final Ints annotDelNew = new Ints();
+    private final Ints annotDelSwitch = new Ints();
 
     public Ints getCallings() {
         return callings;
@@ -72,6 +76,10 @@ public final class StackDelimiters {
         return annotationsEndSw;
     }
 
+    public StringList getRetSwitchList() {
+        return retSwitchList;
+    }
+
     public CustList<Ints> getAnnotationsIndexesSwPar() {
         return annotationsIndexesSwPar;
     }
@@ -114,5 +122,17 @@ public final class StackDelimiters {
 
     public StringList getStringsSwitchEnd() {
         return stringsSwitchEnd;
+    }
+
+    public Ints getAnnotDelNew() {
+        return annotDelNew;
+    }
+
+    public Ints getAnnotDelSwitch() {
+        return annotDelSwitch;
+    }
+
+    public StringList getRetSwitch() {
+        return retSwitch;
     }
 }

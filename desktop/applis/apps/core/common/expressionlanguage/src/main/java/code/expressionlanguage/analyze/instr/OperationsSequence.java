@@ -55,6 +55,8 @@ public final class OperationsSequence {
     private ParsedFctHeaderResult results;
     private AbsBk block;
     private int length;
+    private int deltaAnnot;
+    private String retSwitch = "";
     private int argOffset;
     private String clName = "";
     private boolean implMiddle;
@@ -536,5 +538,21 @@ public final class OperationsSequence {
 
     public void setLength(int _length) {
         this.length = _length;
+    }
+
+    public int getDeltaAnnot() {
+        return deltaAnnot;
+    }
+
+    public void setDeltaAnnot(int _d) {
+        this.deltaAnnot = _d;
+    }
+
+    public String getRetSwitch() {
+        return retSwitch;
+    }
+
+    public void setRetSwitch(String _r) {
+        this.retSwitch = _r;
     }
 }

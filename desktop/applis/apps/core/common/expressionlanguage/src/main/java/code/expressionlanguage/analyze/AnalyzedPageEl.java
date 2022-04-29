@@ -154,6 +154,10 @@ public final class AnalyzedPageEl {
     private AbsLineDeclarator lineDeclarator;
     private final CustList<OperatorBlock> sortedNbOperators = new CustList<OperatorBlock>();
     private boolean sortNbOperators;
+    private final Ints annotDelNew = new Ints();
+    private final Ints annotDelSwitch = new Ints();
+    private Ints currentAnnotDelNew = new Ints();
+    private Ints currentAnnotDelSwitch = new Ints();
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -1265,5 +1269,29 @@ public final class AnalyzedPageEl {
 
     public void setSortNbOperators(boolean _sortNbOperators) {
         this.sortNbOperators = _sortNbOperators;
+    }
+
+    public Ints getAnnotDelNew() {
+        return annotDelNew;
+    }
+
+    public Ints getCurrentAnnotDelNew() {
+        return currentAnnotDelNew;
+    }
+
+    public void setCurrentAnnotDelNew(Ints _c) {
+        this.currentAnnotDelNew = _c;
+    }
+
+    public Ints getAnnotDelSwitch() {
+        return annotDelSwitch;
+    }
+
+    public Ints getCurrentAnnotDelSwitch() {
+        return currentAnnotDelSwitch;
+    }
+
+    public void setCurrentAnnotDelSwitch(Ints _c) {
+        this.currentAnnotDelSwitch = _c;
     }
 }

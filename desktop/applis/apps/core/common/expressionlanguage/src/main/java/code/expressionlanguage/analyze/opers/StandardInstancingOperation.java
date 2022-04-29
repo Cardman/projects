@@ -80,14 +80,9 @@ public final class StandardInstancingOperation extends
             off_ += j_+1;
         }
         int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
-        if (realClassName_.trim().startsWith("@")) {
-            ParsedAnnotations parse_ = new ParsedAnnotations(realClassName_.trim(),local_+_page.getIndex());
-            parse_.parse(_page.getCurrentFile().getStringParts());
-            local_ = parse_.getIndex()-_page.getIndex();
-            realClassName_ = parse_.getAfter();
-            local_ += StringExpUtil.getOffset(realClassName_);
-        }
         realClassName_ = realClassName_.trim();
+        realClassName_ = skip(realClassName_);
+        local_ += getDeltaAnnot();
         InterfacesPart ints_ = new InterfacesPart(realClassName_,local_);
         ints_.parse(_page.getKeyWords(),"",0,newKeyWord_.length()+local_+ _page.getIndex());
         local_ = ints_.getLocIndex();

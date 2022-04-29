@@ -21,11 +21,15 @@ public final class ElRetrieverAnonymous {
     public static int commonCheckQuick(String _string, int _minIndex, AnalyzedPageEl _page, ResultExpression _res) {
         _page.getAnonymousResults().clear();
         _page.getParts().clear();
+        _page.getAnnotDelNew().clear();
+        _page.getAnnotDelSwitch().clear();
         String currentPkg_ = _page.getCurrentPkg();
         FileBlock currentFile_ = _page.getCurrentFile();
         int next_ = stackBegin(_string, _minIndex, currentFile_, currentPkg_, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex()));
         _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
         _res.setParts(new CustList<SegmentStringPart>(_page.getParts()));
+        _res.setAnnotDelNew(new Ints(_page.getAnnotDelNew()));
+        _res.setAnnotDelSwitch(new Ints(_page.getAnnotDelSwitch()));
         return next_;
     }
 
@@ -97,6 +101,8 @@ public final class ElRetrieverAnonymous {
             }
             from_ = next_;
         }
+        _page.getAnnotDelNew().addAllElts(stack_.getAnnotDelNew());
+        _page.getAnnotDelSwitch().addAllElts(stack_.getAnnotDelSwitch());
         return from_;
     }
 
@@ -198,8 +204,11 @@ public final class ElRetrieverAnonymous {
             StringList annotations_ = new StringList();
             Ints annotationsIndexesParam_ = new Ints();
             StringList annotationsParam_ = new StringList();
+            String retSwitch_ = "";
             if (afterSwitch_.trim().startsWith("[")) {
-                int k_ = afterSwitch_.indexOf('[') + 1;
+                int start_ = afterSwitch_.indexOf('[') + 1;
+                int k_ = start_;
+                _stack.getAnnotDelSwitch().add(k_);
                 int count_ = 1;
                 int lenSw_ = afterSwitch_.length();
                 while (k_ < lenSw_) {
@@ -230,6 +239,7 @@ public final class ElRetrieverAnonymous {
                             l_ = m_;
                         }
                         if (afterSwitch_.startsWith("]",l_)) {
+                            retSwitch_ = afterSwitch_.substring(start_,k_);
                             k_ = l_;
                             break;
                         }
@@ -237,11 +247,13 @@ public final class ElRetrieverAnonymous {
                     if (ch_ == ']') {
                         count_--;
                         if (count_ == 0) {
+                            retSwitch_ = afterSwitch_.substring(start_,k_);
                             break;
                         }
                     }
                     k_++;
                 }
+                _stack.getAnnotDelSwitch().add(k_);
                 int next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_+k_+1);
                 if (_string.startsWith("(",next_)) {
                     _stack.getStringsSwitch().add("");
@@ -251,6 +263,7 @@ public final class ElRetrieverAnonymous {
                     _stack.getAnnotationsSw().add(annotations_);
                     _stack.getAnnotationsIndexesSwPar().add(annotationsIndexesParam_);
                     _stack.getAnnotationsSwPar().add(annotationsParam_);
+                    _stack.getRetSwitch().add(retSwitch_);
                     return next_;
                 }
                 return j_+k_;
@@ -264,6 +277,7 @@ public final class ElRetrieverAnonymous {
                 _stack.getAnnotationsIndexesSwPar().add(annotationsIndexesParam_);
                 _stack.getAnnotationsSwPar().add(annotationsParam_);
                 _stack.getCallings().add(next_);
+                _stack.getRetSwitch().add(retSwitch_);
                 return next_;
             }
             return j_;
@@ -316,6 +330,7 @@ public final class ElRetrieverAnonymous {
             j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
             Ints annotationsIndexes_ = new Ints();
             StringList annotations_ = new StringList();
+            _stack.getAnnotDelNew().add(j_);
             if (_string.startsWith("@",j_)) {
                 ParsedAnnotations parse_ = new ParsedAnnotations(_string.substring(j_),j_+ _curElts.getInstrLoc());
                 parse_.parse(_curElts.getFile().getStringParts());
@@ -324,6 +339,7 @@ public final class ElRetrieverAnonymous {
                 j_ = parse_.getIndex()- _curElts.getInstrLoc();
                 j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
             }
+            _stack.getAnnotDelNew().add(j_);
             if (StringExpUtil.startsWithKeyWord(_string,j_, keyWordInterfaces_)) {
                 int k_ = _string.indexOf(ElResolver.PAR_LEFT, j_);
                 if (k_ < 0) {
@@ -920,6 +936,7 @@ public final class ElRetrieverAnonymous {
                         anonymous_.setLength(j_- _i +1);
                         anonymous_.setType(res_.getBlock());
                         anonymous_.setNext(j_ + 1);
+                        anonymous_.setRetSwitch(_stack.getRetSwitchList().get(indexLastSw_));
                         _page.getAnonymousResults().add(anonymous_);
                         return j_ + 1;
                     }

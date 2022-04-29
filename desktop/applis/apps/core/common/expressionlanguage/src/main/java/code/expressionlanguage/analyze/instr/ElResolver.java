@@ -2057,7 +2057,7 @@ public final class ElResolver {
         int len_ = lastPrintChar_ + 1;
         AfterUnaryParts af_ = new AfterUnaryParts(_offset,_string, _exp,_d);
         int i_ = af_.getIndex();
-        af_.setInstance(_string, _page);
+        af_.setInstance(_offset,_string,_d, _page);
         while (i_ < len_) {
             af_.setState(_offset,_string,_d);
             i_ = af_.getIndex();
@@ -2076,6 +2076,8 @@ public final class ElResolver {
         op_.setErrorDot(af_.isErrorDot());
         op_.setBlock(af_.getBlock());
         op_.setLength(af_.getLength());
+        op_.setDeltaAnnot(af_.getDeltaAnnot());
+        op_.setRetSwitch(af_.getRetSwitch());
         op_.setupValues(_string, is_, instance_, laterIndexesDouble_);
         String extracted_ = af_.getExtracted();
         op_.setExtractType(extracted_);

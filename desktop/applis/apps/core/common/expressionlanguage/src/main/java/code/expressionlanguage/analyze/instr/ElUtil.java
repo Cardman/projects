@@ -26,6 +26,8 @@ public final class ElUtil {
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
+        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
+        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         Delimiters d_ = ElResolver.checkSyntaxQuick(_el, _page);
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
         if (d_.getBadOffset() >= 0) {
@@ -56,6 +58,8 @@ public final class ElUtil {
         _page.setCurrentEmptyPartErr("");
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
+        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
+        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {
@@ -95,6 +99,8 @@ public final class ElUtil {
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
+        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
+        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
         if (_el.trim().isEmpty()) {

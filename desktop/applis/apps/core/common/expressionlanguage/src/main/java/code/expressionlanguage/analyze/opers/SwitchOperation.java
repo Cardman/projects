@@ -2,8 +2,6 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.files.ParsedAnnotations;
-import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
@@ -24,6 +22,7 @@ import code.util.core.StringUtil;
 public final class SwitchOperation extends AbstractUnaryOperation implements PreAnalyzableOperation,SettableElResult {
     private final SwitchMethodBlock switchMethod;
     private final String methodName;
+    private final String retSwitch;
     private AnaResultPartType partOffsets = new AnaResultPartType();
     private String retType = EMPTY_STRING;
     private final AnaArrContent arrContent;
@@ -33,6 +32,7 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         switchMethod = _switchMethod;
         methodName = _op.getFctName();
         arrContent = new AnaArrContent();
+        retSwitch = _op.getRetSwitch();
     }
 
     @Override
@@ -182,58 +182,10 @@ public final class SwitchOperation extends AbstractUnaryOperation implements Pre
         int offDelta_ = StringUtil.getFirstPrintableCharIndex(methodName);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+offDelta_, _page);
         if (afterSwitch_.trim().startsWith("[")) {
-            int delta_ = 0;
             int start_ = afterSwitch_.indexOf('[') + 1;
-            int k_ = start_;
-            int len_ = afterSwitch_.length();
-            int count_ = 1;
-            boolean defined_ = false;
-            while (k_ < len_) {
-                char ch_ = afterSwitch_.charAt(k_);
-                if (ch_ == '[') {
-                    count_++;
-                }
-                if (count_ == 1 && ch_ == ':') {
-                    int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
-                    if (afterSwitch_.startsWith("@",l_)) {
-                        ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_+_page.getIndex());
-                        parse_.parse(_page.getCurrentFile().getStringParts());
-                        l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex()-_page.getIndex());
-                    }
-                    if (afterSwitch_.startsWith(":",l_)) {
-                        int n_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
-                        if (afterSwitch_.startsWith("@",n_)) {
-                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(n_),n_+_page.getIndex());
-                            parse_.parse(_page.getCurrentFile().getStringParts());
-                            n_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex()-_page.getIndex());
-                        }
-                        l_ = n_;
-                    }
-                    if (afterSwitch_.startsWith("]",l_)) {
-                        suppType_ = afterSwitch_.substring(start_,k_);
-                        if (suppType_.trim().isEmpty()) {
-                            defined_ = true;
-                        }
-                        delta_ = StringExpUtil.getOffset(suppType_);
-                        k_ = len_;
-                        continue;
-                    }
-                }
-                if (ch_ == ']') {
-                    count_--;
-                    if (count_ == 0) {
-                        suppType_ = afterSwitch_.substring(start_,k_);
-                        if (suppType_.trim().isEmpty()) {
-                            defined_ = true;
-                        }
-                        delta_ = StringExpUtil.getOffset(suppType_);
-                        k_ = len_;
-                        continue;
-                    }
-                }
-                k_++;
-            }
-            if (!defined_) {
+            if (!retSwitch.trim().isEmpty()) {
+                suppType_ = retSwitch;
+                int delta_ = StringExpUtil.getOffset(suppType_);
                 partOffsets = ResolvingTypes.resolveCorrectType(switchWord_.length() + start_ + delta_, suppType_, _page);
                 retType = partOffsets.getResult(_page);
             }

@@ -59,6 +59,8 @@ public final class Configuration {
         String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
         _page.setImportingAcces(new VirtualImportingBlock());
         _page.getCurrentParts().clear();
+        _page.getCurrentAnnotDelNew().clear();
+        _page.getCurrentAnnotDelSwitch().clear();
         for (EntryCust<String, BeanInfo> e: getBeansInfos().entryList()) {
             BeanInfo info_ = e.getValue();
             OperationNode root_ = RenderAnalysis.getRootAnalyzedOperations(StringUtil.concat(keyWordNew_, " ", info_.getClassName(), "()"), 0, _anaDoc, _page);

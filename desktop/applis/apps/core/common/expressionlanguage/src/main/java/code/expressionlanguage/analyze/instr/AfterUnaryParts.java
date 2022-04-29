@@ -70,6 +70,8 @@ final class AfterUnaryParts {
     private final ExpPartDelimiters del;
     private AbsBk block;
     private int length;
+    private int deltaAnnot;
+    private String retSwitch = "";
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
 
     AfterUnaryParts(int _offset, String _string, ExpPartDelimiters _del, Delimiters _d) {
@@ -112,13 +114,25 @@ final class AfterUnaryParts {
         }
         index = firstPrintChar_;
     }
-    void setInstance(String _string, AnalyzedPageEl _page) {
+    void setInstance(int _offset, String _string, Delimiters _d, AnalyzedPageEl _page) {
         anonymousResults = _page.getAnonymousResults();
         int firstPrintChar_ = del.getFirstPrintIndex();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordNew_ = keyWords_.getKeyWordNew();
         String keyWordSwitch_ = keyWords_.getKeyWordSwitch();
         if (StringExpUtil.startsWithKeyWord(_string,firstPrintChar_, keyWordNew_)) {
+            int index_ = DefaultProcessKeyWord.skipWhiteSpace(_string,firstPrintChar_ + keyWordNew_.length());
+            int next_ = index_;
+            if (StringExpUtil.nextCharIs(_string,index_,_string.length(),'{')) {
+                next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,index_+1);
+            }
+            if (StringExpUtil.nextCharIs(_string,next_,_string.length(),'}')) {
+                next_ = DefaultProcessKeyWord.skipWhiteSpace(_string,next_+1);
+            }
+            int ind_ = _d.getDelAnnotNew().indexOfNb((long) _offset + next_);
+            if (ind_ >= 0) {
+                deltaAnnot = _d.getDelAnnotNew().get(ind_ + 1) - _d.getDelAnnotNew().get(ind_);
+            }
             instance = true;
             instanceStrict = true;
         }
@@ -145,6 +159,7 @@ final class AfterUnaryParts {
                 if (a.getIndex() == index + _offset) {
                     block = a.getType();
                     length = a.getLength();
+                    retSwitch = a.getRetSwitch();
                     return a.getUntil() - _offset + 1;
                 }
             }
@@ -877,5 +892,13 @@ final class AfterUnaryParts {
 
     int getLength() {
         return length;
+    }
+
+    int getDeltaAnnot() {
+        return deltaAnnot;
+    }
+
+    String getRetSwitch() {
+        return retSwitch;
     }
 }

@@ -2332,6 +2332,38 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(7, getNumber(ret_));
     }
+
+//    @Test
+    public void calculate62() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("interface pkg.Int {\n");
+        xml_.append(" int field();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" String field();\n");
+        xml_.append("}\n");
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int extField;\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Int l = new @Annot(\"\") Int(){\n");
+        xml_.append("   public int field=++extField;\n");
+        xml_.append("   public int field(){\n");
+        xml_.append("    return field;\n");
+        xml_.append("   }\n");
+        xml_.append("  };\n");
+        xml_.append("  return l.field();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
     @Test
     public void fail1() {
         StringMap<String> files_ = new StringMap<String>();

@@ -1,14 +1,13 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
+import code.util.Ints;
 import code.util.core.StringUtil;
 
 public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
     private static final char ARR_LEFT = '[';
-    private static final char ARR_RIGHT = ']';
     private static final char ANN_ARR_LEFT = '{';
     private static final char ANN_ARR_RIGHT = '}';
     private static final char PAR_LEFT = '(';
@@ -28,42 +27,8 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
             String afterSwitch_ = _exp.substring(j_);
             if (afterSwitch_.trim().startsWith("[")) {
                 int k_ = afterSwitch_.indexOf(ARR_LEFT) + 1;
+                k_ = incr(k_,page.getCurrentAnnotDelSwitch());
                 int len_ = afterSwitch_.length();
-                int count_ = 1;
-                while (k_ < len_) {
-                    char ch_ = afterSwitch_.charAt(k_);
-                    if (ch_ == ARR_LEFT) {
-                        count_++;
-                    }
-                    if (count_ == 1 && ch_ == ':') {
-                        int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
-                        if (afterSwitch_.startsWith("@",l_)) {
-                            ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),l_+j_);
-                            parse_.parse(page.getCurrentParts());
-                            l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex()-j_);
-                        }
-                        if (afterSwitch_.startsWith(":",l_)) {
-                            int m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
-                            if (afterSwitch_.startsWith("@",m_)) {
-                                ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),m_+j_);
-                                parse_.parse(page.getCurrentParts());
-                                m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,parse_.getIndex()-j_);
-                            }
-                            l_ = m_;
-                        }
-                        if (afterSwitch_.startsWith("]",l_)) {
-                            k_ = l_;
-                            break;
-                        }
-                    }
-                    if (ch_ == ARR_RIGHT) {
-                        count_--;
-                        if (count_ == 0) {
-                            break;
-                        }
-                    }
-                    k_++;
-                }
                 if (k_ >= len_) {
                     _d.setBadOffset(len_);
                     return;
@@ -97,11 +62,9 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
             return;
         }
         j_ = af_;
-        if (_exp.startsWith("@",j_)) {
-            ParsedAnnotations parse_ = new ParsedAnnotations(_exp.substring(j_),j_);
-            parse_.parse(_page.getCurrentParts());
-            j_ = DefaultProcessKeyWord.skipWhiteSpace(_exp,parse_.getIndex());
-        }
+        _d.getDelAnnotNew().add(j_);
+        j_ = incr(j_, _page.getCurrentAnnotDelNew());
+        _d.getDelAnnotNew().add(j_);
         if (StringExpUtil.startsWithKeyWord(_exp,j_, keyWordInterfaces_)) {
             int k_ = _exp.indexOf(PAR_LEFT, j_);
             if (k_ < 0) {
@@ -116,6 +79,14 @@ public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
             j_ = k_+1;
         }
         extractType(_exp, _d, _out, j_);
+    }
+
+    private static int incr(int _j, Ints _dels) {
+        int k2_ = _j;
+        if (_dels.indexOf(_j) >= 0) {
+            k2_ = _dels.get(_dels.indexOf(_j)+1);
+        }
+        return k2_;
     }
 
     public static int extractPrefix(String _exp, Delimiters _d, ResultAfterInstKeyWord _out, int _fr) {

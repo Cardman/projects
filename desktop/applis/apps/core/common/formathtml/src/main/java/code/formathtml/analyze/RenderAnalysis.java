@@ -25,6 +25,8 @@ public final class RenderAnalysis {
     public static OperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
+        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
+        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _minIndex, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
@@ -56,6 +58,8 @@ public final class RenderAnalysis {
     public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
+        _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
+        _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         OperationNode root_ = getRootAnalyzedOperations(_el, _index, _anaDoc, _page);
         _res.setRoot(root_);
         return root_;

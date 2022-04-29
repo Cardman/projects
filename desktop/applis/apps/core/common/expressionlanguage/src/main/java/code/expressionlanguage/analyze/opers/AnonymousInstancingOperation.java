@@ -4,8 +4,9 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.files.ParsedAnnotations;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ConstrustorIdVarArg;
 import code.expressionlanguage.analyze.opers.util.NameParametersFilter;
 import code.expressionlanguage.analyze.opers.util.ResolvedInstance;
@@ -17,10 +18,8 @@ import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.TypeVar;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.fwd.blocks.AnaRootBlockContent;
 import code.expressionlanguage.fwd.opers.AnaInstancingAnonContent;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.StringList;
@@ -65,14 +64,9 @@ public final class AnonymousInstancingOperation extends
             off_ += j_+1;
         }
         int local_ = StringUtil.getFirstPrintableCharIndex(realClassName_);
-        if (realClassName_.trim().startsWith("@")) {
-            ParsedAnnotations parse_ = new ParsedAnnotations(realClassName_.trim(),local_+_page.getIndex());
-            parse_.parse(_page.getCurrentFile().getStringParts());
-            local_ = parse_.getIndex()-_page.getIndex();
-            realClassName_ = parse_.getAfter();
-            local_ += StringExpUtil.getOffset(realClassName_);
-        }
         realClassName_ = realClassName_.trim();
+        realClassName_ = skip(realClassName_);
+        local_ += getDeltaAnnot();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+newKeyWord_.length()+off_+local_, _page);
         String name_ = instancingAnonContent.getBlock().getName();
         if (!StringUtil.quickEq(name_, _page.getKeyWords().getKeyWordId())) {

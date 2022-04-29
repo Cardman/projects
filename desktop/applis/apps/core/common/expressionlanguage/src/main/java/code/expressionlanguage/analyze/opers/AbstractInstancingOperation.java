@@ -3,7 +3,6 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
-import code.expressionlanguage.analyze.files.ParsedAnnotations;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -19,7 +18,6 @@ import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -29,6 +27,7 @@ import code.util.core.StringUtil;
 public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     private final AnaInstancingCommonContent instancingCommonContent;
+    private final int deltaAnnot;
     private AnaTypeFct constructor;
     private MemberId memberId = new MemberId();
     private String typeInfer = EMPTY_STRING;
@@ -42,8 +41,15 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
     protected AbstractInstancingOperation(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
         instancingCommonContent = new AnaInstancingCommonContent(_op.getFctName());
+        deltaAnnot = _op.getDeltaAnnot();
     }
 
+    protected String skip(String _input) {
+        if (deltaAnnot > _input.length()) {
+            return "";
+        }
+        return _input.substring(deltaAnnot);
+    }
     void tryAnalyze(AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
@@ -62,16 +68,8 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
         }
         int local_ = StringUtil.getFirstPrintableCharIndex(afterNew_)+delta_;
         String className_ = afterNew_.trim();
-
-        if (className_.startsWith("@")) {
-            ParsedAnnotations parse_ = new ParsedAnnotations(className_,local_+_page.getIndex());
-            parse_.parse(_page.getCurrentFile().getStringParts());
-            local_ = parse_.getIndex()-_page.getIndex();
-            className_ = parse_.getAfter();
-            local_ += StringExpUtil.getOffset(className_);
-            className_ = className_.trim();
-        }
-
+        className_ = skip(className_);
+        local_ += deltaAnnot;
         InterfacesPart ints_ = new InterfacesPart(className_,local_);
         ints_.parse(_page.getKeyWords(),"",0,newKeyWord_.length()+local_+ _page.getIndex());
         staticInitInterfaces = ints_.getStaticInitInterfaces();
@@ -674,5 +672,9 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
 
     public void setMemberId(MemberId _memberId) {
         this.memberId = _memberId;
+    }
+
+    public int getDeltaAnnot() {
+        return deltaAnnot;
     }
 }
