@@ -12,8 +12,6 @@ import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
-import code.expressionlanguage.analyze.instr.AbstractProcessKeyWord;
-import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.SwitchOperation;
 import code.expressionlanguage.analyze.syntax.IntermediaryResults;
@@ -125,7 +123,6 @@ public final class AnalyzedPageEl {
     private final StringMap<Integer> countsAnon = new StringMap<Integer>();
 
     private final StringMap<MappingLocalType> mappingLocal = new StringMap<MappingLocalType>();
-    private AbstractProcessKeyWord processKeyWord;
     private DefaultCurrentConstraints currentConstraints;
     private DefaultBuildingConstraints buildingConstraints;
     private DefaultLocalizer localizer;
@@ -161,7 +158,6 @@ public final class AnalyzedPageEl {
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
-        page_.setProcessKeyWord(new DefaultProcessKeyWord(page_));
         page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
         page_.setBuildingConstraints(new DefaultBuildingConstraints(page_));
         page_.setLocalizer(new DefaultLocalizer(page_));
@@ -842,14 +838,6 @@ public final class AnalyzedPageEl {
 
     public void setCountOperators(int _countOperators) {
         this.countOperators = _countOperators;
-    }
-
-    public AbstractProcessKeyWord getProcessKeyWord() {
-        return processKeyWord;
-    }
-
-    public void setProcessKeyWord(AbstractProcessKeyWord _processKeyWord) {
-        this.processKeyWord = _processKeyWord;
     }
 
     public ImportForEachLoop getCurrentAnaBlockForEachLoop() {

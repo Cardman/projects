@@ -1224,7 +1224,7 @@ public final class ElResolver {
             _out.setNextIndex(i_);
             return;
         }
-        _page.getProcessKeyWord().processInternKeyWord(_string, i_, _d, _out);
+        DefaultProcessKeyWord.processInternKeyWord(_page,_string, i_, _d, _out);
     }
 
     private static boolean followedByParLeft(String _string, int _len, int _afterSuper) {

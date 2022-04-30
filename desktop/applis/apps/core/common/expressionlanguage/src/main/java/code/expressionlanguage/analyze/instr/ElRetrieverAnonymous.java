@@ -44,8 +44,8 @@ public final class ElRetrieverAnonymous {
             int until_ = from_;
             for (SegmentStringPart s: _curElts.getStringParts()) {
                 if (s.getBegin() == _curElts.getInstrLoc() + from_) {
-                    _page.getParts().add(new SegmentStringPart(s.getBegin()-_curElts.getInstrLoc(),s.getEnd()-_curElts.getInstrLoc(),s.getStrType()));
                     until_ = s.getEnd() - _curElts.getInstrLoc();
+                    _page.getParts().add(new SegmentStringPart(from_,until_,s.getStrType()));
                     break;
                 }
             }

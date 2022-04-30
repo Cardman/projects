@@ -6,28 +6,25 @@ import code.expressionlanguage.options.KeyWords;
 import code.util.Ints;
 import code.util.core.StringUtil;
 
-public final class DefaultProcessKeyWord implements AbstractProcessKeyWord {
+public final class DefaultProcessKeyWord {
     private static final char ARR_LEFT = '[';
     private static final char ANN_ARR_LEFT = '{';
     private static final char ANN_ARR_RIGHT = '}';
     private static final char PAR_LEFT = '(';
     private static final char PAR_RIGHT = ')';
-    private final AnalyzedPageEl page;
 
-    public DefaultProcessKeyWord(AnalyzedPageEl _page) {
-        page = _page;
+    private DefaultProcessKeyWord() {
     }
 
-    @Override
-    public void processInternKeyWord(String _exp, int _fr, Delimiters _d, ResultAfterInstKeyWord _out) {
-        KeyWords keyWords_ = page.getKeyWords();
+    public static void processInternKeyWord(AnalyzedPageEl _page, String _exp, int _fr, Delimiters _d, ResultAfterInstKeyWord _out) {
+        KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSwitch_ = keyWords_.getKeyWordSwitch();
         if (StringExpUtil.startsWithKeyWord(_exp,_fr, keyWordSwitch_)) {
             int j_ = _fr+keyWordSwitch_.length();
             String afterSwitch_ = _exp.substring(j_);
             if (afterSwitch_.trim().startsWith("[")) {
                 int k_ = afterSwitch_.indexOf(ARR_LEFT) + 1;
-                k_ = incr(k_,page.getCurrentAnnotDelSwitch());
+                k_ = incr(k_,_page.getCurrentAnnotDelSwitch());
                 int len_ = afterSwitch_.length();
                 if (k_ >= len_) {
                     _d.setBadOffset(len_);
