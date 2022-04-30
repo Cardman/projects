@@ -2,6 +2,7 @@ package code.expressionlanguage.fwd.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
@@ -1831,17 +1832,17 @@ public final class ForwardInfos {
         _exec.setImplicitCallSuper(_ana.implicitConstr());
     }
     private static void fwdAnnotationsParameters(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ann, Coverage _coverage, Forwards _forwards) {
-        fwdAnnotationsParameters(_ana, _ann, _coverage, _forwards, _ana.getRootsList(), _ana.getAnnotationsIndexesParams());
+        fwdAnnotationsParameters(_ana, _ann, _coverage, _forwards, _ana.getRootsList(), _ana.getAnnotationsParams());
     }
     private static void fwdAnnotationsParametersSupp(NamedCalledFunctionBlock _ana, ExecOverridableBlock _ann, Coverage _coverage, Forwards _forwards) {
-        fwdAnnotationsParametersSupp(_ana, _ann, _coverage, _forwards, _ana.getRootsListSupp(), _ana.getAnnotationsIndexesSupp());
+        fwdAnnotationsParametersSupp(_ana, _ann, _coverage, _forwards, _ana.getRootsListSupp(), _ana.getAnnotationsSupp());
     }
 
     private static void fwdAnnotationsParametersSw(SwitchMethodBlock _ana, ExecAnnotableParamBlock _ann, Coverage _coverage, Forwards _forwards) {
-        fwdAnnotationsParameters(_ana, _ann, _coverage, _forwards, _ana.getRootsList(), _ana.getAnnotationsIndexesParams());
+        fwdAnnotationsParameters(_ana, _ann, _coverage, _forwards, _ana.getRootsList(), _ana.getAnnotationsParams());
     }
 
-    private static void fwdAnnotationsParameters(MemberCallingsBlock _ana, ExecAnnotableParamBlock _ann, Coverage _coverage, Forwards _forwards, CustList<CustList<OperationNode>> _roots, CustList<Ints> _annotationsIndexesParams) {
+    private static void fwdAnnotationsParameters(MemberCallingsBlock _ana, ExecAnnotableParamBlock _ann, Coverage _coverage, Forwards _forwards, CustList<CustList<OperationNode>> _roots, CustList<ResultParsedAnnots> _annotationsIndexesParams) {
         CustList<CustList<ExecAnnotContent>> ops_ = new CustList<CustList<ExecAnnotContent>>();
         int i_ = 0;
         for (CustList<OperationNode> l: _roots) {
@@ -1851,7 +1852,7 @@ public final class ForwardInfos {
             int j_ = 0;
             for (OperationNode r: l) {
                 _coverage.putBlockOperationsAnnotMethod(_ana,i_);
-                annotation_.add(new ExecAnnotContent(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _annotationsIndexesParams.get(i_).get(j_)));
+                annotation_.add(new ExecAnnotContent(getExecutableNodes(i_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _annotationsIndexesParams.get(i_).getAnnotationsIndexes().get(j_)));
                 j_++;
             }
             ops_.add(annotation_);
@@ -1861,25 +1862,25 @@ public final class ForwardInfos {
     }
 
 
-    private static void fwdAnnotationsParametersSupp(MemberCallingsBlock _ana, ExecAnnotableParamBlock _ann, Coverage _coverage, Forwards _forwards, CustList<OperationNode> _roots, Ints _annotationsIndexesParams) {
+    private static void fwdAnnotationsParametersSupp(MemberCallingsBlock _ana, ExecAnnotableParamBlock _ann, Coverage _coverage, Forwards _forwards, CustList<OperationNode> _roots, ResultParsedAnnots _annotationsIndexesParams) {
         CustList<ExecAnnotContent> annotation_;
         annotation_ = new CustList<ExecAnnotContent>();
         int allPar_ = _ann.getAnnotationsOpsParams().size();
         int j_ = 0;
         for (OperationNode r: _roots) {
             _coverage.putBlockOperationsAnnotMethodSupp(_ana);
-            annotation_.add(new ExecAnnotContent(getExecutableNodes(allPar_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _annotationsIndexesParams.get(j_)));
+            annotation_.add(new ExecAnnotContent(getExecutableNodes(allPar_,j_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _annotationsIndexesParams.getAnnotationsIndexes().get(j_)));
             j_++;
         }
         _ann.getAnnotationsOpsSupp().addAllElts(annotation_);
     }
 
     private static void fwdAnnotations(InnerTypeOrElement _ana, ExecInnerTypeOrElement _ann, Coverage _coverage, Forwards _forwards) {
-        fwdAnnotations(_ana, (AbsBk)_ana, _coverage, _forwards, _ana.getRoots(), _ana.getAnnotationsIndexes(), _ann);
+        fwdAnnotations(_ana, (AbsBk)_ana, _coverage, _forwards, _ana.getRoots(), _ana.getAnnotations().getAnnotationsIndexes(), _ann);
     }
 
     private static void fwdAnnotations(FieldBlock _ana, ExecFieldBlock _ann, Coverage _coverage, Forwards _forwards) {
-        fwdAnnot(_ana, _ana, _ann, _coverage, _forwards, _ana.getRoots(), _ana.getAnnotationsIndexes());
+        fwdAnnot(_ana, _ana, _ann, _coverage, _forwards, _ana.getRoots(), _ana.getAnnotations().getAnnotationsIndexes());
     }
 
     private static void fwdAnnot(InfoBlock _info,AbsBk _ana, ExecFieldBlock _ann, Coverage _coverage, Forwards _forwards, CustList<OperationNode> _roots, Ints _annotationsIndexes) {
@@ -1903,10 +1904,10 @@ public final class ForwardInfos {
         return getExecutableNodes(-1,-1,_root, _coverage, _forwards, (AbsBk)_ana);
     }
     private static void fwdAnnotations(NamedFunctionBlock _ana, ExecNamedFunctionBlock _ex, Coverage _coverage, Forwards _forwards) {
-        fwdAnnotations(_ana, _ex, _coverage, _forwards, _ana.getRoots(), _ana.getAnnotationsIndexes());
+        fwdAnnotations(_ana, _ex, _coverage, _forwards, _ana.getRoots(), _ana.getAnnotations().getAnnotationsIndexes());
     }
     private static void fwdAnnotationsSw(SwitchMethodBlock _ana, ExecAbstractSwitchMethod _ex, Coverage _coverage, Forwards _forwards) {
-        fwdAnnotations(_ana, _ex, _coverage, _forwards, _ana.getRoots(), _ana.getAnnotationsIndexes());
+        fwdAnnotations(_ana, _ex, _coverage, _forwards, _ana.getRoots(), _ana.getAnnotations().getAnnotationsIndexes());
     }
 
     private static void fwdAnnotations(MemberCallingsBlock _ana, ExecAnnotableBlock _ex, Coverage _coverage, Forwards _forwards, CustList<OperationNode> _roots, Ints _annotationsIndexes) {
@@ -1925,7 +1926,7 @@ public final class ForwardInfos {
         int i_ = 0;
         for (OperationNode r: _ana.getRoots()) {
             _coverage.putBlockOperationsAnnotType(_ana);
-            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _ana.getAnnotationsIndexes().get(i_)));
+            ops_.add(new ExecAnnotContent(getExecutableNodes(-1,i_,r, _coverage, _forwards, _ana),r.getResultClass().getNames(), _ana.getAnnotations().getAnnotationsIndexes().get(i_)));
             i_++;
         }
         _ann.getAnnotationsOps().clear();

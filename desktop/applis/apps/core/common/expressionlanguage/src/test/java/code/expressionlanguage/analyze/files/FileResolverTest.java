@@ -4737,10 +4737,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyClass", getCustomTypes(context_,0).getFullName());
         RootBlock r_ = getClassBody(context_, "pkg.MyClass");
-        assertEq(1,r_.getAnnotations().size());
-        assertEq("@MyAnnot",r_.getAnnotations().first());
-        assertEq(1,r_.getAnnotationsIndexes().size());
-        assertEq(19,r_.getAnnotationsIndexes().first());
+        assertEq(1,r_.getAnnotations().getAnnotations().size());
+        assertEq("@MyAnnot",r_.getAnnotations().getAnnotations().first());
+        assertEq(1,r_.getAnnotations().getAnnotationsIndexes().size());
+        assertEq(19,r_.getAnnotations().getAnnotationsIndexes().first());
     }
     @Test
     public void parseFile54Test() {
@@ -4783,10 +4783,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
-        StringList annots_ = ((ElementBlock)field_).getAnnotations();
+        StringList annots_ = ((ElementBlock)field_).getAnnotations().getAnnotations();
         assertEq(1, annots_.size());
         assertEq("@MyAnnot", annots_.first());
-        Ints annotsInd_ = ((ElementBlock)field_).getAnnotationsIndexes();
+        Ints annotsInd_ = ((ElementBlock)field_).getAnnotations().getAnnotationsIndexes();
         assertEq(1, annotsInd_.size());
         assertEq(126, annotsInd_.first());
         assertEq(135, ((ElementBlock) child_).getFieldNameOffset());
@@ -4828,10 +4828,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(!field_.isStaticField());
         assertTrue(!field_.isFinalField());
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
-        assertEq(1, ((FieldBlock) child_).getAnnotations().size());
-        assertEq("@MyAnnot", ((FieldBlock) child_).getAnnotations().first());
-        assertEq(1, ((FieldBlock) child_).getAnnotationsIndexes().size());
-        assertEq(73, ((FieldBlock) child_).getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations((FieldBlock)child_).size());
+        assertEq("@MyAnnot", getAnnotations((FieldBlock)child_).first());
+        assertEq(1, ((FieldBlock) child_).getAnnotations().getAnnotationsIndexes().size());
+        assertEq(73, ((FieldBlock) child_).getAnnotations().getAnnotationsIndexes().first());
         assertEq(82, ((FieldBlock) child_).getAccessOffset());
         assertEq(99, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(91, ((FieldBlock) child_).getClassNameOffset());
@@ -4867,10 +4867,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(!method_.isFinalMethod());
         assertTrue(!method_.isAbstractMethod());
         assertTrue(method_.isNormalMethod());
-        assertEq(1, method_.getAnnotations().size());
-        assertEq("@MyAnnot", method_.getAnnotations().first());
-        assertEq(1, method_.getAnnotationsIndexes().size());
-        assertEq(73, method_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(method_).size());
+        assertEq("@MyAnnot", getAnnotations(method_).first());
+        assertEq(1, getAnnotationsIndexes(method_).size());
+        assertEq(73, getAnnotationsIndexes(method_).first());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq(82, method_.getAccessOffset());
         assertEq("exmethod", method_.getName());
@@ -4908,10 +4908,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertTrue(!method_.isFinalMethod());
         assertTrue(!method_.isAbstractMethod());
         assertTrue(method_.isNormalMethod());
-        assertEq(1, method_.getAnnotations().size());
-        assertEq("@MyAnnot", method_.getAnnotations().first());
-        assertEq(1, method_.getAnnotationsIndexes().size());
-        assertEq(73, method_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(method_).size());
+        assertEq("@MyAnnot", getAnnotations(method_).first());
+        assertEq(1, getAnnotationsIndexes(method_).size());
+        assertEq(73, getAnnotationsIndexes(method_).first());
         assertSame(AccessEnum.PRIVATE, method_.getAccess());
         assertEq(82, method_.getAccessOffset());
         assertEq("exmethod", method_.getName());
@@ -4924,13 +4924,13 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("$int", method_.getParametersTypes().first());
         assertEq(1, method_.getParametersNames().size());
         assertEq("p", method_.getParametersNames().first());
-        assertEq(1, method_.getAnnotationsParams().size());
-        assertEq(1, method_.getAnnotationsIndexesParams().size());
-        assertEq(1, method_.getAnnotationsParams().first().size());
-        assertEq(1, method_.getAnnotationsIndexesParams().first().size());
-        assertEq(1, method_.getAnnotationsParams().first().size());
-        assertEq("@MyAnnotTwo", method_.getAnnotationsParams().first().first());
-        assertEq(116, method_.getAnnotationsIndexesParams().first().first());
+        assertEq(1, getAnnotationsParams(method_).size());
+        assertEq(1, getAnnotationsIndexesParams(method_).size());
+        assertEq(1, getAnnotationsParams(method_).first().size());
+        assertEq(1, getAnnotationsIndexesParams(method_).first().size());
+        assertEq(1, getAnnotationsParams(method_).first().size());
+        assertEq("@MyAnnotTwo", getAnnotationsParams(method_).first().first());
+        assertEq(116, getAnnotationsIndexesParams(method_).first().first());
         assertEq(128, method_.getParametersTypesOffset().first());
         assertEq(133, method_.getParametersNamesOffset().first());
         assertEq(1, countFileTypes(context_));
@@ -4979,8 +4979,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         AbsBk child_ = cl_.getFirstChild();
         assertTrue(AbsBk.isAnnotBlock(child_));
         NamedCalledFunctionBlock method_ = (NamedCalledFunctionBlock) child_;
-        assertEq(0, method_.getAnnotations().size());
-        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(method_).size());
+        assertEq(0, getAnnotationsIndexes(method_).size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq("exmethod", method_.getName());
         assertEq(86, method_.getNameOffset());
@@ -4991,7 +4991,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(0, method_.getParametersTypes().size());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getAnnotationsParams().size());
-        assertEq(0, method_.getAnnotationsIndexesParams().size());
+        assertEq(0, getAnnotationsIndexesParams(method_).size());
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -5016,8 +5016,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         AbsBk child_ = cl_.getFirstChild();
         assertTrue(AbsBk.isAnnotBlock(child_));
         NamedCalledFunctionBlock method_ = (NamedCalledFunctionBlock) child_;
-        assertEq(0, method_.getAnnotations().size());
-        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(method_).size());
+        assertEq(0, getAnnotationsIndexes(method_).size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         
         assertEq("exmethod", method_.getName());
@@ -5030,7 +5030,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(0, method_.getParametersTypes().size());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getAnnotationsParams().size());
-        assertEq(0, method_.getAnnotationsIndexesParams().size());
+        assertEq(0, getAnnotationsIndexesParams(method_).size());
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -5061,15 +5061,15 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(87, method_.getReturnTypeOffset());
         assertEq("$String", method_.getReturnType());
         assertEq("", method_.getDefaultValue());
-        assertEq(1, method_.getAnnotations().size());
-        assertEq("@MyAnnot", method_.getAnnotations().first());
-        assertEq(1, method_.getAnnotationsIndexes().size());
-        assertEq(78, method_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(method_).size());
+        assertEq("@MyAnnot", getAnnotations(method_).first());
+        assertEq(1, getAnnotationsIndexes(method_).size());
+        assertEq(78, getAnnotationsIndexes(method_).first());
         assertNull(child_.getNextSibling());
         assertEq(0, method_.getParametersTypes().size());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getAnnotationsParams().size());
-        assertEq(0, method_.getAnnotationsIndexesParams().size());
+        assertEq(0, getAnnotationsIndexesParams(method_).size());
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -5094,8 +5094,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         AbsBk child_ = cl_.getFirstChild();
         assertTrue(AbsBk.isAnnotBlock(child_));
         NamedCalledFunctionBlock method_ = (NamedCalledFunctionBlock) child_;
-        assertEq(0, method_.getAnnotations().size());
-        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(method_).size());
+        assertEq(0, getAnnotationsIndexes(method_).size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         
         assertEq("exmethod", method_.getName());
@@ -5108,7 +5108,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(0, method_.getParametersTypes().size());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getAnnotationsParams().size());
-        assertEq(0, method_.getAnnotationsIndexesParams().size());
+        assertEq(0, getAnnotationsIndexesParams(method_).size());
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -5133,8 +5133,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         AbsBk child_ = cl_.getFirstChild();
         assertTrue(AbsBk.isAnnotBlock(child_));
         NamedCalledFunctionBlock method_ = (NamedCalledFunctionBlock) child_;
-        assertEq(0, method_.getAnnotations().size());
-        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(method_).size());
+        assertEq(0, getAnnotationsIndexes(method_).size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         
         assertEq("exmethod", method_.getName());
@@ -5147,7 +5147,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(0, method_.getParametersTypes().size());
         assertEq(0, method_.getParametersNames().size());
         assertEq(0, method_.getAnnotationsParams().size());
-        assertEq(0, method_.getAnnotationsIndexesParams().size());
+        assertEq(0, getAnnotationsIndexesParams(method_).size());
         assertEq(1, countFileTypes(context_));
     }
     @Test
@@ -5200,10 +5200,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         CustList<OperatorBlock> ops_ = getOperators(context_);
         assertEq(1, ops_.size());
         OperatorBlock op_ = ops_.first();
-        assertEq(1, op_.getAnnotations().size());
-        assertEq("@MyAnnot", op_.getAnnotations().first());
-        assertEq(1, op_.getAnnotationsIndexes().size());
-        assertEq(0, op_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(op_).size());
+        assertEq("@MyAnnot", getAnnotations(op_).first());
+        assertEq(1, op_.getAnnotations().getAnnotationsIndexes().size());
+        assertEq(0, op_.getAnnotations().getAnnotationsIndexes().first());
         assertEq("+", op_.getName());
         assertEq(18, op_.getNameOffset());
         assertEq("$long", op_.getReturnType());
@@ -5242,12 +5242,12 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(9, op_.getNameOffset());
         assertEq("$long", op_.getReturnType());
         assertEq(11, op_.getReturnTypeOffset());
-        assertEq(2, op_.getAnnotationsParams().size());
-        assertEq(1, op_.getAnnotationsParams().first().size());
-        assertEq("@MyAnnot", op_.getAnnotationsParams().first().first());
-        assertEq(2, op_.getAnnotationsIndexesParams().size());
-        assertEq(1, op_.getAnnotationsIndexesParams().first().size());
-        assertEq(18, op_.getAnnotationsIndexesParams().first().first());
+        assertEq(2, getAnnotationsParams(op_).size());
+        assertEq(1, getAnnotationsParams(op_).first().size());
+        assertEq("@MyAnnot", getAnnotationsParams(op_).first().first());
+        assertEq(2, getAnnotationsIndexesParams(op_).size());
+        assertEq(1, getAnnotationsIndexesParams(op_).first().size());
+        assertEq(18, getAnnotationsIndexesParams(op_).first().first());
         assertEq(2, op_.getParametersTypes().size());
         assertEq("$int", op_.getParametersTypes().get(0));
         assertEq("$short", op_.getParametersTypes().get(1));
@@ -5397,8 +5397,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FieldBlock method_ = (FieldBlock) child_;
         assertTrue(method_.isStaticField());
         assertTrue(!method_.isFinalField());
-        assertEq(0, method_.getAnnotations().size());
-        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(method_).size());
+        assertEq(0, getAnnotationsIndexes(method_).size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq(86, method_.getFieldNameOffset());
         assertEq(78, method_.getClassNameOffset());
@@ -5431,8 +5431,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FieldBlock method_ = (FieldBlock) child_;
         assertTrue(method_.isStaticField());
         assertTrue(method_.isFinalField());
-        assertEq(0, method_.getAnnotations().size());
-        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(method_).size());
+        assertEq(0, getAnnotationsIndexes(method_).size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq(78, method_.getFinalFieldOffset());
         assertEq(93, method_.getFieldNameOffset());
@@ -5466,8 +5466,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FieldBlock method_ = (FieldBlock) child_;
         assertTrue(method_.isStaticField());
         assertTrue(!method_.isFinalField());
-        assertEq(0, method_.getAnnotations().size());
-        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(method_).size());
+        assertEq(0, getAnnotationsIndexes(method_).size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq(86, method_.getFieldNameOffset());
         assertEq(78, method_.getClassNameOffset());
@@ -5501,8 +5501,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         FieldBlock method_ = (FieldBlock) child_;
         assertTrue(method_.isStaticField());
         assertTrue(method_.isFinalField());
-        assertEq(0, method_.getAnnotations().size());
-        assertEq(0, method_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(method_).size());
+        assertEq(0, getAnnotationsIndexes(method_).size());
         assertSame(AccessEnum.PUBLIC, method_.getAccess());
         assertEq(78, method_.getFinalFieldOffset());
         assertEq(93, method_.getFieldNameOffset());
@@ -5830,8 +5830,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
         assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
-        assertEq(1, ((RootBlock)inner_).getAnnotations().size());
-        assertEq("@MyAnnot", ((RootBlock)inner_).getAnnotations().first());
+        assertEq(1, ((RootBlock)inner_).getAnnotations().getAnnotations().size());
+        assertEq("@MyAnnot", ((RootBlock)inner_).getAnnotations().getAnnotations().first());
         assertEq(1, ((RootBlock)inner_).getImports().size());
         assertEq("my.Import", ((RootBlock)inner_).getImports().first());
     }
@@ -10005,5 +10005,38 @@ public final class FileResolverTest extends ProcessMethodCommon {
         }
         return l_;
     }
+
+    private StringList getAnnotations(NamedFunctionBlock _m) {
+        return _m.getAnnotations().getAnnotations();
+    }
+
+    private CustList<StringList> getAnnotationsParams(NamedFunctionBlock _m) {
+        CustList<StringList> ls_ = new CustList<StringList>();
+        for (ResultParsedAnnots r: _m.getAnnotationsParams()) {
+            ls_.add(r.getAnnotations());
+        }
+        return ls_;
+    }
+
+    private CustList<Ints> getAnnotationsIndexesParams(NamedFunctionBlock _m) {
+        CustList<Ints> ls_ = new CustList<Ints>();
+        for (ResultParsedAnnots r: _m.getAnnotationsParams()) {
+            ls_.add(r.getAnnotationsIndexes());
+        }
+        return ls_;
+    }
+
+    private StringList getAnnotations(FieldBlock _m) {
+        return _m.getAnnotations().getAnnotations();
+    }
+
+    private Ints getAnnotationsIndexes(NamedCalledFunctionBlock _m) {
+        return _m.getAnnotations().getAnnotationsIndexes();
+    }
+
+    private Ints getAnnotationsIndexes(FieldBlock _m) {
+        return _m.getAnnotations().getAnnotationsIndexes();
+    }
+
 
 }

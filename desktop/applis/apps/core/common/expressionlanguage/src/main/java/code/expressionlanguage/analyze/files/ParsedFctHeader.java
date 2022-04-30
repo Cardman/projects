@@ -5,7 +5,6 @@ import code.expressionlanguage.analyze.instr.DefaultProcessKeyWord;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -16,12 +15,9 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
     private static final String ANNOT = "@";
     private static final String ANON_RETURN_PART = ":";
     private static final String ARROW = "->";
-    private final Ints annotationsIndexes = new Ints();
-    private final StringList annotations = new StringList();
-    private Ints annotationsIndexesSupp = new Ints();
-    private StringList annotationsSupp = new StringList();
-    private final CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
-    private final CustList<StringList> annotationsParams = new CustList<StringList>();
+    private final ResultParsedAnnots annotations = new ResultParsedAnnots();
+    private ResultParsedAnnots annotationsSupp = new ResultParsedAnnots();
+    private final CustList<ResultParsedAnnots> annotationsParams = new CustList<ResultParsedAnnots>();
     private String info = "";
     private boolean ok = true;
     private int offsetLast;
@@ -63,13 +59,11 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         int j_ = DefaultProcessKeyWord.skipWhiteSpace(_info, 0);
         while (j_ < len_) {
             int k_ = j_;
-            Ints annotationsIndexesParam_ = new Ints();
-            StringList annotationsParam_ = new StringList();
+            ResultParsedAnnots annotationsParam_ = new ResultParsedAnnots();
             if (_info.startsWith(ANNOT,k_)) {
                 ParsedAnnotations par_ = new ParsedAnnotations(_info.substring(k_), k_+ offsetLast);
                 par_.parse(_parts);
-                annotationsIndexesParam_ = par_.getAnnotationsIndexes();
-                annotationsParam_ = par_.getAnnotations();
+                annotationsParam_.set(par_);
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,par_.getIndex() - offsetLast);
             }
             BoolVal ref_;
@@ -93,11 +87,10 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
             int parOff_ = k_;
             String varName_ = _info.substring(k_, implCall_).trim();
             if (isNotImplParam(implStopRightPar_,implCall_,varName_)) {
-                feedPar(annotationsIndexesParam_, annotationsParam_, ref_, typeOff_, paramType_, parOff_, varName_);
+                feedPar(annotationsParam_, ref_, typeOff_, paramType_, parOff_, varName_);
             } else {
                 typeSetterOff = typeOff_ + offsetLast;
                 typeSetter = paramType_.trim();
-                annotationsIndexesSupp = annotationsIndexesParam_;
                 annotationsSupp = annotationsParam_;
             }
             if (implStopRightPar_ == implCall_) {
@@ -112,13 +105,12 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         }
     }
 
-    private void feedPar(Ints _annotationsIndexesParam, StringList _annotationsParam, BoolVal _ref, int _typeOff, String _paramType, int _parOff, String _varName) {
-        feedParAnnot(_annotationsIndexesParam, _annotationsParam);
+    private void feedPar(ResultParsedAnnots _annotationsParam, BoolVal _ref, int _typeOff, String _paramType, int _parOff, String _varName) {
+        feedParAnnot(_annotationsParam);
         feedParBase(_ref, _typeOff, offsetLast, _paramType.trim(), _parOff, _varName);
     }
 
-    private void feedParAnnot(Ints _annotationsIndexesParam, StringList _annotationsParam) {
-        this.annotationsIndexesParams.add(_annotationsIndexesParam);
+    private void feedParAnnot(ResultParsedAnnots _annotationsParam) {
         this.annotationsParams.add(_annotationsParam);
     }
 
@@ -153,13 +145,11 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         }
         while (j_ < len_) {
             int k_ = j_;
-            Ints annotationsIndexesParam_ = new Ints();
-            StringList annotationsParam_ = new StringList();
+            ResultParsedAnnots annotationsParam_ = new ResultParsedAnnots();
             if (_string.startsWith(ANNOT,k_)) {
                 ParsedAnnotations par_ = new ParsedAnnotations(_string.substring(k_), k_+_offset);
                 par_.parse(_parts);
-                annotationsIndexesParam_ = par_.getAnnotationsIndexes();
-                annotationsParam_ = par_.getAnnotations();
+                annotationsParam_.set(par_);
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,par_.getIndex() - _offset);
             }
             BoolVal ref_;
@@ -207,7 +197,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
                 nextIndex = _indexLeftPar;
                 return;
             }
-            feedParAnnot(annotationsIndexesParam_, annotationsParam_);
+            feedParAnnot(annotationsParam_);
             feedParBase(ref_, typeOff_, _offset, candid_, parOff_, varName_);
             if (implStopInd_ == implCall_) {
                 processExplicitRetType(_indexLeftPar,_string,_offset,_keyWordThat,implCall_,_parts);
@@ -239,8 +229,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         if (_string.startsWith(ANNOT,k_)) {
             ParsedAnnotations par_ = new ParsedAnnotations(_string.substring(k_), k_+ _offset);
             par_.parse(_parts);
-            annotationsIndexes.addAllElts(par_.getAnnotationsIndexes());
-            annotations.addAllElts(par_.getAnnotations());
+            annotations.set(par_);
             k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,par_.getIndex()- _offset);
         }
         if (StringExpUtil.startsWithKeyWord(_string,k_, _keyWordThat)) {
@@ -273,27 +262,15 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         return ok;
     }
 
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
-
-    public StringList getAnnotations() {
+    public ResultParsedAnnots getAnnotations() {
         return annotations;
     }
 
-    public CustList<Ints> getAnnotationsIndexesParams() {
-        return annotationsIndexesParams;
-    }
-
-    public CustList<StringList> getAnnotationsParams() {
+    public CustList<ResultParsedAnnots> getAnnotationsParams() {
         return annotationsParams;
     }
 
-    public Ints getAnnotationsIndexesSupp() {
-        return annotationsIndexesSupp;
-    }
-
-    public StringList getAnnotationsSupp() {
+    public ResultParsedAnnots getAnnotationsSupp() {
         return annotationsSupp;
     }
 

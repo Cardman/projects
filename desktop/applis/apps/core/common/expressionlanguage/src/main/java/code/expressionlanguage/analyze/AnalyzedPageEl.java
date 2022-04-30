@@ -413,7 +413,11 @@ public final class AnalyzedPageEl {
         return getTraceIndex(currentFile, getIndex());
     }
     public int getIndex() {
-        return globalOffset + getOffset() + translatedOffset;
+        return globalOffset + getOffset() + getTranslatedOffset();
+    }
+
+    public int getTranslatedOffset() {
+        return translatedOffset;
     }
 
     public AbsBk getCurrentBlock() {

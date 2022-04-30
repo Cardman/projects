@@ -13,6 +13,7 @@ public final class ParsedAnnotations {
     private static final char ANNOT = '@';
     private final Ints annotationsIndexes = new Ints();
     private final StringList annotations = new StringList();
+    private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private final String instruction;
     private String after = "";
     private int index;
@@ -110,6 +111,7 @@ public final class ParsedAnnotations {
         int until_ = _j;
         for (SegmentStringPart s: _parts) {
             if (s.getBegin() == _j + instructionLocation) {
+                parts.add(s);
                 int begin_ = s.getBegin() - instructionLocation;
                 int end_ = s.getEnd() - instructionLocation;
                 for (int i = begin_; i < end_; i++) {
@@ -120,6 +122,10 @@ public final class ParsedAnnotations {
             }
         }
         return until_;
+    }
+
+    public CustList<SegmentStringPart> getParts() {
+        return parts;
     }
 
     private static boolean isPart(char _char) {

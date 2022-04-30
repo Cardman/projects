@@ -5172,6 +5172,66 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(24, getNumber(ret_));
     }
+    @Test
+    public void calculate206_() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("public annotation pkg.AnnotOne {\n");
+        xml_.append(" String info1();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotTwo {\n");
+        xml_.append(" String info2();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotThree {\n");
+        xml_.append(" String info3();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotFour {\n");
+        xml_.append(" String info4();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotFive {\n");
+        xml_.append(" String info5();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.AnnotSix {\n");
+        xml_.append(" String info6();\n");
+        xml_.append("}\n");
+        xml_.append("annotation pkg.Annot {\n");
+        xml_.append(" @AnnotOne(info1=\"8\")\n");
+        xml_.append(" int info();\n");
+        xml_.append(" @AnnotOne(info1=\"8\")\n");
+        xml_.append(" int info2=0;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ext {\n");
+        xml_.append(" @AnnotOne(info1=\"8\")\n");
+        xml_.append(" int info2=0;\n");
+        xml_.append(" @AnnotOne(info1=\"8\")\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int v = m((@AnnotOne(info1=\"7\")@AnnotTwo(info2=\"8\") int a,@AnnotThree(info3=\"9\")@AnnotFour(info4=\"10\") int b:@AnnotFive(info5=\"11\")@AnnotSix(info6=\"12\") int)->{return 2 * a * b;},3,4);\n");
+        xml_.append("  (switch[int:@AnnotOne(info1=\"8\"):@AnnotOne(info1=\"8\")](0){default;return 0;});\n");
+        xml_.append("  return 24;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int,int> fct,@AnnotOne(info1=\"8\") int a, int b){\n");
+        xml_.append("  return fct.call(a,b);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("enum pkg.ExEnum {\n");
+        xml_.append("@AnnotOne(info1=\"8\")\n");
+        xml_.append("ONE{},\n");
+        xml_.append("@AnnotOne(info1=\"8\")\n");
+        xml_.append("TWO;\n");
+        xml_.append("}\n");
+        xml_.append("@pkg.AnnotOne(info1=\"8\")\n");
+        xml_.append("operator+ pkg.Ext(){\n");
+        xml_.append(" return null;\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(24, getNumber(ret_));
+    }
 
     @Test
     public void calculate207() {

@@ -16,10 +16,9 @@ public final class InputTypeCreation {
     private FileBlock file;
     private final Ints badIndexes = new Ints();
     private String generatedId="";
-    private Ints annotationsIndexes = new Ints();
-    private StringList annotations = new StringList();
-    private CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
-    private CustList<StringList> annotationsParams = new CustList<StringList>();
+    private ResultParsedAnnots annotations = new ResultParsedAnnots();
+    private CustList<ResultParsedAnnots> annotationsParams = new CustList<ResultParsedAnnots>();
+    private CustList<SegmentStringPart> stringParts = new CustList<SegmentStringPart>();
 
     public int getNextIndex() {
         return nextIndex;
@@ -69,36 +68,28 @@ public final class InputTypeCreation {
         }
     }
 
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
-
-    public void setAnnotationsIndexes(Ints _annotationsIndexes) {
-        this.annotationsIndexes = _annotationsIndexes;
-    }
-
-    public StringList getAnnotations() {
+    public ResultParsedAnnots getAnnotations() {
         return annotations;
     }
 
-    public void setAnnotations(StringList _annotations) {
+    public void setAnnotations(ResultParsedAnnots _annotations) {
         this.annotations = _annotations;
     }
 
-    public CustList<Ints> getAnnotationsIndexesParams() {
-        return annotationsIndexesParams;
-    }
-
-    public void setAnnotationsIndexesParams(CustList<Ints> _annotationsIndexesParams) {
-        this.annotationsIndexesParams = _annotationsIndexesParams;
-    }
-
-    public CustList<StringList> getAnnotationsParams() {
+    public CustList<ResultParsedAnnots> getAnnotationsParams() {
         return annotationsParams;
     }
 
-    public void setAnnotationsParams(CustList<StringList> _annotationsParams) {
+    public void setAnnotationsParams(CustList<ResultParsedAnnots> _annotationsParams) {
         this.annotationsParams = _annotationsParams;
+    }
+
+    public CustList<SegmentStringPart> getStringParts() {
+        return stringParts;
+    }
+
+    public void setStringParts(CustList<SegmentStringPart> _strPart) {
+        this.stringParts = _strPart;
     }
 
     public int getOffset() {

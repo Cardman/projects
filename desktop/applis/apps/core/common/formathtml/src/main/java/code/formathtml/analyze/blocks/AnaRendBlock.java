@@ -57,7 +57,8 @@ public abstract class AnaRendBlock {
 
     private StringMap<AttributePart> attributeDelimiters = new StringMap<AttributePart>();
 
-    private final CustList<SegmentStringPart> stringParts = new CustList<SegmentStringPart>();
+    private final StringMap<CustList<SegmentStringPart>> stringPartsElt = new StringMap<CustList<SegmentStringPart>>();
+    private final CustList<SegmentStringPart> stringPartsText = new CustList<SegmentStringPart>();
 
     AnaRendBlock(int _offset) {
         offset = _offset;
@@ -70,7 +71,6 @@ public abstract class AnaRendBlock {
         AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl,_anaDoc.getEncoded());
         int indexGlobal_ = indexOfBeginNode(curNode_, _docText, 0);
         AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, rend_);
-        out_.getFile().getStringParts().addAllElts(curWrite_.stringParts);
         out_.appendChild(curWrite_);
         indexGlobal_ = curWrite_.endHeader;
         while (curWrite_ != null) {
@@ -78,7 +78,6 @@ public abstract class AnaRendBlock {
             if (curWrite_ instanceof AnaRendParentBlock&&firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
                 AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, rend_);
-                out_.getFile().getStringParts().addAllElts(rendBlock_.stringParts);
                 appendChild((AnaRendParentBlock) curWrite_,rendBlock_);
                 indexGlobal_ = rendBlock_.endHeader;
                 curWrite_ = rendBlock_;
@@ -92,7 +91,6 @@ public abstract class AnaRendBlock {
                 if (nextSibling_ != null) {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
                     AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _prefix, nextSibling_,_docText, _primTypes, rend_);
-                    out_.getFile().getStringParts().addAllElts(rendBlock_.stringParts);
                     appendChild(par_,rendBlock_);
                     indexGlobal_ = rendBlock_.endHeader;
                     curWrite_ = rendBlock_;
@@ -153,16 +151,30 @@ public abstract class AnaRendBlock {
                 AttributePart dels_ = attr_.getValue(i);
                 String attrValue_ = ((Element) _elt).getAttribute(attr_.getKey(i));
                 StringComment str_ = new StringComment(attrValue_, _primTypes.getComments(),dels_.getBegin());
-                bl_.stringParts.addAllElts(str_.getStringParts());
+//                bl_.stringParts.addAllElts(str_.getStringParts());
+                bl_.stringPartsElt.addEntry(attr_.getKey(i),str_.getStringParts());
             }
             if (!StringExpUtil.nextCharIs(_docText,endHeader_-1,_docText.length(),'/') &&_docText.startsWith("></"+tagName_+">",endHeader_)) {
                 bl_.endHeader += ("</"+tagName_+">").length();
             }
         } else {
-            bl_.stringParts.addAllElts(RendSplitExpressionUtil.itText(_begin,_elt.getTextContent(),_primTypes).getStringParts());
+//            bl_.stringParts.addAllElts(RendSplitExpressionUtil.itText(_begin,_elt.getTextContent(),_primTypes).getStringParts());
+            bl_.stringPartsText.addAllElts(RendSplitExpressionUtil.itText(_begin,_elt.getTextContent(),_primTypes).getStringParts());
             bl_.endHeader = _docText.indexOf(LT_BEGIN_TAG, _begin);
         }
         return bl_;
+    }
+
+    public CustList<SegmentStringPart> getStringPartsText() {
+        return stringPartsText;
+    }
+
+    public CustList<SegmentStringPart> getStringPartsElt(String _attr) {
+        CustList<SegmentStringPart> val_ = stringPartsElt.getVal(_attr);
+        if (val_ == null) {
+            return new CustList<SegmentStringPart>();
+        }
+        return val_;
     }
 
     public int getEndHeader() {

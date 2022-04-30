@@ -621,15 +621,12 @@ public final class ElResolverCommon {
         int indexLast_ = _stack.getIndexesNew().indexOf(_parsBrackets.lastKey());
         if (indexLast_ > -1) {
             _stack.getAnnotationsEnd().add(_stack.getAnnotations().get(indexLast_));
-            _stack.getAnnotationsIndexesEnd().add(_stack.getAnnotationsIndexes().get(indexLast_));
         }
         int indexLastSw_ = _stack.getIndexesSwitch().indexOf(_parsBrackets.lastKey());
         if (indexLastSw_ > -1) {
             _stack.getRetSwitchList().add(_stack.getRetSwitch().get(indexLastSw_));
             _stack.getAnnotationsEndSw().add(_stack.getAnnotationsSw().get(indexLastSw_));
-            _stack.getAnnotationsIndexesEndSw().add(_stack.getAnnotationsIndexesSw().get(indexLastSw_));
             _stack.getAnnotationsEndSwPar().add(_stack.getAnnotationsSwPar().get(indexLastSw_));
-            _stack.getAnnotationsIndexesEndSwPar().add(_stack.getAnnotationsIndexesSwPar().get(indexLastSw_));
         }
     }
 }

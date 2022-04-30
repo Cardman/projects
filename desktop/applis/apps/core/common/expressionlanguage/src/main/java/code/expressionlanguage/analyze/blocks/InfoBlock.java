@@ -1,14 +1,14 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.common.AccessEnum;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 
 public interface InfoBlock extends AnnotableBlock {
 
-    Ints getAnnotationsIndexes();
+    ResultParsedAnnots getAnnotations();
     boolean isStaticField();
     StringList getFieldName();
     int getFieldNumber();

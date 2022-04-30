@@ -2,10 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetAccessInfo;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.ParsedFctHeader;
-import code.expressionlanguage.analyze.files.ParsedFctHeaderResult;
+import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -26,9 +23,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class NamedFunctionBlock extends MemberCallingsBlock implements AnnotableParametersBlock {
-    private final StringList annotations = new StringList();
-
-    private final Ints annotationsIndexes = new Ints();
+    private ResultParsedAnnots annotations = new ResultParsedAnnots();
 
     private String name;
 
@@ -57,8 +52,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     private int accessOffset;
 
     private boolean varargs;
-    private final CustList<StringList> annotationsParams = new CustList<StringList>();
-    private final CustList<Ints> annotationsIndexesParams = new CustList<Ints>();
+    private final CustList<ResultParsedAnnots> annotationsParams = new CustList<ResultParsedAnnots>();
 
     private final CustList<AnaResultPartType> partOffsetsParams = new CustList<AnaResultPartType>();
     private AnaResultPartType partOffsetsReturn = new AnaResultPartType();
@@ -138,13 +132,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
     public void buildAnnotations(AnalyzedPageEl _page) {
         roots = new CustList<OperationNode>();
-        int len_ = annotationsIndexes.size();
+        int len_ = annotations.getAnnotationsIndexes().size();
         for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
+            int begin_ = annotations.getAnnotationsIndexes().get(i);
             _page.setGlobalOffset(begin_);
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.getAnnotations().get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
@@ -154,16 +148,15 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     public void buildAnnotationsParameters(AnalyzedPageEl _page) {
         int j_ = 0;
         rootsList = new CustList<CustList<OperationNode>>();
-        for (Ints l: annotationsIndexesParams) {
+        for (ResultParsedAnnots l: annotationsParams) {
             CustList<OperationNode> rootList_ = new CustList<OperationNode>();
-            int len_ = l.size();
-            StringList list_ = annotationsParams.get(j_);
+            int len_ = l.getAnnotationsIndexes().size();
             for (int i = 0; i < len_; i++) {
-                int begin_ = l.get(i);
+                int begin_ = l.getAnnotationsIndexes().get(i);
                 _page.setGlobalOffset(begin_);
                 _page.zeroOffset();
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), list_.get(i).trim(), c_, _page);
+                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), l.getAnnotations().get(i).trim(), c_, _page);
                 ReachOperationUtil.tryCalculate(r_, _page);
                 rootList_.add(r_);
             }
@@ -303,23 +296,20 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         return importedReturnType;
     }
 
-    public StringList getAnnotations() {
+    public ResultParsedAnnots getAnnotations() {
         return annotations;
     }
 
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
+    public void setAnnotations(ResultParsedAnnots _a) {
+        this.annotations = _a;
     }
+
     public void setImportedReturnType(String _importedReturnType) {
         importedReturnType = _importedReturnType;
     }
 
-    public CustList<StringList> getAnnotationsParams() {
+    public CustList<ResultParsedAnnots> getAnnotationsParams() {
         return annotationsParams;
-    }
-
-    public CustList<Ints> getAnnotationsIndexesParams() {
-        return annotationsIndexesParams;
     }
 
     public CustList<AnaResultPartType> getPartOffsetsParams() {

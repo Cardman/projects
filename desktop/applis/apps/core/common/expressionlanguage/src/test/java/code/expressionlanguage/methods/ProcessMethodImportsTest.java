@@ -943,6 +943,61 @@ public final class ProcessMethodImportsTest extends ProcessMethodCommon {
         field_ = getField(str_, new ClassField("pkg.Ex", "second"));
         assertEq("pkg.ExTwo", field_.getClassName(cont_));
     }
+
+    @Test
+    public void calculateArgument25Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex<T>:Int<T> {\n");
+        xml_.append(" ONE<java.lang.String>(4i,                       \"generic\"),\n");
+        xml_.append(" TWO<java.lang.Integer>,\n");
+        xml_.append(" THREE<ExTwo>(6i,$new ExTwo());\n");
+        xml_.append(" $public $int first;\n");
+        xml_.append(" $public T second;\n");
+        xml_.append(" $public ($int i,T j){\n");
+        xml_.append("  first=i;\n");
+        xml_.append("  second=j;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public (){\n");
+        xml_.append("  first=5i;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $normal T getSecond() {\n");
+        xml_.append("  $return second;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        xml_.append("$public $interface pkg.Int<U> {\n");
+        xml_.append(" $public $abstract U getSecond();\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.ExTwo {\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+
+        assertTrue(isInitialized(cont_, "pkg.Ex"));
+        Struct str_ = getStaticField(cont_, new ClassField("pkg.Ex", "ONE"));
+        assertEq("pkg.Ex<java.lang.String>", str_.getClassName(cont_));
+        Struct field_;
+        field_ = getField(str_, new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(4, ((NumberStruct)field_).intStruct());
+        field_ = getField(str_, new ClassField("pkg.Ex", "second"));
+        assertEq(STRING, field_.getClassName(cont_));
+        assertEq("generic", ((StringStruct)field_).getInstance());
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "TWO"));
+        assertEq("pkg.Ex<java.lang.Integer>", str_.getClassName(cont_));
+        field_ = getField(str_, new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(5, ((NumberStruct)field_).intStruct());
+        field_ = getField(str_, new ClassField("pkg.Ex", "second"));
+        assertSame(NullStruct.NULL_VALUE,field_);
+        str_ = getStaticField(cont_, new ClassField("pkg.Ex", "THREE"));
+        assertEq("pkg.Ex<pkg.ExTwo>", str_.getClassName(cont_));
+        field_ = getField(str_, new ClassField("pkg.Ex", "first"));
+        assertEq(INTEGER, field_.getClassName(cont_));
+        assertEq(6, ((NumberStruct)field_).intStruct());
+        field_ = getField(str_, new ClassField("pkg.Ex", "second"));
+        assertEq("pkg.ExTwo", field_.getClassName(cont_));
+    }
     @Test
     public void calculateArgument30Test() {
         StringMap<String> files_ = new StringMap<String>();

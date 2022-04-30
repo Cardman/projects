@@ -25,7 +25,7 @@ public final class ElRetrieverAnonymous {
         _page.getAnnotDelSwitch().clear();
         String currentPkg_ = _page.getCurrentPkg();
         FileBlock currentFile_ = _page.getCurrentFile();
-        int next_ = stackBegin(_string, _minIndex, currentFile_, currentPkg_, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex()));
+        int next_ = stackBegin(_string, _minIndex, currentFile_, currentPkg_, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex(), _res.getPartsAbs()));
         _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
         _res.setParts(new CustList<SegmentStringPart>(_page.getParts()));
         _res.setAnnotDelNew(new Ints(_page.getAnnotDelNew()));
@@ -42,7 +42,7 @@ public final class ElRetrieverAnonymous {
         while (from_ < len_) {
             char curChar_ = _string.charAt(from_);
             int until_ = from_;
-            for (SegmentStringPart s: _curElts.getFile().getStringParts()) {
+            for (SegmentStringPart s: _curElts.getStringParts()) {
                 if (s.getBegin() == _curElts.getInstrLoc() + from_) {
                     _page.getParts().add(new SegmentStringPart(s.getBegin()-_curElts.getInstrLoc(),s.getEnd()-_curElts.getInstrLoc(),s.getStrType()));
                     until_ = s.getEnd() - _curElts.getInstrLoc();
@@ -116,7 +116,7 @@ public final class ElRetrieverAnonymous {
             char curChar_ = _string.charAt(from_);
 
             int until_ = from_;
-            for (SegmentStringPart s: _curElts.getFile().getStringParts()) {
+            for (SegmentStringPart s: _curElts.getStringParts()) {
                 if (s.getBegin() == _curElts.getInstrLoc() + from_) {
                     until_ = s.getEnd() - _curElts.getInstrLoc();
                     break;
@@ -200,10 +200,8 @@ public final class ElRetrieverAnonymous {
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordSwitch_)) {
             int j_ = i_+keyWordSwitch_.length();
             String afterSwitch_ = _string.substring(j_);
-            Ints annotationsIndexes_ = new Ints();
-            StringList annotations_ = new StringList();
-            Ints annotationsIndexesParam_ = new Ints();
-            StringList annotationsParam_ = new StringList();
+            ResultParsedAnnots annotations_ = new ResultParsedAnnots();
+            ResultParsedAnnots annotationsParam_ = new ResultParsedAnnots();
             String retSwitch_ = "";
             if (afterSwitch_.trim().startsWith("[")) {
                 int start_ = afterSwitch_.indexOf('[') + 1;
@@ -220,9 +218,8 @@ public final class ElRetrieverAnonymous {
                         int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
                         if (afterSwitch_.startsWith("@",l_)) {
                             ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),j_+l_+ _curElts.getInstrLoc());
-                            parse_.parse(_curElts.getFile().getStringParts());
-                            annotationsIndexes_ = parse_.getAnnotationsIndexes();
-                            annotations_ = parse_.getAnnotations();
+                            parse_.parse(_curElts.getStringParts());
+                            annotations_.set(parse_);
                             l_ = parse_.getIndex() - j_ - _curElts.getInstrLoc();
                             l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_);
                         }
@@ -230,9 +227,8 @@ public final class ElRetrieverAnonymous {
                             int m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,l_+1);
                             if (afterSwitch_.startsWith("@",m_)) {
                                 ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(m_),j_+m_+ _curElts.getInstrLoc());
-                                parse_.parse(_curElts.getFile().getStringParts());
-                                annotationsIndexesParam_ = parse_.getAnnotationsIndexes();
-                                annotationsParam_ = parse_.getAnnotations();
+                                parse_.parse(_curElts.getStringParts());
+                                annotationsParam_.set(parse_);
                                 m_ = parse_.getIndex() - j_ - _curElts.getInstrLoc();
                                 m_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,m_);
                             }
@@ -259,9 +255,7 @@ public final class ElRetrieverAnonymous {
                     _stack.getStringsSwitch().add("");
                     _stack.getIndexesSwitch().add(next_);
                     _stack.getCallings().add(next_);
-                    _stack.getAnnotationsIndexesSw().add(annotationsIndexes_);
                     _stack.getAnnotationsSw().add(annotations_);
-                    _stack.getAnnotationsIndexesSwPar().add(annotationsIndexesParam_);
                     _stack.getAnnotationsSwPar().add(annotationsParam_);
                     _stack.getRetSwitch().add(retSwitch_);
                     return next_;
@@ -272,9 +266,7 @@ public final class ElRetrieverAnonymous {
             if (_string.startsWith("(",next_)) {
                 _stack.getStringsSwitch().add("");
                 _stack.getIndexesSwitch().add(next_);
-                _stack.getAnnotationsIndexesSw().add(annotationsIndexes_);
                 _stack.getAnnotationsSw().add(annotations_);
-                _stack.getAnnotationsIndexesSwPar().add(annotationsIndexesParam_);
                 _stack.getAnnotationsSwPar().add(annotationsParam_);
                 _stack.getCallings().add(next_);
                 _stack.getRetSwitch().add(retSwitch_);
@@ -306,8 +298,7 @@ public final class ElRetrieverAnonymous {
             }
             if (foundLeftPar_) {
                 i_ = j_-1;
-                _stack.getAnnotationsIndexes().add(new Ints());
-                _stack.getAnnotations().add(new StringList());
+                _stack.getAnnotations().add(new ResultParsedAnnots());
                 _stack.getStringsNew().add("");
                 _stack.getIndexesNew().add(i_);
                 return i_;
@@ -328,14 +319,12 @@ public final class ElRetrieverAnonymous {
                 return j_;
             }
             j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
-            Ints annotationsIndexes_ = new Ints();
-            StringList annotations_ = new StringList();
+            ResultParsedAnnots res_ = new ResultParsedAnnots();
             _stack.getAnnotDelNew().add(j_);
             if (_string.startsWith("@",j_)) {
                 ParsedAnnotations parse_ = new ParsedAnnotations(_string.substring(j_),j_+ _curElts.getInstrLoc());
-                parse_.parse(_curElts.getFile().getStringParts());
-                annotationsIndexes_ = parse_.getAnnotationsIndexes();
-                annotations_ = parse_.getAnnotations();
+                parse_.parse(_curElts.getStringParts());
+                res_.set(parse_);
                 j_ = parse_.getIndex()- _curElts.getInstrLoc();
                 j_ = DefaultProcessKeyWord.skipWhiteSpace(_string,j_);
             }
@@ -353,8 +342,7 @@ public final class ElRetrieverAnonymous {
             }
             int from_ = j_;
             j_ = DefaultProcessKeyWord.extractType(_string,_stack,j_);
-            _stack.getAnnotationsIndexes().add(annotationsIndexes_);
-            _stack.getAnnotations().add(annotations_);
+            _stack.getAnnotations().add(res_);
             _stack.getStringsNew().add(_string.substring(from_,j_));
             _stack.getIndexesNew().add(j_);
             return j_;
@@ -525,6 +513,7 @@ public final class ElRetrieverAnonymous {
                 InputTypeCreation input_ = new InputTypeCreation();
                 input_.setType(OuterBlockEnum.ANON_FCT);
                 input_.setFile(_curElts.getFile());
+                input_.setStringParts(_curElts.getStringParts());
                 input_.setNextIndex(j_);
                 input_.setNextIndexBef(dash_);
                 input_.setOffset(instrLoc_);
@@ -582,17 +571,15 @@ public final class ElRetrieverAnonymous {
                 parse_.getParametersName().add(word_);
                 parse_.getParametersType().add("");
                 parse_.getParametersRef().add(BoolVal.FALSE);
-                parse_.getAnnotationsParams().add(new StringList());
-                parse_.getAnnotationsIndexesParams().add(new Ints());
+                parse_.getAnnotationsParams().add(new ResultParsedAnnots());
                 InputTypeCreation input_ = new InputTypeCreation();
                 input_.setType(OuterBlockEnum.ANON_FCT);
                 input_.setFile(_curElts.getFile());
+                input_.setStringParts(_curElts.getStringParts());
                 input_.setNextIndex(indAfterArrow_);
                 input_.setNextIndexBef(dash_);
                 input_.setAnnotations(parse_.getAnnotations());
-                input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
                 input_.setAnnotationsParams(parse_.getAnnotationsParams());
-                input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
                 input_.setOffset(instrLoc_);
                 ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                 if (res_.isOkType()) {
@@ -616,17 +603,14 @@ public final class ElRetrieverAnonymous {
             parse_.getParametersName().add(word_);
             parse_.getParametersType().add("");
             parse_.getParametersRef().add(BoolVal.FALSE);
-            parse_.getAnnotationsParams().add(new StringList());
-            parse_.getAnnotationsIndexesParams().add(new Ints());
+            parse_.getAnnotationsParams().add(new ResultParsedAnnots());
             int k_ = stack(_string, indAfterArrow_, _page, _curElts);
             String part_ = _string.substring(indAfterArrow_,k_);
             int begAnon_ = dash_ + instrLoc_;
             int begImplRet_ = indAfterArrow_ + instrLoc_;
             NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(begAnon_, begImplRet_, _page);
-            block_.getAnnotations().addAllElts(parse_.getAnnotations());
-            block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
+            block_.setAnnotations(parse_.getAnnotations());
             block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
-            block_.getAnnotationsIndexesParams().addAllElts(parse_.getAnnotationsIndexesParams());
             block_.setBegin(begImplRet_);
             block_.setLengthHeader(1);
             block_.setFile(_curElts.getFile());
@@ -635,6 +619,7 @@ public final class ElRetrieverAnonymous {
             ret_.setImplicit(true);
             ret_.setBegin(begAnon_);
             ret_.setLengthHeader(2);
+            ret_.getRes().partsAbsol(_curElts.getStringParts());
             block_.appendChild(ret_);
             AnonymousResult anonymous_ = new AnonymousResult();
             anonymous_.setResults(new ParsedFctHeaderResult(parse_));
@@ -661,7 +646,7 @@ public final class ElRetrieverAnonymous {
             if (!_stack.getCallings().containsObj(_i)) {
                 ParsedFctHeader parse_ = new ParsedFctHeader();
                 int instrLoc_ = _curElts.getInstrLoc();
-                parse_.parseAnonymous(_curElts.getFile().getStringParts(), _i,_string,instrLoc_,keyWords_.getKeyWordThat());
+                parse_.parseAnonymous(_curElts.getStringParts(), _i,_string,instrLoc_,keyWords_.getKeyWordThat());
                 int rightPar_ = parse_.getNextIndex();
                 if (rightPar_ > _i) {
                     String info_ = _string.substring(rightPar_+1);
@@ -676,12 +661,11 @@ public final class ElRetrieverAnonymous {
                         InputTypeCreation input_ = new InputTypeCreation();
                         input_.setType(OuterBlockEnum.ANON_FCT);
                         input_.setFile(_curElts.getFile());
+                        input_.setStringParts(_curElts.getStringParts());
                         input_.setNextIndex(j_);
                         input_.setNextIndexBef(jBef_);
                         input_.setAnnotations(parse_.getAnnotations());
-                        input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
                         input_.setAnnotationsParams(parse_.getAnnotationsParams());
-                        input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
                         input_.setOffset(instrLoc_);
                         ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                         if (res_.isOkType()) {
@@ -718,9 +702,9 @@ public final class ElRetrieverAnonymous {
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.ANON_TYPE);
                     input_.setFile(_curElts.getFile());
+                    input_.setStringParts(_curElts.getStringParts());
                     input_.setNextIndex(_i);
                     input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
-                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     input_.setOffset(instrLoc_);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
@@ -736,12 +720,11 @@ public final class ElRetrieverAnonymous {
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.SWITCH_METHOD);
                     input_.setFile(_curElts.getFile());
+                    input_.setStringParts(_curElts.getStringParts());
                     input_.setNextIndex(_i);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
-                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEndSw().get(indexLastSw_));
-                    input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
-                    input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
+                    input_.setAnnotationsParams(new CustList<ResultParsedAnnots>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
                     input_.setOffset(instrLoc_);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                     if (res_.isOkType()) {
@@ -804,7 +787,7 @@ public final class ElRetrieverAnonymous {
             if (!_stack.getCallings().containsObj(_i)) {
                 ParsedFctHeader parse_ = new ParsedFctHeader();
                 int instrLoc_ = _curElts.getInstrLoc();
-                parse_.parseAnonymous(_curElts.getFile().getStringParts(),_i,_string,instrLoc_,keyWords_.getKeyWordThat());
+                parse_.parseAnonymous(_curElts.getStringParts(),_i,_string,instrLoc_,keyWords_.getKeyWordThat());
                 int rightPar_ = parse_.getNextIndex();
                 if (rightPar_ > _i) {
                     String info_ = _string.substring(rightPar_+1);
@@ -819,12 +802,11 @@ public final class ElRetrieverAnonymous {
                         InputTypeCreation input_ = new InputTypeCreation();
                         input_.setType(OuterBlockEnum.ANON_FCT);
                         input_.setFile(_file);
+                        input_.setStringParts(_curElts.getStringParts());
                         input_.setNextIndex(indAfterArrow_);
                         input_.setNextIndexBef(indBeforeArrow_);
                         input_.setAnnotations(parse_.getAnnotations());
-                        input_.setAnnotationsIndexes(parse_.getAnnotationsIndexes());
                         input_.setAnnotationsParams(parse_.getAnnotationsParams());
-                        input_.setAnnotationsIndexesParams(parse_.getAnnotationsIndexesParams());
                         input_.setOffset(instrLoc_);
                         ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                         if (res_.isOkType()) {
@@ -844,10 +826,8 @@ public final class ElRetrieverAnonymous {
                     int k_ = stack(_string, indAfterArrow_, _page, _curElts);
                     String part_ = _string.substring(indAfterArrow_,k_);
                     NamedCalledFunctionBlock block_ = new NamedCalledFunctionBlock(indBeforeArrow_ +instrLoc_, indAfterArrow_ +instrLoc_, _page);
-                    block_.getAnnotations().addAllElts(parse_.getAnnotations());
-                    block_.getAnnotationsIndexes().addAllElts(parse_.getAnnotationsIndexes());
+                    block_.setAnnotations(parse_.getAnnotations());
                     block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
-                    block_.getAnnotationsIndexesParams().addAllElts(parse_.getAnnotationsIndexesParams());
                     block_.setBegin(indAfterArrow_ +instrLoc_);
                     block_.setLengthHeader(1);
                     block_.setFile(_file);
@@ -856,6 +836,7 @@ public final class ElRetrieverAnonymous {
                     ret_.setImplicit(true);
                     ret_.setBegin(indBeforeArrow_ +instrLoc_);
                     ret_.setLengthHeader(2);
+                    ret_.getRes().partsAbsol(_curElts.getStringParts());
                     block_.appendChild(ret_);
                     AnonymousResult anonymous_ = new AnonymousResult();
                     anonymous_.setResults(new ParsedFctHeaderResult(parse_));
@@ -895,10 +876,10 @@ public final class ElRetrieverAnonymous {
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.ANON_TYPE);
                     input_.setFile(_file);
+                    input_.setStringParts(_curElts.getStringParts());
                     input_.setNextIndex(_i);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
-                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEnd().get(indexLast_));
                     input_.setOffset(instrLoc_);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     if (res_.isOkType()) {
@@ -920,12 +901,11 @@ public final class ElRetrieverAnonymous {
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.SWITCH_METHOD);
                     input_.setFile(_file);
+                    input_.setStringParts(_curElts.getStringParts());
                     input_.setNextIndex(_i);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
-                    input_.setAnnotationsIndexes(_stack.getAnnotationsIndexesEndSw().get(indexLastSw_));
-                    input_.setAnnotationsParams(new CustList<StringList>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
-                    input_.setAnnotationsIndexesParams(new CustList<Ints>(_stack.getAnnotationsIndexesEndSwPar().get(indexLastSw_)));
+                    input_.setAnnotationsParams(new CustList<ResultParsedAnnots>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
                     input_.setOffset(instrLoc_);
                     ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
                     if (res_.isOkType()) {

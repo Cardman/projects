@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -26,11 +27,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     private String importedClassName;
 
-    private final StringList annotations = new StringList();
+    private ResultParsedAnnots annotations = new ResultParsedAnnots();
     private final ResultExpression res = new ResultExpression();
     private CustList<OperationNode> roots = new CustList<OperationNode>();
     private final CustList<ResultExpression> resList = new CustList<ResultExpression>();
-    private final Ints annotationsIndexes = new Ints();
     private final CustList<AnaResultPartType> partOffsets = new CustList<AnaResultPartType>();
     private int trOffset;
     private final StringList nameErrors = new StringList();
@@ -187,30 +187,31 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
-        int len_ = annotationsIndexes.size();
+        int len_ = annotations.getAnnotationsIndexes().size();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
+            int begin_ = annotations.getAnnotationsIndexes().get(i);
             _page.setGlobalOffset(begin_);
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.getAnnotations().get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
     }
 
-    public StringList getAnnotations() {
+
+    public ResultParsedAnnots getAnnotations() {
         return annotations;
+    }
+
+    public void setAnnotations(ResultParsedAnnots _a) {
+        this.annotations = _a;
     }
 
     @Override
     public Ints getLastBadIndexes() {
         return lastBadIndexes;
-    }
-
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
     }
 
     public ResultExpression getRes() {

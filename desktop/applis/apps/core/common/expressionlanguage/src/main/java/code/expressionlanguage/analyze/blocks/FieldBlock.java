@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
@@ -41,10 +42,8 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     private final int finalFieldOffset;
 
     private final int accessOffset;
+    private ResultParsedAnnots annotations = new ResultParsedAnnots();
 
-    private final StringList annotations = new StringList();
-
-    private final Ints annotationsIndexes = new Ints();
     private AnaResultPartType partOffsets = new AnaResultPartType();
     private final StringList assignedDeclaredFields = new StringList();
     private final ResultExpression res = new ResultExpression();
@@ -243,26 +242,25 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
-        int len_ = annotationsIndexes.size();
+        int len_ = annotations.getAnnotationsIndexes().size();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
+            int begin_ = annotations.getAnnotationsIndexes().get(i);
             _page.setGlobalOffset(begin_);
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.getAnnotations().get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
     }
 
-    public StringList getAnnotations() {
+    public ResultParsedAnnots getAnnotations() {
         return annotations;
     }
 
-
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
+    public void setAnnotations(ResultParsedAnnots _a) {
+        this.annotations = _a;
     }
 
     public OperationNode getRoot() {

@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -79,9 +80,7 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     private final CustList<AnaFormattedRootBlock> instanceInitImportedInterfaces = new CustList<AnaFormattedRootBlock>();
     private final CustList<AnaFormattedRootBlock> importedDirectSuperTypes = new CustList<AnaFormattedRootBlock>();
 
-    private final StringList annotations = new StringList();
-
-    private final Ints annotationsIndexes = new Ints();
+    private ResultParsedAnnots annotations = new ResultParsedAnnots();
     private final CustList<AnaFormattedRootBlock> allGenericSuperTypesInfo = new CustList<AnaFormattedRootBlock>();
     private final CustList<AnaFormattedRootBlock> allGenericClassesInfo = new CustList<AnaFormattedRootBlock>();
     private final CustList<OperationNode> roots = new CustList<OperationNode>();
@@ -181,27 +180,27 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
-        int len_ = annotationsIndexes.size();
+        int len_ = annotations.getAnnotationsIndexes().size();
         roots.clear();
         for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexes.get(i);
+            int begin_ = annotations.getAnnotationsIndexes().get(i);
             _page.setGlobalOffset(begin_);
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.getAnnotations().get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
     }
 
-    public StringList getAnnotations() {
+    public ResultParsedAnnots getAnnotations() {
         return annotations;
     }
 
-
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
+    public void setAnnotations(ResultParsedAnnots _a) {
+        this.annotations = _a;
     }
+
 
     public StringList getImports() {
         return imports;

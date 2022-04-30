@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetAccessInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.ParsedFctHeader;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -33,7 +34,6 @@ import code.expressionlanguage.fwd.blocks.AnaAnonFctContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -76,8 +76,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     private CustList<OperationNode> rootsListSupp = new CustList<OperationNode>();
 
     private final CustList<ResultExpression> resListSupp = new CustList<ResultExpression>();
-    private StringList annotationsSupp = new StringList();
-    private Ints annotationsIndexesSupp = new Ints();
+    private ResultParsedAnnots annotationsSupp = new ResultParsedAnnots();
 
     public NamedCalledFunctionBlock(ParsedFctHeader _header, boolean _retRef, OffsetAccessInfo _access, OffsetStringInfo _retType, OffsetStringInfo _defaultValue, OffsetStringInfo _fctName, int _offset, int _rightPar) {
         super(_header,_retRef, _access, _retType, _fctName, _offset);
@@ -99,7 +98,6 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         typeSetterOff = _header.getTypeSetterOff();
         typeSetter = _header.getTypeSetter();
         annotationsSupp = _header.getAnnotationsSupp();
-        annotationsIndexesSupp = _header.getAnnotationsIndexesSupp();
         modifierOffset = _modifier.getOffset();
         String modifier_ = _modifier.getInfo();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -224,13 +222,13 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     }
     public void buildAnnotationsSupp(AnalyzedPageEl _page) {
         rootsListSupp = new CustList<OperationNode>();
-        int len_ = annotationsIndexesSupp.size();
+        int len_ = annotationsSupp.getAnnotationsIndexes().size();
         for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsIndexesSupp.get(i);
+            int begin_ = annotationsSupp.getAnnotationsIndexes().get(i);
             _page.setGlobalOffset(begin_);
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resListSupp.get(i), annotationsSupp.get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resListSupp.get(i), annotationsSupp.getAnnotations().get(i).trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             rootsListSupp.add(r_);
         }
@@ -579,11 +577,8 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         return rootsListSupp;
     }
 
-    public StringList getAnnotationsSupp() {
+    public ResultParsedAnnots getAnnotationsSupp() {
         return annotationsSupp;
     }
 
-    public Ints getAnnotationsIndexesSupp() {
-        return annotationsIndexesSupp;
-    }
 }

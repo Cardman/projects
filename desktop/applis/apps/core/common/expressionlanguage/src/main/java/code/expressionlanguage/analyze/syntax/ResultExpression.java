@@ -9,6 +9,7 @@ import code.util.Ints;
 public final class ResultExpression {
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
+    private CustList<SegmentStringPart> partsAbs = new CustList<SegmentStringPart>();
     private OperationNode root;
 
     private Ints annotDelNew = new Ints();
@@ -28,6 +29,14 @@ public final class ResultExpression {
 
     public void setParts(CustList<SegmentStringPart> _parts) {
         this.parts = _parts;
+    }
+
+    public CustList<SegmentStringPart> getPartsAbs() {
+        return partsAbs;
+    }
+
+    public void partsAbsol(CustList<SegmentStringPart> _p) {
+        this.partsAbs = new CustList<SegmentStringPart>(_p);
     }
 
     public OperationNode getRoot() {

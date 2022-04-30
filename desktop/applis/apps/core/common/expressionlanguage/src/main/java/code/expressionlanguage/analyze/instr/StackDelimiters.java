@@ -1,5 +1,6 @@
 package code.expressionlanguage.analyze.instr;
 
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
@@ -9,19 +10,13 @@ public final class StackDelimiters {
     private final Ints namedArgs = new Ints();
     private final Ints indexesNew = new Ints();
     private final Ints indexesSwitch = new Ints();
-    private final CustList<Ints> annotationsIndexes = new CustList<Ints>();
-    private final CustList<StringList> annotations = new CustList<StringList>();
-    private final CustList<Ints> annotationsIndexesEnd = new CustList<Ints>();
-    private final CustList<StringList> annotationsEnd = new CustList<StringList>();
-    private final CustList<Ints> annotationsIndexesSw = new CustList<Ints>();
-    private final CustList<StringList> annotationsSw = new CustList<StringList>();
-    private final CustList<Ints> annotationsIndexesEndSw = new CustList<Ints>();
-    private final CustList<StringList> annotationsEndSw = new CustList<StringList>();
+    private final CustList<ResultParsedAnnots> annotations = new CustList<ResultParsedAnnots>();
+    private final CustList<ResultParsedAnnots> annotationsEnd = new CustList<ResultParsedAnnots>();
+    private final CustList<ResultParsedAnnots> annotationsSw = new CustList<ResultParsedAnnots>();
+    private final CustList<ResultParsedAnnots> annotationsEndSw = new CustList<ResultParsedAnnots>();
     private final StringList retSwitchList = new StringList();
-    private final CustList<Ints> annotationsIndexesSwPar = new CustList<Ints>();
-    private final CustList<StringList> annotationsSwPar = new CustList<StringList>();
-    private final CustList<Ints> annotationsIndexesEndSwPar = new CustList<Ints>();
-    private final CustList<StringList> annotationsEndSwPar = new CustList<StringList>();
+    private final CustList<ResultParsedAnnots> annotationsSwPar = new CustList<ResultParsedAnnots>();
+    private final CustList<ResultParsedAnnots> annotationsEndSwPar = new CustList<ResultParsedAnnots>();
     private final StringList stringsNew = new StringList();
     private final StringList stringsSwitch = new StringList();
     private final StringList retSwitch = new StringList();
@@ -44,35 +39,19 @@ public final class StackDelimiters {
         return indexesNew;
     }
 
-    public CustList<Ints> getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
-
-    public CustList<StringList> getAnnotations() {
+    public CustList<ResultParsedAnnots> getAnnotations() {
         return annotations;
     }
 
-    public CustList<Ints> getAnnotationsIndexesEnd() {
-        return annotationsIndexesEnd;
-    }
-
-    public CustList<StringList> getAnnotationsEnd() {
+    public CustList<ResultParsedAnnots> getAnnotationsEnd() {
         return annotationsEnd;
     }
 
-    public CustList<Ints> getAnnotationsIndexesSw() {
-        return annotationsIndexesSw;
-    }
-
-    public CustList<StringList> getAnnotationsSw() {
+    public CustList<ResultParsedAnnots> getAnnotationsSw() {
         return annotationsSw;
     }
 
-    public CustList<Ints> getAnnotationsIndexesEndSw() {
-        return annotationsIndexesEndSw;
-    }
-
-    public CustList<StringList> getAnnotationsEndSw() {
+    public CustList<ResultParsedAnnots> getAnnotationsEndSw() {
         return annotationsEndSw;
     }
 
@@ -80,19 +59,11 @@ public final class StackDelimiters {
         return retSwitchList;
     }
 
-    public CustList<Ints> getAnnotationsIndexesSwPar() {
-        return annotationsIndexesSwPar;
-    }
-
-    public CustList<StringList> getAnnotationsSwPar() {
+    public CustList<ResultParsedAnnots> getAnnotationsSwPar() {
         return annotationsSwPar;
     }
 
-    public CustList<Ints> getAnnotationsIndexesEndSwPar() {
-        return annotationsIndexesEndSwPar;
-    }
-
-    public CustList<StringList> getAnnotationsEndSwPar() {
+    public CustList<ResultParsedAnnots> getAnnotationsEndSwPar() {
         return annotationsEndSwPar;
     }
 

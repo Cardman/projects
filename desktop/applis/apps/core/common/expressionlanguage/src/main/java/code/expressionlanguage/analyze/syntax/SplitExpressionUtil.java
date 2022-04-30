@@ -3,12 +3,12 @@ package code.expressionlanguage.analyze.syntax;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.instr.ElRetrieverAnonymous;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.util.CustList;
-import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -225,40 +225,43 @@ public final class SplitExpressionUtil {
         for (AbsBk b: bl_) {
             if (b instanceof FieldBlock) {
                 _page.setCurrentBlock(b);
-                int len_ = ((FieldBlock) b).getAnnotationsIndexes().size();
+                int len_ = ((FieldBlock) b).getAnnotations().getAnnotationsIndexes().size();
                 for (int i = 0; i < len_; i++) {
-                    int begin_ = ((FieldBlock) b).getAnnotationsIndexes().get(i);
+                    int begin_ = ((FieldBlock) b).getAnnotations().getAnnotationsIndexes().get(i);
                     _page.setGlobalOffset(begin_);
                     _page.zeroOffset();
                     ResultExpression res_ = new ResultExpression();
+                    res_.partsAbsol(((FieldBlock) b).getAnnotations().getParts());
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    extractAnon(_page, _int, null, _type, ((FieldBlock) b).getAnnotations().get(i).trim(), res_);
+                    extractAnon(_page, _int, null, _type, ((FieldBlock) b).getAnnotations().getAnnotations().get(i).trim(), res_);
                     ((FieldBlock) b).getResList().add(res_);
                 }
             }
             if (b instanceof ElementBlock) {
                 _page.setCurrentBlock(b);
-                int len_ = ((ElementBlock) b).getAnnotationsIndexes().size();
+                int len_ = ((ElementBlock) b).getAnnotations().getAnnotationsIndexes().size();
                 for (int i = 0; i < len_; i++) {
-                    int begin_ = ((ElementBlock) b).getAnnotationsIndexes().get(i);
+                    int begin_ = ((ElementBlock) b).getAnnotations().getAnnotationsIndexes().get(i);
                     _page.setGlobalOffset(begin_);
                     _page.zeroOffset();
                     ResultExpression res_ = new ResultExpression();
+                    res_.partsAbsol(((ElementBlock) b).getAnnotations().getParts());
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    extractAnon(_page, _int, null, _type, ((ElementBlock) b).getAnnotations().get(i).trim(), res_);
+                    extractAnon(_page, _int, null, _type, ((ElementBlock) b).getAnnotations().getAnnotations().get(i).trim(), res_);
                     ((ElementBlock) b).getResList().add(res_);
                 }
             }
             if (b instanceof InnerElementBlock) {
                 _page.setCurrentBlock(b);
-                int len_ = ((InnerElementBlock) b).getAnnotationsIndexes().size();
+                int len_ = ((InnerElementBlock) b).getAnnotations().getAnnotationsIndexes().size();
                 for (int i = 0; i < len_; i++) {
-                    int begin_ = ((InnerElementBlock) b).getAnnotationsIndexes().get(i);
+                    int begin_ = ((InnerElementBlock) b).getAnnotations().getAnnotationsIndexes().get(i);
                     _page.setGlobalOffset(begin_);
                     _page.zeroOffset();
                     ResultExpression res_ = new ResultExpression();
+                    res_.partsAbsol(((InnerElementBlock) b).getAnnotations().getParts());
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    extractAnon(_page, _int, null, _type, ((InnerElementBlock) b).getAnnotations().get(i).trim(), res_);
+                    extractAnon(_page, _int, null, _type, ((InnerElementBlock) b).getAnnotations().getAnnotations().get(i).trim(), res_);
                     ((InnerElementBlock) b).getResList().add(res_);
                 }
             }
@@ -268,14 +271,15 @@ public final class SplitExpressionUtil {
         }
         if (!(_type instanceof InnerElementBlock)) {
             _page.setCurrentBlock(_type);
-            int len_ = _type.getAnnotationsIndexes().size();
+            int len_ = _type.getAnnotations().getAnnotationsIndexes().size();
             for (int i = 0; i < len_; i++) {
-                int begin_ = _type.getAnnotationsIndexes().get(i);
+                int begin_ = _type.getAnnotations().getAnnotationsIndexes().get(i);
                 _page.setGlobalOffset(begin_);
                 _page.zeroOffset();
                 ResultExpression res_ = new ResultExpression();
+                res_.partsAbsol(_type.getAnnotations().getParts());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, _type.getAnnotations().get(i).trim(), res_);
+                extractAnon(_page, _int, null, _type, _type.getAnnotations().getAnnotations().get(i).trim(), res_);
                 _type.getResList().add(res_);
             }
         }
@@ -283,42 +287,43 @@ public final class SplitExpressionUtil {
 
     private static void processAnnotFct(AnalyzedPageEl _page, IntermediaryResults _int, AbsBk _fct, RootBlock _type) {
         _page.setCurrentBlock(_fct);
-        int len_ = ((NamedFunctionBlock) _fct).getAnnotationsIndexes().size();
+        int len_ = ((NamedFunctionBlock) _fct).getAnnotations().getAnnotationsIndexes().size();
         for (int i = 0; i < len_; i++) {
-            int begin_ = ((NamedFunctionBlock) _fct).getAnnotationsIndexes().get(i);
+            int begin_ = ((NamedFunctionBlock) _fct).getAnnotations().getAnnotationsIndexes().get(i);
             _page.setGlobalOffset(begin_);
             _page.zeroOffset();
             ResultExpression res_ = new ResultExpression();
+            res_.partsAbsol(((NamedFunctionBlock) _fct).getAnnotations().getParts());
             _page.setAccessStaticContext(MethodAccessKind.STATIC);
-            extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, ((NamedFunctionBlock) _fct).getAnnotations().get(i).trim(), res_);
+            extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, ((NamedFunctionBlock) _fct).getAnnotations().getAnnotations().get(i).trim(), res_);
             ((NamedFunctionBlock) _fct).getResList().add(res_);
         }
-        int j_ = 0;
-        for (Ints l: ((NamedFunctionBlock) _fct).getAnnotationsIndexesParams()) {
+        for (ResultParsedAnnots l: ((NamedFunctionBlock) _fct).getAnnotationsParams()) {
             CustList<ResultExpression> resList_ = new CustList<ResultExpression>();
-            len_ = l.size();
-            StringList list_ = ((NamedFunctionBlock) _fct).getAnnotationsParams().get(j_);
+            len_ = l.getAnnotationsIndexes().size();
+            StringList list_ = l.getAnnotations();
             for (int i = 0; i < len_; i++) {
-                int begin_ = l.get(i);
+                int begin_ = l.getAnnotationsIndexes().get(i);
                 _page.setGlobalOffset(begin_);
                 _page.zeroOffset();
                 ResultExpression res_ = new ResultExpression();
+                res_.partsAbsol(l.getParts());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, list_.get(i).trim(), res_);
                 resList_.add(res_);
             }
             ((NamedFunctionBlock) _fct).getResLists().add(resList_);
-            j_++;
         }
         if (_fct instanceof NamedCalledFunctionBlock) {
-            int lenSet_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsIndexesSupp().size();
+            int lenSet_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotationsIndexes().size();
             for (int i = 0; i < lenSet_; i++) {
-                int begin_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsIndexesSupp().get(i);
+                int begin_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotationsIndexes().get(i);
                 _page.setGlobalOffset(begin_);
                 _page.zeroOffset();
                 ResultExpression res_ = new ResultExpression();
+                res_.partsAbsol(((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getParts());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().get(i).trim(), res_);
+                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotations().get(i).trim(), res_);
                 ((NamedCalledFunctionBlock) _fct).getResListSupp().add(res_);
             }
         }
@@ -327,32 +332,32 @@ public final class SplitExpressionUtil {
 
     private static void processAnnotSw(AnalyzedPageEl _page, IntermediaryResults _int, SwitchMethodBlock _fct, RootBlock _type) {
         _page.setCurrentBlock(_fct);
-        int len_ = _fct.getAnnotationsIndexes().size();
+        int len_ = _fct.getAnnotations().getAnnotationsIndexes().size();
         for (int i = 0; i < len_; i++) {
-            int begin_ = _fct.getAnnotationsIndexes().get(i);
+            int begin_ = _fct.getAnnotations().getAnnotationsIndexes().get(i);
             _page.setGlobalOffset(begin_);
             _page.zeroOffset();
             ResultExpression res_ = new ResultExpression();
+            res_.partsAbsol(_fct.getAnnotations().getParts());
             _page.setAccessStaticContext(MethodAccessKind.STATIC);
-            extractAnon(_page, _int, _fct, _type, _fct.getAnnotations().get(i).trim(), res_);
+            extractAnon(_page, _int, _fct, _type, _fct.getAnnotations().getAnnotations().get(i).trim(), res_);
             _fct.getResList().add(res_);
         }
-        int j_ = 0;
-        for (Ints l: _fct.getAnnotationsIndexesParams()) {
+        for (ResultParsedAnnots l: _fct.getAnnotationsParams()) {
             CustList<ResultExpression> resList_ = new CustList<ResultExpression>();
-            len_ = l.size();
-            StringList list_ = _fct.getAnnotationsParams().get(j_);
+            len_ = l.getAnnotationsIndexes().size();
+            StringList list_ = l.getAnnotations();
             for (int i = 0; i < len_; i++) {
-                int begin_ = l.get(i);
+                int begin_ = l.getAnnotationsIndexes().get(i);
                 _page.setGlobalOffset(begin_);
                 _page.zeroOffset();
                 ResultExpression res_ = new ResultExpression();
+                res_.partsAbsol(l.getParts());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
                 extractAnon(_page, _int, _fct, _type, list_.get(i).trim(), res_);
                 resList_.add(res_);
             }
             _fct.getResLists().add(resList_);
-            j_++;
         }
     }
 
