@@ -2333,7 +2333,7 @@ public final class ProcessMethodAnonymousTypesTest extends ProcessMethodCommon {
         assertEq(7, getNumber(ret_));
     }
 
-//    @Test
+    @Test
     public void calculate62() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
