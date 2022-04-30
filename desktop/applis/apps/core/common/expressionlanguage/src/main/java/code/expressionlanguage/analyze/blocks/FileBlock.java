@@ -102,7 +102,7 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
             _page.addLocError(d_);
             for (int i: getBinChars()) {
                 d_.setIndexFile(i);
-                GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_);
+                GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_,i);
                 g_.setLength(1);
                 errorsFiles.getLi().add(g_);
             }

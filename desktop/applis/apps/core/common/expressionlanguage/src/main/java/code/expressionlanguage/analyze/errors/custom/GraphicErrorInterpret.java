@@ -8,8 +8,8 @@ public final class GraphicErrorInterpret {
 
     private final String builtError;
 
-    public GraphicErrorInterpret(FoundErrorInterpret _info){
-        indexFile = _info.getIndexFile();
+    public GraphicErrorInterpret(FoundErrorInterpret _info, int _indexErr){
+        indexFile = _indexErr;
         builtError = _info.getBuiltError();
     }
 

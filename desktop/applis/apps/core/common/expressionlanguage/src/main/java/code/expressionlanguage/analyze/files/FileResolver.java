@@ -147,18 +147,7 @@ public final class FileResolver {
         input_.setStringParts(stringParts_);
         input_.setFile(_block);
         if (!badIndexes_.isEmpty()) {
-            for (int i: badIndexes_) {
-                FoundErrorInterpret b_ = new FoundErrorInterpret();
-                b_.setFile(_block);
-                b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i)));
-                //if empty file => add underlined space
-                //else underline last char
-                b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
-                _page.addLocError(b_);
-                GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
-                g_.setLength(1);
-                _block.getErrorsFiles().getLi().add(g_);
-            }
+            bad(_block, _page, badIndexes_);
             return;
         }
         //the file is not trimmed empty
@@ -169,17 +158,7 @@ public final class FileResolver {
             }
             ResultCreation res_ = createType(_file, input_, _page, def_);
             badIndexes_ = input_.getBadIndexes();
-            for (int i: badIndexes_) {
-                FoundErrorInterpret b_ = new FoundErrorInterpret();
-                b_.setFile(_block);
-                b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i)));
-                //underline index char
-                b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
-                _page.addLocError(b_);
-                GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
-                g_.setLength(1);
-                _block.getErrorsFiles().getLi().add(g_);
-            }
+            bad(_block, _page, badIndexes_);
             AbsBk block_ = res_.getBlock();
             if (block_ != null) {
                 _block.appendChild(block_);
@@ -204,16 +183,7 @@ public final class FileResolver {
                 ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
                 parsPars_.parse(currentChar_,false);
                 if (parsPars_.isExitLoop()) {
-                    FoundErrorInterpret b_ = new FoundErrorInterpret();
-                    b_.setFile(_block);
-                    b_.setIndexFile(Math.max(0,Math.min(_block.getLength()-1,i_)));
-                    //if empty file => add underlined space
-                    //else underline last char
-                    b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
-                    _page.addLocError(b_);
-                    GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
-                    g_.setLength(1);
-                    _block.getErrorsFiles().getLi().add(g_);
+                    iterBad(_block, _page, i_);
                     break;
                 }
                 braces_ = parsPars_.getBraces();
@@ -233,6 +203,40 @@ public final class FileResolver {
             }
             input_.setNextIndex(i_);
         }
+    }
+
+    private static void bad(FileBlock _block, AnalyzedPageEl _page, Ints _badIndexes) {
+        for (int i: _badIndexes) {
+            iterBad(_block, _page, i);
+        }
+    }
+
+    private static void iterBad(FileBlock _block, AnalyzedPageEl _page, int _i) {
+        int indexErr_ = indexErr(_block, _i);
+        FoundErrorInterpret b_ = err(_block, indexErr_, _page);
+        GraphicErrorInterpret g_ = grErr(b_, indexErr_);
+        _block.getErrorsFiles().getLi().add(g_);
+    }
+
+    private static int indexErr(FileBlock _block, int _i) {
+        return Math.max(0, Math.min(_block.getLength() - 1, _i));
+    }
+
+    private static FoundErrorInterpret err(FileBlock _block, int _indexErr, AnalyzedPageEl _page) {
+        FoundErrorInterpret b_ = new FoundErrorInterpret();
+        b_.setFile(_block);
+        b_.setIndexFile(_indexErr);
+        //if empty file => add underlined space
+        //else underline last char
+        b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
+        _page.addLocError(b_);
+        return b_;
+    }
+
+    private static GraphicErrorInterpret grErr(FoundErrorInterpret _b, int _indexErr) {
+        GraphicErrorInterpret g_ = new GraphicErrorInterpret(_b, _indexErr);
+        g_.setLength(1);
+        return g_;
     }
 
     static void appendEndComment(StringBuilder _str, String _endCom) {

@@ -2186,11 +2186,12 @@ public final class ClassesUtil {
             for (int i: c.getBadIndexesGlobal()) {
                 FoundErrorInterpret b_ = new FoundErrorInterpret();
                 b_.setFile(c.getFile());
-                b_.setIndexFile(Math.max(0,Math.min(c.getFile().getLength()-1,i)));
+                int indexErr_ = Math.max(0, Math.min(c.getFile().getLength() - 1, i));
+                b_.setIndexFile(indexErr_);
                 //underline index char
                 b_.buildError(_page.getAnalysisMessages().getBadIndexInParser());
                 _page.addLocError(b_);
-                GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_);
+                GraphicErrorInterpret g_ = new GraphicErrorInterpret(b_,indexErr_);
                 g_.setLength(1);
                 c.getGlobalErrorsPars().getLi().add(g_);
             }
