@@ -5,19 +5,9 @@ import code.expressionlanguage.analyze.blocks.BracedBlock;
 
 public final class AfterBuiltInstruction {
 
-    private int index;
-
     private BracedBlock parent;
 
     private String packageName = "";
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int _index) {
-        index = _index;
-    }
 
     public BracedBlock getParent() {
         return parent;
