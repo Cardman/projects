@@ -267,12 +267,12 @@ public final class FileResolver {
         int parentheses_ = 0;
         BracedBlock currentParent_ = null;
 
-        int i_ = _input.getNextIndex();
         boolean okType_ = false;
         ParsedInstruction parsedInstruction_ = new ParsedInstruction();
         parsedInstruction_.setInstructionLocation(instructionLocation_);
-        parsedInstruction_.setIndex(i_);
-        while (i_ < len_) {
+        parsedInstruction_.setIndex(_input.getNextIndex());
+        while (parsedInstruction_.getIndex() < len_) {
+            int i_ = parsedInstruction_.getIndex();
             char currentChar_ = _file.charAt(i_);
             parsedInstruction_.setCurChar(currentChar_);
             int until_ = i_;
@@ -283,7 +283,7 @@ public final class FileResolver {
                     for (int c = i_; c < until_; c++) {
                         instructionLocation_ = setInstLocation(parsedInstruction_.getBuilder(), instructionLocation_, c);
                         parsedInstruction_.setInstructionLocation(instructionLocation_);
-                        parsedInstruction_.append(_file.charAt(c));
+                        parsedInstruction_.appendCh(_file.charAt(c));
                     }
                     break;
                 }
@@ -296,6 +296,7 @@ public final class FileResolver {
             EndInstruction endInstr_ = EndInstruction.NONE;
             if (parentheses_ == 0) {
                 if (currentChar_ == END_LINE) {
+                    parsedInstruction_.parseAnnotation(_input,_page);
                     endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                     String str_ = parsedInstruction_.getBuilder().toString().trim();
                     if (isCaseDefault(str_, keyWordCase_, keyWordDefault_)) {
@@ -303,10 +304,12 @@ public final class FileResolver {
                     }
                 }
                 if (currentChar_ == END_BLOCK) {
+                    parsedInstruction_.parseAnnotation(_input,_page);
                     endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                 }
                 if (currentChar_ == BEGIN_BLOCK) {
-                    endInstr_ = endInstruction(_input,instructionLocation_,currentParent_, parsedInstruction_, _page);
+                    parsedInstruction_.parseAnnotation(_input,_page);
+                    endInstr_ = endInstruction(currentParent_, parsedInstruction_, _page);
                 }
                 if (canHaveElements(currentParent_)) {
                     if (currentChar_ == BEGIN_TEMPLATE) {
@@ -316,6 +319,7 @@ public final class FileResolver {
                         ((EnumBlock)currentParent_).setLtGt(((EnumBlock)currentParent_).getLtGt()-1);
                     }
                     if (currentChar_ == SEP_ENUM_CONST && ((EnumBlock)currentParent_).getLtGt() == 0) {
+                        parsedInstruction_.parseAnnotation(_input,_page);
                         endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                     }
                 }
@@ -324,7 +328,7 @@ public final class FileResolver {
             if (endInstr_ == EndInstruction.NONE) {
                 instructionLocation_ = setInstLocation(parsedInstruction_.getBuilder(), instructionLocation_, i_);
                 parsedInstruction_.setInstructionLocation(instructionLocation_);
-                parsedInstruction_.append(currentChar_);
+                parsedInstruction_.appendCh(currentChar_);
             }
             ParseDelimitersState parsPars_ = new ParseDelimitersState(braces_,parentheses_);
             parsPars_.parse(currentChar_,endInstr_ != EndInstruction.NONE);
@@ -353,13 +357,12 @@ public final class FileResolver {
             parsedInstruction_.setIndex(i_);
         }
         if (okType_) {
-
-            i_ = i_ + 1;
+            parsedInstruction_.setIndex(parsedInstruction_.getIndex()+1);
         } else {
             addPossibleEmpty(currentParent_);
             addBadIndex(_input, currentParent_, out_, len_+_offset);
         }
-        out_.setNextIndex(i_);
+        out_.setNextIndex(parsedInstruction_.getIndex());
         out_.setOkType(okType_);
         return out_;
     }
@@ -406,7 +409,7 @@ public final class FileResolver {
         }
     }
 
-    private static EndInstruction endInstruction(InputTypeCreation _input, int _instructionLocation, BracedBlock _parent, ParsedInstruction _instruction,
+    private static EndInstruction endInstruction(BracedBlock _parent, ParsedInstruction _instruction,
                                                  AnalyzedPageEl _page) {
         String tr_ = _instruction.getBuilder().toString().trim();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -424,9 +427,7 @@ public final class FileResolver {
         }
         String trTmp_ = tr_;
         if (ParsedAnnotations.startsWithAnnot(tr_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
-            ParsedAnnotations par_ = new ParsedAnnotations(tr_, _instructionLocation+_instruction.getFirstPrIndex()+_input.getOffset());
-            par_.parse(_instruction.getStringParts(),keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface());
-            tr_ = par_.getAfter();
+            tr_ = _instruction.getAfter();
         }
         String word_ = getWord(getAccess(tr_,keyWords_),keyWords_);
         String afterAccess_ = tr_.substring(word_.length()).trim();
@@ -471,11 +472,13 @@ public final class FileResolver {
         }
         if (dType_) {
             if (!StringExpUtil.nextCharIs(beforeQu_,0,beforeQu_.length(),'(')) {
+//                _instruction.parseAnnotation(_input,_page);
                 return EndInstruction.DECLARE_TYPE;
             }
             return EndInstruction.NONE;
         }
         if (_parent instanceof AnnotationBlock){
+//            _instruction.parseAnnotation(_input,_page);
             return EndInstruction.NONE;
         }
         if (StringExpUtil.startsWithKeyWord(trTmp_,keyWords_.getKeyWordIf())) {
@@ -521,6 +524,7 @@ public final class FileResolver {
             return EndInstruction.NONE;
         }
         if (StringExpUtil.startsWithKeyWord(tr_,keyWords_.getKeyWordOperator())) {
+//            _instruction.parseAnnotation(_input,_page);
             return EndInstruction.NO_DECLARE_TYPE;
         }
         word_ = getWord(getAccess(tr_,keyWords_),keyWords_);
@@ -535,6 +539,7 @@ public final class FileResolver {
             }
         }
         if (ctor_) {
+//            _instruction.parseAnnotation(_input,_page);
             return EndInstruction.NO_DECLARE_TYPE;
         }
         String keyWordNormal_ = keyWords_.getKeyWordNormal();
@@ -598,6 +603,7 @@ public final class FileResolver {
         if (!StringExpUtil.nextCharIs(trAfterType_, indexTrAfterType_, lenTrAfterType_, BEGIN_CALLING)) {
             return EndInstruction.NONE;
         }
+//        _instruction.parseAnnotation(_input,_page);
         return EndInstruction.NO_DECLARE_TYPE;
     }
 
@@ -614,8 +620,7 @@ public final class FileResolver {
         BracedBlock currentParent_ = _currentParent;
         FileBlock file_ = _input.getFile();
         AbsBk br_ = null;
-        String found_ = _parsedInstruction.getBuilder().toString();
-        String trimmedInstruction_ = found_.trim();
+        String trimmedInstruction_ = _parsedInstruction.getBuilder().toString().trim();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         int instructionTrimLocation_ = _parsedInstruction.instLoc();
@@ -659,20 +664,10 @@ public final class FileResolver {
                 _out.setBlock(typeBlock_);
                 currentParent_ = typeBlock_;
             } else {
-                ResultParsedAnnots annotationsTypes_ = new ResultParsedAnnots();
+                ResultParsedAnnots annotationsTypes_ = _parsedInstruction.getAnnotationsTypes();
                 Ints badIndexes_ = _input.getBadIndexes();
-                String afterAccessType_;
-                int accessOffsetType_ = instructionTrimLocation_;
-                if (ParsedAnnotations.startsWithAnnot(trimmedInstruction_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
-                    // accessOffesType_ == nextIndex_ == i_ + 1;
-                    ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, instructionTrimLocation_ + _input.getOffset());
-                    par_.parse(_parsedInstruction.getStringParts(),keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface());
-                    annotationsTypes_.set(par_);
-                    afterAccessType_ = par_.getAfter();
-                    accessOffsetType_ = par_.getIndex() - _input.getOffset();
-                } else {
-                    afterAccessType_ = trimmedInstruction_;
-                }
+                String afterAccessType_ = _parsedInstruction.getAfter();
+                int accessOffsetType_ = _parsedInstruction.getAfterOffset();
                 int nextIndex_ = accessOffsetType_;
                 String keyWordOperator_ = keyWords_.getKeyWordOperator();
                 if (StringExpUtil.startsWithKeyWord(afterAccessType_, keyWordOperator_)) {
@@ -956,24 +951,15 @@ public final class FileResolver {
                 if (_declType) {
                     RootBlock built_ = processTypeHeader(_input, _pkgName,true,
                             _parsedInstruction,
-                            trimmedInstruction_,
                             _page.getDefaultAccess().getAccessInner(currentParent_).getAccInners(), _page);
                     currentParent_.appendChild(built_);
                     built_.setParentType((AnnotationBlock)currentParent_);
                     ((AnnotationBlock)currentParent_).getChildrenRootBlocks().add(built_);
                     br_ = built_;
                 } else {
-                    ResultParsedAnnots annotations_ = new ResultParsedAnnots();
-                    int typeOffset_ = instructionTrimLocation_;
-                    if (trimmedInstruction_.charAt(0) == ANNOT) {
-                        ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, instructionTrimLocation_+_input.getOffset());
-                        par_.parse(_parsedInstruction.getStringParts());
-                        annotations_.set(par_);
-                        found_ = par_.getAfter();
-                        typeOffset_ = par_.getIndex()-_input.getOffset();
-                    } else {
-                        found_ = trimmedInstruction_;
-                    }
+                    ResultParsedAnnots annotations_ = _parsedInstruction.getAnnotationsTypes();
+                    int typeOffset_ = _parsedInstruction.getAfterOffset();
+                    String found_ = _parsedInstruction.getAfter();
                     String infoModifiers_ = found_.trim();
                     int finalOff_ = 0;
                     boolean final_ = false;
@@ -1090,19 +1076,11 @@ public final class FileResolver {
                 currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, br_);
             }
         } else if (canHaveElements(currentParent_)) {
-            if (!trimmedInstruction_.isEmpty()) {
-                int fieldOffest_ = instructionTrimLocation_;
+            if (_parsedInstruction.getFirstPrIndex() > -1) {
+                int fieldOffest_ = _parsedInstruction.getAfterOffset();
+                String found_ = _parsedInstruction.getAfter();
                 String expression_ = EMPTY_STRING;
-                ResultParsedAnnots annotations_ = new ResultParsedAnnots();
-                if (trimmedInstruction_.charAt(0) == ANNOT) {
-                    ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, instructionTrimLocation_+_input.getOffset());
-                    par_.parse(_parsedInstruction.getStringParts());
-                    annotations_.set(par_);
-                    found_ = par_.getAfter();
-                    fieldOffest_ = par_.getIndex()-_input.getOffset();
-                } else {
-                    found_ = trimmedInstruction_;
-                }
+                ResultParsedAnnots annotations_ = _parsedInstruction.getAnnotationsTypes();
                 int size_ = annotations_.getParts().size();
                 CustList<SegmentStringPart> afterStr_ = _parsedInstruction.getStringParts().mid(size_);
                 boolean ok_ = true;
@@ -1165,12 +1143,13 @@ public final class FileResolver {
                 currentParent_.appendChild(br_);
                 if (curChar_ == BEGIN_BLOCK) {
                     currentParent_ = (BracedBlock) br_;
+                } else {
+                    stopElts(_parsedInstruction, (EnumBlock) currentParent_);
                 }
             } else if (_parsedInstruction.getCurChar() == SEP_ENUM_CONST) {
                 ((EnumBlock)currentParent_).setAllow(true);
-            }
-            if (_parsedInstruction.getCurChar() == END_LINE || _parsedInstruction.getCurChar() == END_BLOCK) {
-                ((EnumBlock)currentParent_).setCanHaveElements(false);
+            } else {
+                stopElts(_parsedInstruction, (EnumBlock) currentParent_);
             }
             if (_parsedInstruction.getCurChar() == END_BLOCK) {
                 currentParent_ = possibleEmptyGoUp(currentParent_);
@@ -1192,7 +1171,6 @@ public final class FileResolver {
                     }
                     RootBlock built_ = processTypeHeader(_input, _pkgName,defStatic_,
                             _parsedInstruction,
-                            trimmedInstruction_,
                             defAcc_, _page);
                     RootBlock retrieve_ = currentParent_.retrieveParentType();
                     built_.setParentType(retrieve_);
@@ -1203,7 +1181,7 @@ public final class FileResolver {
                     br_ = built_;
                 } else if (currentParent_ instanceof RootBlock) {
                     //fields, constructors or methods
-                    br_ = processTypeMember(_parsedInstruction.getCurChar(), trimmedInstruction_, _parsedInstruction, _input, (RootBlock)currentParent_, _page);
+                    br_ = processTypeMember(_parsedInstruction.getCurChar(), _parsedInstruction, _input, (RootBlock)currentParent_, _page);
                 } else {
                     String keyWordThat_ = keyWords_.getKeyWordThat();
                     boolean ok_ = false;
@@ -1235,6 +1213,7 @@ public final class FileResolver {
                     if (!ok_) {
                         boolean finalLocalVar_ = StringExpUtil.startsWithKeyWord(trimmedInstruction_, keyWordFinal_);
                         int deltaAfterTrim_;
+                        String found_;
                         if (finalLocalVar_) {
                             int deltaAfter_ = keyWordFinal_.length();
                             found_ = trimmedInstruction_.substring(deltaAfter_);
@@ -1296,6 +1275,12 @@ public final class FileResolver {
         return after_;
     }
 
+    private static void stopElts(ParsedInstruction _parsedInstruction, EnumBlock _curPar) {
+        if (_parsedInstruction.getCurChar() == END_LINE || _parsedInstruction.getCurChar() == END_BLOCK) {
+            _curPar.setCanHaveElements(false);
+        }
+    }
+
     private static BracedBlock possibleGoUpTwice(BracedBlock _currentParent) {
         BracedBlock currentParent_ = possibleGoUp(_currentParent);
         currentParent_ = possibleEmptyGoUp(currentParent_);
@@ -1343,20 +1328,12 @@ public final class FileResolver {
     private static RootBlock processTypeHeader(InputTypeCreation _offset, String _pkgName,
                                                boolean _defStatic,
                                                ParsedInstruction _instructionTrimLocation,
-                                               String _trimmedInstruction,
                                                AccessEnum _defAccess, AnalyzedPageEl _page) {
         //Inner types
         KeyWords keyWords_ = _page.getKeyWords();
-        String trimmedInstruction_ = _trimmedInstruction;
-        ResultParsedAnnots annotations_ = new ResultParsedAnnots();
-        int typeOffset_ = _instructionTrimLocation.instLoc();
-        if (ParsedAnnotations.startsWithAnnot(trimmedInstruction_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
-            ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, _instructionTrimLocation.instLoc()+_offset.getOffset());
-            par_.parse(_instructionTrimLocation.getStringParts(),keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface());
-            annotations_.set(par_);
-            trimmedInstruction_ = par_.getAfter();
-            typeOffset_ = par_.getIndex()-_offset.getOffset();
-        }
+        String trimmedInstruction_ = _instructionTrimLocation.getAfter();
+        ResultParsedAnnots annotations_ = _instructionTrimLocation.getAnnotationsTypes();
+        int typeOffset_ = _instructionTrimLocation.getAfterOffset();
         AccessEnum accessFct_ = getAccess(trimmedInstruction_, keyWords_);
         String word_ = getWord(accessFct_, keyWords_);
         if (accessFct_ == null) {
@@ -1522,25 +1499,18 @@ public final class FileResolver {
         return type_;
     }
     private static AbsBk processTypeMember(char _currentChar,
-                                           String _trimmedInstruction, ParsedInstruction _i, InputTypeCreation _offset, RootBlock _currentParent, AnalyzedPageEl _page) {
-        String trimmedInstruction_ = _trimmedInstruction;
+                                           ParsedInstruction _i, InputTypeCreation _offset, RootBlock _currentParent, AnalyzedPageEl _page) {
+        String trimmedInstruction_ = _i.getAfter();
         AccessEnum accessFct_ = _page.getDefaultAccess().getAccessInner(_currentParent).getAccMember();
-        ResultParsedAnnots annotations_ = new ResultParsedAnnots();
+        ResultParsedAnnots annotations_ = _i.getAnnotationsTypes();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordAbstract_ = keyWords_.getKeyWordAbstract();
         String keyWordFinal_ = keyWords_.getKeyWordFinal();
         String keyWordNormal_ = keyWords_.getKeyWordNormal();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
-        int accessOffest_ = _i.instLoc();
+        int accessOffest_ = _i.getAfterOffset();
         int offsetFile_ = _offset.getOffset();
-        if (trimmedInstruction_.charAt(0) == ANNOT) {
-            ParsedAnnotations par_ = new ParsedAnnotations(trimmedInstruction_, accessOffest_+ offsetFile_);
-            par_.parse(_i.getStringParts());
-            annotations_.set(par_);
-            trimmedInstruction_ = par_.getAfter();
-            accessOffest_ = par_.getIndex()- offsetFile_;
-        }
         AccessEnum access_ = getAccess(trimmedInstruction_, keyWords_);
         String word_ = getWord(access_, keyWords_);
         if (access_ != null) {
