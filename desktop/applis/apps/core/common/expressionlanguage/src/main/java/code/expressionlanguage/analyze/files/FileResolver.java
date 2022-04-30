@@ -308,8 +308,7 @@ public final class FileResolver {
                     endInstr_ = EndInstruction.NO_DECLARE_TYPE;
                 }
                 if (currentChar_ == BEGIN_BLOCK) {
-                    parsedInstruction_.parseAnnotation(_input,_page);
-                    endInstr_ = endInstruction(currentParent_, parsedInstruction_, _page);
+                    endInstr_ = endInstructionAdj(_input,currentParent_, parsedInstruction_, _page);
                 }
                 if (canHaveElements(currentParent_)) {
                     if (currentChar_ == BEGIN_TEMPLATE) {
@@ -409,7 +408,15 @@ public final class FileResolver {
         }
     }
 
-    private static EndInstruction endInstruction(BracedBlock _parent, ParsedInstruction _instruction,
+    private static EndInstruction endInstructionAdj(InputTypeCreation _input, BracedBlock _parent, ParsedInstruction _instruction,
+                                                 AnalyzedPageEl _page) {
+        EndInstruction endInstruction_ = endInstruction(_input, _parent, _instruction, _page);
+        if (endInstruction_ != EndInstruction.NONE) {
+            _instruction.parseAnnotation(_input,_page);
+        }
+        return endInstruction_;
+    }
+    private static EndInstruction endInstruction(InputTypeCreation _input, BracedBlock _parent, ParsedInstruction _instruction,
                                                  AnalyzedPageEl _page) {
         String tr_ = _instruction.getBuilder().toString().trim();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -427,6 +434,7 @@ public final class FileResolver {
         }
         String trTmp_ = tr_;
         if (ParsedAnnotations.startsWithAnnot(tr_, keyWords_.getKeyWordClass(),keyWords_.getKeyWordInterface())) {
+            _instruction.parseAnnotation(_input,_page);
             tr_ = _instruction.getAfter();
         }
         String word_ = getWord(getAccess(tr_,keyWords_),keyWords_);
