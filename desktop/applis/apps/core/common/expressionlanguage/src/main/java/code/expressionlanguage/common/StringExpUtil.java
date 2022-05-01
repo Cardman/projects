@@ -237,16 +237,23 @@ public final class StringExpUtil {
     }
 
     public static int getBackPrintChar(String _string, int _i) {
+        return getBackPrintChar(_string,_i,0);
+    }
+
+    public static int getBackPrintChar(String _string, int _i, int _m) {
         int bk_ = _i - 1;
-        while (bk_ >= 0) {
+        int until_ = Math.max(_m,0);
+        while (bk_ >= until_) {
             if (!StringUtil.isWhitespace(_string.charAt(bk_))) {
                 break;
             }
             bk_--;
         }
+        if (bk_ < until_) {
+            return -1;
+        }
         return bk_;
     }
-
     public static int nextPrintChar(int _j, int _len, String _string) {
         if (_j < 0) {
             return _j;

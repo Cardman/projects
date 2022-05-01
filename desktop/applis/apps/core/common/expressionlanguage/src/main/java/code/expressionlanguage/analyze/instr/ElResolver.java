@@ -74,9 +74,6 @@ public final class ElResolver {
 
     static final char MIN_ENCODE_DIGIT = '0';
 
-    static final String ARR = "[";
-    static final String ARR_END = "]";
-
     static final char NEG_BOOL_CHAR = '!';
 
     static final char MULT_CHAR = '*';
@@ -232,6 +229,9 @@ public final class ElResolver {
                 unic_.setPart(true);
                 unic_.setUnicode(unicode_);
                 unic_.setStringInfo(si_);
+                if (unic_.getNbChars() > 1) {
+                    si_.setKo();
+                }
                 IndexUnicodeEscape res_ = processStrings(_keyWords, _string, len_, si_,unic_, DELIMITER_CHAR);
                 int index_ = res_.getIndex();
                 if (!res_.isPart()) {
@@ -295,7 +295,7 @@ public final class ElResolver {
                 unic_.setNbChars(_resOpers.getNbChars());
                 unic_.setPart(true);
                 unic_.setUnicode(unicode_);
-                IndexUnicodeEscape res_ = processStrings(_keyWords, _string, len_, si_, unic_, DELIMITER_TEXT);
+                IndexUnicodeEscape res_ = processStringsDelText(_string, len_, unic_);
                 int index_ = res_.getIndex();
                 if (!res_.isPart()) {
                     _d.getStringInfo().add(si_);
@@ -1647,11 +1647,7 @@ public final class ElResolver {
     }
 
     private static boolean noWideInternDelimiter(String _substring) {
-        return noDelSt(_substring) && StringExpUtil.noDel(_substring);
-    }
-
-    private static boolean noDelSt(String _substring) {
-        return _substring.indexOf(DELIMITER_CHAR) < 0 && _substring.indexOf(DELIMITER_STRING) < 0 && _substring.indexOf(DELIMITER_TEXT) < 0;
+        return StringExpUtil.noDel(_substring);
     }
 
     private static boolean isPossibleDigit(String _string, Delimiters _dout) {
@@ -1671,6 +1667,35 @@ public final class ElResolver {
         return !_page.isAcceptCommaInstr() && !(_page.getCurrentBlock() instanceof FieldBlock);
     }
 
+    private static IndexUnicodeEscape processStringsDelText(String _string, int _max, IndexUnicodeEscape _infos) {
+        int i_ = _infos.getIndex();
+        int nbChars_ = _infos.getNbChars();
+        int unicode_ = _infos.getUnicode();
+        char curChar_ = _string.charAt(i_);
+        boolean escapedMeta_ = _infos.isEscape();
+        IndexUnicodeEscape infos_ = new IndexUnicodeEscape();
+        infos_.setStringInfo(_infos.getStringInfo());
+        infos_.setEscape(escapedMeta_);
+        infos_.setIndex(i_);
+        infos_.setNbChars(nbChars_);
+        infos_.setUnicode(unicode_);
+        infos_.setPart(_infos.isPart());
+        if (curChar_ == DELIMITER_TEXT) {
+            if (i_ + 1 >= _max ||_string.charAt(i_ + 1) != DELIMITER_TEXT) {
+                infos_.setPart(false);
+                i_++;
+                infos_.setIndex(i_);
+                return infos_;
+            }
+            i_++;
+        }
+        infos_.getStringInfo().appendChar(curChar_);
+        nbChars_++;
+        infos_.setNbChars(nbChars_);
+        i_++;
+        infos_.setIndex(i_);
+        return infos_;
+    }
     private static IndexUnicodeEscape processStrings(KeyWords _key, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _infos, char _delimiter) {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
@@ -1684,26 +1709,6 @@ public final class ElResolver {
         infos_.setNbChars(nbChars_);
         infos_.setUnicode(unicode_);
         infos_.setPart(_infos.isPart());
-        if (_delimiter == DELIMITER_TEXT) {
-            if (curChar_ == DELIMITER_TEXT) {
-                if (i_ + 1 >= _max ||_string.charAt(i_ + 1) != DELIMITER_TEXT) {
-                    infos_.setPart(false);
-                    i_++;
-                    infos_.setIndex(i_);
-                    return infos_;
-                }
-                i_++;
-            }
-            infos_.getStringInfo().appendChar(curChar_);
-            nbChars_++;
-            infos_.setNbChars(nbChars_);
-            i_++;
-            infos_.setIndex(i_);
-            return infos_;
-        }
-        if (nbChars_ > 1 && _delimiter == DELIMITER_CHAR) {
-            _si.setKo();
-        }
         if (!escapedMeta_) {
             if (curChar_ == ESCAPE_META_CHAR) {
                 if (i_ + 1 >= _max) {
@@ -1731,7 +1736,7 @@ public final class ElResolver {
             return infos_;
         }
         if (unicode_ > 0) {
-            char charToAdd_ = trStr(_key, _si, curChar_);
+            char charToAdd_ = trUnicodeDigToLetterInStr(_key, _si, curChar_);
             infos_.getStringInfo().getBuiltUnicode()[unicode_-1] = charToAdd_;
             if (unicode_ < UNICODE_SIZE) {
                 unicode_++;
@@ -1825,7 +1830,7 @@ public final class ElResolver {
         return infos_;
     }
 
-    private static char trStr(KeyWords _key, TextBlockInfo _si, char _curChar) {
+    private static char trUnicodeDigToLetterInStr(KeyWords _key, TextBlockInfo _si, char _curChar) {
         int index_ = index(_key, _curChar);
         if (index_ < 0) {
             _si.setKo();
@@ -1834,14 +1839,6 @@ public final class ElResolver {
         return (char) index_;
     }
 
-    private static char trTx(KeyWords _key, TextBlockInfo _si, char _curChar) {
-        int index_ = index(_key, _curChar);
-        if (index_ < 0) {
-            _si.setKo();
-            return _curChar;
-        }
-        return (char) index_;
-    }
     private static int index(KeyWords _key, char _curChar) {
         boolean ok_ = StringExpUtil.isDigit(_curChar);
         if (ok_) {
@@ -1936,7 +1933,7 @@ public final class ElResolver {
         }
         infos_.getTextInfo().setLastSpace(-1);
         if (unicode_ > 0) {
-            char charToAdd_ = trTx(_key, _si, curChar_);
+            char charToAdd_ = trUnicodeDigToLetterInStr(_key, _si, curChar_);
             infos_.getTextInfo().getBuiltUnicode()[unicode_-1] = charToAdd_;
             if (unicode_ < UNICODE_SIZE) {
                 unicode_++;
@@ -2388,52 +2385,28 @@ public final class ElResolver {
     }
 
     private static int indexAfterPossibleCast(String _string, int _from, Delimiters _d, FieldRetriever _ret, AnalyzedPageEl _page) {
-        int indexParRight_ = _string.indexOf(PAR_RIGHT, _from +1);
+        int afterLeftPar_ = _from + 1;
+        int indexParRight_ = _string.indexOf(PAR_RIGHT, afterLeftPar_);
         if (indexParRight_ < 0) {
             return _from;
         }
-        for (AnonymousResult r:_page.getCurrentAnonymousResults()) {
-            if (r.getIndex() == _from) {
-                return _from;
-            }
-        }
-        if (_d.getStack().getCallings().containsObj(_from)) {
+        if (anonAndCalling(_from, _d,_page)) {
             return _from;
         }
-
-        String sub_ = _string.substring(_from + 1, indexParRight_);
-        int off_ = StringUtil.getFirstPrintableCharIndex(sub_);
-        String subTrim_ = sub_.trim();
-        if (subTrim_.startsWith(ARR) && subTrim_.endsWith(ARR_END)) {
-            String candidate_ = subTrim_.substring(1,subTrim_.length()-1);
-            if (noWideInternDelimiter(candidate_)) {
-                _d.getDelLoopVars().add(_from);
-                _d.getDelLoopVars().add(indexParRight_);
-                _d.setEnabledOp(true);
-                return indexParRight_ + 1;
-            }
+        if (!delStrs(afterLeftPar_, indexParRight_, _page) && indLoopVar(_string, afterLeftPar_, indexParRight_) && noWideInternDelimiter(intern(_string, afterLeftPar_, indexParRight_))) {
+            _d.getDelLoopVars().add(_from);
+            _d.getDelLoopVars().add(indexParRight_);
+            _d.setEnabledOp(true);
+            return indexParRight_ + 1;
         }
         int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
-        if (next_ < 0 || StringExpUtil.startsWithKeyWord(_string, next_, _page.getKeyWords().getKeyWordInstanceof())) {
+        if (noCast(_string,next_,_page)) {
             return _from;
         }
-        for (String s: StringUtil.wrapStringArray("+=","-=",
-                "*=","/","%",
-                "^","&","|",
-                "?",":",
-                "<",">",",","->",
-                "!=","=",")","[","]","}")) {
-            if (_string.startsWith(s,next_)) {
-                return _from;
-            }
-        }
-        if (_string.startsWith(".",next_)) {
-            int n_ = StringExpUtil.nextPrintChar(next_ + 1, _string.length(), _string);
-            if (!ElResolverCommon.isDigitOrDot(_string,n_)) {
-                return _from;
-            }
-        }
-        int beginWord_ = _from + 1 + off_;
+        String sub_ = _string.substring(afterLeftPar_, indexParRight_);
+        String subTrim_ = sub_.trim();
+        int off_ = StringUtil.getFirstPrintableCharIndex(sub_);
+        int beginWord_ = afterLeftPar_ + off_;
         if (StringExpUtil.isDollarWordChar(_string.charAt(beginWord_))&&AnaPartTypeUtil.isCorrectType(subTrim_, new StringList())) {
             if (!isAlwaysType(_string, subTrim_, next_)) {
                 int inc_ = incrAfterWord(beginWord_, _string);
@@ -2455,6 +2428,55 @@ public final class ElResolver {
             }
         }
         return _from;
+    }
+    private static boolean noCast(String _string, int _next, AnalyzedPageEl _page) {
+        if (_next < 0 || StringExpUtil.startsWithKeyWord(_string, _next, _page.getKeyWords().getKeyWordInstanceof())) {
+            return true;
+        }
+        for (String s: StringUtil.wrapStringArray("+=","-=",
+                "*=","/","%",
+                "^","&","|",
+                "?",":",
+                "<",">",",","->",
+                "!=","=",")","[","]","}")) {
+            if (_string.startsWith(s,_next)) {
+                return true;
+            }
+        }
+        if (_string.startsWith(".",_next)) {
+            int n_ = StringExpUtil.nextPrintChar(_next + 1, _string.length(), _string);
+            return !ElResolverCommon.isDigitOrDot(_string, n_);
+        }
+        return false;
+    }
+
+    private static String intern(String _string, int _afterLeftPar, int _indexParRight) {
+        String sub_ = _string.substring(_afterLeftPar, _indexParRight);
+        String subTrim_ = sub_.trim();
+        return subTrim_.substring(1, subTrim_.length() - 1);
+    }
+
+    private static boolean indLoopVar(String _string, int _afterLeftPar, int _indexParRight) {
+        return StringExpUtil.nextCharIs(_string,StringExpUtil.nextPrintChar(_afterLeftPar,_indexParRight,_string),_indexParRight,ARR_LEFT)
+        &&StringExpUtil.nextCharIs(_string,StringExpUtil.getBackPrintChar(_string,_indexParRight,_afterLeftPar),_indexParRight,ARR_RIGHT);
+    }
+    private static boolean delStrs(int _afterLeftPar, int _indexParRight, AnalyzedPageEl _page) {
+        for (int j = _afterLeftPar; j < _indexParRight; j++) {
+            for (SegmentStringPart s: _page.getCurrentParts()) {
+                if (s.getBegin() == j) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private static boolean anonAndCalling(int _from, Delimiters _d, AnalyzedPageEl _page) {
+        for (AnonymousResult r:_page.getCurrentAnonymousResults()) {
+            if (r.getIndex() == _from) {
+                return true;
+            }
+        }
+        return _d.getStack().getCallings().containsObj(_from);
     }
 
     private static boolean isAlwaysType(String _string, String _subTrim, int _next) {
