@@ -23,8 +23,9 @@ public final class DefBinFact implements AbstractBinFact {
                 break;
             }
         }
+        byte[] bytes_ = reader_.getBytes();
         reader_.close();
-        return reader_.getBytes();
+        return bytes_;
     }
 
     @Override
