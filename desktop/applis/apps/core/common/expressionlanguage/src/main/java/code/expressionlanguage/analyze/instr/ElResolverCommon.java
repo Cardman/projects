@@ -87,7 +87,6 @@ public final class ElResolverCommon {
         char startChar_ = _string.charAt(start_);
         int base_ = 10;
         String hexPre_ = _key.getKeyWordNbHex();
-        String hexEnd_ = _key.getKeyWordNbHexEnd();
         String binPre_ = _key.getKeyWordNbBin();
         String decExp_ = _key.getKeyWordNbExpDec();
         String binExp_ = _key.getKeyWordNbExpBin();
@@ -229,6 +228,7 @@ public final class ElResolverCommon {
             }
             int dig_ = digitPart(current_, base_, _key);
             if (dig_ < 0) {
+                String hexEnd_ = _key.getKeyWordNbHexEnd();
                 j_ = incrSep(j_,base_,sub_,hexEnd_);
                 boolean ok_ = processSuffix(_key, _string, output_, nbInfos_, j_);
                 if (ok_) {
@@ -266,7 +266,7 @@ public final class ElResolverCommon {
                 j_++;
             }
             if (!added_) {
-                processDotSuffix(_key,base_,sub_,hexEnd_, _string, output_, nbInfos_,j_, _max);
+                processDotSuffix(_key,base_,sub_, _string, output_, j_, _max);
                 return output_;
             }
             if (j_ >= _max) {
@@ -279,7 +279,7 @@ public final class ElResolverCommon {
                 processExp(_key, j_, _max, _string, output_);
                 return output_;
             }
-            processDotSuffix(_key,base_,sub_,hexEnd_, _string, output_, nbInfos_, j_, _max);
+            processDotSuffix(_key,base_,sub_, _string, output_, j_, _max);
             return output_;
         }
         if (exp_) {
@@ -291,10 +291,10 @@ public final class ElResolverCommon {
         return output_;
     }
 
-    private static int incrSep(int _j, int _base, String _sub, String _hexPre) {
+    private static int incrSep(int _j, int _base, String _sub, String _hexEnd) {
         int j_ = _j;
-        if (_base != 10 && _sub.startsWith(_hexPre)) {
-            j_ += _hexPre.length();
+        if (_base != 10 && _sub.startsWith(_hexEnd)) {
+            j_ += _hexEnd.length();
         }
         return j_;
     }
@@ -331,16 +331,17 @@ public final class ElResolverCommon {
         return off_;
     }
 
-    private static void processDotSuffix(KeyWords _key, int _base, String _sub, String _hexPre, String _string,
-                                         NumberInfosOutput _output, NumberInfos _nbInfos, int _j, int _max) {
-        int j_ = incrSep(_j,_base,_sub,_hexPre);
+    private static void processDotSuffix(KeyWords _key, int _base, String _sub, String _string,
+                                         NumberInfosOutput _output, int _j, int _max) {
+        String hexEnd_ = _key.getKeyWordNbHexEnd();
+        int j_ = incrSep(_j,_base,_sub,hexEnd_);
         SuffixedNumber suff_ = _key.getNbKeyWord(_string, j_);
         if (suff_ != null) {
             j_ +=suff_.getKey().length();
             char su_ = suff_.getValue();
-            _nbInfos.setSuffix(su_);
+            _output.getInfos().setSuffix(su_);
         }
-        j_ = nextIndex(_key,j_, _max, _string, _output, _nbInfos.getDecimalPart());
+        j_ = nextIndex(_key,j_, _max, _string, _output, _output.getInfos().getDecimalPart());
         _output.setNextIndex(j_);
     }
 

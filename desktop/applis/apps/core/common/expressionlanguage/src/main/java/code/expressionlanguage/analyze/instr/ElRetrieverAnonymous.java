@@ -25,7 +25,7 @@ public final class ElRetrieverAnonymous {
         _page.getAnnotDelSwitch().clear();
         String currentPkg_ = _page.getCurrentPkg();
         FileBlock currentFile_ = _page.getCurrentFile();
-        int next_ = stackBegin(_string, _minIndex, currentFile_, currentPkg_, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex(), _res.getPartsAbs()));
+        int next_ = stackBegin(_string, _minIndex, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex(), _res.getPartsAbs()));
         _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
         _res.setParts(new CustList<SegmentStringPart>(_page.getParts()));
         _res.setAnnotDelNew(new Ints(_page.getAnnotDelNew()));
@@ -33,7 +33,7 @@ public final class ElRetrieverAnonymous {
         return next_;
     }
 
-    private static int stackBegin(String _string, int _from, FileBlock _file, String _pkg, AnalyzedPageEl _page, CurrentExpElts _curElts) {
+    private static int stackBegin(String _string, int _from, AnalyzedPageEl _page, CurrentExpElts _curElts) {
         StackDelimiters stack_ = new StackDelimiters();
         StackOperators parsBrackets_ = new StackOperators();
         char prevOp_ = ElResolver.SPACE;
@@ -92,7 +92,7 @@ public final class ElRetrieverAnonymous {
                     }
                 }
             }
-            next_ = processOperatorsQuickBegin(parsBrackets_,stack_,from_,curChar_, _string, _page, _pkg, _file, _curElts);
+            next_ = processOperatorsQuickBegin(parsBrackets_,stack_,from_,curChar_, _string, _page, _curElts);
             if (next_ < 0) {
                 break;
             }
@@ -777,7 +777,7 @@ public final class ElRetrieverAnonymous {
     }
 
     private static int processOperatorsQuickBegin(StackOperators _parsBrackets, StackDelimiters _stack, int _i, char _curChar, String _string,
-                                                  AnalyzedPageEl _page, String _packageName, FileBlock _file, CurrentExpElts _curElts) {
+                                                  AnalyzedPageEl _page, CurrentExpElts _curElts) {
         StackOperators parsBrackets_;
         parsBrackets_ = _parsBrackets;
         KeyWords keyWords_ = _page.getKeyWords();
@@ -801,14 +801,14 @@ public final class ElRetrieverAnonymous {
                     if (after_.startsWith("{")) {
                         InputTypeCreation input_ = new InputTypeCreation();
                         input_.setType(OuterBlockEnum.ANON_FCT);
-                        input_.setFile(_file);
+                        input_.setFile(_curElts.getFile());
                         input_.setStringParts(_curElts.getStringParts());
                         input_.setNextIndex(indAfterArrow_);
                         input_.setNextIndexBef(indBeforeArrow_);
                         input_.setAnnotations(parse_.getAnnotations());
                         input_.setAnnotationsParams(parse_.getAnnotationsParams());
                         input_.setOffset(instrLoc_);
-                        ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
+                        ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                         if (res_.isOkType()) {
                             int k_ = res_.getNextIndex() - 1;
                             AnonymousResult anonymous_ = new AnonymousResult();
@@ -830,7 +830,7 @@ public final class ElRetrieverAnonymous {
                     block_.getAnnotationsParams().addAllElts(parse_.getAnnotationsParams());
                     block_.setBegin(indAfterArrow_ +instrLoc_);
                     block_.setLengthHeader(1);
-                    block_.setFile(_file);
+                    block_.setFile(_curElts.getFile());
                     String trim_ = part_.trim();
                     ReturnMethod ret_ = new ReturnMethod(new OffsetStringInfo(indAfterArrow_ +instrLoc_, trim_), indAfterArrow_ +instrLoc_);
                     ret_.setImplicit(true);
@@ -875,13 +875,13 @@ public final class ElRetrieverAnonymous {
                     int instrLoc_ = _curElts.getInstrLoc();
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.ANON_TYPE);
-                    input_.setFile(_file);
+                    input_.setFile(_curElts.getFile());
                     input_.setStringParts(_curElts.getStringParts());
                     input_.setNextIndex(_i);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
                     input_.setOffset(instrLoc_);
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
                         AnonymousResult anonymous_ = new AnonymousResult();
@@ -900,14 +900,14 @@ public final class ElRetrieverAnonymous {
                     int instrLoc_ = _curElts.getInstrLoc();
                     InputTypeCreation input_ = new InputTypeCreation();
                     input_.setType(OuterBlockEnum.SWITCH_METHOD);
-                    input_.setFile(_file);
+                    input_.setFile(_curElts.getFile());
                     input_.setStringParts(_curElts.getStringParts());
                     input_.setNextIndex(_i);
                     input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                     input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
                     input_.setAnnotationsParams(new CustList<ResultParsedAnnots>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
                     input_.setOffset(instrLoc_);
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _packageName, instrLoc_, _string, _page);
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
                     if (res_.isOkType()) {
                         int j_ = res_.getNextIndex() - 1;
                         AnonymousResult anonymous_ = new AnonymousResult();
