@@ -1326,12 +1326,7 @@ public final class ElResolver {
             int last_ = i_;
             while (j_ < len_) {
                 char locChar_ = _string.charAt(j_);
-                if (StringExpUtil.isTypeLeafChar(locChar_)) {
-                    last_ = j_;
-                    j_++;
-                    continue;
-                }
-                if (locChar_ == DOT_VAR) {
+                if (StringExpUtil.isTypeLeafChar(locChar_) || locChar_ == DOT_VAR) {
                     last_ = j_;
                     j_++;
                     continue;
@@ -1366,6 +1361,8 @@ public final class ElResolver {
                 doubleDotted_.setNextIndex(i_);
                 return;
             }
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == PAR_LEFT) {
             int j_ = indexAfterPossibleCast(_string, i_, _dout, _ret, _page);
@@ -1393,6 +1390,8 @@ public final class ElResolver {
             }
             stack_.getCallings().add(i_);
             parsBrackets_.addEntry(i_, curChar_);
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == PAR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -1404,6 +1403,8 @@ public final class ElResolver {
                 return;
             }
             parsBrackets_.removeLast();
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == ANN_ARR_LEFT) {
             for (AnonymousResult r:_page.getCurrentAnonymousResults()) {
@@ -1415,6 +1416,8 @@ public final class ElResolver {
                 }
             }
             parsBrackets_.addEntry(i_, curChar_);
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == ANN_ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -1432,6 +1435,8 @@ public final class ElResolver {
                 return;
             }
             parsBrackets_.removeLast();
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == ARR_LEFT) {
             int j_ = i_ + 1;
@@ -1448,6 +1453,8 @@ public final class ElResolver {
                 return;
             }
             parsBrackets_.addEntry(i_, curChar_);
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == ARR_RIGHT) {
             if (parsBrackets_.isEmpty()) {
@@ -1459,12 +1466,16 @@ public final class ElResolver {
                 return;
             }
             parsBrackets_.removeLast();
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == BEGIN_TERNARY) {
             boolean ternary_ = ElResolverCommon.isTernary(_string,len_,i_);
             if (ternary_) {
                 parsBrackets_.addEntry(i_, curChar_);
             }
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == END_TERNARY) {
             if (parsBrackets_.isEmpty()) {
@@ -1476,174 +1487,25 @@ public final class ElResolver {
                 return;
             }
             parsBrackets_.removeLast();
+            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            return;
         }
         if (curChar_ == SEP_ARG && parsBrackets_.isEmptyStackSymChars() && isAcceptCommaInstr(_page)) {
             _dout.setBadOffset(i_);
             return;
         }
-        boolean escapeOpers_ = false;
-        boolean addOp_ = true;
-        boolean andOr_ = false;
-        boolean nullSafe_ = false;
-        boolean ltGt_ = false;
-        boolean unary_ = false;
-        if (curChar_ == MULT_CHAR) {
-            unary_ = true;
-            escapeOpers_ = true;
+        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+    }
+
+    private static void afterOperator(int _beginIndex, String _string, Delimiters _dout, ResultAfterInstKeyWord _doubleDotted, int _i) {
+        IncrOperatorPart incr_ = new IncrOperatorPart(_dout.isEnabledOp());
+        int nextIndex_ = incr_.tryAddOp(_beginIndex, _string, _i);
+        int indexOp_ = incr_.getIndexOp();
+        if (indexOp_ > -1) {
+            _dout.getAllowedOperatorsIndexes().add(indexOp_);
         }
-        if (curChar_ == MOD_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (curChar_ == DIV_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (curChar_ == PLUS_CHAR){
-            unary_ = true;
-            if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != PLUS_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (_beginIndex == i_) {
-                addOp_ = false;
-            }
-        }
-        if (curChar_ == MINUS_CHAR){
-            unary_ = true;
-            if (i_ + 1 >= len_ || _string.charAt(i_ + 1) != MINUS_CHAR) {
-                escapeOpers_ = true;
-            }
-            if (_beginIndex == i_) {
-                addOp_ = false;
-            }
-        }
-        if (curChar_ == AND_CHAR) {
-            andOr_ = true;
-            escapeOpers_ = true;
-        }
-        if (curChar_ == OR_CHAR) {
-            andOr_ = true;
-            escapeOpers_ = true;
-        }
-        if (curChar_ == LOWER_CHAR) {
-            escapeOpers_ = true;
-            ltGt_ = true;
-        }
-        if (curChar_ == XOR_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (curChar_ == BEGIN_TERNARY) {
-            escapeOpers_ = true;
-            nullSafe_ = true;
-        }
-        if (curChar_ == END_TERNARY) {
-            escapeOpers_ = true;
-        }
-        if (curChar_ == GREATER_CHAR) {
-            escapeOpers_ = true;
-            ltGt_ = true;
-        }
-        if (curChar_ == EQ_CHAR) {
-            escapeOpers_ = true;
-        }
-        if (curChar_ == NEG_BOOL_CHAR) {
-            unary_ = true;
-            escapeOpers_ = true;
-            if (_beginIndex == i_) {
-                addOp_ = false;
-            }
-        }
-        if (curChar_ == ANN_ARR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (curChar_ == ARR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (curChar_ == PAR_LEFT) {
-            escapeOpers_ = true;
-        }
-        if (curChar_ == SEP_ARG) {
-            escapeOpers_ = true;
-        }
-        if (escapeOpers_) {
-            int j_ = i_ + 1;
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == curChar_) {
-                j_++;
-            }
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == curChar_) {
-                j_++;
-            }
-            if (ltGt_ && j_ < len_ && _string.charAt(j_) == curChar_) {
-                j_++;
-            }
-            if (andOr_ && j_ < len_ && _string.charAt(j_) == curChar_) {
-                j_++;
-            }
-            if (andOr_ && j_ < len_ && _string.charAt(j_) == curChar_) {
-                if (j_+1 < len_ && _string.charAt(j_+1) == EQ_CHAR) {
-                    j_++;
-                } else {
-                    addOp_ = false;
-                }
-            }
-            if (nullSafe_ && StringExpUtil.nextCharIs(_string, j_, len_, DOT_VAR)) {
-                int n_ = StringExpUtil.nextPrintChar(j_ + 1, len_, _string);
-                if (!ElResolverCommon.isDigitOrDot(_string,n_)) {
-                    j_++;
-                }
-            }
-            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == curChar_) {
-                j_++;
-            }
-            if (nullSafe_ && j_ < len_ && _string.charAt(j_) == curChar_) {
-                j_++;
-            }
-            if (j_ < len_ && _string.charAt(j_) == EQ_CHAR) {
-                j_++;
-                unary_ = false;
-            }
-            if (addOp_ && (_dout.isEnabledOp()||!unary_)) {
-                _dout.getAllowedOperatorsIndexes().add(i_);
-            }
-            _dout.setEnabledOp(false);
-            i_ = j_;
-            doubleDotted_.setNextIndex(i_);
-            return;
-        }
-        if (curChar_ == PLUS_CHAR){
-            if (addOp_) {
-                _dout.getAllowedOperatorsIndexes().add(i_);
-            }
-            i_++;
-            i_++;
-            doubleDotted_.setNextIndex(i_);
-            _dout.setEnabledOp(true);
-            return;
-        }
-        if (curChar_ == MINUS_CHAR){
-            if (addOp_) {
-                _dout.getAllowedOperatorsIndexes().add(i_);
-            }
-            i_++;
-            i_++;
-            doubleDotted_.setNextIndex(i_);
-            _dout.setEnabledOp(true);
-            return;
-        }
-        boolean idOp_ = curChar_ == ANN_ARR_RIGHT;
-        if (curChar_ == ARR_RIGHT) {
-            idOp_ = true;
-        }
-        if (curChar_ == PAR_RIGHT) {
-            idOp_ = true;
-        }
-        if (curChar_ == DOT_VAR) {
-            idOp_ = true;
-        }
-        if (idOp_) {
-            _dout.getAllowedOperatorsIndexes().add(i_);
-            _dout.setEnabledOp(true);
-        }
-        i_++;
-        doubleDotted_.setNextIndex(i_);
+        _doubleDotted.setNextIndex(nextIndex_);
+        _dout.setEnabledOp(incr_.isEnabledOp());
     }
 
     private static boolean noWideInternDelimiter(String _substring) {
