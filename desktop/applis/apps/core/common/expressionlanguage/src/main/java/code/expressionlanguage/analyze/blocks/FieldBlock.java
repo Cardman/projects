@@ -3,16 +3,13 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
-import code.expressionlanguage.analyze.files.ResultParsedAnnots;
+import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetAccessInfo;
-import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.PartOffsetAffect;
@@ -242,14 +239,14 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
-        int len_ = annotations.getAnnotationsIndexes().size();
+        int len_ = annotations.getAnnotations().size();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
-            int begin_ = annotations.getAnnotationsIndexes().get(i);
-            _page.setGlobalOffset(begin_);
+            ResultParsedAnnot begin_ = annotations.getAnnotations().get(i);
+            _page.setGlobalOffset(begin_.getIndex());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.getAnnotations().get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), begin_.getAnnotation().trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }

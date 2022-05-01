@@ -2,8 +2,6 @@ package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.common.StringExpUtil;
 import code.util.CustList;
-import code.util.Ints;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class ParsedAnnotations {
@@ -11,9 +9,9 @@ public final class ParsedAnnotations {
     private static final char BEGIN_CALLING = '(';
     private static final char END_CALLING = ')';
     private static final char ANNOT = '@';
-    private final Ints annotationsIndexes = new Ints();
-    private final StringList annotations = new StringList();
+    private final CustList<SegmentStringPart> allParts = new CustList<SegmentStringPart>();
     private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
+    private final CustList<ResultParsedAnnot> retAnnots = new CustList<ResultParsedAnnot>();
     private final String instruction;
     private String after = "";
     private int index;
@@ -50,8 +48,10 @@ public final class ParsedAnnotations {
                         String afterTrim_ = after_.trim();
                         if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && !startsWithAnnot(afterTrim_,_keyWordClass) && afterTrim_.charAt(0) != BEGIN_CALLING) {
                             annotation_.append(cur_);
-                            annotations.add(annotation_.toString());
-                            annotationsIndexes.add(indexArobase_ + instructionLocation);
+                            ResultParsedAnnot resAnnot_ = new ResultParsedAnnot();
+                            resAnnot_.set(indexArobase_ + instructionLocation,annotation_.toString(),parts);
+                            retAnnots.add(resAnnot_);
+                            parts.clear();
                             index = j_ + instructionLocation;
                             index++;
                             j_++;
@@ -72,8 +72,10 @@ public final class ParsedAnnotations {
                     String after_ = instruction.substring(j_+1).trim();
                     if (after_.isEmpty() || !startsWithAnnot(after_,_keyWordClass)) {
                         annotation_.append(cur_);
-                        annotations.add(annotation_.toString());
-                        annotationsIndexes.add(indexArobase_ + instructionLocation);
+                        ResultParsedAnnot resAnnot_ = new ResultParsedAnnot();
+                        resAnnot_.set(indexArobase_ + instructionLocation,annotation_.toString(),parts);
+                        retAnnots.add(resAnnot_);
+                        parts.clear();
                         index = j_ + instructionLocation;
                         index++;
                         j_++;
@@ -92,8 +94,10 @@ public final class ParsedAnnotations {
                 if (cur_ == ANNOT) {
                     //Add annotation
                     if (!annotation_.toString().trim().isEmpty()) {
-                        annotations.add(annotation_.toString());
-                        annotationsIndexes.add(indexArobase_ + instructionLocation);
+                        ResultParsedAnnot resAnnot_ = new ResultParsedAnnot();
+                        resAnnot_.set(indexArobase_ + instructionLocation,annotation_.toString(),parts);
+                        retAnnots.add(resAnnot_);
+                        parts.clear();
                     }
                     annotation_.delete(0, annotation_.length());
                     indexArobase_ = j_;
@@ -112,6 +116,7 @@ public final class ParsedAnnotations {
         for (SegmentStringPart s: _parts) {
             if (s.getBegin() == _j + instructionLocation) {
                 parts.add(s);
+                allParts.add(s);
                 int begin_ = s.getBegin() - instructionLocation;
                 int end_ = s.getEnd() - instructionLocation;
                 for (int i = begin_; i < end_; i++) {
@@ -124,8 +129,12 @@ public final class ParsedAnnotations {
         return until_;
     }
 
-    public CustList<SegmentStringPart> getParts() {
-        return parts;
+    public CustList<ResultParsedAnnot> getRetAnnots() {
+        return retAnnots;
+    }
+
+    public CustList<SegmentStringPart> getAllParts() {
+        return allParts;
     }
 
     private static boolean isPart(char _char) {
@@ -137,12 +146,7 @@ public final class ParsedAnnotations {
         }
         return _char == BEGIN_CALLING;
     }
-    public Ints getAnnotationsIndexes() {
-        return annotationsIndexes;
-    }
-    public StringList getAnnotations() {
-        return annotations;
-    }
+
     public String getAfter() {
         return after;
     }

@@ -132,13 +132,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
     }
     public void buildAnnotations(AnalyzedPageEl _page) {
         roots = new CustList<OperationNode>();
-        int len_ = annotations.getAnnotationsIndexes().size();
+        int len_ = annotations.getAnnotations().size();
         for (int i = 0; i < len_; i++) {
-            int begin_ = annotations.getAnnotationsIndexes().get(i);
-            _page.setGlobalOffset(begin_);
+            ResultParsedAnnot begin_ = annotations.getAnnotations().get(i);
+            _page.setGlobalOffset(begin_.getIndex());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), annotations.getAnnotations().get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), begin_.getAnnotation().trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
@@ -150,13 +150,13 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         rootsList = new CustList<CustList<OperationNode>>();
         for (ResultParsedAnnots l: annotationsParams) {
             CustList<OperationNode> rootList_ = new CustList<OperationNode>();
-            int len_ = l.getAnnotationsIndexes().size();
+            int len_ = l.getAnnotations().size();
             for (int i = 0; i < len_; i++) {
-                int begin_ = l.getAnnotationsIndexes().get(i);
-                _page.setGlobalOffset(begin_);
+                ResultParsedAnnot begin_ = l.getAnnotations().get(i);
+                _page.setGlobalOffset(begin_.getIndex());
                 _page.zeroOffset();
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), l.getAnnotations().get(i).trim(), c_, _page);
+                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), begin_.getAnnotation().trim(), c_, _page);
                 ReachOperationUtil.tryCalculate(r_, _page);
                 rootList_.add(r_);
             }

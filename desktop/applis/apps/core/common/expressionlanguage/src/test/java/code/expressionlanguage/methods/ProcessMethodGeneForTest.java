@@ -10,6 +10,28 @@ import org.junit.Test;
 public final class ProcessMethodGeneForTest extends ProcessMethodCommon {
 
     @Test
+    public void calculateArgument0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $int t;\n");
+        xml_.append("  t=0i;\n");
+        xml_.append("  $for($int i=\"1234\".length();i>\"\".length();i=i-\" \".length()){\n");
+        xml_.append("   t+=i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return $($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");

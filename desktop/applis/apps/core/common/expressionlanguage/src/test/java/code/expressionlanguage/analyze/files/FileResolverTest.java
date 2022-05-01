@@ -4737,10 +4737,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq(1, countCustomTypes(context_));
         assertEq("pkg.MyClass", getCustomTypes(context_,0).getFullName());
         RootBlock r_ = getClassBody(context_, "pkg.MyClass");
-        assertEq(1,r_.getAnnotations().getAnnotations().size());
-        assertEq("@MyAnnot",r_.getAnnotations().getAnnotations().first());
-        assertEq(1,r_.getAnnotations().getAnnotationsIndexes().size());
-        assertEq(19,r_.getAnnotations().getAnnotationsIndexes().first());
+        assertEq(1,getAnnotations(r_).size());
+        assertEq("@MyAnnot",getAnnotations(r_).first());
+        assertEq(1,getAnnotationsIndexes(r_).size());
+        assertEq(19,getAnnotationsIndexes(r_).first());
     }
     @Test
     public void parseFile54Test() {
@@ -4783,10 +4783,10 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertEq("THERE", ((ElementBlock)field_).getUniqueFieldName());
 
         assertEq("1i,\n3i", ((ElementBlock)field_).getValue());
-        StringList annots_ = ((ElementBlock)field_).getAnnotations().getAnnotations();
+        StringList annots_ = getAnnotations((ElementBlock)field_);
         assertEq(1, annots_.size());
         assertEq("@MyAnnot", annots_.first());
-        Ints annotsInd_ = ((ElementBlock)field_).getAnnotations().getAnnotationsIndexes();
+        Ints annotsInd_ = getAnnotationsIndexes((ElementBlock)field_);
         assertEq(1, annotsInd_.size());
         assertEq(126, annotsInd_.first());
         assertEq(135, ((ElementBlock) child_).getFieldNameOffset());
@@ -4830,8 +4830,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertSame(AccessEnum.PRIVATE, field_.getAccess());
         assertEq(1, getAnnotations((FieldBlock)child_).size());
         assertEq("@MyAnnot", getAnnotations((FieldBlock)child_).first());
-        assertEq(1, ((FieldBlock) child_).getAnnotations().getAnnotationsIndexes().size());
-        assertEq(73, ((FieldBlock) child_).getAnnotations().getAnnotationsIndexes().first());
+        assertEq(1, getAnnotationsIndexes((FieldBlock) child_).size());
+        assertEq(73, getAnnotationsIndexes((FieldBlock) child_).first());
         assertEq(82, ((FieldBlock) child_).getAccessOffset());
         assertEq(99, ((FieldBlock) child_).getFieldNameOffset());
         assertEq(91, ((FieldBlock) child_).getClassNameOffset());
@@ -5202,8 +5202,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         OperatorBlock op_ = ops_.first();
         assertEq(1, getAnnotations(op_).size());
         assertEq("@MyAnnot", getAnnotations(op_).first());
-        assertEq(1, op_.getAnnotations().getAnnotationsIndexes().size());
-        assertEq(0, op_.getAnnotations().getAnnotationsIndexes().first());
+        assertEq(1, getAnnotationsIndexes(op_).size());
+        assertEq(0, getAnnotationsIndexes(op_).first());
         assertEq("+", op_.getName());
         assertEq(18, op_.getNameOffset());
         assertEq("$long", op_.getReturnType());
@@ -5830,8 +5830,8 @@ public final class FileResolverTest extends ProcessMethodCommon {
         assertNull(inner_.getNextSibling());
         assertNull(cl_.getNextSibling());
         assertSame(inner_, getClassBody(context_, "pkg.Outer..Inner"));
-        assertEq(1, ((RootBlock)inner_).getAnnotations().getAnnotations().size());
-        assertEq("@MyAnnot", ((RootBlock)inner_).getAnnotations().getAnnotations().first());
+        assertEq(1, getAnnotations(((RootBlock)inner_)).size());
+        assertEq("@MyAnnot", getAnnotations(((RootBlock)inner_)).first());
         assertEq(1, ((RootBlock)inner_).getImports().size());
         assertEq("my.Import", ((RootBlock)inner_).getImports().first());
     }
@@ -10007,13 +10007,21 @@ public final class FileResolverTest extends ProcessMethodCommon {
     }
 
     private StringList getAnnotations(NamedFunctionBlock _m) {
-        return _m.getAnnotations().getAnnotations();
+        StringList txts_ = new StringList();
+        for (ResultParsedAnnot a: _m.getAnnotations().getAnnotations()) {
+            txts_.add(a.getAnnotation());
+        }
+        return txts_;
     }
 
     private CustList<StringList> getAnnotationsParams(NamedFunctionBlock _m) {
         CustList<StringList> ls_ = new CustList<StringList>();
         for (ResultParsedAnnots r: _m.getAnnotationsParams()) {
-            ls_.add(r.getAnnotations());
+            StringList txts_ = new StringList();
+            for (ResultParsedAnnot a: r.getAnnotations()) {
+                txts_.add(a.getAnnotation());
+            }
+            ls_.add(txts_);
         }
         return ls_;
     }
@@ -10021,22 +10029,46 @@ public final class FileResolverTest extends ProcessMethodCommon {
     private CustList<Ints> getAnnotationsIndexesParams(NamedFunctionBlock _m) {
         CustList<Ints> ls_ = new CustList<Ints>();
         for (ResultParsedAnnots r: _m.getAnnotationsParams()) {
-            ls_.add(r.getAnnotationsIndexes());
+            ls_.add(getAnnotationsIndexes(r));
         }
         return ls_;
     }
 
-    private StringList getAnnotations(FieldBlock _m) {
-        return _m.getAnnotations().getAnnotations();
+    private StringList getAnnotations(InfoBlock _m) {
+        StringList txts_ = new StringList();
+        for (ResultParsedAnnot a: _m.getAnnotations().getAnnotations()) {
+            txts_.add(a.getAnnotation());
+        }
+        return txts_;
     }
 
-    private Ints getAnnotationsIndexes(NamedCalledFunctionBlock _m) {
-        return _m.getAnnotations().getAnnotationsIndexes();
+    private StringList getAnnotations(RootBlock _m) {
+        StringList txts_ = new StringList();
+        for (ResultParsedAnnot a: _m.getAnnotations().getAnnotations()) {
+            txts_.add(a.getAnnotation());
+        }
+        return txts_;
     }
 
-    private Ints getAnnotationsIndexes(FieldBlock _m) {
-        return _m.getAnnotations().getAnnotationsIndexes();
+    private Ints getAnnotationsIndexes(NamedFunctionBlock _m) {
+        return getAnnotationsIndexes(_m.getAnnotations());
     }
 
+    private Ints getAnnotationsIndexes(InfoBlock _m) {
+        return getAnnotationsIndexes(_m.getAnnotations());
+    }
+
+    private Ints getAnnotationsIndexes(RootBlock _m) {
+        return getAnnotationsIndexes(_m.getAnnotations());
+    }
+
+
+    private Ints getAnnotationsIndexes(ResultParsedAnnots _p) {
+        Ints ls_ = new Ints();
+        for (ResultParsedAnnot i: _p.getAnnotations()) {
+            ls_.add(i.getIndex());
+        }
+        return ls_;
+    }
 
 }

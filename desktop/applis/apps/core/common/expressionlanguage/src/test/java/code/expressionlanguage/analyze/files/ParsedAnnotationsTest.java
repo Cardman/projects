@@ -2,6 +2,8 @@ package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.EquallableElUtil;
 import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
 import org.junit.Test;
 
 public final class ParsedAnnotationsTest extends EquallableElUtil {
@@ -14,10 +16,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(28, p_.getIndex());
     }
@@ -29,10 +31,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot()",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot()", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(30, p_.getIndex());
     }
@@ -44,10 +46,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot({})",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot({})", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(32, p_.getIndex());
     }
@@ -59,10 +61,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot(\"\")",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot(\"\")", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(32, p_.getIndex());
     }
@@ -74,10 +76,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot(\"\\\"\")",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot(\"\\\"\")", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(34, p_.getIndex());
     }
@@ -89,10 +91,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot(\"\\\\\")",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot(\"\\\\\")", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(34, p_.getIndex());
     }
@@ -104,10 +106,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot('\"')",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot('\"')", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(33, p_.getIndex());
     }
@@ -119,10 +121,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot('\\\\')",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot('\\\\')", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(34, p_.getIndex());
     }
@@ -134,10 +136,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot(\"s\")",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot(\"s\")", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(33, p_.getIndex());
     }
@@ -149,10 +151,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot(f=1)",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot(f=1)", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(33, p_.getIndex());
     }
@@ -165,10 +167,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg.MyAnnot", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(32, p_.getIndex());
     }
@@ -180,10 +182,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg.MyAnnot()", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(34, p_.getIndex());
     }
@@ -196,10 +198,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg .MyAnnot",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg .MyAnnot", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(33, p_.getIndex());
     }
@@ -211,10 +213,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg .MyAnnot()",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg .MyAnnot()", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(35, p_.getIndex());
     }
@@ -226,10 +228,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg.MyAnnot ()",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg.MyAnnot ()", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(35, p_.getIndex());
     }
@@ -242,12 +244,12 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(2,p_.getAnnotations().size());
-        assertEq("@MyAnnotOne\n",p_.getAnnotations().first());
-        assertEq("@MyAnnotTwo",p_.getAnnotations().last());
-        assertEq(2,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
-        assertEq(31,p_.getAnnotationsIndexes().last());
+        assertEq(2, getAnnotations(p_).size());
+        assertEq("@MyAnnotOne\n", getAnnotations(p_).first());
+        assertEq("@MyAnnotTwo", getAnnotations(p_).last());
+        assertEq(2, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
+        assertEq(31, getAnnotationsIndexes(p_).last());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(43, p_.getIndex());
     }
@@ -260,12 +262,12 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(2,p_.getAnnotations().size());
-        assertEq("@MyAnnotOne()\n",p_.getAnnotations().first());
-        assertEq("@MyAnnotTwo",p_.getAnnotations().last());
-        assertEq(2,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
-        assertEq(33,p_.getAnnotationsIndexes().last());
+        assertEq(2, getAnnotations(p_).size());
+        assertEq("@MyAnnotOne()\n", getAnnotations(p_).first());
+        assertEq("@MyAnnotTwo", getAnnotations(p_).last());
+        assertEq(2, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
+        assertEq(33, getAnnotationsIndexes(p_).last());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(45, p_.getIndex());
     }
@@ -278,12 +280,12 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(2,p_.getAnnotations().size());
-        assertEq("@MyAnnotOne()\n",p_.getAnnotations().first());
-        assertEq("@MyAnnotTwo()",p_.getAnnotations().last());
-        assertEq(2,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
-        assertEq(33,p_.getAnnotationsIndexes().last());
+        assertEq(2, getAnnotations(p_).size());
+        assertEq("@MyAnnotOne()\n", getAnnotations(p_).first());
+        assertEq("@MyAnnotTwo()", getAnnotations(p_).last());
+        assertEq(2, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
+        assertEq(33, getAnnotationsIndexes(p_).last());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(47, p_.getIndex());
     }
@@ -295,10 +297,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg.MyAnnot", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(32, p_.getIndex());
     }
@@ -310,10 +312,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot(@MySec())",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot(@MySec())", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(38, p_.getIndex());
     }
@@ -325,10 +327,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot(f=`first`)",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot(f=`first`)", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(39, p_.getIndex());
     }
@@ -340,10 +342,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot(f=`first``second`)",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot(f=`first``second`)", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(47, p_.getIndex());
     }
@@ -354,10 +356,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg.MyAnnot\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg.MyAnnot", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("",p_.getAfter());
         assertEq(32, p_.getIndex());
     }
@@ -368,10 +370,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg.MyAnnot");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg.MyAnnot",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg.MyAnnot", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("",p_.getAfter());
         assertEq(31, p_.getIndex());
     }
@@ -382,10 +384,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg.MyAnnot()\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg.MyAnnot()", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("",p_.getAfter());
         assertEq(34, p_.getIndex());
     }
@@ -396,10 +398,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("@pkg.MyAnnot()");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@pkg.MyAnnot()",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@pkg.MyAnnot()", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("",p_.getAfter());
         assertEq(33, p_.getIndex());
     }
@@ -409,8 +411,8 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("pkgtwo.MyClassTwo;\n");
         int index_ = "pkgtwo.MyClassTwo;\n".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(0,p_.getAnnotations().size());
-        assertEq(0,p_.getAnnotationsIndexes().size());
+        assertEq(0, getAnnotations(p_).size());
+        assertEq(0, getAnnotationsIndexes(p_).size());
         assertEq("",p_.getAfter());
         assertEq(19, p_.getIndex());
     }
@@ -423,10 +425,10 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(28, p_.getIndex());
     }
@@ -439,14 +441,29 @@ public final class ParsedAnnotationsTest extends EquallableElUtil {
         file_.append("$public $class pkg.MyClass{}");
         int index_ = "pkgtwo.MyClassTwo;".length();
         ParsedAnnotations p_ = parse(file_, index_);
-        assertEq(1,p_.getAnnotations().size());
-        assertEq("@MyAnnot",p_.getAnnotations().first());
-        assertEq(1,p_.getAnnotationsIndexes().size());
-        assertEq(19,p_.getAnnotationsIndexes().first());
+        assertEq(1, getAnnotations(p_).size());
+        assertEq("@MyAnnot", getAnnotations(p_).first());
+        assertEq(1, getAnnotationsIndexes(p_).size());
+        assertEq(19, getAnnotationsIndexes(p_).first());
         assertEq("$public $class pkg.MyClass{}",p_.getAfter());
         assertEq(28, p_.getIndex());
     }
 
+    private StringList getAnnotations(ParsedAnnotations _p) {
+        StringList ls_ = new StringList();
+        for (ResultParsedAnnot i: _p.getRetAnnots()) {
+            ls_.add(i.getAnnotation());
+        }
+        return ls_;
+    }
+
+    private Ints getAnnotationsIndexes(ParsedAnnotations _p) {
+        Ints ls_ = new Ints();
+        for (ResultParsedAnnot i: _p.getRetAnnots()) {
+            ls_.add(i.getIndex());
+        }
+        return ls_;
+    }
     private ParsedAnnotations parse(StringBuilder _file, int _index) {
         String substring_ = _file.substring(_index);
         ParsedAnnotations p_ = new ParsedAnnotations(substring_, _index);

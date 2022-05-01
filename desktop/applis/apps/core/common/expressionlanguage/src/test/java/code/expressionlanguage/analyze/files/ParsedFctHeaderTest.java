@@ -1031,17 +1031,17 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     }
 
     private StringList getAnnotations(ParsedFctHeader _p) {
-        return _p.getAnnotations().getAnnotations();
+        return getAnnotations(_p.getAnnotations());
     }
 
     private Ints getAnnotationsIndexes(ParsedFctHeader _p) {
-        return _p.getAnnotations().getAnnotationsIndexes();
+        return getAnnotationsIndexes(_p.getAnnotations());
     }
 
     private CustList<Ints> getAnnotationsIndexesParams(ParsedFctHeader _p) {
         CustList<Ints> ls_ = new CustList<Ints>();
         for (ResultParsedAnnots r: _p.getAnnotationsParams()) {
-            ls_.add(r.getAnnotationsIndexes());
+            ls_.add(getAnnotationsIndexes(r));
         }
         return ls_;
     }
@@ -1049,10 +1049,25 @@ public final class ParsedFctHeaderTest extends EquallableElUtil {
     private CustList<StringList> getAnnotationsParams(ParsedFctHeader _p) {
         CustList<StringList> ls_ = new CustList<StringList>();
         for (ResultParsedAnnots r: _p.getAnnotationsParams()) {
-            ls_.add(r.getAnnotations());
+            ls_.add(getAnnotations(r));
         }
         return ls_;
     }
 
+    private StringList getAnnotations(ResultParsedAnnots _p) {
+        StringList ls_ = new StringList();
+        for (ResultParsedAnnot i: _p.getAnnotations()) {
+            ls_.add(i.getAnnotation());
+        }
+        return ls_;
+    }
+
+    private Ints getAnnotationsIndexes(ResultParsedAnnots _p) {
+        Ints ls_ = new Ints();
+        for (ResultParsedAnnot i: _p.getAnnotations()) {
+            ls_.add(i.getIndex());
+        }
+        return ls_;
+    }
 
 }

@@ -1673,7 +1673,7 @@ public final class LinkageUtil {
     }
 
     private static void annotError(VariablesOffsets _vars, AbsBk _cond, CustList<OperationNode> _roots, ResultParsedAnnots _annotations) {
-        int len_ = _annotations.getAnnotationsIndexes().size();
+        int len_ = _annotations.getAnnotations().size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
             buildAnnotErr(_vars, _cond, -1, _roots, i,_annotations);
@@ -2166,7 +2166,7 @@ public final class LinkageUtil {
     }
 
     private static void annotReport(VariablesOffsets _vars, AbsBk _cond, Coverage _cov, ResultParsedAnnots _annotations, CustList<OperationNode> _roots) {
-        int len_ = _annotations.getAnnotationsIndexes().size();
+        int len_ = _annotations.getAnnotations().size();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
             LinkageStackElementIn in_ = buildAnnotLinkageReport(_cond, -1, _annotations, i);
@@ -2206,7 +2206,7 @@ public final class LinkageUtil {
     }
 
     private static void annotMethReport(VariablesOffsets _vars, AbsBk _cond, Coverage _cov, ResultParsedAnnots _annotations, CustList<OperationNode> _roots) {
-        int len_ = _annotations.getAnnotationsIndexes().size();
+        int len_ = _annotations.getAnnotations().size();
         int index_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
@@ -2227,8 +2227,8 @@ public final class LinkageUtil {
     }
 
     private static LinkageStackElementIn buildAnnotLinkageReport(AbsBk _cond, int _indexAnnotationGroup, ResultParsedAnnots _annotations, int _indexAnnotation) {
-        int begin_ = _annotations.getAnnotationsIndexes().get(_indexAnnotation);
-        int end_ = begin_ + _annotations.getAnnotations().get(_indexAnnotation).trim().length();
+        int begin_ = _annotations.getAnnotations().get(_indexAnnotation).getIndex();
+        int end_ = begin_ + _annotations.getAnnotations().get(_indexAnnotation).getAnnotation().trim().length();
         return buildLinkageErr(_cond, _indexAnnotationGroup, _indexAnnotationGroup, _indexAnnotation, 0, _indexAnnotation, new LinkageStackElementOffsets(0, 0, begin_, end_));
     }
 
@@ -2250,7 +2250,7 @@ public final class LinkageUtil {
     }
 
     private static void annotMethError(VariablesOffsets _vars, AbsBk _cond, CustList<OperationNode> _roots, ResultParsedAnnots _annotations) {
-        int len_ = _annotations.getAnnotationsIndexes().size();
+        int len_ = _annotations.getAnnotations().size();
         int index_ = _vars.getLastStackElt().getIndexAnnotationGroup();
         int j_ = _vars.getLastStackElt().getIndexAnnotation();
         for (int i = j_; i < len_; i++) {
@@ -2265,8 +2265,8 @@ public final class LinkageUtil {
     }
 
     private static void buildAnnotErr(VariablesOffsets _vars, AbsBk _cond, int _indexAnnotationGroup, CustList<OperationNode> _roots, int _indexAnnotation, ResultParsedAnnots _annotations) {
-        int begin_ = _annotations.getAnnotationsIndexes().get(_indexAnnotation);
-        int end_ = begin_ + _annotations.getAnnotations().get(_indexAnnotation).trim().length();
+        int begin_ = _annotations.getAnnotations().get(_indexAnnotation).getIndex();
+        int end_ = begin_ + _annotations.getAnnotations().get(_indexAnnotation).getAnnotation().trim().length();
         OperationNode root_ = _roots.get(_indexAnnotation);
         LinkageStackElementIn in_ = buildLinkageErr(_cond, _indexAnnotationGroup,_indexAnnotationGroup, _indexAnnotation, 0, _indexAnnotation, new LinkageStackElementOffsets(begin_, end_));
         buildErrorReport(_vars, root_, in_);

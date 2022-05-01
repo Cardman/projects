@@ -2,10 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.OffsetAccessInfo;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.expressionlanguage.analyze.files.ParsedFctHeader;
-import code.expressionlanguage.analyze.files.ResultParsedAnnots;
+import code.expressionlanguage.analyze.files.*;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -222,13 +219,13 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
     }
     public void buildAnnotationsSupp(AnalyzedPageEl _page) {
         rootsListSupp = new CustList<OperationNode>();
-        int len_ = annotationsSupp.getAnnotationsIndexes().size();
+        int len_ = annotationsSupp.getAnnotations().size();
         for (int i = 0; i < len_; i++) {
-            int begin_ = annotationsSupp.getAnnotationsIndexes().get(i);
-            _page.setGlobalOffset(begin_);
+            ResultParsedAnnot begin_ = annotationsSupp.getAnnotations().get(i);
+            _page.setGlobalOffset(begin_.getIndex());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resListSupp.get(i), annotationsSupp.getAnnotations().get(i).trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resListSupp.get(i), begin_.getAnnotation().trim(), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             rootsListSupp.add(r_);
         }

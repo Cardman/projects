@@ -2396,7 +2396,8 @@ public final class FileResolver {
                 exp_ = exp_.substring(eqIndex_ + 1);
             }
             int aftVarOffset_ = aftTypeOffset_ + variable_.length()+1;
-            int nextElt_ = getIndex(_offset+aftVarOffset_,_i.getStringParts(),exp_);
+            CustList<SegmentStringPart> strInit_ = new CustList<SegmentStringPart>();
+            int nextElt_ = getIndex(_offset+aftVarOffset_,_i.getStringParts(),exp_, strInit_);
             int initOff_ = aftVarOffset_;
             String init_ = "";
             if (nextElt_ < 0) {
@@ -2408,7 +2409,8 @@ public final class FileResolver {
                 exp_ = exp_.substring(nextElt_+1);
             }
             int afToOffset_ = aftVarOffset_ + init_.length()+1;
-            nextElt_ = getIndex(_offset+afToOffset_,_i.getStringParts(),exp_);
+            CustList<SegmentStringPart> strTo_ = new CustList<SegmentStringPart>();
+            nextElt_ = getIndex(_offset+afToOffset_,_i.getStringParts(),exp_, strTo_);
             int toOff_ = afToOffset_;
             String to_ = "";
             if (nextElt_ < 0) {
@@ -2447,9 +2449,9 @@ public final class FileResolver {
             }
             br_.setBegin(_i.instLoc()+_offset);
             br_.setLengthHeader(keyWordIter_.length());
-            br_.getResInit().partsAbsol(_i.getStringParts());
-            br_.getResExp().partsAbsol(_i.getStringParts());
-            br_.getResStep().partsAbsol(_i.getStringParts());
+            br_.getResInit().partsAbsol(strInit_);
+            br_.getResExp().partsAbsol(strTo_);
+            br_.getResStep().partsAbsol(_i.getStringParts().mid(strInit_.size()+strTo_.size()));
             _currentParent.appendChild(br_);
             return br_;
         }
@@ -2518,7 +2520,8 @@ public final class FileResolver {
             exp_ = exp_.substring(declaringType_.length());
             boolean ok_ = false;
             int initOff_ = typeOffset_ + declaringType_.length();
-            int nextEltMut_ = getIndex(_offset+initOff_,_i.getStringParts(),exp_);
+            CustList<SegmentStringPart> strInit_ = new CustList<SegmentStringPart>();
+            int nextEltMut_ = getIndex(_offset+initOff_,_i.getStringParts(),exp_, strInit_);
             String expAfterType_ = exp_;
             AbsBk br_ = null;
             if (nextEltMut_ > -1) {
@@ -2527,7 +2530,8 @@ public final class FileResolver {
                 int toOff_ = initOff_ + nextEltMut_+1;
                 initOff_ += off_;
                 exp_ = exp_.substring(nextEltMut_+1);
-                int nextElt_ = getIndex(_offset+toOff_,_i.getStringParts(),exp_);
+                CustList<SegmentStringPart> strTo_ = new CustList<SegmentStringPart>();
+                int nextElt_ = getIndex(_offset+toOff_,_i.getStringParts(),exp_, strTo_);
                 if (nextElt_ > -1) {
                     String to_ = exp_.substring(0, nextElt_);
                     int offTwo_ = StringExpUtil.getOffset(to_);
@@ -2546,9 +2550,9 @@ public final class FileResolver {
                             new OffsetStringInfo(labelOff_+_offset, label_.trim()),  _i.instLoc()+_offset, _page,refVariable_);
                     _currentParent.appendChild(br_);
                     ((ForMutableIterativeLoop) br_).setTestOffset(_i.getIndex()+_offset);
-                    ((ForMutableIterativeLoop) br_).getResInit().partsAbsol(_i.getStringParts());
-                    ((ForMutableIterativeLoop) br_).getResExp().partsAbsol(_i.getStringParts());
-                    ((ForMutableIterativeLoop) br_).getResStep().partsAbsol(_i.getStringParts());
+                    ((ForMutableIterativeLoop) br_).getResInit().partsAbsol(strInit_);
+                    ((ForMutableIterativeLoop) br_).getResExp().partsAbsol(strTo_);
+                    ((ForMutableIterativeLoop) br_).getResStep().partsAbsol(_i.getStringParts().mid(strInit_.size()+strTo_.size()));
                     ok_ = true;
                 }
             }
@@ -2742,13 +2746,13 @@ public final class FileResolver {
         }
         return "";
     }
-    private static int getIndex(int _offset, CustList<SegmentStringPart> _strs,String _info) {
+    private static int getIndex(int _offset, CustList<SegmentStringPart> _strs, String _info, CustList<SegmentStringPart> _filter) {
         int indexInstr_ = 0;
         int instrLen_ = _info.length();
         int localCallings_ = 0;
         while (indexInstr_ < instrLen_) {
             char locChar_ = _info.charAt(indexInstr_);
-            int until_ = until(_offset, _strs, indexInstr_);
+            int until_ = until(_offset, _strs, indexInstr_, _filter);
             if (until_ > indexInstr_) {
                 indexInstr_ = until_;
                 continue;
@@ -2767,10 +2771,11 @@ public final class FileResolver {
         return -1;
     }
 
-    private static int until(int _offset, CustList<SegmentStringPart> _strs, int _indexInstr) {
+    private static int until(int _offset, CustList<SegmentStringPart> _strs, int _indexInstr, CustList<SegmentStringPart> _filter) {
         int until_ = _indexInstr;
         for (SegmentStringPart s: _strs) {
             if (s.getBegin() == _offset + _indexInstr) {
+                _filter.add(s);
                 until_ = s.getEnd() - _offset;
                 break;
             }
