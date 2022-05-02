@@ -8,7 +8,7 @@ import java.io.InputStream;
 
 public abstract class AbstractBinStreamInImpl implements AbstractBinStreamIn {
     private final InputStream reader;
-    private final byte[] arr = new byte[1];
+    private final byte[] arr = new byte[1024];
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
     protected AbstractBinStreamInImpl(InputStream _read) {
         this.reader = _read;

@@ -171,7 +171,8 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 int len_ = songsList.size();
                 for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     String v_ = songsList.get(i);
-                    if (valid(StreamBinaryFile.loadFile(v_, getStreams()))) {
+                    byte[] bytes_ = StreamBinaryFile.loadFile(v_, getStreams());
+                    if (bytes_.length > 0&&bytes_[0]=='<'||valid(bytes_)) {
                         filter_.add(v_);
                     }
                 }

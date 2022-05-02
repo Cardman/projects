@@ -30,7 +30,7 @@ public final class DefZipFact implements AbstractZipFact {
                 zis_.closeEntry();
                 continue;
             }
-            byte[] bytes_ = new byte[1];
+            byte[] bytes_ = new byte[1024];
             while (true) {
                 int read_ = zis_.read(bytes_, 0, bytes_.length);
                 if (read_ <= 0) {
