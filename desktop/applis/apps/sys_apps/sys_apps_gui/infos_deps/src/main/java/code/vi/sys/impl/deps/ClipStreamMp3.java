@@ -1,4 +1,4 @@
-package code.vi.sys.impl;
+package code.vi.sys.impl.deps;
 
 import code.stream.AbsClipStream;
 import code.stream.LineShortListenable;
@@ -8,7 +8,7 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import java.io.ByteArrayInputStream;
 
-public class ClipStreamMp3 implements AbsClipStream {
+public final class ClipStreamMp3 implements AbsClipStream {
     private final byte[] bytes;
     private AdvancedPlayer pl;
     private final AbstractThreadFactory abstractThreadFactory;
@@ -33,7 +33,6 @@ public class ClipStreamMp3 implements AbsClipStream {
         }
     }
 
-    @Override
     public long getFramePosition() {
         return frame;
     }
@@ -55,11 +54,15 @@ public class ClipStreamMp3 implements AbsClipStream {
     @Override
     public void addLineListener(LineShortListenable _line) {
         speakingMp3Event = new SpeakingMp3Event(_line);
-        start(0);
+        startMp3(0);
     }
 
     @Override
-    public void start(int _framePosition) {
+    public void resume() {
+        startMp3((int) getFramePosition());
+    }
+
+    public void startMp3(int _framePosition) {
         pl = player(bytes);
         loop(_framePosition);
     }

@@ -1,4 +1,4 @@
-package code.vi.sys.impl;
+package code.vi.sys.impl.deps;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
 

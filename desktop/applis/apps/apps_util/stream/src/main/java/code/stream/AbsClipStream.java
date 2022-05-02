@@ -4,12 +4,10 @@ public interface AbsClipStream {
 
     long getMicrosecondLength();
 
-    long getFramePosition();
-
     boolean isRunning();
 
     void addLineListener(LineShortListenable _line);
-    void start(int _framePosition);
+    void resume();
 
     void stop(long _lastPosition);
 

@@ -274,7 +274,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 clipStream.stop(elapsed);
             } else {
                 pausing = false;
-                clipStream.start((int) clipStream.getFramePosition());
+                clipStream.resume();
             }
 
         }
@@ -497,13 +497,15 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     }
 
     @Override
-    public void update(String _type, int _typeAudio, long _position) {
+    public void update(String _type, long _position) {
         String ev_ = toLowerCase(_type);
-        if (_typeAudio == 0) {
-            wav(ev_);
-        } else {
-            mp3(ev_);
-        }
+        wav(ev_);
+    }
+
+    @Override
+    public void updateMp3(String _type, long _position) {
+        String ev_ = toLowerCase(_type);
+        mp3(ev_);
     }
 
     private void wav(String _ev) {

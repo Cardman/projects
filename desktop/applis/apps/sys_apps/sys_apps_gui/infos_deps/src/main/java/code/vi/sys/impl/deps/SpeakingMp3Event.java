@@ -1,4 +1,4 @@
-package code.vi.sys.impl;
+package code.vi.sys.impl.deps;
 
 import code.stream.LineShortListenable;
 import javazoom.jl.player.advanced.PlaybackEvent;
@@ -15,12 +15,12 @@ public final class SpeakingMp3Event extends PlaybackListener {
 
     @Override
     public void playbackStarted(PlaybackEvent _event) {
-        window.update(START_MP_3,1,_event.getFrame());
+        window.updateMp3(START_MP_3, _event.getFrame());
     }
 
     @Override
     public void playbackFinished(PlaybackEvent _event) {
-        window.update(STOP_MP_3,1,_event.getFrame());
+        window.updateMp3(STOP_MP_3, _event.getFrame());
     }
 
 

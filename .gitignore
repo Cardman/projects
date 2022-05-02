@@ -340,6 +340,11 @@
 !/desktop/applis/apps/sys_apps/sys_apps_gui/infos_core/src/
 !/desktop/applis/apps/sys_apps/sys_apps_gui/infos_core/src/**/
 !/desktop/applis/apps/sys_apps/sys_apps_gui/infos_core/src/**/*.java
+!/desktop/applis/apps/sys_apps/sys_apps_gui/infos_deps/
+!/desktop/applis/apps/sys_apps/sys_apps_gui/infos_deps/pom.xml
+!/desktop/applis/apps/sys_apps/sys_apps_gui/infos_deps/src/
+!/desktop/applis/apps/sys_apps/sys_apps_gui/infos_deps/src/**/
+!/desktop/applis/apps/sys_apps/sys_apps_gui/infos_deps/src/**/*.java
 !/desktop/applis/apps/sys_apps/sys_apps_gui/other/
 !/desktop/applis/apps/sys_apps/sys_apps_gui/other/pom.xml
 !/desktop/applis/apps/sys_apps/sys_apps_gui/other/src/

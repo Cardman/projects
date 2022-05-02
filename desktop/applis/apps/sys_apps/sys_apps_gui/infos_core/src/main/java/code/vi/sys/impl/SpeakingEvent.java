@@ -15,7 +15,7 @@ public final class SpeakingEvent implements LineListener {
 
     @Override
     public void update(LineEvent _event) {
-        window.update(_event.getType().toString(),0,_event.getFramePosition());
+        window.update(_event.getType().toString(), _event.getFramePosition());
     }
 
 }

@@ -42,6 +42,10 @@ public final class ClipStream implements AbsClipStream {
     }
 
     @Override
+    public void resume() {
+        start((int) getFramePosition());
+    }
+
     public void start(int _framePosition) {
         setFramePosition(_framePosition);
         clip.start();

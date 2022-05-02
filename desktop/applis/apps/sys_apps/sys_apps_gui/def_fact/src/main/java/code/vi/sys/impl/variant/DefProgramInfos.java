@@ -1,14 +1,13 @@
 package code.vi.sys.impl.variant;
 
 import code.gui.initialize.AbstractLightProgramInfos;
-import code.gui.initialize.AbstractProgramInfos;
 import code.vi.prot.impl.variant.GraphicComboBoxGenerator;
 import code.vi.prot.impl.variant.GraphicListGeneratorStr;
 import code.vi.prot.impl.variant.GraphicStringListGenerator;
 import code.vi.prot.impl.variant.LigDefProgramInfos;
-import code.vi.sys.impl.ProgramInfos;
+import code.vi.sys.impl.deps.ProgramInfosDeps;
 
-public final class DefProgramInfos extends ProgramInfos {
+public final class DefProgramInfos extends ProgramInfosDeps {
     public DefProgramInfos() {
         super(new GraphicStringListGenerator(), new GraphicComboBoxGenerator(), new GraphicListGeneratorStr());
     }

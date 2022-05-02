@@ -21,9 +21,6 @@ import code.util.core.StringUtil;
 import code.vi.maths.random.AdvancedGenerator;
 import code.vi.prot.impl.*;
 import code.vi.sys.impl.gui.DefFrameFactory;
-import javazoom.jl.decoder.Bitstream;
-import javazoom.jl.decoder.Header;
-import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageInputStream;
@@ -278,32 +275,6 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         } catch (Exception e) {
             return null;
         }
-    }
-
-    @Override
-    public AbsClipStream openMp3(byte[] _file) {
-        ByteArrayInputStream bis_ = new ByteArrayInputStream(_file);
-        try {
-            Bitstream bitstream_ = new Bitstream(bis_);
-            Header header_ = bitstream_.readFrame();
-            double millis_ = header_.total_ms(_file.length);
-            long ratio_ = (long) header_.ms_per_frame();
-            long micros_ = (long)millis_;
-            micros_ *= 1000;
-            AdvancedPlayer player_ = ClipStreamMp3.player(_file);
-            return ret(micros_,ratio_, player_,_file);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private ClipStreamMp3 ret(long _micros, long _ratio, AdvancedPlayer _pl, byte[] _bytes) {
-        close(_pl);
-        return new ClipStreamMp3(_bytes, getThreadFactory(), _micros,_ratio);
-    }
-
-    private void close(AdvancedPlayer _pl) {
-        _pl.close();
     }
 
     @Override
