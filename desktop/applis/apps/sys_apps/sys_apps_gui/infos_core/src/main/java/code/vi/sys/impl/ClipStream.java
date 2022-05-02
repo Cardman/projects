@@ -21,16 +21,8 @@ public final class ClipStream implements AbsClipStream {
         return clip.getMicrosecondLength();
     }
 
-    public long getMicrosecondPosition() {
-        return clip.getMicrosecondPosition();
-    }
-
-    public int getFramePosition() {
+    public long getFramePosition() {
         return clip.getFramePosition();
-    }
-
-    public int getFrameLength() {
-        return clip.getFrameLength();
     }
 
     public boolean isRunning() {
@@ -42,23 +34,28 @@ public final class ClipStream implements AbsClipStream {
     }
 
     public void addLineListener(LineShortListenable _line) {
+        start();
         clip.addLineListener(new SpeakingEvent(_line));
     }
     public void start() {
         clip.start();
     }
 
-    public void stop() {
-        clip.stop();
-    }
-
-    public void closeClip() {
-        clip.close();
+    @Override
+    public void start(int _framePosition) {
+        setFramePosition(_framePosition);
+        clip.start();
     }
 
     @Override
-    public void closeStream() {
-        StreamCoreUtil.close(stream);
+    public void stop(long _lastPosition) {
+        clip.stop();
+    }
+
+    @Override
+    public boolean closeClipStream() {
+        clip.close();
+        return StreamCoreUtil.close(stream);
     }
 
 }

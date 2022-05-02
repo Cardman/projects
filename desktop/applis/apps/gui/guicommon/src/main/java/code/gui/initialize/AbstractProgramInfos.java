@@ -21,6 +21,7 @@ public interface AbstractProgramInfos extends AbstractLightProgramInfos {
     AbstractFileCoreStream getFileCoreStream();
 
     AbsClipStream openClip(byte[] _file);
+    AbsClipStream openMp3(byte[] _file);
     AbstractImage readImg(String _file);
     AbstractSocketFactory getSocketFactory();
     AbstractLightProgramInfos light();

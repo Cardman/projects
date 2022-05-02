@@ -4,16 +4,13 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.AbsGroupFrame;
-import code.stream.*;
-import code.vi.prot.impl.*;
-import code.vi.sys.impl.gui.DefFrameFactory;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
-import code.vi.maths.random.AdvancedGenerator;
 import code.stream.AbsClipStream;
 import code.stream.AbstractFileCoreStream;
+import code.stream.StreamBinaryFile;
 import code.stream.core.*;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
@@ -21,6 +18,12 @@ import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
+import code.vi.maths.random.AdvancedGenerator;
+import code.vi.prot.impl.*;
+import code.vi.sys.impl.gui.DefFrameFactory;
+import javazoom.jl.decoder.Bitstream;
+import javazoom.jl.decoder.Header;
+import javazoom.jl.player.advanced.AdvancedPlayer;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageInputStream;
@@ -31,7 +34,8 @@ import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 public abstract class ProgramInfos implements AbstractProgramInfos {
 
@@ -270,12 +274,36 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
             AudioInputStream audioIn_ = AudioSystem.getAudioInputStream(bis_);
             Clip clip_ = AudioSystem.getClip();
             clip_.open(audioIn_);
-            StreamCoreUtil.close(bis_);
             return new ClipStream(clip_,audioIn_);
         } catch (Exception e) {
-            StreamCoreUtil.close(bis_);
             return null;
         }
+    }
+
+    @Override
+    public AbsClipStream openMp3(byte[] _file) {
+        ByteArrayInputStream bis_ = new ByteArrayInputStream(_file);
+        try {
+            Bitstream bitstream_ = new Bitstream(bis_);
+            Header header_ = bitstream_.readFrame();
+            double millis_ = header_.total_ms(_file.length);
+            long ratio_ = (long) header_.ms_per_frame();
+            long micros_ = (long)millis_;
+            micros_ *= 1000;
+            AdvancedPlayer player_ = ClipStreamMp3.player(_file);
+            return ret(micros_,ratio_, player_,_file);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private ClipStreamMp3 ret(long _micros, long _ratio, AdvancedPlayer _pl, byte[] _bytes) {
+        close(_pl);
+        return new ClipStreamMp3(_bytes, getThreadFactory(), _micros,_ratio);
+    }
+
+    private void close(AdvancedPlayer _pl) {
+        _pl.close();
     }
 
     @Override
@@ -298,8 +326,9 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         MemoryCacheImageOutputStream mem_ = new MemoryCacheImageOutputStream(baos_);
         try {
             ImageIO.write((RenderedImage) ((DefImage) _img).data(), _format, mem_);
+            byte[] content_ = baos_.toByteArray();
             StreamCoreUtil.close(mem_);
-            return StreamBinaryFile.writeFile(StringUtil.nullToEmpty(_file),baos_.toByteArray(),getStreams());
+            return StreamBinaryFile.writeFile(StringUtil.nullToEmpty(_file), content_,getStreams());
         } catch (Exception e) {
             StreamCoreUtil.close(mem_);
             return false;
