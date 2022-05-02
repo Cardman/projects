@@ -6,5 +6,6 @@ public interface AbsSoundRecord {
     void restore();
     boolean isActive();
     byte[] recordSong();
+    boolean recordSongInFile(String _file);
     void stop();
 }

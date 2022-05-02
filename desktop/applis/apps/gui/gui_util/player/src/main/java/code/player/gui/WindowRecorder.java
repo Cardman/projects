@@ -4,7 +4,6 @@ import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.AbsSoundRecord;
-import code.stream.StreamBinaryFile;
 
 public final class WindowRecorder extends GroupFrame {
     private final AbsSlider rate;
@@ -121,12 +120,10 @@ public final class WindowRecorder extends GroupFrame {
     public void tryRecord(String _file) {
         recordSong.setEnabled(false);
         stopSong.setEnabled(true);
-        byte[] bytes_ = soundRecord.recordSong();
-        if (bytes_.length == 0) {
-            error();
-        } else {
-            StreamBinaryFile.writeFile(_file,bytes_,getStreams());
+        if (soundRecord.recordSongInFile(_file)) {
+            return;
         }
+        error();
     }
     public void error() {
         setState();

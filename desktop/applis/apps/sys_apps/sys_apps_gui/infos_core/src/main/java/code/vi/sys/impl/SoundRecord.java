@@ -5,6 +5,7 @@ import code.stream.AbsSoundRecord;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public final class SoundRecord implements AbsSoundRecord {
     private AudioFormat candidateFormat;
@@ -45,9 +46,15 @@ public final class SoundRecord implements AbsSoundRecord {
     public byte[] recordSong() {
         byte[] bytes_ = new byte[0];
         try {
-            currentLine = (TargetDataLine)AudioSystem.getLine(currentInfo);
-            currentLine.open(currentFormat);
-            currentLine.start();
+            currentLine = line();
+            return recBytes();
+        } catch (Exception e) {
+            return bytes_;
+        }
+    }
+    private byte[] recBytes(){
+        byte[] bytes_ = new byte[0];
+        try {
             // start capturing
             AudioInputStream ais_ = new AudioInputStream(currentLine);
             // start recording
@@ -59,6 +66,38 @@ public final class SoundRecord implements AbsSoundRecord {
         } catch (Exception e) {
             currentLine = null;
             return bytes_;
+        }
+    }
+    @Override
+    public boolean recordSongInFile(String _file) {
+        try {
+            currentLine = line();
+            return rec(_file);
+        } catch (Exception e) {
+            currentLine = null;
+            return false;
+        }
+    }
+    private TargetDataLine line() {
+        try {
+            currentLine = (TargetDataLine)AudioSystem.getLine(currentInfo);
+            currentLine.open(currentFormat);
+            currentLine.start();
+            return currentLine;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    private boolean rec(String _file) {
+        try {
+            // start capturing
+            AudioInputStream aisFile_ = new AudioInputStream(currentLine);
+            // start recording
+            AudioSystem.write(aisFile_, AudioFileFormat.Type.WAVE, new File(_file));
+            aisFile_.close();
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
