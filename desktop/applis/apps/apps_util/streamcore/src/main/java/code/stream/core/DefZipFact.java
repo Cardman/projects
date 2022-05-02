@@ -67,8 +67,9 @@ public final class DefZipFact implements AbstractZipFact {
             zos_.closeEntry();
         }
         // remember close it
+        byte[] bytes_ = zos_.byteArray();
         zos_.close();
-        return zos_.byteArray();
+        return bytes_;
     }
 
 }
