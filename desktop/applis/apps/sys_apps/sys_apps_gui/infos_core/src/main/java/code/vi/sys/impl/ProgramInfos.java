@@ -9,6 +9,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.*;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.AbsClipStream;
+import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamBinaryFile;
 import code.stream.core.*;
@@ -275,6 +276,11 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public AbsSoundRecord newSoundPattern() {
+        return new SoundRecord();
     }
 
     @Override

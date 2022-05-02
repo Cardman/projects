@@ -3,6 +3,7 @@ package code.gui.initialize;
 import code.gui.AbsGroupFrame;
 import code.gui.images.AbstractImage;
 import code.stream.AbsClipStream;
+import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
 import code.threads.AbstractAtomicInteger;
@@ -28,4 +29,6 @@ public interface AbstractProgramInfos extends AbstractLightProgramInfos {
     boolean writeImg(String _format, String _file, AbstractImage _img);
     int getScreenWidth();
     int getScreenHeight();
+
+    AbsSoundRecord newSoundPattern();
 }
