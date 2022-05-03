@@ -2,10 +2,13 @@ package code.vi.sys.impl;
 
 import code.maths.litteralcom.MathExpUtil;
 import code.stream.AbsSoundRecord;
+import code.vi.prot.impl.DefaultFile;
+import code.vi.prot.impl.StreamCoreUtil;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 
 public final class SoundRecord implements AbsSoundRecord {
     private AudioFormat candidateFormat;
@@ -69,13 +72,13 @@ public final class SoundRecord implements AbsSoundRecord {
         }
     }
     @Override
-    public boolean recordSongInFile(String _file) {
+    public byte[] recordSongInFile(String _file) {
         try {
             currentLine = line();
             return rec(_file);
         } catch (Exception e) {
             currentLine = null;
-            return false;
+            return new byte[0];
         }
     }
     private TargetDataLine line() {
@@ -88,16 +91,40 @@ public final class SoundRecord implements AbsSoundRecord {
             return null;
         }
     }
-    private boolean rec(String _file) {
+    private byte[] rec(String _file) {
+        byte[] w_ = new byte[0];
         try {
             // start capturing
             AudioInputStream aisFile_ = new AudioInputStream(currentLine);
             // start recording
-            AudioSystem.write(aisFile_, AudioFileFormat.Type.WAVE, new File(_file));
+            File out_ = DefaultFile.newFile(_file);
+            DefaultFile def_ = new DefaultFile(_file);
+            int write_ = AudioSystem.write(aisFile_, AudioFileFormat.Type.WAVE, out_);
             aisFile_.close();
-            return true;
+            w_ = new byte[write_];
+            FileInputStream fi_ = file(out_);
+            read(w_, fi_);
+            StreamCoreUtil.close(fi_);
+            def_.delete();
+            return w_;
         } catch (Exception e) {
-            return false;
+            return w_;
+        }
+    }
+
+    private int read(byte[] _w, FileInputStream _fi) {
+        try {
+            return _fi.read(_w);
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    private static FileInputStream file(File _out) {
+        try {
+            return new FileInputStream(_out);
+        } catch (Exception e) {
+            return null;
         }
     }
 

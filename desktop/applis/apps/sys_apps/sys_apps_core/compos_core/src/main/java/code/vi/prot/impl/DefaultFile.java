@@ -12,7 +12,11 @@ public final class DefaultFile implements AbstractFile {
     private final File file;
 
     public DefaultFile(String _name) {
-        file = new File(StringUtil.nullToEmpty(_name));
+        file = newFile(_name);
+    }
+
+    public static File newFile(String _name) {
+        return new File(StringUtil.nullToEmpty(_name));
     }
 
     @Override
