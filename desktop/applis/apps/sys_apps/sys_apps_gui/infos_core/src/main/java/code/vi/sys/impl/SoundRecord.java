@@ -2,13 +2,13 @@ package code.vi.sys.impl;
 
 import code.maths.litteralcom.MathExpUtil;
 import code.stream.AbsSoundRecord;
+import code.stream.StreamBinaryFile;
+import code.stream.core.TechStreams;
 import code.vi.prot.impl.DefaultFile;
-import code.vi.prot.impl.StreamCoreUtil;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 
 public final class SoundRecord implements AbsSoundRecord {
     private AudioFormat candidateFormat;
@@ -16,6 +16,11 @@ public final class SoundRecord implements AbsSoundRecord {
     private TargetDataLine currentLine;
     private DataLine.Info candidateInfo;
     private DataLine.Info currentInfo;
+    private final TechStreams str;
+
+    public SoundRecord(TechStreams _streams) {
+        str = _streams;
+    }
 
     @Override
     public boolean supported(long _sampleRate, int _sampleSize, int _channels, boolean _signed, boolean _bigEndian) {
@@ -99,32 +104,13 @@ public final class SoundRecord implements AbsSoundRecord {
             // start recording
             File out_ = DefaultFile.newFile(_file);
             DefaultFile def_ = new DefaultFile(_file);
-            int write_ = AudioSystem.write(aisFile_, AudioFileFormat.Type.WAVE, out_);
+            AudioSystem.write(aisFile_, AudioFileFormat.Type.WAVE, out_);
             aisFile_.close();
-            w_ = new byte[write_];
-            FileInputStream fi_ = file(out_);
-            read(w_, fi_);
-            StreamCoreUtil.close(fi_);
+            w_ =  StreamBinaryFile.loadFile(_file,str);
             def_.delete();
             return w_;
         } catch (Exception e) {
             return w_;
-        }
-    }
-
-    private int read(byte[] _w, FileInputStream _fi) {
-        try {
-            return _fi.read(_w);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-    private static FileInputStream file(File _out) {
-        try {
-            return new FileInputStream(_out);
-        } catch (Exception e) {
-            return null;
         }
     }
 

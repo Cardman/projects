@@ -280,7 +280,7 @@ public abstract class ProgramInfos implements AbstractProgramInfos {
 
     @Override
     public AbsSoundRecord newSoundPattern() {
-        return new SoundRecord();
+        return new SoundRecord(getStreams());
     }
 
     @Override
