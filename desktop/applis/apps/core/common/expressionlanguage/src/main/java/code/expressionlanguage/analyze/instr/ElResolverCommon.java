@@ -72,7 +72,7 @@ public final class ElResolverCommon {
         return _n > -1 && (StringExpUtil.isDigit(_string.charAt(_n)) || _string.charAt(_n) == ElResolver.DOT_VAR);
     }
 
-    static NumberInfosOutput processNb(KeyWords _key, int _start, int _max, String _string, boolean _seenDot) {
+    static NumberInfosOutput processNb(KeyWords _key, int _start, String _string, boolean _seenDot) {
         //_string.charAt(_start) is digit
         NumberInfosOutput output_ = new NumberInfosOutput();
         NumberInfos nbInfos_ = new NumberInfos();
@@ -83,13 +83,31 @@ public final class ElResolverCommon {
         nbInfos_.setIntPart(intPart_);
         nbInfos_.setDecimalPart(decPart_);
         nbInfos_.setExponentialPart(expPart_);
+        int init_ = tryStart(_seenDot, _key, _string, _start, output_);
+        if (init_ <= _start) {
+            return output_;
+        }
+        int j_ = init_;
+        int len_ = _string.length();
+        while (j_ < len_) {
+            int nextIncr_ = tryIncr(_seenDot,_key,_string,j_,output_);
+            if (nextIncr_ <= j_) {
+                return output_;
+            }
+            j_ = nextIncr_;
+        }
+        afterLoop(_key,_string,false, false, output_, j_);
+        return output_;
+    }
+    private static int tryStart(boolean _seenDot,KeyWords _key, String _string, int _start,NumberInfosOutput _output) {
+        NumberInfos nbInfos_ = _output.getInfos();
+        StringBuilder intPart_ = nbInfos_.getIntPart();
+        StringBuilder decPart_ = nbInfos_.getDecimalPart();
         int start_ = _start;
         char startChar_ = _string.charAt(start_);
         int base_ = 10;
         String hexPre_ = _key.getKeyWordNbHex();
         String binPre_ = _key.getKeyWordNbBin();
-        String decExp_ = _key.getKeyWordNbExpDec();
-        String binExp_ = _key.getKeyWordNbExpBin();
         if (_seenDot) {
             nbInfos_.setSuffix(ElResolver.DOUBLE);
             decPart_.append(startChar_);
@@ -99,208 +117,244 @@ public final class ElResolverCommon {
             if (StringUtil.isWhitespace(startChar_)) {
                 nbInfos_.setError(true);
             }
-        } else {
-            nbInfos_.setSuffix(ElResolver.INTEGER);
-            if (startChar_ == '0') {
-                String sub_ = _string.substring(start_ + 1);
-                if (start_ + 1 < _max) {
-                    SuffixedNumber suff_ = _key.getNbKeyWord(sub_, 0);
-                    if (suff_ != null) {
-                        char ch_ = suff_.getValue();
-                        nbInfos_.setSuffix(ch_);
-                        intPart_.append(startChar_);
-                        output_.setNextIndex(start_ + 1 + suff_.getKey().length());
-                        return output_;
-                    }
-                    if (sub_.startsWith(hexPre_)) {
-                        base_ = 16;
-                        start_+=hexPre_.length();
-                        start_++;
-                        if (start_ >= _max) {
-                            output_.setNextIndex(_max);
-                            nbInfos_.setError(true);
-                            return output_;
-                        }
-                        startChar_ = _string.charAt(start_);
-                    } else {
-                        if (sub_.startsWith(binPre_)) {
-                            base_ = 2;
-                            start_+=binPre_.length();
-                            start_++;
-                            if (start_ >= _max) {
-                                output_.setNextIndex(_max);
-                                nbInfos_.setError(true);
-                                return output_;
-                            }
-                            startChar_ = _string.charAt(start_);
-                        } else {
-                            if (StringExpUtil.isDigit(_string.charAt(start_ + 1))){
-                                base_ = 8;
-                                start_++;
-                                startChar_ = _string.charAt(start_);
-                            }
-                        }
-                    }
-                }
-            }
+            nbInfos_.setBase(base_);
+            return start_ + 1;
+        }
+        nbInfos_.setSuffix(ElResolver.INTEGER);
+        int len_ = _string.length();
+        if (startChar_ != '0' || start_ + 1 >= len_) {
             intPart_.append(startChar_);
+            nbInfos_.setBase(base_);
+            return start_ + 1;
         }
-        nbInfos_.setBase(base_);
-        int j_ = start_ + 1;
-        boolean dot_ = false;
-        boolean exp_ = false;
-        int iExp_ = j_;
-        while (j_ < _max) {
-            char current_ = _string.charAt(j_);
-            if (!StringExpUtil.isTypeLeafChar(current_)) {
-                int n_ = StringExpUtil.nextPrintChar(j_ + 1, _max, _string);
-                if (current_ == ElResolver.DOT_VAR) {
-                    if (_seenDot) {
-                        nbInfos_.setError(true);
-                        decPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    if (nbInfos_.isError()) {
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    if (n_ == -1) {
-                        if (base_ == 10) {
-                            nbInfos_.setSuffix(ElResolver.DOUBLE);
-                            output_.setNextIndex(j_ + 1);
-                            return output_;
-                        }
-                        nbInfos_.setError(true);
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    if (isWhite(j_ + 1, _max, _string) && isDigitOrDot(_string, n_)) {
-                        nbInfos_.setError(true);
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    if (_string.charAt(n_) == ElResolver.DOT_VAR) {
-                        nbInfos_.setError(true);
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                    dot_ = true;
-                }
-                if (isWhite(j_, _max, _string)) {
-                    if (nbInfos_.isError()) {
-                        append(_seenDot, intPart_, decPart_, current_);
-                        j_++;
-                        continue;
-                    }
-                    if (isDigitOrDot(_string,n_)) {
-                        nbInfos_.setError(true);
-                        intPart_.append(current_);
-                        j_++;
-                        continue;
-                    }
-                }
-                break;
-            }
-            String sub_ = _string.substring(j_);
-            int off_ = getExpLength(base_, decExp_, binExp_);
-            if (isExp(base_, decExp_, binExp_, sub_)) {
-                if (nbInfos_.isError()) {
-                    append(_seenDot, intPart_, decPart_, current_);
-                    j_++;
-                    continue;
-                }
-                if (isWhite(j_ + off_,_max,_string)) {
-                    nbInfos_.setError(true);
-                    append(_seenDot, intPart_, decPart_, current_);
-                    j_++;
-                    continue;
-                }
-                nbInfos_.setSuffix(ElResolver.DOUBLE);
-                iExp_ = j_ + off_ - 1;
-                j_ += off_ - 1;
-                exp_ = true;
-                break;
-            }
-            int dig_ = digitPart(current_, base_, _key);
-            if (dig_ < 0) {
-                String hexEnd_ = _key.getKeyWordNbHexEnd();
-                j_ = incrSep(j_,base_,sub_,hexEnd_);
-                boolean ok_ = processSuffix(_key, _string, output_, nbInfos_, j_);
-                if (ok_) {
-                    return output_;
-                }
+        SuffixedNumber suff_ = _key.getNbKeyWord(_string, start_ + 1);
+        if (suff_ != null) {
+            char ch_ = suff_.getValue();
+            nbInfos_.setSuffix(ch_);
+            intPart_.append(startChar_);
+            _output.setNextIndex(start_ + 1 + suff_.getKey().length());
+            return _start;
+        }
+        if (_string.startsWith(hexPre_, start_ + 1)) {
+            base_ = 16;
+            start_ += hexPre_.length();
+            start_++;
+            if (start_ >= len_) {
+                _output.setNextIndex(len_);
                 nbInfos_.setError(true);
-                append(_seenDot, intPart_, decPart_, current_);
-                j_++;
-                continue;
+                return _start;
             }
-            //current_ is digit or expected letter
+            startChar_ = _string.charAt(start_);
+            intPart_.append(startChar_);
+            nbInfos_.setBase(base_);
+            return start_ + 1;
+        }
+        if (_string.startsWith(binPre_, start_ + 1)) {
+            base_ = 2;
+            start_ += binPre_.length();
+            start_++;
+            if (start_ >= len_) {
+                _output.setNextIndex(len_);
+                nbInfos_.setError(true);
+                return _start;
+            }
+            startChar_ = _string.charAt(start_);
+            intPart_.append(startChar_);
+            nbInfos_.setBase(base_);
+            return start_ + 1;
+        }
+        if (StringExpUtil.isDigit(_string.charAt(start_ + 1))) {
+            base_ = 8;
+            start_++;
+            startChar_ = _string.charAt(start_);
+        }
+        intPart_.append(startChar_);
+        nbInfos_.setBase(base_);
+        return start_ + 1;
+    }
+    private static int tryIncr(boolean _seenDot,KeyWords _key, String _string, int _j,NumberInfosOutput _output) {
+        NumberInfos nbInfos_ = _output.getInfos();
+        StringBuilder intPart_ = nbInfos_.getIntPart();
+        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        String decExp_ = _key.getKeyWordNbExpDec();
+        String binExp_ = _key.getKeyWordNbExpBin();
+        char current_ = _string.charAt(_j);
+        if (current_ == ElResolver.DOT_VAR) {
+            return dotCase(_seenDot, _key, _string, _j, _output);
+        }
+        if (!StringExpUtil.isTypeLeafChar(current_)) {
+            return errOrExit(_seenDot, _key, _string, _j, _output, false);
+        }
+        int off_ = offExp(nbInfos_.getBase(), decExp_, binExp_, _string, _j);
+        if (off_ > 0) {
+            return expCase(_seenDot, _key, _string, _j, _output, off_);
+        }
+        int dig_ = digitPart(current_, nbInfos_.getBase(), _key);
+        if (dig_ >= 0) {//current_ is digit or expected letter
             append(_seenDot, intPart_, decPart_, (char) dig_);
-            j_++;
+            return _j + 1;
         }
-        if (dot_) {
-            nbInfos_.setSuffix(ElResolver.DOUBLE);
-            String sub_ = _string.substring(j_ + 1);
-            int off_ = getExpLength(base_, decExp_, binExp_);
-            if (isExp(base_, decExp_, binExp_, sub_)) {
-                j_+=off_;
-                //_string.charAt(j_) == EXP
-                processExp(_key, j_, _max, _string, output_);
-                return output_;
-            }
-            j_++;
-            boolean added_ = false;
-            while (j_ < _max) {
-                char curChar_ = _string.charAt(j_);
-                int dig_ = digitPart(curChar_, base_, _key);
-                if (dig_ < 0) {
-                    break;
-                }
-                decPart_.append((char) dig_);
-                added_ = true;
-                j_++;
-            }
-            if (!added_) {
-                processDotSuffix(_key,base_,sub_, _string, output_, j_, _max);
-                return output_;
-            }
-            if (j_ >= _max) {
-                output_.setNextIndex(j_);
-                return output_;
-            }
-            sub_ = _string.substring(j_);
-            if (isExp(base_, decExp_, binExp_, sub_)) {
-                j_+=off_-1;
-                processExp(_key, j_, _max, _string, output_);
-                return output_;
-            }
-            processDotSuffix(_key,base_,sub_, _string, output_, j_, _max);
-            return output_;
+        String hexEnd_ = _key.getKeyWordNbHexEnd();
+        int jAft_ = incrSep(_j, nbInfos_.getBase(), _string, hexEnd_);
+        boolean ok_ = processSuffix(_key, _string, _output, nbInfos_, jAft_);
+        if (ok_) {
+            return _j;
         }
-        if (exp_) {
-            //_string.charAt(iExp_) == EXP
-            processExp(_key, iExp_, _max, _string, output_);
-            return output_;
-        }
-        output_.setNextIndex(j_);
-        return output_;
+        nbInfos_.setError(true);
+        append(_seenDot, intPart_, decPart_, current_);
+        return jAft_ + 1;
     }
 
-    private static int incrSep(int _j, int _base, String _sub, String _hexEnd) {
+    private static int dotCase(boolean _seenDot, KeyWords _key, String _string, int _j, NumberInfosOutput _output) {
+        char current_ = _string.charAt(_j);
+        NumberInfos nbInfos_ = _output.getInfos();
+        StringBuilder intPart_ = nbInfos_.getIntPart();
+        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        int len_ = _string.length();
+        int n_ = StringExpUtil.nextPrintChar(_j + 1, len_, _string);
+        if (_seenDot) {
+            nbInfos_.setError(true);
+            decPart_.append(current_);
+            return _j + 1;
+        }
+        if (nbInfos_.isError()) {
+            intPart_.append(current_);
+            return _j + 1;
+        }
+        if (n_ == -1 && nbInfos_.getBase() == 10) {
+            nbInfos_.setSuffix(ElResolver.DOUBLE);
+            _output.setNextIndex(_j + 1);
+            return _j;
+        }
+        if (n_ == -1 || isWhite(_j + 1, _string) && isDigitOrDot(_string, n_) || _string.charAt(n_) == ElResolver.DOT_VAR) {
+            nbInfos_.setError(true);
+            intPart_.append(current_);
+            return _j + 1;
+        }
+        return errOrExit(false, _key, _string, _j, _output, true);
+    }
+
+    private static int errOrExit(boolean _seenDot, KeyWords _key, String _string, int _j, NumberInfosOutput _output, boolean _dot) {
+        int aft_ = incrDotErr(_seenDot, _output, _string, _j);
+        if (aft_ > _j) {
+            return aft_;
+        }
+        afterLoop(_key, _string, _dot,false, _output, _j);
+        return _j;
+    }
+
+    private static int expCase(boolean _seenDot, KeyWords _key, String _string, int _j, NumberInfosOutput _output, int _off) {
+        char current_ = _string.charAt(_j);
+        NumberInfos nbInfos_ = _output.getInfos();
+        StringBuilder intPart_ = nbInfos_.getIntPart();
+        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        if (nbInfos_.isError()) {
+            append(_seenDot, intPart_, decPart_, current_);
+            return _j + 1;
+        }
+        if (isWhite(_j + _off, _string)) {
+            nbInfos_.setError(true);
+            append(_seenDot, intPart_, decPart_, current_);
+            return _j + 1;
+        }
+        nbInfos_.setSuffix(ElResolver.DOUBLE);
+        afterLoop(_key, _string,false, true, _output, _j + _off - 1);
+        return _j;
+    }
+
+    private static int incrDotErr(boolean _seenDot,NumberInfosOutput _output, String _string, int _j) {
+        int len_ = _string.length();
+        int n_ = StringExpUtil.nextPrintChar(_j + 1, len_, _string);
+        char current_ = _string.charAt(_j);
+        NumberInfos nbInfos_ = _output.getInfos();
+        StringBuilder intPart_ = nbInfos_.getIntPart();
+        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        if (isWhite(_j, _string)) {
+            if (nbInfos_.isError()) {
+                append(_seenDot, intPart_, decPart_, current_);
+                return _j + 1;
+            }
+            if (isDigitOrDot(_string,n_)) {
+                nbInfos_.setError(true);
+                intPart_.append(current_);
+                return _j + 1;
+            }
+        }
+        return _j;
+    }
+    private static void afterLoop(KeyWords _key, String _string, boolean _dot, boolean _exp, NumberInfosOutput _output, int _j) {
+        if (_dot) {
+            afterDot(_key,_string, _output, _j);
+            return;
+        }
+        if (_exp) {
+            //_string.charAt(iExp_) == EXP
+            processExp(_key, _j, _string, _output);
+            return;
+        }
+        _output.setNextIndex(_j);
+    }
+    private static void afterDot(KeyWords _key, String _string, NumberInfosOutput _output, int _j) {
         int j_ = _j;
-        if (_base != 10 && _sub.startsWith(_hexEnd)) {
+        String decExp_ = _key.getKeyWordNbExpDec();
+        String binExp_ = _key.getKeyWordNbExpBin();
+        int len_ = _string.length();
+        NumberInfos nbInfos_ = _output.getInfos();
+        StringBuilder decPart_ = nbInfos_.getDecimalPart();
+        nbInfos_.setSuffix(ElResolver.DOUBLE);
+        int base_ = nbInfos_.getBase();
+        int offFirst_ = offExp(base_, decExp_, binExp_, _string, j_ + 1);
+        if (offFirst_ > 0) {
+            j_+=offFirst_;
+            //_string.charAt(j_) == EXP
+            processExp(_key, j_, _string, _output);
+            return;
+        }
+        j_++;
+        int afterDecPart_ = appendDec(_key, _string, j_, base_, decPart_);
+        if (afterDecPart_ <= j_) {
+            suffix(_key, _string, _output, incrSep(j_, base_, _string, _key.getKeyWordNbHexEnd()));
+            return;
+        }
+        j_ = afterDecPart_;
+        if (j_ >= len_) {
+            _output.setNextIndex(j_);
+            return;
+        }
+        int off_ = offExp(base_, decExp_, binExp_, _string, j_);
+        if (off_ > 0) {
+            j_+=off_-1;
+            processExp(_key, j_, _string, _output);
+            return;
+        }
+        suffix(_key, _string, _output, incrSep(j_, base_, _string, _key.getKeyWordNbHexEnd()));
+    }
+    private static int appendDec(KeyWords _key, String _string, int _j, int _base, StringBuilder _decPart) {
+        int len_ = _string.length();
+        int j_ = _j;
+        while (j_ < len_) {
+            char curChar_ = _string.charAt(j_);
+            int dig_ = digitPart(curChar_, _base, _key);
+            if (dig_ < 0) {
+                break;
+            }
+            _decPart.append((char) dig_);
+            j_++;
+        }
+        return j_;
+    }
+
+    private static int incrSep(int _j, int _base, String _string, String _hexEnd) {
+        int j_ = _j;
+        if (_base != 10 && _string.startsWith(_hexEnd,_j)) {
             j_ += _hexEnd.length();
         }
         return j_;
     }
 
-    private static boolean isWhite(int _current, int _max, String _str) {
-        return _current < _max && StringUtil.isWhitespace(_str.charAt(_current));
+    private static boolean isWhite(int _current, String _str) {
+        int len_ = _str.length();
+        return _current < len_ && StringUtil.isWhitespace(_str.charAt(_current));
     }
 
     private static void append(boolean _seenDot, StringBuilder _intPart, StringBuilder _decPart, char _current) {
@@ -311,12 +365,19 @@ public final class ElResolverCommon {
         }
     }
 
-    private static boolean isExp(int _base, String _decExp, String _binExp, String _sub) {
+    private static int offExp(int _base, String _decExp, String _binExp, String _string, int _from) {
+        int off_ = getExpLength(_base, _decExp, _binExp);
+        if (isExp(_base,_decExp,_binExp,_string,_from)) {
+            return off_;
+        }
+        return 0;
+    }
+    private static boolean isExp(int _base, String _decExp, String _binExp, String _string, int _from) {
         boolean exp_;
         if (_base == 10) {
-            exp_ = _sub.startsWith(_decExp);
+            exp_ = _string.startsWith(_decExp,_from);
         } else {
-            exp_ = _sub.startsWith(_binExp);
+            exp_ = _string.startsWith(_binExp,_from);
         }
         return exp_;
     }
@@ -331,18 +392,19 @@ public final class ElResolverCommon {
         return off_;
     }
 
-    private static void processDotSuffix(KeyWords _key, int _base, String _sub, String _string,
-                                         NumberInfosOutput _output, int _j, int _max) {
-        String hexEnd_ = _key.getKeyWordNbHexEnd();
-        int j_ = incrSep(_j,_base,_sub,hexEnd_);
-        SuffixedNumber suff_ = _key.getNbKeyWord(_string, j_);
+    private static void suffix(KeyWords _key, String _string, NumberInfosOutput _output, int _j) {
+        int j_ = _j;
+        j_ += incrSuff(_key, _string, _output, _j);
+        _output.setNextIndex(nextIndex(_key, j_, _string, _output, _output.getInfos().getDecimalPart()));
+    }
+    private static int incrSuff(KeyWords _key, String _string, NumberInfosOutput _output, int _j) {
+        SuffixedNumber suff_ = _key.getNbKeyWord(_string, _j);
         if (suff_ != null) {
-            j_ +=suff_.getKey().length();
             char su_ = suff_.getValue();
             _output.getInfos().setSuffix(su_);
+            return suff_.getKey().length();
         }
-        j_ = nextIndex(_key,j_, _max, _string, _output, _output.getInfos().getDecimalPart());
-        _output.setNextIndex(j_);
+        return 0;
     }
 
     private static boolean processSuffix(KeyWords _key, String _string, NumberInfosOutput _output, NumberInfos _nbInfos, int _j) {
@@ -397,90 +459,101 @@ public final class ElResolverCommon {
         return -1;
     }
 
-    private static void processExp(KeyWords _key, int _start, int _max, String _string, NumberInfosOutput _output) {
-        if (_start + 1 >= _max) {
+    private static void processExp(KeyWords _key, int _start, String _string, NumberInfosOutput _output) {
+        int len_ = _string.length();
+        int j_ = _start;
+        j_++;
+        if (j_ >= len_) {
             _output.getInfos().setError(true);
-            _output.setNextIndex(_max);
+            _output.setNextIndex(len_);
             return;
         }
         StringBuilder exp_ = _output.getInfos().getExponentialPart();
-        int j_ = _start;
-        j_++;
         if (_string.charAt(j_) == ElResolver.MINUS_CHAR || _string.charAt(j_) == ElResolver.PLUS_CHAR) {
-            if (j_ + 1 >= _max) {
-                _output.getInfos().setError(true);
-                _output.setNextIndex(j_);
-                return;
-            }
-            if (!StringExpUtil.isDigit(_string.charAt(j_+1))) {
+            if (j_ + 1 >= len_ || !StringExpUtil.isDigit(_string.charAt(j_ + 1))) {
                 _output.getInfos().setError(true);
                 _output.setNextIndex(j_);
                 return;
             }
             exp_.append(_string.charAt(j_));
             j_++;
-        } else {
-            if (!StringExpUtil.isDigit(_string.charAt(j_))) {
-                _output.getInfos().setError(true);
-                if (!StringExpUtil.isTypeLeafChar(_string.charAt(j_))) {
-                    int n_ = StringExpUtil.nextPrintChar(j_+1, _max, _string);
-                    if (n_ < 0) {
-                        _output.setNextIndex(j_);
-                        return;
-                    }
-                    if (!StringExpUtil.isTypeLeafChar(_string.charAt(n_))) {
-                        _output.setNextIndex(j_);
-                        return;
-                    }
-                    if (!StringUtil.isWhitespace(_string.charAt(j_))) {
-                        _output.setNextIndex(j_);
-                        return;
-                    }
-                    while (j_ < n_) {
-                        exp_.append(_string.charAt(j_));
-                        j_++;
-                    }
-                }
+            expDigitsAndSuffix(_key,_string,exp_,j_,_output);
+            return;
+        }
+        if (!StringExpUtil.isDigit(_string.charAt(j_))) {
+            unsignedExpErr(_key, _string, _output, exp_, j_);
+            return;
+        }
+        expDigitsAndSuffix(_key,_string,exp_,j_,_output);
+    }
+
+    private static void unsignedExpErr(KeyWords _key, String _string, NumberInfosOutput _output, StringBuilder _exp, int _j) {
+        int len_ = _string.length();
+
+        int j_ = _j;
+        _output.getInfos().setError(true);
+        if (!StringExpUtil.isTypeLeafChar(_string.charAt(j_))) {
+            int n_ = StringExpUtil.nextPrintChar(j_ +1, len_, _string);
+            if (n_ < 0 || !StringExpUtil.isTypeLeafChar(_string.charAt(n_)) || !StringUtil.isWhitespace(_string.charAt(j_))) {
+                _output.setNextIndex(j_);
+                return;
+            }
+            while (j_ < n_) {
+                _exp.append(_string.charAt(j_));
+                j_++;
             }
         }
-        while (j_ < _max) {
-            int dig_ = digitPart(_string.charAt(j_), 10, _key);
-            if (dig_ < 0) {
-                break;
-            }
-            exp_.append((char) dig_);
-            j_++;
-        }
-        int n_ = StringExpUtil.nextPrintChar(j_, _max, _string);
+        expDigitsAndSuffix(_key, _string, _exp, j_, _output);
+    }
+
+    private static void expDigitsAndSuffix(KeyWords _key, String _string, StringBuilder _exp, int _j, NumberInfosOutput _output) {
+        int len_ = _string.length();
+        int j_ = appendDigitToExp(_key,_string,_exp,_j);
+        int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
         if (n_ > -1 && _string.charAt(n_) == ElResolver.DOT_VAR) {
             _output.getInfos().setError(true);
             _output.setNextIndex(n_);
             return;
         }
-        if (j_ < _max && StringDataLetterUtil.isLetter(_string.charAt(j_))) {
-            SuffixedNumber keyWord_ = _key.getNbKeyWord(_string, j_);
-            if (keyWord_ != null) {
-                char suf_ = keyWord_.getValue();
-                _output.getInfos().setSuffix(suf_);
-                j_+=keyWord_.getKey().length();
+        afterExp(_key, _string, _output, _exp, j_);
+    }
+    private static int appendDigitToExp(KeyWords _key, String _string, StringBuilder _exp, int _j){
+        int len_ = _string.length();
+        int j_ = _j;
+        while (j_ < len_) {
+            int dig_ = digitPart(_string.charAt(j_), 10, _key);
+            if (dig_ < 0) {
+                break;
             }
+            _exp.append((char) dig_);
+            j_++;
         }
-        j_ = nextIndex(_key,j_, _max, _string, _output, exp_);
-        _output.setNextIndex(j_);
+        return j_;
+    }
+    private static void afterExp(KeyWords _key, String _string, NumberInfosOutput _output, StringBuilder _exp, int _j) {
+        int len_ = _string.length();
+        int j_ = _j;
+        if (j_ < len_ && StringDataLetterUtil.isLetter(_string.charAt(j_))) {
+            j_ += incrSuff(_key, _string, _output, j_);
+        }
+        _output.setNextIndex(nextIndex(_key, j_, _string, _output, _exp));
     }
 
-    private static int nextIndex(KeyWords _key, int _j, int _max, String _string, NumberInfosOutput _output, StringBuilder _str) {
+    private static int nextIndex(KeyWords _key, int _j, String _string, NumberInfosOutput _output, StringBuilder _str) {
+        int len_ = _string.length();
         int j_ = _j;
-        if (j_ < _max) {
-            if (unexpectedWordChars(_key, _max, _string, j_)) {
+        if (j_ < len_) {
+            char first_ = _string.charAt(j_);
+            if (unexpectedWordChars(_key, _string, j_, first_)) {
                 _output.getInfos().setError(true);
-                _str.append(_string.charAt(j_));
+                _str.append(first_);
                 j_++;
-                while (j_ < _max) {
-                    if (!unexpectedWordChars(_key, _max, _string, j_)) {
+                while (j_ < len_) {
+                    char cur_ = _string.charAt(j_);
+                    if (!unexpectedWordChars(_key, _string, j_, cur_)) {
                         break;
                     }
-                    _str.append(_string.charAt(j_));
+                    _str.append(cur_);
                     j_++;
                 }
             }
@@ -488,21 +561,17 @@ public final class ElResolverCommon {
         return j_;
     }
 
-    private static boolean unexpectedWordChars(KeyWords _key, int _max, String _string, int _j) {
-        return hasSpaceByWordChar(_key,_max, _string, _j)|| StringExpUtil.isDollarWordChar(_string.charAt(_j));
+    private static boolean unexpectedWordChars(KeyWords _key, String _string, int _j, char _cur) {
+        return hasSpaceByWordChar(_key, _string, _j, _cur)|| StringExpUtil.isDollarWordChar(_cur);
     }
 
-    private static boolean hasSpaceByWordChar(KeyWords _key, int _max, String _string, int _j) {
-        boolean space_ = false;
-        if (StringUtil.isWhitespace(_string.charAt(_j)) ) {
-            int n_ = StringExpUtil.nextPrintChar(_j, _max, _string);
-            if (n_ > -1 && StringExpUtil.isDollarWordChar(_string.charAt(n_))) {
-                if (!StringExpUtil.startsWithKeyWord(_string,n_,_key.getKeyWordInstanceof())) {
-                    space_ = true;
-                }
-            }
+    private static boolean hasSpaceByWordChar(KeyWords _key, String _string, int _j, char _ch) {
+        if (StringUtil.isWhitespace(_ch) ) {
+            int len_ = _string.length();
+            int n_ = StringExpUtil.nextPrintChar(_j, len_, _string);
+            return n_ > -1 && StringExpUtil.isDollarWordChar(_string.charAt(n_)) && !StringExpUtil.startsWithKeyWord(_string, n_, _key.getKeyWordInstanceof());
         }
-        return space_;
+        return false;
     }
 
     private static boolean processedCorrectOrContinue(String _string, int _j) {
@@ -520,51 +589,50 @@ public final class ElResolverCommon {
 
     static int incrInstanceOf(String _string, int _len, int _next) {
         int next_ = incrType(_next,_string);
-        if (next_ < _len && _string.charAt(next_) == ElResolver.LOWER_CHAR) {
-            int nbOpened_ = 1;
-            next_++;
-            while (next_ < _len) {
-                char curLoc_ = _string.charAt(next_);
-                if (curLoc_ == ElResolver.LOWER_CHAR) {
-                    nbOpened_++;
-                    next_++;
-                    continue;
-                }
-                if (nbOpened_ == 0 && !StringUtil.isWhitespace(curLoc_)) {
-                    break;
-                }
-                if (curLoc_ == ElResolver.GREATER_CHAR) {
-                    nbOpened_--;
-                    next_++;
-                    if (nbOpened_ == 0) {
-                        String substring_ = _string.substring(next_);
-                        if (substring_.trim().startsWith(".")) {
-                            next_ = incrType(next_,_string);
-                        }
-                    }
-                    continue;
-                }
+        if (next_ >= _len || _string.charAt(next_) != ElResolver.LOWER_CHAR) {
+            return fromArrLeft(_string,_len,next_);
+        }
+        int nbOpened_ = 1;
+        next_++;
+        while (next_ < _len) {
+            char curLoc_ = _string.charAt(next_);
+            if (curLoc_ != ElResolver.LOWER_CHAR&&nbOpened_ == 0 && !StringUtil.isWhitespace(curLoc_)) {
+                break;
+            }
+            if (curLoc_ == ElResolver.LOWER_CHAR) {
+                nbOpened_++;
+                next_++;
+            } else  if (curLoc_ == ElResolver.GREATER_CHAR) {
+                nbOpened_--;
+                next_++;
+                next_ = incrAfterGtInstanceOf(_string,nbOpened_,next_);
+            } else {
                 next_++;
             }
         }
+        return fromArrLeft(_string,_len,next_);
+    }
+    private static int incrAfterGtInstanceOf(String _string, int _nbOpened, int _next) {
+        int next_ = _next;
+        if (_nbOpened == 0) {
+            String substring_ = _string.substring(next_);
+            if (substring_.trim().startsWith(".")) {
+                next_ = incrType(next_,_string);
+            }
+        }
+        return next_;
+    }
+    private static int fromArrLeft(String _string, int _len, int _next) {
+        int next_ = _next;
         if (next_ < _len) {
             char curLoc_ = _string.charAt(next_);
             if (curLoc_ == ElResolver.ARR_LEFT) {
                 while (next_ < _len) {
                     curLoc_ = _string.charAt(next_);
-                    if (StringUtil.isWhitespace(curLoc_)) {
-                        next_++;
-                        continue;
+                    if (!StringUtil.isWhitespace(curLoc_) && curLoc_ != ElResolver.ARR_LEFT && curLoc_ != ElResolver.ARR_RIGHT) {
+                        break;
                     }
-                    if (curLoc_ == ElResolver.ARR_LEFT) {
-                        next_++;
-                        continue;
-                    }
-                    if (curLoc_ == ElResolver.ARR_RIGHT) {
-                        next_++;
-                        continue;
-                    }
-                    break;
+                    next_++;
                 }
             }
         }
@@ -576,19 +644,10 @@ public final class ElResolverCommon {
         int len_ = _string.length();
         while (next_ < len_) {
             char curLoc_ = _string.charAt(next_);
-            if (StringExpUtil.isTypeLeafChar(curLoc_)) {
-                next_++;
-                continue;
+            if (!StringExpUtil.isTypeLeafChar(curLoc_) && curLoc_ != ElResolver.DOT_VAR && !StringUtil.isWhitespace(curLoc_)) {
+                break;
             }
-            if (curLoc_ == ElResolver.DOT_VAR) {
-                next_++;
-                continue;
-            }
-            if (StringUtil.isWhitespace(curLoc_)) {
-                next_++;
-                continue;
-            }
-            break;
+            next_++;
         }
         return next_;
     }

@@ -1247,7 +1247,7 @@ public final class ElResolver {
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
         if (isPossibleDigit(_string,_d) && StringExpUtil.isDigit(_curChar)) {
-            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, len_, _string, false);
+            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, _string, false);
             int nextIndex_ = res_.getNextIndex();
             _d.getNbInfos().add(res_.getInfos());
             _d.getDelNumbers().add(i_);
@@ -1351,7 +1351,7 @@ public final class ElResolver {
         if (isPossibleDigit(_string, _dout) && curChar_ == DOT_VAR) {
             int n_ = StringExpUtil.nextPrintChar(i_ + 1, len_, _string);
             if (ElResolverCommon.isDigitOrDot(_string,n_)) {
-                NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_ + 1, len_, _string, true);
+                NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_ + 1, _string, true);
                 int nextIndex_ = res_.getNextIndex();
                 _dout.getNbInfos().add(res_.getInfos());
                 _dout.getDelNumbers().add(i_);

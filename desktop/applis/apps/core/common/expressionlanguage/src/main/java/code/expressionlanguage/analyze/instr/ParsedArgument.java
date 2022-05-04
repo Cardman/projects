@@ -32,7 +32,7 @@ public final class ParsedArgument {
             int len_ = trim_.length();
             int n_ = StringExpUtil.nextPrintChar(0, len_, trim_);
             if (ElResolverCommon.isDigitOrDot(trim_,n_)) {
-                NumberInfosOutput out_ = ElResolverCommon.processNb(_keywords, 0, len_, trim_, StringExpUtil.nextCharIs(trim_, 0, len_, '.'));
+                NumberInfosOutput out_ = ElResolverCommon.processNb(_keywords, 0, trim_, StringExpUtil.nextCharIs(trim_, 0, len_, '.'));
                 NumberInfos infos_ = out_.getInfos();
                 infos_.setPositive(true);
                 infos_.setSuffix('D');

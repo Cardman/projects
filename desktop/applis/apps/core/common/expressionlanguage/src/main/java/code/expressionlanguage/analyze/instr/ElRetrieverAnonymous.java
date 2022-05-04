@@ -86,7 +86,7 @@ public final class ElRetrieverAnonymous {
                 if (!StringExpUtil.nextCharIs(_string,n_,len_, ElResolver.DOT_VAR)) {
                     if (ElResolverCommon.isDigitOrDot(_string,n_)) {
                         KeyWords keyWords_ = _page.getKeyWords();
-                        NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, len_, _string, true);
+                        NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, _string, true);
                         from_ = res_.getNextIndex();
                         continue;
                     }
@@ -141,7 +141,7 @@ public final class ElRetrieverAnonymous {
                 if (!StringExpUtil.nextCharIs(_string,n_,len_, ElResolver.DOT_VAR)) {
                     if (ElResolverCommon.isDigitOrDot(_string,n_)) {
                         KeyWords keyWords_ = _page.getKeyWords();
-                        NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, len_, _string, true);
+                        NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, _string, true);
                         from_ = res_.getNextIndex();
                         continue;
                     }
@@ -480,7 +480,7 @@ public final class ElRetrieverAnonymous {
         int i_ = _i;
         KeyWords keyWords_ = _page.getKeyWords();
         if (_prevOp != '.' && StringExpUtil.isDigit(_curChar)) {
-            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, len_, _string, false);
+            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, _string, false);
             return res_.getNextIndex();
         }
         int beginWord_ = i_;
@@ -534,7 +534,7 @@ public final class ElRetrieverAnonymous {
         int i_ = _i;
         KeyWords keyWords_ = _page.getKeyWords();
         if (_prevOp != '.' && StringExpUtil.isDigit(_curChar)) {
-            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, len_, _string, false);
+            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, _string, false);
             return res_.getNextIndex();
         }
         int beginWord_ = i_;
