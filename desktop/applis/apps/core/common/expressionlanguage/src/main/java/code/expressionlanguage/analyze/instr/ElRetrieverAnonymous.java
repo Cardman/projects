@@ -209,12 +209,13 @@ public final class ElRetrieverAnonymous {
                 _stack.getAnnotDelSwitch().add(k_);
                 int count_ = 1;
                 int lenSw_ = afterSwitch_.length();
+                boolean already_ = false;
                 while (k_ < lenSw_) {
                     char ch_ = afterSwitch_.charAt(k_);
                     if (ch_ == '[') {
                         count_++;
                     }
-                    if (count_ == 1 && ch_ == ':') {
+                    if (!already_&&count_ == 1 && ch_ == ':') {
                         int l_ = DefaultProcessKeyWord.skipWhiteSpace(afterSwitch_,k_+1);
                         if (afterSwitch_.startsWith("@",l_)) {
                             ParsedAnnotations parse_ = new ParsedAnnotations(afterSwitch_.substring(l_),j_+l_+ _curElts.getInstrLoc());
@@ -239,6 +240,7 @@ public final class ElRetrieverAnonymous {
                             k_ = l_;
                             break;
                         }
+                        already_ = true;
                     }
                     if (ch_ == ']') {
                         count_--;
