@@ -13937,6 +13937,66 @@ public final class CoverageReportZTest extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
     @Test
+    public void coverage716Test() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  m((Ext a:Ext)->{\n");
+        xml_.append("  enum Intern{\n");
+        xml_.append("   PLUS_ONE((Ext b:Ext) -> {return b;}){\n");
+        xml_.append("    PLUS_ONE(Fct<Ext,Ext> p){\n");
+        xml_.append("     super(p);\n");
+        xml_.append("    }\n");
+        xml_.append("   },\n");
+        xml_.append("   MULT_TWO((Ext b:Ext) -> {return b;});\n");
+        xml_.append("   Fct<Ext,Ext> fct;\n");
+        xml_.append("   Intern(Fct<Ext,Ext> p){\n");
+        xml_.append("    fct = p;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  return a;\n");
+        xml_.append("  }\n");
+        xml_.append("  ,new Ext());\n");
+        xml_.append("  return 0;\n");
+        xml_.append(" }\n");
+        xml_.append(" static Ext m(Fct<Ext,Ext> fct,Ext a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnly(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        calculateNormal("pkg.Ext", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">class <a name=\"m6\">pkg.Ext</a> {\n" +
+                " static int <a name=\"m28\">m</a>(){\n" +
+                "  <span class=\"f\"><a title=\"pkg.Ext.static m($core.Fct&lt;pkg.Ext,pkg.Ext&gt;,pkg.Ext)\" href=\"#m334\">m</a>(<span class=\"f\"><span class=\"t\">(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m42\">a</a>:<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>)<a name=\"m48\">-&gt;</a>{\n" +
+                "  enum <a name=\"m59\">Intern</a>{\n" +
+                "   <span class=\"g\"><a name=\"m70\" title=\"pkg.Intern-PLUS_ONE.pkg.Intern-PLUS_ONE($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m112\">PLUS_ONE</a>(<span class=\"g\"><span class=\"t\">(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m84\">b</a>:<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>) <a name=\"m91\">-&gt;</a> {return <span class=\"n\"><a href=\"#m84\">b</a></span>;}</span></span>)</span>{\n" +
+                "    <a name=\"m112\">PLUS_ONE(</a>Fct&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&gt; <a name=\"m134\">p</a>){\n" +
+                "     <span class=\"g\"><a title=\"pkg.Intern.pkg.Intern($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m230\">super</a>(<span class=\"g\"><a href=\"#m134\">p</a></span>)</span>;\n" +
+                "    }\n" +
+                "   },\n" +
+                "   <span class=\"g\"><a name=\"m168\" title=\"pkg.Intern.pkg.Intern($core.Fct&lt;pkg.Ext,pkg.Ext&gt;)\" href=\"#m230\">MULT_TWO</a>(<span class=\"g\"><span class=\"t\">(<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m182\">b</a>:<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>) <a name=\"m189\">-&gt;</a> {return <span class=\"n\"><a href=\"#m182\">b</a></span>;}</span></span>)</span>;\n" +
+                "   Fct&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&gt; <span class=\"g\"><a name=\"m222\">fct</a></span>;\n" +
+                "   <a name=\"m230\">Intern(</a>Fct&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&gt; <a name=\"m250\">p</a>){\n" +
+                "    <span class=\"g\"><span class=\"g\"><a title=\"pkg.Intern.fct\" href=\"#m222\">fct</a> </span>=<span class=\"g\"> <a href=\"#m250\">p</a></span></span>;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m42\">a</a></span>;\n" +
+                "  }</span>\n" +
+                "  </span>,<span class=\"f\">new <a title=\"pkg.Ext\" href=\"#m6\">Ext</a>()</span>)</span>;\n" +
+                "  return <span class=\"f\">0</span>;\n" +
+                " }\n" +
+                " static <a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m334\">m</a>(Fct&lt;<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a>&gt; <a name=\"m349\">fct</a>,<a title=\"pkg.Ext\" href=\"#m6\">Ext</a> <a name=\"m357\">a</a>){\n" +
+                "  return <span class=\"f\"><span class=\"f\"><a href=\"#m349\">fct</a></span>.<span class=\"f\"><b>call</b>(<span class=\"f\"><a href=\"#m357\">a</a></span>)</span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+    @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;

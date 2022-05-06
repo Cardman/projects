@@ -61,6 +61,7 @@ public final class AnonymousLambdaOperation extends
     private void analyzeCtor(AnalyzedPageEl _page) {
         int offset_ = _page.getOffset();
         int globalOffset_ = _page.getGlobalOffset();
+        int translatedOffset_ = _page.getTranslatedOffset();
         ParentInferring par_ = ParentInferring.getParentInferring(this);
         OperationNode m_ = par_.getOperation();
         int nbParentsInfer_ = par_.getNbParentsInfer();
@@ -246,6 +247,7 @@ public final class AnonymousLambdaOperation extends
         }
         boolean built_ = false;
         StringList parTypes_ = parse.getParametersType();
+        _page.setTranslatedOffset(0);
         if (StringUtil.contains(parTypes_,"")||parse.getReturnType().isEmpty()) {
             StringList modifiedArgCandidates_ = new StringList();
             int nbArgs_ = parTypes_.size() + 1;
@@ -329,6 +331,7 @@ public final class AnonymousLambdaOperation extends
         setResultClass(new AnaClassArgumentMatching(fct_));
         _page.setOffset(offset_);
         _page.setGlobalOffset(globalOffset_);
+        _page.setTranslatedOffset(translatedOffset_);
     }
 
     private static String formatReturn(AnalyzedPageEl _page, String _returnType, String _realClass, MethodId _constraints) {
