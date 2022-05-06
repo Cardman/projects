@@ -12,6 +12,7 @@ import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
+import code.expressionlanguage.analyze.instr.NumberInfosOutput;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
 import code.expressionlanguage.analyze.opers.SwitchOperation;
 import code.expressionlanguage.analyze.syntax.IntermediaryResults;
@@ -127,7 +128,7 @@ public final class AnalyzedPageEl {
     private DefaultBuildingConstraints buildingConstraints;
     private DefaultLocalizer localizer;
     private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
-    private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
+    private CustList<NumberInfosOutput> currentNumbers = new CustList<NumberInfosOutput>();
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
     private CustList<SegmentStringPart> currentParts = new CustList<SegmentStringPart>();
     private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
@@ -1053,16 +1054,20 @@ public final class AnalyzedPageEl {
         return anonymousResults;
     }
 
-    public CustList<SegmentStringPart> getParts() {
-        return parts;
-    }
-
     public CustList<AnonymousResult> getCurrentAnonymousResults() {
         return currentAnonymousResults;
     }
 
     public void setCurrentAnonymousResults(CustList<AnonymousResult> _currentAnonymousResults) {
         this.currentAnonymousResults = _currentAnonymousResults;
+    }
+
+    public CustList<NumberInfosOutput> getCurrentNumbers() {
+        return currentNumbers;
+    }
+
+    public void setCurrentNumbers(CustList<NumberInfosOutput> _cu) {
+        this.currentNumbers = _cu;
     }
 
     public CustList<SegmentStringPart> getCurrentParts() {

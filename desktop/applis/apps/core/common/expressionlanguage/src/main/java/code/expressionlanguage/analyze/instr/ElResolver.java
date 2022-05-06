@@ -164,6 +164,23 @@ public final class ElResolver {
                 i_ = until_;
                 continue;
             }
+            int untilNb_ = i_;
+            for (NumberInfosOutput n: _page.getCurrentNumbers()) {
+                if (n.getPreviousIndex() == i_) {
+
+                    _d.getNbInfos().add(n.getInfos());
+                    _d.getDelNumbers().add(i_);
+                    _d.getDelNumbers().add(n.getNextIndex());
+                    _d.setEnabledOp(true);
+
+                    untilNb_ = n.getNextIndex();
+                    break;
+                }
+            }
+            if (untilNb_ > i_) {
+                i_ = untilNb_;
+                continue;
+            }
             char curChar_ = _string.charAt(i_);
             resOpers_.getDoubleDotted().setNextIndex(i_);
             if (StringExpUtil.isTypeLeafChar(curChar_)) {
@@ -408,7 +425,6 @@ public final class ElResolver {
                 }
             }
         }
-        char curChar_ = _string.charAt(i_);
         ResultAfterInstKeyWord kw_ = _resOpers.getDoubleDotted();
         kw_.setNextIndex(i_);
         processAfterInstuctionKeyWordCast(_string, _d, kw_, _page);
@@ -428,7 +444,7 @@ public final class ElResolver {
             _d.setEnabledOp(true);
             return;
         }
-        processWords(_string,curChar_, _d, _ret, kw_, _page);
+        processWords(_string, _d, _ret, kw_, _page);
     }
 
     private static void processAfterInstuctionKeyWordCast(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
@@ -1242,20 +1258,9 @@ public final class ElResolver {
         }
         return afterSuper_;
     }
-    private static void processWords(String _string, char _curChar, Delimiters _d, FieldRetriever _ret, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
+    private static void processWords(String _string, Delimiters _d, FieldRetriever _ret, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
-        KeyWords keyWords_ = _page.getKeyWords();
-        if (isPossibleDigit(_string,_d) && StringExpUtil.isDigit(_curChar)) {
-            NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, _string, false);
-            int nextIndex_ = res_.getNextIndex();
-            _d.getNbInfos().add(res_.getInfos());
-            _d.getDelNumbers().add(i_);
-            _d.getDelNumbers().add(nextIndex_);
-            _out.setNextIndex(nextIndex_);
-            _d.setEnabledOp(true);
-            return;
-        }
         int beginWord_ = i_;
         i_ = incrAfterWord(beginWord_,_string);
         String word_ = _string.substring(beginWord_, i_);
@@ -1318,7 +1323,6 @@ public final class ElResolver {
         int len_ = _string.length();
         ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
         int i_ = doubleDotted_.getNextIndex();
-        KeyWords keyWords_ = _page.getKeyWords();
         char curChar_ = _string.charAt(i_);
         StackDelimiters stack_ = _dout.getStack();
         if (curChar_ == ANNOT) {
@@ -1346,22 +1350,6 @@ public final class ElResolver {
             _dout.setEnabledOp(true);
             i_ = j_;
             doubleDotted_.setNextIndex(i_);
-            return;
-        }
-        if (isPossibleDigit(_string, _dout) && curChar_ == DOT_VAR) {
-            int n_ = StringExpUtil.nextPrintChar(i_ + 1, len_, _string);
-            if (ElResolverCommon.isDigitOrDot(_string,n_)) {
-                NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_ + 1, _string, true);
-                int nextIndex_ = res_.getNextIndex();
-                _dout.getNbInfos().add(res_.getInfos());
-                _dout.getDelNumbers().add(i_);
-                _dout.getDelNumbers().add(nextIndex_);
-                _dout.setEnabledOp(true);
-                i_ = nextIndex_;
-                doubleDotted_.setNextIndex(i_);
-                return;
-            }
-            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
             return;
         }
         if (curChar_ == PAR_LEFT) {
@@ -1510,19 +1498,6 @@ public final class ElResolver {
 
     private static boolean noWideInternDelimiter(String _substring) {
         return StringExpUtil.noDel(_substring);
-    }
-
-    private static boolean isPossibleDigit(String _string, Delimiters _dout) {
-        boolean possibleDigit_ = false;
-        if (!_dout.getAllowedOperatorsIndexes().isEmpty()) {
-            int lastIndex_ = _dout.getAllowedOperatorsIndexes().last();
-            if (_string.charAt(lastIndex_) != DOT_VAR) {
-                possibleDigit_ = true;
-            }
-        } else {
-            possibleDigit_ = true;
-        }
-        return possibleDigit_;
     }
 
     private static boolean isAcceptCommaInstr(AnalyzedPageEl _page) {

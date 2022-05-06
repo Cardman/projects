@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.ElResolver;
+import code.expressionlanguage.analyze.instr.ElRetrieverAnonymous;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.MethodOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
@@ -125,7 +126,13 @@ public abstract class CommonRenderExpUtil extends CommonRender {
         AnalyzedPageEl analyzing_ = _ctx.getDualAnalyzedContext().getAnalyzed();
 //        analyzing_.setCurrentParts(res_.getParts());
         StringComment str_ = new StringComment(_elr,new CustList<CommentDelimiters>());
-        analyzing_.setCurrentParts(str_.getStringParts());
+        res_.partsAbsol(str_.getStringParts());
+        analyzing_.setGlobalOffset(0);
+        analyzing_.zeroOffset();
+        analyzing_.setTranslatedOffset(0);
+        ElRetrieverAnonymous.commonCheckQuick(_elr,0,analyzing_,res_);
+        analyzing_.setCurrentParts(res_.getParts());
+        analyzing_.setCurrentNumbers(res_.getNumbers());
         return ElResolver.checkSyntax(_elr, 0, analyzing_);
     }
 

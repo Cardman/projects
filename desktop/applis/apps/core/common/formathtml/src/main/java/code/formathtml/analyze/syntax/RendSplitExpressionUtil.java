@@ -272,7 +272,7 @@ public final class RendSplitExpressionUtil {
                 _page.setGlobalOffset(rowsGrId_);
                 _page.zeroOffset();
                 rId_.partsAbsol(s_.getStringPartsElt(vRows_));
-                radGene(_page,_int,_method,_type,rId_,groupId_,rowsGrId_);
+                radGene(_page,_int,_method,_type,rId_,rows_,rowsGrId_);
             }
             String vCols_ = _analyzingDoc.getRendKeyWords().getAttrCols();
             String cols_ = s_.getElt().getAttribute(vCols_);
@@ -283,7 +283,7 @@ public final class RendSplitExpressionUtil {
                 _page.setGlobalOffset(colsGrId_);
                 _page.zeroOffset();
                 rId_.partsAbsol(s_.getStringPartsElt(vCols_));
-                radGene(_page,_int,_method,_type,rId_,groupId_,colsGrId_);
+                radGene(_page,_int,_method,_type,rId_,cols_,colsGrId_);
             }
         }
     }

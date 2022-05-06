@@ -4300,7 +4300,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ResultExpression res_ = new ResultExpression();
         AnalyzedPageEl analyzing_ = _conf;
         StringComment str_ = new StringComment(_el,new CustList<CommentDelimiters>());
-        analyzing_.setCurrentParts(str_.getStringParts());
+        res_.partsAbsol(str_.getStringParts());
+        analyzing_.setGlobalOffset(0);
+        analyzing_.zeroOffset();
+        analyzing_.setTranslatedOffset(0);
+        ElRetrieverAnonymous.commonCheckQuick(_el,0,analyzing_,res_);
+        analyzing_.setCurrentParts(res_.getParts());
+        analyzing_.setCurrentNumbers(res_.getNumbers());
         return ElResolver.checkSyntax(_el, 0, analyzing_);
     }
 
@@ -4308,7 +4314,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         ResultExpression res_ = new ResultExpression();
         AnalyzedPageEl analyzing_ = _conf;
         StringComment str_ = new StringComment(_el,new CustList<CommentDelimiters>());
-        analyzing_.setCurrentParts(str_.getStringParts());
+        res_.partsAbsol(str_.getStringParts());
+        analyzing_.setGlobalOffset(0);
+        analyzing_.zeroOffset();
+        analyzing_.setTranslatedOffset(0);
+        ElRetrieverAnonymous.commonCheckQuick(_el,_minIndex,analyzing_,res_);
+        analyzing_.setCurrentParts(res_.getParts());
+        analyzing_.setCurrentNumbers(res_.getNumbers());
         return ElResolver.checkSyntaxDelimiters(_el, _minIndex, analyzing_);
     }
 

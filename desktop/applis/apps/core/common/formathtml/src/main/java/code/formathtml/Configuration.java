@@ -59,6 +59,7 @@ public final class Configuration {
         String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
         _page.setImportingAcces(new VirtualImportingBlock());
         _page.getCurrentParts().clear();
+        _page.getCurrentNumbers().clear();
         _page.getCurrentAnnotDelNew().clear();
         _page.getCurrentAnnotDelSwitch().clear();
         for (EntryCust<String, BeanInfo> e: getBeansInfos().entryList()) {

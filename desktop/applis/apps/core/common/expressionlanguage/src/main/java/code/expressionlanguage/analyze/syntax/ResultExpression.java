@@ -2,14 +2,16 @@ package code.expressionlanguage.analyze.syntax;
 
 import code.expressionlanguage.analyze.AnonymousResult;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
+import code.expressionlanguage.analyze.instr.NumberInfosOutput;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.util.CustList;
 import code.util.Ints;
 
 public final class ResultExpression {
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
-    private CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
+    private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private CustList<SegmentStringPart> partsAbs = new CustList<SegmentStringPart>();
+    private final CustList<NumberInfosOutput> numbers = new CustList<NumberInfosOutput>();
     private OperationNode root;
 
     private Ints annotDelNew = new Ints();
@@ -27,8 +29,8 @@ public final class ResultExpression {
         return parts;
     }
 
-    public void setParts(CustList<SegmentStringPart> _parts) {
-        this.parts = _parts;
+    public CustList<NumberInfosOutput> getNumbers() {
+        return numbers;
     }
 
     public CustList<SegmentStringPart> getPartsAbs() {

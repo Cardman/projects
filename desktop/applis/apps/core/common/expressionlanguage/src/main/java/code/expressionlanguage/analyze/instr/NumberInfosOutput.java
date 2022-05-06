@@ -6,6 +6,7 @@ public final class NumberInfosOutput {
 
     private NumberInfos infos;
 
+    private int previousIndex;
     private int nextIndex;
 
     public NumberInfos getInfos() {
@@ -14,6 +15,14 @@ public final class NumberInfosOutput {
 
     public void setInfos(NumberInfos _infos) {
         infos = _infos;
+    }
+
+    public int getPreviousIndex() {
+        return previousIndex;
+    }
+
+    public void setPreviousIndex(int _pre) {
+        this.previousIndex = _pre;
     }
 
     public int getNextIndex() {

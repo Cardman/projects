@@ -111,9 +111,6 @@ public final class ElResolverCommon {
         if (_seenDot) {
             nbInfos_.setSuffix(ElResolver.DOUBLE);
             decPart_.append(startChar_);
-            if (startChar_ == '.') {
-                nbInfos_.setError(true);
-            }
             if (StringUtil.isWhitespace(startChar_)) {
                 nbInfos_.setError(true);
             }

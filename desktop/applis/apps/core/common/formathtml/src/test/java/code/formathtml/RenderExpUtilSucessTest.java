@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.instr.ElResolver;
+import code.expressionlanguage.analyze.instr.ElRetrieverAnonymous;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -5900,7 +5901,13 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
         AnalyzedPageEl analyzing_ = _context.getDualAnalyzedContext().getAnalyzed();
 //        analyzing_.setCurrentParts(_res.getParts());
         StringComment str_ = new StringComment(_s,new CustList<CommentDelimiters>());
-        analyzing_.setCurrentParts(str_.getStringParts());
+        _res.partsAbsol(str_.getStringParts());
+        analyzing_.setGlobalOffset(0);
+        analyzing_.zeroOffset();
+        analyzing_.setTranslatedOffset(0);
+        ElRetrieverAnonymous.commonCheckQuick(_s,_i,analyzing_,_res);
+        analyzing_.setCurrentParts(_res.getParts());
+        analyzing_.setCurrentNumbers(_res.getNumbers());
         return ElResolver.checkSyntaxDelimiters(_s, _i, analyzing_);
     }
 

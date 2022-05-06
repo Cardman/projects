@@ -20,14 +20,12 @@ public final class ElRetrieverAnonymous {
 
     public static int commonCheckQuick(String _string, int _minIndex, AnalyzedPageEl _page, ResultExpression _res) {
         _page.getAnonymousResults().clear();
-        _page.getParts().clear();
         _page.getAnnotDelNew().clear();
         _page.getAnnotDelSwitch().clear();
         String currentPkg_ = _page.getCurrentPkg();
         FileBlock currentFile_ = _page.getCurrentFile();
-        int next_ = stackBegin(_string, _minIndex, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex(), _res.getPartsAbs()));
+        int next_ = stackBegin(_string, _minIndex, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex(), _res));
         _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
-        _res.setParts(new CustList<SegmentStringPart>(_page.getParts()));
         _res.setAnnotDelNew(new Ints(_page.getAnnotDelNew()));
         _res.setAnnotDelSwitch(new Ints(_page.getAnnotDelSwitch()));
         return next_;
@@ -45,7 +43,7 @@ public final class ElRetrieverAnonymous {
             for (SegmentStringPart s: _curElts.getStringParts()) {
                 if (s.getBegin() == _curElts.getInstrLoc() + from_) {
                     until_ = s.getEnd() - _curElts.getInstrLoc();
-                    _page.getParts().add(new SegmentStringPart(from_,until_,s.getStrType()));
+                    _curElts.getRes().getParts().add(new SegmentStringPart(from_,until_,s.getStrType()));
                     break;
                 }
             }
@@ -83,13 +81,13 @@ public final class ElRetrieverAnonymous {
             }
             if (prevOp_ != '.' && curChar_ == ElResolver.DOT_VAR) {
                 int n_ = StringExpUtil.nextPrintChar(from_ + 1, len_, _string);
-                if (!StringExpUtil.nextCharIs(_string,n_,len_, ElResolver.DOT_VAR)) {
-                    if (ElResolverCommon.isDigitOrDot(_string,n_)) {
-                        KeyWords keyWords_ = _page.getKeyWords();
-                        NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, _string, true);
-                        from_ = res_.getNextIndex();
-                        continue;
-                    }
+                if (!StringExpUtil.nextCharIs(_string, n_, len_, ElResolver.DOT_VAR) && ElResolverCommon.isDigitOrDot(_string, n_)) {
+                    KeyWords keyWords_ = _page.getKeyWords();
+                    NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, _string, true);
+                    res_.setPreviousIndex(from_);
+                    _curElts.getRes().getNumbers().add(res_);
+                    from_ = res_.getNextIndex();
+                    continue;
                 }
             }
             next_ = processOperatorsQuickBegin(parsBrackets_,stack_,from_,curChar_, _string, _page, _curElts);
@@ -138,13 +136,11 @@ public final class ElRetrieverAnonymous {
             }
             if (prevOp_ != '.' && curChar_ == ElResolver.DOT_VAR) {
                 int n_ = StringExpUtil.nextPrintChar(from_ + 1, len_, _string);
-                if (!StringExpUtil.nextCharIs(_string,n_,len_, ElResolver.DOT_VAR)) {
-                    if (ElResolverCommon.isDigitOrDot(_string,n_)) {
-                        KeyWords keyWords_ = _page.getKeyWords();
-                        NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, _string, true);
-                        from_ = res_.getNextIndex();
-                        continue;
-                    }
+                if (!StringExpUtil.nextCharIs(_string, n_, len_, ElResolver.DOT_VAR) && ElResolverCommon.isDigitOrDot(_string, n_)) {
+                    KeyWords keyWords_ = _page.getKeyWords();
+                    NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, from_ + 1, _string, true);
+                    from_ = res_.getNextIndex();
+                    continue;
                 }
             }
             next_ = processOperatorsQuick(parsBrackets_,stack_,from_,curChar_, _string, _page, _curElts);
@@ -535,6 +531,8 @@ public final class ElRetrieverAnonymous {
         KeyWords keyWords_ = _page.getKeyWords();
         if (_prevOp != '.' && StringExpUtil.isDigit(_curChar)) {
             NumberInfosOutput res_ = ElResolverCommon.processNb(keyWords_, i_, _string, false);
+            res_.setPreviousIndex(i_);
+            _curElts.getRes().getNumbers().add(res_);
             return res_.getNextIndex();
         }
         int beginWord_ = i_;

@@ -26,6 +26,7 @@ public final class ElUtil {
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
+        _page.setCurrentNumbers(_res.getNumbers());
         _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
         _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         Delimiters d_ = ElResolver.checkSyntaxQuick(_el, _page);
@@ -58,6 +59,7 @@ public final class ElUtil {
         _page.setCurrentEmptyPartErr("");
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
+        _page.setCurrentNumbers(_res.getNumbers());
         _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
         _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
@@ -99,6 +101,7 @@ public final class ElUtil {
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
+        _page.setCurrentNumbers(_res.getNumbers());
         _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
         _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
         Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
