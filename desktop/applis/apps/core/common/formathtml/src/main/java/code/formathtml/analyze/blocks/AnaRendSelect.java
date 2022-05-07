@@ -220,7 +220,7 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
                         _anaDoc.getRendKeyWords().getAttrConvert());
                 AnalyzingDoc.addError(badEl_, _page);
             }
-            String concat_ = StringUtil.concat(mName_,LEFT_PAR,STR,default_,STR,RIGHT_PAR);
+            String concat_ = StringUtil.concat(mName_,LEFT_PAR,STR,def(default_),STR,RIGHT_PAR);
             int offConvValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrConvert());
             _page.setSumOffset(offConvValue_);
             _page.zeroOffset();
@@ -259,6 +259,21 @@ public final class AnaRendSelect extends AnaRendParentBlock implements AnaRendBu
             _page.zeroOffset();
             RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
         }
+    }
+    private static String def(String _value) {
+        int len_ = _value.length();
+        StringBuilder str_ = new StringBuilder();
+        int i_ = 0;
+        while (i_ < len_) {
+            char ch_ = _value.charAt(i_);
+            if (ch_ == '\\' || ch_ == '"') {
+                str_.append('\\').append(ch_);
+            } else {
+                str_.append(ch_);
+            }
+            i_++;
+        }
+        return str_.toString();
     }
 
     public ResultExpression getResultExpressionMap() {

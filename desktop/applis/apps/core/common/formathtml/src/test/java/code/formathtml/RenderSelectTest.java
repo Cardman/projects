@@ -528,6 +528,47 @@ public final class RenderSelectTest extends CommonRender {
         assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
     }
     @Test
+    public void process_3_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
+        String html_ = "<html c:bean='bean_one'><body><form c:command=\"page1.html\"><c:select default=\"TWO\\&quot;\" convert='idStr' name=\"choice\" map=\"combo\" varValue=\"choice\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableRenderUtil.formatFile(folder_,locale_,relative_), content_);
+        StringMap<String> filesSec_ = new StringMap<String>();
+        StringBuilder file_ = new StringBuilder();
+        file_.append("$public $class pkg.BeanOne:code.bean.Bean{");
+        file_.append(" $public pkg.CustTable<String,Integer> combo=$new pkg.CustTable<>();");
+        file_.append(" {");
+        file_.append("  combo.add(\"ONE\",1);");
+        file_.append("  combo.add(\"TWO\\\\\\\"\",2);");
+        file_.append("  combo.add($null,3);");
+        file_.append(" }");
+        file_.append(" $public String choice=\"TWO\\\\\\\"\";");
+        file_.append(" $public $int index;");
+        file_.append(" $public $int indexTwo;");
+        file_.append(" $public $int[] numbers;");
+        file_.append(" $public $int[] numbersTwo;");
+        file_.append(" $public $void beforeDisplaying(){");
+        file_.append("  numbers={2,4,6};");
+        file_.append("  numbersTwo={2,4,6};");
+        file_.append("  index=4;");
+        file_.append("  indexTwo=6;");
+        file_.append(" }");
+        file_.append(" $public String idStr(String p){");
+        file_.append("  $return p;");
+        file_.append(" }");
+        file_.append("}");
+        filesSec_.put("my_file",file_.toString());
+        filesSec_.put(CUST_ITER_PATH, getCustomIterator());
+        filesSec_.put(CUST_LIST_PATH, getCustomList());
+        filesSec_.put(CUST_ITER_TABLE_PATH, getCustomIteratorTable());
+        filesSec_.put(CUST_TABLE_PATH, getCustomTable());
+        filesSec_.put(CUST_PAIR_PATH, getCustomPair());
+        assertEq("<html><body><form c:command=\"page1.html\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\\&quot;\" selected=\"selected\">2</option></select></form></body></html>", getResOneBean(folder_, relative_, html_, files_, filesSec_));
+    }
+    @Test
     public void process4Test() {
         String locale_ = "en";
         String folder_ = "messages";
