@@ -55,7 +55,7 @@ public final class ConstructorBlock extends NamedFunctionBlock implements Return
     }
 
     public void setupInstancingStep(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(getOffset());
+        _page.setSumOffset(getOffset());
         _page.zeroOffset();
         AbsBk first_ = getFirstChild();
         if (!(first_ instanceof Line)) {

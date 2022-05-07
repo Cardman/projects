@@ -35,7 +35,7 @@ public final class AssSimForMutableIterativeLoop extends AssBracedBlock implemen
     public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         _page.setForLoopPartState(ForLoopPart.INIT);
         if (!opInit.isEmpty()) {
-            _page.setGlobalOffset(initOffset);
+            _page.setSumOffset(initOffset);
             _page.zeroOffset();
             AssUtil.getSimSortedDescNodes(_a,opInit.last(),this, _page);
         }
@@ -44,7 +44,7 @@ public final class AssSimForMutableIterativeLoop extends AssBracedBlock implemen
         }
         _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (!opExp.isEmpty()) {
-            _page.setGlobalOffset(expressionOffset);
+            _page.setSumOffset(expressionOffset);
             _page.zeroOffset();
             AssUtil.getSimSortedDescNodes(_a,opExp.last(),this, _page);
         }
@@ -52,7 +52,7 @@ public final class AssSimForMutableIterativeLoop extends AssBracedBlock implemen
     public void buildIncrementPart(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
         _page.setForLoopPartState(ForLoopPart.STEP);
         if (!opStep.isEmpty()) {
-            _page.setGlobalOffset(stepOffset);
+            _page.setSumOffset(stepOffset);
             _page.zeroOffset();
             AssUtil.getSimSortedDescNodes(_a,opStep.last(),this, _page);
         }

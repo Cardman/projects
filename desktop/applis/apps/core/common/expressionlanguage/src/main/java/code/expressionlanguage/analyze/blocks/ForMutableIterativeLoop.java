@@ -13,7 +13,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.instr.Delimiters;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.analyze.instr.ElUtil;
@@ -172,30 +171,30 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
         MethodAccessKind static_ = f_.getStaticContext();
         _page.getVariablesNames().clear();
         _page.getVariablesNamesToInfer().clear();
-        _page.setGlobalOffset(initOffset);
+        _page.setSumOffset(resInit.getSumOffset());
         _page.zeroOffset();
         _page.setAcceptCommaInstr(true);
         _page.setForLoopPartState(ForLoopPart.INIT);
         if (!init.trim().isEmpty()) {
-            resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, init, Calculation.staticCalculation(static_), _page));
+            resInit.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resInit, Calculation.staticCalculation(static_), _page));
         }
         addVars(_page);
         _page.setLineDeclarator(null);
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(resExp.getSumOffset());
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.CONDITION);
         if (expression.trim().isEmpty()) {
             alwaysTrue = true;
         } else {
-            resExp.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resExp, expression, Calculation.staticCalculation(static_), _page));
+            resExp.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resExp, Calculation.staticCalculation(static_), _page));
             checkBoolCondition(resExp.getRoot(), _page);
         }
-        _page.setGlobalOffset(stepOffset);
+        _page.setSumOffset(resStep.getSumOffset());
         _page.zeroOffset();
         _page.setForLoopPartState(ForLoopPart.STEP);
         _page.setAcceptCommaInstr(true);
         if (!step.trim().isEmpty()) {
-            resStep.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resStep, step, Calculation.staticCalculation(static_), _page));
+            resStep.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resStep, Calculation.staticCalculation(static_), _page));
         }
         _page.setAcceptCommaInstr(false);
 
@@ -228,7 +227,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
     }
 
     private void processVariables(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(classIndexNameOffset);
+        _page.setSumOffset(classIndexNameOffset);
         _page.zeroOffset();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
@@ -241,7 +240,7 @@ public final class ForMutableIterativeLoop extends BracedBlock implements
             _page.addLocError(cast_);
             addErrorBlock(cast_.getBuiltError());
         }
-        _page.setGlobalOffset(classNameOffset);
+        _page.setSumOffset(classNameOffset);
         _page.zeroOffset();
         if (!className.isEmpty()) {
             _page.setLineDeclarator(this);

@@ -31,9 +31,9 @@ public final class ResultInput {
         int attributeName_ = _bl.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrName());
         String name_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrName());
         if (!name_.isEmpty()) {
-            _page.setGlobalOffset(attributeName_);
+            _page.setSumOffset(resultExpressionRead.getSumOffset());
             _page.zeroOffset();
-            tryBuildInputResult(name_, _bl, _anaDoc, _page);
+            tryBuildInputResult(_bl, _anaDoc, _page);
         } else {
             String type_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrType());
             if (!StringUtil.quickEq(type_,_anaDoc.getRendKeyWords().getValueSubmit())) {
@@ -45,16 +45,14 @@ public final class ResultInput {
             }
         }
         if (_read.hasAttribute(_varValue)) {
-            int attributeValue_ = _bl.getAttributeDelimiter(_varValue);
-            _page.setGlobalOffset(attributeValue_);
+            _page.setSumOffset(resultExpressionValue.getSumOffset());
             _page.zeroOffset();
-            String value_ = _read.getAttribute(_varValue);
-            opsValueRoot = RenderAnalysis.getRootAnalyzedOperations(value_, 0, _anaDoc, _page,resultExpressionValue);
+            opsValueRoot = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionValue);
         }
     }
 
-    public void tryBuildInputResult(String _name, AnaRendBlock _bl, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        setOpsReadRoot(RenderAnalysis.getRootAnalyzedOperations(_name, 0, _anaDoc, _page,resultExpressionRead));
+    public void tryBuildInputResult(AnaRendBlock _bl, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        setOpsReadRoot(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionRead));
         OperationNode res_;
         if (opsReadRoot instanceof IdOperation) {
             res_ = AffectationOperation.getFirstToBeAnalyzed((MethodOperation) opsReadRoot);

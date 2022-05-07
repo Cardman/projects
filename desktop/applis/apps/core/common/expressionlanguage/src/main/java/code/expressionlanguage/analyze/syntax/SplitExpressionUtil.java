@@ -178,45 +178,45 @@ public final class SplitExpressionUtil {
         for (AbsBk b: bl_) {
             if (AbsBk.isAnnotBlock(b)) {
                 _page.setCurrentBlock(b);
-                _page.setGlobalOffset(((NamedCalledFunctionBlock) b).getDefaultValueOffset());
                 _page.zeroOffset();
                 String value_ = ((NamedCalledFunctionBlock) b).getDefaultValue();
                 ResultExpression resultExpression_ = ((NamedCalledFunctionBlock) b).getRes();
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((NamedCalledFunctionBlock) b).getDefaultValueOffset());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, value_, resultExpression_);
+                extractAnon(_page, _int, null, _type, resultExpression_);
             }
             if (b instanceof FieldBlock) {
                 _page.setCurrentBlock(b);
-                _page.setGlobalOffset(((FieldBlock) b).getValueOffset());
                 _page.zeroOffset();
                 String value_ = ((FieldBlock) b).getValue();
                 ResultExpression resultExpression_ = ((FieldBlock) b).getRes();
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((FieldBlock) b).getValueOffset());
                 _page.setAccessStaticContext(MethodId.getKind(((FieldBlock) b).isStaticField()));
-                extractAnon(_page, _int, null, _type, value_, resultExpression_);
+                extractAnon(_page, _int, null, _type, resultExpression_);
             }
             if (b instanceof ElementBlock) {
                 _page.setCurrentBlock(b);
-                _page.setGlobalOffset(((ElementBlock) b).getFieldNameOffest());
                 _page.zeroOffset();
                 String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-                _page.setTranslatedOffset(((ElementBlock) b).retrieveTr(keyWordNew_));
                 String value_ = ((ElementBlock) b).buildVirtualCreate(keyWordNew_);
                 ResultExpression resultExpression_ = ((ElementBlock) b).getRes();
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((ElementBlock) b).getFieldNameOffest()+((ElementBlock) b).retrieveTr(keyWordNew_));
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, value_, resultExpression_);
-                _page.setTranslatedOffset(0);
+                extractAnon(_page, _int, null, _type, resultExpression_);
             }
             if (b instanceof InnerElementBlock) {
                 _page.setCurrentBlock(b);
-                _page.setGlobalOffset(((InnerElementBlock) b).getFieldNameOffest());
                 _page.zeroOffset();
                 String keyWordNew_ = _page.getKeyWords().getKeyWordNew();
-                _page.setTranslatedOffset(((InnerElementBlock) b).retrieveTr(keyWordNew_));
                 String value_ = ((InnerElementBlock) b).buildVirtualCreate(keyWordNew_);
                 ResultExpression resultExpression_ = ((InnerElementBlock) b).getRes();
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((InnerElementBlock) b).getFieldNameOffest()+((InnerElementBlock) b).retrieveTr(keyWordNew_));
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, value_, resultExpression_);
-                _page.setTranslatedOffset(0);
+                extractAnon(_page, _int, null, _type, resultExpression_);
             }
             if (b instanceof MemberCallingsBlock) {
                 processFunction(_page, _int, (MemberCallingsBlock) b, _type);
@@ -228,12 +228,13 @@ public final class SplitExpressionUtil {
                 int len_ = ((FieldBlock) b).getAnnotations().getAnnotations().size();
                 for (int i = 0; i < len_; i++) {
                     ResultParsedAnnot begin_ = ((FieldBlock) b).getAnnotations().getAnnotations().get(i);
-                    _page.setGlobalOffset(begin_.getIndex());
                     _page.zeroOffset();
                     ResultExpression res_ = new ResultExpression();
                     res_.partsAbsol(begin_.getParts());
+                    res_.setAnalyzedString(begin_.getAnnotation().trim());
+                    res_.setSumOffset(begin_.getIndex());
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    extractAnon(_page, _int, null, _type, begin_.getAnnotation().trim(), res_);
+                    extractAnon(_page, _int, null, _type, res_);
                     ((FieldBlock) b).getResList().add(res_);
                 }
             }
@@ -242,12 +243,13 @@ public final class SplitExpressionUtil {
                 int len_ = ((ElementBlock) b).getAnnotations().getAnnotations().size();
                 for (int i = 0; i < len_; i++) {
                     ResultParsedAnnot begin_ = ((ElementBlock) b).getAnnotations().getAnnotations().get(i);
-                    _page.setGlobalOffset(begin_.getIndex());
                     _page.zeroOffset();
                     ResultExpression res_ = new ResultExpression();
                     res_.partsAbsol(begin_.getParts());
+                    res_.setAnalyzedString(begin_.getAnnotation().trim());
+                    res_.setSumOffset(begin_.getIndex());
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    extractAnon(_page, _int, null, _type, begin_.getAnnotation().trim(), res_);
+                    extractAnon(_page, _int, null, _type, res_);
                     ((ElementBlock) b).getResList().add(res_);
                 }
             }
@@ -256,12 +258,13 @@ public final class SplitExpressionUtil {
                 int len_ = ((InnerElementBlock) b).getAnnotations().getAnnotations().size();
                 for (int i = 0; i < len_; i++) {
                     ResultParsedAnnot begin_ = ((InnerElementBlock) b).getAnnotations().getAnnotations().get(i);
-                    _page.setGlobalOffset(begin_.getIndex());
                     _page.zeroOffset();
                     ResultExpression res_ = new ResultExpression();
                     res_.partsAbsol(begin_.getParts());
+                    res_.setAnalyzedString(begin_.getAnnotation().trim());
+                    res_.setSumOffset(begin_.getIndex());
                     _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                    extractAnon(_page, _int, null, _type, begin_.getAnnotation().trim(), res_);
+                    extractAnon(_page, _int, null, _type, res_);
                     ((InnerElementBlock) b).getResList().add(res_);
                 }
             }
@@ -274,12 +277,13 @@ public final class SplitExpressionUtil {
             int len_ = _type.getAnnotations().getAnnotations().size();
             for (int i = 0; i < len_; i++) {
                 ResultParsedAnnot begin_ = _type.getAnnotations().getAnnotations().get(i);
-                _page.setGlobalOffset(begin_.getIndex());
                 _page.zeroOffset();
                 ResultExpression res_ = new ResultExpression();
                 res_.partsAbsol(begin_.getParts());
+                res_.setAnalyzedString(begin_.getAnnotation().trim());
+                res_.setSumOffset(begin_.getIndex());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, null, _type, begin_.getAnnotation().trim(), res_);
+                extractAnon(_page, _int, null, _type, res_);
                 _type.getResList().add(res_);
             }
         }
@@ -290,12 +294,13 @@ public final class SplitExpressionUtil {
         int len_ = ((NamedFunctionBlock) _fct).getAnnotations().getAnnotations().size();
         for (int i = 0; i < len_; i++) {
             ResultParsedAnnot begin_ = ((NamedFunctionBlock) _fct).getAnnotations().getAnnotations().get(i);
-            _page.setGlobalOffset(begin_.getIndex());
             _page.zeroOffset();
             ResultExpression res_ = new ResultExpression();
+            res_.setAnalyzedString(begin_.getAnnotation().trim());
+            res_.setSumOffset(begin_.getIndex());
             res_.partsAbsol(begin_.getParts());
             _page.setAccessStaticContext(MethodAccessKind.STATIC);
-            extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, begin_.getAnnotation().trim(), res_);
+            extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, res_);
             ((NamedFunctionBlock) _fct).getResList().add(res_);
         }
         for (ResultParsedAnnots l: ((NamedFunctionBlock) _fct).getAnnotationsParams()) {
@@ -303,12 +308,13 @@ public final class SplitExpressionUtil {
             len_ = l.getAnnotations().size();
             for (int i = 0; i < len_; i++) {
                 ResultParsedAnnot begin_ = l.getAnnotations().get(i);
-                _page.setGlobalOffset(begin_.getIndex());
                 _page.zeroOffset();
                 ResultExpression res_ = new ResultExpression();
+                res_.setAnalyzedString(begin_.getAnnotation().trim());
+                res_.setSumOffset(begin_.getIndex());
                 res_.partsAbsol(begin_.getParts());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, begin_.getAnnotation().trim(), res_);
+                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, res_);
                 resList_.add(res_);
             }
             ((NamedFunctionBlock) _fct).getResLists().add(resList_);
@@ -317,12 +323,13 @@ public final class SplitExpressionUtil {
             int lenSet_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotations().size();
             for (int i = 0; i < lenSet_; i++) {
                 ResultParsedAnnot begin_ = ((NamedCalledFunctionBlock) _fct).getAnnotationsSupp().getAnnotations().get(i);
-                _page.setGlobalOffset(begin_.getIndex());
                 _page.zeroOffset();
                 ResultExpression res_ = new ResultExpression();
+                res_.setAnalyzedString(begin_.getAnnotation().trim());
+                res_.setSumOffset(begin_.getIndex());
                 res_.partsAbsol(begin_.getParts());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, begin_.getAnnotation().trim(), res_);
+                extractAnon(_page, _int, (NamedFunctionBlock) _fct, _type, res_);
                 ((NamedCalledFunctionBlock) _fct).getResListSupp().add(res_);
             }
         }
@@ -334,12 +341,13 @@ public final class SplitExpressionUtil {
         int len_ = _fct.getAnnotations().getAnnotations().size();
         for (int i = 0; i < len_; i++) {
             ResultParsedAnnot begin_ = _fct.getAnnotations().getAnnotations().get(i);
-            _page.setGlobalOffset(begin_.getIndex());
             _page.zeroOffset();
             ResultExpression res_ = new ResultExpression();
             res_.partsAbsol(begin_.getParts());
+            res_.setAnalyzedString(begin_.getAnnotation().trim());
+            res_.setSumOffset(begin_.getIndex());
             _page.setAccessStaticContext(MethodAccessKind.STATIC);
-            extractAnon(_page, _int, _fct, _type, begin_.getAnnotation().trim(), res_);
+            extractAnon(_page, _int, _fct, _type, res_);
             _fct.getResList().add(res_);
         }
         for (ResultParsedAnnots l: _fct.getAnnotationsParams()) {
@@ -347,12 +355,13 @@ public final class SplitExpressionUtil {
             len_ = l.getAnnotations().size();
             for (int i = 0; i < len_; i++) {
                 ResultParsedAnnot begin_ = l.getAnnotations().get(i);
-                _page.setGlobalOffset(begin_.getIndex());
                 _page.zeroOffset();
                 ResultExpression res_ = new ResultExpression();
                 res_.partsAbsol(begin_.getParts());
+                res_.setAnalyzedString(begin_.getAnnotation().trim());
+                res_.setSumOffset(begin_.getIndex());
                 _page.setAccessStaticContext(MethodAccessKind.STATIC);
-                extractAnon(_page, _int, _fct, _type, begin_.getAnnotation().trim(), res_);
+                extractAnon(_page, _int, _fct, _type, res_);
                 resList_.add(res_);
             }
             _fct.getResLists().add(resList_);
@@ -369,98 +378,113 @@ public final class SplitExpressionUtil {
         while (current_ != null) {
             _page.setCurrentBlock(current_);
             if (current_ instanceof Line) {
-                _page.setGlobalOffset(((Line) current_).getExpressionOffset());
                 _page.zeroOffset();
                 String value_ = ((Line) current_).getExpression();
                 ResultExpression resultExpression_ = ((Line) current_).getRes();
-                extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((Line) current_).getExpressionOffset());
+                extractAnon(_page, _int, _method, _type, resultExpression_);
             }
             if (current_ instanceof CaseCondition) {
-                String value_ = ((CaseCondition) current_).getValue();
                 if (((CaseCondition) current_).getVariableName().isEmpty()) {
-                    _page.setGlobalOffset(((CaseCondition) current_).getValueOffset());
+                    String value_ = ((CaseCondition) current_).getValue();
                     _page.zeroOffset();
                     ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
-                    extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                    resultExpression_.setAnalyzedString(value_);
+                    resultExpression_.setSumOffset(((CaseCondition) current_).getValueOffset());
+                    extractAnon(_page, _int, _method, _type, resultExpression_);
                 } else {
                     if (((CaseCondition) current_).isCaseWhen()) {
                         String substring_ = ((CaseCondition) current_).getCondition();
-                        _page.setGlobalOffset(((CaseCondition) current_).getConditionOffset());
                         _page.zeroOffset();
                         ResultExpression resultExpression_ = ((CaseCondition) current_).getRes();
-                        extractAnon(_page, _int, _method, _type, substring_, resultExpression_);
+                        resultExpression_.setAnalyzedString(substring_);
+                        resultExpression_.setSumOffset(((CaseCondition) current_).getConditionOffset());
+                        extractAnon(_page, _int, _method, _type, resultExpression_);
                     }
                 }
             }
             if (current_ instanceof SwitchBlock) {
                 String value_ = ((SwitchBlock) current_).getValue();
-                _page.setGlobalOffset(((SwitchBlock) current_).getValueOffset());
                 _page.zeroOffset();
                 ResultExpression resultExpression_ = ((SwitchBlock) current_).getRes();
-                extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((SwitchBlock) current_).getValueOffset());
+                extractAnon(_page, _int, _method, _type, resultExpression_);
             }
             if (current_ instanceof ConditionBlock) {
                 String value_ = ((ConditionBlock) current_).getCondition();
-                _page.setGlobalOffset(((ConditionBlock) current_).getConditionOffset());
                 _page.zeroOffset();
                 ResultExpression resultExpression_ = ((ConditionBlock) current_).getRes();
-                extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((ConditionBlock) current_).getConditionOffset());
+                extractAnon(_page, _int, _method, _type, resultExpression_);
             }
             if (current_ instanceof ForEachLoop) {
                 String value_ = ((ForEachLoop) current_).getExpression();
-                _page.setGlobalOffset(((ForEachLoop) current_).getExpressionOffset());
                 _page.zeroOffset();
                 ResultExpression resultExpression_ = ((ForEachLoop) current_).getRes();
-                extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((ForEachLoop) current_).getExpressionOffset());
+                extractAnon(_page, _int, _method, _type, resultExpression_);
             }
             if (current_ instanceof ForEachTable) {
                 String value_ = ((ForEachTable) current_).getExpression();
-                _page.setGlobalOffset(((ForEachTable) current_).getExpressionOffset());
                 _page.zeroOffset();
                 ResultExpression resultExpression_ = ((ForEachTable) current_).getRes();
-                extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((ForEachTable) current_).getExpressionOffset());
+                extractAnon(_page, _int, _method, _type, resultExpression_);
             }
             if (current_ instanceof ForIterativeLoop) {
-                _page.setGlobalOffset(((ForIterativeLoop) current_).getInitOffset());
                 _page.zeroOffset();
                 ResultExpression resultInit_ = ((ForIterativeLoop) current_).getResInit();
-                extractAnon(_page, _int, _method, _type, ((ForIterativeLoop) current_).getInit(), resultInit_);
-                _page.setGlobalOffset(((ForIterativeLoop) current_).getExpressionOffset());
+                resultInit_.setAnalyzedString(((ForIterativeLoop) current_).getInit());
+                resultInit_.setSumOffset(((ForIterativeLoop) current_).getInitOffset());
+                extractAnon(_page, _int, _method, _type, resultInit_);
                 _page.zeroOffset();
                 ResultExpression resultExp_ = ((ForIterativeLoop) current_).getResExp();
-                extractAnon(_page, _int, _method, _type, ((ForIterativeLoop) current_).getExpression(), resultExp_);
-                _page.setGlobalOffset(((ForIterativeLoop) current_).getStepOffset());
+                resultExp_.setAnalyzedString(((ForIterativeLoop) current_).getExpression());
+                resultExp_.setSumOffset(((ForIterativeLoop) current_).getExpressionOffset());
+                extractAnon(_page, _int, _method, _type, resultExp_);
                 _page.zeroOffset();
                 ResultExpression resultStep_ = ((ForIterativeLoop) current_).getResStep();
-                extractAnon(_page, _int, _method, _type, ((ForIterativeLoop) current_).getStep(), resultStep_);
+                resultStep_.setAnalyzedString(((ForIterativeLoop) current_).getStep());
+                resultStep_.setSumOffset(((ForIterativeLoop) current_).getStepOffset());
+                extractAnon(_page, _int, _method, _type, resultStep_);
             }
             if (current_ instanceof ForMutableIterativeLoop) {
-                _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getInitOffset());
                 _page.zeroOffset();
                 ResultExpression resultInit_ = ((ForMutableIterativeLoop) current_).getResInit();
-                extractAnon(_page, _int, _method, _type, ((ForMutableIterativeLoop) current_).getInit(), resultInit_);
-                _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getExpressionOffset());
+                resultInit_.setAnalyzedString(((ForMutableIterativeLoop) current_).getInit());
+                resultInit_.setSumOffset(((ForMutableIterativeLoop) current_).getInitOffset());
+                extractAnon(_page, _int, _method, _type, resultInit_);
                 _page.zeroOffset();
                 ResultExpression resultExp_ = ((ForMutableIterativeLoop) current_).getResExp();
-                extractAnon(_page, _int, _method, _type, ((ForMutableIterativeLoop) current_).getExpression(), resultExp_);
-                _page.setGlobalOffset(((ForMutableIterativeLoop) current_).getStepOffset());
+                resultExp_.setAnalyzedString(((ForMutableIterativeLoop) current_).getExpression());
+                resultExp_.setSumOffset(((ForMutableIterativeLoop) current_).getExpressionOffset());
+                extractAnon(_page, _int, _method, _type, resultExp_);
                 _page.zeroOffset();
                 ResultExpression resultStep_ = ((ForMutableIterativeLoop) current_).getResStep();
-                extractAnon(_page, _int, _method, _type, ((ForMutableIterativeLoop) current_).getStep(), resultStep_);
+                resultStep_.setAnalyzedString(((ForMutableIterativeLoop) current_).getStep());
+                resultStep_.setSumOffset(((ForMutableIterativeLoop) current_).getStepOffset());
+                extractAnon(_page, _int, _method, _type, resultStep_);
             }
             if (current_ instanceof ReturnMethod) {
-                _page.setGlobalOffset(((ReturnMethod) current_).getExpressionOffset());
                 _page.zeroOffset();
                 String value_ = ((ReturnMethod) current_).getExpression();
                 ResultExpression resultExpression_ = ((ReturnMethod) current_).getRes();
-                extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((ReturnMethod) current_).getExpressionOffset());
+                extractAnon(_page, _int, _method, _type, resultExpression_);
             }
             if (current_ instanceof Throwing) {
-                _page.setGlobalOffset(((Throwing) current_).getExpressionOffset());
                 _page.zeroOffset();
                 String value_ = ((Throwing) current_).getExpression();
                 ResultExpression resultExpression_ = ((Throwing) current_).getRes();
-                extractAnon(_page, _int, _method, _type, value_, resultExpression_);
+                resultExpression_.setAnalyzedString(value_);
+                resultExpression_.setSumOffset(((Throwing) current_).getExpressionOffset());
+                extractAnon(_page, _int, _method, _type, resultExpression_);
             }
             if (current_ instanceof BuildableElMethod || current_ instanceof UnclassedBracedBlock) {
                 AbsBk ch_ = current_.getFirstChild();
@@ -485,8 +509,9 @@ public final class SplitExpressionUtil {
         }
     }
 
-    private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type, String _value, ResultExpression _resultExpression) {
-        ElRetrieverAnonymous.commonCheckQuick(_value, 0, _page, _resultExpression);
+    private static void extractAnon(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type, ResultExpression _resultExpression) {
+        _page.setSumOffset(_resultExpression.getSumOffset());
+        ElRetrieverAnonymous.commonCheckQuick(0, _page, _resultExpression);
         feedResult(_method, _resultExpression, _int, _type);
     }
 

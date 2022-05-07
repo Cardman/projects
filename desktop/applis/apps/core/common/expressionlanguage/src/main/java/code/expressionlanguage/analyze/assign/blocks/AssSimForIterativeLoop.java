@@ -29,13 +29,13 @@ public final class AssSimForIterativeLoop extends AssBracedStack implements AssB
 
     @Override
     public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(initOffset);
+        _page.setSumOffset(initOffset);
         _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,opInit.last(),this, _page);
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(expressionOffset);
         _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,opExp.last(),this, _page);
-        _page.setGlobalOffset(stepOffset);
+        _page.setSumOffset(stepOffset);
         _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,opStep.last(),this, _page);
     }

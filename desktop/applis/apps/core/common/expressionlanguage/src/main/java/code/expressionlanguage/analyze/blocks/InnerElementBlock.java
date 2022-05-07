@@ -120,17 +120,13 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
     }
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(elementContent.getFieldNameOffest());
         _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String fullInstance_ = buildVirtualCreate(newKeyWord_);
-        int trOffset_ = retrieveTr(newKeyWord_);
-        trOffset = trOffset_;
-        _page.setTranslatedOffset(trOffset_);
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, fullInstance_, new Calculation(this, getNameErrors()), _page));
+        trOffset = retrieveTr(newKeyWord_);
+        _page.setSumOffset(res.getSumOffset());
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, new Calculation(this, getNameErrors()), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
-        _page.setTranslatedOffset(0);
     }
 
     public String buildVirtualCreate(String _newKeyWord) {
@@ -163,7 +159,7 @@ public final class InnerElementBlock extends RootBlock implements InnerTypeOrEle
 
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(elementContent.getTempClassOffset());
+        _page.setSumOffset(elementContent.getTempClassOffset());
         _page.zeroOffset();
         _page.setCurrentBlock(this);
         int i_ = 1;

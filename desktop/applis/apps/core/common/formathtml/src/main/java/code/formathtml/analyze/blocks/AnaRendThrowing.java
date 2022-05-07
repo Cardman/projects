@@ -24,8 +24,8 @@ public final class AnaRendThrowing extends AnaRendLeaf implements AnaRendBuildEl
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         _page.zeroOffset();
-        _page.setGlobalOffset(expressionOffset);
-        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpression);
+        _page.setSumOffset(resultExpression.getSumOffset());
+        root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
     }
 
     public OperationNode getRoot() {

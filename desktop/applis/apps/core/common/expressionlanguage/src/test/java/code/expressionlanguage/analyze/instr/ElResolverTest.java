@@ -1,15 +1,11 @@
 package code.expressionlanguage.analyze.instr;
 
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.blocks.FieldBlock;
 import code.expressionlanguage.analyze.blocks.Line;
 import code.expressionlanguage.analyze.blocks.RootBlock;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
@@ -17,13 +13,9 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.NumberInfos;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
-import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
@@ -4301,13 +4293,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         AnalyzedPageEl analyzing_ = _conf;
         StringComment str_ = new StringComment(_el,new CustList<CommentDelimiters>());
         res_.partsAbsol(str_.getStringParts());
-        analyzing_.setGlobalOffset(0);
+        res_.setAnalyzedString(_el);
+        analyzing_.setSumOffset(0);
         analyzing_.zeroOffset();
-        analyzing_.setTranslatedOffset(0);
-        ElRetrieverAnonymous.commonCheckQuick(_el,0,analyzing_,res_);
+        ElRetrieverAnonymous.commonCheckQuick(0,analyzing_,res_);
         analyzing_.setCurrentParts(res_.getParts());
         analyzing_.setCurrentNumbers(res_.getNumbers());
-        return ElResolver.checkSyntax(_el, 0, analyzing_);
+        return ElResolver.checkSyntax(res_.getAnalyzedString(), 0, analyzing_);
     }
 
     private static Delimiters checkSyntaxDelimiters(AnalyzedPageEl _conf, String _el, int _minIndex) {
@@ -4315,13 +4307,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
         AnalyzedPageEl analyzing_ = _conf;
         StringComment str_ = new StringComment(_el,new CustList<CommentDelimiters>());
         res_.partsAbsol(str_.getStringParts());
-        analyzing_.setGlobalOffset(0);
+        res_.setAnalyzedString(_el);
+        analyzing_.setSumOffset(0);
         analyzing_.zeroOffset();
-        analyzing_.setTranslatedOffset(0);
-        ElRetrieverAnonymous.commonCheckQuick(_el,_minIndex,analyzing_,res_);
+        ElRetrieverAnonymous.commonCheckQuick(_minIndex,analyzing_,res_);
         analyzing_.setCurrentParts(res_.getParts());
         analyzing_.setCurrentNumbers(res_.getNumbers());
-        return ElResolver.checkSyntaxDelimiters(_el, _minIndex, analyzing_);
+        return ElResolver.checkSyntaxDelimiters(res_.getAnalyzedString(), _minIndex, analyzing_);
     }
 
     private static void setGlobalType(AnalyzedPageEl _conf, String _globalClass) {

@@ -17,7 +17,7 @@ public final class ReachLine extends ReachLeaf implements ReachBuildableElMethod
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(expressionOffset);
         _page.zeroOffset();
         ReachOperationUtil.tryCalculate(root, _page);
 //        CustList<ExecOperationNode> op_ = ElUtil.getExecutableNodes(_page, root);

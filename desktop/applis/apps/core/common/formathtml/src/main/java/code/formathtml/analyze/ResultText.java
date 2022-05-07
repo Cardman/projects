@@ -41,16 +41,17 @@ public final class ResultText {
         return _classMethodIdReturn.getReturnType();
     }
 
-    public void buildIdAna(String _expression, int _begin, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(_begin);
+    public void buildIdAna(int _begin, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        _page.setSumOffset(resultExpression.getSumOffset());
         _page.zeroOffset();
+        String exp_ = resultExpression.getAnalyzedString();
         opExpRoot = new CustList<OperationNode>();
         StringBuilder str_ = new StringBuilder();
-        int length_ = _expression.length();
+        int length_ = exp_.length();
         boolean escaped_ = false;
         int i_ = IndexConstants.FIRST_INDEX;
         while (i_ < length_) {
-            char cur_ = _expression.charAt(i_);
+            char cur_ = exp_.charAt(i_);
             if (escaped_) {
                 if (cur_ == ESCAPED) {
                     escaped_ = false;
@@ -76,7 +77,7 @@ public final class ResultText {
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         Character.toString(cur_),
                         Long.toString(i_),
-                        _expression);
+                        exp_);
                 AnalyzingDoc.addError(badEl_, _page);
                 return;
             }
@@ -89,19 +90,19 @@ public final class ResultText {
                 texts.add(str_.toString());
                 str_.delete(0,str_.length());
                 i_++;
-                if (i_ >= length_ || _expression.charAt(i_) == RIGHT_EL) {
+                if (i_ >= length_ || exp_.charAt(i_) == RIGHT_EL) {
                     FoundErrorInterpret badEl_ = new FoundErrorInterpret();
                     badEl_.setFile(_page.getCurrentFile());
                     badEl_.setIndexFile(_begin);
                     badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                             " ",
                             Long.toString(i_),
-                            _expression);
+                            exp_);
                     AnalyzingDoc.addError(badEl_, _page);
                     return;
                 }
 //                _conf.getLastPage().setOffset(i_);
-                OperationNode opsLoc_ = RenderAnalysis.getRootAnalyzedOperationsDel(_expression, i_, _anaDoc, _page,resultExpression);
+                OperationNode opsLoc_ = RenderAnalysis.getRootAnalyzedOperationsDel(i_, _anaDoc, _page,resultExpression);
                 opExpRoot.add(opsLoc_);
                 i_ = _anaDoc.getNextIndex();
                 continue;
@@ -114,7 +115,7 @@ public final class ResultText {
                 badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                         " ",
                         Long.toString(i_),
-                        _expression);
+                        exp_);
                 AnalyzingDoc.addError(badEl_, _page);
                 return;
             }
@@ -132,15 +133,14 @@ public final class ResultText {
             String lk_ = href_.substring(1);
             int colsGrId_ = _r.getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             for (EntryCust<String,ResultExpression> e: _res.getResults().entryList()) {
-                int param_ = _r.getAttributeDelimiter(e.getKey());
                 _page.zeroOffset();
-                _page.setGlobalOffset(param_);
-                String attribute_ = _read.getAttribute(e.getKey());
-                RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page, e.getValue());
+                _page.setSumOffset(e.getValue().getSumOffset());
+                RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, e.getValue());
             }
             if (StringExpUtil.isDollarWord(lk_)) {
                 StringList argCla_ = feedArgs(_res,_page);
                 _page.zeroOffset();
+                _page.setSumOffset(colsGrId_);
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 _res.resultAnc = classMethodIdReturn_;
                 check(_page,colsGrId_,classMethodIdReturn_);

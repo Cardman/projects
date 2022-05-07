@@ -21,7 +21,7 @@ public abstract class ReachCondition extends ReachBracedBlock implements ReachBu
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(conditionOffset);
+        _page.setSumOffset(conditionOffset);
         _page.zeroOffset();
         meta.setArgument(ReachOperationUtil.tryCalculate(root, _page));
 //        CustList<ExecOperationNode> opCondition_ = ElUtil.getExecutableNodes(_page, root);

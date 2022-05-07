@@ -18,12 +18,10 @@ public final class AnaRendImg extends AnaRendElement {
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrSrc());
-        int rowsGrId_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrSrc());
-        offSrc = rowsGrId_;
-        _page.setGlobalOffset(rowsGrId_);
+        offSrc = resultExpressionSrc.getSumOffset();
+        _page.setSumOffset(resultExpressionSrc.getSumOffset());
         _page.zeroOffset();
-        rootSrc = getRootAnalyzedOperations(pageName_, 0, _anaDoc, _page, resultExpressionSrc);
+        rootSrc = getRootAnalyzedOperations(0, _anaDoc, _page, resultExpressionSrc);
     }
     @Override
     public StringList processListAttributes(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

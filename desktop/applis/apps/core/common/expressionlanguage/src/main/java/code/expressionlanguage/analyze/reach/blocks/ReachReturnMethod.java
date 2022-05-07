@@ -20,7 +20,7 @@ public final class ReachReturnMethod extends ReachAbruptBlock {
         if (root == null) {
             return;
         }
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(expressionOffset);
         _page.zeroOffset();
         ReachOperationUtil.tryCalculate(root, _page);
     }

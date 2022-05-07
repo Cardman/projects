@@ -80,7 +80,6 @@ public final class CaseCondition extends SwitchPartBlock {
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        _page.setGlobalOffset(valueOffset);
         _page.zeroOffset();
         BracedBlock par_ = getParent();
         MethodAccessKind stCtx_ = f_.getStaticContext();
@@ -95,7 +94,8 @@ public final class CaseCondition extends SwitchPartBlock {
             //key word len
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
-            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
+            _page.setSumOffset(res.getSumOffset());
+            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(stCtx_), _page));
             return;
         }
         String type_;
@@ -113,7 +113,7 @@ public final class CaseCondition extends SwitchPartBlock {
             type_ = resSwitch_.getSingleNameOrEmpty();
             instance_ = sw_.isInstance();
         }
-        _page.setGlobalOffset(valueOffset);
+        _page.setSumOffset(valueOffset);
         _page.zeroOffset();
         if (!variableName.isEmpty()) {
             if (!instance_) {
@@ -138,9 +138,9 @@ public final class CaseCondition extends SwitchPartBlock {
                 _page.getInfosVars().put(variableName, lv_);
             }
             if (!condition.isEmpty()) {
-                _page.setGlobalOffset(conditionOffset);
+                _page.setSumOffset(res.getSumOffset());
                 _page.zeroOffset();
-                res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, condition, Calculation.staticCalculation(stCtx_), _page));
+                res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(stCtx_), _page));
                 AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
                 if (!resultClass_.isBoolType(_page)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -196,7 +196,8 @@ public final class CaseCondition extends SwitchPartBlock {
             return;
         }
         _page.setAcceptCommaInstr(true);
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(stCtx_), _page));
+        _page.setSumOffset(res.getSumOffset());
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(stCtx_), _page));
         _page.setAcceptCommaInstr(false);
         String emp_ = _page.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {

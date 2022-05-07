@@ -141,7 +141,7 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(getClassNameOffset());
+        _page.setSumOffset(getClassNameOffset());
         _page.zeroOffset();
         _page.setCurrentBlock(this);
         partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
@@ -153,10 +153,10 @@ public final class FieldBlock extends Leaf implements InfoBlock {
     }
     @Override
     public void retrieveNames(StringList _fieldNames, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(fieldContent.getValueOffset());
+        _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
         Calculation calcul_ = Calculation.staticCalculation(fieldContent.isStaticField());
-        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(res,fieldContent.getValueOffset(),value, calcul_, _page);
+        CustList<PartOffsetAffect> names_ = ElUtil.getFieldNames(res,fieldContent.getValueOffset(), calcul_, _page);
         if (names_.isEmpty()) {
             FoundErrorInterpret b_;
             b_ = new FoundErrorInterpret();
@@ -226,27 +226,26 @@ public final class FieldBlock extends Leaf implements InfoBlock {
 
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(fieldContent.getValueOffset());
+        _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(fieldContent.isStaticField()), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(fieldContent.isStaticField()), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
     }
 
     public CustList<OperationNode> buildExpressionLanguageQuickly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(fieldContent.getValueOffset());
+        _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
-        return ElUtil.getAnalyzedOperationsQucikly(res,value, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
+        return ElUtil.getAnalyzedOperationsQucikly(res, Calculation.staticCalculation(fieldContent.isStaticField()), _page);
     }
 
     public void buildAnnotations(AnalyzedPageEl _page) {
         int len_ = annotations.getAnnotations().size();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
-            ResultParsedAnnot begin_ = annotations.getAnnotations().get(i);
-            _page.setGlobalOffset(begin_.getIndex());
+            _page.setSumOffset(resList.get(i).getSumOffset());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), begin_.getAnnotation().trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }

@@ -184,11 +184,10 @@ public abstract class RootBlock extends BracedBlock implements AccessedBlock,Ann
         int len_ = annotations.getAnnotations().size();
         roots.clear();
         for (int i = 0; i < len_; i++) {
-            ResultParsedAnnot begin_ = annotations.getAnnotations().get(i);
-            _page.setGlobalOffset(begin_.getIndex());
+            _page.setSumOffset(resList.get(i).getSumOffset());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), begin_.getAnnotation().trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }

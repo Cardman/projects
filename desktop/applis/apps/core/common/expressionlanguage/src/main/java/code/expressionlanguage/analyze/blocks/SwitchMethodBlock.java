@@ -1,7 +1,6 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.files.ResultParsedAnnot;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
@@ -160,11 +159,10 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
         roots = new CustList<OperationNode>();
         int len_ = annotations.getAnnotations().size();
         for (int i = 0; i < len_; i++) {
-            ResultParsedAnnot begin_ = annotations.getAnnotations().get(i);
-            _page.setGlobalOffset(begin_.getIndex());
+            _page.setSumOffset(resList.get(i).getSumOffset());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), begin_.getAnnotation().trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
@@ -178,11 +176,10 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
             CustList<OperationNode> rootList_ = new CustList<OperationNode>();
             int len_ = l.getAnnotations().size();
             for (int i = 0; i < len_; i++) {
-                ResultParsedAnnot begin_ = l.getAnnotations().get(i);
-                _page.setGlobalOffset(begin_.getIndex());
+                _page.setSumOffset(resLists.get(j_).get(i).getSumOffset());
                 _page.zeroOffset();
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), begin_.getAnnotation().trim(), c_, _page);
+                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), c_, _page);
                 ReachOperationUtil.tryCalculate(r_, _page);
                 rootList_.add(r_);
             }

@@ -14,7 +14,6 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.analyze.util.FormattedMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.analyze.instr.PartOffset;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodId;
 import code.expressionlanguage.analyze.instr.PartOffsetsClassMethodIdList;
 import code.util.CustList;
@@ -42,7 +41,7 @@ public final class InternOverrideBlock extends Leaf {
             _page.addLocError(b_);
             addErrorBlock(b_.getBuiltError());
         }
-        _page.setGlobalOffset(definitionOffset);
+        _page.setSumOffset(definitionOffset);
         StringList overrideList_ = StringUtil.splitChar(definition, ';');
         int sum_ = 0;
         for (String o: overrideList_) {

@@ -134,11 +134,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         roots = new CustList<OperationNode>();
         int len_ = annotations.getAnnotations().size();
         for (int i = 0; i < len_; i++) {
-            ResultParsedAnnot begin_ = annotations.getAnnotations().get(i);
-            _page.setGlobalOffset(begin_.getIndex());
+            _page.setSumOffset(resList.get(i).getSumOffset());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), begin_.getAnnotation().trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }
@@ -152,11 +151,10 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
             CustList<OperationNode> rootList_ = new CustList<OperationNode>();
             int len_ = l.getAnnotations().size();
             for (int i = 0; i < len_; i++) {
-                ResultParsedAnnot begin_ = l.getAnnotations().get(i);
-                _page.setGlobalOffset(begin_.getIndex());
+                _page.setSumOffset(resLists.get(j_).get(i).getSumOffset());
                 _page.zeroOffset();
                 Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), begin_.getAnnotation().trim(), c_, _page);
+                OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resLists.get(j_).get(i), c_, _page);
                 ReachOperationUtil.tryCalculate(r_, _page);
                 rootList_.add(r_);
             }
@@ -225,7 +223,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         buildImportedReturnTypes(_page);
     }
     public final String buildInternParam(int _offset, String _param, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(_offset);
+        _page.setSumOffset(_offset);
         _page.zeroOffset();
         AnaResultPartType result_ = ResolvingTypes.resolveCorrectType(_param, _page);
         String res_ = result_.getResult(_page);
@@ -242,7 +240,7 @@ public abstract class NamedFunctionBlock extends MemberCallingsBlock implements 
         importedReturnType = buildInternRet(returnTypeOffset,returnType, _page);
     }
     public final String buildInternRet(int _offset, String _param, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(_offset);
+        _page.setSumOffset(_offset);
         _page.zeroOffset();
         partOffsetsReturn = ResolvingTypes.resolveCorrectType(_param, _page);
         return partOffsetsReturn.getResult(_page);

@@ -40,9 +40,9 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(valueOffset);
+        _page.setSumOffset(resultExpression.getSumOffset());
         _page.zeroOffset();
-        root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page,resultExpression);
+        root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
         result = root.getResultClass();
         AnaClassArgumentMatching clArg_ = root.getResultClass();
         String type_ = clArg_.getSingleNameOrEmpty();
@@ -93,7 +93,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                 first_ = first_.getNextSibling();
                 continue;
             }
-            _page.setGlobalOffset(getOffset());
+            _page.setSumOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());

@@ -30,7 +30,7 @@ public abstract class MemberCallingsBlock extends BracedBlock implements Accesse
     }
 
     public final void buildFctInstructionsReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(getOffset());
+        _page.setSumOffset(getOffset());
         _page.zeroOffset();
         _page.setVariableIssue(false);
         AbsBk firstChild_ = getFirstChild();

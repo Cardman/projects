@@ -150,23 +150,23 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
             AnalyzingDoc.addError(b_, _page);
             okVarSecond = false;
         }
-        _page.setGlobalOffset(classNameOffsetFirst);
+        _page.setSumOffset(classNameOffsetFirst);
         _page.zeroOffset();
         if (!toInferFirst(_page)) {
             importedClassNameFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page).getResult(_page);
         } else {
             importedClassNameFirst = EMPTY_STRING;
         }
-        _page.setGlobalOffset(classNameOffsetSecond);
+        _page.setSumOffset(classNameOffsetSecond);
         _page.zeroOffset();
         if (!toInferSecond(_page)) {
             importedClassNameSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page).getResult(_page);
         } else {
             importedClassNameSecond = EMPTY_STRING;
         }
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(resultExpression.getSumOffset());
         _page.zeroOffset();
-        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpression);
+        root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
     }
 
     public void checkIterableCandidates(StringList _types, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {

@@ -33,7 +33,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(variableNameOffset);
+        _page.setSumOffset(variableNameOffset);
         _page.zeroOffset();
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
@@ -44,7 +44,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval {
             AnalyzingDoc.addError(b_, _page);
             return;
         }
-        _page.setGlobalOffset(classNameOffset);
+        _page.setSumOffset(classNameOffset);
         importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         AnaLocalVariable lv_ = new AnaLocalVariable();
         lv_.setClassName(importedClassName);

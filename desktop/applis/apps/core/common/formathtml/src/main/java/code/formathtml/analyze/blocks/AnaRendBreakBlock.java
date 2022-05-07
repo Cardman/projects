@@ -38,7 +38,7 @@ public final class AnaRendBreakBlock extends AnaRendLeaf implements AnaRendBuild
             b_ = b_.getParent();
         }
         if (!childOfBreakable_) {
-            _page.setGlobalOffset(getOffset());
+            _page.setSumOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());

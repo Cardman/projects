@@ -19,7 +19,7 @@ public final class AssSimLine extends AssLeaf implements AssBuildableElMethod {
 
     @Override
     public void buildExpressionLanguage(AssignedVariablesBlock _a, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(expressionOffset);
         _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,opList.last(),this, _page);
         AssBlock pre_ = getPreviousSibling();

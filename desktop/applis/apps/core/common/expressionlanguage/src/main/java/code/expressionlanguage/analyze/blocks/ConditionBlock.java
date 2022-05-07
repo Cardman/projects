@@ -32,7 +32,7 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
 
     private int conditionNb;
 
-    public ConditionBlock(OffsetStringInfo _condition, int _offset) {
+    protected ConditionBlock(OffsetStringInfo _condition, int _offset) {
         super(_offset);
         condition = _condition.getInfo();
         conditionOffset = _condition.getOffset();
@@ -46,9 +46,9 @@ public abstract class ConditionBlock extends BracedBlock implements BuildableElM
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        _page.setGlobalOffset(conditionOffset);
+        _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, condition, Calculation.staticCalculation(f_.getStaticContext()), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(f_.getStaticContext()), _page));
         err = _page.getCurrentEmptyPartErr();
         processBoolean(res.getRoot(), _page);
     }

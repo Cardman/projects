@@ -32,7 +32,7 @@ public final class ReachSwitchBlock extends ReachBracedBlock implements ReachBre
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(valueOffset);
+        _page.setSumOffset(valueOffset);
         _page.zeroOffset();
         ReachOperationUtil.tryCalculate(root, _page);
 //        ReachBlock first_ = getFirstChild();

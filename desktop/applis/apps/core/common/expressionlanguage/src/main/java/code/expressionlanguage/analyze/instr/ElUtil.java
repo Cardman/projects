@@ -21,7 +21,7 @@ public final class ElUtil {
     private ElUtil() {
     }
 
-    public static CustList<PartOffsetAffect> getFieldNames(ResultExpression _res,int _valueOffset, String _el, Calculation _calcul, AnalyzedPageEl _page) {
+    public static CustList<PartOffsetAffect> getFieldNames(ResultExpression _res, int _valueOffset, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
@@ -29,7 +29,7 @@ public final class ElUtil {
         _page.setCurrentNumbers(_res.getNumbers());
         _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
         _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
-        Delimiters d_ = ElResolver.checkSyntaxQuick(_el, _page);
+        Delimiters d_ = ElResolver.checkSyntaxQuick(_res.getAnalyzedString(), _page);
         CustList<PartOffsetAffect> names_ = new CustList<PartOffsetAffect>();
         if (d_.getBadOffset() >= 0) {
             return names_;
@@ -53,7 +53,7 @@ public final class ElUtil {
         _page.setAccessStaticContext(access_);
     }
 
-    public static OperationNode getRootAnalyzedOperationsReadOnly(ResultExpression _res, String _el, Calculation _calcul, AnalyzedPageEl _page) {
+    public static OperationNode getRootAnalyzedOperationsReadOnly(ResultExpression _res, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentEmptyPartErr("");
@@ -62,9 +62,9 @@ public final class ElUtil {
         _page.setCurrentNumbers(_res.getNumbers());
         _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
         _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
-        Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
+        Delimiters d_ = ElResolver.checkSyntax(_res.getAnalyzedString(), IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
-        if (_el.trim().isEmpty()) {
+        if (_res.getAnalyzedString().trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(_page);
@@ -85,7 +85,7 @@ public final class ElUtil {
             OperationsSequence tmpOp_ = new OperationsSequence();
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
-            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page, null);
+            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _res.getAnalyzedString(), d_, _page, null);
             op_ = OperationNode.createPossDeclOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, opTwo_, _page);
         }
         setupStaticContext(hiddenVarTypes_, op_, _page);
@@ -96,7 +96,7 @@ public final class ElUtil {
     }
 
 
-    public static CustList<OperationNode> getAnalyzedOperationsQucikly(ResultExpression _res,String _el, Calculation _calcul, AnalyzedPageEl _page) {
+    public static CustList<OperationNode> getAnalyzedOperationsQucikly(ResultExpression _res, Calculation _calcul, AnalyzedPageEl _page) {
         MethodAccessKind hiddenVarTypes_ = _calcul.getStaticBlock();
         _page.setAccessStaticContext(hiddenVarTypes_);
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
@@ -104,9 +104,9 @@ public final class ElUtil {
         _page.setCurrentNumbers(_res.getNumbers());
         _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
         _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
-        Delimiters d_ = ElResolver.checkSyntax(_el, IndexConstants.FIRST_INDEX, _page);
+        Delimiters d_ = ElResolver.checkSyntax(_res.getAnalyzedString(), IndexConstants.FIRST_INDEX, _page);
         int badOffset_ = d_.getBadOffset();
-        if (_el.trim().isEmpty()) {
+        if (_res.getAnalyzedString().trim().isEmpty()) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
             badEl_.setFile(_page.getCurrentFile());
             badEl_.setIndexFile(_page);
@@ -114,7 +114,7 @@ public final class ElUtil {
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
                     Long.toString(badOffset_),
-                    _el);
+                    _res.getAnalyzedString());
             _page.addLocError(badEl_);
             OperationsSequence tmpOp_ = new OperationsSequence();
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
@@ -128,7 +128,7 @@ public final class ElUtil {
             OperationsSequence tmpOp_ = new OperationsSequence();
             op_ = new ErrorPartOperation(0, 0, null, tmpOp_);
         } else {
-            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_, _page, null);
+            OperationsSequence opTwo_ = ElResolver.getOperationsSequence(IndexConstants.FIRST_INDEX, _res.getAnalyzedString(), d_, _page, null);
             op_ = OperationNode.createPossDeclOperationNode(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, opTwo_, _page);
         }
         return getSortedDescNodesReadOnly(op_, _calcul, _page, d_);

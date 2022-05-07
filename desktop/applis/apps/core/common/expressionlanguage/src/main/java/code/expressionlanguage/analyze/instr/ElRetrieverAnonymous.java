@@ -18,13 +18,13 @@ public final class ElRetrieverAnonymous {
     private ElRetrieverAnonymous() {
     }
 
-    public static int commonCheckQuick(String _string, int _minIndex, AnalyzedPageEl _page, ResultExpression _res) {
+    public static int commonCheckQuick(int _minIndex, AnalyzedPageEl _page, ResultExpression _res) {
         _page.getAnonymousResults().clear();
         _page.getAnnotDelNew().clear();
         _page.getAnnotDelSwitch().clear();
         String currentPkg_ = _page.getCurrentPkg();
         FileBlock currentFile_ = _page.getCurrentFile();
-        int next_ = stackBegin(_string, _minIndex, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex(), _res));
+        int next_ = stackBegin(_res.getAnalyzedString(), _minIndex, _page, new CurrentExpElts(currentPkg_, currentFile_, _page.getIndex(), _res));
         _res.setAnonymousResults(new CustList<AnonymousResult>(_page.getAnonymousResults()));
         _res.setAnnotDelNew(new Ints(_page.getAnnotDelNew()));
         _res.setAnnotDelSwitch(new Ints(_page.getAnnotDelSwitch()));

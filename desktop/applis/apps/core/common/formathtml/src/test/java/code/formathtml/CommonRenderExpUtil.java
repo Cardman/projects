@@ -127,13 +127,13 @@ public abstract class CommonRenderExpUtil extends CommonRender {
 //        analyzing_.setCurrentParts(res_.getParts());
         StringComment str_ = new StringComment(_elr,new CustList<CommentDelimiters>());
         res_.partsAbsol(str_.getStringParts());
-        analyzing_.setGlobalOffset(0);
+        res_.setAnalyzedString(_elr);
+        analyzing_.setSumOffset(0);
         analyzing_.zeroOffset();
-        analyzing_.setTranslatedOffset(0);
-        ElRetrieverAnonymous.commonCheckQuick(_elr,0,analyzing_,res_);
+        ElRetrieverAnonymous.commonCheckQuick(0,analyzing_,res_);
         analyzing_.setCurrentParts(res_.getParts());
         analyzing_.setCurrentNumbers(res_.getNumbers());
-        return ElResolver.checkSyntax(_elr, 0, analyzing_);
+        return ElResolver.checkSyntax(res_.getAnalyzedString(), 0, analyzing_);
     }
 
     protected static OperationNode getOperationNode(int _ind, byte _ch, MethodOperation _par, OperationsSequence _opTwo, DualNavigationContext _ctx) {

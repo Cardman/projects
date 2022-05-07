@@ -54,7 +54,7 @@ public final class ContinueBlock extends AbruptBlock {
             b_ = b_.getParent();
         }
         if (!childOfLoop_) {
-            _page.setGlobalOffset(getOffset());
+            _page.setSumOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(getFile());

@@ -37,7 +37,7 @@ public final class AnaRendDeclareVariable extends AnaRendLeaf implements AnaRend
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(classNameOffset);
+        _page.setSumOffset(classNameOffset);
         _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();

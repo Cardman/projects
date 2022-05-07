@@ -17,7 +17,7 @@ public final class ReachThrowing extends ReachAbruptBlock {
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         _page.zeroOffset();
-        _page.setGlobalOffset(meta.getExpressionOffset());
+        _page.setSumOffset(meta.getExpressionOffset());
         ReachOperationUtil.tryCalculate(root, _page);
     }
 }

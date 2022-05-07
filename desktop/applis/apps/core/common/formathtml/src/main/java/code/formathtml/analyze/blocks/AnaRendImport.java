@@ -23,10 +23,9 @@ public final class AnaRendImport extends AnaRendParentBlock implements AnaRendBu
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(pageOffset);
+        _page.setSumOffset(resultExpressionPage.getSumOffset());
         _page.zeroOffset();
-        String pageName_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrPage());
-        rootPage = AnaRendElement.getRootAnalyzedOperations(pageName_,0,_anaDoc,_page,resultExpressionPage);
+        rootPage = AnaRendElement.getRootAnalyzedOperations(0,_anaDoc,_page,resultExpressionPage);
     }
 
     public int getPageOffset() {

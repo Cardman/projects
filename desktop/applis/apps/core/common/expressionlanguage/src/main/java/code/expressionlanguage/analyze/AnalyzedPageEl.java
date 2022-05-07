@@ -95,9 +95,7 @@ public final class AnalyzedPageEl {
 
     private MethodAccessKind staticContext;
 
-    private int globalOffset;
-
-    private int translatedOffset;
+    private int sumOffset;
 
     private boolean acceptCommaInstr;
     private String currentVarSetting = "";
@@ -382,16 +380,12 @@ public final class AnalyzedPageEl {
         this.tabWidth = _tabWidth;
     }
 
-    public void setTranslatedOffset(int _translatedOffset) {
-        translatedOffset = _translatedOffset;
+    public int getSumOffset() {
+        return sumOffset;
     }
 
-    public int getGlobalOffset() {
-        return globalOffset;
-    }
-
-    public void setGlobalOffset(int _globalOffset) {
-        globalOffset = _globalOffset;
+    public void setSumOffset(int _sum) {
+        this.sumOffset = _sum;
     }
 
     public static String getFileName(FileBlock _file) {
@@ -410,11 +404,7 @@ public final class AnalyzedPageEl {
         return getTraceIndex(currentFile, getIndex());
     }
     public int getIndex() {
-        return globalOffset + getOffset() + getTranslatedOffset();
-    }
-
-    public int getTranslatedOffset() {
-        return translatedOffset;
+        return getOffset() + sumOffset;
     }
 
     public AbsBk getCurrentBlock() {

@@ -39,11 +39,9 @@ public final class AnaRendTitledAnchor extends AnaRendElement {
             e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(), _read.hasAttribute(_anaDoc.getRendKeyWords().getAttrEscapedAmp())));
         }
         for (EntryCust<String,ResultExpression> e: opExpTitle.entryList()) {
-            String attribute_ = _read.getAttribute(e.getKey());
-            int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            _page.setGlobalOffset(rowsGrId_);
+            _page.setSumOffset(e.getValue().getSumOffset());
             _page.zeroOffset();
-            RenderAnalysis.getRootAnalyzedOperations(attribute_,0,_anaDoc,_page,e.getValue());
+            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
         }
     }
 

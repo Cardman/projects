@@ -72,16 +72,16 @@ public final class SwitchBlock extends BracedBlock implements BreakableBlock,Bui
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         MemberCallingsBlock f_ = _page.getCurrentFct();
-        _page.setGlobalOffset(valueOffset);
+        _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, value, Calculation.staticCalculation(f_.getStaticContext()), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(f_.getStaticContext()), _page));
         err = _page.getCurrentEmptyPartErr();
         result = res.getRoot().getResultClass();
         processAfterEl(_page);
     }
 
     private void processAfterEl(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(valueOffset);
+        _page.setSumOffset(valueOffset);
         _page.zeroOffset();
         processAfterEl(result,this,_page);
         processChildren(this,_page);

@@ -22,7 +22,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         AnaRendParentBlock b_ = getParent();
         if (!(b_ instanceof AnaRendSwitchBlock)) {
-            _page.setGlobalOffset(getOffset());
+            _page.setSumOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());

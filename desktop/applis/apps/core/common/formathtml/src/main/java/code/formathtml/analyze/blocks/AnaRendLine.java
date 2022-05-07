@@ -25,9 +25,9 @@ public final class AnaRendLine extends AnaRendLeaf implements AnaRendBuildEl {
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(resultExpression.getSumOffset());
         _page.zeroOffset();
-        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpression);
+        root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
         if (_page.getLineDeclarator() != null) {
             StringList vars_ = _page.getVariablesNames();
             AnaRendDeclareVariable declaring_ = (AnaRendDeclareVariable) getPreviousSibling();

@@ -120,16 +120,16 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
             b_.setBuiltError(res_.getMessage());
             AnalyzingDoc.addError(b_, _page);
         }
-        _page.setGlobalOffset(classNameOffset);
+        _page.setSumOffset(classNameOffset);
         _page.zeroOffset();
         if (!toInfer(_page)) {
             importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         } else {
             importedClassName = EMPTY_STRING;
         }
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(resultExpression.getSumOffset());
         _page.zeroOffset();
-        root = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpression);
+        root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
         return root;
     }
     public void inferArrayClass(AnalyzingDoc _anaDoc, OperationNode _root, AnalyzedPageEl _page) {

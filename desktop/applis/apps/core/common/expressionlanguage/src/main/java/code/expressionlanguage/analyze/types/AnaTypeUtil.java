@@ -216,7 +216,7 @@ public final class AnaTypeUtil {
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getInstInitInterfacesOffset().get(i);
                 _page.setCurrentBlock(c);
-                _page.setGlobalOffset(offset_);
+                _page.setSumOffset(offset_);
                 _page.zeroOffset();
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(c.getRefMappings());
@@ -268,7 +268,7 @@ public final class AnaTypeUtil {
             for (int i = 0; i < len_; i++) {
                 int offset_ = c.getStaticInitInterfacesOffset().get(i);
                 _page.setCurrentBlock(c);
-                _page.setGlobalOffset(offset_);
+                _page.setSumOffset(offset_);
                 _page.zeroOffset();
                 _page.getMappingLocal().clear();
                 _page.getMappingLocal().putAllMap(c.getRefMappings());

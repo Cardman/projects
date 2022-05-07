@@ -34,9 +34,9 @@ public final class AnaRendField extends AnaRendParentBlock implements AnaRendBui
             AnaRendClass cl_ = (AnaRendClass) getParent();
             String intern_ = cl_.getFullName();
             _anaDoc.setInternGlobalClass(intern_);
-            _page.setGlobalOffset(prepareOffset);
             _page.zeroOffset();
-            root = RenderAnalysis.getRootAnalyzedOperations(prepare, 0, _anaDoc, _page,resultExpression);
+            _page.setSumOffset(resultExpression.getSumOffset());
+            root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
             _anaDoc.setInternGlobalClass(EMPTY_STRING);
         }
     }

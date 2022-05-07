@@ -22,13 +22,13 @@ public final class RenderAnalysis {
     private RenderAnalysis() {
     }
 
-    public static OperationNode getRootAnalyzedOperationsDel(String _el, int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
+    public static OperationNode getRootAnalyzedOperationsDel(int _minIndex, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
         _page.setCurrentNumbers(_res.getNumbers());
         _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
         _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
-        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_el, _minIndex, _page);
+        Delimiters d_ = ElResolver.checkSyntaxDelimiters(_res.getAnalyzedString(), _minIndex, _page);
         int badOffset_ = d_.getBadOffset();
         if (badOffset_ >= 0) {
             FoundErrorInterpret badEl_ = new FoundErrorInterpret();
@@ -37,32 +37,32 @@ public final class RenderAnalysis {
             badEl_.buildError(_page.getAnalysisMessages().getBadExpression(),
                     " ",
                     Long.toString(badOffset_),
-                    _el);
+                    _res.getAnalyzedString());
             AnalyzingDoc.addError(badEl_, _page);
             OperationsSequence tmpOp_ = new OperationsSequence();
             ErrorPartOperation e_ = new ErrorPartOperation(0, 0, null, tmpOp_);
             String argClName_ = _page.getAliasObject();
             e_.setResultClass(new AnaClassArgumentMatching(argClName_));
             e_.setOrder(0);
-            _anaDoc.setNextIndex(_el.length());
+            _anaDoc.setNextIndex(_res.getAnalyzedString().length());
             return e_;
         }
         int end_ = d_.getIndexEnd();
         _anaDoc.setNextIndex(end_+2);
-        String el_ = _el.substring(_minIndex,end_+1);
+        String el_ = _res.getAnalyzedString().substring(_minIndex,end_+1);
         OperationsSequence opTwo_ = getOperationsSequence(_minIndex, el_, d_, _anaDoc, _page, null);
         OperationNode op_ = OperationNode.createPossDeclOperationNode(_minIndex, IndexConstants.FIRST_INDEX, opTwo_, _page);
         getSortedDescNodes(op_, _anaDoc, _page,d_);
         return op_;
     }
 
-    public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
+    public static OperationNode getRootAnalyzedOperations(int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
         _page.setCurrentAnonymousResults(_res.getAnonymousResults());
         _page.setCurrentParts(_res.getParts());
         _page.setCurrentNumbers(_res.getNumbers());
         _page.setCurrentAnnotDelNew(_res.getAnnotDelNew());
         _page.setCurrentAnnotDelSwitch(_res.getAnnotDelSwitch());
-        OperationNode root_ = getRootAnalyzedOperations(_el, _index, _anaDoc, _page);
+        OperationNode root_ = getRootAnalyzedOperations(_res.getAnalyzedString(), _index, _anaDoc, _page);
         _res.setRoot(root_);
         return root_;
     }

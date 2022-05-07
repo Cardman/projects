@@ -22,7 +22,7 @@ public final class AssSimBracedBlock extends AssBracedBlock implements AssBuilda
         if (ops.isEmpty()) {
             return;
         }
-        _page.setGlobalOffset(offset);
+        _page.setSumOffset(offset);
         _page.zeroOffset();
         AssUtil.getSimSortedDescNodes(_a,ops.last(),this, _page);
     }

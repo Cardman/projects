@@ -25,26 +25,22 @@ public abstract class AnaRendElement extends AnaRendParentBlock implements AnaRe
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         for (EntryCust<String,ResultExpression> e: attributesText.entryList()) {
-            String attr_ = read.getAttribute(e.getKey());
-            int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            _page.setGlobalOffset(rowsGrId_);
             _page.zeroOffset();
-            RenderAnalysis.getRootAnalyzedOperations(attr_,0,_anaDoc,_page,e.getValue());
+            _page.setSumOffset(e.getValue().getSumOffset());
+            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
         }
         processAttributes(_doc,read, _anaDoc, _page);
         for (EntryCust<String,ResultExpression> e: attributes.entryList()) {
-            String attr_ = read.getAttribute(e.getKey());
-            int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            _page.setGlobalOffset(rowsGrId_);
             _page.zeroOffset();
-            RenderAnalysis.getRootAnalyzedOperations(attr_,0,_anaDoc,_page,e.getValue());
+            _page.setSumOffset(e.getValue().getSumOffset());
+            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
         }
     }
-    public static OperationNode getRootAnalyzedOperations(String _el, int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
-        if (_el.trim().isEmpty()) {
+    public static OperationNode getRootAnalyzedOperations(int _index, AnalyzingDoc _anaDoc, AnalyzedPageEl _page, ResultExpression _res) {
+        if (_res.getAnalyzedString().trim().isEmpty()) {
             return null;
         }
-        return RenderAnalysis.getRootAnalyzedOperations(_el, _index, _anaDoc, _page, _res);
+        return RenderAnalysis.getRootAnalyzedOperations(_index, _anaDoc, _page, _res);
     }
 
     public StringList params(AnalyzingDoc _anaDoc) {

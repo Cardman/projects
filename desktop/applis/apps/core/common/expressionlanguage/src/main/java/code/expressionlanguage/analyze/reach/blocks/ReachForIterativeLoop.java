@@ -22,15 +22,15 @@ public class ReachForIterativeLoop extends ReachBracedBlock implements ReachLoop
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(meta.getInitOffset());
+        _page.setSumOffset(meta.getInitOffset());
         _page.zeroOffset();
         OperationNode rInit_ = meta.getRootInit();
         ReachOperationUtil.tryCalculate(rInit_, _page);
-        _page.setGlobalOffset(meta.getExpressionOffset());
+        _page.setSumOffset(meta.getExpressionOffset());
         _page.zeroOffset();
         OperationNode rExp_ = meta.getRootExp();
         ReachOperationUtil.tryCalculate(rExp_, _page);
-        _page.setGlobalOffset(meta.getStepOffset());
+        _page.setSumOffset(meta.getStepOffset());
         _page.zeroOffset();
         OperationNode rStep_ = meta.getRootStep();
         ReachOperationUtil.tryCalculate(rStep_, _page);

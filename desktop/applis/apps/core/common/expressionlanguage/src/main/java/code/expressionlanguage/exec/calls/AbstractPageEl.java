@@ -124,7 +124,7 @@ public abstract class AbstractPageEl {
     }
 
     public int getTraceIndex() {
-        return globalOffset + offset + translatedOffset;
+        return globalOffset + offset;
     }
 
     public int getTranslatedOffset() {

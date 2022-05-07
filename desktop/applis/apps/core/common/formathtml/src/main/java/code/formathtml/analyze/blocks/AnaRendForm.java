@@ -36,15 +36,14 @@ public final class AnaRendForm extends AnaRendElement {
             int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
             results = res.getResults();
             for (EntryCust<String, ResultExpression> e: res.getResults().entryList()) {
-                int param_ = getAttributeDelimiter(e.getKey());
                 _page.zeroOffset();
-                _page.setGlobalOffset(param_);
-                String attribute_ = _read.getAttribute(e.getKey());
-                RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page, e.getValue());
+                _page.setSumOffset(e.getValue().getSumOffset());
+                RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, e.getValue());
             }
             if (StringExpUtil.isDollarWord(lk_)) {
                 StringList argCla_ = ResultText.feedArgs(res,_page);
                 _page.zeroOffset();
+                _page.setSumOffset(rowsGrId_);
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), lk_, argCla_, _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 res.setResultAnc(classMethodIdReturn_);
                 ResultText.check(_page, rowsGrId_, classMethodIdReturn_);

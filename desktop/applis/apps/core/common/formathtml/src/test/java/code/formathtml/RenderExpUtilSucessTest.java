@@ -5902,13 +5902,13 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 //        analyzing_.setCurrentParts(_res.getParts());
         StringComment str_ = new StringComment(_s,new CustList<CommentDelimiters>());
         _res.partsAbsol(str_.getStringParts());
-        analyzing_.setGlobalOffset(0);
+        _res.setAnalyzedString(_s);
+        analyzing_.setSumOffset(0);
         analyzing_.zeroOffset();
-        analyzing_.setTranslatedOffset(0);
-        ElRetrieverAnonymous.commonCheckQuick(_s,_i,analyzing_,_res);
+        ElRetrieverAnonymous.commonCheckQuick(_i,analyzing_,_res);
         analyzing_.setCurrentParts(_res.getParts());
         analyzing_.setCurrentNumbers(_res.getNumbers());
-        return ElResolver.checkSyntaxDelimiters(_s, _i, analyzing_);
+        return ElResolver.checkSyntaxDelimiters(_res.getAnalyzedString(), _i, analyzing_);
     }
 
     private static Argument processDelimiters(String _s, int _i) {

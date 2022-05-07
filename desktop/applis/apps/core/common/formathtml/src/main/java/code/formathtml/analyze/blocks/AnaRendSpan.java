@@ -23,12 +23,10 @@ public final class AnaRendSpan extends AnaRendElement {
 
     @Override
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        String id_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        int rowsGrId_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrFor()));
-        offFor = rowsGrId_;
-        _page.setGlobalOffset(rowsGrId_);
+        offFor = resultExpressionFor.getSumOffset();
+        _page.setSumOffset(resultExpressionFor.getSumOffset());
         _page.zeroOffset();
-        rootFor = getRootAnalyzedOperations(id_,0,_anaDoc,_page,resultExpressionFor);
+        rootFor = getRootAnalyzedOperations(0,_anaDoc,_page,resultExpressionFor);
         for (String l: _anaDoc.getLanguages()) {
             formatted.addEntry(l,EMPTY_STRING);
         }

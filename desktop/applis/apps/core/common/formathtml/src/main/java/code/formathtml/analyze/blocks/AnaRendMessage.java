@@ -44,9 +44,8 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
         }
         int index_ = 0;
         for (AnaRendElement e: children) {
-            int attributeDelimiter_ = e.getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrValue());
-            String attribute_ = e.getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
             if (e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrQuoted())) {
+                String attribute_ = e.getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
                 quoted.add(true);
                 if (e.getRead().hasAttribute(_anaDoc.getRendKeyWords().getAttrEscaped())) {
                     args.add(escapeParam(attribute_));
@@ -66,9 +65,9 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                 escaped.add(false);
             }
             ResultExpression res_ = resultExpressionList.get(index_);
-            _page.setGlobalOffset(attributeDelimiter_);
+            _page.setSumOffset(res_.getSumOffset());
             _page.zeroOffset();
-            roots.add(RenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page,res_));
+            roots.add(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,res_));
             index_++;
         }
         //if (!element_.getAttribute(ATTRIBUTE_ESCAPED).isEmpty()) {

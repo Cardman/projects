@@ -39,7 +39,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock {
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(valueOffset);
+        _page.setSumOffset(valueOffset);
         _page.zeroOffset();
         ReachBracedBlock par_ = getParent();
         if (!(par_ instanceof ReachSwitchBlock)&&!(par_ instanceof ReachSwitchMethodBlock)) {

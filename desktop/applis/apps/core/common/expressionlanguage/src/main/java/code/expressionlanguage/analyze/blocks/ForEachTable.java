@@ -120,7 +120,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         MethodAccessKind static_ = processVarTypes(_page);
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(static_), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(static_), _page));
 //        root = _page.getCurrentRoot();
 //        ExecOperationNode l_ = op_.last();
 //        argument = l_.getArgument();
@@ -162,7 +162,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
     }
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(classIndexNameOffset);
+        _page.setSumOffset(classIndexNameOffset);
         _page.zeroOffset();
         MemberCallingsBlock f_ = _page.getCurrentFct();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
@@ -203,7 +203,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         }
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
-        _page.setGlobalOffset(classNameOffsetFirst);
+        _page.setSumOffset(classNameOffsetFirst);
         _page.zeroOffset();
         if (!StringUtil.quickEq(classNameFirst.trim(), keyWordVar_)) {
             partOffsetsFirst = ResolvingTypes.resolveCorrectType(classNameFirst, _page);
@@ -211,7 +211,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         } else {
             importedClassNameFirst = "";
         }
-        _page.setGlobalOffset(classNameOffsetSecond);
+        _page.setSumOffset(classNameOffsetSecond);
         _page.zeroOffset();
         if (!StringUtil.quickEq(classNameSecond.trim(), keyWordVar_)) {
             partOffsetsSecond = ResolvingTypes.resolveCorrectType(classNameSecond, _page);
@@ -219,7 +219,7 @@ public final class ForEachTable extends AbstractForLoop implements Loop,ImportFo
         } else {
             importedClassNameSecond = "";
         }
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
         return f_.getStaticContext();
     }

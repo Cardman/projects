@@ -221,11 +221,10 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         rootsListSupp = new CustList<OperationNode>();
         int len_ = annotationsSupp.getAnnotations().size();
         for (int i = 0; i < len_; i++) {
-            ResultParsedAnnot begin_ = annotationsSupp.getAnnotations().get(i);
-            _page.setGlobalOffset(begin_.getIndex());
+            _page.setSumOffset(resListSupp.get(i).getSumOffset());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resListSupp.get(i), begin_.getAnnotation().trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resListSupp.get(i), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             rootsListSupp.add(r_);
         }
@@ -237,7 +236,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
 
     public void buildTypes(RootBlock _root, AnalyzedPageEl _page) {
         int indexDefOv_ = definition.indexOf('(');
-        _page.setGlobalOffset(definitionOffset+indexDefOv_+1);
+        _page.setSumOffset(definitionOffset+indexDefOv_+1);
         ExtractedParts extractedParts_ = StringExpUtil.tryToExtract(definition, '(', ')');
         StringList overrideList_ = StringUtil.splitChar(extractedParts_.getSecond(), ';');
         int sum_ = 0;
@@ -413,9 +412,9 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         if (defaultValue.trim().isEmpty()) {
             return;
         }
-        _page.setGlobalOffset(defaultValueOffset);
+        _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, defaultValue, Calculation.staticCalculation(MethodAccessKind.STATIC), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(MethodAccessKind.STATIC), _page));
         String import_ = getImportedReturnType();
         StringMap<StringList> vars_ = new StringMap<StringList>();
         Mapping mapping_ = new Mapping();
@@ -440,7 +439,7 @@ public final class NamedCalledFunctionBlock extends NamedFunctionBlock {
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
     }
     public void buildInternRetSett(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(getTypeSetterOff());
+        _page.setSumOffset(getTypeSetterOff());
         _page.zeroOffset();
         partOffsetsReturnSetter = ResolvingTypes.resolveCorrectType(getTypeSetter(), _page);
         returnTypeGet = partOffsetsReturnSetter.getResult(_page);

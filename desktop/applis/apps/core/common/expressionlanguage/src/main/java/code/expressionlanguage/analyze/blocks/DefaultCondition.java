@@ -31,7 +31,7 @@ public final class DefaultCondition extends SwitchPartBlock {
     private void checkDefault(AnalyzedPageEl _page) {
         BracedBlock b_ = getParent();
         if (!(b_ instanceof SwitchBlock)&&!(b_ instanceof SwitchMethodBlock)) {
-            _page.setGlobalOffset(getOffset());
+            _page.setSumOffset(getOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(getFile());

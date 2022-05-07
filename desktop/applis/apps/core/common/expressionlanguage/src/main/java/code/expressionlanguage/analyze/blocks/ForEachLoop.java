@@ -138,7 +138,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
     }
 
     private MethodAccessKind processVarTypes(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(classIndexNameOffset);
+        _page.setSumOffset(classIndexNameOffset);
         _page.zeroOffset();
         MemberCallingsBlock f_ = _page.getCurrentFct();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
@@ -166,7 +166,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
             nameErrors.add(b_.getBuiltError());
             okVar = false;
         }
-        _page.setGlobalOffset(classNameOffset);
+        _page.setSumOffset(classNameOffset);
         _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();
@@ -176,7 +176,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
         } else {
             importedClassName = "";
         }
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(res.getSumOffset());
         _page.zeroOffset();
         return f_.getStaticContext();
     }
@@ -237,7 +237,7 @@ public final class ForEachLoop extends AbstractForLoop implements Loop,ImportFor
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
         MethodAccessKind static_ = processVarTypes(_page);
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, expression, Calculation.staticCalculation(static_), _page));
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(static_), _page));
 //        root = _page.getCurrentRoot();
 //        ExecOperationNode l_ = op_.last();
 //        argument = l_.getArgument();

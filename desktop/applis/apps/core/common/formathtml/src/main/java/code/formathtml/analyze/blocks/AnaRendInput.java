@@ -47,7 +47,7 @@ public abstract class AnaRendInput extends AnaRendElement {
             if (!AnaInherits.isCorrectOrNumbers(m_, _page)) {
                 String string_ = _page.getAliasString();
                 int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertValue()));
-                _page.setGlobalOffset(attr_);
+                _page.setSumOffset(attr_);
                 _page.zeroOffset();
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 rootConverter = classMethodIdReturn_;
@@ -94,7 +94,7 @@ public abstract class AnaRendInput extends AnaRendElement {
         if (StringExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
-            _page.setGlobalOffset(attr_);
+            _page.setSumOffset(attr_);
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverterField = classMethodIdReturn_;

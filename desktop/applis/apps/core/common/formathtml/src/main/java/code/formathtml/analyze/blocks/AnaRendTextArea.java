@@ -65,7 +65,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
                 }
                 String string_ = _page.getAliasString();
                 int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertValue()));
-                _page.setGlobalOffset(attr_);
+                _page.setSumOffset(attr_);
                 _page.zeroOffset();
                 ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterValue_.trim(), new StringList(string_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
                 rootConverter = classMethodIdReturn_;
@@ -87,7 +87,7 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
         if (StringExpUtil.isDollarWord(converterField_.trim())) {
             String object_ = _page.getAliasObject();
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
-            _page.setGlobalOffset(attr_);
+            _page.setSumOffset(attr_);
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterField_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverterField = classMethodIdReturn_;
@@ -106,18 +106,14 @@ public final class AnaRendTextArea extends AnaRendParentBlock implements AnaRend
             }
         }
         for (EntryCust<String,ResultExpression> e: attributesText.entryList()) {
-            String attr_ = elt.getAttribute(e.getKey());
-            int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            _page.setGlobalOffset(rowsGrId_);
+            _page.setSumOffset(e.getValue().getSumOffset());
             _page.zeroOffset();
-            RenderAnalysis.getRootAnalyzedOperations(attr_,0,_anaDoc,_page,e.getValue());
+            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
         }
         for (EntryCust<String,ResultExpression> e: attributes.entryList()) {
-            String attr_ = elt.getAttribute(e.getKey());
-            int rowsGrId_ = getAttributeDelimiter(e.getKey());
-            _page.setGlobalOffset(rowsGrId_);
+            _page.setSumOffset(e.getValue().getSumOffset());
             _page.zeroOffset();
-            RenderAnalysis.getRootAnalyzedOperations(attr_,0,_anaDoc,_page,e.getValue());
+            RenderAnalysis.getRootAnalyzedOperations(0,_anaDoc,_page,e.getValue());
         }
     }
 

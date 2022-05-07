@@ -2,24 +2,26 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.files.ResultParsedAnnot;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.files.ResultParsedAnnots;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.instr.ElUtil;
+import code.expressionlanguage.analyze.instr.PartOffsetAffect;
+import code.expressionlanguage.analyze.opers.Calculation;
+import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
 import code.expressionlanguage.analyze.types.ResolvingTypes;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.analyze.instr.ElUtil;
-import code.expressionlanguage.analyze.instr.PartOffsetAffect;
-import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.fwd.blocks.AnaElementContent;
 import code.expressionlanguage.options.KeyWords;
-import code.util.*;
+import code.util.CustList;
+import code.util.Ints;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class ElementBlock extends Leaf implements InnerTypeOrElement{
@@ -118,7 +120,7 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
 
     @Override
     public void buildImportedType(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(elementContent.getTempClassOffset());
+        _page.setSumOffset(elementContent.getTempClassOffset());
         _page.zeroOffset();
         _page.setCurrentBlock(this);
         int i_ = 1;
@@ -162,17 +164,13 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
     }
 
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(elementContent.getFieldNameOffest());
         _page.zeroOffset();
         KeyWords keyWords_ = _page.getKeyWords();
         String newKeyWord_ = keyWords_.getKeyWordNew();
-        String fullInstance_ = buildVirtualCreate(newKeyWord_);
-        int tr_ = retrieveTr(newKeyWord_);
-        trOffset = tr_;
-        _page.setTranslatedOffset(tr_);
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, fullInstance_, new Calculation(this, nameErrors), _page));
+        trOffset = retrieveTr(newKeyWord_);
+        _page.setSumOffset(res.getSumOffset());
+        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, new Calculation(this, nameErrors), _page));
         ReachOperationUtil.tryCalculate(res.getRoot(), _page);
-        _page.setTranslatedOffset(0);
     }
 
     public String buildVirtualCreate(String _newKeyWord) {
@@ -191,11 +189,10 @@ public final class ElementBlock extends Leaf implements InnerTypeOrElement{
         int len_ = annotations.getAnnotations().size();
         roots = new CustList<OperationNode>();
         for (int i = 0; i < len_; i++) {
-            ResultParsedAnnot begin_ = annotations.getAnnotations().get(i);
-            _page.setGlobalOffset(begin_.getIndex());
+            _page.setSumOffset(resList.get(i).getSumOffset());
             _page.zeroOffset();
             Calculation c_ = Calculation.staticCalculation(MethodAccessKind.STATIC);
-            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), begin_.getAnnotation().trim(), c_, _page);
+            OperationNode r_ = ElUtil.getRootAnalyzedOperationsReadOnly(resList.get(i), c_, _page);
             ReachOperationUtil.tryCalculate(r_, _page);
             roots.add(r_);
         }

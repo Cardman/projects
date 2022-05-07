@@ -87,7 +87,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     }
 
     public void buildFctInstructions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(getOffset());
+        _page.setSumOffset(getOffset());
         _page.zeroOffset();
         _page.setAccessStaticContext(MethodAccessKind.STATIC);
         _page.setCurrentPkg("");

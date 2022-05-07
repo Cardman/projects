@@ -86,7 +86,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(classIndexNameOffset);
+        _page.setSumOffset(classIndexNameOffset);
         _page.zeroOffset();
         importedClassIndexName = ResolvingTypes.resolveCorrectType(classIndexName, _page).getResult(_page);
         if (!AnaTypeUtil.isIntOrderClass(new AnaClassArgumentMatching(importedClassIndexName), _page)) {
@@ -100,7 +100,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
                     importedClassIndexName);
             AnalyzingDoc.addError(cast_, _page);
         }
-        _page.setGlobalOffset(classNameOffset);
+        _page.setSumOffset(classNameOffset);
         _page.zeroOffset();
         importedClassName = ResolvingTypes.resolveCorrectType(className, _page).getResult(_page);
         String cl_ = importedClassName;
@@ -113,7 +113,7 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
                     importedClassName);
             AnalyzingDoc.addError(cast_, _page);
         }
-        _page.setGlobalOffset(variableNameOffset);
+        _page.setSumOffset(variableNameOffset);
         _page.zeroOffset();
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
@@ -123,17 +123,17 @@ public final class AnaRendForIterativeLoop extends AnaRendParentBlock implements
             b_.setBuiltError(res_.getMessage());
             AnalyzingDoc.addError(b_, _page);
         }
-        _page.setGlobalOffset(initOffset);
+        _page.setSumOffset(resultExpressionInit.getSumOffset());
         _page.zeroOffset();
-        rootInit = RenderAnalysis.getRootAnalyzedOperations(init, 0, _anaDoc, _page,resultExpressionInit);
+        rootInit = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionInit);
         checkResult(_anaDoc, _page, cl_, initOffset, rootInit);
-        _page.setGlobalOffset(expressionOffset);
+        _page.setSumOffset(resultExpressionExp.getSumOffset());
         _page.zeroOffset();
-        rootExp = RenderAnalysis.getRootAnalyzedOperations(expression, 0, _anaDoc, _page,resultExpressionExp);
+        rootExp = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionExp);
         checkResult(_anaDoc, _page, cl_, expressionOffset, rootExp);
-        _page.setGlobalOffset(stepOffset);
+        _page.setSumOffset(resultExpressionStep.getSumOffset());
         _page.zeroOffset();
-        rootStep = RenderAnalysis.getRootAnalyzedOperations(step, 0, _anaDoc, _page,resultExpressionStep);
+        rootStep = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionStep);
         checkResult(_anaDoc, _page, cl_, stepOffset, rootStep);
         if (!res_.isError()) {
             AnaLoopVariable lv_ = new AnaLoopVariable();

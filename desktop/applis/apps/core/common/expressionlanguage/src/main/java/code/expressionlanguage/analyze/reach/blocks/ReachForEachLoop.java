@@ -24,7 +24,7 @@ public final class ReachForEachLoop extends ReachBracedBlock implements ReachLoo
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setGlobalOffset(meta.getExpressionOffset());
+        _page.setSumOffset(meta.getExpressionOffset());
         _page.zeroOffset();
         OperationNode root_ = meta.getRoot();
         Argument argument_ =  ReachOperationUtil.tryCalculate(root_, _page);

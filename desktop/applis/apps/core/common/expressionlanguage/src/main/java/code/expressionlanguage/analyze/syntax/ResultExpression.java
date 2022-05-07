@@ -8,6 +8,8 @@ import code.util.CustList;
 import code.util.Ints;
 
 public final class ResultExpression {
+    private String analyzedString = "";
+    private int sumOffset;
     private CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private final CustList<SegmentStringPart> parts = new CustList<SegmentStringPart>();
     private CustList<SegmentStringPart> partsAbs = new CustList<SegmentStringPart>();
@@ -16,6 +18,22 @@ public final class ResultExpression {
 
     private Ints annotDelNew = new Ints();
     private Ints annotDelSwitch = new Ints();
+
+    public String getAnalyzedString() {
+        return analyzedString;
+    }
+
+    public void setAnalyzedString(String _a) {
+        this.analyzedString = _a;
+    }
+
+    public int getSumOffset() {
+        return sumOffset;
+    }
+
+    public void setSumOffset(int _s) {
+        this.sumOffset = _s;
+    }
 
     public CustList<AnonymousResult> getAnonymousResults() {
         return anonymousResults;

@@ -32,9 +32,9 @@ public abstract class AnaRendCondition extends AnaRendParentBlock implements Ana
     }
 
     protected void buildConditions(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(conditionOffset);
         _page.zeroOffset();
-        root = RenderAnalysis.getRootAnalyzedOperations(condition, 0, _anaDoc, _page,resultExpression);
+        _page.setSumOffset(resultExpression.getSumOffset());
+        root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
         AnaClassArgumentMatching exp_ = root.getResultClass();
         if (!exp_.isBoolType(_page)) {
             ClassMethodIdReturn res_ = OperationNode.tryGetDeclaredImplicitCast(_page.getAliasPrimBoolean(), exp_, _page);

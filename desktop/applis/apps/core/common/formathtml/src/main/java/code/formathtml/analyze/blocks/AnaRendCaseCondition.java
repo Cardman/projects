@@ -56,11 +56,10 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
-        _page.setGlobalOffset(valueOffset);
         _page.zeroOffset();
         AnaRendParentBlock par_ = getParent();
         if (!(par_ instanceof AnaRendSwitchBlock)) {
-            _page.setGlobalOffset(getOffset());
+            _page.setSumOffset(resultExpression.getSumOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
@@ -70,7 +69,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                     value,
                     _page.getKeyWords().getKeyWordSwitch());
             AnalyzingDoc.addError(un_, _page);
-            root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page,resultExpression);
+            root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
             return;
         }
         AnaRendSwitchBlock sw_ = (AnaRendSwitchBlock) par_;
@@ -89,7 +88,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                         value);
                 AnalyzingDoc.addError(un_, _page);
             }
-            _page.setGlobalOffset(classNameOffset);
+            _page.setSumOffset(classNameOffset);
             _page.zeroOffset();
             setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page).getResult(_page));
             TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName_, _page);
@@ -101,9 +100,9 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 _page.getInfosVars().put(variableName_, lv_);
             }
             if (!value.trim().isEmpty()) {
-                _page.setGlobalOffset(valueOffset);
+                _page.setSumOffset(resultExpression.getSumOffset());
                 _page.zeroOffset();
-                root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page,resultExpression);
+                root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
                 AnaClassArgumentMatching resultClass_ = root.getResultClass();
                 if (!resultClass_.isBoolType(_page)) {
                     FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -188,9 +187,9 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
 
     private void processNumValues(AnalyzingDoc _anaDoc, boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page) {
         _page.setAcceptCommaInstr(true);
-        _page.setGlobalOffset(valueOffset);
+        _page.setSumOffset(resultExpression.getSumOffset());
         _page.zeroOffset();
-        root = RenderAnalysis.getRootAnalyzedOperations(value, 0, _anaDoc, _page,resultExpression);
+        root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
         _page.setAcceptCommaInstr(false);
         if (root instanceof DeclaringOperation) {
             CustList<OperationNode> childrenNodes_ = ((DeclaringOperation) root).getChildrenNodes();

@@ -31,17 +31,16 @@ public final class AnaRendRadio extends AnaRendInput {
     protected void processAttributes(AnaRendDocumentBlock _doc, Element _read, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
         String varValue_ = getRead().getAttribute(_anaDoc.getRendKeyWords().getAttrNr());
         if (!varValue_.trim().isEmpty()) {
-            int offVarValue_ = getAttributeDelimiter(_anaDoc.getRendKeyWords().getAttrNr());
-            _page.setGlobalOffset(offVarValue_);
+            _page.setSumOffset(expRad.getSumOffset());
             _page.zeroOffset();
-            rootRadio = RenderAnalysis.getRootAnalyzedOperations(varValue_, 0, _anaDoc, _page,expRad);
+            rootRadio = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,expRad);
         }
         processAnaInput(_read, _anaDoc, _page);
         String converterFieldValue_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
         if (StringExpUtil.isDollarWord(converterFieldValue_.trim())) {
             String object_ = _page.getAliasObject();
             int attr_ = getAttributeDelimiter(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
-            _page.setGlobalOffset(attr_);
+            _page.setSumOffset(attr_);
             _page.zeroOffset();
             ClassMethodIdReturn classMethodIdReturn_ = OperationNode.tryGetDeclaredCustMethodSetIndexer(MethodAccessKind.INSTANCE, new StringList(_page.getGlobalClass()), converterFieldValue_.trim(), new StringList(object_), _page, new ScopeFilter(null, true, true, false, _page.getGlobalClass()));
             rootConverterFieldValue = classMethodIdReturn_;
