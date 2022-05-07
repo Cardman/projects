@@ -23,8 +23,9 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
     }
 
     public BoolVal getObject(String _fileName) {
-        if (isBinary(StreamBinaryFile.loadFile(_fileName, getFrames().getStreams()))) {
-            AbstractImage img_ = getFrames().readImg(_fileName);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getStreams());
+        if (isBinary(bytes_)) {
+            AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
             if (img_ != null) {
                 return BoolVal.TRUE;
             }

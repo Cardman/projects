@@ -57,7 +57,7 @@ public class LaunchingApplications extends SoftApplicationCore {
         if (!args_.isEmpty()) {
             byte[] bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getStreams());
             if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
-                AbstractImage img_ = getFrames().readImg(args_.first());
+                AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
                 if (img_ != null) {
                     launchWindow(_language, getFrames(), cardFactories, aikiFactory);
                     LaunchingConverter launch_ = new LaunchingConverter(getFrames());

@@ -1,7 +1,6 @@
 package code.gui.initialize;
 
 import code.gui.AbsGroupFrame;
-import code.gui.images.AbstractImage;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
@@ -23,10 +22,9 @@ public interface AbstractProgramInfos extends AbstractLightProgramInfos {
 
     AbsClipStream openClip(byte[] _file);
     AbsClipStream openMp3(byte[] _file);
-    AbstractImage readImg(String _file);
     AbstractSocketFactory getSocketFactory();
     AbstractLightProgramInfos light();
-    boolean writeImg(String _format, String _file, AbstractImage _img);
+
     int getScreenWidth();
     int getScreenHeight();
 

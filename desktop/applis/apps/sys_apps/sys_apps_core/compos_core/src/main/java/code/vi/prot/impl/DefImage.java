@@ -1,16 +1,23 @@
 package code.vi.prot.impl;
 
-import code.gui.*;
+import code.gui.AbsCustComponent;
+import code.gui.AbsMetaLabel;
+import code.gui.AbsPreparedLabel;
+import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaFont;
 import code.vi.prot.impl.gui.CustComponent;
 import code.vi.prot.impl.gui.PreparedLabel;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 
 public final class DefImage implements AbstractImage {
     private final BufferedImage image;
@@ -173,6 +180,21 @@ public final class DefImage implements AbstractImage {
     @Override
     public void dispose() {
         graphics.dispose();
+    }
+
+    @Override
+    public byte[] writeImg(String _format) {
+        ByteArrayOutputStream baos_ = new ByteArrayOutputStream();
+        MemoryCacheImageOutputStream mem_ = new MemoryCacheImageOutputStream(baos_);
+        try {
+            ImageIO.write((RenderedImage) data(), _format, mem_);
+            byte[] content_ = baos_.toByteArray();
+            StreamCoreUtil.close(mem_);
+            return content_;
+        } catch (Exception e) {
+            StreamCoreUtil.close(mem_);
+            return new byte[0];
+        }
     }
 
     private static Font font(String _fontFamily, int _font, int _realSize) {

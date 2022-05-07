@@ -9,6 +9,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
+import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -96,7 +97,8 @@ public final class WindowConverter extends GroupFrame {
                     continue;
                 }
                 String f_ = StringUtil.replaceBackSlash(f);
-                AbstractImage img_ = getFrames().readImg(pathExport.getText()+f);
+                byte[] bytes_ = StreamBinaryFile.loadFile(pathExport.getText() + f, getStreams());
+                AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
                 if (img_ == null) {
                     continue;
                 }
@@ -131,13 +133,15 @@ public final class WindowConverter extends GroupFrame {
                     continue;
                 }
                 AbstractImage img_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(readImage_));
-                getFrames().writeImg(PNG_EXT,path.getText()+StreamTextFile.SEPARATEUR+ StringUtil.replace(f_, DOT+TXT_EXT, DOT+PNG_EXT),img_);
+                String file_ = path.getText() + StreamTextFile.SEPARATEUR + StringUtil.replace(f_, DOT + TXT_EXT, DOT + PNG_EXT);
+                StreamBinaryFile.writeFile(file_,img_.writeImg(PNG_EXT),getStreams());
             }
         }
     }
 
     public void readOneImageArg(String _readPath) {
-        AbstractImage img_ = getFrames().readImg(_readPath);
+        byte[] bytes_ = StreamBinaryFile.loadFile(_readPath,getStreams());
+        AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
         if (img_ == null) {
             return;
         }
@@ -156,7 +160,8 @@ public final class WindowConverter extends GroupFrame {
             return;
         }
         AbstractImage img_ = ConverterGraphicBufferedImage.decodeToImage(getImageFactory(),BaseSixtyFourUtil.getImageByString(readImage_));
-        getFrames().writeImg(PNG_EXT, StringUtil.replace(_writePath, DOT+TXT_EXT, DOT+PNG_EXT),img_);
+        String file_ = StringUtil.replace(_writePath, DOT + TXT_EXT, DOT + PNG_EXT);
+        StreamBinaryFile.writeFile(file_,img_.writeImg(PNG_EXT),getStreams());
     }
     @Override
     public void quit() {

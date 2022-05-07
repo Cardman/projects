@@ -13,6 +13,7 @@ import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.AbstractFile;
 import code.stream.AbstractFileCoreStream;
 import code.stream.FileListInfo;
+import code.stream.StreamBinaryFile;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.core.IndexConstants;
@@ -43,9 +44,10 @@ public final class VideoLoading {
                     int len_;
                     len_ = files_.getNames().length;
                     for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-                        AbstractImage img_ = _abInfo.readImg(
-                                StringUtil.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),
-                                DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT));
+                        String fi_ = StringUtil.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),
+                                DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT);
+                        AbstractImage img_ = _abInfo.getImageFactory().newImageFromBytes(
+                                StreamBinaryFile.loadFile(fi_,_abInfo.getStreams()));
                         if (img_ != null) {
                             imgs_.add(img_);
                         }

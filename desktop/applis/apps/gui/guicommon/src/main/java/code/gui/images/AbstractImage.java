@@ -49,4 +49,5 @@ public interface AbstractImage {
     void drawOval(int _x, int _y, int _width, int _height);
 
     void dispose();
+    byte[] writeImg(String _format);
 }
