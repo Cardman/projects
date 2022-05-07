@@ -1088,6 +1088,7 @@ public final class FileResolver {
                 currentParent_ = possibleVisit(_parsedInstruction.getCurChar(), currentParent_, br_);
             }
         } else if (canHaveElements(currentParent_)) {
+            char curChar_ = _parsedInstruction.getCurChar();
             if (_parsedInstruction.getFirstPrIndex() > -1) {
                 int fieldOffest_ = _parsedInstruction.getAfterOffset();
                 String found_ = _parsedInstruction.getAfter();
@@ -1126,7 +1127,6 @@ public final class FileResolver {
                     templateOffset_ += fieldName_.trim().length();
                     templateOffset_ += fieldName_.length() - StringUtil.getLastPrintableCharIndex(fieldName_) - 1;
                 }
-                char curChar_ = _parsedInstruction.getCurChar();
                 if (curChar_ == BEGIN_BLOCK) {
                     InnerElementBlock elt_ = new InnerElementBlock((EnumBlock) currentParent_, _pkgName, new OffsetStringInfo(fieldOffest_+_input.getOffset(), fieldName_.trim()),
                             new OffsetStringInfo(templateOffset_+_input.getOffset(), tmpPart_.trim()),
@@ -1155,16 +1155,15 @@ public final class FileResolver {
                 currentParent_.appendChild(br_);
                 if (curChar_ == BEGIN_BLOCK) {
                     currentParent_ = (BracedBlock) br_;
-                } else {
-                    stopElts(_parsedInstruction, (EnumBlock) currentParent_);
                 }
-            } else if (_parsedInstruction.getCurChar() == SEP_ENUM_CONST) {
+            } else if (curChar_ == SEP_ENUM_CONST) {
                 ((EnumBlock)currentParent_).setAllow(true);
-            } else {
-                stopElts(_parsedInstruction, (EnumBlock) currentParent_);
             }
-            if (_parsedInstruction.getCurChar() == END_BLOCK) {
+            if (curChar_ == END_BLOCK) {
+                ((EnumBlock)currentParent_).setCanHaveElements(false);
                 currentParent_ = possibleEmptyGoUp(currentParent_);
+            } else if (curChar_ == END_LINE){
+                ((EnumBlock)currentParent_).setCanHaveElements(false);
             }
         } else if (_parsedInstruction.getCurChar() != END_BLOCK) {
             AbsBk bl_ = processInstructionBlock(_input.getOffset(), _parsedInstruction, currentParent_, trimmedInstruction_, _page);
@@ -1285,12 +1284,6 @@ public final class FileResolver {
         after_.setParent(currentParent_);
         after_.setPackageName(packageName_);
         return after_;
-    }
-
-    private static void stopElts(ParsedInstruction _parsedInstruction, EnumBlock _curPar) {
-        if (_parsedInstruction.getCurChar() == END_LINE || _parsedInstruction.getCurChar() == END_BLOCK) {
-            _curPar.setCanHaveElements(false);
-        }
     }
 
     private static BracedBlock possibleGoUpTwice(BracedBlock _currentParent) {
