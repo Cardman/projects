@@ -2,8 +2,11 @@ package code.formathtml;
 
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.analyze.blocks.AnaRendBlock;
+import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.exec.blocks.RendBlock;
 import code.formathtml.structs.Message;
 import code.formathtml.util.*;
@@ -40,23 +43,26 @@ public final class Navigation {
     public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_cont);
         Document doc_ = res_.getDocument();
-        return loadConfiguration(_lgCode, _lgNames, _fileBuilder, _confLoad, doc_);
+        AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(_cont, DocumentBuilder.possibleEncodes()));
+        FileBlock file_ = new FileBlock(0, false, "", es_);
+        file_.metrics(StringUtil.nullToEmpty(_cont));
+        return loadConfiguration(_lgCode, _lgNames, _fileBuilder, _confLoad, doc_, file_);
     }
 
-    public DualAnalyzedContext loadConfiguration(String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad, Document _doc) {
+    public DualAnalyzedContext loadConfiguration(String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad, Document _doc, FileBlock _file) {
         if (_doc == null) {
             AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
             DualConfigurationContext context_ = new DualConfigurationContext();
             context_.setKo(true);
-            return new DualAnalyzedContext(null,page_,_lgNames, context_);
+            return new DualAnalyzedContext(null,page_,_lgNames, context_, _file);
         }
-        return innerLoad(_lgCode, _lgNames, _fileBuilder, _confLoad, _doc);
+        return innerLoad(_lgCode, _lgNames, _fileBuilder, _confLoad, _doc, _file);
     }
 
-    public DualAnalyzedContext innerLoad(String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad, Document _doc) {
+    public DualAnalyzedContext innerLoad(String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad, Document _doc, FileBlock _file) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         session = new Configuration();
-        DualAnalyzedContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_,_lgNames);
+        DualAnalyzedContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_,_lgNames, _file);
         if (!ctx_.getContext().isKo()) {
             session.init(ctx_.getContext());
         }

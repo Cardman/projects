@@ -54,7 +54,7 @@ public final class ResolvingSuperTypes {
             un_.buildError(_page.getAnalysisMessages().getEmptyType());
             _page.addLocError(un_);
             _ana.addNameErrors(un_);
-            return new AnaResultPartType(_in,_location, _page.getAnalysisMessages(), _ana);
+            return new AnaResultPartType(_in,_location, _page.getAnalysisMessages(), _ana.getFile());
         }
         initVariables(_ana, _page);
         String gl_ = _ana.getGenericString();

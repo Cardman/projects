@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.opers.util.FieldResult;
@@ -197,7 +197,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         String trim_ = inns_.first().trim();
         int nb_ = 0;
         String start_;
-        AccessedBlock r_ = _page.getImporting();
+        FileBlock r_ = _page.getCurrentFile();
         AnaGeneType startType_ = _page.getAnaGeneType(trim_);
         int loc_ = _from + _page.getIndex();
         if (startType_ != null) {

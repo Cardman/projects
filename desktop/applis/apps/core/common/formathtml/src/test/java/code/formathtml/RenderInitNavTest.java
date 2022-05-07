@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
@@ -11,10 +12,12 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.structs.NullStruct;
+import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.util.*;
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -1268,7 +1271,9 @@ public final class RenderInitNavTest extends CommonRender {
         DualConfigurationContext dual_ = new DualConfigurationContext();
         Navigation nav_ = new Navigation();
         nav_.setSession(_conf);
-        return new DualNavigationContext(nav_, new DualAnalyzedContext(fwd_,page_,lgNames_,dual_));
+        FileBlock file_ = new FileBlock(0, false, "", new AdvFileEscapedCalc(new IntTreeMap<Integer>()));
+        file_.metrics("");
+        return new DualNavigationContext(nav_, new DualAnalyzedContext(fwd_,page_,lgNames_,dual_, file_));
     }
 
     private static ContextEl setupRendClassesInitStdMess(DualNavigationContext _a, Navigation _n) {

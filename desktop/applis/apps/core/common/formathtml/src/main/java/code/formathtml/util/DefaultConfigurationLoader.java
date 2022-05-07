@@ -2,6 +2,7 @@ package code.formathtml.util;
 
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.formathtml.Configuration;
@@ -18,13 +19,13 @@ public final class DefaultConfigurationLoader {
         this.stds = _stds;
     }
 
-    public DualAnalyzedContext load(Configuration _configuration, String _lgCode, Document _document, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page, BeanCustLgNames _lgNames) {
+    public DualAnalyzedContext load(Configuration _configuration, String _lgCode, Document _document, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page, BeanCustLgNames _lgNames, FileBlock _file) {
         DualConfigurationContext d_ = new DualConfigurationContext();
         d_.setFileBuilder(_fileBuilder);
-        return specificLoad(_configuration,_lgCode,_document, _page, _lgNames, d_);
+        return specificLoad(_configuration,_lgCode,_document, _page, _lgNames, d_, _file);
     }
 
-    public DualAnalyzedContext specificLoad(Configuration _configuration, String _lgCode, Document _document, AnalyzedPageEl _page, BeanCustLgNames _stds, DualConfigurationContext _context) {
+    public DualAnalyzedContext specificLoad(Configuration _configuration, String _lgCode, Document _document, AnalyzedPageEl _page, BeanCustLgNames _stds, DualConfigurationContext _context, FileBlock _file) {
         update(_configuration,_document, _context);
 
         boolean ok_ = false;
@@ -56,7 +57,7 @@ public final class DefaultConfigurationLoader {
             }
         }
         _context.setKo(!ok_);
-        return new DualAnalyzedContext(forwards_,_page,_stds,_context);
+        return new DualAnalyzedContext(forwards_,_page,_stds,_context, _file);
     }
 
     private void update(Configuration _configuration, Document _document, DualConfigurationContext _d) {

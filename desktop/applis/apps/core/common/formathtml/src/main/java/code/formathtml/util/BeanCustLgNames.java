@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.ClassesUtil;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.Classes;
@@ -445,12 +446,13 @@ public abstract class BeanCustLgNames extends BeanLgNames {
         setupRendClasses(files_, page_, confCont_.getFilesConfName(), confCont_.getAddedResources(), confCont_.getRenderFiles());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
-        session_.initInstancesPattern(page_, analyzingDoc_);
+        FileBlock blockConf_ = ana_.getBlock();
+        session_.initInstancesPattern(page_, analyzingDoc_,blockConf_);
         preInitBeans(session_);
         analyzingDoc_.setRendAnalysisMessages(confCont_.getAnalysisMessages());
         analyzingDoc_.setLanguages(languages_);
         session_.setCurrentLanguage(language_);
-        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, page_, confCont_);
+        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, page_, confCont_, blockConf_);
         Classes.postValidate(page_);
         if (!page_.isEmptyErrors()) {
             return null;

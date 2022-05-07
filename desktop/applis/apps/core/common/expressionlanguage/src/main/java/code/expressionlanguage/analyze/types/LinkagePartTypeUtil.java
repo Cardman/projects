@@ -1,6 +1,5 @@
 package code.expressionlanguage.analyze.types;
 
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -327,7 +326,7 @@ public final class LinkagePartTypeUtil {
         return _current instanceof AnaTemplatePartType && ((AnaTemplatePartType) _current).isKoConstraints();
     }
 
-    private static void processLeafOffsets(AccessedBlock _rooted, AnaPartType _current) {
+    private static void processLeafOffsets(FileBlock _rooted, AnaPartType _current) {
         if (_current instanceof AnaNamePartType) {
             ((AnaNamePartType)_current).processOffsets(_rooted);
         }

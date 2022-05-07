@@ -100,7 +100,7 @@ public final class AnaPartTypeUtil {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), _rooted);
+            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), getFile(_rooted));
         }
         AnaPartType root_ = root(_rootName, _page, inputTr_, indexes_);
         AnaPartType current_ = root_;
@@ -128,7 +128,7 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-        return new AnaResultPartType(_input, _loc, root_, _rooted);
+        return new AnaResultPartType(_input, _loc, root_, getFile(_rooted));
     }
 
     private static void checkAccessGeneral(String _gl, AnaPartType _current, AnalyzedPageEl _page) {
@@ -302,7 +302,7 @@ public final class AnaPartTypeUtil {
         String inputTr_ = _input.trim();
         Ints indexes_ = ParserType.getIndexes(inputTr_, _page);
         if (indexes_ == null) {
-            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), _rooted);
+            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), getFile(_rooted));
         }
         AnaPartType root_ = root(_rootName, _page, inputTr_, indexes_);
         AnaPartType current_ = root_;
@@ -330,7 +330,7 @@ public final class AnaPartTypeUtil {
                 }
             }
         }
-        return new AnaResultPartType(_input, _loc, root_, _rooted);
+        return new AnaResultPartType(_input, _loc, root_, getFile(_rooted));
     }
 
     private static AnaPartType root(boolean _rootName, AnalyzedPageEl _page, String _inputTr, Ints _indexes) {
@@ -372,7 +372,7 @@ public final class AnaPartTypeUtil {
 //            String pref_ = ExportCst.anchorErr(FoundErrorInterpret.buildARError(_page.getAnalysisMessages().getUnknownType(), _input));
 //            _offs.add(new PartOffset(pref_,_loc));
 //            _offs.add(new PartOffset(ExportCst.END_ANCHOR,_loc+_input.length()));
-            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), _rooted);
+            return new AnaResultPartType(_input,_loc, _page.getAnalysisMessages(), getFile(_rooted));
         }
         AnaPartType root_ = rootId(_page, indexes_, _input.trim());
         AnaPartType current_ = root_;
@@ -405,7 +405,13 @@ public final class AnaPartTypeUtil {
 //            appendQuickParts(root_,_offs, _page);
 //            return new AnaResultPartType("",null);
 //        }
-        return new AnaResultPartType(_input, _loc, root_, _rooted);
+        return new AnaResultPartType(_input, _loc, root_, getFile(_rooted));
+    }
+    private static FileBlock getFile(AccessedBlock _acc) {
+        if (_acc == null) {
+            return null;
+        }
+        return _acc.getFile();
     }
 
     private static AnaPartType rootId(AnalyzedPageEl _page, Ints _indexes, String _trimInput) {

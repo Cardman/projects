@@ -4,14 +4,20 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultTokenValidation;
 import code.expressionlanguage.analyze.accessing.Accessed;
 import code.expressionlanguage.analyze.accessing.TypeAccessor;
-import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.AccessingImportingBlock;
+import code.expressionlanguage.analyze.blocks.FileBlock;
+import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.util.ContextUtil;
 import code.expressionlanguage.analyze.util.MappingLocalType;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.stds.StandardType;
-import code.util.*;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 final class AnaNamePartType extends AnaLeafPartType {
@@ -414,7 +420,7 @@ final class AnaNamePartType extends AnaLeafPartType {
         this.voidType = _voidType;
     }
 
-    void processOffsets(AccessedBlock _rooted) {
+    void processOffsets(FileBlock _rooted) {
 //        AnaGeneType g_ = _page.getAnaGeneType(idCl_);
         if (ContextUtil.isFromCustFile(getFoundType())) {
             int id_ = ((RootBlock) getFoundType()).getIdRowCol();
@@ -423,7 +429,7 @@ final class AnaNamePartType extends AnaLeafPartType {
             setTitleRef(idCl_);
             value = id_;
             buildRef = true;
-            currentFile = ((AbsBk)_rooted).getFile();
+            currentFile = _rooted;
             refFileName = ((RootBlock) getFoundType()).getFile();
         }
     }

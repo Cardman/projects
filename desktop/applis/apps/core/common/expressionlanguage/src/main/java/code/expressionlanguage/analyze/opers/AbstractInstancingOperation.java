@@ -3,19 +3,19 @@ package code.expressionlanguage.analyze.opers;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InterfacesPart;
 import code.expressionlanguage.analyze.blocks.*;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.AnaTemplates;
 import code.expressionlanguage.analyze.inherits.Mapping;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.*;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.functionid.ConstructorId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.opers.AnaInstancingCommonContent;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.util.CustList;
@@ -303,7 +303,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
                 StringMap<StringList> currVars_ = _page.getCurrentConstraints().getCurrentConstraints();
                 String res_ = AnaInherits.tryGetAllInners(innTypeInf_, innType_, partsArgs_, currVars_, _page);
                 if (!res_.isEmpty()) {
-                    AccessedBlock r_ = _page.getImporting();
+                    FileBlock r_ = _page.getCurrentFile();
                             resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,innTypeInf_,StringExpUtil.getIdFromAllTypes(innType_),r_, rc_ +begin_,_page), results_);
 //                    partOffsets.addAllElts(partOffsets_);
                     typeInfer = res_;
@@ -325,7 +325,7 @@ public abstract class AbstractInstancingOperation extends InvokingOperation {
             String id_ = StringExpUtil.getIdFromAllTypes(sup_);
             type_ = StringUtil.concat(id_,"..",idClass_);
             int begin_ = newKeyWord_.length()+local_;
-            AccessedBlock r_ = _page.getImporting();
+            FileBlock r_ = _page.getCurrentFile();
             resolvedInstance = new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inferForm_,innTypeInf_,StringExpUtil.getIdFromAllTypes(type_),r_, rc_ +begin_,_page));
         }
         int lt_ = newKeyWord_.length() + local_ + className_.indexOf('<');

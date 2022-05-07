@@ -170,7 +170,7 @@ public final class StandardInstancingOperation extends
         String inner_ = StringExpUtil.getIdFromAllTypes(sup_.getOwnedName());
         RootBlock root_ = sup_.getOwned();
         StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        AccessedBlock r_ = _page.getImporting();
+        FileBlock r_ = _page.getCurrentFile();
         setResolvedInstance(new ResolvedInstance(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(idClass_,root_,inner_,r_,_page.getIndex(),_page), results_));
         realClassName_ = check(root_,sup_.getOwnedName(), partsArgs_, vars_, _page);
         analyzeCtor(realClassName_, varargParam_, _page);
@@ -307,7 +307,7 @@ public final class StandardInstancingOperation extends
         int l_ = _staticInitInterfaces.size();
         for (int i = 0; i < l_; i++) {
             int rc_ = _staticInitInterfacesOffset.get(i);
-            AccessedBlock r_ = _page.getImporting();
+            FileBlock r_ = _page.getCurrentFile();
             StrTypes operators_ = new StrTypes();
             CustList<FoundTypeIdDto> found_ = new CustList<FoundTypeIdDto>();
             String in_ = _staticInitInterfaces.get(i).trim();

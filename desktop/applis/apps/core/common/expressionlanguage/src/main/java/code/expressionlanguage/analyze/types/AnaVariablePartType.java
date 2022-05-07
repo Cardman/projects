@@ -1,11 +1,10 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AbsBk;
+import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
 import code.util.core.StringUtil;
 
 final class AnaVariablePartType extends AnaLeafPartType {
@@ -41,9 +40,9 @@ final class AnaVariablePartType extends AnaLeafPartType {
         setAnalyzedType(t_);
     }
 
-    void processOffsets(AccessedBlock _rooted) {
+    void processOffsets(FileBlock _rooted) {
         if (refFileName != null) {
-            currentFile = ((AbsBk)_rooted).getFile();
+            currentFile = _rooted;
         }
     }
 

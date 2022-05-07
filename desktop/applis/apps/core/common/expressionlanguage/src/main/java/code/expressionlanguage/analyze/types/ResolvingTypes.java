@@ -181,7 +181,7 @@ public final class ResolvingTypes {
 
     public static ResolvedIdType resolveAccessibleIdTypeBlock(int _loc, String _in, AnalyzedPageEl _page) {
         int rc_ = _page.getIndex();
-        AccessedBlock r_ = _page.getImporting();
+        FileBlock r_ = _page.getCurrentFile();
         int rootLoc_ = rc_ + _loc;
         StrTypes operators_ = new StrTypes();
         CustList<FoundTypeIdDto> found_ = new CustList<FoundTypeIdDto>();

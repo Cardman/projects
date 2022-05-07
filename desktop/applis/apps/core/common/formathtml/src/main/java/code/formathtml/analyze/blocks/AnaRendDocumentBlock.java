@@ -14,7 +14,6 @@ import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.structs.BeanInfo;
 import code.sml.Element;
-import code.sml.EncodedChar;
 import code.util.CustList;
 import code.util.IntTreeMap;
 import code.util.StringList;
@@ -29,7 +28,6 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
 
     private final Element elt;
 
-    private final String file;
     private final String fileName;
     private final AbstractFileEscapedCalc esc;
     private final FileBlock fileBlock;
@@ -42,15 +40,13 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     private final CustList<AnonymousTypeBlock> anonymous = new CustList<AnonymousTypeBlock>();
     private final CustList<NamedCalledFunctionBlock> anonymousFct = new CustList<NamedCalledFunctionBlock>();
     private final CustList<SwitchMethodBlock> switchMethods = new CustList<SwitchMethodBlock>();
-    public AnaRendDocumentBlock(Element _elt, String _file, int _offset, String _fileName, CustList<EncodedChar> _chars) {
+    public AnaRendDocumentBlock(Element _elt, int _offset, AdvFileEscapedCalc _e, FileBlock _fileBl) {
         super(_offset);
-        IntTreeMap<Integer> escaped_ = getIndexesSpecChars(_file, _chars);
-        esc = new AdvFileEscapedCalc(escaped_);
-        fileBlock = new FileBlock(_offset, false, _fileName, esc);
+        esc = _fileBl.getFileEscapedCalc();
+        fileBlock = _fileBl;
         elt = _elt;
-        file = _file;
-        fileName = _fileName;
-        escapedChar = escaped_;
+        fileName = _fileBl.getFileName();
+        escapedChar = _e.getEscaped();
     }
 
     public IntTreeMap<Integer> getEscapedChar() {
@@ -67,7 +63,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
         imports = StringUtil.splitChar(elt.getAttribute(alias_),';');
         fileBlock.setNumberFile(_page.getFilesBodies().size());
         _page.putFileBlock(fileName, fileBlock);
-        fileBlock.processLinesTabsWithError(file, _page);
+        fileBlock.checkErrors(_page);
         int o_ = getAttributeDelimiter(alias_);
         for (String o: imports) {
             fileBlock.getImports().add(o);

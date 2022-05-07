@@ -1953,7 +1953,6 @@ public final class ClassesUtil {
             _page.getInitFields().clear();
             _page.getAssignedDeclaredFields().clear();
             _page.getAllDeclaredFields().clear();
-            String fullName_ = c.getFullName();
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
                 if (!(b instanceof InfoBlock)) {

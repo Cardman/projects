@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.DefaultAccess;
 import code.expressionlanguage.analyze.files.DefaultAccessType;
@@ -10,6 +11,7 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
+import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -24,6 +26,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.*;
 import code.util.CustList;
+import code.util.IntTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -544,7 +547,9 @@ public abstract class CommonRender extends EquallableRenderUtil {
         nav_.setSession(_conf);
         nav_.setLanguage("en");
         nav_.setLanguages(new StringList("en"));
-        return new DualNavigationContext(nav_,new DualAnalyzedContext(forwards_,page_,lgNames_,dual_));
+        FileBlock file_ = new FileBlock(0, false, "", new AdvFileEscapedCalc(new IntTreeMap<Integer>()));
+        file_.metrics("");
+        return new DualNavigationContext(nav_,new DualAnalyzedContext(forwards_,page_,lgNames_,dual_, file_));
     }
 
     protected static Options ops(String[] _types) {

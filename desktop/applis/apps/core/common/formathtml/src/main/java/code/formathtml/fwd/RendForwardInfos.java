@@ -616,12 +616,7 @@ public final class RendForwardInfos {
 
     private static RendDynOperationNode procOperands4(OperationNode _anaNode, Forwards _forwards) {
         if (_anaNode instanceof StandardInstancingOperation) {
-            StandardInstancingOperation s_ = (StandardInstancingOperation) _anaNode;
-            ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchPossibleTypeCtor(s_.getMemberId(), _forwards);
-            if (typeCtor_ == null) {
-                return new RendDirectStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingDirContent(s_.getInstancingCommonContent()));
-            }
-            return new RendStandardInstancingOperation(new ExecOperationContent(s_.getContent()), s_.isIntermediateDottedOperation(), new ExecInstancingCustContent(s_.getInstancingCommonContent(),typeCtor_, _forwards), new ExecInstancingStdContent(s_.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(s_.getInstancingStdContent().getNamedFields(),_forwards), FetchMemberUtil.fwdFormatTypes(s_.getInstancingStdContent().getSups(), _forwards)));
+            return instance((StandardInstancingOperation) _anaNode, _forwards);
         }
         if (_anaNode instanceof AnonymousInstancingOperation) {
             AnonymousInstancingOperation s_ = (AnonymousInstancingOperation) _anaNode;
@@ -649,6 +644,14 @@ public final class RendForwardInfos {
             return new RendMultIdOperation(new ExecOperationContent(d_.getContent()));
         }
         return procOperands3(_anaNode, _forwards);
+    }
+
+    private static RendInvokingOperation instance(StandardInstancingOperation _anaNode, Forwards _forwards) {
+        ExecTypeFunction typeCtor_ = FetchMemberUtil.fetchPossibleTypeCtor(_anaNode.getMemberId(), _forwards);
+        if (typeCtor_ == null) {
+            return new RendDirectStandardInstancingOperation(new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstancingDirContent(_anaNode.getInstancingCommonContent()));
+        }
+        return new RendStandardInstancingOperation(new ExecOperationContent(_anaNode.getContent()), _anaNode.isIntermediateDottedOperation(), new ExecInstancingCustContent(_anaNode.getInstancingCommonContent(), typeCtor_, _forwards), new ExecInstancingStdContent(_anaNode.getInstancingStdContent(), FetchMemberUtil.namedFieldsContent(_anaNode.getInstancingStdContent().getNamedFields(), _forwards), FetchMemberUtil.fwdFormatTypes(_anaNode.getInstancingStdContent().getSups(), _forwards)));
     }
 
     private static RendInvokingOperation arrOp(ArrOperation _anaNode, Forwards _forwards) {
@@ -1034,18 +1037,19 @@ public final class RendForwardInfos {
 
     private static void initValidatorsInstance(AnalyzingDoc _anaDoc, Forwards _forwards) {
         for (EntryCust<OperationNode, ValidatorInfo> e: _anaDoc.getLateValidators().entryList()) {
-            ValidatorInfo v_ = e.getValue();
             OperationNode root_ = e.getKey();
-            CustList<RendDynOperationNode> exps_ = getExecutableNodes(root_, _forwards);
-            v_.setExps(exps_);
+            StandardInstancingOperation s_ = (StandardInstancingOperation) root_;
+            RendInvokingOperation rootExp_ = instance(s_, _forwards);
+            e.getValue().setExps(new CustList<RendDynOperationNode>(rootExp_));
         }
     }
 
     private static void initBeansInstances(AnalyzingDoc _anaDoc, Forwards _forwards) {
         for (EntryCust<OperationNode, BeanInfo> e: _anaDoc.getBeansInfos().entryList()) {
             OperationNode root_ = e.getKey();
-            CustList<RendDynOperationNode> exps_ = getExecutableNodes(root_, _forwards);
-            e.getValue().setExps(exps_);
+            StandardInstancingOperation s_ = (StandardInstancingOperation) root_;
+            RendInvokingOperation rootExp_ = instance(s_, _forwards);
+            e.getValue().setExps(new CustList<RendDynOperationNode>(rootExp_));
         }
     }
 

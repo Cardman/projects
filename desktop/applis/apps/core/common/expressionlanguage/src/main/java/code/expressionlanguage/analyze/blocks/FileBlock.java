@@ -60,13 +60,40 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
     }
 
     public void processLinesTabsWithError(String _file, AnalyzedPageEl _page) {
+        metrics(_file);
+        checkErrors(_page);
+    }
+
+    public void checkErrors(AnalyzedPageEl _page) {
+        if (!getBinChars().isEmpty()) {
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
+            d_.setIndexFile(getBinChars().first());
+            d_.setFile(this);
+            StringList badCharsStr_ = new StringList();
+            for (int i: getBinChars()) {
+                badCharsStr_.add(Long.toString(content.charAt(i)));
+            }
+            badCharsStr_.sort();
+            badCharsStr_.removeDuplicates();
+            //first bad character
+            d_.buildError(_page.getAnalysisMessages().getIllegalCharacter(),
+                    StringUtil.join(badCharsStr_,ExportCst.SEP_CHAR));
+            _page.addLocError(d_);
+            for (int i: getBinChars()) {
+                d_.setIndexFile(i);
+                GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_,i);
+                g_.setLength(1);
+                errorsFiles.getLi().add(g_);
+            }
+        }
+    }
+
+    public void metrics(String _file) {
         content = _file;
         int i_ = IndexConstants.FIRST_INDEX;
         int len_ = _file.length();
         length = len_;
         getLineReturns().add(-1);
-        boolean foundBinChar_ = false;
-        Ints badChars_ = new Ints();
         while (i_ < len_) {
             char ch_ = _file.charAt(i_);
             if (ch_ < ' ') {
@@ -79,33 +106,10 @@ public final class FileBlock extends BracedBlock implements ImportingBlock {
                         getLineReturns().add(i_);
                     }
                 } else {
-                    badChars_.add((int)ch_);
                     getBinChars().add(i_);
-                    foundBinChar_ = true;
                 }
             }
             i_++;
-        }
-        if (foundBinChar_) {
-            badChars_.sort();
-            badChars_.removeDuplicates();
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setIndexFile(badChars_.first());
-            d_.setFile(this);
-            StringList badCharsStr_ = new StringList();
-            for (int i: badChars_) {
-                badCharsStr_.add(Long.toString(i));
-            }
-            //first bad character
-            d_.buildError(_page.getAnalysisMessages().getIllegalCharacter(),
-                    StringUtil.join(badCharsStr_,ExportCst.SEP_CHAR));
-            _page.addLocError(d_);
-            for (int i: getBinChars()) {
-                d_.setIndexFile(i);
-                GraphicErrorInterpret g_ = new GraphicErrorInterpret(d_,i);
-                g_.setLength(1);
-                errorsFiles.getLi().add(g_);
-            }
         }
     }
 

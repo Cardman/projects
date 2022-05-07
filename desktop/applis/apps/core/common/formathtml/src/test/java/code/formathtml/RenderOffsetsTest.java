@@ -1,7 +1,9 @@
 package code.formathtml;
 
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.blocks.*;
+import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.common.RendBlockUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -491,6 +493,8 @@ public final class RenderOffsetsTest extends CommonRender {
     private static AnaRendDocumentBlock newRendDocumentBlock(String _docText) {
         DualNavigationContext a_ = buildNav();
         Document doc_ = DocumentBuilder.parseSaxNotNullRowCol(_docText).getDocument();
-        return AnaRendDocumentBlock.newRendDocumentBlock("c:", doc_, _docText, a_.getDualAnalyzedContext().getAnalyzed(), "page1.html",new AnalyzingDoc());
+        AnalyzingDoc anaDoc_ = new AnalyzingDoc();
+        AdvFileEscapedCalc es_ = new AdvFileEscapedCalc(AnaRendBlock.getIndexesSpecChars(_docText, anaDoc_.getEncoded()));
+        return AnaRendDocumentBlock.newRendDocumentBlock(doc_, _docText, a_.getDualAnalyzedContext().getAnalyzed(), anaDoc_, es_, new FileBlock(0, false, "page1.html", es_));
     }
 }

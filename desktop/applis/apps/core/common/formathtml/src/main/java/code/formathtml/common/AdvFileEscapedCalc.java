@@ -10,6 +10,10 @@ public final class AdvFileEscapedCalc implements AbstractFileEscapedCalc {
         this.escaped = _esc;
     }
 
+    public IntTreeMap<Integer> getEscaped() {
+        return escaped;
+    }
+
     @Override
     public int realIndex(int _index) {
         return RendBlockUtil.retrieve(_index,escaped);

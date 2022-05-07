@@ -1,6 +1,7 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
@@ -12,6 +13,7 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.fwd.opers.AnaCallFctContent;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.analyze.syntax.RendSplitExpressionUtil;
+import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.*;
@@ -64,20 +66,20 @@ public abstract class AnaRendBlock {
         offset = _offset;
     }
 
-    public static AnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, String _docText, AnalyzedPageEl _primTypes, String _currentUrl, AnalyzingDoc _anaDoc) {
+    public static AnaRendDocumentBlock newRendDocumentBlock(Document _doc, String _docText, AnalyzedPageEl _primTypes, AnalyzingDoc _anaDoc, AdvFileEscapedCalc _es, FileBlock _fileBl) {
         RendKeyWords rend_ = _anaDoc.getRendKeyWords();
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
-        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_,_docText,0, _currentUrl,_anaDoc.getEncoded());
+        AnaRendDocumentBlock out_ = new AnaRendDocumentBlock(documentElement_, 0, _es, _fileBl);
         int indexGlobal_ = indexOfBeginNode(curNode_, _docText, 0);
-        AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _prefix, curNode_,_docText, _primTypes, rend_);
+        AnaRendBlock curWrite_ = newRendBlockEsc(indexGlobal_,out_, _anaDoc.getPrefix(), curNode_,_docText, _primTypes, rend_);
         out_.appendChild(curWrite_);
         indexGlobal_ = curWrite_.endHeader;
         while (curWrite_ != null) {
             Node firstChild_ = curNode_.getFirstChild();
             if (curWrite_ instanceof AnaRendParentBlock&&firstChild_ != null) {
                 indexGlobal_ = indexOfBeginNode(firstChild_, _docText, indexGlobal_);
-                AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _prefix, firstChild_,_docText, _primTypes, rend_);
+                AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,(AnaRendParentBlock) curWrite_, _anaDoc.getPrefix(), firstChild_,_docText, _primTypes, rend_);
                 appendChild((AnaRendParentBlock) curWrite_,rendBlock_);
                 indexGlobal_ = rendBlock_.endHeader;
                 curWrite_ = rendBlock_;
@@ -90,7 +92,7 @@ public abstract class AnaRendBlock {
                 AnaRendParentBlock par_ = curWrite_.getParent();
                 if (nextSibling_ != null) {
                     indexGlobal_ = indexOfBeginNode(nextSibling_, _docText, indexGlobal_);
-                    AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _prefix, nextSibling_,_docText, _primTypes, rend_);
+                    AnaRendBlock rendBlock_ = newRendBlockEsc(indexGlobal_,par_, _anaDoc.getPrefix(), nextSibling_,_docText, _primTypes, rend_);
                     appendChild(par_,rendBlock_);
                     indexGlobal_ = rendBlock_.endHeader;
                     curWrite_ = rendBlock_;

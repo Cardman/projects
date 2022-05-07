@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.common.AnaGeneType;
 import code.maths.litteralcom.StrTypes;
@@ -12,10 +12,10 @@ public final class PreLinkagePartTypeUtil {
     private PreLinkagePartTypeUtil() {
     }
 
-    public static AnaResultPartType processAccessOkRootAnalyze(String _input, AnaGeneType _type, String _solved, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAccessOkRootAnalyze(String _input, AnaGeneType _type, String _solved, FileBlock _rooted, int _loc, AnalyzedPageEl _page) {
         return processAccessOkRootAnalyze(_input, _type, _solved, _rooted, _loc,0, _page);
     }
-    public static AnaResultPartType processAccessOkRootAnalyze(String _input, AnaGeneType _type, String _solved, AccessedBlock _rooted, int _loc, int _indexInType, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAccessOkRootAnalyze(String _input, AnaGeneType _type, String _solved, FileBlock _rooted, int _loc, int _indexInType, AnalyzedPageEl _page) {
         if (_page.isGettingParts()) {
             String inputTr_ = _input.trim();
             AnaPartType named_ = new AnaNamePartType(null, 0, _indexInType, inputTr_.trim(), "", _page.getAnalysisMessages());
@@ -27,7 +27,7 @@ public final class PreLinkagePartTypeUtil {
         }
         return new AnaResultPartType();
     }
-    public static AnaResultPartType processAccessInnerRootAnalyze(String _input, CustList<AnaResultPartType> _solved, StrTypes _operators, AccessedBlock _rooted, int _loc, AnalyzedPageEl _page) {
+    public static AnaResultPartType processAccessInnerRootAnalyze(String _input, CustList<AnaResultPartType> _solved, StrTypes _operators, FileBlock _rooted, int _loc, AnalyzedPageEl _page) {
         if (_page.isGettingParts()) {
             if (_solved.isEmpty()) {
                 return new AnaResultPartType();
@@ -75,7 +75,7 @@ public final class PreLinkagePartTypeUtil {
 
     public static AnaResultPartType processAccessKoRootAnalyze(boolean _voidType, FoundErrorInterpret _err, String _input, int _loc, int _indexInType, AnalyzedPageEl _page) {
         if (_page.isGettingParts()) {
-            AccessedBlock r_ = _page.getImporting();
+            FileBlock r_ = _page.getCurrentFile();
             String inputTr_ = _input.trim();
             AnaNamePartType named_ = new AnaNamePartType(null, 0, _indexInType, inputTr_.trim(), ".", _page.getAnalysisMessages());
             named_.setLoc(_loc);

@@ -3,6 +3,7 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.exec.InitPhase;
@@ -13,6 +14,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.formathtml.analyze.ResultText;
+import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.blocks.RendBlock;
@@ -116,7 +118,9 @@ public final class RenderInitStdsTest extends CommonRender {
         DualConfigurationContext dual_ = new DualConfigurationContext();
         Navigation nav_ = new Navigation();
         nav_.setSession(conf_);
-        DualNavigationContext a_ = new DualNavigationContext(nav_, new DualAnalyzedContext(forwards_,page_,_beanLgNames,dual_));
+        FileBlock file_ = new FileBlock(0, false, "", new AdvFileEscapedCalc(new IntTreeMap<Integer>()));
+        file_.metrics("");
+        DualNavigationContext a_ = new DualNavigationContext(nav_, new DualAnalyzedContext(forwards_,page_,_beanLgNames,dual_, file_));
         return isEmptyErrors(a_);
     }
 

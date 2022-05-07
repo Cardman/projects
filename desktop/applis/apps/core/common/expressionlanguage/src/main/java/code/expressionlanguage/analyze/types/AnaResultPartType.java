@@ -1,7 +1,7 @@
 package code.expressionlanguage.analyze.types;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.blocks.AccessedBlock;
+import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.util.StringList;
 
@@ -9,7 +9,7 @@ public final class AnaResultPartType {
     private final String input;
     private final int loc;
     private final AnaPartType partType;
-    private final AccessedBlock rooted;
+    private final FileBlock rooted;
     private final boolean generated;
     private boolean ok;
 
@@ -17,13 +17,13 @@ public final class AnaResultPartType {
         this("",0, AnaPartType.createErrorType(),null, true);
     }
 
-    public AnaResultPartType(String _input, int _loc, AnalysisMessages _page, AccessedBlock _rooted) {
+    public AnaResultPartType(String _input, int _loc, AnalysisMessages _page, FileBlock _rooted) {
         this(_input, _loc, AnaPartType.createErrorType(_input, _page), _rooted, true);
     }
-    public AnaResultPartType(String _input, int _loc, AnaPartType _partType, AccessedBlock _rooted) {
+    public AnaResultPartType(String _input, int _loc, AnaPartType _partType, FileBlock _rooted) {
         this(_input,_loc, _partType,_rooted,false);
     }
-    public AnaResultPartType(String _input, int _loc, AnaPartType _partType, AccessedBlock _rooted, boolean _generated) {
+    public AnaResultPartType(String _input, int _loc, AnaPartType _partType, FileBlock _rooted, boolean _generated) {
         input = _input;
         loc = _loc;
         partType = _partType;
@@ -39,7 +39,7 @@ public final class AnaResultPartType {
         return loc;
     }
 
-    public AccessedBlock getRooted() {
+    public FileBlock getRooted() {
         return rooted;
     }
 
