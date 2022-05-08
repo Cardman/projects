@@ -96,7 +96,7 @@ public final class ElResolverCommon {
             }
             j_ = nextIncr_;
         }
-        afterLoop(_key,_string,false, false, output_, j_);
+        output_.setNextIndex(j_);
         return output_;
     }
     private static int tryStart(boolean _seenDot,KeyWords _key, String _string, int _start,NumberInfosOutput _output) {
@@ -236,7 +236,11 @@ public final class ElResolverCommon {
         if (aft_ > _j) {
             return aft_;
         }
-        afterLoop(_key, _string, _dot,false, _output, _j);
+        if (_dot) {
+            afterDot(_key, _string, _output, _j);
+        } else {
+            _output.setNextIndex(_j);
+        }
         return _j;
     }
 
@@ -255,7 +259,8 @@ public final class ElResolverCommon {
             return _j + 1;
         }
         nbInfos_.setSuffix(ElResolver.DOUBLE);
-        afterLoop(_key, _string,false, true, _output, _j + _off - 1);
+        //_string.charAt(iExp_) == EXP
+        processExp(_key, _j + _off - 1, _string, _output);
         return _j;
     }
 
@@ -279,18 +284,7 @@ public final class ElResolverCommon {
         }
         return _j;
     }
-    private static void afterLoop(KeyWords _key, String _string, boolean _dot, boolean _exp, NumberInfosOutput _output, int _j) {
-        if (_dot) {
-            afterDot(_key,_string, _output, _j);
-            return;
-        }
-        if (_exp) {
-            //_string.charAt(iExp_) == EXP
-            processExp(_key, _j, _string, _output);
-            return;
-        }
-        _output.setNextIndex(_j);
-    }
+
     private static void afterDot(KeyWords _key, String _string, NumberInfosOutput _output, int _j) {
         int j_ = _j;
         String decExp_ = _key.getKeyWordNbExpDec();
