@@ -3593,13 +3593,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax278FailTest() {
         Delimiters d_ = tst("$superaccess(MyClass)");
-        assertEq(20, d_.getBadOffset());
+        assertEq(21, d_.getBadOffset());
     }
 
     @Test
     public void checkSyntax279FailTest() {
         Delimiters d_ = tst("$superaccess(MyClass");
-        assertEq(20, d_.getBadOffset());
+        assertEq(19, d_.getBadOffset());
     }
 
     @Test
@@ -4148,13 +4148,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax81FailTest() {
         int badOffset_ = getBadOffset_("$classchoice($math");
-        assertEq(18, badOffset_);
+        assertEq(17, badOffset_);
     }
 
     @Test
     public void checkSyntax82FailTest() {
         int badOffset_ = getBadOffset_("$classchoice($math$$");
-        assertEq(20, badOffset_);
+        assertEq(19, badOffset_);
     }
 
     @Test
@@ -4166,13 +4166,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax84FailTest() {
         int badOffset_ = getBadOffset_("$classchoice($math$abs$");
-        assertEq(23, badOffset_);
+        assertEq(22, badOffset_);
     }
 
     @Test
     public void checkSyntax85FailTest() {
         int badOffset_ = getBadOffset_("$classchoice($math$abs)");
-        assertEq(22, badOffset_);
+        assertEq(23, badOffset_);
     }
 
     @Test
@@ -4190,7 +4190,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax88FailTest() {
         int badOffset_ = getBadOffset_("$that.");
-        assertEq(5, badOffset_);
+        assertEq(6, badOffset_);
     }
 
     @Test
@@ -4220,7 +4220,7 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax93FailTest() {
         int badOffset_ = getBadOffset_("$classchoice($math$abs$$abs;)");
-        assertEq(28, badOffset_);
+        assertEq(29, badOffset_);
     }
     @Test
     public void checkSyntax94FailTest() {
