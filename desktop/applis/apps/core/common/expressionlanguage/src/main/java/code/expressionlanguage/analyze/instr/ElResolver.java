@@ -226,173 +226,209 @@ public final class ElResolver {
     }
 
     private static void strParts(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart) {
-        int len_ = _string.length();
-        int i_ = _stPart.getBegin();
-        TextBlockInfo si_ = new TextBlockInfo();
-        TextBlockInfo txt_ = new TextBlockInfo();
-        boolean escapedMeta_ = false;
-        int unicode_ = 0;
         if (_stPart.getStrType() == SegmentStringType.CHAR) {
-            int end_ = _stPart.getEnd();
-            int st_ = _stPart.getBegin();
-            _resOpers.setConstChar(true);
-            _resOpers.setNbChars(0);
-            _d.getDelStringsChars().add(st_);
-            st_++;
-            while (st_ < end_) {
-                IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
-                unic_.setIndex(st_);
-                unic_.setEscape(escapedMeta_);
-                unic_.setNbChars(_resOpers.getNbChars());
-                unic_.setPart(true);
-                unic_.setUnicode(unicode_);
-                unic_.setStringInfo(si_);
-                if (unic_.getNbChars() > 1) {
-                    si_.setKo();
-                }
-                IndexUnicodeEscape res_ = processStrings(_keyWords, _string, len_, si_,unic_, DELIMITER_CHAR);
-                int index_ = res_.getIndex();
-                if (!res_.isPart()) {
-                    _d.getStringInfo().add(si_);
-                    _d.getDelStringsChars().add(st_);
-                    si_ = new TextBlockInfo();
-                    _resOpers.setConstChar(false);
-                    st_++;
-                    _d.setEnabledOp(true);
-                    continue;
-                }
-                st_ = index_;
-                escapedMeta_ = res_.isEscape();
-                _resOpers.setNbChars(res_.getNbChars());
-                unicode_ = res_.getUnicode();
-            }
+            ch(_string, _d, _resOpers, _keyWords, _stPart);
         }
         if (_stPart.getStrType() == SegmentStringType.STRING) {
-            int end_ = _stPart.getEnd();
-            _d.getDelStringsChars().add(i_);
-            int st_ = _stPart.getBegin();
-            _resOpers.setConstString(true);
-            st_++;
-            while (st_ < end_) {
-                IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
-                unic_.setStringInfo(si_);
-                unic_.setIndex(st_);
-                unic_.setEscape(escapedMeta_);
-                unic_.setNbChars(_resOpers.getNbChars());
-                unic_.setPart(true);
-                unic_.setUnicode(unicode_);
-                IndexUnicodeEscape res_ = processStrings(_keyWords, _string, len_, si_, unic_, DELIMITER_STRING);
-                int index_ = res_.getIndex();
-                if (!res_.isPart()) {
-                    _d.getStringInfo().add(si_);
-                    _d.getDelStringsChars().add(st_);
-                    si_ = new TextBlockInfo();
-                    _resOpers.setConstString(false);
-                    st_++;
-                    _d.setEnabledOp(true);
-                    continue;
-                }
-                st_ = index_;
-                escapedMeta_ = res_.isEscape();
-                _resOpers.setNbChars(res_.getNbChars());
-                unicode_ = res_.getUnicode();
-            }
+            str(_string, _d, _resOpers, _keyWords, _stPart);
 
         }
         if (_stPart.getStrType() == SegmentStringType.TEXT) {
-            int end_ = _stPart.getEnd();
-            int st_ = _stPart.getBegin();
-            _resOpers.setConstText(true);
-            _d.getDelStringsChars().add(i_);
-            st_++;
-            while (st_ < end_) {
-                IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
-                unic_.setStringInfo(si_);
-                unic_.setIndex(st_);
-                unic_.setEscape(escapedMeta_);
-                unic_.setNbChars(_resOpers.getNbChars());
-                unic_.setPart(true);
-                unic_.setUnicode(unicode_);
-                IndexUnicodeEscape res_ = processStringsDelText(_string, len_, unic_);
-                int index_ = res_.getIndex();
-                if (!res_.isPart()) {
-                    _d.getStringInfo().add(si_);
-                    _d.getDelStringsChars().add(st_);
-                    si_ = new TextBlockInfo();
-                    _resOpers.setConstText(false);
-                    st_++;
-                    _d.setEnabledOp(true);
-                    continue;
-                }
-                st_ = index_;
-                escapedMeta_ = res_.isEscape();
-                _resOpers.setNbChars(res_.getNbChars());
-                unicode_ = res_.getUnicode();
-            }
+            tx(_string, _d, _resOpers, _stPart);
 
         }
         if (_stPart.getStrType() == SegmentStringType.TEXT_STRING) {
-            int end_ = _stPart.getEnd();
-            int st_ = _stPart.getBegin();
-            _resOpers.setConstTextString(true);
-            _d.getDelTextBlocks().add(st_);
-            st_+=3;
-            while (st_ < end_) {
-                IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
-                unic_.setIndex(st_);
-                unic_.setEscape(escapedMeta_);
-                unic_.setNbChars(_resOpers.getNbChars());
-                unic_.setPart(true);
-                unic_.setUnicode(unicode_);
-                unic_.setTextInfo(txt_);
-                IndexUnicodeEscape res_ = processTextBlocks(_keyWords, _string, len_, txt_,unic_, DELIMITER_STRING);
-                int index_ = res_.getIndex();
-                if (!res_.isPart()) {
-                    _d.getTextInfo().add(txt_);
-                    _d.getDelTextBlocks().add(st_+2);
-                    txt_ = new TextBlockInfo();
-                    _resOpers.setConstTextString(false);
-                    st_+=3;
-                    _d.setEnabledOp(true);
-                    continue;
-                }
-                st_ = index_;
-                escapedMeta_ = res_.isEscape();
-                _resOpers.setNbChars(res_.getNbChars());
-                unicode_ = res_.getUnicode();
-            }
+            txStr(_string, _d, _resOpers, _keyWords, _stPart);
 
         }
         if (_stPart.getStrType() == SegmentStringType.TEXT_CHAR) {
-            int end_ = _stPart.getEnd();
-            int st_ = _stPart.getBegin();
-            _resOpers.setConstTextChar(true);
-            _d.getDelTextBlocks().add(st_);
-            st_+=3;
-            while (st_ < end_) {
-                IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
-                unic_.setIndex(st_);
-                unic_.setEscape(escapedMeta_);
-                unic_.setNbChars(_resOpers.getNbChars());
-                unic_.setPart(true);
-                unic_.setUnicode(unicode_);
-                unic_.setTextInfo(txt_);
-                IndexUnicodeEscape res_ = processTextBlocks(_keyWords, _string, len_, txt_,unic_, DELIMITER_CHAR);
-                int index_ = res_.getIndex();
-                if (!res_.isPart()) {
-                    _d.getTextInfo().add(txt_);
-                    _d.getDelTextBlocks().add(st_+2);
-                    txt_ = new TextBlockInfo();
-                    _resOpers.setConstTextChar(false);
-                    st_+=3;
-                    _d.setEnabledOp(true);
-                    continue;
-                }
-                st_ = index_;
-                escapedMeta_ = res_.isEscape();
-                _resOpers.setNbChars(res_.getNbChars());
-                unicode_ = res_.getUnicode();
+            txCh(_string, _d, _resOpers, _keyWords, _stPart);
+        }
+    }
+
+    private static void txCh(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart) {
+        int len_ = _string.length();
+        TextBlockInfo txt_ = new TextBlockInfo();
+        boolean escapedMeta_ = false;
+        int unicode_ = 0;
+        int end_ = _stPart.getEnd();
+        int st_ = _stPart.getBegin();
+        _resOpers.setConstTextChar(true);
+        _d.getDelTextBlocks().add(st_);
+        st_+=3;
+        while (st_ < end_) {
+            IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
+            unic_.setIndex(st_);
+            unic_.setEscape(escapedMeta_);
+            unic_.setNbChars(_resOpers.getNbChars());
+            unic_.setPart(true);
+            unic_.setUnicode(unicode_);
+            unic_.setTextInfo(txt_);
+            IndexUnicodeEscape res_ = processTextBlocks(_keyWords, _string, len_, txt_,unic_, DELIMITER_CHAR);
+            int index_ = res_.getIndex();
+            if (!res_.isPart()) {
+                _d.getTextInfo().add(txt_);
+                _d.getDelTextBlocks().add(st_+2);
+                txt_ = new TextBlockInfo();
+                _resOpers.setConstTextChar(false);
+                st_+=3;
+                _d.setEnabledOp(true);
+                continue;
             }
+            st_ = index_;
+            escapedMeta_ = res_.isEscape();
+            _resOpers.setNbChars(res_.getNbChars());
+            unicode_ = res_.getUnicode();
+        }
+    }
+
+    private static void txStr(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart) {
+        int len_ = _string.length();
+        TextBlockInfo txt_ = new TextBlockInfo();
+        boolean escapedMeta_ = false;
+        int unicode_ = 0;
+        int end_ = _stPart.getEnd();
+        int st_ = _stPart.getBegin();
+        _resOpers.setConstTextString(true);
+        _d.getDelTextBlocks().add(st_);
+        st_+=3;
+        while (st_ < end_) {
+            IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
+            unic_.setIndex(st_);
+            unic_.setEscape(escapedMeta_);
+            unic_.setNbChars(_resOpers.getNbChars());
+            unic_.setPart(true);
+            unic_.setUnicode(unicode_);
+            unic_.setTextInfo(txt_);
+            IndexUnicodeEscape res_ = processTextBlocks(_keyWords, _string, len_, txt_,unic_, DELIMITER_STRING);
+            int index_ = res_.getIndex();
+            if (!res_.isPart()) {
+                _d.getTextInfo().add(txt_);
+                _d.getDelTextBlocks().add(st_+2);
+                txt_ = new TextBlockInfo();
+                _resOpers.setConstTextString(false);
+                st_+=3;
+                _d.setEnabledOp(true);
+                continue;
+            }
+            st_ = index_;
+            escapedMeta_ = res_.isEscape();
+            _resOpers.setNbChars(res_.getNbChars());
+            unicode_ = res_.getUnicode();
+        }
+    }
+
+    private static void tx(String _string, Delimiters _d, ResultAfterOperators _resOpers, SegmentStringPart _stPart) {
+        int len_ = _string.length();
+        int i_ = _stPart.getBegin();
+        TextBlockInfo si_ = new TextBlockInfo();
+        boolean escapedMeta_ = false;
+        int unicode_ = 0;
+        int end_ = _stPart.getEnd();
+        int st_ = _stPart.getBegin();
+        _resOpers.setConstText(true);
+        _d.getDelStringsChars().add(i_);
+        st_++;
+        while (st_ < end_) {
+            IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
+            unic_.setStringInfo(si_);
+            unic_.setIndex(st_);
+            unic_.setEscape(escapedMeta_);
+            unic_.setNbChars(_resOpers.getNbChars());
+            unic_.setPart(true);
+            unic_.setUnicode(unicode_);
+            IndexUnicodeEscape res_ = processStringsDelText(_string, len_, unic_);
+            int index_ = res_.getIndex();
+            if (!res_.isPart()) {
+                _d.getStringInfo().add(si_);
+                _d.getDelStringsChars().add(st_);
+                si_ = new TextBlockInfo();
+                _resOpers.setConstText(false);
+                st_++;
+                _d.setEnabledOp(true);
+                continue;
+            }
+            st_ = index_;
+            escapedMeta_ = res_.isEscape();
+            _resOpers.setNbChars(res_.getNbChars());
+            unicode_ = res_.getUnicode();
+        }
+    }
+
+    private static void str(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart) {
+        int len_ = _string.length();
+        int i_ = _stPart.getBegin();
+        TextBlockInfo si_ = new TextBlockInfo();
+        boolean escapedMeta_ = false;
+        int unicode_ = 0;
+        int end_ = _stPart.getEnd();
+        _d.getDelStringsChars().add(i_);
+        int st_ = _stPart.getBegin();
+        _resOpers.setConstString(true);
+        st_++;
+        while (st_ < end_) {
+            IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
+            unic_.setStringInfo(si_);
+            unic_.setIndex(st_);
+            unic_.setEscape(escapedMeta_);
+            unic_.setNbChars(_resOpers.getNbChars());
+            unic_.setPart(true);
+            unic_.setUnicode(unicode_);
+            IndexUnicodeEscape res_ = processStrings(_keyWords, _string, len_, si_, unic_, DELIMITER_STRING);
+            int index_ = res_.getIndex();
+            if (!res_.isPart()) {
+                _d.getStringInfo().add(si_);
+                _d.getDelStringsChars().add(st_);
+                si_ = new TextBlockInfo();
+                _resOpers.setConstString(false);
+                st_++;
+                _d.setEnabledOp(true);
+                continue;
+            }
+            st_ = index_;
+            escapedMeta_ = res_.isEscape();
+            _resOpers.setNbChars(res_.getNbChars());
+            unicode_ = res_.getUnicode();
+        }
+    }
+
+    private static void ch(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart) {
+        int len_ = _string.length();
+        TextBlockInfo si_ = new TextBlockInfo();
+        boolean escapedMeta_ = false;
+        int unicode_ = 0;
+        int end_ = _stPart.getEnd();
+        int st_ = _stPart.getBegin();
+        _resOpers.setConstChar(true);
+        _resOpers.setNbChars(0);
+        _d.getDelStringsChars().add(st_);
+        st_++;
+        while (st_ < end_) {
+            IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
+            unic_.setIndex(st_);
+            unic_.setEscape(escapedMeta_);
+            unic_.setNbChars(_resOpers.getNbChars());
+            unic_.setPart(true);
+            unic_.setUnicode(unicode_);
+            unic_.setStringInfo(si_);
+            if (unic_.getNbChars() > 1) {
+                si_.setKo();
+            }
+            IndexUnicodeEscape res_ = processStrings(_keyWords, _string, len_, si_,unic_, DELIMITER_CHAR);
+            int index_ = res_.getIndex();
+            if (!res_.isPart()) {
+                _d.getStringInfo().add(si_);
+                _d.getDelStringsChars().add(st_);
+                si_ = new TextBlockInfo();
+                _resOpers.setConstChar(false);
+                st_++;
+                _d.setEnabledOp(true);
+                continue;
+            }
+            st_ = index_;
+            escapedMeta_ = res_.isEscape();
+            _resOpers.setNbChars(res_.getNbChars());
+            unicode_ = res_.getUnicode();
         }
     }
 
@@ -503,11 +539,7 @@ public final class ElResolver {
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
-        String keyWordThat_ = keyWords_.getKeyWordThat();
-        String keyWordThis_ = keyWords_.getKeyWordThis();
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
-        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
-        String keyWordValues_ = keyWords_.getKeyWordValues();
         String keyWordVararg_ = keyWords_.getKeyWordVararg();
         String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
@@ -570,6 +602,16 @@ public final class ElResolver {
             interfOpers(_string, _d, _out, _page);
             return;
         }
+        defKeyWords2(_string, _d, _out, _opers, _page);
+    }
+
+    private static void defKeyWords2(String _string, Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers, AnalyzedPageEl _page) {
+        int i_ = _out.getNextIndex();
+        KeyWords keyWords_ = _page.getKeyWords();
+        String keyWordThat_ = keyWords_.getKeyWordThat();
+        String keyWordThis_ = keyWords_.getKeyWordThis();
+        String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
+        String keyWordValues_ = keyWords_.getKeyWordValues();
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordThat_)) {
             that(_string, _d, _out, _page);
             return;
@@ -590,7 +632,6 @@ public final class ElResolver {
     }
 
     private static void defKeyWords(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
-        int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordBool_ = keyWords_.getKeyWordBool();
@@ -604,19 +645,8 @@ public final class ElResolver {
         boolean foundValue_ = false;
         for (String s: StringUtil.wrapStringArray(keyWordTrue_,keyWordFalse_,keyWordNull_,keyWordParent_)) {
             if (StringExpUtil.startsWithKeyWord(_string,i_, s)) {
-                int afterSuper_ = i_ + s.length();
-                while (afterSuper_ < len_) {
-                    char ch_ = _string.charAt(afterSuper_);
-                    if (!StringUtil.isWhitespace(ch_)) {
-                        if (ch_ == PAR_LEFT) {
-                            stack_.getCallings().add(afterSuper_);
-                        }
-                        break;
-                    }
-                    afterSuper_++;
-                }
+                i_ = incrTrueFalseNullPar(_string,_d,i_,s);
                 foundValue_ = true;
-                i_ = afterSuper_;
                 break;
             }
         }
@@ -643,6 +673,20 @@ public final class ElResolver {
         }
         DefaultProcessKeyWord.processInternKeyWord(_page,_string, i_, _d, _out);
     }
+    private static int incrTrueFalseNullPar(String _string, Delimiters _d, int _i, String _part) {
+        StackDelimiters stack_ = _d.getStack();
+        int len_ = _string.length();
+        int afterSuper_ = _i + _part.length();
+        int pr_ = StringExpUtil.nextPrintChar(afterSuper_,len_,_string);
+        if (StringExpUtil.nextCharIs(_string,pr_,len_,PAR_LEFT)) {
+            stack_.getCallings().add(pr_);
+            return pr_;
+        }
+        if (pr_ < 0){
+            return len_;
+        }
+        return pr_;
+    }
 
     private static void valOf(String _string, Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
@@ -651,8 +695,8 @@ public final class ElResolver {
         int i_ = _out.getNextIndex();
         StackDelimiters stack_ = _d.getStack();
         int afterSuper_ = i_ + keyWordValueOf_.length();
-        afterSuper_ = nextAfterWhite(afterSuper_, _string, len_);
-        if (followedByParLeft(_string, len_, afterSuper_)) {
+        afterSuper_ = DefaultProcessKeyWord.skipWhiteSpace(_string, afterSuper_);
+        if (StringExpUtil.nextCharIs(_string, afterSuper_, len_, PAR_LEFT)) {
 
             int indexComma_ = _string.indexOf(SEP_ARG, afterSuper_);
             int min_;
@@ -681,8 +725,8 @@ public final class ElResolver {
         int i_ = _out.getNextIndex();
         StackDelimiters stack_ = _d.getStack();
         int afterSuper_ = i_ + keyWordThis_.length();
-        afterSuper_ = nextAfterWhite(afterSuper_, _string, len_);
-        if (followedByParLeft(_string, len_, afterSuper_)) {
+        afterSuper_ = DefaultProcessKeyWord.skipWhiteSpace(_string, afterSuper_);
+        if (StringExpUtil.nextCharIs(_string, afterSuper_, len_, PAR_LEFT)) {
             stack_.getCallings().add(afterSuper_);
         }
         _out.setNextIndex(afterSuper_);
@@ -727,7 +771,7 @@ public final class ElResolver {
             }
             afterSuper_++;
         }
-        if (followedByParLeft(_string, len_, afterSuper_)) {
+        if (StringExpUtil.nextCharIs(_string, afterSuper_, len_, PAR_LEFT)) {
             stack_.getCallings().add(afterSuper_);
         } else {
             _d.setBadOffset(afterSuper_);
@@ -740,9 +784,8 @@ public final class ElResolver {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
-        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
-        int afterClassChoice_ = incr(_string, i_, keyWordInterfaces_, keyWordOperator_);
+        int afterClassChoice_ = incr(_string, i_, _page);
         boolean foundHat_ = false;
         while (afterClassChoice_ < len_) {
             if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
@@ -798,7 +841,10 @@ public final class ElResolver {
         _out.setNextIndex(_afterClassChoice);
     }
 
-    private static int incr(String _string, int _cur, String keyWordInterfaces_, String keyWordOperator_) {
+    private static int incr(String _string, int _cur, AnalyzedPageEl _page) {
+        KeyWords keyWords_ = _page.getKeyWords();
+        String keyWordInterfaces_ = keyWords_.getKeyWordInterfaces();
+        String keyWordOperator_ = keyWords_.getKeyWordOperator();
         int afterClassChoice_;
         if (StringExpUtil.startsWithKeyWord(_string, _cur, keyWordInterfaces_)) {
             afterClassChoice_ = _cur + keyWordInterfaces_.length();
@@ -1221,21 +1267,6 @@ public final class ElResolver {
         _out.setNextIndex(indexParRight_ + 1);
     }
 
-    private static boolean followedByParLeft(String _string, int _len, int _afterSuper) {
-        return _afterSuper < _len && _string.charAt(_afterSuper) == PAR_LEFT;
-    }
-
-    private static int nextAfterWhite(int _i, String _string,int _len) {
-        int afterSuper_ = _i;
-        while (afterSuper_ < _len) {
-            if (!StringUtil.isWhitespace(_string.charAt(afterSuper_))) {
-                //_string.charAt(afterSuper_) != EXTERN_CLASS && !foundHat_
-                break;
-            }
-            afterSuper_++;
-        }
-        return afterSuper_;
-    }
     private static void processWords(String _string, Delimiters _d, FieldRetriever _ret, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
@@ -1263,13 +1294,12 @@ public final class ElResolver {
             _d.setEnabledOp(true);
             return;
         }
-        for (AnonymousResult r:_page.getCurrentAnonymousResults()) {
-            if (r.getIndex() == beginWord_) {
-                _page.getAnonymousResults().add(r);
-                _out.setNextIndex(r.getNext());
-                _d.setEnabledOp(true);
-                return;
-            }
+        AnonymousResult anon_ = anon(beginWord_, _page);
+        if (anon_ != null) {
+            _page.getAnonymousResults().add(anon_);
+            _out.setNextIndex(anon_.getNext());
+            _d.setEnabledOp(true);
+            return;
         }
         int n_ = ElResolverCommon.addNamed(_string, beginWord_, i_, _d.getNamedArgs(),_page);
         if (n_ >= i_) {
@@ -1448,13 +1478,12 @@ public final class ElResolver {
         ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
         int i_ = doubleDotted_.getNextIndex();
         char curChar_ = _string.charAt(i_);
-        for (AnonymousResult r: _page.getCurrentAnonymousResults()) {
-            if (r.getIndex() == i_) {
-                _page.getAnonymousResults().add(r);
-                doubleDotted_.setNextIndex(r.getNext());
-                _dout.setEnabledOp(true);
-                return;
-            }
+        AnonymousResult anon_ = anon(i_, _page);
+        if (anon_ != null) {
+            _page.getAnonymousResults().add(anon_);
+            doubleDotted_.setNextIndex(anon_.getNext());
+            _dout.setEnabledOp(true);
+            return;
         }
         parsBrackets_.addEntry(i_, curChar_);
         afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
@@ -1686,20 +1715,27 @@ public final class ElResolver {
             infos_.setUnicode(unicode_);
             return infos_;
         }
+        return escOthStrings(_infos,_key, _string, _max, _si, _delimiter, infos_);
+    }
+
+    private static IndexUnicodeEscape escOthStrings(IndexUnicodeEscape _infos, KeyWords _key, String _string, int _max, TextBlockInfo _si, char _delimiter, IndexUnicodeEscape _out) {
+        int i_ = _infos.getIndex();
+        int nbChars_ = _infos.getNbChars();
+        char curChar_ = _string.charAt(i_);
         if (curChar_ == LINE_RETURN) {
-            infos_.setEscape(false);
+            _out.setEscape(false);
             i_++;
-            infos_.setIndex(i_);
-            return infos_;
+            _out.setIndex(i_);
+            return _out;
         }
         if (curChar_ == _delimiter) {
             nbChars_++;
-            infos_.setNbChars(nbChars_);
-            infos_.setEscape(false);
-            infos_.getStringInfo().appendChar(curChar_);
+            _out.setNbChars(nbChars_);
+            _out.setEscape(false);
+            _out.getStringInfo().appendChar(curChar_);
             i_++;
-            infos_.setIndex(i_);
-            return infos_;
+            _out.setIndex(i_);
+            return _out;
         }
         String single_ = _key.getEscKeyWord(_string, i_);
         String newLine_ = _key.getKeyWordEscLine();
@@ -1710,55 +1746,54 @@ public final class ElResolver {
         String bound_ = _key.getKeyWordEscBound();
         if (single_ != null) {
             nbChars_++;
-            infos_.setNbChars(nbChars_);
-            infos_.setEscape(false);
+            _out.setNbChars(nbChars_);
+            _out.setEscape(false);
             if (StringUtil.quickEq(single_, newLine_)) {
-                i_+=newLine_.length();
-                infos_.getStringInfo().appendChar(LINE_RETURN);
+                i_ +=newLine_.length();
+                _out.getStringInfo().appendChar(LINE_RETURN);
             } else if (StringUtil.quickEq(single_, form_)) {
-                i_+=form_.length();
-                infos_.getStringInfo().appendChar(FORM_FEED);
+                i_ +=form_.length();
+                _out.getStringInfo().appendChar(FORM_FEED);
             } else if (StringUtil.quickEq(single_, rfeed_)) {
-                i_+=rfeed_.length();
-                infos_.getStringInfo().appendChar(LINE_FEED);
+                i_ +=rfeed_.length();
+                _out.getStringInfo().appendChar(LINE_FEED);
             } else if (StringUtil.quickEq(single_, tab_)) {
-                i_+=tab_.length();
-                infos_.getStringInfo().appendChar(TAB);
+                i_ +=tab_.length();
+                _out.getStringInfo().appendChar(TAB);
             } else if (StringUtil.quickEq(single_, space_)) {
-                i_+=tab_.length();
-                infos_.getStringInfo().appendChar(SPACE);
+                i_ +=tab_.length();
+                _out.getStringInfo().appendChar(SPACE);
             } else {
-                i_+=bound_.length();
-                infos_.getStringInfo().appendChar(BOUND);
+                i_ +=bound_.length();
+                _out.getStringInfo().appendChar(BOUND);
             }
-            infos_.setIndex(i_);
-            return infos_;
+            _out.setIndex(i_);
+            return _out;
         }
         if (curChar_ == ESCAPE_META_CHAR) {
-            infos_.getStringInfo().appendChar(ESCAPE_META_CHAR);
+            _out.getStringInfo().appendChar(ESCAPE_META_CHAR);
             nbChars_++;
-            infos_.setNbChars(nbChars_);
-            infos_.setEscape(false);
+            _out.setNbChars(nbChars_);
+            _out.setEscape(false);
             i_++;
-            infos_.setIndex(i_);
-            return infos_;
+            _out.setIndex(i_);
+            return _out;
         }
         String unicodeStr_ = _key.getKeyWordEscUnicode();
-        if (!_string.startsWith(unicodeStr_,i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
+        if (!_string.startsWith(unicodeStr_, i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
             _si.setKo();
-            infos_.getStringInfo().appendChar(curChar_);
+            _out.getStringInfo().appendChar(curChar_);
             nbChars_++;
-            infos_.setNbChars(nbChars_);
-            infos_.setEscape(false);
+            _out.setNbChars(nbChars_);
+            _out.setEscape(false);
             i_++;
-            infos_.setIndex(i_);
-            return infos_;
+            _out.setIndex(i_);
+            return _out;
         }
-        unicode_ = 1;
-        infos_.setUnicode(unicode_);
-        i_+=unicodeStr_.length();
-        infos_.setIndex(i_);
-        return infos_;
+        _out.setUnicode(1);
+        i_ +=unicodeStr_.length();
+        _out.setIndex(i_);
+        return _out;
     }
 
     private static char trUnicodeDigToLetterInStr(KeyWords _key, TextBlockInfo _si, char _curChar) {
@@ -1800,67 +1835,7 @@ public final class ElResolver {
             infos_.getTextInfo().setKo();
         }
         if (!escapedMeta_) {
-            if (curChar_ == ESCAPE_META_CHAR) {
-                if (i_ + 1 >= _max) {
-                    _si.setKo();
-                    i_++;
-                    infos_.setIndex(i_);
-                    return infos_;
-                }
-                infos_.setEscape(true);
-                i_++;
-                infos_.setIndex(i_);
-                return infos_;
-            }
-            if (curChar_ == _delimiter
-                    && StringExpUtil.nextCharIs(_string,i_+1,_string.length(),_delimiter)
-                    && StringExpUtil.nextCharIs(_string,i_+2,_string.length(),_delimiter)) {
-                int lastSpace_ = infos_.getTextInfo().getLastSpace();
-                if (lastSpace_ > -1) {
-                    int lastIndex_ = infos_.getTextInfo().length()-1;
-                    for (int i = lastIndex_; i >= lastSpace_; i--) {
-                        infos_.getTextInfo().remove(i);
-                    }
-                }
-                infos_.setPart(false);
-                i_+=3;
-                infos_.setIndex(i_);
-                return infos_;
-            }
-            if (curChar_ == LINE_RETURN) {
-                boolean line_ = infos_.getTextInfo().isLine();
-                infos_.getTextInfo().setLine(true);
-                int lastSpace_ = infos_.getTextInfo().getLastSpace();
-                if (lastSpace_ > -1) {
-                    int lastIndex_ = infos_.getTextInfo().length()-1;
-                    for (int i = lastIndex_; i >= lastSpace_; i--) {
-                        infos_.getTextInfo().remove(i);
-                    }
-                }
-                if (line_) {
-                    infos_.getTextInfo().appendChar(curChar_);
-                    nbChars_++;
-                    infos_.setNbChars(nbChars_);
-                }
-                infos_.getTextInfo().setPrintable(false);
-                infos_.getTextInfo().setLastSpace(-1);
-            } else if (StringUtil.isWhitespace(curChar_)) {
-                if (infos_.getTextInfo().isPrintable()) {
-                    infos_.getTextInfo().setLastSpace(infos_.getTextInfo().length());
-                    infos_.getTextInfo().appendChar(curChar_);
-                    nbChars_++;
-                    infos_.setNbChars(nbChars_);
-                }
-            } else {
-                infos_.getTextInfo().setLastSpace(-1);
-                infos_.getTextInfo().appendChar(curChar_);
-                infos_.getTextInfo().setPrintable(true);
-                nbChars_++;
-                infos_.setNbChars(nbChars_);
-            }
-            i_++;
-            infos_.setIndex(i_);
-            return infos_;
+            return prEscText(_infos,_string, _max, _si, _delimiter, infos_);
         }
         infos_.getTextInfo().setLastSpace(-1);
         if (unicode_ > 0) {
@@ -1901,6 +1876,78 @@ public final class ElResolver {
             infos_.getTextInfo().setPrintable(true);
             return infos_;
         }
+        return procOthEsBlock(_infos,_key, _string, _max, _si, infos_);
+    }
+
+    private static IndexUnicodeEscape prEscText(IndexUnicodeEscape _infos, String _string, int _max, TextBlockInfo _si, char _delimiter, IndexUnicodeEscape _out) {
+        int i_ = _infos.getIndex();
+        int nbChars_ = _infos.getNbChars();
+        char curChar_ = _string.charAt(i_);
+        if (curChar_ == ESCAPE_META_CHAR) {
+            if (i_ + 1 >= _max) {
+                _si.setKo();
+                i_++;
+                _out.setIndex(i_);
+                return _out;
+            }
+            _out.setEscape(true);
+            i_++;
+            _out.setIndex(i_);
+            return _out;
+        }
+        if (curChar_ == _delimiter
+                && StringExpUtil.nextCharIs(_string, i_ +1, _string.length(), _delimiter)
+                && StringExpUtil.nextCharIs(_string, i_ +2, _string.length(), _delimiter)) {
+            removeRightSpaces(_out);
+            _out.setPart(false);
+            i_ +=3;
+            _out.setIndex(i_);
+            return _out;
+        }
+        if (curChar_ == LINE_RETURN) {
+            boolean line_ = _out.getTextInfo().isLine();
+            _out.getTextInfo().setLine(true);
+            removeRightSpaces(_out);
+            if (line_) {
+                _out.getTextInfo().appendChar(curChar_);
+                nbChars_++;
+                _out.setNbChars(nbChars_);
+            }
+            _out.getTextInfo().setPrintable(false);
+            _out.getTextInfo().setLastSpace(-1);
+        } else if (StringUtil.isWhitespace(curChar_)) {
+            if (_out.getTextInfo().isPrintable()) {
+                _out.getTextInfo().setLastSpace(_out.getTextInfo().length());
+                _out.getTextInfo().appendChar(curChar_);
+                nbChars_++;
+                _out.setNbChars(nbChars_);
+            }
+        } else {
+            _out.getTextInfo().setLastSpace(-1);
+            _out.getTextInfo().appendChar(curChar_);
+            _out.getTextInfo().setPrintable(true);
+            nbChars_++;
+            _out.setNbChars(nbChars_);
+        }
+        i_++;
+        _out.setIndex(i_);
+        return _out;
+    }
+
+    private static void removeRightSpaces(IndexUnicodeEscape _out) {
+        int lastSpace_ = _out.getTextInfo().getLastSpace();
+        if (lastSpace_ > -1) {
+            int lastIndex_ = _out.getTextInfo().length()-1;
+            for (int i = lastIndex_; i >= lastSpace_; i--) {
+                _out.getTextInfo().remove(i);
+            }
+        }
+    }
+
+    private static IndexUnicodeEscape procOthEsBlock(IndexUnicodeEscape _infos, KeyWords _key, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _out) {
+        int i_ = _infos.getIndex();
+        int nbChars_ = _infos.getNbChars();
+        char curChar_ = _string.charAt(i_);
         String single_ = _key.getEscKeyWord(_string, i_);
         String newLine_ = _key.getKeyWordEscLine();
         String form_ = _key.getKeyWordEscForm();
@@ -1910,57 +1957,56 @@ public final class ElResolver {
         String bound_ = _key.getKeyWordEscBound();
         if (single_ != null) {
             nbChars_++;
-            infos_.setNbChars(nbChars_);
-            infos_.setEscape(false);
+            _out.setNbChars(nbChars_);
+            _out.setEscape(false);
             if (StringUtil.quickEq(single_, newLine_)) {
-                i_+=newLine_.length();
-                infos_.getTextInfo().appendChar(LINE_RETURN);
+                i_ +=newLine_.length();
+                _out.getTextInfo().appendChar(LINE_RETURN);
             } else if (StringUtil.quickEq(single_, form_)) {
-                i_+=form_.length();
-                infos_.getTextInfo().appendChar(FORM_FEED);
+                i_ +=form_.length();
+                _out.getTextInfo().appendChar(FORM_FEED);
             } else if (StringUtil.quickEq(single_, rfeed_)) {
-                i_+=rfeed_.length();
-                infos_.getTextInfo().appendChar(LINE_FEED);
+                i_ +=rfeed_.length();
+                _out.getTextInfo().appendChar(LINE_FEED);
             } else if (StringUtil.quickEq(single_, tab_)) {
-                i_+=tab_.length();
-                infos_.getTextInfo().appendChar(TAB);
+                i_ +=tab_.length();
+                _out.getTextInfo().appendChar(TAB);
             } else if (StringUtil.quickEq(single_, space_)) {
-                i_+=tab_.length();
-                infos_.getTextInfo().appendChar(SPACE);
+                i_ +=tab_.length();
+                _out.getTextInfo().appendChar(SPACE);
             } else {
-                i_+=bound_.length();
-                infos_.getTextInfo().appendChar(BOUND);
+                i_ +=bound_.length();
+                _out.getTextInfo().appendChar(BOUND);
             }
-            infos_.getTextInfo().setPrintable(true);
-            infos_.setIndex(i_);
-            return infos_;
+            _out.getTextInfo().setPrintable(true);
+            _out.setIndex(i_);
+            return _out;
         }
         if (curChar_ == ESCAPE_META_CHAR) {
-            infos_.getTextInfo().appendChar(ESCAPE_META_CHAR);
-            infos_.getTextInfo().setPrintable(true);
+            _out.getTextInfo().appendChar(ESCAPE_META_CHAR);
+            _out.getTextInfo().setPrintable(true);
             nbChars_++;
-            infos_.setNbChars(nbChars_);
-            infos_.setEscape(false);
+            _out.setNbChars(nbChars_);
+            _out.setEscape(false);
             i_++;
-            infos_.setIndex(i_);
-            return infos_;
+            _out.setIndex(i_);
+            return _out;
         }
         String unicodeStr_ = _key.getKeyWordEscUnicode();
-        if (!_string.startsWith(unicodeStr_,i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
+        if (!_string.startsWith(unicodeStr_, i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
             _si.setKo();
-            infos_.getTextInfo().appendChar(curChar_);
+            _out.getTextInfo().appendChar(curChar_);
             nbChars_++;
-            infos_.setNbChars(nbChars_);
-            infos_.setEscape(false);
+            _out.setNbChars(nbChars_);
+            _out.setEscape(false);
             i_++;
-            infos_.setIndex(i_);
-            return infos_;
+            _out.setIndex(i_);
+            return _out;
         }
-        unicode_ = 1;
-        infos_.setUnicode(unicode_);
-        i_+=unicodeStr_.length();
-        infos_.setIndex(i_);
-        return infos_;
+        _out.setUnicode(1);
+        i_ +=unicodeStr_.length();
+        _out.setIndex(i_);
+        return _out;
     }
 
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
@@ -2060,18 +2106,6 @@ public final class ElResolver {
             }
         }
         return allDels(_offset, _string, _d, len_, _page, i_, lastPrintChar_);
-    }
-
-    public static int firstPrint(String _string) {
-        int len_ = _string.length();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (i_ < len_) {
-            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
-                break;
-            }
-            i_++;
-        }
-        return i_;
     }
 
     private static OperationsSequence allDels(int _offset, String _string, Delimiters _d, int _len, AnalyzedPageEl _page, int _firstPrintChar, int _lastPrintChar) {
@@ -2292,15 +2326,6 @@ public final class ElResolver {
             return op_;
         }
         return null;
-    }
-
-    public static int lastPrintChar(String _string) {
-        int len_ = _string.length();
-        int lastPrintChar_ = len_ - 1;
-        while (lastPrintChar_ >= 0&&StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
-            lastPrintChar_--;
-        }
-        return lastPrintChar_;
     }
 
     private static boolean delimits(Ints _dels, int _offset,long _first, long _last) {

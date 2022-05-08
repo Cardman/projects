@@ -566,16 +566,12 @@ public final class ElResolverCommon {
     }
 
     private static boolean processedCorrectOrContinue(String _string, int _j) {
-        String nextPartAf_ = _string.substring(_j).trim();
-        return !isNotCorrectNbEnd(nextPartAf_);
-    }
-
-    private static boolean isNotCorrectNbEnd(String _next) {
-        if (_next.isEmpty()) {
-            return false;
+        int len_ = _string.length();
+        int next_ = StringExpUtil.nextPrintChar(_j, len_, _string);
+        if (next_ < 0) {
+            return true;
         }
-        char n_ = _next.charAt(0);
-        return n_ == ElResolver.DOT_VAR;
+        return !StringExpUtil.nextCharIs(_string,next_,len_,ElResolver.DOT_VAR);
     }
 
     static int incrInstanceOf(String _string, int _len, int _next) {
@@ -606,8 +602,9 @@ public final class ElResolverCommon {
     private static int incrAfterGtInstanceOf(String _string, int _nbOpened, int _next) {
         int next_ = _next;
         if (_nbOpened == 0) {
-            String substring_ = _string.substring(next_);
-            if (substring_.trim().startsWith(".")) {
+            int length_ = _string.length();
+            int nextPr_ = StringExpUtil.nextPrintChar(next_, length_, _string);
+            if (StringExpUtil.nextCharIs(_string,nextPr_, length_,ElResolver.DOT_VAR)) {
                 next_ = incrType(next_,_string);
             }
         }

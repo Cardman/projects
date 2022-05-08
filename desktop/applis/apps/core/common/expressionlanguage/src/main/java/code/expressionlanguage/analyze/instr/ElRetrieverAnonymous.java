@@ -502,10 +502,10 @@ public final class ElRetrieverAnonymous {
         }
         int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
         if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
-            String afterArrow_ = _string.substring(dash_+"->".length());
-            String after_ = afterArrow_.trim();
-            int off_ = StringUtil.getFirstPrintableCharIndex(afterArrow_);
-            if (after_.startsWith("{")) {
+            int afArro_ = dash_ + "->".length();
+            int ne_ = StringExpUtil.nextPrintChar(afArro_, len_, _string);
+            int off_ = diff(_string,afArro_);
+            if (StringExpUtil.nextCharIs(_string,ne_,len_,ElResolver.ANN_ARR_LEFT)) {
                 int instrLoc_ = _curElts.getInstrLoc();
                 int j_ = dash_ + off_+2;
                 InputTypeCreation input_ = new InputTypeCreation();
@@ -559,11 +559,11 @@ public final class ElRetrieverAnonymous {
         }
         int dash_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, '-');
         if (dash_ > -1 && StringExpUtil.nextCharIs(_string,dash_+1, len_,'>')) {
-            String afterArrow_ = _string.substring(dash_+"->".length());
-            String after_ = afterArrow_.trim();
-            int off_ = StringUtil.getFirstPrintableCharIndex(afterArrow_);
-            int indAfterArrow_ = dash_ + off_ + 2;
-            if (after_.startsWith("{")) {
+            int afArro_ = dash_ + "->".length();
+            int ne_ = StringExpUtil.nextPrintChar(afArro_, len_, _string);
+            int off_ = diff(_string,afArro_);
+            int indAfterArrow_ = afArro_ + off_;
+            if (StringExpUtil.nextCharIs(_string,ne_,len_,ElResolver.ANN_ARR_LEFT)) {
                 int instrLoc_ = _curElts.getInstrLoc();
                 ParsedFctHeader parse_ = new ParsedFctHeader();
                 parse_.getOffestsParams().add(beginWord_+instrLoc_);
@@ -649,8 +649,7 @@ public final class ElRetrieverAnonymous {
                 parse_.parseAnonymous(_curElts.getStringParts(), _i,_string,instrLoc_,keyWords_.getKeyWordThat());
                 int rightPar_ = parse_.getNextIndex();
                 if (rightPar_ > _i) {
-                    String info_ = _string.substring(rightPar_+1);
-                    int off_ = StringUtil.getFirstPrintableCharIndex(info_);
+                    int off_ =  diff(_string,rightPar_+1);
                     String afterArrow_ = parse_.getAfterArrow();
                     String after_ = afterArrow_.trim();
                     int deltaArr_ = off_;
@@ -798,8 +797,7 @@ public final class ElRetrieverAnonymous {
                 parse_.parseAnonymous(_curElts.getStringParts(),_i,_string,instrLoc_,keyWords_.getKeyWordThat());
                 int rightPar_ = parse_.getNextIndex();
                 if (rightPar_ > _i) {
-                    String info_ = _string.substring(rightPar_+1);
-                    int off_ = StringUtil.getFirstPrintableCharIndex(info_);
+                    int off_ = diff(_string,rightPar_+1);
                     String afterArrow_ = parse_.getAfterArrow();
                     String after_ = afterArrow_.trim();
                     int deltaArr_ = off_;
@@ -983,4 +981,9 @@ public final class ElRetrieverAnonymous {
         return incr_.tryAddOp(-1,_string,_i);
     }
 
+    private static int diff(String _string, int _current) {
+        int len_ = _string.length();
+        int afRightPar_ = StringExpUtil.nextPrintChar(_current,len_,_string);
+        return Math.max(_current,Math.min(len_,afRightPar_)) - _current;
+    }
 }
