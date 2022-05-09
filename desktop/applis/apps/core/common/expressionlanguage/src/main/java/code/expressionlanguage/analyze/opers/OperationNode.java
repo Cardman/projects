@@ -548,11 +548,8 @@ public abstract class OperationNode {
         if (ct_ == ConstType.CHARACTER) {
             return new ConstantCharOperation(_index, _indexChild, _m, _op);
         }
-        if (ct_ == ConstType.STRING) {
+        if (ct_ == ConstType.STRING || ct_ == ConstType.TEXT_BLOCK) {
             return new ConstantStrOperation(_index, _indexChild, _m, _op);
-        }
-        if (ct_ == ConstType.TEXT_BLOCK) {
-            return new ConstantTxtBlockOperation(_index, _indexChild, _m, _op);
         }
         if (ct_ == ConstType.NUMBER) {
             return new ConstantNbOperation(_index, _indexChild, _m, _op);

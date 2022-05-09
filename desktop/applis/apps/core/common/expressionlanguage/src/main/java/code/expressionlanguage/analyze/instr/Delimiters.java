@@ -38,7 +38,6 @@ public final class Delimiters {
     private final Ints delSimpleAnnotations = new Ints();
     private final StackDelimiters stack = new StackDelimiters();
     private final CustList<TextBlockInfo> stringInfo = new CustList<TextBlockInfo>();
-    private final CustList<TextBlockInfo> textInfo = new CustList<TextBlockInfo>();
     private final CustList<NumberInfos> nbInfos = new CustList<NumberInfos>();
     private final CustList<VariableInfo> variables = new CustList<VariableInfo>();
     private final Ints dimsAddonIndexes = new Ints();
@@ -175,10 +174,6 @@ public final class Delimiters {
 
     public CustList<NumberInfos> getNbInfos() {
         return nbInfos;
-    }
-
-    public CustList<TextBlockInfo> getTextInfo() {
-        return textInfo;
     }
 
     public CustList<TextBlockInfo> getStringInfo() {

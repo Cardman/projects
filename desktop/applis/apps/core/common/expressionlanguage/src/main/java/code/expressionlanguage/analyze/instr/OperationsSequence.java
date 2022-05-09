@@ -28,7 +28,6 @@ public final class OperationsSequence {
     private StringList errors = new StringList();
 
     private NumberInfos nbInfos;
-    private TextBlockInfo textInfo;
     private TextBlockInfo strInfo;
 
     private String fctName = "";
@@ -466,14 +465,6 @@ public final class OperationsSequence {
 
     public void setStrInfo(TextBlockInfo _strInfo) {
         strInfo = _strInfo;
-    }
-
-    public TextBlockInfo getTextInfo() {
-        return textInfo;
-    }
-
-    public void setTextInfo(TextBlockInfo _textInfo) {
-        this.textInfo = _textInfo;
     }
 
     public String getExtractType() {

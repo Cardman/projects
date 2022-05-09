@@ -198,10 +198,6 @@ public final class ElResolver {
             _d.setBadOffset(_i);
             return _d;
         }
-        if (_resOpers.isConstTextChar()) {
-            _d.setBadOffset(_i);
-            return _d;
-        }
         if (_resOpers.isConstString()) {
             _d.setBadOffset(_i);
             return _d;
@@ -247,42 +243,10 @@ public final class ElResolver {
     }
 
     private static void txCh(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart) {
-        int len_ = _string.length();
-        TextBlockInfo txt_ = new TextBlockInfo();
-        boolean escapedMeta_ = false;
-        int unicode_ = 0;
-        int end_ = _stPart.getEnd();
-        int st_ = _stPart.getBegin();
-        _resOpers.setConstTextChar(true);
-        _d.getDelTextBlocks().add(st_);
-        st_+=3;
-        while (st_ < end_) {
-            IndexUnicodeEscape unic_ = new IndexUnicodeEscape();
-            unic_.setIndex(st_);
-            unic_.setEscape(escapedMeta_);
-            unic_.setNbChars(_resOpers.getNbChars());
-            unic_.setPart(true);
-            unic_.setUnicode(unicode_);
-            unic_.setTextInfo(txt_);
-            IndexUnicodeEscape res_ = processTextBlocks(_keyWords, _string, len_, txt_,unic_, DELIMITER_CHAR);
-            int index_ = res_.getIndex();
-            if (!res_.isPart()) {
-                _d.getTextInfo().add(txt_);
-                _d.getDelTextBlocks().add(st_+2);
-                txt_ = new TextBlockInfo();
-                _resOpers.setConstTextChar(false);
-                st_+=3;
-                _d.setEnabledOp(true);
-                continue;
-            }
-            st_ = index_;
-            escapedMeta_ = res_.isEscape();
-            _resOpers.setNbChars(res_.getNbChars());
-            unicode_ = res_.getUnicode();
-        }
+        txBl(_string, _d, _resOpers, _keyWords, _stPart, DELIMITER_CHAR);
     }
 
-    private static void txStr(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart) {
+    private static void txBl(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart, char _delimiterChar) {
         int len_ = _string.length();
         TextBlockInfo txt_ = new TextBlockInfo();
         boolean escapedMeta_ = false;
@@ -299,11 +263,11 @@ public final class ElResolver {
             unic_.setNbChars(_resOpers.getNbChars());
             unic_.setPart(true);
             unic_.setUnicode(unicode_);
-            unic_.setTextInfo(txt_);
-            IndexUnicodeEscape res_ = processTextBlocks(_keyWords, _string, len_, txt_,unic_, DELIMITER_STRING);
+            unic_.setStringInfo(txt_);
+            IndexUnicodeEscape res_ = processTextBlocks(_keyWords, _string, len_, txt_,unic_, _delimiterChar);
             int index_ = res_.getIndex();
             if (!res_.isPart()) {
-                _d.getTextInfo().add(txt_);
+                _d.getStringInfo().add(txt_);
                 _d.getDelTextBlocks().add(st_+2);
                 txt_ = new TextBlockInfo();
                 _resOpers.setConstTextString(false);
@@ -316,6 +280,10 @@ public final class ElResolver {
             _resOpers.setNbChars(res_.getNbChars());
             unicode_ = res_.getUnicode();
         }
+    }
+
+    private static void txStr(String _string, Delimiters _d, ResultAfterOperators _resOpers, KeyWords _keyWords, SegmentStringPart _stPart) {
+        txBl(_string, _d, _resOpers, _keyWords, _stPart, DELIMITER_STRING);
     }
 
     private static void tx(String _string, Delimiters _d, ResultAfterOperators _resOpers, SegmentStringPart _stPart) {
@@ -544,15 +512,15 @@ public final class ElResolver {
         String keyWordDefaultValue_ = keyWords_.getKeyWordDefaultValue();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordVararg_)) {
-            vararg(_string, _d, _out);
+            keyWordVararg(_string, _d, _out);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordDefaultValue_)) {
-            defaultValue(_string, _d, _out);
+            keyWordDefaultValue(_string, _d, _out);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordClass_)) {
-            cla(_string, _d, _out);
+            keyWordClass(_string, _d, _out);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordNew_)) {
@@ -569,37 +537,37 @@ public final class ElResolver {
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordLambda_)) {
-            lambda(_string, _d, _out);
+            keyWordLambda(_string, _d, _out);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordId_)) {
-            id(_string, _d, _out);
+            keyWordId(_string, _d, _out);
             return;
         }
         boolean isKeySt_ = StringExpUtil.startsWithKeyWord(_string,i_, keyWordStatic_);
         boolean isKeyStCall_ = StringExpUtil.startsWithKeyWord(_string,i_, keyWordStaticCall_);
         if (isKeySt_||isKeyStCall_) {
-            stAcc(_string, _d, _out, isKeySt_,_page);
+            keyWordStaticStaticCall(_string, _d, _out, isKeySt_,_page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordSuper_)) {
-            sup(_string, _d, _out, _page);
+            keyWordSuper(_string, _d, _out, _page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordClasschoice_)) {
-            clChoice(_string, _d, _out, _page);
+            keyWordClassChoice(_string, _d, _out, _page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordSuperaccess_)) {
-            supAcc(_string, _d, _out, _page);
+            keyWordSuperAccess(_string, _d, _out, _page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordThisaccess_)) {
-            thAcc(_string, _d, _out, _page);
+            keyWordThisAccess(_string, _d, _out, _page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordInterfaces_)|| StringExpUtil.startsWithKeyWord(_string,i_, keyWordOperator_)) {
-            interfOpers(_string, _d, _out, _page);
+            keyWordInterfacesOperator(_string, _d, _out, _page);
             return;
         }
         defKeyWords2(_string, _d, _out, _opers, _page);
@@ -613,19 +581,19 @@ public final class ElResolver {
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         String keyWordValues_ = keyWords_.getKeyWordValues();
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordThat_)) {
-            that(_string, _d, _out, _page);
+            keyWordThat(_string, _d, _out, _page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordThis_)) {
-            th(_string, _out, _d, _page);
+            keyWordThis(_string, _out, _d, _page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordValueOf_)) {
-            valOf(_string, _d, _out, _opers, _page);
+            keyWordValueOf(_string, _d, _out, _opers, _page);
             return;
         }
         if (StringExpUtil.startsWithKeyWord(_string,i_, keyWordValues_)) {
-            vals(_string, _d, _out);
+            keyWordValues(_string, _d, _out);
             return;
         }
         defKeyWords(_string, _d, _out, _page);
@@ -688,7 +656,7 @@ public final class ElResolver {
         return pr_;
     }
 
-    private static void valOf(String _string, Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers, AnalyzedPageEl _page) {
+    private static void keyWordValueOf(String _string, Delimiters _d, ResultAfterInstKeyWord _out, ResultAfterOperators _opers, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordValueOf_ = keyWords_.getKeyWordValueOf();
         int len_ = _string.length();
@@ -718,7 +686,7 @@ public final class ElResolver {
         _d.setBadOffset(Math.min(afterSuper_, len_));
     }
 
-    private static void th(String _string, ResultAfterInstKeyWord _out, Delimiters _d, AnalyzedPageEl _page) {
+    private static void keyWordThis(String _string, ResultAfterInstKeyWord _out, Delimiters _d, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordThis_ = keyWords_.getKeyWordThis();
         int len_ = _string.length();
@@ -732,11 +700,11 @@ public final class ElResolver {
         _out.setNextIndex(afterSuper_);
     }
 
-    private static void vals(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
+    private static void keyWordValues(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
         simpleKey(_string, _out, _d, _d.getDelValues());
     }
 
-    private static void that(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
+    private static void keyWordThat(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -780,7 +748,7 @@ public final class ElResolver {
         _out.setNextIndex(afterSuper_);
     }
 
-    private static void interfOpers(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
+    private static void keyWordInterfacesOperator(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -898,7 +866,7 @@ public final class ElResolver {
         _out.setNextIndex(nextKey_);
     }
 
-    private static void thAcc(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
+    private static void keyWordThisAccess(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -959,7 +927,7 @@ public final class ElResolver {
         _d.setBadOffset(afterClassChoice_);
     }
 
-    private static void supAcc(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
+    private static void keyWordSuperAccess(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -1025,7 +993,7 @@ public final class ElResolver {
         _out.setNextIndex(afterClassChoice_);
     }
 
-    private static void clChoice(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
+    private static void keyWordClassChoice(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         int len_ = _string.length();
         int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
@@ -1103,7 +1071,7 @@ public final class ElResolver {
         return afterClassChoice_;
     }
 
-    private static void sup(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
+    private static void keyWordSuper(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSuper_ = keyWords_.getKeyWordSuper();
         StackDelimiters stack_ = _d.getStack();
@@ -1157,7 +1125,7 @@ public final class ElResolver {
         _out.setNextIndex(afterSup_);
     }
 
-    private static void stAcc(String _string, Delimiters _d, ResultAfterInstKeyWord _out, boolean _isKeySt, AnalyzedPageEl _page) {
+    private static void keyWordStaticStaticCall(String _string, Delimiters _d, ResultAfterInstKeyWord _out, boolean _isKeySt, AnalyzedPageEl _page) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordStatic_ = keyWords_.getKeyWordStatic();
         String keyWordStaticCall_ = keyWords_.getKeyWordStaticCall();
@@ -1227,25 +1195,25 @@ public final class ElResolver {
         }
     }
 
-    private static void id(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
+    private static void keyWordId(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
         //lambda
         simpleKey(_string, _out, _d, _d.getDelIds());
     }
 
-    private static void lambda(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
+    private static void keyWordLambda(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
         //lambda
         simpleKey(_string, _out, _d, _d.getDelLambda());
     }
 
-    private static void cla(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
+    private static void keyWordClass(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
         simpleKey(_string, _out, _d, _d.getDelClass());
     }
 
-    private static void defaultValue(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
+    private static void keyWordDefaultValue(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
         simpleKey(_string, _out, _d, _d.getDelDefaultValue());
     }
 
-    private static void vararg(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
+    private static void keyWordVararg(String _string, Delimiters _d, ResultAfterInstKeyWord _out) {
         simpleKey(_string, _out, _d, _d.getDelVararg());
     }
 
@@ -1359,7 +1327,7 @@ public final class ElResolver {
             arrRight(_beginIndex, _string, _dout, _out);
             return;
         }
-        if (curChar_ == BEGIN_TERNARY) {
+        if (curChar_ == BEGIN_TERNARY&&ElResolverCommon.isTernary(_string, _string.length(), i_)) {
             ternBeg(_beginIndex, _string, _dout, _out);
             return;
         }
@@ -1375,6 +1343,10 @@ public final class ElResolver {
     }
 
     private static void ternEnd(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
+        right(_beginIndex, _string, _dout, _out, BEGIN_TERNARY);
+    }
+
+    private static void right(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out, char _begin) {
         StackOperators parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
 
@@ -1384,7 +1356,7 @@ public final class ElResolver {
             _dout.setBadOffset(i_);
             return;
         }
-        if (parsBrackets_.lastValue() != BEGIN_TERNARY) {
+        if (parsBrackets_.lastValue() != _begin) {
             _dout.setBadOffset(i_);
             return;
         }
@@ -1393,44 +1365,17 @@ public final class ElResolver {
     }
 
     private static void ternBeg(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
-        StackOperators parsBrackets_;
-        parsBrackets_ = _out.getParsBrackets();
 
-        int len_ = _string.length();
-        ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
-        int i_ = doubleDotted_.getNextIndex();
-        char curChar_ = _string.charAt(i_);
-        boolean ternary_ = ElResolverCommon.isTernary(_string, len_, i_);
-        if (ternary_) {
-            parsBrackets_.addEntry(i_, curChar_);
-        }
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        stack(_beginIndex,_string,_dout,_out);
     }
 
     private static void arrRight(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
-        StackOperators parsBrackets_;
-        parsBrackets_ = _out.getParsBrackets();
-
-        ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
-        int i_ = doubleDotted_.getNextIndex();
-        if (parsBrackets_.isEmpty()) {
-            _dout.setBadOffset(i_);
-            return;
-        }
-        if (parsBrackets_.lastValue() != ARR_LEFT) {
-            _dout.setBadOffset(i_);
-            return;
-        }
-        parsBrackets_.removeLast();
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        right(_beginIndex, _string, _dout, _out, ARR_LEFT);
     }
 
     private static void arrLeft(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
-        StackOperators parsBrackets_;
-        parsBrackets_ = _out.getParsBrackets();
         ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
         int i_ = doubleDotted_.getNextIndex();
-        char curChar_ = _string.charAt(i_);
         int j_ = i_ + 1;
         SkipArPart s_ = new SkipArPart();
         s_.skip(j_, _string);
@@ -1443,41 +1388,27 @@ public final class ElResolver {
             _dout.setEnabledOp(true);
             return;
         }
-        parsBrackets_.addEntry(i_, curChar_);
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        stack(_beginIndex, _string, _dout, _out);
     }
 
     private static void annArrRight(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
         StackOperators parsBrackets_;
         parsBrackets_ = _out.getParsBrackets();
-
-        int len_ = _string.length();
-        ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
-        int i_ = doubleDotted_.getNextIndex();
-        if (parsBrackets_.isEmpty()) {
-            if (_out.isPartOfString()) {
-                _out.setPartOfString(false);
-                _dout.setIndexEnd(i_ -1);
-                doubleDotted_.setNextIndex(len_);
-                return;
-            }
-            _dout.setBadOffset(i_);
+        if (parsBrackets_.isEmpty() && _out.isPartOfString()) {
+            int len_ = _string.length();
+            ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
+            int i_ = doubleDotted_.getNextIndex();
+            _out.setPartOfString(false);
+            _dout.setIndexEnd(i_ -1);
+            doubleDotted_.setNextIndex(len_);
             return;
         }
-        if (parsBrackets_.lastValue() != ANN_ARR_LEFT) {
-            _dout.setBadOffset(i_);
-            return;
-        }
-        parsBrackets_.removeLast();
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        right(_beginIndex,_string,_dout,_out,ANN_ARR_LEFT);
     }
 
     private static void annArrLeft(int _beginIndex, String _string, Delimiters _dout, AnalyzedPageEl _page, ResultAfterOperators _out) {
-        StackOperators parsBrackets_;
-        parsBrackets_ = _out.getParsBrackets();
         ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
         int i_ = doubleDotted_.getNextIndex();
-        char curChar_ = _string.charAt(i_);
         AnonymousResult anon_ = anon(i_, _page);
         if (anon_ != null) {
             _page.getAnonymousResults().add(anon_);
@@ -1485,33 +1416,16 @@ public final class ElResolver {
             _dout.setEnabledOp(true);
             return;
         }
-        parsBrackets_.addEntry(i_, curChar_);
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        stack(_beginIndex, _string, _dout, _out);
     }
 
     private static void parRight(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
-        StackOperators parsBrackets_;
-        parsBrackets_ = _out.getParsBrackets();
-        ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
-        int i_ = doubleDotted_.getNextIndex();
-        if (parsBrackets_.isEmpty()) {
-            _dout.setBadOffset(i_);
-            return;
-        }
-        if (parsBrackets_.lastValue() != PAR_LEFT) {
-            _dout.setBadOffset(i_);
-            return;
-        }
-        parsBrackets_.removeLast();
-        afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+        right(_beginIndex, _string, _dout, _out, PAR_LEFT);
     }
 
     private static void parLeft(int _beginIndex, String _string, Delimiters _dout, FieldRetriever _ret, AnalyzedPageEl _page, ResultAfterOperators _out) {
-        StackOperators parsBrackets_;
-        parsBrackets_ = _out.getParsBrackets();
         ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
         int i_ = doubleDotted_.getNextIndex();
-        char curChar_ = _string.charAt(i_);
         StackDelimiters stack_ = _dout.getStack();
         AnonymousResult foundAn_ = anon(i_, _page);
         if (foundAn_ != null) {
@@ -1523,14 +1437,12 @@ public final class ElResolver {
         int indexParRight_ = _string.indexOf(PAR_RIGHT, i_ +1);
         if (indexParRight_ < 0) {
             stack_.getCallings().add(i_);
-            parsBrackets_.addEntry(i_, curChar_);
-            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            stack(_beginIndex, _string, _dout, _out);
             return;
         }
         if (_dout.getStack().getCallings().containsObj(i_)) {
             stack_.getCallings().add(i_);
-            parsBrackets_.addEntry(i_, curChar_);
-            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            stack(_beginIndex, _string, _dout, _out);
             return;
         }
         int afterLeftPar_ = i_ + 1;
@@ -1544,8 +1456,7 @@ public final class ElResolver {
         int next_ = StringExpUtil.nextPrintChar(indexParRight_+1,_string.length(),_string);
         if (noCast(_string,next_,_page)) {
             stack_.getCallings().add(i_);
-            parsBrackets_.addEntry(i_, curChar_);
-            afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+            stack(_beginIndex, _string, _dout, _out);
             return;
         }
         String sub_ = _string.substring(afterLeftPar_, indexParRight_);
@@ -1559,8 +1470,7 @@ public final class ElResolver {
                 int n_ = _ret.tryGetVarField(beginWord_, word_, inc_);
                 if (n_ > beginWord_) {
                     stack_.getCallings().add(i_);
-                    parsBrackets_.addEntry(i_, curChar_);
-                    afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
+                    stack(_beginIndex, _string, _dout, _out);
                     doubleDotted_.setNextIndex(n_);
                     return;
                 }
@@ -1577,6 +1487,15 @@ public final class ElResolver {
             }
         }
         stack_.getCallings().add(i_);
+        stack(_beginIndex, _string, _dout, _out);
+    }
+
+    private static void stack(int _beginIndex, String _string, Delimiters _dout, ResultAfterOperators _out) {
+        StackOperators parsBrackets_;
+        parsBrackets_ = _out.getParsBrackets();
+        ResultAfterInstKeyWord doubleDotted_ = _out.getDoubleDotted();
+        int i_ = doubleDotted_.getNextIndex();
+        char curChar_ = _string.charAt(i_);
         parsBrackets_.addEntry(i_, curChar_);
         afterOperator(_beginIndex, _string, _dout, doubleDotted_, i_);
     }
@@ -1630,30 +1549,20 @@ public final class ElResolver {
     private static IndexUnicodeEscape processStringsDelText(String _string, int _max, IndexUnicodeEscape _infos) {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
-        int unicode_ = _infos.getUnicode();
         char curChar_ = _string.charAt(i_);
-        boolean escapedMeta_ = _infos.isEscape();
-        IndexUnicodeEscape infos_ = new IndexUnicodeEscape();
-        infos_.setStringInfo(_infos.getStringInfo());
-        infos_.setEscape(escapedMeta_);
-        infos_.setIndex(i_);
-        infos_.setNbChars(nbChars_);
-        infos_.setUnicode(unicode_);
-        infos_.setPart(_infos.isPart());
+        IndexUnicodeEscape infos_ = buildState(_infos);
         if (curChar_ == DELIMITER_TEXT) {
             if (i_ + 1 >= _max ||_string.charAt(i_ + 1) != DELIMITER_TEXT) {
                 infos_.setPart(false);
-                i_++;
-                infos_.setIndex(i_);
+                infos_.setIndex(i_+1);
                 return infos_;
             }
-            i_++;
+            infos_.setIndex(i_+2);
+        } else {
+            infos_.setIndex(i_+1);
         }
         infos_.getStringInfo().appendChar(curChar_);
-        nbChars_++;
-        infos_.setNbChars(nbChars_);
-        i_++;
-        infos_.setIndex(i_);
+        infos_.setNbChars(nbChars_+1);
         return infos_;
     }
     private static IndexUnicodeEscape processStrings(KeyWords _key, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _infos, char _delimiter) {
@@ -1662,60 +1571,44 @@ public final class ElResolver {
         int unicode_ = _infos.getUnicode();
         char curChar_ = _string.charAt(i_);
         boolean escapedMeta_ = _infos.isEscape();
-        IndexUnicodeEscape infos_ = new IndexUnicodeEscape();
-        infos_.setStringInfo(_infos.getStringInfo());
-        infos_.setEscape(escapedMeta_);
-        infos_.setIndex(i_);
-        infos_.setNbChars(nbChars_);
-        infos_.setUnicode(unicode_);
-        infos_.setPart(_infos.isPart());
+        IndexUnicodeEscape infos_ = buildState(_infos);
         if (!escapedMeta_) {
             if (curChar_ == ESCAPE_META_CHAR) {
                 if (i_ + 1 >= _max) {
                     _si.setKo();
-                    i_++;
-                    infos_.setIndex(i_);
+                    infos_.setIndex(i_+1);
                     return infos_;
                 }
                 infos_.setEscape(true);
-                i_++;
-                infos_.setIndex(i_);
+                infos_.setIndex(i_+1);
                 return infos_;
             }
             if (curChar_ == _delimiter) {
                 infos_.setPart(false);
-                i_++;
-                infos_.setIndex(i_);
+                infos_.setIndex(i_+1);
                 return infos_;
             }
             infos_.getStringInfo().appendChar(curChar_);
-            nbChars_++;
-            infos_.setNbChars(nbChars_);
-            i_++;
-            infos_.setIndex(i_);
+            infos_.setNbChars(nbChars_+1);
+            infos_.setIndex(i_+1);
             return infos_;
         }
         if (unicode_ > 0) {
-            char charToAdd_ = trUnicodeDigToLetterInStr(_key, _si, curChar_);
-            infos_.getStringInfo().getBuiltUnicode()[unicode_-1] = charToAdd_;
-            if (unicode_ < UNICODE_SIZE) {
-                unicode_++;
-            } else {
-                char[] unicodes_ = infos_.getStringInfo().getBuiltUnicode();
-                char builtChar_ = NumParsers.parseCharSixteen(String.valueOf(unicodes_));
-                infos_.getStringInfo().appendChar(builtChar_);
-                unicode_ = 0;
-                nbChars_++;
-                escapedMeta_ = false;
-            }
-            infos_.setNbChars(nbChars_);
-            i_++;
-            infos_.setIndex(i_);
-            infos_.setEscape(escapedMeta_);
-            infos_.setUnicode(unicode_);
+            unicode(_key, _si, i_, nbChars_, unicode_, curChar_, infos_);
             return infos_;
         }
         return escOthStrings(_infos,_key, _string, _max, _si, _delimiter, infos_);
+    }
+
+    private static IndexUnicodeEscape buildState(IndexUnicodeEscape _infos) {
+        IndexUnicodeEscape infos_ = new IndexUnicodeEscape();
+        infos_.setStringInfo(_infos.getStringInfo());
+        infos_.setEscape(_infos.isEscape());
+        infos_.setIndex(_infos.getIndex());
+        infos_.setNbChars(_infos.getNbChars());
+        infos_.setUnicode(_infos.getUnicode());
+        infos_.setPart(_infos.isPart());
+        return infos_;
     }
 
     private static IndexUnicodeEscape escOthStrings(IndexUnicodeEscape _infos, KeyWords _key, String _string, int _max, TextBlockInfo _si, char _delimiter, IndexUnicodeEscape _out) {
@@ -1724,76 +1617,80 @@ public final class ElResolver {
         char curChar_ = _string.charAt(i_);
         if (curChar_ == LINE_RETURN) {
             _out.setEscape(false);
-            i_++;
-            _out.setIndex(i_);
+            _out.setIndex(i_+1);
             return _out;
         }
+        TextBlockInfo textInfo_ = _out.getStringInfo();
         if (curChar_ == _delimiter) {
-            nbChars_++;
-            _out.setNbChars(nbChars_);
+            _out.setNbChars(nbChars_+1);
             _out.setEscape(false);
-            _out.getStringInfo().appendChar(curChar_);
-            i_++;
-            _out.setIndex(i_);
+            textInfo_.appendChar(curChar_);
+            _out.setIndex(i_+1);
             return _out;
         }
         String single_ = _key.getEscKeyWord(_string, i_);
+        if (single_ != null) {
+            _out.setNbChars(nbChars_+1);
+            _out.setEscape(false);
+            _out.setIndex(appEsc(i_,_key, single_, textInfo_));
+            return _out;
+        }
+        if (curChar_ == ESCAPE_META_CHAR) {
+            textInfo_.appendChar(ESCAPE_META_CHAR);
+            _out.setNbChars(nbChars_+1);
+            _out.setEscape(false);
+            _out.setIndex(i_+1);
+            return _out;
+        }
+        return othEsc(_key,_infos, _string, _max, _si, _out, textInfo_);
+    }
+
+    private static IndexUnicodeEscape othEsc(KeyWords _key, IndexUnicodeEscape _infos, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _out, TextBlockInfo _infTx) {
+        int i_ = _infos.getIndex();
+        int nbChars_ = _infos.getNbChars();
+        char curChar_ = _string.charAt(i_);
+        String unicodeStr_ = _key.getKeyWordEscUnicode();
+        if (!_string.startsWith(unicodeStr_, i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
+            _si.setKo();
+            _infTx.appendChar(curChar_);
+            _out.setNbChars(nbChars_ +1);
+            _out.setEscape(false);
+            _out.setIndex(i_ +1);
+            return _out;
+        }
+        _out.setUnicode(1);
+        _out.setIndex(i_+unicodeStr_.length());
+        return _out;
+    }
+
+    private static int appEsc(int _i, KeyWords _key, String _single, TextBlockInfo _textInfo) {
         String newLine_ = _key.getKeyWordEscLine();
         String form_ = _key.getKeyWordEscForm();
         String rfeed_ = _key.getKeyWordEscFeed();
         String space_ = _key.getKeyWordEscSpace();
         String tab_ = _key.getKeyWordEscTab();
         String bound_ = _key.getKeyWordEscBound();
-        if (single_ != null) {
-            nbChars_++;
-            _out.setNbChars(nbChars_);
-            _out.setEscape(false);
-            if (StringUtil.quickEq(single_, newLine_)) {
-                i_ +=newLine_.length();
-                _out.getStringInfo().appendChar(LINE_RETURN);
-            } else if (StringUtil.quickEq(single_, form_)) {
-                i_ +=form_.length();
-                _out.getStringInfo().appendChar(FORM_FEED);
-            } else if (StringUtil.quickEq(single_, rfeed_)) {
-                i_ +=rfeed_.length();
-                _out.getStringInfo().appendChar(LINE_FEED);
-            } else if (StringUtil.quickEq(single_, tab_)) {
-                i_ +=tab_.length();
-                _out.getStringInfo().appendChar(TAB);
-            } else if (StringUtil.quickEq(single_, space_)) {
-                i_ +=tab_.length();
-                _out.getStringInfo().appendChar(SPACE);
-            } else {
-                i_ +=bound_.length();
-                _out.getStringInfo().appendChar(BOUND);
-            }
-            _out.setIndex(i_);
-            return _out;
+        int i_;
+        if (StringUtil.quickEq(_single, newLine_)) {
+            i_ = _i + newLine_.length();
+            _textInfo.appendChar(LINE_RETURN);
+        } else if (StringUtil.quickEq(_single, form_)) {
+            i_ = _i + form_.length();
+            _textInfo.appendChar(FORM_FEED);
+        } else if (StringUtil.quickEq(_single, rfeed_)) {
+            i_ = _i + rfeed_.length();
+            _textInfo.appendChar(LINE_FEED);
+        } else if (StringUtil.quickEq(_single, tab_)) {
+            i_ = _i + tab_.length();
+            _textInfo.appendChar(TAB);
+        } else if (StringUtil.quickEq(_single, space_)) {
+            i_ = _i + tab_.length();
+            _textInfo.appendChar(SPACE);
+        } else {
+            i_ = _i + bound_.length();
+            _textInfo.appendChar(BOUND);
         }
-        if (curChar_ == ESCAPE_META_CHAR) {
-            _out.getStringInfo().appendChar(ESCAPE_META_CHAR);
-            nbChars_++;
-            _out.setNbChars(nbChars_);
-            _out.setEscape(false);
-            i_++;
-            _out.setIndex(i_);
-            return _out;
-        }
-        String unicodeStr_ = _key.getKeyWordEscUnicode();
-        if (!_string.startsWith(unicodeStr_, i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
-            _si.setKo();
-            _out.getStringInfo().appendChar(curChar_);
-            nbChars_++;
-            _out.setNbChars(nbChars_);
-            _out.setEscape(false);
-            i_++;
-            _out.setIndex(i_);
-            return _out;
-        }
-        _out.setUnicode(1);
-        i_ +=unicodeStr_.length();
-        _out.setIndex(i_);
-        return _out;
+        return i_;
     }
 
     private static char trUnicodeDigToLetterInStr(KeyWords _key, TextBlockInfo _si, char _curChar) {
@@ -1825,58 +1722,62 @@ public final class ElResolver {
         char curChar_ = _string.charAt(i_);
         boolean escapedMeta_ = _infos.isEscape();
         IndexUnicodeEscape infos_ = new IndexUnicodeEscape();
-        infos_.setTextInfo(_infos.getTextInfo());
+        infos_.setStringInfo(_infos.getStringInfo());
         infos_.setEscape(escapedMeta_);
         infos_.setIndex(i_);
         infos_.setNbChars(nbChars_);
         infos_.setUnicode(unicode_);
         infos_.setPart(_infos.isPart());
-        if (!StringUtil.isWhitespace(curChar_)&&!infos_.getTextInfo().isLine()) {
-            infos_.getTextInfo().setKo();
+        if (!StringUtil.isWhitespace(curChar_)&&!infos_.getStringInfo().isLine()) {
+            infos_.getStringInfo().setKo();
         }
         if (!escapedMeta_) {
             return prEscText(_infos,_string, _max, _si, _delimiter, infos_);
         }
-        infos_.getTextInfo().setLastSpace(-1);
+        infos_.getStringInfo().setLastSpace(-1);
         if (unicode_ > 0) {
-            char charToAdd_ = trUnicodeDigToLetterInStr(_key, _si, curChar_);
-            infos_.getTextInfo().getBuiltUnicode()[unicode_-1] = charToAdd_;
-            if (unicode_ < UNICODE_SIZE) {
-                unicode_++;
-            } else {
-                char[] unicodes_ = infos_.getTextInfo().getBuiltUnicode();
-                char builtChar_ = NumParsers.parseCharSixteen(String.valueOf(unicodes_));
-                infos_.getTextInfo().appendChar(builtChar_);
-                infos_.getTextInfo().setPrintable(true);
-                unicode_ = 0;
-                nbChars_++;
-                escapedMeta_ = false;
+            if (unicode(_key, _si, i_, nbChars_, unicode_, curChar_, infos_)) {
+                infos_.getStringInfo().setPrintable(true);
             }
-            infos_.setNbChars(nbChars_);
-            i_++;
-            infos_.setIndex(i_);
-            infos_.setEscape(escapedMeta_);
-            infos_.setUnicode(unicode_);
             return infos_;
         }
         if (curChar_ == _delimiter) {
-            nbChars_++;
-            infos_.setNbChars(nbChars_);
+            infos_.setNbChars(nbChars_+1);
             infos_.setEscape(false);
-            infos_.getTextInfo().appendChar(curChar_);
-            infos_.getTextInfo().setPrintable(true);
-            i_++;
-            infos_.setIndex(i_);
+            infos_.getStringInfo().appendChar(curChar_);
+            infos_.getStringInfo().setPrintable(true);
+            infos_.setIndex(i_+1);
             return infos_;
         }
         if (curChar_ == LINE_RETURN) {
             infos_.setEscape(false);
-            i_++;
-            infos_.setIndex(i_);
-            infos_.getTextInfo().setPrintable(true);
+            infos_.setIndex(i_+1);
+            infos_.getStringInfo().setPrintable(true);
             return infos_;
         }
         return procOthEsBlock(_infos,_key, _string, _max, _si, infos_);
+    }
+
+    private static boolean unicode(KeyWords _key, TextBlockInfo _si, int _i, int _nbChars, int _unicode, char _curChar, IndexUnicodeEscape _infos) {
+        boolean pr_;
+        char charToAdd_ = trUnicodeDigToLetterInStr(_key, _si, _curChar);
+        _infos.getStringInfo().getBuiltUnicode()[_unicode -1] = charToAdd_;
+        if (_unicode < UNICODE_SIZE) {
+            _infos.setNbChars(_nbChars);
+            _infos.setEscape(true);
+            _infos.setUnicode(_unicode +1);
+            pr_ = false;
+        } else {
+            char[] unicodes_ = _infos.getStringInfo().getBuiltUnicode();
+            char builtChar_ = NumParsers.parseCharSixteen(String.valueOf(unicodes_));
+            _infos.getStringInfo().appendChar(builtChar_);
+            _infos.setNbChars(_nbChars +1);
+            _infos.setEscape(false);
+            _infos.setUnicode(0);
+            pr_ = true;
+        }
+        _infos.setIndex(_i +1);
+        return pr_;
     }
 
     private static IndexUnicodeEscape prEscText(IndexUnicodeEscape _infos, String _string, int _max, TextBlockInfo _si, char _delimiter, IndexUnicodeEscape _out) {
@@ -1886,13 +1787,11 @@ public final class ElResolver {
         if (curChar_ == ESCAPE_META_CHAR) {
             if (i_ + 1 >= _max) {
                 _si.setKo();
-                i_++;
-                _out.setIndex(i_);
+                _out.setIndex(i_+1);
                 return _out;
             }
             _out.setEscape(true);
-            i_++;
-            _out.setIndex(i_);
+            _out.setIndex(i_+1);
             return _out;
         }
         if (curChar_ == _delimiter
@@ -1900,46 +1799,41 @@ public final class ElResolver {
                 && StringExpUtil.nextCharIs(_string, i_ +2, _string.length(), _delimiter)) {
             removeRightSpaces(_out);
             _out.setPart(false);
-            i_ +=3;
-            _out.setIndex(i_);
+            _out.setIndex(i_+3);
             return _out;
         }
         if (curChar_ == LINE_RETURN) {
-            boolean line_ = _out.getTextInfo().isLine();
-            _out.getTextInfo().setLine(true);
+            boolean line_ = _out.getStringInfo().isLine();
+            _out.getStringInfo().setLine(true);
             removeRightSpaces(_out);
             if (line_) {
-                _out.getTextInfo().appendChar(curChar_);
-                nbChars_++;
-                _out.setNbChars(nbChars_);
+                _out.getStringInfo().appendChar(curChar_);
+                _out.setNbChars(nbChars_+1);
             }
-            _out.getTextInfo().setPrintable(false);
-            _out.getTextInfo().setLastSpace(-1);
+            _out.getStringInfo().setPrintable(false);
+            _out.getStringInfo().setLastSpace(-1);
         } else if (StringUtil.isWhitespace(curChar_)) {
-            if (_out.getTextInfo().isPrintable()) {
-                _out.getTextInfo().setLastSpace(_out.getTextInfo().length());
-                _out.getTextInfo().appendChar(curChar_);
-                nbChars_++;
-                _out.setNbChars(nbChars_);
+            if (_out.getStringInfo().isPrintable()) {
+                _out.getStringInfo().setLastSpace(_out.getStringInfo().length());
+                _out.getStringInfo().appendChar(curChar_);
+                _out.setNbChars(nbChars_+1);
             }
         } else {
-            _out.getTextInfo().setLastSpace(-1);
-            _out.getTextInfo().appendChar(curChar_);
-            _out.getTextInfo().setPrintable(true);
-            nbChars_++;
-            _out.setNbChars(nbChars_);
+            _out.getStringInfo().setLastSpace(-1);
+            _out.getStringInfo().appendChar(curChar_);
+            _out.getStringInfo().setPrintable(true);
+            _out.setNbChars(nbChars_+1);
         }
-        i_++;
-        _out.setIndex(i_);
+        _out.setIndex(i_+1);
         return _out;
     }
 
     private static void removeRightSpaces(IndexUnicodeEscape _out) {
-        int lastSpace_ = _out.getTextInfo().getLastSpace();
+        int lastSpace_ = _out.getStringInfo().getLastSpace();
         if (lastSpace_ > -1) {
-            int lastIndex_ = _out.getTextInfo().length()-1;
+            int lastIndex_ = _out.getStringInfo().length()-1;
             for (int i = lastIndex_; i >= lastSpace_; i--) {
-                _out.getTextInfo().remove(i);
+                _out.getStringInfo().remove(i);
             }
         }
     }
@@ -1948,65 +1842,24 @@ public final class ElResolver {
         int i_ = _infos.getIndex();
         int nbChars_ = _infos.getNbChars();
         char curChar_ = _string.charAt(i_);
+        TextBlockInfo textInfo_ = _out.getStringInfo();
         String single_ = _key.getEscKeyWord(_string, i_);
-        String newLine_ = _key.getKeyWordEscLine();
-        String form_ = _key.getKeyWordEscForm();
-        String rfeed_ = _key.getKeyWordEscFeed();
-        String space_ = _key.getKeyWordEscSpace();
-        String tab_ = _key.getKeyWordEscTab();
-        String bound_ = _key.getKeyWordEscBound();
         if (single_ != null) {
-            nbChars_++;
-            _out.setNbChars(nbChars_);
+            _out.setNbChars(nbChars_+1);
             _out.setEscape(false);
-            if (StringUtil.quickEq(single_, newLine_)) {
-                i_ +=newLine_.length();
-                _out.getTextInfo().appendChar(LINE_RETURN);
-            } else if (StringUtil.quickEq(single_, form_)) {
-                i_ +=form_.length();
-                _out.getTextInfo().appendChar(FORM_FEED);
-            } else if (StringUtil.quickEq(single_, rfeed_)) {
-                i_ +=rfeed_.length();
-                _out.getTextInfo().appendChar(LINE_FEED);
-            } else if (StringUtil.quickEq(single_, tab_)) {
-                i_ +=tab_.length();
-                _out.getTextInfo().appendChar(TAB);
-            } else if (StringUtil.quickEq(single_, space_)) {
-                i_ +=tab_.length();
-                _out.getTextInfo().appendChar(SPACE);
-            } else {
-                i_ +=bound_.length();
-                _out.getTextInfo().appendChar(BOUND);
-            }
-            _out.getTextInfo().setPrintable(true);
-            _out.setIndex(i_);
+            _out.setIndex(appEsc(i_, _key, single_, textInfo_));
+            textInfo_.setPrintable(true);
             return _out;
         }
         if (curChar_ == ESCAPE_META_CHAR) {
-            _out.getTextInfo().appendChar(ESCAPE_META_CHAR);
-            _out.getTextInfo().setPrintable(true);
-            nbChars_++;
-            _out.setNbChars(nbChars_);
+            textInfo_.appendChar(ESCAPE_META_CHAR);
+            textInfo_.setPrintable(true);
+            _out.setNbChars(nbChars_+1);
             _out.setEscape(false);
-            i_++;
-            _out.setIndex(i_);
+            _out.setIndex(i_+1);
             return _out;
         }
-        String unicodeStr_ = _key.getKeyWordEscUnicode();
-        if (!_string.startsWith(unicodeStr_, i_) || i_ + unicodeStr_.length() + UNICODE_SIZE > _max) {
-            _si.setKo();
-            _out.getTextInfo().appendChar(curChar_);
-            nbChars_++;
-            _out.setNbChars(nbChars_);
-            _out.setEscape(false);
-            i_++;
-            _out.setIndex(i_);
-            return _out;
-        }
-        _out.setUnicode(1);
-        i_ +=unicodeStr_.length();
-        _out.setIndex(i_);
-        return _out;
+        return othEsc(_key,_infos, _string, _max, _si, _out, textInfo_);
     }
 
     public static OperationsSequence getOperationsSequence(int _offset, String _string,
@@ -2314,12 +2167,12 @@ public final class ElResolver {
         }
         int beginTx_ = delimiter(_d.getDelTextBlocks(), _offset, _firstPrintChar, _lastPrintChar);
         if (beginTx_ >= 0) {
-            TextBlockInfo info_ = _d.getTextInfo().get(beginTx_/2);
+            TextBlockInfo info_ = _d.getStringInfo().get(beginTx_/2);
             String export_ = info_.build();
             OperationsSequence op_ = new OperationsSequence();
             op_.setConstType(ConstType.TEXT_BLOCK);
             op_.setOperators(new StrTypes());
-            op_.setTextInfo(info_);
+            op_.setStrInfo(info_);
             info_.setFound(_string);
             op_.setValue(export_, _firstPrintChar);
             op_.setLength(_d.getDelTextBlocks().get(beginTx_+1)-_offset+1-_firstPrintChar);

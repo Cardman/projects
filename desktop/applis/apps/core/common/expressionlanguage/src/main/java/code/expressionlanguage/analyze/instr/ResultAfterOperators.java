@@ -4,7 +4,6 @@ public final class ResultAfterOperators {
     private ResultAfterInstKeyWord doubleDotted;
     private StackOperators parsBrackets;
     private boolean constTextString;
-    private boolean constTextChar;
     private boolean constString;
     private boolean constChar;
     private boolean constText;
@@ -33,14 +32,6 @@ public final class ResultAfterOperators {
 
     public void setConstTextString(boolean _constTextString) {
         constTextString = _constTextString;
-    }
-
-    public boolean isConstTextChar() {
-        return constTextChar;
-    }
-
-    public void setConstTextChar(boolean _constTextChar) {
-        constTextChar = _constTextChar;
     }
 
     public boolean isConstString() {

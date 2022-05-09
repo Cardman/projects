@@ -22,8 +22,7 @@ public final class ConstantCharOperation extends ConstantOperation {
         int relativeOff_ = getOffset();
         String originalStr_ = getValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
-        String argClName_;
-        argClName_ = _page.getAliasPrimChar();
+        String argClName_ = _page.getAliasPrimChar();
         Argument a_;
         if (strInfo.isKo() || originalStr_.isEmpty()) {
             a_ = new Argument();

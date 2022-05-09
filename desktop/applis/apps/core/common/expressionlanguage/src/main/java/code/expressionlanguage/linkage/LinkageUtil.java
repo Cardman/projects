@@ -2981,11 +2981,6 @@ public final class LinkageUtil {
         if (_val instanceof ConstantOperation) {
             int off_ = ((ConstantOperation)_val).getOffset();
             int begCst_ = _sum + off_ + _val.getIndexInEl();
-            if (_val instanceof ConstantTxtBlockOperation) {
-                _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
-                messageCst(_vars,_val, begCst_, ((ConstantTxtBlockOperation)_val).getLen());
-                _vars.addPart(new PartOffset(ExportCst.END_SPAN, begCst_ + ((ConstantTxtBlockOperation)_val).getLen()));
-            }
             if (_val instanceof ConstantStrOperation) {
                 _vars.addPart(new PartOffset(ExportCst.span(STRING), begCst_));
                 messageCst(_vars,_val, begCst_, ((ConstantStrOperation)_val).getLen());

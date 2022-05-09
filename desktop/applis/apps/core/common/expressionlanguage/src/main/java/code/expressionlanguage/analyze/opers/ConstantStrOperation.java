@@ -22,8 +22,7 @@ public final class ConstantStrOperation extends ConstantOperation {
         int relativeOff_ = getOffset();
         String originalStr_ = getValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+relativeOff_, _page);
-        String stringType_;
-        stringType_ = _page.getAliasString();
+        String stringType_ = _page.getAliasString();
         Argument a_ = new Argument(new StringStruct(originalStr_));
         setSimpleArgument(a_);
         setResultClass(new AnaClassArgumentMatching(stringType_));
