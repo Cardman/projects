@@ -754,36 +754,18 @@ public final class ElResolver {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         int afterClassChoice_ = incr(_string, i_, _page);
-        boolean foundHat_ = false;
-        while (afterClassChoice_ < len_) {
-            if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
-                foundHat_ = true;
-                break;
-            }
-            if (!StringUtil.isWhitespace(_string.charAt(afterClassChoice_))) {
-                _d.setBadOffset(afterClassChoice_);
-                return;
-            }
-            afterClassChoice_++;
+        int ne_ = StringExpUtil.nextPrintChar(afterClassChoice_, len_, _string);
+        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
+            badOffset(_d, len_, ne_);
+            return;
         }
-        if (!foundHat_) {
+        afterClassChoice_ = ne_;
+        int indRightPar_ = _string.indexOf(PAR_RIGHT,afterClassChoice_);
+        if (indRightPar_ < 0) {
             _d.setBadOffset(len_ - 1);
             return;
         }
-        if (afterClassChoice_ + 1 >= len_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
-        while (afterClassChoice_ < len_) {
-            if (_string.charAt(afterClassChoice_) == PAR_RIGHT) {
-                break;
-            }
-            afterClassChoice_++;
-        }
-        if (afterClassChoice_ + 1 >= len_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
+        afterClassChoice_ = indRightPar_;
         afterClassChoice_++;
         afterClassChoice_ = DefaultProcessKeyWord.skipWhiteSpace(_string,afterClassChoice_);
         if (afterClassChoice_ >= len_) {
@@ -796,6 +778,14 @@ public final class ElResolver {
             return;
         }
         defInterfOpers(_string,_d, _out, afterClassChoice_);
+    }
+
+    private static void badOffset(Delimiters _d, int _len, int _index) {
+        if (_index < 0) {
+            _d.setBadOffset(_len - 1);
+        } else {
+            _d.setBadOffset(_index);
+        }
     }
 
     private static void defInterfOpers(String _string, Delimiters _d, ResultAfterInstKeyWord _out, int _afterClassChoice) {
@@ -873,36 +863,18 @@ public final class ElResolver {
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         StackDelimiters stack_ = _d.getStack();
         int afterClassChoice_ = i_ + keyWordThisaccess_.length();
-        boolean foundHat_ = false;
-        while (afterClassChoice_ < len_) {
-            if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
-                foundHat_ = true;
-                break;
-            }
-            if (!StringUtil.isWhitespace(_string.charAt(afterClassChoice_))) {
-                _d.setBadOffset(afterClassChoice_);
-                return;
-            }
-            afterClassChoice_++;
+        int ne_ = StringExpUtil.nextPrintChar(afterClassChoice_, len_, _string);
+        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
+            badOffset(_d, len_, ne_);
+            return;
         }
-        if (!foundHat_) {
+        afterClassChoice_ = ne_;
+        int indRightPar_ = _string.indexOf(PAR_RIGHT,afterClassChoice_);
+        if (indRightPar_ < 0) {
             _d.setBadOffset(len_ - 1);
             return;
         }
-        if (afterClassChoice_ + 1 >= len_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
-        while (afterClassChoice_ < len_) {
-            if (_string.charAt(afterClassChoice_) == PAR_RIGHT) {
-                break;
-            }
-            afterClassChoice_++;
-        }
-        if (afterClassChoice_ + 1 >= len_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
+        afterClassChoice_ = indRightPar_;
         afterClassChoice_++;
         afterClassChoice_ = DefaultProcessKeyWord.skipWhiteSpace(_string,afterClassChoice_);
         if (afterClassChoice_ < len_ && _string.charAt(afterClassChoice_) == ARR_LEFT) {
@@ -934,26 +906,12 @@ public final class ElResolver {
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
         StackDelimiters stack_ = _d.getStack();
         int afterClassChoice_ = i_ + keyWordSuperaccess_.length();
-        boolean foundHat_ = false;
-        while (afterClassChoice_ < len_) {
-            if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
-                foundHat_ = true;
-                break;
-            }
-            if (!StringUtil.isWhitespace(_string.charAt(afterClassChoice_))) {
-                _d.setBadOffset(afterClassChoice_);
-                return;
-            }
-            afterClassChoice_++;
-        }
-        if (!foundHat_) {
-            _d.setBadOffset(len_ - 1);
+        int ne_ = StringExpUtil.nextPrintChar(afterClassChoice_, len_, _string);
+        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
+            badOffset(_d, len_, ne_);
             return;
         }
-        if (afterClassChoice_ + 1 >= len_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
+        afterClassChoice_ = ne_;
         int indRightPar_ = _string.indexOf(PAR_RIGHT,afterClassChoice_);
         if (indRightPar_ < 0) {
             _d.setBadOffset(len_ - 1);
@@ -1000,26 +958,12 @@ public final class ElResolver {
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
         StackDelimiters stack_ = _d.getStack();
         int afterClassChoice_ = i_ + keyWordClasschoice_.length();
-        boolean foundHat_ = false;
-        while (afterClassChoice_ < len_) {
-            if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
-                foundHat_ = true;
-                break;
-            }
-            if (!StringUtil.isWhitespace(_string.charAt(afterClassChoice_))) {
-                _d.setBadOffset(afterClassChoice_);
-                return;
-            }
-            afterClassChoice_++;
-        }
-        if (!foundHat_) {
-            _d.setBadOffset(len_ - 1);
+        int ne_ = StringExpUtil.nextPrintChar(afterClassChoice_, len_, _string);
+        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
+            badOffset(_d, len_, ne_);
             return;
         }
-        if (afterClassChoice_ + 1 >= len_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
+        afterClassChoice_ = ne_;
         int indRightPar_ = _string.indexOf(PAR_RIGHT,afterClassChoice_);
         if (indRightPar_ < 0) {
             _d.setBadOffset(len_ - 1);

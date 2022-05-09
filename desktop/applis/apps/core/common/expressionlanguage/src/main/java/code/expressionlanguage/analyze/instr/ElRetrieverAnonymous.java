@@ -982,8 +982,7 @@ public final class ElRetrieverAnonymous {
     }
 
     private static int diff(String _string, int _current) {
-        int len_ = _string.length();
-        int afRightPar_ = StringExpUtil.nextPrintChar(_current,len_,_string);
-        return Math.max(_current,Math.min(len_,afRightPar_)) - _current;
+        int afRightPar_ = DefaultProcessKeyWord.skipWhiteSpace(_string, _current);
+        return afRightPar_ - _current;
     }
 }

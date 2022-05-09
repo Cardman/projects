@@ -91,23 +91,16 @@ public final class DefaultProcessKeyWord {
         boolean foundLeft_ = false;
         int len_ = _exp.length();
         StackDelimiters stack_ = _d.getStack();
-        int j_ = _fr;
-        while (j_ < len_) {
-            char curLoc_ = _exp.charAt(j_);
-            if (!StringUtil.isWhitespace(curLoc_)) {
-                if (curLoc_ == ANN_ARR_LEFT) {
-                    foundLeft_ = true;
-                    j_++;
-                }
-                if (curLoc_ == PAR_LEFT || curLoc_ == ARR_LEFT) {
-                    foundLeftPar_ = true;
-                    if (curLoc_ == PAR_LEFT ) {
-                        stack_.getCallings().add(j_);
-                    }
-                    j_++;
-                }
-                break;
-            }
+        int j_ = skipWhiteSpace(_exp, _fr);
+        if (StringExpUtil.nextCharIs(_exp,j_,len_,ANN_ARR_LEFT)) {
+            foundLeft_ = true;
+            j_++;
+        } else if (StringExpUtil.nextCharIs(_exp,j_,len_,PAR_LEFT)) {
+            foundLeftPar_ = true;
+            stack_.getCallings().add(j_);
+            j_++;
+        } else if (StringExpUtil.nextCharIs(_exp,j_,len_,ARR_LEFT)) {
+            foundLeftPar_ = true;
             j_++;
         }
         if (foundLeftPar_) {
@@ -117,21 +110,14 @@ public final class DefaultProcessKeyWord {
             _out.setNextIndex(i_);
             return -1;
         }
-        boolean found_ = false;
-        while (j_ < len_) {
-            char curLoc_ = _exp.charAt(j_);
-            if (!StringUtil.isWhitespace(curLoc_)) {
-                if (curLoc_ == ANN_ARR_RIGHT) {
-                    j_++;
-                    found_ = true;
-                }
-                break;
-            }
-            j_++;
-        }
+        j_ = skipWhiteSpace(_exp,j_);
+        boolean found_ = StringExpUtil.nextCharIs(_exp,j_,len_,ANN_ARR_RIGHT);
         if (foundLeft_ && !found_) {
             _d.setBadOffset(j_);
             return -1;
+        }
+        if (found_) {
+            j_++;
         }
         return skipWhiteSpace(_exp, j_);
     }
@@ -167,25 +153,18 @@ public final class DefaultProcessKeyWord {
         int len_ = _exp.length();
         while (j_ < len_) {
             char curLoc_ = _exp.charAt(j_);
+            if (curLoc_ == PAR_LEFT || curLoc_ == ANN_ARR_LEFT || curLoc_ == ARR_LEFT && count_ == 0) {
+                if (curLoc_ == PAR_LEFT) {
+                    _d.getCallings().add(j_);
+                }
+                break;
+            }
             if (curLoc_ == StringExpUtil.LT) {
                 count_++;
-                j_++;
-                continue;
-            }
-            if (curLoc_ == StringExpUtil.GT) {
-                count_--;
-                j_++;
-                continue;
-            }
-            if (curLoc_ == PAR_LEFT) {
-                _d.getCallings().add(j_);
-                break;
-            }
-            if (curLoc_ == ANN_ARR_LEFT) {
-                break;
-            }
-            if (curLoc_ == ARR_LEFT && count_ == 0) {
-                break;
+            } else {
+                if (curLoc_ == StringExpUtil.GT) {
+                    count_--;
+                }
             }
             j_++;
         }

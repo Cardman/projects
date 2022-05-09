@@ -3527,13 +3527,13 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax266FailTest() {
         Delimiters d_ = tst("$thisaccess(MyClass)");
-        assertEq(19, d_.getBadOffset());
+        assertEq(20, d_.getBadOffset());
     }
 
     @Test
     public void checkSyntax267FailTest() {
         Delimiters d_ = tst("$thisaccess(MyClass");
-        assertEq(19, d_.getBadOffset());
+        assertEq(18, d_.getBadOffset());
     }
 
     @Test
@@ -3641,19 +3641,19 @@ public final class ElResolverTest extends ProcessMethodCommon {
     @Test
     public void checkSyntax286FailTest() {
         Delimiters d_ = tst("$interfaces(MyClass)");
-        assertEq(19, d_.getBadOffset());
+        assertEq(20, d_.getBadOffset());
     }
 
     @Test
     public void checkSyntax287FailTest() {
         Delimiters d_ = tst("$interfaces(MyClass");
-        assertEq(19, d_.getBadOffset());
+        assertEq(18, d_.getBadOffset());
     }
 
     @Test
     public void checkSyntax288FailTest() {
         Delimiters d_ = tst("$interfaces( ");
-        assertEq(13, d_.getBadOffset());
+        assertEq(12, d_.getBadOffset());
     }
 
     @Test
