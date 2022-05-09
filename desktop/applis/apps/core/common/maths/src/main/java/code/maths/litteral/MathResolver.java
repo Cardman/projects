@@ -1,4 +1,5 @@
 package code.maths.litteral;
+import code.maths.litteraladv.MaParser;
 import code.maths.litteralcom.*;
 import code.util.StringList;
 import code.util.core.IndexConstants;
@@ -19,14 +20,7 @@ public final class MathResolver {
     static MbDelimiters checkSyntax(String _string, ErrorStatus _error) {
         MbDelimiters d_ = new MbDelimiters();
         int len_ = _string.length();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (i_ < len_) {
-            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
-                break;
-            }
-            i_++;
-        }
-        int beginIndex_ = i_;
+        int i_ = MaParser.skipWhite(_string,len_,0);
         if (i_ >= len_) {
             _error.setIndex(i_);
             _error.setError(true);
@@ -36,7 +30,7 @@ public final class MathResolver {
         MathStringState m_ = new MathStringState();
         StringBuilder elt_ = new StringBuilder();
         while (m_.getIndex() < len_) {
-            loop(_string, _error, d_, len_, beginIndex_, m_, elt_);
+            loop(_string, _error, d_, len_, i_, m_, elt_);
         }
         return redirect(_string, _error, d_, m_.getParsBrackets(), m_.isConstString(), m_.getIndex());
     }
@@ -172,7 +166,6 @@ public final class MathResolver {
     }
     static MbOperationsSequence getOperationsSequence(int _offset, String _string,
                                                       MbDelimiters _d) {
-        int len_ = _string.length();
         int i_ = StringUtil.getFirstPrintableCharIndex(_string);
         if (i_ < 0) {
             MbOperationsSequence op_ = new MbOperationsSequence();
@@ -180,11 +173,8 @@ public final class MathResolver {
             op_.setupValue(_string);
             return op_;
         }
-        int lastPrintChar_ = len_ - 1;
-        while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
-            lastPrintChar_--;
-        }
-        len_ = lastPrintChar_+1;
+        int lastPrintChar_ = StringUtil.getLastPrintableCharIndex(_string);
+        int len_ = lastPrintChar_ + 1;
         int begin_ = _d.getDelStringsChars().indexOfNb((long) i_ + _offset);
         int end_ = _d.getDelStringsChars().indexOfNb((long) lastPrintChar_ + _offset);
         if (delimits(begin_, end_)) {

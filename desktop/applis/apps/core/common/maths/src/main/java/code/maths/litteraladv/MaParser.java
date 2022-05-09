@@ -276,13 +276,7 @@ public final class MaParser {
     private static MaDelimiters checkSyntax(String _string, MaError _error, StringList _varNames) {
         MaDelimiters d_ = new MaDelimiters();
         int len_ = _string.length();
-        int i_ = IndexConstants.FIRST_INDEX;
-        while (i_ < len_) {
-            if (!StringUtil.isWhitespace(_string.charAt(i_))) {
-                break;
-            }
-            i_++;
-        }
+        int i_ = skipWhite(_string,len_,0);
         if (i_ >= len_) {
             _error.setOffset(i_);
             return d_;
@@ -390,7 +384,7 @@ public final class MaParser {
         }
         return !StringUtil.contains(_varNames,_string.substring(_from,endWord_));
     }
-    static int skipWhite(String _string, int _len,int _from) {
+    public static int skipWhite(String _string, int _len,int _from) {
         int to_ = _from;
         while (to_ < _len) {
             char ch_ = _string.charAt(to_);
@@ -470,7 +464,6 @@ public final class MaParser {
     }
     static MaOperationsSequence getOperationsSequence(int _offset, String _string,
                                                       MaDelimiters _d) {
-        int len_ = _string.length();
         int i_ = StringUtil.getFirstPrintableCharIndex(_string);
         if (i_ < 0) {
             MaOperationsSequence op_ = new MaOperationsSequence();
@@ -478,11 +471,8 @@ public final class MaParser {
             op_.setupValue(_string,0);
             return op_;
         }
-        int lastPrintChar_ = len_ - 1;
-        while (StringUtil.isWhitespace(_string.charAt(lastPrintChar_))) {
-            lastPrintChar_--;
-        }
-        len_ = lastPrintChar_+1;
+        int lastPrintChar_ = StringUtil.getLastPrintableCharIndex(_string);
+        int len_ = lastPrintChar_ + 1;
         for (MatVariableInfo v: _d.getVarParts()) {
             if (v.getFirstChar() == _offset + i_) {
                 int iVar_ = v.getLastChar();
