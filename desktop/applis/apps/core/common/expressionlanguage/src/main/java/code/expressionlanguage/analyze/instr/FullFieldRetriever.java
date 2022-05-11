@@ -53,28 +53,18 @@ public final class FullFieldRetriever implements FieldRetriever {
         FoundVariable foundVar_ = new FoundVariable(_word, context);
         AnaLocalVariable val_ = foundVar_.getVal();
         if (val_ != null) {
-            ConstType type_;
-            type_ = val_.getConstType();
-            VariableInfo info_ = new VariableInfo();
-            info_.setKind(type_);
-            info_.setFirstChar(_begin);
-            info_.setLastChar(_to);
-            info_.setName(_word);
-            delimiters.getVariables().add(info_);
-            return _to;
+            return variableOrWord(val_.getConstType(), _begin, _to, _word);
         }
         if (StringExpUtil.nextPrintCharIs(_to, string.length(), string, DOT_VAR) > -1) {
             return processFieldsStaticAccess(_begin, _word, _to, context);
         }
-        VariableInfo info_ = new VariableInfo();
-        ConstType type_;
-        type_ = ConstType.WORD;
-        info_.setKind(type_);
-        info_.setFirstChar(_begin);
-        info_.setLastChar(_to);
-        info_.setName(_word);
+        VariableInfo info_ = word(_begin, _word, _to);
         delimiters.getVariables().add(info_);
         return _to;
+    }
+
+    static VariableInfo word(int _begin, String _word, int _to) {
+        return buildVariableOrWord(ConstType.WORD,_begin,_to,_word);
     }
 
     @Override
@@ -83,15 +73,7 @@ public final class FullFieldRetriever implements FieldRetriever {
         FoundVariable foundVar_ = new FoundVariable(_word, context);
         AnaLocalVariable val_ = foundVar_.getVal();
         if (val_ != null) {
-            ConstType type_;
-            type_ = val_.getConstType();
-            VariableInfo info_ = new VariableInfo();
-            info_.setKind(type_);
-            info_.setFirstChar(_begin);
-            info_.setLastChar(_to);
-            info_.setName(_word);
-            delimiters.getVariables().add(info_);
-            return _to;
+            return variableOrWord(val_.getConstType(), _begin, _to, _word);
         }
         if (StringExpUtil.nextPrintCharIs(_to, string.length(), string, DOT_VAR) > -1) {
             int n_ = processFieldsStaticAccess(_begin, _word, _to, context);
@@ -103,73 +85,138 @@ public final class FullFieldRetriever implements FieldRetriever {
         String glClass_ = context.getGlobalClass();
         boolean field_ = isField(glClass_, _word, context);
         if (field_) {
-            ConstType type_ = ConstType.WORD;
-            VariableInfo infoLoc_ = new VariableInfo();
-            infoLoc_.setKind(type_);
-            infoLoc_.setFirstChar(_begin);
-            infoLoc_.setLastChar(_to);
-            infoLoc_.setName(_word);
-            delimiters.getVariables().add(infoLoc_);
-            return _to;
+            return variableOrWord(ConstType.WORD, _begin, _to, _word);
         }
         return _begin;
     }
 
+    private int variableOrWord(ConstType _val, int _begin, int _to, String _word) {
+        VariableInfo info_ = buildVariableOrWord(_val, _begin, _to, _word);
+        this.delimiters.getVariables().add(info_);
+        return _to;
+    }
+
+    private static VariableInfo buildVariableOrWord(ConstType _val, int _begin, int _to, String _word) {
+        VariableInfo info_ = new VariableInfo();
+        info_.setKind(_val);
+        info_.setFirstChar(_begin);
+        info_.setLastChar(_to);
+        info_.setName(_word);
+        return info_;
+    }
+
     private int processFieldsStaticAccess(int _from, String _word, int _to, AnalyzedPageEl _page) {
-        int len_ = string.length();
         String glClass_ = _page.getGlobalClass();
         boolean field_ = isField(glClass_, _word, _page);
         if (field_) {
-            ConstType type_ = ConstType.WORD;
-            VariableInfo infoLoc_ = new VariableInfo();
-            infoLoc_.setKind(type_);
-            infoLoc_.setFirstChar(_from);
-            infoLoc_.setLastChar(_to);
-            infoLoc_.setName(_word);
-            delimiters.getVariables().add(infoLoc_);
-            return _to;
+            return variableOrWord(ConstType.WORD, _from, _to, _word);
         }
         Ints indexes_ = new Ints();
         StringList partsFields_ = new StringList();
         StringList partsSeps_ = new StringList();
-        StringBuilder part_ = new StringBuilder();
-        int j_ = _from;
-        int k_ = _from;
-        while (j_ < len_) {
-            char locChar_ = string.charAt(j_);
-            if (StringExpUtil.isTypeLeafChar(locChar_)) {
-                part_.append(locChar_);
-                j_++;
-                continue;
+        int k_ = partsFields(_from, indexes_, partsFields_, partsSeps_);
+        StringList partsFieldsBisFields_ = partsFieldsSec(partsFields_, partsSeps_);
+        CustList<AnaResultPartType> partOffsets_ = new CustList<AnaResultPartType>();
+        String join_ = StringUtil.join(partsFieldsBisFields_, "");
+        StringList inns_ = AnaInherits.getAllInnerTypes(join_, _page);
+        String trim_ = inns_.first().trim();
+        int nb_;
+        String start_;
+        FileBlock r_ = _page.getCurrentFile();
+        AnaGeneType startType_ = _page.getAnaGeneType(trim_);
+        int loc_ = _from + _page.getIndex();
+        if (startType_ != null) {
+            nb_ = count(trim_);
+            start_ = trim_;
+            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inns_.first(),startType_,start_,r_, loc_,0,_page));
+        } else {
+            nb_ = 0;
+            AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + StringExpUtil.getOffset(inns_.first()), trim_, _page);
+            start_ = resType_.getResult();
+            if (!resType_.isOk()) {
+                start_ = "";
+            } else {
+                partOffsets_.add(resType_);
             }
-            if (StringUtil.isWhitespace(locChar_)) {
-                part_.append(locChar_);
-                j_++;
-                continue;
-            }
-            String partStr_ = part_.toString();
-            if (locChar_ == DOT_VAR) {
-                indexes_.add(j_);
-                partsFields_.add(partStr_);
-                part_.delete(0,part_.length());
-                j_++;
-                if (StringExpUtil.nextCharIs(string,j_,len_,DOT_VAR)) {
-                    partsSeps_.add("..");
-                    j_++;
-                } else {
-                    partsSeps_.add(".");
-                }
-                continue;
-            }
-            if (locChar_ != PAR_LEFT) {
-                k_ = j_;
-                partsFields_.add(partStr_);
-            }
-            break;
+            startType_ = _page.getAnaGeneType(start_);
         }
+        int rootOff_ = inns_.first().length() + 1;
+        StrTypes operators_ = new StrTypes();
+        int iPart_ = 2;
+        int lenPart_ = inns_.size();
+        while (iPart_ < lenPart_) {
+            String fullPart_ = inns_.get(iPart_);
+            int locOff_ = StringUtil.getFirstPrintableCharIndex(fullPart_);
+            String p_ = fullPart_.trim();
+            String curSep_ = inns_.get(iPart_ - 1);
+            operators_.addEntry(rootOff_-1, curSep_);
+            int indexInType_ = rootOff_ + curSep_.length() - 1 + locOff_;
+            OwnerListResultInfo res_ = type(_page,curSep_,start_,p_);
+            if (res_ == null) {
+                break;
+            }
+            start_ = res_.firstOwnedName();
+            startType_ = res_.firstOwned();
+            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,startType_,start_,r_, loc_, indexInType_,_page));
+            rootOff_ += fullPart_.length() + 1;
+            nb_++;
+            iPart_+=2;
+        }
+        int n_ = nextIndex(indexes_, k_, nb_);
+        if (startType_ == null) {
+            return variableOrWord(ConstType.WORD, _from, _to, _word);
+        }
+        if (string.substring(n_).trim().indexOf('.') != 0) {
+            add = false;
+            return n_;
+        }
+        delimiters.getDelKeyWordStatic().add(_from);
+        delimiters.getDelKeyWordStatic().add(n_);
+        delimiters.getDelKeyWordStaticExtract().add(start_);
+        delimiters.getStaticAccessTypes().add(startType_);
+        delimiters.getStaticParts().add(PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(join_,partOffsets_,operators_,r_, loc_,_page));
+        return n_;
+    }
+    private OwnerListResultInfo type(AnalyzedPageEl _page, String _curSep, String _start, String _p) {
+        OwnerListResultInfo res_;
+        if (StringUtil.quickEq("..", _curSep)) {
+            res_ = AnaTypeUtil.getEnumOwners(_start, _p, _page);
+        } else {
+            boolean fieldLoc_ = isField(_start, _p, _page);
+            if (fieldLoc_) {
+                return null;
+            }
+            res_ = AnaTypeUtil.getInners(_start, _p, _page);
+        }
+        if (!res_.onlyOneElt()) {
+            return null;
+        }
+        return res_;
+    }
+
+    private int nextIndex(Ints _indexes, int _k, int _nb) {
+        int n_;
+        if (_indexes.isValidIndex(_nb)) {
+            n_ = _indexes.get(_nb);
+        } else {
+            n_ = _k;
+        }
+        return n_;
+    }
+
+    private static int count(String _trim) {
+        int nb_ = 0;
+        for (char c: _trim.toCharArray()) {
+            if (c == '.') {
+                nb_++;
+            }
+        }
+        return nb_;
+    }
+    private static StringList partsFieldsSec(StringList _partsFields, StringList _partsSeps) {
         StringList partsFieldsBisFields_ = new StringList();
         int partFieldIndex_ = 0;
-        for (String p: partsFields_) {
+        for (String p: _partsFields) {
             int f_ = StringUtil.getFirstPrintableCharIndex(p);
             int l_= StringUtil.getLastPrintableCharIndex(p);
             int index_ = -1;
@@ -186,103 +233,53 @@ public final class FullFieldRetriever implements FieldRetriever {
                 break;
             }
             partsFieldsBisFields_.add(p);
-            if (partsFields_.isValidIndex(partFieldIndex_+1)) {
-                partsFieldsBisFields_.add(partsSeps_.get(partFieldIndex_));
+            if (_partsFields.isValidIndex(partFieldIndex_+1)) {
+                partsFieldsBisFields_.add(_partsSeps.get(partFieldIndex_));
             }
             partFieldIndex_++;
         }
-        CustList<AnaResultPartType> partOffsets_ = new CustList<AnaResultPartType>();
-        String join_ = StringUtil.join(partsFieldsBisFields_, "");
-        StringList inns_ = AnaInherits.getAllInnerTypes(join_, _page);
-        String trim_ = inns_.first().trim();
-        int nb_ = 0;
-        String start_;
-        FileBlock r_ = _page.getCurrentFile();
-        AnaGeneType startType_ = _page.getAnaGeneType(trim_);
-        int loc_ = _from + _page.getIndex();
-        if (startType_ != null) {
-            for (char c: trim_.toCharArray()) {
-                if (c == '.') {
-                    nb_++;
-                }
-            }
-            start_ = trim_;
-            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(inns_.first(),startType_,start_,r_, loc_,0,_page));
-        } else {
-            AnaResultPartType resType_ = ResolvingTypes.resolveCorrectTypeWithoutErrors(_from + StringExpUtil.getOffset(inns_.first()), trim_, _page);
-            start_ = resType_.getResult();
-            if (!resType_.isOk()) {
-                start_ = "";
+        return partsFieldsBisFields_;
+    }
+
+    private int partsFields(int _from, Ints _indexes, StringList _partsFields, StringList _partsSeps) {
+        StringBuilder part_ = new StringBuilder();
+        int len_ = string.length();
+        int j_ = _from;
+        int k_ = _from;
+        while (j_ < len_) {
+            char locChar_ = string.charAt(j_);
+            if (StringExpUtil.isTypeLeafChar(locChar_) || StringUtil.isWhitespace(locChar_)) {
+                part_.append(locChar_);
+                j_++;
             } else {
-                partOffsets_.add(resType_);
-            }
-            startType_ = _page.getAnaGeneType(start_);
-            nb_ = 0;
-        }
-        int rootOff_ = inns_.first().length() + 1;
-        StrTypes operators_ = new StrTypes();
-        int iPart_ = 2;
-        int lenPart_ = inns_.size();
-        while (iPart_ < lenPart_) {
-            String fullPart_ = inns_.get(iPart_);
-            int locOff_ = StringUtil.getFirstPrintableCharIndex(fullPart_);
-            String p_ = fullPart_.trim();
-            operators_.addEntry(rootOff_-1,inns_.get(iPart_-1));
-            if (StringUtil.quickEq("..",inns_.get(iPart_-1))) {
-                OwnerListResultInfo res_;
-                res_ = AnaTypeUtil.getEnumOwners(start_, p_, _page);
-                if (!res_.onlyOneElt()) {
+                String partStr_ = part_.toString();
+                if (locChar_ == DOT_VAR) {
+                    _indexes.add(j_);
+                    _partsFields.add(partStr_);
+                    part_.delete(0, part_.length());
+                    j_ = incrPartFieldSep(j_,_partsSeps);
+                } else {
+                    if (locChar_ != PAR_LEFT) {
+                        k_ = j_;
+                        _partsFields.add(partStr_);
+                    }
                     break;
                 }
-                start_ = res_.firstOwnedName();
-                startType_ = res_.firstOwned();
-                partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,startType_,start_,r_, loc_,rootOff_+1+locOff_,_page));
-                rootOff_ += fullPart_.length() + 1;
-                nb_++;
-                iPart_+=2;
-                continue;
             }
-            boolean fieldLoc_ = isField(start_, p_, _page);
-            if (fieldLoc_) {
-                break;
-            }
-            OwnerListResultInfo res_ = AnaTypeUtil.getInners(start_, p_, _page);
-            if (!res_.onlyOneElt()) {
-                break;
-            }
-            start_ = res_.firstOwnedName();
-            startType_ = res_.firstOwned();
-            partOffsets_.add(PreLinkagePartTypeUtil.processAccessOkRootAnalyze(p_,startType_,start_,r_, loc_,rootOff_+locOff_,_page));
-            rootOff_ += fullPart_.length() + 1;
-            nb_++;
-            iPart_+=2;
         }
-        int n_;
-        if (indexes_.isValidIndex(nb_)) {
-            n_ = indexes_.get(nb_);
+        return k_;
+    }
+    private int incrPartFieldSep(int _j, StringList _partsSeps) {
+        int len_ = string.length();
+        int j_ = _j;
+        j_++;
+        if (StringExpUtil.nextCharIs(string, j_, len_, DOT_VAR)) {
+            _partsSeps.add("..");
+            j_++;
         } else {
-            n_ = k_;
+            _partsSeps.add(".");
         }
-        if (startType_ == null) {
-            ConstType type_ = ConstType.WORD;
-            VariableInfo infoLoc_ = new VariableInfo();
-            infoLoc_.setKind(type_);
-            infoLoc_.setFirstChar(_from);
-            infoLoc_.setLastChar(_to);
-            infoLoc_.setName(_word);
-            delimiters.getVariables().add(infoLoc_);
-            return _to;
-        }
-        if (string.substring(n_).trim().indexOf('.') != 0) {
-            add = false;
-            return n_;
-        }
-        delimiters.getDelKeyWordStatic().add(_from);
-        delimiters.getDelKeyWordStatic().add(n_);
-        delimiters.getDelKeyWordStaticExtract().add(start_);
-        delimiters.getStaticAccessTypes().add(startType_);
-        delimiters.getStaticParts().add(PreLinkagePartTypeUtil.processAccessInnerRootAnalyze(join_,partOffsets_,operators_,r_, loc_,_page));
-        return n_;
+        return j_;
     }
 
     private boolean isField(String _fromClass, String _word, AnalyzedPageEl _page) {

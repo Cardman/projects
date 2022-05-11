@@ -11,14 +11,13 @@ public final class SkipArPart {
         int len_ = _string.length();
         while (index < len_) {
             char nextChar_ = _string.charAt(index);
-            if (StringUtil.isWhitespace(nextChar_)) {
-                index++;
-                continue;
+            if (!StringUtil.isWhitespace(nextChar_)) {
+                if (nextChar_ == ']') {
+                    skip = true;
+                }
+                break;
             }
-            if (nextChar_ == ']') {
-                skip = true;
-            }
-            break;
+            index++;
         }
     }
 
