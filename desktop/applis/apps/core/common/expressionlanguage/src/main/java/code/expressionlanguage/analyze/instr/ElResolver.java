@@ -754,30 +754,20 @@ public final class ElResolver {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         int afterClassChoice_ = incr(_string, i_, _page);
-        int ne_ = StringExpUtil.nextPrintChar(afterClassChoice_, len_, _string);
-        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
-            badOffset(_d, len_, ne_);
+        int afterFirst_ = nextIndex(_string, _d, afterClassChoice_);
+        if (_d.getBadOffset() >= 0) {
             return;
         }
-        afterClassChoice_ = ne_;
-        int indRightPar_ = _string.indexOf(PAR_RIGHT,afterClassChoice_);
-        if (indRightPar_ < 0) {
-            _d.setBadOffset(len_ - 1);
+        if (afterFirst_ >= len_) {
+            _d.setBadOffset(afterFirst_);
             return;
         }
-        afterClassChoice_ = indRightPar_;
-        afterClassChoice_++;
-        afterClassChoice_ = DefaultProcessKeyWord.skipWhiteSpace(_string,afterClassChoice_);
-        if (afterClassChoice_ >= len_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
-        char loc_ = _string.charAt(afterClassChoice_);
+        char loc_ = _string.charAt(afterFirst_);
         if (StringExpUtil.startsWithKeyWord(_string, i_, keyWordOperator_) && (loc_ == '=' || loc_ == ':')) {
-            compound(_string, _d, _out, afterClassChoice_,_page);
+            compound(_string, _d, _out, afterFirst_,_page);
             return;
         }
-        defInterfOpers(_string,_d, _out, afterClassChoice_);
+        defInterfOpers(_string,_d, _out, afterFirst_);
     }
 
     private static void badOffset(Delimiters _d, int _len, int _index) {
@@ -863,33 +853,17 @@ public final class ElResolver {
         String keyWordThisaccess_ = keyWords_.getKeyWordThisaccess();
         StackDelimiters stack_ = _d.getStack();
         int afterClassChoice_ = i_ + keyWordThisaccess_.length();
-        int ne_ = StringExpUtil.nextPrintChar(afterClassChoice_, len_, _string);
-        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
-            badOffset(_d, len_, ne_);
+        int afterFirst_ = nextIndexIndexer(_string, _d, i_, afterClassChoice_);
+        if (_d.getBadOffset() >= 0) {
             return;
         }
-        afterClassChoice_ = ne_;
-        int indRightPar_ = _string.indexOf(PAR_RIGHT,afterClassChoice_);
-        if (indRightPar_ < 0) {
-            _d.setBadOffset(len_ - 1);
+        if (StringExpUtil.nextCharIs(_string,afterFirst_,len_,ARR_LEFT)) {
+            _out.setNextIndex(afterFirst_);
             return;
         }
-        afterClassChoice_ = indRightPar_;
-        afterClassChoice_++;
+        afterClassChoice_ = skipWord(_string,afterFirst_);
         afterClassChoice_ = DefaultProcessKeyWord.skipWhiteSpace(_string,afterClassChoice_);
-        if (afterClassChoice_ < len_ && _string.charAt(afterClassChoice_) == ARR_LEFT) {
-            _d.getDelAccessIndexers().add(i_);
-            _d.getDelAccessIndexers().add(afterClassChoice_);
-            _out.setNextIndex(afterClassChoice_);
-            return;
-        }
-        afterClassChoice_ = skipWord(_string,afterClassChoice_);
-        afterClassChoice_ = DefaultProcessKeyWord.skipWhiteSpace(_string,afterClassChoice_);
-        if (afterClassChoice_ >= len_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
-        if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
+        if (StringExpUtil.nextCharIs(_string,afterClassChoice_,len_,PAR_LEFT)) {
             //fct
             stack_.getCallings().add(afterClassChoice_);
             _out.setNextIndex(afterClassChoice_);
@@ -900,108 +874,48 @@ public final class ElResolver {
     }
 
     private static void keyWordSuperAccess(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
-        int len_ = _string.length();
-        int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordSuperaccess_ = keyWords_.getKeyWordSuperaccess();
-        StackDelimiters stack_ = _d.getStack();
-        int afterClassChoice_ = i_ + keyWordSuperaccess_.length();
-        int ne_ = StringExpUtil.nextPrintChar(afterClassChoice_, len_, _string);
-        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
-            badOffset(_d, len_, ne_);
-            return;
-        }
-        afterClassChoice_ = ne_;
-        int indRightPar_ = _string.indexOf(PAR_RIGHT,afterClassChoice_);
-        if (indRightPar_ < 0) {
-            _d.setBadOffset(len_ - 1);
-            return;
-        }
-        afterClassChoice_ = indRightPar_;
-        afterClassChoice_++;
-        afterClassChoice_ = DefaultProcessKeyWord.skipWhiteSpace(_string,afterClassChoice_);
-        if (afterClassChoice_ < len_ && _string.charAt(afterClassChoice_) == ARR_LEFT) {
-            _d.getDelAccessIndexers().add(i_);
-            _d.getDelAccessIndexers().add(afterClassChoice_);
-            _out.setNextIndex(afterClassChoice_);
-            return;
-        }
-        int afWord_ = skipWord(_string, afterClassChoice_);
-        if (afWord_ <= afterClassChoice_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
-        afterClassChoice_ = afWord_;
-        if (afterClassChoice_ >= len_) {
-            //field
-            _d.getDelKeyWordSuperAccess().add(i_);
-            _d.getDelKeyWordSuperAccess().add(afterClassChoice_);
-            _out.setNextIndex(afterClassChoice_);
-            return;
-        }
-        if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
-            //fct
-            stack_.getCallings().add(afterClassChoice_);
-            _out.setNextIndex(afterClassChoice_);
-            return;
-        }
-        //field
-        _d.getDelKeyWordSuperAccess().add(i_);
-        _d.getDelKeyWordSuperAccess().add(afterClassChoice_);
-        _out.setNextIndex(afterClassChoice_);
+        keyWordsSuperAccessClassChoice(_string, _d, _out, keyWordSuperaccess_, _d.getDelKeyWordSuperAccess());
     }
 
     private static void keyWordClassChoice(String _string, Delimiters _d, ResultAfterInstKeyWord _out, AnalyzedPageEl _page) {
-        int len_ = _string.length();
-        int i_ = _out.getNextIndex();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordClasschoice_ = keyWords_.getKeyWordClasschoice();
+        keyWordsSuperAccessClassChoice(_string, _d, _out, keyWordClasschoice_, _d.getDelKeyWordClassChoice());
+    }
+
+    private static void keyWordsSuperAccessClassChoice(String _string, Delimiters _d, ResultAfterInstKeyWord _out, String _keyWord, Ints _dels) {
+        int len_ = _string.length();
+        int i_ = _out.getNextIndex();
         StackDelimiters stack_ = _d.getStack();
-        int afterClassChoice_ = i_ + keyWordClasschoice_.length();
-        int ne_ = StringExpUtil.nextPrintChar(afterClassChoice_, len_, _string);
-        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
-            badOffset(_d, len_, ne_);
+        int afterClassChoice_ = i_ + _keyWord.length();
+        int afterFirst_ = nextIndexIndexer(_string, _d, i_, afterClassChoice_);
+        if (_d.getBadOffset() >= 0) {
             return;
         }
-        afterClassChoice_ = ne_;
-        int indRightPar_ = _string.indexOf(PAR_RIGHT,afterClassChoice_);
-        if (indRightPar_ < 0) {
-            _d.setBadOffset(len_ - 1);
+        if (StringExpUtil.nextCharIs(_string,afterFirst_,len_,ARR_LEFT)) {
+            _out.setNextIndex(afterFirst_);
             return;
         }
-        afterClassChoice_ = indRightPar_;
-        afterClassChoice_++;
-        afterClassChoice_ = DefaultProcessKeyWord.skipWhiteSpace(_string,afterClassChoice_);
-        if (afterClassChoice_ < len_ && _string.charAt(afterClassChoice_) == ARR_LEFT) {
-            _d.getDelAccessIndexers().add(i_);
-            _d.getDelAccessIndexers().add(afterClassChoice_);
-            _out.setNextIndex(afterClassChoice_);
+        int afWord_ = skipWord(_string, afterFirst_);
+        if (afWord_ <= afterFirst_) {
+            _d.setBadOffset(afterFirst_);
             return;
         }
-        int afWord_ = skipWord(_string, afterClassChoice_);
-        if (afWord_ <= afterClassChoice_) {
-            _d.setBadOffset(afterClassChoice_);
-            return;
-        }
-        afterClassChoice_ = afWord_;
-        if (afterClassChoice_ >= len_) {
-            //field
-            _d.getDelKeyWordClassChoice().add(i_);
-            _d.getDelKeyWordClassChoice().add(afterClassChoice_);
-            _out.setNextIndex(afterClassChoice_);
-            return;
-        }
-        if (_string.charAt(afterClassChoice_) == PAR_LEFT) {
+        int nextPrChar_ = DefaultProcessKeyWord.skipWhiteSpace(_string, afWord_);
+        if (StringExpUtil.nextCharIs(_string,nextPrChar_,len_,PAR_LEFT)) {
             //fct
-            stack_.getCallings().add(afterClassChoice_);
-            _out.setNextIndex(afterClassChoice_);
+            stack_.getCallings().add(nextPrChar_);
+            _out.setNextIndex(nextPrChar_);
             return;
         }
         //field
-        _d.getDelKeyWordClassChoice().add(i_);
-        _d.getDelKeyWordClassChoice().add(afterClassChoice_);
-        _out.setNextIndex(afterClassChoice_);
+        _dels.add(i_);
+        _dels.add(afWord_);
+        _out.setNextIndex(afWord_);
     }
+
     private static int skipWord(String _string, int _i) {
         int len_ = _string.length();
         int afterClassChoice_ = _i;
@@ -1131,6 +1045,32 @@ public final class ElResolver {
         _out.setNextIndex(afterStatic_);
     }
 
+    private static int nextIndexIndexer(String _string, Delimiters _d, int _i, int _current){
+        int afterFirst_ = nextIndex(_string, _d, _current);
+        if (_d.getBadOffset() >= 0) {
+            return afterFirst_;
+        }
+        int len_ = _string.length();
+        if (StringExpUtil.nextCharIs(_string,afterFirst_,len_,ARR_LEFT)) {
+            _d.getDelAccessIndexers().add(_i);
+            _d.getDelAccessIndexers().add(afterFirst_);
+        }
+        return afterFirst_;
+    }
+    private static int nextIndex(String _string, Delimiters _d, int _current){
+        int len_ = _string.length();
+        int ne_ = StringExpUtil.nextPrintChar(_current, len_, _string);
+        if (!StringExpUtil.nextCharIs(_string,ne_,len_,PAR_LEFT) || ne_ + 1 >= len_) {
+            badOffset(_d, len_, ne_);
+            return _current;
+        }
+        int indRightPar_ = _string.indexOf(PAR_RIGHT, ne_);
+        if (indRightPar_ < 0) {
+            _d.setBadOffset(len_ - 1);
+            return ne_;
+        }
+        return DefaultProcessKeyWord.skipWhiteSpace(_string,indRightPar_+1);
+    }
     private static void stKey(Delimiters _d, boolean _isKeySt) {
         if (_isKeySt) {
             _d.getDelKeyWordStaticExtract().add(EMPTY_STRING);

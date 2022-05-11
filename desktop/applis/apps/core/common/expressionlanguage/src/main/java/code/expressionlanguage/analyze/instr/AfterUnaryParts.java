@@ -52,7 +52,7 @@ final class AfterUnaryParts {
     private static final char DOT_VAR = '.';
 
     private final StrTypes operators = new StrTypes();
-    private final StackOperators parsBrackets = new StackOperators();
+    private int parsBrackets;
     private int prio = ElResolver.FCT_OPER_PRIO;
     private String extracted = "";
     private AnaResultPartType partsOffs = new AnaResultPartType();
@@ -197,7 +197,7 @@ final class AfterUnaryParts {
             parLeft(_string);
             return;
         }
-        if (curChar_ == SEP_ARG && parsBrackets.size() > 0) {
+        if (curChar_ == SEP_ARG && parsBrackets > 0) {
             commaSepFct();
             return;
         }
@@ -229,7 +229,7 @@ final class AfterUnaryParts {
     }
 
     private void dot() {
-        if (parsBrackets.isEmpty()) {
+        if (parsBrackets == 0) {
             boolean clearOperators_ = false;
             boolean foundOperator_ = false;
             StringBuilder builtOperator_ = new StringBuilder();
@@ -255,7 +255,7 @@ final class AfterUnaryParts {
                 beginTernary(curChar_);
                 return;
             }
-            if (parsBrackets.isEmpty()&&dot_&&prio != ElResolver.DECL_PRIO) {
+            if (parsBrackets == 0&&dot_&&prio != ElResolver.DECL_PRIO) {
                 safeDot(_string);
                 return;
             }
@@ -268,7 +268,7 @@ final class AfterUnaryParts {
             declPrio();
             return;
         }
-        if (!parsBrackets.isEmpty() || prio == ElResolver.DECL_PRIO) {
+        if (parsBrackets > 0 || prio == ElResolver.DECL_PRIO) {
             index++;
             return;
         }
@@ -276,7 +276,7 @@ final class AfterUnaryParts {
     }
 
     private void namedArg(char _curChar) {
-        if (!parsBrackets.isEmpty()) {
+        if (parsBrackets > 0) {
             index++;
             return;
         }
@@ -308,17 +308,17 @@ final class AfterUnaryParts {
     }
 
     private void beginTernary(char _curChar) {
-        if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
+        if (parsBrackets == 0 && prio > ElResolver.TERNARY_PRIO) {
             operators.clear();
             operators.addEntry(index, Character.toString(_curChar));
         }
-        parsBrackets.addEntry(index, _curChar);
+        parsBrackets++;
         index++;
     }
 
     private void endTernary(char _curChar) {
-        parsBrackets.removeLast();
-        if (parsBrackets.isEmpty() && prio > ElResolver.TERNARY_PRIO) {
+        parsBrackets--;
+        if (parsBrackets == 0 && prio > ElResolver.TERNARY_PRIO) {
             operators.addEntry(index, Character.toString(_curChar));
             enPars = false;
             enabledId = true;
@@ -345,8 +345,7 @@ final class AfterUnaryParts {
     }
 
     private void parLeft(String _string) {
-        char curChar_ = _string.charAt(index);
-        if (parsBrackets.isEmpty() && prio == ElResolver.FCT_OPER_PRIO) {
+        if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO) {
             if (enPars) {
                 fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                 operators.addEntry(index, Character.toString(PAR_LEFT));
@@ -358,12 +357,12 @@ final class AfterUnaryParts {
                 operators.addEntry(index, EMPTY_STRING);
             }
         }
-        parsBrackets.addEntry(index, curChar_);
+        parsBrackets++;
         index++;
     }
 
     private void commaSepFct() {
-        if (parsBrackets.size() == 1 && prio == ElResolver.FCT_OPER_PRIO && enPars) {
+        if (parsBrackets == 1 && prio == ElResolver.FCT_OPER_PRIO && enPars) {
             addCommaOperIfNotEmpty(operators, index,PAR_LEFT,ARR_LEFT,ANN_ARR_LEFT);
         }
         index++;
@@ -383,8 +382,8 @@ final class AfterUnaryParts {
     }
 
     private void parRight() {
-        parsBrackets.removeLast();
-        if (parsBrackets.isEmpty() && prio == ElResolver.FCT_OPER_PRIO && enPars) {
+        parsBrackets--;
+        if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO && enPars) {
             addOperIfNotEmpty(operators, index, PAR_LEFT,PAR_RIGHT);
             enPars = false;
             enabledId = true;
@@ -393,8 +392,8 @@ final class AfterUnaryParts {
     }
 
     private void annArrRight() {
-        parsBrackets.removeLast();
-        if (parsBrackets.isEmpty() && prio == ElResolver.FCT_OPER_PRIO) {
+        parsBrackets--;
+        if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO) {
             addOperIfNotEmpty(operators, index, ANN_ARR_LEFT,ANN_ARR_RIGHT);
             enPars = false;
             enabledId = true;
@@ -403,8 +402,7 @@ final class AfterUnaryParts {
     }
 
     private void annArrLeft(String _string) {
-        char curChar_ = _string.charAt(index);
-        if (parsBrackets.isEmpty() && ElResolver.FCT_OPER_PRIO == prio) {
+        if (parsBrackets == 0 && ElResolver.FCT_OPER_PRIO == prio) {
             if (instance) {
                 fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                 if (operators.isEmpty()) {
@@ -417,13 +415,13 @@ final class AfterUnaryParts {
                 errorDot = true;
             }
         }
-        parsBrackets.addEntry(index, curChar_);
+        parsBrackets++;
         index++;
     }
 
     private void arrRight() {
-        parsBrackets.removeLast();
-        if (parsBrackets.isEmpty() && prio == ElResolver.FCT_OPER_PRIO) {
+        parsBrackets--;
+        if (parsBrackets == 0 && prio == ElResolver.FCT_OPER_PRIO) {
             addOperIfNotEmpty(operators, index, ARR_LEFT,ARR_RIGHT);
             enPars = false;
             enabledId = true;
@@ -432,8 +430,7 @@ final class AfterUnaryParts {
     }
 
     private void arrLeft(String _string) {
-        char curChar_ = _string.charAt(index);
-        if (parsBrackets.isEmpty() && ElResolver.FCT_OPER_PRIO == prio) {
+        if (parsBrackets == 0 && ElResolver.FCT_OPER_PRIO == prio) {
 
             if (instance) {
                 arrInstance(_string);
@@ -441,7 +438,7 @@ final class AfterUnaryParts {
                 arrAccess(_string);
             }
         }
-        parsBrackets.addEntry(index, curChar_);
+        parsBrackets++;
         index++;
     }
 
