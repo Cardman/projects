@@ -134,7 +134,6 @@ public final class ElResolver {
         int len_ = _string.length();
         int i_ = DefaultProcessKeyWord.skipWhiteSpace(_string,_minIndex);
         int beginIndex_ = i_;
-        _page.getAnonymousResults().clear();
         if (i_ >= len_) {
             _d.setBadOffset(i_);
             return _d;
@@ -1148,7 +1147,6 @@ public final class ElResolver {
         }
         AnonymousResult anon_ = anon(beginWord_, _page);
         if (anon_ != null) {
-            _page.getAnonymousResults().add(anon_);
             _out.setNextIndex(anon_.getNext());
             _d.setEnabledOp(true);
             return;
@@ -1295,7 +1293,6 @@ public final class ElResolver {
         int i_ = doubleDotted_.getNextIndex();
         AnonymousResult anon_ = anon(i_, _page);
         if (anon_ != null) {
-            _page.getAnonymousResults().add(anon_);
             doubleDotted_.setNextIndex(anon_.getNext());
             _dout.setEnabledOp(true);
             return;
@@ -1313,7 +1310,6 @@ public final class ElResolver {
         StackDelimiters stack_ = _dout.getStack();
         AnonymousResult foundAn_ = anon(i_, _page);
         if (foundAn_ != null) {
-            _page.getAnonymousResults().add(foundAn_);
             doubleDotted_.setNextIndex(foundAn_.getNext());
             _dout.setEnabledOp(true);
             return;
@@ -1826,7 +1822,7 @@ public final class ElResolver {
                 return op_;
             }
         }
-        for (AnonymousResult a: _page.getAnonymousResults()) {
+        for (AnonymousResult a: _page.getCurrentAnonymousResults()) {
             if (a.getIndex() == i_ + _offset) {
                 int to_ = a.getUntil() - _offset;
                 if (to_ != lastPrintChar_) {

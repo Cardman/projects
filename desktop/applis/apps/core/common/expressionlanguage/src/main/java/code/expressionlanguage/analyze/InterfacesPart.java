@@ -53,7 +53,7 @@ public final class InterfacesPart {
             part = part.trim();
             return;
         }
-        int sepInst_ = interfacesInfo_.indexOf(";");
+        int sepInst_ = interfacesInfo_.indexOf(';');
         if (sepInst_ < 0) {
             loopInst(_offset, interfacesInfo_);
             locIndex += end_ + 1;

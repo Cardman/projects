@@ -115,7 +115,7 @@ final class AfterUnaryParts {
         index = firstPrintChar_;
     }
     void setInstance(int _offset, String _string, Delimiters _d, AnalyzedPageEl _page) {
-        anonymousResults = _page.getAnonymousResults();
+        anonymousResults = _page.getCurrentAnonymousResults();
         int firstPrintChar_ = del.getFirstPrintIndex();
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordNew_ = keyWords_.getKeyWordNew();

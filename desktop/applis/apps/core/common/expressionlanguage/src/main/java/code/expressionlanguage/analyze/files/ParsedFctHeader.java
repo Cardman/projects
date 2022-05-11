@@ -22,7 +22,9 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
     private boolean ok = true;
     private int offsetLast;
     private int nextIndex;
-    private String afterArrow="";
+    private int beforeArrowIndex;
+    private int arrowPlusSpaceAfter;
+    private boolean afterArrowLeftBrace;
     private boolean indexerSet;
     private String keyWordValue="";
     private int typeSetterOff;
@@ -66,14 +68,8 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
                 annotationsParam_.set(par_);
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,par_.getIndex() - offsetLast);
             }
-            BoolVal ref_;
-            if (StringExpUtil.startsWithKeyWord(_info,k_,_keyWordThat)) {
-                k_ += _keyWordThat.length();
-                k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,k_);
-                ref_ = BoolVal.TRUE;
-            } else {
-                ref_ = BoolVal.FALSE;
-            }
+            BoolVal ref_ = ref(_info,k_,_keyWordThat);
+            k_ = afterRef(_info,k_,_keyWordThat,ref_);
             int typeOff_ = k_;
             String paramType_ = FileResolver.getFoundType(_info.substring(k_));
             k_ = DefaultProcessKeyWord.skipWhiteSpace(_info,k_+paramType_.length());
@@ -152,23 +148,14 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
                 annotationsParam_.set(par_);
                 k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,par_.getIndex() - _offset);
             }
-            BoolVal ref_;
-            if (StringExpUtil.startsWithKeyWord(_string,k_,_keyWordThat)) {
-                k_ += _keyWordThat.length();
-                k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,k_);
-                ref_ = BoolVal.TRUE;
-            } else {
-                ref_ = BoolVal.FALSE;
-            }
+            BoolVal ref_ = ref(_string,k_,_keyWordThat);
+            k_ = afterRef(_string,k_,_keyWordThat,ref_);
             ParsedType p_ = new ParsedType();
             p_.parse(_string.substring(k_));
-            String candid_;
             int typeOff_ = k_;
-            if (p_.isOk(new StringList())) {
-                candid_ = p_.getInstruction().toString();
-                k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,k_+candid_.length());
-            } else {
-                candid_ = "";
+            boolean okType_ = p_.isOk(new StringList());
+            if (okType_) {
+                k_ = DefaultProcessKeyWord.skipWhiteSpace(_string,k_+p_.getInstruction().length());
             }
             int implCall_ = _string.indexOf(SEP_CALLING, k_);
             int implStopInd_ = _string.indexOf(ANON_RETURN_PART, k_);
@@ -177,20 +164,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
                 nextIndex = _indexLeftPar;
                 return;
             }
-            if (implCall_ < 0) {
-                if (implStopInd_ >= 0) {
-                    implCall_ = Math.min(implStopInd_,implStopRightPar_);
-                } else {
-                    implCall_ = implStopRightPar_;
-                }
-            } else {
-                if (implStopInd_ >= 0) {
-                    implCall_ = Math.min(implCall_,Math.min(implStopRightPar_, implStopInd_));
-                } else {
-                    implCall_ = Math.min(implCall_,implStopRightPar_);
-                }
-            }
-
+            implCall_ = implCallAnon(implCall_,implStopInd_,implStopRightPar_);
             int parOff_ = k_;
             String varName_ = _string.substring(k_, implCall_).trim();
             if (!StringExpUtil.isTypeLeafPart(varName_)) {
@@ -198,6 +172,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
                 return;
             }
             feedParAnnot(annotationsParam_);
+            String candid_ = candid(p_, okType_);
             feedParBase(ref_, typeOff_, _offset, candid_, parOff_, varName_);
             if (implStopInd_ == implCall_) {
                 processExplicitRetType(_indexLeftPar,_string,_offset,_keyWordThat,implCall_,_parts);
@@ -212,6 +187,47 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         nextIndex = _indexLeftPar;
     }
 
+    private String candid(ParsedType _p, boolean _okType) {
+        String candid_;
+        if (_okType) {
+            candid_ = _p.getInstruction().toString();
+        } else {
+            candid_ = "";
+        }
+        return candid_;
+    }
+
+    private static BoolVal ref(String _string, int _current, String _keyWordThat) {
+        if (StringExpUtil.startsWithKeyWord(_string,_current,_keyWordThat)) {
+            return BoolVal.TRUE;
+        }
+        return BoolVal.FALSE;
+    }
+    private static int afterRef(String _string, int _current, String _keyWordThat, BoolVal _ref) {
+        if (_ref == BoolVal.TRUE) {
+            int k_ = _current+_keyWordThat.length();
+            return DefaultProcessKeyWord.skipWhiteSpace(_string,k_);
+        }
+        return _current;
+    }
+    private static int implCallAnon(int _implCall, int _implStopInd, int _implStopRightPar) {
+        int implCall_ = _implCall;
+        if (implCall_ < 0) {
+            if (_implStopInd >= 0) {
+                implCall_ = Math.min(_implStopInd,_implStopRightPar);
+            } else {
+                implCall_ = _implStopRightPar;
+            }
+        } else {
+            if (_implStopInd >= 0) {
+                implCall_ = Math.min(implCall_,Math.min(_implStopRightPar, _implStopInd));
+            } else {
+                implCall_ = Math.min(implCall_,_implStopRightPar);
+            }
+        }
+        return implCall_;
+    }
+
     private void processImplicitRetType(int _indexLeftPar, String _string, int _offset, int _j) {
         int k_ = DefaultProcessKeyWord.skipWhiteSpace(_string, _j +1);
         if (!_string.startsWith(ARROW,k_)) {
@@ -221,7 +237,7 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         setReturnOffest(_j + _offset);
         setReturnType("");
         nextIndex = _j;
-        afterArrow = _string.substring(k_+2);
+        initLeftBrace(_string, k_);
     }
 
     private void processExplicitRetType(int _indexLeftPar, String _string, int _offset, String _keyWordThat, int _j, CustList<SegmentStringPart> _parts) {
@@ -250,8 +266,16 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         }
         setReturnOffest(k_ + _offset);
         nextIndex = until_;
-        afterArrow = _string.substring(nextRightPar_+2);
+        initLeftBrace(_string, nextRightPar_);
         setReturnType(_string.substring(k_, until_));
+    }
+
+    private void initLeftBrace(String _string, int _beforeArrow) {
+        beforeArrowIndex = _beforeArrow;
+        int afterArrow_ = _beforeArrow + 2;
+        int sk_ = DefaultProcessKeyWord.skipWhiteSpace(_string, afterArrow_);
+        afterArrowLeftBrace = StringExpUtil.nextCharIs(_string,sk_, _string.length(),'{');
+        arrowPlusSpaceAfter = sk_ - _beforeArrow;
     }
 
     public String getInfo() {
@@ -290,8 +314,16 @@ public final class ParsedFctHeader extends ParsedFctHeaderAbs{
         return nextIndex;
     }
 
-    public String getAfterArrow() {
-        return afterArrow;
+    public boolean isAfterArrowLeftBrace() {
+        return afterArrowLeftBrace;
+    }
+
+    public int getBeforeArrowIndex() {
+        return beforeArrowIndex;
+    }
+
+    public int getArrowPlusSpaceAfter() {
+        return arrowPlusSpaceAfter;
     }
 
 }

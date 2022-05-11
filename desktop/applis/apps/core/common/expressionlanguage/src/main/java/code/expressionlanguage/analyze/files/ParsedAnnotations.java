@@ -16,6 +16,9 @@ public final class ParsedAnnotations {
     private String after = "";
     private int index;
     private final int instructionLocation;
+    private int indexArobase;
+    private int nbPars;
+    private final StringBuilder annotation = new StringBuilder();
 
     public ParsedAnnotations(String _instruction, int _instructionLocation) {
         instruction = _instruction;
@@ -24,91 +27,96 @@ public final class ParsedAnnotations {
     public void parse(CustList<SegmentStringPart> _parts, String... _keyWordClass) {
         int lenInst_ = instruction.length();
         int j_ = 0;
-        int indexArobase_ = 0;
-        int nbPars_ = 0;
-        StringBuilder annotation_ = new StringBuilder();
         boolean endLoop_ = true;
         while (j_ < lenInst_) {
-            int until_ = until(_parts, j_, annotation_);
-            if (until_ > j_) {
-                j_ = until_;
-                continue;
+            int next_ = tryIncr(j_, _parts, _keyWordClass);
+            if (next_ <= j_) {
+                endLoop_ = false;
+                break;
             }
-            char cur_ = instruction.charAt(j_);
-            if (cur_ == END_CALLING) {
-                nbPars_--;
-            }
-            if (cur_ == BEGIN_CALLING) {
-                nbPars_++;
-            }
-            if (nbPars_ == 0) {
-                if (StringExpUtil.isTypeLeafChar(cur_)) {
-                    String after_ = instruction.substring(j_+1);
-                    if (after_.isEmpty() || !isPart(after_.charAt(0))) {
-                        String afterTrim_ = after_.trim();
-                        if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && !startsWithAnnot(afterTrim_,_keyWordClass) && afterTrim_.charAt(0) != BEGIN_CALLING) {
-                            annotation_.append(cur_);
-                            ResultParsedAnnot resAnnot_ = new ResultParsedAnnot();
-                            resAnnot_.set(indexArobase_ + instructionLocation,annotation_.toString(),parts);
-                            retAnnots.add(resAnnot_);
-                            parts.clear();
-                            index = j_ + instructionLocation;
-                            index++;
-                            j_++;
-                            while (j_ < lenInst_) {
-                                if (!StringUtil.isWhitespace(instruction.charAt(j_))) {
-                                    break;
-                                }
-                                index++;
-                                j_++;
-                            }
-                            endLoop_ = false;
-                            after = instruction.substring(j_);
-                            break;
-                        }
-                    }
-                }
-                if (cur_ == END_CALLING) {
-                    String after_ = instruction.substring(j_+1).trim();
-                    if (after_.isEmpty() || !startsWithAnnot(after_,_keyWordClass)) {
-                        annotation_.append(cur_);
-                        ResultParsedAnnot resAnnot_ = new ResultParsedAnnot();
-                        resAnnot_.set(indexArobase_ + instructionLocation,annotation_.toString(),parts);
-                        retAnnots.add(resAnnot_);
-                        parts.clear();
-                        index = j_ + instructionLocation;
-                        index++;
-                        j_++;
-                        while (j_ < lenInst_) {
-                            if (!StringUtil.isWhitespace(instruction.charAt(j_))) {
-                                break;
-                            }
-                            index++;
-                            j_++;
-                        }
-                        endLoop_ = false;
-                        after = instruction.substring(j_);
-                        break;
-                    }
-                }
-                if (cur_ == ANNOT) {
-                    //Add annotation
-                    if (!annotation_.toString().trim().isEmpty()) {
-                        ResultParsedAnnot resAnnot_ = new ResultParsedAnnot();
-                        resAnnot_.set(indexArobase_ + instructionLocation,annotation_.toString(),parts);
-                        retAnnots.add(resAnnot_);
-                        parts.clear();
-                    }
-                    annotation_.delete(0, annotation_.length());
-                    indexArobase_ = j_;
-                }
-            }
-            annotation_.append(cur_);
-            j_++;
+            j_ = next_;
         }
         if (endLoop_) {
             index = lenInst_ + instructionLocation;
         }
+    }
+    private int tryIncr(int _j, CustList<SegmentStringPart> _parts, String... _keyWordClass) {
+        int until_ = until(_parts, _j, annotation);
+        if (until_ > _j) {
+            return until_;
+        }
+        char cur_ = instruction.charAt(_j);
+        incrOrDecr(cur_);
+        if (nbPars != 0) {
+            annotation.append(cur_);
+            return _j + 1;
+        }
+        if (StringExpUtil.isTypeLeafChar(cur_)) {
+            String after_ = instruction.substring(_j + 1);
+            if (after_.isEmpty() || !isPart(after_.charAt(0))) {
+                String afterTrim_ = after_.trim();
+                if (afterTrim_.isEmpty() || afterTrim_.charAt(0) != '.' && !startsWithAnnot(afterTrim_, _keyWordClass) && afterTrim_.charAt(0) != BEGIN_CALLING) {
+                    annotation.append(cur_);
+                    addAnnot();
+                    incrAfterAnnot(_j);
+                    return _j;
+                }
+            }
+        }
+        if (cur_ == END_CALLING) {
+            String after_ = instruction.substring(_j + 1).trim();
+            if (after_.isEmpty() || !startsWithAnnot(after_, _keyWordClass)) {
+                annotation.append(cur_);
+                addAnnot();
+                incrAfterAnnot(_j);
+                return _j;
+            }
+        }
+        return defBehaviour(_j, cur_);
+    }
+
+    private void incrOrDecr(char _cur) {
+        if (_cur == END_CALLING) {
+            nbPars--;
+        }
+        if (_cur == BEGIN_CALLING) {
+            nbPars++;
+        }
+    }
+
+    private int defBehaviour(int _j, char _cur) {
+        if (_cur == ANNOT) {
+            //Add annotation
+            if (!annotation.toString().trim().isEmpty()) {
+                addAnnot();
+            }
+            annotation.delete(0, annotation.length());
+            indexArobase = _j;
+        }
+        annotation.append(_cur);
+        return _j + 1;
+    }
+
+    private void addAnnot() {
+        ResultParsedAnnot resAnnot_ = new ResultParsedAnnot();
+        resAnnot_.set(this.indexArobase + this.instructionLocation, this.annotation.toString(), this.parts);
+        this.retAnnots.add(resAnnot_);
+        this.parts.clear();
+    }
+    private void incrAfterAnnot(int _j) {
+        int lenInst_ = instruction.length();
+        int j_ = _j;
+        index = j_ + instructionLocation;
+        index++;
+        j_++;
+        while (j_ < lenInst_) {
+            if (!StringUtil.isWhitespace(instruction.charAt(j_))) {
+                break;
+            }
+            index++;
+            j_++;
+        }
+        after = instruction.substring(j_);
     }
 
     private int until(CustList<SegmentStringPart> _parts, int _j, StringBuilder _annotation) {

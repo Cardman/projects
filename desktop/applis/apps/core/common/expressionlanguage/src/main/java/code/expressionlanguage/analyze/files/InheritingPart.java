@@ -27,29 +27,9 @@ public final class InheritingPart {
         int inheritIndex_ = -1;
         while (locIndex_ < part.length()) {
             char locChar_ = part.charAt(locIndex_);
-            if (locChar_ == BEGIN_TEMPLATE) {
-                nbOpened_++;
-            }
-            if (nbOpened_ > 0) {
-                if (!foundInherit_) {
-                    templateDef_.append(locChar_);
-                }
-            } else {
-                if (templateDef_.length() == 0
-                        && !foundInherit_ && locChar_ != INHERIT) {
-                    if (typeNamePref_.length() == 0) {
-                        beginDefinition = locIndex_+offset+_globalOffset;
-                    }
-                    typeNamePref_.append(locChar_);
-                }
-            }
-            if (locChar_ == END_TEMPLATE) {
-                nbOpened_--;
-            }
+            nbOpened_ = openOrClose(_globalOffset,nbOpened_,foundInherit_,locIndex_,typeNamePref_,templateDef_);
             if (locChar_ == INHERIT && nbOpened_ == 0) {
-                if (foundInherit_) {
-                    superTypes.put(inheritIndex_+_globalOffset, str_.toString());
-                }
+                foundInh(foundInherit_, inheritIndex_, _globalOffset, str_);
                 str_.delete(0, str_.length());
                 foundInherit_ = true;
 
@@ -63,13 +43,41 @@ public final class InheritingPart {
 
             locIndex_ = locIndex_ + 1;
         }
-        if (foundInherit_) {
-            superTypes.put(inheritIndex_+_globalOffset, str_.toString());
-        }
+        foundInh(foundInherit_, inheritIndex_, _globalOffset, str_);
 
         tempDef = templateDef_.toString();
         typeName = typeNamePref_.toString();
 
+    }
+    private int openOrClose(int _globalOffset,int _nb, boolean _foundInherit, int _current, StringBuilder _typeNamePref, StringBuilder _templateDef) {
+        int nbOpened_ = _nb;
+        char locChar_ = part.charAt(_current);
+        if (locChar_ == BEGIN_TEMPLATE) {
+            nbOpened_++;
+        }
+        if (nbOpened_ > 0) {
+            if (!_foundInherit) {
+                _templateDef.append(locChar_);
+            }
+        } else {
+            if (_templateDef.length() == 0
+                    && !_foundInherit && locChar_ != INHERIT) {
+                if (_typeNamePref.length() == 0) {
+                    beginDefinition = _current+offset+_globalOffset;
+                }
+                _typeNamePref.append(locChar_);
+            }
+        }
+        if (locChar_ == END_TEMPLATE) {
+            nbOpened_--;
+        }
+        return nbOpened_;
+    }
+
+    private void foundInh(boolean _foundInherit, int _inheritIndex, int _globalOffset, StringBuilder _str) {
+        if (_foundInherit) {
+            this.superTypes.put(_inheritIndex + _globalOffset, _str.toString());
+        }
     }
 
     public String getTypeName() {

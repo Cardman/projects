@@ -125,7 +125,6 @@ public final class AnalyzedPageEl {
     private DefaultCurrentConstraints currentConstraints;
     private DefaultBuildingConstraints buildingConstraints;
     private DefaultLocalizer localizer;
-    private final CustList<AnonymousResult> anonymousResults = new CustList<AnonymousResult>();
     private CustList<NumberInfosOutput> currentNumbers = new CustList<NumberInfosOutput>();
     private CustList<AnonymousResult> currentAnonymousResults = new CustList<AnonymousResult>();
     private CustList<SegmentStringPart> currentParts = new CustList<SegmentStringPart>();
@@ -150,8 +149,6 @@ public final class AnalyzedPageEl {
     private AbsLineDeclarator lineDeclarator;
     private final CustList<OperatorBlock> sortedNbOperators = new CustList<OperatorBlock>();
     private boolean sortNbOperators;
-    private final Ints annotDelNew = new Ints();
-    private final Ints annotDelSwitch = new Ints();
     private Ints currentAnnotDelNew = new Ints();
     private Ints currentAnnotDelSwitch = new Ints();
 
@@ -1040,10 +1037,6 @@ public final class AnalyzedPageEl {
         return countsAnon;
     }
 
-    public CustList<AnonymousResult> getAnonymousResults() {
-        return anonymousResults;
-    }
-
     public CustList<AnonymousResult> getCurrentAnonymousResults() {
         return currentAnonymousResults;
     }
@@ -1258,20 +1251,12 @@ public final class AnalyzedPageEl {
         this.sortNbOperators = _sortNbOperators;
     }
 
-    public Ints getAnnotDelNew() {
-        return annotDelNew;
-    }
-
     public Ints getCurrentAnnotDelNew() {
         return currentAnnotDelNew;
     }
 
     public void setCurrentAnnotDelNew(Ints _c) {
         this.currentAnnotDelNew = _c;
-    }
-
-    public Ints getAnnotDelSwitch() {
-        return annotDelSwitch;
     }
 
     public Ints getCurrentAnnotDelSwitch() {

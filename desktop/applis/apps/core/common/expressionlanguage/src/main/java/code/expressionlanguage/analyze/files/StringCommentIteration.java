@@ -168,20 +168,10 @@ public final class StringCommentIteration {
     }
 
     private void str(String _file, StringBuilder _str) {
-        int len_ = _file.length();
         char currentChar_ = _file.charAt(index);
         _str.append(currentChar_);
         if (currentChar_ == ESCAPE) {
-            if (index + 1 >= len_) {
-                //ERROR
-                index++;
-            } else {
-                _str.append(_file.charAt(index + 1));
-
-                index = index + 1;
-
-                index = index + 1;
-            }
+            escape(_file, _str);
         } else {
             if (currentChar_ == DEL_STRING) {
 
@@ -202,16 +192,7 @@ public final class StringCommentIteration {
         char currentChar_ = _file.charAt(index);
         _str.append(currentChar_);
         if (currentChar_ == ESCAPE) {
-            if (index + 1 >= len_) {
-                //ERROR
-                index++;
-            } else {
-                _str.append(_file.charAt(index+1));
-
-                index = index + 1;
-
-                index = index + 1;
-            }
+            escape(_file, _str);
 
         } else {
             if (currentChar_ == DEL_STRING
@@ -232,20 +213,10 @@ public final class StringCommentIteration {
     }
 
     private void ch(String _file, StringBuilder _str) {
-        int len_ = _file.length();
         char currentChar_ = _file.charAt(index);
         _str.append(currentChar_);
         if (currentChar_ == ESCAPE) {
-            if (index + 1 >= len_) {
-                //ERROR
-                index++;
-            } else {
-                _str.append(_file.charAt(index + 1));
-
-                index = index + 1;
-
-                index = index + 1;
-            }
+            escape(_file, _str);
         } else {
             if (currentChar_ == DEL_CHAR) {
 
@@ -264,16 +235,7 @@ public final class StringCommentIteration {
         char currentChar_ = _file.charAt(index);
         _str.append(currentChar_);
         if (currentChar_ == ESCAPE) {
-            if (index + 1 >= len_) {
-                //ERROR
-                index++;
-            } else {
-                _str.append(_file.charAt(index+1));
-
-                index = index + 1;
-
-                index = index + 1;
-            }
+            escape(_file, _str);
 
         } else {
             if (currentChar_ == DEL_CHAR
@@ -289,6 +251,20 @@ public final class StringCommentIteration {
 
                 index = index + 1;
             }
+        }
+    }
+
+    private void escape(String _file, StringBuilder _str) {
+        int len_ = _file.length();
+        if (index + 1 >= len_) {
+            //ERROR
+            index++;
+        } else {
+            _str.append(_file.charAt(index + 1));
+
+            index = index + 1;
+
+            index = index + 1;
         }
     }
 
