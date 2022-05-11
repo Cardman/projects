@@ -1,6 +1,5 @@
 package code.bean.nat.analyze.instr;
 
-import code.expressionlanguage.analyze.instr.StackOperators;
 import code.maths.litteralcom.StrTypes;
 import code.util.core.IndexConstants;
 
@@ -15,7 +14,7 @@ final class NatAfterUnaryParts {
     private static final char DOT_VAR = '.';
 
     private final StrTypes operators = new StrTypes();
-    private final StackOperators parsBrackets = new StackOperators();
+    private int parsBrackets;
     private int prio = NatElResolver.FCT_OPER_PRIO;
     private int index;
 
@@ -42,7 +41,7 @@ final class NatAfterUnaryParts {
                 fctName = _string.substring(IndexConstants.FIRST_INDEX, index);
                 operators.addEntry(index, Character.toString(PAR_LEFT));
             }
-            parsBrackets.addEntry(index, curChar_);
+            parsBrackets++;
             index++;
             return;
         }
@@ -54,7 +53,7 @@ final class NatAfterUnaryParts {
             return;
         }
         if (curChar_ == PAR_RIGHT) {
-            parsBrackets.removeLast();
+            parsBrackets--;
             if (en(0)) {
                 addOperIfNotEmpty(operators, index, PAR_RIGHT);
                 enPars = false;
@@ -62,7 +61,7 @@ final class NatAfterUnaryParts {
             index++;
             return;
         }
-        if (!parsBrackets.isEmpty()) {
+        if (parsBrackets>0) {
             index++;
             return;
         }
@@ -70,7 +69,7 @@ final class NatAfterUnaryParts {
     }
 
     private boolean en(int _i) {
-        return parsBrackets.size() == _i && prio == NatElResolver.FCT_OPER_PRIO && enPars;
+        return parsBrackets == _i && prio == NatElResolver.FCT_OPER_PRIO && enPars;
     }
 
     private void addNumOperators(char _curChar) {

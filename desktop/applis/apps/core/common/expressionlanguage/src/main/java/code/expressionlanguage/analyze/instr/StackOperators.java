@@ -17,9 +17,6 @@ public final class StackOperators {
     public boolean isEmpty() {
         return values.isEmpty();
     }
-    public int size() {
-        return values.size();
-    }
 
     public int lastKey() {
         return values.last().getIndex();
