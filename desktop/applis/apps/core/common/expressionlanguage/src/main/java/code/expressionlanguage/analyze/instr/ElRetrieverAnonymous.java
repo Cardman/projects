@@ -522,9 +522,8 @@ public final class ElRetrieverAnonymous {
             int afArro_ = indBeforeArrow_ + "->".length();
             int indAfterArrow_ = DefaultProcessKeyWord.skipWhiteSpace(_string, afArro_);
             if (StringExpUtil.nextCharIs(_string,indAfterArrow_,len_,ElResolver.ANN_ARR_LEFT)) {
-                int instrLoc_ = _curElts.getInstrLoc();
                 InputTypeCreation input_ = buildStdInput(OuterBlockEnum.ANON_FCT, _curElts, indAfterArrow_);
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), _string, _page);
                 if (res_.isOkType()) {
                     return res_.getNextIndex();
                 }
@@ -562,7 +561,7 @@ public final class ElRetrieverAnonymous {
             parse_.getAnnotationsParams().add(new ResultParsedAnnots());
             if (StringExpUtil.nextCharIs(_string,indAfterArrow_,len_,ElResolver.ANN_ARR_LEFT)) {
                 InputTypeCreation input_ = buildInputAnonFct(_curElts, indAfterArrow_, indBeforeArrow_, parse_);
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), _string, _page);
                 if (res_.isOkType()) {
                     return resAnonLambda(res_, parse_, _i, input_, _curElts);
                 }
@@ -630,7 +629,7 @@ public final class ElRetrieverAnonymous {
                     InputTypeCreation input_ = buildStdInput(OuterBlockEnum.ANON_FCT, _curElts, j_);
                     input_.setAnnotations(parse_.getAnnotations());
                     input_.setAnnotationsParams(parse_.getAnnotationsParams());
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), _string, _page);
                     if (res_.isOkType()) {
                         return res_.getNextIndex();
                     }
@@ -660,11 +659,10 @@ public final class ElRetrieverAnonymous {
             int indexLast_ = _stack.getIndexesNewEnd().indexOf(bk_);
             if (indexLast_ > -1) {
                 String beforeCall_ = _stack.getStringsNewEnd().get(indexLast_);
-                int instrLoc_ = _curElts.getInstrLoc();
                 InputTypeCreation input_ = buildStdInput(OuterBlockEnum.ANON_TYPE, _curElts, _i);
                 input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
                 input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), _string, _page);
                 if (res_.isOkType()) {
                     return res_.getNextIndex();
                 }
@@ -672,12 +670,11 @@ public final class ElRetrieverAnonymous {
             int indexLastSw_ = _stack.getIndexesSwitchEnd().indexOf(bk_);
             if (indexLastSw_ > -1) {
                 String beforeCall_ = _stack.getStringsSwitchEnd().get(indexLastSw_);
-                int instrLoc_ = _curElts.getInstrLoc();
                 InputTypeCreation input_ = buildStdInput(OuterBlockEnum.SWITCH_METHOD, _curElts, _i);
                 input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                 input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
                 input_.setAnnotationsParams(new CustList<ResultParsedAnnots>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), _string, _page);
                 if (res_.isOkType()) {
                     return res_.getNextIndex();
                 }
@@ -721,7 +718,7 @@ public final class ElRetrieverAnonymous {
                 int indAfterArrow_ =indBeforeArrow_+ offAfArr_;
                 if (parse_.isAfterArrowLeftBrace()) {
                     InputTypeCreation input_ = buildInputAnonFct(_curElts, indAfterArrow_, indBeforeArrow_, parse_);
-                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
+                    ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), _string, _page);
                     if (res_.isOkType()) {
                         return resAnonLambda(res_, parse_, _i, input_, _curElts);
                     }
@@ -747,12 +744,11 @@ public final class ElRetrieverAnonymous {
             int indexLast_ = _stack.getIndexesNewEnd().indexOf(bk_);
             if (indexLast_ > -1) {
                 String beforeCall_ = _stack.getStringsNewEnd().get(indexLast_);
-                int instrLoc_ = _curElts.getInstrLoc();
                 InputTypeCreation input_ = buildStdInput(OuterBlockEnum.ANON_TYPE, _curElts, _i);
                 input_.setNextIndexBef(_i);
                 input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                 input_.setAnnotations(_stack.getAnnotationsEnd().get(indexLast_));
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), _string, _page);
                 if (res_.isOkType()) {
                     return resAnonType(_i, input_, _curElts, res_);
                 }
@@ -760,13 +756,12 @@ public final class ElRetrieverAnonymous {
             int indexLastSw_ = _stack.getIndexesSwitchEnd().indexOf(bk_);
             if (indexLastSw_ > -1) {
                 String beforeCall_ = _stack.getStringsSwitchEnd().get(indexLastSw_);
-                int instrLoc_ = _curElts.getInstrLoc();
                 InputTypeCreation input_ = buildStdInput(OuterBlockEnum.SWITCH_METHOD, _curElts, _i);
                 input_.setNextIndexBef(_i);
                 input_.generatedId(beforeCall_, keyWords_.getKeyWordId());
                 input_.setAnnotations(_stack.getAnnotationsEndSw().get(indexLastSw_));
                 input_.setAnnotationsParams(new CustList<ResultParsedAnnots>(_stack.getAnnotationsEndSwPar().get(indexLastSw_)));
-                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), instrLoc_, _string, _page);
+                ResultCreation res_ = FileResolver.processOuterTypeBody(input_, _curElts.getPackageName(), _string, _page);
                 if (res_.isOkType()) {
                     return resAnonSwitch(_i, input_, _curElts, res_, _stack.getRetSwitchList().get(indexLastSw_));
                 }

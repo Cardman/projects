@@ -1,21 +1,14 @@
 package code.expressionlanguage.analyze.files;
 
-import code.expressionlanguage.InitializationLgNames;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.DefaultConstantsCalculator;
-import code.expressionlanguage.analyze.DefaultFileBuilder;
 import code.expressionlanguage.analyze.blocks.*;
 
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.analyze.instr.ParsedArgument;
 import code.expressionlanguage.common.AccessEnum;
 import code.expressionlanguage.common.DefaultFileEscapedCalc;
 import code.expressionlanguage.common.StringExpUtil;
 
-import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
-import code.expressionlanguage.sample.CustLgNames;
 import code.expressionlanguage.stds.LgNames;
 import code.util.*;
 import code.util.core.IndexConstants;
@@ -9911,7 +9904,7 @@ public final class FileResolverTest extends ProcessMethodCommon {
         StringComment stringComment_ = fileBlock_.stringComment(_page.getComments());
         fileBlock_.metrics(stringComment_);
         String file_ = stringComment_.getFile();
-        FileResolver.parseFile(fileBlock_, _fileName, file_, _context);
+        FileResolver.parseFile(fileBlock_, file_, _context);
         StringList basePkgFound_ = _page.getBasePackagesFound();
         basePkgFound_.addAllElts(fileBlock_.getAllBasePackages());
         StringList pkgFound_ = _page.getPackagesFound();

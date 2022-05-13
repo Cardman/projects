@@ -756,7 +756,6 @@ public final class ClassesUtil {
     public static void parseFiles(AnalyzedPageEl _page) {
         StringMap<FileBlock> files_ = _page.getFilesBodies();
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
-            String fileName_ = f.getKey();
             FileBlock block_ = f.getValue();
             if (!block_.getBinChars().isEmpty()) {
                 continue;
@@ -765,7 +764,7 @@ public final class ClassesUtil {
             block_.metrics(stringComment_);
             String file_ = stringComment_.getFile();
             _page.setCurrentFile(block_);
-            FileResolver.parseFile(block_, fileName_,file_, _page);
+            FileResolver.parseFile(block_, file_, _page);
         }
         trySortNbOpers(_page);
         StringList basePkgFound_ = _page.getBasePackagesFound();

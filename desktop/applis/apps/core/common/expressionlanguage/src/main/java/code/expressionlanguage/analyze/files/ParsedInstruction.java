@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.files;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.BracedBlock;
 import code.expressionlanguage.options.KeyWords;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -16,6 +17,9 @@ public final class ParsedInstruction {
     private int afterOffset;
     private String after = "";
     private ResultParsedAnnots annotationsTypes;
+    private EndInstruction endInstruction = EndInstruction.NONE;
+    private BracedBlock currentParent;
+    private String packageName = "";
 
     public char getCurChar() {
         return curChar;
@@ -106,5 +110,29 @@ public final class ParsedInstruction {
 
     public int getAfterOffset() {
         return afterOffset;
+    }
+
+    public EndInstruction getEndInstruction() {
+        return endInstruction;
+    }
+
+    public void setEndInstruction(EndInstruction _end) {
+        this.endInstruction = _end;
+    }
+
+    public BracedBlock getCurrentParent() {
+        return currentParent;
+    }
+
+    public void setCurrentParent(BracedBlock _cur) {
+        this.currentParent = _cur;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String _p) {
+        this.packageName = _p;
     }
 }
