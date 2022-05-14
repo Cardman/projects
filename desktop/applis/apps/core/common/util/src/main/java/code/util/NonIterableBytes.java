@@ -5,14 +5,14 @@ import java.util.List;
 
 public final class NonIterableBytes {
 
-    private List<Byte> list;
+    private List<Byte> array;
 
     public NonIterableBytes() {
-        list = new ArrayList<Byte>();
+        array = new ArrayList<Byte>();
     }
 
     private NonIterableBytes(int _c) {
-        list = new ArrayList<Byte>(_c);
+        array = new ArrayList<Byte>(_c);
     }
 
     public static NonIterableBytes newCompositeList(byte... _values) {
@@ -32,30 +32,30 @@ public final class NonIterableBytes {
         return arrIt_;
     }
     public int size() {
-        return list.size();
+        return array.size();
     }
 
-    public List<Byte> getList() {
-        return list;
+    public List<Byte> getArray() {
+        return array;
     }
 
-    public void setList(List<Byte> _ls) {
-        this.list = _ls;
+    public void setArray(List<Byte> _ls) {
+        this.array = _ls;
     }
 
     public void add(byte _e) {
-        list.add(_e);
+        array.add(_e);
     }
 
     public byte get(int _index) {
-        return list.get(_index);
+        return array.get(_index);
     }
 
     public void set(int _index, byte _element) {
-        list.set(_index, _element);
+        array.set(_index, _element);
     }
 
     public void remove(int _index) {
-        list.remove(_index);
+        array.remove(_index);
     }
 }

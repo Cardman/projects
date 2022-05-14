@@ -957,7 +957,7 @@ public class NumbersTest extends EquallableExUtil {
     @Test
     public void nonIterableBytes() {
         NonIterableBytes n_ = new NonIterableBytes();
-        n_.setList(n_.getList());
+        n_.setArray(n_.getArray());
         n_.add((byte) 0);
         n_.set(0,(byte) 0);
         n_.remove(0);
