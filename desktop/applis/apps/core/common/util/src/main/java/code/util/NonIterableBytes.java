@@ -5,7 +5,7 @@ import java.util.List;
 
 public final class NonIterableBytes {
 
-    private List<Byte> array;
+    private final List<Byte> array;
 
     public NonIterableBytes() {
         array = new ArrayList<Byte>();
@@ -37,10 +37,6 @@ public final class NonIterableBytes {
 
     public List<Byte> getArray() {
         return array;
-    }
-
-    public void setArray(List<Byte> _ls) {
-        this.array = _ls;
     }
 
     public void add(byte _e) {
