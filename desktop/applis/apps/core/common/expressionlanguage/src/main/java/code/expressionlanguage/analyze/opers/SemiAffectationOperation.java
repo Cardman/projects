@@ -2,23 +2,17 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.inherits.Mapping;
-import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.StringMap;
-import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
@@ -55,21 +49,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             return;
         }
         WrappOperation.procArr(_page, (OperationNode) settable);
-        if (settable instanceof SettableFieldOperation) {
-            SettableFieldOperation cst_ = (SettableFieldOperation)settable;
-            StringMap<BoolVal> fieldsAfterLast_ = _page.getDeclaredAssignments();
-            if (ElUtil.checkFinalFieldReadOnly(cst_, fieldsAfterLast_, _page)) {
-                setRelativeOffsetPossibleAnalyzable(cst_.getIndexInEl(), _page);
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_page);
-                //field name len
-                un_.buildError(_page.getAnalysisMessages().getFinalField(),
-                        cst_.getFieldName());
-                _page.getLocalizer().addError(un_);
-                addErr(un_.getBuiltError());
-            }
-        }
+        CompoundAffectationOperation.checkFinal(this,_page,settable);
         setResultClass(AnaClassArgumentMatching.copy(getSettableResClass(), _page.getPrimitiveTypes()));
         settable.setVariable(false);
         StrTypes ops_ = getOperators();
@@ -84,26 +64,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         OperatorConverter cl_ = operUse(_page, op_, operand_, single_);
         if (cl_ != null) {
             fct.infos(cl_,_page);
-            Mapping map_ = new Mapping();
-            map_.setArg(getResultClass());
-            map_.setParam(getSettableResClass());
-            if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(getSettableResClass().getSingleNameOrEmpty(), getResultClass(), _page);
-                if (res_ != null) {
-                    convTo.infos(res_);
-                } else {
-                    FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                    cast_.setFile(_page.getCurrentFile());
-                    cast_.setIndexFile(_page);
-                    //oper len
-                    cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                            StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                            StringUtil.join(getSettableResClass().getNames(),ExportCst.JOIN_TYPES));
-                    _page.getLocalizer().addError(cast_);
-                    addErr(cast_.getBuiltError());
-                }
-                setResultClass(AnaClassArgumentMatching.copy(getSettableResClass(), _page.getPrimitiveTypes()));
-            }
+            CompoundAffectationOperation.tryImplicit(this,_page, getSettableResClass(), convTo);
             return;
         }
         numIncrDecr(_page);

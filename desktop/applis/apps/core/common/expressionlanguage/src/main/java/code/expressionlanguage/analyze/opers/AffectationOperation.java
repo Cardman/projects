@@ -4,13 +4,10 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
 import code.expressionlanguage.analyze.blocks.AbsLineDeclarator;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.inherits.AnaInherits;
-import code.expressionlanguage.analyze.inherits.Mapping;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.linkage.ExportCst;
@@ -150,27 +147,7 @@ public final class AffectationOperation extends MethodOperation {
             getPartOffsetsChildren().add(new InfoErrorDto(cast_,_page,1));
             return;
         }
-        StringMap<StringList> vars_ = _page.getCurrentConstraints().getCurrentConstraints();
-        Mapping mapping_ = new Mapping();
-        mapping_.setMapping(vars_);
-        mapping_.setArg(clMatchRight_);
-        mapping_.setParam(clMatchLeft_);
-        if (!AnaInherits.isCorrectOrNumbers(mapping_, _page)) {
-            ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(clMatchLeft_.getSingleNameOrEmpty(), clMatchRight_, _page);
-            if (res_ != null) {
-                clMatchRight_.implicitInfos(res_);
-            } else {
-                FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                cast_.setFile(_page.getCurrentFile());
-                cast_.setIndexFile(_page);
-                //oper
-                cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                        StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
-                        StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
-                _page.getLocalizer().addError(cast_);
-                getPartOffsetsChildren().add(new InfoErrorDto(cast_,_page,1));
-            }
-        }
+        CompoundAffectationOperation.convertRight(_page,1,clMatchLeft_,this);
         if (AnaTypeUtil.isPrimitive(clMatchLeft_, _page)) {
             right_.getResultClass().setUnwrapObject(clMatchLeft_, _page.getPrimitiveTypes());
         }

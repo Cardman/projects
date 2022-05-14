@@ -65,7 +65,7 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         OperatorConverter res_ = null;
         if ( StringExpUtil.isBinNum(oper_) && !binNum(oper_,l_.getResultClass(), r_.getResultClass(), _page)){
             res_ = CompoundAffectationOperation.tryGetStd(_page, oper_, this, groupBinNum(_page));
-        } else if (StringExpUtil.isBitwise(oper_)&&!bitwise(oper_,l_.getResultClass(), r_.getResultClass(), _page)) {
+        } else if (StringExpUtil.isBitwise(oper_)&&!bitwise(l_.getResultClass(), r_.getResultClass(), _page)) {
             res_ = CompoundAffectationOperation.tryGetStd(_page, oper_, this, groupBinBitwise(_page));
         } else if (StringExpUtil.isShiftOper(oper_)&&!AnaTypeUtil.isIntOrderClass(l_.getResultClass(), r_.getResultClass(), _page)) {
             res_ = CompoundAffectationOperation.tryGetStd(_page, oper_, this, groupBinShift(_page));

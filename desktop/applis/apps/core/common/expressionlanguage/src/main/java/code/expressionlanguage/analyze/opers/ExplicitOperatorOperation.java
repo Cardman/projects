@@ -363,26 +363,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
                 }
                 setResultClass(AnaClassArgumentMatching.copy(left_, _page.getPrimitiveTypes()));
             } else {
-                Mapping map_ = new Mapping();
-                map_.setArg(getResultClass());
-                map_.setParam(left_);
-                if (!AnaInherits.isCorrectOrNumbers(map_, _page)) {
-                    ClassMethodIdReturn res_ = tryGetDeclaredImplicitCast(left_.getSingleNameOrEmpty(), getResultClass(), _page);
-                    if (res_ != null) {
-                        conv.infos(res_);
-                    } else {
-                        FoundErrorInterpret cast_ = new FoundErrorInterpret();
-                        cast_.setFile(_page.getCurrentFile());
-                        cast_.setIndexFile(_page);
-                        //oper len
-                        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                                StringUtil.join(getResultClass().getNames(),ExportCst.JOIN_TYPES),
-                                StringUtil.join(left_.getNames(),ExportCst.JOIN_TYPES));
-                        _page.getLocalizer().addError(cast_);
-                        addErr(cast_.getBuiltError());
-                    }
-                    setResultClass(AnaClassArgumentMatching.copy(left_, _page.getPrimitiveTypes()));
-                }
+                CompoundAffectationOperation.tryImplicit(this,_page,left_,conv);
             }
             return;
         }

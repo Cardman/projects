@@ -1542,10 +1542,7 @@ public abstract class OperationNode {
                 && _right.matchClass(_page.getAliasObject());
     }
 
-    protected static boolean bitwise(String _oper,AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        return StringExpUtil.isBitwise(_oper)&&bitwise(_left, _right, _page);
-    }
-    private static boolean bitwise(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
+    protected static boolean bitwise(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
         if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
             return true;
         }
@@ -1563,23 +1560,21 @@ public abstract class OperationNode {
                 && _right.matchClass(_page.getAliasString());
     }
 
-    protected static boolean binNum(String _oper,AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        if (StringExpUtil.isBinNum(_oper)) {
-            if (StringUtil.quickEq(_oper,"+")) {
-                return plusBinNatOper(_left, _right, _page);
-            }
-            return binNum(_left, _right, _page);
+    protected static boolean binNum(String _oper, AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
+        if (StringUtil.quickEq(_oper,"+")) {
+            return plusBinNatOper(_left, _right, _page);
         }
-        return false;
+        return binNum(_left, _right, _page);
     }
-    private static boolean binNum(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
+
+    protected static boolean binNum(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
         if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
             return true;
         }
         return AnaTypeUtil.isFloatOrderClass(_left, _right, _page);
     }
 
-    private static boolean plusBinNatOper(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
+    protected static boolean plusBinNatOper(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
         if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
             return true;
         }
