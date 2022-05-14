@@ -1279,15 +1279,9 @@ public abstract class OperationNode {
         if (isNativeUnaryOperator(operand_,_op, _page)) {
             return null;
         }
-        CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, operand_);
-        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, single_, _page);
-        if (clMethImp_ != null) {
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            return new OperatorConverter(clMethImp_);
-        }
-        ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _page);
-        if (clId_ != null) {
-            return new OperatorConverter(clId_);
+        OperatorConverter op_ = tryGetUnaryWithCust(_node, _op, _page, single_, operand_);
+        if (op_ != null) {
+            return op_;
         }
         CustList<StringList> groups_ = new CustList<StringList>();
         if (StringExpUtil.isUnNum(_op)) {
@@ -1310,20 +1304,7 @@ public abstract class OperationNode {
             group_.add(_page.getAliasPrimBoolean());
             groups_.add(group_);
         }
-        for (StringList g: groups_) {
-            CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
-            CustList<MethodInfo> list_ = new CustList<MethodInfo>();
-            for (String p:g) {
-                addVirtual(_op, _page, list_,p, p, new StringList(p));
-            }
-            lists_.add(list_);
-            ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, single_, _page);
-            if (clMeth_ != null) {
-                _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
-                return new OperatorConverter(clMeth_);
-            }
-        }
-        return null;
+        return tryGetUnaryWithVirtual(_node, _op, _page, single_, groups_);
     }
 
     private static CustList<CustList<MethodInfo>> addUnaries(AnalyzedPageEl _page, AnaClassArgumentMatching _operand) {
@@ -1353,15 +1334,9 @@ public abstract class OperationNode {
         if (isNativeUnaryOperator(operand_,_op, _page)) {
             return null;
         }
-        CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, operand_);
-        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, single_, _page);
-        if (clMethImp_ != null) {
-            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
-            return new OperatorConverter(clMethImp_);
-        }
-        ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _page);
-        if (clId_ != null) {
-            return new OperatorConverter(clId_);
+        OperatorConverter op_ = tryGetUnaryWithCust(_node, _op, _page, single_, operand_);
+        if (op_ != null) {
+            return op_;
         }
         CustList<StringList> groups_ = new CustList<StringList>();
         StringList group_ = new StringList();
@@ -1372,14 +1347,32 @@ public abstract class OperationNode {
         group_.add(_page.getAliasPrimFloat());
         group_.add(_page.getAliasPrimDouble());
         groups_.add(group_);
-        for (StringList g: groups_) {
+        return tryGetUnaryWithVirtual(_node, _op, _page, single_, groups_);
+    }
+    private static OperatorConverter tryGetUnaryWithCust(MethodOperation _node,
+                                                         String _op, AnalyzedPageEl _page, CustList<OperationNode> _single, AnaClassArgumentMatching _operand) {
+        CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, _operand);
+        ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, _single, _page);
+        if (clMethImp_ != null) {
+            _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMethImp_.getReturnType(), _page.getPrimitiveTypes()), _page));
+            return new OperatorConverter(clMethImp_);
+        }
+        ClassMethodIdReturn clId_ = getCustomOperatorOrMethod(_node, _op, _page);
+        if (clId_ != null) {
+            return new OperatorConverter(clId_);
+        }
+        return null;
+    }
+
+    private static OperatorConverter tryGetUnaryWithVirtual(MethodOperation _node, String _op, AnalyzedPageEl _page, CustList<OperationNode> _single, CustList<StringList> _groups) {
+        for (StringList g: _groups) {
             CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
             CustList<MethodInfo> list_ = new CustList<MethodInfo>();
             for (String p:g) {
                 addVirtual(_op, _page, list_,p, p, new StringList(p));
             }
             lists_.add(list_);
-            ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, single_, _page);
+            ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, _single, _page);
             if (clMeth_ != null) {
                 _node.setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
                 return new OperatorConverter(clMeth_);
@@ -2422,13 +2415,13 @@ public abstract class OperationNode {
         return filterReturnLambda(_page, _argsClass, _retType, signatures_);
     }
 
-    private static CustList<CustList<MethodInfo>> filterReturnLambda(AnalyzedPageEl _page, StringList _argsClass, String _retType, CustList<CustList<MethodInfo>> signatures_) {
+    private static CustList<CustList<MethodInfo>> filterReturnLambda(AnalyzedPageEl _page, StringList _argsClass, String _retType, CustList<CustList<MethodInfo>> _signatures) {
         CustList<CustList<MethodInfo>> next_;
         if (_argsClass == null) {
-            next_ = signatures_;
+            next_ = _signatures;
         } else {
             next_ = new CustList<CustList<MethodInfo>>();
-            for (CustList<MethodInfo> l: signatures_) {
+            for (CustList<MethodInfo> l: _signatures) {
                 CustList<MethodInfo> m_ = new CustList<MethodInfo>();
                 for (MethodInfo e: l) {
                     MethodId id_ = e.getConstraints();
@@ -2522,8 +2515,8 @@ public abstract class OperationNode {
         return tryBuildAfterSorted(_page, name_, signatures_);
     }
 
-    private static ClassMethodIdReturn tryBuildAfterSorted(AnalyzedPageEl _page, NameParametersFilter _filter, CustList<CustList<MethodInfo>> signatures_) {
-        Parametrable found_ = sortFct(filterWc(signatures_), new ArgumentsGroup(_page, _page.getCurrentConstraints().getCurrentConstraints()));
+    private static ClassMethodIdReturn tryBuildAfterSorted(AnalyzedPageEl _page, NameParametersFilter _filter, CustList<CustList<MethodInfo>> _signatures) {
+        Parametrable found_ = sortFct(filterWc(_signatures), new ArgumentsGroup(_page, _page.getCurrentConstraints().getCurrentConstraints()));
         if (!(found_ instanceof MethodInfo)) {
             return null;
         }
@@ -2928,14 +2921,14 @@ public abstract class OperationNode {
         return 3;
     }
 
-    private static boolean allNotBoxUnbox(AnalyzedPageEl _page, boolean _allNotBoxUnbox, String _wc, AnaClassArgumentMatching arg_) {
+    private static boolean allNotBoxUnbox(AnalyzedPageEl _page, boolean _allNotBoxUnbox, String _wc, AnaClassArgumentMatching _arg) {
         boolean allNotBoxUnbox_ = _allNotBoxUnbox;
         if (AnaTypeUtil.isPrimitive(_wc, _page)) {
-            if (!arg_.isPrimitive(_page)) {
+            if (!_arg.isPrimitive(_page)) {
                 allNotBoxUnbox_ = false;
             }
         } else {
-            if (arg_.isPrimitive(_page)) {
+            if (_arg.isPrimitive(_page)) {
                 allNotBoxUnbox_ = false;
             }
         }
