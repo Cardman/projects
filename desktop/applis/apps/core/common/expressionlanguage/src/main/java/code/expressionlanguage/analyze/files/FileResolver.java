@@ -1477,7 +1477,7 @@ public final class FileResolver {
             locIndex_ += keyWordFinal_.length();
             locIndex_ += StringUtil.getFirstPrintableCharIndex(sub_);
         }
-        String type_ = getType(beforeQu_,keyWords_);
+        String type_ = typeKind(keyWords_, beforeQu_);
         int categoryOffset_ = locIndex_;
         locIndex_ += type_.length();
         String sub_ = beforeQu_.substring(type_.length());
@@ -1580,9 +1580,6 @@ public final class FileResolver {
             return keyWordPublic_;
         }
         return "";
-    }
-    private static String getType(String _beforeQu,KeyWords _keyWords) {
-        return typeKind(_keyWords, _beforeQu);
     }
     private static AbsBk processTypeMember(char _currentChar,
                                            ParsedInstruction _i, InputTypeCreation _offset, RootBlock _currentParent, AnalyzedPageEl _page) {
