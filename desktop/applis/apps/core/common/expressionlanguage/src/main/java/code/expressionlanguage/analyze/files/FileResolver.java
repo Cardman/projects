@@ -174,11 +174,11 @@ public final class FileResolver {
         return _i + 1;
     }
 
-    private static String defPkg(String _file, AnalyzedPageEl _page, int i_) {
+    private static String defPkg(String _file, AnalyzedPageEl _page, int _i) {
         KeyWords keyWords_ = _page.getKeyWords();
         String keyWordOperator_ = keyWords_.getKeyWordOperator();
         String def_;
-        if (StringExpUtil.startsWithKeyWord(_file, i_, keyWordOperator_)) {
+        if (StringExpUtil.startsWithKeyWord(_file, _i, keyWordOperator_)) {
             def_ = _page.getDefaultPkg();
         } else {
             def_ = EMPTY_STRING;
@@ -354,9 +354,9 @@ public final class FileResolver {
         return endInstr_;
     }
 
-    private static int lookStrParts(int _offset, String _file, CustList<SegmentStringPart> stringParts_, ParsedInstruction _parsedInstruction, int _i) {
+    private static int lookStrParts(int _offset, String _file, CustList<SegmentStringPart> _stringParts, ParsedInstruction _parsedInstruction, int _i) {
         int until_ = _i;
-        for (SegmentStringPart s: stringParts_) {
+        for (SegmentStringPart s: _stringParts) {
             if (s.getBegin() == _offset + _i) {
                 until_ = s.getEnd() - _offset;
                 _parsedInstruction.getStringParts().add(s);
@@ -373,10 +373,10 @@ public final class FileResolver {
         }
     }
 
-    private static void setInstLocationIncr(ParsedInstruction parsedInstruction_, int _c, char _ch) {
-        int instructionLocation_ = setInstLocation(parsedInstruction_.getBuilder(), parsedInstruction_.getInstructionLocation(), _c);
-        parsedInstruction_.setInstructionLocation(instructionLocation_);
-        parsedInstruction_.appendCh(_ch);
+    private static void setInstLocationIncr(ParsedInstruction _parsedInstruction, int _c, char _ch) {
+        int instructionLocation_ = setInstLocation(_parsedInstruction.getBuilder(), _parsedInstruction.getInstructionLocation(), _c);
+        _parsedInstruction.setInstructionLocation(instructionLocation_);
+        _parsedInstruction.appendCh(_ch);
     }
 
     static String getEndCom(String _file, int _i, CommentDelimiters _current) {
