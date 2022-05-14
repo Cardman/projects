@@ -948,6 +948,7 @@ public class NumbersTest extends EquallableExUtil {
     @Test
     public void toArrByte() {
         Bytes nbs_ = Bytes.newList((byte)5,(byte)1);
+        nbs_.setList(nbs_.getList());
         byte[] bytes_ = nbs_.toArrByte();
         assertEq(2, bytes_.length);
         assertEq(5, bytes_[0]);
