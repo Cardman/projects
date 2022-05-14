@@ -8784,11 +8784,9 @@ public final class ErrorsTest extends ProcessMethodCommon {
         files_.put("src/pkg/Ex", xml_.toString());
         StringMap<String> filesExp_ = ctxErrReadOnly(files_);
         assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">$public $class <a name=\"m15\">pkg.MySub</a> {\n" +
-                " $int <a name=\"m33\">i</a><a title=\"The expression part is empty.\n" +
+                " $int <a name=\"m33\">i</a>,<a title=\"The expression part is empty.\n" +
                 "\n" +
-                "No field could be retrieved.\" class=\"e\">,</a>=1<a title=\"The expression part is empty.\n" +
-                "\n" +
-                "No field could be retrieved.\" class=\"e\">,</a><a name=\"m38\">k</a>;\n" +
+                "No field could be retrieved.\" class=\"e\">=</a>1,<a name=\"m38\">k</a>;\n" +
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }

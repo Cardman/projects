@@ -92,6 +92,10 @@ public final class CompoundAffectationOperation extends MethodOperation {
             natCompoundBitwise(_page);
             return;
         }
+        if (StringExpUtil.isShiftOper(op_)&&AnaTypeUtil.isIntOrderClass(clMatchLeft_, clMatchRight_, _page)) {
+            natCompoundShiftNum(_page);
+            return;
+        }
         if (StringExpUtil.isBinNum(op_)) {
             if (StringUtil.quickEq(op_,"+")) {
                 OperatorConverter res_ = tryGetStd(_page, op_, this, groupBinNum(_page));
@@ -107,11 +111,12 @@ public final class CompoundAffectationOperation extends MethodOperation {
             compoundBitwise(_page,res_);
             return;
         }
-        if (isNullSafe()) {
-            nullSafe(_page);
+        if (StringExpUtil.isShiftOper(op_)) {
+            OperatorConverter res_ = tryGetStd(_page, op_, this, groupBinShift(_page));
+            compoundShift(_page,res_);
             return;
         }
-        natCompoundBinNum(_page);
+        nullSafe(_page);
     }
 
     private void checkFinal(AnalyzedPageEl _page) {
@@ -199,15 +204,39 @@ public final class CompoundAffectationOperation extends MethodOperation {
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
         if (!AnaTypeUtil.isFloatOrderClass(clMatchLeft_, clMatchRight_, _page)
                 && !AnaTypeUtil.isIntOrderClass(clMatchLeft_, clMatchRight_, _page)) {
-            FoundErrorInterpret cast_ = new FoundErrorInterpret();
-            cast_.setFile(_page.getCurrentFile());
-            cast_.setIndexFile(_page);
-            //oper len
-            cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
-                    StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
-                    StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
-            _page.getLocalizer().addError(cast_);
-            getPartOffsetsChildren().add(new InfoErrorDto(cast_, _page,operatorContent.getOper().length()-1));
+            notFound(_page);
+        } else {
+            AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
+            left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+        }
+    }
+
+    private void notFound(AnalyzedPageEl _page) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode left_ = chidren_.first();
+        OperationNode right_ = chidren_.last();
+        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
+        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
+        FoundErrorInterpret cast_ = new FoundErrorInterpret();
+        cast_.setFile(_page.getCurrentFile());
+        cast_.setIndexFile(_page);
+        //oper len
+        cast_.buildError(_page.getAnalysisMessages().getBadImplicitCast(),
+                StringUtil.join(clMatchRight_.getNames(),ExportCst.JOIN_TYPES),
+                StringUtil.join(clMatchLeft_.getNames(),ExportCst.JOIN_TYPES));
+        _page.getLocalizer().addError(cast_);
+        getPartOffsetsChildren().add(new InfoErrorDto(cast_, _page,operatorContent.getOper().length()-1));
+    }
+
+    private void natCompoundShiftNum(AnalyzedPageEl _page) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode left_ = chidren_.first();
+        OperationNode right_ = chidren_.last();
+        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
+        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
+        if (!AnaTypeUtil.isIntOrderClass(clMatchLeft_, clMatchRight_, _page)) {
+            notFound(_page);
         } else {
             AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
             left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
@@ -330,6 +359,14 @@ public final class CompoundAffectationOperation extends MethodOperation {
             return;
         }
         natCompoundBinNum(_page);
+    }
+
+    private void compoundShift(AnalyzedPageEl _page, OperatorConverter _oper) {
+        if (_oper != null) {
+            custCompound(_page, _oper);
+            return;
+        }
+        natCompoundShiftNum(_page);
     }
     private void natLogicalCoumpound(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();

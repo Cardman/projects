@@ -302,6 +302,9 @@ public final class StringExpUtil {
         }
         return isShiftOper(_op);
     }
+    public static boolean isBinEq(String _op) {
+        return isBinNum(_op) || isLogical(_op) || StringUtil.quickEq("&&&", _op) || StringUtil.quickEq("|||", _op) || isBitwise(_op) || StringUtil.quickEq("<", _op) || StringUtil.quickEq(">", _op) || StringUtil.quickEq("=", _op) || StringUtil.quickEq("!", _op) || StringUtil.quickEq("??", _op) || StringUtil.quickEq("???", _op) || isShiftOper(_op);
+    }
     public static boolean isUnNum(String _op) {
         if(StringUtil.quickEq(_op, "+")) {
             return true;

@@ -9,6 +9,7 @@ public final class IncrOperatorPart {
     private int statusOp = -1;
     private int indexOp = -1;
     private int index;
+    private int firstIndex;
     private int secIndex;
     private boolean enabledOp;
     private boolean unary;
@@ -24,6 +25,7 @@ public final class IncrOperatorPart {
 
     public int tryAddOp(int _beginIndex, String _string, int _i){
         index = _i;
+        firstIndex = _i;
         char curChar_ = _string.charAt(index);
         boolean escapeOpers_ = escOps(_beginIndex, _string);
         if (escapeOpers_) {
@@ -99,7 +101,7 @@ public final class IncrOperatorPart {
     }
 
     private void eqIncr(String _string) {
-        if (incOp(_string,ElResolver.EQ_CHAR)) {
+        if (incOpEq(_string)) {
             unary = false;
         }
     }
@@ -121,7 +123,7 @@ public final class IncrOperatorPart {
         char curChar_ = _string.charAt(index);
         incOp(_string);
         if (incOp(_string,curChar_)) {
-            if (!incOp(_string, ElResolver.EQ_CHAR)) {
+            if (!incOpEq(_string)) {
                 secIndex--;
                 addOp = false;
             }
@@ -143,6 +145,9 @@ public final class IncrOperatorPart {
         incOp(_string, curChar_);
     }
 
+    private boolean incOpEq(String _string) {
+        return StringExpUtil.isBinEq(_string.substring(firstIndex,secIndex)) && incOp(_string, ElResolver.EQ_CHAR);
+    }
     private boolean incOp(String _string, char _curChar) {
         int len_ = _string.length();
         if (secIndex < len_ && _string.charAt(secIndex) == _curChar) {
