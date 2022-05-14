@@ -10,7 +10,7 @@ import code.util.ints.Listable;
 
 public class CustList<T> implements Listable<T> {
 
-    private List<T> list;
+    private final List<T> list;
 
     public CustList() {
         list = new ArrayList<T>();
@@ -101,9 +101,6 @@ public class CustList<T> implements Listable<T> {
         return list;
     }
 
-    public final void setList(List<T> _list) {
-        list = _list;
-    }
     @Override
     public final Iterator<T> iterator() {
         return list.iterator();

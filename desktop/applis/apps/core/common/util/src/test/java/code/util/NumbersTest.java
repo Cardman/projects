@@ -948,8 +948,22 @@ public class NumbersTest extends EquallableExUtil {
     @Test
     public void toArrByte() {
         Bytes nbs_ = Bytes.newList((byte)5,(byte)1);
-        nbs_.setList(nbs_.getList());
         byte[] bytes_ = nbs_.toArrByte();
+        assertEq(2, bytes_.length);
+        assertEq(5, bytes_[0]);
+        assertEq(1, bytes_[1]);
+    }
+
+    @Test
+    public void nonIterableBytes() {
+        NonIterableBytes n_ = new NonIterableBytes();
+        n_.setList(n_.getList());
+        n_.add((byte) 0);
+        n_.set(0,(byte) 0);
+        n_.remove(0);
+        assertEq(0, n_.size());
+        NonIterableBytes nbs_ = NonIterableBytes.newCompositeList((byte)5,(byte)1);
+        byte[] bytes_ = nbs_.toComposArrByte();
         assertEq(2, bytes_.length);
         assertEq(5, bytes_[0]);
         assertEq(1, bytes_[1]);
