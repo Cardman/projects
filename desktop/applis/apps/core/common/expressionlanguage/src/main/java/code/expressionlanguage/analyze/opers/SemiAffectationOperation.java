@@ -15,6 +15,8 @@ import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -73,7 +75,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         StrTypes ops_ = getOperators();
         String op_ = ops_.firstValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
-        OperatorConverter cl_ = getIncrDecrOperatorOrMethod(this,leftEl_, op_, _page);
+        if (AnaTypeUtil.isPureNumberClass(leftEl_.getResultClass(), _page)) {
+            numIncrDecr(_page);
+            return;
+        }
+        AnaClassArgumentMatching operand_ = leftEl_.getResultClass();
+        CustList<OperationNode> single_ = new CustList<OperationNode>(leftEl_);
+        OperatorConverter cl_ = operUse(_page, op_, operand_, single_);
         if (cl_ != null) {
             fct.infos(cl_,_page);
             Mapping map_ = new Mapping();
@@ -98,6 +106,20 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             }
             return;
         }
+        numIncrDecr(_page);
+    }
+
+    private OperatorConverter operUse(AnalyzedPageEl _page, String _op, AnaClassArgumentMatching _operand, CustList<OperationNode> _single) {
+        OperatorConverter operCust_ = tryGetUnaryWithCust(this, _op, _page, _single, _operand);
+        if (operCust_ != null) {
+            return operCust_;
+        }
+        CustList<StringList> groups_ = groupUnNum(_page);
+        return tryGetUnaryWithVirtual(this, _op, _page, _single, groups_);
+    }
+
+    private void numIncrDecr(AnalyzedPageEl _page) {
+        OperationNode leftEl_ = getFirstChild();
         AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
         if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
             FoundErrorInterpret cast_ = new FoundErrorInterpret();

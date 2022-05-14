@@ -12,6 +12,8 @@ import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.ByteStruct;
 import code.expressionlanguage.structs.ShortStruct;
 import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class UnaryOperation extends AbstractUnaryOperation implements SymbolOperation {
@@ -30,14 +32,34 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     public void analyzeUnary(AnalyzedPageEl _page) {
         okNum = true;
         OperationNode child_ = getFirstChild();
-        AnaClassArgumentMatching clMatch_ = child_.getResultClass();
         opOffset = getOperators().firstKey();
         String oper_ = getOperators().firstValue();
-        OperatorConverter clId_ = getUnaryOperatorOrMethod(this,child_, oper_, _page);
+        if (AnaTypeUtil.isPureNumberClass(child_.getResultClass(), _page)) {
+            unaryNum(_page);
+            return;
+        }
+        AnaClassArgumentMatching operand_ = child_.getResultClass();
+        CustList<OperationNode> single_ = new CustList<OperationNode>(child_);
+        OperatorConverter clId_ = operUse(_page, oper_, operand_, single_);
         if (clId_ != null) {
             fct.infos(clId_,_page);
             return;
         }
+        unaryNum(_page);
+    }
+
+    private OperatorConverter operUse(AnalyzedPageEl _page, String _op, AnaClassArgumentMatching _operand, CustList<OperationNode> _single) {
+        OperatorConverter operCust_ = tryGetUnaryWithCust(this, _op, _page, _single, _operand);
+        if (operCust_ != null) {
+            return operCust_;
+        }
+        CustList<StringList> groups_ = groupUnNum(_page);
+        return tryGetUnaryWithVirtual(this, _op, _page, _single, groups_);
+    }
+    private void unaryNum(AnalyzedPageEl _page) {
+        OperationNode child_ = getFirstChild();
+        AnaClassArgumentMatching clMatch_ = child_.getResultClass();
+        String oper_ = getOperators().firstValue();
         AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, _page);
         if (child_ instanceof ConstantOperation) {
             Argument arg_ = child_.getArgument();

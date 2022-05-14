@@ -1271,40 +1271,34 @@ public abstract class OperationNode {
         return getImplSgn(methods_, _arg, _page, _vars, _cmp);
     }
 
-    static OperatorConverter getUnaryOperatorOrMethod(MethodOperation _node,
-                                                      OperationNode _operand,
-                                                      String _op, AnalyzedPageEl _page) {
-        AnaClassArgumentMatching operand_ = _operand.getResultClass();
-        CustList<OperationNode> single_ = new CustList<OperationNode>(_operand);
-        if (isNativeUnaryOperator(operand_,_op, _page)) {
-            return null;
-        }
-        OperatorConverter op_ = tryGetUnaryWithCust(_node, _op, _page, single_, operand_);
-        if (op_ != null) {
-            return op_;
-        }
+    protected static CustList<StringList> groupBool(AnalyzedPageEl _page) {
         CustList<StringList> groups_ = new CustList<StringList>();
-        if (StringExpUtil.isUnNum(_op)) {
-            StringList group_ = new StringList();
-            group_.add(_page.getAliasPrimInteger());
-            group_.add(_page.getAliasPrimLong());
-            groups_.add(group_);
-            group_ = new StringList();
-            group_.add(_page.getAliasPrimFloat());
-            group_.add(_page.getAliasPrimDouble());
-            groups_.add(group_);
-        } else if (StringUtil.quickEq(_op,"~")) {
-            StringList group_ = new StringList();
-            group_.add(_page.getAliasPrimBoolean());
-            group_.add(_page.getAliasPrimInteger());
-            group_.add(_page.getAliasPrimLong());
-            groups_.add(group_);
-        } else {
-            StringList group_ = new StringList();
-            group_.add(_page.getAliasPrimBoolean());
-            groups_.add(group_);
-        }
-        return tryGetUnaryWithVirtual(_node, _op, _page, single_, groups_);
+        StringList group_ = new StringList();
+        group_.add(_page.getAliasPrimBoolean());
+        groups_.add(group_);
+        return groups_;
+    }
+
+    protected static CustList<StringList> groupUnBin(AnalyzedPageEl _page) {
+        CustList<StringList> groups_ = new CustList<StringList>();
+        StringList group_ = new StringList();
+        group_.add(_page.getAliasPrimInteger());
+        group_.add(_page.getAliasPrimLong());
+        groups_.add(group_);
+        return groups_;
+    }
+
+    protected static CustList<StringList> groupUnNum(AnalyzedPageEl _page) {
+        CustList<StringList> groups_ = new CustList<StringList>();
+        StringList group_ = new StringList();
+        group_.add(_page.getAliasPrimInteger());
+        group_.add(_page.getAliasPrimLong());
+        groups_.add(group_);
+        group_ = new StringList();
+        group_.add(_page.getAliasPrimFloat());
+        group_.add(_page.getAliasPrimDouble());
+        groups_.add(group_);
+        return groups_;
     }
 
     private static CustList<CustList<MethodInfo>> addUnaries(AnalyzedPageEl _page, AnaClassArgumentMatching _operand) {
@@ -1326,30 +1320,7 @@ public abstract class OperationNode {
         _list.add(mloc_);
     }
 
-    static OperatorConverter getIncrDecrOperatorOrMethod(MethodOperation _node,
-                                                         OperationNode _operand,
-                                                         String _op, AnalyzedPageEl _page) {
-        AnaClassArgumentMatching operand_ = _operand.getResultClass();
-        CustList<OperationNode> single_ = new CustList<OperationNode>(_operand);
-        if (isNativeUnaryOperator(operand_,_op, _page)) {
-            return null;
-        }
-        OperatorConverter op_ = tryGetUnaryWithCust(_node, _op, _page, single_, operand_);
-        if (op_ != null) {
-            return op_;
-        }
-        CustList<StringList> groups_ = new CustList<StringList>();
-        StringList group_ = new StringList();
-        group_.add(_page.getAliasPrimInteger());
-        group_.add(_page.getAliasPrimLong());
-        groups_.add(group_);
-        group_ = new StringList();
-        group_.add(_page.getAliasPrimFloat());
-        group_.add(_page.getAliasPrimDouble());
-        groups_.add(group_);
-        return tryGetUnaryWithVirtual(_node, _op, _page, single_, groups_);
-    }
-    private static OperatorConverter tryGetUnaryWithCust(MethodOperation _node,
+    protected static OperatorConverter tryGetUnaryWithCust(MethodOperation _node,
                                                          String _op, AnalyzedPageEl _page, CustList<OperationNode> _single, AnaClassArgumentMatching _operand) {
         CustList<CustList<MethodInfo>> listsUnary_ = addUnaries(_page, _operand);
         ClassMethodIdReturn clMethImp_ = getCustResult(false, -1, listsUnary_, _op, _single, _page);
@@ -1364,7 +1335,7 @@ public abstract class OperationNode {
         return null;
     }
 
-    private static OperatorConverter tryGetUnaryWithVirtual(MethodOperation _node, String _op, AnalyzedPageEl _page, CustList<OperationNode> _single, CustList<StringList> _groups) {
+    protected static OperatorConverter tryGetUnaryWithVirtual(MethodOperation _node, String _op, AnalyzedPageEl _page, CustList<OperationNode> _single, CustList<StringList> _groups) {
         for (StringList g: _groups) {
             CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
             CustList<MethodInfo> list_ = new CustList<MethodInfo>();
@@ -1525,16 +1496,6 @@ public abstract class OperationNode {
         return null;
     }
 
-    private static boolean isNativeUnaryOperator(AnaClassArgumentMatching _operand, String _op, AnalyzedPageEl _page) {
-        if (StringUtil.quickEq(_op,"!")) {
-            return _operand.isBoolType(_page);
-        }
-        if (StringUtil.quickEq(_op,"~")) {
-            int order_ = AnaTypeUtil.getIntOrderClass(_operand, _page);
-            return order_ != 0;
-        }
-        return AnaTypeUtil.isPureNumberClass(_operand, _page);
-    }
     private static boolean isNativeBinaryOperator(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, String _op, AnalyzedPageEl _page) {
         if (StringUtil.quickEq(_op,"+")) {
             return plusBinNatOper(_left, _right, _page);
