@@ -94,7 +94,7 @@ public class CustList<T> implements Listable<T> {
     }
 
     @Override
-    public final Iterable<T> getList() {
+    public final List<T> getList() {
         return list();
     }
     public final List<T> list() {
