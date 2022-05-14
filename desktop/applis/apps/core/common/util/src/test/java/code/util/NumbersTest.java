@@ -944,4 +944,13 @@ public class NumbersTest extends EquallableExUtil {
     public void signum5Test(){
         assertEq(1,NumberUtil.signum(2));
     }
+
+    @Test
+    public void toArrByte() {
+        Bytes nbs_ = Bytes.newList((byte)5,(byte)1);
+        byte[] bytes_ = nbs_.toArrByte();
+        assertEq(2, bytes_.length);
+        assertEq(5, bytes_[0]);
+        assertEq(1, bytes_[1]);
+    }
 }
