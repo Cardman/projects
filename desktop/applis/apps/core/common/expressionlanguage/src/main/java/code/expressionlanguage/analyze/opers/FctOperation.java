@@ -247,9 +247,9 @@ public final class FctOperation extends InvokingOperation implements PreAnalyzab
             return;
         }
         ClassMethodIdReturn clMeth_;
-        clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(),staticChoiceMethod_, _page.getGlobalClass()));
+        clMeth_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(), staticChoiceMethod_, _page.getGlobalClass())));
         if (clMeth_ == null) {
-            ClassMethodIdReturn next_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(),  _page.getGlobalClass()));
+            ClassMethodIdReturn next_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, name_, _page, new ScopeFilter(feed_, baseAccess_, accessSuperTypes_, isLvalue(), _page.getGlobalClass())));
             if (next_ != null) {
                 callFctContent.update(next_);
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);

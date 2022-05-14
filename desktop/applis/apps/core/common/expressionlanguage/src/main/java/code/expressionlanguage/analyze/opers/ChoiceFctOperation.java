@@ -148,9 +148,9 @@ public final class ChoiceFctOperation extends InvokingOperation implements PreAn
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, false, isLvalue(),true, _page.getGlobalClass()));
+        ClassMethodIdReturn clMeth_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, name_, _page, new ScopeFilter(feed_, true, false, isLvalue(), true, _page.getGlobalClass())));
         if (clMeth_ == null) {
-            ClassMethodIdReturn next_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, false, isLvalue(),  _page.getGlobalClass()));
+            ClassMethodIdReturn next_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, name_, _page, new ScopeFilter(feed_, true, false, isLvalue(), _page.getGlobalClass())));
             if (next_ != null) {
                 callFctContent.update(next_);
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);

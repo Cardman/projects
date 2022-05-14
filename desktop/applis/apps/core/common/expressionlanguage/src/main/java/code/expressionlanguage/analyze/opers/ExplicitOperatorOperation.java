@@ -473,9 +473,7 @@ public final class ExplicitOperatorOperation extends InvokingOperation implement
         if (from.isEmpty()) {
             cust_ = getOperator(isLvalue(), possibleId(_id), _varargOnly, opSearch, _varargParam, _name, _page);
         } else {
-            cust_ = tryGetDeclaredCustMethod(_varargOnly, MethodAccessKind.STATIC_CALL,
-                    new StringList(from), opSearch, false,
-                    _varargParam, _name, _page, new ScopeFilter(_id, true, false, isLvalue(), _page.getGlobalClass()));
+            cust_ = tryGet(_varargOnly, opSearch, _varargParam, _name, _page, getDeclaredCustMethodByType(MethodAccessKind.STATIC_CALL, new StringList(from), opSearch, false, _name, _page, new ScopeFilter(_id, true, false, isLvalue(), _page.getGlobalClass())));
         }
         return cust_;
     }

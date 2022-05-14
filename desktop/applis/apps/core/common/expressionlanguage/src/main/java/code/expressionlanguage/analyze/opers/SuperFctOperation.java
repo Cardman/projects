@@ -171,9 +171,9 @@ public final class SuperFctOperation extends InvokingOperation implements PreAna
             setResultClass(voidToObject(new AnaClassArgumentMatching(clMeth_.getReturnType(), _page.getPrimitiveTypes()), _page));
             return;
         }
-        ClassMethodIdReturn clMeth_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, true, isLvalue(),true, _page.getGlobalClass()));
+        ClassMethodIdReturn clMeth_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, name_, _page, new ScopeFilter(feed_, true, true, isLvalue(), true, _page.getGlobalClass())));
         if (clMeth_ == null) {
-            ClassMethodIdReturn clMeth2_ = tryGetDeclaredCustMethod(varargOnly_, isStaticAccess(), bounds_, trimMeth_, import_, varargParam_, name_, _page, new ScopeFilter(feed_, true, true, isLvalue(), _page.getGlobalClass()));
+            ClassMethodIdReturn clMeth2_ = tryGet(varargOnly_, trimMeth_, varargParam_, name_, _page, getDeclaredCustMethodByType(isStaticAccess(), bounds_, trimMeth_, import_, name_, _page, new ScopeFilter(feed_, true, true, isLvalue(), _page.getGlobalClass())));
             if (clMeth2_ != null) {
                 callFctContent.update(clMeth2_);
                 setRelativeOffsetPossibleAnalyzable(getIndexInEl()+off_, _page);
