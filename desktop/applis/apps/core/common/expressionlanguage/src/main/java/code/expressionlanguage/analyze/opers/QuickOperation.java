@@ -44,7 +44,11 @@ public abstract class QuickOperation extends MethodOperation {
         AnaClassArgumentMatching rightRes_ = right_.getResultClass();
         String oper_ = getOperators().firstValue();
         opOff = getOperators().firstKey();
-        OperatorConverter opConv_ = getBinaryOperatorOrMethod(this, left_, right_, oper_, _page);
+        if (logical(leftRes_,rightRes_,_page)) {
+            logical(_page);
+            return;
+        }
+        OperatorConverter opConv_ = CompoundAffectationOperation.tryGetLogical(_page, oper_, this);
         if (opConv_ != null) {
             fct.infos(opConv_,_page);
             okNum = true;
@@ -78,6 +82,15 @@ public abstract class QuickOperation extends MethodOperation {
             }
             return;
         }
+        logical(_page);
+    }
+
+    private void logical(AnalyzedPageEl _page) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode left_ = chidren_.first();
+        OperationNode right_ = chidren_.last();
+        AnaClassArgumentMatching leftRes_ = left_.getResultClass();
+        AnaClassArgumentMatching rightRes_ = right_.getResultClass();
         okNum = true;
         if (!leftRes_.isBoolType(_page)) {
             setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().firstKey(), _page);

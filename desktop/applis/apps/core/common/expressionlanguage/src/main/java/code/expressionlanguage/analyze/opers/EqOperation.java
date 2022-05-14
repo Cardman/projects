@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.opers.util.ParamReturn;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
@@ -40,7 +41,11 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode l_ = chidren_.first();
         OperationNode r_ = chidren_.last();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, custOp_, _page);
+        if (eq(l_.getResultClass(), r_.getResultClass(), _page)) {
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+            return;
+        }
+        OperatorConverter cl_ = CompoundAffectationOperation.tryGetStd(_page, custOp_, this,new CustList<CustList<ParamReturn>>());
         if (cl_ != null) {
             fct.infos(cl_,_page);
             return;

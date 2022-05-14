@@ -12,6 +12,37 @@ import org.junit.Test;
 public final class ProcessMethodCompoundOperatorTest extends ProcessMethodCommon {
 
     @Test
+    public void calculateArgument0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("operator& pkg.Ex (pkg.Ex a, pkg.Ex b){\n");
+        xml_.append(" pkg.Ex out = new pkg.Ex();\n");
+        xml_.append(" out.a=a.a+b.a;\n");
+        xml_.append(" return out;\n");
+        xml_.append("}\n");
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public int a;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  Ex one = new Ex();\n");
+        xml_.append("  one.a=5i;\n");
+        xml_.append("  Ex two = new Ex();\n");
+        xml_.append("  two.a=3i;\n");
+        xml_.append("  one &= two;\n");
+        xml_.append("  if (one.a != 8i){\n");
+        xml_.append("   return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  return 0i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(0, getNumber(ret_));
+    }
+    @Test
     public void calculateArgument1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("operator+ pkg.Ex (pkg.Ex a, pkg.Ex b){\n");

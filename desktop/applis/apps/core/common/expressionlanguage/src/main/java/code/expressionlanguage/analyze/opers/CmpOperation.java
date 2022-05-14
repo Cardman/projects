@@ -61,11 +61,24 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         OperationNode r_ = chidren_.last();
         AnaClassArgumentMatching second_ = r_.getResultClass();
         String op_ = getOperators().firstValue().trim();
-        OperatorConverter cl_ = getBinaryOperatorOrMethod(this,l_,r_, op_, _page);
+        if (cmp(first_, second_, _page)) {
+            natCmp(_page);
+            return;
+        }
+        OperatorConverter cl_ = CompoundAffectationOperation.tryGetStd(_page, op_, this,groupBinCmp(_page));
         if (cl_ != null) {
             fct.infos(cl_,_page);
             return;
         }
+        natCmp(_page);
+    }
+
+    private void natCmp(AnalyzedPageEl _page) {
+        CustList<OperationNode> chidren_ = getChildrenNodes();
+        OperationNode l_ = chidren_.first();
+        AnaClassArgumentMatching first_ = l_.getResultClass();
+        OperationNode r_ = chidren_.last();
+        AnaClassArgumentMatching second_ = r_.getResultClass();
         String stringType_ = _page.getAliasString();
         if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
             stringCompare = true;
@@ -74,7 +87,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             second_.setCheckOnlyNullPe(true);
             return;
         }
-        if (AnaTypeUtil.isFloatOrderClass(first_,second_, _page)) {
+        if (AnaTypeUtil.isFloatOrderClass(first_, second_, _page)) {
             AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_, _page);
             AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
             l_.getResultClass().setUnwrapObject(classFirst_, _page.getPrimitiveTypes());
@@ -82,7 +95,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
             setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
             return;
         }
-        if (AnaTypeUtil.isIntOrderClass(first_,second_, _page)) {
+        if (AnaTypeUtil.isIntOrderClass(first_, second_, _page)) {
             AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_, _page);
             AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
             l_.getResultClass().setUnwrapObject(classFirst_, _page.getPrimitiveTypes());
@@ -105,9 +118,10 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
                 ),ExportCst.JOIN_OPERANDS),
                 getOp());
         _page.getLocalizer().addError(un_);
-        getPartOffsetsChildren().add(new InfoErrorDto(un_,_page, operatorContent.getOper().length()));
+        getPartOffsetsChildren().add(new InfoErrorDto(un_, _page, operatorContent.getOper().length()));
         setResultClass(new AnaClassArgumentMatching(res_, _page.getPrimitiveTypes()));
     }
+
     public boolean isStringCompare() {
         return stringCompare;
     }
