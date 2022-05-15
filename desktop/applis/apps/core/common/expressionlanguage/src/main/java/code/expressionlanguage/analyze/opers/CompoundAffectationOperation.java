@@ -120,7 +120,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
         if (StringUtil.quickEq(_op, "+")) {
-            if (plusBinNatOper(clMatchLeft_, clMatchRight_, _page)) {
+            if (compoundPlusBinNatOper(clMatchLeft_, clMatchRight_, _page)) {
                 natPlusCompound(_page);
                 return;
             }
@@ -292,6 +292,14 @@ public final class CompoundAffectationOperation extends MethodOperation {
         AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
         left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
         right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
+    }
+    private static boolean compoundPlusBinNatOper(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
+        String stringType_ = _page.getAliasString();
+        boolean isString_ = _left.matchClass(stringType_);
+        if (isString_) {
+            return plusBinNatOper(_left, _right, _page);
+        }
+        return binNum(_left, _right, _page);
     }
 
     static OperatorConverter tryGetLogical(AnalyzedPageEl _page, String _op, MethodOperation _symb) {
