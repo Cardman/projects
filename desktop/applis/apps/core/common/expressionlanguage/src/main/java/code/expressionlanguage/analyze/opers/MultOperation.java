@@ -15,12 +15,8 @@ public final class MultOperation extends NumericOperation {
 
     @Override
     ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
-        ResultOperand res_ = new ResultOperand();
-        AnaClassArgumentMatching out_ = getBinNumResultClass(_a,_b,_page);
-        if (!out_.getSingleNameOrEmpty().isEmpty()) {
-            _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
-            _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
-            res_.setResult(out_);
+        ResultOperand res_ = unwrappBinNumResultClass(_a,_b,_page);
+        if (!res_.getResult().getSingleNameOrEmpty().isEmpty()) {
             return res_;
         }
         return errNum(_a, _b, _page);

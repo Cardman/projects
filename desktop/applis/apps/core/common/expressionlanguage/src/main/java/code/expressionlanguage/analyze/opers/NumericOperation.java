@@ -30,14 +30,22 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         opOffset = _op.getOperators().firstKey();
     }
 
-    static AnaClassArgumentMatching getBinNumResultClass(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
-        if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
-            return getIntResultClass(_a, _b, _page);
+    static ResultOperand unwrappBinNumResultClass(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
+        AnaClassArgumentMatching out_;
+        if (AnaTypeUtil.isIntOrderClass(_a, _b, _page)) {
+            out_ = getIntResultClass(_a, _b, _page);
+        } else if (AnaTypeUtil.isFloatOrderClass(_a, _b, _page)) {
+            out_ = getFloatResultClass(_a, _b, _page);
+        } else {
+            out_ = new AnaClassArgumentMatching("");
         }
-        if (AnaTypeUtil.isFloatOrderClass(_a,_b, _page)) {
-            return getFloatResultClass(_a, _b, _page);
+        if (!out_.getSingleNameOrEmpty().isEmpty()) {
+            _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
+            _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
         }
-        return new AnaClassArgumentMatching("");
+        ResultOperand res_ = new ResultOperand();
+        res_.setResult(out_);
+        return res_;
     }
     ResultOperand analyzeShift(AnaClassArgumentMatching _a,
                                  AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
