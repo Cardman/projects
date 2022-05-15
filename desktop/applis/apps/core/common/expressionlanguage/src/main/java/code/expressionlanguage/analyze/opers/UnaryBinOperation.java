@@ -1,16 +1,12 @@
 package code.expressionlanguage.analyze.opers;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class UnaryBinOperation extends AbstractUnaryOperation implements SymbolOperation {
 
@@ -35,7 +31,7 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         }
         AnaClassArgumentMatching operand_ = child_.getResultClass();
         CustList<OperationNode> single_ = new CustList<OperationNode>(child_);
-        OperatorConverter clId_ = operUse(_page, oper_, operand_, single_);
+        OperatorConverter clId_ = operUse(_page, oper_, operand_, single_, groupUnBin(_page));
         if (clId_ != null) {
             fct.infos(clId_,_page);
             return;
@@ -43,43 +39,18 @@ public final class UnaryBinOperation extends AbstractUnaryOperation implements S
         unaryBinNum(_page);
     }
 
-    private OperatorConverter operUse(AnalyzedPageEl _page, String _op, AnaClassArgumentMatching _operand, CustList<OperationNode> _single) {
-        OperatorConverter operCust_ = tryGetUnaryWithCust(this, _op, _page, _single, _operand);
-        if (operCust_ != null) {
-            return operCust_;
-        }
-        CustList<StringList> groups_ = groupUnBin(_page);
-        return tryGetUnaryWithVirtual(this, _op, _page, _single, groups_);
-    }
     private void unaryBinNum(AnalyzedPageEl _page) {
         OperationNode child_ = getFirstChild();
         AnaClassArgumentMatching clMatch_ = child_.getResultClass();
-        String oper_ = getOperators().firstValue();
         int order_ = AnaTypeUtil.getIntOrderClass(clMatch_, _page);
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
         if (order_ == 0) {
-            _page.setOkNumOp(false);
-            String exp_ = _page.getAliasNumber();
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_page);
-            un_.setFile(_page.getCurrentFile());
-            //oper
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                    StringUtil.join(clMatch_.getNames(), ExportCst.JOIN_TYPES),
-                    oper_);
-            _page.getLocalizer().addError(un_);
-            if (!MethodOperation.isEmptyError(getFirstChild())){
-                addErr(un_.getBuiltError());
-            }
-            AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
-            setResultClass(arg_);
+            errSymbol(_page);
+            setResultClass(new AnaClassArgumentMatching(_page.getAliasNumber()));
             return;
         }
         AnaClassArgumentMatching cl_ = AnaTypeUtil.toPrimitive(clMatch_, _page);
-        int intOrder_ = AnaTypeUtil.getIntOrderClass(_page.getAliasPrimInteger(), _page);
-        if (order_ < intOrder_) {
-            cl_ = new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
-        }
+        cl_ = NumericOperation.goToAtLeastInt(_page,cl_,order_);
         clMatch_.setUnwrapObject(cl_, _page.getPrimitiveTypes());
         setResultClass(AnaClassArgumentMatching.copy(cl_, _page.getPrimitiveTypes()));
     }

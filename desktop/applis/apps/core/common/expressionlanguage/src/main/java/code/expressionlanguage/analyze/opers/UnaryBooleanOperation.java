@@ -1,16 +1,12 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
-import code.expressionlanguage.analyze.instr.OperationsSequence;
-import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
 
 public final class UnaryBooleanOperation extends AbstractUnaryOperation implements SymbolOperation {
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
@@ -34,7 +30,7 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         }
         AnaClassArgumentMatching operand_ = child_.getResultClass();
         CustList<OperationNode> single_ = new CustList<OperationNode>(child_);
-        OperatorConverter clId_ = operUse(_page, oper_, operand_, single_);
+        OperatorConverter clId_ = operUse(_page, oper_, operand_, single_, groupBool(_page));
         if (clId_ != null) {
             fct.infos(clId_,_page);
             return;
@@ -42,33 +38,13 @@ public final class UnaryBooleanOperation extends AbstractUnaryOperation implemen
         unaryBool(_page);
     }
 
-    private OperatorConverter operUse(AnalyzedPageEl _page, String _op, AnaClassArgumentMatching _operand, CustList<OperationNode> _single) {
-        OperatorConverter operCust_ = tryGetUnaryWithCust(this, _op, _page, _single, _operand);
-        if (operCust_ != null) {
-            return operCust_;
-        }
-        CustList<StringList> groups_ = groupBool(_page);
-        return tryGetUnaryWithVirtual(this, _op, _page, _single, groups_);
-    }
     private void unaryBool(AnalyzedPageEl _page) {
         String booleanPrimType_ = _page.getAliasPrimBoolean();
         OperationNode child_ = getFirstChild();
-        AnaClassArgumentMatching clMatch_;
-        clMatch_ = child_.getResultClass();
-        String oper_ = getOperators().firstValue();
+        AnaClassArgumentMatching clMatch_ = child_.getResultClass();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+opOffset, _page);
         if (!clMatch_.isBoolType(_page)) {
-            FoundErrorInterpret un_ = new FoundErrorInterpret();
-            un_.setIndexFile(_page);
-            un_.setFile(_page.getCurrentFile());
-            //operator
-            un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                    StringUtil.join(clMatch_.getNames(), ExportCst.JOIN_TYPES),
-                    oper_);
-            if (!MethodOperation.isEmptyError(getFirstChild())){
-                addErr(un_.getBuiltError());
-            }
-            _page.getLocalizer().addError(un_);
+            errSymbol(_page);
         }
         clMatch_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         setResultClass(new AnaClassArgumentMatching(booleanPrimType_,PrimitiveTypes.BOOL_WRAP));

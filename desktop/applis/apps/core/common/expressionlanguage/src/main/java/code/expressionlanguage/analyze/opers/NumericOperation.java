@@ -83,11 +83,15 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         int ob_ = AnaTypeUtil.getIntOrderClass(_b, _page);
         int max_ = Math.max(oa_, ob_);
         AnaClassArgumentMatching arg_ = getMaxWrap(_a, oa_, _b, ob_);
+        return AnaTypeUtil.toPrimitive(goToAtLeastInt(_page,arg_,max_), _page);
+    }
+    static AnaClassArgumentMatching goToAtLeastInt(AnalyzedPageEl _page, AnaClassArgumentMatching _before, int _value) {
+        AnaClassArgumentMatching after_ = _before;
         int intOrder_ = AnaTypeUtil.getIntOrderClass(_page.getAliasPrimInteger(), _page);
-        if (max_ < intOrder_) {
-            arg_ = new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
+        if (_value < intOrder_) {
+            after_ = new AnaClassArgumentMatching(_page.getAliasPrimInteger(),PrimitiveTypes.INT_WRAP);
         }
-        return AnaTypeUtil.toPrimitive(arg_, _page);
+        return after_;
     }
     static AnaClassArgumentMatching getFloatResultClass(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         int oa_ = AnaTypeUtil.getFloatOrderClass(_a, _page);

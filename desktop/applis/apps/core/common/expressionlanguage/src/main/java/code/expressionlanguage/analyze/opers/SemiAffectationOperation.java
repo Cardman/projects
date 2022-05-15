@@ -12,7 +12,6 @@ import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public final class SemiAffectationOperation extends AbstractUnaryOperation  {
@@ -61,22 +60,13 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         }
         AnaClassArgumentMatching operand_ = leftEl_.getResultClass();
         CustList<OperationNode> single_ = new CustList<OperationNode>(leftEl_);
-        OperatorConverter cl_ = operUse(_page, op_, operand_, single_);
+        OperatorConverter cl_ = operUse(_page, op_, operand_, single_, groupUnNum(_page));
         if (cl_ != null) {
             fct.infos(cl_,_page);
             CompoundAffectationOperation.tryImplicit(this,_page, getSettableResClass(), convTo);
             return;
         }
         numIncrDecr(_page);
-    }
-
-    private OperatorConverter operUse(AnalyzedPageEl _page, String _op, AnaClassArgumentMatching _operand, CustList<OperationNode> _single) {
-        OperatorConverter operCust_ = tryGetUnaryWithCust(this, _op, _page, _single, _operand);
-        if (operCust_ != null) {
-            return operCust_;
-        }
-        CustList<StringList> groups_ = groupUnNum(_page);
-        return tryGetUnaryWithVirtual(this, _op, _page, _single, groups_);
     }
 
     private void numIncrDecr(AnalyzedPageEl _page) {
