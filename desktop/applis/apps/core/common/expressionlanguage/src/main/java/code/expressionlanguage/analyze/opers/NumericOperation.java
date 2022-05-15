@@ -1,6 +1,8 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
@@ -8,9 +10,12 @@ import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.maths.litteralcom.StrTypes;
 import code.util.CustList;
+import code.util.StringList;
+import code.util.core.StringUtil;
 
 public abstract class NumericOperation extends MethodOperation implements MiddleSymbolOperation {
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
@@ -25,6 +30,46 @@ public abstract class NumericOperation extends MethodOperation implements Middle
         opOffset = _op.getOperators().firstKey();
     }
 
+    static AnaClassArgumentMatching getBinNumResultClass(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
+        if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
+            return getIntResultClass(_a, _b, _page);
+        }
+        if (AnaTypeUtil.isFloatOrderClass(_a,_b, _page)) {
+            return getFloatResultClass(_a, _b, _page);
+        }
+        return new AnaClassArgumentMatching("");
+    }
+    ResultOperand analyzeShift(AnaClassArgumentMatching _a,
+                                 AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
+        ResultOperand res_ = new ResultOperand();
+        if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
+            AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
+            _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
+            _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
+            res_.setResult(out_);
+            return res_;
+        }
+        return errNum(_a, _b, _page);
+    }
+    ResultOperand analyzeBitwise(AnaClassArgumentMatching _a,
+                                 AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
+        ResultOperand res_ = new ResultOperand();
+        if (_a.isBoolType(_page) && _b.isBoolType(_page)) {
+            String bool_ = _page.getAliasPrimBoolean();
+            _a.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+            _b.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
+            res_.setResult(new AnaClassArgumentMatching(bool_,PrimitiveTypes.BOOL_WRAP));
+            return res_;
+        }
+        if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
+            AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
+            _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
+            _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
+            res_.setResult(out_);
+            return res_;
+        }
+        return errNum(_a, _b, _page);
+    }
     static AnaClassArgumentMatching getIntResultClass(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         int oa_ = AnaTypeUtil.getIntOrderClass(_a, _page);
         int ob_ = AnaTypeUtil.getIntOrderClass(_b, _page);
@@ -90,6 +135,27 @@ public abstract class NumericOperation extends MethodOperation implements Middle
     }
 
     abstract ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, AnalyzedPageEl _page);
+
+    ResultOperand errNum(AnaClassArgumentMatching _a, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
+        ResultOperand res_ = new ResultOperand();
+        _page.setOkNumOp(false);
+        String exp_ = _page.getAliasNumber();
+        FoundErrorInterpret un_ = new FoundErrorInterpret();
+        un_.setIndexFile(_page);
+        un_.setFile(_page.getCurrentFile());
+        //oper
+        un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
+                StringUtil.join(new StringList(
+                        StringUtil.join(_a.getNames(), ExportCst.JOIN_TYPES),
+                        StringUtil.join(_b.getNames(),ExportCst.JOIN_TYPES)
+                ),ExportCst.JOIN_OPERANDS),
+                getOp());
+        _page.getLocalizer().addError(un_);
+        getPartOffsetsChildren().add(new InfoErrorDto(un_, _page,getOp().length()));
+        AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
+        res_.setResult(arg_);
+        return res_;
+    }
 
     public ClassMethodIdMemberIdTypeFct getFct() {
         return fct;

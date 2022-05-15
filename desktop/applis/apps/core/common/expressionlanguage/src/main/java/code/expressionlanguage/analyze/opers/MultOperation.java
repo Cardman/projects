@@ -1,17 +1,9 @@
 package code.expressionlanguage.analyze.opers;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.InfoErrorDto;
-import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
-import code.expressionlanguage.analyze.instr.PartOffset;
-import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.linkage.LinkageUtil;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.core.StringUtil;
+import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 
 
 public final class MultOperation extends NumericOperation {
@@ -24,37 +16,14 @@ public final class MultOperation extends NumericOperation {
     @Override
     ResultOperand analyzeOper(AnaClassArgumentMatching _a, String _op, AnaClassArgumentMatching _b, AnalyzedPageEl _page) {
         ResultOperand res_ = new ResultOperand();
-        if (AnaTypeUtil.isIntOrderClass(_a,_b, _page)) {
-            AnaClassArgumentMatching out_ = getIntResultClass(_a, _b, _page);
+        AnaClassArgumentMatching out_ = getBinNumResultClass(_a,_b,_page);
+        if (!out_.getSingleNameOrEmpty().isEmpty()) {
             _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
             _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
             res_.setResult(out_);
             return res_;
         }
-        if (AnaTypeUtil.isFloatOrderClass(_a,_b, _page)) {
-            AnaClassArgumentMatching out_ = getFloatResultClass(_a, _b, _page);
-            _a.setUnwrapObject(out_, _page.getPrimitiveTypes());
-            _b.setUnwrapObject(out_, _page.getPrimitiveTypes());
-            res_.setResult(out_);
-            return res_;
-        }
-        String exp_ = _page.getAliasNumber();
-        FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setIndexFile(_page);
-        un_.setFile(_page.getCurrentFile());
-        //oper
-        un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                StringUtil.join(new StringList(
-                        StringUtil.join(_a.getNames(),ExportCst.JOIN_TYPES),
-                        StringUtil.join(_b.getNames(),ExportCst.JOIN_TYPES)
-                ),ExportCst.JOIN_OPERANDS),
-                getOp());
-        _page.getLocalizer().addError(un_);
-        _page.setOkNumOp(false);
-        AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching(exp_);
-        res_.setResult(arg_);
-        getPartOffsetsChildren().add(new InfoErrorDto(un_,_page,getOp().length()));
-        return res_;
+        return errNum(_a, _b, _page);
     }
 
 }
